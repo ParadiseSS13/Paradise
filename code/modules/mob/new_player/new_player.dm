@@ -1,6 +1,8 @@
 /mob/new_player
 	var/ready = FALSE
 	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
+	/// Has this player chosen to respawn as a new character?
+	var/chose_respawn = FALSE
 	universal_speak = TRUE
 
 	invisibility = 101
@@ -329,7 +331,9 @@
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
-
+	if(chose_respawn)
+		SSblackbox.record_feedback("tally", "player_respawn", 1, "[thisjob]")
+		log_and_message_admins("[character.ckey] has respawned as [character.real_name], \a [character.dna?.species ? character.dna.species : "Undefined species"] [rank].")
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet

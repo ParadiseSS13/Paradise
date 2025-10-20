@@ -293,6 +293,28 @@
 
 	return null
 
+/**
+ * Picks an element based on its weight. Weight can be any real number
+ * L - The input list
+ *
+ * example: list("a" = 0.33, "b" = 0.67) will have a 67% chance to pick "b"
+ */
+/proc/pickweight_fraction(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(L[item] < 0)
+			continue
+		total += L[item]
+
+	total = rand() * total
+	for(item in L)
+		total -=L [item]
+		if(total <= 0)
+			return item
+
+	return null
+
 //Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/listfrom)
 	if(length(listfrom) > 0)
@@ -1007,3 +1029,10 @@
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
+
+/**
+ * Removes any null entries from the list
+ * Returns TRUE if the list had nulls, FALSE otherwise
+**/
+/proc/list_clear_nulls(list/list_to_clear)
+	return (list_to_clear.RemoveAll(null) > 0)

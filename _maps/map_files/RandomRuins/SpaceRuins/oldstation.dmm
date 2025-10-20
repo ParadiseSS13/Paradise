@@ -149,9 +149,8 @@
 "aB" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "aC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -206,9 +205,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "aL" = (
 /obj/structure/cable{
@@ -292,9 +290,8 @@
 "aY" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bluefull"
-	},
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aZ" = (
 /obj/structure/showcase/machinery/oldpod,
@@ -349,25 +346,23 @@
 /area/ruin/ancientstation/comm)
 "bi" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bluefull"
-	},
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "bj" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "bk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "bl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -399,10 +394,10 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/void/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "bq" = (
 /obj/effect/spawner/window/reinforced,
@@ -436,10 +431,10 @@
 /obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "bv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -521,10 +516,10 @@
 "bI" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/hivebot,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -666,9 +661,8 @@
 /area/ruin/ancientstation)
 "ci" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "cj" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -692,9 +686,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "cm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -776,10 +769,10 @@
 "cA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "cB" = (
 /obj/effect/spawner/window/reinforced,
@@ -888,10 +881,10 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "cS" = (
 /obj/structure/cable{
@@ -984,10 +977,10 @@
 /area/ruin/ancientstation/sec)
 "dh" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "di" = (
 /obj/structure/cable/yellow{
@@ -1043,10 +1036,10 @@
 "dr" = (
 /obj/item/roller,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "ds" = (
 /obj/effect/decal/remains/robot{
@@ -1107,10 +1100,10 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "dB" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -1122,10 +1115,10 @@
 /area/ruin/ancientstation/thetacorridor)
 "dD" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "dE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1133,10 +1126,10 @@
 /area/ruin/ancientstation/rnd)
 "dF" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "dG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1286,10 +1279,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "ee" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1329,10 +1322,10 @@
 "ej" = (
 /obj/item/stack/sheet/glass,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "ek" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1359,9 +1352,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "eq" = (
 /obj/structure/cable{
@@ -1390,10 +1382,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/head/helmet/space/void/old,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "eu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1401,10 +1393,10 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1434,10 +1426,10 @@
 /area/ruin/ancientstation/thetacorridor)
 "eA" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "eB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1479,10 +1471,10 @@
 /area/ruin/ancientstation/engi)
 "eF" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "eG" = (
 /obj/machinery/light{
@@ -1505,10 +1497,10 @@
 /area/ruin/ancientstation/hydroponics)
 "eI" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "eJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1555,10 +1547,10 @@
 /area/ruin/ancientstation/sec)
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "eS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1654,10 +1646,10 @@
 "fg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/toilet/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "fh" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -1674,10 +1666,10 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "fj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1697,44 +1689,44 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "fm" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "fn" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "fo" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "fp" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "fq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1770,9 +1762,8 @@
 /obj/item/reagent_containers/cooking/pot{
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1795,9 +1786,8 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "fB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1964,10 +1954,10 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brownfull"
+/obj/effect/turf_decal/tiles/department/cargo{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "fW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2063,9 +2053,8 @@
 /area/ruin/ancientstation/thetacorridor)
 "gk" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "gl" = (
 /obj/structure/table,
@@ -2144,9 +2133,8 @@
 	},
 /obj/machinery/cooking/oven,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gu" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2172,20 +2160,20 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "gx" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "gy" = (
 /obj/effect/spawner/window/reinforced,
@@ -2227,24 +2215,21 @@
 "gE" = (
 /obj/machinery/economy/vending/dinnerware,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2259,9 +2244,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/cooking/stovetop,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2281,9 +2265,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "gO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2291,10 +2274,10 @@
 /obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "gP" = (
 /obj/structure/cable/yellow,
@@ -2307,10 +2290,10 @@
 "gQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "gR" = (
 /obj/structure/table,
@@ -2384,9 +2367,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/cooking/bowl,
 /obj/item/clothing/head/chefhat,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "he" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2424,10 +2406,10 @@
 /area/ruin/ancientstation/rnd)
 "hi" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "hj" = (
 /mob/living/basic/hivebot,
@@ -2485,10 +2467,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "hq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2499,9 +2481,8 @@
 /area/ruin/ancientstation/engi)
 "hr" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "hs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2578,9 +2559,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "hB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2597,10 +2577,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "hD" = (
 /obj/machinery/seed_extractor,
@@ -2634,10 +2614,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "hH" = (
 /obj/structure/cable{
@@ -2645,17 +2625,16 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "hI" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "hJ" = (
 /obj/structure/lattice/catwalk,
@@ -2673,9 +2652,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/salvage/ruin/nanotrasen,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "hO" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -2716,10 +2694,10 @@
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/hivebot/strong,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "hU" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2735,9 +2713,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "hW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2750,27 +2727,24 @@
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "hY" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "hZ" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "ia" = (
 /obj/structure/table,
@@ -2783,17 +2757,15 @@
 	pixel_y = -2
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "ib" = (
 /obj/structure/table,
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "ic" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
@@ -2854,10 +2826,10 @@
 /area/ruin/ancientstation/thetacorridor)
 "ii" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "ij" = (
 /obj/structure/table,
@@ -3143,10 +3115,10 @@
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "jd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3383,10 +3355,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "jT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3565,9 +3537,8 @@
 "kx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/egg_smudge,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "kA" = (
 /obj/structure/cable{
@@ -3613,10 +3584,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/weapon,
 /obj/item/melee/baton,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "kL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3753,10 +3724,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "le" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3786,10 +3757,10 @@
 "ll" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3811,17 +3782,17 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen/hop,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "greenfull"
+/obj/effect/turf_decal/tiles/department/virology{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "lp" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "lq" = (
 /obj/structure/cable{
@@ -3855,19 +3826,19 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lw" = (
 /obj/structure/cable{
@@ -3890,17 +3861,17 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "ly" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "lz" = (
 /obj/machinery/door/poddoor{
@@ -3926,18 +3897,17 @@
 /obj/item/clothing/gloves/color/fyellow/old,
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "lC" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "lD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3958,35 +3928,33 @@
 /area/ruin/ancientstation/atmo)
 "lF" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/flash,
 /obj/structure/sign/poster/contraband/donut_corp/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lI" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -4008,19 +3976,18 @@
 /obj/item/deck/cards{
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "lN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4120,10 +4087,10 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "nh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4289,9 +4256,8 @@
 /area/ruin/ancientstation)
 "po" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "pr" = (
 /obj/structure/cable/yellow{
@@ -4335,9 +4301,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/oven,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "pZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4373,10 +4338,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "greenfull"
+/obj/effect/turf_decal/tiles/department/virology{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "qm" = (
 /obj/machinery/door/poddoor{
@@ -4518,10 +4483,10 @@
 	pixel_x = 4
 	},
 /obj/structure/sign/poster/official/safety_report/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "sk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4538,10 +4503,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "sp" = (
 /obj/structure/girder,
@@ -4558,9 +4523,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "sB" = (
 /obj/machinery/power/terminal{
@@ -4596,9 +4560,8 @@
 "sY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4786,9 +4749,8 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluefull"
-	},
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "vD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -4819,9 +4781,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "vN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -5054,9 +5015,8 @@
 /obj/structure/table,
 /obj/machinery/cooking/grill,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "zC" = (
 /obj/structure/lattice/catwalk,
@@ -5110,10 +5070,10 @@
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "zV" = (
 /obj/structure/sign/science,
@@ -5140,10 +5100,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/coin/gold,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brownfull"
+/obj/effect/turf_decal/tiles/department/cargo{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "AB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5190,10 +5150,10 @@
 /obj/structure/table,
 /obj/item/storage/backpack/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "AV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5206,9 +5166,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "AY" = (
 /obj/machinery/door/poddoor{
@@ -5340,9 +5299,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "Ch" = (
 /obj/item/reagent_containers/drinks/cans/cola{
@@ -5458,10 +5416,10 @@
 /obj/structure/bed/pod,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "Dg" = (
 /obj/machinery/alarm/all_access/directional/east{
@@ -5553,10 +5511,10 @@
 "Es" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/nt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "greenfull"
+/obj/effect/turf_decal/tiles/department/virology{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "Et" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -5582,17 +5540,16 @@
 "EH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/processor,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "EK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "greencorner"
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "EM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5619,9 +5576,8 @@
 "Ft" = (
 /obj/machinery/cooking/deepfryer,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "Fv" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -5659,9 +5615,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "FZ" = (
 /obj/effect/mob_spawn/human/alive/old/sec{
@@ -5787,10 +5742,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "Ik" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5836,9 +5791,8 @@
 	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "IB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5865,9 +5819,8 @@
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink/kitchen/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "IQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5879,9 +5832,8 @@
 "IX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "Jd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -5917,18 +5869,18 @@
 /area/ruin/ancientstation/proto)
 "Jt" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "Jz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/oldstation/security,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "JF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5975,9 +5927,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "Ku" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -6039,10 +5990,10 @@
 	},
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "Ln" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6132,17 +6083,17 @@
 "LR" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "Mk" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brownfull"
+/obj/effect/turf_decal/tiles/department/cargo{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "Mw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6175,9 +6126,8 @@
 	pixel_y = 7;
 	pixel_x = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "ML" = (
 /obj/structure/table/reinforced,
@@ -6214,10 +6164,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "Nt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6228,10 +6178,10 @@
 "Nw" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "greenfull"
+/obj/effect/turf_decal/tiles/department/virology{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "NQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6325,10 +6275,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/nonfunctional,
 /obj/item/card/id/away/old/apc,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "OW" = (
 /mob/living/basic/hivebot,
@@ -6364,9 +6314,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "Ph" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -6493,10 +6442,10 @@
 /area/ruin/ancientstation)
 "QG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brownfull"
+/obj/effect/turf_decal/tiles/department/cargo{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "QP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6520,16 +6469,14 @@
 "Rd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "Re" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/nt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "Ru" = (
 /mob/living/basic/hivebot,
@@ -6539,9 +6486,8 @@
 "Rx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "RD" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -6581,9 +6527,8 @@
 	pixel_x = 7;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "RR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -6631,9 +6576,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "Sv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6660,10 +6604,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "SH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6682,9 +6626,8 @@
 /area/ruin/ancientstation)
 "SM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "SR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6724,9 +6667,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "Tn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6951,16 +6893,14 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
 "VT" = (
 /obj/structure/transit_tube/horizontal,
@@ -7024,9 +6964,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/lighter/zippo,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "WL" = (
 /obj/structure/table,
@@ -7073,9 +7012,8 @@
 "Xw" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bluefull"
-	},
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "XA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7195,9 +7133,8 @@
 "YQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7241,10 +7178,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "ZR" = (
 /turf/simulated/floor/plasteel/white,

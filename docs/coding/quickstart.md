@@ -403,30 +403,29 @@ slip under the radar.
 You can start defining the new item once you found the proper file the item
 should belong to. Depending on the item you will have to write different code
 (duh). We will take the new jumpsuit as an example again and will put it in the
-`miscellaneous` file.
+`misc_jumpsuits` file.
 
 When defining a new jumpsuit you can easily copy an existing one and change the
 definition values. We will take the mailman outfit as a template.
 
 ```dm
-/obj/item/clothing/under/rank/mailman
+/obj/item/clothing/under/misc/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mailman"
 	inhand_icon_state = "b_suit"
-	item_color = "mailman"
 ```
 
 As seen here a jumpsuit has multiple values you can define. The `name` is pretty
-straight forward. `desc` is the description of the item. `icon_state` is the
-name the sprite has in the DMI file. `inhand_icon_state` is the name of the sprite of
-the suit while held in your hands has in the DMI file. `item_color` is the name
-of the sprite in the `icons/mob/uniform.dmi` file. This value will indicate what
-sprite will be used when a person wears this jumpsuit. (I know `item_color` is a
-weird name for this)
+straight forward. `desc` is the description of the item. `icon_state` is the name
+the sprite has in the `icon` DMI file. `inhand_icon_state` is the name of the
+sprite of the suit while held in your hands has in the `lefthand_file` and
+`righthand_file` DMI files. You will also have to add worn icon state (when it's
+equipped on a mob) to the `worn_icon` DMI file, or, if it's not set, to the
+`icons/mob/clothing/under/misc.dmi`.
 
 We of course also have to change the path of the newly created object. We'll
-name it `/obj/item/clothing/under/rank/tutorial`. This alone will make it so
+name it `/obj/item/clothing/under/misc/tutorial`. This alone will make it so
 that you can spawn the item using admin powers. It will not automagically appear
 in vendors or such.
 
