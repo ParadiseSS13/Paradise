@@ -97,7 +97,7 @@
 		return
 	return ..()
 
-
+// DGTODO make it explode bigger
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/kaboom()
 	var/explosion_score = clamp(full_percent * purity, 0, 10000)
 	if(explosion_score <= 0)
@@ -109,11 +109,6 @@
 
 	explosion(get_turf(src), destroy, heavy, light, flash)
 */
-
-
-
-/obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/on_shuttle_launch()
-
 
 #undef STATE_IDLE
 #undef STATE_INTAKE

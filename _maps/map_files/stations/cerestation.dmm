@@ -25944,9 +25944,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/command/starboard)
 "euw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -25956,25 +25953,8 @@
 /obj/machinery/computer/security/engi_outpost{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office";
-	pixel_y = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/keycard_auth{
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -91168,9 +91148,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -96876,13 +96853,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
-"ufx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/neutral,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
 "ufM" = (
 /obj/structure/disposalpipe/segment/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -104375,6 +104345,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/aft_starboard)
+"vKw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/east)
 "vKD" = (
 /obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
@@ -105344,9 +105321,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "vWB" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
 /obj/item/stamp/ce{
 	pixel_x = 1;
@@ -105364,19 +105338,12 @@
 	pixel_x = 12;
 	pixel_y = 3
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 8;
 	pixel_y = -7
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -107121,17 +107088,11 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
@@ -114028,9 +113989,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "xPg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/button/windowtint{
 	id = "CE";
@@ -114046,41 +114004,8 @@
 	department = "Chief Engineer's Office";
 	pixel_y = 4
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/item/stamp/ce{
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/machinery/button/windowtint{
-	id = "CE";
-	pixel_x = -8;
-	pixel_y = 24;
-	req_access = list(56)
-	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/item/paper_bin/nanotrasen{
-	pixel_y = 2;
-	pixel_x = -11
-	},
-/obj/item/pen{
-	pixel_x = -11;
-	pixel_y = 5
-	},
-/obj/item/book/manual/wiki/faxes{
-	pixel_x = 12;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -154928,7 +154853,7 @@ iSD
 eLK
 cjc
 mBt
-ufx
+vKw
 apa
 fCz
 cJF
@@ -155185,7 +155110,7 @@ iSD
 eLK
 uuP
 emf
-ufx
+vKw
 eyY
 jLX
 rOc

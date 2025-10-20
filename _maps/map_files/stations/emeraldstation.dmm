@@ -91918,24 +91918,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "syf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/briefcase,
 /obj/item/book/manual/wiki/sop_engineering,
 /obj/item/megaphone,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/megaphone,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
@@ -97791,24 +97779,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "tGt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/computer/security/engi_outpost{
 	dir = 8
 	},
 /obj/machinery/requests_console/directional/east,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/storage/secure/briefcase,
-/obj/structure/rack,
-/obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
@@ -107593,9 +107569,6 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 1
 	},
