@@ -35575,9 +35575,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/port)
 "fbF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp{
 	pixel_x = -6;
@@ -35593,27 +35590,7 @@
 	pixel_x = 11
 	},
 /obj/item/clothing/mask/cigarette/cigar,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp{
-	pixel_x = -6;
-	pixel_y = 13
-	},
-/obj/item/lighter/zippo{
-	pixel_x = -7
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_x = 2
-	},
-/obj/item/ashtray/bronze{
-	pixel_x = 11
-	},
 /obj/effect/turf_decal/tiles/department/engineering,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "fbL" = (
@@ -48111,7 +48088,7 @@
 "jHX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
@@ -53501,13 +53478,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
-"lsn" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
 "lsz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -59944,6 +59914,18 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
+"nMm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "nMo" = (
 /obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/carpet/royalblack,
@@ -86396,17 +86378,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -132376,7 +132353,7 @@ aaa
 aaa
 aaa
 abq
-lsn
+jHX
 eiz
 mVu
 arC
@@ -132633,7 +132610,7 @@ abf
 aup
 abf
 abq
-jHX
+xwi
 dPW
 dPW
 dPW
@@ -132645,7 +132622,7 @@ mhE
 mhE
 mhE
 mhE
-xwi
+nMm
 cQr
 sln
 enp
@@ -132890,7 +132867,7 @@ aaa
 abq
 aaa
 abq
-jHX
+xwi
 abq
 abq
 ogY
