@@ -66520,9 +66520,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
-"lsN" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/area/station/maintenance/port)
 "lth" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical{
@@ -114623,7 +114620,7 @@ aaa
 aaa
 aaa
 hkk
-lsN
+hkk
 jGn
 ueB
 hkk
