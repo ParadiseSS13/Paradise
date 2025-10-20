@@ -132,7 +132,7 @@
 	owner.dna.species.hunger_drain += 0.03
 
 /datum/quirk/colorblind
-	name = "Colorblind"
-	desc = "You are incurably colorblind."
-	cost = -1
+	name = "Monochromacy"
+	desc = "You cannot see any color."
+	cost = -2
 	trait_to_apply = TRAIT_COLORBLIND

@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	var/organ_to_give
 	/// What organ should be removed (if any). Must be the string name of the organ as found in the has_organ var from the species datum.
 	var/organ_slot_to_remove
+	/// If the quirk should spawn a mob with the player.
+	var/mob_to_spawn
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
@@ -61,6 +63,8 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(remove_organ))
 	if(organ_to_give)
 		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(give_organ))
+	if(mob_to_spawn)
+		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(spawn_mob))
 	owner.update_sight()
 
 /datum/quirk/proc/remove_organ()
@@ -72,6 +76,10 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
 	var/obj/item/organ/internal/cybernetic = new organ_to_give
 	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), owner, TRUE)
+
+/datum/quirk/proc/spawn_mob()
+	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	new mob_to_spawn(owner.loc)
 
 /// For any behavior that needs to happen before a quirk is destroyed
 /datum/quirk/proc/remove_quirk_effects()

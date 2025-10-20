@@ -1,6 +1,7 @@
 /datum/quirk/skittish
 	name = "Skittish"
-	desc = "You can hide yourself in crates by lying down, and WILL jump into a locker or crate if you bump into one while running, as long as you have access."
+	desc = "You can hide yourself in crates by lying down, and WILL jump into a locker or crate if you bump into one while running, \
+			as long as you have access."
 	cost = 4
 	trait_to_apply = TRAIT_SKITTISH
 
@@ -85,11 +86,36 @@
 	new snack (src)
 	new drink (src)
 
-
-
 /datum/quirk/upgraded_lungs
 	name = "Upgraded Cybernetic Lungs"
 	desc  = "Your lungs have been replaced with upgraded cybernetics."
 	cost = 3
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/lungs/cybernetic/upgraded
+
+/datum/quirk/culinary_implant
+	name = "IPC Culinary Implant"
+	desc = "Either you or your creator wanted you to seem more organic, and gave you an artificial mouth and stomach."
+	cost = 2
+	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
+	organ_to_give = /obj/item/organ/internal/cyberimp/chest/ipc_food
+
+/datum/quirk/home_cook
+	name = "Home Cook"
+	desc = "You have experience in the kitchen, and can examine kitchen machinery to see if the ingredients inside will cook into a proper meal. \
+			Chefs can already do this."
+	cost = 1
+	trait_to_apply = TRAIT_KNOWS_COOKING_RECIPES
+
+/datum/quirk/pet_owner
+	name = "Animal Lover"
+	desc = "You brought one of your pets to work today! Make sure to name them with your collar."
+	cost = 1
+	item_to_give = /obj/item/petcollar
+	var/list/possible_pets = list(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/dog/pug,
+								  /mob/living/simple_animal/pet/dog/fox, /mob/living/basic/chick, /mob/living/basic/bunny, /mob/living/basic/turkey)
+
+/datum/quirk/pet_owner/apply_quirk_effects()
+	mob_to_spawn = pick(possible_pets)
+	..()
+
