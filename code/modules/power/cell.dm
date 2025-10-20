@@ -28,8 +28,8 @@
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
-/obj/item/stock_parts/cell/New()
-	..()
+/obj/item/stock_parts/cell/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
