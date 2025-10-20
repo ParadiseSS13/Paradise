@@ -54301,11 +54301,11 @@
 "kFw" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 5;
-	height = 7;
+	dwidth = 3;
+	height = 5;
 	id = "engineering_home";
 	name = "engineering shuttle bay";
-	width = 11
+	width = 7
 	},
 /turf/space,
 /area/space)
@@ -96853,6 +96853,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
+"ufx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/east)
 "ufM" = (
 /obj/structure/disposalpipe/segment/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -104345,13 +104352,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/aft_starboard)
-"vKw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/neutral,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
 "vKD" = (
 /obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
@@ -154853,7 +154853,7 @@ iSD
 eLK
 cjc
 mBt
-vKw
+ufx
 apa
 fCz
 cJF
@@ -155110,7 +155110,7 @@ iSD
 eLK
 uuP
 emf
-vKw
+ufx
 eyY
 jLX
 rOc

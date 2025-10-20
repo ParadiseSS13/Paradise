@@ -33431,10 +33431,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
-"czF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "czG" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -62233,6 +62229,10 @@
 /obj/effect/turf_decal/tiles/neutral/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
+"jxg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "jxZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -74870,11 +74870,11 @@
 /area/station/security/permabrig)
 "pcc" = (
 /obj/docking_port/stationary{
-	dwidth = 5;
-	height = 7;
+	dwidth = 3;
+	height = 5;
 	id = "engineering_home";
 	name = "engineering shuttle bay";
-	width = 11
+	width = 7
 	},
 /turf/space,
 /area/space)
@@ -115137,10 +115137,10 @@ aaa
 aaa
 pcc
 lDV
-czF
-czF
+jxg
+jxg
 drn
-czF
+jxg
 dmq
 reg
 reg
@@ -115395,8 +115395,8 @@ aaa
 aaa
 hkk
 wuE
-czF
-czF
+jxg
+jxg
 drn
 dmq
 reg
@@ -115652,8 +115652,8 @@ aaa
 aaa
 hkk
 drn
-czF
-czF
+jxg
+jxg
 drn
 dmq
 xOD
@@ -115909,8 +115909,8 @@ aaa
 aaa
 hkk
 drn
-czF
-czF
+jxg
+jxg
 drn
 dmq
 jUu
@@ -116166,8 +116166,8 @@ abj
 mQO
 hkk
 wPH
-czF
-czF
+jxg
+jxg
 nYD
 dmq
 iNM
@@ -116424,8 +116424,8 @@ cie
 dmq
 cXX
 mkn
-czF
-czF
+jxg
+jxg
 xEL
 gIF
 uBY

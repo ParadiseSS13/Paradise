@@ -44548,11 +44548,11 @@
 /area/station/maintenance/starboard)
 "iWU" = (
 /obj/docking_port/stationary{
-	dwidth = 5;
-	height = 7;
+	dwidth = 3;
+	height = 5;
 	id = "engineering_home";
 	name = "engineering shuttle bay";
-	width = 11
+	width = 7
 	},
 /turf/space,
 /area/space)

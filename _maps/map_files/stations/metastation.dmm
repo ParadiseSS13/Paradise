@@ -43069,11 +43069,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 5;
-	height = 7;
+	dwidth = 3;
+	height = 5;
 	id = "engineering_home";
 	name = "engineering shuttle bay";
-	width = 11
+	width = 7
 	},
 /turf/space,
 /area/space)
@@ -44934,11 +44934,17 @@
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "izv" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "izK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -45164,6 +45170,15 @@
 "iBR" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
+"iBZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "iCa" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -53504,15 +53519,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
-"lsn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "lsz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -86401,17 +86407,11 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -132650,7 +132650,7 @@ mhE
 mhE
 mhE
 mhE
-xwi
+izv
 cQr
 sln
 enp
@@ -136240,11 +136240,11 @@ aaa
 aaa
 vum
 vum
-lsn
-izv
-izv
-izv
-lsn
+iBZ
+xwi
+xwi
+xwi
+iBZ
 yli
 jum
 mrH
