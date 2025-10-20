@@ -43030,9 +43030,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "hQA" = (
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
-	},
 /obj/docking_port/stationary{
 	dir = 2;
 	dwidth = 3;
@@ -44900,9 +44897,11 @@
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "izv" = (
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "izK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -45129,14 +45128,20 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
 "iBZ" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "iCa" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -48061,8 +48066,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "jHX" = (
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint2)
 "jIf" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
@@ -53436,6 +53442,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
+"lsn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "lsz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -59864,6 +59879,9 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
+"nMm" = (
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "nMo" = (
 /obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/carpet/royalblack,
@@ -61590,17 +61608,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/port)
 "ouk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "ouq" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "HoS"
@@ -77937,6 +77950,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
+"uxg" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "uxi" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -81497,12 +81517,17 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "vKK" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "vKU" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/white,
@@ -86314,12 +86339,6 @@
 /obj/structure/table/glass,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
-"xwi" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -88109,13 +88128,6 @@
 /obj/item/lipstick/random,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
-"ydz" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
 "ydH" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/light{
@@ -88486,21 +88498,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"yli" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
 "ylo" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -132292,7 +132289,7 @@ aaa
 aaa
 aaa
 abq
-ydz
+uxg
 eiz
 mVu
 arC
@@ -132549,7 +132546,7 @@ abf
 aup
 abf
 abq
-vKK
+ouk
 dPW
 dPW
 dPW
@@ -132561,7 +132558,7 @@ mhE
 mhE
 mhE
 mhE
-ouk
+vKK
 cQr
 sln
 enp
@@ -132806,7 +132803,7 @@ aaa
 abq
 aaa
 abq
-vKK
+ouk
 abq
 abq
 ogY
@@ -134617,7 +134614,7 @@ uuP
 vkt
 cFE
 hMI
-yli
+iBZ
 mhE
 mhE
 ilG
@@ -134873,7 +134870,7 @@ rUi
 vum
 vum
 loa
-izv
+jHX
 vDE
 mhE
 mhE
@@ -135379,10 +135376,10 @@ ire
 aaa
 aaa
 vum
-jHX
+nMm
 tIp
-jHX
-jHX
+nMm
+nMm
 gky
 xPV
 bhi
@@ -135638,8 +135635,8 @@ aaa
 vum
 wkz
 fAA
-jHX
-jHX
+nMm
+nMm
 yfA
 woM
 bBT
@@ -135896,7 +135893,7 @@ vum
 hQm
 bHT
 dEx
-jHX
+nMm
 eqT
 eTS
 wyk
@@ -136151,12 +136148,12 @@ aaa
 aaa
 vum
 vum
-iBZ
-xwi
-xwi
-xwi
-iBZ
-xwi
+lsn
+izv
+izv
+izv
+lsn
+izv
 enp
 mrH
 huX
