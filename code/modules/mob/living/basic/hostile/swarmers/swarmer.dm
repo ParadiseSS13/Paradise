@@ -53,6 +53,7 @@
 	. = ..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
+	AddElement(/datum/element/ai_retaliate)
 	updatename()
 
 /mob/living/basic/swarmer/proc/updatename()

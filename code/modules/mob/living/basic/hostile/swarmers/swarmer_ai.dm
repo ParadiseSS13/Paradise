@@ -12,6 +12,7 @@
 
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/ranged_skirmish,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
@@ -28,6 +29,7 @@
 /datum/ai_controller/basic_controller/swarmer/lesser
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/ranged_skirmish,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
