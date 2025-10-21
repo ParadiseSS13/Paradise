@@ -85,7 +85,7 @@
 
 /datum/outfit/ashwalker
 	name = "Ashwalker"
-	head = /obj/item/clothing/head/helmet/gladiator
 	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
+	suit = /obj/item/clothing/suit/hooded/bone_light
 
 #undef ASH_WALKER_SPAWN_THRESHOLD
