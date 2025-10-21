@@ -546,11 +546,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ASTHMATIC "asthma"
 #define TRAIT_SKITTISH "skittish"
 #define TRAIT_FREERUNNER "freerunner"
-#define TRAIT_CRAFTY "crafty"
 #define TRAIT_GLUTTON "glutton"
 #define TRAIT_NO_APC_CHARGING "no_apc_charging"
 #define TRAIT_FOREIGNER "foreigner"
 #define TRAIT_HUNGRY "hungry"
+#define TRAIT_NO_WHISPERING "no_whisper"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.

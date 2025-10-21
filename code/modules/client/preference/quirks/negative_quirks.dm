@@ -133,6 +133,19 @@
 
 /datum/quirk/colorblind
 	name = "Monochromacy"
-	desc = "You cannot see any color."
+	desc = "You can't see any color."
 	cost = -2
 	trait_to_apply = TRAIT_COLORBLIND
+
+/datum/quirk/loudmouthed
+	name = "Loudmouthed"
+	desc = "You can't seem to lower your volume to a whisper."
+	cost = -1
+	trait_to_apply = TRAIT_NO_WHISPERING
+
+/datum/quirk/nearsighted
+	name = "Nearsighted"
+	desc = "You can't see well without prescription glasses."
+	cost = -1
+	trait_to_apply = TRAIT_NEARSIGHT
+	item_to_give = /obj/item/clothing/glasses/regular
