@@ -49715,7 +49715,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/sm_monitor{
@@ -59129,7 +59129,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -61408,7 +61408,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -65222,7 +65222,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
