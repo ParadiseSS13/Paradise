@@ -82562,7 +82562,7 @@
 	dir = 4;
 	name = "RCD Storage"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,

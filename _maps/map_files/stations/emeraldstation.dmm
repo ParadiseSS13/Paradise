@@ -26279,7 +26279,7 @@
 	name = "Engineering Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -68321,7 +68321,7 @@
 /obj/machinery/door/window/classic/normal,
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},

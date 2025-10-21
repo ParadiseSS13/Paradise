@@ -68,10 +68,10 @@
 	icon_state = "access_windoor_eng"
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general
-	access = ACCESS_ENGINE
-
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction
 	access = ACCESS_ENGINEERING_GENERAL
+
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/station_engineer
+	access = ACCESS_STATION_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS

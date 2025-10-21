@@ -61408,7 +61408,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,

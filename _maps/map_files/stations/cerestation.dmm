@@ -24645,7 +24645,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -37902,7 +37902,7 @@
 	name = "Engineering Delivery Chute"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -97398,7 +97398,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/machinery/door/window/classic/reversed{
 	name = "Cryo Tank Storage"
 	},
