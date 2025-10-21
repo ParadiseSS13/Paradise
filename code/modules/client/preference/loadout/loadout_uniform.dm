@@ -240,6 +240,10 @@
 	subtype_selection_cost = FALSE
 
 //Engineering
+
+/datum/gear/uniform/eng
+	main_typepath = /datum/gear/uniform/eng
+
 /datum/gear/uniform/eng/eng_alt
 	display_name = "Uniform, engineering corporate"
 	path = /obj/item/clothing/under/rank/engineering/engineer/corporate
