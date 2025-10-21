@@ -4714,7 +4714,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -5594,7 +5594,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "aOd" = (
@@ -16657,7 +16657,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "bNh" = (
@@ -30501,7 +30501,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "dmi" = (
@@ -32074,7 +32074,7 @@
 	autolink_id = "enginesm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_x = 24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Central";
@@ -35850,7 +35850,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "fgn" = (
@@ -39201,7 +39201,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
 "gsR" = (
@@ -39325,7 +39325,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "gvN" = (
@@ -44284,7 +44284,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fsmaint2)
 "ipz" = (
@@ -48691,7 +48691,7 @@
 /area/station/command/office/blueshield)
 "jPu" = (
 /obj/machinery/door/airlock/engineering,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -52168,7 +52168,7 @@
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/science/rd,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -52490,7 +52490,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "lej" = (
@@ -53068,7 +53068,7 @@
 /area/station/science/robotics/showroom)
 "lnd" = (
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/machinery/airlock_controller/air_cycler/directional/north,
 /obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
@@ -53971,7 +53971,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/any/science/rd,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/green{
@@ -63606,7 +63606,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "pfa" = (
@@ -68814,7 +68814,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Power Transmission Laser"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint2)
@@ -82775,7 +82775,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "wkz" = (
@@ -85153,7 +85153,7 @@
 	autolink_id = "enginesm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_x = 24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -87703,7 +87703,7 @@
 	autolink_id = "enginesm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_x = -24;
-	req_access = list(10)
+	req_access = list(32)
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1

@@ -25523,7 +25523,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -44988,7 +44988,7 @@
 	locked = 1;
 	name = "Turbine Interior Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -45423,7 +45423,7 @@
 	locked = 1;
 	name = "Engineering Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
@@ -46150,7 +46150,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -49122,7 +49122,7 @@
 	locked = 1;
 	name = "Turbine Exterior Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -59056,7 +59056,7 @@
 	locked = 1;
 	name = "abandoned vault"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -61042,7 +61042,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Power Transmission Laser"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "lmM" = (
@@ -62104,7 +62104,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -64102,8 +64102,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/science/rd,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/station_engineering,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -64113,6 +64112,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/science/rd,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
 "mLu" = (
@@ -68034,7 +68034,7 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Morgue Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
 /turf/simulated/floor/plating,
@@ -71179,7 +71179,7 @@
 "qlp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -83485,7 +83485,7 @@
 "wrT" = (
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/north,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "wrU" = (
@@ -85261,7 +85261,7 @@
 	locked = 1;
 	name = "Assembly Line (KEEP OUT)"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -86309,7 +86309,7 @@
 	locked = 1;
 	name = "Engineering Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xLH" = (
