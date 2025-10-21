@@ -761,6 +761,7 @@
 /obj/effect/mob_spawn/human/alive/zombie/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NPC_ZOMBIE, ROUNDSTART_TRAIT)
 	H.ForceContractDisease(new /datum/disease/zombie)
+	H.zone_selected = BODY_ZONE_CHEST
 	for(var/datum/disease/zombie/zomb in H.viruses)
 		zomb.stage = 8
 
