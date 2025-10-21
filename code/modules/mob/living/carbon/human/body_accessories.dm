@@ -279,7 +279,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/spines
 	icon = 'icons/mob/sprite_accessories/skulk/skulk_spines.dmi'
 	animated_icon = null
-	name = "Blackgate Hunter"
+	name = "Hunter"
 	icon_state = "hunter1"
 	allowed_species = list("Skkulakin")
 	has_behind = TRUE
@@ -287,23 +287,23 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/spines/hunter1
 
 /datum/body_accessory/spines/hunter2
-	name = "Talwyrm Hunter"
+	name = "Hunter"
 	icon_state = "hunter2"
 
 /datum/body_accessory/spines/hunter3
-	name = "Valcore Hunter"
+	name = "Hunter"
 	icon_state = "hunter3"
 
 /datum/body_accessory/spines/hunter4
-	name = "Ossya Hunter"
+	name = "Hunter"
 	icon_state = "hunter4"
 
 /datum/body_accessory/spines/hunter5
-	name = "Highfield Hunter"
+	name = "Hunter"
 	icon_state = "hunter5"
 
 /datum/body_accessory/spines/hunter6
-	name = "Votum-Accorium Hunter"
+	name = "Hunter"
 	icon_state = "hunter6"
 
 /datum/body_accessory/spines/cosmic1
