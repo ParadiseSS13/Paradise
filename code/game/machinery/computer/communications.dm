@@ -308,14 +308,10 @@
 			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
 
 		if("make_other_announcement")
-			if(!ADMIN_CHECK(ui.user))
-				return
-			ui.user.client.cmd_admin_create_centcom_report()
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/create_centcom_report)
 
 		if("dispatch_ert")
-			if(!ADMIN_CHECK(ui.user))
-				return
-			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/dispatch_ert)
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
@@ -335,19 +331,13 @@
 			SEND_SOUND(ui.user, sound(cc_announcement_sounds[params["sound"]]))
 
 		if("toggle_ert_allowed")
-			if(!ADMIN_CHECK(ui.user))
-				return
-			ui.user.client.toggle_ert_calling()
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/toggle_ert_calling)
 
 		if("view_econ")
-			if(!ADMIN_CHECK(ui.user))
-				return
-			ui.user.client.economy_manager()
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/economy_panel)
 
 		if("view_fax")
-			if(!ADMIN_CHECK(ui.user))
-				return
-			ui.user.client.fax_panel()
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/fax_panel)
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
