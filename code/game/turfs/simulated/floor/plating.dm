@@ -174,10 +174,17 @@
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
+	icon_regular_floor = "engine"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
+
+/turf/simulated/floor/engine/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "engine"
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -226,6 +233,13 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	icon_regular_floor = "cult"
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
