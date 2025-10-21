@@ -208,6 +208,9 @@
 	///cancel eating attempt
 	#define COMSIG_MOB_CANCEL_EAT (1<<0)
 
+/// From /datum/status_effect/incapacitating/sleeping/tick()
+#define COMSIG_MOB_SLEEP_TICK "mob_sleep_tick"
+
 /// From /datum/element/basic_eating/finish_eating()
 #define COMSIG_MOB_ATE "mob_ate"
 	///cancel post eating

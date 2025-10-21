@@ -29,6 +29,7 @@
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
+		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
 
 		// Blender Stuff
 		/obj/item/food/grown/tomato = list("ketchup" = 0),
