@@ -71,7 +71,7 @@
 	access = ACCESS_ENGINE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -286,7 +286,7 @@
 	access = ACCESS_ENGINE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS

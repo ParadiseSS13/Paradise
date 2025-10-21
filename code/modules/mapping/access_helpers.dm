@@ -60,7 +60,7 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP
@@ -285,7 +285,7 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP
