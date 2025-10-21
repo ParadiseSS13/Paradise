@@ -9971,9 +9971,7 @@
 /obj/structure/holowindow{
 	dir = 1
 	},
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "IF" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -13377,9 +13375,7 @@
 /area/centcom/specops)
 "TQ" = (
 /obj/structure/holowindow,
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
@@ -13982,9 +13978,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
 "VZ" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "Wa" = (
 /obj/structure/flora/ausbushes/grassybush,
