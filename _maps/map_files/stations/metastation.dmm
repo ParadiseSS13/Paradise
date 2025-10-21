@@ -1313,9 +1313,7 @@
 	id_tag = "ferry_home";
 	name = "Port Bay 3 Airlock"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "aon" = (
 /obj/effect/spawner/random/fungus/frequent,
@@ -1577,9 +1575,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "aqB" = (
 /obj/structure/closet/emcloset,
@@ -2134,9 +2130,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "auC" = (
 /obj/machinery/space_heater,
@@ -9129,9 +9123,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "bfu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "bfw" = (
 /turf/simulated/wall,
@@ -11496,9 +11488,7 @@
 	name = "Port Bay 1 Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "bpI" = (
 /obj/structure/extinguisher_cabinet{
@@ -17961,9 +17951,7 @@
 	id_tag = "specops_home";
 	name = "Port Bay 2 Airlock"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "bTA" = (
 /obj/machinery/firealarm/directional/east,
@@ -31981,9 +31969,7 @@
 /area/station/telecomms/chamber)
 "dRP" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "dRU" = (
 /obj/effect/turf_decal/delivery,
@@ -33037,9 +33023,7 @@
 	name = "Escape Pod 1 Airlock";
 	id_tag = "emergency_home"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "ejr" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -34052,9 +34036,7 @@
 /area/station/command/office/hop)
 "eAm" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "eAt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -46942,9 +46924,7 @@
 "jgq" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "jgD" = (
 /obj/item/shard,
@@ -49265,9 +49245,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
 "jUw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "jUN" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -56884,9 +56862,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "mFx" = (
 /obj/structure/chair,
@@ -58188,9 +58164,7 @@
 "nbO" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "ncd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -59278,9 +59252,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "nvN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -61602,9 +61574,7 @@
 	name = "Escape Pod 2 Airlock";
 	id_tag = "emergency_home"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "onF" = (
 /obj/item/radio/intercom{
@@ -65845,9 +65815,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/east)
 "pQW" = (
 /obj/structure/table,
@@ -79238,9 +79206,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "uMi" = (
 /obj/machinery/door/firedoor,
