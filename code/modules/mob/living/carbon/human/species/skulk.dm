@@ -39,7 +39,7 @@
 	eyes = "skulk_eyes_s"
 
 
-	optional_body_accessory = FALSE
+	optional_body_accessory = TRUE //Placeholder for now until I can get body accessories working
 
 	reagent_tag = PROCESS_ORG
 
@@ -120,3 +120,5 @@
 	if(!do_after(H, 5 SECONDS, FALSE, H))
 		return
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
+	var/obj/item/stack/sheet/silk/silk = new(get_turf(H), 1)
+	H.put_in_hands(silk)
