@@ -166,6 +166,8 @@
 		return TRUE
 	if(environment.agent_b() > 0.001)
 		return TRUE
+	if(environment.hydrogen() > 0.001)
+		return TRUE
 
 	return FALSE
 
@@ -209,6 +211,10 @@
 			if(scrubber.scrub_N2O)
 				filtered_out.set_sleeping_agent(removed.sleeping_agent())
 				removed.set_sleeping_agent(0)
+
+			if(scrubber.scrub_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
 
 			//Remix the resulting gases
 			scrubber.air_contents.merge(filtered_out)
