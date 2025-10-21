@@ -11,7 +11,6 @@
 	layer = OBJ_LAYER
 
 	idle_power_consumption = 500
-	active_power_consumption = 0
 
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
@@ -193,12 +192,12 @@
 		if("power")
 			on = !on
 			change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			update_icon()
 			. = TRUE
 		if("cooling")
 			swap_function()
-			investigate_log("was changed to [cooling ? "cooling" : "heating"] by [key_name(usr)]", "atmos")
+			investigate_log("was changed to [cooling ? "cooling" : "heating"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 		if("target")
 			var/target = params["target"]
@@ -215,14 +214,9 @@
 				. = TRUE
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
-				investigate_log("was set to [target_temperature] K by [key_name(usr)]", "atmos")
+				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer
-	icon_state = "freezer"
-	icon_state_off = "freezer"
-	icon_state_on = "freezer_1"
-	icon_state_open = "freezer-o"
-	cooling = TRUE
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on
 	on = TRUE

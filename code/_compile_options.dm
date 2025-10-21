@@ -1,6 +1,9 @@
 #define DEBUG
 //#define TESTING
 
+// Uncomment the following line to enable debug logging for cooking recipes.
+// #define PCWJ_DEBUG
+
 // Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
 // #define LOCAL_GAME_TESTS
 
@@ -40,10 +43,12 @@
 #define IS_MODE_COMPILED(MODE) (ispath(text2path("/datum/game_mode/"+(MODE))))
 
 //Update this whenever you need to take advantage of more recent byond features
-#define MIN_COMPILER_VERSION 515
-#define MIN_COMPILER_BUILD 1619
-#if DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD
+#define MIN_COMPILER_VERSION 516
+// Yes I know 1648 was the earliest 516 but BYONDapi changes were made that we need
+// Expect more frequent bumps on this in the future
+#define MIN_COMPILER_BUILD 1651
+#if(DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(SPACEMAN_DMM)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to secure.byond.com/download and update.
-#error You need version 515.1619 or higher
+#error You need version 516.1651 or higher
 #endif

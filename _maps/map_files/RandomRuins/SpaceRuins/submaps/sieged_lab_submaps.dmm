@@ -1,0 +1,6483 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"an" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"ax" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/mob/living/simple_animal/hostile/syndicate,
+/turf/template_noop,
+/area/template_noop)
+"aK" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/syndicate/turret,
+/turf/template_noop,
+/area/template_noop)
+"aL" = (
+/turf/simulated/floor/catwalk,
+/area/template_noop)
+"aS" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"aY" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/engineering,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"bf" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"bi" = (
+/obj/item/flashlight/flare,
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"bo" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/turf/template_noop,
+/area/template_noop)
+"bt" = (
+/obj/structure/table_frame,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"by" = (
+/obj/structure/table,
+/obj/machinery/alarm/directional/south,
+/obj/item/stock_parts/cell,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"bz" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/light/floor{
+	brightness_color = "#FF0000";
+	nightshift_light_color = "#FF0000";
+	light_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"bB" = (
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"bD" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"bL" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"cf" = (
+/obj/effect/decal/cleanable/glass,
+/turf/template_noop,
+/area/template_noop)
+"cC" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 10
+	},
+/turf/template_noop,
+/area/template_noop)
+"cJ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"cU" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"dy" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6;
+	pixel_x = -2
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"dA" = (
+/obj/structure/coatrack,
+/obj/item/clothing/suit/jacket/miljacket,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"dG" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"dL" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#00FFFF"
+	},
+/turf/template_noop,
+/area/template_noop)
+"dN" = (
+/obj/item/shard,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"ea" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/barrier/grille_often,
+/turf/template_noop,
+/area/template_noop)
+"ed" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ei" = (
+/obj/effect/spawner/random/oil/often,
+/turf/template_noop,
+/area/template_noop)
+"eH" = (
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"eL" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/alarm/directional/south,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"fk" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"fl" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"fp" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/machinery/door/firedoor/closed,
+/turf/template_noop,
+/area/template_noop)
+"fr" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/assembly/mousetrap/armed,
+/turf/template_noop,
+/area/template_noop)
+"ft" = (
+/obj/effect/spawner/random/maintenance,
+/turf/template_noop,
+/area/template_noop)
+"fA" = (
+/obj/effect/spawner/random/mine,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"fO" = (
+/obj/structure/table/flipped,
+/turf/template_noop,
+/area/template_noop)
+"fP" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"fQ" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"fU" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"fV" = (
+/obj/machinery/light,
+/turf/template_noop,
+/area/template_noop)
+"gd" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"gj" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/template_noop,
+/area/template_noop)
+"gB" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/maybe,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"gN" = (
+/obj/effect/spawner/random/blood/often,
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate,
+/turf/template_noop,
+/area/template_noop)
+"hE" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/template_noop,
+/area/template_noop)
+"hG" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room{
+	singleton_id = "sci"
+	},
+/obj/machinery/door/airlock/research,
+/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"hH" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hV" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/maintenance,
+/obj/item/flashlight,
+/turf/template_noop,
+/area/template_noop)
+"id" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"if" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ig" = (
+/obj/item/flashlight/flare/used,
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"ih" = (
+/obj/structure/machine_frame,
+/obj/item/circuitboard/ore_redemption,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"in" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/alarm/directional/east,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ir" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"iv" = (
+/obj/machinery/economy/vending/wallmed/directional/north,
+/turf/space,
+/area/space)
+"iJ" = (
+/obj/structure/table_frame,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"jc" = (
+/obj/machinery/computer/mech_bay_power_console,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"js" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"jz" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"jG" = (
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"jR" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"jV" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"jX" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ka" = (
+/obj/item/shard,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"kh" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room,
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/engineering,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"kp" = (
+/obj/structure/table/glass,
+/obj/item/storage/firstaid/adv{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/regular/empty{
+	pixel_x = -2;
+	pixel_y = 20
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"kr" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"ku" = (
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/alarm/directional/east,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"kB" = (
+/obj/machinery/alarm/directional/west,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"kK" = (
+/obj/effect/decal/cleanable/ash,
+/turf/template_noop,
+/area/template_noop)
+"kR" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/mounted/frame/extinguisher{
+	pixel_y = 32
+	},
+/obj/machinery/cooking/oven,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"kX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 8;
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"le" = (
+/obj/machinery/alarm/directional/east,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"li" = (
+/obj/structure/mecha_wreckage/ripley/firefighter,
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/template_noop)
+"lj" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/atmospherics/portable/pump,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"lk" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/trash,
+/turf/template_noop,
+/area/template_noop)
+"lm" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"lw" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"lG" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/bottle/beer{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/drinks/bottle/beer{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"lI" = (
+/turf/simulated/mineral,
+/area/template_noop)
+"lK" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"lN" = (
+/obj/machinery/firealarm/directional/west,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"lU" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/stack/cable_coil,
+/obj/effect/turf_decal/delivery/partial{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows{
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lX" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
+"mb" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"me" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/template_noop,
+/area/template_noop)
+"mg" = (
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"ms" = (
+/obj/item/light/tube{
+	status = 2
+	},
+/obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"mt" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"mu" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/closet/secure_closet/scientist,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"mz" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"mT" = (
+/obj/effect/spawner/random/oil/maybe,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"mV" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/maintenance,
+/turf/template_noop,
+/area/template_noop)
+"mX" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/random_species/doctor,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"mY" = (
+/turf/simulated/floor/wood,
+/area/template_noop)
+"mZ" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"nb" = (
+/obj/effect/spawner/random/trash,
+/turf/template_noop,
+/area/template_noop)
+"nk" = (
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"np" = (
+/obj/effect/turf_decal/delivery/partial,
+/obj/effect/turf_decal/caution{
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"nA" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"nB" = (
+/obj/machinery/suit_storage_unit,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"nD" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"nK" = (
+/turf/template_noop,
+/area/template_noop)
+"nL" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"nR" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_y = 3;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"nW" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"oa" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/snacks,
+/turf/template_noop,
+/area/template_noop)
+"of" = (
+/obj/machinery/economy/vending/coffee{
+	tilted = 1;
+	stat = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"og" = (
+/obj/effect/spawner/random/trash,
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"om" = (
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"ow" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/security/telescreen/entertainment/television{
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"ox" = (
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oI" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oT" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"oV" = (
+/obj/structure/table/wood,
+/obj/item/book/random{
+	pixel_y = 2
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"pb" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/spawner/random/blood/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"pg" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"pi" = (
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"pE" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"pF" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"pG" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"pK" = (
+/obj/item/storage/firstaid/adv/empty,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"pM" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random/oil/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"qf" = (
+/obj/effect/spawner/random/mine,
+/obj/effect/spawner/random/engineering/materials,
+/turf/template_noop,
+/area/template_noop)
+"qo" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"qR" = (
+/obj/item/roller{
+	pixel_y = 9
+	},
+/obj/structure/table,
+/obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"qX" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"qZ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/obj/effect/spawner/random/barrier/temporary,
+/turf/template_noop,
+/area/template_noop)
+"re" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/ash,
+/turf/template_noop,
+/area/template_noop)
+"rn" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/template_noop,
+/area/template_noop)
+"rs" = (
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ru" = (
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"rw" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"rN" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"sf" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"sg" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"sn" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
+"so" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"sp" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"su" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random/oil/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"sw" = (
+/obj/machinery/sleeper,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"sC" = (
+/obj/machinery/door/airlock/bloody,
+/turf/template_noop,
+/area/template_noop)
+"sF" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/obj/structure/barricade/sandbags,
+/turf/template_noop,
+/area/template_noop)
+"sI" = (
+/obj/machinery/iv_drip,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"td" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"te" = (
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/effect/spawner/random/blood/often,
+/turf/template_noop,
+/area/template_noop)
+"tm" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"to" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"tq" = (
+/obj/structure/barricade/sandbags,
+/turf/template_noop,
+/area/template_noop)
+"tr" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/template_noop,
+/area/template_noop)
+"ts" = (
+/obj/effect/spawner/random/mine,
+/turf/template_noop,
+/area/template_noop)
+"tt" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"ty" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"tW" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"ue" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"uu" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"uw" = (
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"uF" = (
+/obj/effect/spawner/random/barrier/grille_maybe,
+/turf/template_noop,
+/area/template_noop)
+"uP" = (
+/obj/structure/foamedmetal,
+/turf/template_noop,
+/area/template_noop)
+"vA" = (
+/obj/structure/table/glass,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"vB" = (
+/obj/machinery/light/floor{
+	brightness_color = "#FF0000";
+	nightshift_light_color = "#FF0000";
+	light_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"vD" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"vL" = (
+/obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"vU" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"wn" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"ws" = (
+/obj/effect/spawner/random/blood/often,
+/turf/template_noop,
+/area/template_noop)
+"wy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 8;
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"wC" = (
+/obj/effect/spawner/random/barrier/temporary,
+/turf/template_noop,
+/area/template_noop)
+"wD" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room{
+	singleton_id = "med"
+	},
+/obj/machinery/door/airlock/medical,
+/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"wT" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"wU" = (
+/obj/structure/table,
+/obj/item/deck/cards,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"xf" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"xg" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"xy" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/turf/template_noop,
+/area/template_noop)
+"xE" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#00FFFF"
+	},
+/turf/template_noop,
+/area/template_noop)
+"xN" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"xO" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"xQ" = (
+/obj/effect/spawner/themed_mess/engineering,
+/obj/structure/chair,
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"xV" = (
+/obj/structure/machine_frame,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"yb" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/template_noop,
+/area/template_noop)
+"yc" = (
+/obj/effect/spawner/random/syndicate/turret,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ye" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"yg" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"yo" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"yv" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/catwalk,
+/area/template_noop)
+"yC" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"yI" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/machinery/light/floor{
+	brightness_color = "#FF0000";
+	nightshift_light_color = "#FF0000";
+	light_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"yY" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/stack/ore/iron{
+	pixel_x = 5;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zo" = (
+/obj/machinery/firealarm/directional/south,
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/turf/template_noop,
+/area/template_noop)
+"zs" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"zt" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/oil/often,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zv" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"zz" = (
+/obj/structure/table/flipped{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"zF" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/template_noop,
+/area/template_noop)
+"zJ" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zK" = (
+/obj/item/chair,
+/turf/template_noop,
+/area/template_noop)
+"zR" = (
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/obj/effect/decal/cleanable/blood,
+/turf/template_noop,
+/area/template_noop)
+"zT" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"zV" = (
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
+/turf/template_noop,
+/area/template_noop)
+"zY" = (
+/obj/structure/rack,
+/obj/item/stock_parts/cell,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"zZ" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Af" = (
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"AS" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"AU" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"AW" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Ba" = (
+/obj/machinery/mineral/processing_unit,
+/obj/machinery/mineral/processing_unit_console{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Bo" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"Br" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/machinery/light/floor{
+	brightness_color = "#FF0000";
+	nightshift_light_color = "#FF0000";
+	light_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"BD" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"BF" = (
+/obj/effect/decal/cleanable/generic,
+/turf/template_noop,
+/area/template_noop)
+"BJ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/template_noop,
+/area/template_noop)
+"BM" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"BS" = (
+/obj/structure/machine_frame,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"BT" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"BU" = (
+/obj/item/storage/firstaid/regular/empty,
+/obj/effect/spawner/themed_mess/bloody,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"BZ" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Cj" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Cw" = (
+/obj/item/chair,
+/obj/effect/spawner/random/oil/often,
+/turf/template_noop,
+/area/template_noop)
+"CK" = (
+/obj/structure/shelf/supply,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"CO" = (
+/obj/item/stack/tile/plasteel{
+	pixel_y = -4;
+	pixel_x = 6
+	},
+/turf/space,
+/area/space)
+"CP" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"De" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/door/firedoor/closed,
+/turf/template_noop,
+/area/template_noop)
+"Df" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"DK" = (
+/obj/structure/chair,
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"DO" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"DU" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/obj/structure/foamedmetal,
+/turf/template_noop,
+/area/template_noop)
+"DX" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#00ff00"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Ea" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Ec" = (
+/obj/structure/machine_frame,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Eh" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Ei" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/engineering/materials,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Er" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Ev" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/turf/template_noop,
+/area/template_noop)
+"ED" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"EG" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/turf/template_noop,
+/area/template_noop)
+"EY" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"Fd" = (
+/obj/item/emptysandbag,
+/turf/template_noop,
+/area/template_noop)
+"Ff" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_y = 4;
+	pixel_x = 2
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Fj" = (
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/template_noop,
+/area/template_noop)
+"Fm" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Fo" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/fire/mapping,
+/turf/template_noop,
+/area/template_noop)
+"Fu" = (
+/obj/item/roller{
+	pixel_y = 9
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Fw" = (
+/obj/item/storage/box/large{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/storage/box/large{
+	pixel_y = -2;
+	pixel_x = 2
+	},
+/obj/structure/rack,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"FD" = (
+/obj/structure/closet/secure_closet/medical1,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"FG" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 5
+	},
+/turf/template_noop,
+/area/template_noop)
+"FH" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"FU" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 9
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"FZ" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Ga" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Gb" = (
+/obj/machinery/door/airlock/medical,
+/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Gi" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/chair/stool/bar,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"Gl" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Gm" = (
+/obj/machinery/light/small,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Gq" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Gs" = (
+/obj/item/shard,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Gw" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"GF" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"GI" = (
+/mob/living/simple_animal/hostile/syndicate,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"GS" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"GX" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/template_noop,
+/area/template_noop)
+"GZ" = (
+/obj/effect/spawner/random/barrier/temporary,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Hb" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"He" = (
+/obj/item/trash/spentcasing/bullet,
+/turf/template_noop,
+/area/template_noop)
+"Hh" = (
+/obj/effect/fire/mapping,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Hq" = (
+/mob/living/simple_animal/hostile/syndicate,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"HF" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"HS" = (
+/obj/effect/fire/mapping,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"HX" = (
+/obj/effect/spawner/random/barrier/temporary,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
+/turf/template_noop,
+/area/template_noop)
+"Ip" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/welding,
+/obj/effect/spawner/random/engineering/tools,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Iy" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/template_noop)
+"IE" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 10
+	},
+/turf/template_noop,
+/area/template_noop)
+"IN" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"IP" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Jh" = (
+/obj/item/seeds/apple{
+	pixel_x = 5
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Jt" = (
+/obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Ju" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"JG" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Ki" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/structure/barricade/sandbags,
+/turf/template_noop,
+/area/template_noop)
+"Kl" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/barrier/temporary,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Kw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Kz" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/engineering/materials,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"KG" = (
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"KM" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Lc" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Ld" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Lm" = (
+/turf/space,
+/area/space)
+"Lz" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"LR" = (
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"LV" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/snacks,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"Mc" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Me" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"MB" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/fire/mapping,
+/turf/template_noop,
+/area/template_noop)
+"MI" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"MK" = (
+/obj/machinery/alarm/directional/north,
+/turf/template_noop,
+/area/template_noop)
+"MX" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/oil/maybe,
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Na" = (
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/turf/template_noop,
+/area/template_noop)
+"Nc" = (
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Nf" = (
+/obj/machinery/computer/nonfunctional,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Nn" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"No" = (
+/obj/item/stock_parts/cell,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Nu" = (
+/obj/structure/table/flipped{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Nv" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#ff7f00"
+	},
+/turf/template_noop,
+/area/template_noop)
+"NI" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"NZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Of" = (
+/obj/effect/spawner/random/barrier/grille_maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Oh" = (
+/obj/item/stack/ore/glass{
+	pixel_y = 6;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Oj" = (
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"Ol" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Oo" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Or" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/barricade/sandbags,
+/turf/template_noop,
+/area/template_noop)
+"Ou" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"OA" = (
+/obj/machinery/suit_storage_unit,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"OG" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"OI" = (
+/obj/item/stack/ore/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"OM" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/turf/template_noop,
+/area/template_noop)
+"Pa" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/template_noop,
+/area/template_noop)
+"Pb" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Pv" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/template_noop,
+/area/template_noop)
+"PI" = (
+/obj/structure/table/flipped{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/template_noop,
+/area/template_noop)
+"PW" = (
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"Qa" = (
+/obj/structure/sink/directional/north,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Qi" = (
+/obj/effect/spawner/random/oil/often,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/molten_object{
+	pixel_y = -11;
+	pixel_x = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Qo" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/template_noop,
+/area/template_noop)
+"QC" = (
+/obj/machinery/economy/vending/boozeomat,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"QG" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"QJ" = (
+/obj/effect/spawner/themed_mess/dirty,
+/turf/template_noop,
+/area/template_noop)
+"QX" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"Rh" = (
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Rl" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"RA" = (
+/obj/structure/showcase/horrific_experiment,
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"RC" = (
+/obj/machinery/door/firedoor/closed,
+/turf/template_noop,
+/area/template_noop)
+"RG" = (
+/obj/structure/lattice,
+/obj/item/stack/tile/plasteel{
+	pixel_y = 6;
+	pixel_x = 6
+	},
+/turf/space,
+/area/space/nearstation)
+"RP" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/template_noop,
+/area/template_noop)
+"Sl" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"Sm" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/spawner/random/blood/maybe,
+/turf/template_noop,
+/area/template_noop)
+"SG" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"SJ" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/turf/template_noop,
+/area/template_noop)
+"SS" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"SW" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/engineering/materials,
+/obj/effect/spawner/random/engineering/materials,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"To" = (
+/obj/effect/spawner/themed_mess/engineering,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Tr" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"TC" = (
+/obj/structure/filingcabinet/medical,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"TG" = (
+/obj/structure/table/flipped,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"TQ" = (
+/obj/structure/coatrack,
+/obj/item/clothing/suit/jacket/bomber,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"TS" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#00ff00"
+	},
+/turf/template_noop,
+/area/template_noop)
+"TX" = (
+/obj/machinery/door/airlock,
+/turf/template_noop,
+/area/template_noop)
+"TZ" = (
+/obj/structure/firelock_frame,
+/turf/template_noop,
+/area/template_noop)
+"Uf" = (
+/obj/item/stock_parts/cell,
+/turf/space,
+/area/space)
+"Uh" = (
+/obj/machinery/alarm/directional/east,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Uq" = (
+/mob/living/simple_animal/hostile/syndicate,
+/turf/template_noop,
+/area/template_noop)
+"UH" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"UM" = (
+/obj/structure/table,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"UZ" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"Vi" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Vl" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"VI" = (
+/obj/effect/spawner/random/blood/maybe,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"VX" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 9
+	},
+/turf/template_noop,
+/area/template_noop)
+"Wc" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Wh" = (
+/obj/structure/machine_frame,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"WK" = (
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"WS" = (
+/obj/machinery/mech_bay_recharge_port,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"WW" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Xm" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/template_noop,
+/area/template_noop)
+"Xq" = (
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Xu" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"Xz" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
+	},
+/area/template_noop)
+"XV" = (
+/obj/machinery/washing_machine{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"XW" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/wood,
+/area/template_noop)
+"Yg" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Yo" = (
+/obj/machinery/floodlight/anchored/darker_on,
+/turf/template_noop,
+/area/template_noop)
+"Yw" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"YH" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/engineering,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"YN" = (
+/obj/effect/spawner/themed_mess/robotic,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"YP" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Zf" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/door/firedoor/closed,
+/turf/template_noop,
+/area/template_noop)
+"Zm" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/item/flashlight/flare,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Zw" = (
+/obj/item/rack_parts,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"ZC" = (
+/obj/effect/decal/cleanable/shreds,
+/turf/template_noop,
+/area/template_noop)
+"ZD" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/template_noop,
+/area/template_noop)
+"ZI" = (
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/template_noop,
+/area/template_noop)
+"ZL" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/trash,
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"ZN" = (
+/obj/effect/spawner/random/bureaucracy,
+/obj/effect/spawner/random/blood/often,
+/turf/template_noop,
+/area/template_noop)
+"ZV" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(2,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(3,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+EG
+nK
+nK
+tq
+sF
+nK
+nK
+yb
+EG
+nK
+nK
+nK
+cJ
+nK
+nK
+zK
+EG
+nK
+nK
+nK
+ax
+nK
+nK
+mg
+lK
+nK
+nK
+uP
+DU
+nK
+nK
+wC
+qZ
+nK
+nK
+nK
+BT
+nK
+nK
+wC
+HX
+nK
+nK
+"}
+(4,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+fr
+nK
+nK
+Fd
+VI
+nK
+nK
+yb
+nK
+nK
+nK
+Ou
+ig
+nK
+nK
+nK
+nb
+nK
+nK
+He
+nK
+nK
+nK
+nK
+nb
+nK
+nK
+Hh
+Hh
+nK
+nK
+nK
+uF
+nK
+nK
+nK
+GF
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(5,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+pb
+wT
+nK
+nK
+nK
+ts
+nK
+nK
+lI
+kr
+nK
+nK
+nK
+hV
+nK
+nK
+Hb
+zK
+nK
+nK
+of
+KM
+nK
+nK
+Hh
+Hh
+nK
+nK
+ox
+rn
+nK
+nK
+nK
+jz
+nK
+nK
+nK
+OM
+nK
+nK
+"}
+(6,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+QJ
+nK
+nK
+nK
+wT
+aK
+nK
+nK
+nK
+Kl
+nK
+nK
+lI
+lI
+nK
+nK
+nK
+nK
+nK
+nK
+jR
+zV
+nK
+nK
+Pv
+id
+nK
+nK
+Hh
+Qo
+nK
+nK
+mV
+rN
+nK
+nK
+rn
+Of
+nK
+nK
+ox
+nK
+nK
+nK
+"}
+(7,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+wC
+wC
+nK
+nK
+bf
+Sm
+nK
+nK
+yb
+BF
+nK
+nK
+nK
+lI
+nK
+nK
+nK
+nb
+nK
+nK
+xO
+Uq
+nK
+nK
+lm
+ZN
+nK
+nK
+oI
+HS
+nK
+nK
+nK
+Eh
+nK
+nK
+nK
+Df
+nK
+nK
+No
+Of
+nK
+nK
+"}
+(8,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+yb
+nK
+nK
+VI
+BJ
+nK
+nK
+ts
+nK
+nK
+nK
+nK
+bi
+nK
+nK
+nb
+nK
+nK
+nK
+FG
+IE
+nK
+nK
+GX
+te
+nK
+nK
+Hh
+Hh
+nK
+nK
+nK
+nK
+nK
+nK
+Yo
+ox
+nK
+nK
+ED
+yb
+nK
+nK
+"}
+(9,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+yb
+yb
+nK
+nK
+nK
+me
+nK
+nK
+nK
+ox
+nK
+nK
+nK
+nK
+nK
+nK
+nb
+nK
+nK
+nK
+nK
+sg
+nK
+nK
+VX
+lX
+nK
+nK
+Hh
+Hh
+nK
+nK
+nK
+nK
+nK
+nK
+RP
+nK
+nK
+nK
+yb
+nK
+nK
+nK
+"}
+(10,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+sn
+nK
+nK
+nK
+sn
+Or
+Ki
+nK
+sn
+ox
+fV
+nK
+sn
+Oj
+fV
+nK
+sn
+nK
+fV
+nK
+sn
+nK
+PI
+nK
+sn
+jz
+Nu
+nK
+sn
+uP
+uP
+nK
+sn
+uF
+uF
+nK
+sn
+RP
+nK
+nK
+sn
+wC
+wC
+nK
+nK
+"}
+(11,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+tm
+nK
+nK
+nK
+"}
+(12,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(13,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(14,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+wC
+yb
+xy
+nK
+nK
+nK
+ft
+zR
+bL
+bf
+Ol
+tq
+Gw
+nA
+nK
+nK
+nK
+ox
+ox
+zt
+RP
+RP
+KM
+ZC
+ru
+nK
+nK
+nK
+nK
+nK
+zz
+Kw
+WK
+fO
+SJ
+ZD
+nK
+nK
+"}
+(15,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+dL
+nK
+nK
+yb
+yb
+QJ
+wC
+nK
+nK
+nK
+nK
+dL
+nb
+tq
+tq
+ye
+Fj
+tq
+RP
+RP
+nK
+nK
+dL
+ei
+nK
+RP
+Ga
+oI
+MI
+yb
+rs
+nK
+nK
+dL
+nK
+nK
+zz
+tr
+yb
+TG
+ox
+nK
+nK
+nK
+"}
+(16,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(17,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(18,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(19,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nb
+VX
+ty
+if
+Zm
+gj
+ZI
+Pa
+nK
+nK
+"}
+(20,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+hE
+jG
+xN
+AU
+hE
+cC
+nK
+nK
+nK
+uP
+uP
+nb
+HS
+Cw
+HS
+MB
+Zf
+nK
+nK
+dL
+hE
+jX
+Yo
+nb
+AW
+wT
+nK
+yb
+nK
+nK
+"}
+(21,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+dL
+nK
+nK
+Xm
+gd
+Pv
+kK
+oa
+FG
+nK
+nK
+dL
+uP
+HS
+HS
+yC
+HS
+Qi
+Fo
+De
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(22,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(23,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(24,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(25,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(26,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TZ
+qf
+nK
+kK
+nK
+lk
+fA
+nA
+nK
+nK
+nK
+GZ
+ox
+ed
+UH
+PW
+QX
+Lm
+fp
+nK
+nK
+nK
+KM
+yv
+bf
+Rh
+yc
+BD
+yv
+OG
+nK
+nK
+"}
+(27,1,1) = {"
+nK
+nK
+wy
+kX
+QC
+nK
+nK
+nK
+fl
+UM
+CK
+nK
+nK
+nK
+XW
+XW
+mb
+nK
+nK
+nK
+nK
+nK
+xf
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+dL
+TZ
+nK
+re
+ts
+nK
+Bo
+RP
+RP
+nK
+nK
+dL
+GZ
+ox
+ea
+UH
+QX
+Uf
+nK
+RC
+nK
+nK
+dL
+ox
+aL
+KM
+yc
+ox
+KM
+aL
+ox
+nK
+nK
+"}
+(28,1,1) = {"
+nK
+nK
+lw
+sf
+og
+nK
+nK
+nK
+IN
+Oo
+uw
+nK
+nK
+nK
+CP
+mY
+oT
+nK
+nK
+nK
+MK
+ox
+zo
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xE
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(29,1,1) = {"
+nK
+nK
+Sl
+pG
+mt
+nK
+nK
+nK
+xg
+Lz
+uw
+nK
+nK
+nK
+Rl
+mY
+oV
+nK
+nK
+nK
+ue
+SG
+ws
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(30,1,1) = {"
+nK
+nK
+Gi
+vU
+fU
+nK
+nK
+nK
+ZV
+yg
+lm
+nK
+nK
+nK
+uu
+mt
+mt
+nK
+nK
+nK
+ws
+Br
+Ev
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(31,1,1) = {"
+nK
+TX
+mY
+mt
+EY
+nK
+nK
+TX
+ZV
+zF
+Oo
+nK
+nK
+TX
+mY
+mY
+mY
+nK
+nK
+sC
+vB
+gN
+yI
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(32,1,1) = {"
+nK
+nK
+LV
+LV
+UZ
+nK
+nK
+nK
+ZV
+zF
+Lz
+nK
+nK
+nK
+mz
+mt
+mY
+nK
+nK
+nK
+He
+bz
+GS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Jt
+hG
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Jt
+hG
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Jt
+hG
+nK
+nK
+"}
+(33,1,1) = {"
+nK
+nK
+UZ
+UZ
+UZ
+nK
+nK
+nK
+cU
+lm
+hH
+nK
+nK
+nK
+ow
+mt
+mY
+nK
+nK
+nK
+Na
+ye
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+WS
+BM
+Vl
+kB
+BM
+DO
+nK
+nK
+nK
+Ec
+BM
+Vl
+zv
+su
+Vi
+nK
+nK
+nK
+Ec
+BM
+Vl
+BM
+bB
+Vi
+nK
+nK
+"}
+(34,1,1) = {"
+nK
+nK
+kR
+Xz
+Xu
+nK
+nK
+nK
+nD
+cf
+Mc
+nK
+nK
+nK
+jV
+mY
+mt
+nK
+nK
+nK
+GS
+BZ
+ws
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Iy
+np
+KG
+bD
+KG
+Ea
+nK
+nK
+nK
+li
+lm
+YN
+ox
+fP
+aa
+nK
+nK
+nK
+Iy
+KG
+YN
+Hq
+Yg
+aa
+nK
+nK
+"}
+(35,1,1) = {"
+bo
+nK
+dy
+ku
+FU
+nK
+bo
+nK
+Nn
+lm
+Uh
+nK
+bo
+nK
+XW
+tt
+XW
+nK
+bo
+nK
+Rh
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+jc
+KG
+KG
+LR
+KG
+SW
+nK
+nK
+nK
+Nf
+KG
+KG
+mT
+fP
+mZ
+nK
+nK
+nK
+Wh
+KG
+KG
+fQ
+pM
+eL
+nK
+nK
+"}
+(36,1,1) = {"
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+DX
+Ip
+fk
+vL
+fk
+fk
+Ff
+nK
+nK
+DX
+zJ
+fk
+lm
+vL
+fk
+JG
+nK
+nK
+DX
+mu
+fk
+lm
+MX
+lm
+JG
+nK
+nK
+"}
+(37,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(38,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(39,1,1) = {"
+nK
+nK
+Fw
+nB
+OA
+nK
+nK
+nK
+tW
+vD
+to
+nK
+nK
+nK
+Ei
+zY
+xV
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(40,1,1) = {"
+nK
+nK
+pi
+pi
+pi
+nK
+nK
+nK
+Qa
+Jh
+zZ
+nK
+nK
+nK
+qo
+OI
+aS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Gb
+wD
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Gb
+wD
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+YH
+kh
+nK
+nK
+"}
+(41,1,1) = {"
+nK
+nK
+nk
+Nc
+Gm
+nK
+nK
+nK
+Cj
+Wc
+ZL
+nK
+nK
+nK
+Af
+lU
+ih
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Fu
+dG
+lN
+dG
+dG
+zT
+nK
+nK
+nK
+FD
+dG
+pK
+IP
+KM
+ox
+nK
+nK
+nK
+nW
+QG
+Er
+yo
+QG
+nL
+nK
+nK
+"}
+(42,1,1) = {"
+nK
+nK
+nk
+lm
+Ju
+nK
+nK
+nK
+Fm
+Wc
+zZ
+nK
+nK
+nK
+aS
+aS
+Yw
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+sI
+KG
+GI
+om
+KG
+RA
+nK
+nK
+nK
+ms
+KG
+ka
+BU
+id
+lm
+nK
+nK
+nK
+aY
+pi
+pi
+xQ
+wU
+Pb
+nK
+nK
+"}
+(43,1,1) = {"
+nK
+TX
+nk
+lm
+Ju
+nK
+nK
+TX
+rw
+Me
+lm
+nK
+nK
+TX
+aS
+Lz
+Lz
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+wn
+KG
+KG
+KG
+KG
+RA
+nK
+nK
+nK
+Gs
+KG
+dN
+js
+mX
+nR
+nK
+nK
+nK
+Kz
+pi
+lm
+DK
+lG
+by
+nK
+nK
+"}
+(44,1,1) = {"
+nK
+nK
+pE
+eH
+lm
+nK
+nK
+nK
+HF
+pF
+FH
+nK
+nK
+nK
+Af
+To
+Oh
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+DX
+vA
+kp
+sw
+le
+Gq
+FZ
+nK
+nK
+DX
+iJ
+iJ
+Gq
+BS
+Gq
+Xq
+nK
+nK
+DX
+TC
+AS
+td
+lm
+lm
+Gl
+nK
+nK
+"}
+(45,1,1) = {"
+nK
+nK
+lj
+pi
+zs
+nK
+nK
+nK
+gB
+pF
+NZ
+nK
+nK
+nK
+Ba
+Af
+ir
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(46,1,1) = {"
+nK
+nK
+TQ
+SS
+Zw
+nK
+nK
+nK
+lm
+Ld
+pg
+nK
+nK
+nK
+Tr
+yY
+an
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(47,1,1) = {"
+bo
+nK
+dA
+pi
+XV
+nK
+bo
+nK
+qX
+WW
+so
+nK
+bo
+nK
+Af
+an
+an
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(48,1,1) = {"
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+Nv
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+Gb
+wD
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(49,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+qR
+dG
+QX
+Lm
+QX
+NI
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(50,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+iv
+Lm
+Lm
+RG
+QX
+lm
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(51,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+xg
+QX
+QX
+CO
+Lm
+Lm
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(52,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+DX
+bt
+YP
+in
+Lc
+Lc
+sp
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(53,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+TS
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(54,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(55,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(56,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(57,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(58,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(59,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(60,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(61,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(62,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(63,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}
+(64,1,1) = {"
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+nK
+"}

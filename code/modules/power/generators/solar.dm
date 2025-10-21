@@ -140,9 +140,6 @@
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
-	..(loc, S, 0)
-
 /obj/machinery/power/solar/fake/process()
 	. = PROCESS_KILL
 	return
@@ -182,9 +179,8 @@
 	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker."
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
-	item_state = "electropack"
+	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = FALSE
 	var/tracker = 0
 	var/glass_type = null
 
@@ -273,11 +269,9 @@
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	anchored = TRUE
 	density = TRUE
 	power_state = IDLE_POWER_USE
 	idle_power_consumption = 250
-	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"

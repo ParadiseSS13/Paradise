@@ -1,11 +1,10 @@
 /obj/item/storm_staff
 	name = "staff of storms"
 	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
+	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
-	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
@@ -71,7 +70,7 @@
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if((user_turf.z in W.impacted_z_levels) && W.area_type == user_area.type)
+		if((user_turf.z in W.impacted_z_levels) && is_type_in_list(user_area, W.area_types))
 			A = W
 			break
 
@@ -119,7 +118,7 @@
 	var/power_boosted = FALSE
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if((target_turf.z in W.impacted_z_levels) && W.area_type == target_area.type)
+		if((target_turf.z in W.impacted_z_levels) && is_type_in_list(target_area, W.area_types))
 			power_boosted = TRUE
 			break
 	playsound(src, 'sound/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
@@ -165,7 +164,7 @@
 		"<span class='danger'>A thunderbolt strikes [target]!</span>",
 		"<span class='danger'>A thundercrack fills the air!</span>"
 	)
-	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
+	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE, cause = name)
 
 
 /obj/effect/temp_visual/thunderbolt_targeting

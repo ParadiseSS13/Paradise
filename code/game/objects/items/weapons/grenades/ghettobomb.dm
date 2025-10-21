@@ -3,16 +3,8 @@
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
 	desc = "A sketchy improvised incendiary device."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "grenade"
-	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	active = FALSE
-	det_time = 5 SECONDS
 	display_timer = FALSE
 	modifiable_timer = FALSE
 	var/list/times
@@ -53,7 +45,8 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 
-			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
+			message_admins("[key_name_admin(user)] has primed a [name] for detonation at [A.name] [ADMIN_JMP(bombturf)]")
+			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)]")
 			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
@@ -63,5 +56,5 @@
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = "IED grenade")	// small explosion, plus a very large fireball.
 	qdel(src)

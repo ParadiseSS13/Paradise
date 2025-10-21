@@ -42,6 +42,10 @@
 #define COMSIG_SHELF_ATTEMPT_PICKUP "shelf_attempt_pickup"
 	#define SHELF_PICKUP_FAILURE (1 << 0)
 
+/// from /datum/component/supermatter_crystal/proc/consume()
+/// called on the thing consumed, passes the thing which consumed it
+#define COMSIG_SUPERMATTER_CONSUMED "sm_consumed_this"
+
 /// When the lionhunter rifle hits something
 #define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
 

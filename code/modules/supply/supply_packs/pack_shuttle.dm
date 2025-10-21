@@ -63,7 +63,6 @@
 /datum/supply_packs/abstract/admin_notify/donations
 	name = "Donation to Lonely Corgi Foundation"
 	special = TRUE
-	special_enabled = FALSE
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 
@@ -96,6 +95,11 @@
 	template = /datum/map_template/shuttle/emergency/shadow
 	speed_factor = 2 //Fast enough that it probably won't burn down entirely after the crew looses the plasma
 
+/datum/supply_packs/abstract/shuttle/cherenkov
+	cost = 3250
+	template = /datum/map_template/shuttle/emergency/cherenkov
+	speed_factor = 2 // Speedy enough to not explode during the round trip.
+
 /datum/supply_packs/abstract/shuttle/lance
 	cost = 5000 //please don't order this for funny please sir
 	template = /datum/map_template/shuttle/emergency/lance
@@ -115,7 +119,7 @@
 	GLOB.major_announcement.Announce("We were unable to find an orderer. We have sent the beacon placer to the Cargo Office.", "Shuttle Purchase Receipt")
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/supply/office))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -127,6 +131,10 @@
 	return TRUE
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
+/datum/supply_packs/abstract/shuttle/clockwork
+	cost = 3000
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/clockwork
 
 /datum/supply_packs/abstract/shuttle/narnar
 	cost = 3000

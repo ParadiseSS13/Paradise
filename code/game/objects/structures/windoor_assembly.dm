@@ -16,10 +16,7 @@
 	name = "windoor assembly"
 	icon_state = "l_windoor_assembly01"
 	desc = "A small glass and wire assembly for windoors."
-	anchored = FALSE
-	density = FALSE
 	dir = NORTH
-	max_integrity = 300
 	var/ini_dir
 	var/obj/item/airlock_electronics/electronics
 	var/created_name
@@ -109,9 +106,10 @@
 	if(direction == dir && density)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/windoor_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/windoor_assembly/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
+	. = ITEM_INTERACT_COMPLETE
 	switch(state)
 		if(EMPTY_ASSEMBLY)
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.

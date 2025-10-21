@@ -67,7 +67,6 @@
 		else
 			bounce(target, get_target(target, user), energy, bounces - 1, user)
 
-
 /datum/spell/charge_up/bounce/proc/continue_bounce(mob/origin, mob/target, energy, bounces, mob/user)
 	// We will only continue the chain if we exist
 	if(QDELETED(target))

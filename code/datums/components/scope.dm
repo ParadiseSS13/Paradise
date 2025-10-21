@@ -195,7 +195,7 @@
 		)
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
-	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(trait_to_add)
 		ADD_TRAIT(user, trait_to_add, "[UID(src)]")
 		user.update_sight()
@@ -233,7 +233,7 @@
 		COMSIG_CARBON_SWAP_HANDS,
 		COMSIG_PARENT_QDELETING,
 	))
-	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(trait_to_add)
 		REMOVE_TRAIT(user, trait_to_add, "[UID(src)]")
 		user.update_sight()
@@ -294,4 +294,4 @@
 /datum/action/zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon_state = "sniper_zoom"

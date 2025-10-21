@@ -37,7 +37,7 @@
 			if(!destination)
 				continue
 			for(var/turf/simulated/floor/F in destination.contents)
-				if(!is_blocked_turf(F))
+				if(!F.is_blocked_turf())
 					turfs += F
 			if(length(turfs))
 				spawn_area_type = area_type
@@ -53,11 +53,11 @@
 	vermin = rand(0, 2)
 	switch(vermin)
 		if(VERM_MICE)
-			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
+			spawn_types = list(/mob/living/basic/mouse/gray, /mob/living/basic/mouse/brown, /mob/living/basic/mouse/white)
 			max_number = 12
 			vermstring = "mice"
 		if(VERM_LIZARDS)
-			spawn_types = list(/mob/living/simple_animal/lizard)
+			spawn_types = list(/mob/living/basic/lizard)
 			max_number = 6
 			vermstring = "lizards"
 		if(VERM_SPIDERS)

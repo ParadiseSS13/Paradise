@@ -8,6 +8,8 @@
 	var/atom/holder
 	/// The holder type; used to make sure that the holder is the correct type.
 	var/holder_type
+	/// Key that enables wire assignments to be common across different holders. If null, will use the holder_type as a key.
+	var/dictionary_key = null
 	/// The display name for the TGUI window. For example, given the var is "APC"...
 	/// When the TGUI window is opened, "wires" will be appended to it's title, and it would become "APC wires".
 	var/proper_name = "Unknown"
@@ -41,12 +43,13 @@
 	if(randomize)
 		randomize()
 		return
-
-	if(!GLOB.wire_color_directory[holder_type])
+	// If there is a dictionary key set, we'll want to use that. Otherwise, use the holder type.
+	var/key = dictionary_key ? dictionary_key : holder_type
+	if(!GLOB.wire_color_directory[key])
 		randomize()
-		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_color_directory[key] = colors
 	else
-		colors = GLOB.wire_color_directory[holder_type]
+		colors = GLOB.wire_color_directory[key]
 
 /datum/wires/Destroy()
 	for(var/color in colors)
@@ -116,7 +119,14 @@
 		var/replaced_color = color
 		var/color_name = color
 
-		if(color in replace_colors) // If this color is one that needs to be replaced using the colorblindness list.
+		if(HAS_TRAIT(user, TRAIT_WIRE_BLIND)) //You are going to be seeing colours, colourblind or not. And it is going to be WRONG
+			replaced_color = rgb(rand(1,255), rand(1,255), rand(1,255))
+			var/list/fake_colour_chars = list("!", "@", "#", "$", "%", "^", "&", "*", "-", "?", "/")
+			color_name = ""
+			for(var/i in 1 to rand(5, 8))
+				color_name += pick(fake_colour_chars)
+
+		else if(color in replace_colors) // If this color is one that needs to be replaced using the colorblindness list.
 			replaced_color = replace_colors[color]
 			if(replaced_color in LIST_COLOR_RENAME) // If its an ugly written color name like "darkolivegreen", rename it to something like "dark green".
 				color_name = LIST_COLOR_RENAME[replaced_color]
@@ -131,6 +141,8 @@
 			"cut" = is_color_cut(color), // Whether the wire is cut or not. Used to display "cut" or "mend".
 			"attached" = is_attached(color) // Whether or not a signaler is attached to this wire.
 		))
+	if(HAS_TRAIT(user, TRAIT_WIRE_BLIND)) // If the wires are here and your brain thinks they're there and your computer tells you over here, do you recall which one you pulsed?
+		wires_list = shuffle(wires_list)
 	data["wires"] = wires_list
 
 	// Get the information shown at the bottom of wire TGUI window, such as "The red light is blinking", etc.
@@ -297,7 +309,7 @@
 		return null
 
 	// even if you *think* you can see them, it's not guaranteed that you can.
-	if(HAS_TRAIT(holder, TRAIT_OBSCURED_WIRES))
+	if(HAS_TRAIT(holder, TRAIT_OBSCURED_WIRES) || HAS_TRAIT(user, TRAIT_WIRE_BLIND))
 		var/list/fake_wire_chars = list("!", "@", "#", "$", "%", "^", "&", "*", "-", "?", "/")
 		var/fake_wire_name = ""
 

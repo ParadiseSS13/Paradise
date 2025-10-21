@@ -19,7 +19,6 @@
 	slot = "eye_hud"
 	var/HUD_type = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
-	var/list/examine_extensions = null
 
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -42,7 +41,6 @@
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
@@ -52,6 +50,14 @@
 	aug_message = "You see the diagnostic information of the synthetics around you..."
 	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 
+/obj/item/organ/internal/cyberimp/eyes/hud/skill
+	name = "Employment HUD implant"
+	desc = "These cybernetic eye implants will display an employment HUD over everything you see."
+	icon_state = "eye_implant_skill"
+	origin_tech = "materials=4;programming=4;biotech=3"
+	aug_message = "Employment records pop up next to everyone. So many cases of surgical malpractice..."
+	HUD_type = DATA_HUD_SECURITY_BASIC
+
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
@@ -59,7 +65,6 @@
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security/hidden
 	stealth_level = 4 // Only surgery or a body scanner with the highest tier of stock parts can detect this.

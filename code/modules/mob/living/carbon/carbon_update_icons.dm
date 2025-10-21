@@ -18,7 +18,13 @@
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed++
 		ntransform.Scale(resize)
-		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
+		if(body_position == LYING_DOWN) // Manipulate the X axis when horizontal
+			if(lying_angle == 270) // Depending on our lying angle, we need to add or remove from the offset.
+				ntransform.Translate((resize - 1) * -16, 0)
+			else
+				ntransform.Translate((resize - 1) * 16, 0)
+		else
+			ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
@@ -47,7 +53,7 @@
 		return
 	if(r_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.screen_loc = ui_rhand
+			r_hand.screen_loc = UI_RHAND
 			client.screen += r_hand
 
 		update_observer_view(r_hand)
@@ -58,7 +64,7 @@
 		return
 	if(l_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_lhand
+			l_hand.screen_loc = UI_LHAND
 			client.screen += l_hand
 		update_observer_view(l_hand)
 
@@ -68,9 +74,9 @@
 	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
-	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)]
-		inv.update_icon()
+	if(client)
+		var/atom/movable/screen/inventory/inv = hud_used?.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)]
+		inv?.update_icon()
 
 	if(back)
 		update_hud_back(back)

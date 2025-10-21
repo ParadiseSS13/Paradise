@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
-	var/tracking = TRUE
+	var/tracking = FALSE
 	/// The tag that is visible to other GPSes.
 	var/gpstag = "COM0"
 	/// Whether to only list signals that are on the same Z-level.
@@ -78,6 +78,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
+	var/list/mining_zlevels = levels_by_trait(ORE_LEVEL)
 	var/list/data = list()
 	if(emped)
 		data["emped"] = TRUE
@@ -106,13 +107,24 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		var/turf/GT = get_turf(G)
 		if(isnull(GT) || !G.tracking || G == src)
 			continue
-		if((G.local || same_z) && (GT.z != T.z))
+
+		// If both signals are on lavaland, we don't skip them, because we want
+		// to have some indication of where lavaland sector bridges are, which
+		// we do by providing a directional arrow, without distance, in the GPS UI.
+		var/both_lavaland = (T.z in mining_zlevels) && (G.z in mining_zlevels)
+		if((!both_lavaland) && (G.local || same_z) && (GT.z != T.z))
 			continue
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)
 			signal["position"] = ATOM_COORDS(GT)
+
+			if(both_lavaland && T.z != GT.z)
+				var/bridge_direction = SSmapping.lavaland_theme.get_bridge_direction(GT.z, T.z)
+				if(bridge_direction)
+					signal["due"] = dir2angle(text2num(bridge_direction))
+
 		signals += list(signal)
 	data["signals"] = signals
 
@@ -181,7 +193,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
-	tracking = FALSE
 
 /obj/item/gps/mod/ui_state()
 	return GLOB.deep_inventory_state
@@ -191,11 +202,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
+	tracking = TRUE
 
 /obj/item/gps/internal
 	icon_state = null
 	flags = ABSTRACT
 	local = TRUE
+	tracking = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
 	invisibility = INVISIBILITY_MAXIMUM
@@ -215,6 +228,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	desc = "This admin-spawn GPS unit leaves the coordinates visible \
 		on any turf that it passes over, for debugging. Especially useful \
 		for marking the area around the transition edges."
+	tracking = TRUE
 	var/list/turf/tagged
 
 /obj/item/gps/visible_debug/Initialize(mapload)

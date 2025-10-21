@@ -26,7 +26,6 @@
 	name = "Potassium"
 	id = "potassium"
 	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
-	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	taste_description = "bad ideas"
 
@@ -34,7 +33,6 @@
 	name = "Sulfur"
 	id = "sulfur"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
 	taste_description = "impulsive decisions"
 
@@ -42,7 +40,6 @@
 	name = "Sodium"
 	id = "sodium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "horrible misjudgement"
 
@@ -50,7 +47,6 @@
 	name = "Phosphorus"
 	id = "phosphorus"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "misguided choices"
 
@@ -58,7 +54,6 @@
 	name = "Carbon"
 	id = "carbon"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "like a pencil or something"
 
@@ -70,7 +65,6 @@
 	name = "Gold"
 	id = "gold"
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
-	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
 	taste_description = "bling"
 
@@ -79,7 +73,6 @@
 	name = "Silver"
 	id = "silver"
 	description = "A lustrous metallic element regarded as one of the precious metals."
-	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
@@ -87,7 +80,6 @@
 	name = "Aluminum"
 	id = "aluminum"
 	description = "A silvery white and ductile member of the boron group of chemical elements."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "metal"
 
@@ -95,7 +87,6 @@
 	name = "Silicon"
 	id = "silicon"
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
 
@@ -124,8 +115,7 @@
 	name = "Iron"
 	id = "iron"
 	description = "Pure iron is a metal."
-	reagent_state = SOLID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
@@ -169,8 +159,11 @@
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
+	shock_reduction = 25
+	view_true_health = TRUE
+	metabolization_rate = 0.1
 	taste_description = "motor oil"
-	process_flags = ORGANIC | SYNTHETIC
+	process_flags = SYNTHETIC
 	/// What this becomes after burning.
 	var/reagent_after_burning = "ash"
 
@@ -359,8 +352,8 @@
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
 			return ..()
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -383,14 +376,14 @@
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
-		if(head_organ.dna.species.sprite_sheet_name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
-		if(head_organ.dna.species.sprite_sheet_name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
-			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
@@ -672,7 +665,6 @@
 	name = "Generic nutrient"
 	id = "plantnutrient"
 	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
-	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
 	var/mutation_level = 0
 	taste_description = "puke"
@@ -800,9 +792,18 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(max(H.s_tone - 10, -195))
-
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_tone(min(-H.s_tone + 45, 220)) // adjusts our skin tone by 10 - makes it darker
+	else if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		switch(H.dna.species.name)
+			if("Human")
+				H.change_skin_tone(max(H.s_tone, 10)) // bronze - `icons/mob/human_races/human_skintones/r_human_bronzed.dmi`
+			if("Vox")
+				H.change_skin_tone(3) // brown - `icons/mob/human_races/vox/r_voxbrn.dmi`
+			if("Nian")
+				H.change_skin_tone(1) // default - `icons/mob/human_races/nian/r_moth.dmi`
+			if("Grey")
+				H.change_skin_tone(4) // red - `icons/mob/human_races/grey/r_grey_red.dmi`
+	else if(H.dna.species.bodyflags & HAS_SKIN_COLOR) // take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
 
 /datum/reagent/admin_cleaner
@@ -855,6 +856,37 @@
 	if(method == REAGENT_TOUCH)
 		M.dust()
 
+/datum/reagent/molten_plastic
+	name = "Molten Plastic"
+	id = "molten_plastic"
+	description = "A slurry of molten plastics, ready to be processed further into useful materials."
+	color = "#c3c3c3"
+
+/datum/reagent/molten_plastic/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C)
+		return
+
+	var/original_volume = volume
+	var/sheets = floor(original_volume / 5)
+	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
+
+	holder.del_reagent(id)
+	holder.add_reagent("plastic_dust", original_volume - sheets * 5, reagtemp = T0C + 119)
+	holder.my_atom.visible_message("<span class='notice'>The molten plastic solidifies.</span>")
+
+/datum/reagent/plastic_dust
+	name = "Plastic Dust"
+	id = "plastic_dust"
+	description = "A fine dust produced by grinding plastics."
+	color = "#c3c3c3"
+
+/datum/reagent/plastic_dust/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature < T0C + 120)
+		return
+
+	var/original_volume = volume
+	holder.del_reagent(id)
+	holder.add_reagent("molten_plastic", original_volume, reagtemp = T0C + 120)
 /datum/reagent/bluespace
 	name = "Bluespace Dust"
 	id = "bluespace_dust"

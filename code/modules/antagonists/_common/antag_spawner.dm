@@ -94,7 +94,6 @@
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
 	name = "syndicate cyborg teleporter"
-	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
 	var/switch_roles = FALSE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
@@ -243,7 +242,6 @@
 	desc = "A magically infused bottle of clown love, distilled from \
 		countless hugging attacks. Used in funny rituals to attract \
 		adorable creatures."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialtickles"
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
@@ -255,11 +253,9 @@
 	desc = "A magically infused bottle of pure darkness, distilled from \
 		ground up shadowling bones. Used in dark rituals to attract \
 		dark creatures."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialshadows"
 	veil_msg = "<span class='warning'>You sense a dark presence \
 		lurking in the shadows...</span>"
-	objective_verb = "Kill"
 	demon_type = /mob/living/simple_animal/demon/shadow
 
 ///////////MORPH
@@ -401,7 +397,7 @@
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
 	var/veil_msg = "<span class='warning'>The creature sparks energetically and zips away...</span>"
 	var/objective_verb = "Electrocute"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon/wizard
 
 /obj/item/antag_spawner/pulse_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))
@@ -440,7 +436,7 @@
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/demon/pulse_demon/demon = new(T)
+	var/mob/living/simple_animal/demon/pulse_demon/wizard/demon = new(T)
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON

@@ -9,7 +9,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, rad = 100, fire = 90, acid = 70)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 90, ACID = 70)
 	idle_power_consumption = 2
 	active_power_consumption = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -153,11 +153,11 @@
 	active = TRUE
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/sparker/M in GLOB.machines)
+	for(var/obj/machinery/sparker/M in SSmachines.get_by_type(/obj/machinery/sparker))
 		if(M.id == id)
 			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/sparker, spark))
 
-	for(var/obj/machinery/igniter/M in GLOB.machines)
+	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/igniter))
 		if(M.id == id)
 			use_power(50)
 			M.on = !M.on

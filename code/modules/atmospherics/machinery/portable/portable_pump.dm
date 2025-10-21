@@ -112,7 +112,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding_tank && direction == DIRECTION_OUT)
-			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/pump/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -163,7 +163,7 @@
 				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -173,7 +173,7 @@
 			else
 				direction = DIRECTION_OUT
 			if(on && holding_tank)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -215,6 +215,12 @@
 		icon_state = "[base_icon_state]:[on]-r"
 	else
 		icon_state = "[base_icon_state]:[on]"
+
+/obj/machinery/atmospherics/portable/pump/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 #undef MAX_TARGET_PRESSURE
 #undef DIRECTION_IN

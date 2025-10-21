@@ -83,13 +83,12 @@ Note: Must be placed within 3 tiles of the R&D Console
 			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
 			return ITEM_INTERACT_COMPLETE
 
-		if(!user.drop_item())
+		if(!user.transfer_item_to(used, src))
 			to_chat(user, "<span class='warning'>[used] is stuck to your hand, you cannot put it in [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
 
 		busy = TRUE
 		loaded_item = used
-		used.loc = src
 		to_chat(user, "<span class='notice'>You add [used] to [src]!</span>")
 		SStgui.update_uis(linked_console)
 		flick("s_analyzer_la", src)

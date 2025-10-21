@@ -144,8 +144,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	))
 
 /obj/item/stack/sheet/mineral
-	force = 5
-	throwforce = 5
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
@@ -161,9 +159,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	desc = "This appears to be a combination of both sand and stone."
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
-	item_state = "sheet-sandstone"
 	throw_range = 5
-	origin_tech = "materials=1"
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 
@@ -218,7 +214,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "diamond"
 	desc = "Sparkles like a twinkling star."
 	icon_state = "sheet-diamond"
-	item_state = "sheet-diamond"
 	singular_name = "diamond"
 	origin_tech = "materials=6"
 	sheettype = "diamond"
@@ -237,6 +232,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/diamond/fifty
 	amount = 50
 
@@ -244,7 +242,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "uranium"
 	desc = "Don't keep this stuff in your pocket for too long. Hell, don't keep it anywhere near your person for too long."
 	icon_state = "sheet-uranium"
-	item_state = "sheet-uranium"
 	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
 	sheettype = "uranium"
@@ -258,6 +255,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
 
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
+
+/obj/item/stack/sheet/mineral/uranium/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
 
@@ -269,7 +272,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "solid plasma"
 	desc = "Beautiful pure purple crystals, ready to ignite if a naked flame touches them..."
 	icon_state = "sheet-plasma"
-	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
@@ -278,6 +280,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/plasma/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
 	. = ..()
@@ -294,6 +299,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/plasma/fifty
 	amount = 50
@@ -313,7 +321,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	var/turf/T = get_turf(src)
 	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
 	fire_act()
 
@@ -326,7 +334,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "gold"
 	desc = "GOLD!"
 	icon_state = "sheet-gold"
-	item_state = "sheet-gold"
 	singular_name = "gold bar"
 	origin_tech = "materials=4"
 	sheettype = "gold"
@@ -341,6 +348,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
 
+/obj/item/stack/sheet/mineral/gold/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
 
@@ -352,13 +362,15 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "silver"
 	desc = "Shiny as a mirror. Allegedly repels werewolves and other mythical creatures."
 	icon_state = "sheet-silver"
-	item_state = "sheet-silver"
 	singular_name = "silver bar"
 	origin_tech = "materials=4"
 	sheettype = "silver"
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
 	. = ..()
@@ -378,7 +390,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "bananium"
 	desc = "It looks, smells, and tastes like real bananas. You'll break your teeth if you try to bite down on it, though."
 	icon_state = "sheet-bananium"
-	item_state = "sheet-clown"
 	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
 	sheettype = "bananium"
@@ -410,7 +421,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "tranquillite"
 	desc = "..."
 	icon_state = "sheet-tranquillite"
-	item_state = "sheet-mime"
 	singular_name = "beret"
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
@@ -440,6 +450,39 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.tranquillite_recipes
 
+/obj/item/stack/sheet/mineral/platinum
+	name = "platinum"
+	desc = "Shiny and valuable."
+	icon_state = "sheet-platinum"
+	singular_name = "platinum"
+	origin_tech = "materials=5"
+	sheettype = "platinum"
+	merge_type = /obj/item/stack/sheet/mineral/platinum
+	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/palladium
+	name = "palladium"
+	desc = "A valuable space mineral."
+	icon_state = "sheet-palladium"
+	singular_name = "palladium"
+	origin_tech = "materials=5"
+	sheettype = "palladium"
+	merge_type = /obj/item/stack/sheet/mineral/palladium
+	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/iridium
+	name = "iridium"
+	desc = "A dense mineral found in abundance in space and extremely rare on planets."
+	icon_state = "sheet-iridium"
+	singular_name = "iridium"
+	origin_tech = "materials=5"
+	sheettype = "iridium"
+	merge_type = /obj/item/stack/sheet/mineral/iridium
+	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
 /*
  * Titanium
  */
@@ -447,13 +490,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "titanium"
 	desc = "It feels much lighter than it looks."
 	icon_state = "sheet-titanium"
-	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "titanium"
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT)
@@ -489,13 +527,8 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	name = "plastitanium"
 	desc = "Just as light as normal titanium, but you can <i>feel</i> an aura of extra robustness about it."
 	icon_state = "sheet-plastitanium"
-	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "plastitanium"
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
@@ -528,12 +561,8 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	desc = "The dizzying colours change constantly depending on how the light hits it."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
-	item_state = "sheet-abductor"
 	dynamic_icon_state = FALSE
 	singular_name = "alien alloy sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
@@ -555,7 +584,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "adamantine"
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
-	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	origin_tech = "materials=5"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
@@ -575,7 +603,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/snow
 	name = "snow"
 	icon_state = "sheet-snow"
-	item_state = "sheet-snow"
 	singular_name = "snow block"
 	force = 1
 	throwforce = 2

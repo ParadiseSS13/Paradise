@@ -2,13 +2,11 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE
@@ -129,6 +127,11 @@
 	// force it to not actually change most things
 	return ..(newname, newname)
 
+// Drones don't have a PDA.
+/mob/living/silicon/robot/drone/open_pda()
+	to_chat(src, "<span class='warning'>This unit does not have PDA functionality!</span>")
+	return
+
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100, 999)])"
 
@@ -155,10 +158,10 @@
 	. += "<span class='notice'><i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i></span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/borg/upgrade))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
@@ -186,7 +189,7 @@
 					drones++
 			if(drones < config.max_maint_drones)
 				request_player()*/
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
@@ -201,9 +204,9 @@
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
 
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	..()
+	return ..()
 
 /mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -415,7 +418,7 @@
 	return ..()
 
 /mob/living/silicon/robot/drone/do_suicide()
-	ghostize(TRUE)
+	ghostize()
 	shut_down()
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
@@ -426,7 +429,7 @@
 		return FALSE // Pretty damn hard to path through space
 
 	var/turf/target
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+	for(var/obj/machinery/drone_fabricator/DF in SSmachines.get_by_type(/obj/machinery/drone_fabricator))
 		if(DF.z != z)
 			continue
 		target = get_turf(DF)

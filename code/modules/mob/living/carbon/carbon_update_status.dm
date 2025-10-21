@@ -25,7 +25,7 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
+	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && stat != DEAD)
 		enter_stamcrit()
 	else if(stam_paralyzed)
 		SEND_SIGNAL(src, COMSIG_CARBON_EXIT_STAMINACRIT)

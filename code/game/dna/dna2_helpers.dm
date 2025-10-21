@@ -152,7 +152,7 @@
 		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
 		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
 
-		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+		H.s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220)
 
 		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 			if(DNA_GENDER_FEMALE)
@@ -241,7 +241,7 @@
 	var/list/available = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
 		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
-		if(!(head_organ.dna.species.sprite_sheet_name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available += head_accessory
 	var/list/sorted = sortTim(available, GLOBAL_PROC_REF(cmp_text_asc))

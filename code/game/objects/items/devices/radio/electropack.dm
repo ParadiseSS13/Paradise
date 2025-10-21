@@ -2,8 +2,7 @@
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
 	icon = 'icons/obj/radio.dmi'
-	icon_state = "electropack0"
-	item_state = "electropack"
+	icon_state = "electropack"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
@@ -63,7 +62,7 @@
 		user.put_in_hands(A)
 		A.add_fingerprint(user)
 		if(src.flags & NODROP)
-			A.flags |= NODROP
+			A.set_nodrop(TRUE)
 
 
 /obj/item/electropack/proc/handle_shock()
@@ -138,7 +137,6 @@
 	frequency = AIRLOCK_FREQ
 	code = 2
 	receiving = TRUE
-
 	var/obj/item/electropack/owning_pack
 
 /obj/item/assembly/signaler/electropack/Initialize(mapload, holding_electropack)

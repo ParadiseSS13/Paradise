@@ -3,7 +3,6 @@
 	desc = "A chef's 9th most powerful weapon, right after the grill. Used for grinding items into reagents."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
-	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 100
@@ -30,6 +29,7 @@
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
+		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
 		/obj/item/stack/ore/bluespace_crystal = list("bluespace_dust" = 20),
 
 		// Blender Stuff
@@ -169,12 +169,8 @@
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		else
-			if(!user.drop_item())
-				return ITEM_INTERACT_COMPLETE
-
-			beaker =  used
-			beaker.loc = src
+		else if(user.transfer_item_to(used, src))
+			beaker = used
 			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
@@ -226,8 +222,7 @@
 			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
 			return ITEM_INTERACT_COMPLETE
 
-	if(user.drop_item())
-		used.loc = src
+	if(user.transfer_item_to(used, src))
 		holdingitems += used
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE

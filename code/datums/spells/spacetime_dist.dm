@@ -8,7 +8,6 @@
 	action_icon_state = "spacetime"
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	invocation = "none"
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	cooldown_min = 30 SECONDS //No reduction, just more range.
@@ -75,7 +74,6 @@
 /obj/effect/cross_action
 	name = "cross me"
 	desc = "for crossing."
-	anchored = TRUE
 
 /obj/effect/cross_action/spacetime_dist
 	name = "spacetime distortion"
@@ -122,11 +120,12 @@
 	if(!cant_teleport)
 		walk_link(entered)
 
-/obj/effect/cross_action/spacetime_dist/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(user.drop_item(W))
-		walk_link(W)
+/obj/effect/cross_action/spacetime_dist/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(user.drop_item(used))
+		walk_link(used)
 	else
 		walk_link(user)
+	return ITEM_INTERACT_COMPLETE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/effect/cross_action/spacetime_dist/attack_hand(mob/user, list/modifiers)

@@ -124,7 +124,7 @@
 /obj/machinery/grey_autocloner/proc/messy_explode()
 	if(occupant)
 		occupant.forceMove(get_turf(src))
-	explosion(get_turf(src), 1, 2, 4, flame_range = 2)
+	explosion(get_turf(src), 1, 2, 4, flame_range = 2, cause = "Grey Autocloner Self-destruct")
 	qdel(src)
 
 /obj/machinery/grey_autocloner/deconstruct(disassembled)

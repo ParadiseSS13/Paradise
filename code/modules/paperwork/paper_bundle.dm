@@ -2,8 +2,7 @@
 	name = "paper bundle"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
-	item_state = "paper"
-	throwforce = 0
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
 	throw_speed = 1
@@ -17,7 +16,7 @@
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	scatter_distance = 8
 
-/obj/item/paper_bundle/New(default_papers = TRUE)
+/obj/item/paper_bundle/Initialize(mapload, default_papers = TRUE)
 	. = ..()
 	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
 		new /obj/item/paper(src)

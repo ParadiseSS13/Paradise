@@ -106,7 +106,7 @@
 		. = "Slime"
 	else if(isbot(M))
 		. = "Bot"
-	else if(isanimal(M))
+	else if(isanimal_or_basicmob(M))
 		. = "Domestic Animal"
 	else
 		. = "Unidentifiable"

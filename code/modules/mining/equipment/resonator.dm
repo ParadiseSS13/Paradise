@@ -3,10 +3,8 @@
 	name = "resonator"
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "resonator"
-	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
 
@@ -68,7 +66,6 @@
 /obj/effect/temp_visual/resonance
 	name = "resonance field"
 	desc = "A resonating field that significantly damages anything inside of it when the field eventually ruptures. More damaging in low pressure environments."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 60 SECONDS
@@ -138,7 +135,11 @@
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
 		var/turf/simulated/mineral/mineral_turf = src_turf
-		mineral_turf.gets_drilled(creator)
+		if(is_ancient_rock(mineral_turf))
+			failure_prob = 100 // rock too strong for resonance field
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			mineral_turf.gets_drilled(creator)
 	check_pressure(src_turf)
 	playsound(src_turf, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
 	for(var/mob/living/attacked_living in src_turf)

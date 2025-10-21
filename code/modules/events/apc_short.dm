@@ -107,7 +107,7 @@
 	if(announce)
 		GLOB.minor_announcement.Announce("All SMESs on \the [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", 'sound/AI/power_restore.ogg')
 	// fix all of the SMESs
-	for(var/obj/machinery/power/smes/S in GLOB.machines)
+	for(var/obj/machinery/power/smes/S in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(!is_station_level(S.z))
 			continue
 		S.charge = S.capacity

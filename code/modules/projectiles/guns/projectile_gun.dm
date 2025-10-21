@@ -1,9 +1,8 @@
 /obj/item/gun/projectile
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
 	name = "projectile gun"
-	icon_state = "pistol"
+	icon_state = "tommygun"
 	origin_tech = "combat=2;materials=2"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
 
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
@@ -231,7 +230,7 @@
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		w_class = WEIGHT_CLASS_NORMAL
-		item_state = "gun"//phil235 is it different with different skin?
+		inhand_icon_state = "gun" //phil235 is it different with different skin?
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF

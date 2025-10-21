@@ -8,7 +8,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
-	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
+	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/is_glass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
@@ -42,17 +42,26 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/attack__legacy__attackchain(mob/living/target, mob/living/user)
-
-	if(!target)
-		return
-
-	if(user.a_intent != INTENT_HARM || !is_glass)
+/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM)
 		return ..()
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
-		return
+/obj/item/reagent_containers/drinks/bottle/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(isliving(target))
+		if(!is_glass)
+			mob_act(target, user)
+			return FINISH_ATTACK
+
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+			return FINISH_ATTACK
+
+/obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	force = 15 //Smashing bottles over someoen's head hurts.
 
@@ -66,7 +75,7 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage) // For normal attack damage
+		armor_block = H.run_armor_check(affecting, MELEE, null, null, armor_penetration_flat, armor_penetration_percentage) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
@@ -143,12 +152,12 @@
 	desc = "A bottle with a sharp broken bottom."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "broken_bottle"
+	inhand_icon_state = "broken_beer"
 	force = 9
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
@@ -297,7 +306,7 @@
 	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
 	icon_state = "orangejuice"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	throwforce = 0
 	is_glass = FALSE
 	gender = PLURAL
@@ -307,7 +316,7 @@
 	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
 	icon_state = "cream"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	throwforce = 0
 	is_glass = FALSE
 	gender = PLURAL
@@ -317,7 +326,7 @@
 	name = "tomato juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
 	icon_state = "tomatojuice"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	throwforce = 0
 	is_glass = FALSE
 	gender = PLURAL
@@ -327,7 +336,7 @@
 	name = "lime juice"
 	desc = "Sweet-sour goodness."
 	icon_state = "limejuice"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	throwforce = 0
 	is_glass = FALSE
 	gender = PLURAL
@@ -337,7 +346,7 @@
 	name = "milk"
 	desc = "Soothing milk."
 	icon_state = "milk"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	throwforce = 0
 	is_glass = FALSE
 	gender = PLURAL
@@ -392,8 +401,8 @@
 		hotspot.temperature = 1000
 		hotspot.recolor()
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.get_heat() && !active)
+/obj/item/reagent_containers/drinks/bottle/molotov/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat() && !active)
 		active = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/bombarea = get_area(bombturf)
@@ -415,8 +424,12 @@
 						SplashReagents(A)
 						A.fire_act()
 					qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/drinks/bottle/molotov/activate_self(mob/user)
+	if(..())
+		return
+
 	if(active)
 		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")

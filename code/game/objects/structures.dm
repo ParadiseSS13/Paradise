@@ -13,6 +13,8 @@
 	/// How long this takes to unbuckle yourself from.
 	var/unbuckle_time = 0 SECONDS
 
+	new_attack_chain = TRUE
+
 /obj/structure/New()
 	..()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -109,6 +111,7 @@
 		return
 	climbers -= user
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+	return TRUE
 
 /obj/structure/proc/remove_climber(mob/living/climber)
 	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING

@@ -204,7 +204,7 @@
 	flick("grinder-b0",src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, 0)
 	sleep(5)
-	H.rad_act(rand(150, 200))
+	H.base_rad_act(src ,rand(150, 200), GAMMA_RAD)
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation

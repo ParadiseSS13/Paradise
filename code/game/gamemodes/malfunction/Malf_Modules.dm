@@ -14,6 +14,13 @@
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
 	antimagic_flags = NONE
+	/// Is this spell an AI program?
+	var/datum/ai_program/program
+
+/datum/spell/ai_spell/New()
+	. = ..()
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -32,6 +39,32 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
+/datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
+	var/area/A = get_area(target)
+	if(!istype(A))
+		return
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(isnull(closest_camera))
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	return closest_camera
+
+/datum/spell/ai_spell/proc/desc_update()
+	desc = initial(desc)
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
+	action.desc = desc
+
+/datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = icon_state, icon = icon, time = time)
+
 /datum/spell/ai_spell/proc/adjust_uses(amt, mob/living/silicon/ai/owner, silent)
 	uses += amt
 	if(!silent && uses)
@@ -43,7 +76,15 @@
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
-	UpdateButtons()
+	build_all_button_icons()
+
+/datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
+	var/turf/target_turf = get_turf(target)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(target_turf.x, target_turf.y, target_turf.z)
+	if(!C.visible_turfs[target_turf])
+		to_chat(user, "<span class='warning'>You don't have camera vision of this location!</span>")
+		return FALSE
+	return TRUE
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
@@ -166,7 +207,7 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-						action.UpdateButtons()
+						action.build_all_button_icons()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 
@@ -314,7 +355,7 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/ai_module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai_turret/turret in SSmachines.get_by_type(/obj/machinery/porta_turret/ai_turret))
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -403,7 +444,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_fire_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
+	for(var/obj/machinery/firealarm/F in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
@@ -428,7 +469,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_air_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/alarm/AA in GLOB.machines)
+	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
@@ -449,8 +490,7 @@
 	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	action_icon_state = "overload_machine"
 	uses = 4
-	active = FALSE
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
 
@@ -473,7 +513,7 @@
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 2, 3, 0)
+		explosion(get_turf(M), 0, 2, 3, 0, cause = "Malf AI: [name]")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -491,7 +531,7 @@
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	action_icon_state = "override_machine"
 	uses = 4
-	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/override_machine_target.dmi'
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.</span>"
 	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
 
@@ -682,7 +722,7 @@
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
-	if(is_blocked_turf(deploylocation))
+	if(deploylocation.is_blocked_turf())
 		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
@@ -848,7 +888,7 @@
 	desc = "Shocks a cyborg back to 'life' after a short delay."
 	action_icon_state = "overload_machine"
 	uses = 2
-	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/explode_machine_target.dmi'
 	selection_activated_message = "<span class='notice'>Call to address 0FFFFFFF in APC logic thread, awaiting user response.</span>"
 	selection_deactivated_message = "<span class='notice'>APC logic thread restarting...</span>"
 	var/is_active = FALSE
@@ -865,7 +905,7 @@
 	user.playsound_local(user, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
-	if(!do_mob(user, robot_target, 10 SECONDS))
+	if(!do_mob(user, robot_target, 10 SECONDS, hidden = TRUE))
 		is_active = FALSE
 		return
 	is_active = FALSE
@@ -894,8 +934,7 @@
 	name = "Roll Over"
 	action_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
-	auto_use_uses = FALSE
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
 	selection_deactivated_message = "<span class='notice'>You disengage your rolling protocols.</span>"
 	COOLDOWN_DECLARE(time_til_next_tilt)

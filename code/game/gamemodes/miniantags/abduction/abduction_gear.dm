@@ -49,7 +49,6 @@ CONTENTS:
 	name = "agent headgear"
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
-	item_state = "alienhelmet"
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
 	flags = BLOCKHAIR
@@ -59,12 +58,23 @@ CONTENTS:
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+/obj/item/clothing/under/abductor
+	name = "alien uniform"
+	desc = "A highly breathable, alien uniform designed for optimal abduction and dissection."
+	icon_state = "abductor"
+	inhand_icon_state = "bl_suit"
+	has_sensor = FALSE
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/misc.dmi'
+	)
+
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "vest_stealth"
-	item_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
@@ -72,11 +82,12 @@ CONTENTS:
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	var/combat_cooldown = 10 SECONDS
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
+	COOLDOWN_DECLARE(abductor_adrenaline)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -84,7 +95,7 @@ CONTENTS:
 	combat_armor = getArmor(arglist(combat_armor))
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	flags ^= NODROP
+	set_nodrop(NODROP_TOGGLE, loc)
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
 
@@ -156,27 +167,21 @@ CONTENTS:
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
+		if(!COOLDOWN_FINISHED(src, abductor_adrenaline))
+			to_chat(loc, "<span class='warning'>Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
+		to_chat(loc, "<span class='notice'>You feel a series of pricks down your back, followed by a surge of energy!</span>")
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
 		M.stand_up(TRUE)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, abductor_adrenaline, combat_cooldown)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -186,7 +191,6 @@ CONTENTS:
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon_state = "silencer"
-	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
 /obj/item/abductor/silencer/attack__legacy__attackchain(mob/living/M, mob/user)
@@ -229,7 +233,7 @@ CONTENTS:
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	restricted_species = list(/datum/species/abductor)
 	icon_state = "alienpistol"
-	item_state = "alienpistol"
+	inhand_icon_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	can_holster = TRUE
@@ -237,16 +241,15 @@ CONTENTS:
 /obj/item/abductor_baton
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
-	var/mode = BATON_STUN
 	icon = 'icons/obj/abductor.dmi'
+	icon_state = "wonderprodStun"
+	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "wonderprodStun"
-	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
-	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	var/mode = BATON_STUN
 
 /obj/item/abductor_baton/proc/toggle(mob/living/user = usr)
 	mode = (mode+1)%BATON_MODES
@@ -269,16 +272,12 @@ CONTENTS:
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
-			item_state = "wonderprodStun"
 		if(BATON_SLEEP)
 			icon_state = "wonderprodSleep"
-			item_state = "wonderprodSleep"
 		if(BATON_CUFF)
 			icon_state = "wonderprodCuff"
-			item_state = "wonderprodCuff"
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
-			item_state = "wonderprodProbe"
 
 /obj/item/abductor_baton/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!isabductor(user))
@@ -320,8 +319,7 @@ CONTENTS:
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	L.store_last_attacker(user)
 
 	L.KnockDown(7 SECONDS)
 	L.apply_damage(80, STAMINA)
@@ -418,11 +416,11 @@ CONTENTS:
 /obj/item/radio/headset/abductor
 	name = "alien headset"
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
-	flags = EARBANGPROTECT
-	origin_tech = "magnets=2;abductor=3"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
-	item_state = "abductor_headset"
+	worn_icon_state = "abductor_headset"
+	flags = EARBANGPROTECT
+	origin_tech = "magnets=2;abductor=3"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
@@ -439,7 +437,7 @@ CONTENTS:
 	name = "science tool"
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon_state = "gizmo_scan"
-	item_state = "gizmo"
+	inhand_icon_state = "gizmo"
 	origin_tech = "engineering=7;magnets=4;bluespace=4;abductor=3"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
@@ -524,7 +522,7 @@ CONTENTS:
 	name = "mental interface device"
 	desc = "A dual-mode tool for directly communicating with sentient brains. It can be used to send a direct message to a target, or to send a command to a test subject with a charged gland."
 	icon_state = "mind_device_message"
-	item_state = "silencer"
+	inhand_icon_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
 /obj/item/abductor/mind_device/attack_self__legacy__attackchain(mob/user)
@@ -596,16 +594,16 @@ CONTENTS:
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
- 3.Apply scalpel to the chest, preparing for experimental dissection.<br>
- 4.Apply scalpel to specimen's torso.<br>
+ 3.Apply a scalpel to the chest, preparing for experimental dissection.<br>
+ 4.Make incision on specimen's torso with a scalpel.<br>
  5.Clamp bleeders on specimen's torso with a hemostat.<br>
  6.Retract skin of specimen's torso with a retractor.<br>
  7.Saw through the specimen's torso with a saw.<br>
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
+ 11.Cauterize the patient's torso. Your scalpel also functions as a cautery for this purpose.<br>
+ 12.Consider dressing the specimen back to not disturb the habitat.<br>
  13.Put the specimen in the experiment machinery.<br>
  14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
  15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
@@ -635,7 +633,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien wrench"
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "wrench"
 	belt_icon = null
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
@@ -645,7 +642,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
 	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -659,7 +655,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien crowbar"
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "crowbar"
 	belt_icon = null
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1
@@ -670,7 +665,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien wirecutters"
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cutters"
 	belt_icon = null
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
@@ -684,7 +678,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien multitool"
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
 	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -699,7 +692,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A belt used by abductor agents."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "belt"
-	item_state = "security"
+	worn_icon_state = "security"
+	inhand_icon_state = "security"
 
 /obj/item/storage/belt/military/abductor/full/populate_contents()
 	new /obj/item/screwdriver/abductor(src)
@@ -713,10 +707,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /////////////////////////////////////////
 /////////// MEDICAL TOOLS ///////////////
 /////////////////////////////////////////
-/obj/item/scalpel/alien
+/obj/item/scalpel/laser/alien
 	name = "alien scalpel"
-	desc = "It's a gleaming sharp knife made out of silvery-green metal."
+	desc = "A translucent blade attached to a handle of strange silvery metal. When held still against broken flesh, the blade becomes extremely hot."
 	icon = 'icons/obj/abductor.dmi'
+	icon_state = "scalpel"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
@@ -725,6 +720,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "You've never seen this before."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2500)
 	toolspeed = 0.25
 
 /obj/item/retractor/alien
@@ -732,6 +728,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "You're not sure if you want the veil pulled back."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 3000)
 	toolspeed = 0.25
 
 /obj/item/circular_saw/alien
@@ -744,13 +741,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
-	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
-
-/obj/item/cautery/alien
-	name = "alien cautery"
-	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
@@ -787,7 +777,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	mopcap = 100
 	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
-	refill_reagent = "water"
 	mopspeed = 10
 
 /obj/item/soap/syndie/abductor
@@ -810,7 +799,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "For killing alien insects, obviously."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "flyswatter_abductor"
-	item_state = "flyswatter_abductor"
 	origin_tech = "abductor=1"
 	force = 2 // Twice as powerful thanks to alien technology!
 	throwforce = 2
@@ -820,7 +808,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An alien spray bottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
-	item_state = "cleaner_abductor"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -831,7 +818,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A belt used to hold out-of-this-world cleaning supplies! Used by abductors to keep their ships clean."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "janibelt_abductor"
-	item_state = "security"
+	worn_icon_state = "security"
+	inhand_icon_state = "security"
 	storage_slots = 7
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
@@ -864,7 +852,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
-	icon_state = "bed"
 
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
@@ -885,7 +872,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
-	buildstackamount = 1
 	framestackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_TABLES)

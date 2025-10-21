@@ -170,3 +170,9 @@
 	desc = "An inscription on the side reads \"Best Captain 2559\"... The last time the station had a worthy captain."
 	icon_state = "mug_cap"
 	preset = TRUE
+
+/obj/item/reagent_containers/drinks/mug/wood
+	name = "wooden cup"
+	desc = "This is a tower-cap cup. All craftsdwarfship is... passable."
+	icon_state = "mug_wood"
+	preset = TRUE

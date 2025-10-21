@@ -47,7 +47,6 @@
 	size_divisor = 80
 	mob_burning = 3 // 15
 	burn_temperature = T0C + 700
-	burn_color = "white"
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -141,7 +140,7 @@
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
-			explosion(T, -1, -1, boomrange, 1)
+			explosion(T, -1, -1, boomrange, 1, cause = "Hot Welding Fuel Reagent")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -194,7 +193,6 @@
 	name = "Thermite"
 	id = "thermite"
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
-	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
@@ -317,7 +315,6 @@
 	id = "blackpowder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
 	taste_description = "explosions"
@@ -430,7 +427,6 @@
 	description = "Carbon Tetrachloride is a foam used for fire suppression."
 	reagent_state = LIQUID
 	color = "#A0A090"
-	var/cooling_temperature = 3 // more effective than water
 	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -445,7 +441,7 @@
 	if(!istype(T))
 		return
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	T.quench(1000, cooling_temperature)
+	T.quench(1000, 3) // more effective than water
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"

@@ -1,12 +1,11 @@
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
-	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
+	desc = "A small, well-balanced dagger that radiates an aura of palpable menace. The blade tapers to a razor-sharp point that is ideal for drawing with."
 	icon_state = "blood_dagger"
-	item_state = "blood_dagger"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	armour_penetration_flat = 35
+	armor_penetration_flat = 35
 	sprite_sheets_inhand = null // Override parent
 
 /obj/item/melee/cultblade/dagger/adminbus
@@ -18,7 +17,6 @@
 /obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
-	item_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()

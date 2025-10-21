@@ -292,7 +292,7 @@
 	var/runechat_text = text
 	if(length(text) > 100)
 		runechat_text = "[copytext(text, 1, 101)]..."
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_mobs_in_view(1, user, ai_eyes=AI_EYE_INCLUDE)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
@@ -304,6 +304,10 @@
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
+		if(is_ai_eye(O))
+			var/mob/camera/eye/ai/eye = O
+			if(!(eye.ai in can_see) && eye.ai?.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				eye.ai.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 /**
  * Check whether or not an emote can be used due to a cooldown.
@@ -409,7 +413,7 @@
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey
-	else if(isanimal(user) && message_simple)
+	else if(isanimal_or_basicmob(user) && message_simple)
 		. = message_simple
 	else if(isobserver(user) && message_observer)
 		. = message_observer

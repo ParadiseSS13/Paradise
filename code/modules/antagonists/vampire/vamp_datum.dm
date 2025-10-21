@@ -24,17 +24,18 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/datum/spell/vampire/self/specialize = 150,
+									/datum/spell/vampire/self/exfiltrate = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
 	blurb_text_color = COLOR_RED
-	blurb_text_outline_width = 0
 	blurb_r = 255
 	blurb_g = 221
 	blurb_b = 138
 	blurb_a = 1
+	boss_title = "Master Vampire"
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	draining = null
@@ -96,6 +97,26 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 	UnregisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK)
 
+/datum/antagonist/vampire/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	remove_all_powers()
+	// Remove thralls
+	if(istype(subclass, SUBCLASS_DANTALION))
+		var/list/thralls = SSticker.mode.vampire_enthralled
+		for(var/datum/mind/possible_thrall in thralls)
+			for(var/datum/antagonist/slavetag in possible_thrall.antag_datums)
+				if(!istype(slavetag, /datum/antagonist/mindslave))
+					continue
+				var/datum/antagonist/mindslave/slave = slavetag
+				if(slave.master == extractor.mind)
+					possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
+	radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
+
 #define BLOOD_GAINED_MODIFIER 0.5
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H, suck_rate = 5 SECONDS)
@@ -109,11 +130,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
-	if(!iscarbon(owner.current))
-		H.LAssailant = null
-	else
-		H.LAssailant = owner
-	while(do_mob(owner.current, H, suck_rate))
+	while(do_mob(owner.current, H, suck_rate, hidden = TRUE))
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
@@ -306,7 +323,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
@@ -353,7 +370,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
 	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+		You are weak to holy things, starlight, and fire. Don't go into space and avoid the Chaplain, the chapel, and especially Holy Water.")
 	return messages
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)

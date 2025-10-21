@@ -1,10 +1,8 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -116,13 +114,14 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
+/mob/living/simple_animal/bot/honkbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	// If the target is locked, they are recieving damage from the screwdriver
+	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))
 		retaliate(user)
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()

@@ -2,12 +2,12 @@
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
-	item_state = "plastic-explosive"
+	base_icon_state = "plastic-explosive"
+	inhand_icon_state = "plastic-explosive"
 	flags = NOBLUDGEON
 	det_time = 10
 	display_timer = FALSE
 	origin_tech = "syndicate=1"
-	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/assembly/nadeassembly = null
@@ -20,7 +20,7 @@
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
-	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	plastic_overlay = mutable_appearance(icon, "[base_icon_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
@@ -60,6 +60,16 @@
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
+
+/obj/item/grenade/plastic/hear_talk(mob/living/M as mob, list/message_pieces)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, multilingual_to_message(message_pieces), 0)
+
+/obj/item/grenade/plastic/hear_message(mob/living/M as mob, msg)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, msg, 1)
 
 /obj/item/grenade/plastic/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
@@ -148,9 +158,9 @@
 
 /obj/item/grenade/plastic/update_icon_state()
 	if(nadeassembly)
-		icon_state = "[item_state]1"
+		icon_state = "[base_icon_state]1"
 	else
-		icon_state = "[item_state]0"
+		icon_state = "[base_icon_state]0"
 
 //////////////////////////
 ///// The Explosives /////
@@ -193,7 +203,7 @@
 	if(location)
 		if(shaped && aim_dir)
 			location = get_step(get_step(location, aim_dir), aim_dir) //Move the explosion location two steps away from the target when using a shaped c4
-		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
+		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach, cause = name)
 
 	qdel(src)
 
@@ -205,7 +215,7 @@
 	name = "X4"
 	desc = "A specialized shaped high explosive breaching charge. Designed to be safer for the user, and less so, for the wall."
 	icon_state = "plasticx40"
-	item_state = "plasticx4"
+	base_icon_state = "plasticx4"
 	shaped = TRUE
 	ex_heavy = 2
 	ex_breach = TRUE
@@ -241,7 +251,7 @@
 	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
 	det_time = 2
 	icon_state = "t4breach0"
-	item_state = "t4breach"
+	base_icon_state = "t4breach"
 
 /obj/item/grenade/plastic/c4/thermite/prime()
 	var/turf/location

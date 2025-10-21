@@ -5,6 +5,8 @@
 	density = TRUE
 	anchored = TRUE
 	pixel_y = 8
+	rad_insulation_beta = RAD_MOB_INSULATION
+	rad_insulation_gamma = RAD_MOB_INSULATION
 	/// The amount of water in the tray (max 100)
 	var/waterlevel = 100
 	/// The maximum amount of water in the tray
@@ -91,8 +93,6 @@
 	create_reagents(300) // This should get cleared every time it is filled, barring admemery
 
 /obj/machinery/hydroponics/constructable
-	name = "hydroponics tray"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
@@ -501,7 +501,7 @@
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
 
@@ -934,6 +934,10 @@
 		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
+	else if(user.mind && HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
+		user.visible_message("[user] uproots the weeds.", "<span class='notice'>You pluck the weeds from [src] with your hands.</span>")
+		adjustWeeds(-10)
+		update_state()
 	else
 		examine(user)
 
@@ -985,7 +989,7 @@
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put Lazarus Reagent in a hydro tray you monster I bet you also feed them blood
-	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
+	var/list/livingplants = list(/mob/living/basic/tree, /mob/living/basic/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")
@@ -1021,7 +1025,6 @@
 /// Not actually hydroponics at all! Honk!
 /obj/machinery/hydroponics/soil
 	name = "soil"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = FALSE
 	power_state = NO_POWER_USE
@@ -1110,5 +1113,28 @@
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		send_plant_details(user)
+
+/obj/machinery/hydroponics/rad_act(atom/source, amount, emission_type)
+	if(!myseed)
+		return
+	// adjust radiation value according to type
+	switch(emission_type)
+		if(GAMMA_RAD)
+			amount /= ((1 - rad_insulation_gamma) / 2)
+		if(BETA_RAD)
+			amount /= (1 - rad_insulation_beta)
+		if(ALPHA_RAD)
+			amount /= 2
+
+	var/top_range = 100 * amount / (amount + 50)
+	var/roll = rand(0, top_range)
+
+	// Do the rad stuff
+	if(prob(roll / 20))
+		adjustHealth(-roll / 20)
+	if(prob(roll / 7))
+		myseed.mutate(roll / 2, get_mutation_focus())
+	if(top_range > 30 && prob(roll / 10))
+		mut_beamed = TRUE

@@ -32,7 +32,8 @@
 	var/requires_robotic_bodypart = FALSE
 	/// When this variable is true, it can only be installed on the machine person species.
 	var/requires_machine_person = FALSE
-
+	/// When this variable is true, it can only be inserted on the golem species.
+	var/requires_golem_person = FALSE
 	///Should this organ be destroyed on removal?
 	var/destroy_on_removal = FALSE
 

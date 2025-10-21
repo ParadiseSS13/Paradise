@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(newplayer_start)
 GLOBAL_LIST_EMPTY(latejoin)
 GLOBAL_LIST_EMPTY(prisonwarp)	//prisoners go to these
 GLOBAL_LIST_EMPTY(syndieprisonwarp)	//contractor targets go to these
+GLOBAL_LIST_EMPTY(antagextractwarp)	// exfiltrating antags go here
 GLOBAL_LIST_EMPTY(backroomswarp) //backrooms hallucinators go to these
 GLOBAL_LIST_EMPTY(xeno_spawn)//Aliens spawn at these.
 GLOBAL_LIST_EMPTY(ertdirector)
@@ -40,6 +41,7 @@ GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 GLOBAL_LIST_EMPTY(roundstart_observer_start)
+GLOBAL_LIST_EMPTY(maints_loot_spawns)
 
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)
@@ -47,3 +49,4 @@ GLOBAL_LIST_EMPTY(space_ruins_templates)
 GLOBAL_LIST_EMPTY(lava_ruins_templates)
 GLOBAL_LIST_EMPTY(shelter_templates)
 GLOBAL_LIST_EMPTY(shuttle_templates)
+GLOBAL_LIST_EMPTY(lavaland_zlvl_bridge_templates)

@@ -3,7 +3,6 @@
 /obj/machinery/flasher
 	name = "Mounted flash"
 	desc = "A wall-mounted flashbulb device."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
 	max_integrity = 250
 	integrity_failure = 100
@@ -162,7 +161,7 @@
 	active = TRUE
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/flasher/M in GLOB.machines)
+	for(var/obj/machinery/flasher/M in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(M.id == id)
 			spawn()
 				M.flash()

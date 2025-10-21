@@ -38,11 +38,13 @@
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
-/obj/effect/decal/cleanable/tar/attackby__legacy__attackchain(obj/item/welder, mob/living/user, params)
-	if(!welder.get_heat() || !Adjacent(user))
-		return
-	playsound(welder, 'sound/items/welder.ogg', 50, TRUE)
+/obj/effect/decal/cleanable/tar/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/weldingtool/fire_tool = used
+	if(!fire_tool.get_heat() || !Adjacent(user))
+		return ITEM_INTERACT_COMPLETE
+	playsound(fire_tool, 'sound/items/welder.ogg', 50, TRUE)
 	if(do_after(user, 3 SECONDS, FALSE, user))
-		if(welder.get_heat() && Adjacent(user))
-			user.visible_message("<span class='danger'>[user] burns away [src] with [welder]!</span>", "<span class='danger'>You burn away [src]!</span>")
+		if(fire_tool.get_heat() && Adjacent(user))
+			user.visible_message("<span class='danger'>[user] burns away [src] with [fire_tool]!</span>", "<span class='danger'>You burn away [src]!</span>")
 			qdel(src)
+			return ITEM_INTERACT_COMPLETE

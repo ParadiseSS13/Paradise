@@ -60,13 +60,15 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/flora/ash/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!harvested && needs_sharp_harvest && W.sharp)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
@@ -145,7 +147,6 @@
 	harvest_message_low = "You pick a cactus fruit."
 	harvest_message_med = "You pick several cactus fruit." //shouldn't show up, because you can't get more than two
 	harvest_message_high = "You pick a pair of cactus fruit."
-	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
@@ -165,7 +166,6 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt
-	harvest_time = 6 SECONDS
 	harvest_amount_low = 10
 	harvest_amount_high = 20
 	harvest_message_low = "You finish mining the rock."
@@ -195,8 +195,6 @@
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
-	w_class = WEIGHT_CLASS_TINY
-	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
@@ -316,7 +314,6 @@
 	name = "Mushroom Bowl"
 	result = list(/obj/item/reagent_containers/drinks/mushroom_bowl)
 	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
-	time = 30
 	category = CAT_PRIMAL
 
 /obj/item/reagent_containers/drinks/mushroom_bowl

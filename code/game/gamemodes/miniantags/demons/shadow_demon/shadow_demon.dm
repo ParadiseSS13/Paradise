@@ -9,8 +9,13 @@
 	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
+	unsuitable_atmos_damage = 18 // You will heal very slowly in a vacuum (2 damage). Go back to the air to heal faster.
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
+	/// Should only be TRUE if we're shooting the Shadow Grapple right now. If its TRUE, the demon wont be able to shadow crawl.
+	var/block_shadow_crawl = FALSE
+	/// Used for fault tolerance. If you set it manually, it may fuck up shooting_grapple var.
+	var/last_block_shadow_crawl = 0
 
 /mob/living/simple_animal/demon/shadow/Login()
 	..()
@@ -65,6 +70,21 @@
 	target.extinguish_light() // may as well be safe
 	target.forceMove(C)
 	wrapping = FALSE
+
+/mob/living/simple_animal/demon/shadow/proc/block_shadow_crawl()
+	last_block_shadow_crawl = world.time
+	block_shadow_crawl = TRUE
+	addtimer(CALLBACK(src, PROC_REF(check_block_shadow_crawl), last_block_shadow_crawl), 10 SECONDS)
+
+/mob/living/simple_animal/demon/shadow/proc/unblock_shadow_crawl()
+	last_block_shadow_crawl = 0
+	block_shadow_crawl = FALSE
+
+/mob/living/simple_animal/demon/shadow/proc/check_block_shadow_crawl(block_time)
+	if(block_time == last_block_shadow_crawl)
+		/// it means 10 seconds passed from last shadow grapple shot and it didnt unset block_shadow_crawl
+		to_chat(src, "<span class='warning'>You feel good enough to use Shadow Crawl again.</span>")
+		unblock_shadow_crawl()
 
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
@@ -151,8 +171,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_overlay_icon_state = "shadow_whisper"
-	whisper_action.button_background_icon_state = "shadow_demon_bg"
+	whisper_action.button_icon_state = "shadow_whisper"
+	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -202,9 +222,18 @@
 	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
+/obj/item/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
+	. = ..()
+	var/obj/machinery/light/floor/floor_light = locate(/obj/machinery/light/floor) in get_turf(src)
+	if(floor_light)
+		Bump(floor_light)
+
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
+		var/mob/living/simple_animal/demon/shadow/current_demon = firer
+		if(istype(current_demon))
+			current_demon.block_shadow_crawl()
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
 	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
@@ -215,7 +244,12 @@
 	for(var/atom/extinguish_target in range(2, src))
 		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
-		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+		if(isshadowdemon(firer))
+			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10, callback = CALLBACK(firer, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, unblock_shadow_crawl)))
+		else
+			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+	else
+		unblock_shadowdemon_crawl()
 	if(!.)
 		return
 	else
@@ -223,6 +257,16 @@
 		L.Immobilize(2 SECONDS)
 		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+
+/obj/item/projectile/magic/shadow_hand/Destroy()
+	if(!hit)
+		unblock_shadowdemon_crawl()
+	return ..()
+
+/obj/item/projectile/magic/shadow_hand/proc/unblock_shadowdemon_crawl()
+	var/mob/living/simple_animal/demon/shadow/current_demon = firer
+	if(istype(current_demon))
+		current_demon.unblock_shadow_crawl()
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE

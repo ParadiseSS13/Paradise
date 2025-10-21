@@ -580,7 +580,7 @@
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
 	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at [ADMIN_JMP(loc)].")
 	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
-	explosion(loc, 1, 2, 4, flame_range = 2) //Identical to a minibomb
+	explosion(loc, 1, 2, 4, flame_range = 2, cause = "Pizza bomb") //Identical to a minibomb
 	qdel(src)
 
 /obj/item/pizzabox/pizza_bomb/cmag_act(mob/user)

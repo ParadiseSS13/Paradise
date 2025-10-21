@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	var/has_behind = FALSE
 
 /datum/body_accessory/proc/try_restrictions(mob/living/carbon/human/H)
-	return (H.dna.species.sprite_sheet_name in allowed_species)
+	return (H.dna.species.name in allowed_species)
 
 /datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
 	if(animated_icon)
@@ -122,6 +122,47 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "straightbushy"
 	animated_icon_state = "straightbushy_a"
 	allowed_species = list("Vulpkanin")
+
+// Skrell
+/datum/body_accessory/tail/skrell_short
+	name = "Short Skrell Tail"
+	icon_state = "skrell_tail_short"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell
+	name = "Skrell Tail"
+	icon_state = "skrell_tail"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_long
+	name = "Long Skrell Tail"
+	icon_state = "skrell_tail_long"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_xlong
+	name = "Extra Long Skrell Tail"
+	icon_state = "skrell_tail_xlong"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_short_fringed
+	name = "Short Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_short"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_fringed
+	name = "Fringed Skrell Tail"
+	icon_state = "skrell_fringetail"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_long_fringed
+	name = "Long Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_long"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_xlong_fringed
+	name = "Extra Long Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_xlong"
+	allowed_species = list("Skrell")
 
 //Moth wings
 /datum/body_accessory/wing

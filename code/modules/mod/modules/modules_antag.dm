@@ -457,7 +457,7 @@
 	mod.icon_state = "[mod.skin]-control"
 	var/list/mod_skin = mod.theme.skins[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-	mod.icon_override = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	mod.worn_icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	mod.wearer.update_inv_back()
@@ -540,10 +540,10 @@
 	incompatible_modules = list(/obj/item/mod/module/anti_magic)
 
 /obj/item/mod/module/anti_magic/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID(src)]")
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
 
 /obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID(src)]")
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
 
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp

@@ -4,7 +4,7 @@ import os
 import sys
 import time
 from collections import namedtuple
-
+from concurrent.futures import ProcessPoolExecutor
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
@@ -187,6 +187,11 @@ def check_camel_case_type_names(idx, line):
         type_result = result.group(0)
         return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
 
+UID_WITH_PARAMETER = re.compile(r"\bUID\(\w+\)")
+def check_uid_parameters(idx, line):
+    if result := UID_WITH_PARAMETER.search(line):
+        return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -204,8 +209,30 @@ CODE_CHECKS = [
     check_empty_list_whitespace,
     check_istype_src,
     check_camel_case_type_names,
+    check_uid_parameters,
 ]
 
+def lint_file(code_filepath: str) -> list[Failure]:
+    all_failures = []
+    with open(code_filepath, encoding="UTF-8") as code:
+        filename = code_filepath.split(os.path.sep)[-1]
+
+        extra_checks = []
+        if filename != IGNORE_515_PROC_MARKER_FILENAME:
+            extra_checks.append(check_515_proc_syntax)
+        if filename != IGNORE_ATOM_ICON_FILE:
+            extra_checks.append(check_manual_icon_updates)
+
+        last_line = None
+        for idx, line in enumerate(code):
+            for check in CODE_CHECKS + extra_checks:
+                if failures := check(idx, line):
+                    all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
+            last_line = line
+
+        if last_line and last_line[-1] != '\n':
+            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    return all_failures
 
 if __name__ == "__main__":
     print("check_grep2 started")
@@ -219,26 +246,9 @@ if __name__ == "__main__":
         dm_files = [sys.argv[1]]
 
     all_failures = []
-
-    for code_filepath in dm_files:
-        with open(code_filepath, encoding="UTF-8") as code:
-            filename = code_filepath.split(os.path.sep)[-1]
-
-            extra_checks = []
-            if filename != IGNORE_515_PROC_MARKER_FILENAME:
-                extra_checks.append(check_515_proc_syntax)
-            if filename != IGNORE_ATOM_ICON_FILE:
-                extra_checks.append(check_manual_icon_updates)
-
-            last_line = None
-            for idx, line in enumerate(code):
-                for check in CODE_CHECKS + extra_checks:
-                    if failures := check(idx, line):
-                        all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
-                last_line = line
-
-            if last_line and last_line[-1] != '\n':
-                all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    with ProcessPoolExecutor() as executor:
+        for failures in executor.map(lint_file, dm_files):
+            all_failures += failures
 
     if all_failures:
         exit_code = 1

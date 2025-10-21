@@ -1,6 +1,5 @@
 /turf/simulated/floor/light
 	name = "light floor"
-	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	/// Are we on
@@ -47,6 +46,12 @@
 	if(user.a_intent != INTENT_HELP)
 		return
 	toggle_light(!on)
+
+/turf/simulated/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/simulated/floor/light/attack_robot(mob/user)
+	return attack_hand(user)
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE

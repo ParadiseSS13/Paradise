@@ -191,24 +191,25 @@
 #define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		50
-#define MISC_LAYER				49 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
-#define WING_LAYER				48
-#define WING_UNDERLIMBS_LAYER	47
-#define MUTANTRACE_LAYER		46
-#define TAIL_UNDERLIMBS_LAYER	45	//Tail split-rendering.
-#define LIMBS_LAYER				44
-#define MARKINGS_LAYER			43
-#define INTORGAN_LAYER			42
-#define UNDERWEAR_LAYER			41
-#define MUTATIONS_LAYER			40
-#define H_DAMAGE_LAYER			39
-#define UNIFORM_LAYER			38
-#define ID_LAYER				37
-#define HANDS_LAYER				36	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				35
-#define L_FOOT_BLOOD_LAYER		34	// Blood overlay separation Left-Foot
-#define R_FOOT_BLOOD_LAYER		33	// Blood overlay separation Right-Foot
+#define EYES_OVERLAY_LAYER		51
+#define MISC_LAYER				50 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
+#define WING_LAYER				49
+#define WING_UNDERLIMBS_LAYER	48
+#define MUTANTRACE_LAYER		47
+#define TAIL_UNDERLIMBS_LAYER	46	//Tail split-rendering.
+#define LIMBS_LAYER				45
+#define MARKINGS_LAYER			44
+#define INTORGAN_LAYER			43
+#define UNDERWEAR_LAYER			42
+#define MUTATIONS_LAYER			41
+#define H_DAMAGE_LAYER			40
+#define UNIFORM_LAYER			39
+#define ID_LAYER				38
+#define HANDS_LAYER				37	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				36
+#define L_FOOT_BLOOD_LAYER		35	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		34	// Blood overlay separation Right-Foot
+#define HAND_INTORGAN_LAYER		33
 #define GLOVES_LAYER			32
 #define L_HAND_BLOOD_LAYER		31	// Blood overlay separation Left-Hand
 #define R_HAND_BLOOD_LAYER		30	// Blood overlay separation Right-Hand
@@ -241,7 +242,7 @@
 #define HALO_LAYER				3	//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				2	//If you're on fire
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			50
+#define TOTAL_LAYERS			51
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -253,6 +254,7 @@
 #define REGION_SUPPLY		6
 #define REGION_COMMAND		7
 #define REGION_CENTCOMM		8
+#define REGION_MISC			9
 
 //Just space
 #define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
@@ -425,13 +427,20 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // Defines for investigate to prevent typos and for styling
-#define INVESTIGATE_RENAME "renames"
-
+#define INVESTIGATE_ATMOS "atmos"
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_CARGO "cargo"
+#define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HOTMIC "hotmic"
+#define INVESTIGATE_RADIATION "radiation"
+#define INVESTIGATE_RENAME "renames"
+#define INVESTIGATE_SINGULO "singulo"
+#define INVESTIGATE_SUPERMATTER "supermatter"
+#define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 64
+#define SQL_VERSION 70
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -487,7 +496,7 @@
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 #define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
-/// Small size. (ie: context subtooltips, spell delays) - Size options: 12pt 24pt.
+#define MAPTEXT_SMALL(text) {"<span style='font-family: \"Small Fonts\"; font-size: 12pt; line-height: 0.75; -dm-text-outline: 1px black'>[##text]</span>"}
 #define MAPTEXT_TINY_UNICODE(text) {"<span style='font-family: \"TinyUnicode\"; font-size: 12pt; line-height: 0.75; -dm-text-outline: 1px black'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
@@ -635,6 +644,7 @@
 
 #define BIOHAZARD_BLOB	"Blob"
 #define BIOHAZARD_XENO	"Xenomorphs"
+#define INCURSION_DEMONS "Demon Incursion"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 
@@ -738,3 +748,43 @@ do { \
 ///  Economy account defines
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
+
+/// Defines for hidden organ techs
+#define TECH_MATERIAL "materials"
+#define TECH_ENGINEERING "engineering"
+#define TECH_PLASMA "plasmatech"
+#define TECH_POWER "powerstorage"
+#define TECH_BLUESPACE "bluespace"
+#define TECH_BIO "biotech"
+#define TECH_COMBAT "combat"
+#define TECH_MAGNETS "magnets"
+#define TECH_PROGRAM "programming"
+#define TECH_TOXINS "toxins"
+#define TECH_SYNDICATE "syndicate"
+#define TECH_ABDUCTOR "abductor"
+
+//! The number of seconds between the start of the UNIX and BYOND epochs.
+#define BYOND_EPOCH_UNIX 946702800
+
+// Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
+#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
+
+#define BRIDGE_SPAWN_SUCCESS 0
+#define BRIDGE_SPAWN_TOO_WIDE 1
+#define BRIDGE_SPAWN_TOO_NARROW 2
+#define BRIDGE_SPAWN_BAD_TERRAIN 3
+
+#define DIRECT_EXPLOSIVE_TRAP_DEFUSE 1
+#define DIRECT_EXPLOSIVE_TRAP_IGNORE 2
+
+#define NODROP_TOGGLE "toggle"
+
+#define DECAL_PAINTER_CATEGORY_STANDARD "Standard"
+#define DECAL_PAINTER_CATEGORY_THIN "Thin Lines"
+#define DECAL_PAINTER_CATEGORY_THICK "Thick Lines"
+#define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
+#define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"
+#define DECAL_PAINTER_CATEGORY_TILES "Tiles"

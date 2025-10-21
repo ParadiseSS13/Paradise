@@ -29,16 +29,18 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goliath
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
 								/datum/action/innate/elite_attack/spawn_children,
@@ -50,25 +52,25 @@
 
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Tentacle Patch"
-	button_overlay_icon_state = "tentacle_patch"
+	button_icon_state = "tentacle_patch"
 	chosen_message = "<span class='boldwarning'>You are now attacking with a patch of tentacles.</span>"
 	chosen_attack_num = TENTACLE_PATCH
 
 /datum/action/innate/elite_attack/spawn_children
 	name = "Spawn Children"
-	button_overlay_icon_state = "spawn_children"
+	button_icon_state = "spawn_children"
 	chosen_message = "<span class='boldwarning'>You will spawn two children at your location to assist you in combat.  You can have up to 8.</span>"
 	chosen_attack_num = SPAWN_CHILDREN
 
 /datum/action/innate/elite_attack/rage
 	name = "Rage"
-	button_overlay_icon_state = "rage"
+	button_icon_state = "rage"
 	chosen_message = "<span class='boldwarning'>You will temporarily increase your movement speed.</span>"
 	chosen_attack_num = RAGE
 
 /datum/action/innate/elite_attack/call_children
 	name = "Call Children"
-	button_overlay_icon_state = "call_children"
+	button_icon_state = "call_children"
 	chosen_message = "<span class='boldwarning'>You will summon your children to your location.</span>"
 	chosen_attack_num = CALL_CHILDREN
 
@@ -176,14 +178,13 @@
 	health = 50
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
@@ -209,7 +210,7 @@
 	if(!QDELETED(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
-	explosion(src, flame_range = 3, adminlog = FALSE)
+	explosion(src, flame_range = 3, adminlog = FALSE, cause = "[name] death")
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)

@@ -21,21 +21,22 @@ Bonus
 	stealth = 1
 	resistance = -4
 	stage_speed = -4
-	transmittable = -4
+	transmissibility = -4
 	level = 6
+	chem_treatments = list(
+		"frostoil" = list("multiplier" = 0.5, "timer" = 0))
+	activation_prob = SYMPTOM_ACTIVATION_PROB * 10
 
-/datum/symptom/heal/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 10))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				Heal(M, A)
+/datum/symptom/heal/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(4, 5)
+			Heal(M, A, unmitigated)
 	return
 
-/datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A)
+/datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A, unmitigated)
 	var/get_damage = (sqrtor0(20+A.totalStageSpeed())*(1+rand()))
-	M.adjustToxLoss(-get_damage)
+	M.adjustToxLoss(-get_damage * unmitigated)
 	return 1
 
 /*
@@ -55,13 +56,13 @@ Bonus
 //////////////////////////////////////
 */
 
+/*
 /datum/symptom/heal/metabolism
 
 	name = "Anti-Bodies Metabolism"
 	stealth = -1
 	resistance = -1
 	stage_speed = -1
-	transmittable = -4
 	level = 3
 	var/list/cured_diseases = list()
 
@@ -88,6 +89,7 @@ Bonus
 					M.resistances -= res
 		to_chat(M, "<span class='warning'>You feel weaker.</span>")
 
+*/
 /*
 //////////////////////////////////////
 
@@ -111,7 +113,7 @@ Bonus
 	stealth = 3
 	resistance = 4
 	stage_speed = 4
-	transmittable = 4
+	transmissibility = 4
 	level = 3
 	var/longevity = 30
 
@@ -147,7 +149,7 @@ Bonus
 	stealth = -1
 	resistance = -1
 	stage_speed = 0
-	transmittable = -3
+	transmissibility = -3
 	level = 5
 
 /datum/symptom/heal/dna/Heal(mob/living/carbon/M, datum/disease/advance/A)

@@ -3,19 +3,22 @@
 	desc = "A spray bottle, with an unscrewable top."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
-	item_state = "cleaner"
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
-	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
-	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
-	amount_per_transfer_from_this = 5
+	// TRUE if spray amount and range can be toggled via `attack_self()`.
+	var/adjustable = TRUE
+	var/adjust_action = "turn the nozzle"
+	//sprayer alternates between assigning this and `spray_minrange` to `spray_currentrange` via `attack_self()`.
+	var/spray_maxrange = 2
+	//the range of tiles the sprayer will reach when in fixed mode.
+	var/spray_currentrange = 2
+	var/spray_minrange = 1
 	volume = 250
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
 
@@ -23,10 +26,14 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack__legacy__attackchain(atom/A, mob/user)
+/obj/item/reagent_containers/spray/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return interact_with_atom(target, user, modifiers)
+
+/obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
+	. = TRUE
 	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
-		return
+		return FALSE
 
 	if(loc != user)
 		return
@@ -86,11 +93,14 @@
 	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
 	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
-/obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
-
+/obj/item/reagent_containers/spray/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+	if(!adjustable)
+		return FINISH_ATTACK
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	spray_currentrange = (amount_per_transfer_from_this == 10 ? spray_maxrange : spray_minrange)
+	to_chat(user, "<span class='notice'>You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
@@ -111,9 +121,6 @@
 /obj/item/reagent_containers/spray/empty
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
@@ -121,21 +128,12 @@
 	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
-
-/obj/item/reagent_containers/spray/cleaner/attack_self__legacy__attackchain(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/advanced
 	name = "advanced space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	icon_state = "adv_cleaner"
-	item_state = "adv_cleaner"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -155,10 +153,10 @@
 				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/drone
-	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	spray_maxrange = 3
 	spray_currentrange = 3
+	adjustable = FALSE
 	amount_per_transfer_from_this = 5
 	volume = 50
 	list_reagents = list("cleaner" = 50)
@@ -168,6 +166,9 @@
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "lube spray"
+	spray_maxrange = 3
+	spray_currentrange = 3
+	adjustable = FALSE
 	list_reagents = list("lube" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
@@ -187,11 +188,11 @@
 	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
-	item_state = "pepperspray"
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
-	amount_per_transfer_from_this = 5
+	spray_currentrange = 4
+	spray_minrange = 2
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
@@ -200,14 +201,11 @@
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
 	belt_icon = null
+	adjustable = FALSE
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
-
-/obj/item/reagent_containers/spray/waterflower/attack_self__legacy__attackchain(mob/user) //Don't allow changing how much the flower sprays
-	return
 
 //chemsprayer
 /obj/item/reagent_containers/spray/chemsprayer
@@ -215,12 +213,11 @@
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
-	amount_per_transfer_from_this = 10
+	spray_minrange = 4
+	adjust_action = "adjust the output switch"
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
 
@@ -261,13 +258,6 @@
 			qdel(D)
 
 
-
-/obj/item/reagent_containers/spray/chemsprayer/attack_self__legacy__attackchain(mob/user)
-
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
-
-
 /// Plant-B-Gone
 /// -- Skie
 /obj/item/reagent_containers/spray/plantbgone
@@ -275,7 +265,6 @@
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
-	item_state = "plantbgone"
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
@@ -287,10 +276,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	icon_state = "syndie_spraycan"
-	item_state = "syndie_spraycan"
 	container_type = AMOUNT_VISIBLE
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 	list_reagents = list("sticky_tar" = 100)
 

@@ -265,7 +265,7 @@
 	return TRUE
 
 /datum/mutation/disability/radioactive/on_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 20)
+	radiation_pulse(H, 80, ALPHA_RAD)
 
 /datum/mutation/disability/radioactive/on_draw_underlays(mob/M, g)
 	return "rads_s"
@@ -482,8 +482,6 @@
 	base_cooldown = 600
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_incendiary"

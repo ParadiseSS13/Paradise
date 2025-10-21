@@ -3,21 +3,20 @@
 	desc = "If you see this contact a developer."
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = ""
-	item_state = ""
-	item_color = ""
 	slot_flags = ITEM_SLOT_ACCESSORY
-	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the accessory may be attached to
 	var/obj/item/clothing/under/has_suit = null
 	/// overlay used when attached to clothing.
-	var/image/inv_overlay = null
+	var/mutable_appearance/inv_overlay
 	/// Allow accessories of the same type.
 	var/allow_duplicates = TRUE
+	/// Icon state when attached to clothing, if null the `icon_state` value will be used
+	var/attached_icon_state
 
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
-	inv_overlay = image("icon" = 'icons/obj/clothing/accessories_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+	inv_overlay = mutable_appearance('icons/obj/clothing/accessories_overlay.dmi', attached_icon_state || icon_state)
 
 /obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -120,19 +119,13 @@
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
-	item_state = "waistcoat"
-	item_color = "waistcoat"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 //Medals
 /obj/item/clothing/accessory/medal
 	name = "bronze medal"
 	desc = "A bronze medal."
 	icon_state = "bronze"
-	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
 	/// The channel we will announce on when we are rewarded to someone
@@ -164,7 +157,6 @@
 	name = "gold medal"
 	desc = "A prestigious golden medal."
 	icon_state = "gold"
-	item_color = "gold"
 	materials = list(MAT_GOLD=1000)
 	channel = "Common"
 
@@ -189,7 +181,6 @@
 	name = "silver medal"
 	desc = "A silver medal."
 	icon_state = "silver"
-	item_color = "silver"
 	materials = list(MAT_SILVER=1000)
 	channel = "Command"
 
@@ -251,7 +242,6 @@
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
-	item_color = "bronze_heart"
 	channel = "Common"
 
 // Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
@@ -260,7 +250,6 @@
 	name = "plasma medal"
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
-	item_color = "plasma"
 	materials = list(MAT_PLASMA = 1000)
 	cares_about_temperature = TRUE
 
@@ -286,7 +275,6 @@
 	name = "alloy medal"
 	desc = "An eccentric medal made of some strange alloy."
 	icon_state = "alloy"
-	item_color = "alloy"
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
 
 // Mostly mining medals past here
@@ -338,14 +326,18 @@
 	name = "holobadge"
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
-	item_color = "holobadge"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_ACCESSORY
 
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
-	item_color = "holobadge-cord"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+	)
 
 /obj/item/clothing/accessory/holobadge/attack_self__legacy__attackchain(mob/user)
 	if(!stored_name)
@@ -399,8 +391,6 @@
 	name = "magistrate's badge"
 	desc = "Fills you with the conviction of JUSTICE. Display your mastery of Space Law to the world."
 	icon_state = "legal_badge"
-	item_state = "legal_badge"
-	item_color = "legal_badge"
 	var/cached_bubble_icon = null
 	var/what_you_are = "THE LAW"
 
@@ -438,8 +428,6 @@
 	name = "skull codpiece"
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
-	item_state = "skull"
-	item_color = "skull"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
@@ -447,8 +435,6 @@
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
-	item_state = "talisman"
-	item_color = "talisman"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
@@ -457,150 +443,92 @@
 	name = "black cowboy shirt"
 	desc = "For a real western look. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt"
-	item_state = "cowboyshirt"
-	item_color = "cowboyshirt"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
 	desc = "For when it's a hot day in the west. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_s"
-	item_state = "cowboyshirt_s"
-	item_color = "cowboyshirt_s"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
 	desc = "For the rancher in us all. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_white"
-	item_state = "cowboyshirt_white"
-	item_color = "cowboyshirt_white"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
 	desc = "Best for midday cattle tending. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_whites"
-	item_state = "cowboyshirt_whites"
-	item_color = "cowboyshirt_whites"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/pink
 	name = "pink cowboy shirt"
 	desc = "For only the manliest of men, or girliest of girls. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_pink"
-	item_state = "cowboyshirt_pink"
-	item_color = "cowboyshirt_pink"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
 	desc = "For a real buckle bunny. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_pinks"
-	item_state = "cowboyshirt_pinks"
-	item_color = "cowboyshirt_pinks"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/navy
 	name = "navy cowboy shirt"
 	desc = "Now yer a real cowboy. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_navy"
-	item_state = "cowboyshirt_navy"
-	item_color = "cowboyshirt_navy"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
 	desc = "Sometimes ya need to roll up your sleeves. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_navys"
-	item_state = "cowboyshirt_navys"
-	item_color = "cowboyshirt_navys"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/red
 	name = "red cowboy shirt"
 	desc = "It's high noon. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_red"
-	item_state = "cowboyshirt_red"
-	item_color = "cowboyshirt_red"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
 	desc = "Life on the open range is quite dangeorus, you never know what to expect. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_reds"
-	item_state = "cowboyshirt_reds"
-	item_color = "cowboyshirt_reds"
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
-		)
+	)
 
 /obj/item/clothing/accessory/corset
 	name = "black corset"
 	desc = "A black corset for those fancy nights out."
 	icon_state = "corset"
-	item_state = "corset"
-	item_color = "corset"
-
+	inhand_icon_state = "corset"
 
 /obj/item/clothing/accessory/corset/red
 	name = "red corset"
 	desc = "A red corset those fancy nights out."
 	icon_state = "corset_red"
-	item_state = "corset_red"
-	item_color = "corset_red"
 
 /obj/item/clothing/accessory/corset/blue
 	name = "blue corset"
 	desc = "A blue corset for those fancy nights out."
 	icon_state = "corset_blue"
-	item_state = "corset_blue"
-	item_color = "corset_blue"
 
 //Pins
 /obj/item/clothing/accessory/pin
 	name = "nanotrasen pin"
 	desc = "It's a standard pin to wear so you can show your loyalty to Nanotrasen!"
 	icon_state = "nt_pin"
-	item_state = "nt_pin"
-	item_color = "nt_pin"
 
 /obj/item/clothing/accessory/pin/pride
 	name = "pride pin"
 	desc = "It's a standard pin, wear it with pride. You can change which flag is used from a button on the back."
 	icon_state = "pride_pin"
-	item_state = "pride_pin"
-	item_color = "pride_pin"
 
 	///List of all pride flags to icon state
 	var/static/list/flag_types = list(
@@ -633,9 +561,7 @@
 	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
 
 	icon_state = pin_icon_state
-	item_state = pin_icon_state
-	item_color = pin_icon_state
-	inv_overlay = image("icon" = 'icons/obj/clothing/accessories_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+	inv_overlay = mutable_appearance('icons/obj/clothing/accessories_overlay.dmi', icon_state)
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !length(U.accessories))

@@ -1,10 +1,8 @@
 /obj/item/onetankbomb
 	name = "bomb"
 	icon = 'icons/obj/tank.dmi'
-	item_state = "assembly"
+	inhand_icon_state = "assembly"
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = FALSE   //FALSE - not readied //TRUE - bomb finished with welder
@@ -134,11 +132,11 @@
 		strength = (fuel_moles / 15)
 
 		if(strength >=1)
-			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1))
+			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1), cause = "Toxins Tank Explosion")
 		else if(strength >=0.5)
-			explosion(ground_zero, 0, 1, 2, 4)
+			explosion(ground_zero, 0, 1, 2, 4, cause = "Toxins Tank Explosion")
 		else if(strength >=0.2)
-			explosion(ground_zero, -1, 0, 1, 2)
+			explosion(ground_zero, -1, 0, 1, 2, cause = "Toxins Tank Explosion")
 		else
 			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
@@ -147,9 +145,9 @@
 		strength = (fuel_moles/20)
 
 		if(strength >=1)
-			explosion(ground_zero, 0, round(strength, 1), round(strength * 2, 1), round(strength * 3, 1))
+			explosion(ground_zero, 0, round(strength, 1), round(strength * 2, 1), round(strength * 3, 1), cause = "Toxins Tank Explosion")
 		else if(strength >=0.5)
-			explosion(ground_zero, -1, 0, 1, 2)
+			explosion(ground_zero, -1, 0, 1, 2, cause = "Toxins Tank Explosion")
 		else
 			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
@@ -158,7 +156,7 @@
 		strength = (fuel_moles / 25)
 
 		if(strength >= 1)
-			explosion(ground_zero, -1, 0, round(strength, 1), round(strength * 3, 1))
+			explosion(ground_zero, -1, 0, round(strength, 1), round(strength * 3, 1), cause = "Toxins Tank Explosion")
 		else
 			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)

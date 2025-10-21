@@ -171,7 +171,7 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	if(cult_ascendant)
 		// The cult only falls if below 1/2 of the rising, usually pretty low. e.g. 5% on highpop, 10% on lowpop
-		if(cult_players < (rise_number / 2))
+		if(cult_players <= ceil(rise_number / 2))
 			cult_fall()
 		return
 
@@ -265,7 +265,7 @@ RESTRICT_TYPE(/datum/team/cult)
 			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
-	if(isanimal(mind.current))
+	if(isanimal_or_basicmob(mind.current))
 		return FALSE
 	if(IS_HERETIC(mind.current))
 		return FALSE

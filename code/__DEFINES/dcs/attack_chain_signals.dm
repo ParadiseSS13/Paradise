@@ -47,12 +47,22 @@
 #define COMSIG_AFTER_ATTACK			"item_after_attack"		//! [/obj/item/proc/afterattack] -> atom/target, mob/user, params
 #define COMSIG_AFTER_ATTACKED_BY	"after_attacked_by"		//! [/obj/item/proc/afterattack] -> obj/item/weapon, mob/user, proximity_flag, params
 
+/// Before attackingtarget has happened, source is the attacker and target is the attacked
+#define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
+	#define COMPONENT_HOSTILE_NO_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //cancel the attack, only works before attack happens
+#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
+/// Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
+#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
+/// After attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
+#define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
+
 // Return values for directing the control of the attack chain. Distinct from
 // signal interceptors because they're not meant to be combined, and to mesh better with
 // historical use of return values in attack chain procs.
 
-#define CONTINUE_ATTACK		0	//! Continue the attack chain, i.e. allow other signals to respond.
-#define FINISH_ATTACK		1	//! Do not continue the attack chain.
+#define CONTINUE_ATTACK			0		//! Continue the attack chain, i.e. allow other signals to respond.
+#define FINISH_ATTACK			(1<<0)	//! Do not continue the attack chain.
+#define MELEE_COOLDOWN_PREATTACK	(1<<1)	//! Apply a CLICK_CD_MELEE cooldown.
 
 // Legacy-only, do not use in new code
 

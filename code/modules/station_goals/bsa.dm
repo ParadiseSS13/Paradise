@@ -22,7 +22,7 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in GLOB.machines)
+	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -219,7 +219,7 @@
 		message_admins("[key_name_admin(user)] has launched an artillery strike.")//Admin BSA firing, just targets a room, which the explosion says
 
 	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
-	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
+	explosion(bullseye,ex_power,ex_power*2,ex_power*4, cause = "BSA strike")
 
 	reload()
 
@@ -273,7 +273,7 @@
 	name = "Bluespace Artillery Control"
 	var/obj/machinery/bsa/full/cannon
 	var/notice
-	var/target
+	var/atom/target
 	power_state = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
@@ -395,6 +395,7 @@
 		notice = "Cannon unpowered!"
 		return
 	notice = null
+	investigate_log("[key_name(user)] has fired the BSA at [ADMIN_VERBOSEJMP(cannon)] at the target [ADMIN_VERBOSEJMP(target)].", INVESTIGATE_BOMB)
 	cannon.fire(user, get_impact_turf(), target)
 
 /obj/machinery/computer/bsa_control/proc/deploy()

@@ -4,7 +4,6 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
-	use_sound = "rustle"
 	storage_slots = 50
 	max_combined_w_class = 50
 	can_hold = list(/obj/item/dice)
@@ -124,7 +123,6 @@
 /obj/item/dice/d20/fate
 	name = "\improper Die of Fate"
 	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
-	icon_state = "d20"
 	var/reusable = TRUE
 	var/used = FALSE
 
@@ -187,7 +185,7 @@
 			//Swarm of creatures
 			T.visible_message("<span class='userdanger'>A swarm of creatures surround [user]!</span>")
 			for(var/direction in GLOB.alldirs)
-				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user), direction))
+				new /mob/living/basic/netherworld(get_step(get_turf(user), direction))
 		if(4)
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
@@ -221,7 +219,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user), -1, 0, 2, flame_range = 2)
+			explosion(get_turf(user), -1, 0, 2, flame_range = 2, cause = "Die of fate: fuel tank explosion")
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -406,7 +404,7 @@
 
 	var/turf/epicenter = get_turf(src)
 	var/area/A = get_area(epicenter)
-	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped)
+	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = "E20 explosion")
 	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
 	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
@@ -418,7 +416,6 @@
 /obj/item/storage/box/dice
 	name = "Box of dice"
 	desc = "ANOTHER ONE!? FUCK!"
-	icon_state = "box"
 
 /obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)

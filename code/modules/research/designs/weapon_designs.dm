@@ -196,7 +196,6 @@
 	name = "WT-550 PDW Uranium Ammo Box (4.6x30mm TX)"
 	desc = "A box of 20 uranium tipped rounds for the WT-550 PDW."
 	id = "box_oldsmg_tx"
-	req_tech = list("combat" = 3, "materials" = 2, "syndicate" = 3)
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
@@ -257,7 +256,7 @@
 	id = "techshotshell"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 4, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 
@@ -383,7 +382,6 @@
 	desc = "A large chemical canister, designed for use with a chemical flamethrower."
 	id = "chemical_canister_extended"
 	req_tech = list("materials" = 5, "plasmatech" = 4)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000)
 	reagents_list = list("fuel" = 40)
 	build_path = /obj/item/chemical_canister/extended
@@ -394,7 +392,6 @@
 	desc = "A chemical canister designed to accept pyrotechnics."
 	id = "chemical_canister_pyro"
 	req_tech = list("materials" = 4, "plasmatech" = 6)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7500)
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics
@@ -404,7 +401,7 @@
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
 	id = "mantis_blade_nt"
-	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 6 SECONDS
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)

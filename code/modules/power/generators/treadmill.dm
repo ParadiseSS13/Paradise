@@ -133,9 +133,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = FALSE					// if we should be metering or not
@@ -151,7 +149,7 @@
 /obj/machinery/treadmill_monitor/Initialize(mapload)
 	. = ..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
+		for(var/obj/machinery/power/treadmill/T in SSmachines.get_by_type(/obj/machinery/power/treadmill))
 			if(T.id == id)
 				treadmill = T
 				break

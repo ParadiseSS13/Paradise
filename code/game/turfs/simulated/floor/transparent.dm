@@ -4,7 +4,6 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	baseturf = /turf/space
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR)
@@ -23,11 +22,27 @@
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()
-	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
-	I.plane = PLANE_SPACE
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/transparent/glass/LateInitialize()
+	. = ..()
+	var/image/I = null
+	if(is_mining_level(z))
+		if(SSmapping.lavaland_theme?.primary_turf_type_icon)
+			I = null
+			I = image(SSmapping.lavaland_theme.primary_turf_type_icon, src, "windowed")
+		else
+			I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+			I.plane = PLANE_SPACE
+	else
+		I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+		I.plane = PLANE_SPACE
+
+	I.layer = PLATING_LAYER
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt)

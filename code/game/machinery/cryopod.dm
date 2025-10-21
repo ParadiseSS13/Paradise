@@ -136,7 +136,7 @@
 	item["name"] = I.name
 
 	frozen_items += list(item)
-	if(preserve_status == CRYO_OBJECTIVE)
+	if(preserve_status == CRYO_OBJECTIVE || istype(I, /obj/item/card/id/captains_spare))
 		objective_items += I
 	I.forceMove(src)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(item_got_removed))
@@ -243,7 +243,10 @@
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain,
-		/obj/item/card/id/captains_spare/assigned
+		/obj/item/card/id/captains_spare/assigned,
+		/obj/item/gun/energy/laser/mounted,
+		/obj/item/gun/energy/gun/advtaser/mounted,
+		/obj/item/gun/magic/grapple,
 	)
 
 /obj/machinery/cryopod/right
@@ -347,7 +350,7 @@
 	for(var/obj/item/I in items)
 		if(istype(I, /obj/item/pda))
 			var/obj/item/pda/P = I
-			QDEL_NULL(P.id)
+			P.id = null
 			qdel(P)
 			continue
 		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
@@ -442,9 +445,9 @@
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
+			occupant.ghostize(GHOST_FLAGS_OBSERVE_ONLY) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(TRUE)
+			occupant.ghostize()
 
 	QDEL_NULL(occupant)
 	name = initial(name)
@@ -598,6 +601,7 @@
 	log_admin("[key_name(E)] entered a stasis pod.")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
+	occupant.create_log(MISC_LOG, "entered a stasis pod")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
@@ -608,6 +612,10 @@
 
 	occupant.forceMove(get_turf(src))
 	occupant.clear_alert("cryopod")
+	log_admin("[key_name(occupant)] exited a stasis pod.")
+	occupant.create_log(MISC_LOG, "exited a stasis pod")
+	if(isAntag(occupant))
+		message_admins("[key_name_admin(occupant)] antag exited a stasis pod after [round((world.time - time_entered )/(1 MINUTES), 0.2)] minutes inside [ADMIN_JMP(src)]" )
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
@@ -679,7 +687,7 @@
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(P.occupant)
 			continue
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))

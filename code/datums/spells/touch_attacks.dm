@@ -59,7 +59,6 @@
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
 	base_cooldown = 600
-	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
@@ -70,7 +69,6 @@
 	hand_path = /obj/item/melee/touch_attack/fleshtostone
 
 	base_cooldown = 600
-	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
@@ -81,7 +79,6 @@
 	hand_path = /obj/item/melee/touch_attack/plushify
 
 	base_cooldown = 600
-	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "plush"

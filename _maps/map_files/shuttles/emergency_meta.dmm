@@ -348,17 +348,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"bd" = (
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -28
-	},
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/escape)
 "be" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
@@ -371,7 +360,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed/directional/east,
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bh" = (
@@ -408,14 +397,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bp" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bq" = (
 /obj/machinery/door/airlock/external{
@@ -463,9 +448,7 @@
 "by" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bz" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -474,22 +457,16 @@
 	on = 1
 	},
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bA" = (
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bB" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bE" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -563,15 +540,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bJ" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bK" = (
 /obj/machinery/light{
@@ -603,9 +576,7 @@
 /area/shuttle/escape)
 "bP" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bQ" = (
 /obj/structure/table,
@@ -703,9 +674,7 @@
 	},
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cb" = (
 /obj/structure/closet/crate{
@@ -725,9 +694,7 @@
 /obj/item/wrench,
 /obj/item/radio,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cc" = (
 /obj/structure/closet/crate/medical,
@@ -751,9 +718,7 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom{
@@ -761,20 +726,16 @@
 	pixel_y = -28
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/machinery/light,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "ce" = (
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "ci" = (
 /obj/docking_port/mobile/emergency{
@@ -798,6 +759,16 @@
 /area/shuttle/escape)
 "Rk" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Tu" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -984,7 +955,7 @@ aM
 ab
 aW
 au
-aL
+Tu
 ab
 bt
 bE
@@ -1000,7 +971,7 @@ aL
 ac
 av
 au
-bd
+aM
 ab
 ab
 ab

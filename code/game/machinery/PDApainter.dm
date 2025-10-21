@@ -5,7 +5,6 @@
 	icon_state = "pdapainter"
 	density = TRUE
 	anchored = TRUE
-	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	/// List of possible PDA colors to choose from
 	var/list/colorlist = list()
@@ -168,6 +167,7 @@
 		H.put_in_hands(storedpda)
 
 	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	storedpda.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	storedpda = null
 	update_icon()
 

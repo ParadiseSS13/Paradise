@@ -147,6 +147,8 @@
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///from base of mob/living/health_update()
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// Sent during exfiltration to handle guardians
+#define COMSIG_SUMMONER_EXTRACTED "summoner_extracted"
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob enters a borg charger
@@ -168,6 +170,12 @@
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 
+// /mob/living/carbon
+/// Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+/// Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
+
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
 ///from base of mob/living/Stun() (amount, ignore_canstun)
@@ -188,6 +196,8 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
@@ -197,17 +207,30 @@
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
-#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
-
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
+#define COMSIG_STRIPPABLE_REQUEST_ITEMS "strippable_request_items"
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/status_effect/incapacitating/sleeping/tick()
+#define COMSIG_MOB_SLEEP_TICK "mob_sleep_tick"
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
+
+/// Sent from /proc/do_after if someone starts a do_after action bar.
+#define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
+/// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
+#define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
 // ghost signals
 
@@ -270,3 +293,34 @@
 	#define MOVE_ARG_NEW_LOC 1
 	/// The arugment of move_args which dictates our movement direction
 	#define MOVE_ARG_DIRECTION 2
+
+#define COMSIG_LIVING_RESTING "living_resting"
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_PRE_ATTACK_RANGED "basicmob_pre_attack_ranged"
+	#define COMPONENT_CANCEL_RANGED_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //! Cancel to prevent the attack from happening
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
+
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
+#define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
+	/// Return to block the ability from starting / activating
+	#define COMPONENT_BLOCK_ABILITY_START (1<<0)
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/finished)
+#define COMSIG_MOB_ABILITY_FINISHED "mob_ability_base_finished"
+
+/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
+#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
+
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"

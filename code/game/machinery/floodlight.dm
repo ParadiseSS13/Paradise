@@ -3,7 +3,6 @@
 	desc = "An artificial sun, except a lot smaller and a lot less powerful."
 	icon = 'icons/obj/machines/floodlight.dmi'
 	icon_state = "flood00"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 100
 	integrity_failure = 80
@@ -167,3 +166,9 @@
 
 /obj/machinery/floodlight/anchored
 	anchored = TRUE
+
+/obj/machinery/floodlight/anchored/darker_on
+	brightness_on = 4
+	light_power = 5
+	light_range = 5
+	on = TRUE

@@ -2,7 +2,7 @@
 	name = "Assembly"
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "holder"
-	item_state = "assembly"
+	inhand_icon_state = "assembly"
 	flags = CONDUCT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -175,12 +175,10 @@
 			return FALSE
 		user.unequip(src, force = TRUE)
 		if(a_left)
-			a_left.holder = null
-			a_left.forceMove(T)
+			a_left.on_detach()
 			user.put_in_active_hand(a_left)
 		if(a_right) // Right object is the secondary item, hence put in inactive hand
-			a_right.holder = null
-			a_right.forceMove(T)
+			a_right.on_detach()
 			user.put_in_inactive_hand(a_right)
 		qdel(src)
 

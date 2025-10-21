@@ -1,22 +1,22 @@
 /datum/buildmode_mode/area_edit
 	key = "areaedit"
-	var/area/storedarea
-	var/image/areaimage
+	var/area/stored_area
+	var/image/area_image
 
 /datum/buildmode_mode/area_edit/New()
-	areaimage = image('icons/turf/areas.dmi', null, "yellow")
+	area_image = image('icons/turf/areas.dmi', null, "yellow")
 	..()
 
 /datum/buildmode_mode/area_edit/enter_mode(datum/click_intercept/buildmode/BM)
-	BM.holder.images += areaimage
+	BM.holder.images += area_image
 
 /datum/buildmode_mode/area_edit/exit_mode(datum/click_intercept/buildmode/BM)
-	areaimage.loc = null // de-color the area
-	BM.holder.images -= areaimage
+	area_image.loc = null // de-color the area
+	BM.holder.images -= area_image
 	return ..()
 
 /datum/buildmode_mode/area_edit/Destroy()
-	QDEL_NULL(areaimage)
+	QDEL_NULL(area_image)
 	return ..()
 
 /datum/buildmode_mode/area_edit/show_help(mob/user)
@@ -27,19 +27,20 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/area_edit/change_settings(mob/user)
-	var/target_path = input(user,"Enter typepath:", "Typepath", "/area")
-	var/areatype = text2path(target_path)
-	if(ispath(areatype,/area))
-		var/areaname = input(user,"Enter area name:", "Area name", "Area")
-		if(!areaname || !length(areaname))
+	var/target_path = tgui_input_text(user, "Enter typepath:", "Typepath", "/area")
+	var/area_type = text2path(target_path)
+	if(ispath(area_type,/area))
+		var/area_name = tgui_input_text(user,"Enter area name:", "Area name", "Area")
+		if(!area_name || !length(area_name))
 			return
-		storedarea = new areatype
-		storedarea.powernet.equipment_powered = FALSE
-		storedarea.powernet.lighting_powered = FALSE
-		storedarea.powernet.environment_powered = FALSE
-		storedarea.always_unpowered = FALSE
-		storedarea.name = areaname
-		areaimage.loc = storedarea // color our area
+		stored_area = new area_type
+		stored_area.admin_spawned = TRUE
+		stored_area.powernet.equipment_powered = FALSE
+		stored_area.powernet.lighting_powered = FALSE
+		stored_area.powernet.environment_powered = FALSE
+		stored_area.always_unpowered = FALSE
+		stored_area.name = area_name
+		area_image.loc = stored_area // color our area
 
 /datum/buildmode_mode/area_edit/handle_click(user, params, object)
 	var/list/pa = params2list(params)
@@ -47,13 +48,13 @@
 	var/right_click = pa.Find("right")
 
 	if(left_click)
-		if(!storedarea)
+		if(!stored_area)
 			to_chat(user, "<span class='warning'>Configure or select the area you want to paint first!</span>")
 			return
 		var/turf/T = get_turf(object)
-		if(get_area(T) != storedarea)
-			storedarea.contents.Add(T)
+		if(get_area(T) != stored_area)
+			stored_area.contents.Add(T)
 	else if(right_click)
 		var/turf/T = get_turf(object)
-		storedarea = get_area(T)
-		areaimage.loc = storedarea // color our area
+		stored_area = get_area(T)
+		area_image.loc = stored_area // color our area

@@ -15,10 +15,11 @@
 	name = "pinpointer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_PDA | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=500)
@@ -143,7 +144,7 @@
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
 	if(shows_nuke_timer)
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(bomb.timing)
 				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
@@ -275,7 +276,6 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -537,10 +537,13 @@
 		return FALSE
 
 /obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	var/turf/our_turf = get_turf(src)
 	if(mode == MODE_TENDRIL)
 		target = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			if(T.z != our_turf.z)
+				continue
 			var/temp_distance = get_dist(T, get_turf(src))
 			if(temp_distance < closest_distance)
 				target = T

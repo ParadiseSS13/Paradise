@@ -1,6 +1,7 @@
 
 /area/station/turret_protected
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
+	airlock_wires = /datum/wires/airlock/ai
 
 /area/station/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
@@ -37,7 +38,6 @@
 
 /area/station/turret_protected/aisat/interior
 	name = "\improper AI Satellite Antechamber"
-	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/turret_protected/aisat/interior/secondary
@@ -48,6 +48,7 @@
 /area/station/telecomms
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
+	airlock_wires = /datum/wires/airlock/ai
 
 /area/station/telecomms/chamber
 	name = "\improper Telecoms Central Compartment"

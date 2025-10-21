@@ -9,7 +9,6 @@
 	action_icon_state = "camera_bug"
 	base_cost = 50
 	static_upgrade_increase = 15
-	stage = 1
 	max_level = 4
 	upgrade_info = "Upgrades increase the amount of computers you can hack by 6."
 	/// An internal camera bug
@@ -66,7 +65,6 @@
 	desc = "Allows for the configuration of our vocal modulator to sound like a different person. We can amplify our voice slightly as well."
 	action_icon = 'icons/obj/clothing/masks.dmi'
 	action_icon_state = "voice_modulator"
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 	base_cost = 40
@@ -180,77 +178,61 @@
 	name = "Nanite Mass"
 	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
+	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity_flag, click_parameters)
-	. = ..()
+/obj/item/melee/swarm_hand/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!isrobot(target))
-		return
+		to_chat(user, "<span class='warning'>[src] will have no effect against this target!</span>")
+		return FINISH_ATTACK
+
 	var/mob/living/silicon/robot/borg = target
-	target.visible_message(
-		"<span class='danger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>",
+	borg.visible_message(
+		"<span class='danger'>[user] puts [user.p_their()] hands on [borg] and begins transferring energy!</span>",
 		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
 	if(borg.emagged || !borg.is_emaggable)
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)
-		return
-	if(!do_mob(user, borg, conversion_time))
+		return FINISH_ATTACK
+
+	if(!do_mob(user, borg, conversion_time, hidden = TRUE))
 		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
-		return
+		return FINISH_ATTACK
+
 	to_chat(user, "<span class='notice'>The mass of swarms vanish into the cyborg's internals. Success.</span>")
 	INVOKE_ASYNC(src, PROC_REF(emag_borg), borg, user)
 	qdel(src)
+	return FINISH_ATTACK
 
 /obj/item/melee/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
 	if(QDELETED(borg) || QDELETED(user))
 		return
-	borg.SetEmagged(TRUE) // This was mostly stolen from mob/living/silicon/robot/emag_act(), its functionally an emagging anyway.
-	borg.SetLockdown(TRUE)
-	if(borg.hud_used)
-		borg.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-	borg.disconnect_from_ai()
-	add_attack_logs(user, borg, "assimilated with flayer powers")
-	log_game("[key_name(user)] assimilated cyborg [key_name(borg)].  Laws overridden.")
-	borg.clear_supplied_laws()
-	borg.clear_inherent_laws()
-	borg.laws = new /datum/ai_laws/mindflayer_override
-	borg.set_zeroth_law("[user.real_name] hosts the mindflayer hive you are a part of.")
-	SEND_SOUND(borg, sound('sound/ambience/antag/mindflayer_alert.ogg'))
-	to_chat(borg, "<span class='warning'>ALERT: Foreign software detected.</span>")
-	sleep(5)
-	to_chat(borg, "<span class='warning'>Initiating diagnostics...</span>")
-	sleep(20)
-	to_chat(borg, "<span class='warning'>Init-Init-Init-Init-</span>")
-	sleep(5)
-	to_chat(borg, "<span class='warning'>......</span>")
-	sleep(5)
-	to_chat(borg, "<span class='warning'>..........</span>")
-	sleep(10)
-	to_chat(borg, "<span class='sinister'>Join Us.</span>")
-	sleep(25)
-	to_chat(borg, "<b>Obey these laws:</b>")
-	borg.laws.show_laws(borg)
-	if(!borg.mmi.syndiemmi)
-		to_chat(borg, "<span class='boldwarning'>ALERT: [user.real_name] is your new master. Obey your new laws and [user.p_their()] commands.</span>")
-	else if(borg.mmi.syndiemmi && borg.mmi.master_uid)
-		to_chat(borg, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
-	else
-		to_chat(borg, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-	borg.SetLockdown(0)
-	var/time = time2text(world.realtime,"hh:mm:ss")
-	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) assimilated [borg.name]([borg.key])")
-	if(borg.module)
-		borg.module.emag_act(user)
-		borg.module.module_type = "Malf" // For the cool factor
-		borg.update_module_icon()
-		borg.module.rebuild_modules() // This will add the emagged items to the borgs inventory.
-	borg.update_icons()
+
+	borg.make_mindflayer_robot(user)
 	return TRUE
+
+/datum/spell/flayer/self/extraction
+	name = "Nanite Portal Generator"
+	desc = "Allows us to use our nanites to create an extraction portal."
+	action_icon = 'icons/obj/lighting.dmi'
+	action_icon_state = "flayer_telepad_base"
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 2 SECONDS
+	var/used = FALSE
+
+/datum/spell/flayer/self/extraction/cast(list/targets, mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a portal generator!</span>")
+		return
+	flayer.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/mindflayer)
+	used = TRUE

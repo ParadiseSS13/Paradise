@@ -6,7 +6,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
-	give_objectives = TRUE
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
@@ -18,6 +17,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/give_uplink = TRUE
 	blurb_r = 200
 	blurb_a = 0.75
+	boss_title = "Syndicate Operations"
 
 	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
 	var/sending_backstab = FALSE
@@ -53,6 +53,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		A.show_laws()
 		A.remove_malf_abilities()
 		QDEL_NULL(A.malf_picker)
+		var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+		H.remove_hud_from(usr)
+		for(var/mob/living/silicon/robot/borg in A.connected_robots)
+			H.remove_hud_from(borg)
 
 	// Leave the mindslave hud.
 	if(owner.som)
@@ -113,6 +117,23 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	else
 		forge_human_objectives()
 
+/datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
+	// Remove mindslaves
+	var/list/mindslaves = SSticker.mode.implanted
+	for(var/datum/mind/possible_slave in mindslaves)
+		for(var/datum/antagonist/slavetag in possible_slave.antag_datums)
+			if(!istype(slavetag, /datum/antagonist/mindslave))
+				continue
+			var/datum/antagonist/mindslave/slave = slavetag
+			if(slave.master == extractor.mind)
+				possible_slave.remove_antag_datum(/datum/antagonist/mindslave/implant)
+
+	radio.autosay("<b>--ZZZT!- Good work, $@gent [extractor.real_name]. Return to -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Traitor")
 /**
  * Create and assign a full set of randomized human traitor objectives.
  */
@@ -206,6 +227,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	killer.set_syndie_radio()
 	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	killer.add_malf_picker()
+	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+	H.add_hud_to(killer)
+	for(var/mob/living/silicon/robot/borg in killer.connected_robots)
+		H.add_hud_to(borg)
 
 /**
  * Gives a traitor human their uplink, and uplink code.

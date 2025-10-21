@@ -58,7 +58,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	/// The ID card of the person requesting a secondary goal.
 	var/goalRequester
@@ -448,6 +447,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
 	radio.autosay("Alert; a new message has been received from [sender]", "[recipient] Requests Console", "[radiochannel]")
 
 	return TRUE
+
+/obj/machinery/requests_console/smith
+	department = "Smith"
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/smith, 30, 30)
 
 #undef RCS_MAINMENU
 #undef RCS_RQSUPPLY

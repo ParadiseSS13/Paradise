@@ -2,7 +2,6 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
-	roundend_category = "revs"
 	antag_hud_name = "hudheadrevolutionary"
 	converted = FALSE
 	var/should_equip = TRUE

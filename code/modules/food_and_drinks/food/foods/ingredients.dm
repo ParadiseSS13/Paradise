@@ -100,7 +100,6 @@
 	name = "blue cheese wedge"
 	desc = "A wedge of pungent blue cheese. The flavor is... intense."
 	icon_state = "cheesewedge-blue"
-	bitesize = 2
 	list_reagents = list("nutriment" = 1, "vitamin" = 1, "cheese" = 3)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
@@ -117,7 +116,6 @@
 	name = "camembert cheese slice"
 	desc = "A piece of camembert. It's soft and gooey."
 	icon_state = "cheesewedge-camembert"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 4)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
@@ -191,16 +189,17 @@
 	tastes = list("dough" = 1)
 
 // Dough + rolling pin = flat dough
-/obj/item/food/dough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/rollingpin))
-		if(isturf(loc))
-			new /obj/item/food/sliceable/flatdough(loc)
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+/obj/item/food/dough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/kitchen/rollingpin))
+		return NONE
+
+	if(isturf(loc))
+		new /obj/item/food/sliceable/flatdough(loc)
+		to_chat(user, "<span class='notice'>You flatten [src].</span>")
+		qdel(src)
 	else
-		..()
+		to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+	return ITEM_INTERACT_COMPLETE
 
 // slicable into 3xdoughslices
 /obj/item/food/sliceable/flatdough
@@ -246,23 +245,34 @@
 		icon_state = "cookiedough"
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
-/obj/item/food/cookiedough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/rollingpin) && !flat)
+/obj/item/food/cookiedough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/rollingpin))
+		if(flat)
+			to_chat(user, "<span class='warning'>[src] doesn't need to be flattened any further!</span>")
+			return ITEM_INTERACT_COMPLETE
+
 		if(isturf(loc))
 			to_chat(user, "<span class='notice'>You flatten [src].</span>")
 			flat = TRUE
 			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
-	else if(istype(I, /obj/item/kitchen/cutter) && flat)
+			to_chat(user, "<span class='warning'>You need to put [src] on a surface to roll it out!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/kitchen/cutter))
+		if(!flat)
+			to_chat(user, "<span class='warning'>[src] needs to be flattened first!</span>")
+			return ITEM_INTERACT_COMPLETE
+
 		if(isturf(loc))
 			new /obj/item/food/rawcookies(loc)
 			to_chat(user, "<span class='notice'>You cut [src] into cookies.</span>")
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
-	else
-		return ..()
+			to_chat(user, "<span class='warning'>You need to put [src] on a surface to cut it out!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
 
 
 /obj/item/food/rawcookies
@@ -272,22 +282,22 @@
 	icon_state = "unbaked_cookies"
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
 
-/obj/item/food/rawcookies/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/choc_pile))
+/obj/item/food/rawcookies/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food/choc_pile))
 		if(isturf(loc))
 			new /obj/item/food/rawcookies/chocochips(loc)
-			to_chat(user, "<span class='notice'>You sprinkle [I] all over the cookies.</span>")
+			to_chat(user, "<span class='notice'>You sprinkle [used] all over the cookies.</span>")
 			qdel(src)
-			qdel(I)
+			qdel(used)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
-	else
-		return ..()
+			to_chat(user, "<span class='warning'>You need to put [src] on a surface to add [used]!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
+	
 
 /obj/item/food/rawcookies/chocochips
-	name = "raw cookies"
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
-	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
@@ -306,16 +316,17 @@
 	goal_difficulty = FOOD_GOAL_EASY
 
 ///Chocolate crumbles/pile
-/obj/item/food/chocolatebar/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/knife))
-		if(isturf(loc))
-			new /obj/item/food/choc_pile(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into little crumbles.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
+/obj/item/food/chocolatebar/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/kitchen/knife))
+		return NONE
+
+	if(isturf(loc))
+		new /obj/item/food/choc_pile(loc)
+		to_chat(user, "<span class='notice'>You cut [src] into little crumbles.</span>")
+		qdel(src)
 	else
-		return ..()
+		to_chat(user, "<span class='warning'>You need to put [src] on a surface to cut it out!</span>")
+	return ITEM_INTERACT_COMPLETE
 
 
 /// for reagent chocolate being spilled on turfs
@@ -338,4 +349,4 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
 	list_reagents = list("ectoplasm" = 10)
-	tastes = list("spookiness" = 1)
+	tastes = list("spookiness" = 2, "salt" = 2) // Ghosts are in fact salty.

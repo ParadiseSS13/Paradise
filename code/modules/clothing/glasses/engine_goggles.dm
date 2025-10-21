@@ -8,9 +8,9 @@
 
 /obj/item/clothing/glasses/meson/engine
 	name = "engineering scanner goggles"
-	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes, the Radiation Scanner mode lets you see objects contaminated by radiation, and the Pressure Scanner mode lets you visualize air pressure."
+	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes, and the Radiation Scanner mode lets you see objects contaminated by radiation."
 	icon_state = "trayson-meson"
-	item_state = "trayson-meson"
+	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
 	active_on_equip = FALSE
@@ -77,7 +77,9 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_action_buttons()
 
-/obj/item/clothing/glasses/meson/engine/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/glasses/meson/engine/activate_self(mob/user)
+	if(..())
+		return
 	toggle_mode(user, TRUE)
 
 /obj/item/clothing/glasses/meson/engine/process()
@@ -102,7 +104,6 @@
 	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
-	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
@@ -115,7 +116,6 @@
 /obj/item/clothing/glasses/meson/engine/atmos
 	name = "atmospherics scanner goggles"
 	icon_state = "trayson-pressure"
-	item_state = "trayson-pressure"
 	desc = "Used by atmospherics techs to visualize pressure, see station structure, and see underfloor objects such as cables and pipes."
 	range = 2
 	origin_tech = "materials=3;magnets=2;engineering=2"

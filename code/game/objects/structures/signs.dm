@@ -1,8 +1,6 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -56,7 +54,6 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
@@ -383,6 +380,14 @@
 	icon_state = "explosives"
 
 /obj/structure/sign/explosives/alt
-	name = "\improper HIGH EXPLOSIVES"
-	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
 	icon_state = "explosives2"
+
+/obj/structure/sign/magboots
+	name = "\improper MAG BOOTS"
+	desc = "A warning sign which reads MAGBOOTS"
+	icon_state = "magboots"
+
+/obj/structure/sign/turbine
+	name = "\improper TURBINE"
+	desc = "A warning which reads TURBINE"
+	icon_state = "turbine"

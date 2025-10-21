@@ -37,7 +37,6 @@
 	belt_icon = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
 	storage_slots = 30
 	max_combined_w_class = 30
@@ -116,12 +115,8 @@
 	desc = "It's a very flimsy, very noisy alternative to a bag."
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
-	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
@@ -131,7 +126,6 @@
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
 	return ..()
-
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==ITEM_SLOT_HEAD)
@@ -163,7 +157,6 @@
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -211,7 +204,7 @@
 	// into the box.
 	if(istype(user.pulling, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = user.pulling
-		box.attackby__legacy__attackchain(src, user)
+		box.item_interaction(user, src)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -236,9 +229,13 @@
 	origin_tech = "bluespace=4;materials=3;engineering=3"
 	icon_state = "satchel_bspace"
 
-/obj/item/storage/bag/ore/holding/cyborg
+/obj/item/storage/bag/ore/cyborg/holding
 	name = "cyborg mining satchel of holding"
-	flags = NODROP
+	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	icon_state = "satchel_bspace"
+	storage_slots = INFINITY
+	max_combined_w_class = INFINITY
+
 
 ////////////////////////////////////////
 // MARK:	Plant bag
@@ -268,18 +265,29 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
+/obj/item/storage/bag/plants/portaseeder/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to convert the plants inside to seeds.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.</span>"
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
 	if(!length(contents))
 		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
 	var/had_anything = FALSE
+	var/seed_amount = 1
+	// Multiply seeds by productivity
+	seed_amount = clamp(seed_amount * bit_productivity_mod, 1, 4)
+	// Reduce with low efficiency
+	if(bit_efficiency_mod < 1)
+		seed_amount = max(1, seed_amount * bit_efficiency_mod)
 	for(var/obj/item/O in contents)
-		had_anything |= seedify(O, 1)
+		had_anything |= seedify(O, seed_amount)
 	hide_from_all()
 	if(had_anything)
 		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
@@ -287,20 +295,19 @@
 		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
 	playsound(user, "sound/machines/ding.ogg", 25)
 
-/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
+/obj/item/storage/bag/plants/portaseeder/CtrlShiftClick(mob/user)
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
 
 /obj/item/storage/bag/plants/seed_sorting_tray
 	name = "seed sorting tray"
 	desc = "A simple wooden tray with compartments for manually sorting seeds. It's better than nothing, but a plant analyzer would be more effective."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "seed_sorting_tray"
 	can_hold = list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self__legacy__attackchain(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/CtrlShiftClick(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
@@ -308,12 +315,16 @@
 		depth = min(8, depth + 1)
 		unsorted.sort(depth)
 
+/obj/item/storage/bag/plants/seed_sorting_tray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to sort seeds inside.</span>"
+
 ////////////////////////////////////////
 // MARK:	Cash bag
 ////////////////////////////////////////
 
 /obj/item/storage/bag/cash
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "cashbag"
 	name = "Cash bag"
 	desc = "A bag for carrying lots of cash. It's got a big dollar sign printed on the front."
@@ -333,7 +344,6 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
 	display_contents_with_number = 0 //This would look really stupid otherwise
-	storage_slots = 7
 	max_combined_w_class = 21
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
@@ -357,7 +367,11 @@
 	flags = CONDUCT
 	slot_flags = null
 	materials = list(MAT_METAL=3000)
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	can_hold = list(
+		/obj/item/food,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	)
 
 /obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
@@ -503,7 +517,6 @@
 	desc = "A bag for envelopes, stamps, pens, and papers."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailbag"
-	item_state = "mailbag"
 	storage_slots = 14
 	max_combined_w_class = 28
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
@@ -519,13 +532,27 @@
 	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
-	item_state = "construction_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE
+
+////////////////////////////////////////
+// MARK:	Smith bag
+////////////////////////////////////////
+/obj/item/storage/bag/smith
+	name = "smith's bag"
+	desc = "A fireproof bag for storing modifications, casts, and modification components."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "smith_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/smithed_item, /obj/item/smithing_cast)
+	resistance_flags = FIRE_PROOF
 
 ////////////////////////////////////////
 // MARK:	Treasure bag
@@ -535,11 +562,10 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "satchel_treasure"
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 15
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL

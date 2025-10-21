@@ -3,7 +3,6 @@
 	desc = "Used for turning ingredients into other ingredients."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -90,7 +89,7 @@
 /////////////////////////
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat
-	output = /obj/item/food/meatball
+	output = /obj/item/food/ground_meat
 
 /datum/food_processor_process/potato
 	input = /obj/item/food/grown/potato

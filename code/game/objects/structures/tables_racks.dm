@@ -8,10 +8,7 @@
  *		Rack Parts
  */
 
-/*
- * Tables
- */
-
+// MARK: Table
 /obj/structure/table
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
@@ -105,7 +102,7 @@
 	flipped = TRUE
 
 /obj/structure/table/narsie_act()
-	new /obj/structure/table/wood(loc)
+	new /obj/structure/table/reinforced/cult(loc)
 	qdel(src)
 
 /obj/structure/table/start_climb(mob/living/user)
@@ -227,30 +224,30 @@
 		return TRUE
 	qdel(G)
 
-/obj/structure/table/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/table/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user))
-		return
+	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
-			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+			if(!modifiers || !modifiers["icon-x"] || !modifiers["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_x = clamp(text2num(modifiers["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_y = clamp(text2num(modifiers["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			if(slippery)
 				step_away(I, user)
 				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
 				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -360,7 +357,7 @@
 /obj/structure/table/proc/get_flip_speed(mob/living/flipper)
 	if(!istype(flipper))
 		return 0 SECONDS // sure
-	if(!issimple_animal(flipper))
+	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
 	if(istype(flipper, /mob/living/simple_animal/revenant))
 		return 0 SECONDS  // funny ghost table
@@ -441,10 +438,7 @@
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
 
-/*
- * Glass Tables
- */
-
+// MARK: Glass tables
 /obj/structure/table/glass
 	name = "glass table"
 	desc = "Looks fragile. You should totally flip it. It is begging for it."
@@ -543,11 +537,6 @@
 				debris -= AM
 	qdel(src)
 
-/obj/structure/table/glass/narsie_act()
-	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/shard/S in debris)
-		S.color = NARSIE_WINDOW_COLOUR
-
 /obj/structure/table/glass/plasma
 	name = "plasma glass table"
 	desc = "A table made from the blood, sweat, and tears of miners."
@@ -640,9 +629,7 @@
 	buildstack = /obj/item/stack/sheet/plastitaniumglass
 	max_integrity = 200
 
-/*
- * Wooden tables
- */
+// MARK: Wooden tables
 /obj/structure/table/wood
 	name = "wooden table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
@@ -658,10 +645,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 	resistance_flags = FLAMMABLE
 
-/obj/structure/table/wood/narsie_act(total_override = TRUE)
-	if(!total_override)
-		..()
-
 /// No specialties, Just a mapping object.
 /obj/structure/table/wood/poker
 	name = "gambling table"
@@ -672,13 +655,7 @@
 	flipped_table_icon_base = "poker"
 	buildstack = /obj/item/stack/tile/carpet
 
-/obj/structure/table/wood/poker/narsie_act()
-	..(FALSE)
-
-/*
- * Fancy Tables
- */
-
+// MARK: Fancy tables
 /obj/structure/table/wood/fancy
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
@@ -756,9 +733,7 @@
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table_royalblue.dmi'
 
-/*
- * Reinforced tables
- */
+// MARK: Reinforced tables
 /obj/structure/table/reinforced
 	name = "reinforced table"
 	desc = "A reinforced version of the four legged table."
@@ -806,17 +781,36 @@
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
-	buildstackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
-/obj/structure/table/reinforced/brass/narsie_act()
-	take_damage(rand(15, 45), BRUTE)
-	if(src) //do we still exist?
-		var/previouscolor = color
-		color = "#960000"
-		animate(src, color = previouscolor, time = 8)
+/obj/structure/table/reinforced/cult
+	name = "runed metal table"
+	desc = "A cold slab of metal engraved with indecipherable symbols. Studying them causes your head to pound."
+	icon = 'icons/obj/smooth_structures/tables/cult_table.dmi'
+	icon_state = "cult_table-0"
+	base_icon_state = "cult_table"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	frame = /obj/structure/table_frame/cult
+	framestack = /obj/item/stack/sheet/runed_metal
+	buildstack = /obj/item/stack/sheet/runed_metal
+	framestackamount = 1
+	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
+/obj/structure/table/reinforced/cult/narsie_act()
+	return
+
+// Special variant created by pylons when converting stuff. Drops no materials so they can't be used as a runed metal farm.
+/obj/structure/table/reinforced/cult/no_metal
+	name = "runed stone table"
+	desc = "A cold slab of stone engraved with indecipherable symbols. Studying them causes your head to pound."
+
+/obj/structure/table/reinforced/cult/no_metal/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
+	visible_message("<span class = 'warning'>[src] suddenly crumbles to dust!<span/>")
+	qdel(src)
+
+// MARK: Wheeled table
 /obj/structure/table/tray
 	name = "surgical instrument table"
 	desc = "A small metal tray with wheels."
@@ -840,10 +834,9 @@
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
-	var/atom/OldLoc = loc
-
+	var/atom/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
@@ -857,7 +850,7 @@
 		if(!held)
 			held_items -= held_uid
 			continue
-		if(OldLoc != held.loc)
+		if(oldloc != held.loc)
 			held_items -= held_uid
 			continue
 		held.forceMove(NewLoc)
@@ -891,14 +884,12 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return 0
+	return FALSE
 
 /obj/structure/table/tray/narsie_act()
-	return 0
+	return FALSE
 
-/*
- * Racks
- */
+// MARK: Racks
 /obj/structure/rack
 	name = "rack"
 	desc = "Different from the Middle Ages version."
@@ -909,6 +900,8 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
+	var/deconstruction_item = /obj/item/rack_parts
+	var/deconstruction_quantity = 1
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -944,15 +937,15 @@
 		step(O, get_dir(O, src))
 		return TRUE
 
-/obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isrobot(user))
+/obj/structure/rack/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 		return
 	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1001,8 +994,11 @@
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		density = FALSE
-		var/obj/item/rack_parts/newparts = new(loc)
-		transfer_fingerprints_to(newparts)
+		if(deconstruction_quantity)
+			new deconstruction_item(loc, deconstruction_quantity)
+		else
+			var/decon_parts = new deconstruction_item(get_turf(src))
+			transfer_fingerprints_to(decon_parts)
 	qdel(src)
 
 /*
@@ -1012,7 +1008,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)

@@ -42,11 +42,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/tradergearminor
 	name = "traderstart_specificgear_minor"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/tradergearmajor
 	name = "traderstart_specificgear_major"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
@@ -200,6 +198,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	spawner_list = GLOB.syndieprisonwarp
 	return ..()
 
+/obj/effect/landmark/spawner/antag_extract_warp
+	name = "antagextractwarp"
+
+/obj/effect/landmark/spawner/antag_extract_warp/Initialize(mapload)
+	spawner_list = GLOB.antagextractwarp
+	return ..()
+
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
 
@@ -253,8 +258,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	tag = null
+	return ..()
 
 /obj/effect/landmark/proc/set_tag()
 	tag = "landmark*[name]"
@@ -280,7 +285,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/assistant
 	name = "Assistant"
-	icon_state = "Assistant"
 
 /obj/effect/landmark/start/atmospheric
 	name = "Life Support Specialist"
@@ -316,6 +320,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
+	icon_state = "CargoTech"
+
+/obj/effect/landmark/start/smith
+	name = "Smith"
 	icon_state = "CargoTech"
 
 /obj/effect/landmark/start/chaplain
@@ -416,6 +424,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/scientist
 	name = "Scientist"
+	icon_state = "Sci"
+
+/obj/effect/landmark/start/xenobiologist
+	name = "Xenobiologist"
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/security_officer
@@ -643,33 +655,36 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
-	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	mobtype = /mob/living/basic/mining/hivelord/legion
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+		mobtype = /mob/living/basic/mining/hivelord/legion/dwarf
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
-	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mobtype = /mob/living/basic/mining/basilisk/watcher
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
 		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/icewing
 		else
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/magmawing
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
+	mobtype = /mob/living/basic/mining/goldgrub
 
 /obj/effect/landmark/mob_spawner/gutlunch
-	mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	mobtype = /mob/living/basic/mining/gutlunch
 
 /obj/effect/landmark/mob_spawner/gutlunch/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+		if(prob(50))
+			mobtype = /mob/living/basic/mining/gutlunch/gubbuck
+		else
+			mobtype = /mob/living/basic/mining/gutlunch/guthen
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot

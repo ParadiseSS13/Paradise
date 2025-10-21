@@ -12,8 +12,8 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/offer/change_settings(mob/user)
-	hours = input(user, "Playtime required", "Input", 20) as num|null
-	if(alert("Do you want to show the mob's special role?", null, "Yes", "No") == "Yes")
+	hours = tgui_input_number(user, "Playtime required", "Input", 20)
+	if(tgui_alert(user, "Do you want to show the mob's special role?", "Role Status", list("Yes", "No")) == "Yes")
 		hide_role = FALSE
 	else
 		hide_role = TRUE

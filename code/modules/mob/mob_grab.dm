@@ -10,6 +10,7 @@
 
 /obj/item/grab
 	name = "grab"
+	icon = 'icons/mob/screen_gen.dmi'
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
@@ -24,10 +25,7 @@
 
 	layer = 21
 	plane = HUD_PLANE
-	item_state = "nothing"
-	icon = 'icons/mob/screen_gen.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-
 
 /obj/item/grab/New(mob/user, mob/victim)
 	..()
@@ -185,10 +183,11 @@
 /obj/item/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
+			hud.screen_loc = UI_RHAND
 		else
-			hud.screen_loc = ui_lhand
-		assailant.client.screen += hud
+			hud.screen_loc = UI_LHAND
+		if(assailant.client)
+			assailant.client.screen += hud
 
 /obj/item/grab/process()
 	if(!confirm())
@@ -343,10 +342,6 @@
 		icon_state = "grabbed+1"
 
 		add_attack_logs(assailant, affecting, "Neck grabbed", ATKLOG_ALL)
-		if(!iscarbon(assailant))
-			affecting.LAssailant = null
-		else
-			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
 		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured
@@ -408,7 +403,7 @@
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, MELEE))
+						affecting.apply_damage(damage * rand(90, 110) / 100, BRUTE, BODY_ZONE_HEAD, affected.run_armor_check(affecting, MELEE))
 						playsound(assailant.loc, "swing_hit", 25, TRUE, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return

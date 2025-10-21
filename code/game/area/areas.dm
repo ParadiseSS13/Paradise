@@ -61,6 +61,8 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
+	/// Timer to stop ongoing fire alarm sounds
+	var/firealarm_sound_stop_timer = null
 	/// The air alarms present in this area.
 	var/list/air_alarms = list()
 	/// The list of vents in our area.
@@ -90,6 +92,9 @@
 
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
+
+	/// Wire assignment for airlocks in this area
+	var/airlock_wires = /datum/wires/airlock
 
 	/// The flags applied to request consoles spawned in this area.
 	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
@@ -338,6 +343,8 @@
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 			GLOB.firealarm_soundloop.start(F)
+		if(!firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE | TIMER_UNIQUE)
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -348,6 +355,10 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/stop_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.stop(F)
 /**
   * Reset the firealarm alert for this area
   *
@@ -360,6 +371,9 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		if(firealarm_sound_stop_timer)
+			deltimer(firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = null
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()

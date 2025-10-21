@@ -7,11 +7,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
-	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -140,6 +138,11 @@
 	/// Do we always bounce off non mobs?
 	var/always_nonmob_ricochet = FALSE
 
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost
+
 /obj/item/projectile/New()
 	return ..()
 
@@ -165,12 +168,23 @@
 	qdel(src)
 
 /obj/item/projectile/proc/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+			damage = 0
+			nodamage = 1
+			return FALSE
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+			return FALSE
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
@@ -283,6 +297,7 @@
 		ricochet_chance *= ricochet_decay_chance // Note: I should impliment ricohet decay damage. I'm not doing that during heretic as balance scope
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
+			permutated.Cut()
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
@@ -313,7 +328,7 @@
 	prehit(A)
 	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
-	if(pre_permutation != ATOM_PREHIT_FAILURE)
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(A in permutated))
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
@@ -389,7 +404,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (ismob(original) || original.proj_ignores_layer || original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original, TRUE)
 	if(QDELETED(src)) //deleted on last move
@@ -445,7 +460,10 @@
 
 /// A mob moving on a tile with a projectile is hit by it.
 /obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+	if(!isliving(entered))
+		return
+	var/mob/living_entered = entered
+	if(((living_entered.density || !living_entered.projectile_hit_check(src))) && !checkpass(PASSMOB) && !(living_entered in permutated) && (living_entered.loc == loc))
 		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
@@ -602,6 +620,40 @@
 
 /obj/item/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
+
+/**
+ * Is this projectile considered "hostile"?
+ *
+ * By default all projectiles which deal damage or impart crowd control effects (including stamina) are hostile
+ *
+ * This is NOT used for pacifist checks, that's handled by [/obj/item/ammo_casing/var/harmful]
+ * This is used in places such as AI responses to determine if they're being threatened or not (among other places)
+ */
+/obj/item/projectile/proc/is_hostile_projectile()
+	if(damage > 0 || stamina > 0)
+		return TRUE
+
+	if(stun + weaken + paralyze + knockdown > 0 SECONDS)
+		return TRUE
+
+	return FALSE
+
+/// Fire a projectile from this atom at another atom
+/atom/proc/fire_projectile(projectile_type, atom/target, sound, firer, list/ignore_targets = list())
+	if(!isnull(sound))
+		playsound(src, sound, vol = 100, vary = TRUE)
+
+	var/turf/startloc = get_turf(src)
+	var/obj/item/projectile/bullet = new projectile_type(startloc)
+	bullet.starting = startloc
+	bullet.firer = firer || src
+	bullet.firer_source_atom = src
+	bullet.yo = target.y - startloc.y
+	bullet.xo = target.x - startloc.x
+	bullet.original = target
+	bullet.preparePixelProjectile(target, src)
+	bullet.fire()
+	return bullet
 
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT

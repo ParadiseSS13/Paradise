@@ -25,10 +25,11 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/proc/getDug()
-	new digResult(src, 5)
+/turf/simulated/floor/plating/asteroid/proc/getDug(productivity_mod = 1)
+	new digResult(src, round(5 + productivity_mod))
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
+	SSblackbox.record_feedback("tally", "ore_mined", 5, "[digResult]")
 	dug = TRUE
 
 /turf/simulated/floor/plating/asteroid/proc/can_dig(mob/user)
@@ -86,7 +87,7 @@
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
-			getDug()
+			getDug(used.bit_productivity_mod)
 			return TRUE
 
 	else if(istype(used, /obj/item/storage/bag/ore))
@@ -115,7 +116,6 @@
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
-	digResult = /obj/item/stack/ore/glass/basalt
 
 /// lava underneath
 /turf/simulated/floor/plating/asteroid/basalt/lava
@@ -216,7 +216,6 @@
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/snow
-	gender = PLURAL
 	name = "snow"
 	desc = "Looks cold."
 	icon = 'icons/turf/snow.dmi'

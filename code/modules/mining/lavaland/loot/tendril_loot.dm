@@ -5,7 +5,6 @@
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
-	max_w_class = WEIGHT_CLASS_NORMAL
 	var/obj/item/shared_storage/red
 	var/obj/item/shared_storage/blue
 
@@ -18,6 +17,9 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
+	inhand_icon_state = "backpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
@@ -27,8 +29,6 @@
 	bag?.update_viewers()
 
 /obj/item/shared_storage/red
-	name = "paradox bag"
-	desc = "Somehow, it's in two places at once."
 
 /obj/item/shared_storage/red/New()
 	..()
@@ -153,12 +153,11 @@
 
 /obj/item/oar
 	name = "oar"
+	desc = "Not to be confused with the kind Research hassles you for."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "oar"
-	item_state = "rods"
-	desc = "Not to be confused with the kind Research hassles you for."
+	inhand_icon_state = "rods"
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /datum/crafting_recipe/oar
@@ -204,7 +203,7 @@
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
-	item_state = "lantern"
+	inhand_icon_state = "lantern"
 	light_range = 7
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
@@ -295,6 +294,11 @@
 		return
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
+	if(is_station_level(user.z) && !iswizard(user)) // specifically not station (instead of lavaland) so it works for explorers potentially
+		user.visible_message("<span class='warning'>[user] begins to channel [src]!</span>", "<span class='warning'>You begin channeling [src], cutting through the interference of the station!</span>")
+		if(!do_after_once(user, 4 SECONDS, TRUE, src, allow_moving = TRUE, must_be_held = TRUE))
+			return
+	user.visible_message("<span class='warning'>[user] disappears in a puff of smoke!</span>")
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, user)
@@ -331,9 +335,11 @@
 /obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
-	ammo_type = /obj/item/ammo_casing/magic/hook
 	icon_state = "hook"
-	item_state = "chain"
+	inhand_icon_state = "chain"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	ammo_type = /obj/item/ammo_casing/magic/hook
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
 	flags = NOBLUDGEON
@@ -353,10 +359,8 @@
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
-	pass_flags = PASSTABLE
 	damage = 25
-	armour_penetration_percentage = 100
-	damage_type = BRUTE
+	armor_penetration_percentage = 100
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 1 SECONDS
 	knockdown = 6 SECONDS
@@ -442,15 +446,11 @@
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
-	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
 /obj/effect/immortality_talisman/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
-
-/obj/effect/immortality_talisman/attackby__legacy__attackchain()
-	return
 
 /obj/effect/immortality_talisman/ex_act()
 	return

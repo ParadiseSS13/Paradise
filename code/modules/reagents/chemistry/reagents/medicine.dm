@@ -45,9 +45,18 @@
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
 	O.germ_level -= min(volume*20, O.germ_level)
+	SEND_SIGNAL(O, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
+
+/datum/reagent/medicine/sterilizine/reaction_temperature(exposed_temperature, exposed_volume)
+	// Sterilize the container
+	for(var/datum/reagent/to_disinfect in holder.reagent_list)
+		if(to_disinfect.data && to_disinfect.data["viruses"])
+			to_disinfect?.data["viruses"] = list()
+	if(isobj(holder.my_atom))
+		SEND_SIGNAL(holder.my_atom, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
@@ -123,10 +132,7 @@
 	id = "recal"
 	description = "An oily insulating liquid that passively regulates electrical activity on sensitive electronic components, allowing them to recover from decalibrating events faster. \
 	Overdosing will cause under-voltage errors and hamper component heat dissipation, potentially causing heat damage."
-	reagent_state = LIQUID
 	color = "#85845d"
-	overdose_threshold = 40
-	harmless = FALSE
 	taste_description = "mineral oil and toothpaste"
 	process_flags = SYNTHETIC
 
@@ -135,7 +141,7 @@
 	id = "mitocholide"
 	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 	reagent_state = LIQUID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#8523be"
 	taste_description = "nurturing"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -199,7 +205,6 @@
 	name = "Rezadone"
 	id = "rezadone"
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
-	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 	harmless = FALSE
@@ -248,12 +253,12 @@
 
 	for(var/X in organs_list)
 		var/obj/item/organ/O = X
-		if(O.germ_level < INFECTION_LEVEL_ONE)
+		if(O.germ_level < INFECTION_LEVEL_ONE - 50)
 			O.germ_level = 0	//cure instantly
 		else if(O.germ_level < INFECTION_LEVEL_TWO)
-			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+			O.germ_level = max(M.germ_level - 15, 0)	//at germ_level == 500, this should cure the infection in 60 seconds
 		else
-			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+			O.germ_level = max(M.germ_level - 5, 0)	// at germ_level == 1000, this will cure the infection in 4 minutes 20 seconds
 
 	organs_list.Cut()
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
@@ -264,7 +269,7 @@
 	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#cbc6ce"
 	penetrates_skin = TRUE
 	metabolization_rate = 0.15
 	taste_description = "salt"
@@ -442,7 +447,6 @@
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
-	color = "#000000"
 	taste_description = "dust"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -460,7 +464,7 @@
 	id = "omnizine"
 	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#d6047f"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
 	addiction_chance = 1
@@ -572,7 +576,7 @@
 	id = "pen_acid"
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#058605"
 	harmless = FALSE
 	taste_description = "a purge"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -649,7 +653,7 @@
 	id = "perfluorodecalin"
 	description = "This experimental perfluoronated solvent has applications in liquid breathing and tissue oxygenation. Use with caution."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#54abfc"
 	metabolization_rate = 0.2
 	overdose_threshold = 4
 	allowed_overdose_process = TRUE
@@ -679,7 +683,7 @@
 	id = "ephedrine"
 	description = "Ephedrine is a plant-derived stimulant."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#a185b1"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	harmless = FALSE
@@ -797,7 +801,7 @@
 	id = "morphine"
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#700258"
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 15
@@ -826,7 +830,7 @@
 	id = "oculine"
 	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#757377"
 	taste_description = "clarity"
 	goal_difficulty = REAGENT_GOAL_HARD
 
@@ -856,7 +860,6 @@
 	id = "atropine"
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.2
 	overdose_threshold = 25
 	harmless = FALSE
@@ -965,6 +968,15 @@
 			SM.revive()
 			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
+
+	if(isbasicmob(M) && method == REAGENT_TOUCH)
+		var/mob/living/basic/BM = M
+		if(BM.sentience_type != revive_type) // No reviving Ash Drakes for you
+			return
+		if(BM.stat == DEAD)
+			BM.revive()
+			BM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
+			BM.visible_message("<span class='warning'>[BM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
@@ -1093,7 +1105,7 @@
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
 	id = "mutadone"
-	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
+	description = "Mutadone is an experimental bromide that can cure genetic abnormalities."
 	color = "#5096C8"
 	taste_description = "cleanliness"
 	goal_difficulty = REAGENT_GOAL_NORMAL
@@ -1141,7 +1153,7 @@
 	name = "Stimulants"
 	id = "stimulants"
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
-	color = "#C8A5DC"
+	color = "#a12c3c"
 	harmless = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
@@ -1184,7 +1196,7 @@
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
-	color = "#C8A5DC"
+	color = "#96210de3"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	harmless = FALSE
@@ -1257,7 +1269,7 @@
 	id = "insulin"
 	description = "A hormone generated by the pancreas responsible for metabolizing carbohydrates and fat in the bloodstream."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#e6d5f0"
 	taste_description = "tiredness"
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
@@ -1330,7 +1342,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone", "pump_up")
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1382,7 +1394,6 @@
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
-	reagent_state = SOLID
 	color = "#555555"
 	taste_description = "bodily perfection"
 
@@ -1401,7 +1412,7 @@
 	id = "weak_omnizine"
 	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
 	reagent_state = LIQUID
-	color = "#DCDCDC"
+	color = "#c173c4"
 	overdose_threshold = 30
 	metabolization_rate = 0.1
 	harmless = FALSE
@@ -1486,7 +1497,7 @@
 	id = "bicaridine"
 	description = "Restores bruising. Overdose causes it instead."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#bb3805"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "knitting wounds"
@@ -1506,7 +1517,7 @@
 	id = "kelotane"
 	description = "Restores fire damage. Overdose causes it instead."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#dae907"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "soothed burns"
@@ -1589,7 +1600,7 @@
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
 	process_flags = ORGANIC | SYNTHETIC
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone", "ultralube", "surge", "surge_plus", "combatlube")
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone", "ultralube", "surge", "surge_plus", "combatlube", "pump_up")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1659,7 +1670,7 @@
 	name = "Lavaland Extract"
 	id = "lavaland_extract"
 	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#5a2323"
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
 

@@ -14,7 +14,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/food/meat = 3)
@@ -22,11 +21,15 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
-	collar_type = "cat"
 	var/turns_since_scan = 0
-	var/mob/living/simple_animal/mouse/movement_target
+	var/mob/living/basic/mouse/movement_target
 	var/eats_mice = 1
+	var/collar_icon_state = "cat"
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state, collar_resting_icon_state_ = TRUE)
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/runtime
@@ -118,7 +121,6 @@
 	resting = TRUE
 	custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 	icon_state = "[icon_living]_sit"
-	collar_type = "[initial(collar_type)]_sit"
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(stat == CONSCIOUS && !buckled)
@@ -136,7 +138,7 @@
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1, src))
+		for(var/mob/living/basic/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
 				M.death()
@@ -166,7 +168,7 @@
 		movement_target = null
 		stop_automated_movement = FALSE
 		walk(src, 0)
-		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+		for(var/mob/living/basic/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
 				break
@@ -176,7 +178,6 @@
 
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
-	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -195,7 +196,7 @@
 	gender = NEUTER
 	density = FALSE
 	pass_flags = PASSMOB
-	collar_type = "kitten"
+	collar_icon_state = "kitten"
 
 /mob/living/simple_animal/pet/cat/syndi
 	name = "SyndiCat"

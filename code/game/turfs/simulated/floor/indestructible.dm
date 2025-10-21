@@ -1,5 +1,11 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "plating"
+
 /turf/simulated/floor/indestructible/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
@@ -34,6 +40,12 @@
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/indestructible/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/indestructible/airless
 	oxygen = 0
 	nitrogen = 0
@@ -42,7 +54,6 @@
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
 	oxygen = LAVALAND_OXYGEN
@@ -87,7 +98,6 @@
 	atmos_environment = null
 
 /turf/simulated/floor/indestructible/hierophant
-	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	oxygen = LAVALAND_OXYGEN

@@ -289,7 +289,7 @@
 	update_icons()
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/mob/living/silicon/pai/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
@@ -302,8 +302,13 @@
 		else
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 
-		return
-	else if(W.force)
+		return ITEM_INTERACT_COMPLETE
+
+/mob/living/silicon/pai/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
 	else
@@ -311,7 +316,6 @@
 	spawn(1)
 		if(stat != 2)
 			close_up()
-	return
 
 /mob/living/silicon/pai/welder_act()
 	return
@@ -417,14 +421,14 @@
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.worn_icon = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.icon_state = "[icon_state]"
-		H.item_state = "[icon_state]_hand"
+		H.inhand_icon_state = "[icon_state]_hand"
 	else
 		H.icon_state = "pai-[icon_state]"
-		H.item_state = "pai-[icon_state]"
+		H.inhand_icon_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()

@@ -1,7 +1,6 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	required_players = 20
 	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
@@ -146,7 +145,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/populate_magivends()
 	// Makes magivends PLENTIFUL
-	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
+	for(var/obj/machinery/economy/vending/magivend/magic in SSmachines.get_by_type(/obj/machinery/economy/vending/magivend))
 		for(var/key in magic.products)
 			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
 		magic.product_records.Cut()

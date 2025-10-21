@@ -61,6 +61,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	/// Do we have delayed objective giving?
 	var/delayed_objectives = FALSE
+	/// The title of the players "boss", used for exfil strings
+	var/boss_title = "Operations"
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -312,12 +314,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 		messages.Add(greet())
 		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
-	messages.Add(finalize_antag())
+	var/finalized = finalize_antag()
+	if(length(finalized) || istext(finalized))
+		messages.Add(finalized)
 	if(wiki_page_name)
 		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
-
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
-
+	if(length(messages))
+		to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
@@ -359,7 +362,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
-	owner.current.ghostize(FALSE)
+	owner.current.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	owner.current.key = C.key
 	dust_if_respawnable(C)
 	return TRUE
@@ -426,38 +429,68 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
+#define KILL_OBJECTIVE "KILL"
+#define THEFT_OBJECTIVE "STEAL"
+
+#define DESTROY_OBJECTIVE "DESTROY"
+#define DEBRAIN_OBJECTIVE "DEBRAIN"
+#define MAROON_OBJECTIVE "MAROON"
+#define ASS_ONCE_OBJECTIVE "ASS_ONCE"
+#define ASS_OBJECTIVE "ASS"
 
 /**
  * Create and assign a single randomized human traitor objective.
+ * Step one: Seperate your objectives into objectives that lead to people dying, and objectives that do not.
+ * Objectives that lead to people dying should take up HALF of the pick weight, and non lethal should be the OTHER half.
+ * After that, add it to the switch list.
+ * The kill objective pool weight has been done by putting the old code through a million or so runs to figure out averages, to keep it consistant.
  */
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
+	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
-		if(prob(50))
-			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-				objective_to_add = /datum/objective/destroy
+		var/objective_to_decide_further = pickweight(the_objective_list)
+		switch(objective_to_decide_further)
+			if(KILL_OBJECTIVE)
+				if(length(active_ais()))
+					the_nonstatic_kill_list += list(DESTROY_OBJECTIVE = round((100 / length(GLOB.player_list)) * 10))
+				var/the_kill_objective = pickweight(the_nonstatic_kill_list)
+				switch(the_kill_objective)
+					if(DESTROY_OBJECTIVE)
+						objective_to_add = /datum/objective/destroy
 
-			else if(prob(5))
-				objective_to_add = /datum/objective/debrain
+					if(DEBRAIN_OBJECTIVE)
+						objective_to_add = /datum/objective/debrain
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/maroon
+					if(MAROON_OBJECTIVE)
+						objective_to_add = /datum/objective/maroon
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/assassinateonce
+					if(ASS_ONCE_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinateonce
 
-			else
-				objective_to_add = /datum/objective/assassinate
-		else
-			objective_to_add = /datum/objective/steal
+					if(ASS_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinate
+			if(THEFT_OBJECTIVE)
+				objective_to_add = /datum/objective/steal
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
 	add_antag_objective(objective_to_add)
+
+#undef KILL_OBJECTIVE
+#undef THEFT_OBJECTIVE
+
+#undef DESTROY_OBJECTIVE
+#undef DEBRAIN_OBJECTIVE
+#undef MAROON_OBJECTIVE
+#undef ASS_ONCE_OBJECTIVE
+#undef ASS_OBJECTIVE
+
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
@@ -498,5 +531,25 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// This is the custom blurb message used on login for an antagonist.
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
+
+/datum/antagonist/proc/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	return
+
+/datum/antagonist/proc/prepare_exfiltration(mob/user, obj/item/wormhole_jaunter/extraction/extraction_type = null)
+	// No extraction for certian steals/hijack
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(!goal.is_valid_exfiltration())
+			to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
+			return
+
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/mob/living/L = user
+	if(!istype(L))
+		return
+	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
+	L.put_in_active_hand(extractor)
 
 #undef SUCCESSFUL_DETACH

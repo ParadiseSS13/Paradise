@@ -154,11 +154,13 @@
 			update_inv_ears()
 		wear_mask_update(target, toggle_off = FALSE)
 		sec_hud_set_ID()
+		malf_hud_set_status()
 		update_misc_effects()
 		update_inv_wear_mask()
 	else if(target == wear_id)
 		wear_id = null
 		sec_hud_set_ID()
+		malf_hud_set_status()
 		update_inv_wear_id()
 	else if(target == wear_pda)
 		wear_pda = null
@@ -224,6 +226,7 @@
 				update_head_accessory()
 			if(length(hud_list))
 				sec_hud_set_ID()
+				malf_hud_set_status()
 			if(wear_mask.flags_inv & HIDEEARS)
 				update_inv_ears()
 			wear_mask_update(I, toggle_off = TRUE)
@@ -241,9 +244,11 @@
 		if(ITEM_SLOT_LEFT_HAND)
 			l_hand = I
 			update_inv_l_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_RIGHT_HAND)
 			r_hand = I
 			update_inv_r_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_BELT)
 			belt = I
 			update_inv_belt()
@@ -251,6 +256,7 @@
 			wear_id = I
 			if(length(hud_list))
 				sec_hud_set_ID()
+				malf_hud_set_status()
 			update_inv_wear_id()
 		if(ITEM_SLOT_PDA)
 			wear_pda = I
@@ -336,6 +342,7 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
+			I.in_storage = TRUE
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby__legacy__attackchain(I, src)

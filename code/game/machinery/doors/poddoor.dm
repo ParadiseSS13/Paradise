@@ -89,38 +89,17 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
-	layer = CLOSED_DOOR_LAYER
-	closingLayer = CLOSED_DOOR_LAYER
-
-/obj/machinery/door/poddoor/multi_tile/four_tile_ver
-	icon = 'icons/obj/doors/1x4blast_vert.dmi'
-	width = 4
-	dir = NORTH
-
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver
-	icon = 'icons/obj/doors/1x3blast_vert.dmi'
-	width = 3
-	dir = NORTH
-
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver
-	icon = 'icons/obj/doors/1x2blast_vert.dmi'
+	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
+	layer = CLOSED_BLASTDOOR_LAYER
 	width = 2
-	dir = NORTH
 
-/obj/machinery/door/poddoor/multi_tile/four_tile_hor
-	icon = 'icons/obj/doors/1x4blast_hor.dmi'
-	width = 4
-	dir = EAST
-
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor
-	icon = 'icons/obj/doors/1x3blast_hor.dmi'
+/obj/machinery/door/poddoor/multi_tile/triple
+	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
-	dir = EAST
 
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor
-	icon = 'icons/obj/doors/1x2blast_hor.dmi'
-	width = 2
-	dir = EAST
+/obj/machinery/door/poddoor/multi_tile/quad
+	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
+	width = 4
 
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
@@ -137,32 +116,10 @@
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver
-	icon = 'icons/obj/doors/1x4blast_vert.dmi'
-	width = 4
-	dir = NORTH
-
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver
-	icon = 'icons/obj/doors/1x3blast_vert.dmi'
+/obj/machinery/door/poddoor/multi_tile/impassable/triple
+	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
-	dir = NORTH
 
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver
-	icon = 'icons/obj/doors/1x2blast_vert.dmi'
-	width = 2
-	dir = NORTH
-
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_hor
-	icon = 'icons/obj/doors/1x4blast_hor.dmi'
+/obj/machinery/door/poddoor/multi_tile/impassable/quad
+	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
 	width = 4
-	dir = EAST
-
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor
-	icon = 'icons/obj/doors/1x3blast_hor.dmi'
-	width = 3
-	dir = EAST
-
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor
-	icon = 'icons/obj/doors/1x2blast_hor.dmi'
-	width = 2
-	dir = EAST

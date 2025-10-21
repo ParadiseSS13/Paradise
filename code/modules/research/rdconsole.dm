@@ -182,18 +182,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//Loading a disk into it.
 	if(istype(used, /obj/item/disk))
+		. = ITEM_INTERACT_COMPLETE
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
-			return ITEM_INTERACT_COMPLETE
+			return
 
 		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
 		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-			return ITEM_INTERACT_COMPLETE
-		if(!user.drop_item())
-			return ITEM_INTERACT_COMPLETE
-		used.loc = src
+			return
+		if(!user.transfer_item_to(used, src))
+			return
+		playsound(src, used.drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE) // Highly important auditory feedback
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		return ..()
@@ -454,7 +455,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/obj/item/new_item = new being_built.build_path(src)
 				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key]","singulo")
+					new_item.investigate_log("built by [key]",INVESTIGATE_SINGULO)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.materials = efficient_mats.Copy()
 				if(being_built.locked)

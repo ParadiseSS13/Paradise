@@ -49,6 +49,7 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
@@ -111,7 +112,10 @@
 		return antag_cost * antag_amount // shitty refund for now
 
 /datum/ruleset/proc/roundstart_can_apply(datum/mind/antag)
-	if(EXCLUSIVE_OR(antag.current.client.prefs.active_character.species in banned_species, banned_species_only))
+	var/client/antag_client = GLOB.directory[ckey(antag.key)]
+	if(!antag_client)
+		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
+	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
@@ -121,11 +125,12 @@
 /datum/ruleset/proc/roundstart_post_setup(datum/game_mode/dynamic)
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
-	// log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
+	log_dynamic("[info] Refund unimplemented, wasting [antag_cost * antag_amount] budget.")
 	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
 	return
 
@@ -144,7 +149,7 @@
 		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
 			continue
 		// Make sure they want to play antag, and that they're not already something (off station or antag)
-		if(player.client.skip_antag || player.mind.offstation_role || player.mind.special_role)
+		if(player.client.persistent.skip_antag || player.mind.offstation_role || player.mind.special_role)
 			continue
 		// Make sure they actually want to be this antagonist
 		if(!(antagonist_type::job_rank in player.client.prefs.be_special))
@@ -169,8 +174,10 @@
 	for(var/i in 1 to late_antag_amount)
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
-	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
+	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
 
 /datum/ruleset/proc/automatic_deduct(budget)
 	. = antag_cost * antag_amount
@@ -194,6 +201,23 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
+
+/datum/ruleset/traitor/autotraitor
+	name = "Autotraitor"
+	ruleset_weight = 2
+	antag_cost = 10
+	banned_mutual_rulesets = list(
+		/datum/ruleset/traitor,
+		/datum/ruleset/vampire,
+		/datum/ruleset/changeling,
+		/datum/ruleset/team/cult
+	)
+
+/datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
+	. = ..()
+	latespawn_time = null
+	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
 
 /datum/ruleset/heretic
 	name = "Heretic"
@@ -222,14 +246,12 @@
 
 	banned_jobs = list("Cyborg", "AI")
 	banned_species = list("Machine")
-	implied_ruleset_type = /datum/ruleset/implied/mindflayer
-
-/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets)
-	// Theres already a ruleset, we're good to go
-	if(length(rulesets))
+	implied_ruleset_type = /datum/ruleset/i	if(ruleset_budget > 1)
 		return ..()
-	// We're the first ruleset, but we can afford another ruleset
-	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost) || (ruleset_budget >= /datum/ruleset/heretic::ruleset_cost))
+	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
+
+// This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
+	if(ruleset_budget > 1)
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
@@ -278,6 +300,7 @@
 
 /datum/ruleset/team/roundstart_post_setup(datum/game_mode/dynamic)
 	if(unique_team)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[team_type]"))
 		new team_type(pre_antags)
 		return
 	stack_trace("Undefined behavior for dynamic non-unique teams!")
@@ -294,13 +317,13 @@
 
 /datum/ruleset/team/cult
 	name = "Cultist"
-	ruleset_cost = 1
-	ruleset_weight = 4
+	ruleset_weight = 3
 	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)

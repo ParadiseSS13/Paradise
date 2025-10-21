@@ -2,10 +2,8 @@
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 
@@ -133,11 +131,11 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/floorbot/attackby__legacy__attackchain(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= MAX_AMOUNT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/loaded = min(MAX_AMOUNT - amount, T.amount)
 		T.use(loaded)
 		amount += loaded
@@ -147,8 +145,10 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
-	else
-		..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
@@ -232,6 +232,8 @@
 
 			path = list()
 			return
+		
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
@@ -241,12 +243,12 @@
 
 			if(!bot_move(target))
 				add_to_ignore(target)
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				target = null
 				set_mode(BOT_IDLE)
 				return
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
 			set_mode(BOT_IDLE)
 			return

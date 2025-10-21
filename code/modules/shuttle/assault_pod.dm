@@ -4,6 +4,8 @@
 	dwidth = 3
 	width = 7
 	height = 7
+	preferred_direction = EAST
+	port_direction = EAST
 
 /obj/docking_port/mobile/assault_pod/request()
 	if(z == initial(src.z)) //No launching pods that have already launched
@@ -19,17 +21,16 @@
 
 /obj/item/assault_pod
 	name = "Assault Pod Targetting Device"
+	desc = "Used to select a landing zone for assault pods."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
-	item_state = "walkietalkie"
-	desc = "Used to select a landing zone for assault pods."
+	inhand_icon_state = "radio"
 	var/shuttle_id = "steel_rain"
 	var/dwidth = 3
 	var/dheight = 0
 	var/width = 7
 	var/height = 7
 	var/lz_dir = 1
-
 
 /obj/item/assault_pod/attack_self__legacy__attackchain(mob/living/user)
 	var/target_area
@@ -53,7 +54,7 @@
 	landing_zone.dir = lz_dir
 	landing_zone.register() //new docking ports must be registered
 
-	for(var/obj/machinery/computer/shuttle/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
 		if(S.shuttleId == shuttle_id)
 			S.possible_destinations = "[landing_zone.id]"
 

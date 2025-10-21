@@ -2,6 +2,7 @@
 /area/station/security
 	ambientsounds = HIGHSEC_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	airlock_wires = /datum/wires/airlock/security
 
 /area/station/security/main
 	name = "\improper Security Office"
@@ -129,8 +130,6 @@
 	icon_state = "checkpoint1"
 
 /area/station/security/checkpoint/secondary
-	name = "\improper Security Checkpoint"
-	icon_state = "checkpoint1"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Security"
 

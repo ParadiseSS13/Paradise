@@ -248,7 +248,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -266,7 +266,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 
@@ -326,7 +326,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -346,7 +346,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -366,7 +366,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -419,7 +419,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -511,31 +511,31 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC in SSmachines.get_by_type(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
 		areas_with_LS |= A.type
 
-	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
+	for(var/obj/item/radio/intercom/I in SSmachines.get_by_type(/obj/item/radio/intercom))
 		var/area/A = get_area(I)
 		if(!A)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C in SSmachines.get_by_type(/obj/machinery/camera))
 		var/area/A = get_area(C)
 		if(!A)
 			continue
@@ -621,12 +621,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
-/client/proc/robust_dress_shop()
+/client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
 		"Naked",
 		"As Job...",
 		"Custom..."
 	)
+	if(length(potential_minds))
+		special_outfits += "Recover destroyed body..."
 
 	var/list/outfits = list()
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
@@ -666,6 +668,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(isnull(dresscode))
 			return
 
+	if(dresscode == "Recover destroyed body...")
+		dresscode = input("Select body to rebuild", "Robust quick dress shop") as null|anything in potential_minds
+
 	return dresscode
 
 /client/proc/startSinglo()
@@ -679,11 +684,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
+	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
 		if(E.anchored)
 			E.active = TRUE
 
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
+	for(var/obj/machinery/field/generator/F in SSmachines.get_by_type(/obj/machinery/field/generator))
 		if(!F.active)
 			F.active = TRUE
 			F.state = 2
@@ -694,13 +699,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.update_icon()
 
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
+		for(var/obj/machinery/the_singularitygen/G in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G))
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
+	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
@@ -712,7 +717,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
+	for(var/obj/machinery/power/smes/SMES in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
@@ -859,7 +864,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -888,7 +893,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_MAINTAINER) || !isclient(src))
+	if(!check_rights(R_DEBUG) || !isclient(src))
 		return
 
 	if(byond_version < 516)
@@ -918,3 +923,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CHECK_TICK
 
 	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
+
+/client/proc/view_bug_reports()
+	set name = "View Bug Reports"
+	set desc = "Select a bug report to view"
+	set category = "Debug"
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
+		return
+	if(!length(GLOB.bug_reports))
+		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
+		return
+	var/list/bug_report_selection = list()
+	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
+		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
+	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	if(!form.assign_approver(usr))
+		return
+	form.ui_interact(usr)
+	return
+

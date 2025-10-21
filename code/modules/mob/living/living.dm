@@ -12,6 +12,9 @@
 	for(var/initial_trait in initial_traits)
 		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
+	AddElement(/datum/element/strippable)
+	RegisterSignal(src, COMSIG_STRIPPABLE_REQUEST_ITEMS, PROC_REF(get_strippable_items))
+
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
 /mob/living/proc/determine_move_and_pull_forces()
@@ -40,7 +43,6 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
@@ -55,17 +57,19 @@
 				S.be_replaced()
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
-		mind.current = null
+		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
-/mob/living/ghostize(can_reenter_corpse = 1)
-	var/prev_client = client
+/mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	. = ..()
-	if(.)
-		if(ranged_ability && prev_client)
-			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
+
+/// Legacy method for simplemobs to handle turning off their AI.
+/// Unrelated to and unused for AI controllers, which handle their
+/// AI cooperation with signals.
+/mob/living/proc/sentience_act()
+	return
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -212,12 +216,38 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
 		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
+
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(!user.reagent_vision())
+		return
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(surgery_container && !contains_xeno_organ)
+		. += "<span class='warning'>[src] looks like [p_they()] [p_have()] had [p_their()] organs dissected!</span>"
+
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
@@ -260,7 +290,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -350,6 +386,8 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+	playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
@@ -451,7 +489,8 @@
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
-
+		for(var/obj/item/organ/internal/headpocket/pocket in contents)
+			L += pocket.contents //Checks for items in headpockets
 		return L
 
 /mob/living/proc/check_contents_for(A)
@@ -743,6 +782,10 @@
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
 /mob/living/proc/run_resist()
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/C = loc
+		C.container_resist(src)
+		return
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -831,7 +874,7 @@
 	return FALSE
 
 /mob/living/update_gravity(has_gravity)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -859,13 +902,14 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+	SIGNAL_HANDLER
 	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -878,7 +922,7 @@
 	return
 
 /mob/living/singularity_act()
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	investigate_log("([key_name(src)]) has been consumed by the singularity.",INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
 	return 20
 
@@ -966,8 +1010,12 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
 		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
-			harvest(user)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
+			if(do_mob(user, src, 3 SECONDS) && Adjacent(I))
+				harvest(user)
+		else
+			if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+				harvest(user)
 		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
@@ -1067,12 +1115,12 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
-	if(ismob(AM))
-		var/mob/M = AM
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
+	SEND_SIGNAL(AM, COMSIG_ATOM_PULLED, src)
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
@@ -1082,39 +1130,80 @@
 	if(registered_z != new_z)
 		if(registered_z)
 			SSmobs.clients_by_zlevel[registered_z] -= src
-		if(client)
-			if(new_z)
-				SSmobs.clients_by_zlevel[new_z] += src
+
+		if(isnull(client))
+			registered_z = null
+			return
+
+		// Check the amount of clients exists on the Z level we're leaving from,
+		// this excludes us because at this point we are not registered to any z level.
+		var/old_level_new_clients = (registered_z ? length(SSmobs.clients_by_zlevel[registered_z]) : null)
+		// No one is left after we're gone, shut off inactive ones
+		if(registered_z && old_level_new_clients == 0)
+			for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[registered_z])
+				controller.set_ai_status(AI_STATUS_OFF)
+
+
+		if(new_z)
+			// Check the amount of clients exists on the Z level we're moving towards, excluding ourselves.
+			var/new_level_old_clients = length(SSmobs.clients_by_zlevel[new_z])
+
+			//We'll add ourselves to the list now so get_expected_ai_status() will know we're on the z level.
+			SSmobs.clients_by_zlevel[new_z] += src
+
+			if(new_level_old_clients == 0) // No one was here before, wake up all the AIs.
+				// Basic mob AI
+				for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[new_z])
+					// We don't set them directly on, for instances like AIs acting while dead and other cases that may exist in the future.
+					// This isn't a problem for AIs with a client since the client will prevent this from being called anyway.
+					controller.set_ai_status(controller.get_expected_ai_status())
+
+				// Simple mob AI
 				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance)
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
 					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
-			registered_z = new_z
-		else
-			registered_z = null
+		registered_z = new_z
 
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
 	update_z(new_turf?.z)
 
-/mob/living/rad_act(amount)
-	. = ..()
-
+/mob/living/rad_act(atom/source, amount, emission_type)
+	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
+	if(emission_type > ALPHA_RAD)
+		amount /=  (1 - RAD_MOB_INSULATION)
+	// Alpha sources outside the body don't do much
+	else if(!is_inside_mob(source))
+		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, RAD)
+	var/blocked = getarmor(armor_type = RAD)
 	if(blocked == INFINITY) // Full protection, go no further.
 		return
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-
 	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
+
+/mob/living/proc/is_inside_mob(atom/thing)
+	if(!(thing in contents))
+		return FALSE
+	if(l_hand && l_hand.UID() == thing.UID())
+		return FALSE
+	if(r_hand && r_hand.UID() == thing.UID())
+		return FALSE
+	if(back && back.UID() == thing.UID())
+		return FALSE
+	if(wear_mask && wear_mask.UID() == thing.UID())
+		return FALSE
+
+	return TRUE
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1126,6 +1215,68 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light(force)
+
+/mob/living/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brain'>[getBrainLoss()]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=stamina'>[getStaminaLoss()]</a>
+		</font>
+	"}
+
+/mob/living/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list["adjustDamage"])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
+
+		var/Text = href_list["adjustDamage"]
+		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", min_value = -10000, max_value = 10000)
+
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		switch(Text)
+			if("brute")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustBruteLoss(amount, robotic = TRUE)
+				else
+					adjustBruteLoss(amount)
+			if("fire")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustFireLoss(amount, robotic = TRUE)
+				else
+					adjustFireLoss(amount)
+			if("toxin")
+				adjustToxLoss(amount)
+			if("oxygen")
+				adjustOxyLoss(amount)
+			if("brain")
+				adjustBrainLoss(amount)
+			if("clone")
+				adjustCloneLoss(amount)
+			if("stamina")
+				adjustStaminaLoss(amount)
+			else
+				to_chat(usr, "<span class='notice'>You caused an error. DEBUG: Text:[Text] Mob:[src]</span>")
+				return
+
+		if(amount != 0)
+			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [src]")
+			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [src]")
+			href_list["datumrefresh"] = UID()
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1245,4 +1396,32 @@
 	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
 
 /mob/living/proc/sec_hud_set_ID()
+	return
+
+/// Proc called when TARGETED by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	revive()
+	befriend(reviver)
+	AddElement(/datum/element/wears_collar)
+	faction = (malfunctioning) ? list("lazarus", "\ref[reviver]") : list("neutral")
+	if(malfunctioning)
+		log_game("[reviver] has revived hostile mob [src] with a malfunctioning lazarus injector")
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and
+/// targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(new_friend))
+		return
+	var/friend_ref = new_friend.UID()
+	if(faction.Find(friend_ref))
+		return FALSE
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
+
+/mob/living/proc/get_strippable_items(datum/source, list/items)
+	SIGNAL_HANDLER // COMSIG_STRIPPABLE_REQUEST_ITEMS
 	return

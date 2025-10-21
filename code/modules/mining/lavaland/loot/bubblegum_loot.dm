@@ -1,18 +1,3 @@
-/obj/structure/closet/crate/necropolis/bubblegum
-	name = "bubblegum chest"
-
-/obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
-	new /obj/item/clothing/suit/space/hostile_environment(src)
-	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	new /obj/item/melee/spellblade/random(src)
-
-/obj/structure/closet/crate/necropolis/bubblegum/crusher
-	name = "bloody bubblegum chest"
-
-/obj/structure/closet/crate/necropolis/bubblegum/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/demon_claws(src)
-
 /obj/structure/closet/crate/necropolis/bubblegum/bait/populate_contents()
 	return
 

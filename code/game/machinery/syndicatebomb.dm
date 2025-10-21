@@ -7,8 +7,6 @@
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
-	anchored = FALSE
-	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_2 = CRITICAL_ATOM_2
@@ -310,6 +308,24 @@
 	. = ..()
 	wires.cut_all()
 
+/obj/machinery/syndicatebomb/shuttle_loan
+
+/obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan
+	payload = /obj/item/bombcore/badmin/summon/clown/lesser
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
 
 ///Bomb Cores///
 
@@ -318,8 +334,9 @@
 	desc = "A powerful secondary explosive of syndicate design and unknown composition, it should be stable under normal conditions..."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
-	item_state = "eshield0"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "eshield0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	origin_tech = "syndicate=5;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
@@ -341,7 +358,7 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log)
+	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = "[name]: bombcore explosion")
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -418,12 +435,15 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon/clown
-	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
+	summon_path = /mob/living/basic/clown
 	amt_summon 	= 100
 
 /obj/item/bombcore/badmin/summon/clown/defuse()
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
+
+/obj/item/bombcore/badmin/summon/clown/lesser
+	amt_summon = 10
 
 /obj/item/bombcore/explosive_wall
 	admin_log = FALSE
@@ -651,7 +671,7 @@
 	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=3"
 	var/timer = 0
@@ -663,7 +683,7 @@
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
 
-	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
 			B.detonation_timer = world.time + BUTTON_DELAY
 			detonated++

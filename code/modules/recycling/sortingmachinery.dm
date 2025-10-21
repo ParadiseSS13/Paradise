@@ -35,7 +35,8 @@
 
 	qdel(src)
 
-/obj/structure/big_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/big_delivery/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 
@@ -148,24 +149,25 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	var/wrap_time = 2 SECONDS
 	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
 
-/obj/item/stack/package_wrap/pre_attack(atom/A, mob/living/user, params)
+/obj/item/stack/package_wrap/pre_attack(atom/atom_target, mob/living/user, params)
 	. = ..()
-	if(!in_range(A, user))
+	if(!in_range(atom_target, user))
 		return
 
-	if(!isobj(A))
+	if(!isobj(atom_target))
 		return
 
-	var/obj/target = A
+	var/obj/target = atom_target
 	if(is_type_in_list(target, no_wrap))
 		return
 
 	if(istype(target, /obj/item/stack/package_wrap) && user.a_intent != INTENT_HARM)
 		return
 
-	if(is_type_in_list(A.loc, list(/obj/item/small_delivery, /obj/structure/big_delivery)))
+	if(is_type_in_list(atom_target.loc, list(/obj/item/small_delivery, /obj/structure/big_delivery)))
 		return
 
 	if(target.anchored)
@@ -177,7 +179,7 @@
 	if(isitem(target) && !(isstorage(target) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shipping_package)))
 		var/obj/item/O = target
 		if(!use(1))
-			return FALSE
+			return CONTINUE_ATTACK
 
 		var/obj/item/small_delivery/P = new /obj/item/small_delivery(get_turf(O.loc)) //Aaannd wrap it up!
 		if(!isturf(O.loc))
@@ -196,24 +198,24 @@
 	else if(istype(target, /obj/structure/closet/crate))
 		var/obj/structure/big_delivery/D = wrap_closet(target, user)
 		if(!D)
-			return FALSE
+			return CONTINUE_ATTACK
 		D.icon_state = "deliverycrate"
 
 	else if(istype(target, /obj/structure/closet))
 		var/obj/structure/closet/C = target
 		var/obj/structure/big_delivery/D = wrap_closet(target, user)
 		if(!D)
-			return FALSE
+			return CONTINUE_ATTACK
 		D.init_welded = C.welded
 		C.welded = TRUE
 
 	else if(target.GetComponent(/datum/component/two_handed))
 		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
-		return FALSE
+		return CONTINUE_ATTACK
 
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
-		return FALSE
+		return CONTINUE_ATTACK
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
@@ -222,7 +224,7 @@
 	if(amount <= 0 && QDELETED(src)) //if we used our last wrapping paper, drop a cardboard tube
 		var/obj/item/c_tube/T = new(get_turf(user))
 		user.put_in_active_hand(T)
-	return FALSE
+	return CONTINUE_ATTACK
 
 // Separate proc to avoid copy pasting the code twice
 /obj/item/stack/package_wrap/proc/wrap_closet(obj/structure/closet/C, mob/user)
@@ -231,8 +233,13 @@
 	if(amount < 3)
 		to_chat(user, "<span class='warning'>You need more paper.</span>")
 		return
-	if(!do_after_once(user, 1.5 SECONDS, target = C) || C.opened || !use(3)) // Checking these again since it's after a delay
+	// Checking these again since it's after a delay
+	var/wrap_do_after = wrap_time
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
+		wrap_do_after *= PACK_RAT_WRAP_SPEEDUP
+	if(!do_after_once(user, wrap_do_after, target = C) || C.opened || !use(3))
 		return
+
 	var/obj/structure/big_delivery/P = new(get_turf(C))
 	P.wrapped = C
 	C.loc = P
@@ -243,9 +250,9 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
-
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	///Value of the tag
@@ -275,7 +282,6 @@
 /obj/machinery/disposal/delivery_chute
 	name = "delivery chute"
 	desc = "A chute for big and small packages alike!"
-	density = TRUE
 	icon_state = "intake"
 	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE

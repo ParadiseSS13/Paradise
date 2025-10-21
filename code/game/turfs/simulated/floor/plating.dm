@@ -6,9 +6,6 @@
 	floor_tile = null
 	var/unfastened = FALSE
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
 	rust_resistance = RUST_RESISTANCE_BASIC
@@ -159,7 +156,6 @@
 		TerraformTurf(baseturf, keep_icon = FALSE)
 
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -179,6 +175,7 @@
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
+	icon_regular_floor = "engine"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
@@ -187,6 +184,12 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	rust_resistance = RUST_RESISTANCE_REINFORCED
+
+/turf/simulated/floor/engine/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "engine"
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -235,6 +238,13 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	icon_regular_floor = "cult"
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
@@ -319,6 +329,13 @@
 	toxins = 10
 	atmos_mode = ATMOS_MODE_NO_DECAY
 
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
@@ -330,7 +347,6 @@
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
@@ -354,7 +370,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
@@ -369,7 +384,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity)
 	return
@@ -468,3 +482,24 @@
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/// Used in situations like the anomalous crystal where we want
+/// floors that look and act like asteroid floors but aren't.
+/// This doesn't allow you to dig sand out of it but whatever.
+/turf/simulated/floor/plating/false_asteroid
+	gender = PLURAL
+	name = "volcanic floor"
+	baseturf = /turf/simulated/floor/plating/false_asteroid
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	var/environment_type = "basalt"
+	var/turf_type = /turf/simulated/floor/plating/false_asteroid
+	var/floor_variance = 20 //probability floor has a different icon state
+
+/turf/simulated/floor/plating/false_asteroid/AfterChange(ignore_air, keep_cabling)
+	. = ..()
+	if(prob(floor_variance))
+		icon_plating = "[environment_type][rand(0,12)]"

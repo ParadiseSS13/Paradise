@@ -3,8 +3,6 @@
 /// tracks the damage dealt to this mob by kinetic crushers
 /datum/status_effect/crusher_damage
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -72,7 +70,7 @@
 /datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags |= GODMODE
 	highfived.status_flags |= GODMODE
-	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	explosion(get_turf(user), 5, 2, 1, 3, cause = "Wizard high-five")
 	// explosions have a spawn so this makes sure that we don't get gibbed
 	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
 	add_attack_logs(user, highfived, "caused a wizard [id] explosion")
@@ -294,7 +292,6 @@
 /datum/status_effect/limited_bonus/revivable
 	id = "revivable"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	duration = BASE_DEFIB_TIME_LIMIT
 
 /datum/status_effect/limited_bonus/revivable/on_apply()
@@ -340,7 +337,6 @@
 /datum/status_effect/lwap_scope
 	id = "lwap_scope"
 	alert_type = null
-	duration = -1
 	tick_interval = 4
 	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
@@ -406,3 +402,6 @@
 
 /datum/status_effect/action_status_effect/unbuckle
 	id = "unbuckle"
+
+/datum/status_effect/action_status_effect/exit_cryocell
+	id = "exit_cryocell"

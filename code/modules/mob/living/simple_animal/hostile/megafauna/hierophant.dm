@@ -43,11 +43,12 @@ Difficulty: Hard
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
 	icon_living = "hierophant"
+	icon_dead = "hierophant_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration_percentage = 100 //It does 15 damage / only attacks when enraged
+	armor_penetration_percentage = 100 // It does 15 damage / only attacks when enraged
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	speed = 10
@@ -56,18 +57,17 @@ Difficulty: Hard
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
 	loot = list(/obj/item/hierophant_club)
-	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman)
+	difficulty_ore_modifier = 2
+	crusher_loot = list(/obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	internal_gps = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
-	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
-	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
-							/datum/action/innate/megafauna_attack/chaser_swarm,
-							/datum/action/innate/megafauna_attack/cross_blasts,
-							/datum/action/innate/megafauna_attack/blink_spam)
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hierophant
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -92,29 +92,29 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now blinking to your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Chaser Swarm"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "hierophant_squares_indefinite"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "hierophant_squares_indefinite"
 	chosen_message = "<span class='colossus'>You are firing a chaser swarm at your target.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Cross Blasts"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "hierophant_blast_indefinite"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "hierophant_blast_indefinite"
 	chosen_message = "<span class='colossus'>You are now firing cross blasts at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Blink Chase"
-	button_overlay_icon = 'icons/obj/lavaland/artefacts.dmi'
-	button_overlay_icon_state = "hierophant_club_ready_beacon"
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon_state = "hierophant_club_ready_beacon"
 	chosen_message = "<span class='colossus'>You are now repeatedly blinking at your target.</span>"
 	chosen_attack_num = 4
 
@@ -462,6 +462,8 @@ Difficulty: Hard
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
 			T.collapse()
+		icon = 'icons/mob/lavaland/corpses.dmi'
+		DeleteComponent(/datum/component/boss_music)
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
@@ -479,7 +481,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
 	. = ..()
-	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+	if(istype(the_target, /mob/living/basic/mining/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
 		return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
@@ -760,7 +762,7 @@ Difficulty: Hard
 	playsound(target,'sound/weapons/sear.ogg', 50, TRUE, -4)
 	to_chat(target, "<span class='userdanger'>You're struck by \a [name]!</span>")
 	var/limb_to_hit = target.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-	var/armor = target.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
+	var/armor = target.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", "Your armor was penetrated by [src]!", 50)
 	target.apply_damage(damage, BURN, limb_to_hit, armor)
 	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/H = target //mobs find and damage you...
@@ -804,37 +806,34 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 
 /obj/effect/hierophant/ex_act()
 	return
 
-/obj/effect/hierophant/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = I
-		if(H.timer > world.time)
-			return
-		if(H.beacon == src)
+/obj/effect/hierophant/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/hierophant_club))
+		var/obj/item/hierophant_club/club = used
+		if(club.timer > world.time)
+			return ITEM_INTERACT_COMPLETE
+		if(club.beacon == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
-			H.timer = world.time + 51
-			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+			club.timer = world.time + 51
+			INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 			if(do_after(user, 50, target = src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")
-				H.beacon = null
+				club.beacon = null
 				user.update_action_buttons_icon()
 				qdel(src)
 			else
-				H.timer = world.time
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+				club.timer = world.time
+				INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 		else
 			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/gps/internal/hierophant
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."
-	invisibility = 100

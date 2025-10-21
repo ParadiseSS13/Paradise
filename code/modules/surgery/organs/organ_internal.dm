@@ -2,13 +2,34 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
+	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
+	var/hidden_origin_tech
+	/// What is the level of tech for the hidden tech type?
+	var/hidden_tech_level = 1
+	/// How much is this organ worth in the xenobiology organ analyzer?
+	var/analyzer_price = 10
+	/// what quality is this organ? Only useful for xeno organs
+	var/organ_quality = ORGAN_NORMAL
+	/// Does this organ originate from the xenobiology dissection loop?
+	var/is_xeno_organ = FALSE
+	/// Does this organ give a warning upon being inserted?
+	var/warning = FALSE
+	/// Does this organ show outside the mob, and what is the icon state?
+	var/augment_state = null
+	/// Does this organ actually have a sprite for it being on the arm? And what is the path of it.
+	var/augment_icon = null
+	/// Does this organ have a extra render mechanic?
+	var/do_extra_render = FALSE
+	/// Does this organ ignore skin covers?
+	var/always_show_augment = FALSE
+	/// Does this organ have augmented skin to apply to the user on install? If so, apply it to the user and remove it.
+	var/self_augmented_skin_level = 0
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -33,6 +54,13 @@
 		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
+
+/obj/item/organ/internal/examine(mob/user)
+	. = ..()
+	if(is_xeno_organ)
+		. += "<span class='info'>It looks like it would replace \the [slot]."
+	if(self_augmented_skin_level)
+		. += "<span class='info'>It seems to have level-[self_augmented_skin_level] synthetic skin applied."
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -64,6 +92,9 @@
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
 			parent.internal_organs |= src
+		if(self_augmented_skin_level)
+			parent.apply_augmented_skin(self_augmented_skin_level)
+			self_augmented_skin_level = 0
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -197,26 +228,59 @@
 	return S
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	if(parent_organ != parent.limb_name)
+	if(parent_organ != parent.limb_name && parent_organ != "eyes" && parent_organ != "mouth")
 		return FALSE
 	insert(H)
 	return TRUE
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
-	return
+	if(!augment_state || !augment_icon || !owner)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+	if(our_parent.augmented_skin_cover_level && !always_show_augment)
+		return FALSE
+
+	return TRUE
+
+// An extra render used in certain situations.
+/obj/item/organ/internal/proc/extra_render()
+	if(!augment_state || !augment_icon || !owner || !do_extra_render)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+	if(our_parent.augmented_skin_cover_level && !always_show_augment)
+		return FALSE
+
+	return TRUE
 
 /obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
+		if(is_xeno_organ)
+			to_chat(user, "<span class='warning'>It wouldnt be a very good idea to eat this.</span>")
+			return ..()
 		var/obj/item/food/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack__legacy__attackchain(H, H)
+			S.interact_with_atom(H, H)
 			qdel(src)
 	else
 		..()
+
+/obj/item/organ/internal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(is_robotic() && istype(I, /obj/item/stack/synthetic_skin))
+		var/obj/item/stack/synthetic_skin/skin = I
+		skin.use(1)
+		self_augmented_skin_level = skin.skin_level
+		to_chat(user, "<span class='notice'>You apply [skin] to [src].</span>")
+		return
+	return ..()
+
 
 /****************************************************
 				INTERNAL ORGANS DEFINES
@@ -322,10 +386,7 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_to_ground(H.shoes))
-					GLOB.move_manager.move_away(thingy, H, 15, 2)
-					spawn(20)
-						if(thingy)
-							GLOB.move_manager.stop_looping(thingy)
+					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout = 20)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
@@ -396,3 +457,9 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
+/// Checks that the organ is inside of a host and that they are a valid recipient. Used for abductor glands
+/obj/item/organ/internal/proc/owner_check()
+	if(ishuman(owner) || iscarbon(owner))
+		return TRUE
+	return FALSE

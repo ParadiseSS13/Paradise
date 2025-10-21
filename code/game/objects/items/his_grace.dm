@@ -10,7 +10,7 @@
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "green"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
@@ -52,7 +52,7 @@
 
 /obj/item/his_grace/update_icon_state()
 	icon_state = ascended ? "gold" : "green"
-	item_state = ascended ? "toolbox_gold" : "artistic_toolbox"
+	inhand_icon_state = ascended ? "toolbox_gold" : "artistic_toolbox"
 
 /obj/item/his_grace/update_overlays()
 	. = ..()
@@ -144,7 +144,7 @@
 	do_attack_animation(master, used_item = src)
 	master.emote("scream")
 	master.remove_status_effect(STATUS_EFFECT_HISGRACE)
-	flags &= ~NODROP
+	set_nodrop(FALSE, master)
 	master.Weaken(6 SECONDS)
 	master.adjustBruteLoss(1000)
 	playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
@@ -251,25 +251,25 @@
 	update_stats()
 
 /obj/item/his_grace/proc/update_stats()
+	var/mob/living/master = get_atom_on_turf(src, /mob/living)
 	if(ascended) // Ascended is set to a specific bloodthirst anyways
 		force = initial(force) + force_bonus
-		flags |= NODROP
+		set_nodrop(TRUE, master)
 		return
 
-	flags &= ~NODROP
-	var/mob/living/master = get_atom_on_turf(src, /mob/living)
+	set_nodrop(FALSE, master)
 	switch(bloodthirst)
 		if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
 			if(HIS_GRACE_CONSUME_OWNER > prev_bloodthirst)
 				master.visible_message("<span class='userdanger'>[src] enters a frenzy!</span>")
 		if(HIS_GRACE_STARVING to HIS_GRACE_CONSUME_OWNER)
-			flags |= NODROP
+			set_nodrop(TRUE, master)
 			if(HIS_GRACE_STARVING > prev_bloodthirst)
 				master.visible_message("<span class='boldwarning'>[src] is starving!</span>", "<span class='his_grace big'>[src]'s bloodlust overcomes you. [src] must be fed, or you will become His meal.\
 				[force_bonus < 15 ? " And still, His power grows.":""]</span>")
 				force_bonus = max(force_bonus, 15)
 		if(HIS_GRACE_FAMISHED to HIS_GRACE_STARVING)
-			flags |= NODROP
+			set_nodrop(TRUE, master)
 			if(HIS_GRACE_FAMISHED > prev_bloodthirst)
 				master.visible_message("<span class='warning'>[src] is very hungry!</span>", "<span class='his_grace big'>Spines sink into your hand. [src] must feed immediately.\
 				[force_bonus < 10 ? " His power grows.":""]</span>")
@@ -297,8 +297,6 @@
 	if(ascended)
 		return
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
-	icon_state = "his_grace_ascended"
-	item_state = "toolbox_gold"
 	ascended = TRUE
 	SSblackbox.record_feedback("amount", "his_grace_ascended", 1)
 	update_icon()

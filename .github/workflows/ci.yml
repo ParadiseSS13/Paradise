@@ -13,12 +13,12 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          path: $HOME/SpacemanDMM
+          path: ~/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
 
       - name: Install Tools
@@ -26,12 +26,12 @@ jobs:
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
           cache: 'pip'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: 'yarn'
@@ -48,19 +48,16 @@ jobs:
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
+          python tools/ci/identical_variables.py
           python tools/ci/restrict_file_types.py
-          python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
-          python -m tools.ci.check_icon_conflicts
-          python -m tools.ci.check_icon_dupenames
+          python tools/ci/check_icons.py
+          python tools/ci/check_random_spawner_prefabs.py
+          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
+          python -m tools.ci.check_simplemob_additions
           python -m tools.maplint.source --github
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
-        with:
-          dotnet-version: 9.x
 
       - name: Run DreamChecker
         shell: bash
@@ -70,12 +67,12 @@ jobs:
     name: Lint with OpenDream
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
+        uses: actions/setup-dotnet@v5.0.0
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -85,19 +82,23 @@ jobs:
   compile_all_maps:
     name: Compile All Maps
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - uses: actions/checkout@v5
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          release: ${{ matrix.byondtype }}
+      # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
   station_mapload_tests:
     name: Station Tests
@@ -105,16 +106,14 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station:
-          ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
-        byondtype: ['STABLE', 'BETA']
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - uses: actions/checkout@v5
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          release: ${{ matrix.byondtype }}
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
@@ -126,6 +125,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -135,22 +135,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+        byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - uses: actions/checkout@v5
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          release: ${{ matrix.byondtype }}
       - name: Setup & Validate DB
         run: |
           sudo systemctl start mysql
@@ -167,6 +158,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -174,8 +166,8 @@ jobs:
     name: Windows RUSTG Validation
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.8.2' # Script was made for 3.8.2
           architecture: 'x86' # This MUST be x86

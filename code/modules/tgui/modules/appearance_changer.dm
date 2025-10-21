@@ -17,13 +17,9 @@
 	var/list/whitelist
 	var/list/blacklist
 
-	/// Temporary holder when we first initialize the TGUI, we store this as our owner's previous subtype so we can tell when it updates.
-	var/owner_subtype
-
 /datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
-	owner_subtype = owner.dna.species.species_subtype
 	head_organ = owner.get_organ("head")
 	check_whitelist = check_species_whitelist
 	whitelist = species_whitelist
@@ -51,28 +47,15 @@
 
 		if("skin_tone")
 			if(can_change_skin_tone())
-				var/new_s_tone = null
+				var/new_s_tone
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
-					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
-					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+					new_s_tone = tgui_input_number(usr, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference", owner.s_tone, 220, 1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-					var/const/MAX_LINE_ENTRIES = 4
-					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
-					for(var/i in 1 to length(owner.dna.species.icon_skin_tones))
-						if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
-							prompt += "\n"
-						prompt += "[i] = [owner.dna.species.icon_skin_tones[i]]"
-						if(i != length(owner.dna.species.icon_skin_tones))
-							prompt += ", "
-					prompt += ")"
+					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n(Light to Dark)"
+					new_s_tone = tgui_input_number(usr, prompt, "Character Preference", owner.s_tone, length(owner.dna.species.icon_skin_tones), 1)
 
-					new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
-					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = max(min(round(new_s_tone), length(owner.dna.species.icon_skin_tones)), 1)
-
-				if(new_s_tone)
-					owner.change_skin_tone(new_s_tone)
+				if(!isnull(new_s_tone) && (!..()) && owner.change_skin_tone(new_s_tone))
+					update_dna()
 
 		if("skin_color")
 			if(can_change_skin_color())
@@ -218,11 +201,7 @@
 		ui.open()
 
 /datum/ui_module/appearance_changer/ui_data(mob/user)
-	if(user.dna.species.species_subtype != owner_subtype)
-		owner_subtype = user.dna.species.species_subtype
-		cut_and_generate_data()
-	else
-		generate_data(check_whitelist, whitelist, blacklist)
+	generate_data(check_whitelist, whitelist, blacklist)
 	var/list/data = list()
 
 	data["specimen"] = owner.dna.species.name

@@ -6,10 +6,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "ticketmachine"
 	desc = "A marvel of bureaucratic engineering encased in an efficient plastic shell. It can be refilled with a hand labeler refill roll and linked to buttons with a multitool."
-	density = FALSE
 	anchored = TRUE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_x = 7
 	maptext_y = 10
 	layer = HIGH_OBJ_LAYER
@@ -68,8 +66,6 @@
 /obj/machinery/door_control/ticket_machine_button
 	name = "increment ticket counter"
 	desc = "Use this button after you've served someone to tell the next person to come forward."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "doorctrl0"
 	req_access = list()
 	id = 1
 	var/cooldown = FALSE
@@ -79,7 +75,7 @@
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		icon_state = "doorctrl1"
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
-		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
+		for(var/obj/machinery/ticket_machine/M in SSmachines.get_by_type(/obj/machinery/ticket_machine))
 			if(M.id == id)
 				if(cooldown)
 					return

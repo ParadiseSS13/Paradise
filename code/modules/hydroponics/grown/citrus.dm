@@ -25,10 +25,7 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/food/grown/citrus/lime
-	seed = /obj/item/seeds/lime
 	name = "lime"
-	desc = "It's so sour, your face will twist."
-	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -114,9 +111,15 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/grown/firelemon/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/food/grown/firelemon/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/area/A = get_area(user)
-	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(
+		"<span class='warning'>[user] primes [src]!</span>",
+		"<span class='userdanger'>You prime [src]!</span>"
+	)
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
@@ -126,6 +129,7 @@
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/grown/firelemon/burn()
 	prime()
@@ -143,21 +147,21 @@
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 1)
+			explosion(loc,-1,-1,2, flame_range = 1, cause = name)
 			qdel(src)
 		if(31 to 50)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 2)
+			explosion(loc,-1,-1,2, flame_range = 2, cause = name)
 			qdel(src)
 		if(51 to 70)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 3)
+			explosion(loc,-1,-1,2, flame_range = 3, cause = name)
 			qdel(src)
 		if(71 to 90)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 4)
+			explosion(loc,-1,-1,2, flame_range = 4, cause = name)
 			qdel(src)
 		else
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 5)
+			explosion(loc,-1,-1,2, flame_range = 5, cause = name)
 			qdel(src)
