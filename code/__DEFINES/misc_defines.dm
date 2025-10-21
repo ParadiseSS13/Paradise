@@ -786,3 +786,4 @@ do { \
 #define DECAL_PAINTER_CATEGORY_THICK "Thick Lines"
 #define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
 #define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"
+#define DECAL_PAINTER_CATEGORY_TILES "Tiles"

@@ -279,5 +279,15 @@
 /// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
 #define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
 
+/// Fired by a mob which has been grabbed by a goliath
+#define COMSIG_GOLIATH_TENTACLED_GRABBED "goliath_tentacle_grabbed"
+/// Fired by a goliath tentacle which is returning to the earth
+#define COMSIG_GOLIATH_TENTACLE_RETRACTING 	"goliath_tentacle_retracting"
+
+/// Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+#define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
+	/// Stops the rest of help act (hugging, etc) from occurring
+	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
 /// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
