@@ -116,9 +116,6 @@ SUBSYSTEM_DEF(mapping)
 	// Add a reserved z-level for shuttle transit
 	add_reservation_zlevel(required_traits = list(TCOMM_RELAY_ALWAYS))
 
-	// Add a reserved z-level for heretic
-	add_reservation_zlevel()
-
 	// Now we make a list of areas for teleport locs
 	// Located below is some of the worst code I've ever seen
 	// Checking all areas to see if they have a turf in them? Nice one ssmapping!
