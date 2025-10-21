@@ -88,7 +88,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/drop_loot()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
-		if(other != src)
+		if(other != src && other.stat != DEAD)
 			return
 	..()
 

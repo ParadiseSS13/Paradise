@@ -1029,3 +1029,10 @@
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
+
+/**
+ * Removes any null entries from the list
+ * Returns TRUE if the list had nulls, FALSE otherwise
+**/
+/proc/list_clear_nulls(list/list_to_clear)
+	return (list_to_clear.RemoveAll(null) > 0)

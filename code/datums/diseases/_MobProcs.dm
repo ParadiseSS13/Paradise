@@ -196,7 +196,7 @@ MARK: Helpers
 	return check_contraction_carbon(D, spread_method)
 
 /mob/living/carbon/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
-	return ..() && check_contraction_carbon(D)
+	return ..() && check_contraction_carbon(D) //Think this should be (D, spread_method), not touching it though as I don't know viral code
 
 //MARK: Human
 /mob/living/carbon/human/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)
