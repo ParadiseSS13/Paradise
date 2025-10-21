@@ -66,7 +66,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it. \
 		Causes people with a star mark to sleep for 4 seconds, and causes people without a star mark to get one."
 	icon_state = "star"
-	item_state = "star"
+	inhand_icon_state = "star"
 	catchphrase = null
 
 /obj/item/melee/touch_attack/star_touch/Initialize(mapload)

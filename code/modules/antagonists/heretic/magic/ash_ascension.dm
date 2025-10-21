@@ -130,7 +130,7 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/datum/spell/pointed/cleave/create_new_targeting()
+/datum/spell/pointed/ash_beams/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
 	C.selection_type = SPELL_SELECTION_RANGE
 	C.use_turf_of_user = TRUE

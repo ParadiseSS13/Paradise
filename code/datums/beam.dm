@@ -255,7 +255,8 @@
 	// Apply the fireblasted effect - no overlay
 	living_entered.apply_status_effect(/datum/status_effect/fire_blasted)
 
-/atom/proc/Beam(atom/BeamTarget,
+/atom/proc/Beam(
+	atom/BeamTarget,
 	icon_state = "b_beam",
 	icon = 'icons/effects/beam.dmi',
 	time = 5 SECONDS,

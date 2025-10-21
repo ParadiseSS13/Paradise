@@ -55,8 +55,8 @@
 	desc = "LMB: Chose one of your sacrifice targets to track."
 	check_flags = AB_CHECK_CONSCIOUS
 
-	button_overlay_icon = 'icons/obj/antags/eldritch.dmi'
-	button_overlay_icon_state = "living_heart"
+	button_icon = 'icons/obj/antags/eldritch.dmi'
+	button_icon_state = "living_heart"
 
 	/// Tracks whether we were right clicked or left clicked in our last trigger
 	var/right_clicked = FALSE
@@ -71,7 +71,7 @@
 
 	return ..()
 
-/datum/action/track_target/IsAvailable(feedback = FALSE)
+/datum/action/track_target/IsAvailable(show_message = FALSE)
 	. = ..()
 	if(!.)
 		return

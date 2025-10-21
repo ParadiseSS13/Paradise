@@ -814,25 +814,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/worn_icon_state = head.worn_icon_state || head.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -HEAD_LAYER, alpha = head.alpha, color = head.color)
 
-		if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
-			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
-			if(!P.up)
-				standing.overlays += P.visor_icon
-			else if(P.on && P.light_icon)
-				standing.overlays += P.light_icon
+			if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
+				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
+				if(!P.up)
+					standing.overlays += P.visor_icon
+				else if(P.on && P.light_icon)
+					standing.overlays += P.light_icon
 
-		if(istype(head, /obj/item/clothing/head))
-			var/obj/item/clothing/head/w_hat = head
-			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
-				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
-				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
+			if(istype(head, /obj/item/clothing/head))
+				var/obj/item/clothing/head/w_hat = head
+				for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
+					var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+					var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
+					standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
-		if(head.blood_DNA)
-			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
-			bloodsies.color = head.blood_color
-			standing.overlays += bloodsies
-		overlays_standing[HEAD_LAYER] = standing
+			if(head.blood_DNA)
+				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
+				bloodsies.color = head.blood_color
+				standing.overlays += bloodsies
+			overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()

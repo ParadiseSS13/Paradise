@@ -14,7 +14,7 @@
 
 	end_duration = 10 SECONDS
 
-	area_type = /area
+	area_types = list(/area)
 	target_trait = REACHABLE_SPACE_ONLY
 
 	perpetual = TRUE

@@ -916,7 +916,7 @@
 	return completed || (num_summoned >= target_amount)
 
 /datum/outfit/heretic
-	name = "Heretic (Preview only)"
+	name = "Heretic (Prview only)"
 
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
@@ -925,10 +925,10 @@
 /datum/action/heretic_menu
 	name = "Info And Research"
 	desc = "Learn about the mansus and research your path"
-	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_overlay_icon_state = "book"
-	button_background_icon = "bg_heretic"
+	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_icon_state = "book"
+	background_icon_state = "bg_heretic"
 
 /datum/action/heretic_menu/Trigger(left_click)
 	var/mob/living/L = owner

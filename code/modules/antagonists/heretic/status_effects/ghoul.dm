@@ -60,11 +60,6 @@
 		human_target.mind.remove_antag_datum(/datum/antagonist/cultist)
 	return TRUE
 
-/datum/status_effect/ghoul/on_creation(mob/living/new_owner, new_max_health, datum/mind/master_mind, datum/callback/on_made_callback, datum/callback/on_lost_callback)
-	. = ..()
-	if(master_mind)
-		linked_alert.desc += " You are an eldritch monster reanimated to serve its master, [master_mind]."
-
 /datum/status_effect/ghoul/on_remove()
 	remove_ghoul_status()
 	return ..()

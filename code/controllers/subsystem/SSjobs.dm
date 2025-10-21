@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(jobs)
 	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
-	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
+	log_debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(jobs)
 		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
 		if(available)
-			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
+			log_debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
 			player.mind.job_datum = job
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
@@ -99,12 +99,11 @@ SUBSYSTEM_DEF(jobs)
 			for(var/objectiveType in job.required_objectives)
 				new objectiveType(player.mind)
 
-			unassigned -= player
 			job.current_positions++
 			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
 			return 1
 
-	Debug("AR has failed, Player: [player], Rank: [rank]")
+	log_debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
 /datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly

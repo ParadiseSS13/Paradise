@@ -97,7 +97,6 @@
 	playsound(target, stun_sound, 75, TRUE, -1)
 	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
-	target.LAssailant = iscarbon(user) ? user : null
 	if(!HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
 		target.KnockDown(knockdown_duration)
 	target.KnockDown(knockdown_duration)

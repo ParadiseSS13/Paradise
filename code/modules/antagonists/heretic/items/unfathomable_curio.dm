@@ -4,7 +4,7 @@
 	name = "Unfathomable Curio"
 	desc = "It. It looks backs. It looks past. It looks in. It sees. It hides. It opens."
 	icon_state = "unfathomable_curio"
-	item_state = "unfathomable_curio"
+	inhand_icon_state = "unfathomable_curio"
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	max_w_class = WEIGHT_CLASS_NORMAL

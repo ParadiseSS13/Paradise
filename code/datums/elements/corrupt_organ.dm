@@ -36,7 +36,7 @@
 	new /obj/effect/temp_visual/curse_blast(origin_turf)
 	loser.visible_message("<span class='danger'>[organ] explodes in a burst of dark energy!</span>")
 	for(var/mob/living/target in range(1, origin_turf))
-		var/armor = target.run_armor_check(attack_flag = BOMB)
+		var/armor = target.run_armor_check()
 		target.apply_damage(30, damagetype = BURN, blocked = armor, spread_damage = TRUE)
 	QDEL_IN(organ, 1 SECONDS)
 

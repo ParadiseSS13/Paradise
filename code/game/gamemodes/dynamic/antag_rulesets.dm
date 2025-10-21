@@ -246,11 +246,13 @@
 
 	banned_jobs = list("Cyborg", "AI")
 	banned_species = list("Machine")
-	implied_ruleset_type = /datum/ruleset/i	if(ruleset_budget > 1)
-		return ..()
-	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
+	implied_ruleset_type = /datum/ruleset/implied/mindflayer
 
-// This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
+/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets, antag_budget)
+	// Theres already a ruleset, we're good to go
+	if(length(rulesets))
+		return ..()
+	// We're the first ruleset, but we can afford another ruleset
 	if(ruleset_budget > 1)
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET

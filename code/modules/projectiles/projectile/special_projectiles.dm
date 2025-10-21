@@ -404,7 +404,7 @@
 	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
 		return
 	if(starting)
-		arm = Beam(starting, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm, maxdistance = 20, beam_sleep_time = 2)
+		arm = Beam(starting, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm, maxdistance = 20)
 	..()
 
 /obj/item/projectile/curse_hand/on_range()

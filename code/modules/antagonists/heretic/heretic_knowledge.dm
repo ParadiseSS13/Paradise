@@ -420,7 +420,7 @@
  */
 /datum/heretic_knowledge/proc/summon_ritual_mob(mob/living/user, turf/our_turf, mob/living/mob_to_summon)
 	var/mob/living/simple_animal/summoned
-	if(issimple_animal(mob_to_summon))
+	if(isanimal(mob_to_summon))
 		summoned = mob_to_summon
 	else
 		summoned = new mob_to_summon(our_turf)

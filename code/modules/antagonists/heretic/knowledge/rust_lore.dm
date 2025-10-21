@@ -137,8 +137,6 @@
 		return
 	target.adjust_disgust(50 SECONDS)
 
-/datum/heretic_knowledge/spell/area_conversion/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
 /datum/heretic_knowledge/spell/entropic_plume
 	name = "Entropic Plume"
 	desc = "Grants you Entropic Plume, a spell that releases a vexing wave of Rust. \

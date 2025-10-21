@@ -10,7 +10,7 @@
 	icon = 'icons/obj/weapons/wide_guns.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	icon_state = "lionhunter"
-	item_state = "lionhunter"
+	inhand_icon_state = "lionhunter"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	pixel_x = -8
@@ -124,7 +124,7 @@
 		BB.knockdown = 0.5 SECONDS
 		BB.stutter = 6 SECONDS
 		BB.forcedodge = -1
-		BB.armour_penetration_flat = 100 //No parrying this bad boy
+		BB.armor_penetration_flat = 100 //No parrying this bad boy
 		if(istype(BB, /obj/item/projectile/homing/lionhunter))
 			var/obj/item/projectile/homing/lionhunter/if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad = BB
 			if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad.homing_active = TRUE

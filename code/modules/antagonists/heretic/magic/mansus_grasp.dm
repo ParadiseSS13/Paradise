@@ -24,7 +24,7 @@
 		Causes knockdown, minor bruises, and major stamina damage. \
 		It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus"
-	item_state = "mansus"
+	inhand_icon_state = "mansus"
 	catchphrase = null
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)

@@ -76,7 +76,7 @@
 		var/joinedasobserver = FALSE
 		if(isobserver(user))
 			var/mob/dead/observer/G = user
-			if(G.started_as_observer)
+			if(G.ghost_flags & GHOST_START_AS_OBSERVER)
 				joinedasobserver = TRUE
 
 		var/deathtimeminutes = round(deathtime / 600)

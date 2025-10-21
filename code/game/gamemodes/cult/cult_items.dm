@@ -80,7 +80,7 @@
 	name = "haunted longsword"
 	desc = "An eerie sword with a blade that is less 'black' than it is 'absolute nothingness'. It glows with furious, restrained green energy."
 	icon_state = "hauntedblade"
-	item_state = "hauntedblade"
+	inhand_icon_state = "hauntedblade"
 	force = 30
 	throwforce = 25
 	free_use = TRUE
@@ -175,13 +175,13 @@
 
 /datum/action/item_action/haunted_blade
 	name = "Unseal Spirit" // img is of a chained shade
-	button_overlay_icon = 'icons/mob/actions/actions_cult.dmi'
-	button_overlay_icon_state = "spirit_sealed"
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon_state = "spirit_sealed"
 
-/datum/action/item_action/haunted_blade/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
+/datum/action/item_action/haunted_blade/build_button_icon(atom/movable/screen/movable/action_button/button, status_only, force)
 	var/obj/item/melee/cultblade/haunted/blade = target
 	if(istype(blade))
-		button_overlay_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
+		button_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
 		name = "[blade.bound ? "Unseal" : "Seal"] Spirit"
 
 	return ..()
@@ -289,7 +289,7 @@
 		user.AddSpell(wielder_spell)
 	free_use = TRUE
 	force += 5
-	armour_penetration_flat += 10
+	armor_penetration_flat += 10
 	light_range += 3
 
 	playsound(src ,'sound/spookoween/insane_low_laugh.ogg', 200, TRUE) //quiet
@@ -301,7 +301,7 @@
 	binding = FALSE
 	bound = TRUE
 	force -= 5
-	armour_penetration_flat -= 10
+	armor_penetration_flat -= 10
 	free_use = FALSE // it's a cult blade and you sealed away the other power.
 	light_range -= 3
 	for(var/datum/spell/sword_spell as anything in path_sword_actions)
@@ -317,7 +317,7 @@
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
 	. = ..()
 	icon_state = GET_CULT_DATA(haunted_longsword, "hauntedblade")
-	item_state = GET_CULT_DATA(haunted_longsword, "hauntedblade")
+	inhand_icon_state = GET_CULT_DATA(haunted_longsword, "hauntedblade")
 	AddElement(/datum/element/heretic_focus)
 	if(do_bind && !mapload)
 		bind_soul(soul_to_bind, awakener)
@@ -446,7 +446,7 @@
 	var/mob/loccer = loc
 	var/resist_chance = 20
 	var/fail_text = "You struggle, but [loccer] keeps [loccer.p_their()] grip on you!"
-	var/particle_to_spawn = /datum/nothing
+	var/particle_to_spawn = null
 	if(IS_CULTIST(loccer))
 		resist_chance = 5 // your mastahs
 		fail_text = "You struggle, but [loccer]'s grip is unnaturally hard to resist!"
@@ -458,7 +458,7 @@
 	if(HAS_MIND_TRAIT(loccer, TRAIT_HOLY))
 		resist_chance = 6
 		fail_text = "You struggle, but [loccer]'s holy grip holds tight against your thrashing."
-		particle_to_spawn = /datum/nothing
+		particle_to_spawn = null
 	if(iswizard(loccer))
 		resist_chance = 3 // magic master
 		fail_text = "You struggle, but [loccer]'s handle on magic easily neutralizes your movement."

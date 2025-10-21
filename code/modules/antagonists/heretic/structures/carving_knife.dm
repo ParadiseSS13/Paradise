@@ -110,10 +110,10 @@
 /datum/action/item_action/rune_shatter
 	name = "Rune Break"
 	desc = "Destroys all runes carved by this blade."
-	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_overlay_icon_state = "rune_break"
-	button_background_icon = "bg_heretic"
+	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_icon_state = "rune_break"
+	background_icon_state = "bg_heretic"
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -127,7 +127,7 @@
 
 	return ..()
 
-/datum/action/item_action/rune_shatter/IsAvailable(feedback = FALSE)
+/datum/action/item_action/rune_shatter/IsAvailable(show_message = FALSE)
 	. = ..()
 	if(!.)
 		return

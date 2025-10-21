@@ -476,7 +476,7 @@
 	health = 6000
 	initial_traits = list(TRAIT_FLYING)
 	obj_damage = 400
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	attacktext = "ravages"

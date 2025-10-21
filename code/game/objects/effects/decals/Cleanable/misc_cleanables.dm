@@ -228,7 +228,7 @@
 /obj/effect/decal/cleanable/vomit/nebula/worms/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to rand(3, 6))
-		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood(loc)
+		new /mob/living/basic/mining/hivelordbrood(loc)
 
 
 /obj/effect/decal/cleanable/shreds
