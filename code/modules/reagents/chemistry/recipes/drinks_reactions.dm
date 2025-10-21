@@ -1100,6 +1100,7 @@
 	result = "eggcoffee"
 	required_reagents = list("eggcream" = 2, "coffee" = 3)
 	result_amount = 5
+	mix_message = "The egg cream forms a rich foam atop the coffee."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/eggcream
@@ -1110,6 +1111,7 @@
 	max_temp = 290
 	min_temp = 275
 	result_amount = 20
+	mix_message = "The egg and milk whip nicely together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/horchata
@@ -1118,6 +1120,7 @@
 	result = "horchata"
 	required_reagents = list("rice" = 2, "water" = 4, "sugar" = 1, "vanilla" = 1)
 	result_amount = 8
+	mix_message = "Blending rice with water forms a milky beverage."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/monstermix
@@ -1144,6 +1147,7 @@
 	min_temp = 373
 	max_temp = 390
 	result_amount = 3
+	mix_message = "You get a strong whiff of vinegar as the boiling settles."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/berrybeetrefresher
@@ -1160,6 +1164,7 @@
 	result = "smoothie_pbnbanana"
 	required_reagents = list("soymilk" = 1, "banana" = 1, "peanutbutter" = 1, "ice" = 1)
 	result_amount = 5
+	mix_message = "The peanut butter streaks inside the glass as it mixes."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/smoothie/veryberry
@@ -1168,6 +1173,7 @@
 	result = "smoothie_veryberry"
 	required_reagents = list("cream" = 1, "berryjuice" = 1, "plumjuice" = 1, "ice" = 1)
 	result_amount = 5
+	mix_message = "The ice and cream thicken to create a fluffy texture."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/vegetablemix
@@ -1176,4 +1182,5 @@
 	result = "vegjuice"
 	required_reagents = list("tomatojuice" = 1, "carrotjuice" = 1, "beetjuice" = 1, "lettucejuice" = 1)
 	result_amount = 4
+	mix_message = "The blended vegetables form a creamy mix."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
