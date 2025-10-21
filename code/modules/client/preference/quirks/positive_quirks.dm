@@ -119,3 +119,8 @@
 	mob_to_spawn = pick(possible_pets)
 	..()
 
+/datum/quirk/cool
+	name = "Cool"
+	desc = "You can land every flip. You're so cool."
+	cost = 1
+	trait_to_apply = TRAIT_COOL
