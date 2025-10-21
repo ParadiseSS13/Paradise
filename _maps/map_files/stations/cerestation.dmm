@@ -69211,20 +69211,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
 "nZV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/alarm/directional/north,
 /mob/living/basic/kangaroo/darwin,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
