@@ -113,7 +113,7 @@
 	cost = 1
 	item_to_give = /obj/item/petcollar
 	var/list/possible_pets = list(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/dog/pug,
-								  /mob/living/simple_animal/pet/dog/fox, /mob/living/basic/chick, /mob/living/basic/bunny, /mob/living/basic/turkey)
+							/mob/living/simple_animal/pet/dog/fox, /mob/living/basic/chick, /mob/living/basic/bunny, /mob/living/basic/turkey)
 
 /datum/quirk/pet_owner/apply_quirk_effects()
 	mob_to_spawn = pick(possible_pets)
