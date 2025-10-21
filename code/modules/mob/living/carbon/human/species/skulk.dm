@@ -33,8 +33,11 @@
 
 	icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi'
 	default_hair = "Scribe"
-	default_bodyacc = "Talwyrm Illusive"
+	default_bodyacc = "Illusive"
 	spines = "illusive1"
+
+	eyes = "skulk_eyes_s"
+
 
 	optional_body_accessory = FALSE
 
