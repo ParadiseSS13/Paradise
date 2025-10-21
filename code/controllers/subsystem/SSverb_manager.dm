@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(verb_manager)
 	var/verbs_executed_per_second = 0
 
 	///if TRUE we treat usr's with holders just like usr's without holders. otherwise they always execute immediately
-	var/can_queue_user_verbs = FALSE
+	var/can_queue_admin_verbs = FALSE
 
 	///if this is true all verbs immediately execute and dont queue. in case the mc is fucked or something
 	var/FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs = FALSE
@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(verb_manager)
 	///for obvious reasons dont make this be TRUE on the code level this is for admins to turn on
 	var/message_admins_on_queue = FALSE
 
-	///always queue if possible. overides can_queue_user_verbs but not FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs
+	///always queue if possible. overides can_queue_admin_verbs but not FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs
 	var/always_queue = FALSE
 
 /**
@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(verb_manager)
 	if(always_queue && !FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs)
 		return TRUE
 
-	if((usr.client?.holder && !can_queue_user_verbs) \
+	if((usr.client?.holder && !can_queue_admin_verbs) \
 	|| (!initialized && !(flags & SS_NO_INIT)) \
 	|| FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs \
 	|| !(runlevels & Master.current_runlevel))
