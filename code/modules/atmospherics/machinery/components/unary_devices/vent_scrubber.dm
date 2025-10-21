@@ -23,6 +23,7 @@
 	var/scrub_CO2 = TRUE
 	var/scrub_Toxins = FALSE
 	var/scrub_N2O = FALSE
+	var/scrub_H2 = FALSE
 
 	var/volume_rate = 200
 	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
