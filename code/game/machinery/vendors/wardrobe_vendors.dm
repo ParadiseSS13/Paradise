@@ -297,6 +297,7 @@
 					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/chemist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/chemistry = 2,
 					/obj/item/clothing/suit/jacket/bomber/chem = 2,
 					/obj/item/clothing/accessory/armband/med = 2,
 					/obj/item/clothing/mask/gas = 2,
@@ -314,6 +315,7 @@
 				/obj/item/clothing/under/rank/medical/chemist/skirt = 50,
 				/obj/item/clothing/head/beret/med = 20,
 				/obj/item/clothing/suit/storage/labcoat/chemist = 75,
+				/obj/item/clothing/suit/hooded/wintercoat/chemistry = 75,
 				/obj/item/clothing/suit/jacket/bomber/chem = 75,
 				/obj/item/clothing/accessory/armband/med = 20,
 				/obj/item/clothing/shoes/laceup = 30,
@@ -702,6 +704,7 @@
 				/obj/item/clothing/under/rank/cargo/expedition/overalls = 3,
 				/obj/item/clothing/head/soft/expedition = 3,
 				/obj/item/clothing/head/beret/expedition = 3,
+				/obj/item/clothing/suit/hooded/wintercoat/explorer = 3,
 				/obj/item/clothing/suit/jacket/bomber/expedition = 3,
 				/obj/item/clothing/suit/storage/hazardvest/staff = 3,
 				/obj/item/mod/skin_applier = 3,
@@ -721,6 +724,7 @@
 				/obj/item/clothing/under/rank/cargo/expedition/overalls = 50,
 				/obj/item/clothing/head/soft/expedition = 20,
 				/obj/item/clothing/head/beret/expedition = 20,
+				/obj/item/clothing/suit/hooded/wintercoat/explorer = 75,
 				/obj/item/clothing/suit/jacket/bomber/expedition = 75,
 				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
 				/obj/item/clothing/gloves/color/black = 20,
@@ -749,6 +753,7 @@
 					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/chef = 2,
 					/obj/item/storage/belt/chef = 2,
 					/obj/item/clothing/head/chefhat = 2,
 					/obj/item/clothing/head/soft/white = 2,
@@ -772,6 +777,7 @@
 				/obj/item/clothing/under/misc/waiter = 50,
 				/obj/item/clothing/suit/chef = 50,
 				/obj/item/clothing/suit/chef/classic = 50,
+				/obj/item/clothing/suit/hooded/wintercoat/chef = 75,
 				/obj/item/storage/belt/chef = 50,
 				/obj/item/clothing/head/chefhat = 50,
 				/obj/item/clothing/head/soft/white = 30,
@@ -1036,3 +1042,85 @@
 	prices = list()
 
 	refill_canister = /obj/item/vending_refill/traindrobe
+
+/obj/machinery/economy/vending/chapdrobe
+	name = "\improper ChapDrobe"
+	desc = "A blessed vending machine dispensing clothes for chaplains."
+	icon_state = "base_drobe"
+	icon_panel = "drobe"
+	icon_addon = "chap_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("Holy vestments for a small fee.")
+
+	vend_reply = "Thank you for using the ChapDrobe!"
+	products = list(/obj/item/clothing/under/rank/civilian/chaplain = 3,
+					/obj/item/clothing/under/rank/civilian/chaplain/white = 3,
+					/obj/item/clothing/under/rank/civilian/chaplain/bw = 3,
+					/obj/item/clothing/under/rank/civilian/chaplain/orange = 3,
+					/obj/item/clothing/under/rank/civilian/chaplain/green = 3,
+					/obj/item/clothing/under/rank/civilian/chaplain/thobe = 3,
+					/obj/item/clothing/head/turban_orange = 3,
+					/obj/item/clothing/head/turban_green = 3,
+					/obj/item/clothing/head/hijab = 3,
+					/obj/item/clothing/head/eboshi = 3,
+					/obj/item/clothing/head/kippah = 3,
+					/obj/item/clothing/head/shtreimel = 3,
+					/obj/item/clothing/head/witchhunter_hat = 3,
+					/obj/item/clothing/head/helmet/riot/knight/templar = 1,
+					/obj/item/clothing/suit/hooded/abaya = 3,
+					/obj/item/clothing/suit/hooded/chaplain_cassock = 3,
+					/obj/item/clothing/suit/hooded/nun = 3,
+					/obj/item/clothing/suit/hooded/monk = 3,
+					/obj/item/clothing/suit/hooded/dark_robes = 3,
+					/obj/item/clothing/suit/bana = 3,
+					/obj/item/clothing/suit/joue = 3,
+					/obj/item/clothing/suit/miko = 3,
+					/obj/item/clothing/suit/hasidic_coat = 3,
+					/obj/item/clothing/suit/witchhunter = 3,
+					/obj/item/clothing/suit/holidaypriest = 3,
+					/obj/item/clothing/suit/armor/riot/knight/templar = 1,
+					/obj/item/clothing/neck/cloak/tallit = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain/green = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange = 3,
+					/obj/item/clothing/under/plasmaman/chaplain = 3,
+					/obj/item/clothing/under/plasmaman/chaplain/green = 3,
+					/obj/item/clothing/under/plasmaman/chaplain/blue = 3)
+
+	contraband = list(/obj/item/toy/figure/crew/chaplain = 1)
+
+	prices = list(/obj/item/clothing/under/rank/civilian/chaplain = 50,
+					/obj/item/clothing/under/rank/civilian/chaplain/white = 50,
+					/obj/item/clothing/under/rank/civilian/chaplain/bw = 50,
+					/obj/item/clothing/under/rank/civilian/chaplain/orange = 50,
+					/obj/item/clothing/under/rank/civilian/chaplain/green = 50,
+					/obj/item/clothing/under/rank/civilian/chaplain/thobe = 50,
+					/obj/item/clothing/head/turban_orange = 20,
+					/obj/item/clothing/head/turban_green = 20,
+					/obj/item/clothing/head/hijab = 20,
+					/obj/item/clothing/head/eboshi = 20,
+					/obj/item/clothing/head/kippah = 20,
+					/obj/item/clothing/head/shtreimel = 20,
+					/obj/item/clothing/head/witchhunter_hat = 20,
+					/obj/item/clothing/head/helmet/riot/knight/templar = 40,
+					/obj/item/clothing/suit/hooded/abaya = 50,
+					/obj/item/clothing/suit/hooded/chaplain_cassock = 50,
+					/obj/item/clothing/suit/hooded/nun = 50,
+					/obj/item/clothing/suit/hooded/monk = 50,
+					/obj/item/clothing/suit/hooded/dark_robes = 50,
+					/obj/item/clothing/suit/bana = 50,
+					/obj/item/clothing/suit/joue = 50,
+					/obj/item/clothing/suit/miko = 50,
+					/obj/item/clothing/suit/hasidic_coat = 50,
+					/obj/item/clothing/suit/witchhunter = 50,
+					/obj/item/clothing/suit/holidaypriest = 50,
+					/obj/item/clothing/suit/armor/riot/knight/templar = 80,
+					/obj/item/clothing/neck/cloak/tallit = 20,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain = 60,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain/green = 60,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange = 60,
+					/obj/item/clothing/under/plasmaman/chaplain = 60,
+					/obj/item/clothing/under/plasmaman/chaplain/green = 60,
+					/obj/item/clothing/under/plasmaman/chaplain/blue = 60)
+
+	refill_canister = /obj/item/vending_refill/chapdrobe
