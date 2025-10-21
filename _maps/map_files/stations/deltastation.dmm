@@ -14817,6 +14817,12 @@
 	name = "n2o to Pure"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/checker{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "biP" = (
@@ -15797,6 +15803,10 @@
 	filter_type = 4;
 	name = "Gas filter (N2O tank)";
 	on = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -53982,6 +53992,12 @@
 	inlet_injector_autolink_ids = list("n2o_in");
 	outlet_autolink_ids = list("n2o_outlet_scrubber");
 	name = "Nitrous Oxide Supply Control"
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)

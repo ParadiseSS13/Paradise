@@ -35535,6 +35535,12 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "cGK" = (
@@ -35856,6 +35862,12 @@
 	c_tag = "Aft Primary Hallway 2";
 	dir = 8;
 	pixel_y = -22
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
@@ -37477,6 +37489,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cOl" = (
@@ -37919,6 +37934,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
@@ -39737,6 +39755,10 @@
 	dir = 4;
 	name = "N2O Outlet Valve"
 	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/white/checker,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cXh" = (
@@ -53446,6 +53468,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"hCD" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/checker{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "hCP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -68252,6 +68284,9 @@
 	inlet_injector_autolink_ids = list("tox_in");
 	outlet_autolink_ids = list("tox_outlet_scrubber");
 	name = "Plasma Supply Control"
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -85698,6 +85733,10 @@
 	outlet_autolink_ids = list("n2o_outlet_scrubber");
 	name = "Nitrous Oxide Supply Control"
 	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/white/corner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "xze" = (
@@ -122919,7 +122958,7 @@ cUS
 cVQ
 cXd
 xyK
-dgQ
+hCD
 aOS
 cOk
 oMN
