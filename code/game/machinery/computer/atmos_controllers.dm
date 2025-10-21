@@ -718,3 +718,4 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #undef SENSOR_N2
 #undef SENSOR_CO2
 #undef SENSOR_N2O
+#undef SENSOR_H2
