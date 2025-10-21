@@ -199,6 +199,7 @@
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	/// If TRUE, will hide the wearer's examines from other players.
 	var/hide_examine = FALSE
+	new_attack_chain = TRUE
 
 /*
  * SEE_SELF  // can see self, no matter what
