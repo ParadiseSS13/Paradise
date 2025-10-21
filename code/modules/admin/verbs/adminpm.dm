@@ -1,6 +1,6 @@
 /// Allows right clicking mobs to send an admin PM to their client.
 /// Forwards the selected mob's client to cmd_admin_pm.
-MAKE_CONTEXT_MENU(admin_pm_target, R_ADMIN|R_MENTOR, "\[Admin\] Admin PM Mob", mob/M as mob)
+USER_CONTEXT_MENU(admin_pm_target, R_ADMIN|R_MENTOR, "\[Admin\] Admin PM Mob", mob/M as mob)
 	if(!ismob(M) || !M.client)
 		return
 	user.cmd_admin_pm(M.client, null)

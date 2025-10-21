@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-MAKE_CONTEXT_MENU(show_player_panel, R_ADMIN|R_MOD, "\[Admin\] Show Player Panel", mob/M)
+USER_CONTEXT_MENU(show_player_panel, R_ADMIN|R_MOD, "\[Admin\] Show Player Panel", mob/M)
 	if(!M)
 		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
@@ -722,7 +722,7 @@ USER_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Guests can't enter", VERB_C
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
 
-MAKE_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob/living/carbon/human/H as mob)
+USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob/living/carbon/human/H as mob)
 	if(istype(H))
 		H.regenerate_icons()
 

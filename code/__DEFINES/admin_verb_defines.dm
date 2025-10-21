@@ -45,7 +45,7 @@
 #define USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
 _USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, FALSE, ##verb_args)
 
-#define MAKE_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_args...) \
+#define USER_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_args...) \
 _USER_VERB(verb_path_name, verb_permissions, verb_name, VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, TRUE, ##verb_args)
 
 #define USER_VERB_AND_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \

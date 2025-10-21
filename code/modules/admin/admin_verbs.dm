@@ -107,7 +107,7 @@ USER_VERB(admin_observe, R_ADMIN|R_MOD|R_MENTOR, "Aobserve", "Admin-observe a pl
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return TRUE
 
-MAKE_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobserve", mob/target as mob)
+USER_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobserve", mob/target as mob)
 	if(isnewplayer(user.mob))
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
@@ -366,7 +366,7 @@ USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and 
 	else
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [given_disease.name]!")
 
-MAKE_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
+USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
 	if(O)
 		var/message = clean_input("What do you want the message to be?", "Make Sound")
 		if(!message)
@@ -426,7 +426,7 @@ USER_VERB(open_law_manager, R_ADMIN, "Manage Silicon Laws", "Open the law manage
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", mob/living/carbon/human/H in GLOB.mob_list)
+USER_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", mob/living/carbon/human/H in GLOB.mob_list)
 	if(!istype(H))
 		if(isbrain(H))
 			var/mob/living/brain/B = H
@@ -445,7 +445,7 @@ MAKE_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", 
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "\[Admin\] C.M.A. - Self",mob/living/carbon/human/H in GLOB.mob_list)
+USER_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "\[Admin\] C.M.A. - Self",mob/living/carbon/human/H in GLOB.mob_list)
 	if(!istype(H))
 		if(isbrain(H))
 			var/mob/living/brain/B = H
@@ -487,7 +487,7 @@ USER_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", 
 		message_admins("[key_name_admin(user)] has freed a job slot for [job].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Free Job Slot") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(man_up, R_ADMIN, "\[Admin\] Man Up", mob/T as mob in GLOB.player_list)
+USER_CONTEXT_MENU(man_up, R_ADMIN, "\[Admin\] Man Up", mob/T as mob in GLOB.player_list)
 	to_chat(T, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 

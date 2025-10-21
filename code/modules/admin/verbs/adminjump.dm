@@ -58,7 +58,7 @@ USER_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", VERB_C
 		message_admins("[key_name_admin(usr)] jumped to [A]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(jump_to_turf, R_ADMIN, "\[Admin\] Jump to Turf", turf/T in world)
+USER_CONTEXT_MENU(jump_to_turf, R_ADMIN, "\[Admin\] Jump to Turf", turf/T in world)
 	if(isobj(user.mob.loc))
 		var/obj/O = user.mob.loc
 		O.force_eject_occupant(user.mob)

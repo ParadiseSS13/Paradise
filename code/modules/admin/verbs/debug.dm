@@ -144,7 +144,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-MAKE_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/A as null|area|mob|obj|turf)
+USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/A as null|area|mob|obj|turf)
 	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
 		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
 		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
@@ -531,7 +531,7 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-MAKE_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
+USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
 	if(!ishuman(M) && !isobserver(M))
 		alert("Invalid mob")
 		return

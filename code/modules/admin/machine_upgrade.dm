@@ -1,4 +1,4 @@
-MAKE_CONTEXT_MENU(machine_upgrade, R_DEBUG, "\[Admin\] Tweak Component Ratings", obj/machinery/M as obj in world)
+USER_CONTEXT_MENU(machine_upgrade, R_DEBUG, "\[Admin\] Tweak Component Ratings", obj/machinery/M as obj in world)
 	if(!istype(M))
 		to_chat(user, "<span class='danger'>This can only be used on subtypes of /obj/machinery.</span>")
 		return

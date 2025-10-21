@@ -137,7 +137,7 @@
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=src)
 		CMT.ui_interact(usr)
 
-MAKE_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
+USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
 	user.debug_variables(thing)
 
 /client/proc/debug_variables(datum/D in world)

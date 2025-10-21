@@ -39,7 +39,7 @@ USER_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", VERB_CATEGORY_AD
 		message_admins("<span class='notice'>[key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.</span>", 1)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Prison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(subtle_message, R_EVENT, "\[Admin\] Subtle Message", mob/M as mob in GLOB.mob_list)
+USER_CONTEXT_MENU(subtle_message, R_EVENT, "\[Admin\] Subtle Message", mob/M as mob in GLOB.mob_list)
 	if(!ismob(M))
 		return
 
@@ -111,7 +111,7 @@ USER_VERB(global_narrate, R_SERVER|R_EVENT, "Global Narrate", "Narrate text to t
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(user)]: [msg]<BR></span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate")
 
-MAKE_CONTEXT_MENU(direct_narrate, R_SERVER|R_EVENT, "\[Admin\] Direct Narrate", mob/M)
+USER_CONTEXT_MENU(direct_narrate, R_SERVER|R_EVENT, "\[Admin\] Direct Narrate", mob/M)
 	if(!M)
 		M = input(user, "Direct narrate to who?", "Active Players") as null|anything in get_mob_with_client_list()
 
@@ -130,7 +130,7 @@ MAKE_CONTEXT_MENU(direct_narrate, R_SERVER|R_EVENT, "\[Admin\] Direct Narrate", 
 	M.create_log(MISC_LOG, "Direct Narrate: [msg]", "From: [key_name_admin(user)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message", mob/M in GLOB.mob_list)
+USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message", mob/M in GLOB.mob_list)
 	user.admin_headset_message(M)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
@@ -528,7 +528,7 @@ USER_VERB(add_freeform_ai_law, R_EVENT, "Add Custom AI law", "Add custom AI law.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB_VISIBILITY(admin_rejuvenate, VERB_VISIBILITY_FLAG_MOREDEBUG)
-MAKE_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "\[Admin\] Rejuvenate", mob/living/M as mob in GLOB.mob_list)
+USER_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "\[Admin\] Rejuvenate", mob/living/M as mob in GLOB.mob_list)
 	if(!istype(M))
 		alert("Cannot revive a ghost")
 		return
@@ -584,7 +584,7 @@ USER_VERB(create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(admin_delete, R_ADMIN, "\[Admin\] Delete", atom/A as obj|mob|turf in view())
+USER_CONTEXT_MENU(admin_delete, R_ADMIN, "\[Admin\] Delete", atom/A as obj|mob|turf in view())
 	user.admin_delete(A)
 
 /client/proc/admin_delete(datum/D)
@@ -701,7 +701,7 @@ USER_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Gibself.", VERB_CATEGORY_EVENT)
 		message_admins("<span class='notice'>[key_name_admin(user)] used gibself.</span>", 1)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gibself") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-MAKE_CONTEXT_MENU(admin_check_contents, R_ADMIN, "\[Admin\] Check Contents", mob/living/M as mob)
+USER_CONTEXT_MENU(admin_check_contents, R_ADMIN, "\[Admin\] Check Contents", mob/living/M as mob)
 	var/list/L = M.get_contents()
 	for(var/t in L)
 		to_chat(user, "[t]")
