@@ -65,6 +65,7 @@ GLOBAL_LIST_INIT(swarmer_blacklist, list(
 	/obj/machinery/hydroponics/soil,
 	/obj/machinery/field/containment,
 	/obj/machinery/gravity_generator,
+	/mob/living/basic/swarmer,
 ))
 
 // Dear God

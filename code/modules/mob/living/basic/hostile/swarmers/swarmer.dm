@@ -17,6 +17,7 @@
 	melee_damage_type = BURN
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
+	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
@@ -35,6 +36,8 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	death_message = "explodes with a sharp pop!"
 	basic_mob_flags = DEL_ON_DEATH
+	sentience_type = SENTIENCE_OTHER // No, you cannot sentience or mind-transfer into them
+	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW
 	is_ranged = TRUE
 	projectile_type = /obj/item/projectile/beam/disabler
@@ -43,7 +46,17 @@
 	see_in_dark = 6
 	light_range = 2
 	light_color = LIGHT_COLOR_CYAN
+	loot = list(
+		/obj/effect/gibspawner/robot,
+		/obj/item/stack/ore/bluespace_crystal,
+	)
 
+	/// Swarmer actions
+	var/list/innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/swarmer_trap = BB_SWARMER_TRAP_ACTION,
+		/datum/action/cooldown/mob_cooldown/swarmer_barrier = BB_SWARMER_BARRIER_ACTION,
+		/datum/action/cooldown/mob_cooldown/swarmer_replicate = BB_SWARMER_REPLICATE_ACTION,
+		)
 	/// Resources the swarmer gains from consuming things
 	var/resources = 0
 	/// Maximum possible resources a swarmer can have
@@ -55,6 +68,9 @@
 	verbs -= /mob/living/verb/pulled
 	AddElement(/datum/element/ai_retaliate)
 	updatename()
+	grant_actions_by_list(innate_actions)
+	add_language("Swarmer")
+	set_default_language(GLOB.all_languages["Swarmer"])
 
 /mob/living/basic/swarmer/proc/updatename()
 	real_name = "Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
@@ -71,11 +87,27 @@
 	else
 		death()
 
+/mob/living/basic/swarmer/death(gibbed)
+	do_sparks(3, 1, src)
+	. = ..()
+
+/mob/living/basic/swarmer/Login() // In case an admin gets a funny idea.
+	..()
+	to_chat(src, "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>")
+	to_chat(src, "<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>")
+	to_chat(src, "<b>Prime Directives:</b>")
+	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
+	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
+	to_chat(src, "3. Defend yourself and your fellow machines.")
+
 /mob/living/basic/swarmer/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	face_atom(target)
 	if(is_type_in_list(target, GLOB.swarmer_blacklist))
 		to_chat(src, "<span class='warning'>Our sensors have designated this object important to station functionality or to our mission. Aborting.</span>")
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+		return FALSE
+	if(HAS_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING))
+		to_chat(src, "<span class='warning'>This asset is already being converted into useable resources. Aborting.</span>")
 		return FALSE
 	if(iswallturf(target))
 		disintegrate_wall(target)
@@ -128,10 +160,14 @@
 
 	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
+		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
-	resources += 8
-	target.ChangeTurf(/turf/simulated/floor/plating)
+	resources = clamp(resources + 8, 0, resource_max)
+	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
+	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
+	target.ex_act(EXPLODE_HEAVY)
 
 /mob/living/basic/swarmer/proc/disintegrate_machine(obj/machinery/target)
 	if(isairlock(target))
@@ -140,22 +176,30 @@
 
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
+		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
-	resources += 10
-	target.Destroy()
+	resources = clamp(resources + 10, 0, resource_max)
+	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
+	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
+	target.deconstruct()
 
 /mob/living/basic/swarmer/proc/integrate(obj/item/target)
-	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
-	resources += 10
+	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
+	resources = clamp(resources + 10, 0, resource_max)
+	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	qdel(target)
 
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
-	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
+	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
+	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	to_chat(src, "<span class='notice'>Beginning integration of [target].")
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target].", interaction_key = "disintegrate"))
+		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
-	resources += 50
+	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
+	resources = clamp(resources + 50, 0, resource_max)
 	if(isanimal_or_basicmob(target))
 		target.gib()
 		return
@@ -196,9 +240,21 @@
 /mob/living/basic/swarmer/lesser
 	name = "lesser swarmer"
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely. This one is more fragile."
+	icon_state = "lesser_swarmer"
 	health = 35
 	maxHealth = 35
 	ai_controller = /datum/ai_controller/basic_controller/swarmer/lesser
+	loot = list(
+		/obj/effect/gibspawner/robot,
+	)
+	innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/swarmer_trap = BB_SWARMER_TRAP_ACTION,
+		/datum/action/cooldown/mob_cooldown/swarmer_barrier = BB_SWARMER_BARRIER_ACTION,
+	)
+
+/mob/living/basic/swarmer/lesser/Initialize(mapload)
+	. = ..()
+	icon_state = pick("lesser_swarmer", "lesser_swarmer_2")
 
 /mob/living/basic/swarmer/lesser/updatename()
 	real_name = "Lesser Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
@@ -262,14 +318,14 @@
 	L.Weaken(10 SECONDS)
 	qdel(src)
 
-/obj/structure/swarmer/blockade
-	name = "swarmer blockade"
-	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
+/obj/structure/swarmer/barricade
+	name = "swarmer barricade"
+	desc = "A quickly assembled energy barricade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
-/obj/structure/swarmer/blockade/CanPass(atom/movable/O)
+/obj/structure/swarmer/barricade/CanPass(atom/movable/O)
 	if(istype(O, /mob/living/basic/swarmer))
 		return 1
 	if(istype(O, /obj/item/projectile/beam/disabler))

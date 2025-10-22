@@ -12,3 +12,7 @@
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"
 	duration = 2.5 SECONDS
+
+/obj/effect/temp_visual/swarmer/integrate
+	icon_state = "integrate"
+	duration = 1 SECONDS
