@@ -197,11 +197,9 @@
 		return
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	resources = clamp(resources + 50, 0, resource_max)
-	if(isanimal_or_basicmob(target))
+	if(isanimal_or_basicmob(target)) // Not crew? Don't care.
 		target.gib()
 		return
-	target.apply_damage(150, BRUTE)
-	target.apply_damage(150, BURN)
 	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 	disappear_mob(target)
 
