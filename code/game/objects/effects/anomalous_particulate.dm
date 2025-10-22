@@ -137,7 +137,7 @@
 		if(5 to 8)
 			our_icon.Turn(rand(1, 359))
 
-	our_icon.AddAlphaMask(alpha_mask) //Finally, let's mix in a distortion effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
 	icon = our_icon
 	switch(rand(1,9))
 		if(1)
@@ -395,7 +395,7 @@
 	env.merge(removed)
 
 /obj/effect/visible_anomalous_particulate/add_fingerprint(mob/living/M, ignoregloves)
-	return //No detective you can not scan the fucking influence to find out who touched it
+	return // No detective you can not scan the fucking influence to find out who touched it
 
 #undef BLUESPACE
 #undef GRAV
@@ -426,12 +426,11 @@
 	return ..()
 
 /obj/effect/anomalous_particulate/add_fingerprint(mob/living/M, ignoregloves)
-	return //No detective you can not scan the fucking influence to find out who touched it
+	return // No detective you can not scan the fucking influence to find out who touched it
 
 /obj/effect/anomalous_particulate/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK
-	// Using a codex will give you two knowledge points for draining.
 	if(drain_with_device(user, attacking))
 		return FINISH_ATTACK
 	return ..()
