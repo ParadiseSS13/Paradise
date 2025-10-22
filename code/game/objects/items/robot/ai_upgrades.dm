@@ -56,7 +56,6 @@
 /obj/item/ai_upgrade/ai_program_reset
 	name = "Program Reset Disk"
 	desc = "Insert this disk into the AI core to completely reset their programs."
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ai_upgrade/ai_program_reset/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
