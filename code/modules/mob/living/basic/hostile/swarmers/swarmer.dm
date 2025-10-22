@@ -158,14 +158,13 @@
 	if(istype(target, /turf/simulated/wall/indestructible))
 		return
 
-	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
+	new /obj/effect/temp_visual/swarmer(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
 	resources = clamp(resources + 8, 0, resource_max)
-	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	target.ex_act(EXPLODE_HEAVY)
 
@@ -182,13 +181,11 @@
 		return
 	resources = clamp(resources + 10, 0, resource_max)
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
-	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	target.deconstruct()
 
 /mob/living/basic/swarmer/proc/integrate(obj/item/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
 	resources = clamp(resources + 10, 0, resource_max)
-	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	qdel(target)
 
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
