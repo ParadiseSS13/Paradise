@@ -56,6 +56,13 @@
 	..()
 	updatespeciescolor(H)
 	H.update_icons()
+	var/datum/action/innate/spin_silk/spin_silk = new()
+	spin_silk.Grant(H)
+
+/datum/species/skulk/on_species_loss(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/spin_silk/spin_silk in H.actions)
+		spin_silk.Remove(H)
 
 /datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
@@ -96,29 +103,36 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	var/datum/action/innate/spin_silk/spin_silk = new()
-	spin_silk.Grant(H)
-
 /datum/action/innate/spin_silk
 	name = "Spin Silk"
-	desc = "placeholder"
+	desc = "Use your spinnerets to create a spool of silk that can be used for crafting."
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_STUNNED|AB_CHECK_RESTRAINED|AB_CHECK_CONSCIOUS
 	button_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 10 SECONDS
-	check_flags = AB_CHECK_HANDS_BLOCKED
+
 /datum/action/innate/spin_silk/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, "<span_class='warning'>placeholder. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		to_chat(user, "<span class='warning'>You are still recovering from spinning silk. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	var/mob/living/carbon/human/skulk/H = owner
 	if(H.nutrition < SILK_NUTRITION_AMOUNT)
 		to_chat(H, "<span class='warning'>Fuck you</span>")
 		return
-	H.visible_message("<span class='notice'>[H] placeholder...</span>", "<span class='notice'>Placeholder... (This will take [5] seconds, and you must hold still.)</span>")
-	if(!do_after(H, 5 SECONDS, FALSE, H))
+	var/obj/item/stack/sheet/silk/silk
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(H, "<span class='warning'>You don't have any free hands!</span>")
 		return
+	H.visible_message("<span class='notice'>[H] placeholder...</span>", "<span class='notice'>Placeholder... (This will take [5] seconds, and you must hold still.)</span>")
+	if(!do_after_once(H, 5 SECONDS, TRUE, H, attempt_cancel_message = "You stop spinning silk."))
+		if(H.incapacitated())
+			to_chat(H, "<span class='warning'>You cannot spin silk in your current state!</span>")
+		return
+	silk = new(get_turf(H), 1)
+	user.put_in_hands(silk)
+	cooldown = world.time + cooldown_duration
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
-	var/obj/item/stack/sheet/silk/silk = new(get_turf(H), 1)
-	H.put_in_hands(silk)
+	to_chat(user, "<span class='notice'>You spin a small amount of silk.</span>")
+

@@ -2790,6 +2790,8 @@
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_face.dm"
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_facial_hair.dm"
+#include "code\modules\mob\new_player\sprite_accessories\skulk\skulk_body_markings.dm"
+#include "code\modules\mob\new_player\sprite_accessories\skulk\skulk_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_facial_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_hair.dm"
