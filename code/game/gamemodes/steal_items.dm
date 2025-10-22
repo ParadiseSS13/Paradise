@@ -169,7 +169,6 @@
 /datum/theft_objective/anomalous_particulate/on_hand_out_equipment(datum/objective/steal/our_objective)
 	. = ..()
 	var/our_chosen_owner = our_objective.get_owners()
-	message_admins("attempting")
 	GLOB.anomaly_smash_track.add_tracked_mind(our_chosen_owner[1])
 
 /datum/theft_objective/anomalous_particulate/check_special_completion(obj/item/I)

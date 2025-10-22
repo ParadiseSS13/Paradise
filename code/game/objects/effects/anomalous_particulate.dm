@@ -25,8 +25,8 @@
  */
 /datum/anomalous_particulate_tracker/proc/generate_new_influences()
 	var/how_many_can_we_make = 0
-	for(var/heretic_number in 1 to length(tracked_objectiveholders))
-		how_many_can_we_make += max(NUM_ANOM_PER_OBJ - heretic_number + 1, 1)
+	for(var/antag_number in 1 to length(tracked_objectiveholders))
+		how_many_can_we_make += max(NUM_ANOM_PER_OBJ - antag_number + 1, 1)
 
 	var/location_sanity = 0
 	while((length(smashes) + num_drained) < how_many_can_we_make && location_sanity < 100)
