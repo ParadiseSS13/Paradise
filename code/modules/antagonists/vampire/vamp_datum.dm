@@ -31,6 +31,8 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	/// did the vampire build a lair?
+	var/has_lair = FALSE
 	blurb_text_color = COLOR_RED
 	blurb_r = 255
 	blurb_g = 221

@@ -210,14 +210,14 @@
 	name = "Lair"
 	desc = "Pick a coffin for yourself, the centrepiece of your new lair."
 	gain_desc = "You can now start a lair."
-	action_icon = 'icons/obj/items.dmi'
-	action_icon_state = "blood-chalice"
+	action_icon = 'icons/obj/closet.dmi'
+	action_icon_state = "coffin"
+	base_cooldown = 2 SECONDS
 	var/used = FALSE
 
 /datum/spell/vampire/lair/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.range = 1
-	T.click_radius = 1
 	T.allowed_type = /obj/structure/closet/coffin
 	return T
 
@@ -226,10 +226,45 @@
 		to_chat(user, "<span class='warning'>You have already built a lair!</span>")
 		return
 	for(var/obj/structure/closet/coffin/C as anything in targets)
-		var/obj/structure/closet/coffin/vampire/new_lair = new /obj/structure/closet/coffin/vampire(user)
-		new_lair.forceMove(get_turf(C))
+		if(istype(C, /obj/structure/closet/coffin/vampire))
+			to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
+			continue
+		if(istype(C, /obj/structure/closet/coffin/sarcophagus))
+			to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
+			continue
+		for(var/turf/T in range(1, C))
+			if(T.density)
+				to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
+				return
+		to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
+		C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
+		playsound(C, 'sound/misc/enter_blood.ogg', 20)
+		for(var/obj/machinery/light/L in range(5, user))
+			L.forced_flicker()
+		var/obj/effect/lair_rune/rune = new /obj/effect/lair_rune(get_turf(C), user)
+		if(!do_after(user, 10 SECONDS, target = C))
+			qdel(rune)
+			return
+		playsound(user, 'sound/hallucinations/im_here1.ogg', 30)
+		new /obj/structure/closet/coffin/vampire(get_turf(C), user)
 		qdel(C)
-	used = TRUE
+		var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+		V.has_lair = TRUE
+		used = TRUE
+
+/obj/effect/lair_rune
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_PLANE
+	layer = SIGIL_LAYER
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "transmutation_rune" // probably will need something different should someone start working on heretics again one day
+	pixel_x = -34
+	pixel_y = -38
+
+/obj/effect/lair_rune/Initialize(mapload, mob/user)
+	. = ..()
+	if(user)
+		color = user.dna.species.blood_color
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3

@@ -920,8 +920,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/lair
 	name = "Build a lair"
-	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area and resting inside."
+	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area."
 	needs_target = FALSE
+
+/datum/objective/lair/check_completion()
+	if(..())
+		return TRUE
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/vampire/V = M.has_antag_datum(/datum/antagonist/vampire)
+		if(V.has_lair)
+			return TRUE
+		return FALSE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
