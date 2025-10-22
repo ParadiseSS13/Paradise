@@ -46,6 +46,7 @@
 	see_in_dark = 6
 	light_range = 2
 	light_color = LIGHT_COLOR_CYAN
+	step_type = FOOTSTEP_MOB_CLAW
 	loot = list(
 		/obj/effect/gibspawner/robot,
 		/obj/item/stack/ore/bluespace_crystal,
@@ -64,12 +65,11 @@
 
 /mob/living/basic/swarmer/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/ai_retaliate)
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
-	AddElement(/datum/element/ai_retaliate)
 	updatename()
 	grant_actions_by_list(innate_actions)
-	add_language("Swarmer")
 	set_default_language(GLOB.all_languages["Swarmer"])
 
 /mob/living/basic/swarmer/proc/updatename()
