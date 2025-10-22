@@ -817,7 +817,7 @@ SLIME SCANNER
 			if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
 				message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
 			if(hydrogen && (milla_turf_details || hydrogen / total_moles > 0.01))
-				message += "  <span class='plasma'>Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)</span>"
+				message += "  <span class='hydrogen'>Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
 			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
