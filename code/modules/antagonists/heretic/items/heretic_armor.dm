@@ -128,7 +128,6 @@
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))
-		REMOVE_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID())
 		loc.visible_message("<span class='notice'>Light shifts around [loc], making the cloak around them invisible!</span>")
 
 /// Makes our cloak "visible" again.
@@ -139,5 +138,4 @@
 	icon_state = "void_cloak"
 	cloak_invisible = FALSE
 	if(isliving(loc))
-		ADD_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID())
 		loc.visible_message("<span class='notice'>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")

@@ -45,12 +45,12 @@
 
 	playsound(cast_on, 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	to_chat(cast_on, "<span class='warning'>Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!</span>")
-	cast_on.EyeBlind(moon_smile_duration / 2 + (1 SECONDS))
-	cast_on.EyeBlurry(moon_smile_duration + (2 SECONDS))
+	cast_on.EyeBlind(max(moon_smile_duration / 2 + (1 SECONDS), 2 SECONDS))
+	cast_on.EyeBlurry(max(moon_smile_duration + (2 SECONDS), 4 SECONDS))
 
-	cast_on.Deaf(moon_smile_duration + (2 SECONDS))
+	cast_on.Deaf(max(moon_smile_duration + (2 SECONDS), 4 SECONDS))
 
-	cast_on.Silence(moon_smile_duration + (1 SECONDS))
+	cast_on.Silence(max(moon_smile_duration + (4 SECONDS), 6 SECONDS))
 
 	// Only knocksdown if the target has a low enough sanity
 	if(cast_on.getBrainLoss() > 40)

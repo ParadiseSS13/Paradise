@@ -161,8 +161,12 @@
 	owner.adjustBruteLoss(-100)
 	owner.adjustFireLoss(-100)
 
-	to_chat(owner, "<span class='userdanger'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span></span>")
-	owner.Paralyse(7 SECONDS)
+	var/list/messages = list()
+	messages.Add("<span class='userdanger'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span>")
+	messages.Add("<span class='warning'>Attack everyone you can see without discrimination!</span>")
+	to_chat(owner, chat_box_red(messages.Join("<br>")))
+
+	owner.Paralyse(5 SECONDS)
 	ADD_TRAIT(owner, TRAIT_MUTE, src.UID())
 	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_overlay))
 	owner.update_appearance(UPDATE_OVERLAYS)
@@ -188,7 +192,7 @@
 
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning and unconscious so they realize they aren't evil anymore
-	to_chat(owner, "<span class='warning'>Your mind is cleared from the effect of the mansus, your alligiences are as they were before</span>")
+	to_chat(owner, "<span class='user_warning'>Your mind is cleared from the effect of the mansus, your alligiences are as they were before.</span>")
 	REMOVE_TRAIT(owner, TRAIT_MUTE, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))

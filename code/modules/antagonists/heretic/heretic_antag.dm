@@ -58,8 +58,12 @@
 	var/datum/action/heretic_menu/our_menu
 	/// A list of all the monsters the heretic has active.
 	var/list/list_of_our_monsters = list()
+	/// The maximum mindslave limit. Applies to berserks as well
+	var/mindslave_limit = 2
 	/// What is the limit of monsters we can have as a heretic?
 	var/monster_limit = 2
+	/// Who do we currently have under our mindslavery?
+	var/list/mindslaves = list()
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
 	var/list/unlocked_heretic_items = list(

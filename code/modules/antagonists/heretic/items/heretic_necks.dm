@@ -163,6 +163,11 @@
 	// How much brain damage does this item do?
 	var/brain_damage = 5
 
+/obj/item/clothing/neck/heretic_focus/moon_amulet/examine(mob/user)
+	. = ..()
+	. += "<span class='information'>Using this amulet on the ignorant will cause them to slowly lose their minds.</span>"
+	. += "<span class='information'>Using this amulent on one who has lost their mind will cause them to go berserk.</span>"
+
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params)
 	if(!ishuman(target))
 		return . = ..()
@@ -171,15 +176,21 @@
 		to_chat(user, "<span class='danger'>You feel a presence watching you!</span>")
 		user.adjustBrainLoss(30)
 		return
+	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 	if(hit.getBrainLoss() < 80)
 		to_chat(user, "<span class='hierophant_warning'>Their mind is too strong!</span>")
 		hit.adjustBrainLoss(brain_damage)
 	else
-		to_chat(user, "<span class='hierophant_warning'>Their mind has bent to see the truth!</span>")
-		hit.apply_status_effect(/datum/status_effect/moon_converted)
-		add_attack_logs(user, target, "[target] was driven insane by [user]([src])")
-		log_game("[target] was driven insane by [user]")
-
+		if(target.mind)
+			if(length(heretic.mindslaves) < heretic.mindslave_limit)
+				to_chat(user, "<span class='hierophant_warning'>Their mind has bent to see the truth!</span>")
+				hit.apply_status_effect(/datum/status_effect/moon_converted)
+				add_attack_logs(user, target, "[target] was driven insane by [user]([src])")
+				log_game("[target] was driven insane by [user]")
+			else
+				to_chat(user, "<span class='hierophant_warning'>We do not have the power to drive more beings mad!</span>")
+		else
+			to_chat(user, "<span class='hierophant_warning'>This one cannot go mad.</span>")
 	return ..()

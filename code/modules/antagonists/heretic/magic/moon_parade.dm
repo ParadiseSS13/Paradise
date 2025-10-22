@@ -47,6 +47,8 @@
 /obj/item/projectile/moon_parade/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), TRUE)
+	addtimer(CALLBACK(src, PROC_REF(Destroy)), 12 SECONDS)
+
 
 /obj/item/projectile/moon_parade/prehit(atom/target)
 	if(!isliving(firer) || !isliving(target))

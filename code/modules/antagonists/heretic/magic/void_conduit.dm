@@ -28,7 +28,6 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "void_conduit"
 	anchored = TRUE
-	density = TRUE
 	obj_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
 	/// List of possible overlays to apply to the tiles in range of the conduit
@@ -110,7 +109,11 @@
 					affected_mob.apply_status_effect(/datum/status_effect/void_conduit)
 				else
 					affected_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
+				continue
 
+			if(istype(thing_to_affect, /obj/structure/window) || istype(thing_to_affect, /obj/machinery/door))
+				if(/turf/space in range(1, thing_to_affect.loc)) // no breaking space-facing things
+					continue
 			if(istype(thing_to_affect, /obj/machinery/door))
 				var/obj/machinery/door/affected_door = thing_to_affect
 				affected_door.disable_door_sparks()
