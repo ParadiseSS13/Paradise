@@ -20,7 +20,7 @@
 		/datum/ai_planning_subtree/swarmer_find_construction_target,
 		/datum/ai_planning_subtree/swarmer_create_trap,
 		/datum/ai_planning_subtree/swarmer_create_barricade,
-		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/swarmer_hunting,
+		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls/swarmer_hunting,
 		/datum/ai_planning_subtree/find_and_hunt_target/corpses/swarmer,
 		/datum/ai_planning_subtree/find_and_hunt_target/swarmer_objects,
 	)
