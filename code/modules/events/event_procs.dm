@@ -53,7 +53,7 @@
 
 	return possible_areas
 
-/proc/findMaintananceEventArea() //For maintanance events ONLY
+/proc/findMaintananceEventArea() // For maintanance events ONLY
 	var/list/maintanance_area = typecacheof(list(
 	/area/station/maintenance))
 
