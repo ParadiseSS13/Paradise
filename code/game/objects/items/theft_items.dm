@@ -632,7 +632,7 @@
 	our_turf.visible_message("<span class='danger'>[src] activates and...</span>")
 	playsound(src, "shatter", 70, TRUE)
 	switch(anomaly_type)
-		if(/obj/effect/anomaly/bluespace) //Teleport and slow combat for 15
+		if(/obj/effect/anomaly/bluespace) // Teleport and slow combat for 15
 			if(!is_teleport_allowed(z))
 				visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 				qdel(src)
@@ -642,14 +642,14 @@
 				L.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(/obj/effect/anomaly/flux) // shock
 			for(var/mob/living/L in view(7, our_turf))
-				L.Beam(get_turf(src), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+				L.Beam(get_turf(src), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) // What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 				L.electrocute_act(20, "electrical blast", flags = SHOCK_NOGLOVES)
 				L.KnockDown(6 SECONDS)
 		if(/obj/effect/anomaly/grav) // repulse
 			var/list/thrownatoms = list()
 			var/atom/throwtarget
 			var/distfromcaster
-			for(var/turf/T in range(7, our_turf)) //Done this way so things don't get thrown all around hilariously.
+			for(var/turf/T in range(7, our_turf)) // Done this way so things don't get thrown all around hilariously.
 				for(var/atom/movable/AM in T)
 					thrownatoms += AM
 
@@ -667,13 +667,13 @@
 						M.adjustBruteLoss(5)
 						to_chat(M, "<span class='userdanger'>You're slammed into the floor by an anomalous force!</span>")
 				else
-					new /obj/effect/temp_visual/gravpush(get_turf(AM), get_dir(src, AM)) //created sparkles will disappear on their own
+					new /obj/effect/temp_visual/gravpush(get_turf(AM), get_dir(src, AM)) // created sparkles will disappear on their own
 					if(isliving(AM))
 						var/mob/living/M = AM
 						M.Weaken(3 SECONDS)
 						to_chat(M, "<span class='userdanger'>You're thrown back by a anomalous force!</span>")
 					spawn(0)
-						AM.throw_at(throwtarget, ((clamp((5 - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, 5))), 1)//So stuff gets tossed around at the same time.
+						AM.throw_at(throwtarget, ((clamp((5 - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, 5))), 1) // So stuff gets tossed around at the same time.
 		if(/obj/effect/anomaly/pyro) // burn
 			var/datum/gas_mixture/air = new()
 			air.set_temperature(1000)

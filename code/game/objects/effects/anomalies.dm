@@ -124,7 +124,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	if(!_drops_core) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
+	if(!_drops_core) // So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
 		if(prob(75))
@@ -215,7 +215,7 @@
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
-	if(explosive || canister_spawned) //Let us not fuck up the sm that much
+	if(explosive || canister_spawned) // Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
 /obj/effect/anomaly/flux/proc/on_atom_entered(datum/source, atom/movable/entered)
@@ -232,7 +232,7 @@
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
 		if(!knockdown)
-			M.Weaken((explosive || canister_spawned) ? 6 SECONDS : 3 SECONDS) //Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them
+			M.Weaken((explosive || canister_spawned) ? 6 SECONDS : 3 SECONDS) // Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them
 		else
 			M.KnockDown(3 SECONDS)
 
@@ -243,7 +243,6 @@
 		log_admin("\A [name] has detonated at [impact_area]")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
-
 
 /obj/effect/anomaly/flux/anomalous_canister_setup()
 	power = 3000

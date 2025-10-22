@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/ghostteleportlocs
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
-	///Types of areas that exist on the station this shift
+	/// Types of areas that exist on the station this shift
 	var/list/existing_station_areas_types
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
