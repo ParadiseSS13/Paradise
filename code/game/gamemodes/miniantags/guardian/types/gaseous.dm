@@ -12,7 +12,7 @@
 	var/moles_of_gas = null
 	///Linda flag for the expelled gas because we need to use special flags for it that are not readable in game well.
 	var/linda_flags = null
-	/// Possible gases to expel, with how much moles they create.
+	/// Possible gases to expel, with how many moles they create.
 	var/static/list/possible_gases = list(
 		"Oxygen" = 50,
 		"Nitrogen" = 750, //overpressurizing is hard!.

@@ -688,6 +688,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         // THEN we can add in the new thermal energy.
         thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
         // Recalculate temperature for any subsequent reactions.
+        // (or we would, but this is the last reaction)
         //cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += hydrogen_burnt;
