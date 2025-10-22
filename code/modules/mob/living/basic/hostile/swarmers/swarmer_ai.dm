@@ -246,7 +246,7 @@
 	var/mob/living/basic/swarmer/user = controller.pawn
 	if(!istype(user))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	if(!barrier_action || !target_turf || user.resources < 25 )
+	if(!barrier_action || !target_turf || user.resources < 25)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	set_movement_target(controller, target_turf)
