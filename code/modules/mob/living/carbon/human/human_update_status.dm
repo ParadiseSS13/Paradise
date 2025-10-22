@@ -23,7 +23,7 @@
 						return
 
 					update_revive()
-					custom_emote(EMOTE_AUDIBLE, "chimes as [p_they()] reactivate[p_s()]!", FALSE)
+					emote("me", EMOTE_AUDIBLE, "chimes as [p_they()] reactivate[p_s()]!")
 					create_debug_log("revived from healing, trigger reason: [reason]")
 
 /mob/living/carbon/human/update_nearsighted_effects()
