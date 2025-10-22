@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 	var/client/initial_user = locateUID(initial_user_uid)
 	if(initial_user)
-		to_chat(initial_user_uid, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+		to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 	// Report has been handled so we can remove it from the DB
 	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
 			"DELETE FROM bug_reports WHERE (db_uid=:db_uid AND author_ckey=:author_ckey)",
