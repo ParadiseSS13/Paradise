@@ -152,9 +152,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		return //Hijackers only get hijack.
 
-	if(locate(/datum/objective/mutiny) in owner.get_all_objectives())
-		return //Mutineers only get mutiny
-
 	// Will give objectives from our org or random objectives.
 	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
