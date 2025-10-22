@@ -1174,7 +1174,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 			if(!target.HasDisease(/datum/disease/zombie))
 				var/datum/disease/zombie/zomb = new /datum/disease/zombie
-				target.ContractDisease(zomb)
+				target.ContractDisease(zomb, SPREAD_BLOOD)
 
 			for(var/datum/disease/zombie/zomb in target.viruses)
 				zomb.stage = max(5, zomb.stage)

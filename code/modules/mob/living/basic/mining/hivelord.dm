@@ -183,9 +183,6 @@
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
 
-/mob/living/basic/mining/hivelord/legion/tendril
-	from_tendril = TRUE
-
 /mob/living/basic/mining/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
@@ -193,7 +190,7 @@
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
 			stored_mob = null
-		else if(from_tendril)
+		else if(HAS_TRAIT(src, TRAIT_FROM_TENDRIL))
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 		else if(dwarf_mob)
 			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf(T)
@@ -255,9 +252,6 @@
 /mob/living/basic/mining/hivelordbrood/legion/advanced
 	ai_controller = /datum/ai_controller/basic_controller/hivelord_brood/advanced_legion
 	can_infest_dead = TRUE
-
-/mob/living/basic/mining/hivelord/legion/advanced/tendril
-	from_tendril = TRUE
 
 // Big legion (billy)
 /mob/living/basic/mining/big_legion
