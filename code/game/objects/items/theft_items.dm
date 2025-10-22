@@ -423,6 +423,7 @@
 	force = 10
 	throwforce = 10
 	attack_verb = list("processed", "perforated", "pounded", "pasted", "proded", "punished", "plowed into", "pommeled", "pummeled", "penetrated", "probed", "pulsed", "pulverized", "pillaged", "persecuted", "pasted", "peppered", "plundered", "put down", "pushed")
+	origin_tech = "programming=6;plasma=6;syndicate=3"
 	new_attack_chain = TRUE
 	/// How many clouds have been processed?
 	var/clouds_processed = 0

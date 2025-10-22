@@ -365,10 +365,10 @@
 						A.charging = APC_IS_CHARGING // It's no longer full
 		// Vortex just has darkness, no process needed
 		if(CRYO) // A cool blue glow. AKA a radioactive one.
-			if(prob(25))
-				radiation_pulse(src, 1200, ALPHA_RAD)
-				radiation_pulse(src, 1200, BETA_RAD)
-				radiation_pulse(src, 1200, GAMMA_RAD)
+			if(prob(33))
+				radiation_pulse(src, 1600, ALPHA_RAD)
+				radiation_pulse(src, 1600, BETA_RAD)
+				radiation_pulse(src, 1600, GAMMA_RAD)
 
 /datum/milla_safe/visible_anomalous_particulate
 
