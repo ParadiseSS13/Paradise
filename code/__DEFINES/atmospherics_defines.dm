@@ -77,7 +77,7 @@
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
 
 //HYDROGEN
-#define HYDROGEN_BURN_ENERGY				2800000
+#define HYDROGEN_BURN_ENERGY				2500000
 #define HYDROGEN_MIN_IGNITE_TEMP			500
 
 // Pressure limits.
