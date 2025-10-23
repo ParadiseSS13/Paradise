@@ -143,9 +143,13 @@
 			LAZYADD(tentacle_target_turfs, T)
 
 /mob/living/basic/mining/goliath/space
+	name = "ancient goliath"
+	desc = "Goliaths are biologically immortal, and rare specimens have survived for centuries. This one is clearly ancient, and its tentacles constantly churn the earth around it."
 	icon_state = "Goliath"
 	icon_living = "Goliath"
+	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
+	tentacle_warning_state = "Goliath_preattack"
 
 /mob/living/basic/mining/goliath/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
