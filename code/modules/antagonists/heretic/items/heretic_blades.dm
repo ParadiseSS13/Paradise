@@ -135,7 +135,7 @@
 		return
 	. += "<span class='info'>We may touch the blade to ourself to call forth an aspect of winter's end.</span>"
 
-/obj/item/melee/sickly_blade/dropped(mob/user, silent)
+/obj/item/melee/sickly_blade/void/dropped(mob/user, silent)
 	. = ..()
 	chilling = FALSE
 
