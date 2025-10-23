@@ -342,6 +342,7 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H) // requires mind
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/job/hydro
 	title = "Botanist"
