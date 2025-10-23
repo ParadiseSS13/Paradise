@@ -32,15 +32,14 @@
 	dietflags = DIET_OMNI
 	flesh_color = "#e3e2dd"
 
-	icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi'
 	default_hair = "Scribe"
 	default_bodyacc = "Illusive"
-	spines = "illusive1"
+	spines = "illusive2"
 
 	eyes = "skulk_eyes_s"
 
 
-	optional_body_accessory = TRUE //Placeholder for now until I can get body accessories working
+	optional_body_accessory = FALSE
 
 	reagent_tag = PROCESS_ORG
 
