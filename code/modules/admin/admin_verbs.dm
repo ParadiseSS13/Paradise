@@ -269,7 +269,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/raw_gas_scan,
 	/client/proc/teleport_interesting_turf,
 	/client/proc/visualize_interesting_turfs,
-	/client/proc/profile_code
+	/client/proc/profile_code,
+	/client/proc/view_bug_reports,
 ))
 GLOBAL_LIST_INIT(view_logs_verbs, list(
 	/client/proc/getserverlogs,
