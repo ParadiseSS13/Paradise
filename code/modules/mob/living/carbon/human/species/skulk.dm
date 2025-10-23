@@ -28,13 +28,13 @@
 	inherent_traits = list(TRAIT_BRITTLE_BONES)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_SOCKS
-	bodyflags = HAS_BODY_MARKINGS | HAS_BACK_SPINES | HAS_ICON_SKIN_TONE | SHAVED
+	bodyflags = HAS_BODY_MARKINGS | HAS_BACK_SPINES | HAS_ICON_SKIN_TONE | SHAVED | HAS_BODY_ACCESSORY
 	dietflags = DIET_OMNI
 	flesh_color = "#e3e2dd"
 
 	default_hair = "Scribe"
-	default_bodyacc = "Illusive"
-	spines = "illusive2"
+	default_bodyacc = "Blackgate Illusive"
+	spines = "venom5"
 
 	eyes = "skulk_eyes_s"
 
@@ -52,35 +52,6 @@
 		6 = "Votum-Accorium"
 	)
 
-/datum/species/skulk/on_species_gain(mob/living/carbon/human/H)
-	..()
-	updatespeciescolor(H)
-	H.update_icons()
-	var/datum/action/innate/spin_silk/spin_silk = new()
-	spin_silk.Grant(H)
-
-/datum/species/skulk/on_species_loss(mob/living/carbon/human/H)
-	..()
-	for(var/datum/action/innate/spin_silk/spin_silk in H.actions)
-		spin_silk.Remove(H)
-
-/datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
-	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi' //Default Talwyrm Skkulakin.
-		switch(H.s_tone)
-			if(6) //Blackgate Skkulakin.
-				new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi'
-			if(5) //Ossya Skkulakin.
-				new_icobase = 'icons/mob/human_races/skulk/r_skulkblue.dmi'
-			if(4) //Highfield Skkulakin.
-				new_icobase = 'icons/mob/human_races/skulk/r_skulkgreen.dmi'
-			if(3) //Valcore Skkulakin.
-				new_icobase = 'icons/mob/human_races/skulk/r_skulkred.dmi'
-			if(2) //Votum-Accorium Skkulakin.
-				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
-			else
-		H.change_icobase(new_icobase, owner_sensitive)
-
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skulk,
 		"lungs" =    /obj/item/organ/internal/lungs/skulk,
@@ -96,6 +67,46 @@
 		"is tearing open their arm with their fangs!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+
+/datum/species/skulk/on_species_gain(mob/living/carbon/human/H)
+	..()
+	updatespeciescolor(H)
+	H.update_icons()
+	var/datum/action/innate/spin_silk/spin_silk = new()
+	spin_silk.Grant(H)
+
+/datum/species/skulk/on_species_loss(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/spin_silk/spin_silk in H.actions)
+		spin_silk.Remove(H)
+
+/datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi' //Default Blackgate Skkulakin.
+		var/current_spine_type = copytext(H.spines, 1, length(H.spines))
+		var/chosen_spine_color = 1
+		switch(H.s_tone)
+			if(1) //Blackgate Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi'
+				chosen_spine_color = 1
+			if(2) //Talwyrm Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi'
+				chosen_spine_color = 2
+			if(3) //Valcore Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkred.dmi'
+				chosen_spine_color = 3
+			if(4) //Ossya Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkblue.dmi'
+				chosen_spine_color = 4
+			if(5) //Highfield Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkgreen.dmi'
+				chosen_spine_color = 5
+			if(6) //Votum-Accorium Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
+				chosen_spine_color = 6
+		H.spines = "[current_spine_type][chosen_spine_color]"
+
+		H.change_icobase(new_icobase, owner_sensitive)
 
 /datum/action/innate/spin_silk
 	name = "Spin Silk"
