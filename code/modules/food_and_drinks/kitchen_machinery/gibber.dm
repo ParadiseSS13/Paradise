@@ -255,7 +255,7 @@
 		if(skinned)
 			new skinned(src)
 		var/slab_type = H.dna.species.meat_type
-		for(var/i=1 to slab_count)
+		for(var/i in 1 to slab_count)
 			var/obj/item/food/meat/new_meat = new slab_type(src)
 			new_meat.name = "[slab_name] [new_meat.name]"
 			new_meat.reagents.add_reagent("nutriment", slab_nutrition)
