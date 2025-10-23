@@ -799,6 +799,9 @@
 		icon_state = "[base_icon_state]-sword"
 	else
 		icon_state = base_icon_state
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
 
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
