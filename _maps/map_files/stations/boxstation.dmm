@@ -8248,8 +8248,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/abandonedbar)
 "aFg" = (
-/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/maintenance/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "aFh" = (
