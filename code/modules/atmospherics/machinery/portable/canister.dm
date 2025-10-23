@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the caniser, increase the \
+	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the canister, increase the \
 			release pressure, and open the valve. Alt-click to eject the tank, or use another to hot-swap. A gas analyzer can be used to check \
 			the contents of the canister.</span>"
 	if(isAntag(user))
