@@ -70,21 +70,15 @@
 		switch(H.s_tone)
 			if(6) //Blackgate Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi'
-				H.spines = pick("hunter1", "cosmic1", "illusive1", "venom1", "hunger1")
 			if(5) //Ossya Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkblue.dmi'
-				H.spines = pick("hunter4", "cosmic4", "illusive4", "venom4", "hunger4")
 			if(4) //Highfield Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkgreen.dmi'
-				H.spines = pick("hunter5", "cosmic5", "illusive5", "venom5", "hunger5")
 			if(3) //Valcore Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkred.dmi'
-				H.spines = pick("hunter3", "cosmic3", "illusive3", "venom3", "hunger3")
 			if(2) //Votum-Accorium Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
-				H.spines = pick("hunter6", "cosmic6", "illusive6", "venom6", "hunger6")
 			else
-				H.spines = pick("hunter2", "cosmic2", "illusive2", "venom2", "hunger2")
 		H.change_icobase(new_icobase, owner_sensitive)
 
 	has_organ = list(

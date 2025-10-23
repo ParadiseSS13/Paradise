@@ -275,6 +275,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	//tail
 	update_tail_layer()
 	update_wing_layer()
+	update_spines_layer()
 	update_int_organs()
 	//head accessory
 	update_head_accessory()
@@ -562,6 +563,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	force_update_limbs()
 	update_tail_layer()
 	update_wing_layer()
+	update_spines_layer()
 	update_halo_layer()
 	update_eyes_overlay_layer()
 	overlays.Cut() // Force all overlays to regenerate
@@ -887,6 +889,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(SUIT_LAYER)
 	update_tail_layer()
 	update_wing_layer()
+	update_spines_layer()
 	update_collar()
 
 /mob/living/carbon/human/update_inv_pockets()
@@ -1149,6 +1152,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 
+/mob/living/carbon/human/proc/update_spines_layer()
+	remove_overlay(SPINES_UNDERLIMBS_LAYER)
+	remove_overlay(SPINES_LAYER)
+	if(!istype(body_accessory, /datum/body_accessory/spines))
+		if(dna.species.optional_body_accessory)
+			return
+		else
+			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+
 	if(!body_accessory.try_restrictions(src))
 		return
 
@@ -1375,6 +1387,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	update_tail_layer()
 	update_wing_layer()
+	update_spines_layer()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/clothing/collar.dmi
