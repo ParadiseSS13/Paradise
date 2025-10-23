@@ -501,6 +501,11 @@
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/uniform/overalls/job/smith
+	display_name = "Overalls, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/overalls
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
 
