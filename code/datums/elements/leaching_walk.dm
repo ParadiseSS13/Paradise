@@ -41,7 +41,7 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	// Heals all damage + Stamina
+	// Heals all damage types + Stamina
 	var/need_mob_update = FALSE
 	if(ishuman(source))
 		var/mob/living/carbon/human/we_should_make_robotic_a_general_argument = source
@@ -52,7 +52,7 @@
 		need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
 		need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
 		need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
-		need_mob_update += source.adjustStaminaLoss(-15)
+		need_mob_update += source.adjustStaminaLoss(-10)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc

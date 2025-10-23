@@ -47,7 +47,7 @@
  */
 /datum/status_effect/eldritch/proc/on_effect()
 	SHOULD_CALL_PARENT(TRUE)
-	
+
 	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
@@ -95,7 +95,7 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	owner.adjust_disgust(100 SECONDS)
+	owner.adjust_disgust(10 SECONDS)
 	owner.AdjustConfused(10 SECONDS)
 	return ..()
 

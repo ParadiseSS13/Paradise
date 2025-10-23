@@ -16,7 +16,7 @@
 	invocation = "A'GRSV SPR'D"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	aoe_range = 2
+	aoe_range = 3
 
 
 /datum/spell/aoe/rust_conversion/create_new_targeting()

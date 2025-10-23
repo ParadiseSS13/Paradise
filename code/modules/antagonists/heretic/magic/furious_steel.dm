@@ -42,8 +42,6 @@
 
 /datum/spell/fireball/furious_steel/add_ranged_ability(mob/user, msg)
 	. = ..()
-	if(!.)
-		return
 
 	if(!isliving(user))
 		return

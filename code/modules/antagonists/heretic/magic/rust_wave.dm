@@ -55,7 +55,8 @@
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
-	victim.adjust_disgust(100 SECONDS)
+	victim.adjust_disgust(20 SECONDS)
+	victim.AdjustConfused(10 SECONDS)
 
 
 /obj/effect/temp_visual/dir_setting/entropic

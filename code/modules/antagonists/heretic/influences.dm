@@ -163,6 +163,7 @@
 	var/mob/living/carbon/human/human_user = user
 	to_chat(human_user, "<span class='userdanger'>Your mind burns as you stare at the tear!</span>")
 	human_user.adjustBrainLoss(10)
+	human_user.AdjustConfused(10 SECONDS, 10 SECONDS, 60 SECONDS)
 
 /obj/effect/heretic_influence
 	name = "reality smash"

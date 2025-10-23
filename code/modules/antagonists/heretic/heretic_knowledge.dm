@@ -266,7 +266,7 @@
 	var/datum/status_effect/broken_blade/BB = user.has_status_effect(/datum/status_effect/broken_blade)
 	var/datum/antagonist/heretic/ascend_check = IS_HERETIC(user)
 	if(!BB || ascend_check.ascended)
-		return TRUE
+		return ..()
 	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, you are unable to loan a blade from the mansus for another [round((BB.duration - world.time)/10, 1)] seconds!</span>")
 	return FALSE
 

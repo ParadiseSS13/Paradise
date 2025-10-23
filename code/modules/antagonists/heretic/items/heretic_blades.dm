@@ -117,6 +117,65 @@
 	icon_state = "void_blade"
 	inhand_icon_state = "void_blade"
 	after_use_message = "The Aristocrat hears your call..."
+	var/chilling = FALSE
+	var/cooling_power = 40000
+
+/obj/item/melee/sickly_blade/void/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/melee/sickly_blade/void/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
+/obj/item/melee/sickly_blade/void/examine(mob/user)
+	. = ..()
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	if(!heretic_datum)
+		return
+	. += "<span class='info'>We may touch the blade to ourself to call forth an aspect of winter's end.</span>"
+
+/obj/item/melee/sickly_blade/dropped(mob/user, silent)
+	. = ..()
+	chilling = FALSE
+
+/obj/item/melee/sickly_blade/void/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return
+
+	if(user == target)
+		if(chilling)
+			to_chat(user, "<span class='warning'>We are already calling forth the patient end.</span>")
+			return FINISH_ATTACK
+		else
+			chilling = TRUE
+			to_chat(user, "<span class='warning'>We begin to bring forth a fragment of winter.</span>")
+			while(chilling)
+				if(!do_after_once(user, 10 SECONDS, TRUE, src, TRUE, FALSE, TRUE, "<span class='warning'>We finish channeling winter.</span>"))
+					chilling = FALSE
+		return FINISH_ATTACK
+
+/obj/item/melee/sickly_blade/void/process()
+	if(!chilling)
+		return
+	var/datum/milla_safe/void_blade/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/void_blade
+
+/datum/milla_safe/void_blade/on_run(obj/item/melee/sickly_blade/void/blade)
+	var/turf/T = get_turf(blade)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	var/initial_temperature = env.temperature()
+	var/target_temp = 100
+
+	if(!issimulatedturf(T) || T.density)
+		return
+	if(initial_temperature <= target_temp) //Can we actually cool this?
+		return
+
+	var/amount_cooled = initial_temperature - blade.cooling_power / env.heat_capacity()
+	env.set_temperature(max(amount_cooled, target_temp))
 
 // Path of the Blade's... blade.
 // Opting for /dark instead of /blade to avoid "sickly_blade/blade".

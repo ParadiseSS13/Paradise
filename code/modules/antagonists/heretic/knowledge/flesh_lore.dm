@@ -276,15 +276,13 @@
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
-	desc = "Allows you to transmute eyes, an arm, a pair of lungs, a pen and a piece of paper to create a Stalker. \
+	desc = "Allows you to transmute three slabs of meat, a pen and a piece of paper to create a Stalker. \
 		Stalkers can jaunt, release EMPs, shapeshift into animals or automatons, and are strong in combat."
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. \
 		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
 
 	required_atoms = list(
-		/obj/item/organ/internal/eyes = 1,
-		list(/obj/item/organ/external/arm, /obj/item/robot_parts/l_arm, /obj/item/robot_parts/r_arm) = 1,
-		/obj/item/organ/internal/lungs = 1,
+		/obj/item/food/meat = 3,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)

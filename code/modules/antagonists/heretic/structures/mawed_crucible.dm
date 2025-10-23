@@ -258,7 +258,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		to_chat(user, "<span class='danger'>You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes.</span>")
 		user.reagents?.add_reagent("eldritch", 10)
-		user.adjust_disgust(50 SECONDS)
+		user.adjust_disgust(60 SECONDS)
 		qdel(src)
 		return TRUE
 

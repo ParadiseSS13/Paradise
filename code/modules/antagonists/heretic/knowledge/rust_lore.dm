@@ -135,7 +135,7 @@
 /datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
-	target.adjust_disgust(50 SECONDS)
+	target.adjust_disgust(10 SECONDS)
 
 /datum/heretic_knowledge/spell/entropic_plume
 	name = "Entropic Plume"
