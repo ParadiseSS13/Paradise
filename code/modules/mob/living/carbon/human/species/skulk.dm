@@ -25,6 +25,7 @@
 	brain_mod = 0.8
 
 	species_traits = list()
+	inherent_traits = list(TRAIT_BRITTLE_BONES)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_SOCKS
 	bodyflags = HAS_BODY_MARKINGS | HAS_BACK_SPINES | HAS_ICON_SKIN_TONE | SHAVED
