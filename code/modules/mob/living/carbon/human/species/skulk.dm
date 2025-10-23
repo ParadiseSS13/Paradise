@@ -119,7 +119,7 @@
 		return
 	var/mob/living/carbon/human/skulk/H = owner
 	if(H.nutrition < SILK_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>Fuck you</span>")
+		to_chat(H, "<span class='warning'>You are too hungry to spin silk right now.</span>")
 		return
 	var/obj/item/stack/sheet/silk/silk
 	if(user.get_active_hand() && user.get_inactive_hand())

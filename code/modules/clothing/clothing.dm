@@ -253,6 +253,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
@@ -611,6 +612,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 	)
 
@@ -977,7 +979,8 @@
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 	insert_max = 0 // No inserts for space suits
 
@@ -998,6 +1001,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/under/misc.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)

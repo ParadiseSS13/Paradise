@@ -4,6 +4,7 @@
 	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/under/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/suit.dmi'
