@@ -1022,6 +1022,22 @@
 	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
+/obj/item/organ/internal/cyberimp/chest/ipc_food
+	name = "Culinary Processing Implant"
+	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
+	implant_color = "#d8780a"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	slot = "gastrointestinal"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
+	return ..()
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
