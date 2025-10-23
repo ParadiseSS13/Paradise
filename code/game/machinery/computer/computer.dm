@@ -229,8 +229,6 @@
 		to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
 		return TRUE
 
-	return ..()
-
 /obj/machinery/computer/proc/show_random_download_message(mob/user)
 	var/list/download_messages = list(
 		"<span class='notice'>A message flashes on the screen: \"[user.name] is not in the sudoers file. This incident will be reported.\"</span>"
