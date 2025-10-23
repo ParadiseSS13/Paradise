@@ -934,7 +934,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/download/Destroy()
 	if(target_console)
-		UnregisterSignal(target_console, list(COMSIG_PARENT_QDELETING))
+		UnregisterSignal(target_console, COMSIG_PARENT_QDELETING)
 	return ..()
 
 /datum/objective/download/establish_signals()
@@ -942,7 +942,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		RegisterSignal(target_console, COMSIG_PARENT_QDELETING, PROC_REF(on_console_destroyed), override = TRUE)
 
 /datum/objective/download/proc/on_console_destroyed()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)

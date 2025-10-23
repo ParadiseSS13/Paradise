@@ -193,39 +193,41 @@
 
 /obj/machinery/computer/attack_by(obj/item/I, mob/user, params)
 	// Check if someone is trying to Download using a power cable
-	if(istype(I, /obj/item/apc_powercord) && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/datum/antagonist/mindflayer/flayer_datum = H.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(!istype(I, /obj/item/apc_powercord) || !ishuman(user))
+		return ..()
 
-		if(flayer_datum)
-			for(var/datum/objective/download/download_obj in flayer_datum.get_antag_objectives())
-				if(download_obj.target_console == src)
-					var/old_icon_screen = icon_screen
-					to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console and begin the transfer...</span>")
-					active_download_effect = new /obj/effect/temp_visual/computer_download(get_turf(src), src)
-					if(do_after(user, 18 SECONDS, target = src))
-						download_obj.complete_objective()
-						if(active_download_effect)
-							qdel(active_download_effect)
-							active_download_effect = null
-						icon_screen = old_icon_screen
-						return TRUE
-					else
-						to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
-						if(active_download_effect)
-							qdel(active_download_effect)
-							active_download_effect = null
-						icon_screen = old_icon_screen
-						return TRUE
+	var/mob/living/carbon/human/H = user
+	var/datum/antagonist/mindflayer/flayer_datum = H.mind?.has_antag_datum(/datum/antagonist/mindflayer)
 
-		// Not a flayer, or wrong download console.
-		to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console, hoping to find something interesting.</span>")
-		if(do_after(user, 18 SECONDS, target = src))
-			show_random_download_message(user)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
-			return TRUE
+	if(flayer_datum)
+		for(var/datum/objective/download/download_obj in flayer_datum.get_antag_objectives())
+			if(download_obj.target_console == src)
+				var/old_icon_screen = icon_screen
+				to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console and begin the transfer...</span>")
+				active_download_effect = new /obj/effect/temp_visual/computer_download(get_turf(src), src)
+				if(do_after(user, 18 SECONDS, target = src))
+					download_obj.complete_objective()
+					if(active_download_effect)
+						qdel(active_download_effect)
+						active_download_effect = null
+					icon_screen = old_icon_screen
+					return TRUE
+				else
+					to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+					if(active_download_effect)
+						qdel(active_download_effect)
+						active_download_effect = null
+					icon_screen = old_icon_screen
+					return TRUE
+
+	// Not a flayer, or wrong download console.
+	to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console, hoping to find something interesting.</span>")
+	if(do_after(user, 18 SECONDS, target = src))
+		show_random_download_message(user)
+		return TRUE
+	else
+		to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+		return TRUE
 
 	return ..()
 
