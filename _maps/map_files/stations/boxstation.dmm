@@ -8248,9 +8248,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/abandonedbar)
 "aFg" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/maintenance/glass,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "aFh" = (
 /turf/simulated/floor/plasteel/fakestairs{
@@ -36763,7 +36763,10 @@
 /area/station/engineering/atmos/control)
 "cLx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/camera_assembly,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "cLy" = (
@@ -36774,28 +36777,25 @@
 "cLz" = (
 /obj/effect/turf_decal/delivery/partial,
 /obj/effect/turf_decal/arrows/black,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "cLC" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/directional/north,
+/obj/item/mounted/frame/alarm_frame,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "cLD" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Assembly Line East";
 	dir = 1
 	},
-/obj/item/apc_electronics,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "cLF" = (
@@ -36815,7 +36815,7 @@
 /area/station/maintenance/assembly_line)
 "cLH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm/directional/east,
+/obj/item/mounted/frame/firealarm,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "cLJ" = (
@@ -45978,7 +45978,18 @@
 /area/station/science/rnd)
 "dWo" = (
 /obj/structure/table,
-/obj/item/stack/rods/fifty,
+/obj/item/apc_electronics{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/firealarm_electronics{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/airalarm_electronics{
+	pixel_x = -8;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
 "dWF" = (
@@ -46871,8 +46882,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
@@ -47734,18 +47745,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/asmaint)
-"eKU" = (
-/obj/effect/decal/cleanable/glass,
-/obj/item/shard,
-/obj/item/stack/rods{
-	amount = 4
-	},
-/obj/item/shard{
-	icon_state = "small"
-	},
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plating,
-/area/station/maintenance/assembly_line)
 "eLa" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -56800,11 +56799,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
 "jlW" = (
-/obj/machinery/disposal,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
 "jmM" = (
@@ -63404,6 +63401,9 @@
 /area/station/engineering/gravitygenerator)
 "muY" = (
 /obj/structure/table,
+/obj/item/storage/belt/utility{
+	pixel_y = 3
+	},
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
@@ -73853,6 +73853,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"rxI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/stack/rods/fifty,
+/obj/item/camera_assembly{
+	pixel_x = -10;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/assembly_line)
 "rxW" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -75936,10 +75946,6 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"szk" = (
-/obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/assembly_line)
 "szF" = (
 /obj/machinery/economy/vending/cola,
 /obj/effect/turf_decal/tiles/department/science/side,
@@ -78365,6 +78371,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "tPf" = (
@@ -78573,8 +78580,8 @@
 /area/station/maintenance/aft)
 "tSx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "tSF" = (
@@ -84577,6 +84584,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
+"wXX" = (
+/obj/item/shard,
+/obj/item/stack/rods{
+	amount = 4
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/station/maintenance/assembly_line)
 "wYg" = (
 /obj/machinery/airlock_controller/access_controller{
 	name = "Virology Lab Access Console";
@@ -111259,10 +111278,10 @@ gYs
 sWO
 cNB
 gSd
-cNB
+iFh
 cUh
 cZw
-iFh
+cNB
 cLi
 tmS
 cZw
@@ -111516,9 +111535,9 @@ cgQ
 bJk
 cNB
 cOr
-eKU
-aFg
 cNK
+aFg
+wXX
 cKb
 cKb
 cKb
@@ -111774,11 +111793,11 @@ cob
 cNB
 cKb
 cLx
-szk
+cJx
 cMy
 tSx
 kNS
-cKb
+cOr
 cUh
 qod
 cUh
@@ -112034,8 +112053,8 @@ cLz
 cMt
 cMC
 tPe
-cJx
-cOr
+rxI
+cKb
 cZw
 qWJ
 tmS
