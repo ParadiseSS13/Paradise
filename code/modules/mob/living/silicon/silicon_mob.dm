@@ -617,4 +617,4 @@
 	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
 
 /mob/living/silicon/rust_heretic_act()
-	adjustBruteLoss(500)
+	adjustBruteLoss(75)
