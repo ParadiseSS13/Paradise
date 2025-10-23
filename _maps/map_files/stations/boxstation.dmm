@@ -8251,6 +8251,7 @@
 /obj/machinery/door/airlock/maintenance/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "aFh" = (
@@ -48063,6 +48064,10 @@
 "eSn" = (
 /obj/structure/table,
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/item/circuitboard/stationalert_engineering{
+	pixel_x = 4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
 "eSr" = (
