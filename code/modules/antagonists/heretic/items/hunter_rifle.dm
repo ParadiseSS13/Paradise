@@ -33,6 +33,7 @@
 	multi_sprite_step = 1
 
 /obj/item/ammo_casing/lionhunter
+	icon = 'icons/obj/ammo.dmi'
 	icon_state = "310-casing"
 	caliber = "a762-H"
 	projectile_type = /obj/item/projectile/homing/lionhunter
