@@ -599,7 +599,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/found_target()
 	return steal_target
-///MARK: Steal
+/// MARK: Steal
 /datum/objective/steal/is_valid_exfiltration()
 	if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
 		return FALSE
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/exchange/find_target(list/target_blacklist)
 	give_kit(steal_target.special_equipment)
-	if(prob(20)) //With two 20% chances there's a 36% chance any given exchange will have a betrayal. Corporate espionage is a ruthless game
+	if(prob(20)) // With two 20% chances there's a 36% chance any given exchange will have a betrayal. Corporate espionage is a ruthless game
 		betrayal = TRUE
 
 /datum/objective/steal/exchange/proc/pair_up(datum/objective/steal/exchange/pair, recursive = FALSE)
@@ -1010,8 +1010,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	find_target()
 	update_explanation_text()
 	var/list/messages = owner.prepare_announce_objectives(FALSE)
-	to_chat(owner.current, chat_box_red(messages.Join("<br>"))) //Sending the message to the mind made testing really annoying so we send it to the mob
-	if(recursive) //Automatically have the other objective pair as well, but make sure it doesn't infinite loop
+	to_chat(owner.current, chat_box_red(messages.Join("<br>"))) // Sending the message to the mind made testing really annoying so we send it to the mob
+	if(recursive) // Automatically have the other objective pair as well, but make sure it doesn't infinite loop
 		pair.pair_up(src)
 
 /datum/objective/steal/exchange/check_completion()
