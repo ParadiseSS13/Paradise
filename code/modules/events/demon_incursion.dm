@@ -100,8 +100,8 @@
 	mob_types = list(/mob/living/basic/netherworld/migo,
 					/mob/living/basic/netherworld,
 					/mob/living/basic/netherworld/blankbody,
-					/mob/living/basic/hellhound,
-					/mob/living/basic/skeleton,
+					/mob/living/basic/hellhound/whelp,
+					/mob/living/basic/skeleton/incursion,
 					/mob/living/basic/netherworld/faithless)
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
@@ -109,6 +109,10 @@
 	light_power = 2
 	light_color = "#780606"
 	spawner_type = /datum/component/spawner/demon_incursion_portal
+	/// Mob types that cannot have a special variant
+	var/list/no_special_variants = list(/mob/living/basic/hellhound/whelp)
+	/// Chance that a mob type is special
+	var/special_chance = 100
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called
@@ -192,6 +196,51 @@
 	var/mob/living/basic/new_mob = created_mob
 	if(!istype(new_mob, /mob/living/basic))
 		return
+	if(created_mob.type in no_special_variants)
+		return
+	if(!prob(special_chance))
+		return
+	var/special_type = pick("grappler", "enflamed", "hastened", "volatile", "electrified", "juggernaut")
+	switch(special_type)
+		if("grappler")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, burst_shots = 1, projectile_sound = 'sound/weapons/wave.ogg')
+			new_mob.name = "grappling " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#5494DA"
+		if("enflamed")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/magic/fireball/small, burst_shots = 1, projectile_sound = 'sound/magic/fireball.ogg')
+			new_mob.name = "enflamed " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#d4341f"
+		if("hastened")
+			new_mob.name = "hastened " + new_mob.name
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#1fd437"
+			new_mob.speed = -1
+		if("volatile")
+			new_mob.name = "volatile " + new_mob.name
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#d4c21f"
+			new_mob.health = new_mob.health / 2
+			new_mob.maxHealth = new_mob.maxHealth / 2
+			new_mob.AddComponent(/datum/component/mob_explode_on_death, exp_devastate_ = 0, exp_heavy_ = 1, exp_light_ = 2, exp_flash_ = 4, exp_fire_ = 2)
+		if("electrified")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
+			new_mob.name = "electrified " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#fcf7f6"
+		if("juggernaut")
+			new_mob.name = "juggernaut " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/juggernaut(new_mob)
+			new_mob.health = new_mob.health * 3
+			new_mob.maxHealth = new_mob.maxHealth * 3
+			new_mob.speed += 6
+			new_mob.environment_smash = ENVIRONMENT_SMASH_WALLS // Puny wall.
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#292827"
 	if(new_mob.basic_mob_flags & DEL_ON_DEATH)
 		return
 	new_mob.AddComponent(/datum/component/incursion_mob_death)
