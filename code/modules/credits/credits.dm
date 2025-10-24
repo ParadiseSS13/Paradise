@@ -139,7 +139,7 @@ GLOBAL_LIST(end_titles)
 			continue
 		if(ismonkeybasic(H))
 			monkies[H?.name] += 1
-		else if(H?.real_name)
+		else if(H?.real_name in GLOB.crew_list)
 			corpses += H?.real_name
 	if(corpses.len)
 		titles += "<center>BASED ON REAL EVENTS<br>In memory of [english_list(corpses)].</center>"
