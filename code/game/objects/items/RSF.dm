@@ -98,7 +98,7 @@
 
 	var/turf/T = get_turf(target)
 	new currently_dispensing(T)
-	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rsf/proc/get_radial_contents()
