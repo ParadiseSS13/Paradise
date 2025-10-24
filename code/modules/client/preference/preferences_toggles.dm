@@ -307,6 +307,16 @@
 	if(user.prefs.sound & ~SOUND_DISCO)
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
+/datum/preference_toggle/toggle_post_credits
+	name = "Toggle Post-Round Credits"
+	description = "Toggle seeing the post-round credit popup."
+	preftoggle_bitflag = PREFTOGGLE_3_POSTCREDS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see post-round credits."
+	disable_message = "You will no longer see post-round credits."
+	blackbox_message = "Toggle Post-Round Credits"
+
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Toggle Ghost PDA messages"
 	description = "Toggle seeing PDA messages as an observer"
