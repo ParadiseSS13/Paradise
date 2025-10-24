@@ -1149,11 +1149,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!istype(body_accessory, /datum/body_accessory/wing))
 		if(dna.species.optional_body_accessory)
 			return
-		else
-			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+		if(istype(body_accessory, /datum/body_accessory/spines))
+			return // fuck right off thanks
+		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 	if(!body_accessory.try_restrictions(src))
 		return
-
 	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
@@ -1182,8 +1182,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!istype(body_accessory, /datum/body_accessory/spines))
 		if(dna.species.optional_body_accessory)
 			return
-		else
-			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+		if(istype(body_accessory, /datum/body_accessory/wing))
+			return // See above
+		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 	if(!body_accessory.try_restrictions(src))
 		return
 
@@ -1209,6 +1210,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(SPINES_UNDERLIMBS_LAYER)
 	apply_overlay(SPINES_LAYER)
 
+// Warning to all that come here: This proc is also used to properly render nian wings and skulk spines. Also it sucks. Have fun!
 /mob/living/carbon/human/proc/update_tail_layer()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
@@ -1226,7 +1228,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(body_accessory)
 		if(body_accessory.try_restrictions(src))
-			var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
+			var/icon/accessory_s
+			if(istype(body_accessory, /datum/body_accessory/spines))
+				accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = spines)
+			else
+				accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
 			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 				accessory_s.SetIntensity(0.7)
@@ -1408,9 +1414,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()
-	update_tail_layer()
-	update_wing_layer()
-	update_spines_layer()
+	update_body()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/clothing/collar.dmi

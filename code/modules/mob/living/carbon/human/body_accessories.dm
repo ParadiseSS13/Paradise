@@ -279,126 +279,26 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/spines
 	icon = 'icons/mob/sprite_accessories/skulk/skulk_spines.dmi'
 	animated_icon = null
-	name = "Blackgate Hunter"
+	name = "Report this bug on github"
 	icon_state = "hunter1"
 	allowed_species = list("Skkulakin")
 	has_behind = TRUE
 
-/datum/body_accessory/spines/hunter1
+/datum/body_accessory/spines/hunter
+	name = "Hunter"
 
-/datum/body_accessory/spines/hunter2
-	name = "Talwyrm Hunter"
-	icon_state = "hunter2"
-
-/datum/body_accessory/spines/hunter3
-	name = "Valcore Hunter"
-	icon_state = "hunter3"
-
-/datum/body_accessory/spines/hunter4
-	name = "Ossya Hunter"
-	icon_state = "hunter4"
-
-/datum/body_accessory/spines/hunter5
-	name = "Highfield Hunter"
-	icon_state = "hunter5"
-
-/datum/body_accessory/spines/hunter6
-	name = "Votum-Accorium Hunter"
-	icon_state = "hunter6"
-
-/datum/body_accessory/spines/cosmic1
-	name = "Blackgate Cosmic"
+/datum/body_accessory/spines/cosmic
+	name = "Cosmic"
 	icon_state = "cosmic1"
 
-/datum/body_accessory/spines/cosmic2
-	name = "Talwyrm Cosmic"
-	icon_state = "cosmic1"
-
-/datum/body_accessory/spines/cosmic3
-	name = "Valcore Cosmic"
-	icon_state = "cosmic3"
-
-/datum/body_accessory/spines/cosmic4
-	name = "Ossya Cosmic"
-	icon_state = "cosmic4"
-
-/datum/body_accessory/spines/cosmic5
-	name = "Highfield Cosmic"
-	icon_state = "cosmic5"
-
-/datum/body_accessory/spines/cosmic6
-	name = "Votum-Accorium Cosmic"
-	icon_state = "cosmic6"
-
-/datum/body_accessory/spines/illusive1
-	name = "Blackgate Illusive"
+/datum/body_accessory/spines/illusive
+	name = "Illusive"
 	icon_state = "illusive1"
 
-/datum/body_accessory/spines/illusive2
-	name = "Talwyrm Illusive"
-	icon_state = "illusive2"
-
-/datum/body_accessory/spines/illusive3
-	name = "Valcore Illusive"
-	icon_state = "illusive3"
-
-/datum/body_accessory/spines/illusive4
-	name = "Ossya Illusive"
-	icon_state = "illusive4"
-
-/datum/body_accessory/spines/illusive5
-	name = "Highfield Illusive"
-	icon_state = "illusive5"
-
-/datum/body_accessory/spines/illusive6
-	name = "Votum-Accorium Illusive"
-	icon_state = "illusive6"
-
-/datum/body_accessory/spines/venom1
-	name = "Blackgate Venom"
+/datum/body_accessory/spines/venom
+	name = "Venom"
 	icon_state = "venom1"
 
-/datum/body_accessory/spines/venom2
-	name = "Talwyrm Venom"
-	icon_state = "venom2"
-
-/datum/body_accessory/spines/venom3
-	name = "Valcore Venom"
-	icon_state = "venom3"
-
-/datum/body_accessory/spines/venom4
-	name = "Ossya Venom"
-	icon_state = "venom4"
-
-/datum/body_accessory/spines/venom5
-	name = "Highfield Venom"
-	icon_state = "venom5"
-
-/datum/body_accessory/spines/venom6
-	name = "Votum-Accorium Venom"
-	icon_state = "venom6"
-
 /datum/body_accessory/spines/hunger1
-	name = "Blackgate Hunger"
+	name = "Hunger"
 	icon_state = "hunger1"
-
-/datum/body_accessory/spines/hunger2
-	name = "Talwyrm Hunger"
-	icon_state = "hunger2"
-
-/datum/body_accessory/spines/hunger3
-	name = "Valcore Hunger"
-	icon_state = "hunger3"
-
-/datum/body_accessory/spines/hunger4
-	name = "Ossya Hunger"
-	icon_state = "hunger4"
-
-/datum/body_accessory/spines/hunger5
-	name = "Highfield Hunger"
-	icon_state = "hunger5"
-
-/datum/body_accessory/spines/hunger6
-	name = "Votum-Accorium Hunger"
-	icon_state = "hunger6"
-

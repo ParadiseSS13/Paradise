@@ -33,8 +33,8 @@
 	flesh_color = "#e3e2dd"
 
 	default_hair = "Scribe"
-	default_bodyacc = "Blackgate Illusive"
-	spines = "venom5"
+	default_bodyacc = "Illusive"
+	spines = "Illusive1"
 
 	eyes = "skulk_eyes_s"
 
@@ -83,7 +83,14 @@
 /datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi' //Default Blackgate Skkulakin.
-		var/current_spine_type = copytext(H.spines, 1, length(H.spines))
+		var/current_spine_type = null
+		if(H.body_accessory)
+			current_spine_type = lowertext("[H.body_accessory.name]")
+//		var/current_spine_type = null
+//		if(H.body_accessory)
+//			current_spine_type = H.body_accessory.name
+//		else
+//			current_spine_type = null
 		var/chosen_spine_color = 1
 		switch(H.s_tone)
 			if(1) //Blackgate Skkulakin.
@@ -104,7 +111,8 @@
 			if(6) //Votum-Accorium Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
 				chosen_spine_color = 6
-		H.spines = "[current_spine_type][chosen_spine_color]"
+		if(H.body_accessory && current_spine_type)
+			H.spines = "[current_spine_type][chosen_spine_color]"
 
 		H.change_icobase(new_icobase, owner_sensitive)
 
