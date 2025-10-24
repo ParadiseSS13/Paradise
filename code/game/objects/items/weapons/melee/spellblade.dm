@@ -84,6 +84,8 @@
 	var/cooldown = 0
 	/// If the spellblade has traits, has it applied them?
 	var/applied_traits = FALSE
+	/// A modifier that can be appled to the cooldown after the enchantment has been initialized. Used by the forcewall spellblade
+	var/cooldown_multiplier = 1
 	COOLDOWN_DECLARE(enchant_cooldown)
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)

@@ -64,6 +64,10 @@
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
+/obj/structure/lattice/indestructible
+	resistance_flags = INDESTRUCTIBLE
+
+
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."

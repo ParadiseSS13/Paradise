@@ -598,9 +598,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
-"Wq" = (
-/turf/open/floor/plating,
-/area/shuttle/trade/sol)
 "Xl" = (
 /obj/structure/chair/sofa/bench/left,
 /obj/machinery/light/spot{
@@ -739,7 +736,7 @@ Tv
 xe
 Tv
 gK
-Wq
+KF
 Mv
 oM
 "}

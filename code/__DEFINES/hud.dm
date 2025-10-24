@@ -29,6 +29,7 @@
 #define JANI_HUD			"24" // Sign overlay over cleanable decals
 #define PRESSURE_HUD		"25" // Pressure coloring for tiles
 #define MALF_AI_HUD			"26" // Malf status blips for borgs
+#define HERETIC_HUD			"27" // Seeing reality smashes and shit
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -62,6 +63,9 @@
 #define ANTAG_HUD_BLOB 					23
 #define ANTAG_HUD_ZOMBIE 				24
 #define ANTAG_HUD_MIND_FLAYER 			25
+#define DATA_HUD_HERETIC				26
+#define ANTAG_HUD_HERETIC	 			27
+#define ANTAG_HUD_HERETIC_BEAST			28
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
