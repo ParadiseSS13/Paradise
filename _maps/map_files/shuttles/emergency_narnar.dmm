@@ -104,13 +104,6 @@
 /obj/structure/cult/altar,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
-"aA" = (
-/obj/structure/window/full/shuttle/survival_pod{
-	color = "red"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "aB" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/engine/cult,
@@ -279,6 +272,12 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/gibspawner/human,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"dw" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "dG" = (
@@ -464,6 +463,10 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"DO" = (
+/obj/item/melee/cultblade/dagger,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 "Fa" = (
 /obj/machinery/door/airlock/cult/glass/friendly,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
@@ -478,6 +481,13 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"GR" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "GU" = (
 /obj/structure/closet/walllocker/emerglocker/directional/south,
@@ -506,6 +516,12 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"Iw" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 "Lc" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/cult/no_metal{
@@ -514,6 +530,10 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 32
 	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"Lm" = (
+/obj/machinery/recharge_station,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "LV" = (
@@ -538,6 +558,10 @@
 "OM" = (
 /obj/machinery/door/airlock/cult/glass/friendly,
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"Qu" = (
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "QF" = (
@@ -595,9 +619,9 @@ OM
 ao
 hM
 ao
-aA
-aA
-aA
+GR
+GR
+GR
 ao
 aa
 ao
@@ -605,9 +629,9 @@ aa
 ao
 ao
 ao
-aA
-aA
-aA
+GR
+GR
+GR
 ao
 ao
 ao
@@ -664,7 +688,7 @@ aj
 am
 Ac
 aj
-aA
+GR
 aj
 aj
 aj
@@ -681,7 +705,7 @@ aW
 aW
 aW
 aj
-aj
+dw
 qv
 bj
 "}
@@ -700,7 +724,7 @@ am
 au
 am
 eK
-aA
+GR
 ab
 aj
 aj
@@ -717,7 +741,7 @@ aj
 CL
 aj
 aj
-aj
+Qu
 bh
 bj
 "}
@@ -751,14 +775,14 @@ bf
 bf
 bf
 bf
-bf
-bf
-bf
+Lm
+Lm
+Iw
 bh
 bj
 "}
 (6,1,1) = {"
-aA
+GR
 aJ
 eK
 aj
@@ -768,9 +792,9 @@ ak
 ao
 ao
 ao
-aA
+GR
 OM
-aA
+GR
 ao
 ao
 ab
@@ -794,7 +818,7 @@ ao
 ao
 "}
 (7,1,1) = {"
-aA
+GR
 ae
 eK
 aj
@@ -822,15 +846,15 @@ Hy
 aF
 aF
 aF
-av
-at
-at
 ak
+at
+at
+av
 ao
 al
 "}
 (8,1,1) = {"
-aA
+GR
 aw
 eK
 aj
@@ -862,11 +886,11 @@ aj
 aj
 aj
 az
-ao
+GR
 al
 "}
 (9,1,1) = {"
-aA
+GR
 ad
 eK
 aj
@@ -895,14 +919,14 @@ Ac
 dG
 Ac
 dG
-aj
+DO
 aj
 az
-ao
+GR
 al
 "}
 (10,1,1) = {"
-aA
+GR
 ag
 eK
 aj
@@ -934,11 +958,11 @@ aj
 aj
 aj
 az
-ao
+GR
 al
 "}
 (11,1,1) = {"
-aA
+GR
 as
 eK
 aj
@@ -966,15 +990,15 @@ xj
 aW
 aW
 aW
-av
-at
-at
 ak
+at
+at
+av
 ao
 al
 "}
 (12,1,1) = {"
-aA
+GR
 aB
 eK
 aj
@@ -984,9 +1008,9 @@ ak
 ao
 ao
 ao
-aA
+GR
 OM
-aA
+GR
 ao
 ao
 ab
@@ -1034,7 +1058,7 @@ aj
 xP
 aj
 eK
-aA
+GR
 Cj
 aX
 aX
@@ -1060,7 +1084,7 @@ aj
 au
 aj
 eK
-aA
+GR
 ab
 aj
 aj
@@ -1094,9 +1118,9 @@ ao
 ab
 aj
 aj
-aj
+ac
 eK
-aA
+GR
 aj
 aj
 aj
@@ -1106,7 +1130,7 @@ aj
 aj
 aj
 aj
-aA
+GR
 aS
 aE
 aY
@@ -1169,21 +1193,21 @@ ao
 aH
 ao
 ao
-aA
+GR
 ao
-aA
-aA
-aA
+GR
+GR
+GR
 ao
-aA
+GR
 ao
-aA
+GR
 ao
 ao
 ao
-aA
-aA
-aA
+GR
+GR
+GR
 ao
 ao
 ao
