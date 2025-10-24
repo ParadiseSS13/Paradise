@@ -149,3 +149,4 @@
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
 	to_chat(user, "<span class='notice'>You spin a small amount of silk.</span>")
 
+#undef SILK_NUTRITION_AMOUNT
