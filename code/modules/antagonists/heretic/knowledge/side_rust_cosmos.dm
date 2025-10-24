@@ -72,7 +72,7 @@
 		/obj/item/stack/sheet/metal = 10,
 		/obj/item/stack/cable_coil = 15,
 	)
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_spirit
+	mob_to_summon = /mob/living/basic/heretic_summon/rust_spirit
 	cost = 1
 
 

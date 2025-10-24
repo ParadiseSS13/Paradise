@@ -210,7 +210,7 @@
 /datum/heretic_knowledge/ultimate/cosmic_final
 	name = "Creators's Gift"
 	desc = "The ascension ritual of the Path of Cosmos. \
-		Bring 3 corpses with bluespace dust in their body to a transmutation rune to complete the ritual. \
+		Bring sentient 3 corpses with bluespace dust in their body to a transmutation rune to complete the ritual. \
 		When completed, you become the owner of a Star Gazer. \
 		You will be able to command the Star Gazer with Alt+click. \
 		You can also give it commands through speech. \
@@ -233,12 +233,17 @@
 	. = ..()
 	if(!.)
 		return FALSE
-
-	return sacrifice.reagents.has_reagent("bluespace_dust")
+	if(!sacrifice.mind)
+		return FALSE
+	if(!sacrifice.reagents.has_reagent("bluespace_dust"))
+		return FALSE
+	return TRUE
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
-	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/simple_animal/hostile/heretic_summon/star_gazer(our_turf)
+	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/basic/heretic_summon/star_gazer(our_turf)
+	star_gazer_mob.master_commander = user
+	star_gazer_mob.befriend(user)
 	star_gazer_mob.maxHealth = INFINITY
 	star_gazer_mob.health = INFINITY
 	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
@@ -257,7 +262,7 @@
 
 	var/datum/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.mob_spell_list
 	cosmic_expansion_spell?.ascended = TRUE
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a star gazer?", ROLE_HERETIC, TRUE, 10 SECONDS, min_hours = 200, source = star_gazer_mob)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a star gazer?", ROLE_HERETIC, TRUE, 10 SECONDS, min_hours = 100, source = star_gazer_mob)
 	var/mob/chosen_one
 	if(length(candidates))
 		chosen_one = pick(candidates)

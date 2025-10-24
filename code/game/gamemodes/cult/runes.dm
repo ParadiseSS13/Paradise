@@ -371,7 +371,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			log_game("Sacrifice rune failed - not enough acolytes and target is living")
 			return
 	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
-	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/simple_animal/hostile/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
+	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
 		for(var/M in invokers)
 			to_chat(M, "<span class='cultitalic'>[offering] is too powerful to be sacrificed alive!</span>")
 		fail_invoke()

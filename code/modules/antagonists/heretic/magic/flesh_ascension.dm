@@ -15,10 +15,10 @@
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	shapeshift_type = /mob/living/simple_animal/hostile/heretic_summon/armsy/prime
-	current_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy/prime)
+	shapeshift_type = /mob/living/basic/heretic_summon/armsy/prime
+	current_shapes = list(/mob/living/basic/heretic_summon/armsy/prime)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy/prime)
+	possible_shapes = list(/mob/living/basic/heretic_summon/armsy/prime)
 	/// The length of our new wormy when we shed.
 	var/segment_length = 10
 	/// The radius around us that we cause brain damage to.
@@ -49,7 +49,7 @@
 
 	caster.mind.transfer_to(shape)
 
-/datum/spell/shapeshift/shed_human_form/Restore(mob/living/simple_animal/hostile/heretic_summon/armsy/caster)
+/datum/spell/shapeshift/shed_human_form/Restore(mob/living/basic/heretic_summon/armsy/caster)
 	if(istype(caster))
 		segment_length = caster.get_length() - 1 // Don't count the head
 	return ..()
@@ -75,8 +75,8 @@
 	return new /datum/spell_targeting/self
 
 /datum/spell/worm_contract/valid_target(target, user)
-	return istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy)
+	return istype(user, /mob/living/basic/heretic_summon/armsy)
 
-/datum/spell/worm_contract/cast(list/targets, mob/living/simple_animal/hostile/heretic_summon/armsy/user)
+/datum/spell/worm_contract/cast(list/targets, mob/living/basic/heretic_summon/armsy/user)
 	. = ..()
 	user.contract_next_chain_into_single_tile()

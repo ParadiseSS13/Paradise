@@ -254,7 +254,7 @@
 		/obj/item/organ/external/arm/right
 	)
 
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
+	mob_to_summon = /mob/living/basic/heretic_summon/raw_prophet
 	cost = 1
 
 
@@ -286,7 +286,7 @@
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/stalker
+	mob_to_summon = /mob/living/basic/heretic_summon/stalker
 	mind_spell = /datum/spell/shapeshift/eldritch
 	cost = 1
 

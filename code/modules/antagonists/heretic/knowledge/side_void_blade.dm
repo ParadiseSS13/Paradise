@@ -170,5 +170,5 @@
 	)
 	cost = 1
 
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
+	mob_to_summon = /mob/living/basic/heretic_summon/maid_in_the_mirror
 
