@@ -483,7 +483,6 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "GR" = (
-/obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "red"
 	},
