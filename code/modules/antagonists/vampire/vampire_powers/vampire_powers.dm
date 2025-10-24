@@ -257,7 +257,7 @@
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "transmutation_rune" // probably will need something different should someone start working on heretics again one day
+	icon_state = "vampiric_rune"
 	pixel_x = -34
 	pixel_y = -38
 
