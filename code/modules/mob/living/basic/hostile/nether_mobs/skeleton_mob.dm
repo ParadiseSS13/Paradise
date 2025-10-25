@@ -97,3 +97,22 @@
 	desc = "It's got a bone to pick with you."
 	health = 90
 	maxHealth = 90
+
+/mob/living/basic/skeleton/incursion/security
+	name = "skeletal officer"
+	desc = "HALT! SKELECURITY!"
+	health = 110
+	maxHealth = 110
+	is_ranged = TRUE
+	projectile_type = /obj/item/projectile/beam/laser
+	projectile_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	ranged_cooldown = 2.5 SECONDS
+	ai_controller = /datum/ai_controller/basic_controller/incursion/ranged_distance
+
+/mob/living/basic/skeleton/incursion/security/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BASICMOB_POST_ATTACK_RANGED, PROC_REF(cycle_lever))
+
+/mob/living/basic/skeleton/incursion/security/proc/cycle_lever()
+	sleep(0.5 SECONDS)
+	playsound(src, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)

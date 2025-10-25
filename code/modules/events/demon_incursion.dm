@@ -102,6 +102,7 @@
 					/mob/living/basic/netherworld/blankbody,
 					/mob/living/basic/hellhound/whelp,
 					/mob/living/basic/skeleton/incursion,
+					/mob/living/basic/skeleton/incursion/security,
 					/mob/living/basic/netherworld/faithless)
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
@@ -110,7 +111,9 @@
 	light_color = "#780606"
 	spawner_type = /datum/component/spawner/demon_incursion_portal
 	/// Mob types that cannot have a special variant
-	var/list/no_special_variants = list(/mob/living/basic/hellhound/whelp)
+	var/list/no_special_variants = list(
+		/mob/living/basic/hellhound/whelp,
+		/mob/living/basic/skeleton/incursion/security)
 	/// Chance that a mob type is special
 	var/special_chance = 100
 	/// The event that spawned this portal
