@@ -116,7 +116,9 @@
 /mob/living/basic/skeleton/incursion/security/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_BASICMOB_POST_ATTACK_RANGED, PROC_REF(cycle_lever))
-	AddComponent(/datum/component/aggro_emote, say_list = list("Halt! Security!", "Hands up!", "Get on the ground!"))
+	AddComponent(/datum/component/aggro_emote, say_list = list("Halt! Security!", "Hands up!", "Get on the ground!", "Halt! Halt! Halt!", "They're resisting!", "Lethals authorized!"))
+	if(prob(20))
+		loot += pick(/obj/item/clothing/head/helmet, /obj/item/clothing/suit/armor/vest/security)
 
 /mob/living/basic/skeleton/incursion/security/proc/cycle_lever()
 	sleep(0.5 SECONDS)
@@ -134,13 +136,15 @@
 	ranged_cooldown = 2.5 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/incursion/ranged_distance
 
+/mob/living/basic/skeleton/incursion/mobster/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/aggro_emote, say_list = list("Ice 'em!", "Rattle 'em, boys!", "I've got a bone to pick with you!", "Everyone's got a few skeletons in their closet!"))
+	if(prob(20))
+		loot += pick(/obj/item/clothing/head/fedora, /obj/item/clothing/under/suit/mafia)
+
 /obj/item/ammo_casing/skeleton_smg
 	projectile_type = /obj/item/projectile/bullet/skeleton_smg
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/projectile/bullet/skeleton_smg
 	damage = 5
-
-/mob/living/basic/skeleton/incursion/mobster/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/aggro_emote, say_list = list("Ice 'em!", "Rattle 'em, boys!", "I've got a bone to pick with you!"))
