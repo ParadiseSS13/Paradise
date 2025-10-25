@@ -232,6 +232,13 @@
 	. = ..()
 	. |= access_card.GetAccess()
 
+/mob/living/basic/gorilla/cargo_domestic/forklift
+	name = "Forklift"
+
+/mob/living/basic/gorilla/cargo_domestic/forklift/Initialize(mapload)
+	. = ..()
+	GLOB.station_pets += src
+
 /obj/item/card/id/supply/cargo_gorilla
 	name = "cargorilla ID"
 	registered_name = "Cargorilla"

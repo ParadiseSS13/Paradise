@@ -743,6 +743,7 @@
 
 /mob/living/simple_animal/parrot/poly/Initialize(mapload)
 	. = ..()
+	GLOB.station_pets += src
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
