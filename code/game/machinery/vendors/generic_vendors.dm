@@ -1101,7 +1101,8 @@
 					/obj/item/pen/red = 5,
 					/obj/item/pen/fancy = 2)
 
-	contraband = list(/obj/item/toy/crayon/mime = 1,
+	contraband = list(/obj/item/storage/toolbox/artistic = 1,
+					/obj/item/toy/crayon/mime = 1,
 					/obj/item/toy/crayon/rainbow = 1,
 					/obj/item/poster/random_contraband = 5)
 
