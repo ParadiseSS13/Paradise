@@ -1,0 +1,67 @@
+@use '../base.scss';
+
+.textarea {
+  overflow-y: hidden;
+  width: 100%;
+  background-color: black;
+  border: solid 1px hsl(212, 42%, 59%);
+  color: white;
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.link {
+  color: hsl(212, 42%, 59%);
+}
+
+.input-title-required {
+  color: red;
+}
+
+.button-default {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid hsl(212, 42%, 59%);
+  background-color: hsl(0, 0%, 16%);
+  color: white;
+  text-align: center;
+}
+
+.tip {
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.button-default:hover {
+  background-color: hsl(0, 0%, 23%);
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.button-submit {
+  background-color: hsl(120, 100%, 25%);
+  color: hsl(0, 0%, 100%);
+  padding: 10px 20px;
+  border: none;
+}
+
+.button-cancel {
+  background-color: hsl(0, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+  padding: 10px 20px;
+  border: none;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

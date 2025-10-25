@@ -322,6 +322,30 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/hat/chaplain
+	main_typepath = /datum/gear/hat/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/hat/chaplain/turban_orange
+	display_name = "Turban, orange"
+	path = /obj/item/clothing/head/turban_orange
+
+/datum/gear/hat/chaplain/turban_green
+	display_name = "Turban, green"
+	path = /obj/item/clothing/head/turban_green
+
+/datum/gear/hat/chaplain/hijab
+	display_name = "Hijab"
+	path = /obj/item/clothing/head/hijab
+
+/datum/gear/hat/chaplain/eboshi
+	display_name = "Eboshi"
+	path = /obj/item/clothing/head/eboshi
+
+/datum/gear/hat/chaplain/kippah
+	display_name = "Kippah"
+	path = /obj/item/clothing/head/kippah
+
 /datum/gear/hat/wizard
 	display_name = "Wizard hat"
 	path = /obj/item/clothing/head/wizard/fake

@@ -1,17 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "bk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/teleporter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "dj" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -24,10 +22,10 @@
 "dJ" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "eR" = (
 /obj/machinery/light{
@@ -35,26 +33,25 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "fX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "gr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/paper/ussp_tele,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "gA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -64,9 +61,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "gE" = (
 /obj/structure/lattice/catwalk,
@@ -82,19 +77,17 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "iQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "iS" = (
 /obj/effect/spawner/airlock/w_to_e,
@@ -106,10 +99,10 @@
 	icon_state = "0-8"
 	},
 /obj/item/flag/ussp,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "kX" = (
 /obj/structure/cable{
@@ -117,10 +110,10 @@
 	},
 /obj/structure/sign/poster/contraband/communist_state/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "mq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -130,15 +123,11 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "mY" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "od" = (
 /obj/machinery/door/airlock/command/glass{
@@ -148,9 +137,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor/closed,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
@@ -159,16 +146,12 @@
 	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "oy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/teleport/station,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "oK" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -176,26 +159,22 @@
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "pD" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "pZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "qQ" = (
 /turf/template_noop,
@@ -208,10 +187,10 @@
 /obj/structure/railing/cap/normal{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "tF" = (
 /turf/simulated/floor/plating,
@@ -221,18 +200,18 @@
 	desc = "A dead potted plant. Must have died from lack of EVA equipment."
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "vx" = (
 /obj/structure/lattice,
@@ -247,9 +226,7 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "vG" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -260,9 +237,8 @@
 	dir = 1
 	},
 /obj/item/beacon,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "vT" = (
 /obj/structure/lattice,
@@ -275,18 +251,16 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "wd" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "wh" = (
 /obj/structure/railing,
@@ -295,9 +269,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "wj" = (
 /obj/effect/spawner/window/shuttle,
@@ -311,10 +283,10 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "Av" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -331,9 +303,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "FQ" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -363,9 +333,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "PS" = (
 /turf/simulated/wall/mineral/titanium,
@@ -375,25 +343,19 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "Um" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "Vc" = (
 /obj/machinery/teleport/hub,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "Vu" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -411,10 +373,10 @@
 /obj/item/clothing/under/new_soviet,
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/head/sovietsidecap,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "Wu" = (
 /obj/effect/spawner/window/shuttle,
@@ -439,9 +401,7 @@
 /area/space/nearstation)
 "ZN" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 
 (1,1,1) = {"
