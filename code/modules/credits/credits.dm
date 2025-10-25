@@ -152,6 +152,10 @@ GLOBAL_LIST(end_titles)
 	for(var/client/C)
 		if(!C?.holder)
 			continue
+		if(C?.holder?.fakekey) // No stealthmins
+			continue
+		if(C?.holder?.big_brother) // No big bother admins
+			continue
 		if(C?.holder)
 			staff += "[uppertext(pick(staffjobs))] a.k.a. '[C?.key]'"
 
