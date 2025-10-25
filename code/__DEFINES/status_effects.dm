@@ -118,6 +118,8 @@
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
+#define STATUS_EFFECT_BLUESPACESLOWDOWN_LONG /datum/status_effect/bluespace_slowdown/long
+
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
