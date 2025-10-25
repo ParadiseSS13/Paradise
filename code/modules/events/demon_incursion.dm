@@ -103,6 +103,7 @@
 					/mob/living/basic/hellhound/whelp,
 					/mob/living/basic/skeleton/incursion,
 					/mob/living/basic/skeleton/incursion/security,
+					/mob/living/basic/skeleton/incursion/mobster,
 					/mob/living/basic/netherworld/faithless)
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
@@ -113,7 +114,8 @@
 	/// Mob types that cannot have a special variant
 	var/list/no_special_variants = list(
 		/mob/living/basic/hellhound/whelp,
-		/mob/living/basic/skeleton/incursion/security)
+		/mob/living/basic/skeleton/incursion/security,
+		/mob/living/basic/skeleton/incursion/mobster)
 	/// Chance that a mob type is special
 	var/special_chance = 100
 	/// The event that spawned this portal

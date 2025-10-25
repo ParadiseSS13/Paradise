@@ -37,6 +37,8 @@
 /mob/living/basic/skeleton/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ai_retaliate)
+	add_language("Galactic Common")
+	set_default_language(GLOB.all_languages["Galactic Common"])
 
 /mob/living/basic/skeleton/arctic
 	name = "undead arctic explorer"
@@ -95,14 +97,16 @@
 /mob/living/basic/skeleton/incursion
 	name = "reinforced skeleton"
 	desc = "It's got a bone to pick with you."
-	health = 90
-	maxHealth = 90
+	health = 75
+	maxHealth = 75
 
 /mob/living/basic/skeleton/incursion/security
 	name = "skeletal officer"
 	desc = "HALT! SKELECURITY!"
-	health = 110
-	maxHealth = 110
+	icon_state = "skeleton_officer"
+	icon_living = "skeleton_officer"
+	health = 90
+	maxHealth = 90
 	is_ranged = TRUE
 	projectile_type = /obj/item/projectile/beam/laser
 	projectile_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
@@ -112,7 +116,31 @@
 /mob/living/basic/skeleton/incursion/security/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_BASICMOB_POST_ATTACK_RANGED, PROC_REF(cycle_lever))
+	AddComponent(/datum/component/aggro_emote, say_list = list("Halt! Security!", "Hands up!", "Get on the ground!"))
 
 /mob/living/basic/skeleton/incursion/security/proc/cycle_lever()
 	sleep(0.5 SECONDS)
 	playsound(src, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
+
+/mob/living/basic/skeleton/incursion/mobster
+	name = "skeletal mobster"
+	desc = "Ice 'em!"
+	icon_state = "skeleton_mobster"
+	icon_living = "skeleton_mobster"
+	is_ranged = TRUE
+	casing_type = /obj/item/ammo_casing/skeleton_smg
+	ranged_burst_count = 6
+	ranged_burst_interval = 0.1 SECONDS
+	ranged_cooldown = 2.5 SECONDS
+	ai_controller = /datum/ai_controller/basic_controller/incursion/ranged_distance
+
+/obj/item/ammo_casing/skeleton_smg
+	projectile_type = /obj/item/projectile/bullet/skeleton_smg
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/projectile/bullet/skeleton_smg
+	damage = 5
+
+/mob/living/basic/skeleton/incursion/mobster/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/aggro_emote, say_list = list("Ice 'em!", "Rattle 'em, boys!", "I've got a bone to pick with you!"))
