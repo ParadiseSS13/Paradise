@@ -18283,13 +18283,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
-"boa" = (
-/obj/machinery/computer/shuttle/mining,
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/bridge)
 "bob" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -46919,6 +46912,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"eov" = (
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "eoT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -57510,6 +57509,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
+"jCs" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "jCt" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -59328,6 +59331,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"kvW" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "kvZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -69623,7 +69632,7 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -74895,6 +74904,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
+"rVv" = (
+/obj/machinery/door/airlock/engineering/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "rVK" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -75586,6 +75600,11 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"son" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/west,
+/turf/simulated/floor/plating,
+/area/station/supply/storage)
 "sou" = (
 /obj/machinery/light,
 /obj/structure/closet/secure_closet/miner,
@@ -76438,13 +76457,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
-"sKF" = (
-/obj/machinery/alarm/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/office/ce)
 "sKQ" = (
 /obj/effect/spawner/random/maintenance,
 /obj/machinery/conveyor{
@@ -79520,6 +79532,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
+"uoF" = (
+/obj/machinery/alarm/directional/west,
+/obj/machinery/computer/security/engi_outpost{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/office/ce)
 "upd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -82107,6 +82129,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"vJt" = (
+/obj/machinery/computer/shuttle/engineering,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "vJv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -84601,6 +84630,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
+"wVd" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 7
+	},
+/turf/space,
+/area/space)
 "wVi" = (
 /obj/structure/chair{
 	dir = 1
@@ -100848,7 +100888,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -101107,11 +101147,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+alv
+alv
+alv
+alv
+alv
 aaa
 aaa
 aaa
@@ -101360,15 +101400,15 @@ aaa
 aaa
 aaa
 aaa
+bhn
 aaa
 aaa
 aaa
+alv
 aaa
+aab
 aaa
-aaa
-aaa
-aaa
-aaa
+alv
 aaa
 aaa
 aaa
@@ -101621,11 +101661,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+alv
+aab
+cPC
+aab
+alv
 aaa
 aaa
 aaa
@@ -101872,23 +101912,23 @@ aaa
 aaa
 aaa
 aaa
+alv
+alv
+alv
+alv
+amh
+aab
+amh
 aaa
+cPG
 aaa
+alv
 aaa
-aaa
-abp
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+alv
+alv
+amh
+alv
+alv
 aaa
 aaa
 aaa
@@ -102129,23 +102169,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-alv
-alv
-alv
-alv
 alv
 aaa
 aaa
 aaa
+aab
 aaa
 aaa
+aab
+cPG
+aab
+aab
 aaa
+aab
+aab
+aab
+aaa
+alv
 aaa
 aaa
 aaa
@@ -102386,23 +102426,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-bhn
-aaa
-aaa
-aaa
 alv
 aaa
+cNF
+cNF
+cNF
+cNF
+cNF
 aab
-aaa
+cPH
+aab
+cNF
+cNF
+cNF
+cNF
+cNF
+aab
 alv
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 abp
 aaa
@@ -102643,23 +102683,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 alv
 aab
-cPC
-aab
+cpz
+cMB
+cMB
+cMB
+cMB
+cPx
+cyO
+cQq
+cRe
+cRe
+cRe
+cRe
+cSk
+aaa
 alv
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -102901,21 +102941,21 @@ aaa
 aaa
 aaa
 alv
-alv
-alv
-alv
-amh
 aab
-amh
+cNM
+cNM
+cNM
+cNM
+cNM
+aab
+cyO
+aab
+cNM
+cNM
+cNM
+cNM
+cNM
 aaa
-cPG
-aaa
-alv
-aaa
-alv
-alv
-amh
-alv
 alv
 aaa
 aaa
@@ -103161,19 +103201,19 @@ alv
 aaa
 aaa
 aaa
-aab
-aaa
-aaa
-aab
-cPG
-aab
-aab
 aaa
 aab
 aab
 aab
+cyO
 aaa
-alv
+aaa
+aab
+aaa
+aaa
+aaa
+aaa
+amh
 aaa
 aaa
 aaa
@@ -103415,14 +103455,14 @@ aaa
 aaa
 aaa
 alv
-aaa
+aab
 cNF
 cNF
 cNF
 cNF
 cNF
 aab
-cPH
+cyO
 aab
 cNF
 cNF
@@ -103686,7 +103726,7 @@ cRe
 cRe
 cRe
 cSk
-aaa
+aab
 alv
 aaa
 aaa
@@ -103928,8 +103968,8 @@ cBi
 cBi
 cBi
 cwx
-alv
 aab
+aaa
 cNM
 cNM
 cNM
@@ -103943,7 +103983,7 @@ cNM
 cNM
 cNM
 cNM
-aaa
+aab
 alv
 aaa
 aaa
@@ -104185,28 +104225,28 @@ qFj
 cCw
 cDP
 cwx
+amh
+aaa
+aaa
+aaa
+aab
+aaa
+aaa
+aaa
+cyO
+aaa
+aaa
+aaa
+aaa
+aab
+aaa
+aaa
 alv
 aaa
 aaa
 aaa
 aaa
-aab
-aab
-aab
-cyO
-aaa
-aaa
-aab
-aaa
-aaa
-aaa
-aaa
-amh
-aaa
-aaa
-aaa
-aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -104442,7 +104482,7 @@ cAX
 uwt
 wVx
 tzm
-alv
+aab
 aab
 cNF
 cNF
@@ -104457,7 +104497,7 @@ cNF
 cNF
 cNF
 cNF
-aab
+aaa
 alv
 aaa
 aaa
@@ -104699,7 +104739,7 @@ cBj
 cCq
 cDU
 cwx
-alv
+amh
 aab
 cpz
 cMB
@@ -104956,8 +104996,8 @@ cAX
 rzW
 cAX
 cwx
-aab
 aaa
+aab
 cNM
 cNM
 cNM
@@ -105214,20 +105254,20 @@ czJ
 cDV
 cwx
 amh
+aab
 aaa
 aaa
 aaa
 aab
-aaa
-aaa
+aab
 aaa
 cyO
 aaa
-aaa
-aaa
-aaa
 aab
 aaa
+aab
+aab
+aab
 aaa
 alv
 aaa
@@ -105470,22 +105510,22 @@ cBa
 cCt
 cDL
 tzm
+amh
 aab
 aab
-cNF
-cNF
-cNF
-cNF
-cNF
+amh
 aab
-cyO
-aab
-cNF
-cNF
-cNF
-cNF
-cNF
 aaa
+aaa
+aaa
+cyO
+aaa
+aaa
+aaa
+aaa
+aab
+alv
+alv
 alv
 aaa
 aaa
@@ -105695,7 +105735,7 @@ bGX
 bDQ
 bxb
 hMm
-hMm
+son
 hMm
 bRI
 cuD
@@ -105727,23 +105767,23 @@ cBb
 cCz
 cDX
 cwx
-amh
-aab
-cpz
-cMB
-cMB
-cMB
-cMB
-cPx
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 cyO
-cQq
-cRe
-cRe
-cRe
-cRe
-cSk
-aab
-alv
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -105985,22 +106025,22 @@ aag
 cDZ
 cwx
 aaa
-aab
-cNM
-cNM
-cNM
-cNM
-cNM
-aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 cyO
-aab
-cNM
-cNM
-cNM
-cNM
-cNM
-aab
-alv
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -106241,23 +106281,23 @@ cBd
 uAw
 cBb
 tzm
-amh
-aab
 aaa
 aaa
 aaa
-aab
-aab
+aaa
+aaa
+aaa
+aaa
 aaa
 cyO
 aaa
-aab
 aaa
-aab
-aab
-aab
 aaa
-alv
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -106498,11 +106538,11 @@ cBn
 cCD
 cDO
 cwx
-amh
-aab
-aab
-amh
-aab
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -106511,10 +106551,10 @@ aaa
 aaa
 aaa
 aaa
-aab
-alv
-alv
-alv
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -106764,18 +106804,18 @@ rEZ
 cLi
 aaa
 cPI
-aaa
-aaa
-aaa
-aaa
 aab
 aab
 aab
-aaa
-aaa
-aaa
-abp
-aaa
+qeu
+aab
+aab
+aab
+aab
+aab
+aab
+aab
+qeu
 aaa
 aaa
 aaa
@@ -107024,15 +107064,15 @@ cPG
 aaa
 aaa
 aaa
-aaa
-aab
-aab
-aab
 aab
 aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aab
 aaa
 aaa
 aaa
@@ -107280,16 +107320,16 @@ aaa
 cPG
 aaa
 aaa
-aab
-aaa
 aaa
 aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -107538,15 +107578,15 @@ cPG
 aaa
 aaa
 aaa
-aaa
-aab
-aab
 aab
 aaa
 aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aab
 aaa
 aaa
 aaa
@@ -107795,15 +107835,15 @@ uiB
 aaa
 aaa
 aaa
-aaa
-aaa
-aab
 aab
 aaa
 aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aab
 aaa
 aaa
 aaa
@@ -108050,17 +108090,17 @@ aaa
 swl
 otx
 xSF
-aab
-aab
 aaa
-aab
-aab
+aaa
 aab
 aaa
 aaa
 aaa
+wVd
 aaa
 aaa
+aaa
+aab
 aaa
 aaa
 aaa
@@ -108309,15 +108349,15 @@ jCt
 swl
 aab
 aab
+qeu
+aab
+dmr
+dmr
+kvW
+dmr
 aab
 aab
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+qeu
 aaa
 aaa
 aaa
@@ -108565,13 +108605,13 @@ swl
 ntD
 swl
 swl
-aab
-aab
 aaa
 aaa
 aaa
-aaa
-aaa
+dmr
+eov
+jCs
+dmr
 aaa
 aaa
 aaa
@@ -108825,6 +108865,10 @@ sdw
 aaa
 aaa
 aaa
+dmr
+scI
+scI
+dmr
 aaa
 aaa
 aaa
@@ -108837,11 +108881,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -109084,7 +109124,7 @@ mnN
 jlS
 mnN
 mnN
-mnN
+rVv
 mnN
 aaa
 aaa
@@ -109341,7 +109381,7 @@ jEc
 tjG
 tHE
 fcp
-xEw
+scI
 mnN
 aaa
 aaa
@@ -115757,7 +115797,7 @@ cHD
 cAo
 cRR
 jam
-sKF
+uoF
 cUu
 cRM
 cWD
@@ -116729,7 +116769,7 @@ biK
 bnj
 bkz
 qCN
-boa
+vJt
 iFa
 bqV
 vmZ

@@ -7,7 +7,7 @@
 	base_icon_state = "chasms"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_TURF_CHASM)
-	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM, SMOOTH_GROUP_GLASS_FLOOR)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = 1.7
 	intact = 0

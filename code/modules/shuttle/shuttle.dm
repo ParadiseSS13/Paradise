@@ -842,11 +842,22 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/mining
-	dir = 8
+	dir = WEST
 	dwidth = 3
 	height = 5
 	id = "mining"
 	name = "mining shuttle"
+	rebuildable = TRUE
+	width = 7
+	uses_lockdown = TRUE
+	port_direction = EAST
+
+/obj/docking_port/mobile/engineering
+	dir = WEST
+	dwidth = 3
+	height = 5
+	id = "engineering"
+	name = "engineering shuttle"
 	rebuildable = TRUE
 	width = 7
 	uses_lockdown = TRUE
