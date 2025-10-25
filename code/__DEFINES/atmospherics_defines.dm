@@ -4,6 +4,7 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 #define GAS_A_B	(1 << 5)
+#define GAS_H2 	(1 << 6)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -74,6 +75,10 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
+
+//HYDROGEN
+#define HYDROGEN_BURN_ENERGY				2500000
+#define HYDROGEN_MIN_IGNITE_TEMP			500
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
