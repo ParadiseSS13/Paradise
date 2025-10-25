@@ -99,6 +99,34 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(owner)
 		. += owner
 
+/**
+ * Helper proc to find protect objectives targeting the same mind as this objective.
+ * Returns a list of protect objectives.
+ */
+/datum/objective/proc/find_protect_objectives_for_target()
+	if(!target)
+		return list()
+
+	var/list/protect_objectives = list()
+	for(var/datum/objective/protect/P in GLOB.all_objectives)
+		if(P.target == target)
+			protect_objectives += P
+	return protect_objectives
+
+/**
+ * Helper proc to find assassinate/assassinateonce objectives targeting the same mind as this objective.
+ * Returns a list of assassination objectives.
+ */
+/datum/objective/proc/find_assassination_objectives_for_target()
+	if(!target)
+		return list()
+
+	var/list/assassination_objectives = list()
+	for(var/datum/objective/O in GLOB.all_objectives)
+		if((istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce)) && O.target == target)
+			assassination_objectives += O
+	return assassination_objectives
+
 /datum/proc/is_invalid_target(datum/mind/possible_target) // Originally an Objective proc. Changed to a datum proc to allow for the proc to be run on minds, before the objective is created
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
@@ -216,6 +244,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		var/list/protect_objectives = find_protect_objectives_for_target()
+		if(length(protect_objectives) > 0)
+			explanation_text += " Be warned, it seems they have a guardian angel."
 	else
 		explanation_text = "Free Objective"
 
@@ -241,6 +272,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinateonce/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
+		var/list/protect_objectives = find_protect_objectives_for_target()
+		if(length(protect_objectives) > 0)
+			explanation_text += " Be warned, it seems they have a guardian angel."
 		establish_signals()
 	else
 		explanation_text = "Free Objective"
@@ -359,12 +393,59 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect
 	name = "Protect"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to protect another crewmember. You will receive further information in a few minutes."
+	completed = TRUE
 
 /datum/objective/protect/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "[target.current.real_name], the [target.assigned_role], is in grave danger. Ensure that they remain alive for the duration of the shift."
+		// Check if there are existing assassination objectives for this target and notify them
+		var/list/assassination_objectives = find_assassination_objectives_for_target()
+		if(length(assassination_objectives) > 0)
+			addtimer(CALLBACK(src, PROC_REF(notify_assassination_objectives)), 5 SECONDS, TIMER_DELETE_ME)
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/protect/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	// Heads of staff are already protected by the Blueshield.
+	if((possible_target in SSticker.mode.get_all_heads()))
+		return TARGET_INVALID_HEAD
+	// Antags don't need protection.
+	if(possible_target.special_role)
+		return TARGET_INVALID_ANTAG
+
+/datum/objective/protect/find_target(list/target_blacklist)
+	. = ..()
+	if(target) // Already have a target, don't need to find one.
+		return target
+	// Try to make the target someone who is the target of an assassinate or teach a lesson objective.
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+			continue
+		for(var/datum/objective/O in GLOB.all_objectives)
+			if((istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce)) && O.target == possible_target)
+				possible_targets += O.target
+				break
+	if(length(possible_targets) > 0)
+		target = pick(possible_targets)
+		update_explanation_text()
+		return target
+
+// Notifies assassination objectives that their target has a protector.
+/datum/objective/protect/proc/notify_assassination_objectives()
+	if(!target)
+		return
+
+	var/list/assassination_objectives = find_assassination_objectives_for_target()
+	for(var/datum/objective/assassination_obj in assassination_objectives)
+		assassination_obj.update_explanation_text()
+		var/list/owners = assassination_obj.get_owners()
+		for(var/datum/mind/M in owners)
+			SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+			var/list/messages = M.prepare_announce_objectives(FALSE)
+			to_chat(M.current, chat_box_red(messages.Join("<br>")))
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
