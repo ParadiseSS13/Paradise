@@ -411,7 +411,7 @@
 
 // This device is used to analyze and trigger the particulate
 /obj/item/ppp_processor
-	name = "prototype portable particulate processor"
+	name = "\improper Prototype Portable Particulate Processor"
 	desc = "The Prototype Portable Particulate Processor, or PPPProcessor, for short, is a device designed to energize, collect, \
 	and process anomalous particulate."
 	icon = 'icons/obj/theft_tools.dmi'
