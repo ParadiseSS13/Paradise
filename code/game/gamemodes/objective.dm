@@ -258,43 +258,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return
 	return ..()
 
-/datum/objective/mutiny
-	name = "Mutiny"
-	martyr_compatible = TRUE
-
-/datum/objective/mutiny/update_explanation_text()
-	if(target?.current)
-		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role]."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/mutiny/is_invalid_target(datum/mind/possible_target)
-	. = ..()
-	if(.)
-		return
-	if(!(possible_target in SSticker.mode.get_all_heads()))
-		return TARGET_INVALID_NOTHEAD
-
-/datum/objective/mutiny/check_completion()
-	if(..())
-		return TRUE
-	if(target?.current)
-		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
-			return TRUE
-		var/turf/T = get_turf(target.current)
-		if(T && !is_station_level(T.z))			//If they leave the station they count as dead for this
-			return TRUE
-		return FALSE
-	return TRUE
-
-/datum/objective/mutiny/on_target_cryo()
-	// We don't want revs to get objectives that aren't for heads of staff. Letting
-	// them win or lose based on cryo is silly so we remove the objective.
-	if(team)
-		team.remove_team_objective(src)
-		return
-	qdel(src)
-
 /datum/objective/maroon
 	name = "Maroon"
 	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
@@ -390,6 +353,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
+
+/datum/objective/mutiny
+	name = "Mutiny"
+	martyr_compatible = TRUE
+	needs_target = FALSE
+	explanation_text = "Ensure that a mutiny takes place within the station by the end of the shift.\
+	The target of the mutiny must target be either the head of your department, the Head of Security, Head of Personnel, or the Captain. \
+	To inflict the largest amount of reputational damage, the mutiny should focus on instating you as the replacement."
+
+/datum/objective/mutiny/check_completion()
+	return TRUE
 
 /datum/objective/hijack
 	name = "Hijack"

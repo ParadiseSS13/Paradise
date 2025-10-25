@@ -427,6 +427,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
+#define MUTINY_OBJECTIVE "MUTINY"
 #define KILL_OBJECTIVE "KILL"
 #define THEFT_OBJECTIVE "STEAL"
 
@@ -445,7 +446,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
-	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
+	var/list/static/the_objective_list = list(MUTINY_OBJECTIVE = 3, KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 50)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
@@ -473,6 +474,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
+			if(MUTINY_OBJECTIVE)
+				objective_to_add = /datum/objective/mutiny
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 
@@ -480,6 +483,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
 	add_antag_objective(objective_to_add)
 
+#undef MUTINY_OBJECTIVE
 #undef KILL_OBJECTIVE
 #undef THEFT_OBJECTIVE
 
