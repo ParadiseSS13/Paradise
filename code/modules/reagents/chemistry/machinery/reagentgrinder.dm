@@ -145,10 +145,11 @@
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!anchored || beaker)
+	if(!anchored)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
+	detach(user)
 	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
 
 /obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
@@ -328,9 +329,9 @@
 			juice()
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
 	if(!beaker)
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	beaker.forceMove(loc)
 	beaker = null
