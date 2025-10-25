@@ -49,7 +49,6 @@ GLOBAL_LIST(end_titles)
 	mouse_opacity = 0
 	alpha = 0
 	screen_loc = "CENTER-7,CENTER-7"
-	plane = HUD_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	var/client/parent
 	var/matrix/target
