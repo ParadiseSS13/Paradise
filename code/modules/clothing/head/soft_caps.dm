@@ -108,6 +108,16 @@
 	icon_state = "smith"
 	dog_fashion = /datum/dog_fashion/head/smith
 
+/obj/item/clothing/head/soft/engineer
+	name = "engineer's cap"
+	desc = "It's a yellow baseball hat with an orange engineering shield."
+	icon_state = "engineer"
+
+/obj/item/clothing/head/soft/atmos
+	name = "atmospheric technician's cap"
+	desc = "It's a yellow baseball hat with a blue engineering shield."
+	icon_state = "atmos"
+
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
 	desc = "It's a grey baseball hat with a purple custodial shield."
