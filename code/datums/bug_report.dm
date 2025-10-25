@@ -6,11 +6,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form
 	/// contains all the body text for the bug report.
-	var/list/bug_report_data = null
+	var/list/bug_report_data = list()
 
 	/// client of the bug report author, needed to create the ticket
 	var/initial_user_uid = null
-	// ckey of the author
+
+	/// ckey of the author
 	var/initial_key = null // just incase they leave after creating the bug report
 
 	/// client of the admin/dev who is accessing the report, we don't want multiple people unknowingly making changes at the same time.
@@ -22,24 +23,27 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	/// for garbage collection purposes.
 	var/selected_confirm = FALSE
 
-	/// byond version of the user, so we still have the byond version if the user logs out
-	var/user_byond_version
-
-	/// Current Server commit
-	var/local_commit
-
-	/// Current test merges formatted for the bug report
-	var/test_merges
+	/// UID for DB stuff
+	var/db_uid
 
 /datum/tgui_bug_report_form/New(mob/user)
-	local_commit = GLOB.revision_info.commit_hash
-	initial_user_uid = user.client.UID()
-	initial_key = user.client.key
-	user_byond_version = "[user.client.byond_version].[user.client.byond_build]"
-	if(length(GLOB.revision_info.origin_commit))
-		local_commit = GLOB.revision_info.origin_commit
+	if(user)
+		initial_user_uid = user.client.UID()
+		initial_key = user.client.key
+
+/datum/tgui_bug_report_form/proc/add_metadata(mob/user)
+	bug_report_data["server_byond_version"] = "[world.byond_version].[world.byond_build]"
+	bug_report_data["user_byond_version"] = "[user.client.byond_version].[user.client.byond_build]"
+
+	bug_report_data["local_commit"] = "No Commit Data"
+	if(GLOB.revision_info.commit_hash)
+		bug_report_data["local_commit"] = GLOB.revision_info.commit_hash
+	if(GLOB.revision_info?.origin_commit && length(GLOB.revision_info.origin_commit))
+		bug_report_data["local_commit"] = GLOB.revision_info.origin_commit
+
 	for(var/datum/tgs_revision_information/test_merge/tm in GLOB.revision_info.testmerges)
-		test_merges += "#[tm.number] at [tm.head_commit]\n"
+		bug_report_data["test_merges"] += "#[tm.number] at [tm.head_commit]\n"
+	bug_report_data["round_id"] = GLOB.round_id
 
 
 /datum/tgui_bug_report_form/proc/external_link_prompt(client/user)
@@ -118,11 +122,11 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 ## Additional details
 - Author: [initial_key]
 - Approved By: [approving_user]
-- Round ID: [GLOB.round_id ? GLOB.round_id : "N/A"]
-- Client BYOND Version: [user_byond_version]
-- Server BYOND Version: [world.byond_version].[world.byond_build]
-- Server commit: [local_commit]
-- Active Test Merges: [test_merges ? test_merges : "None"]
+- Round ID: [bug_report_data["round_id"] ? bug_report_data["round_id"] : "N/A"]
+- Client BYOND Version: [bug_report_data["user_byond_version"]]
+- Server BYOND Version: [bug_report_data["server_byond_version"]]
+- Server commit: [bug_report_data["local_commit"]]
+- Active Test Merges: [bug_report_data["test_merges"] ? bug_report_data["test_merges"] : "None"]
 - Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 
@@ -156,6 +160,19 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	request.prepare(RUSTLIBS_HTTP_METHOD_POST, url, json_encode(payload), headers)
 	request.begin_async()
+
+	// Report has been handled so we can remove it from the DB.
+	// If the request fails the user is prompted to open an issue on Github, so we consider it handled as well.
+	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
+			"DELETE FROM bug_reports WHERE (db_uid=:db_uid AND author_ckey=:author_ckey)",
+			list(
+				"db_uid" = db_uid,
+				"author_ckey" = initial_key,
+				)
+		)
+	query_delete_bug_report.warn_execute()
+	qdel(query_delete_bug_report)
+
 	var/start_time = world.time
 	UNTIL(request.is_complete() || (world.time > start_time + 5 SECONDS))
 	if(!request.is_complete() && world.time > start_time + 5 SECONDS)
@@ -168,14 +185,18 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	else
 		var/client/initial_user = locateUID(initial_user_uid)
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-		to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
-	qdel(src)// approved and submitted, we no longer need the datum.
+		if(initial_user)
+			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+	// approved and submitted, we no longer need the datum.
+	qdel(src)
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
 	var/client/initial_user = locateUID(initial_user_uid)
 	if(initial_user)
 		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
+	if(!db_uid)
+		db_uid = world.realtime
 	GLOB.bug_reports += src
 
 	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
@@ -192,6 +213,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 				to_chat(user, "<span class='warning'>You have already approved this submission, please wait a moment for the API to process your submission.</span>")
 				return
 			bug_report_data = sanitize_payload(params)
+			add_metadata(user)
 			selected_confirm = TRUE
 			// bug report request is now waiting for admin approval
 			if(!awaiting_approval)
@@ -218,5 +240,15 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/client/initial_user = locateUID(initial_user_uid)
 	if(initial_user)
 		to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	// Report has been handled so we can remove it from the DB
+	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
+			"DELETE FROM bug_reports WHERE (db_uid=:db_uid AND author_ckey=:author_ckey)",
+			list(
+				"db_uid" = db_uid,
+				"author_ckey" = initial_key,
+				)
+		)
+	query_delete_bug_report.warn_execute()
+	qdel(query_delete_bug_report)
 
 #undef STATUS_SUCCESS
