@@ -97,13 +97,14 @@ GLOBAL_LIST(end_titles)
 		possible_titles += "THE CREW GETS [pick("TINGLED", "PICKLED", "AN INCURABLE DISEASE", "PIZZA", "A VALUABLE HISTORY LESSON", "A BREAK", "HIGH", "TO LIVE", "TO RELIVE THEIR CHILDHOOD", "EMBROILED IN CIVIL WAR", "A BAD HANGOVER", "SERIOUS ABOUT [pick("DRUG ABUSE", "CRIME", "PRODUCTIVITY", "ANCIENT AMERICAN CARTOONS", "SPACEBALL", "DECOMPRESSION PROCEDURES")]")]"
 		possible_titles += "THE CREW LEARNS ABOUT [pick("LOVE", "DRUGS", "THE DANGERS OF MONEY LAUNDERING", "XENIC SENSITIVITY", "INVESTMENT FRAUD", "KELOTANE ABUSE", "RADIATION PROTECTION", "SACRED GEOMETRY", "STRING THEORY", "ABSTRACT MATHEMATICS", "ANCIENT SKRELLIAN MEDICINE")]"
 		possible_titles += "A VERY [pick("CORPORATE", "NANOTRASEN", "FLEET", "CLOWN", "SYNDICATE", "EXPEDITIONARY", "EXPLORATORY", "PLASMA", "MARTIAN", "UNITED")] [pick("CHRISTMAS", "EASTER", "HOLIDAY", "WEEKEND", "THURSDAY", "VACATION")]"
-		possible_titles += "[pick("GUNS, GUNS EVERYWHERE", "THE LITTLEST ARMALIS", "WHAT HAPPENS WHEN YOU MIX MAINTENANCE DRONES AND COMMERCIAL-GRADE PACKING FOAM", "ATTACK! ATTACK! ATTACK!", "HOLY SHIT A BOMB", "THE LEGEND OF THE ALIEN ARTIFACT: PART [pick("I","II","III","IV","V","VI","VII","VIII","IX", "X", "C","M","L")]")]"
+		possible_titles += "[pick("GUNS, GUNS EVERYWHERE", "THE LITTLEST PRIMALIS", "WHAT HAPPENS WHEN YOU MIX MAINTENANCE DRONES AND COMMERCIAL-GRADE PACKING FOAM", "ATTACK! ATTACK! ATTACK!", "HOLY SHIT A BOMB", "THE LEGEND OF THE ALIEN ARTIFACT: PART [pick("I","II","III","IV","V","VI","VII","VIII","IX", "X", "C","M","L")]")]"
 		possible_titles += "[pick("SPACE", "TERRIFYING", "DRAGON", "WARLOCK", "LAUNDRY", "GUN", "ADVERTISING", "DOG", "CARBON MONOXIDE", "NINJA", "WIZARD", "SOCRATIC", "JUVENILE DELIQUENCY", "POLITICALLY MOTIVATED", "RADTACULAR SICKNASTY")] [pick("QUEST", "FORCE", "ADVENTURE")]"
 		possible_titles += "[pick("THE DAY [pick("NANOTRASEN", "THE SYNDICATE", "ARMADYNE CORPORATION", "THE CLOWN",)] STOOD STILL", "HUNT FOR THE GREEN WEENIE", "ALIEN VS VENDOMAT", "SPACE TRACK")]"
 		titles += "<center><h1>EPISODE [rand(1,1000)]<br>[pick(possible_titles)]<h1></h1></h1></center>"
 	else
 		titles += "<center><h1>EPISODE [rand(1,1000)]<br>[GLOB.end_credits_title]<h1></h1></h1></center>"
 
+	// The Living
 	var/list/minds = list()
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(H.mind)
@@ -132,6 +133,7 @@ GLOBAL_LIST(end_titles)
 
 	titles += cast
 
+	// The Dead
 	var/list/corpses = list()
 	var/list/monkies = list()
 	for(var/mob/living/carbon/human/H in GLOB.dead_mob_list)
@@ -139,11 +141,12 @@ GLOBAL_LIST(end_titles)
 			continue
 		if(ismonkeybasic(H))
 			monkies[H?.name] += 1
-		else if(H?.real_name in GLOB.crew_list)
+		else if(H?.real_name in GLOB.crew_list) // Only crew deaths
 			corpses += H?.real_name
 	if(corpses.len)
 		titles += "<center>BASED ON REAL EVENTS<br>In memory of [english_list(corpses)].</center>"
 
+	// CKEYS
 	var/list/staff = list("PRODUCTION STAFF:")
 	var/static/list/staffjobs = list("Coffee Fetcher", "Cameraman", "Angry Yeller", "Chair Operator", "Choreographer", "Historical Consultant", "Costume Designer", "Chief Editor", "Executive Assistant")
 	var/list/goodboys = list()
@@ -154,6 +157,7 @@ GLOBAL_LIST(end_titles)
 			staff += "[uppertext(pick(staffjobs))] a.k.a. '[C?.key]'"
 
 	titles += "<center>[jointext(staff,"<br>")]</center>"
+
 	if(goodboys.len)
 		titles += "<center>STAFF'S GOOD BOYS:<br>[english_list(goodboys)]</center><br>"
 
