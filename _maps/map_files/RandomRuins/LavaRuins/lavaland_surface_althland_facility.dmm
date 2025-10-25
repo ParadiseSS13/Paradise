@@ -1307,10 +1307,7 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Wl" = (
