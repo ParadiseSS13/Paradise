@@ -513,6 +513,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	var/fertile = FALSE
 
 /obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()
