@@ -105,24 +105,24 @@
 /area/ruin/space/derelict/bridge)
 "at" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "au" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "av" = (
 /obj/machinery/computer/monitor/secret,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aw" = (
 /obj/structure/table/reinforced,
@@ -130,10 +130,10 @@
 	id = "rusbridge";
 	name = "Bridge Shutters"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ax" = (
 /obj/structure/computerframe{
@@ -143,10 +143,10 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ay" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -154,10 +154,10 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "az" = (
 /obj/item/paper/djstation{
@@ -170,25 +170,25 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aA" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aB" = (
 /obj/machinery/computer/crew,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aC" = (
 /obj/structure/computerframe{
@@ -196,18 +196,18 @@
 	name = "decrepit computer"
 	},
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aD" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aE" = (
 /obj/structure/sign/nuke,
@@ -246,10 +246,10 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aK" = (
 /obj/structure/chair/office/dark{
@@ -263,10 +263,10 @@
 	desc = "An old Soviet phone. The dial tone is still humming.";
 	name = "spin-dial phone"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aM" = (
 /obj/structure/chair/comfy/red{
@@ -286,10 +286,10 @@
 "aO" = (
 /obj/structure/table/reinforced,
 /obj/item/fan,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aP" = (
 /obj/structure/chair/office/dark{
@@ -310,26 +310,26 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aS" = (
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aT" = (
 /obj/machinery/economy/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aU" = (
 /obj/machinery/photocopier,
@@ -337,10 +337,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aV" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -384,37 +384,36 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/bridge)
 "bc" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "be" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bf" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bg" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bh" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bi" = (
 /turf/simulated/floor/plasteel/dark,
@@ -425,10 +424,10 @@
 	name = "shaky note"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bk" = (
 /obj/item/cigbutt{
@@ -445,10 +444,10 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bl" = (
 /obj/effect/decal/remains/human{
@@ -457,10 +456,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bm" = (
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -584,18 +583,17 @@
 	},
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bF" = (
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "bG" = (
 /obj/structure/rack,
@@ -603,10 +601,10 @@
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "bH" = (
 /obj/machinery/light/spot{
@@ -652,33 +650,33 @@
 /obj/structure/closet/crate/freezer{
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bO" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /obj/item/tape/random,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bP" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bR" = (
 /obj/structure/curtain/open,
@@ -689,24 +687,23 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "bS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/salvage/ruin/soviet,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "bV" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -714,90 +711,84 @@
 /area/ruin/space/derelict/bridge)
 "bW" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bX" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/cups,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bZ" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ca" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cb" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cc" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ce" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cf" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ch" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ci" = (
 /obj/machinery/light/small{
@@ -829,22 +820,20 @@
 	desc = "A reinforced helmet often used by USSP security personnel.";
 	name = "armoured helmet"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cn" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/blood/innards,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "co" = (
 /obj/effect/decal/cleanable/dirt,
@@ -856,10 +845,10 @@
 /area/ruin/space/derelict/arrival)
 "cp" = (
 /obj/item/salvage/ruin/soviet,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cq" = (
 /obj/machinery/door/airlock/command/glass{
@@ -898,16 +887,15 @@
 "cw" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cy" = (
 /obj/structure/sink/directional/west,
@@ -930,31 +918,31 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Helmet"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cA" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cB" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cC" = (
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cD" = (
 /obj/structure/dresser,
@@ -985,18 +973,18 @@
 /obj/effect/spawner/random/maintenance,
 /obj/item/trash/can,
 /obj/item/trash/semki,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cH" = (
 /obj/structure/sign/poster/contraband/random/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cI" = (
 /obj/machinery/door/airlock/titanium{
@@ -1012,18 +1000,18 @@
 	dir = 8
 	},
 /obj/structure/dresser,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "cK" = (
 /obj/structure/table,
 /obj/item/soap/deluxe/laundry,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "cL" = (
 /obj/structure/sign/mech,
@@ -1081,65 +1069,62 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/hallway/primary)
 "cU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cW" = (
 /obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cX" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "cY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "cZ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/deluxe/laundry,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "da" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "db" = (
 /turf/simulated/floor/plasteel,
@@ -1147,49 +1132,49 @@
 "dc" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dd" = (
 /obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "de" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "df" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dg" = (
 /obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dh" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "di" = (
 /obj/structure/grille,
@@ -1205,25 +1190,23 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/hallway/primary)
 "dk" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dm" = (
 /obj/machinery/computer/security,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1239,10 +1222,10 @@
 	},
 /obj/item/ashtray/plastic,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dq" = (
 /obj/structure/chair/office/dark,
@@ -1260,9 +1243,8 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dt" = (
 /obj/structure/table/reinforced,
@@ -1271,10 +1253,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "du" = (
 /obj/structure/grille/broken,
@@ -1286,30 +1268,28 @@
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dw" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dz" = (
 /obj/machinery/washing_machine,
@@ -1319,10 +1299,10 @@
 "dA" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dB" = (
 /obj/structure/table/reinforced,
@@ -1331,10 +1311,10 @@
 	dir = 8
 	},
 /obj/item/grenade/empgrenade,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dC" = (
 /obj/structure/table/reinforced,
@@ -1347,9 +1327,8 @@
 	info = "<b>Recommended Party</b> Comrade Blyatski<br><b>Signing Officer:</b> Mikail Gogochev<hr><small>Captain,<br><br>I recognize the nature of this request my seem strange, but please, hear me out. Comrade Blyatski, though he is but a wee bot, is like iron fist of Commissar Grigor himself! Just the other day he chased that useless bastard Totstoi clean out of brig, you should have seen the way that drunkard whimpered! Like a dog with his tail between his legs.<br><br>Anyways, I digress! If any one is worth of recognition, it is our ever-vigilant and beloved Blyatski, true champion of USSP.<br><br>If you wish to, perhaps, see his vigilance and dedication in person, well! You need only come to inspect armoury.<br><br>Comrade Blyatski awaits your decision.";
 	name = "recommendation for commendation"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dD" = (
 /obj/structure/table/reinforced,
@@ -1358,9 +1337,8 @@
 	id = "ruslockcom";
 	name = "Bridge Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dE" = (
 /obj/structure/table/reinforced,
@@ -1370,10 +1348,10 @@
 /obj/machinery/newscaster/directional/east{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dF" = (
 /obj/effect/spawner/window/shuttle,
@@ -1414,18 +1392,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dL" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dM" = (
 /obj/structure/rack,
 /obj/item/crowbar,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dN" = (
 /obj/structure/closet,
@@ -1455,10 +1433,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dQ" = (
 /obj/machinery/recharger,
@@ -1467,16 +1445,16 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dR" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dT" = (
 /obj/structure/closet,
@@ -1492,10 +1470,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dU" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "dW" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -1541,10 +1519,10 @@
 /area/ruin/space/derelict/crew_quarters)
 "ed" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "ee" = (
 /obj/structure/table/reinforced,
@@ -1556,10 +1534,10 @@
 /obj/item/storage/box/zipties,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "eg" = (
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -1568,10 +1546,10 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "ei" = (
 /obj/structure/cable{
@@ -1586,10 +1564,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "ek" = (
 /obj/machinery/door/airlock/titanium{
@@ -1619,16 +1597,15 @@
 /obj/item/clothing/shoes/jackboots{
 	desc = "Nothing quite strikes fear into the hearts of TSF marines like a good pair of jackboots!"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "eo" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "ep" = (
 /obj/structure/window/reinforced{
@@ -1639,9 +1616,8 @@
 	},
 /obj/structure/sign/poster/contraband/red_rum/directional/south,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "eq" = (
 /obj/structure/window/reinforced{
@@ -1649,10 +1625,10 @@
 	},
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "er" = (
 /obj/structure/table,
@@ -1660,40 +1636,34 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "es" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "et" = (
 /obj/structure/sign/science,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "eu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/derelict/hallway/primary)
 "ev" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/derelict/hallway/primary)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/derelict/hallway/primary)
 "ex" = (
 /obj/machinery/power/smes/engineering{
@@ -1706,20 +1676,30 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ey" = (
 /obj/machinery/atmospherics/unary/tank/oxygen,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ez" = (
 /obj/structure/noticeboard,
@@ -1778,10 +1758,10 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "eK" = (
 /obj/machinery/door/poddoor/impassable{
@@ -1792,10 +1772,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "eL" = (
 /obj/effect/spawner/window/shuttle,
@@ -1811,20 +1791,20 @@
 /obj/item/storage/bag/tray{
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "eO" = (
 /obj/item/scalpel{
 	pixel_y = 12
 	},
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "eP" = (
 /turf/simulated/floor/plasteel,
@@ -1833,42 +1813,45 @@
 /obj/machinery/door/airlock/science{
 	name = "Science Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "eS" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "eT" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "eU" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "eV" = (
 /obj/machinery/power/terminal{
@@ -1894,18 +1877,25 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "eY" = (
 /obj/structure/engineeringcart,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fa" = (
 /obj/effect/spawner/window/shuttle,
@@ -1942,35 +1932,35 @@
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fg" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fh" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fi" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fj" = (
 /obj/structure/cable{
@@ -1991,19 +1981,18 @@
 /obj/machinery/door/airlock/science{
 	name = "Science Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fn" = (
 /obj/structure/cable{
@@ -2019,10 +2008,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fp" = (
 /obj/structure/cable{
@@ -2031,9 +2020,11 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fq" = (
 /obj/structure/cable{
@@ -2065,10 +2056,13 @@
 	info = "<i>This note has been effaced with all manner of crude drawings that are too vile to properly give a description to.</i><br><small>Totstoi,<br><br>I know it's you who's been feeding my cats alcohol, I do not care what your reasons are but you are getting in the way of important research. This is the fifth cat that I've had to replace this month because of your crude sense of humour, and I will be speaking with Chief Borachov if you don't stop.<br><br>- <i>Nikolai Kartov</i>, Deputy Researcher";
 	name = "Desist at once!"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fu" = (
 /obj/machinery/atmospherics/portable/scrubber,
@@ -2076,10 +2070,14 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fv" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -2117,10 +2115,10 @@
 /area/ruin/space/derelict/crew_quarters)
 "fA" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fB" = (
 /obj/structure/cable{
@@ -2159,10 +2157,10 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fG" = (
 /obj/effect/spawner/window/shuttle,
@@ -2176,10 +2174,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fI" = (
 /obj/item/circular_saw{
@@ -2195,10 +2193,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fK" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fL" = (
 /obj/structure/sign/nosmoking_1,
@@ -2206,28 +2204,31 @@
 /area/ruin/space/derelict/hallway/primary)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fN" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fO" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fP" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fQ" = (
 /obj/structure/cable{
@@ -2245,10 +2246,14 @@
 	name = "decrepit computer"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fU" = (
 /obj/item/trash/spentcasing/shotgun,
@@ -2287,10 +2292,10 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "ga" = (
 /obj/effect/decal/remains/human{
@@ -2303,10 +2308,10 @@
 	faction = list("cat","carp");
 	name = "Experiment 432-A"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purplecorner"
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gb" = (
 /obj/machinery/door/window/classic/normal{
@@ -2314,10 +2319,10 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gc" = (
 /obj/structure/rack,
@@ -2329,43 +2334,46 @@
 /obj/structure/closet,
 /obj/item/clothing/under/retro/science,
 /obj/item/clothing/under/retro/science,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "gg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "gh" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "gi" = (
 /obj/machinery/floodlight,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gj" = (
 /obj/machinery/power/solar_control{
@@ -2374,10 +2382,11 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gl" = (
 /obj/structure/chair/wood,
@@ -2395,22 +2404,22 @@
 /area/ruin/space/derelict/crew_quarters)
 "go" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gp" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gq" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gr" = (
 /obj/item/trash/spentcasing/shotgun,
@@ -2419,10 +2428,10 @@
 "gs" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gt" = (
 /obj/structure/window/reinforced,
@@ -2430,16 +2439,15 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gu" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gv" = (
 /obj/structure/window/reinforced{
@@ -2447,15 +2455,14 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gx" = (
 /obj/structure/window/reinforced{
@@ -2474,15 +2481,21 @@
 "gz" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gA" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gB" = (
 /obj/structure/cable{
@@ -2498,10 +2511,13 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gD" = (
 /obj/structure/rack,
@@ -2512,10 +2528,14 @@
 	dir = 1
 	},
 /obj/structure/sign/poster/contraband/random/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gE" = (
 /obj/structure/table/wood,
@@ -2534,7 +2554,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "gH" = (
 /obj/item/trash/spentcasing/shotgun,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
 /obj/structure/closet/secure_closet/bar,
@@ -2543,16 +2563,16 @@
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/reagent_containers/drinks/bottle/kahlua,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gK" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gL" = (
 /obj/effect/decal/cleanable/blood,
@@ -2563,18 +2583,18 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gN" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gO" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gP" = (
 /obj/structure/table,
@@ -2600,10 +2620,13 @@
 "gS" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gT" = (
 /obj/structure/cable{
@@ -2618,15 +2641,19 @@
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/engineering,
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gW" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -2637,7 +2664,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gX" = (
 /obj/structure/table/reinforced,
@@ -2645,7 +2672,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "gY" = (
 /obj/machinery/power/solar,
@@ -2664,10 +2691,10 @@
 /area/ruin/space/derelict/solar_control)
 "ha" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "hb" = (
 /obj/machinery/light/spot,
@@ -2676,25 +2703,24 @@
 "hc" = (
 /obj/item/storage/box/cups,
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "hd" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "he" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hf" = (
 /obj/structure/chair/office{
@@ -2706,10 +2732,10 @@
 "hg" = (
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hh" = (
 /obj/structure/window/reinforced{
@@ -2722,10 +2748,14 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hj" = (
 /obj/structure/table/reinforced,
@@ -2742,10 +2772,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hl" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hm" = (
 /obj/item/kirbyplants/large,
@@ -2754,13 +2785,13 @@
 "hn" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "ho" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
 /obj/structure/sign/poster/contraband/random/directional/east,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/crew_quarters)
 "hq" = (
 /obj/item/stack/ore/uranium,
@@ -2795,9 +2826,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "ramptop"
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/derelict/arrival)
 "hv" = (
 /obj/structure/cable{
@@ -2806,32 +2835,29 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Wing"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "ramptop"
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/derelict/arrival)
 "hw" = (
 /obj/structure/sink/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hy" = (
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hz" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -2841,17 +2867,23 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hB" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hC" = (
 /obj/structure/chair/stool,
@@ -2860,10 +2892,14 @@
 /area/ruin/space/derelict/hallway/primary)
 "hD" = (
 /obj/machinery/computer/monitor/secret,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hE" = (
 /obj/structure/cable{
@@ -2892,52 +2928,52 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/dest_tagger,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hJ" = (
 /obj/structure/closet/crate{
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hK" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hN" = (
 /obj/structure/sink/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hO" = (
 /obj/structure/cable{
@@ -2953,10 +2989,13 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "hP" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hQ" = (
 /obj/structure/cable{
@@ -2967,10 +3006,11 @@
 /area/ruin/space/derelict/hallway/primary)
 "hR" = (
 /obj/machinery/computer/atmos_alert,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hS" = (
 /obj/structure/cable{
@@ -3003,10 +3043,10 @@
 /area/ruin/space/derelict/crew_quarters)
 "hX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hY" = (
 /turf/simulated/floor/plasteel,
@@ -3021,10 +3061,10 @@
 "ia" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ib" = (
 /obj/machinery/light/spot{
@@ -3032,10 +3072,10 @@
 	},
 /obj/structure/closet/l3closet/scientist,
 /obj/item/clothing/glasses/science,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ic" = (
 /obj/structure/table/reinforced,
@@ -3052,10 +3092,10 @@
 	info = "<i>A primitive rendition of a crying egg being stomped on by a boot has been scribbled in the right-hand margin of the paper.</i><br><br>Wahwahwah! True egghead! I do not give two shits about your cats or 'syence,' if you write to Chief I will tell that bitch Katerina about your baby boy crush.<br><br>Also, why you sign name on paper? I am next door, fuckhead, I know baby man note is yours as soon as I see it. You write girly letter like I am your lover, maybe if you spend less time in corner with cat you would be real man? Of course, you would still look like camel shit stuck to Totstoi's boot!";
 	name = "dear baby man"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "if" = (
 /obj/effect/spawner/window/shuttle,
@@ -3075,10 +3115,14 @@
 /area/ruin/space/derelict/hallway/primary)
 "ij" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ik" = (
 /obj/structure/rack,
@@ -3090,10 +3134,14 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Engineering Suit"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "im" = (
 /obj/structure/cable{
@@ -3140,10 +3188,10 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/derelict/arrival)
 "iv" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iw" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -3164,10 +3212,10 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iA" = (
 /obj/structure/closet/crate/can,
@@ -3177,10 +3225,10 @@
 	name = "love poem"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iB" = (
 /obj/structure/table/reinforced,
@@ -3188,9 +3236,8 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iC" = (
 /obj/structure/table/reinforced,
@@ -3202,10 +3249,10 @@
 	pixel_y = 8
 	},
 /obj/structure/sign/poster/contraband/random/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iE" = (
 /turf/simulated/floor/engine/vacuum,
@@ -3218,18 +3265,26 @@
 /area/ruin/space/derelict/hallway/primary)
 "iH" = (
 /obj/machinery/economy/vending/assist/free,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iI" = (
 /obj/structure/closet/firecloset,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iJ" = (
 /obj/structure/cable{
@@ -3291,27 +3346,27 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/sign/poster/contraband/communist_state/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iT" = (
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iU" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iW" = (
 /obj/machinery/door/airlock/science{
@@ -3322,10 +3377,10 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iX" = (
 /obj/structure/cable{
@@ -3339,10 +3394,10 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "iY" = (
 /obj/structure/lattice,
@@ -3368,19 +3423,23 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jc" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jd" = (
 /obj/structure/cable{
@@ -3439,9 +3498,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Docking Port"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3460,39 +3518,50 @@
 /area/ruin/space/derelict/arrival)
 "jr" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "js" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jt" = (
 /obj/item/trash/spentcasing/shotgun,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 4
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ju" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jv" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jw" = (
 /obj/structure/sign/radiation/rad_area{
@@ -3504,10 +3573,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jx" = (
 /obj/structure/cable{
@@ -3538,45 +3611,64 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jD" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jF" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 8
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jH" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jI" = (
 /obj/structure/table/wood/fancy,
@@ -3640,36 +3732,42 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 "jS" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict9"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jT" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict10"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jU" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict11"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jV" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict12"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jW" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict13"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jX" = (
 /obj/item/trash/spentcasing/bullet/medium,
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict14"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jY" = (
 /obj/structure/cable{
@@ -3678,17 +3776,19 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict15"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict16"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ka" = (
 /obj/structure/cable{
@@ -3773,9 +3873,8 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 4
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kj" = (
@@ -3791,20 +3890,24 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kl" = (
 /obj/machinery/door/airlock/external{
@@ -3883,10 +3986,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kv" = (
 /obj/structure/cable{
@@ -3904,9 +4010,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 8
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kx" = (
@@ -4035,86 +4140,105 @@
 	},
 /area/ruin/space/derelict/solar_control)
 "kL" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict1"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kM" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict2"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kN" = (
 /obj/item/trash/spentcasing/shotgun,
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict3"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kO" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict4"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kP" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict5"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kQ" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict6"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict7"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kS" = (
-/turf/simulated/floor/plasteel{
+/obj/effect/decal/station_sign{
 	icon_state = "derelict8"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kU" = (
 /obj/machinery/light/small,
 /obj/item/trash/spentcasing/bullet/medium,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kV" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 4
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kW" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kX" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kZ" = (
 /obj/structure/closet/radiation,
@@ -4125,10 +4249,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "redblue"
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "la" = (
 /obj/structure/cable{
@@ -4159,44 +4287,59 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lh" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "li" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 8
 	},
 /area/ruin/space/derelict/hallway/primary)
 "lj" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lk" = (
 /obj/structure/chair/wood{
@@ -4297,10 +4440,10 @@
 "ly" = (
 /obj/machinery/economy/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lz" = (
 /obj/structure/sign/botany,
@@ -4311,20 +4454,20 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lB" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lC" = (
 /obj/structure/cable{
@@ -4350,17 +4493,15 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lF" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lG" = (
 /obj/machinery/light/spot{
@@ -4392,17 +4533,16 @@
 "lK" = (
 /obj/structure/dispenser/oxygen,
 /obj/structure/sign/poster/contraband/communist_state/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lM" = (
 /obj/structure/rack,
@@ -4410,10 +4550,10 @@
 /obj/item/seeds/potato,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/sunflower,
-/turf/simulated/floor/plasteel/airless{
-	dir = 9;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "lN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4426,16 +4566,14 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "lQ" = (
 /obj/structure/closet/crate/hydroponics,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "lR" = (
 /obj/structure/table/wood,
@@ -4443,29 +4581,25 @@
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lS" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lV" = (
 /obj/structure/closet/crate/can,
@@ -4476,9 +4610,8 @@
 /obj/item/trash/tastybread,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/candy,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lW" = (
 /obj/structure/closet/coffin,
@@ -4526,10 +4659,10 @@
 "me" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mf" = (
 /obj/item/trash/spentcasing/bullet/medium,
@@ -4538,15 +4671,10 @@
 "mg" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 8;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
 	},
-/area/ruin/space/derelict/hallway/primary)
-"mh" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mj" = (
 /obj/structure/flora/rock/pile,
@@ -4554,10 +4682,10 @@
 /area/ruin/space/derelict/hallway/primary)
 "mk" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "ml" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -4567,31 +4695,27 @@
 /area/ruin/space/derelict/hallway/primary)
 "mn" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mo" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mq" = (
 /obj/machinery/economy/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mr" = (
 /obj/structure/closet/coffin,
@@ -4618,21 +4742,19 @@
 "mu" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mx" = (
 /obj/structure/closet/crate/can,
@@ -4640,10 +4762,10 @@
 	desc = "No honest comrade would wear this abomination";
 	name = "lucky underwear"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "my" = (
 /obj/item/shard{
@@ -4690,9 +4812,8 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/arrival)
 "mI" = (
@@ -4707,9 +4828,8 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/arrival)
 "mK" = (
@@ -4718,82 +4838,67 @@
 /area/ruin/space/derelict/arrival)
 "mL" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/airless{
-	dir = 8;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mM" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mN" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mO" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mP" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mQ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/crew_quarters)
 "mR" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "mS" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "mT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "mU" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "mV" = (
 /obj/machinery/computer/med_data,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "mW" = (
 /obj/structure/flora/rock,
@@ -4810,15 +4915,13 @@
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mZ" = (
 /mob/living/basic/cockroach,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "na" = (
 /obj/structure/cable{
@@ -4831,10 +4934,10 @@
 	dir = 8
 	},
 /obj/machinery/cooking/oven,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nb" = (
 /obj/structure/cable{
@@ -4845,10 +4948,10 @@
 	dir = 1
 	},
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nc" = (
 /obj/structure/table/reinforced,
@@ -4856,10 +4959,10 @@
 	dir = 1
 	},
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nd" = (
 /obj/item/stack/ore/iron,
@@ -4882,35 +4985,22 @@
 	icon_state = "showroomfloor"
 	},
 /area/ruin/space/derelict/crew_quarters)
-"ng" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "nh" = (
 /obj/structure/closet/athletic_mixed,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ni" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nj" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nk" = (
 /obj/item/firstaid_arm_assembly,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nl" = (
 /turf/simulated/floor/plasteel/airless{
@@ -4919,9 +5009,7 @@
 /area/ruin/space/derelict/arrival)
 "nm" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nn" = (
 /obj/structure/flora/rock/pile,
@@ -4932,10 +5020,10 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "np" = (
 /obj/structure/cable{
@@ -4972,39 +5060,25 @@
 	icon_state = "showroomfloor"
 	},
 /area/ruin/space/derelict/crew_quarters)
-"nu" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "nv" = (
 /obj/structure/closet/boxinggloves,
 /obj/structure/sign/poster/contraband/random/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nw" = (
 /obj/machinery/smartfridge,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nx" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "ny" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nz" = (
 /obj/structure/window/reinforced{
@@ -5014,10 +5088,10 @@
 /area/ruin/space/derelict/hallway/primary)
 "nA" = (
 /obj/machinery/hydroponics,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nB" = (
 /turf/simulated/floor/plasteel/white,
@@ -5030,9 +5104,7 @@
 "nD" = (
 /obj/structure/rack,
 /obj/item/soap,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nE" = (
 /obj/structure/rack,
@@ -5040,16 +5112,12 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nF" = (
 /obj/structure/table,
 /obj/item/clothing/head/headmirror,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nG" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5062,9 +5130,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nI" = (
 /obj/structure/cable{
@@ -5105,10 +5171,10 @@
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/head/soft/black,
 /obj/structure/closet,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nP" = (
 /obj/structure/chair/comfy/brown,
@@ -5133,9 +5199,8 @@
 "nS" = (
 /obj/structure/table/wood,
 /obj/item/food/soup/beetsoup,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "nT" = (
 /obj/structure/cable{
@@ -5155,36 +5220,31 @@
 	name = "suspicious button"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nV" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nW" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nX" = (
 /obj/structure/table,
 /obj/item/ashtray/bronze,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nY" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nZ" = (
 /obj/structure/cable{
@@ -5234,9 +5294,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oi" = (
 /obj/structure/cable{
@@ -5248,34 +5307,32 @@
 	},
 /obj/item/kitchen/rollingpin,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "oj" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "ok" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ol" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "om" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "on" = (
 /obj/item/stack/tile/plasteel,
@@ -5283,17 +5340,15 @@
 /area/ruin/space/derelict/arrival)
 "op" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oq" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "or" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5312,10 +5367,10 @@
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ou" = (
 /obj/structure/cable{
@@ -5341,17 +5396,15 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ox" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oy" = (
 /obj/structure/cable{
@@ -5359,9 +5412,8 @@
 	},
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oz" = (
 /obj/structure/table/reinforced,
@@ -5369,10 +5421,10 @@
 	dir = 8
 	},
 /obj/item/kitchen/knife/butcher,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitered"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "oA" = (
 /obj/structure/table/reinforced,
@@ -5382,19 +5434,17 @@
 /area/ruin/space/derelict/hallway/primary)
 "oB" = (
 /obj/item/beach_ball/holoball,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "oC" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "oD" = (
 /obj/structure/lattice,
@@ -5431,24 +5481,22 @@
 /area/ruin/space/derelict/arrival)
 "oK" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel/airless{
-	dir = 10;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oL" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oM" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oN" = (
 /obj/structure/cable{
@@ -5465,23 +5513,20 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oP" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards/black,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "oS" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5494,49 +5539,44 @@
 /obj/structure/rack,
 /obj/item/hatchet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oU" = (
 /obj/structure/rack,
 /obj/item/cultivator,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 6;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oV" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oX" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oY" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "oZ" = (
 /obj/structure/rack,
@@ -5546,29 +5586,26 @@
 /obj/machinery/newscaster/directional/east{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "pa" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pb" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pc" = (
 /obj/structure/sign/poster/contraband/random/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "orange"
+/obj/effect/turf_decal/tiles/department/chemistry/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pd" = (
 /obj/docking_port/stationary/whiteship{
@@ -5588,23 +5625,19 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ph" = (
 /obj/structure/holohoop{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pi" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "orange"
-	},
+/obj/effect/turf_decal/tiles/department/chemistry/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pk" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -5619,15 +5652,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
-"pn" = (
-/obj/machinery/door/airlock/hatch{
-	locked = 1;
-	name = "Storage Bay"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "po" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
@@ -5669,10 +5693,7 @@
 	},
 /obj/item/storage/bag/trash,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pv" = (
 /obj/structure/table,
@@ -5703,15 +5724,12 @@
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pA" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "pB" = (
 /obj/structure/cable{
@@ -5729,10 +5747,7 @@
 	},
 /obj/structure/rack,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pE" = (
 /obj/structure/table,
@@ -5746,9 +5761,8 @@
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pH" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5762,9 +5776,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "pJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5776,10 +5788,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pL" = (
 /obj/structure/window/reinforced,
@@ -5820,16 +5829,12 @@
 /obj/structure/rack,
 /obj/item/roller,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "pT" = (
 /obj/structure/closet/l3closet,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "pU" = (
 /obj/structure/window/reinforced{
@@ -5880,15 +5885,13 @@
 /area/ruin/space/derelict/crew_quarters)
 "pY" = (
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qa" = (
@@ -5938,9 +5941,7 @@
 /area/ruin/space/derelict/arrival)
 "qg" = (
 /obj/structure/closet/body_bag,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qh" = (
 /obj/structure/sign/examroom,
@@ -5948,29 +5949,25 @@
 /area/ruin/space/derelict/arrival)
 "qi" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qj" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ql" = (
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qm" = (
 /obj/machinery/economy/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qn" = (
 /obj/structure/window/reinforced,
@@ -6009,29 +6006,28 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qt" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qu" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qx" = (
 /obj/structure/cable{
@@ -6043,9 +6039,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qz" = (
 /obj/machinery/light/spot{
@@ -6055,10 +6050,10 @@
 /obj/machinery/newscaster/directional/east{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qA" = (
 /mob/living/basic/giant_spider/hunter,
@@ -6076,9 +6071,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qD" = (
 /obj/structure/cable{
@@ -6088,9 +6081,7 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qE" = (
 /obj/structure/cable{
@@ -6099,24 +6090,22 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qF" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qG" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qI" = (
 /obj/structure/closet/crate/can,
@@ -6126,9 +6115,8 @@
 /obj/item/reagent_containers/syringe/charcoal{
 	list_reagents = list("charcoal" = 13, "salmonella" = 2)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qJ" = (
 /obj/machinery/door/airlock/hatch{
@@ -6147,9 +6135,7 @@
 	name = "Medical Wing";
 	welded = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qM" = (
 /obj/structure/chair/stool,
@@ -6159,9 +6145,8 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qO" = (
 /obj/structure/window/reinforced,
@@ -6187,16 +6172,16 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "qR" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qS" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qT" = (
 /obj/structure/window/reinforced,
@@ -6236,25 +6221,21 @@
 "qY" = (
 /obj/structure/sign/poster/contraband/random/directional/south,
 /obj/item/rack_parts,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qZ" = (
 /obj/item/clothing/under/retro/medical,
 /obj/item/clothing/under/retro/medical,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "ra" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rb" = (
 /obj/structure/cable{
@@ -6290,27 +6271,26 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ri" = (
 /obj/structure/cable{
@@ -6319,39 +6299,35 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rj" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rk" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rl" = (
 /obj/structure/rack,
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rm" = (
 /obj/effect/spawner/random/loot_crate,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ro" = (
 /obj/structure/sign/greencross,
@@ -6362,10 +6338,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rq" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rr" = (
 /obj/structure/cable{
@@ -6409,30 +6385,28 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "ru" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rv" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rw" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rx" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ry" = (
 /obj/structure/cable{
@@ -6488,55 +6462,51 @@
 /area/ruin/space/derelict/arrival)
 "rC" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rD" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rF" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rG" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rH" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rI" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
@@ -6547,9 +6517,8 @@
 	info = "That idiot bastard Totstoi found my button. Stupid drunk was trying to put change into the free cigarette machine and dropped it. Lo' and behold, dumbass decides to look under the machine for his precious rubles.<br><br>Thankfully that green-livered swine cares more about drink than anything else, managed to buy him off. Will have to move the switch somewhere else now, but where?";
 	name = "worn paper"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rK" = (
 /obj/structure/window/reinforced{
@@ -6586,9 +6555,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rO" = (
 /obj/machinery/light/spot,
@@ -6596,10 +6564,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rP" = (
 /obj/structure/cable{
@@ -6612,9 +6580,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rQ" = (
 /obj/structure/cable{
@@ -6624,9 +6591,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rR" = (
 /obj/structure/cable{
@@ -6638,9 +6604,8 @@
 	initialize_directions = 10
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rS" = (
 /obj/machinery/light/spot,
@@ -6648,17 +6613,16 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/communist_state/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rU" = (
 /obj/structure/window/reinforced{
@@ -6691,9 +6655,8 @@
 "rX" = (
 /obj/structure/table,
 /obj/machinery/computer/library,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rY" = (
 /obj/item/cautery,
@@ -6855,10 +6818,10 @@
 "vm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "xi" = (
 /obj/effect/spawner/random/fungus/frequent,
@@ -6882,9 +6845,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "Ci" = (
 /mob/living/basic/pirate/ranged,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "Ef" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6911,16 +6872,14 @@
 /area/ruin/space/derelict/crew_quarters)
 "PR" = (
 /mob/living/basic/pirate,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "Sv" = (
 /obj/item/flag/ussp,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "Tc" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -6943,9 +6902,7 @@
 	icon_state = "1-2"
 	},
 /mob/living/basic/pirate/ranged,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "Za" = (
 /obj/structure/chair/comfy/shuttle{
@@ -9449,7 +9406,7 @@ kj
 kW
 lA
 lN
-mh
+lO
 jA
 mL
 mW
@@ -10208,7 +10165,7 @@ ii
 nn
 ja
 jA
-mh
+lO
 lO
 oL
 eg
@@ -10301,10 +10258,10 @@ ac
 ak
 if
 nA
-mh
+lO
 lO
 os
-mh
+lO
 oT
 eg
 ac
@@ -12654,10 +12611,10 @@ ac
 aV
 dH
 aV
-ng
-ng
-ng
-pn
+db
+db
+db
+qW
 pw
 pw
 db
@@ -12746,12 +12703,12 @@ ac
 aV
 dH
 bm
-ng
-ng
-ng
-ng
-ng
-pn
+db
+db
+db
+db
+db
+qW
 px
 db
 db
@@ -12932,7 +12889,7 @@ bm
 bm
 ne
 ns
-ng
+db
 nW
 db
 db
@@ -13026,7 +12983,7 @@ mD
 bm
 nf
 nt
-ng
+db
 nW
 db
 db
@@ -13118,9 +13075,9 @@ lX
 ms
 hT
 mQ
-ng
-ng
-nu
+db
+db
+dJ
 nW
 db
 db
@@ -13212,9 +13169,9 @@ hU
 hU
 hT
 bm
-ng
-nu
-ng
+db
+dJ
+db
 nV
 ol
 ol
@@ -13306,9 +13263,9 @@ hU
 hU
 hU
 mQ
-ng
-ng
-ng
+db
+db
+db
 nX
 om
 oC
