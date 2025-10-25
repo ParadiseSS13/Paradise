@@ -12,6 +12,7 @@
 				/obj/item/stack/sheet/leather = 4)
 	time = 5 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_helmet
 	name = "Durathread Helmet"
@@ -20,6 +21,7 @@
 				/obj/item/stack/sheet/leather = 5)
 	time = 4 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_hardhat
 	name = "Durathread Hard Hat"
@@ -30,6 +32,7 @@
 				/obj/item/light/bulb = 1)
 	time = 4 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
@@ -37,6 +40,7 @@
 	reqs = list(/obj/item/stack/sheet/durathread = 4)
 	time = 4 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_beret
 	name = "Durathread Beret"
@@ -44,6 +48,7 @@
 	reqs = list(/obj/item/stack/sheet/durathread = 2)
 	time = 4 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_beanie
 	name = "Durathread Beanie"
@@ -51,6 +56,7 @@
 	reqs = list(/obj/item/stack/sheet/durathread = 2)
 	time = 4 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/durathread_bandana
 	name = "Durathread Bandana"
@@ -58,6 +64,7 @@
 	reqs = list(/obj/item/stack/sheet/durathread = 1)
 	time = 2.5 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/fannypack
 	name = "Fannypack"
@@ -66,6 +73,7 @@
 				/obj/item/stack/sheet/leather = 1)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogsec
 	name = "Security HUD goggles"
@@ -76,6 +84,7 @@
 				/obj/item/clothing/glasses/goggles = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogsec/New()
 	..()
@@ -88,6 +97,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security/goggles = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgoghealth
 	name = "Health HUD goggles"
@@ -98,6 +108,7 @@
 				/obj/item/clothing/glasses/goggles = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgoghealth/New()
 	..()
@@ -110,6 +121,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health/goggles = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogdiagnostic
 	name = "Diagnostic HUD goggles"
@@ -120,6 +132,7 @@
 				/obj/item/clothing/glasses/goggles = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogdiagnostic/New()
 	..()
@@ -132,6 +145,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/goggles = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgoghydroponic
 	name = "Hydroponic HUD goggles"
@@ -142,6 +156,7 @@
 				/obj/item/clothing/glasses/goggles = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgoghydroponic/New()
 	..()
@@ -154,6 +169,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/goggles = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogskills
 	name = "Skills HUD goggles"
@@ -164,6 +180,7 @@
 				/obj/item/clothing/glasses/goggles = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudgogskills/New()
 	..()
@@ -176,6 +193,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/skills/goggles = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunskills
 	name = "Skills HUD sunglasses"
@@ -186,6 +204,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunskills/New()
 	..()
@@ -199,6 +218,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/skills/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunsec
 	name = "Security HUDsunglasses"
@@ -209,6 +229,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunsec/New()
 	..()
@@ -222,6 +243,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunmed
 	name = "Medical HUDsunglasses"
@@ -232,6 +254,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunmed/New()
 	..()
@@ -245,6 +268,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsundiag
 	name = "Diagnostic HUDsunglasses"
@@ -255,6 +279,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsundiag/New()
 	..()
@@ -268,6 +293,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunjani
 	name = "Janitor HUD sunglasses"
@@ -278,6 +304,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunjani/New()
 	..()
@@ -291,6 +318,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/janitor/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunmeson
 	name = "Meson HUD sunglasses"
@@ -301,6 +329,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsunmeson/New()
 	..()
@@ -314,6 +343,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsyndiesun
 	name = "Suspicious sunglasses"
@@ -323,6 +353,7 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/clothing/glasses/syndie = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/hudsyndiesunremoval
 	name = "Suspicious glasses flash protection removal"
@@ -332,6 +363,7 @@
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/syndie_sun = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/beergoggles
 	name = "Sunscanners"
@@ -342,6 +374,7 @@
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/beergoggles/New()
 	..()
@@ -355,6 +388,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/shaded_tajblind
 	name = "Shaded Tajaran veil"
@@ -364,6 +398,7 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_tajblind/New()
 	..()
@@ -377,6 +412,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_tajblind_removal/New()
 	..()
@@ -390,6 +426,7 @@
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/engi_tajblind/New()
 	..()
@@ -403,6 +440,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/engi_tajblind_removal/New()
 	..()
@@ -416,6 +454,7 @@
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_engi_tajblind/New()
 	..()
@@ -428,6 +467,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_engi_tajblind_removal/New()
 	..()
@@ -441,6 +481,7 @@
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/cargo_tajblind/New()
 	..()
@@ -454,6 +495,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson/cargo = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_cargo_tajblind
 	name = "Shaded Tajaran mining meson veil"
@@ -463,6 +505,7 @@
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_cargo_tajblind/New()
 	..()
@@ -475,6 +518,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/sci_tajblind
 	name = "Tajaran scientific veil"
@@ -484,6 +528,7 @@
 	reqs = list(/obj/item/clothing/glasses/science = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/sci_tajblind/New()
 	..()
@@ -496,6 +541,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sci = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_sci_tajblind
 	name = "Shaded Tajaran scientific veil"
@@ -505,6 +551,7 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_sci_tajblind/New()
 	..()
@@ -517,6 +564,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sci = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/med_tajblind
 	name = "Tajaran medical veil"
@@ -526,6 +574,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/med_tajblind/New()
 	..()
@@ -539,6 +588,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/med = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_med_tajblind
 	name = "Shaded Tajaran medical veil"
@@ -548,6 +598,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_med_tajblind/New()
 	..()
@@ -560,6 +611,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/med = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/sec_tajblind
 	name = "Tajaran security veil"
@@ -569,6 +621,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/sec_tajblind/New()
 	..()
@@ -582,6 +635,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sec = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_sec_tajblind
 	name = "Shaded Tajaran security veil"
@@ -591,6 +645,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses = 1,
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/shaded_sec_tajblind/New()
 	..()
@@ -603,6 +658,172 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sec = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/skill_tajblind
+	name = "Tajaran skills veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/skill)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/skill_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/skills)
+
+/datum/crafting_recipe/skill_tajblind_removal
+	name = "Tajaran skills veil removal"
+	result = list(/obj/item/clothing/glasses/hud/skills, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/skill = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_skill_tajblind
+	name = "Shaded Tajaran skill veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/skill)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_skill_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shaded_skill_tajblind_removal
+	name = "Shaded Tajaran skills veil removal"
+	result = list(/obj/item/clothing/glasses/hud/skills/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/skill = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/jani_tajblind
+	name = "Tajaran janitorial veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/jani)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/janitor = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/jani_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/janitor)
+
+/datum/crafting_recipe/jani_tajblind_removal
+	name = "Tajaran janitorial veil removal"
+	result = list(/obj/item/clothing/glasses/hud/janitor, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/jani = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_jani_tajblind
+	name = "Shaded Tajaran janitorial veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/jani)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/janitor/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_jani_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shaded_jani_tajblind_removal
+	name = "Shaded Tajaran janitorial veil removal"
+	result = list(/obj/item/clothing/glasses/hud/janitor/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/jani = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/diag_tajblind
+	name = "Tajaran diagnostic veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/diag)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/diag_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/diagnostic)
+
+/datum/crafting_recipe/diag_tajblind_removal
+	name = "Tajaran diagnostic veil removal"
+	result = list(/obj/item/clothing/glasses/hud/diagnostic, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/diag = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_diag_tajblind
+	name = "Shaded Tajaran diagnostic veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/diag)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/shaded_diag_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shaded_diag_tajblind_removal
+	name = "Shaded Tajaran diagnostic veil removal"
+	result = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/diag = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/hydro_tajblind
+	name = "Tajaran hydroponic veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/hydro)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
+
+/datum/crafting_recipe/hydro_tajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/hydroponic)
+
+/datum/crafting_recipe/hydro_tajblind_removal
+	name = "Tajaran hydroponic veil removal"
+	result = list(/obj/item/clothing/glasses/hud/hydroponic, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/hydro = 1)
+	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_RACIAL
 
 /datum/crafting_recipe/ghostsheet
 	name = "Ghost Sheet"
@@ -611,6 +832,7 @@
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/bedsheet = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/cowboyboots
 	name = "Cowboy Boots"
@@ -618,6 +840,7 @@
 	time = 4.5 SECONDS
 	reqs = list(/obj/item/stack/sheet/leather = 2)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/lizardboots
 	name = "Lizard Skin Boots"
@@ -625,6 +848,7 @@
 	time = 6 SECONDS
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1, /obj/item/stack/sheet/leather = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/rubberduckyshoes
 	name = "Rubber Ducky Shoes"
@@ -634,6 +858,7 @@
 	reqs = list(/obj/item/bikehorn/rubberducky = 2,
 				/obj/item/clothing/shoes/sandal = 1)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/salmonsuit
 	name = "Salmon Suit"
@@ -644,6 +869,7 @@
 				/obj/item/stack/tape_roll = 5)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/voice_modulator
 	name = "Voice Modulator Mask"
@@ -654,6 +880,7 @@
 				/obj/item/assembly/voice = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/flower_crown
 	name = "Flower Crown"
@@ -663,6 +890,7 @@
 				/obj/item/food/grown/lily = 3,
 				/obj/item/grown/sunflower = 3)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/sunflower_crown
 	name = "Sunflower Crown"
@@ -670,6 +898,7 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/grown/sunflower = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/poppy_crown
 	name = "Poppy Crown"
@@ -677,6 +906,7 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/food/grown/poppy = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/lily_crown
 	name = "Lily Crown"
@@ -684,6 +914,7 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/food/grown/lily = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 /datum/crafting_recipe/geranium_crown
 	name = "Geranium Crown"
@@ -691,5 +922,6 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/food/grown/geranium = 5)
 	category = CAT_CLOTHING
+	subcategory = CAT_CLOTHING_GENERAL
 
 #undef ALLOWED_INGREDIENT_SUNGLASSES
