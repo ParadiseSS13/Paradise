@@ -589,7 +589,7 @@
 	. += "<span class='notice'>Two smaller clouds of particulate are swirling around in this canister. It will likely form into two anomalies.</span>"
 
 /obj/item/grenade/anomalous_canister/condensed
-	name = "condesed anomalous particulate canister"
+	name = "condensed anomalous particulate canister"
 	icon_state = "anomalous_canister_condensed"
 	anomaly_lifetime = 90 SECONDS
 
@@ -604,7 +604,7 @@
 
 /obj/item/grenade/anomalous_canister/stabilized/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The predicted result is for the cloud to condense into is displayed as \an [anomaly_type::name]!</span>"
+	. += "<span class='notice'>The predicted result for the cloud to condense into is displayed as \an [anomaly_type::name]!</span>"
 
 /obj/effect/abstract/dummy_mini_spawner
 
@@ -617,7 +617,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/grenade/anomalous_canister/mini
-	name = "miniture anomalous particulate canister"
+	name = "miniature anomalous particulate canister"
 	desc = "This small sphere contains a small cloud of particulate. Likely won't form an anomally, but should still have a noticable impact"
 	icon_state = "anomalous_canister_mini"
 	w_class = 1
