@@ -44,6 +44,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	/// If the objective needs another person with a paired objective
+	var/needs_pair = FALSE
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	SHOULD_CALL_PARENT(TRUE)
@@ -609,7 +611,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/found_target()
 	return steal_target
-
+/// MARK: Steal
 /datum/objective/steal/is_valid_exfiltration()
 	if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
 		return FALSE
@@ -999,3 +1001,59 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			if(!our_objective.check_completion())
 				return FALSE
 	return TRUE
+
+/datum/objective/steal/exchange
+	name = "Document Exchange"
+	var/betrayal = FALSE
+	var/mob/living/opponent
+	var/team_color
+
+/datum/objective/steal/exchange/red
+	steal_target = /datum/theft_objective/unique/docs_blue
+	team_color = EXCHANGE_TEAM_RED
+
+/datum/objective/steal/exchange/blue
+	steal_target = /datum/theft_objective/unique/docs_red
+	team_color = EXCHANGE_TEAM_BLUE
+
+/datum/objective/steal/exchange/find_target(list/target_blacklist)
+	give_kit(steal_target.special_equipment)
+	if(prob(20)) // With two 20% chances there's a 36% chance any given exchange will have a betrayal. Corporate espionage is a ruthless game
+		betrayal = TRUE
+
+/datum/objective/steal/exchange/proc/pair_up(datum/objective/steal/exchange/pair, recursive = FALSE)
+	if(pair == src)
+		return
+	opponent = pair.owner.current
+	find_target()
+	update_explanation_text()
+	var/list/messages = owner.prepare_announce_objectives(FALSE)
+	to_chat(owner.current, chat_box_red(messages.Join("<br>"))) // Sending the message to the mind made testing really annoying so we send it to the mob
+	if(recursive) // Automatically have the other objective pair as well, but make sure it doesn't infinite loop
+		pair.pair_up(src)
+
+/datum/objective/steal/exchange/check_completion()
+	if(!..())
+		return FALSE
+	if(!betrayal)
+		return TRUE
+	for(var/datum/mind/M in get_owners())
+		if(!M.current)
+			continue
+		for(var/obj/I in M.current.GetAllContents())
+			if(istype(I, steal_target.special_equipment))
+				return TRUE
+	return FALSE
+
+/datum/objective/steal/exchange/Destroy()
+	opponent = null
+	..()
+
+/datum/objective/steal/exchange/update_explanation_text()
+	if(!opponent)
+		explanation_text = "The person you were supposed to trade with didn't show up."
+	if(!betrayal)
+		explanation_text = "Exchange your secret documents for [steal_target.name]. Arrange a meeting with [opponent] and make the trade."
+		return
+	explanation_text = "[opponent] thinks you're going to exchange your secret documents for [steal_target.name]. Steal their documents, and keep your own."
+
