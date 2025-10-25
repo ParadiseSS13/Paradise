@@ -5,7 +5,7 @@
 	plasma_cost = 50
 	selection_activated_message		= "<span class='notice'><B>Your prepare some neurotoxin!</B></span>"
 	selection_deactivated_message	= "<span class='notice'><B>You swallow your prepared neurotoxin.</B></span>"
-	var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin
+	var/neurotoxin_type = /obj/projectile/bullet/neurotoxin
 	action_icon_state = "alien_neurotoxin_0"
 
 /datum/spell/alien_spell/neurotoxin/create_new_targeting()
@@ -24,7 +24,7 @@
 	if(!istype(U) || !istype(T))
 		return FALSE
 
-	var/obj/item/projectile/bullet/neurotoxin/neurotoxin = new neurotoxin_type(user.loc)
+	var/obj/projectile/bullet/neurotoxin/neurotoxin = new neurotoxin_type(user.loc)
 	neurotoxin.current = get_turf(user)
 	neurotoxin.original = target
 	neurotoxin.firer = user
@@ -36,5 +36,5 @@
 
 /datum/spell/alien_spell/neurotoxin/death_to_xenos
 	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
-	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin
+	neurotoxin_type = /obj/projectile/bullet/anti_alien_toxin
 	base_cooldown = 2 SECONDS

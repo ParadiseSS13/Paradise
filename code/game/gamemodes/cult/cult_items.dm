@@ -461,7 +461,7 @@
 
 		// Hit by a projectile
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
 			if(P.damage_type == BRUTE)
@@ -663,17 +663,17 @@
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
 
 /obj/item/ammo_casing/magic/arcane_barrage/blood
-	projectile_type = /obj/item/projectile/magic/arcane_barrage/blood
+	projectile_type = /obj/projectile/magic/arcane_barrage/blood
 	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
 
-/obj/item/projectile/magic/arcane_barrage/blood
+/obj/projectile/magic/arcane_barrage/blood
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
 	hitsound = 'sound/effects/splat.ogg'
 
-/obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
+/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
 	if(IS_CULTIST(target))
 		damage = 0
 		nodamage = TRUE

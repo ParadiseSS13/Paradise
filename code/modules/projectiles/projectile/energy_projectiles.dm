@@ -1,4 +1,4 @@
-/obj/item/projectile/energy
+/obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
@@ -6,7 +6,7 @@
 	flag = "energy"
 	reflectability = REFLECTABILITY_ENERGY
 
-/obj/item/projectile/energy/electrode
+/obj/projectile/energy/electrode
 	name = "electrode"
 	color = "#FFFF00"
 	nodamage = 1
@@ -17,7 +17,7 @@
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
-/obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
@@ -30,11 +30,11 @@
 			spawn(5)
 				C.Jitter(jitter)
 
-/obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
+/obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
 	..()
 
-/obj/item/projectile/energy/declone
+/obj/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
 	damage = 20
@@ -42,7 +42,7 @@
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/bolt
+/obj/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
@@ -52,12 +52,12 @@
 	knockdown = 2 SECONDS
 	slur = 10 SECONDS
 
-/obj/item/projectile/energy/bolt/large
+/obj/projectile/energy/bolt/large
 	damage = 20
 
 #define BSG_BASE_DAMAGE 90
 
-/obj/item/projectile/energy/bsg
+/obj/projectile/energy/bsg
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
@@ -71,23 +71,23 @@
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
-	var/obj/item/projectile/energy/bsg/P = BB
-	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/energy/bsg, make_chain), P, user), 1)
+	var/obj/projectile/energy/bsg/P = BB
+	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/projectile/energy/bsg, make_chain), P, user), 1)
 
-/obj/item/projectile/energy/bsg/proc/make_chain(obj/item/projectile/P, mob/user)
+/obj/projectile/energy/bsg/proc/make_chain(obj/projectile/P, mob/user)
 	P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)
 
-/obj/item/projectile/energy/bsg/on_hit(atom/target)
+/obj/projectile/energy/bsg/on_hit(atom/target)
 	. = ..()
 	kaboom(target)
 	qdel(src)
 
-/obj/item/projectile/energy/bsg/on_range()
+/obj/projectile/energy/bsg/on_range()
 	kaboom()
 	new /obj/effect/temp_visual/bsg_kaboom(loc)
 	..()
 
-/obj/item/projectile/energy/bsg/proc/kaboom(atom/target)
+/obj/projectile/energy/bsg/proc/kaboom(atom/target)
 	// If a lens is modifying the damage of the projectile, the AOE should be impacted as well
 	var/damage_multiplier = damage / BSG_BASE_DAMAGE
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
@@ -122,12 +122,12 @@
 
 #undef BSG_BASE_DAMAGE
 
-/obj/item/projectile/energy/weak_plasma
+/obj/projectile/energy/weak_plasma
 	name = "plasma bolt"
 	icon_state = "plasma_light"
 	damage = 12.5
 
-/obj/item/projectile/homing/charged_plasma
+/obj/projectile/homing/charged_plasma
 	name = "charged plasma bolt"
 	icon_state = "plasma_heavy"
 	damage = 45
@@ -137,7 +137,7 @@
 	shield_buster = TRUE
 	var/reached_target = FALSE
 
-/obj/item/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
+/obj/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
 	homing_active = FALSE
 	if(isturf(original))
 		return ..() //It gets weird if it is a turf. Turfs don't move anyway.
@@ -155,13 +155,13 @@
 
 #define ARC_REVOLVER_BASE_DAMAGE 10
 
-/obj/item/projectile/energy/arc_revolver
+/obj/projectile/energy/arc_revolver
 	name = "arc emitter"
 	icon_state = "plasma_light"
 	damage = ARC_REVOLVER_BASE_DAMAGE
 	var/charge_number = null
 
-/obj/item/projectile/energy/arc_revolver/on_hit(atom/target)
+/obj/projectile/energy/arc_revolver/on_hit(atom/target)
 	. = ..()
 	for(var/obj/effect/E in target)
 		if(istype(E, /obj/effect/abstract/arc_revolver))

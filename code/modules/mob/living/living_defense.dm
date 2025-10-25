@@ -46,7 +46,7 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armor_penetration_flat = P.armor_penetration_flat, armor_penetration_percentage = P.armor_penetration_percentage)
@@ -57,7 +57,7 @@
 	return P.on_hit(src, armor, def_zone)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons. Advised to overide with advanced effects, this is as basic example admins can apply.
-/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
@@ -79,7 +79,7 @@
 		advanced_bullet_dodge_chance = 0
 	return ATOM_PREHIT_FAILURE
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
 ///As the name suggests, this should be called to apply electric shocks.

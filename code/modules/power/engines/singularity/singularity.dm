@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	return
 
 
-/obj/singularity/bullet_act(obj/item/projectile/P)
+/obj/singularity/bullet_act(obj/projectile/P)
 	qdel(P)
 	return 0 //Will there be an impact? Who knows. Will we see it? No.
 

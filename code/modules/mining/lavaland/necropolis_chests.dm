@@ -243,7 +243,7 @@
 	if(berserk_active)
 		return
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			return //no disabler rage
 	var/berserk_value = damage * DAMAGE_TO_CHARGE_SCALE

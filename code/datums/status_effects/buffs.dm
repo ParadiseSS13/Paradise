@@ -922,8 +922,8 @@
 			if(L.affects_vampire(owner))
 				L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 			continue
-		if(istype(AM, /obj/item/projectile))
-			var/obj/item/projectile/P = AM
+		if(istype(AM, /obj/projectile))
+			var/obj/projectile/P = AM
 			if(P.flag == ENERGY || P.flag == LASER)
 				P.damage *= 0.85
 
