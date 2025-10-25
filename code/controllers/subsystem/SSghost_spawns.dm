@@ -44,7 +44,11 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * role_cleanname - The name override to display to clients
   */
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason, dont_play_notice_sound = FALSE)
-	log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
+	var/mob/mob_source = source
+	if(role == ROLE_SENTIENT && istype(mob_source))
+		log_debug("Polling candidates for sentient mob `[mob_source.type]` for [poll_time / 10] seconds")
+	else
+		log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
 	polls_active = TRUE
