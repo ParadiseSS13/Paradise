@@ -567,7 +567,7 @@ SLIME SCANNER
 					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level > 1)
 						continue
 					organ_found = TRUE
-					msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
+					msgs += "[capitalize(O.name)]: <font color='red'>[O.status & ORGAN_DEAD ? "CRITICAL FAILURE" : O.damage]</font>"
 			if(!organ_found)
 				msgs += "<span class='warning'>No prosthetics located.</span>"
 			msgs += "<hr>"
@@ -578,7 +578,7 @@ SLIME SCANNER
 					if(I.stealth_level > 1)
 						continue
 					organ_found = TRUE
-					msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
+					msgs += "[capitalize(I.name)]: <font color='red'>[(I.crit_fail || I.status & ORGAN_DEAD) ? "CRITICAL FAILURE" : I.damage]</font>"
 			if(!organ_found)
 				msgs += "<span class='warning'>No implants located.</span>"
 			msgs += "<hr>"
