@@ -15,6 +15,8 @@
 	var/job_possession = TRUE
 	/// Any extra information about the objective
 	var/extra_information = ""
+	/// Do we overide naming to not say steal at the front?
+	var/objective_name_overide = null
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -34,6 +36,9 @@
 
 /datum/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
+
+/datum/theft_objective/proc/on_hand_out_equipment(datum/objective/steal/our_objective)
+	return
 
 /datum/theft_objective/antique_laser_gun
 	name = "the captain's antique laser gun"
@@ -154,6 +159,24 @@
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
+
+/datum/theft_objective/anomalous_particulate
+	name = "Anomalous particulate."
+	objective_name_overide = "Collect 3 clouds of anomalous particulate, and return with the PPPProcessor. Check your bag for further instructions"
+	special_equipment = /obj/item/storage/box/syndie_kit/anomalous_particulate
+	job_possession = FALSE
+
+/datum/theft_objective/anomalous_particulate/on_hand_out_equipment(datum/objective/steal/our_objective)
+	. = ..()
+	var/our_chosen_owner = our_objective.get_owners()
+	GLOB.anomaly_smash_track.add_tracked_mind(our_chosen_owner[1])
+
+/datum/theft_objective/anomalous_particulate/check_special_completion(obj/item/I)
+	if(!istype(I, /obj/item/ppp_processor))
+		return FALSE
+	var/obj/item/ppp_processor/did_we_process = I
+	if(did_we_process.fully_processed_particulate)
+		return TRUE
 
 /datum/theft_objective/engraved_dusters
 	name = "the quartermaster's engraved knuckledusters"

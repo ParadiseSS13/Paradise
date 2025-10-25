@@ -595,6 +595,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/theft_area
 	var/datum/theft_objective/steal_target
 
+/datum/objective/incriminate
+	name = "Incriminate"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to incriminate a crew member for a major level crime without revealing yourself. You will receive further information in a few minutes."
+	completed = TRUE
+
+/datum/objective/incriminate/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Deceive the station. Incriminate [target.current.real_name], the [target.assigned_role] for a major level crime and ensure that you are not revealed as the perpetrator."
+	else
+		explanation_text = "Free Objective"
+
 /datum/objective/steal/found_target()
 	return steal_target
 
@@ -632,7 +644,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		steal_target = O
 		update_explanation_text()
 		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+			hand_out_equipment()
 		return
 	explanation_text = "Free Objective."
 
@@ -667,9 +679,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/proc/hand_out_equipment()
+	steal_target?.on_hand_out_equipment(src)
 	give_kit(steal_target?.special_equipment)
 
 /datum/objective/steal/update_explanation_text()
+	if(steal_target.objective_name_overide)
+		explanation_text = steal_target.objective_name_overide
+		explanation_text += steal_target.extra_information
+		return
+
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
 		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "

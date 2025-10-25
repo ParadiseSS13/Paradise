@@ -261,6 +261,9 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+/datum/status_effect/bluespace_slowdown/long
+	duration = 1 MINUTES
+
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null
@@ -681,6 +684,7 @@
 		dreamer.adjustFireLoss(-1 * comfort)
 	if(prob(10) && dreamer.health && dreamer.health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 		dreamer.emote("snore")
+	SEND_SIGNAL(owner, COMSIG_MOB_SLEEP_TICK, comfort)
 
 
 //SLOWED - slows down the victim for a duration and a given slowdown value.

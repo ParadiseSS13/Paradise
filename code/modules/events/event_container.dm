@@ -195,7 +195,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/shuttle_loan, 50, is_one_shot = TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/shuttle_loan, 50, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Anomalous Particulate",	/datum/event/anomalous_particulate_event, 250, is_one_shot = TRUE),
 	)
 
 /datum/event_container/major
