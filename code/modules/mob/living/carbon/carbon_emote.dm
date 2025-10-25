@@ -185,7 +185,7 @@
 			var/shot_leg = pick("l_foot", "r_foot")
 			gun.process_fire(user, user, 0, params, zone_override = shot_leg)
 			user.drop_item()
-		else if(prob(50) && !HAS_TRAIT(user, TRAIT_BADASS))
+		else if(prob(50) && !(HAS_TRAIT(user, TRAIT_BADASS) || HAS_TRAIT(user, TRAIT_COOL)))
 			message = "attempts to twirl [thing] around in their hand, but fumbles!"
 			user.drop_item()
 		else
