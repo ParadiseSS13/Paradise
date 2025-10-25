@@ -15,12 +15,13 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	/// The current overlay of the top shelf. Used for interleaving objects and shelf layers for the illusion of depth.
 	var/image/shelf_overlay
 	var/build_stack_type = /obj/item/stack/sheet/metal
+	var/shelf_type = /datum/component/shelver/basic_shelf
 	COOLDOWN_DECLARE(spraypaint_cd)
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
-	AddComponent(/datum/component/shelver/basic_shelf, random_pickup_locations_ = istype(A, /area/station/maintenance) || istype(A, /area/ruin/lavaland_relay))
+	AddComponent(shelf_type, random_pickup_locations_ = istype(A, /area/station/maintenance) || istype(A, /area/ruin/lavaland_relay))
 	update_icon()
 	set_style(shelf_style)
 
@@ -123,6 +124,12 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	icon_state = "shelf_wood"
 	shelf_style = "wood"
 	build_stack_type = /obj/item/stack/sheet/wood
+
+/obj/structure/shelf/spice_rack
+	name = "spice rack"
+	icon_state = "shelf_spice_rack"
+	shelf_style = "spice_rack"
+	shelf_type = /datum/component/shelver/spice_rack
 
 /obj/structure/gunrack
 	name = "gun rack"
