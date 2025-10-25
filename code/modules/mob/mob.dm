@@ -76,6 +76,7 @@
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
 		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
+		ANOMALOUS_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
