@@ -34,6 +34,7 @@
 	set_default_language(GLOB.all_languages["Galactic Common"])
 	AddElement(/datum/element/ai_retaliate)
 	update_icons()
+	AddComponent(/datum/component/event_tracker, EVENT_DRONE)
 
 /mob/living/basic/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	var/turf/T = get_turf(oldloc)

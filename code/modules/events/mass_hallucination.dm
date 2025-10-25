@@ -1,6 +1,9 @@
 /// at least 75% rad armor is required to be immune to this event
 #define RAD_ARMOR_TO_IMMUNITY 150
 
+/datum/event/mass_hallucination
+	name = "Mass Hallucination"
+
 /datum/event/mass_hallucination/setup()
 	announceWhen = rand(0, 20)
 

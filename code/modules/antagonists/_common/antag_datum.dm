@@ -554,4 +554,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
 	L.put_in_active_hand(extractor)
 
+/datum/antagonist/proc/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1)
+
 #undef SUCCESSFUL_DETACH
