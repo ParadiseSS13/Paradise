@@ -583,7 +583,7 @@
 	icon_state = "winterhood_coroner"
 
 /obj/item/clothing/suit/hooded/wintercoat/explorer
-	name = "Head of Personnel's winter coat"
+	name = "expedition winter coat"
 	icon_state = "wintercoat_exp"
 	inhand_icon_state = "coatexplorer"
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/t_scanner/adv_mining_scanner, /obj/item/storage/bag/ore, /obj/item/gun/energy/kinetic_accelerator)
