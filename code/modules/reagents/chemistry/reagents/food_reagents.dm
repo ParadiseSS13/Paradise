@@ -207,7 +207,7 @@
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
 	id = "condensedcapsaicin"
-	description = "This shit goes in pepperspray."
+	description = "This shit goes in pepper spray."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_description = "<span class='userdanger'>PURE FIRE</span>"
@@ -236,7 +236,7 @@
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
 	id = "frostoil"
-	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
+	description = "A special oil that noticeably chills the body. Extracted from chilly peppers."
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC

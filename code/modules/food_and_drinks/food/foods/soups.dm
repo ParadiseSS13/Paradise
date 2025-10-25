@@ -289,7 +289,7 @@
 
 /obj/item/food/soup/hong_kong_macaroni
 	name = "hong kong macaroni"
-	desc = "A favourite from Hong Kong's Cha Chaan Tengs, this macaroni soup came to Mars with Cantonese settlers under Cybersun Industries, and has become as much of a breakfast staple there as it is in its homeland."
+	desc = "A favorite from Hong Kong's Cha Chaan Tengs, this macaroni soup came to Mars with Cantonese settlers under Cybersun Industries, and has become as much of a breakfast staple there as it is in its homeland."
 	icon_state = "hong_kong_macaroni"
 	list_reagents = list("nutriment" = 8, "protein" = 2)
 	tastes = list("cream" = 1, "chicken" = 1, "pasta" = 1, "ham" =1)

@@ -142,7 +142,7 @@ do {\
 
 /obj/item/food/customizable/cook/donkpocket
 	name = "donk pocket"
-	desc = "You wanna put a bangin-Oh nevermind."
+	desc = "You wanna put a bangin- Oh, never mind."
 	icon_state = "donkcustom"
 	baseicon = "donkcustom"
 	basename = "donk pocket"
