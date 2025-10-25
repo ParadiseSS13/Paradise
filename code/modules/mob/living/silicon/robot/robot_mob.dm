@@ -1007,7 +1007,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			C.install(W)
 
 			var/been_hijacked = FALSE
-			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+			for(var/mob/living/basic/demon/pulse_demon/demon in cell)
 				if(!been_hijacked)
 					demon.do_hijack_robot(src)
 					been_hijacked = TRUE
@@ -1212,7 +1212,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(emagged)
 			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. [src] has already been emagged!</span>")
 			return
-			
+
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>You must close the wiring panel first!</span>")
 			return
@@ -1614,7 +1614,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
 		to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
-	
+
 	if(module)
 		module.emag_act(flayer)
 		module.module_type = "Malf" // For the cool factor.
@@ -1626,7 +1626,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/remove_robot_mindslave()
 	clear_zeroth_law()
-	if(mind)	
+	if(mind)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/emagged_robot)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/mindflayer_mindslave_robot)
