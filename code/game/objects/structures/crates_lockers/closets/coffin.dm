@@ -81,7 +81,7 @@
 
 /obj/structure/closet/coffin/vampire/burn()
 	playsound(src, 'sound/hallucinations/wail.ogg', 20, extrarange = SOUND_RANGE_SET(5))
-	src.visible_message("<span class='danger'>Fire burst out from [name] as it falls apart!</span>")
+	src.visible_message("<span class='danger'>Fire bursts out from [name] as it falls apart!</span>")
 	for(var/turf/T in range(1, src))
 		new /obj/effect/fire(T, T20C, 30 SECONDS, 1)
 	..()
