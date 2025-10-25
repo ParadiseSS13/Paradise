@@ -4,13 +4,21 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	anchored = TRUE
-	idle_power_consumption = 5
-	active_power_consumption = 60
+	idle_power_consumption = 4
+	active_power_consumption = 200
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
-	/// Cell charge rate (Watts)
-	var/charge_rate = 500
+	/// Charge rate multiplier.
+	var/recharge_coeff = 1
+
+/obj/machinery/cell_charger/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There's [charging ? "\a [charging.name]" : "no cell"] in [src].</span>"
+	if(charging && !(stat & (NOPOWER|BROKEN)))
+		. += "<span class='notice'>Current charge: <b>[round(charging.percent(), 1)]%</b></span>"
+		if(charging.percent() < 100)
+			. += "<span class='notice'>- Recharging <b>[((charging.chargerate * recharge_coeff) / charging.maxcharge) * 100]%</b> cell charge per cycle.</span>"
 
 /obj/machinery/cell_charger/Initialize(mapload)
 	. = ..()
@@ -52,12 +60,6 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	. += "ccharger-o[chargelevel]"
-
-/obj/machinery/cell_charger/examine(mob/user)
-	. = ..()
-	. += "There's [charging ? "a" : "no"] cell in the charger."
-	if(charging)
-		. += "Current charge: [round(charging.percent(), 1)]%"
 
 /obj/machinery/cell_charger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stock_parts/cell) && !panel_open)
@@ -143,9 +145,8 @@
 	..(severity)
 
 /obj/machinery/cell_charger/RefreshParts()
-	charge_rate = 500
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		charge_rate *= C.rating
+		recharge_coeff = C.rating
 
 /obj/machinery/cell_charger/process()
 	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
@@ -154,8 +155,8 @@
 	if(charging.percent() >= 100)
 		return
 
-	use_power(charge_rate)
-	charging.give(charge_rate)
+	use_power(charging.chargerate * recharge_coeff)
+	charging.give(charging.chargerate * recharge_coeff)
 
 	if(check_level())
 		update_icon(UPDATE_OVERLAYS)
