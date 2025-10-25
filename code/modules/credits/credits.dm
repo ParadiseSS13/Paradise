@@ -166,19 +166,19 @@ GLOBAL_LIST(end_titles)
 					Planet of First Publication: [pick("Earth", "Luna", "Mars", "Moghes", "Hoorlm", "Kelune", "Mauna-b", "Votum-Accorium", "Ahdomai", "New Canaan", "Boron 2", \
 					"Qerballak", "Xarxis", "Altam", "Dõm", "Strend", "Tirstein", "Isueth", "Skkula-Accorium", "Blackgate Prime", "Nova Cygni")].<br>"
 	disclaimer += pick("Use for parody prohibited. PROHIBITED.",
-					   "All stunts were performed by underpaid interns. Do NOT try at home.",
-					   "[pick("Nanotrasen", "The Syndicate", "The Trans-Solar Federation", "The USSP", "The Technocracy", "The Changeling Hivemind", "The Vampire Coven", "The Cultist Library", )] \
-					   does not endorse behaviour depicted. Attempt at your own risk.",
-					   "Any unauthorized exhibition, distribution, or copying of this film or any part thereof (including soundtrack)<br>\
-						may result in an ERT being called to storm your home and take it back by force.",
-						"The story, all names, characters, and incidents portrayed in this production are fictitious. No identification with actual<br>\
-						persons (living or deceased), places, buildings, and products is intended or should be inferred.<br>\
-						This film is based on a true story and all individuals depicted are based on real people, despite what we just said.",
-						"No person or entity associated with this film received payment or anything of value, or entered into any agreement, in connection<br>\
-						with the depiction of tobacco products, despite the copious amounts of smoking depicted within.<br>\
-						(This disclaimer sponsored by [pick("Nanotrasen - Have a Nanotrasen day!", "The Syndicate - kill first, ask questions never!", "The Changeling Hivemind - we see, hear, and observe all!", \
-						"The Vampire Coven - operating from the shadows!", "The Cultist Library - spreading true knowledge!", "You, and other players like you!",)](TM)).",
-						"No animals were harmed in the making of this motion picture except for those listed previously as dead. Do not try this at home before signing a waiver.")
+					"All stunts were performed by underpaid interns. Do NOT try at home.",
+					"[pick("Nanotrasen", "The Syndicate", "The Trans-Solar Federation", "The USSP", "The Technocracy", "The Changeling Hivemind", "The Vampire Coven", "The Cultist Library", )] \
+					does not endorse behaviour depicted. Attempt at your own risk.",
+					"Any unauthorized exhibition, distribution, or copying of this film or any part thereof (including soundtrack)<br>\
+					may result in an ERT being called to storm your home and take it back by force.",
+					"The story, all names, characters, and incidents portrayed in this production are fictitious. No identification with actual<br>\
+					persons (living or deceased), places, buildings, and products is intended or should be inferred.<br>\
+					This film is based on a true story and all individuals depicted are based on real people, despite what we just said.",
+					"No person or entity associated with this film received payment or anything of value, or entered into any agreement, in connection<br>\
+					with the depiction of tobacco products, despite the copious amounts of smoking depicted within.<br>\
+					(This disclaimer sponsored by [pick("Nanotrasen - Have a Nanotrasen day!", "The Syndicate - kill first, ask questions never!", "The Changeling Hivemind - we see, hear, and observe all!", \
+					"The Vampire Coven - operating from the shadows!", "The Cultist Library - spreading true knowledge!", "You, and other players like you!",)](TM)).",
+					"No animals were harmed in the making of this motion picture except for those listed previously as dead. Do not try this at home before signing a waiver.")
 	titles += "<hr>"
 	titles += "<center><span style='font-size:6pt;'>[JOINTEXT(disclaimer)]</span></center>"
 
