@@ -181,7 +181,7 @@
 		make_migo_sound()
 
 /mob/living/basic/netherworld/migo/Move(atom/newloc, dir, step_x, step_y)
-	if(!ckey && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
+	if(!ckey && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc) && stat != DEAD)
 		return dodge(newloc, dir)
 	else
 		return ..()
