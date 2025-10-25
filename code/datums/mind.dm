@@ -798,10 +798,10 @@
 				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
-        
+
 			if("incriminate")
 				new_objective = /datum/objective/incriminate
-        
+
 			if("infiltrate sec")
 				new_objective = /datum/objective/infiltrate_sec
 
