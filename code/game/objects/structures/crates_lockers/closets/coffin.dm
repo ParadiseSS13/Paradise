@@ -33,7 +33,7 @@
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/user)
 	. = ..()
 	name = "\proper the coffin of [user]"
-	desc += "<br>Owner of this one may have not actually been dear to anyone or even departed quite yet.<br>\
+	desc += "<br>This coffin's owner may not actually have been dear to anyone, or even departed quite yet.<br>\
 		<span class='warning'>It appears impervious to everything but lasers and fire! Especially fire!</span>"
 	vampire = user
 
@@ -63,16 +63,16 @@
 	to_chat(vampire, "<span class='warning'>Your lair is being attacked!</span>")
 	switch(rand(1, 4))
 		if(1)
-			src.visible_message("<span class='danger'>The wood howls as fire burst out from seemingly nowhere!</span>")
+			src.visible_message("<span class='danger'>The wood howls as fire bursts out from seemingly nowhere!</span>")
 			playsound(src, "sound/goonstation/voice/howl.ogg", 30)
 		if(2 to 3)
-			src.visible_message("<span class='danger'>The wood hisses as fire burst out from seemingly nowhere!</span>")
+			src.visible_message("<span class='danger'>The wood hisses as fire bursts out from seemingly nowhere!</span>")
 			if(prob(50))
 				playsound(src, "sound/effects/unathihiss.ogg", 30)
 			else
 				playsound(src, "sound/effects/tajaranhiss.ogg", 30)
 		if(4)
-			src.visible_message("<span class='danger'>The wood growls as fire burst out from seemingly nowhere!</span>")
+			src.visible_message("<span class='danger'>The wood growls as fire bursts out from seemingly nowhere!</span>")
 			playsound(src, 'sound/goonstation/voice/growl3.ogg', 30)
 	var/turf/new_fire = pick(oview(2, src))
 	new /obj/effect/fire(get_turf(new_fire), T20C, 30 SECONDS, 1)
