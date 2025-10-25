@@ -13,7 +13,7 @@
 		return
 
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/basic/revenant)
 		if(!length(candidates))
 			key_of_revenant = null
 			kill()
@@ -35,7 +35,7 @@
 		if(!spawn_locs) //If we can't find THAT, then give up
 			kill()
 			return
-		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))
+		var/mob/living/basic/revenant/revvie = new /mob/living/basic/revenant/(pick(spawn_locs))
 		player_mind.transfer_to(revvie)
 		dust_if_respawnable(C)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT

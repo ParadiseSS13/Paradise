@@ -340,7 +340,7 @@
 	var/veil_msg = "<span class='warning'>The ectoplasm is awake and seeps \
 		away...</span>"
 	var/objective_verb = "Harvest"
-	var/mob/living/revenant = /mob/living/simple_animal/revenant
+	var/mob/living/revenant = /mob/living/basic/revenant
 
 /obj/item/antag_spawner/revenant/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
@@ -369,7 +369,7 @@
 	qdel(src)
 
 /obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
+	var/mob/living/basic/revenant/M = new /mob/living/basic/revenant(pick(GLOB.xeno_spawn))
 	M.key = C.key
 
 	var/list/messages = list()
