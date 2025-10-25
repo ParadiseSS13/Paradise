@@ -50,7 +50,7 @@
 		/mob/living/basic/chick,
 		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/hostile/poison/bees,
+		/mob/living/basic/bee,
 	)
 
 	suicide_messages = list(

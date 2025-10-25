@@ -135,7 +135,7 @@
 						/mob/living/simple_animal/pet/dog/pug,
 						/mob/living/basic/bear/black,
 						/mob/living/basic/bear/brown,
-						/mob/living/simple_animal/hostile/poison/bees,
+						/mob/living/basic/bee,
 						/mob/living/basic/carp
 					)
 
