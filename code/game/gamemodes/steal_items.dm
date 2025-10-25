@@ -221,12 +221,14 @@
 /datum/theft_objective/unique/docs_red
 	name = "the \"Red\" secret documents"
 	typepath = /obj/item/documents/syndicate/red
-	location_override = "a Syndicate agent's possession"
+	special_equipment = /obj/item/documents/syndicate/blue
+	location_override = "an EOC's possession"
 
 /datum/theft_objective/unique/docs_blue
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
-	location_override = "a Syndicate agent's possession"
+	special_equipment = /obj/item/documents/syndicate/red
+	location_override = "an EOC's possession"
 
 #undef THEFT_FLAG_SPECIAL
 #undef THEFT_FLAG_UNIQUE
