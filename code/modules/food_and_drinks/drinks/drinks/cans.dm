@@ -219,6 +219,12 @@
 	icon_state = "purple_can"
 	list_reagents = list("grapejuice" = 30)
 
+/obj/item/reagent_containers/drinks/cans/electrolytes
+	name = "Electrolytez"
+	desc = "The fastest way to rehydration. Now with a giant Z on the can. Or is it a lightning bolt?"
+	icon_state = "electrolytes_can"
+	list_reagents = list("electrolytes" = 30)
+
 /obj/item/reagent_containers/drinks/cans/tonic
 	name = "T-Borg's Tonic Water"
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
