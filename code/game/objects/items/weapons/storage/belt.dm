@@ -785,18 +785,23 @@
 	if(!..())
 		return
 	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/remove_from_storage(obj/item/W, atom/new_location)
 	if(!..())
 		return
 	if(!length(contents)) // telekinesis grab spawns inside of the sheath and leaves it immediately...
 		playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+		update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/update_icon_state()
 	if(length(contents))
 		icon_state = "[base_icon_state]-sword"
 	else
 		icon_state = base_icon_state
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
 
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
@@ -806,6 +811,29 @@
 
 /obj/item/storage/belt/sheath/saber/populate_contents()
 	new /obj/item/melee/saber(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/sheath/bone_sword
+	name = "bone sword sheath"
+	desc = "Can hold bone swords."
+	base_icon_state = "bonesword_sheath"
+	can_hold = list(/obj/item/melee/bone_sword)
+
+/obj/item/storage/belt/sheath/bone_sword/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/sheath/bone_sword/prefilled/populate_contents()
+	new /obj/item/melee/bone_sword(src)
+
+/obj/item/storage/belt/sheath/secsword
+	name = "securiblade scabbard"
+	desc = "Can hold securiblades."
+	base_icon_state = "secsheath"
+	can_hold = list(/obj/item/melee/secsword)
+
+/obj/item/storage/belt/sheath/secsword/populate_contents()
+	new /obj/item/melee/secsword(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang

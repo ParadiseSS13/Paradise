@@ -261,6 +261,9 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+/datum/status_effect/bluespace_slowdown/long
+	duration = 1 MINUTES
+
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null
