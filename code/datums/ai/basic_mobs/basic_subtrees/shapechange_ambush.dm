@@ -33,7 +33,7 @@
 /datum/ai_behavior/use_mob_ability/shapeshift
 
 /datum/ai_behavior/use_mob_ability/shapeshift/setup(datum/ai_controller/controller, ability_key)
-	var/datum/spell/mimic/morph/using_action = controller.blackboard[ability_key]
+	var/datum/spell/mimic/using_action = controller.blackboard[ability_key]
 	if(using_action?.cooldown_handler.is_on_cooldown())
 		return FALSE
 	if(isnull(using_action.selected_form)) // If we don't have a shape then pick one, AI can't use context wheels

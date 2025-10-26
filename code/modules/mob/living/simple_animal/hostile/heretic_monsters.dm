@@ -142,16 +142,19 @@
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
-
-	ai_movement = /datum/ai_movement/basic_avoidance
+	movement_delay = 5 SECONDS
+	ai_movement = /datum/ai_movement/jps
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/shapechange_ambush,
 		/datum/ai_planning_subtree/use_mob_ability,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
+
+/datum/ai_controller/basic_controller/stalker/New(atom/new_pawn)
+	. = ..()
+	ADD_TRAIT(new_pawn, TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM, type)
 
 /mob/living/basic/heretic_summon/raw_prophet
 	name = "Raw Prophet"
