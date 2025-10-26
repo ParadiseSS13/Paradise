@@ -40462,12 +40462,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "gRp" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "gRq" = (
@@ -41920,14 +41920,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "huj" = (
-/obj/structure/lattice,
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock Airlock"
-	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "mining_home";
+	name = "Mining Dock Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/miningdock)
 "hun" = (
@@ -46372,9 +46371,6 @@
 	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
@@ -46455,7 +46451,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "jad" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -67762,6 +67758,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"qHd" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "qHe" = (
 /obj/item/shard,
 /obj/item/shard,
@@ -69842,12 +69842,12 @@
 /area/station/command/office/captain/bedroom)
 "rul" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "ruo" = (
@@ -76499,7 +76499,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "tUP" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -104622,7 +104622,7 @@ aaa
 aaa
 aaa
 aZt
-aZt
+qHd
 aZt
 iYr
 lpq

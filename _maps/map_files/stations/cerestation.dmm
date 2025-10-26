@@ -1656,7 +1656,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
 "alC" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "alD" = (
@@ -1905,7 +1905,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "aoo" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -88385,6 +88385,10 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/command/starboard)
+"smW" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "smX" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -111081,6 +111085,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/service/aft_starboard)
+"xgw" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "xgA" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -167364,7 +167372,7 @@ rNK
 qhA
 dwI
 mSv
-qhA
+smW
 mSv
 vKh
 qhA
@@ -167621,7 +167629,7 @@ rNK
 jkL
 cag
 alC
-nLP
+xgw
 aoo
 lUt
 jkL
@@ -167878,7 +167886,7 @@ jkL
 jkL
 dwI
 qYk
-jkL
+nLP
 qYk
 vKh
 jkL
