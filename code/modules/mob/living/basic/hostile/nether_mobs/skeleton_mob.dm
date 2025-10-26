@@ -126,7 +126,7 @@
 
 /mob/living/basic/skeleton/incursion/mobster
 	name = "skeletal mobster"
-	desc = "Ice 'em!"
+	desc = "THEY EXAMINED THE SKELETON! RATTLE EM, BOYS!"
 	icon_state = "skeleton_mobster"
 	icon_living = "skeleton_mobster"
 	is_ranged = TRUE
