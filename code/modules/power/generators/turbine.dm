@@ -365,7 +365,7 @@
 	compressor.gas_throughput = compressor.gas_contained.total_moles()
 
 	// volume of our input in cubic meteres
-	var/input_volume = FE * input_fraction
+	var/input_volume = 2.5 * input_fraction
 
 	// Lose kinetic energy to compressing the gas.
 	// The equation we use is for the work done by a piston, which should give us the same result as what a turbine would do due to conservation of energy and our gasses being ideal:
