@@ -198,6 +198,7 @@
 	jobtype = /datum/job/chemist
 
 	uniform = /obj/item/clothing/under/rank/medical/chemist
+	r_pocket = /obj/item/storage/bag/chemistry
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
@@ -244,6 +245,7 @@
 	jobtype = /datum/job/virologist
 
 	uniform = /obj/item/clothing/under/rank/medical/virologist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
@@ -323,12 +325,13 @@
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
 		ACCESS_MORGUE,
-		ACCESS_PARAMEDIC
+		ACCESS_PARAMEDIC,
+		ACCESS_TELEPORTER
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic
-	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo."
+	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo, or space emergencies via the Teleporter near the Bridge."
 	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/paramedic

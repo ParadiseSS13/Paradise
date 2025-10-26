@@ -25,6 +25,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	resistance_flags = FIRE_PROOF
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -171,6 +172,7 @@
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
 	var/icon/mob
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
