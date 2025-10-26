@@ -361,7 +361,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	var/list/list_of_uids = list()
 
-
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
 	status_type = STATUS_EFFECT_MULTIPLE

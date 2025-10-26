@@ -92,11 +92,11 @@
 	if(tracker && advanced_legion)
 		tracker.refresh()
 		if(!(src.UID() in tracker.list_of_uids)) // Add in the UID so non advanced legion skulls in the fight are harder too.
-			tracker.list_of_uids += src.UID()
+			tracker.list_of_uids += UID()
 		return TRUE
 	if(tracker)
 		tracker.refresh()
-		if((src.UID() in tracker.list_of_uids) || length(tracker.list_of_uids) >= 3 || advanced_legion)
+		if((UID() in tracker.list_of_uids) || length(tracker.list_of_uids) >= 3 || advanced_legion)
 			can_continue = TRUE
 	if(!tracker)
 		tracker = living_target.apply_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
@@ -246,7 +246,6 @@
 	speak_emote = list("echoes")
 	throw_blocked_message = "is shrugged off by"
 	var/can_infest_dead = FALSE
-
 
 /mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/target, list/modifiers, ignore_cooldown)
 	. = ..()
