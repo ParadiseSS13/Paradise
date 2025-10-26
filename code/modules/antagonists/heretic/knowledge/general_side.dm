@@ -40,3 +40,75 @@
 		return FALSE
 
 	return TRUE
+
+// This is automatically gained after the knowledge ritual.
+/datum/heretic_knowledge/unsealed_art
+	name = "The Arts Unsealed"
+	desc = "Open yourself to the influences of the manuses, gleaning what you have learned to \
+	create a magnum opus of art. A masterpiece above all others, that exudes its own unique influence."
+	abstract_parent_type = /datum/heretic_knowledge/unsealed_art
+	required_atoms = list()
+	cost = 0
+	priority = 20 // fairly low priority
+	var/was_completed = FALSE
+
+/datum/heretic_knowledge/unsealed_art/New()
+	var/static/list/potential_organs = list(
+		/obj/item/organ/internal/appendix,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/ears,
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/lungs,
+	)
+
+	var/static/list/potential_uncommoner_items = list(
+		/obj/item/food/monkeycube,
+		/obj/item/megaphone,
+		/obj/item/toy/figure,
+		/obj/item/multitool,
+		/obj/item/clothing/gloves/color/yellow,
+		/obj/item/melee/baton,
+		/obj/item/reagent_containers/drinks/mug,
+		)
+
+	var/static/list/paint_item = list(
+		/obj/item/toy/crayon,
+		/obj/item/toy/crayon/red,
+		/obj/item/toy/crayon/green,
+		/obj/item/toy/crayon/yellow,
+		/obj/item/toy/crayon/white,
+		/obj/item/toy/crayon/blue,
+		/obj/item/toy/crayon/purple,
+		/obj/item/toy/crayon/black,
+		/obj/item/toy/crayon/rainbow,
+		/obj/item/toy/crayon/orange,
+		/obj/item/toy/crayon/spraycan,
+		/obj/item/pen,
+		/obj/item/pen/red,
+		/obj/item/pen/blue,
+		/obj/item/pen/fancy,
+		/obj/item/painter,
+		/obj/item/reagent_containers/glass/paint,
+	)
+
+	required_atoms[pick(potential_organs)] += 1
+	required_atoms[pick(potential_uncommoner_items)] += 1
+	required_atoms[pick(paint_item)] += 1
+	required_atoms[pick(paint_item)] += 1
+	required_atoms[pick(paint_item)] += 1
+	required_atoms[/obj/item/stack/sheet/cloth] += 1
+
+/datum/heretic_knowledge/unsealed_art/can_be_invoked(datum/antagonist/heretic/invoker)
+	return !was_completed
+
+/datum/heretic_knowledge/unsealed_art/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	return !was_completed
+
+/datum/heretic_knowledge/unsealed_art/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
+	var/art = pick(subtypesof(/obj/structure/unsealed_art))
+	new art(our_turf)
+	to_chat(user, "<span class='hierophant'>We open ourself to otherworldly influences, and through them we glean inspiration for a masterpiece!</span>")
+	was_completed = TRUE
+	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
+	return TRUE

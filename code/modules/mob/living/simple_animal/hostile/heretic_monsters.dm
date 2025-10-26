@@ -14,6 +14,7 @@
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	unsuitable_atmos_damage = 0
+	unsuitable_cold_damage = 0
 	universal_speak = TRUE
 	universal_understand = TRUE
 	deathmessage = "implodes into itself."
@@ -309,6 +310,7 @@
 	health = 200
 	melee_damage_lower = 10
 	melee_damage_upper = 15
+	unsuitable_heat_damage = 0
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
@@ -318,9 +320,6 @@
 	mob_biotypes = MOB_ORGANIC|MOB_EPIC
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	obj_damage = 200
-	ranged_cooldown = 5
-	is_ranged = TRUE
-	ranged_burst_count = 1
 	actions_to_add = list(/datum/spell/worm_contract)
 	///Previous segment in the chain
 	var/mob/living/basic/heretic_summon/armsy/backsy
@@ -532,6 +531,7 @@
 	health = 6000
 	initial_traits = list(TRAIT_FLYING)
 	obj_damage = 400
+	unsuitable_heat_damage = 0
 	armor_penetration_flat = 20
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -637,7 +637,6 @@
 	requires_pointing = FALSE
 
 /datum/pet_command/idle/star_gazer
-	ommand_feedback = "twinkles."
+	command_feedback = "twinkles."
 	pointed_reaction = "twinkles!"
-	refuse_reaction = "..."
 

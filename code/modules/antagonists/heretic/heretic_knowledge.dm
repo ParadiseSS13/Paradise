@@ -537,7 +537,7 @@
 		to_chat(user, "<span class='hierophant_warning'>[amount_needed] [initial(path.name)]\s...</span>")
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
-	to_chat(user, "<span class='hierophant'>Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded.</span>")
+	to_chat(user, "<span class='hierophant'>Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points, as well as additional knowledge for creating an unsealed art. You can check the knowledge in your Researched Knowledge to be reminded.</span>")
 
 	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
 
@@ -553,7 +553,10 @@
 	was_completed = TRUE
 
 	to_chat(user, "<span class='boldnotice'>[name] completed!</span>")
+	to_chat(user, "<span class='hierophant'>We gain insights on how to perform a ritual to create an unsealed art!</span>")
 	to_chat(user, "<span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
+	var/datum/antagonist/heretic/heretic = IS_HERETIC(user)
+	heretic.gain_knowledge(/datum/heretic_knowledge/unsealed_art)
 	desc += " (Completed!)"
 	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
 	return TRUE
