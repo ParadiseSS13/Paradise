@@ -431,6 +431,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 #define KILL_OBJECTIVE "KILL"
 #define THEFT_OBJECTIVE "STEAL"
+#define PROTECT_OBJECTIVE "PROTECT"
 #define INCRIMINATE_OBJECTIVE "INCRIMINATE"
 
 #define DESTROY_OBJECTIVE "DESTROY"
@@ -448,7 +449,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
-	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 45, INCRIMINATE_OBJECTIVE = 5)
+	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
@@ -476,10 +477,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
+
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 			if(INCRIMINATE_OBJECTIVE)
 				objective_to_add = /datum/objective/incriminate
+
+			if(PROTECT_OBJECTIVE)
+				objective_to_add = /datum/objective/protect
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
@@ -487,6 +492,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 #undef KILL_OBJECTIVE
 #undef THEFT_OBJECTIVE
+#undef PROTECT_OBJECTIVE
 #undef INCRIMINATE_OBJECTIVE
 
 #undef DESTROY_OBJECTIVE
