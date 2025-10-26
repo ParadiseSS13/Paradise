@@ -152,10 +152,6 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
-/datum/ai_controller/basic_controller/stalker/New(atom/new_pawn)
-	. = ..()
-	ADD_TRAIT(new_pawn, TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM, type)
-
 /mob/living/basic/heretic_summon/raw_prophet
 	name = "Raw Prophet"
 	real_name = "Raw Prophet"
