@@ -154,7 +154,7 @@ GLOBAL_LIST(end_titles)
 			continue
 		if(C?.holder?.fakekey) // No stealthmins
 			continue
-		if(C?.holder?.big_brother) // No big bother admins
+		if(C?.holder?.big_brother) // No big brother admins
 			continue
 		if(C?.holder)
 			staff += "[uppertext(pick(staffjobs))] a.k.a. '[C?.key]'"
