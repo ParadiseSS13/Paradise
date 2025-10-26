@@ -351,7 +351,7 @@
 		return
 
 	// By how much we compress the gas going into the turbine
-	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm /(compressor.rpm + COMPRESSION_RPM_CURVE))
+	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm / (compressor.rpm + COMPRESSION_RPM_CURVE))
 
 	// How much of the gas in the input tile we suck in
 	var/input_fraction = compressor.compression_ratio * compressor.throttle / 50
