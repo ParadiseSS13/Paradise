@@ -260,9 +260,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/infiltrate_sec
 	name = "Infiltrate Sec"
-	explanation_text = "You must get hired into the station's security department and ensure that you are not identified by Nanotrasen's internal investigations. \
-	You are not allowed to exfiltrate today, as you must hide within Nanotrasen's Asset Protection Division's ranks for an extended period of time. \
-	You may, if you believe this is the correct course of action, replace an actual member of the security department; make sure you wear their face and genetically unique identifiers if you choose this method."
+	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of it's members."
 	needs_target = FALSE
 	completed = TRUE
 
