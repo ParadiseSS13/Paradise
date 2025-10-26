@@ -613,6 +613,9 @@
 						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+					for(var/config in GLOB.configuration.custom_sprites.fluff_undershirts)
+						if(user.ckey in config["ckeys"])
+							valid_undershirts[config["name"]] = GLOB.undershirt_full_list[config["name"]]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt", "Character Preference", valid_undershirts)
 					ShowChoices(user)
