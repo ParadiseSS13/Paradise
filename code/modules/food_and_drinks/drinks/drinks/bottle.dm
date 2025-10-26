@@ -397,8 +397,6 @@
 	..()
 	if(firestarter && active)
 		target.fire_act()
-		if(istype(target, /obj/structure/closet/coffin/vampire))
-			new /obj/effect/fire(get_turf(target), T20C, 1 MINUTES, 1)
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target)
 		hotspot.temperature = 1000
 		hotspot.recolor()

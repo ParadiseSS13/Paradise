@@ -213,7 +213,6 @@
 	action_icon = 'icons/obj/closet.dmi'
 	action_icon_state = "coffin"
 	base_cooldown = 2 SECONDS
-	var/used = FALSE
 
 /datum/spell/vampire/lair/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -222,35 +221,35 @@
 	return T
 
 /datum/spell/vampire/lair/cast(list/targets, mob/user)
-	if(used)
-		to_chat(user, "<span class='warning'>You have already built a lair!</span>")
+	var/obj/structure/closet/coffin/C = targets[1] // this spell will basically always target a singular coffin unless you stack multiple on the same tile
+	if(!istype(C, /obj/structure/closet/coffin))
+		to_chat(user, "<span class='warning'>This only works on coffins!</span>")
 		return
-	for(var/obj/structure/closet/coffin/C as anything in targets)
-		if(istype(C, /obj/structure/closet/coffin/vampire))
-			to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
-			continue
-		if(istype(C, /obj/structure/closet/coffin/sarcophagus))
-			to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
-			continue
-		for(var/turf/T in range(1, C))
-			if(T.density)
-				to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
-				return
-		to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
-		C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
-		playsound(C, 'sound/misc/enter_blood.ogg', 20)
-		for(var/obj/machinery/light/L in range(5, user))
-			L.forced_flicker()
-		var/obj/effect/lair_rune/rune = new /obj/effect/lair_rune(get_turf(C), user)
-		if(!do_after(user, 10 SECONDS, target = C))
-			qdel(rune)
+	if(istype(C, /obj/structure/closet/coffin/vampire))
+		to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
+		return
+	if(istype(C, /obj/structure/closet/coffin/sarcophagus))
+		to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
+		return
+	for(var/turf/T in range(1, C))
+		if(T.density)
+			to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
 			return
-		playsound(user, 'sound/hallucinations/im_here1.ogg', 30)
-		new /obj/structure/closet/coffin/vampire(get_turf(C), user)
-		qdel(C)
-		var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
-		V.has_lair = TRUE
-		used = TRUE
+	to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
+	C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
+	playsound(C, 'sound/misc/enter_blood.ogg', 20)
+	for(var/obj/machinery/light/L in range(5, user))
+		L.forced_flicker()
+	var/obj/effect/lair_rune/rune = new /obj/effect/lair_rune(get_turf(C), user)
+	if(!do_after(user, 10 SECONDS, target = C))
+		qdel(rune)
+		return
+	playsound(user, 'sound/hallucinations/im_here1.ogg', 30)
+	new /obj/structure/closet/coffin/vampire(get_turf(C), user)
+	qdel(C)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	V.has_lair = TRUE
+	user.mind.RemoveSpell(src)
 
 /obj/effect/lair_rune
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

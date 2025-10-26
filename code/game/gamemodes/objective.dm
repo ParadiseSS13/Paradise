@@ -938,7 +938,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/lair
 	name = "Build a lair"
-	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area."
+	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area. This requires at least 150 total units of blood."
 	needs_target = FALSE
 
 /datum/objective/lair/check_completion()

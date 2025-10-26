@@ -22,7 +22,7 @@
 	max_integrity = 500
 	anchored = TRUE
 	armor = list(MELEE = 200, BULLET = 200, LASER = 80, ENERGY = 200, BOMB = 200, RAD = 200, FIRE = 80, ACID = 200)	// just burn it
-	custom_fire_overlay = " "
+	custom_fire_overlay = " "	// gets rid of regular SSfires overlay, setting it on fire uses something completely different
 	/// Owner of the coffin
 	var/mob/vampire
 	/// Is the coffin being set on fire?
@@ -46,14 +46,14 @@
 	to_chat(user, "<span class='notice'>You attempt to set [src] on fire with [I].</span>")
 	to_chat(vampire, "<span class='warning'>Your lair is being attacked!</span>")
 	if(do_after(user, 15 SECONDS, target = src))
-		new /obj/effect/fire(loc, T20C, 1 MINUTES, 1)
+		fire_act()
 	igniting = FALSE
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/coffin/vampire/bullet_act(obj/item/projectile/P)
 	if(!P.immolate)
 		return ..()
-	new /obj/effect/fire(loc, T20C, 1 MINUTES, 1)
+	fire_act()
 	return ..()
 
 /obj/structure/closet/coffin/vampire/fire_act()
@@ -63,16 +63,16 @@
 	to_chat(vampire, "<span class='warning'>Your lair is being attacked!</span>")
 	switch(rand(1, 4))
 		if(1)
-			src.visible_message("<span class='danger'>The wood howls as fire bursts out from seemingly nowhere!</span>")
+			visible_message("<span class='danger'>The wood howls as fire bursts out from seemingly nowhere!</span>")
 			playsound(src, "sound/goonstation/voice/howl.ogg", 30)
 		if(2 to 3)
-			src.visible_message("<span class='danger'>The wood hisses as fire bursts out from seemingly nowhere!</span>")
+			visible_message("<span class='danger'>The wood hisses as fire bursts out from seemingly nowhere!</span>")
 			if(prob(50))
 				playsound(src, "sound/effects/unathihiss.ogg", 30)
 			else
 				playsound(src, "sound/effects/tajaranhiss.ogg", 30)
 		if(4)
-			src.visible_message("<span class='danger'>The wood growls as fire bursts out from seemingly nowhere!</span>")
+			visible_message("<span class='danger'>The wood growls as fire bursts out from seemingly nowhere!</span>")
 			playsound(src, 'sound/goonstation/voice/growl3.ogg', 30)
 	var/turf/new_fire = pick(oview(2, src))
 	new /obj/effect/fire(get_turf(new_fire), T20C, 30 SECONDS, 1)
@@ -81,7 +81,7 @@
 
 /obj/structure/closet/coffin/vampire/burn()
 	playsound(src, 'sound/hallucinations/wail.ogg', 20, extrarange = SOUND_RANGE_SET(5))
-	src.visible_message("<span class='danger'>Fire bursts out from [name] as it falls apart!</span>")
+	visible_message("<span class='danger'>Fire bursts out from [name] as it falls apart!</span>")
 	for(var/turf/T in range(1, src))
 		new /obj/effect/fire(T, T20C, 30 SECONDS, 1)
 	..()
