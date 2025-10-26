@@ -229,8 +229,8 @@
 		tablepush(I, user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
-		return ITEM_INTERACT_COMPLETE
+	if(I.is_robot_module())
+		return ..()
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
