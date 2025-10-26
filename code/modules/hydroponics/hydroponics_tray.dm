@@ -1083,7 +1083,7 @@
 			to_chat(user, text_string)
 	else
 		to_chat(user, "<b>No plant found.</b>")
-	if (high_details_mode)
+	if(high_details_mode)
 		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
 		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
 		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")

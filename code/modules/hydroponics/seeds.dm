@@ -362,7 +362,7 @@
 			text += "- Plant type: Mushroom. Can grow in dry soil."
 		if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 			text += "- Plant type: <span class='warning'>UNKNOWN</span> "
-	if (high_details_mode)
+	if(high_details_mode)
 		if(potency != -1)
 			text += "- Potency: [potency]"
 		if(yield != -1)

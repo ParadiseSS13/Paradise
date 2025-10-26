@@ -13,10 +13,10 @@
 	new_attack_chain = TRUE
 
 /obj/item/plant_analyzer/activate_self(mob/user)
-	if (..())
+	if(..())
 		return
 
-	if (high_details_mode)
+	if(high_details_mode)
 		high_details_mode = FALSE
 		to_chat(user, "<span class='notice'>You switch [src] into low details mode.</span>")
 	else
