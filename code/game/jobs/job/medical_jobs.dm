@@ -198,6 +198,7 @@
 	jobtype = /datum/job/chemist
 
 	uniform = /obj/item/clothing/under/rank/medical/chemist
+	r_pocket = /obj/item/storage/bag/chemistry
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
@@ -244,6 +245,7 @@
 	jobtype = /datum/job/virologist
 
 	uniform = /obj/item/clothing/under/rank/medical/virologist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
