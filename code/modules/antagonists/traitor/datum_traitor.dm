@@ -310,6 +310,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
 		queue_backstab()
 
+	if(prob(EXCHANGE_PROBABILITY))
+		start_exchange()
+
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	delayed_objectives = FALSE

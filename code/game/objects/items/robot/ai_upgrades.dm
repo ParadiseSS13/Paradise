@@ -5,9 +5,11 @@
 	desc = "A base rootkit for ai upgrades. If you are seeing this, report where you found it on the github issues."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	inhand_icon_state = "card-id"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	new_attack_chain = TRUE
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ai_upgrade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(is_ai(target))
@@ -54,7 +56,6 @@
 /obj/item/ai_upgrade/ai_program_reset
 	name = "Program Reset Disk"
 	desc = "Insert this disk into the AI core to completely reset their programs."
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ai_upgrade/ai_program_reset/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))

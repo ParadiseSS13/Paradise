@@ -359,12 +359,15 @@
 		var/datum/atom_hud/data/human/medadv = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 		var/datum/atom_hud/data/human/secbasic = GLOB.huds[DATA_HUD_SECURITY_BASIC]
 		var/datum/atom_hud/data/human/secadv = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		var/datum/atom_hud/data/anomalous = GLOB.huds[DATA_HUD_ANOMALOUS]
 		if((H in medbasic.hudusers) || (H in medadv.hudusers))
 			have_hudtypes += EXAMINE_HUD_MEDICAL_READ
 		if(H in secadv.hudusers)
 			have_hudtypes += EXAMINE_HUD_SECURITY_READ
 		if(H in secbasic.hudusers)
 			have_hudtypes += EXAMINE_HUD_SKILLS
+		if(H in anomalous.hudusers)
+			have_hudtypes += ANOMALOUS_HUD
 
 		var/user_accesses = M.get_access()
 		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access

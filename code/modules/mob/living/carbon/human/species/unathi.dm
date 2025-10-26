@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
-	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
@@ -38,6 +37,8 @@
 	female_scream_sound = 'sound/effects/unathiscream.ogg'
 	butt_sprite = "unathi"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
 		"lungs" =    /obj/item/organ/internal/lungs/unathi,
