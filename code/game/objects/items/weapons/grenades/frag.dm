@@ -8,7 +8,7 @@
 	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
 	/// The type of projectile that will fired.
-	var/embedded_type = /obj/item/projectile/bullet/shrapnel
+	var/embedded_type = /obj/projectile/bullet/shrapnel
 
 /obj/item/grenade/frag/prime()
 	update_mob()
@@ -22,7 +22,7 @@
 	icon_state = "stinger"
 	modifiable_timer = FALSE
 	shrapnel_contained = 50
-	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger
+	embedded_type = /obj/projectile/bullet/pellet/rubber/stinger
 
 /obj/item/grenade/frag/stinger/prime()
 	update_mob()
@@ -33,7 +33,7 @@
 /**
  * Shrapnel that flies through the air and hits you
  */
-/obj/item/projectile/bullet/shrapnel
+/obj/projectile/bullet/shrapnel
 	name = "shrapnel"
 	icon_state = "magspear"
 	gender = PLURAL
@@ -42,7 +42,7 @@
 	var/embed_prob = 100 //reduced by armor
 	var/embedded_type = /obj/item/shrapnel
 
-/obj/item/projectile/bullet/shrapnel/on_hit(atom/target, blocked)
+/obj/projectile/bullet/shrapnel/on_hit(atom/target, blocked)
 	. = ..()
 	var/obj/item/new_possible_embed = new embedded_type(get_turf(src)) // drop it on the floor if we hit somethig non-living
 	if(!.)
@@ -56,7 +56,7 @@
 		return
 	human.try_embed_object(new_possible_embed)
 
-/obj/item/projectile/bullet/shrapnel/on_range()
+/obj/projectile/bullet/shrapnel/on_range()
 	var/obj/item/we_missed = new embedded_type(get_turf(src)) // we missed, lets toss the shrapnel
 	var/range = gaussian(4, 2)
 	if(range > 0)

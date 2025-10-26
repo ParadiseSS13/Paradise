@@ -359,7 +359,7 @@ Difficulty: Hard
 	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/projectile/P)
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
@@ -435,7 +435,7 @@ Difficulty: Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/item/projectile/energy/tesla_bolt/O = new /obj/item/projectile/energy/tesla_bolt(S)
+				var/obj/projectile/energy/tesla_bolt/O = new /obj/projectile/energy/tesla_bolt(S)
 				O.current = S
 				O.yo = T.y - S.y
 				O.xo = T.x - S.x
@@ -488,7 +488,7 @@ Difficulty: Hard
 	var/turf/T = get_turf(target)
 	if(!spot || !T)
 		return
-	var/obj/item/projectile/bullet/rock/O = new /obj/item/projectile/bullet/rock(spot)
+	var/obj/projectile/bullet/rock/O = new /obj/projectile/bullet/rock(spot)
 	O.current = spot
 	O.yo = T.y - spot.y
 	O.xo = T.x - spot.x
@@ -662,7 +662,7 @@ Difficulty: Hard
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
+	projectiletype = /obj/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
 	armor_penetration_percentage = 50
 	melee_damage_lower = 15
@@ -707,7 +707,7 @@ Difficulty: Hard
 	..()
 	health_and_snap_check(TRUE)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/projectile/P)
 	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
 		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
 			core.FindTarget(list(P.firer), 1)
@@ -809,10 +809,10 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return
 
-/obj/item/projectile/bullet/ancient_robot_bullet
+/obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
 
-/obj/item/projectile/bullet/rock
+/obj/projectile/bullet/rock
 	name= "thrown rock"
 	damage = 25
 	icon = 'icons/obj/meteor.dmi'
@@ -827,7 +827,7 @@ Difficulty: Hard
 
 
 /// Leaving here for adminbus / so vetus still uses it.
-/obj/item/projectile/energy/tesla_bolt
+/obj/projectile/energy/tesla_bolt
 	name = "shock bolt"
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
@@ -838,16 +838,16 @@ Difficulty: Hard
 
 /obj/item/ammo_casing/energy/tesla_bolt/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
-	var/obj/item/projectile/energy/tesla_bolt/P = BB
+	var/obj/projectile/energy/tesla_bolt/P = BB
 	spawn(1)
 		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
 
-/obj/item/projectile/energy/tesla_bolt/on_hit(atom/target)
+/obj/projectile/energy/tesla_bolt/on_hit(atom/target)
 	. = ..()
 	tesla_zap(src, zap_range, power, zap_flags)
 	qdel(src)
 
-/obj/item/projectile/energy/tesla_bolt/Bump(atom/A) // Don't want the projectile hitting the legs
+/obj/projectile/energy/tesla_bolt/Bump(atom/A) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)

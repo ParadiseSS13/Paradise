@@ -129,7 +129,7 @@
 	return
 
 /obj/structure/table/CanPass(atom/movable/mover, border_dir)
-	if(istype(mover,/obj/item/projectile))
+	if(istype(mover,/obj/projectile))
 		return check_cover(mover, border_dir)
 
 	var/mob/living/living_mover = mover
@@ -163,7 +163,7 @@
  * * P - The projectile trying to cross.
  * * proj_dir - The incoming direction of the projectile.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P, proj_dir)
+/obj/structure/table/proc/check_cover(obj/projectile/P, proj_dir)
 	. = TRUE
 	if(!flipped)
 		return

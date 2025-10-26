@@ -8,7 +8,7 @@ emp_act
 */
 
 
-/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src, def_zone))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
@@ -21,7 +21,7 @@ emp_act
 			if(1) // proper reflection
 				reflected = TRUE
 			if(2) //If target is holding a toy sword
-				var/static/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
@@ -147,7 +147,7 @@ emp_act
 		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
 
 
-/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !(affecting.limb_flags & CANNOT_DISMEMBER) && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
@@ -826,7 +826,7 @@ emp_act
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
+/mob/living/carbon/human/projectile_hit_check(obj/projectile/P)
 	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) // hit mobs that are intentionally lying down to prevent combat crawling.
 
 /mob/living/carbon/human/canBeHandcuffed()
