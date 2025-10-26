@@ -131,6 +131,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	sight = SEE_MOBS
+	ai_controller = /datum/ai_controller/basic_controller/stalker
 	actions_to_add = list(
 		/datum/spell/ethereal_jaunt/ash,
 		/datum/spell/emplosion/heretic,
@@ -164,7 +165,7 @@
 	maxHealth = 65
 	health = 65
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
-	ai_controller = /datum/ai_controller/basic_controller/stalker
+	ai_controller = /datum/ai_controller/basic_controller/raw_prophet
 	loot = list(/obj/effect/gibspawner/human, /obj/item/organ/external/arm, /obj/item/organ/internal/eyes)
 	actions_to_add = list(
 		/datum/spell/ethereal_jaunt/ash/long,
