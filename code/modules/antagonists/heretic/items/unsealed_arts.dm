@@ -52,12 +52,15 @@
 /obj/structure/unsealed_art/proc/on_cover()
 	covered = TRUE
 	icon_state = "covered"
+	STOP_PROCESSING(SSprocessing, src)
 
 /// This proc triggers when the art has been uncovered by sheets, becomming active again
 /obj/structure/unsealed_art/proc/on_uncover()
 	covered = FALSE
 	icon_state = initial(icon_state)
+	START_PROCESSING(SSprocessing, src)
 
+// MARK: Beauty
 /obj/structure/unsealed_art/beauty
 	name = "\improper Lady of the Gates"
 	desc = "A painting of an otherworldly being. Its thin, porcelain-coloured skin is stretched tight over its strange bone structure. It has a haunting beauty that you cant keep your eyes from."
@@ -76,8 +79,6 @@
 	disenchant()
 
 /obj/structure/unsealed_art/beauty/process()
-	if(covered)
-		return
 	if(enchanting)
 		return
 	if(charmed_creature)
@@ -116,7 +117,6 @@
 	else
 		to_chat(creature, "<span class='warning'>You can feel your gaze return to normal.</span>")
 
-
 /obj/structure/unsealed_art/beauty/proc/enchant(mob/living/carbon/creature)
 	to_chat(creature, "<span class='hierophant_warning'>She's so beautiful. You can't look away!</span>")
 	eyeobj = new /mob/camera/eye/beauty(loc, "Enchanted Eyes", src, creature)
@@ -142,14 +142,13 @@
 /mob/camera/eye/beauty/update_visibility()
 	return
 
+// MARK: Weeping
 /obj/structure/unsealed_art/weeping
 	name = "\improper He Who Wept"
 	desc = "A beautiful painting depicting a fair lady sitting beside Him. He weeps. You will see him again."
 	icon_state = "weeping"
 
 /obj/structure/unsealed_art/weeping/process()
-	if(covered)
-		return
 	for(var/mob/living/carbon/human/creature in range(7, loc))
 		if(IS_HERETIC(creature))
 			continue
@@ -165,7 +164,7 @@
 		if(prob(10))
 			creature.custom_emote(EMOTE_VISIBLE, "weeps uncontrollably", FALSE)
 		if(creature.get_dizziness() >= 1 MINUTES && prob(15))
-			to_chat(creature, "<span class='biggerwarning'>You are completely overcome with grief!</span>")
+			to_chat(creature, "<span class='danger'>You are completely overcome with grief!</span>")
 			creature.KnockDown(4 SECONDS)
 			continue
 
@@ -175,6 +174,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 	/turf/simulated/floor/chasm
 	)))
 
+// MARK: Vines
 /obj/structure/unsealed_art/vines
 	name = "\improper Great Chaparral Over Rolling Hills"
 	desc = "A painting depicting a massive green thicket, spanning over several hills. This painting is lush with purest life, and seems to strain against its frame."
@@ -196,15 +196,13 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 			creature_list += basic_mob
 
 /obj/structure/unsealed_art/vines/process()
-	if(covered)
-		return
 	if(!COOLDOWN_FINISHED(src, time_to_convert))
 		return
 
 	COOLDOWN_START(src, time_to_convert, delay)
 	var/list/validturfs = list()
 	var/list/vineturfs = list()
-	for(var/turf/simulated/floor/T in circleviewturfs(src, 5))
+	for(var/turf/simulated/floor/T in circleviewturfs(src, 7))
 		if(istype(T, /turf/simulated/floor/grass/jungle) && !T.density)
 			vineturfs |= T
 			continue
@@ -229,10 +227,10 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 		spawned_mob.faction = list("heretic")
 		spawned_mob.maxHealth = 60
 		spawned_mob.health = 60
-		spawned_mob.melee_damage_lower = 5
+		spawned_mob.melee_damage_lower = 4
 		spawned_mob.melee_damage_upper = 8
-		spawned_mob.melee_attack_cooldown_min = 0.75 SECONDS
-		spawned_mob.melee_attack_cooldown_max = 1 SECONDS
+		spawned_mob.melee_attack_cooldown_min = 1 SECONDS
+		spawned_mob.melee_attack_cooldown_max = 1.5 SECONDS
 		spawned_mob.environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 		spawned_mob.ai_controller = new /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles(spawned_mob)
 		RegisterSignal(spawned_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
@@ -241,6 +239,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 	creatures_owned--
 	COOLDOWN_START(src, time_to_convert, 20 SECONDS) // if a mob dies, stop spawning for a bit
 
+// MARK: Desire
 /obj/structure/unsealed_art/desire
 	name = "\improper The First Desire"
 	desc = "A painting of an elaborate feast. Despite being made entirely of rotting meat and decaying organs, the meal somehow looks incredibly appetising."
@@ -256,8 +255,6 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 	)
 
 /obj/structure/unsealed_art/desire/process()
-	if(covered)
-		return
 	for(var/mob/living/carbon/human/creature in range(7, loc))
 		if(IS_HERETIC(creature))
 			if(creature.nutrition <= hunger_threshold)
@@ -281,4 +278,30 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 			creature.vomit(-10, TRUE, FALSE, 2, FALSE)
 			to_chat(creature, "<span class='warning'>You vomit up rotten meat and decayed organs!</span>")
 
+// MARK: Rust
+/obj/structure/unsealed_art/rust
+	name = "\improper Master of the Rusted Mountain"
+	desc = "A painting of a strange being climbing a rust-coloured mountain. The brushwork is unnatural and unnerving."
+	icon_state = "rust"
+	var/cooldown_delay = 3 SECONDS
+	COOLDOWN_DECLARE(time_to_rust)
 
+/obj/structure/unsealed_art/rust/process()
+	if(!COOLDOWN_FINISHED(src, time_to_rust))
+		return
+
+	var/list/validturfs = list()
+	for(var/turf/simulated/T in circleviewturfs(src, 7))
+		validturfs += T
+
+	var/turf/chosen_turf = safepick(validturfs)
+	if(chosen_turf)
+		if(istype(chosen_turf, /turf/simulated/floor/plating/rust))
+			for(var/mob/living/mob in chosen_turf)
+				if(IS_HERETIC(mob))
+					continue
+				mob.do_rust_heretic_act(chosen_turf)
+				playsound(chosen_turf, 'sound/items/welder.ogg', 30, TRUE)
+		if(!HAS_TRAIT(chosen_turf, TRAIT_RUSTY))
+			chosen_turf.rust_heretic_act()
+	COOLDOWN_START(src, time_to_rust, cooldown_delay)
