@@ -195,6 +195,7 @@
 	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
+	var/obj/effect/occupant_overlay = null
 	// 15 minutes-ish safe period before being despawned.
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
@@ -503,6 +504,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		icon_state = occupied_icon_state
+		update_icon(UPDATE_OVERLAYS)
 
 		M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 		to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
@@ -627,6 +629,38 @@
 
 /obj/machinery/cryopod/force_eject_occupant(mob/target)
 	go_out()
+
+/obj/machinery/cryopod/update_overlays()
+	. = ..()
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+	if(!occupant)
+		return
+
+	if(occupant)
+		occupant_overlay = new(get_turf(src))
+		occupant_overlay.icon = occupant.icon
+		occupant_overlay.icon_state = occupant.icon_state
+		occupant_overlay.overlays = occupant.overlays
+		occupant_overlay.dir = dir
+		occupant_overlay.layer = layer + 0.01
+		var/matrix/MA = matrix(transform)
+		if(dir == 1)
+			MA.TurnTo(0, 180)
+			occupant_overlay.dir = 2 // trust me
+		if(dir == 4)
+			MA.TurnTo(0, 270)
+			occupant_overlay.pixel_y = -8
+		if(dir == 8)
+			MA.TurnTo(0 , 90)
+			occupant_overlay.pixel_y = -8
+		MA.Scale(0.66, 0.66)
+		occupant_overlay.transform = MA
+		var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "bodyscanner_first_overlay", layer = occupant_overlay.layer + 0.01)
+		var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "bodyscanner-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+		. += rim
+		. += lid
+
 
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
