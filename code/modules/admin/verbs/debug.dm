@@ -813,21 +813,15 @@ USER_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all ra
 
 	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
 
-/client/proc/view_bug_reports()
-	set name = "View Bug Reports"
-	set desc = "Select a bug report to view"
-	set category = "Debug"
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
-		return
+USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", "Select a bug report to view", VERB_CATEGORY_DEBUG)
 	if(!length(GLOB.bug_reports))
-		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
+		to_chat(user, "<span class='warning'>There are no bug reports to view</span>")
 		return
 	var/list/bug_report_selection = list()
 	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
 		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
-	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
-	if(!form.assign_approver(usr))
+	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(user, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	if(!form.assign_approver(user))
 		return
-	form.ui_interact(usr)
-	return
+	form.ui_interact(user)
 
