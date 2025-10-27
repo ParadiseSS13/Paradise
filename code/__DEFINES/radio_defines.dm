@@ -44,7 +44,7 @@
 #define RADIO_MAGNETS "radio_magnet" // KILL THIS
 
 // Signal types
-#define SIGNALTYPE_NORMAL       0 // Unused?
+#define SIGNALTYPE_NORMAL       0
 #define SIGNALTYPE_INTERCOM     (1<<0) // Will only broadcast to intercoms
 #define SIGNALTYPE_INTERCOM_SBR (1<<1) // Will only broadcast to intercoms and station-bounced radios
 #define SIGNALTYPE_AINOTRACK    (1<<2) // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
