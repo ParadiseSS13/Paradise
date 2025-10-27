@@ -25201,12 +25201,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "cEn" = (
-/obj/structure/closet/secure_closet/scientist,
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cEr" = (
@@ -35568,7 +35568,7 @@
 /area/station/engineering/break_room)
 "fbq" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/smithing/scientific_assembler,
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "fbr" = (
@@ -58583,6 +58583,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "nlt" = (
@@ -83131,10 +83132,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/closet/bombcloset,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "wsn" = (
