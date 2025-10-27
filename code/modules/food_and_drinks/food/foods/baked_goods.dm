@@ -20,7 +20,7 @@
 
 /obj/item/food/sliced/carrot_cake
 	name = "carrot cake slice"
-	desc = "Carrotty slice of Carrot Cake, carrots are good for your eyes! Also not a lie."
+	desc = "Carrotty slice of Carrot Cake. Carrots are good for your eyes! Also not a lie."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "carrotcake_slice"
 	trash = /obj/item/trash/plate
@@ -93,7 +93,7 @@
 
 /obj/item/food/sliced/plain_cake
 	name = "plain cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake_slice"
 	trash = /obj/item/trash/plate
@@ -117,7 +117,7 @@
 
 /obj/item/food/sliced/orange_cake
 	name = "orange cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "orangecake_slice"
 	trash = /obj/item/trash/plate
@@ -141,7 +141,7 @@
 
 /obj/item/food/sliced/banana_cake
 	name = "banana cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "bananacake_slice"
 	trash = /obj/item/trash/plate
@@ -165,7 +165,7 @@
 
 /obj/item/food/sliced/lime_cake
 	name = "lime cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "limecake_slice"
 	trash = /obj/item/trash/plate
@@ -189,7 +189,7 @@
 
 /obj/item/food/sliced/lemon_cake
 	name = "lemon cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "lemoncake_slice"
 	trash = /obj/item/trash/plate
@@ -213,7 +213,7 @@
 
 /obj/item/food/sliced/chocolate_cake
 	name = "chocolate cake slice"
-	desc = "Just a slice of cake, it is enough for everyone."
+	desc = "Just a slice of cake. It's enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "chocolatecake_slice"
 	trash = /obj/item/trash/plate
@@ -686,7 +686,7 @@
 
 /obj/item/food/applepie
 	name = "apple pie"
-	desc = "A pie containing sweet sweet love... or apple."
+	desc = "A pie containing sweet, sweet love... or apple."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "applepie"
 	filling_color = "#E0EDC5"

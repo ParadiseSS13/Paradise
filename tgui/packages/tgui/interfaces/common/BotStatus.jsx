@@ -20,7 +20,7 @@ export const BotStatus = (props) => {
               onClick={() => act('power')}
             />
           </LabeledList.Item>
-          {autopatrol !== null && (
+          {autopatrol !== undefined && (
             <LabeledList.Item label="Patrol">
               <Button.Checkbox
                 fluid
