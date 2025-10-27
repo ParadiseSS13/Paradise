@@ -43,7 +43,8 @@
 	max_distance = INFINITY,
 	beam_type = /obj/effect/ebeam,
 	beam_color,
-	use_get_turf = FALSE
+	use_get_turf = FALSE,
+	clip_distance
 )
 	src.origin = origin
 	src.target = target
@@ -53,6 +54,7 @@
 	src.beam_type = beam_type
 	src.beam_color = beam_color
 	src.use_get_turf = use_get_turf
+	src.clip_distance = clip_distance
 	if(time < INFINITY)
 		QDEL_IN(src, time)
 
@@ -138,7 +140,7 @@
 	if(distance / 32 > max_distance)
 		qdel(src)
 		return
-		
+
 	var/length = min(distance, clip_distance * 32)
 
 	for(N in 0 to length-1 step 32) // -1 as we want < not <=, but we want the speed of X in Y to Z and step X

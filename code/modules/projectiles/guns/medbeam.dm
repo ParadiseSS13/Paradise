@@ -53,7 +53,7 @@
 
 	current_target = target
 	active = TRUE
-	var/datum/beam/current_beam = user.Beam(current_target, "medbeam", time = 10 MINUTES, beam_type = /obj/effect/ebeam/medical)
+	var/datum/beam/current_beam = user.Beam(current_target, "medbeam", time = 10 MINUTES, beam_type = /obj/effect/ebeam/medical, maxdistance = max_range)
 	beam_UID = current_beam.UID()
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
