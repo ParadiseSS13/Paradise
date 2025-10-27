@@ -520,7 +520,7 @@
 	display_name = "Overalls, smith"
 	path = /obj/item/clothing/under/rank/cargo/smith/overalls
 	allowed_roles = list("Quartermaster", "Smith")
-  
+
 /datum/gear/uniform/overalls/job/atmos
 	display_name = "Overalls, atmos"
 	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls
