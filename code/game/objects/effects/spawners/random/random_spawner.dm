@@ -81,6 +81,7 @@
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
+		spawn_loot_double = FALSE
 
 	var/list/loot_list = generate_loot_list()
 	var/safe_failure_count = 0

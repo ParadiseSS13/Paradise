@@ -146,6 +146,7 @@
 /obj/effect/spawner/random/pool/geyser_spawner
 	spawn_all_loot = TRUE
 	spawn_pool = /datum/spawn_pool/geysers
+	point_value = 1
 	loot = list(
 		/obj/structure/geyser/plasma,
 		/obj/structure/geyser/water,
