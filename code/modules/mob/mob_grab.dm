@@ -97,6 +97,11 @@
 		qdel(src)
 		return
 
+	if(istype(assailant.buckled, /obj/tgvehicle/scooter/skateboard))
+		qdel(src)
+		to_chat(assailant, "<span class='warning'>You can't pull things along while skateboarding!</span>")
+		return
+
 	if(get_turf(affecting) != old_turf)
 		var/possible_dest = list()
 		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
