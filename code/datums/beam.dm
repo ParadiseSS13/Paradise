@@ -23,6 +23,8 @@
 	var/icon_state = ""
 	///The beam will qdel if it's longer than this many tiles.
 	var/max_distance = 0
+	///beam wont be drawn past this
+	var/clip_distance
 	///the objects placed in the elements list
 	var/beam_type = /obj/effect/ebeam
 	///This is used as the visual_contents of beams, so you can apply one effect to this and the whole beam will look like that. never gets deleted on redrawing.
@@ -64,6 +66,7 @@
 	visuals.color = beam_color
 	visuals.vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_LAYER
 	visuals.update_appearance()
+	clip_distance = isnull(clip_distance) ? max_distance : clip_distance
 	Draw()
 	RegisterSignal(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing), TRUE)
 	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing), TRUE)
@@ -130,7 +133,13 @@
 	var/DX = (32 * target_x + target_px) - (32 * origin_x + origin_px)
 	var/DY = (32 * target_y + target_py) - (32 * origin_y + origin_py)
 	var/N = 0
-	var/length = round(sqrt((DX)**2 + (DY)**2)) // hypotenuse of the triangle formed by target and origin's displacement
+	var/distance = round(sqrt((DX)**2 + (DY)**2)) // hypotenuse of the triangle formed by target and origin's displacement
+	// no pointing beams through cameras
+	if(distance / 32 > max_distance)
+		qdel(src)
+		return
+		
+	var/length = min(distance, clip_distance * 32)
 
 	for(N in 0 to length-1 step 32) // -1 as we want < not <=, but we want the speed of X in Y to Z and step X
 		if(QDELETED(src))
@@ -246,8 +255,9 @@
 	maxdistance = 10,
 	beam_type = /obj/effect/ebeam,
 	beam_color,
-	use_get_turf = FALSE
+	use_get_turf = FALSE,
+	clip_distance
 )
-	var/datum/beam/newbeam = new(src, BeamTarget, icon, icon_state, time, maxdistance, beam_type, beam_color, use_get_turf)
+	var/datum/beam/newbeam = new(src, BeamTarget, icon, icon_state, time, maxdistance, beam_type, beam_color, use_get_turf, clip_distance)
 	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam
