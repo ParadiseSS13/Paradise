@@ -5,6 +5,7 @@
 		/obj/effect/spawner/random/pool/lavaland_fauna/megafauna,
 		/obj/effect/spawner/random/pool/lavaland_fauna/megafauna/unique,
 		/obj/effect/spawner/random/pool/tendril_spawner,
+		/obj/effect/spawner/random/pool/geyser_spawner
 	)
 
 /datum/spawn_pool/lavaland_fauna
@@ -138,3 +139,34 @@
 			return FALSE
 
 	return ..()
+
+/datum/spawn_pool/geysers
+	available_points = 8
+
+/obj/effect/spawner/random/pool/geyser_spawner
+	spawn_all_loot = TRUE
+	spawn_pool = /datum/spawn_pool/geysers
+	loot = list(
+		/obj/structure/geyser/plasma,
+		/obj/structure/geyser/water,
+		/obj/structure/geyser/brine,
+		/obj/structure/geyser/oil,
+		/obj/structure/geyser/plasma,
+		/obj/structure/geyser/water,
+		/obj/structure/geyser/brine,
+		/obj/structure/geyser/oil
+	)
+
+/obj/item/geyser_counter
+	name = "Geyser counter"
+	desc = "Debug item. Counts Geysers."
+
+/obj/item/geyser_counter/attack_self__legacy__attackchain(mob/living/carbon/human/user)
+	var/list/all_of_em = list()
+	for(var/obj/structure/geyser/geyser in world)
+		var/g_name = geyser.name
+		if(g_name in all_of_em)
+			all_of_em[g_name] += 1
+		else
+			all_of_em[g_name] = 1
+	user.visible_message("[json_decode(all_of_em)]")

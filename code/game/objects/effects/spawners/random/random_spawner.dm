@@ -81,7 +81,6 @@
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
-		spawn_loot_double = FALSE
 
 	var/list/loot_list = generate_loot_list()
 	var/safe_failure_count = 0
@@ -91,7 +90,7 @@
 
 	if(length(loot_list))
 		var/loot_spawned = 0
-		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
+		while((spawn_loot_count - loot_spawned) && length(loot_list) && safe_failure_count <= 10)
 			loot_spawned++
 			var/lootspawn = pick_weight_recursive(loot_list)
 
@@ -101,6 +100,7 @@
 
 			if(!spawn_loot_double)
 				loot_list.Remove(lootspawn)
+
 			if(lootspawn)
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))

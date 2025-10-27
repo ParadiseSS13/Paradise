@@ -15,6 +15,18 @@
 	name = "raw plasma geyser"
 	liquid_to_output = /datum/fluid/raw_plasma
 
+/obj/structure/geyser/water
+	name = "water geyser"
+	liquid_to_output = /datum/fluid/water
+
+/obj/structure/geyser/brine
+	name = "brine geyser"
+	liquid_to_output = /datum/fluid/brine
+
+/obj/structure/geyser/oil
+	name = "oil geyser"
+	liquid_to_output = /datum/fluid/oil
+
 /obj/machinery/fluid_pipe/geyser_extractor
 	name = "geyser pump"
 	desc = "Extracts liquids from geysers. Consumes part of the fluid produced to keep itself running."
