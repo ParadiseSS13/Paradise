@@ -29,6 +29,7 @@
 #define JANI_HUD			"24" // Sign overlay over cleanable decals
 #define PRESSURE_HUD		"25" // Pressure coloring for tiles
 #define MALF_AI_HUD			"26" // Malf status blips for borgs
+#define ANOMALOUS_HUD			"27" // Seeing anomalous particulate
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -46,22 +47,23 @@
 #define DATA_HUD_JANITOR				8
 #define DATA_HUD_PRESSURE				9
 #define DATA_HUD_MALF_AI				10
+#define DATA_HUD_ANOMALOUS				11
 //antag HUD defines
-#define ANTAG_HUD_CULT					11
-#define ANTAG_HUD_REV					12
-#define ANTAG_HUD_OPS					13
-#define ANTAG_HUD_WIZ					14
-#define ANTAG_HUD_SHADOW    			15
-#define ANTAG_HUD_TRAITOR 				16
-#define ANTAG_HUD_NINJA 				17
-#define ANTAG_HUD_CHANGELING 			18
-#define ANTAG_HUD_VAMPIRE 				19
-#define ANTAG_HUD_ABDUCTOR 				20
-#define DATA_HUD_ABDUCTOR				21
-#define ANTAG_HUD_EVENTMISC 			22
-#define ANTAG_HUD_BLOB 					23
-#define ANTAG_HUD_ZOMBIE 				24
-#define ANTAG_HUD_MIND_FLAYER 			25
+#define ANTAG_HUD_CULT					12
+#define ANTAG_HUD_REV					13
+#define ANTAG_HUD_OPS					14
+#define ANTAG_HUD_WIZ					15
+#define ANTAG_HUD_SHADOW    			16
+#define ANTAG_HUD_TRAITOR 				17
+#define ANTAG_HUD_NINJA 				18
+#define ANTAG_HUD_CHANGELING 			19
+#define ANTAG_HUD_VAMPIRE 				20
+#define ANTAG_HUD_ABDUCTOR 				21
+#define DATA_HUD_ABDUCTOR				22
+#define ANTAG_HUD_EVENTMISC 			23
+#define ANTAG_HUD_BLOB 					24
+#define ANTAG_HUD_ZOMBIE 				25
+#define ANTAG_HUD_MIND_FLAYER 			26
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

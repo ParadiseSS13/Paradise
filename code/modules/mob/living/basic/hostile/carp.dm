@@ -38,7 +38,6 @@
 	faction = list("carp", "mining")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
-	density = FALSE
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 
@@ -68,7 +67,6 @@
 /mob/living/basic/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify(rarechance)
-	AddComponent(/datum/component/swarming)
 	AddComponent(/datum/component/aggro_emote, emote_list = list("gnashes"))
 
 /mob/living/basic/carp/proc/carp_randomify(rarechance)
@@ -107,16 +105,6 @@
 		return
 
 	. += mutable_appearance(icon, "base_[stat == DEAD ? "dead_" : ""]mouth", appearance_flags = RESET_COLOR)
-
-// We do not want mobs moving through space carp, we as such we block it if the mob is not dense
-/mob/living/basic/carp/CanPass(atom/movable/mover, border_dir)
-	if(isliving(mover) && !istype(mover, /mob/living/basic/carp) && mover.density == TRUE && stat != DEAD)
-		return FALSE
-	return ..()
-
-// Since it's not dense we let it always hit
-/mob/living/basic/carp/projectile_hit_check(obj/item/projectile/P)
-	return stat == DEAD
 
 /mob/living/basic/carp/holocarp
 	icon_state = "holocarp"
