@@ -163,6 +163,13 @@ ipc_screens = [
     "Icon State 2",
   ]},
 ]
+fluff_undershirts = [
+	{ name = "Shirt Name Here", ckeys = [
+		"ckeyhere1",
+		"ckeyhere2",
+	] },
+]
+
 
 ################################################################
 

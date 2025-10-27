@@ -354,6 +354,13 @@
 
 #undef LWAP_LOCK_CAP
 
+/datum/status_effect/hivelord_tracking
+	id = "hivelord_tracking"
+	alert_type = null
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	var/list/list_of_uids = list()
+
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
 	status_type = STATUS_EFFECT_MULTIPLE

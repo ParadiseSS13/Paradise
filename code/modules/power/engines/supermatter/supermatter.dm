@@ -1070,7 +1070,7 @@
 				var/obj/effect/anomaly/flux/A = new(L, 30 SECONDS, FALSE)
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
-				new /obj/effect/anomaly/grav(L, 25 SECONDS, FALSE, FALSE)
+				new /obj/effect/anomaly/grav(L, 25 SECONDS, FALSE)
 			if(BLUESPACE_ANOMALY)
 				new /obj/effect/anomaly/bluespace(L, 24 SECONDS, FALSE, FALSE, TRUE)
 

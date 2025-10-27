@@ -87,6 +87,12 @@
 	if(M.pulling)
 		M.stop_pulling()
 		to_chat(M, "<span class='warning'>You can't pull things along while skateboarding!</span>")
+	if(istype(M.l_hand, /obj/item/grab)) // We need to run the check on both hands to ensure someone isn't grabbing something in each hand
+		M.drop_l_hand()
+		to_chat(M, "<span class='warning'>You can't pull things along while skateboarding!</span>")
+	if(istype(M.r_hand, /obj/item/grab))
+		M.drop_r_hand()
+		to_chat(M, "<span class='warning'>You can't pull things along while skateboarding!</span>")
 	set_density(TRUE)
 	return ..()
 
