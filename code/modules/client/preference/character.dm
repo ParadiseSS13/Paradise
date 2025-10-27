@@ -1017,7 +1017,7 @@
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (current_species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.sprite_sheet_name] : U2.icon
 			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
