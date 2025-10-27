@@ -452,6 +452,7 @@
 
 	QDEL_NULL(occupant)
 	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/cryopod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -504,7 +505,6 @@
 			return ITEM_INTERACT_COMPLETE
 
 		icon_state = occupied_icon_state
-		update_icon(UPDATE_OVERLAYS)
 
 		M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 		to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
@@ -607,6 +607,7 @@
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
@@ -622,13 +623,7 @@
 	icon_state = base_icon_state
 	name = initial(name)
 	playsound(src, 'sound/machines/podopen.ogg', 5)
-
-//Attacks/effects.
-/obj/machinery/cryopod/blob_act()
-	return //Sorta gamey, but we don't really want these to be destroyed.
-
-/obj/machinery/cryopod/force_eject_occupant(mob/target)
-	go_out()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cryopod/update_overlays()
 	. = ..()
@@ -661,6 +656,12 @@
 		. += rim
 		. += lid
 
+//Attacks/effects.
+/obj/machinery/cryopod/blob_act()
+	return //Sorta gamey, but we don't really want these to be destroyed.
+
+/obj/machinery/cryopod/force_eject_occupant(mob/target)
+	go_out()
 
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
