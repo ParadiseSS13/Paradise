@@ -227,7 +227,7 @@
 		heretic_datum.high_value_sacrifices++
 		feedback += " <i>graciously</i>"
 	if(cultist_datum)
-		heretic_datum.knowledge_points += 1
+		heretic_datum.knowledge_points += 3
 		grant_reward(user, sacrifice, our_turf)
 		// easier to read
 		var/rewards_given = heretic_datum.rewards_given
@@ -248,6 +248,7 @@
 	else
 		heretic_datum.knowledge_points += 2
 
+	ADD_TRAIT(sacrifice, TRAIT_WAS_SACRIFICED, CULT_TRAIT)
 	to_chat(user, "<span class='hierophant_warning'>[feedback].</span>")
 	if(!begin_sacrifice(sacrifice))
 		disembowel_target(sacrifice)
@@ -263,13 +264,8 @@
 	to_chat(user, "<span class='hierophant'>Your patrons are rapturous!</span>")
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
-	// Drop all items and splatter them around messily.
-	var/list/dustee_items = sacrifice.unequip_everything()
-	for(var/obj/item/loot as anything in dustee_items)
-		loot.throw_at(get_step_rand(sacrifice), 2, 4, user, TRUE)
-
-	// The loser is DUSTED.
-	sacrifice.dust(TRUE, TRUE)
+	to_chat(sacrifice, "<span class='hierophant'>No! Your feel your connection with your god has been severed!</span>")
+	sacrifice.mind.remove_antag_datum(/datum/antagonist/cultist)
 
 	// Increase reward counter
 	var/datum/antagonist/heretic/antag = IS_HERETIC(user)

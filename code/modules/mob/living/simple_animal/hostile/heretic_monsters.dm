@@ -18,6 +18,7 @@
 	universal_speak = TRUE
 	universal_understand = TRUE
 	deathmessage = "implodes into itself."
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	loot = list(/obj/effect/gibspawner/human)
 	faction = list("heretic")
 	basic_mob_flags = DEL_ON_DEATH

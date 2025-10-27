@@ -276,6 +276,8 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 			to_chat(creature, pick(sick_messages))
 		if(prob(5))
 			creature.vomit(-10, TRUE, FALSE, 2, FALSE)
+			var/turf/T = get_step(creature.loc, creature.dir)
+			new /obj/item/food/meat(T)
 			to_chat(creature, "<span class='warning'>You vomit up rotten meat and decayed organs!</span>")
 
 // MARK: Rust
