@@ -1,4 +1,6 @@
 /obj/machinery/atmospherics/binary/temperature_gate
+
+	name = "temperature gate"
 	icon = 'icons/atmos/temperature_gate.dmi'
 	icon_state = "map"
 
@@ -28,7 +30,7 @@
 
 /obj/machinery/atmospherics/binary/temperature_gate/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>An activable gate that compares the input temperature with the interface set temperature to check if the gas can flow from the input side to the output side or not.</span>"
+	. += "<span class='notice'>the temperature thing</span>"
 	. += "<span class='notice'>It is currently set to [target_temperature] K and will allow gas to flow when the input temperature [inverted ? "is higher than" : "is lower than"] than the set temperature.</span>"
 
 /obj/machinery/atmospherics/binary/temperature_gate/update_icon_state()
@@ -43,7 +45,96 @@
 		add_underlay(T, node1, turn(dir, 180))
 		add_underlay(T, node2, dir)
 
+/obj/machinery/atmospherics/binary/temperature_gate/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(inverted)
+		to_chat(user, "<span class='notice'>You set [src] to normal operation mode.</span>")
+		inverted = FALSE
+	else
+		to_chat(user, "<span class='notice'>You set [src] to inverted operation mode.</span>")
+		inverted = TRUE
+
+
 /obj/machinery/atmospherics/binary/temperature_gate/process_atmos()
-	if(!on)
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return 0
+
+	var/input_temp = air1.temperature()
+	var/allow_flow = FALSE
+
+	if(inverted)
+		if(input_temp > target_temperature)
+			allow_flow = TRUE
+	else
+		if(input_temp < target_temperature)
+			allow_flow = TRUE
+
+	if(!allow_flow)
+		return 1
+
+	var/datum/gas_mixture/removed = air1.remove(air1.total_moles())
+	if(removed && removed.total_moles() > 0)
+		air2.merge(removed)
+
+	parent1.update = 1
+	parent2.update = 1
+
+	return 1
+
+/obj/machinery/atmospherics/binary/temperature_gate/attack_hand(mob/user)
+	if(..())
+		return
+
+	if(!allowed(user))
+		to_chat(user, "<span class='alert'>Access denied.</span>")
+		return
+
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/temperature_gate/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/temperature_gate/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/binary/temperature_gate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AtmosTemperatureGate", name)
+		ui.open()
+
+/obj/machinery/atmospherics/binary/temperature_gate/ui_data(mob/user)
+	var/list/data = list(
+		"on" = on,
+		"temperature" = round(target_temperature),
+		"max_temp" = maximum_temperature,
+		"temp_unit" = "K",
+		"step" = 10 // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
+	)
+	return data
+
+/obj/machinery/atmospherics/binary/temperature_gate/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("power")
+			toggle()
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
+			return TRUE
+
+		if("max_temp")
+			target_pressure = maximum_temperature
+			. = TRUE
+
+		if("min_temp")
+			target_temperature = 0
+			. = TRUE
+
+		if("custom_temperature")
+			target_temperature = clamp(text2num(params["temperature"]), 0 , MAX_OUTPUT_PRESSURE)
+			. = TRUE
+	if(.)
+		investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
