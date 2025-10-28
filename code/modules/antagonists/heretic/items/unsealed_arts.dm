@@ -1,12 +1,12 @@
 /obj/structure/unsealed_art
 	name = "Unsealed Art"
-	desc = "A painting of unfathomable madness."
+	desc = "A painting of unfathomable madness. Such a piece will never let down those who refuse to desert its wisdom."
 	icon = 'icons/obj/antags/unsealed_arts.dmi'
 	icon_state = "debug"
 	pass_flags_self = LETPASSTHROW
 	max_integrity = 200
 	layer = ABOVE_LYING_MOB_LAYER
-	armor = list(MELEE =50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 0, RAD = INFINITY, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 0, RAD = INFINITY, FIRE = 0, ACID = 0)
 	/// is the painting curredly draped over
 	var/covered = FALSE
 
@@ -69,6 +69,10 @@
 	var/mob/living/carbon/charmed_creature
 	/// Is the painting currently enchanting someone
 	var/enchanting = FALSE
+
+/obj/structure/unsealed_art/beauty/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>This unsealed art will bewitch any non-heretic that lays their eyes on it, forcing them to stare deeply upon its beauty. They cannot look away.</span"
 
 /obj/structure/unsealed_art/beauty/Destroy()
 	QDEL_NULL(eyeobj)
@@ -148,6 +152,10 @@
 	desc = "A beautiful painting depicting a fair lady sitting beside Him. He weeps. You will see him again."
 	icon_state = "weeping"
 
+/obj/structure/unsealed_art/weeping/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>This unsealed art will overwhelm non-heretics with grief for him. They will lose the strength to stand, collapsing to the floor.</span>"
+
 /obj/structure/unsealed_art/weeping/process()
 	for(var/mob/living/carbon/human/creature in range(7, loc))
 		if(IS_HERETIC(creature))
@@ -194,6 +202,10 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 		var/mob/living/basic/basic_mob = mob
 		if(initial(basic_mob.gold_core_spawnable) == FRIENDLY_SPAWN)
 			creature_list += basic_mob
+
+/obj/structure/unsealed_art/vines/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>This unsealed art will bring forth purest life, converting all around it into lush greenery. All unlightened beware, the creatures birthed forth are hungry.</span>"
 
 /obj/structure/unsealed_art/vines/process()
 	if(!COOLDOWN_FINISHED(src, time_to_convert))
@@ -254,6 +266,10 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 		"<span class='warning'>You cant stop looking at how delicious the painting's food it, even though the contents make you feel sick!</span>",
 	)
 
+/obj/structure/unsealed_art/desire/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>This unsealed art fills the unenlightened with the temptation of the first desire. Their hunger will never be sated in its presence, and will reject the gifts of the feast violently.</span>"
+
 /obj/structure/unsealed_art/desire/process()
 	for(var/mob/living/carbon/human/creature in range(7, loc))
 		if(IS_HERETIC(creature))
@@ -287,6 +303,10 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 	icon_state = "rust"
 	var/cooldown_delay = 3 SECONDS
 	COOLDOWN_DECLARE(time_to_rust)
+
+/obj/structure/unsealed_art/rust/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>This unsealed art brings reminds the world around it of its fate, bringing all to its final decayed destination.</span>"
 
 /obj/structure/unsealed_art/rust/process()
 	if(!COOLDOWN_FINISHED(src, time_to_rust))
