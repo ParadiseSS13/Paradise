@@ -9,8 +9,11 @@
 	integrity_failure = 100
 	var/list/ui_users = list()
 	var/broken_icon_state = "mirror_broke"
+	var/icon/spooked_icon
+	var/can_be_spooked = TRUE
 
 /obj/structure/mirror/organ
+	can_be_spooked = FALSE
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -25,6 +28,7 @@
 			if(WEST)
 				pixel_x = 32
 	GLOB.mirrors += src
+	spooked_icon = update_spooked_icon(icon("icons/mob/human.dmi", "husk_s"), SOUTH, 8, 0)
 
 /obj/structure/mirror/Destroy()
 	QDEL_LIST_ASSOC_VAL(ui_users)
@@ -87,20 +91,27 @@
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
 /obj/structure/mirror/get_spooked()
-	if(prob(95))
-		flicker_ghost()
+	if (!can_be_spooked || broken)
+		return
+	if(prob(98))
+		flicker_ghost(spooked_icon)
 	else
 		obj_break()
 	return TRUE
 
-/obj/structure/mirror/proc/flicker_ghost()
-	var/icon/our_icon = icon("icons/mob/human.dmi", "husk_s")
-	var/icon/alpha_mask = new ("icons/obj/watercloset.dmi", "mirror")
+/obj/structure/mirror/proc/update_spooked_icon(var/icon/icon_to_show, var/offset_dir, var/offset_pixels, var/wrap)
+	var/icon/our_icon = icon_to_show
+	our_icon.Shift(offset_dir,offset_pixels,wrap)
+	var/icon/alpha_mask = new("icons/obj/watercloset.dmi", "mirror_mask")
 	our_icon.AddAlphaMask(alpha_mask)
-	icon = our_icon
+	var/icon/added_icons = new("icons/obj/watercloset.dmi", "mirror")
+	added_icons.Blend(our_icon, ICON_OVERLAY)
+	return added_icons
+
+/obj/structure/mirror/proc/flicker_ghost(var/icon/icon_to_show)
+	icon = icon_to_show
 	sleep(rand(5,10))
-	if(!broken)
-		icon = new ("icons/obj/watercloset.dmi", "mirror")
+	icon = initial(icon)
 	return
 
 /obj/item/mounted/mirror
@@ -121,6 +132,7 @@
 	var/options = list("Name", "Body", "Voice")
 	var/organ_warn = FALSE
 	var/actually_magical = TRUE
+	can_be_spooked = FALSE
 
 /obj/structure/mirror/magic/Initialize(mapload, newdir, building)
 	. = ..()
@@ -203,4 +215,3 @@
 	options = list("Body")
 	organ_warn = TRUE
 	actually_magical = FALSE
-
