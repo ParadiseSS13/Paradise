@@ -157,20 +157,3 @@
 		/obj/structure/geyser/brine,
 		/obj/structure/geyser/oil
 	)
-
-/obj/item/geyser_counter
-	name = "Geyser counter"
-	desc = "Debug item. Counts Geysers."
-
-// DGTODO remove this
-/obj/item/geyser_counter/attack_self__legacy__attackchain(mob/living/carbon/human/user)
-	var/list/all_of_em = list()
-	for(var/obj/structure/geyser/geyser in world)
-		var/g_name = geyser.name
-		if(g_name in all_of_em)
-			all_of_em[g_name] += 1
-		else
-			all_of_em[g_name] = 1
-
-	for(var/thing, amount in all_of_em)
-		to_chat(user, "[thing]: [amount]")
