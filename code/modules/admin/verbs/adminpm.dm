@@ -3,7 +3,7 @@
 USER_CONTEXT_MENU(admin_pm_target, R_ADMIN|R_MENTOR, "\[Admin\] Admin PM Mob", mob/M as mob)
 	if(!ismob(M) || !M.client)
 		return
-	user.cmd_admin_pm(M.client, null)
+	client.cmd_admin_pm(M.client, null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
@@ -23,14 +23,14 @@ USER_VERB(admin_pm_panel, R_ADMIN|R_MENTOR, "Admin PM Name", "Send a PM by playe
 	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
 	if(!target)
 		return
-	user.cmd_admin_pm(targets[target], null)
+	client.cmd_admin_pm(targets[target], null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
 USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by key.", VERB_CATEGORY_ADMIN)
 	var/list/client/targets[0]
 	for(var/client/T)
-		if(T?.holder?.big_brother && !check_rights_client(R_PERMISSIONS, FALSE, user)) // normal admins can't see BB
+		if(T?.holder?.big_brother && !check_rights_client(R_PERMISSIONS, FALSE, client)) // normal admins can't see BB
 			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))
@@ -45,7 +45,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
 	if(!target)
 		return
-	user.cmd_admin_pm(targets[target], null)
+	client.cmd_admin_pm(targets[target], null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.

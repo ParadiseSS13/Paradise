@@ -1,7 +1,7 @@
 GENERAL_PROTECT_DATUM(/datum/controller/subsystem/user_verbs)
 
 SUBSYSTEM_DEF(user_verbs)
-	name = "Admin Verbs"
+	name = "User Verbs"
 	flags = SS_NO_FIRE
 	/// A list of all admin verbs indexed by their type.
 	var/list/user_verbs_by_type = list()

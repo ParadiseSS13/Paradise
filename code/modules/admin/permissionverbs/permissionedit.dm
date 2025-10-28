@@ -1,5 +1,5 @@
 USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admin permissions", VERB_CATEGORY_ADMIN)
-	user.holder.edit_admin_permissions()
+	client.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
 	if(!check_rights(R_PERMISSIONS))

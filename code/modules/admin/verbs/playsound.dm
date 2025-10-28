@@ -3,15 +3,15 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 USER_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop all playing admin sounds", VERB_CATEGORY_EVENT)
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
-	log_admin("[key_name(user)] stopped admin sounds.")
-	message_admins("[key_name_admin(user)] stopped admin sounds.", 1)
+	log_admin("[key_name(client)] stopped admin sounds.")
+	message_admins("[key_name_admin(client)] stopped admin sounds.", 1)
 	for(var/mob/M in GLOB.player_list)
 		M << awful_sound
 		var/client/C = M.client
 		C?.tgui_panel?.stop_music()
 
 USER_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
-	if(alert(user, "WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
+	if(alert(client, "WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
 		return
 
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
@@ -19,34 +19,34 @@ USER_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to pla
 
 	GLOB.sounds_cache += S
 
-	if(alert(user, "Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(alert(client, "Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
 		return
 
-	if(user.holder.fakekey)
-		if(alert(user, "Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check" ,"Play", "Cancel") == "Cancel")
+	if(client.holder.fakekey)
+		if(alert(client, "Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check" ,"Play", "Cancel") == "Cancel")
 			return
 
-	log_admin("[key_name(user)] played sound [S]")
-	message_admins("[key_name_admin(user)] played sound [S]", 1)
+	log_admin("[key_name(client)] played sound [S]")
+	message_admins("[key_name_admin(client)] played sound [S]", 1)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
-			if(user.ckey in M.client.prefs.admin_sound_ckey_ignore)
+			if(client.ckey in M.client.prefs.admin_sound_ckey_ignore)
 				continue // This player has this admin muted
 			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
 				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 
 			var/this_uid = M.client.UID()
-			to_chat(M, "<span class='boldannounceic'>[user.ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[user.ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+			to_chat(M, "<span class='boldannounceic'>[client.ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[client.ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
-	log_admin("[key_name(user)] played a local sound [S]")
-	message_admins("[key_name_admin(user)] played a local sound [S]", 1)
-	playsound(get_turf(user.mob), S, 50, FALSE, 0)
+	log_admin("[key_name(client)] played a local sound [S]")
+	message_admins("[key_name_admin(client)] played a local sound [S]", 1)
+	playsound(get_turf(client.mob), S, 50, FALSE, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to players", VERB_CATEGORY_EVENT)
@@ -56,7 +56,7 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
-	SSuser_verbs.invoke_verb(user, /datum/user_verb/play_local_sound, melody)
+	SSuser_verbs.invoke_verb(client, /datum/user_verb/play_local_sound, melody)
 
 /client/proc/play_intercomm_sound()
 	set category = "Event"

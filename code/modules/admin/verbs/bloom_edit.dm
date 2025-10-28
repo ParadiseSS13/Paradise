@@ -1,9 +1,9 @@
 USER_VERB(debug_bloom, R_DEBUG, "Bloom Edit", "Open bloom editor panel.", VERB_CATEGORY_DEBUG)
 	var/datum/bloom_edit/editor = new()
-	editor.ui_interact(user)
+	editor.ui_interact(client)
 
-	message_admins("[key_name(user)] opened Bloom Edit panel.")
-	log_admin("[key_name(user)] opened Bloom Edit panel.")
+	message_admins("[key_name(client)] opened Bloom Edit panel.")
+	log_admin("[key_name(client)] opened Bloom Edit panel.")
 
 /datum/bloom_edit
 

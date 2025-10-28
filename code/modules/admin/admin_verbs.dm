@@ -5,8 +5,8 @@
 	SSuser_verbs.deassociate_admin(src)
 
 USER_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin verbs.", VERB_CATEGORY_ADMIN)
-	user.remove_user_verbs()
-	add_verb(user, /client/proc/show_verbs)
+	client.remove_user_verbs()
+	add_verb(client, /client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -64,34 +64,34 @@ USER_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(admin_ghost, R_ADMIN|R_MOD, "Aghost", "Aghost self.", VERB_CATEGORY_ADMIN)
-	user.do_aghost()
+	client.do_aghost()
 
 /// Allow an admin to observe someone.
 /// mentors are allowed to use this verb while living, but with some stipulations:
 /// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
 USER_VERB(admin_observe, R_ADMIN|R_MOD|R_MENTOR, "Aobserve", "Admin-observe a player mob.", VERB_CATEGORY_ADMIN)
-	if(isnewplayer(user.mob))
-		to_chat(user, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+	if(isnewplayer(client.mob))
+		to_chat(client, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
 	var/mob/target
 
-	target = tgui_input_list(user, "Select a mob to observe", "Aobserve", GLOB.player_list)
+	target = tgui_input_list(client, "Select a mob to observe", "Aobserve", GLOB.player_list)
 	if(isnull(target))
 		return
-	if(target == user)
-		to_chat(user, "<span class='warning'>You can't observe yourself!</span>")
+	if(target == client)
+		to_chat(client, "<span class='warning'>You can't observe yourself!</span>")
 		return
 
 	if(isobserver(target))
-		to_chat(user, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
+		to_chat(client, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
 		return
 
 	if(isnewplayer(target))
-		to_chat(user, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
+		to_chat(client, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
 		return
 
-	SSuser_verbs.invoke_verb(user, /datum/user_verb/admin_observe_target, target)
+	SSuser_verbs.invoke_verb(client, /datum/user_verb/admin_observe_target, target)
 
 /client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
 	if(!istype(ghost) || !ghost.mob_observed)
@@ -108,7 +108,7 @@ USER_VERB(admin_observe, R_ADMIN|R_MOD|R_MENTOR, "Aobserve", "Admin-observe a pl
 	return TRUE
 
 USER_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobserve", mob/target as mob)
-	if(isnewplayer(user.mob))
+	if(isnewplayer(client.mob))
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
@@ -120,38 +120,38 @@ USER_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobse
 		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
-	var/mob/dead/observer/observer = user.mob
+	var/mob/dead/observer/observer = client.mob
 	if(istype(observer) && target == locateUID(observer.mob_observed))
-		user.cleanup_admin_observe(user.mob)
+		client.cleanup_admin_observe(client.mob)
 		return
-	user.cleanup_admin_observe(user.mob)
+	client.cleanup_admin_observe(client.mob)
 
-	if(isnull(target) || target == user.mob)
+	if(isnull(target) || target == client.mob)
 		// let the default one find the target if there isn't one
-		SSuser_verbs.invoke_verb(user, /datum/user_verb/admin_observe)
+		SSuser_verbs.invoke_verb(client, /datum/user_verb/admin_observe)
 		return
 
 	// observers don't need to ghost, so we don't need to worry about adding any traits
-	if(isobserver(user.mob))
-		var/mob/dead/observer/ghost = user.mob
+	if(isobserver(client.mob))
+		var/mob/dead/observer/ghost = client.mob
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		ghost.do_observe(target)
 		return
 
-	log_admin("[key_name(user)] has Aobserved out of their body to follow [target]")
-	user.do_aghost()
-	var/mob/dead/observer/ghost = user.mob
+	log_admin("[key_name(client)] has Aobserved out of their body to follow [target]")
+	client.do_aghost()
+	var/mob/dead/observer/ghost = client.mob
 
-	var/full_admin = check_rights_client(R_ADMIN|R_MOD, FALSE, user)
+	var/full_admin = check_rights_client(R_ADMIN|R_MOD, FALSE, client)
 	if(!full_admin)
 		// if they're a me and they're alive, add the MENTOR_OBSERVINGtrait to ensure that they can only go back to their body.
 		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
-		ADD_TRAIT(user.mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+		ADD_TRAIT(client.mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
 		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, TYPE_PROC_REF(/client, on_mentor_observe_end), override = TRUE)
-		to_chat(user, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
-		log_admin("[key_name(user)] has mobserved out of their body to follow [target].")
+		to_chat(client, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_admin("[key_name(client)] has mobserved out of their body to follow [target].")
 	else
-		log_admin("[key_name(user)] is aobserving [target].")
+		log_admin("[key_name(client)] is aobserving [target].")
 
 	ghost.do_observe(target)
 
@@ -175,48 +175,48 @@ USER_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobse
 		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, and you should probably ahelp.</span>")
 
 USER_VERB(invisimin, R_ADMIN, "Invisimin", "Toggles ghost-like invisibility (Don't abuse this)", VERB_CATEGORY_ADMIN)
-	if(!isliving(user.mob))
+	if(!isliving(client.mob))
 		return
 
-	var/mob/living/client_mob = user.mob
+	var/mob/living/client_mob = client.mob
 	if(client_mob.invisibility == INVISIBILITY_OBSERVER)
 		client_mob.invisibility = initial(client_mob.invisibility)
 		client_mob.add_to_all_human_data_huds()
-		to_chat(user, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-		log_admin("[key_name(user)] has turned Invisimin OFF")
+		to_chat(client, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+		log_admin("[key_name(client)] has turned Invisimin OFF")
 	else
 		client_mob.invisibility = INVISIBILITY_OBSERVER
 		client_mob.remove_from_all_data_huds()
-		to_chat(user, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-		log_admin("[key_name(user)] has turned Invisimin ON")
+		to_chat(client, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+		log_admin("[key_name(client)] has turned Invisimin ON")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(player_panel, R_ADMIN|R_MOD, "Player Panel", "Opens the player panel.", VERB_CATEGORY_ADMIN)
-	user.holder.player_panel_new()
+	client.holder.player_panel_new()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(check_antagonists, R_ADMIN, "Check Antagonists", "Open the Antagonists panel.", VERB_CATEGORY_ADMIN)
-	user.holder.check_antagonists()
-	log_admin("[key_name(user)] checked antagonists")
+	client.holder.check_antagonists()
+	log_admin("[key_name(client)] checked antagonists")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(check_antagonists_tgui, R_ADMIN, "TGUI - Antagonists", "Open the TGUI Antagonists panel.", VERB_CATEGORY_ADMIN)
 	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
-	admin.ui_interact(user)
-	log_admin("[key_name(user)] checked antagonists")
+	admin.ui_interact(client.mob)
+	log_admin("[key_name(client)] checked antagonists")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(ban_panel, R_BAN, "Ban Panel", "Opens the ban panel.", VERB_CATEGORY_ADMIN)
-	user.holder.DB_ban_panel()
+	client.holder.DB_ban_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(game_panel, R_ADMIN, "Game Panel", "Opens the game panel.", VERB_CATEGORY_ADMIN)
-	user.holder.Game()
+	client.holder.Game()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(secrets_panel, R_ADMIN, "Secrets", "Opens the secrets panel.", VERB_CATEGORY_ADMIN)
-	user.holder.Secrets()
+	client.holder.Secrets()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/getStealthKey()
@@ -234,72 +234,72 @@ USER_VERB(secrets_panel, R_ADMIN, "Secrets", "Opens the secrets panel.", VERB_CA
 	GLOB.stealthminID["[ckey]"] = "@[num2text(num)]"
 
 USER_VERB(stealth_mode, R_ADMIN, "Stealth Mode", "Enables stealth mode.", VERB_CATEGORY_ADMIN)
-	var/datum/admins/holder = user.holder
+	var/datum/admins/holder = client.holder
 	if(istype(holder))
 		holder.big_brother = 0
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
-			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", user.key))
+			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", client.key))
 			if(!new_key)	return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
-			user.createStealthKey()
+			client.createStealthKey()
 		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
 		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(big_brother, R_PERMISSIONS, "Big Brother Mode", "Enables Big Brother mode.", VERB_CATEGORY_ADMIN)
-	var/datum/admins/holder = user.holder
+	var/datum/admins/holder = client.holder
 	if(holder)
 		if(holder.fakekey)
 			holder.fakekey = null
 			holder.big_brother = 0
 		else
-			var/new_key = ckeyEx(clean_input(user, "Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", user.key))
+			var/new_key = ckeyEx(clean_input(client, "Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", client.key))
 			if(!new_key)
 				return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = 1
-			if(isobserver(user.mob))
-				user.mob.invisibility = 90
-				user.mob.see_invisible = 90
-			user.createStealthKey()
-		log_admin("[key_name(user)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
+			if(isobserver(client.mob))
+				client.mob.invisibility = 90
+				client.mob.see_invisible = 90
+			client.createStealthKey()
+		log_admin("[key_name(client)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(drop_bomb, R_EVENT, "Drop Bomb", "Cause an explosion of varying strength at your location.", VERB_CATEGORY_EVENT)
-	var/turf/epicenter = user.mob.loc
+	var/turf/epicenter = client.mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = tgui_input_list(user, "What size explosion would you like to produce?", "Drop Bomb", choices)
+	var/choice = tgui_input_list(client, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3, cause = "[user.ckey]: Drop Bomb command")
+			explosion(epicenter, 1, 2, 3, 3, cause = "[client.ckey]: Drop Bomb command")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4, cause = "[user.ckey]: Drop Bomb command")
+			explosion(epicenter, 2, 3, 4, 4, cause = "[client.ckey]: Drop Bomb command")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5, cause = "[user.ckey]: Drop Bomb command")
+			explosion(epicenter, 3, 5, 7, 5, cause = "[client.ckey]: Drop Bomb command")
 		if("Custom Bomb")
-			var/devastation_range = tgui_input_number(user, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
+			var/devastation_range = tgui_input_number(client, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(devastation_range))
 				return
-			var/heavy_impact_range = tgui_input_number(user, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
+			var/heavy_impact_range = tgui_input_number(client, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(heavy_impact_range))
 				return
-			var/light_impact_range = tgui_input_number(user, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
+			var/light_impact_range = tgui_input_number(client, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(light_impact_range))
 				return
-			var/flash_range = tgui_input_number(user, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
+			var/flash_range = tgui_input_number(client, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(flash_range))
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[user.ckey]: Drop Bomb command")
-	log_admin("[key_name(user)] created an admin explosion at [epicenter.loc]")
-	message_admins("<span class='adminnotice'>[key_name_admin(user)] created an admin explosion at [epicenter.loc]</span>")
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[client.ckey]: Drop Bomb command")
+	log_admin("[key_name(client)] created an admin explosion at [epicenter.loc]")
+	message_admins("<span class='adminnotice'>[key_name_admin(client)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(give_spell, R_EVENT, "Give Spell", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, mob/T)
@@ -307,7 +307,7 @@ USER_VERB(give_spell, R_EVENT, "Give Spell", VERB_NO_DESCRIPTION, VERB_CATEGORY_
 	var/type_length = length("/datum/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/datum/spell/S = input(user, "Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
+	var/datum/spell/S = input(client, "Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
 	if(!S)
 		return
 	S = spell_list[S]
@@ -317,16 +317,16 @@ USER_VERB(give_spell, R_EVENT, "Give Spell", VERB_NO_DESCRIPTION, VERB_CATEGORY_
 		T.AddSpell(new S)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(user)] gave [key_name(T)] the spell [S].")
-	message_admins("[key_name_admin(user)] gave [key_name(T)] the spell [S].", 1)
+	log_admin("[key_name(client)] gave [key_name(T)] the spell [S].")
+	message_admins("[key_name_admin(client)] gave [key_name(T)] the spell [S].", 1)
 
 USER_VERB(give_disease, R_EVENT, "Give Disease", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, mob/T)
 	var/datum/disease/given_disease = null
 
-	if(tgui_input_list(user, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
-		given_disease = AdminCreateVirus(user)
+	if(tgui_input_list(client, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(client)
 	else
-		given_disease = tgui_input_list(user, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+		given_disease = tgui_input_list(client, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
 
 	if(!given_disease)
 		return
@@ -335,15 +335,15 @@ USER_VERB(give_disease, R_EVENT, "Give Disease", VERB_NO_DESCRIPTION, VERB_CATEG
 		given_disease = new given_disease
 	T.ForceContractDisease(given_disease)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(user)] gave [key_name(T)] the disease [given_disease].")
-	message_admins("<span class='adminnotice'>[key_name_admin(user)] gave [key_name(T)] the disease [given_disease].</span>")
+	log_admin("[key_name(client)] gave [key_name(T)] the disease [given_disease].")
+	message_admins("<span class='adminnotice'>[key_name_admin(client)] gave [key_name(T)] the disease [given_disease].</span>")
 
 USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and infects a random player with it.", VERB_CATEGORY_EVENT)
 	var/datum/disease/given_disease = null
-	if(tgui_input_list(user, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
-		given_disease = AdminCreateVirus(user)
+	if(tgui_input_list(client, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(client)
 	else
-		given_disease = tgui_input_list(user, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+		given_disease = tgui_input_list(client, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
 	if(!given_disease)
 		return
 
@@ -362,9 +362,9 @@ USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and 
 		var/list/name_symptoms = list()
 		for(var/datum/symptom/S in given_advanced_disease.symptoms)
 			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
+		message_admins("[key_name_admin(client)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
 	else
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [given_disease.name]!")
+		message_admins("[key_name_admin(client)] has triggered a custom virus outbreak of [given_disease.name]!")
 
 USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
 	if(O)
@@ -373,17 +373,17 @@ USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
 			return
 		for(var/mob/V in hearers(O))
 			V.show_message(admin_pencode_to_html(message), 2)
-		log_admin("[key_name(user)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins("<span class='notice'>[key_name_admin(user)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
+		log_admin("[key_name(client)] made [O] at [O.x], [O.y], [O.z] make a sound")
+		message_admins("<span class='notice'>[key_name_admin(client)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle Build Mode on yourself.", VERB_CATEGORY_EVENT)
-	if(user.mob)
-		togglebuildmode(user.mob)
+	if(client.mob)
+		togglebuildmode(client.mob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(object_talk, R_EVENT, "oSay", "Display a message to everyone who can hear the target", VERB_CATEGORY_EVENT, msg as text)
-	var/mob/living/mob = user.mob
+	var/mob/living/mob = client.mob
 	if(mob.control_object)
 		if(!msg)
 			return
@@ -395,34 +395,34 @@ USER_VERB(object_talk, R_EVENT, "oSay", "Display a message to everyone who can h
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(deadmin_self, R_ADMIN|R_MENTOR, "De-admin self", "De-admin yourself.", VERB_CATEGORY_ADMIN)
-	log_admin("[key_name(user)] deadmined themself.")
-	message_admins("[key_name_admin(user)] deadmined themself.")
-	user.deadmin()
-	to_chat(user, "<span class='interface'>You are now a normal player.</span>")
+	log_admin("[key_name(client)] deadmined themself.")
+	message_admins("[key_name_admin(client)] deadmined themself.")
+	client.deadmin()
+	to_chat(client, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_log_hrefs, R_SERVER, "Toggle href logging", "Toggle href logging", VERB_CATEGORY_SERVER)
-	if(!user.is_connecting_from_localhost())
-		if(tgui_alert(user, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	// Why would we ever turn this off?
 	if(GLOB.configuration.logging.href_logging)
 		GLOB.configuration.logging.href_logging = FALSE
-		to_chat(user, "<b>Stopped logging hrefs</b>")
+		to_chat(client, "<b>Stopped logging hrefs</b>")
 	else
 		GLOB.configuration.logging.href_logging = TRUE
-		to_chat(user, "<b>Started logging hrefs</b>")
+		to_chat(client, "<b>Started logging hrefs</b>")
 
 USER_VERB(check_ai_laws, R_ADMIN, "Check AI Laws", "Output AI laws.", VERB_CATEGORY_ADMIN)
-	user.holder.output_ai_laws()
+	client.holder.output_ai_laws()
 
 USER_VERB(open_law_manager, R_ADMIN, "Manage Silicon Laws", "Open the law manager.", VERB_CATEGORY_ADMIN)
-	var/mob/living/silicon/S = input(user, "Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
+	var/mob/living/silicon/S = input(client, "Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(user.mob)
+	L.ui_interact(client.mob)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -440,7 +440,7 @@ USER_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", 
 		else
 			return
 
-	if(user.holder)
+	if(client.holder)
 		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -460,10 +460,10 @@ USER_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "\[Admin\] C.M.A. - Sel
 			return
 
 	if(!H.client)
-		to_chat(user, "Only mobs with clients can alter their own appearance.")
+		to_chat(client, "Only mobs with clients can alter their own appearance.")
 		return
 
-	switch(alert(user, "Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
+	switch(alert(client, "Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
 		if("Yes")
 			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
@@ -478,120 +478,120 @@ USER_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", 
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
 	if(!length(jobs))
-		to_chat(user, "There are no fully staffed jobs.")
+		to_chat(client, "There are no fully staffed jobs.")
 		return
-	var/job = input(user, "Please select job slot to free", "Free Job Slot") as null|anything in jobs
+	var/job = input(client, "Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
 		SSjobs.FreeRole(job, force = TRUE)
-		log_admin("[key_name(user)] has freed a job slot for [job].")
-		message_admins("[key_name_admin(user)] has freed a job slot for [job].")
+		log_admin("[key_name(client)] has freed a job slot for [job].")
+		message_admins("[key_name_admin(client)] has freed a job slot for [job].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Free Job Slot") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_CONTEXT_MENU(man_up, R_ADMIN, "\[Admin\] Man Up", mob/T as mob in GLOB.player_list)
 	to_chat(T, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
-	log_admin("[key_name(user)] told [key_name(T)] to man up and deal with it.")
-	message_admins("[key_name_admin(user)] told [key_name(T)] to man up and deal with it.")
+	log_admin("[key_name(client)] told [key_name(T)] to man up and deal with it.")
+	message_admins("[key_name_admin(client)] told [key_name(T)] to man up and deal with it.")
 
 USER_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells everyone to man up and deal with it.", VERB_CATEGORY_ADMIN)
-	if(tgui_alert(user, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
+	if(tgui_alert(client, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 			SEND_SOUND(sissy, manned_up_sound)
 
-		log_admin("[key_name(user)] told everyone to man up and deal with it.")
-		message_admins("[key_name_admin(user)] told everyone to man up and deal with it.")
+		log_admin("[key_name(client)] told everyone to man up and deal with it.")
+		message_admins("[key_name_admin(client)] told everyone to man up and deal with it.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Man Up Global") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_advanced_interaction, R_ADMIN, "Toggle Advanced Admin Interaction", \
 		"Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction.", VERB_CATEGORY_ADMIN)
-	user.advanced_admin_interaction = !user.advanced_admin_interaction
+	client.advanced_admin_interaction = !client.advanced_admin_interaction
 
-	log_admin("[key_name(usr)] has [user.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
-	message_admins("[key_name_admin(usr)] has [user.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	log_admin("[key_name(usr)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	message_admins("[key_name_admin(usr)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 
 USER_VERB(show_watchlist, R_ADMIN, "Show Watchlist", "Show the watchlist.", VERB_CATEGORY_ADMIN)
-	user.watchlist_show()
+	client.watchlist_show()
 
 USER_VERB(send_alert_message, R_ADMIN, "Send Alert Message", "Sends a large notice to a player.", VERB_CATEGORY_ADMIN, mob/about_to_be_banned)
 	if(!ismob(about_to_be_banned))
 		return
 
 	var/default_text = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
-	var/new_text = tgui_input_text(user, "Input your message, or use the default.", "Admin Message - Text Selector", default_text, 500, TRUE)
+	var/new_text = tgui_input_text(client, "Input your message, or use the default.", "Admin Message - Text Selector", default_text, 500, TRUE)
 
 	if(!new_text)
 		return
 
 	if(default_text == new_text)
 		show_blurb(about_to_be_banned, 15, new_text, null, "center", "center", COLOR_RED, null, null, 1)
-		log_admin("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
-		message_admins("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		log_admin("[key_name(client)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		message_admins("[key_name(client)] sent a default admin alert to [key_name(about_to_be_banned)].")
 		return
 
 	new_text = strip_html(new_text, 500)
 
-	var/message_color = tgui_input_color(user, "Input your message color:", "Admin Message - Color Selector", COLOR_RED)
+	var/message_color = tgui_input_color(client, "Input your message color:", "Admin Message - Color Selector", COLOR_RED)
 	if(isnull(message_color))
 		return
 
 	show_blurb(about_to_be_banned, 15, new_text, null, "center", "center", message_color, null, null, 1)
-	log_admin("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
-	message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
+	log_admin("[key_name(client)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
+	message_admins("[key_name(client)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
 
 USER_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel", VERB_CATEGORY_DEBUG)
-	user.stat_panel.send_message("create_debug")
+	client.stat_panel.send_message("create_debug")
 
 USER_VERB(profile_code, R_DEBUG, "Profile Code", "View code profiler", VERB_CATEGORY_DEBUG)
-	winset(user, null, "command=.profile")
+	winset(client, null, "command=.profile")
 
 USER_VERB(export_character, R_ADMIN, "Export Character DMI/JSON", "Saves character DMI and JSON to data directory.", VERB_CATEGORY_ADMIN)
-	if(ishuman(user.mob))
-		var/mob/living/carbon/human/H = user.mob
+	if(ishuman(client.mob))
+		var/mob/living/carbon/human/H = client.mob
 		H.export_dmi_json()
 
 USER_VERB(raw_gas_scan, R_DEBUG|R_VIEWRUNTIMES, "Raw Gas Scan", "Scans your current tile, including LINDA data not normally displayed.", VERB_CATEGORY_DEBUG)
-	atmos_scan(user.mob, get_turf(user.mob), silent = TRUE, milla_turf_details = TRUE)
+	atmos_scan(client.mob, get_turf(client.mob), silent = TRUE, milla_turf_details = TRUE)
 
 USER_VERB(find_interesting_turf, R_DEBUG|R_VIEWRUNTIMES, "Interesting Turf", \
 		"Teleports you to a random Interesting Turf from MILLA", VERB_CATEGORY_DEBUG)
-	if(!isobserver(user.mob))
-		to_chat(user.mob, "<span class='warning'>You must be an observer to do this!</span>")
+	if(!isobserver(client.mob))
+		to_chat(client.mob, "<span class='warning'>You must be an observer to do this!</span>")
 		return
 
 	var/list/interesting_tile = get_random_interesting_tile()
 	if(!length(interesting_tile))
-		to_chat(user, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		to_chat(client, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
 		return
 
 	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
-	var/mob/dead/observer/O = user.mob
+	var/mob/dead/observer/O = client.mob
 	admin_forcemove(O, T)
 	O.manual_follow(T)
 
 USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Interesting Turfs", "Shows all the Interesting Turfs from MILLA", VERB_CATEGORY_DEBUG)
 	if(SSair.interesting_tile_count > 500)
 		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-		if(tgui_alert(user, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
+		if(tgui_alert(client, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
 			is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope")) != "I am sure")
 			return
 	else
-		if(tgui_alert(user, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
+		if(tgui_alert(client, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
 			return
 
 	var/display_turfs_overlay = FALSE
-	if(tgui_alert(user, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
+	if(tgui_alert(client, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
 		display_turfs_overlay = TRUE
 
-	message_admins("[key_name_admin(user)] is visualizing interesting atmos turfs. Server may lag.")
+	message_admins("[key_name_admin(client)] is visualizing interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
 
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
-		to_chat(user, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		to_chat(client, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
 		return
 
 	while(length(coords))
@@ -605,16 +605,16 @@ USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Intere
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
 		if(display_turfs_overlay)
-			user.images += image('icons/effects/alphacolors.dmi', T, "red")
+			client.images += image('icons/effects/alphacolors.dmi', T, "red")
 		CHECK_TICK
 
 	// Sort the keys
 	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
 
 	for(var/key in zlevel_turf_indexes)
-		to_chat(user, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
+		to_chat(client, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
 
-	var/z_to_view = tgui_input_number(user, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualize. Enter 0 or close the window to cancel", "Selection", 0)
+	var/z_to_view = tgui_input_number(client, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualize. Enter 0 or close the window to cancel", "Selection", 0)
 
 	if(!z_to_view)
 		return
@@ -623,7 +623,7 @@ USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Intere
 	var/list/ui_dat = list()
 	var/list/turf_markers = list()
 
-	var/datum/browser/vis = new(user, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	var/datum/browser/vis = new(client, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
 	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
 	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
 	// Now generate the other list
@@ -657,7 +657,7 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 	if(tgui_alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
-	B.to_backup_disk(get_turf(user.mob))
+	B.to_backup_disk(get_turf(client.mob))
 
 /proc/ghost_follow_uid(mob/user, uid)
 	var/client/client = user.client

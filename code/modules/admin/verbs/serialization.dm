@@ -1,11 +1,11 @@
 USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 		"Turns your marked object into a JSON string you can later use to re-create the object", \
 		VERB_CATEGORY_DEBUG)
-	if(!istype(user.holder.marked_datum, /atom/movable))
-		to_chat(user, "The marked datum is not an atom/movable!")
+	if(!istype(client.holder.marked_datum, /atom/movable))
+		to_chat(client, "The marked datum is not an atom/movable!")
 		return
 
-	var/atom/movable/AM = user.holder.marked_datum
+	var/atom/movable/AM = client.holder.marked_datum
 
 	var/json_data = json_encode(AM.serialize())
 
@@ -14,7 +14,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 		return
 
 	if(choice == "PC")
-		to_chat(user, chat_box_examine(json_data))
+		to_chat(client, chat_box_examine(json_data))
 
 	if(choice == "Server")
 		// Right, get their slot names
@@ -29,14 +29,14 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 
 		qdel(dbq)
 
-		var/slot_choice = input(user, "Select a slot to update, or create a new one.", "Slot Selection") as null|anything in slots
+		var/slot_choice = input(client, "Select a slot to update, or create a new one.", "Slot Selection") as null|anything in slots
 
 		if(!slot_choice)
 			return
 
 		if(slot_choice == "--NEW--")
 			// New slot, save to DB
-			var/chosen_slot_name = input(user, "Name your slot", "Slot name") as null|text
+			var/chosen_slot_name = input(client, "Name your slot", "Slot name") as null|text
 			if(!chosen_slot_name || length(chosen_slot_name) == 0)
 				return
 
@@ -54,18 +54,18 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 				return
 
 			qdel(dbq2)
-			to_chat(user, "Successfully saved <code>[clean_name]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
+			to_chat(client, "Successfully saved <code>[clean_name]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
 
 		else
 			// Existing slot, warn first
-			var/confirmation = alert(user, "Are you sure you want to update '[slot_choice]'? This cannot be undone!", "You sure?", "Yes", "No")
+			var/confirmation = alert(client, "Are you sure you want to update '[slot_choice]'? This cannot be undone!", "You sure?", "Yes", "No")
 			if(confirmation != "Yes")
 				return
 
 			// Now update
 			var/datum/db_query/dbq2 = SSdbcore.NewQuery("UPDATE json_datum_saves SET slotjson=:slotjson WHERE slotname=:slotname AND ckey=:ckey", list(
 				"slotjson" = json_data,
-				"ckey" = user.ckey,
+				"ckey" = client.ckey,
 				"slotname" = slot_choice
 			))
 			if(!dbq2.warn_execute())
@@ -73,14 +73,14 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 				return
 
 			qdel(dbq2)
-			to_chat(user, "Successfully updated <code>[slot_choice]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
+			to_chat(client, "Successfully updated <code>[slot_choice]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
 
 USER_VERB(deserialize_json, R_SPAWN, "Deserialize JSON datum", "Creates an object from a JSON string", VERB_CATEGORY_DEBUG)
-	var/json_text = input(user, "Enter the JSON code:","Text") as message|null
+	var/json_text = input(client, "Enter the JSON code:","Text") as message|null
 	if(json_text)
-		json_to_object(json_text, get_turf(user))
-		message_admins("[key_name_admin(user)] spawned an atom from a custom JSON object.")
-		log_admin("[key_name(user)] spawned an atom from a custom JSON object, JSON Text: [json_text]")
+		json_to_object(json_text, get_turf(client))
+		message_admins("[key_name_admin(client)] spawned an atom from a custom JSON object.")
+		log_admin("[key_name(client)] spawned an atom from a custom JSON object, JSON Text: [json_text]")
 
 USER_VERB(spawn_json, R_SPAWN, "Spawn Saved JSON Datum", "Spawns a JSON datums saved server side", VERB_CATEGORY_DEBUG)
 	// Right, get their slot names
@@ -95,10 +95,10 @@ USER_VERB(spawn_json, R_SPAWN, "Spawn Saved JSON Datum", "Spawns a JSON datums s
 	qdel(dbq)
 
 
-	var/datum/browser/popup = new(user, "jsonspawnmenu", "JSON Spawn Menu", 400, 300)
+	var/datum/browser/popup = new(client, "jsonspawnmenu", "JSON Spawn Menu", 400, 300)
 
 	// Cache this to reduce proc jumps
-	var/holder_uid = user.holder.UID()
+	var/holder_uid = client.holder.UID()
 
 	var/list/rows = list()
 	rows += "<table><tr><th scope='col' width='90%'>Slot</th><th scope='col' width='10%'>Actions</th></tr>"

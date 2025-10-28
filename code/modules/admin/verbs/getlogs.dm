@@ -1,11 +1,11 @@
 /// Allows download of past server logs saved within the data/logs/ folder.
 USER_VERB(get_server_logs, R_ADMIN|R_VIEWLOGS, "Get Server Logs", "View/retrieve logfiles.", VERB_CATEGORY_ADMIN)
-	access_file_by_browsing_path(user, "data/logs/")
+	access_file_by_browsing_path(client.mob, "data/logs/")
 
 /// Allows download of past server logs saved within the data/logs/ folder by specifying a specific round ID.
 USER_VERB(get_server_logs_by_round_id, R_ADMIN|R_VIEWLOGS, "Get Round Logs", \
 		"View/retrieve logfiles for a given round.", VERB_CATEGORY_ADMIN)
-	var/round_id = input(user, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
+	var/round_id = input(client, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
 	if(isnull(round_id))
 		return
 
@@ -17,12 +17,12 @@ USER_VERB(get_server_logs_by_round_id, R_ADMIN|R_VIEWLOGS, "Get Round Logs", \
 		)
 		if(!query.warn_execute())
 			qdel(query)
-			to_chat(user, "Could not check database for round [round_id].")
+			to_chat(client, "Could not check database for round [round_id].")
 			return
 
 		if(!query.NextRow())
 			qdel(query)
-			to_chat(user, "Could not find round [round_id] in database.")
+			to_chat(client, "Could not find round [round_id] in database.")
 			return
 
 		// convert unix timestamp in seconds to byond timestamp in deciseconds
@@ -32,7 +32,7 @@ USER_VERB(get_server_logs_by_round_id, R_ADMIN|R_VIEWLOGS, "Get Round Logs", \
 
 	if(!fexists(round_path))
 		log_debug("Logs for round `[round_id]` not found in path `[round_path]`.")
-	access_file_by_browsing_path(user, round_path)
+	access_file_by_browsing_path(client.mob, round_path)
 
 /proc/access_file_by_browsing_path(mob/user, path)
 	if(!user.client)

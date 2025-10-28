@@ -16,16 +16,16 @@ GLOBAL_LIST_EMPTY(staffsays)
 	src.time = time
 
 USER_VERB(view_msays, R_ADMIN|R_MENTOR, "Msays", "View current round Msays.", VERB_CATEGORY_ADMIN)
-	user.display_says(GLOB.msays, "msay")
+	client.display_says(GLOB.msays, "msay")
 
 USER_VERB(view_devsays, R_ADMIN|R_DEV_TEAM, "Devsays", "View current round Devsays.", VERB_CATEGORY_ADMIN)
-	user.display_says(GLOB.devsays, "devsay")
+	client.display_says(GLOB.devsays, "devsay")
 
 USER_VERB(view_asays, R_ADMIN, "Asays", "View current round Asays.", VERB_CATEGORY_ADMIN)
-	user.display_says(GLOB.asays, "asay")
+	client.display_says(GLOB.asays, "asay")
 
 USER_VERB(view_staffsays, R_ADMIN|R_DEV_TEAM, "Staffsays", "View current round Staffsays.", VERB_CATEGORY_ADMIN)
-	user.display_says(GLOB.staffsays, "staffsay")
+	client.display_says(GLOB.staffsays, "staffsay")
 
 /client/proc/display_says(list/say_list, title)
 

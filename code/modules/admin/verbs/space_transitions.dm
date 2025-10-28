@@ -1,6 +1,6 @@
 USER_VERB_VISIBILITY(redo_space_transitions, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(redo_space_transitions, R_ADMIN|R_DEBUG, "Remake Space Transitions", "Re-assigns all space transitions", VERB_CATEGORY_DEBUG)
-	var/choice = alert(user, "Do you want to rebuild space transitions?", null,"Yes", "No")
+	var/choice = alert(client, "Do you want to rebuild space transitions?", null,"Yes", "No")
 
 	if(choice == "No")
 		return
@@ -19,14 +19,14 @@ USER_VERB(make_turf_space_map, R_ADMIN|R_DEBUG, "Make Space Map", "Create a map 
 		return
 
 	var/static/list/sectortypes = list(TRANSITION_TAG_SPACE, TRANSITION_TAG_LAVALAND)
-	var/sectortype = tgui_input_list(user, "Please select sector type", "", sectortypes)
+	var/sectortype = tgui_input_list(client, "Please select sector type", "", sectortypes)
 
 	if(!(sectortype in sectortypes))
 		return
 
-	message_admins("[key_name_admin(user)] made a space map")
+	message_admins("[key_name_admin(client)] made a space map")
 
-	GLOB.space_manager.map_as_turfs(get_turf(user), sectortype)
-	log_admin("[key_name(user)] made a space map")
+	GLOB.space_manager.map_as_turfs(get_turf(client), sectortype)
+	log_admin("[key_name(client)] made a space map")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Space Map") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

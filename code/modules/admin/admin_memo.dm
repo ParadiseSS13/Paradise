@@ -1,11 +1,11 @@
 USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_CATEGORY_SERVER)
 	if(!SSdbcore.IsConnected())
-		to_chat(user, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(client, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/memotask = input(user, "Choose task.", "Memo") in list("Show", "Write", "Edit", "Remove")
+	var/memotask = input(client, "Choose task.", "Memo") in list("Show", "Write", "Edit", "Remove")
 	if(!memotask)
 		return
-	user.admin_memo_output(memotask)
+	client.admin_memo_output(memotask)
 
 /client/proc/admin_memo_output(task, checkrights = 1, silent = 0)
 	if(checkrights && !check_rights(R_SERVER))

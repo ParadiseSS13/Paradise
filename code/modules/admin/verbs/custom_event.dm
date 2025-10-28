@@ -1,13 +1,13 @@
 USER_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom event.", VERB_CATEGORY_EVENT)
-	var/input = input(user, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg) as message|null
+	var/input = input(client, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg) as message|null
 	if(!input || input == "")
 		GLOB.custom_event_msg = null
-		log_admin("[key_name(user)] has cleared the custom event text.")
-		message_admins("[key_name_admin(user)] has cleared the custom event text.")
+		log_admin("[key_name(client)] has cleared the custom event text.")
+		message_admins("[key_name_admin(client)] has cleared the custom event text.")
 		return
 
-	log_admin("[key_name(user)] has changed the custom event text.")
-	message_admins("[key_name_admin(user)] has changed the custom event text.")
+	log_admin("[key_name(client)] has changed the custom event text.")
+	message_admins("[key_name_admin(client)] has changed the custom event text.")
 
 	GLOB.custom_event_msg = input
 

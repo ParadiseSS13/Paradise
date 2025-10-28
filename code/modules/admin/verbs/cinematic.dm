@@ -4,11 +4,11 @@ USER_VERB(show_cinematic, R_MAINTAINER, "Cinematic", "Shows a cinematic.", VERB_
 
 	switch(cinematic)
 		if("explosion")
-			var/parameter = input(user, "station_missed = ?", "Enter Parameter", 0) as num
+			var/parameter = input(client, "station_missed = ?", "Enter Parameter", 0) as num
 			var/override
 			switch(parameter)
 				if(1)
-					override = input(user, "mode = ?","Enter Parameter", null) as anything in list("nuclear emergency", "fake", "no override")
+					override = input(client, "mode = ?","Enter Parameter", null) as anything in list("nuclear emergency", "fake", "no override")
 				if(0)
-					override = input(user, "mode = ?","Enter Parameter", null) as anything in list("blob", "nuclear emergency", "AI malfunction", "no override")
+					override = input(client, "mode = ?","Enter Parameter", null) as anything in list("blob", "nuclear emergency", "AI malfunction", "no override")
 			SSticker.station_explosion_cinematic(parameter, override)

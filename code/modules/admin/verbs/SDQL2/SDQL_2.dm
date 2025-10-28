@@ -16,9 +16,9 @@
 */
 
 USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", VERB_CATEGORY_DEBUG)
-	if(!check_rights_client(R_PROCCALL, FALSE, user))  //Shouldn't happen... but just to be safe.
-		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(user)] attempted to execute a SDQL query!</span>")
-		log_admin("Non-admin [key_name(user)] attempted to execute a SDQL query!")
+	if(!check_rights_client(R_PROCCALL, FALSE, client))  //Shouldn't happen... but just to be safe.
+		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(client)] attempted to execute a SDQL query!</span>")
+		log_admin("Non-admin [key_name(client)] attempted to execute a SDQL query!")
 		return
 
 	var/query_text = input("SDQL2 query") as message
@@ -26,7 +26,7 @@ USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", V
 	if(!query_text || length(query_text) < 1)
 		return
 
-	user.run_sdql2_query(query_text)
+	client.run_sdql2_query(query_text)
 
 /client/proc/run_sdql2_query(query_text)
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.

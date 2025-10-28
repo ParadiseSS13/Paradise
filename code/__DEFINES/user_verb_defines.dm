@@ -40,7 +40,7 @@
 	_verb_args += args; \
 	SSuser_verbs.invoke_verb(arglist(_verb_args)); \
 }; \
-/datum/user_verb/##verb_path_name/__avd_do_verb(client/user, ##verb_args)
+/datum/user_verb/##verb_path_name/__avd_do_verb(client/client, ##verb_args)
 
 #define USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
 _USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, FALSE, ##verb_args)

@@ -138,7 +138,7 @@
 		CMT.ui_interact(usr)
 
 USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
-	user.debug_variables(thing)
+	client.debug_variables(thing)
 
 /client/proc/debug_variables(datum/D in world)
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
@@ -731,13 +731,13 @@ USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variable
 		if("vars")
 			return FALSE
 	if(!(var_search in GLOB.vars))
-		to_chat(user, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		to_chat(client, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
 		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
-		to_chat(user, "<span class='debug'>Now showing GLOB.[var_search].</span>")
-		return user.debug_variables(result)
-	to_chat(user, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+		to_chat(client, "<span class='debug'>Now showing GLOB.[var_search].</span>")
+		return client.debug_variables(result)
+	to_chat(client, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
 
 #undef VV_HTML_ENCODE

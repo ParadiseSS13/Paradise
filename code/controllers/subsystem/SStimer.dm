@@ -597,7 +597,7 @@ USER_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	user << browse(text.Join(), "window=timerlog")
+	client << browse(text.Join(), "window=timerlog")
 
 USER_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback", VERB_CATEGORY_DEBUG)
 	var/list/timers = list()
@@ -632,7 +632,7 @@ USER_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	user << browse(text.Join(), "window=timerdebug")
+	client << browse(text.Join(), "window=timerdebug")
 
 
 /**

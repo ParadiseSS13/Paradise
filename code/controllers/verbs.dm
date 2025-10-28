@@ -13,7 +13,7 @@ USER_VERB(restart_controller, R_DEBUG, "Restart Controller", \
 			new /datum/controller/failsafe()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Restart Failsafe")
 
-	message_admins("Admin [key_name_admin(user)] has restarted the [controller] controller.")
+	message_admins("Admin [key_name_admin(client)] has restarted the [controller] controller.")
 
 USER_VERB(debug_misc_controller, R_DEBUG, "Debug Misc Controller", \
 		"Debug the various non-subsystem controllers for the game (be careful!)", \
@@ -21,16 +21,16 @@ USER_VERB(debug_misc_controller, R_DEBUG, "Debug Misc Controller", \
 		controller in list("Configuration", "pAI", "Cameras", "Space Manager"))
 	switch(controller)
 		if("Configuration")
-			SSuser_verbs.invoke_verb(user, /datum/user_verb/debug_variables, GLOB.configuration)
+			SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, GLOB.configuration)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Config")
 		if("pAI")
-			SSuser_verbs.invoke_verb(user, /datum/user_verb/debug_variables, GLOB.paiController)
+			SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, GLOB.paiController)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug pAI")
 		if("Cameras")
-			SSuser_verbs.invoke_verb(user, /datum/user_verb/debug_variables, GLOB.cameranet)
+			SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, GLOB.cameranet)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Cameras")
 		if("Space Manager")
-			SSuser_verbs.invoke_verb(user, /datum/user_verb/debug_variables, GLOB.space_manager)
+			SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, GLOB.space_manager)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Space")
 
-	message_admins("Admin [key_name_admin(user)] is debugging the [controller] controller.")
+	message_admins("Admin [key_name_admin(client)] is debugging the [controller] controller.")

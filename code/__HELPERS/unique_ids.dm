@@ -91,4 +91,4 @@ USER_VERB(uid_log, R_DEBUG, "View UID Log", "Shows the log of created UIDs this 
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	user << browse(text.Join(), "window=uidlog")
+	client << browse(text.Join(), "window=uidlog")

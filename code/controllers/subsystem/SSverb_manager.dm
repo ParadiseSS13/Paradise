@@ -163,6 +163,6 @@ SUBSYSTEM_DEF(verb_manager)
 	verb_queue = SSverb_manager.verb_queue
 
 USER_VERB(force_verb_bypass, R_DEBUG, "Enable Forced Verb Execution", "Enable Forced Verb Execution", VERB_CATEGORY_DEBUG)
-	if(alert(user, "This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
+	if(alert(client, "This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
 		SSverb_manager.FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs = TRUE
-		message_admins("Admin [key_name_admin(user)] has forced verbs to bypass the verb queue subsystem.")
+		message_admins("Admin [key_name_admin(client)] has forced verbs to bypass the verb queue subsystem.")

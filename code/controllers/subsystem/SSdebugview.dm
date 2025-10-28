@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(debugview)
 
 // Make a verb for dumping full SS stats
 USER_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", VERB_CATEGORY_DEBUG)
-	var/datum/browser/popup = new(user, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
+	var/datum/browser/popup = new(client, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
 
 	var/list/html = list()
 	html += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"

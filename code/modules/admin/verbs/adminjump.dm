@@ -1,35 +1,35 @@
 USER_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", VERB_CATEGORY_ADMIN)
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
-	var/chosen = input(user, null, "Jump to...") as null|anything in choices
+	var/chosen = input(client, null, "Jump to...") as null|anything in choices
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = input(user, "Area to jump to", "Jump to Area") as null|anything in return_sorted_areas()
+			jumping = input(client, "Area to jump to", "Jump to Area") as null|anything in return_sorted_areas()
 			if(jumping)
-				return user.jumptoarea(jumping)
+				return client.jumptoarea(jumping)
 		if("Mob")
-			jumping = input(user, "Mob to jump to", "Jump to Mob") as null|anything in GLOB.mob_list
+			jumping = input(client, "Mob to jump to", "Jump to Mob") as null|anything in GLOB.mob_list
 			if(jumping)
-				return user.jumptomob(jumping)
+				return client.jumptomob(jumping)
 		if("Key")
-			jumping = input(user, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
+			jumping = input(client, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
 			if(jumping)
-				return user.jumptokey(jumping)
+				return client.jumptokey(jumping)
 		if("Coordinates")
-			var/x = input(user, "X Coordinate", "Jump to Coordinates") as null|num
+			var/x = input(client, "X Coordinate", "Jump to Coordinates") as null|num
 			if(!x)
 				return
-			var/y = input(user, "Y Coordinate", "Jump to Coordinates") as null|num
+			var/y = input(client, "Y Coordinate", "Jump to Coordinates") as null|num
 			if(!y)
 				return
-			var/z = input(user, "Z Coordinate", "Jump to Coordinates") as null|num
+			var/z = input(client, "Z Coordinate", "Jump to Coordinates") as null|num
 			if(!z)
 				return
-			return user.jumptocoord(x, y, z)
+			return client.jumptocoord(x, y, z)
 
 /client/proc/jumptoarea(area/A)
 	if(!A || !check_rights(R_ADMIN))
@@ -59,13 +59,13 @@ USER_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", VERB_C
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_CONTEXT_MENU(jump_to_turf, R_ADMIN, "\[Admin\] Jump to Turf", turf/T in world)
-	if(isobj(user.mob.loc))
-		var/obj/O = user.mob.loc
-		O.force_eject_occupant(user.mob)
-	log_admin("[key_name(user)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
-	if(!isobserver(user.mob))
-		message_admins("[key_name_admin(user.mob)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
-	admin_forcemove(user.mob, T)
+	if(isobj(client.mob.loc))
+		var/obj/O = client.mob.loc
+		O.force_eject_occupant(client.mob)
+	log_admin("[key_name(client)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
+	if(!isobserver(client.mob))
+		message_admins("[key_name_admin(client.mob)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
+	admin_forcemove(client.mob, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/jumptomob(mob/M)
@@ -125,9 +125,9 @@ USER_VERB_AND_CONTEXT_MENU(teleport_mob, R_ADMIN, "Teleport Mob", "Teleport a mo
 	if(isobj(M.loc))
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
-	admin_forcemove(M, get_turf(user.mob))
-	log_admin("[key_name(user)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(user)] teleported [key_name_admin(M)]", 1)
+	admin_forcemove(M, get_turf(client.mob))
+	log_admin("[key_name(client)] teleported [key_name(M)]")
+	message_admins("[key_name_admin(client)] teleported [key_name_admin(M)]", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB_AND_CONTEXT_MENU(teleport_ckey, R_ADMIN, "Teleport Client", "Teleport a mob to your location by client.", VERB_CATEGORY_ADMIN)
@@ -152,7 +152,7 @@ USER_VERB_AND_CONTEXT_MENU(teleport_ckey, R_ADMIN, "Teleport Client", "Teleport 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(send_mob, R_ADMIN, "Send Mob", "Send mob to an area.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
-	var/area/A = input(user, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
+	var/area/A = input(client, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
 	if(!A)
 		return
 
@@ -160,8 +160,8 @@ USER_VERB(send_mob, R_ADMIN, "Send Mob", "Send mob to an area.", VERB_CATEGORY_A
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
 	admin_forcemove(M, pick(get_area_turfs(A)))
-	log_admin("[key_name(user)] teleported [key_name(M)] to [A]")
-	message_admins("[key_name_admin(user)] teleported [key_name_admin(M)] to [A]", 1)
+	log_admin("[key_name(client)] teleported [key_name(M)] to [A]")
+	message_admins("[key_name_admin(client)] teleported [key_name_admin(M)] to [A]", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/admin_forcemove(mob/mover, atom/newloc)

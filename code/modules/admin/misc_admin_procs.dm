@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 USER_CONTEXT_MENU(show_player_panel, R_ADMIN|R_MOD, "\[Admin\] Show Player Panel", mob/M)
 	if(!M)
-		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.")
+		to_chat(client, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
 	var/our_key = M.key
@@ -284,7 +284,7 @@ USER_CONTEXT_MENU(show_player_panel, R_ADMIN|R_MOD, "\[Admin\] Show Player Panel
 		</body></html>
 	"}
 
-	user << browse(body, "window=adminplayeropts;size=550x615")
+	client << browse(body, "window=adminplayeropts;size=550x615")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
@@ -296,7 +296,7 @@ USER_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player 
 	show_note(key)
 
 USER_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence on VPN whitelist", VERB_CATEGORY_ADMIN)
-	var/key = stripped_input(user, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
+	var/key = stripped_input(client, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
 		GLOB.ipintel_manager.vpn_whitelist_panel(key)
 
@@ -331,22 +331,22 @@ USER_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence on
 USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEGORY_SERVER)
 	// Give an extra popup if they are rebooting a live server
 	var/is_live_server = TRUE
-	if(user.is_connecting_from_localhost())
+	if(client.is_connecting_from_localhost())
 		is_live_server = FALSE
 
 	var/list/options = list("Regular Restart", "Hard Restart")
 	if(world.TgsAvailable()) // TGS lets you kill the process entirely
 		options += "Terminate Process (Kill and restart DD)"
 
-	var/result = input(user, "Select reboot method", "World Reboot", options[1]) as null|anything in options
+	var/result = input(client, "Select reboot method", "World Reboot", options[1]) as null|anything in options
 
 	if(result && is_live_server)
-		if(alert(user, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
+		if(alert(client, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
 			return FALSE
 
 	if(result)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		var/init_by = "Initiated by [user.holder.fakekey ? "Admin" : user.key]."
+		var/init_by = "Initiated by [client.holder.fakekey ? "Admin" : client.key]."
 		switch(result)
 
 			if("Regular Restart")
@@ -356,32 +356,32 @@ USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEG
 
 
 				// These are pasted each time so that they dont false send if reboot is cancelled
-				message_admins("[key_name_admin(user)] has initiated a server restart of type [result]")
-				log_admin("[key_name(user)] has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(client)] has initiated a server restart of type [result]")
+				log_admin("[key_name(client)] has initiated a server restart of type [result]")
 				SSticker.delay_end = FALSE // We arent delayed anymore
-				SSticker.reboot_helper(init_by, "admin reboot - by [user.key] [user.holder.fakekey ? "(stealth)" : ""]", delay * 10)
+				SSticker.reboot_helper(init_by, "admin reboot - by [client.key] [client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
 
 			if("Hard Restart")
-				message_admins("[key_name_admin(user)] has initiated a server restart of type [result]")
-				log_admin("[key_name(user)] has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(client)] has initiated a server restart of type [result]")
+				log_admin("[key_name(client)] has initiated a server restart of type [result]")
 				world.Reboot(fast_track = TRUE)
 
 			if("Terminate Process (Kill and restart DD)")
-				message_admins("[key_name_admin(user)] has initiated a server restart of type [result]")
-				log_admin("[key_name(user)] has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(client)] has initiated a server restart of type [result]")
+				log_admin("[key_name(client)] has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
 USER_VERB(end_round, R_SERVER, "End Round", \
 		"Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do.", \
 		VERB_CATEGORY_SERVER)
-	var/input = sanitize(copytext_char(input(user, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+	var/input = sanitize(copytext_char(input(client, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
 
 	if(!input)
 		return
 	if(SSticker.force_ending)
 		return
-	message_admins("[key_name_admin(user)] has admin ended the round with message: '[input]'")
-	log_admin("[key_name(user)] has admin ended the round with message: '[input]'")
+	message_admins("[key_name_admin(client)] has admin ended the round with message: '[input]'")
+	log_admin("[key_name(client)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
 	SSticker.record_biohazard_results()
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
@@ -389,13 +389,13 @@ USER_VERB(end_round, R_SERVER, "End Round", \
 	SSticker.mode_result = "admin ended"
 
 USER_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world", VERB_CATEGORY_ADMIN)
-	var/message = input(user, "Global message to send:", "Admin Announce", null) as message|null
+	var/message = input(client, "Global message to send:", "Admin Announce", null) as message|null
 	if(message)
-		if(!check_rights_client(R_SERVER, 0, user))
+		if(!check_rights_client(R_SERVER, 0, client))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, chat_box_notice("<span class='notice'><b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><br><p>[message]</p></span>"))
-		log_admin("Announce: [key_name(user)] : [message]")
+		to_chat(world, chat_box_notice("<span class='notice'><b>[client.holder.fakekey ? "Administrator" : client.key] Announces:</b><br><br><p>[message]</p></span>"))
+		log_admin("Announce: [key_name(client)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
@@ -449,20 +449,20 @@ USER_VERB(start_server_now, R_SERVER, "Start Now", "Start the round RIGHT NOW", 
 		return
 
 	if(GLOB.configuration.general.start_now_confirmation)
-		if(alert(user, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+		if(alert(client, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
 		SSticker.force_start = TRUE
-		log_admin("[user.key] has started the game.")
+		log_admin("[client.key] has started the game.")
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[user.key] has started the game.[msg]</span>")
+		message_admins("<span class='darkmblue'>[client.key] has started the game.[msg]</span>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
-		to_chat(user, "<font color='red'>Error: Start Now: Game has already started.</font>")
+		to_chat(client, "<font color='red'>Error: Start Now: Game has already started.</font>")
 		return
 
 USER_VERB(toggle_enter, R_SERVER, "Toggle Entering", "People can't enter", VERB_CATEGORY_SERVER)
@@ -486,14 +486,14 @@ USER_VERB(toggle_ai_role, R_EVENT, "Toggle AI", "People can't be AI", VERB_CATEG
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
-	message_admins("[key_name_admin(user)] toggled AI allowed.")
-	log_admin("[key_name(user)] toggled AI allowed.")
+	message_admins("[key_name_admin(client)] toggled AI allowed.")
+	log_admin("[key_name(client)] toggled AI allowed.")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_respawn, R_SERVER, "Toggle Respawn", "Toggle the ability for players to respawn.", VERB_CATEGORY_SERVER)
-	if(!user.is_connecting_from_localhost())
-		if(tgui_alert(user, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
@@ -501,18 +501,18 @@ USER_VERB(toggle_respawn, R_SERVER, "Toggle Respawn", "Toggle the ability for pl
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
 		to_chat(world, "<B>You may no longer respawn</B>")
-	message_admins("[key_name_admin(user)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].", 1)
-	log_admin("[key_name(user)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].")
+	message_admins("[key_name_admin(client)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].", 1)
+	log_admin("[key_name(client)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(delay_game, R_SERVER, "Delay", "Delay the game start/end", VERB_CATEGORY_SERVER)
 	if(SSticker.current_state < GAME_STATE_STARTUP)
-		alert(user, "Slow down a moment, let the ticker start first!")
+		alert(client, "Slow down a moment, let the ticker start first!")
 		return
 
-	if(!user.is_connecting_from_localhost())
-		if(tgui_alert(user, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	if(SSblackbox)
@@ -520,8 +520,8 @@ USER_VERB(delay_game, R_SERVER, "Delay", "Delay the game start/end", VERB_CATEGO
 
 	if(SSticker.current_state > GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
-		log_admin("[key_name(user)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
-		message_admins("[key_name(user)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
+		log_admin("[key_name(client)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
+		message_admins("[key_name(client)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		if(SSticker.delay_end)
 			SSticker.real_reboot_time = 0 // Immediately show the "Admin delayed round end" message
 		return //alert("Round end delayed", null, null, null, null, null)
@@ -529,12 +529,12 @@ USER_VERB(delay_game, R_SERVER, "Delay", "Delay the game start/end", VERB_CATEGO
 		SSticker.ticker_going = FALSE
 		SSticker.delay_end = TRUE
 		to_chat(world, "<b>The game start has been delayed.</b>")
-		log_admin("[key_name(user)] delayed the game.")
+		log_admin("[key_name(client)] delayed the game.")
 	else
 		SSticker.ticker_going = TRUE
 		SSticker.round_start_time = world.time + SSticker.pregame_timeleft
 		to_chat(world, "<b>The game will start soon.</b>")
-		log_admin("[key_name(user)] removed the delay.")
+		log_admin("[key_name(client)] removed the delay.")
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -665,18 +665,18 @@ USER_VERB(spawn_atom, R_SPAWN, "Spawn", \
 USER_VERB_VISIBILITY(show_traitor_panel, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", "Edit mob's memory and role", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(!istype(M))
-		to_chat(user, "This can only be used on instances of type /mob")
+		to_chat(client, "This can only be used on instances of type /mob")
 		return
 	if(!M.mind)
-		to_chat(user, "This mob has no mind!")
+		to_chat(client, "This mob has no mind!")
 		return
 
 	M.mind.edit_memory()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Guests can't enter", VERB_CATEGORY_SERVER)
-	if(!user.is_connecting_from_localhost())
-		if(tgui_alert(user, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
@@ -684,8 +684,8 @@ USER_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Guests can't enter", VERB_C
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(user)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(user)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
+	log_admin("[key_name(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()

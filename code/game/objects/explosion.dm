@@ -214,7 +214,7 @@
 
 USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ranges.", VERB_CATEGORY_DEBUG)
 	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
-	var/turf/epicenter = get_turf(user.mob)
+	var/turf/epicenter = get_turf(client.mob)
 	if(!epicenter)
 		return
 

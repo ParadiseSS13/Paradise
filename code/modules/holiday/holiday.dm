@@ -349,5 +349,5 @@ USER_VERB(set_holiday, R_SERVER, "Set Holiday", \
 	//update our hub status
 	world.update_status()
 
-	message_admins("<span class='notice'>ADMIN: Event: [key_name_admin(user)] force-set Holiday to \"[H]\"</span>")
-	log_admin("[key_name(user)] force-set Holiday to \"[H]\"")
+	message_admins("<span class='notice'>ADMIN: Event: [key_name_admin(client)] force-set Holiday to \"[H]\"</span>")
+	log_admin("[key_name(client)] force-set Holiday to \"[H]\"")

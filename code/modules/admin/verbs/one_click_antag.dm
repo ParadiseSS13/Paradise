@@ -1,6 +1,6 @@
 USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
-	if(user.holder)
-		user.holder.one_click_antag()
+	if(client.holder)
+		client.holder.one_click_antag()
 
 /datum/admins/proc/one_click_antag()
 

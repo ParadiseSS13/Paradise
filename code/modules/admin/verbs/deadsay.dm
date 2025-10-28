@@ -2,18 +2,18 @@ USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as t
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	if(!user.mob)
+	if(!client.mob)
 		return
 
-	if(check_mute(user.ckey, MUTE_DEADCHAT))
+	if(check_mute(client.ckey, MUTE_DEADCHAT))
 		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
 		return
 
-	if(!(user.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
-	if(user.handle_spam_prevention(msg, MUTE_DEADCHAT))
+	if(client.handle_spam_prevention(msg, MUTE_DEADCHAT))
 		return
 
 	var/stafftype = null
@@ -36,8 +36,8 @@ USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as t
 	if(!msg)
 		return
 
-	var/prefix = "[stafftype] ([user.key])"
-	if(user.holder.fakekey)
+	var/prefix = "[stafftype] ([client.key])"
+	if(client.holder.fakekey)
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

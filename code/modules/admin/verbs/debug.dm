@@ -8,9 +8,9 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 		switch(alert("Proc owned by something?", null,"Yes","No"))
 			if("Yes")
 				targetselected = 1
-				if(user.holder && user.holder.marked_datum)
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([user.holder.marked_datum.type])")
-					if(class == "Marked datum ([user.holder.marked_datum.type])")
+				if(client.holder && client.holder.marked_datum)
+					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([client.holder.marked_datum.type])")
+					if(class == "Marked datum ([client.holder.marked_datum.type])")
 						class = "Marked datum"
 				else
 					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
@@ -27,7 +27,7 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 							keys += C
 						target = input("Please, select a player!", "Selection", null, null) as null|anything in keys
 					if("Marked datum")
-						target = user.holder.marked_datum
+						target = client.holder.marked_datum
 					else
 						return
 			if("No")
@@ -48,7 +48,7 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 			to_chat(usr, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
 			return
 
-		var/list/lst = user.get_callproc_args()
+		var/list/lst = client.get_callproc_args()
 		if(!lst)
 			return
 
@@ -159,19 +159,19 @@ USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/
 		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
 		return
 
-	var/list/lst = user.get_callproc_args()
+	var/list/lst = client.get_callproc_args()
 	if(!lst)
 		return
 
 	if(!A || !IsValidSrc(A))
-		to_chat(user, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
+		to_chat(client, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
-	message_admins("[key_name_admin(user)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(user)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(client)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(client)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(user, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
+		to_chat(client, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -198,9 +198,9 @@ USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/
 
 USER_VERB_VISIBILITY(air_status, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local air contents.", VERB_CATEGORY_DEBUG)
-	if(!user.mob)
+	if(!client.mob)
 		return
-	var/turf/T = user.mob.loc
+	var/turf/T = client.mob.loc
 
 	if(!isturf(T))
 		return
@@ -356,7 +356,7 @@ USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local ai
 
 USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularities and tesla balls.", VERB_CATEGORY_DEBUG)
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
-	var/confirm = alert(user, "This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+	var/confirm = alert(client, "This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
 	if(confirm != "Yes")
 		return
 
@@ -365,8 +365,8 @@ USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularit
 		if(!is_level_reachable(S.z))
 			continue
 		qdel(S)
-	log_admin("[key_name(user)] has deleted all Singularities and Tesla orbs.")
-	message_admins("[key_name_admin(user)] has deleted all Singularities and Tesla orbs.", 0)
+	log_admin("[key_name(client)] has deleted all Singularities and Tesla orbs.")
+	message_admins("[key_name_admin(client)] has deleted all Singularities and Tesla orbs.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(make_powernets, R_DEBUG, "Make Powernets", "Remake all powernets.", VERB_CATEGORY_DEBUG)
@@ -399,23 +399,23 @@ USER_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_inv_wear_id()
 	else
-		alert(user, "Invalid mob")
+		alert(client, "Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(user)] has granted [M.key] full access.")
-	message_admins("<span class='notice'>[key_name_admin(user)] has granted [M.key] full access.</span>", 1)
+	log_admin("[key_name(client)] has granted [M.key] full access.")
+	message_admins("<span class='notice'>[key_name_admin(client)] has granted [M.key] full access.</span>", 1)
 
 USER_VERB_VISIBILITY(assume_direct_control, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(assume_direct_control, R_ADMIN|R_DEBUG, "Assume direct control", "Direct intervention", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(M.ckey)
-		if(alert(user, "This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.", null,"Yes","No") != "Yes")
+		if(alert(client, "This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.", null,"Yes","No") != "Yes")
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
 			ghost.ckey = M.ckey
-	message_admins("<span class='notice'>[key_name_admin(user)] assumed direct control of [M].</span>", 1)
-	log_admin("[key_name(user)] assumed direct control of [M].")
-	var/mob/adminmob = user.mob
-	M.ckey = user.ckey
+	message_admins("<span class='notice'>[key_name_admin(client)] assumed direct control of [M].</span>", 1)
+	log_admin("[key_name(client)] assumed direct control of [M].")
+	var/mob/adminmob = client.mob
+	M.ckey = client.ckey
 	if(isobserver(adminmob))
 		qdel(adminmob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -536,7 +536,7 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 		alert("Invalid mob")
 		return
 
-	var/dresscode = user.robust_dress_shop()
+	var/dresscode = client.robust_dress_shop()
 
 	if(!dresscode)
 		return
@@ -559,8 +559,8 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 	H.regenerate_icons()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(user)] changed the equipment of [key_name(M)] to [dresscode].")
-	message_admins("<span class='notice'>[key_name_admin(user)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
+	log_admin("[key_name(client)] changed the equipment of [key_name(M)] to [dresscode].")
+	message_admins("<span class='notice'>[key_name_admin(client)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
 /client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
@@ -616,7 +616,7 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 
 USER_VERB_VISIBILITY(start_singulo, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station", VERB_CATEGORY_DEBUG)
-	if(alert(user, "Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
+	if(alert(client, "Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
 	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
@@ -659,27 +659,27 @@ USER_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity 
 USER_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know", VERB_CATEGORY_DEBUG)
 	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
 		if("Players")
-			to_chat(user, jointext(GLOB.player_list, ","))
+			to_chat(client, jointext(GLOB.player_list, ","))
 		if("Admins")
-			to_chat(user, jointext(GLOB.admins, ","))
+			to_chat(client, jointext(GLOB.admins, ","))
 		if("Mobs")
-			to_chat(user, jointext(GLOB.mob_list, ","))
+			to_chat(client, jointext(GLOB.mob_list, ","))
 		if("Living Mobs")
-			to_chat(user, jointext(GLOB.mob_living_list, ","))
+			to_chat(client, jointext(GLOB.mob_living_list, ","))
 		if("Alive Mobs")
-			to_chat(user, jointext(GLOB.alive_mob_list, ","))
+			to_chat(client, jointext(GLOB.alive_mob_list, ","))
 		if("Dead Mobs")
-			to_chat(user, jointext(GLOB.dead_mob_list, ","))
+			to_chat(client, jointext(GLOB.dead_mob_list, ","))
 		if("Silicons")
-			to_chat(user, jointext(GLOB.silicon_mob_list, ","))
+			to_chat(client, jointext(GLOB.silicon_mob_list, ","))
 		if("Clients")
-			to_chat(user, jointext(GLOB.clients, ","))
+			to_chat(client, jointext(GLOB.clients, ","))
 		if("Respawnable Mobs")
 			var/list/respawnable_mobs
 			for(var/mob/potential_respawnable in GLOB.player_list)
 				if(HAS_TRAIT(potential_respawnable, TRAIT_RESPAWNABLE))
 					respawnable_mobs += potential_respawnable
-			to_chat(user, jointext(respawnable_mobs, ", "))
+			to_chat(client, jointext(respawnable_mobs, ", "))
 
 USER_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Display del's log of everything that's passed through it.", VERB_CATEGORY_DEBUG)
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
@@ -705,7 +705,7 @@ USER_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Display
 
 	dellog += "</ol>"
 
-	user << browse(dellog.Join(), "window=dellog")
+	client << browse(dellog.Join(), "window=dellog")
 
 USER_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del() Log", \
 		"Display a compacted del's log.", VERB_CATEGORY_DEBUG)
@@ -727,7 +727,7 @@ USER_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del() 
 		if(I.slept_destroy)
 			dat += "[I]<BR>"
 
-	user << browse(dat, "window=simpledellog")
+	client << browse(dat, "window=simpledellog")
 
 USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		"Shows the list of whats currently in a GC queue", VERB_CATEGORY_DEBUG)
@@ -767,7 +767,7 @@ USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	user << browse(text.Join(), "window=gcqueuestatus")
+	client << browse(text.Join(), "window=gcqueuestatus")
 
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
@@ -788,19 +788,19 @@ USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		alert("Invalid mob")
 
 USER_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Open the Runtime Viewer", VERB_CATEGORY_DEBUG)
-	GLOB.error_cache.showTo(user)
+	GLOB.error_cache.showTo(client)
 
 USER_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect", VERB_CATEGORY_DEBUG)
-	if(user.byond_version < 516)
-		to_chat(user, "<span class='warning'>You can only use this on 516!</span>")
+	if(client.byond_version < 516)
+		to_chat(client, "<span class='warning'>You can only use this on 516!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You can now right click to use inspect on browsers.</span>")
-	winset(user, "", "browser-options=byondstorage,find,devtools")
+	to_chat(client, "<span class='notice'>You can now right click to use inspect on browsers.</span>")
+	winset(client, "", "browser-options=byondstorage,find,devtools")
 
 USER_VERB_VISIBILITY(debug_clean_radiation, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all radiation in the world.", VERB_CATEGORY_DEBUG)
-	if(alert(user, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
+	if(alert(client, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
 		return
 
 	log_and_message_admins("is decontaminating the world of all radiation. (This may be laggy!)")
@@ -815,13 +815,13 @@ USER_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all ra
 
 USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", "Select a bug report to view", VERB_CATEGORY_DEBUG)
 	if(!length(GLOB.bug_reports))
-		to_chat(user, "<span class='warning'>There are no bug reports to view</span>")
+		to_chat(client, "<span class='warning'>There are no bug reports to view</span>")
 		return
 	var/list/bug_report_selection = list()
 	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
 		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
-	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(user, "Select a report to view:", "Bug Reports", bug_report_selection)]
-	if(!form.assign_approver(user))
+	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(client, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	if(!form.assign_approver(client))
 		return
-	form.ui_interact(user)
+	form.ui_interact(client)
 

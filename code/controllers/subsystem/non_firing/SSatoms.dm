@@ -125,5 +125,5 @@ USER_VERB(debug_atom_init, R_DEBUG|R_VIEWRUNTIMES, "Atom Init Log", "Shows what 
 
 	html_data += "</table>"
 
-	user << browse(html_data.Join(), "window=initdebug")
+	client << browse(html_data.Join(), "window=initdebug")
 
