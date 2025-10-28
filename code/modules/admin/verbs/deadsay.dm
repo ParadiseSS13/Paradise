@@ -1,16 +1,13 @@
 USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as text)
-	if(!check_rights(R_ADMIN|R_MOD))
-		return
-
 	if(!client.mob)
 		return
 
 	if(check_mute(client.ckey, MUTE_DEADCHAT))
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+		to_chat(client, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
 		return
 
 	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+		to_chat(client, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
 	if(client.handle_spam_prevention(msg, MUTE_DEADCHAT))
@@ -31,7 +28,7 @@ USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as t
 		stafftype = "ADMIN"
 
 	msg = emoji_parse(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
-	log_admin("[key_name(src)] : [msg]")
+	log_admin("[key_name(client)] : [msg]")
 
 	if(!msg)
 		return

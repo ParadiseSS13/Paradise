@@ -19,6 +19,6 @@ USER_VERB(investigate_show, R_ADMIN, "Investigate Round Objects", "View Investig
 
 	var/list/entries = GLOB.investigate_log_wrapper[subject]
 
-	var/datum/browser/B = new(usr, "investigatelog", "Investigate ([subject])", 800, 400)
+	var/datum/browser/B = new(client, "investigatelog", "Investigate ([subject])", 800, 400)
 	B.set_content(entries.Join("<br>"))
 	B.open()

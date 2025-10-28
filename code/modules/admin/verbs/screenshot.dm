@@ -17,7 +17,7 @@ USER_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screenshot
 		return
 
 	var/sleep_duration = tgui_input_number(
-		usr,
+		client,
 		"Enter a delay in deciseconds between screenshots to allow the client to render changes.",
 		"Screenshot delay",
 		default = 2, max_value = 10, min_value = 1, round_value = TRUE
@@ -28,7 +28,7 @@ USER_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screenshot
 	if(!isobserver(mob))
 		SSuser_verbs.invoke_verb(client, /datum/user_verb/admin_ghost)
 
-	message_admins("[key_name(usr)] started a mass screenshot operation")
+	message_admins("[key_name(client)] started a mass screenshot operation")
 
 	// Prepare for screenshot
 	var/old_client_view = client.view

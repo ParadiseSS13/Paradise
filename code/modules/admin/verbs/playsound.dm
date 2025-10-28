@@ -53,7 +53,7 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	SSuser_verbs.invoke_verb(client, /datum/user_verb/play_local_sound, melody)

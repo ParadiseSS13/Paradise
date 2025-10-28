@@ -54,7 +54,7 @@
 #define INIT_ORDER_DBCORE 26
 #define INIT_ORDER_REDIS 25 // Make sure we dont miss any events
 #define INIT_ORDER_BLACKBOX 24
-#define INIT_ORDER_ADMIN_VERBS 23
+#define INIT_ORDER_USER_VERBS 23
 #define INIT_ORDER_CLEANUP 22
 #define INIT_ORDER_INPUT 21
 #define INIT_ORDER_SOUNDS 20

@@ -5,27 +5,27 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 		var/returnval = null
 		var/class = null
 
-		switch(alert("Proc owned by something?", null,"Yes","No"))
+		switch(alert(client, "Proc owned by something?", null,"Yes","No"))
 			if("Yes")
 				targetselected = 1
 				if(client.holder && client.holder.marked_datum)
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([client.holder.marked_datum.type])")
+					class = input(client, "Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([client.holder.marked_datum.type])")
 					if(class == "Marked datum ([client.holder.marked_datum.type])")
 						class = "Marked datum"
 				else
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
+					class = input(client, "Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
 				switch(class)
 					if("Obj")
-						target = input("Enter target:","Target",usr) as obj in world
+						target = input(client, "Enter target:","Target",usr) as obj in world
 					if("Mob")
-						target = input("Enter target:","Target",usr) as mob in world
+						target = input(client, "Enter target:","Target",usr) as mob in world
 					if("Area or Turf")
-						target = input("Enter target:","Target",usr.loc) as area|turf in world
+						target = input(client, "Enter target:","Target",usr.loc) as area|turf in world
 					if("Client")
 						var/list/keys = list()
 						for(var/client/C)
 							keys += C
-						target = input("Please, select a player!", "Selection", null, null) as null|anything in keys
+						target = input(client, "Please, select a player!", "Selection", null) as null|anything in keys
 					if("Marked datum")
 						target = client.holder.marked_datum
 					else
@@ -34,18 +34,18 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 				target = null
 				targetselected = 0
 
-		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
+		var/procname = clean_input(client, "Proc path, eg: /proc/fake_blood","Path:", null)
 		if(!procname)	return
 
 		// absolutely not
 		if(findtextEx(trim(lowertext(procname)), "rustg"))
-			message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs. Inform the host <u>at once</u>.</span>")
-			log_admin("[key_name(src)] attempted to proc call rust-g procs. Inform the host at once.")
-			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call rustg things. Inform the host at once.")
+			message_admins("<span class='userdanger'>[key_name_admin(client)] attempted to proc call rust-g procs. Inform the host <u>at once</u>.</span>")
+			log_admin("[key_name(client)] attempted to proc call rust-g procs. Inform the host at once.")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call rustg things. Inform the host at once.")
 			return
 
 		if(targetselected && !hascall(target,procname))
-			to_chat(usr, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
+			to_chat(client, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
 			return
 
 		var/list/lst = client.get_callproc_args()
@@ -54,18 +54,18 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 
 		if(targetselected)
 			if(!target)
-				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
+				to_chat(client, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(client)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(client)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(client)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(client)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
-		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
+		to_chat(client, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // All these vars are related to proc call protection
@@ -146,17 +146,17 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/A as null|area|mob|obj|turf)
 	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
-		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
-		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
-		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		message_admins("<span class='userdanger'>[key_name_admin(client)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(client)] attempted to proc call on a logging object. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call on a logging object. Inform the host at once.")
 		return
 
-	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
+	var/procname = clean_input(client, "Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
+		to_chat(client, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
 		return
 
 	var/list/lst = client.get_callproc_args()
@@ -371,14 +371,14 @@ USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularit
 
 USER_VERB(make_powernets, R_DEBUG, "Make Powernets", "Remake all powernets.", VERB_CATEGORY_DEBUG)
 	SSmachines.makepowernets()
-	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
-	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
+	log_admin("[key_name(client)] has remade the powernet. makepowernets() called.")
+	message_admins("[key_name_admin(client)] has remade the powernets. makepowernets() called.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB_VISIBILITY(grant_full_access, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -533,7 +533,7 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 
 USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
 	if(!ishuman(M) && !isobserver(M))
-		alert("Invalid mob")
+		alert(client, "Invalid mob")
 		return
 
 	var/dresscode = client.robust_dress_shop()
@@ -548,7 +548,7 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(alert(client, "Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
 				delete_pocket = TRUE
 
 	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
@@ -657,7 +657,7 @@ USER_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity 
 			SMES.input_attempt = 1
 
 USER_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know", VERB_CATEGORY_DEBUG)
-	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
+	switch(input(client, "Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
 		if("Players")
 			to_chat(client, jointext(GLOB.player_list, ","))
 		if("Admins")
@@ -739,7 +739,7 @@ USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		selectable_queues["Queue #[i] ([length(SSgarbage.queues[i])] item\s)"] = i
 
 	// Ask the user
-	var/choice = input(usr, "Select a GC queue. Note that the queue lookup may lag the server.", "GC Queue") as null|anything in selectable_queues
+	var/choice = input(client, "Select a GC queue. Note that the queue lookup may lag the server.", "GC Queue") as null|anything in selectable_queues
 	if(!choice)
 		return
 

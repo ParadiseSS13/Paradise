@@ -5,15 +5,15 @@ USER_VERB(redo_space_transitions, R_ADMIN|R_DEBUG, "Remake Space Transitions", "
 	if(choice == "No")
 		return
 
-	message_admins("[key_name_admin(usr)] re-assigned all space transitions")
+	message_admins("[key_name_admin(client)] re-assigned all space transitions")
 	GLOB.space_manager.do_transition_setup()
-	log_admin("[key_name(usr)] re-assigned all space transitions")
+	log_admin("[key_name(client)] re-assigned all space transitions")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remake Space Transitions") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB_VISIBILITY(make_turf_space_map, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(make_turf_space_map, R_ADMIN|R_DEBUG, "Make Space Map", "Create a map of the space levels as turfs at your feet", VERB_CATEGORY_DEBUG)
-	var/choice = alert("Are you sure you want to make a space map out of turfs?", null,"Yes","No")
+	var/choice = alert(client, "Are you sure you want to make a space map out of turfs?", null,"Yes","No")
 
 	if(choice == "No")
 		return

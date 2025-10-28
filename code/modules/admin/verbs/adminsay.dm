@@ -10,14 +10,14 @@ USER_VERB(admin_say, R_ADMIN, "Asay", "Asay", VERB_CATEGORY_HIDDEN, msg as text)
 	if(!msg)
 		return
 
-	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	var/datum/say/asay = new(client.ckey, client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
-	log_adminsay(msg, src)
+	log_adminsay(msg, client.mob)
 
 	// Do this up here before it gets sent to everyone & emoji'd
 	if(SSredis.connected)
 		var/list/data = list()
-		data["author"] = usr.ckey
+		data["author"] = client.ckey
 		data["source"] = GLOB.configuration.system.instance_id
 		data["message"] = html_decode(msg)
 		SSredis.publish("byond.asay", json_encode(data))
@@ -33,7 +33,7 @@ USER_VERB(admin_say, R_ADMIN, "Asay", "Asay", VERB_CATEGORY_HIDDEN, msg as text)
 				temp_message = replacetext(temp_message, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 			temp_message = "<span class='emoji_enabled'>[temp_message]</span>"
-			to_chat(C, "<span class='admin_channel'>ADMIN: <font color='[display_color]'>[key_name(usr, 1)]</font> ([admin_jump_link(client.mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			to_chat(C, "<span class='admin_channel'>ADMIN: <font color='[display_color]'>[key_name(client, 1)]</font> ([admin_jump_link(client.mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -78,7 +78,7 @@ USER_VERB(staff_say, R_ADMIN|R_MENTOR|R_DEV_TEAM, "Staffsay", "Staffsay", VERB_C
 	if(!msg)
 		return
 
-	log_staffsay(msg, src)
+	log_staffsay(msg, client.mob)
 	var/datum/say/staffsay = new(client.ckey, client.holder.rank, msg, world.timeofday)
 	GLOB.staffsays += staffsay
 	client.mob.create_log(OOC_LOG, "STAFFSAY: [msg]")
@@ -110,7 +110,7 @@ USER_VERB(mentor_say, R_ADMIN|R_MENTOR|R_MOD, "Msay", "Use mentorsay.", VERB_CAT
 		return
 
 	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	log_mentorsay(msg, src)
+	log_mentorsay(msg, client.mob)
 	var/datum/say/msay = new(client.ckey, client.holder.rank, msg, world.timeofday)
 	GLOB.msays += msay
 	client.mob.create_log(OOC_LOG, "MSAY: [msg]")

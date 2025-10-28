@@ -8,7 +8,7 @@ USER_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin 
 	client.remove_user_verbs()
 	add_verb(client, /client/proc/show_verbs)
 
-	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
+	to_chat(client, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/show_verbs()
@@ -109,15 +109,15 @@ USER_VERB(admin_observe, R_ADMIN|R_MOD|R_MENTOR, "Aobserve", "Admin-observe a pl
 
 USER_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "\[Admin\] Aobserve", mob/target as mob)
 	if(isnewplayer(client.mob))
-		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		to_chat(client, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
 	if(isnewplayer(target))
-		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
+		to_chat(client, "<span class='warning'>[target] is currently in the lobby.</span>")
 		return
 
 	if(isobserver(target))
-		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		to_chat(client, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
 	var/mob/dead/observer/observer = client.mob
@@ -240,14 +240,14 @@ USER_VERB(stealth_mode, R_ADMIN, "Stealth Mode", "Enables stealth mode.", VERB_C
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
-			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", client.key))
+			var/new_key = ckeyEx(clean_input(client, "Enter your desired display name.", "Fake Key", client.key))
 			if(!new_key)	return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			client.createStealthKey()
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
+		log_admin("[key_name(client)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
+		message_admins("[key_name_admin(client)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(big_brother, R_PERMISSIONS, "Big Brother Mode", "Enables Big Brother mode.", VERB_CATEGORY_ADMIN)
@@ -368,7 +368,7 @@ USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and 
 
 USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
 	if(O)
-		var/message = clean_input("What do you want the message to be?", "Make Sound")
+		var/message = clean_input(client, "What do you want the message to be?", "Make Sound")
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))
@@ -389,8 +389,8 @@ USER_VERB(object_talk, R_EVENT, "oSay", "Display a message to everyone who can h
 			return
 		for(var/mob/V in hearers(mob.control_object))
 			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
-		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
-		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
+		log_admin("[key_name(client)] used oSay on [mob.control_object]: [msg]")
+		message_admins("[key_name_admin(client)] used oSay on [mob.control_object]: [msg]")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -442,7 +442,7 @@ USER_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", 
 
 	if(client.holder)
 		log_and_message_admins("is altering the appearance of [H].")
-		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
+		H.change_appearance(APPEARANCE_ALL, client.mob, client.mob, check_species_whitelist = 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "\[Admin\] C.M.A. - Self",mob/living/carbon/human/H in GLOB.mob_list)
@@ -509,8 +509,8 @@ USER_VERB(toggle_advanced_interaction, R_ADMIN, "Toggle Advanced Admin Interacti
 		"Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction.", VERB_CATEGORY_ADMIN)
 	client.advanced_admin_interaction = !client.advanced_admin_interaction
 
-	log_admin("[key_name(usr)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
-	message_admins("[key_name_admin(usr)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	log_admin("[key_name(client)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	message_admins("[key_name_admin(client)] has [client.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 
 USER_VERB(show_watchlist, R_ADMIN, "Show Watchlist", "Show the watchlist.", VERB_CATEGORY_ADMIN)
 	client.watchlist_show()
@@ -645,7 +645,7 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 
 		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
 
-	var/choice = input(src, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	var/choice = input(client, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
 	if(!choice || !(choice in targets))
 		return
 
@@ -654,7 +654,7 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 		return
 
 	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
-	if(tgui_alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(client, "Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	B.to_backup_disk(get_turf(client.mob))

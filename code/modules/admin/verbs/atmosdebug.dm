@@ -27,7 +27,7 @@ USER_VERB(debug_check_piping, R_ADMIN, "Check Piping", "Check Piping", VERB_CATE
 					for(var/ct in pipe.connect_types)
 						check[ct]++
 						if(check[ct] > 1)
-							to_chat(usr, "Overlapping pipe ([pipe.name]) located at [T.x],[T.y],[T.z] ([get_area(T)])")
+							to_chat(client, "Overlapping pipe ([pipe.name]) located at [T.x],[T.y],[T.z] ([get_area(T)])")
 							done = 1
 							break
 				if(done)

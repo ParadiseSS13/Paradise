@@ -65,7 +65,7 @@ USER_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Re
 		msg += "</TR>"
 
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg.Join(""), "window=Player_playtime_check")
+	client << browse(msg.Join(""), "window=Player_playtime_check")
 
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)

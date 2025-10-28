@@ -108,13 +108,13 @@ USER_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Ran
 
 USER_VERB_VISIBILITY(debug_object_count_zlevel, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count Objects On Level", VERB_CATEGORY_MAPPING)
-	var/level = clean_input("Which z-level?","Level?")
+	var/level = clean_input(client, "Which z-level?","Level?")
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = clean_input("Which type path?","Path?")
+	var/type_text = clean_input(client, "Which type path?","Path?")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -141,7 +141,7 @@ USER_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count O
 
 USER_VERB_VISIBILITY(debug_object_count_world, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Objects All", VERB_CATEGORY_MAPPING)
-	var/type_text = clean_input("Which type path?","")
+	var/type_text = clean_input(client, "Which type path?","")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -162,15 +162,15 @@ USER_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_
 		if(initial(M.voteable))
 			map_datums["[initial(M.fluff_name)] ([initial(M.technical_name)])"] = M // Put our map in
 
-	var/target_map_name = input(usr, "Select target map", "Next map", null) as null|anything in map_datums
+	var/target_map_name = input(client, "Select target map", "Next map", null) as null|anything in map_datums
 
 	if(!target_map_name)
 		return
 
 	var/datum/map/TM = map_datums[target_map_name]
 	SSmapping.next_map = new TM
-	var/announce_to_players = alert(usr, "Do you wish to tell the playerbase about your choice?", "Announce", "Yes", "No")
-	message_admins("[key_name_admin(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
-	log_admin("[key_name(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
+	var/announce_to_players = alert(client, "Do you wish to tell the playerbase about your choice?", "Announce", "Yes", "No")
+	message_admins("[key_name_admin(client)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
+	log_admin("[key_name(client)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
 	if(announce_to_players == "Yes")
 		to_chat(world, "<span class='boldannounceooc'>[client.key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font></span>")

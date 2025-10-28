@@ -21,7 +21,7 @@ USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", V
 		log_admin("Non-admin [key_name(client)] attempted to execute a SDQL query!")
 		return
 
-	var/query_text = input("SDQL2 query") as message
+	var/query_text = input(client, "SDQL2 query") as message
 
 	if(!query_text || length(query_text) < 1)
 		return

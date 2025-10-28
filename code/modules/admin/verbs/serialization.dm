@@ -9,7 +9,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 
 	var/json_data = json_encode(AM.serialize())
 
-	var/choice = alert(usr, "Would you like to store this on your PC or server side?", "Storage Location", "PC", "Server", "Cancel")
+	var/choice = alert(client, "Would you like to store this on your PC or server side?", "Storage Location", "PC", "Server", "Cancel")
 	if(!choice || choice == "Cancel")
 		return
 
@@ -19,7 +19,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 	if(choice == "Server")
 		// Right, get their slot names
 		var/list/slots = list("--NEW--")
-		var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname FROM json_datum_saves WHERE ckey=:ckey", list("ckey" = usr.ckey))
+		var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname FROM json_datum_saves WHERE ckey=:ckey", list("ckey" = client.ckey))
 		if(!dbq.warn_execute())
 			qdel(dbq)
 			return
@@ -45,7 +45,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 
 			// And save
 			var/datum/db_query/dbq2 = SSdbcore.NewQuery("INSERT INTO json_datum_saves (ckey, slotname, slotjson) VALUES(:ckey, :slotname, :slotjson)", list(
-				"ckey" = usr.ckey,
+				"ckey" = client.ckey,
 				"slotname" = clean_name,
 				"slotjson" = json_data
 			))
@@ -85,7 +85,7 @@ USER_VERB(deserialize_json, R_SPAWN, "Deserialize JSON datum", "Creates an objec
 USER_VERB(spawn_json, R_SPAWN, "Spawn Saved JSON Datum", "Spawns a JSON datums saved server side", VERB_CATEGORY_DEBUG)
 	// Right, get their slot names
 	var/list/slots = list()
-	var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname, id FROM json_datum_saves WHERE ckey=:ckey", list("ckey" = usr.ckey))
+	var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname, id FROM json_datum_saves WHERE ckey=:ckey", list("ckey" = client.ckey))
 	if(!dbq.warn_execute())
 		qdel(dbq)
 		return

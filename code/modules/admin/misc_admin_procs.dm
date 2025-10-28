@@ -350,7 +350,7 @@ USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEG
 		switch(result)
 
 			if("Regular Restart")
-				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+				var/delay = input(client, "What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
 				if(!delay)
 					return FALSE
 
@@ -423,29 +423,29 @@ USER_VERB(toggle_dsay, R_ADMIN, "Toggle DSAY", "Globally Toggles DSAY", VERB_CAT
 		to_chat(world, "<b>Deadchat has been globally enabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	else
 		to_chat(world, "<b>Deadchat has been globally disabled!</b>", MESSAGE_TYPE_DEADCHAT)
-	log_admin("[key_name(usr)] toggled deadchat.")
-	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
+	log_admin("[key_name(client)] toggled deadchat.")
+	message_admins("[key_name_admin(client)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_ooc_dead, R_ADMIN, "Toggle Dead OOC", "Toggle Dead OOC.", VERB_CATEGORY_SERVER)
 	GLOB.dooc_enabled = !(GLOB.dooc_enabled)
-	log_admin("[key_name(usr)] toggled Dead OOC.")
-	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
+	log_admin("[key_name(client)] toggled Dead OOC.")
+	message_admins("[key_name_admin(client)] toggled Dead OOC.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(toggle_emoji, R_ADMIN, "Toggle OOC Emoji", "Toggle OOC Emoji", VERB_CATEGORY_SERVER)
 	GLOB.configuration.general.enable_ooc_emoji = !(GLOB.configuration.general.enable_ooc_emoji)
-	log_admin("[key_name(usr)] toggled OOC Emoji.")
-	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
+	log_admin("[key_name(client)] toggled OOC Emoji.")
+	message_admins("[key_name_admin(client)] toggled OOC Emoji.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
 USER_VERB(start_server_now, R_SERVER, "Start Now", "Start the round RIGHT NOW", VERB_CATEGORY_SERVER)
 	if(SSticker.current_state < GAME_STATE_STARTUP)
-		alert("Unable to start the game as it is not set up.")
+		alert(client, "Unable to start the game as it is not set up.")
 		return
 
 	if(!SSticker.ticker_going)
-		alert("Remove the round-start delay first.")
+		alert(client, "Remove the round-start delay first.")
 		return
 
 	if(GLOB.configuration.general.start_now_confirmation)
@@ -466,8 +466,8 @@ USER_VERB(start_server_now, R_SERVER, "Start Now", "Start the round RIGHT NOW", 
 		return
 
 USER_VERB(toggle_enter, R_SERVER, "Toggle Entering", "People can't enter", VERB_CATEGORY_SERVER)
-	if(!usr.client.is_connecting_from_localhost())
-		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.enter_allowed = !GLOB.enter_allowed
@@ -475,8 +475,8 @@ USER_VERB(toggle_enter, R_SERVER, "Toggle Entering", "People can't enter", VERB_
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled new player game entering.")
-	message_admins("[key_name_admin(usr)] toggled new player game entering.", 1)
+	log_admin("[key_name(client)] toggled new player game entering.")
+	message_admins("[key_name_admin(client)] toggled new player game entering.", 1)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -648,18 +648,18 @@ USER_VERB(spawn_atom, R_SPAWN, "Spawn", \
 	if(length(matches)==1)
 		chosen = matches[1]
 	else
-		chosen = tgui_input_list(usr, "Select an Atom Type", "Spawn Atom", matches)
+		chosen = tgui_input_list(client, "Select an Atom Type", "Spawn Atom", matches)
 		if(!chosen)
 			return
 
 	if(ispath(chosen,/turf))
-		var/turf/T = get_turf(usr.loc)
+		var/turf/T = get_turf(client.mob.loc)
 		T.ChangeTurf(chosen)
 	else
-		var/atom/A = new chosen(usr.loc)
+		var/atom/A = new chosen(client.mob.loc)
 		A.admin_spawned = TRUE
 
-	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
+	log_admin("[key_name(client)] spawned [chosen] at ([client.mob.x],[client.mob.y],[client.mob.z])")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB_VISIBILITY(show_traitor_panel, VERB_VISIBILITY_FLAG_MOREDEBUG)

@@ -330,7 +330,7 @@ USER_VERB(set_holiday, R_SERVER, "Set Holiday", \
 
 	choice += "--CANCEL--"
 
-	var/selected = input("What holiday would you like to force?","Holiday Forcing","--CANCEL--") in choice
+	var/selected = input(client, "What holiday would you like to force?","Holiday Forcing","--CANCEL--") in choice
 
 	if(selected == "--CANCEL--")
 		return

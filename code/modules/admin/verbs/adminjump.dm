@@ -134,21 +134,21 @@ USER_VERB_AND_CONTEXT_MENU(teleport_ckey, R_ADMIN, "Teleport Client", "Teleport 
 	var/list/keys = list()
 	for(var/mob/M in GLOB.player_list)
 		keys += M.client
-	var/selection = input("Please, select a player!", "Admin Jumping", null, null) as null|anything in sortKey(keys)
+	var/selection = input(client, "Please, select a player!", "Admin Jumping", null) as null|anything in sortKey(keys)
 	if(!selection)
 		return
 	var/mob/M = selection:mob
 
 	if(!M)
 		return
-	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
+	log_admin("[key_name(client.mob)] teleported [key_name(M)]")
+	message_admins("[key_name_admin(client.mob)] teleported [key_name(M)]", 1)
 	if(M)
 		if(isobj(M.loc))
 			var/obj/O = M.loc
 			O.force_eject_occupant(M)
-		admin_forcemove(M, get_turf(usr))
-		admin_forcemove(usr, M.loc)
+		admin_forcemove(M, get_turf(client.mob))
+		admin_forcemove(client.mob, M.loc)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(send_mob, R_ADMIN, "Send Mob", "Send mob to an area.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)

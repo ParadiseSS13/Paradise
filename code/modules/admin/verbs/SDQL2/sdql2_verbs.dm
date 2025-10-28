@@ -1,6 +1,6 @@
 USER_VERB(load_sdql2_query, R_PROCCALL, "Load SDQL2 Query", "Load SDQL2 Query from data directory.", VERB_CATEGORY_DEBUG)
 	var/list/choices = flist("data/sdql/")
-	var/choice = input(src, "Choose an SDQL script to run:", "Load SDQL Query", null) as null|anything in choices
+	var/choice = input(client, "Choose an SDQL script to run:", "Load SDQL Query", null) as null|anything in choices
 	if(isnull(choice))
 		return
 

@@ -20,7 +20,7 @@ USER_VERB(admin_pm_panel, R_ADMIN|R_MENTOR, "Admin PM Name", "Send a PM by playe
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
+	var/target = input(client, "To whom shall we send a message?", "Admin PM", null) as null|anything in sorted
 	if(!target)
 		return
 	client.cmd_admin_pm(targets[target], null)
@@ -42,7 +42,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
+	var/target = input(client, "To whom shall we send a message?", "Admin PM", null) as null|anything in sorted
 	if(!target)
 		return
 	client.cmd_admin_pm(targets[target], null)
