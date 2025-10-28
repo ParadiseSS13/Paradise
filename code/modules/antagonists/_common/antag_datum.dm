@@ -507,7 +507,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 #undef INFIL_SEC_OBJECTIVE
 
-
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
 	var/list/report = list()
