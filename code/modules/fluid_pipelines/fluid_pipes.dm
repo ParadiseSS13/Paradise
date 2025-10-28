@@ -189,6 +189,46 @@
 /obj/machinery/fluid_pipe/proc/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return FALSE
 
+/obj/machinery/fluid_pipe/ex_act(severity)
+	var/chance = 0
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			chance = 100
+		if(EXPLODE_HEAVY)
+			chance = 50 // It either happens or it don't
+		if(EXPLODE_LIGHT)
+			chance = 20
+	if(prob(chance) && !QDELETED(fluid_datum)) // Big pipelines can go kinda crazy and we need to check if we aren't already half blown up
+		fluid_datum.fluid_explosion(src, severity)
+	return ..()
+
+/obj/machinery/fluid_pipe/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_ADDFLUID, "Add fluid")
+	VV_DROPDOWN_OPTION(VV_HK_DELFLUID, "Delete fluid")
+
+/obj/machinery/fluid_pipe/vv_do_topic(list/href_list)
+	. = ..()
+	if(!.)
+		return
+
+	if(href_list[VV_HK_ADDFLUID])
+		if(!check_rights(R_DEBUG|R_SERVER))
+			return
+
+		var/fluid_type = tgui_alert(usr, "What type of fluid do you want to add?", "Fluid addition", GLOB.fluid_name_to_path)
+		var/amount = tgui_input_number(usr, "How much should we add?", "Fluid amount", 1, INFINITY, 0)
+		log_admin("Added [amound] units of [fluid_type]")
+
+		fluid_type = GLOB.fluid_name_to_path[fluid_type]
+		if(!fluid_datum)
+			fluid_datum = new(src)
+		fluid_datum.add_fluid(fluid_type, amount)
+
+
+	if(href_list[VV_HK_DELFLUID])
+		to_chat(usr, "No shot, unimplemented")
+
 // DGTODO remove this
 /obj/item/pipe_creator
 	name = "pipe creator"

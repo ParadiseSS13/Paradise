@@ -57,6 +57,10 @@
 // /obj/item/card/id
 #define VV_HK_MODIFY_ID_CARD "modify_id_card"
 
+// /obj/machinery/fluid_pipe
+#define VV_HK_ADDFLUID "addfluid"
+#define VV_HK_DELFLUID "removefluid"
+
 // /mob
 #define VV_HK_MOB_PLAYER_PANEL "mob_player_panel"
 #define VV_HK_GIVE_SPELL "give_spell"

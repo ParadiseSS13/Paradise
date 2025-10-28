@@ -9,6 +9,8 @@
 	var/fluid_amount = 0
 	/// How good is our fluid at being burned as shuttle fuel? Higher is better
 	var/fuel_value = 0
+	/// Can we explode? Anything higher than 1 will increase the explosion size
+	var/explosion_value = 0
 
 /datum/fluid/New(amount)
 	. = ..()
@@ -17,21 +19,25 @@
 /datum/fluid/raw_plasma
 	fluid_name = "unrefined plasma"
 	fluid_id = "unr_pl"
+	explosion_value = 1
 
 /datum/fluid/refined_plasma
 	fluid_name = "refined plasma"
 	fluid_id ="ref_pl"
 	fuel_value = 1 // Doesn't actually make the shuttle faster than default
+	explosion_value = 2
 
 /datum/fluid/fuel
 	fluid_name = "basic fuel"
 	fluid_id = "b_fuel"
 	fuel_value = 2
+	explosion_value = 2
 
 /datum/fluid/fuel/turbo
 	fluid_name = "turbofuel"
 	fluid_id = "tur_fuel"
 	fuel_value = 4
+	explosion_value = 3
 
 // General waste fluid
 /datum/fluid/waste
@@ -56,11 +62,14 @@
 	fluid_name = "unrefined oil"
 	fluid_id = "oil"
 	barrel_state = "oil"
+	explosion_value = 1
 
 /datum/fluid/ref_oil
 	fluid_name = "refined oil"
 	fluid_id = "ref_oil"
+	explosion_value = 2
 
 /datum/fluid/viscous_oil
 	fluid_name = "viscous oil"
 	fluid_id = "visc_oil"
+	explosion_value = 1

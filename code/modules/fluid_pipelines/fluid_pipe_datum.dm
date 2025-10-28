@@ -243,3 +243,23 @@
 /// Simple wrapper to quickly remove all fluids from the datum
 /datum/fluid_pipe/proc/clear_fluids()
 	QDEL_LIST_CONTENTS(fluids)
+
+/datum/fluid_pipe/proc/fluid_explosion(obj/machinery/fluid_pipe/pipe, severity)
+	var/explode_fluid_amount = 0
+	var/explode_fluid_severity = 0
+	// What amount do we need to remove from each liquid // This is weird wording and not entirely correct
+	// To make the explosions stop a bit earlier, we double the amount used up
+	var/ratio_removal = 1 - ((pipe.capacity / total_capacity) * 2)
+
+	for(var/datum/fluid/liquid in fluids)
+		if(!liquid.explosion_value)
+			continue
+		explode_fluid_severity += liquid.explosion_value
+		explode_fluid_amount += liquid.fluid_amount
+		liquid.fluid_amount = round(liquid.fluid_amount * ratio_removal, 1) // This will probably get off-by-1 errors but the entire pipeline will probably explode, who cares
+
+	// Each unit of explosive counts for 1% (otherwise the numbers get quite silly)
+	var/total_severity = explode_fluid_amount * 0.01 * ratio_removal * explode_fluid_severity
+	message_admins(total_severity)
+	total_severity = round(total_severity / 3, 1)
+	explosion(get_turf(pipe), total_severity, total_severity, total_severity)
