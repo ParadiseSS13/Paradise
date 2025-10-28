@@ -162,6 +162,7 @@
 	name = "Geyser counter"
 	desc = "Debug item. Counts Geysers."
 
+// DGTODO remove this
 /obj/item/geyser_counter/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	var/list/all_of_em = list()
 	for(var/obj/structure/geyser/geyser in world)
@@ -170,4 +171,6 @@
 			all_of_em[g_name] += 1
 		else
 			all_of_em[g_name] = 1
-	user.visible_message("[json_decode(all_of_em)]")
+
+	for(var/thing, amount in all_of_em)
+		to_chat(user, "[thing]: [amount]")

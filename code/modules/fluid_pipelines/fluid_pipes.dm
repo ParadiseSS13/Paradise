@@ -47,6 +47,9 @@
 	. = ..()
 	. += "[src] is currently [anchored ? "" : "un"]anchored"
 
+/obj/machinery/fluid_pipe/return_analyzable_fluids()
+	return TRUE
+
 // This is currently as clean as I could make it
 /obj/machinery/fluid_pipe/proc/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
 	if(QDELETED(pipe_to_connect_to))
