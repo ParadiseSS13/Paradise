@@ -218,7 +218,7 @@
 
 		var/fluid_type = tgui_alert(usr, "What type of fluid do you want to add?", "Fluid addition", GLOB.fluid_name_to_path)
 		var/amount = tgui_input_number(usr, "How much should we add?", "Fluid amount", 1, INFINITY, 0)
-		log_admin("Added [amound] units of [fluid_type]")
+		log_admin("Added [amount] units of [fluid_type]")
 
 		fluid_type = GLOB.fluid_name_to_path[fluid_type]
 		if(!fluid_datum)
