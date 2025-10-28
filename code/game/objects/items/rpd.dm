@@ -315,11 +315,11 @@
 			else
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
-	
+
 /obj/item/rpd/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ranged)
 		return NONE
-	
+
 	if(handle_atom_interaction(target, user, ranged))
 		return ITEM_INTERACT_COMPLETE
 
@@ -332,10 +332,7 @@
 	return NONE
 
 /obj/item/rpd/proc/handle_atom_interaction(atom/target, mob/living/user, ranged)
-	if(isstorage(target))
-		var/obj/item/storage/S = target
-		if(!S.can_be_inserted(src, stop_messages = TRUE))
-			return ITEM_INTERACT_COMPLETE
+	if(isstorage(target) || ismodcontrol(target))
 		return NONE
 
 	if(world.time < lastused + spawndelay)
@@ -350,6 +347,9 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(target != T)
+		if(target.loc != T) // Avoids placing pipes when clicking onto something that's inside something. Like clicking on your PDA on UI.
+			return ITEM_INTERACT_COMPLETE
+
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
 		if(target.rpd_act(user, src))

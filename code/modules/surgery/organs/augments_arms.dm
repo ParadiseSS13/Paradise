@@ -175,7 +175,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !length(contents)))
+	if(crit_fail || (!holder && !length(contents)) || status & ORGAN_DEAD)
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 

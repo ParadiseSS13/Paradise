@@ -37,7 +37,7 @@
 		B.name = "broken carton"
 		B.force = 0
 		B.throwforce = 0
-		B.desc = "A carton with the bottom half burst open. Might give you a papercut."
+		B.desc = "A carton with the bottom half burst open. Might give you a paper cut."
 	transfer_fingerprints_to(B)
 
 	qdel(src)
@@ -182,7 +182,7 @@
 
 /obj/item/reagent_containers/drinks/bottle/vodka
 	name = "Tunguska Triple Distilled"
-	desc = "Aah, vodka. Prime choice of drink AND fuel by Russians worldwide."
+	desc = "Aah, vodka. Prime choice of drink AND fuel by Russians galaxy-wide."
 	icon_state = "vodkabottle"
 	list_reagents = list("vodka" = 100)
 
