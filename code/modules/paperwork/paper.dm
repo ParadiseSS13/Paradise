@@ -55,6 +55,9 @@
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(update_paper)), 1 DECISECONDS)
+
+/obj/item/paper/proc/update_paper()
 	update_icon()
 	updateinfolinks()
 

@@ -54,12 +54,12 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = 0 // Same speed as a person so you can flee
+	speed = -1
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
-	melee_damage_lower = 6
-	melee_damage_upper = 8
+	melee_damage_lower = 10
+	melee_damage_upper = 10
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	speak_emote = list("telepathically cries")
@@ -72,11 +72,39 @@
 	basic_mob_flags = DEL_ON_DEATH
 	ai_controller = /datum/ai_controller/basic_controller/hivelord_brood
 	initial_traits = list(TRAIT_FLYING)
+	///Are we an advanced legion skull used in hardmode legion? Ignore the attack rules.
+	var/advanced_legion = FALSE
 
 /mob/living/basic/mining/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
+
+/mob/living/basic/mining/hivelordbrood/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isliving(target))
+		return TRUE
+	var/mob/living/living_target = target
+	var/can_continue = FALSE
+	var/datum/status_effect/hivelord_tracking/tracker = living_target.has_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	if(tracker && advanced_legion)
+		tracker.refresh()
+		if(!(src.UID() in tracker.list_of_uids)) // Add in the UID so non advanced legion skulls in the fight are harder too.
+			tracker.list_of_uids += UID()
+		return TRUE
+	if(tracker)
+		tracker.refresh()
+		if((UID() in tracker.list_of_uids) || length(tracker.list_of_uids) >= 3 || advanced_legion)
+			can_continue = TRUE
+	if(!tracker)
+		tracker = living_target.apply_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	if(!can_continue && !advanced_legion)
+		tracker.list_of_uids += src.UID()
+		return FALSE
+	else
+		return TRUE
 
 /mob/living/basic/mining/hivelordbrood/space
 
@@ -183,9 +211,6 @@
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
 
-/mob/living/basic/mining/hivelord/legion/tendril
-	from_tendril = TRUE
-
 /mob/living/basic/mining/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
@@ -193,7 +218,7 @@
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
 			stored_mob = null
-		else if(from_tendril)
+		else if(HAS_TRAIT(src, TRAIT_FROM_TENDRIL))
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 		else if(dwarf_mob)
 			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf(T)
@@ -211,13 +236,15 @@
 	icon_dead = "legion_head"
 	maxHealth = 5
 	health = 5
+	melee_damage_lower = 12
+	melee_damage_upper = 12
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bites"
 	speak_emote = list("echoes")
 	throw_blocked_message = "is shrugged off by"
 	var/can_infest_dead = FALSE
 
-/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/target, list/modifiers, ignore_cooldown)
 	. = ..()
 	if(!ishuman(target))
 		return
@@ -255,9 +282,7 @@
 /mob/living/basic/mining/hivelordbrood/legion/advanced
 	ai_controller = /datum/ai_controller/basic_controller/hivelord_brood/advanced_legion
 	can_infest_dead = TRUE
-
-/mob/living/basic/mining/hivelord/legion/advanced/tendril
-	from_tendril = TRUE
+	advanced_legion = TRUE
 
 // Big legion (billy)
 /mob/living/basic/mining/big_legion
