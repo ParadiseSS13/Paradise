@@ -196,8 +196,8 @@
 /obj/item/gun/energy/kinetic_accelerator/railgun/examine_more(mob/user)
 	. = ..()
 	. += "Before the nice streamlined and modern day Proto-Kinetic Accelerator was created, multiple designs were drafted by the Mining Research and Development \
-	team. Many were failures, including this one, which came out too bulky and too ineffective. Well recently the MR&D Team got drunk and said 'fuck it we ball' and \
-	went back to the bulky design, overclocked it, and made it functional, turning it into what is essentially a literal man portable particle accelerator. \
+	team. Many were failures, including this one, which came out too bulky and too ineffective. Recently the MR&D Team got drunk and said 'fuck it we ball' and \
+	went back to this bulky design, overclocked it, and made it functional; turning it into what is essentially a literal man portable particle accelerator. \
 	The design results in a massive hard to control blast of kinetic energy, with the power to punch right through creatures and cause massive damage. The \
 	only problem with the design is that it is so bulky you need to carry it with two hands, and the technology has been outfitted with a special firing pin \
 	that denies use near or on the station, due to its destructive nature."
@@ -221,7 +221,7 @@
 	. = ..()
 	. += "During the pizza party celebrating the release of the new crusher designs, the Mining Research and Development team members were only allowed one slice. \
 	One member exclaimed 'I wish we could have more than one slice' and another replied 'I wish we could shoot the accelerator more than once' and thus, the repeater \
-	on the spot. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
+	was born. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
 	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you cant carry as many mods compared to a regular accelerator."
 
 /obj/item/gun/energy/kinetic_accelerator/shotgun
@@ -237,8 +237,8 @@
 /obj/item/gun/energy/kinetic_accelerator/shotgun/examine_more(mob/user)
 	. = ..()
 	. += "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
-	other research members with one blast. The MR&D Director immedietly thought of a genuis idea, creating the proto-kinetic shotgun moments later, which he \
-	immedietly used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
+	other research members with one blast. The MR&D Director immediately thought of a genius idea, creating the proto-kinetic shotgun moments later, which he \
+	immediately used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
 	of firing three shots at once with reduce range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
 	Looks like you need both hands to use it effectively."
 
