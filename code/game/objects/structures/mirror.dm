@@ -99,6 +99,11 @@
 		obj_break()
 	return TRUE
 
+/// This proc sets the icon that will show up in the mirror when spooked
+/// * icon_to_show - which icon
+/// * offset_dir - you might want to move the icon so it appears in the mirror
+/// * offset_pixels - how many pixels you need to move the icon
+/// * wrap - if the icon should wrap around
 /obj/structure/mirror/proc/update_spooked_icon(var/icon/icon_to_show, var/offset_dir, var/offset_pixels, var/wrap)
 	var/icon/our_icon = icon_to_show
 	our_icon.Shift(offset_dir,offset_pixels,wrap)
@@ -108,6 +113,7 @@
 	added_icons.Blend(our_icon, ICON_OVERLAY)
 	return added_icons
 
+/// Shows the icon in the mirror with its mask
 /obj/structure/mirror/proc/flicker_ghost(var/icon/icon_to_show)
 	icon = icon_to_show
 	sleep(rand(5,10))
