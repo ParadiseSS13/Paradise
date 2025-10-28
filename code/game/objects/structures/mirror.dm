@@ -94,14 +94,13 @@
 	return TRUE
 
 /obj/structure/mirror/proc/flicker_ghost()
-	var/icon/newIcon = icon("icons/mob/human.dmi", "husk_s")
-	var/icon/alpha_mask = icon_state
-	newIcon.AddAlphaMask(alpha_mask)
-
-	icon = newIcon
+	var/icon/our_icon = icon("icons/mob/human.dmi", "husk_s")
+	var/icon/alpha_mask = new ("icons/obj/watercloset.dmi", "mirror")
+	our_icon.AddAlphaMask(alpha_mask)
+	icon = our_icon
 	sleep(rand(5,10))
 	if(!broken)
-		icon_state = "mirror"
+		icon = new ("icons/obj/watercloset.dmi", "mirror")
 	return
 
 /obj/item/mounted/mirror
