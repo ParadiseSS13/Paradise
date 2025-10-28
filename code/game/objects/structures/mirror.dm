@@ -86,6 +86,19 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
+/obj/structure/mirror/get_spooked()
+	if(prob(95))
+		flicker_ghost()
+	else
+		obj_break()
+	return TRUE
+
+/obj/structure/mirror/proc/flicker_ghost()
+	icon_state = "mirror_broke"
+	sleep(rand(5,10))
+	if(!broken)
+		icon_state = "mirror"
+	return
 
 /obj/item/mounted/mirror
 	name = "mirror"
