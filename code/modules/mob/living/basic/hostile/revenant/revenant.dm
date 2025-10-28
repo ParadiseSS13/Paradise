@@ -6,7 +6,7 @@
 #define INVISIBILITY_REVENANT 45
 #define REVENANT_NAME_FILE "revenant_names.json"
 
-/mob/living/simple_animal/revenant
+/mob/living/basic/revenant
 	name = "revenant" //The name shown on examine
 	real_name = "revenant" //The name shown in dchat
 	desc = "A malevolent spirit."
@@ -17,20 +17,23 @@
 	incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
-	health =  INFINITY //Revenants don't use health, they use essence instead
+	health =  INFINITY // Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	response_help   = "passes through"
-	response_disarm = "swings at"
-	response_harm   = "punches"
+	response_help_continuous = "passes through"
+	response_help_simple = "pass through"
+	response_disarm_continuous = "swings at"
+	response_disarm_simple = "swing at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = INFINITY
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = INFINITY
 	harm_intent_damage = 0
-	friendly = "touches"
+	friendly_verb_continuous = "touches"
+	friendly_verb_simple = "touch"
 	status_flags = 0
-	wander = FALSE
 	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
@@ -80,7 +83,7 @@
 	/// Are we currently dying? extra check against becomming incorporeal
 	var/dying = FALSE
 
-/mob/living/simple_animal/revenant/Life(seconds, times_fired)
+/mob/living/basic/revenant/Life(seconds, times_fired)
 	..()
 	if(revealed && essence <= 0)
 		dying = TRUE
@@ -99,29 +102,29 @@
 		to_chat(src, "<span class='revennotice bold'>You can move again!</span>")
 	update_spooky_icon()
 
-/mob/living/simple_animal/revenant/ex_act(severity)
+/mob/living/basic/revenant/ex_act(severity)
 	return TRUE //Immune to the effects of explosions.
 
-/mob/living/simple_animal/revenant/blob_act(obj/structure/blob/B)
+/mob/living/basic/revenant/blob_act(obj/structure/blob/B)
 	return //blah blah blobs aren't in tune with the spirit world, or something.
 
-/mob/living/simple_animal/revenant/singularity_act()
+/mob/living/basic/revenant/singularity_act()
 	return //don't walk into the singularity expecting to find corpses, okay?
 
-/mob/living/simple_animal/revenant/narsie_act()
+/mob/living/basic/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+/mob/living/basic/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
+/mob/living/basic/revenant/adjustHealth(amount, updating_health = TRUE)
 	if(!revealed)
 		return
 	essence = max(0, essence-amount)
 	if(!essence)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
-/mob/living/simple_animal/revenant/say(message)
+/mob/living/basic/revenant/say(message)
 	if(!message)
 		return
 	log_say(message, src)
@@ -130,14 +133,14 @@
 
 	say_dead(message)
 
-/mob/living/simple_animal/revenant/get_status_tab_items()
+/mob/living/basic/revenant/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
 	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
 	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
-/mob/living/simple_animal/revenant/Initialize(mapload)
+/mob/living/basic/revenant/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		var/list/built_name = list()
@@ -154,13 +157,13 @@
 	giveSpells()
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_revenant_antagonist))
 
-/mob/living/simple_animal/revenant/proc/make_revenant_antagonist(revenant)
+/mob/living/basic/revenant/proc/make_revenant_antagonist(revenant)
 	SIGNAL_HANDLER // COMSIG_BODY_TRANSFER_TO
 	mind.assigned_role = SPECIAL_ROLE_REVENANT
 	mind.special_role = SPECIAL_ROLE_REVENANT
 	giveObjectivesandGoals()
 
-/mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
+/mob/living/basic/revenant/proc/giveObjectivesandGoals()
 	if(!mind)
 		return
 	mind.wipe_memory() // someone kill this and give revenants their own minds please
@@ -180,7 +183,7 @@
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
-/mob/living/simple_animal/revenant/proc/giveSpells()
+/mob/living/basic/revenant/proc/giveSpells()
 	AddSpell(new /datum/spell/night_vision/revenant)
 	AddSpell(new /datum/spell/revenant_transmit)
 	AddSpell(new /datum/spell/aoe/revenant/defile)
@@ -190,13 +193,13 @@
 	AddSpell(new /datum/spell/aoe/revenant/hallucinations)
 
 
-/mob/living/simple_animal/revenant/dust()
+/mob/living/basic/revenant/dust()
 	return death()
 
-/mob/living/simple_animal/revenant/gib()
+/mob/living/basic/revenant/gib()
 	return death()
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/basic/revenant/death()
 	if(!revealed)
 		return FALSE
 	// Only execute the below if we successfully died
@@ -221,7 +224,7 @@
 	move_resist = null
 	return ..()
 
-/mob/living/simple_animal/revenant/attack_by(obj/item/W, mob/living/user, params)
+/mob/living/basic/revenant/attack_by(obj/item/W, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -235,7 +238,7 @@
 
 		return FINISH_ATTACK
 
-/mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
+/mob/living/basic/revenant/proc/castcheck(essence_cost)
 	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
@@ -250,7 +253,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source)
+/mob/living/basic/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source)
 	if(essence + essence_amt <= 0)
 		return
 	essence = max(0, essence + essence_amt)
@@ -263,7 +266,7 @@
 			to_chat(src, "<span class='revenminor'>Lost [essence_amt]E from [source].</span>")
 	return TRUE
 
-/mob/living/simple_animal/revenant/proc/reveal(time)
+/mob/living/basic/revenant/proc/reveal(time)
 	if(time <= 0)
 		return
 	revealed = TRUE
@@ -277,7 +280,7 @@
 		unreveal_time = unreveal_time + time
 	update_spooky_icon()
 
-/mob/living/simple_animal/revenant/proc/stun(time)
+/mob/living/basic/revenant/proc/stun(time)
 	if(time <= 0)
 		return
 	notransform = TRUE
@@ -289,7 +292,7 @@
 		unstun_time = unstun_time + time
 	update_spooky_icon()
 
-/mob/living/simple_animal/revenant/proc/update_spooky_icon()
+/mob/living/basic/revenant/proc/update_spooky_icon()
 	if(dying)
 		return
 
@@ -321,9 +324,9 @@
 /datum/objective/revenant/check_completion()
 	var/total_essence = 0
 	for(var/datum/mind/M in get_owners())
-		if(!istype(M.current, /mob/living/simple_animal/revenant) || QDELETED(M.current))
+		if(!istype(M.current, /mob/living/basic/revenant) || QDELETED(M.current))
 			continue
-		var/mob/living/simple_animal/revenant/R = M.current
+		var/mob/living/basic/revenant/R = M.current
 		total_essence += R.essence_accumulated
 	if(total_essence < targetAmount)
 		return FALSE
@@ -353,7 +356,7 @@
 /datum/objective/revenant_fluff/check_completion()
 	return TRUE
 
-//no longer used
+// no longer used
 /obj/item/ectoplasm
 	name = "glimmering residue"
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."
