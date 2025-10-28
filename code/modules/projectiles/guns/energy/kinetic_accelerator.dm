@@ -271,7 +271,6 @@
 
 /obj/item/ammo_casing/energy/kinetic/railgun
 	projectile_type = /obj/item/projectile/kinetic/railgun
-	select_name = "kinetic"
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/repeater
@@ -338,11 +337,9 @@
 /obj/item/projectile/kinetic/shotgun
 	name = "split kinetic force"
 	damage = 10
-	range = 3
 
 /obj/item/projectile/kinetic/shockwave
 	name = "concussive kinetic force"
-	damage = 40
 	range = 1
 
 /obj/item/projectile/kinetic/Destroy()
