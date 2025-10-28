@@ -67,18 +67,24 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(spawn_mob))
 	owner.update_sight()
 
-/datum/quirk/proc/remove_organ()
+/datum/quirk/proc/remove_organ(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	if(spawned != owner)
+		return
 	var/obj/item/organ/to_remove = owner.get_organ_slot(organ_slot_to_remove)
 	INVOKE_ASYNC(to_remove, TYPE_PROC_REF(/obj/item/organ/internal, remove), owner, TRUE)
 
-/datum/quirk/proc/give_organ()
+/datum/quirk/proc/give_organ(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	if(spawned != owner)
+		return
 	var/obj/item/organ/internal/cybernetic = new organ_to_give
 	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), owner, TRUE)
 
-/datum/quirk/proc/spawn_mob()
+/datum/quirk/proc/spawn_mob(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	if(spawned != owner)
+		return
 	new mob_to_spawn(owner.loc)
 
 /// For any behavior that needs to happen before a quirk is destroyed
