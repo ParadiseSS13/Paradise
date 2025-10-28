@@ -1,10 +1,7 @@
 SUBSYSTEM_DEF(bugreports)
 	name = "Bug Reports"
 	init_order = INIT_ORDER_DEFAULT
-	wait = 10 MINUTES
-	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "Bug reports won't be recorded at the end of the round or loaded from the DB on roundstart"
-	cpu_display = SS_CPUDISPLAY_DEFAULT
+	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/bugreports/Initialize()
 	// We just want to load all bug reports into the
@@ -21,9 +18,6 @@ SUBSYSTEM_DEF(bugreports)
 		bug_report.initial_key = query_bug_reports.item[2]
 		bug_report.bug_report_data = json_decode(query_bug_reports.item[5])
 		bug_report.awaiting_approval = TRUE
-
-/datum/controller/subsystem/bugreports/fire()
-	return
 
 /datum/controller/subsystem/bugreports/Shutdown()
 	record_bug_reports()
@@ -45,4 +39,3 @@ SUBSYSTEM_DEF(bugreports)
 		qdel(bug_query)
 		GLOB.bug_reports -= bug_report
 		qdel(bug_report)
-	return
