@@ -104,10 +104,13 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	if(!active_character)
 		return FALSE
 	if((to_add.species_flags & QUIRK_MACHINE_INCOMPATIBLE) && (active_character.species == "Machine"))
-		to_chat(src, "<span class='warning'>You can't put that quirk on a robotic character.</span>")
+		to_chat(src.client, "<span class='warning'>You can't put that quirk on a robotic character.</span>")
 		return FALSE
 	if((to_add.species_flags & QUIRK_ORGANIC_INCOMPATIBLE) && (active_character.species != "Machine"))
-		to_chat(src, "<span class='warning'>You can't put that quirk on an organic character.</span>")
+		to_chat(src.client, "<span class='warning'>You can't put that quirk on an organic character.</span>")
+		return FALSE
+	if((to_add.species_flags & QUIRK_SLIME_INCOMPATIBLE) && (active_character.species == "Slime People")) //Since they don't have eyes
+		to_chat(src.client, "<span class='warning'>You can't put that quirk on a slime character, you have no eyes!</span>")
 		return FALSE
 	active_character.quirks += to_add
 	return TRUE
