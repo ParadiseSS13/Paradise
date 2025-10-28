@@ -91,7 +91,7 @@
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
 /obj/structure/mirror/get_spooked()
-	if (!can_be_spooked || broken)
+	if(!can_be_spooked || broken)
 		return
 	flicker_ghost(spooked_icon)
 	return TRUE
@@ -101,7 +101,7 @@
 /// * offset_dir - you might want to move the icon so it appears in the mirror
 /// * offset_pixels - how many pixels you need to move the icon
 /// * wrap - if the icon should wrap around
-/obj/structure/mirror/proc/update_spooked_icon(var/icon/icon_to_show, var/offset_dir, var/offset_pixels, var/wrap)
+/obj/structure/mirror/proc/update_spooked_icon(icon/icon_to_show, offset_dir, offset_pixels, wrap)
 	var/icon/our_icon = icon_to_show
 	our_icon.Shift(offset_dir,offset_pixels,wrap)
 	var/icon/alpha_mask = new("icons/obj/watercloset.dmi", "mirror_mask")
@@ -111,7 +111,7 @@
 	return added_icons
 
 /// Shows the icon in the mirror with its mask
-/obj/structure/mirror/proc/flicker_ghost(var/icon/icon_to_show)
+/obj/structure/mirror/proc/flicker_ghost(icon/icon_to_show)
 	icon = icon_to_show
 	sleep(rand(5,10))
 	icon = initial(icon)
