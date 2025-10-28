@@ -1,6 +1,5 @@
 SUBSYSTEM_DEF(bugreports)
 	name = "Bug Reports"
-	init_order = INIT_ORDER_DEFAULT
 	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/bugreports/Initialize()
