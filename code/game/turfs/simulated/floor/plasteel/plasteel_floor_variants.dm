@@ -1,6 +1,6 @@
 // Visual variants of the standard plasteel floor
 
-/turf/simulated/floor/plasteel/side
+/turf/simulated/floor/plasteel/edge
 	icon_state = "tile_edge"
 
 /turf/simulated/floor/plasteel/half
