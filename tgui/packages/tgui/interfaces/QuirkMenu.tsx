@@ -38,10 +38,7 @@ export const QuirkMenu = () => {
       const remainingQuirks = selected.filter((n) => n !== q.name);
       const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
 
-      // FIX: Block removal of a negative quirk (cost < 0) if the resulting balance is STRICTLY NEGATIVE (< 0).
-      // A balance of 0 is allowed.
       if (q.cost < 0 && remainingBalance < 0) {
-        // console.log('Removal blocked: Remaining balance would be negative:', remainingBalance);
         return;
       }
     } else {
@@ -51,7 +48,6 @@ export const QuirkMenu = () => {
       }
     }
 
-    // If we pass the checks, update the state and notify the backend
     setSelected(isChosen ? selected.filter((n) => n !== q.name) : [...selected, q.name]);
     act(isChosen ? 'remove_quirk' : 'add_quirk', { path: q.path });
   };
@@ -86,12 +82,9 @@ export const QuirkMenu = () => {
             buttonColor = 'average';
           }
         } else {
-          // Check for REMOVING a negative quirk (the fix for your issue)
           const remainingQuirks = selected.filter((n) => n !== q.name);
           const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
 
-          // FIX: Block removal of a negative quirk (cost < 0) if the resulting balance is STRICTLY NEGATIVE (< 0).
-          // A balance of 0 is allowed.
           if (q.cost < 0 && remainingBalance < 0) {
             disabled = true;
             buttonContent = 'Locked (Balance)';
@@ -104,7 +97,14 @@ export const QuirkMenu = () => {
             key={q.name}
             title={q.name}
             mb={1}
-            buttons={<Button {...{ color: buttonColor, content: buttonContent }} disabled={disabled} onClick={() => toggle(q)} fluid />}
+            buttons={
+              <Button
+                {...{ color: buttonColor, content: buttonContent }}
+                disabled={disabled}
+                onClick={() => toggle(q)}
+                fluid
+              />
+            }
           >
             <LabeledList>
               <LabeledList.Item label="Description">{q.desc}</LabeledList.Item>
