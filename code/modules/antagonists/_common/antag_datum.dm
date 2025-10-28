@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
-  
+
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 42, MAROON_OBJECTIVE = 238, ASS_ONCE_OBJECTIVE = 166, ASS_PET = 166, ASS_OBJECTIVE = 388)
 
