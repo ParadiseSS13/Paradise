@@ -202,7 +202,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/pet/dog/fox/renault",
         "/mob/living/simple_animal/pet/dog/fox/syndifox",
         "/mob/living/simple_animal/pet/dog/pug",
-        "/mob/living/simple_animal/revenant",
         "/mob/living/simple_animal/shade",
         "/mob/living/simple_animal/shade/cult",
         "/mob/living/simple_animal/shade/holy",
