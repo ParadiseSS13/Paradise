@@ -125,7 +125,7 @@
 			return TRUE
 
 		if("max_temp")
-			target_pressure = maximum_temperature
+			target_temperature = maximum_temperature
 			. = TRUE
 
 		if("min_temp")
@@ -133,7 +133,7 @@
 			. = TRUE
 
 		if("custom_temperature")
-			target_temperature = clamp(text2num(params["temperature"]), 0 , MAX_OUTPUT_PRESSURE)
+			target_temperature = clamp(text2num(params["temperature"]), 0 , maximum_temperature)
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
