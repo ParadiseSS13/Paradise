@@ -93,10 +93,7 @@
 /obj/structure/mirror/get_spooked()
 	if (!can_be_spooked || broken)
 		return
-	if(prob(98))
-		flicker_ghost(spooked_icon)
-	else
-		obj_break()
+	flicker_ghost(spooked_icon)
 	return TRUE
 
 /// This proc sets the icon that will show up in the mirror when spooked
