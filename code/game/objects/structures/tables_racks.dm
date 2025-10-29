@@ -229,8 +229,8 @@
 		tablepush(I, user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
-		return ITEM_INTERACT_COMPLETE
+	if(I.is_robot_module())
+		return ..()
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
@@ -359,7 +359,7 @@
 		return 0 SECONDS // sure
 	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
-	if(istype(flipper, /mob/living/simple_animal/revenant))
+	if(istype(flipper, /mob/living/basic/revenant))
 		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)

@@ -132,6 +132,11 @@
 		return
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
 
+/obj/machinery/chem_dispenser/power_change()
+	if(!..())
+		return
+	update_icon()
+
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
 		if(beaker)
