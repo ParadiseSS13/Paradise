@@ -107,10 +107,11 @@
 /obj/machinery/atmospherics/binary/temperature_gate/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
+		"inverted" = inverted,
 		"temperature" = round(target_temperature),
 		"max_temp" = maximum_temperature,
 		"temp_unit" = "K",
-		"step" = 10 // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
+		"step" = 10, // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
 	)
 	return data
 
@@ -124,6 +125,12 @@
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
+		if("inverted")
+			if(inverted)
+				inverted = FALSE
+			else
+				inverted = TRUE
+
 		if("max_temp")
 			target_temperature = maximum_temperature
 			. = TRUE
@@ -135,6 +142,7 @@
 		if("custom_temperature")
 			target_temperature = clamp(text2num(params["temperature"]), 0 , maximum_temperature)
 			. = TRUE
+
 	if(.)
 		investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 

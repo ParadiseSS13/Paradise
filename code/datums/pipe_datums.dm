@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "temperature gate"
 	pipe_id = PIPE_TEMPERATURE_GATE
 	orientations = 4
-	pipe_icon = "temperaturegate"
+	pipe_icon = "temperature_gate"
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 

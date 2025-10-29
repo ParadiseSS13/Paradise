@@ -5,10 +5,10 @@ import { Window } from '../layouts';
 
 export const AtmosTemperatureGate = (props) => {
   const { act, data } = useBackend();
-  const { on, temperature, max_temp, temp_unit, step } = data;
+  const { on, temperature, max_temp, temp_unit, step, inverted } = data;
 
   return (
-    <Window width={330} height={110}>
+    <Window width={330} height={130}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -19,6 +19,15 @@ export const AtmosTemperatureGate = (props) => {
                 color={on ? null : 'red'}
                 selected={on}
                 onClick={() => act('power')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Inverted">
+              <Button
+                icon={inverted ? 'arrow-up' : 'arrow-down'}
+                content={inverted ? 'Yes' : 'No'}
+                color={inverted ? null : 'red'}
+                selected={inverted}
+                onClick={() => act('inverted')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Temperature">
