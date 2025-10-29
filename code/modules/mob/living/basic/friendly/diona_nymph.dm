@@ -8,12 +8,12 @@
 
 /mob/living/basic/diona_nymph
 	name = "diona nymph"
+	desc = "A small component of a diona gestalt mind."
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
 	icon_resting = "nymph_sleep"
-	desc = "A small component of a diona gestalt mind."
 	pass_flags = PASSTABLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	mob_size = MOB_SIZE_SMALL
