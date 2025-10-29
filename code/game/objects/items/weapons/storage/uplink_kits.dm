@@ -153,7 +153,7 @@
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
-		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
+		/obj/item/clothing/suit/hooded/chaplain_cassock, // 0TC
 		/obj/item/clothing/glasses/meson/engine/atmos, // 0TC
 		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
@@ -432,7 +432,7 @@
 
 /obj/item/storage/box/syndie_kit/missionary_set/populate_contents()
 	new /obj/item/nullrod/missionary_staff(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	new /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe(src)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
@@ -517,6 +517,16 @@
 	new /obj/item/retractor/supermatter(src)
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
+
+/obj/item/storage/box/syndie_kit/anomalous_particulate
+
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/anomalous_particulate/populate_contents()
+	new /obj/item/ppp_processor(src)
+	new /obj/item/clothing/glasses/hud/anomalous(src)
+	new /obj/item/paper/guides/antag/anomalous_particulate(src)
 
 /obj/item/storage/box/syndie_kit/revolver
 	name = "\improper .357 revolver kit"

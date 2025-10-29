@@ -157,6 +157,8 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_enter()
 	SIGNAL_HANDLER // COMSIG_CARBON_ENTER_STAMINACRIT
+	if(status & ORGAN_DEAD)
+		return
 	if(currently_modifying_stamina || !COOLDOWN_FINISHED(src, implant_cooldown))
 		return
 	owner.stamina_regen_block_modifier *= stamina_crit_time_multiplier
@@ -195,6 +197,8 @@
 	..()
 	if(crit_fail)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.stat == UNCONSCIOUS && !cooldown)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
@@ -637,6 +641,8 @@
 		return
 	if(owner.stat == DEAD)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
@@ -725,9 +731,13 @@
 	return our_MA
 
 /obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	try_heal() // Allows implant to work even on dead people
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	try_heal()
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/try_heal()
@@ -937,6 +947,8 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_repair/on_life()
 	if(crit_fail)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.maxHealth == owner.health)
 		owner.adjust_nutrition(-0.25)
 		return //Passive damage scanning
@@ -1020,6 +1032,22 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/remove(mob/living/carbon/M, special)
 	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food
+	name = "Culinary Processing Implant"
+	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
+	implant_color = "#d8780a"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	slot = "gastrointestinal"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
 	return ..()
 
 //BOX O' IMPLANTS

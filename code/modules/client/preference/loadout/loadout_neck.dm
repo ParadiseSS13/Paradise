@@ -204,3 +204,8 @@
 	display_name = "Mantle, quartermaster"
 	path = /obj/item/clothing/neck/cloak/qm_mantle
 	allowed_roles = list("Quartermaster")
+
+/datum/gear/neck/tallit
+	display_name = "Chaplain, tallit"
+	path = /obj/item/clothing/neck/cloak/tallit
+	allowed_roles = list("Chaplain")

@@ -560,13 +560,16 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 //////////////////////////////
 
 GLOBAL_LIST_INIT(cult_recipes, list (
+	new /datum/stack_recipe_list("furniture ", list(
+		new /datum/stack_recipe("runed metal chair", /obj/structure/chair/comfy/cult, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe/cult("runed metal table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
+	)),
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("runed table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -715,6 +718,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
+	new /datum/stack_recipe("biomesh", /obj/item/biomesh, 1),
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 1 SECONDS),

@@ -1347,7 +1347,7 @@
 	update_action_buttons()
 
 /// chronx100: Hughe O'Splash
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx
+/obj/item/clothing/suit/dark_robes/fluff/chronx
 	name = "Cthulhu's Robes"
 	desc = "Robes worn by  the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
@@ -1425,6 +1425,7 @@
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_monitor = null
 	icon_state = "classic_witch"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self__legacy__attackchain(mob/user)
