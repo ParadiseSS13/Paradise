@@ -1017,7 +1017,7 @@
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (current_species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.sprite_sheet_name] : U2.icon
 			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
@@ -1152,7 +1152,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "smithing"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "smithsoft"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "smith"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1376,7 +1376,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cig_off"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "paramedicsoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "paramedic"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)

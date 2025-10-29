@@ -69,7 +69,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 
 /datum/bottler_recipe/meteor_malt
 	name = "Meteor Malt"
-	description = "Soft drinks have been detected on collision course with your tastebuds."
+	description = "Soft drinks have been detected on collision course with your taste buds."
 	ingredients = list(/obj/item/stack/ore,
 					/obj/item/food/grown/wheat,
 					/obj/item/stack/ore)
