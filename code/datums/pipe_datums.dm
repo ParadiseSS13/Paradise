@@ -395,7 +395,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 // MARK: Fluid pipes
 /datum/pipes/fluid
 	pipe_type = PIPETYPE_FLUID
-	rpd_dispensable = FALSE
 	/// The type of the object that results from dispensing this datum from the RPD.
 	var/construction_type = null
 
