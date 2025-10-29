@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	orientations = 1
 	pipe_icon = "pipe"
 
-/datum/pipes/fluid/pipe
+/datum/pipes/fluid/underground
 	pipe_name = "underground fluid pipe"
 	construction_type = /obj/machinery/fluid_pipe/underground_pipe
 	pipe_id = PIPE_UNDERGROUND
@@ -420,28 +420,28 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	orientations = 1
 	pipe_icon = "pump_4"
 
-/datum/pipes/fluid/pipe
+/datum/pipes/fluid/pumpjack
 	pipe_name = "pumpjack"
 	construction_type = /obj/machinery/fluid_pipe/pumpjack
 	pipe_id = PIPE_PUMPJACK
 	orientations = 2
 	pipe_icon = "pumpjack"
 
-/datum/pipes/fluid/pipe
+/datum/pipes/fluid/tank
 	pipe_name = "fluid tank"
 	construction_type = /obj/machinery/fluid_pipe/tank
 	pipe_id = PIPE_TANK
 	orientations = 1
 	pipe_icon = "tank"
 
-/datum/pipes/fluid/pipe
+/datum/pipes/fluid/barrel_filler
 	pipe_name = "barrel filler"
 	construction_type = /obj/machinery/fluid_pipe/barrel_filler
 	pipe_id = PIPE_BARRELFILLER
 	orientations = 4
 	pipe_icon = "filler"
 
-/datum/pipes/fluid/pipe
+/datum/pipes/fluid/refinery
 	pipe_name = "refinery"
 	construction_type = /obj/machinery/fluid_pipe/refinery
 	pipe_id = PIPE_REFINERY
