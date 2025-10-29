@@ -97,7 +97,6 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
-
 /// /datum/component/defib
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)

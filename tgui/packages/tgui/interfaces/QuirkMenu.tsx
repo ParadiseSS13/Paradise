@@ -6,6 +6,17 @@ import { Window } from '../layouts';
 type Quirk = { name: string; cost: number; desc: string; path: string };
 type Data = { selected_quirks: string[]; all_quirks: Quirk[] };
 
+// Helper to calculate the balance for a given set of selected quirk names
+const calculateBalance = (quirkNames: string[], allQuirks: Quirk[]): number => {
+  const selectedSet = new Set(quirkNames);
+  return allQuirks.reduce((sum, q) => {
+    if (!selectedSet.has(q.name)) return sum;
+    // cost < 0 (negative quirk) ADDS points: Math.abs(q.cost)
+    // cost > 0 (positive quirk) REMOVES points: -q.cost
+    return sum + (q.cost < 0 ? Math.abs(q.cost) : -q.cost);
+  }, 0);
+};
+
 export const QuirkMenu = () => {
   const { act, data } = useBackend<Data>();
   const [selected, setSelected] = useState(data.selected_quirks);
@@ -14,16 +25,29 @@ export const QuirkMenu = () => {
 
   const selectedSet = new Set(selected);
 
-  const balance = data.all_quirks.reduce((sum, q) => {
-    if (!selectedSet.has(q.name)) return sum;
-    return sum + (q.cost < 0 ? Math.abs(q.cost) : -q.cost);
-  }, 0);
+  // Calculate the current balance
+  const balance = calculateBalance(selected, data.all_quirks);
 
   const canAfford = (q: Quirk) => q.cost <= 0 || balance >= q.cost;
 
   const toggle = (q: Quirk) => {
     const isChosen = selectedSet.has(q.name);
-    if (!isChosen && q.cost > 0 && !canAfford(q)) return;
+
+    if (isChosen) {
+      // Logic for REMOVING a quirk
+      const remainingQuirks = selected.filter((n) => n !== q.name);
+      const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
+
+      if (q.cost < 0 && remainingBalance < 0) {
+        return;
+      }
+    } else {
+      // Logic for ADDING a quirk
+      if (q.cost > 0 && !canAfford(q)) {
+        return;
+      }
+    }
+
     setSelected(isChosen ? selected.filter((n) => n !== q.name) : [...selected, q.name]);
     act(isChosen ? 'remove_quirk' : 'add_quirk', { path: q.path });
   };
@@ -45,18 +69,42 @@ export const QuirkMenu = () => {
         const chosen = selectedSet.has(q.name);
         const cost = q.cost > 0 ? `-${q.cost}` : `+${Math.abs(q.cost)}`;
         const costColor = q.cost > 0 ? 'bad' : 'good';
-        const disabled = !chosen && q.cost > 0 && !canAfford(q);
-        const button = chosen
-          ? { color: 'bad', content: 'Remove' }
-          : disabled
-            ? { color: 'average', content: 'Locked' }
-            : { color: 'good', content: 'Select' };
+
+        let disabled = false;
+        let buttonContent = chosen ? 'Remove' : 'Select';
+        let buttonColor = chosen ? 'bad' : 'good';
+
+        if (!chosen) {
+          // Check for ADDING a positive quirk
+          if (q.cost > 0 && !canAfford(q)) {
+            disabled = true;
+            buttonContent = 'Locked';
+            buttonColor = 'average';
+          }
+        } else {
+          const remainingQuirks = selected.filter((n) => n !== q.name);
+          const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
+
+          if (q.cost < 0 && remainingBalance < 0) {
+            disabled = true;
+            buttonContent = 'Locked (Balance)';
+            buttonColor = 'average';
+          }
+        }
+
         return (
           <Section
             key={q.name}
             title={q.name}
             mb={1}
-            buttons={<Button {...button} disabled={disabled} onClick={() => toggle(q)} fluid />}
+            buttons={
+              <Button
+                {...{ color: buttonColor, content: buttonContent }}
+                disabled={disabled}
+                onClick={() => toggle(q)}
+                fluid
+              />
+            }
           >
             <LabeledList>
               <LabeledList.Item label="Description">{q.desc}</LabeledList.Item>

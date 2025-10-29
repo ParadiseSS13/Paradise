@@ -26,7 +26,6 @@
 	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
-	skinned_type = /obj/item/stack/sheet/wood
 
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
@@ -34,6 +33,8 @@
 
 	reagent_tag = PROCESS_ORG
 
+	skinned_type = /obj/item/stack/sheet/wood
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"liver" =   /obj/item/organ/internal/liver/diona,
 		"lungs" =   /obj/item/organ/internal/lungs/diona,
