@@ -125,7 +125,7 @@
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	color = "#B5FF00"
 	drink_icon = "triplecitrus"
-	drink_name = "Glass of Triple Citrus Juice"
+	drink_name = "Glass of triple citrus Juice"
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
@@ -909,13 +909,13 @@
 
 /datum/reagent/consumable/drink/smoothie
 	name = "Empty Smoothie"
-	description = "If you managed to make this, file a report on GitHub."
+	description = ABSTRACT_TYPE_DESC
 	id = "smoothie"
 	color = "#9933FF"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "glass_magenta"
 	drink_name = "Glass of Empty Smoothie"
-	drink_desc = "If you managed to make this, file a report on GitHub."
+	drink_desc = ABSTRACT_TYPE_DESC
 
 /datum/reagent/consumable/drink/smoothie/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
