@@ -10,7 +10,7 @@
 	can_unwrench_while_on = FALSE
 
 	// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
-	var/target_temperature = round(T0C)
+	var/target_temperature = 273 // 0C but rounded to nearest whole number
 
 	// minimum allowed temperature - can't have anything under the coldest temperature, now can we?
 	var/minimum_temperature = TCMB
