@@ -10,7 +10,7 @@
 	can_unwrench_while_on = FALSE
 
 	// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
-	var/target_temperature = T0C
+	var/target_temperature = round(T0C)
 
 	// minimum allowed temperature - can't have anything under the coldest temperature, now can we?
 	var/minimum_temperature = TCMB
@@ -30,8 +30,8 @@
 
 /obj/machinery/atmospherics/binary/temperature_gate/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>the temperature thing</span>"
-	. += "<span class='notice'>It is currently set to [target_temperature] K and will allow gas to flow when the input temperature [inverted ? "is higher than" : "is lower than"] than the set temperature.</span>"
+	. += "<span class='notice'>A toggleable gate that compares the temperature on the interface with the incoming gas and allows it to pass if it is [inverted ? "is higher than" : "is lower than"] the set temperature.</span>"
+	. += "<span class='notice'>It is currently set to [target_temperature] K and is on [on ? "on" : "off"].</span>"
 
 /obj/machinery/atmospherics/binary/temperature_gate/update_icon_state()
 	icon_state = "[on ? "on" : "off"]"
