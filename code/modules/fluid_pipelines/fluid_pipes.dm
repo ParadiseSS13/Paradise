@@ -26,8 +26,10 @@
 	/// Are we connected to something?
 	var/is_connected = FALSE
 
-/obj/machinery/fluid_pipe/Initialize(mapload)
+/obj/machinery/fluid_pipe/Initialize(mapload, direction)
 	. = ..()
+	if(direction)
+		dir = direction
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/fluid_pipe/LateInitialize()

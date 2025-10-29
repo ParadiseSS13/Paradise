@@ -36,6 +36,12 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 /obj/machinery/fluid_pipe/refinery/Initialize(mapload, direction)
 	if(direction)
 		dir = direction
+		if(dir == WEST)
+			icon_state = "refinery_8"
+			dir = WEST
+			pixel_x = 0
+			connect_dirs = list(WEST, SOUTH)
+
 	connect_dirs = GLOB.cardinal.Copy()
 	connect_dirs -= REVERSE_DIR(dir)
 	make_intakes()
@@ -98,7 +104,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 		make_intakes()
 		blind_connect()
 	else
-		// DGTODO: add item pipe here and make a new one // Maybe just keep an unwrenched version?
 		anchored = FALSE
 		DeleteComponent(/datum/component/multitile)
 		qdel(intake)

@@ -489,7 +489,7 @@ const TransitTubeContent = (props) => {
 const FluidPipeContent = (props) => {
   const { act, data } = useBackend();
   const { pipe_category, pipelist, whatttube, iconrotation } = data;
-  let fluid_pipe_type = 7;
+  let fluid_pipe_type = 4;
 
   return (
     <Stack.Item grow>

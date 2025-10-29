@@ -46,14 +46,15 @@
 	var/current_amount = tank?.get_fluid_volumes()
 	switch(current_amount)
 		if(1 to 2500)
-			. += "1_[round(current_amount / 500, 500)]"
+			. += "1_[round(current_amount / 125, 20)]"
 		if(2500 to 5000)
 			. += "1_100"
-			. += "1_[round((current_amount - 2500) / 500, 500)]"
+			. += "2_[round((current_amount - 2500) / 125, 20)]"
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/process()
 	if(state == STATE_IDLE)
 		return
+
 	if(state == STATE_INTAKE)
 		if(!length(fluid_datum.fluids))
 			return
@@ -62,12 +63,15 @@
 				if(!liquid.fuel_value)
 					continue
 				current_fuel = liquid.type
-		if(!is_type_in_list(current_fuel, fluid_datum.fluids, TRUE))
+		if(!is_path_in_list(current_fuel, fluid_datum.fluids, TRUE))
 			return
 		fluid_datum.move_fluid(current_fuel, tank, amount_moved)
+		return
+
 	if(state == STATE_OUTPUT)
 		var/amount = min(amount_moved, fluid_datum.get_empty_space())
 		tank.move_any_fluid(fluid_datum, amount)
+		return
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/attack_hand(mob/user)
 	var/decision = tgui_alert(user, "Do you want to add fluids or retrieve them?", "Shuttle fuel tank", list("Add", "Retrieval", "Idle"))

@@ -163,8 +163,8 @@
 
 	for(var/datum/pipes/fluid/T in GLOB.construction_pipe_list)
 		if(T.pipe_id == whatttube)
-			new T.construction_type(dest, iconrotation ? iconrotation : EAST) // I have no idea what I'm doing
-
+			var/obj/machinery/fluid_pipe/pipe = new T.construction_type(dest, iconrotation ? iconrotation : EAST) // I have no idea what I'm doing
+			pipe.dir = iconrotation ? iconrotation : EAST
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf

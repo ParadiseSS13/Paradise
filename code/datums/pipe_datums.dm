@@ -395,7 +395,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 // MARK: Fluid pipes
 /datum/pipes/fluid
 	pipe_type = PIPETYPE_FLUID
-	rpd_dispensable = TRUE
+	rpd_dispensable = FALSE
 	/// The type of the object that results from dispensing this datum from the RPD.
 	var/construction_type = null
 
@@ -405,6 +405,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_FLUID
 	orientations = 1
 	pipe_icon = "pipe"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/underground
 	pipe_name = "underground fluid pipe"
@@ -412,13 +413,15 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_UNDERGROUND
 	orientations = 4
 	pipe_icon = "underground"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/pump
 	pipe_name = "fluid pump"
 	construction_type = /obj/machinery/fluid_pipe/pump
 	pipe_id = PIPE_FLUID_PUMP
-	orientations = 1
+	orientations = 2
 	pipe_icon = "pump_4"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/pumpjack
 	pipe_name = "pumpjack"
@@ -426,6 +429,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_PUMPJACK
 	orientations = 2
 	pipe_icon = "pumpjack"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/tank
 	pipe_name = "fluid tank"
@@ -433,20 +437,23 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_TANK
 	orientations = 1
 	pipe_icon = "tank"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/barrel_filler
 	pipe_name = "barrel filler"
 	construction_type = /obj/machinery/fluid_pipe/barrel_filler
 	pipe_id = PIPE_BARRELFILLER
-	orientations = 4
+	orientations = 1
 	pipe_icon = "filler"
+	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/refinery
 	pipe_name = "refinery"
 	construction_type = /obj/machinery/fluid_pipe/refinery
 	pipe_id = PIPE_REFINERY
 	orientations = 2
-	pipe_icon = "refinery_4"
+	pipe_icon = "refinery"
+	rpd_dispensable = TRUE
 
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
