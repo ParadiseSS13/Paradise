@@ -56,6 +56,7 @@
 	return (pipe.fluid_datum == incoming.fluid_datum) ^ incoming.fluid_datum
 
 /obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS, TRUE, src))
 		to_chat(user, "You stop.") // DGTODO: add span classes + message

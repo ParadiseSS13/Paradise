@@ -23,13 +23,15 @@ export const RPD = (props) => {
         return <BinPipeContent />;
       case 6:
         return <TransitTubeContent />;
+      case 7:
+        return <FluidPipeContent />;
       default:
         return "WE SHOULDN'T BE HERE!";
     }
   };
 
   return (
-    <Window width={550} height={440}>
+    <Window width={700} height={600}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -425,6 +427,102 @@ const TransitTubeContent = (props) => {
                 <ActionButtons />
                 {pipelist
                   .filter((p) => p.pipe_type === transit_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
+                  .map((p) => (
+                    <Stack.Item key={p.pipe_id}>
+                      <Grid>
+                        <Grid.Column>
+                          <Button
+                            fluid
+                            textAlign="center"
+                            selected={iconrotation === 1}
+                            content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 1 })}
+                            style={{ marginBottom: '5px' }}
+                          />
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Button
+                            fluid
+                            textAlign="center"
+                            selected={iconrotation === 4}
+                            content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 4 })}
+                            style={{ marginBottom: '5px' }}
+                          />
+                        </Grid.Column>
+                      </Grid>
+                      {p.orientations === 4 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 2}
+                              content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 2 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 8}
+                              content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 8 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
+                    </Stack.Item>
+                  ))}
+              </Grid.Column>
+            </Grid>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </Stack.Item>
+  );
+};
+
+const FluidPipeContent = (props) => {
+  const { act, data } = useBackend();
+  const { pipe_category, pipelist, whatttube, iconrotation } = data;
+  let fluid_pipe_type = 7;
+
+  return (
+    <Stack.Item grow>
+      <Stack fill>
+        <Stack.Item grow basis="50%">
+          <Section fill>
+            <Grid>
+              <Grid.Column>
+                {pipelist
+                  .filter((p) => p.pipe_type === fluid_pipe_type)
+                  .map((p) => (
+                    <Box key={p.pipe_name}>
+                      <Button
+                        fluid
+                        content={p.pipe_name}
+                        icon="cog"
+                        selected={p.pipe_id === whatttube}
+                        onClick={() => act('whatttube', { whatttube: p.pipe_id })}
+                        style={{ marginBottom: '2px' }}
+                      />
+                    </Box>
+                  ))}
+              </Grid.Column>
+            </Grid>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow basis="50%">
+          <Section fill>
+            <Grid>
+              <Grid.Column>
+                <ActionButtons />
+                {pipelist
+                  .filter((p) => p.pipe_type === fluid_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
                       <Grid>

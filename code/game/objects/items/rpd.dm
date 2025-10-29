@@ -37,6 +37,8 @@
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT
 	/// What kind of transit tube are we trying to lay?
 	var/whatttube = PIPE_TRANSIT_TUBE
+	/// What kind of fluid pipe are we trying to lay?
+	var/whatfpipe = PIPE_FLUID
 	/// Cooldown on RPD use.
 	var/spawndelay = RPD_COOLDOWN_TIME
 	/// Time taken to drill a borehole before the pipe can be laid.
@@ -52,6 +54,7 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Fluid pipes", "mode" = RPD_FLUID_MODE, "icon" = "droplet"),
 		list("category" = "Transit", "mode" = RPD_TRANSIT_MODE, "icon" = "subway"),
 		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
 		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
@@ -152,6 +155,16 @@
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
 			automatic_wrench_down(user, S)
+			activate_rpd(TRUE)
+
+/obj/item/rpd/proc/create_fluid_pipe(mob/user, turf/dest)
+	if(!can_dispense_pipe(whatttube, PIPETYPE_FLUID))
+		CRASH("Failed to spawn [get_pipe_name(whatttube, PIPETYPE_FLUID)] - possible tampering detected")
+
+	for(var/datum/pipes/fluid/T in GLOB.construction_pipe_list)
+		if(T.pipe_id == whatttube)
+			new T.construction_type(dest, iconrotation ? iconrotation : EAST) // I have no idea what I'm doing
+
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf

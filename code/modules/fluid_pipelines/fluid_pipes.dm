@@ -145,6 +145,7 @@
 	dir = turn(dir, -90)
 
 /obj/machinery/fluid_pipe/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
 		to_chat(user, "You stop.") // DGTODO: add span classes + message

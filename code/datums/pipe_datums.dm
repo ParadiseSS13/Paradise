@@ -392,6 +392,62 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	orientations = 4
 	pipe_icon = "transit_station"
 
+// MARK: Fluid pipes
+/datum/pipes/fluid
+	pipe_type = PIPETYPE_FLUID
+	rpd_dispensable = TRUE
+	/// The type of the object that results from dispensing this datum from the RPD.
+	var/construction_type = null
+
+/datum/pipes/fluid/pipe
+	pipe_name = "fluid pipe"
+	construction_type = /obj/machinery/fluid_pipe
+	pipe_id = PIPE_FLUID
+	orientations = 1
+	pipe_icon = "pipe"
+
+/datum/pipes/fluid/pipe
+	pipe_name = "underground fluid pipe"
+	construction_type = /obj/machinery/fluid_pipe/underground_pipe
+	pipe_id = PIPE_UNDERGROUND
+	orientations = 4
+	pipe_icon = "underground"
+
+/datum/pipes/fluid/pump
+	pipe_name = "fluid pump"
+	construction_type = /obj/machinery/fluid_pipe/pump
+	pipe_id = PIPE_FLUID_PUMP
+	orientations = 1
+	pipe_icon = "pump_4"
+
+/datum/pipes/fluid/pipe
+	pipe_name = "pumpjack"
+	construction_type = /obj/machinery/fluid_pipe/pumpjack
+	pipe_id = PIPE_PUMPJACK
+	orientations = 2
+	pipe_icon = "pumpjack"
+
+/datum/pipes/fluid/pipe
+	pipe_name = "fluid tank"
+	construction_type = /obj/machinery/fluid_pipe/tank
+	pipe_id = PIPE_TANK
+	orientations = 1
+	pipe_icon = "tank"
+
+/datum/pipes/fluid/pipe
+	pipe_name = "barrel filler"
+	construction_type = /obj/machinery/fluid_pipe/barrel_filler
+	pipe_id = PIPE_BARRELFILLER
+	orientations = 4
+	pipe_icon = "filler"
+
+/datum/pipes/fluid/pipe
+	pipe_name = "refinery"
+	construction_type = /obj/machinery/fluid_pipe/refinery
+	pipe_id = PIPE_REFINERY
+	orientations = 2
+	pipe_icon = "refinery_4"
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator

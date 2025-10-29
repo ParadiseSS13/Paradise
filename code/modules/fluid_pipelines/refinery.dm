@@ -1,7 +1,7 @@
 /// Global associated list, index is the name of the recipe, key is the typepath
 GLOBAL_LIST_EMPTY(refinery_recipes)
 
-/obj/machinery/fluid_pipe/plasma_refinery
+/obj/machinery/fluid_pipe/refinery
 	name = "Plasma Refinery"
 	desc = "Turns crude plasma into refined plasma. Can accept a combination of chemicals to improve purity."
 	icon = 'icons/obj/pipes/64x64fluid_machinery.dmi'
@@ -30,10 +30,10 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 /obj/machinery/fluid_pipe/abstract/refinery_intake/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return (pipe == parent)
 
-/obj/machinery/fluid_pipe/plasma_refinery/special_connect_check(obj/machinery/fluid_pipe/pipe)
+/obj/machinery/fluid_pipe/refinery/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return (pipe == intake)
 
-/obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
+/obj/machinery/fluid_pipe/refinery/Initialize(mapload, direction)
 	if(direction)
 		dir = direction
 	connect_dirs = GLOB.cardinal.Copy()
@@ -41,11 +41,11 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	make_intakes()
 	return ..()
 
-/obj/machinery/fluid_pipe/plasma_refinery/Destroy()
+/obj/machinery/fluid_pipe/refinery/Destroy()
 	qdel(intake)
 	return ..()
 
-/obj/machinery/fluid_pipe/plasma_refinery/examine(mob/user)
+/obj/machinery/fluid_pipe/refinery/examine(mob/user)
 	. = ..()
 	if(!selected_recipe)
 		. += "No recipe is currently selected."
@@ -58,10 +58,10 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 		var/datum/fluid/path = GLOB.fluid_id_to_path[fluid]
 		. += "[initial(path.fluid_name)], [selected_recipe.input[fluid]]"
 
-/obj/machinery/fluid_pipe/plasma_refinery/update_icon_state()
+/obj/machinery/fluid_pipe/refinery/update_icon_state()
 	return
 
-/obj/machinery/fluid_pipe/plasma_refinery/update_overlays()
+/obj/machinery/fluid_pipe/refinery/update_overlays()
 	. = ..()
 	if(!anchored)
 		return
@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	for(var/obj/pipe as anything in intake.get_adjacent_pipes())
 		. += "connector_[dir == EAST ? "l" : "r"]_[get_dir(intake, pipe)]"
 
-/obj/machinery/fluid_pipe/plasma_refinery/proc/make_intakes()
+/obj/machinery/fluid_pipe/refinery/proc/make_intakes()
 	switch(dir)
 		if(EAST)
 			AddComponent(/datum/component/multitile, list(
@@ -86,11 +86,12 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 	intake = new(get_step(src, REVERSE_DIR(dir)), src, dir)
 
-/obj/machinery/fluid_pipe/plasma_refinery/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/fluid_pipe/refinery/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
 		to_chat(user, "You stop.") // DGTODO: add span classes + message
-		return TRUE
+		return
 
 	if(!anchored)
 		anchored = TRUE
@@ -102,9 +103,8 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 		DeleteComponent(/datum/component/multitile)
 		qdel(intake)
 		cut_overlays()
-	return TRUE
 
-/obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
+/obj/machinery/fluid_pipe/refinery/attack_hand(mob/user)
 	if(!anchored)
 		// I dug myself into this hole and I'll like it
 		if(dir == EAST)
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	recipe = GLOB.refinery_recipes[recipe]
 	selected_recipe = new recipe
 
-/obj/machinery/fluid_pipe/plasma_refinery/process()
+/obj/machinery/fluid_pipe/refinery/process()
 	if(!selected_recipe || (fluid_datum == intake.fluid_datum))
 		return
 
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	if(selected_recipe.solid_output)
 		new selected_recipe.solid_output(get_turf(src))
 
-/obj/machinery/fluid_pipe/plasma_refinery/west
+/obj/machinery/fluid_pipe/refinery/west
 	icon_state = "refinery_8"
 	dir = WEST
 	pixel_x = 0

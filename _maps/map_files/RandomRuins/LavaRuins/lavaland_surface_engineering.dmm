@@ -954,12 +954,6 @@
 /obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
-"yO" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/engi_outpost/shuttle_landing_post)
 "yP" = (
 /turf/simulated/wall/r_wall,
 /area/engi_outpost/electrical)
@@ -1769,11 +1763,9 @@
 	},
 /area/engi_outpost/breakroom)
 "ZJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/floodlight/anchored,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/engi_outpost/airlock)
+/area/lavaland/surface/outdoors/explored)
 "ZM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2286,10 +2278,10 @@ ZP
 tK
 ZM
 uu
-yO
-ZM
-ZM
-ZM
+oM
+oM
+oM
+oM
 MX
 bP
 Ui

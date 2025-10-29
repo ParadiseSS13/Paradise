@@ -8,10 +8,11 @@
 	icon = 'icons/obj/pipes/shuttleintake_east.dmi'
 	icon_state = "intake"
 	dir = EAST
-	layer = ABOVE_WINDOW_LAYER
+	layer = ABOVE_WINDOW_LAYER + 0.1
 	just_a_pipe = FALSE
 	capacity = 500
 	connect_dirs = list(WEST)
+	resistance_flags = INDESTRUCTIBLE
 	/// What state are we in
 	var/state
 	/// Ref to the internal storage tank
@@ -29,7 +30,6 @@
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/Initialize(mapload)
 	tank = new(src, 5000)
 	SSshuttle.supply.fuel_tank = src
-	tank.add_fluid(/datum/fluid/fuel/turbo, 2000)
 	return ..()
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/examine(mob/user)
@@ -62,7 +62,7 @@
 				if(!liquid.fuel_value)
 					continue
 				current_fuel = liquid.type
-		if(!is_type_in_list(current_fuel, fluid_datum.fluids))
+		if(!is_type_in_list(current_fuel, fluid_datum.fluids, TRUE))
 			return
 		fluid_datum.move_fluid(current_fuel, tank, amount_moved)
 	if(state == STATE_OUTPUT)
