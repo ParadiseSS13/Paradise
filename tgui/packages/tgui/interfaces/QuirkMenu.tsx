@@ -11,8 +11,7 @@ const calculateBalance = (quirkNames: string[], allQuirks: Quirk[]): number => {
   const selectedSet = new Set(quirkNames);
   return allQuirks.reduce((sum, q) => {
     if (!selectedSet.has(q.name)) return sum;
-    // cost < 0 (negative quirk) ADDS points: Math.abs(q.cost)
-    // cost > 0 (positive quirk) REMOVES points: -q.cost
+
     return sum + (q.cost < 0 ? Math.abs(q.cost) : -q.cost);
   }, 0);
 };
@@ -34,7 +33,6 @@ export const QuirkMenu = () => {
     const isChosen = selectedSet.has(q.name);
 
     if (isChosen) {
-      // Logic for REMOVING a quirk
       const remainingQuirks = selected.filter((n) => n !== q.name);
       const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
 
@@ -75,7 +73,6 @@ export const QuirkMenu = () => {
         let buttonColor = chosen ? 'bad' : 'good';
 
         if (!chosen) {
-          // Check for ADDING a positive quirk
           if (q.cost > 0 && !canAfford(q)) {
             disabled = true;
             buttonContent = 'Locked';
@@ -84,7 +81,6 @@ export const QuirkMenu = () => {
         } else {
           const remainingQuirks = selected.filter((n) => n !== q.name);
           const remainingBalance = calculateBalance(remainingQuirks, data.all_quirks);
-
           if (q.cost < 0 && remainingBalance < 0) {
             disabled = true;
             buttonContent = 'Locked (Balance)';
