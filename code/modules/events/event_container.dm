@@ -192,7 +192,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 30), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Tourist Arrivals",			/datum/event/tourist_arrivals,			100,	list(ASSIGNMENT_SECURITY = 15), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Shuttle Loan",				/datum/event/shuttle_loan,				100,	list(ASSIGNMENT_CARGO = 15, ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Shuttle Loan",				/datum/event/shuttle_loan,				100,	list(ASSIGNMENT_CARGO = 15, ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Anomalous Particulate",	/datum/event/anomalous_particulate_event, 250, is_one_shot = TRUE),
 	)
 
 /datum/event_container/major

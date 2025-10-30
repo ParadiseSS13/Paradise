@@ -8,6 +8,7 @@
 
 /mob/living/basic/diona_nymph
 	name = "diona nymph"
+	desc = "A small component of a diona gestalt mind."
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"

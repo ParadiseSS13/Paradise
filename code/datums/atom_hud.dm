@@ -13,6 +13,7 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_JANITOR = new/datum/atom_hud/data/janitor(),
 	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(),
 	DATA_HUD_MALF_AI = new/datum/atom_hud/data/human/malf_ai(),
+	DATA_HUD_ANOMALOUS = new/datum/atom_hud/data/anomalous(),
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
@@ -34,6 +35,8 @@ GLOBAL_LIST_INIT(huds, list(
 	var/list/atom/hudatoms = list() //list of all atoms which display this hud
 	var/list/mob/hudusers = list() //list with all mobs who can see the hud
 	var/list/hud_icons = list() //these will be the indexes for the atom's hud_list
+	/// Do we ignore the invisibility check? Used by anom huds so we can see our stuff.
+	var/ignore_invisibility_check = FALSE
 
 
 /datum/atom_hud/New()
@@ -86,7 +89,7 @@ GLOBAL_LIST_INIT(huds, list(
 /datum/atom_hud/proc/add_to_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
 		return
-	if(A.invisibility > M.see_invisible) // yee yee ass snowflake check for our yee yee ass snowflake huds
+	if((A.invisibility > M.see_invisible) && !ignore_invisibility_check) // yee yee ass snowflake check for our yee yee ass snowflake huds
 		return
 	for(var/i in hud_icons)
 		if(A.hud_list[i])
