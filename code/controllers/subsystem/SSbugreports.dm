@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(bugreports)
 /datum/controller/subsystem/bugreports/Shutdown()
 	record_bug_reports()
 
-/proc/record_bug_reports()
+/datum/controller/subsystem/bugreports/proc/record_bug_reports()
 	for(var/datum/tgui_bug_report_form/bug_report in GLOB.bug_reports)
 		var/datum/db_query/bug_query = SSdbcore.NewQuery({"
 			INSERT IGNORE INTO bug_reports (db_uid, author_ckey, title, round_id, contents_json) VALUES (:db_uid, :author_ckey, :title, :round_id, :contents_json)
