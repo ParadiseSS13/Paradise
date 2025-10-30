@@ -163,6 +163,13 @@ ipc_screens = [
     "Icon State 2",
   ]},
 ]
+fluff_undershirts = [
+	{ name = "Shirt Name Here", ckeys = [
+		"ckeyhere1",
+		"ckeyhere2",
+	] },
+]
+
 
 ################################################################
 
@@ -359,6 +366,8 @@ randomise_shift_time = true
 enable_night_shifts = true
 # Cap for monkeys spawned from monkey cubes
 monkey_cube_cap = 32
+# Cap for chickens
+chicken_hatched_cap = 50
 # Make explosions react to obstacles (walls+doors) instead of ignoring them
 reactionary_explosions = true
 # Bomb cap for explosions (Outer devastation. Other values calculate from this)
