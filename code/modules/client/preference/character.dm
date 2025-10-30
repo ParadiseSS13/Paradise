@@ -141,20 +141,20 @@
 
 	// ALL OF THIS SHIT BECAUSE h_style CAN BE A STRING OR A DATUM
 	var/h_style_str = "Bald"
-	if (istype(h_style, /datum/sprite_accessory/hair))
+	if(istype(h_style, /datum/sprite_accessory/hair))
 		var/datum/sprite_accessory/hair/H = h_style
 		h_style_str = H.name
 
-	if (istext(h_style))
+	if(istext(h_style))
 		h_style_str = h_style
 
 	// Same with f_style
 	var/f_style_str = "Bald"
-	if (istype(f_style, /datum/sprite_accessory/facial_hair))
+	if(istype(f_style, /datum/sprite_accessory/facial_hair))
 		var/datum/sprite_accessory/facial_hair/F = f_style
 		f_style_str = F.name
 
-	if (istext(f_style))
+	if(istext(f_style))
 		f_style_str = f_style
 
 	while(firstquery.NextRow())
