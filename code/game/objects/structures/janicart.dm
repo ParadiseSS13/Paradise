@@ -63,7 +63,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(user.a_intent != INTENT_HELP)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
 	if(handle_janitorial_equipment(user, used))
