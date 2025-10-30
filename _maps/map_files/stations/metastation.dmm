@@ -87827,13 +87827,13 @@
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "xXQ" = (
-/obj/machinery/requests_console/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
+/obj/machinery/requests_console/smith/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "xXY" = (
