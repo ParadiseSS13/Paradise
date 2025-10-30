@@ -21,7 +21,7 @@
 	name = "Eternal Gate"
 	desc = "Opens up the Path of Cosmos to you. \
 		Allows you to transmute a sheet of plasma and a knife into an Cosmic Blade. \
-		You can only create two at a time."
+		You can only create three at a time."
 	gain_text = "A nebula appeared in the sky, its infernal birth shone upon me. This was the start of a great transcendence."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,

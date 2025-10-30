@@ -419,14 +419,19 @@
  * * mob_to_summon - either a mob instance or a mob typepath
  */
 /datum/heretic_knowledge/proc/summon_ritual_mob(mob/living/user, turf/our_turf, mob/living/mob_to_summon)
-	var/mob/living/simple_animal/summoned
-	if(isanimal(mob_to_summon))
+	var/mob/living/summoned
+	if(isanimal_or_basicmob(mob_to_summon))
 		summoned = mob_to_summon
 	else
 		summoned = new mob_to_summon(our_turf)
-	summoned.AIStatus = AI_OFF
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
+	if(isanimal(summoned))
+		var/mob/living/simple_animal/simple = summoned
+		simple.AIStatus = AI_OFF
+	else if(isbasicmob(summoned))
+		var/mob/living/basic/basic = summoned
+		basic.ai_controller.ai_status = AI_STATUS_OFF
 	summoned.alpha = 0
 	summoned.notransform = TRUE
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING

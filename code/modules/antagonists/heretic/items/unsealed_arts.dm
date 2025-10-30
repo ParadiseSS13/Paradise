@@ -86,7 +86,7 @@
 	if(enchanting)
 		return
 	if(charmed_creature)
-		if(!isInSight(charmed_creature, src) || charmed_creature.stat == DEAD)
+		if(!isInSight(charmed_creature, src) || get_dist(charmed_creature, src) > 7 || charmed_creature.stat == DEAD)
 			disenchant(charmed_creature)
 		return
 	for(var/mob/living/carbon/creature in range(7, loc))
@@ -165,13 +165,14 @@
 		if(!isInSight(creature, src) || creature.stat == DEAD)
 			continue
 
-		creature.AdjustDizzy(20 SECONDS, 20 SECONDS, 3 MINUTES)
+		creature.SetDizzy(2 MINUTES)
+		creature.AdjustConfused(20 SECONDS, 20 SECONDS, 3 MINUTES)
 		if(prob(10))
 			to_chat(creature, "<span class='warning'>You feel an overwhelming crushing grief!</span>")
 			continue
 		if(prob(10))
 			creature.custom_emote(EMOTE_VISIBLE, "weeps uncontrollably", FALSE)
-		if(creature.get_dizziness() >= 1 MINUTES && prob(15))
+		if(creature.get_confusion() >= 1 MINUTES && prob(15))
 			to_chat(creature, "<span class='danger'>You are completely overcome with grief!</span>")
 			creature.KnockDown(4 SECONDS)
 			continue
@@ -245,6 +246,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 		spawned_mob.melee_attack_cooldown_max = 1.5 SECONDS
 		spawned_mob.environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 		spawned_mob.ai_controller = new /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles(spawned_mob)
+		spawned_mob.density = TRUE
 		RegisterSignal(spawned_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /obj/structure/unsealed_art/vines/proc/on_mob_death()
@@ -293,8 +295,9 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 		if(prob(5))
 			creature.vomit(-10, TRUE, FALSE, 2, FALSE)
 			var/turf/T = get_step(creature.loc, creature.dir)
-			new /obj/item/food/meat(T)
-			to_chat(creature, "<span class='warning'>You vomit up rotten meat and decayed organs!</span>")
+			var/obj/meat = new /obj/item/food/meat(T)
+			meat.name = "rotten meat"
+			creature.visible_message("<span class='warning'>[creature] vomits up rotten meat and decayed organs!</span>", "<span class='warning'>You vomit up rotten meat and decayed organs!</span>")
 
 // MARK: Rust
 /obj/structure/unsealed_art/rust

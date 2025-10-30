@@ -21,7 +21,7 @@
 	name = "Moonlight Troupe"
 	desc = "Opens up the Path of Moon to you. \
 		Allows you to transmute 2 sheets of iron and a knife into an Lunar Blade. \
-		You can only create two at a time."
+		You can only create three at a time."
 	gain_text = "Under the light of the moon the laughter echoes."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -63,8 +63,8 @@
 
 /datum/heretic_knowledge/spell/moon_smile
 	name = "Smile of the moon"
-	desc = "Grants you Smile of the moon, a ranged spell muting, blinding, deafening and knocking down the target for a\
-		duration based on their sanity."
+	desc = "Grants you Smile of the moon, a ranged spell muting, blinding, and deafening the target for a\
+		duration based on their sanity, and knocks down the victim with sufficient sanity loss."
 	gain_text = "The moon smiles upon us all and those who see its true side can bring its joy."
 
 	action_to_add = /datum/spell/pointed/moon_smile
@@ -92,8 +92,7 @@
 /datum/heretic_knowledge/moon_amulet
 	name = "Moonlight Amulet"
 	desc = "Allows you to transmute 2 sheets of glass, a heart and a tie to create a Moonlight Amulet. \
-			If the item is used on someone with low sanity they go berserk attacking everyone, \
-			if their sanity isn't low enough it decreases their mood."
+			If the item is used on someone with low sanity they go berserk attacking everyone around them."
 	gain_text = "At the head of the parade he stood, the moon condensed into one mass, a reflection of the soul."
 
 	required_atoms = list(

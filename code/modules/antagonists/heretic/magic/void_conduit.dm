@@ -112,7 +112,8 @@
 				continue
 
 			if(istype(thing_to_affect, /obj/structure/window) || istype(thing_to_affect, /obj/machinery/door))
-				if(/turf/space in range(1, thing_to_affect.loc)) // no breaking space-facing things
+				var/list/list_turfs = get_adjacent_turfs(thing_to_affect)
+				if(/turf/space in list_turfs) // no breaking space-facing things
 					continue
 			if(istype(thing_to_affect, /obj/machinery/door))
 				var/obj/machinery/door/affected_door = thing_to_affect

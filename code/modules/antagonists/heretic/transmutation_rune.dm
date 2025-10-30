@@ -9,6 +9,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
+	new_attack_chain = TRUE
 	/// What is the colour of the runes visual effects?
 	var/greyscale_colours = COLOR_LIME
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
@@ -34,9 +35,10 @@
 
 
 /obj/effect/heretic_rune/attack_hand(mob/living/user)
-	. = ..()
+	if(..())
+		return
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
-	return TRUE
+	return FINISH_ATTACK
 
 /**
  * Attempt to begin a ritual, giving them an input list to chose from.

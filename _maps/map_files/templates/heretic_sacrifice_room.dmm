@@ -7,8 +7,8 @@
 /turf/simulated/wall/indestructible/rock,
 /area/centcom/heretic_sacrifice/moon)
 "bY" = (
-/obj/structure/table,
 /obj/item/whetstone,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "cN" = (
@@ -141,10 +141,18 @@
 /obj/item/whetstone,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
+"qK" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "ra" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid,
 /area/centcom/heretic_sacrifice/cosmic)
+"ri" = (
+/obj/structure/shelf,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "rv" = (
 /obj/effect/landmark/heretic/ash,
 /turf/simulated/floor/grass/jungle,
@@ -152,9 +160,15 @@
 "rA" = (
 /turf/simulated/wall/indestructible,
 /area/centcom/heretic_sacrifice/blade)
+"rZ" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "sT" = (
-/obj/structure/table,
 /obj/item/kitchen/knife,
+/obj/structure/shelf,
+/obj/item/kitchen/knife,
+/obj/item/whetstone,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "tO" = (
@@ -181,7 +195,7 @@
 /area/centcom/heretic_sacrifice/ash)
 "wn" = (
 /obj/item/kitchen/knife,
-/obj/structure/table,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "wF" = (
@@ -343,10 +357,6 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/wall/indestructible/fakedoor,
 /area/centcom/heretic_sacrifice/void)
-"LX" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel/airless/indestructible,
-/area/centcom/heretic_sacrifice/blade)
 "Ml" = (
 /obj/item/instrument/saxophone,
 /turf/simulated/floor/carpet/cyan,
@@ -1310,11 +1320,11 @@ Um
 (16,1,1) = {"
 Um
 rA
+qK
+qK
+qK
 tT
-tT
-tT
-tT
-sT
+wn
 bY
 tT
 tT
@@ -1530,7 +1540,7 @@ Um
 (20,1,1) = {"
 Um
 rA
-LX
+ri
 tT
 tT
 tT
@@ -1539,7 +1549,7 @@ UH
 tT
 UH
 tT
-LX
+tT
 rA
 Um
 aV
@@ -1649,7 +1659,7 @@ tT
 UH
 tT
 UH
-tT
+rZ
 rA
 Um
 aV
@@ -1807,7 +1817,7 @@ Um
 rA
 tT
 tT
-tT
+ri
 tT
 tT
 tT
