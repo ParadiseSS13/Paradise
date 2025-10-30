@@ -138,6 +138,25 @@
 	if(!firstquery.warn_execute())
 		qdel(firstquery)
 		return
+
+	// ALL OF THIS SHIT BECAUSE h_style CAN BE A STRING OR A DATUM
+	var/h_style_str = "Bald"
+	if(istype(h_style, /datum/sprite_accessory/hair))
+		var/datum/sprite_accessory/hair/H = h_style
+		h_style_str = H.name
+
+	if(istext(h_style))
+		h_style_str = h_style
+
+	// Same with f_style
+	var/f_style_str = "Bald"
+	if(istype(f_style, /datum/sprite_accessory/facial_hair))
+		var/datum/sprite_accessory/facial_hair/F = f_style
+		f_style_str = F.name
+
+	if(istext(f_style))
+		f_style_str = f_style
+
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == slot_number) // Check if the character exists
 			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE characters
@@ -222,8 +241,8 @@
 						"s_colour" = s_colour,
 						"markingcolourslist" = markingcolourslist,
 						"hacc_colour" = hacc_colour,
-						"h_style" = h_style,
-						"f_style" = f_style,
+						"h_style" = h_style_str,
+						"f_style" = f_style_str,
 						"markingstyleslist" = markingstyleslist,
 						"ha_style" = ha_style,
 						"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
@@ -354,8 +373,8 @@
 		"s_colour" = s_colour,
 		"markingcolourslist" = markingcolourslist,
 		"hacc_colour" = hacc_colour,
-		"h_style" = h_style,
-		"f_style" = f_style,
+		"h_style" = h_style_str,
+		"f_style" = f_style_str,
 		"markingstyleslist" = markingstyleslist,
 		"ha_style" = ha_style,
 		"alt_head" = (alt_head ? alt_head : "None"), // bane of my fucking life
