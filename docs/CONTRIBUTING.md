@@ -209,6 +209,7 @@ PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
 - [Charliminator](https://github.com/hal9000PR)
+- [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
@@ -223,6 +224,7 @@ PRs. People included in this role are:
 affect mergeability status. People included in this role are:
 
 - [Charliminator](https://github.com/hal9000PR)
+- [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
