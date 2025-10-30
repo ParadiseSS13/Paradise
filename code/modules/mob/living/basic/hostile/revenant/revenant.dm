@@ -158,7 +158,7 @@
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_revenant_antagonist))
 	AddComponent(/datum/component/event_tracker, EVENT_REVENTANT)
 
-/mob/living/simple_animal/revenant/event_cost()
+/mob/living/basic/revenant/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_CHAPLAIN = 1, ASSIGNMENT_CREW = 10, ASSIGNMENT_MEDICAL = 2)
 
