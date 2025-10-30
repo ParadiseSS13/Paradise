@@ -79,7 +79,7 @@
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
-		reagents.maximum_volume += B.reagents.maximum_volume
+		reagents.maximum_volume += 2 * B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
@@ -93,7 +93,6 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		reagents.clear_reagents()
 		update_icon()
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
@@ -173,7 +172,6 @@
 		if(beaker)
 			beaker.forceMove(get_turf(src))
 			beaker = null
-			reagents.clear_reagents()
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(get_turf(src))
 			loaded_pill_bottle = null
@@ -316,7 +314,6 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker)
 			beaker = null
-			reagents.clear_reagents()
 			update_icon()
 		if("create_items")
 			if(!reagents.total_volume)
@@ -368,13 +365,12 @@
 		data["beaker_reagents"] = beaker_reagents_list
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
-		var/list/buffer_reagents_list = list()
-		data["buffer_reagents"] = buffer_reagents_list
-		for(var/datum/reagent/R in reagents.reagent_list)
-			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	else
 		data["beaker_reagents"] = list()
-		data["buffer_reagents"] = list()
+	var/list/buffer_reagents_list = list()
+	data["buffer_reagents"] = buffer_reagents_list
+	for(var/datum/reagent/R in reagents.reagent_list)
+		buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 
 	var/production_data = list()
 	for(var/key in production_modes)
