@@ -10,9 +10,7 @@
 "b" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "c" = (
 /obj/structure/machine_frame,
@@ -23,10 +21,10 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "e" = (
 /obj/structure/chair/comfy/shuttle{
@@ -46,20 +44,15 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "h" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "j" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "k" = (
 /obj/structure/cable{
@@ -74,18 +67,18 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "n" = (
 /obj/machinery/optable,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "o" = (
 /obj/structure/sign/electricshock{
@@ -104,9 +97,8 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "s" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -127,19 +119,17 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "w" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "x" = (
 /obj/structure/railing{
@@ -169,9 +159,7 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /obj/item/stack/sheet/mineral/plasma/ten,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "B" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -200,10 +188,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "E" = (
 /obj/structure/cable{
@@ -224,10 +212,10 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowcorners"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "J" = (
 /obj/machinery/power/terminal,
@@ -252,10 +240,10 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "N" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -271,14 +259,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "Q" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "R" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -287,23 +272,23 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "V" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "W" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "Y" = (
 /obj/structure/railing{
@@ -326,19 +311,17 @@
 	pixel_x = -3;
 	pixel_y = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "Z" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"

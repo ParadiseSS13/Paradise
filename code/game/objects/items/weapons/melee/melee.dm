@@ -9,6 +9,7 @@
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "saber"
+	inhand_icon_state = "rapier"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
@@ -69,6 +70,23 @@
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
 						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS
+
+
+// MARK: BONE SWORD
+/obj/item/melee/bone_sword
+	name = "bone sword"
+	desc = "A curved blade made of sharpened bone and bound with sinew."
+	icon_state = "bone_sword"
+	force = 18
+	throwforce = 14
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	attack_verb = list("slashed", "sliced", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/melee/bone_sword/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 4, _stamina_coefficient = 0.6, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 #define SECSWORD_OFF 0
 #define SECSWORD_STUN 1

@@ -751,7 +751,8 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
@@ -815,7 +816,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/eyes/cybernetic/shield
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
