@@ -18,10 +18,10 @@
 
 	if(high_details_mode)
 		high_details_mode = FALSE
-		to_chat(user, "<span class='notice'>You switch [src] into low details mode.</span>")
+		to_chat(user, "<span class='notice'>You switch [src] into low detail mode.</span>")
 	else
 		high_details_mode = TRUE
-		to_chat(user, "<span class='notice'>You switch [src] into high details mode.</span>")
+		to_chat(user, "<span class='notice'>You switch [src] into high detail mode.</span>")
 
 /obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
 	if(!istype(target, /obj/item))
