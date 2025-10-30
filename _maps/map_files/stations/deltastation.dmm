@@ -66161,6 +66161,10 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
+/obj/item/clothing/head/chefhat{
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "lpI" = (
