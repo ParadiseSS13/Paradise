@@ -801,7 +801,7 @@
 
 			if("download")
 				new_objective = /datum/objective/download
-        
+
 			if("incriminate")
 				new_objective = /datum/objective/incriminate
 
