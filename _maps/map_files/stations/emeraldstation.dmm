@@ -17710,20 +17710,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "dCE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "dCK" = (
@@ -41571,10 +41568,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/secondary)
 "itK" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/economy/vending/sustenance,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "itP" = (
