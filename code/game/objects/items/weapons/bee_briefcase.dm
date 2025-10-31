@@ -65,7 +65,8 @@
 
 		//Release up to 5 bees per use. Without using Lazarus Reagent, that means two uses. WITH Lazarus Reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)
-			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(get_turf(user)) // RELEASE THE BEES!
-			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
+			var/mob/living/basic/bee/syndi/B = new /mob/living/basic/bee/syndi(get_turf(user)) // RELEASE THE BEES!
+			for(var/mob/living/fren in blood_list)
+				B.befriend(fren)
 			bees_released++
 		bees_left -= bees_released
