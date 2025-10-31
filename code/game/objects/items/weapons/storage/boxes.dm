@@ -781,7 +781,7 @@
 /obj/item/storage/fancy/shell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!is_pen(W))
 		return ..()
-	var/list/designs = list(TRANQ, RUBBER, BUCK, SLUG, BEAN, TASER, DRAGON, HOLY, CLOWN, METEOR, ION, PULSE, INCENDIARY, LASERSHOT, FRAG)
+	var/list/static/designs = list(TRANQ, RUBBER, BUCK, SLUG, BEAN, TASER, DRAGON, HOLY, CLOWN, METEOR, ION, PULSE, INCENDIARY, LASERSHOT, FRAG)
 	var/switchDesign = tgui_input_list(user, "Select a Design", "Shotgun Box Designs", sortList(designs))
 	if(!switchDesign)
 		return
