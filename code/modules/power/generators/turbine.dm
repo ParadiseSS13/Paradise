@@ -355,14 +355,9 @@
 
 	// How much of the gas in the input tile we suck in
 	var/input_fraction = compressor.compression_ratio * compressor.throttle / 50
+
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
-	// The more we are able to compress the gas the more gas we can shove in the compressor
-	var/transfer_moles = environment.total_moles() * input_fraction
-	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
-	compressor.gas_contained.merge(removed)
-	// Record how much gas we took in for the UI
-	compressor.gas_throughput = compressor.gas_contained.total_moles()
 
 	// volume of our input in cubic meteres
 	var/input_volume = 2.5 * input_fraction
@@ -373,7 +368,15 @@
 	// Where P1 [Pa] is the starting pressure, V1 [m^3] is the volume of the tile we suck in, L1 [m] is the length of the cylinder and x [m] is the length of the piston's movement. We also have S[m^2], which is cylinder's cross section area
 	// If we instead write L1 as V1 / S and (L1 - x) as V2 / S, V2 being our final volume, we get ln(L1 / (L1 - x)) = ln((V1 / S) /(V2 / S)) = ln(V1 / V2). For a final volume of 0.05 cubic meteres we get ln(V1 * 20).
 	// We also multiply by 1000 since we get pressure in kilopascals rather than pascals.
-	compressor.kinetic_energy -= min(compressor.kinetic_energy, environment.return_pressure() * 1000 * input_volume * (log(input_volume * 20)))
+	var/compression_energy_cost = min(compressor.kinetic_energy, environment.return_pressure() * 1000 * input_volume * (log(input_volume * 20)))
+	compressor.kinetic_energy -= compression_energy_cost
+
+	// The more we are able to compress the gas the more gas we can shove in the compressor
+	var/transfer_moles = environment.total_moles() * input_fraction
+	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+	compressor.gas_contained.merge(removed)
+	// Record how much gas we took in for the UI
+	compressor.gas_throughput = compressor.gas_contained.total_moles()
 
 	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
 	var/total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)
