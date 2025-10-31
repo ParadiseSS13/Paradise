@@ -55,7 +55,7 @@
 		if(get_dist(nearby_turf, our_turf) <= 1) //tiles on rune should always be rusted
 			nearby_turf.rust_heretic_act()
 		//we exclude closed turf to avoid exposing cultist bases
-		if(prob(10) || iswallturf(nearby_turf))
+		if(prob(60) || iswallturf(nearby_turf))
 			continue
 		nearby_turf.rust_heretic_act()
 	return TRUE
@@ -72,7 +72,7 @@
 		/obj/item/stack/sheet/metal = 10,
 		/obj/item/stack/cable_coil = 15,
 	)
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_spirit
+	mob_to_summon = /mob/living/basic/heretic_summon/rust_spirit
 	cost = 1
 
 

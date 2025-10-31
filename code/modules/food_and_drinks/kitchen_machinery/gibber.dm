@@ -245,25 +245,22 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 6
-	var/slab_type = /obj/item/food/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
-
-	for(var/i=1 to slab_count)
-		var/obj/item/food/meat/new_meat = new slab_type(src)
-		new_meat.name = "[slab_name] [new_meat.name]"
-		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
-
-
-		if(occupant.reagents)
-			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count, 1))
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/skinned = H.dna.species.skinned_type
 		if(skinned)
 			new skinned(src)
+		var/slab_type = H.dna.species.meat_type
+		for(var/i in 1 to slab_count)
+			var/obj/item/food/meat/new_meat = new slab_type(src)
+			new_meat.name = "[slab_name] [new_meat.name]"
+			new_meat.reagents.add_reagent("nutriment", slab_nutrition)
+			if(occupant.reagents)
+				occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count, 1))
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)

@@ -20,9 +20,9 @@
 	var/static/list/monster_types
 	/// A static list of heretic summons which we should not create
 	var/static/list/monster_types_blacklist = list(
-		/mob/living/simple_animal/hostile/heretic_summon/armsy,
-		/mob/living/simple_animal/hostile/heretic_summon/armsy/prime,
-		/mob/living/simple_animal/hostile/heretic_summon/star_gazer,
+		/mob/living/basic/heretic_summon/armsy,
+		/mob/living/basic/heretic_summon/armsy/prime,
+		/mob/living/basic/heretic_summon/star_gazer,
 
 	)
 	/// How many minutes must you wait before respawning so this is actually maybe dealable by crew
@@ -32,7 +32,7 @@
 	. = ..()
 	transform *= 3
 	if(isnull(monster_types))
-		monster_types = subtypesof(/mob/living/simple_animal/hostile/heretic_summon) - monster_types_blacklist
+		monster_types = subtypesof(/mob/living/basic/heretic_summon) - monster_types_blacklist
 	if(!isnull(ascendant_mind))
 		ascendee = ascendant_mind
 		RegisterSignals(ascendant_mind.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(end_madness))

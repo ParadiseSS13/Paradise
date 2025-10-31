@@ -25,7 +25,7 @@
 	name = "Principle of Hunger"
 	desc = "Opens up the Path of Flesh to you. \
 		Allows you to transmute a knife and a pool of blood into a Bloody Blade. \
-		You can only create three at a time."
+		You can only create four at a time."
 	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -254,7 +254,7 @@
 		/obj/item/organ/external/arm/right
 	)
 
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
+	mob_to_summon = /mob/living/basic/heretic_summon/raw_prophet
 	cost = 1
 
 
@@ -286,7 +286,7 @@
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)
-	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/stalker
+	mob_to_summon = /mob/living/basic/heretic_summon/stalker
 	mind_spell = /datum/spell/shapeshift/eldritch
 	cost = 1
 

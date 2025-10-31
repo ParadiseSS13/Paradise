@@ -7,8 +7,8 @@
 /turf/simulated/wall/indestructible/rock,
 /area/centcom/heretic_sacrifice/moon)
 "bY" = (
-/obj/structure/table,
 /obj/item/whetstone,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "cN" = (
@@ -50,7 +50,7 @@
 /area/centcom/heretic_sacrifice/ash)
 "hc" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "hm" = (
 /turf/simulated/floor/plating/asteroid/snow/mansus,
@@ -65,6 +65,10 @@
 /obj/item/instrument/trombone,
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/heretic_sacrifice/moon)
+"hV" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/rust)
 "jd" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -96,7 +100,7 @@
 "mW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/gas,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "ob" = (
 /obj/item/shard,
@@ -104,11 +108,7 @@
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "op" = (
-/turf/simulated/floor/indestructible,
-/area/centcom/heretic_sacrifice/rust)
-"oT" = (
-/obj/structure/lattice/indestructible,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/rust)
 "pf" = (
 /obj/structure/stone_tile/block,
@@ -117,13 +117,13 @@
 "pG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/under/color/grey,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "pS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/landmark/heretic/lock,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "pX" = (
 /obj/effect/decal/snow/clean/edge,
@@ -141,14 +141,18 @@
 /obj/item/whetstone,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
-"qO" = (
-/obj/structure/lattice/indestructible,
-/turf/simulated/floor/plating/rust,
-/area/centcom/heretic_sacrifice/rust)
+"qK" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "ra" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid,
 /area/centcom/heretic_sacrifice/cosmic)
+"ri" = (
+/obj/structure/shelf,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "rv" = (
 /obj/effect/landmark/heretic/ash,
 /turf/simulated/floor/grass/jungle,
@@ -156,9 +160,15 @@
 "rA" = (
 /turf/simulated/wall/indestructible,
 /area/centcom/heretic_sacrifice/blade)
+"rZ" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "sT" = (
-/obj/structure/table,
 /obj/item/kitchen/knife,
+/obj/structure/shelf,
+/obj/item/kitchen/knife,
+/obj/item/whetstone,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "tO" = (
@@ -185,7 +195,7 @@
 /area/centcom/heretic_sacrifice/ash)
 "wn" = (
 /obj/item/kitchen/knife,
-/obj/structure/table,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/blade)
 "wF" = (
@@ -195,7 +205,7 @@
 "xO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/spear,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "ye" = (
 /turf/simulated/wall/indestructible/fakedoor,
@@ -206,7 +216,7 @@
 /obj/machinery/light/floor{
 	invisibility = 100
 	},
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "yL" = (
 /obj/item/snowball,
@@ -235,12 +245,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/blood/often,
 /obj/item/clothing/under/color/grey,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "Ah" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "Am" = (
 /obj/machinery/light/very_dim/directional/west,
@@ -300,7 +310,6 @@
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/centcom/heretic_sacrifice/ash)
 "Du" = (
-/obj/structure/lattice/indestructible,
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating/rust,
 /area/centcom/heretic_sacrifice/rust)
@@ -348,10 +357,6 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/wall/indestructible/fakedoor,
 /area/centcom/heretic_sacrifice/void)
-"LX" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel/airless/indestructible,
-/area/centcom/heretic_sacrifice/blade)
 "Ml" = (
 /obj/item/instrument/saxophone,
 /turf/simulated/floor/carpet/cyan,
@@ -408,7 +413,7 @@
 /area/centcom/heretic_sacrifice/void)
 "SR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/rust)
 "SV" = (
 /obj/effect/decal/remains/human,
@@ -427,7 +432,7 @@
 "Ug" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/toolbox/mechanical/old,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "Um" = (
 /turf/cordon,
@@ -440,7 +445,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/blood/often,
 /obj/item/storage/toolbox/mechanical/old,
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/plasteel/airless/indestructible,
 /area/centcom/heretic_sacrifice/lock)
 "Xh" = (
 /turf/simulated/floor/plating/asteroid/basalt,
@@ -1315,11 +1320,11 @@ Um
 (16,1,1) = {"
 Um
 rA
+qK
+qK
+qK
 tT
-tT
-tT
-tT
-sT
+wn
 bY
 tT
 tT
@@ -1341,15 +1346,15 @@ fX
 aV
 Um
 tO
-qO
-qO
-qO
+Yy
+op
 Yy
 Yy
 Yy
 Yy
 Yy
 Yy
+op
 Yy
 tO
 Um
@@ -1396,8 +1401,8 @@ fX
 aV
 Um
 tO
-qO
-Du
+op
+hV
 Yy
 Yy
 Yy
@@ -1458,8 +1463,8 @@ SR
 op
 Yy
 op
-qO
-qO
+Yy
+Yy
 Yy
 tO
 Um
@@ -1507,8 +1512,8 @@ aV
 Um
 tO
 op
-qO
-qO
+Yy
+Yy
 Yy
 SR
 op
@@ -1535,7 +1540,7 @@ Um
 (20,1,1) = {"
 Um
 rA
-LX
+ri
 tT
 tT
 tT
@@ -1544,7 +1549,7 @@ UH
 tT
 UH
 tT
-LX
+tT
 rA
 Um
 aV
@@ -1562,7 +1567,7 @@ aV
 Um
 tO
 Yy
-qO
+Yy
 SR
 Yy
 Yy
@@ -1624,7 +1629,7 @@ mz
 op
 SR
 SR
-qO
+Yy
 Yy
 tO
 Um
@@ -1654,7 +1659,7 @@ tT
 UH
 tT
 UH
-tT
+rZ
 rA
 Um
 aV
@@ -1730,11 +1735,11 @@ op
 SR
 op
 SR
-oT
-qO
+op
 Yy
 Yy
-qO
+Yy
+Yy
 Yy
 tO
 Um
@@ -1789,7 +1794,7 @@ SR
 Yy
 Yy
 Yy
-Du
+hV
 Yy
 tO
 Um
@@ -1812,7 +1817,7 @@ Um
 rA
 tT
 tT
-tT
+ri
 tT
 tT
 tT
@@ -1837,7 +1842,7 @@ aV
 Um
 tO
 Yy
-qO
+Yy
 Yy
 Yy
 Yy
@@ -1845,7 +1850,7 @@ SR
 op
 Yy
 Yy
-Yy
+op
 tO
 Um
 zS

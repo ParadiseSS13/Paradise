@@ -52,14 +52,14 @@
 		need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
 		need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
 		need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
-		need_mob_update += source.adjustStaminaLoss(-10)
+		need_mob_update += source.adjustStaminaLoss(-15)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc
-	source.AdjustParalysis(-0.5 SECONDS)
-	source.AdjustStunned(-0.5 SECONDS)
-	source.AdjustWeakened(-0.5 SECONDS)
-	source.AdjustKnockDown(-0.5 SECONDS)
+	source.AdjustParalysis(-0.8 SECONDS)
+	source.AdjustStunned(-0.8 SECONDS)
+	source.AdjustWeakened(-0.8 SECONDS)
+	source.AdjustKnockDown(-0.8 SECONDS)
 	// Heals blood loss
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += 2.5

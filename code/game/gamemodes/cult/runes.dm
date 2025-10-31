@@ -319,7 +319,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")
 		return
-
+	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED) && length(invokers) < 3) // harder to convert heretic-touched
+		fail_invoke()
+		for(var/I in invokers)
+			to_chat(I, "<span class='warning'>This one struggles against our influence with an unknown force. We require at least 3 invokers to convert them!</span>")
+		return
 	convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
 							"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 	convertee.mind.add_antag_datum(/datum/antagonist/cultist)
@@ -327,6 +331,22 @@ structure_check() searches for nearby cultist structures required for the invoca
 		and something evil takes root.</b></span>")
 	to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
 		</b></span>")
+
+	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED)) // Augh! heretic backlash!
+		if(prob(20))
+			var/mob_type = pick(list(
+				/mob/living/basic/heretic_summon/rust_spirit,
+				/mob/living/basic/heretic_summon/ash_spirit,
+				/mob/living/basic/heretic_summon/stalker,
+				/mob/living/basic/heretic_summon/raw_prophet,
+				/mob/living/basic/heretic_summon/maid_in_the_mirror,
+			))
+			convertee.visible_message("<span class='danger'>A heretical beast is pulled out of [convertee] during the ritual!</span>")
+			new mob_type(convertee.loc)
+		for(var/mob in invokers)
+			if(iscarbon(mob))
+				var/mob/living/carbon/carbon = mob
+				carbon.reagents.add_reagent("toxin", 15)
 
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
@@ -371,7 +391,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			log_game("Sacrifice rune failed - not enough acolytes and target is living")
 			return
 	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
-	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/simple_animal/hostile/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
+	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
 		for(var/M in invokers)
 			to_chat(M, "<span class='cultitalic'>[offering] is too powerful to be sacrificed alive!</span>")
 		fail_invoke()

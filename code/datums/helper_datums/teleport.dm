@@ -239,7 +239,7 @@
 		if(random_location.is_safe())
 			return random_location
 
-///Returns a random department of areas to pass into get_safe_random_station_turf() for more equal spawning.
+/// Returns a random department of areas to pass into get_safe_random_station_turf() for more equal spawning.
 /proc/get_safe_random_station_turf_equal_weight()
 	// Big list of departments, each with lists of each area subtype.
 	var/static/list/department_areas

@@ -184,6 +184,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
+	if(desc == ABSTRACT_TYPE_DESC)
+		stack_trace("[type] was initialized, but is marked as an abstract base type")
+
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
@@ -1507,7 +1510,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/datum/antagonist/heretic/heretic_data = IS_HERETIC(src)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
-/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
+/mob/living/basic/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
 	target.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
 
 /// Used with the spawner component to do something when a mob is spawned.

@@ -330,6 +330,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
 /// Designates a heart as a living heart for a heretic.
 #define TRAIT_LIVING_HEART "living_heart"
+/// Added to those who have been sacrificed.
+#define TRAIT_WAS_SACRIFICED "was_sacrificed"
 
 /// Forbids running broadcast_examine() in examinate().
 #define TRAIT_HIDE_EXAMINE "hide_examine"
