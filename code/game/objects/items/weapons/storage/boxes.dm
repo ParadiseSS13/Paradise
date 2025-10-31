@@ -974,6 +974,22 @@
 	desc = "A small box capable of holding eight shotgun shells. Hand packed, just for you!"
 	icon_state = "buckbox"
 
+#undef TRANQ
+#undef RUBBER
+#undef BUCK
+#undef SLUG
+#undef BEAN
+#undef TASER
+#undef DRAGON
+#undef HOLY
+#undef CLOWN
+#undef METEOR
+#undef ION
+#undef PULSE
+#undef INCENDIARY
+#undef LASERSHOT
+#undef FRAG
+
 ////////////////
 /* Donk Boxes */
 ////////////////
