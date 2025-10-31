@@ -680,7 +680,7 @@
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
-			"nuclear", "absorb", "destroy", "maroon", "identity theft", "incriminate", "custom")
+			"nuclear", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "custom")
 		if(!new_obj_type)
 			return
 
@@ -798,6 +798,10 @@
 				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
+
+			if("download")
+				new_objective = /datum/objective/download
+
 			if("incriminate")
 				new_objective = /datum/objective/incriminate
 

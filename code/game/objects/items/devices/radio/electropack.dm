@@ -134,7 +134,7 @@
 
 // Electropack signaller type
 /obj/item/assembly/signaler/electropack
-	frequency = AIRLOCK_FREQ
+	frequency = ELECTROPACK_FREQ
 	code = 2
 	receiving = TRUE
 	var/obj/item/electropack/owning_pack
