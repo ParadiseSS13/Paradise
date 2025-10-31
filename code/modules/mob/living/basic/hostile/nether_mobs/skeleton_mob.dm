@@ -174,6 +174,9 @@
 	. = ..()
 	if(!ishuman(target))
 		return
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7(target.loc, 2 SECONDS, "#252525")
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7/inner(target.loc, 2 SECONDS, "#252525")
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7/center(target.loc, 2 SECONDS, "#252525")
 	if(target.stat == DEAD && do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
 		reanimate(target)
 
