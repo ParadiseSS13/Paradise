@@ -1,20 +1,13 @@
-//allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
-/client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Admin PM Mob"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
+/// Allows right clicking mobs to send an admin PM to their client.
+/// Forwards the selected mob's client to cmd_admin_pm.
+USER_CONTEXT_MENU(admin_pm_target, R_ADMIN|R_MENTOR, "\[Admin\] Admin PM Mob", mob/M as mob)
 	if(!ismob(M) || !M.client)
 		return
-	cmd_admin_pm(M.client,null)
+	client.cmd_admin_pm(M.client, null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_panel()
-	set category = "Admin"
-	set name = "Admin PM Name"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
+/// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
+USER_VERB(admin_pm_panel, R_ADMIN|R_MENTOR, "Admin PM Name", "Send a PM by player name.", VERB_CATEGORY_ADMIN)
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
@@ -27,21 +20,17 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
+	var/target = input(client, "To whom shall we send a message?", "Admin PM", null) as null|anything in sorted
 	if(!target)
 		return
-	cmd_admin_pm(targets[target],null)
+	client.cmd_admin_pm(targets[target], null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_by_key_panel()
-	set category = "Admin"
-	set name = "Admin PM Key"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
+/// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
+USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by key.", VERB_CATEGORY_ADMIN)
 	var/list/client/targets[0]
 	for(var/client/T)
-		if(T?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE))		// normal admins can't see BB
+		if(T?.holder?.big_brother && !check_rights_client(R_PERMISSIONS, FALSE, client)) // normal admins can't see BB
 			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))
@@ -53,12 +42,11 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
+	var/target = input(client, "To whom shall we send a message?", "Admin PM", null) as null|anything in sorted
 	if(!target)
 		return
-	cmd_admin_pm(targets[target],null)
+	client.cmd_admin_pm(targets[target], null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
@@ -440,11 +428,9 @@
 		return
 
 	if(href_list["adminalert"])
-		if(!check_rights(R_ADMIN))
-			return
-
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		if(istype(about_to_be_banned))
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/send_alert_message, about_to_be_banned)
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client

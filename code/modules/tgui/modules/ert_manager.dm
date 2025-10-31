@@ -111,7 +111,7 @@
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 
 		if("view_player_panel")
-			ui.user.client.holder.show_player_panel(locate(params["uid"]))
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/show_player_panel, locate(params["uid"]))
 
 		if("deny_ert")
 			GLOB.ert_request_answered = TRUE
