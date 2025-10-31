@@ -8,9 +8,9 @@
 	mob_biotypes = MOB_ORGANIC
 	ventcrawler = VENTCRAWLER_ALWAYS
 	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 4)
-	maxHealth = 90
-	health = 90
-	obj_damage = 60
+	maxHealth = 70
+	health = 70
+	obj_damage = 30
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	melee_attack_cooldown_min = 1 SECONDS
