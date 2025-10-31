@@ -7,8 +7,8 @@
 	health = 100
 	maxHealth = 100
 	obj_damage = 50
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage_lower = 5
+	melee_damage_upper = 10
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
 	melee_attack_cooldown_min = 0.5 SECONDS

@@ -148,3 +148,100 @@
 
 /obj/item/projectile/bullet/skeleton_smg
 	damage = 5
+
+/mob/living/basic/skeleton/reanimator
+	name = "skeletal reanimator"
+	desc = "A dark necromancer from the depths of an unknowable darkness."
+	icon_state = "skeleton_reanimator"
+	icon_living = "skeleton_reanimator"
+	is_ranged = TRUE
+	projectile_type = /obj/item/projectile/magic/necrotic_bolt
+	ranged_burst_count = 2
+	ranged_burst_interval = 0.35 SECONDS
+	ranged_cooldown = 2 SECONDS
+	projectile_sound = 'sound/magic/magic_missile.ogg'
+	ai_controller = /datum/ai_controller/basic_controller/incursion/reanimator
+	/// List of actions the reanimator has
+	var/list/reanimator_actions = list(
+		/datum/action/cooldown/mob_cooldown/summon_skulls = BB_REANIMATOR_SKULL_ACTION,
+	)
+
+/mob/living/basic/skeleton/reanimator/Initialize(mapload)
+	. = ..()
+	grant_actions_by_list(reanimator_actions)
+
+/mob/living/basic/skeleton/reanimator/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(!ishuman(target))
+		return
+	if(target.stat == DEAD && do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
+		reanimate(target)
+
+/mob/living/basic/skeleton/reanimator/proc/reanimate(mob/living/carbon/human/H)
+	visible_message("<span class='warning'>[name] releases dark tendrils into the flesh of [H], morphing their corpse into a grotesque creature!</span>")
+	var/mob/living/basic/netherworld/blankbody/blank = new(H.loc)
+	blank.name = "[H]"
+	blank.desc = "It's [H], but [H.p_their()] flesh has an ashy texture, and [H.p_their()] face is featureless save an eerie smile."
+	blank.faction = faction.Copy()
+	visible_message("<span class='warning'>[blank] staggers to [H.p_their()] feet!</span>")
+	blank.held_body = H
+	H.forceMove(blank)
+	var/mob/dead/observer/chosen_ghost
+	var/list/candidates
+	candidates = SSghost_spawns.poll_candidates("Would you like to play as a Reanimated Blank?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/basic/netherworld/blankbody, role_cleanname = "blank")
+	if(length(candidates) && blank.stat != DEAD)
+		chosen_ghost = pick(candidates)
+		blank.key = chosen_ghost.key
+		blank.cancel_camera()
+		dust_if_respawnable(chosen_ghost)
+		to_chat(blank, "<span class='userdanger'>You have been raised by the dead to serve as a footsoldier in the incursion. Strike down your foes!</span>")
+
+/obj/item/projectile/magic/necrotic_bolt
+	name = "necrotic bolt"
+	damage = 10
+	damage_type = BURN
+	nodamage = 0
+	icon_state = "arcane_barrage"
+
+/datum/action/cooldown/mob_cooldown/summon_skulls
+	name = "Summon Skulls"
+	button_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	button_icon_state = "legion_head"
+	desc = "Summon a pair of skulls to seek out and slay enemies."
+	click_to_activate = FALSE
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	cooldown_time = 20 SECONDS
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/summon_skulls/Activate(atom/target)
+	var/mob/living/summoner = target
+	if(!istype(summoner))
+		to_chat(target, "<span class='warning'>I am unable to summon skulls!</span>")
+		return
+
+	for(var/i in 1 to 2)
+		var/mob/living/basic/mining/hivelordbrood/reanimator/S = new(summoner.loc)
+		S.admin_spawned = summoner.admin_spawned
+		S.faction = summoner.faction.Copy()
+		S.Move(get_step(summoner.loc, pick(GLOB.alldirs)))
+		S.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, summoner.ai_controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET])
+		new /obj/effect/temp_visual/emp/pulse/cult(S.loc)
+	StartCooldown()
+
+// A fragile skull produced by Skeleton Reanimators
+/mob/living/basic/mining/hivelordbrood/reanimator
+	name = "reanimator skull"
+	desc = "A cursed skull."
+	icon_state = "legion_head"
+	icon_living = "legion_head"
+	icon_aggro = "legion_head"
+	icon_dead = "legion_head"
+	maxHealth = 1
+	health = 1
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bites"
+	speak_emote = list("chatters")
+	throw_blocked_message = "is shrugged off by"
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/prowler

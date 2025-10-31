@@ -97,27 +97,31 @@
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
 	max_mobs = 5 // We want a lot of mobs, but not too many
 	max_integrity = 200
-	mob_types = list(/mob/living/basic/netherworld/migo,
-					/mob/living/basic/netherworld,
-					/mob/living/basic/netherworld/blankbody,
-					/mob/living/basic/hellhound/whelp,
-					/mob/living/basic/skeleton/incursion,
-					/mob/living/basic/skeleton/incursion/security,
-					/mob/living/basic/skeleton/incursion/mobster,
-					/mob/living/basic/netherworld/faithless)
+	mob_types = list(/mob/living/basic/netherworld/migo = 6, // Generic mobs - just run at the target
+					/mob/living/basic/netherworld = 6,
+					/mob/living/basic/netherworld/faithless = 6,
+					/mob/living/basic/skeleton/incursion = 6,
+					/mob/living/basic/netherworld/blankbody = 5,
+					/mob/living/basic/hellhound/whelp = 5, // Specialized mobs - tank
+					/mob/living/basic/skeleton/incursion/security = 5, // Specialized mobs - ranged
+					/mob/living/basic/giant_spider/flesh_spider = 5, // Specialized mobs - poison/harasser
+					/mob/living/basic/skeleton/reanimator = 4, // Specialized mobs - Summoner
+					/mob/living/basic/skeleton/incursion/mobster = 1,) // Specialized mobs - ranged
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
 	light_range = 4
 	light_power = 2
 	light_color = "#780606"
 	spawner_type = /datum/component/spawner/demon_incursion_portal
-	/// Mob types that cannot have a special variant
+	/// Mob types that cannot have a special variant - pretty much anything with a unique AI controller
 	var/list/no_special_variants = list(
 		/mob/living/basic/hellhound/whelp,
+		/mob/living/basic/giant_spider/flesh_spider,
 		/mob/living/basic/skeleton/incursion/security,
-		/mob/living/basic/skeleton/incursion/mobster)
+		/mob/living/basic/skeleton/incursion/mobster,
+		/mob/living/basic/skeleton/reanimator)
 	/// Chance that a mob type is special
-	var/special_chance = 100
+	var/special_chance = 15
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called
@@ -134,7 +138,7 @@
 	var/spawn_rate = 45 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
-	var/initial_spawns_max = 4
+	var/initial_spawns_max = 3
 	/// Are we spawning initial mobs?
 	var/spawning_initial_mobs = TRUE
 	/// Current tile spread distance
@@ -205,7 +209,7 @@
 		return
 	if(!prob(special_chance))
 		return
-	var/special_type = pick("grappler", "enflamed", "hastened", "volatile", "electrified", "juggernaut")
+	var/special_type = pick("grappler", "enflamed", "hastened", "electrified", "juggernaut")
 	switch(special_type)
 		if("grappler")
 			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, burst_shots = 1, projectile_sound = 'sound/weapons/wave.ogg')
@@ -224,13 +228,6 @@
 			new_mob.update_appearance(UPDATE_NAME)
 			new_mob.color = "#1fd437"
 			new_mob.speed = -1
-		if("volatile")
-			new_mob.name = "volatile " + new_mob.name
-			new_mob.update_appearance(UPDATE_NAME)
-			new_mob.color = "#d4c21f"
-			new_mob.health = new_mob.health / 2
-			new_mob.maxHealth = new_mob.maxHealth / 2
-			new_mob.AddComponent(/datum/component/mob_explode_on_death, exp_devastate_ = 0, exp_heavy_ = 1, exp_light_ = 2, exp_flash_ = 4, exp_fire_ = 2)
 		if("electrified")
 			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
 			new_mob.name = "electrified " + new_mob.name
