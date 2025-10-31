@@ -9,7 +9,6 @@
 
 	radio_channel = "Engineering"
 	bot_type = FLOOR_BOT
-	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
@@ -232,7 +231,7 @@
 
 			path = list()
 			return
-		
+
 		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
