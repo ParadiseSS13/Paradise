@@ -64198,7 +64198,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pss" = (
-/obj/machinery/alarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Departure Lounge - Port Fore";
 	dir = 4
