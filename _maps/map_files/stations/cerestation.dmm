@@ -110734,8 +110734,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/port)
 "xcH" = (
-/obj/machinery/alarm/directional/north,
 /obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "xcT" = (
