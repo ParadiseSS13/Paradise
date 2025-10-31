@@ -73985,7 +73985,7 @@
 /obj/structure/closet{
 	name = "Bee-keeping suits"
 	},
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
