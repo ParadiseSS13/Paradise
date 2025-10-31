@@ -302,6 +302,27 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "lever action rifle crate"
 
+/datum/supply_packs/security/armory/beanammo
+	name = "Beanbag Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/beanbag,
+					/obj/item/storage/fancy/shell/beanbag)
+	cost = 175 // Just print them at cargo
+	containername = "beanbag shell crate"
+
+/datum/supply_packs/security/armory/rubberammo
+	name = "Rubbershot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/rubbershot,
+					/obj/item/storage/fancy/shell/rubbershot)
+	cost = 175 // Just print them at cargo
+	containername = "rubbershot shell crate"
+
+/datum/supply_packs/security/armory/incindiaryammo
+	name = "Incindiary Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/incindiary,
+					/obj/item/storage/fancy/shell/incindiary)
+	cost = 225 // This is cargo printable, but slightly increased in cost due to it being lethal
+	containername = "incindiary shell crate"
+
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
@@ -315,6 +336,27 @@
 					/obj/item/storage/fancy/shell/holy)
 	cost = 400
 	containername = "holy water shell crate"
+
+/datum/supply_packs/security/armory/dragonsbreathammo
+	name = "Dragonsbreath Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/dragonsbreath,
+					/obj/item/storage/fancy/shell/dragonsbreath)
+	cost = 450 //I'm putting a slightly increased premium on silver rimmed shells, aka the ones that require rnd tech shells
+	containername = "dragonsbreath shell crate"
+
+/datum/supply_packs/security/armory/ionshotammo
+	name = "Ionshot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/ion,
+					/obj/item/storage/fancy/shell/ion)
+	cost = 450
+	containername = "ionshot shell crate"
+
+/datum/supply_packs/security/armory/lasershotammo
+	name = "Lasershot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/lasershot,
+					/obj/item/storage/fancy/shell/lasershot)
+	cost = 450
+	containername = "lasershot shell crate"
 
 /datum/supply_packs/security/armory/disablersmg
 	name = "WT-450 Disabler SMG Crate"
