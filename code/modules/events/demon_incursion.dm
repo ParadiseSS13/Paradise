@@ -238,8 +238,8 @@
 		if("juggernaut")
 			new_mob.name = "juggernaut " + new_mob.name
 			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/juggernaut(new_mob)
-			new_mob.health = new_mob.health * 3
-			new_mob.maxHealth = new_mob.maxHealth * 3
+			new_mob.health = new_mob.health * 2
+			new_mob.maxHealth = new_mob.maxHealth * 2
 			new_mob.speed += 6
 			new_mob.environment_smash = ENVIRONMENT_SMASH_WALLS // Puny wall.
 			new_mob.update_appearance(UPDATE_NAME)
