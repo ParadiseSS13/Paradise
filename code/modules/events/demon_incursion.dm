@@ -231,6 +231,7 @@
 		if("electrified")
 			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
 			new_mob.name = "electrified " + new_mob.name
+			ADD_TRAIT(new_mob, TRAIT_SHOCKIMMUNE, "electrified")
 			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
 			new_mob.update_appearance(UPDATE_NAME)
 			new_mob.color = "#fcf7f6"
