@@ -341,21 +341,21 @@
 	name = "Dragonsbreath Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/dragonsbreath,
 					/obj/item/storage/fancy/shell/dragonsbreath)
-	cost = 450 //I'm putting a slightly increased premium on silver rimmed shells, aka the ones that require rnd tech shells
+	cost = 400
 	containername = "dragonsbreath shell crate"
 
 /datum/supply_packs/security/armory/ionshotammo
 	name = "Ionshot Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/ion,
 					/obj/item/storage/fancy/shell/ion)
-	cost = 450
+	cost = 400
 	containername = "ionshot shell crate"
 
 /datum/supply_packs/security/armory/lasershotammo
 	name = "Lasershot Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/lasershot,
 					/obj/item/storage/fancy/shell/lasershot)
-	cost = 450
+	cost = 400
 	containername = "lasershot shell crate"
 
 /datum/supply_packs/security/armory/disablersmg
