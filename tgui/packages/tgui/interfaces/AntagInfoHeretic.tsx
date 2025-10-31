@@ -1,6 +1,7 @@
-import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, DmIcon, Flex, Section, Tabs } from '../components';
+import { useState } from 'react'
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
+import { Box, Button, DmIcon, Flex, Section, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const hereticRed = {
@@ -63,8 +64,8 @@ type Info = {
   can_change_objective: BooleanLike;
 };
 
-const IntroductionSection = (props, context) => {
-  const { data, act } = useBackend<Info>(context);
+const IntroductionSection = () => {
+  const { data } = useBackend<Info>();
   const { ascended, can_change_objective } = data;
 
   return (
@@ -156,8 +157,8 @@ const GuideSection = () => {
   );
 };
 
-const InformationSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const InformationSection = () => {
+  const { data } = useBackend<Info>();
   const { charges, total_sacrifices, ascended } = data;
   return (
     <Flex.Item>
@@ -184,8 +185,8 @@ const InformationSection = (props, context) => {
   );
 };
 
-const KnowledgeTree = (props, context) => {
-  const { data, act } = useBackend<KnowledgeInfo>(context);
+const KnowledgeTree = () => {
+  const { data, act } = useBackend<KnowledgeInfo>();
   const { knowledge_tiers } = data;
 
   return (
@@ -256,8 +257,8 @@ const KnowledgeTree = (props, context) => {
   );
 };
 
-const ResearchInfo = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const ResearchInfo = () => {
+  const { data } = useBackend<Info>();
   const { charges } = data;
 
   return (
@@ -273,10 +274,10 @@ const ResearchInfo = (props, context) => {
   );
 };
 
-export const AntagInfoHeretic = (props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoHeretic = () => {
+  const { data } = useBackend<Info>();
   const { ascended } = data;
-  const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
+  const [currentTab, setTab] = useState(0);
 
   return (
     <Window width={675} height={635}>
