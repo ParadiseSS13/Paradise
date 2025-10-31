@@ -19,3 +19,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/incursion/flesh_spider
 	venom_per_bite = 10
 	innate_actions = list()
+
+/mob/living/basic/giant_spider/flesh_spider/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ai_retaliate)
