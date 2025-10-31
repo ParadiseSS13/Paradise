@@ -362,8 +362,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	add_antag_objective(/datum/objective/blood)
 	add_antag_objective(/datum/objective/assassinate)
 
-	if(prob(5)) // 5% chance of getting protect. 95% chance of getting steal.
+	if(prob(5)) // 5% chance of getting protect. 95% chance of getting a steal / specialization-specific objective.
 		add_antag_objective(/datum/objective/protect)
+	else if(prob(50))
+		add_antag_objective(/datum/objective/specialization)
 	else
 		add_antag_objective(/datum/objective/steal)
 	add_antag_objective(/datum/objective/lair)

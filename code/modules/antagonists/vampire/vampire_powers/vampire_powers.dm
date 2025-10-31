@@ -186,6 +186,9 @@
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
+	for(var/datum/objective/specialization/objective in owner.get_all_objectives())
+		objective.gain_specialization()
+
 /datum/spell/vampire/glare
 	name = "Glare"
 	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."

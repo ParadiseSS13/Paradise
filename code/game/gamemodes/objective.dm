@@ -990,6 +990,33 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+/datum/objective/specialization
+	name = "Vampire subclass objective"
+	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
+	needs_target = FALSE
+	var/datum/vampire_subclass/subclass
+
+/datum/objective/specialization/New()
+	if(!owner.has_antag_datum(/datum/antagonist/vampire))
+		explanation_text = "Free Objective"
+		return
+
+	update_explanation_text()
+	return ..()
+
+/datum/objective/specialization/proc/gain_specialization()
+	for(var/datum/antagonist/vampire/vampire_datum in owner.antag_datums)
+		subclass = vampire_datum.subclass
+
+	update_explanation_text()
+
+/datum/objective/specialization/update_explanation_text()
+	if(!subclass)
+		return
+
+	var/departments = list("security", "service", "research", "medical", "engineering", "supply")
+	explanation_text = replacetext(pick(subclass.unique_objectives), "%DEPARTMENT", pick(departments))
+
 // Flayers
 
 #define SWARM_GOAL_LOWER_BOUND	130
