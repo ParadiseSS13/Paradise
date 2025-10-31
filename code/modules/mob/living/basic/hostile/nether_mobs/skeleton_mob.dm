@@ -158,7 +158,6 @@
 	projectile_type = /obj/item/projectile/magic/necrotic_bolt
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.35 SECONDS
-	ranged_cooldown = 2 SECONDS
 	projectile_sound = 'sound/magic/magic_missile.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/incursion/reanimator
 	/// List of actions the reanimator has
@@ -239,10 +238,7 @@
 	icon_living = "legion_head"
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
-	maxHealth = 1
-	health = 1
 	melee_damage_lower = 5
-	melee_damage_upper = 10
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bites"
 	speak_emote = list("chatters")
