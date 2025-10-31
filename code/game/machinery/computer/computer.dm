@@ -260,7 +260,7 @@
 // Temp effect for download objective
 /obj/effect/temp_visual/computer_download
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "flayer_downloading"
+	icon_state = "flayer_downloading_transparent"
 	duration = 180
 	layer = OBJ_LAYER - 0.1
 	randomdir = FALSE
