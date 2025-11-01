@@ -1186,6 +1186,7 @@
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
+	SEND_SIGNAL(src, COMSIG_SPECIES_CHANGE)
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)

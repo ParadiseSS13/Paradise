@@ -1577,9 +1577,11 @@
 		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
 		M.Druggy(12 SECONDS)
 		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id) // Powerful? Sure. But everyone knows you're there. Also you've got a druggy filter over your eyes.
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !isgrey(M))
+	if(!isgrey(M))
 		return ..()
 
 	// Your galaxy brain is now so big that you cannot contain all of your toughts, when they leak out people can smell your location!
@@ -1607,7 +1609,17 @@
 		to_chat(M, "<span class='warning'>Your mind shrinks down to its usual size and the world hides its secrets from you!</span>")
 		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
 		M.Druggy(0 SECONDS)
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
+
+/datum/reagent/consumable/ethanol/acid_dreams/proc/on_species_change(mob/living/M)
+	if(!isgrey(M))
+		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
+		M.Druggy(0 SECONDS)
+	else
+		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		M.Druggy(12 SECONDS)
+		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id)
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse
 	name = "Ahdomai's Eclipse"
@@ -1625,10 +1637,11 @@
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_add(mob/living/M)
 	if(istajaran(M))
 		ADD_TRAIT(M, TRAIT_RESISTCOLD, id)
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !istajaran(M))
+	if(!istajaran(M))
 		return ..()
 
 	if(M.bodytemperature > min_achievable_temp)
@@ -1645,7 +1658,14 @@
 	if(istajaran(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
 		to_chat(M, "<span class='warning'>The raging blizzard within you subsides.</span>")
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/proc/on_species_change(mob/living/M)
+	if(!istajaran(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTCOLD, id)
 
 /datum/reagent/consumable/ethanol/beach_feast
 	name = "Feast by the Beach"
@@ -1666,10 +1686,11 @@
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
 		var/mob/living/carbon/human/H = M
 		H.dna.species.burn_mod -= burn_modifier
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !isunathi(M))
+	if(!isunathi(M))
 		return ..()
 
 	if(M.bodytemperature < max_achievable_temp)
@@ -1681,7 +1702,17 @@
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 		var/mob/living/carbon/human/H = M
 		H.dna.species.burn_mod += burn_modifier
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
+
+/datum/reagent/consumable/ethanol/beach_feast/proc/on_species_change(mob/living/M)
+	if(!isunathi(M))
+		// No need to change the burn modifier, it gets reset when species changes.
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+		var/mob/living/carbon/human/H = M
+		H.dna.species.burn_mod -= burn_modifier
 
 /datum/reagent/consumable/ethanol/die_seife
 	name = "Die Seife"
@@ -1698,7 +1729,7 @@
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !isdrask(M))
+	if(!isdrask(M))
 		return ..()
 
 	if(prob(50))
@@ -1739,15 +1770,26 @@
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_add(mob/living/M)
 	if(iskidan(M))
-		to_chat(M, "<span class='notice'>Delicious! You a surge of energy in your muscles, you feel like you can smash anything!</span>")
+		to_chat(M, "<span class='notice'>Delicious! You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus += damage_mod
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_delete(mob/living/M)
 	if(iskidan(M))
 		to_chat(M, "<span class='warning'>You no longer have the energy to smash!</span>")
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus -= damage_mod
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/diona_smash/proc/on_species_change(mob/living/M)
+	if(iskidan(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.melee_bonus += damage_mod
+		to_chat(M, "<span class='notice'>You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
+	// No need to change the damage modifier when turning into a non-Kidan, it gets reset when species changes.
 
 /datum/reagent/consumable/ethanol/howler
 	name = "Howler"
@@ -1785,7 +1827,7 @@
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/islay_whiskey/on_mob_life(mob/living/M)
-	if(current_cycle <=5 || !isdiona(M))
+	if(!isdiona(M))
 		return ..()
 
 	var/mob/living/carbon/human/H = M
@@ -1809,14 +1851,15 @@
 	taste_description = "bubbles"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
-/datum/reagent/consumable/ethanol/on_mob_add(mob/living/M)
+/datum/reagent/consumable/ethanol/jungle_vox/on_mob_add(mob/living/M)
 	if(isvox(M))
 		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
 		ADD_TRAIT(M, TRAIT_NOBREATH, id)
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !isvox(M))
+	if(!isvox(M))
 		return ..()
 
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1830,7 +1873,15 @@
 	if(isvox(M))
 		to_chat(M, "<span class='warning'>Your lungs begin to feel dusty again...</span>")
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
+
+/datum/reagent/consumable/ethanol/jungle_vox/proc/on_species_change(mob/living/M)
+	if(!isvox(M))
+		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
+	else
+		ADD_TRAIT(M, TRAIT_NOBREATH, id)
+		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
 
 /datum/reagent/consumable/ethanol/slime_mold
 	name = "Slime Mold"
@@ -1869,18 +1920,20 @@
 	drink_desc = "The Sun, in a glass! The radiant energies of this drink will empower any Nian that consumes it."
 	taste_description = "warmth and brightness"
 	goal_difficulty = REAGENT_GOAL_HARD
+	/// Exists purely because of changelings. I hate them.
+	var/activated = FALSE
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_add(mob/living/M)
 	if(ismoth(M))
+		M.set_light(3, 4)
 		M.visible_message(
 			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
 			"<span class='notice'>The Sun was within you all this time!</span>"
 		)
-		M.set_light(3, 4)
-	return ..()
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, TYPE_PROC_REF(/datum/reagent/consumable/ethanol/sontse, on_species_change))
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !ismoth(M))
+	if(!ismoth(M))
 		return ..()
 
 	if(prob(10))
@@ -1894,6 +1947,7 @@
 			"<span class='warning'>The radiant light of [M] fades away.</span>",
 			"<span class='warning'>The Sun within you subsides.</span>"
 		)
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
 
 /datum/reagent/consumable/ethanol/sontse/overdose_process(mob/living/M, severity)
@@ -1916,6 +1970,16 @@
 		)
 	return list(0, update_flags)
 
+/datum/reagent/consumable/ethanol/sontse/proc/on_species_change(mob/living/M)
+	if(!ismoth(M))
+		M.set_light(0, null)
+	else
+		M.set_light(3, 4)
+		M.visible_message(
+			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
+			"<span class='notice'>The Sun was within you all this time!</span>"
+		)
+
 /datum/reagent/consumable/ethanol/ultramatter
 	name = "Ultramatter"
 	id = "ultramatter"
@@ -1932,6 +1996,7 @@
 /datum/reagent/consumable/ethanol/ultramatter/on_mob_add(mob/living/M)
 	if(isplasmaman(M))
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
 
 /datum/reagent/consumable/ethanol/ultramatter/on_mob_life(mob/living/M)
@@ -1962,4 +2027,11 @@
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 	M.ExtinguishMob()
 	to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
+	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
 	return ..()
+
+/datum/reagent/consumable/ethanol/ultramatter/proc/on_species_change(mob/living/M)
+	if(!isplasmaman(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
