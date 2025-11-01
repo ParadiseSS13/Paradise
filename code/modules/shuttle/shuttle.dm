@@ -891,7 +891,6 @@
 	width = 18
 
 /obj/docking_port/mobile/gamma_armory
-	dir = 1
 	dwidth = 3
 	width = 7
 	height = 6
