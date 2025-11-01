@@ -92,10 +92,15 @@
 	insert_max = 2
 
 /obj/item/clothing/suit/storage/labcoat/hydro
-	name = "hydroponics labcoat"
-	desc = "A suit that protects against minor chemical spills. Has green research markings."
+	name = "botany labcoat"
+	desc = "A suit that protects against minor chemical spills. Has blue research markings."
 	icon_state = "labcoat_botany_open"
 	allowed = list(/obj/item/plant_analyzer, /obj/item/reagent_containers/glass/bottle, /obj/item/storage/bag/plants, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker, /obj/item/paper)
+
+/obj/item/clothing/suit/storage/labcoat/hydro/alt
+	name = "hydroponics labcoat"
+	desc = "A suit that protects against minor chemical spills. Has brown research markings."
+	icon_state = "labcoat_hydro_open"
 
 /obj/item/clothing/suit/storage/labcoat/abductor
 	name = "alien labcoat"
