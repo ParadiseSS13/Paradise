@@ -150,7 +150,7 @@
 //Chef
 /obj/item/clothing/suit/chef
 	name = "chef's coat"
-	desc = "A coat used by a high class chef."
+	desc = "A pristine, white chef's coat."
 	icon_state = "chef"
 	inhand_icon_state = "chef"
 	gas_transfer_coefficient = 0.90
@@ -163,6 +163,21 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
+
+/obj/item/clothing/suit/chef/red
+	name = "chef's red-piped coat"
+	desc = "A white chef's coat with red piping as an accent."
+	icon_state = "chef_red"
+
+/obj/item/clothing/suit/chef/bw
+	name = "chef's black-piped coat"
+	desc = "A white chef's coat with black piping as an accent."
+	icon_state = "chef_bw"
+
+/obj/item/clothing/suit/chef/darkgreen
+	name = "chef's dark coat"
+	desc = "A black chef's coat with green piping as an accent."
+	icon_state = "chef_darkgreen"
 
 //Chef
 /obj/item/clothing/suit/chef/classic
