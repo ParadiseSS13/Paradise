@@ -19,7 +19,6 @@
 	desc = "Corduroy slacks, just as they should be."
 	icon_state = "rd_whimsy"
 	dyeable = TRUE
-	dyeing_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/rank/rnd/rd/skirt
 	name = "research director's skirt"
