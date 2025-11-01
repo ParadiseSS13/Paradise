@@ -636,11 +636,62 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
         // THEN we can add in the new thermal energy.
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
-        // Recalculate temperature for any subsequent reactions.
+
         // (or we would, but this is the last reaction)
         //cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += plasma_burnt;
+    }
+
+    // Hydrogen BURNING, also know as Knallgas, which is Swedish. The more you know.
+    if cached_temperature > HYDROGEN_MIN_IGNITE_TEMP
+        && my_next_tile.gases.hydrogen() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
+    {
+        // How efficient is the burn?
+        // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
+        let efficiency = ((cached_temperature - HYDROGEN_MIN_IGNITE_TEMP)
+            / (HYDROGEN_OPTIMAL_BURN_TEMP - HYDROGEN_MIN_IGNITE_TEMP))
+            .max(0.5)
+            .min(1.0);
+
+        // How much hydrogen is available to burn?
+        let burnable_hydrogen = my_next_tile.gases.hydrogen();
+
+        // Actual burn amount.
+        let mut hydrogen_burnt =
+            efficiency * 2.0 * HYDROGEN_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
+        if hydrogen_burnt < PLASMA_BURN_MIN_MOLES {
+            // Boost up to the minimum.
+            hydrogen_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_hydrogen);
+        }
+        if hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN
+            > fraction * my_next_tile.gases.oxygen()
+        {
+            // Restrict based on available oxygen.
+            hydrogen_burnt =
+                fraction * my_next_tile.gases.oxygen() / HYDROGEN_BURN_OXYGEN_PER_HYDROGEN;
+        }
+
+        my_next_tile
+            .gases
+            .set_hydrogen(my_next_tile.gases.hydrogen() - hydrogen_burnt);
+        my_next_tile.gases.set_oxygen(
+            my_next_tile.gases.oxygen() - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN,
+        );
+        // my_next_tile
+        // .gases
+        // .set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
+
+        // Recalculate heat capacity.
+        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        // THEN we can add in the new thermal energy.
+        thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
+        // Recalculate temperature for any subsequent reactions.
+        // (or we would, but this is the last reaction)
+        //cached_temperature = thermal_energy / cached_heat_capacity;
+
+        my_next_tile.fuel_burnt += hydrogen_burnt;
     }
 
     if hotspot_step {

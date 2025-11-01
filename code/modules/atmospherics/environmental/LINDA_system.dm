@@ -144,4 +144,7 @@
 		G.set_oxygen(G.oxygen() + MOLES_O2STANDARD * amount)
 		G.set_nitrogen(G.nitrogen() + MOLES_N2STANDARD * amount)
 
+	if(flag & LINDA_SPAWN_HYDROGEN)
+		G.set_hydrogen(G.hydrogen() + amount)
+
 	blind_release_air(G)
