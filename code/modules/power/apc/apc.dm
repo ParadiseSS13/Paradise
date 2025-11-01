@@ -253,7 +253,7 @@
 			"<span class='notice'>[user] inserts [used] into [src].</span>",
 			"<span class='notice'>You insert [used] into [src].</span>"
 		)
-		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+		for(var/mob/living/basic/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
 			if(!being_hijacked) // First come, first serve!
