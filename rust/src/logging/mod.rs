@@ -2,6 +2,7 @@ use byondapi::global_call::call_global;
 use byondapi::prelude::ByondValue;
 use byondapi::threadsync::thread_sync;
 use chrono::prelude::Utc;
+use uuid::Uuid;
 
 /// Call stack trace dm method with message.
 pub(crate) fn dm_call_stack_trace(msg: String) -> eyre::Result<()> {
@@ -20,10 +21,11 @@ pub(crate) fn setup_panic_handler() {
             || -> ByondValue {
                 if let Err(error) = dm_call_stack_trace(msg_copy) {
                     let second_msg = format!("BYOND error \n {:#?}", error);
+                    let panic_guid = Uuid::new_v4();
+                    let ts = Utc::now().format("%Y%m%d_%H%M%S").to_string();
+                    let file_end = format!("{}_{}", ts, panic_guid);
                     let _ = std::fs::write(
-                        Utc::now()
-                            .format("data/rustlibs_dm_trace_failed_%Y%m%d_%H%M%S.txt")
-                            .to_string(),
+                        format!("data/rustlibs_dm_trace_failed_{}.txt", file_end),
                         second_msg.clone(),
                     );
                 }
@@ -31,11 +33,10 @@ pub(crate) fn setup_panic_handler() {
             },
             true,
         );
-        let _ = std::fs::write(
-            Utc::now()
-                .format("data/rustlibs_panic_%Y%m%d_%H%M%S.txt")
-                .to_string(),
-            msg.clone(),
-        );
+        // GUID may seem pointless but on the off chance we get 2 panics in the same second its needed
+        let panic_guid = Uuid::new_v4();
+        let ts = Utc::now().format("%Y%m%d_%H%M%S").to_string();
+        let file_end = format!("{}_{}", ts, panic_guid);
+        let _ = std::fs::write(format!("data/rustlibs_panic_{}.txt", file_end), msg.clone());
     }))
 }

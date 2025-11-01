@@ -199,7 +199,7 @@
 
 // MARK: Toast
 /// (Windows only) Triggers a desktop notification with the specified title and body
-/proc/rustlibs_create_toast(title, body) 
+/proc/rustlibs_create_toast(title, body)
 	return RUSTLIB_CALL(create_toast, title, body)
 
 
@@ -227,6 +227,25 @@
 #define RUSTLIBS_JOB_NO_RESULTS_YET "NO RESULTS YET"
 #define RUSTLIBS_JOB_NO_SUCH_JOB "NO SUCH JOB"
 #define RUSTLIBS_JOB_ERROR "JOB PANICKED"
+
+// MARK: SQL
+/proc/rustlibs_sql_connect_pool(datum/db_connection_request/dbcreq)
+	return RUSTLIB_CALL(sql_connect_pool, dbcreq)
+
+/proc/rustlibs_sql_disconnect_pool(handle)
+	return RUSTLIB_CALL(sql_disconnect_pool, handle)
+
+/proc/rustlibs_sql_connected(handle)
+	return RUSTLIB_CALL(sql_connected, handle)
+
+/proc/rustlibs_sql_query_blocking(datum/db_query/query)
+	return RUSTLIB_CALL(sql_query_blocking, query)
+
+/proc/rustlibs_sql_query_async(datum/db_query/query)
+	return RUSTLIB_CALL(sql_query_async, query)
+
+/proc/rustlibs_sql_check_query(datum/db_query/query)
+	return RUSTLIB_CALL(sql_check_query, query)
 
 #undef RUSTLIB_CALL
 

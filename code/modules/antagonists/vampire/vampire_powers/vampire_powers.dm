@@ -186,6 +186,9 @@
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
+	for(var/datum/objective/specialization/objective in owner.get_all_objectives())
+		objective.gain_specialization()
+
 /datum/spell/vampire/glare
 	name = "Glare"
 	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
@@ -205,6 +208,65 @@
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 2 SECONDS
 	return C
+
+/datum/spell/vampire/lair
+	name = "Lair"
+	desc = "Pick a coffin for yourself, the centrepiece of your new lair."
+	gain_desc = "You can now start a lair."
+	action_icon = 'icons/obj/closet.dmi'
+	action_icon_state = "coffin"
+	base_cooldown = 2 SECONDS
+
+/datum/spell/vampire/lair/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.range = 1
+	T.allowed_type = /obj/structure/closet/coffin
+	return T
+
+/datum/spell/vampire/lair/cast(list/targets, mob/user)
+	var/obj/structure/closet/coffin/C = targets[1] // this spell will basically always target a singular coffin unless you stack multiple on the same tile
+	if(!istype(C, /obj/structure/closet/coffin))
+		to_chat(user, "<span class='warning'>This only works on coffins!</span>")
+		return
+	if(istype(C, /obj/structure/closet/coffin/vampire))
+		to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
+		return
+	if(istype(C, /obj/structure/closet/coffin/sarcophagus))
+		to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
+		return
+	for(var/turf/T in range(1, C))
+		if(T.density)
+			to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
+			return
+	to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
+	C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
+	playsound(C, 'sound/misc/enter_blood.ogg', 20)
+	for(var/obj/machinery/light/L in range(5, user))
+		L.forced_flicker()
+	var/obj/effect/lair_rune/rune = new /obj/effect/lair_rune(get_turf(C), user)
+	if(!do_after(user, 10 SECONDS, target = C))
+		qdel(rune)
+		return
+	playsound(user, 'sound/hallucinations/im_here1.ogg', 30)
+	new /obj/structure/closet/coffin/vampire(get_turf(C), user)
+	qdel(C)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	V.has_lair = TRUE
+	user.mind.RemoveSpell(src)
+
+/obj/effect/lair_rune
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_PLANE
+	layer = SIGIL_LAYER
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "vampiric_rune"
+	pixel_x = -34
+	pixel_y = -38
+
+/obj/effect/lair_rune/Initialize(mapload, mob/user)
+	. = ..()
+	if(user)
+		color = user.dna.species.blood_color
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
