@@ -78,6 +78,10 @@
 	if(slot & ITEM_SLOT_OUTER_SUIT)
 		RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item))
 		RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item))
+	make_invisible()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/C = loc
+		C.update_inv_wear_suit()
 
 /obj/item/clothing/suit/storage/void_cloak/dropped(mob/user)
 	. = ..()
