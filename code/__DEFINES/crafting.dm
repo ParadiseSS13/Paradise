@@ -11,6 +11,8 @@
 #define CAT_HOLIDAY	"Holiday"
 #define CAT_LARGE_DECORATIONS	"Large Decorations"
 #define CAT_CLOTHING	"Clothing"
+#define CAT_CLOTHING_GENERAL    "General Clothing"
+#define CAT_CLOTHING_RACIAL  "Racial Clothing"
 #define CAT_FOOD	"Foods"
 #define CAT_BREAD	"Breads"
 #define CAT_BURGER	"Burgers"

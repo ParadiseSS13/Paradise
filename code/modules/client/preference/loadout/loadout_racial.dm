@@ -25,7 +25,7 @@
 	display_name = "Tajaran Medical Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a medical HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Virologist", "Paramedic")
 
 /datum/gear/racial/taj/sec
 	display_name = "Tajaran Security Veil"
@@ -49,7 +49,25 @@
 	display_name = "Tajaran Science Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a science HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/sci
-	allowed_roles = list("Scientist", "Research Director", "Bartender")
+	allowed_roles = list("Scientist", "Research Director", "Bartender", "Chemist")
+
+/datum/gear/racial/taj/diagnostics
+	display_name = "Tajaran Diagnostic Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a science HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/diag
+	allowed_roles = list("Roboticist")
+
+/datum/gear/racial/taj/skills
+	display_name = "Tajaran Skills Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a skills HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/skill
+	allowed_roles = list("Head of Personnel", "Psychiatrist")
+
+/datum/gear/racial/taj/hydroponics
+	display_name = "Tajaran Hydroponic Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a hydroponic HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/hydro
+	allowed_roles = list("Botanist")
 
 /datum/gear/racial/footwraps
 	display_name = "Cloth footwraps"
