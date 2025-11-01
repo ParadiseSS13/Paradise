@@ -2323,7 +2323,6 @@
 	icon_state = "1-2"
 	},
 /mob/living/silicon/decoy/telecomms,
-/obj/effect/turf_decal/box/white,
 /turf/simulated/floor/mech_bay_recharge_floor{
 	temperature = 80;
 	oxygen = 0;
