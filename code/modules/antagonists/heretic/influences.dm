@@ -122,7 +122,7 @@
 	var/dam_zone = pick("l_arm", "r_arm")
 	var/obj/item/organ/external/their_poor_arm = human_user.get_organ(dam_zone)
 	if(prob(25) && their_poor_arm)
-		to_chat(human_user, "<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
+		human_user.visible_message("<span class='warning'>An otherwordly presence tears and atomizes [human_user]'s arm as [human_user.p_they(FALSE)] try to reach into the hole in the very fabric of reality!</span>","<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
 		their_poor_arm.droplimb()
 		qdel(their_poor_arm)
 	else
