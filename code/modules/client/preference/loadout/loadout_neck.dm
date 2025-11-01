@@ -109,7 +109,7 @@
 	display_name = "Large necklace"
 	path = /obj/item/clothing/neck/necklace/long
 
-datum/gear/neck/necklace/ntcharm
+/datum/gear/neck/necklace/ntcharm
 	display_name = "Nanotrasen charm necklace"
 	path = /obj/item/clothing/neck/necklace/ntcharm
 
