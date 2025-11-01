@@ -1749,7 +1749,7 @@
 	icon_state = "necklace_ptbf25"
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
- 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
