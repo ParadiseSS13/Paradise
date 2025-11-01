@@ -431,7 +431,7 @@
 		simple.AIStatus = AI_OFF
 	else if(isbasicmob(summoned))
 		var/mob/living/basic/basic = summoned
-		basic.ai_controller.ai_status = AI_STATUS_OFF
+		basic.ai_controller.set_ai_status(AI_STATUS_OFF)
 	summoned.alpha = 0
 	summoned.notransform = TRUE
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
