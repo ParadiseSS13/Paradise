@@ -698,6 +698,12 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/corpse/random_species/miner
+	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
+	id_job = "Shaft Miner"
+	outfit = /datum/outfit/job/mining/equipped/less
+
 /obj/effect/mob_spawn/human/corpse/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
