@@ -1,10 +1,3 @@
-/obj/item/melee
-	icon = 'icons/obj/weapons/melee.dmi'
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	needs_permit = TRUE
-	var/drawing_rune = FALSE
-
 /// Used by cult daggers and the cursed sickly blade. No other melee item can do this, just a universal melee item proc so I don't have to copy paste code
 /obj/item/melee/proc/scribe_rune(mob/living/user)
 	var/list/shields = list()
