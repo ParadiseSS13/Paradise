@@ -10,7 +10,7 @@
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 8 SECONDS
-
+	clothes_req = FALSE
 	cast_range = 4
 
 	/// How long does the filter last on walls we make?
