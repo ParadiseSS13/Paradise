@@ -288,7 +288,7 @@
 	id_tag = "engineering_away"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iV" = (
@@ -690,7 +690,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/map_effect/dynamic_airlock/door,
 /obj/machinery/airlock_controller/air_cycler/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -991,7 +991,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Construction Area"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Gg" = (
@@ -1099,7 +1099,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "LL" = (
@@ -1349,7 +1349,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Vt" = (
@@ -1424,7 +1424,7 @@
 /area/space/nearstation)
 "YE" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "YG" = (

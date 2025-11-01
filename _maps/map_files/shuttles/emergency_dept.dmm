@@ -592,7 +592,7 @@
 	name = "Escape Shuttle Engineering";
 	normalspeed = 0
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "cc" = (
