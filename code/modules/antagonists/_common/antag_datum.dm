@@ -440,6 +440,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 #define ASS_ONCE_OBJECTIVE "ASS_ONCE"
 #define ASS_OBJECTIVE "ASS"
 
+#define INFIL_SEC_OBJECTIVE "INFILTRATE_SEC"
+
 /**
  * Create and assign a single randomized human traitor objective.
  * Step one: Seperate your objectives into objectives that lead to people dying, and objectives that do not.
@@ -450,7 +452,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/roll_single_human_objective()
 	var/datum/objective/objective_to_add
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
-	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 45, MAROON_OBJECTIVE = 235, ASS_ONCE_OBJECTIVE = 160, ASS_OBJECTIVE = 340, INFIL_SEC_OBJECTIVE = 220)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
@@ -478,6 +480,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
 
+					if(INFIL_SEC_OBJECTIVE)
+						objective_to_add = /datum/objective/infiltrate_sec
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 			if(INCRIMINATE_OBJECTIVE)
@@ -505,6 +509,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #undef ASS_ONCE_OBJECTIVE
 #undef ASS_OBJECTIVE
 
+#undef INFIL_SEC_OBJECTIVE
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
