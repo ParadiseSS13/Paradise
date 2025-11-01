@@ -35,12 +35,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 
-/obj/item/grown/corncob/attackby__legacy__attackchain(obj/item/grown/W, mob/user, params)
-	if(W.sharp)
-		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
+/obj/item/grown/corncob/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.sharp)
+		to_chat(user, "<span class='notice'>You use [used] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -68,8 +68,10 @@
 	..()
 	snap_pops = max(round(seed.potency/8), 1)
 
-/obj/item/grown/snapcorn/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/grown/snapcorn/activate_self(mob/user)
+	if(..())
+		return
+
 	to_chat(user, "<span class='notice'>You pick a snap pop from the cob.</span>")
 	var/obj/item/toy/snappop/S = new /obj/item/toy/snappop(user.loc)
 	if(ishuman(user))

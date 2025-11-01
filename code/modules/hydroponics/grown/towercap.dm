@@ -50,11 +50,11 @@
 	/obj/item/food/grown/ambrosia/deus,
 	/obj/item/food/grown/wheat))
 
-/obj/item/grown/log/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.sharp)
+/obj/item/grown/log/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
 		var/seed_modifier = 0
 		if(seed)
@@ -62,21 +62,22 @@
 		new plank_type(user.loc, 1 + seed_modifier)
 		to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack.</span>")
 		qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
-	if(CheckAccepted(W))
-		var/obj/item/food/grown/leaf = W
+	if(CheckAccepted(used))
+		var/obj/item/food/grown/leaf = used
 		if(leaf.dry)
-			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
+			user.show_message("<span class='notice'>You wrap \the [used] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
 			user.unequip(leaf)
 			usr.put_in_active_hand(T)
 			qdel(leaf)
 			qdel(src)
-			return
 		else
 			to_chat(usr, "<span class ='warning'>You must dry this first!</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/grown/log/proc/CheckAccepted(obj/item/I)
 	return is_type_in_typecache(I, accepted)

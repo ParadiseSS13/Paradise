@@ -27,7 +27,10 @@
 	var/cotton_type = /obj/item/stack/sheet/cotton
 	var/cotton_name = "raw cotton"
 
-/obj/item/grown/cotton/attack_self__legacy__attackchain(mob/user)
+/obj/item/grown/cotton/activate_self(mob/user)
+	if(..())
+		return
+
 	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
 	var/seed_modifier = 0
 	if(seed)
