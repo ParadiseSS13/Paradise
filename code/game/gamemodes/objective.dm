@@ -990,6 +990,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+/datum/objective/specialization
+	name = "Vampire subclass objective"
+	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
+	needs_target = FALSE
+	var/datum/vampire_subclass/subclass
+
+/datum/objective/specialization/New()
+	if(!owner.has_antag_datum(/datum/antagonist/vampire))
+		explanation_text = "Free Objective"
+		return
+
+	update_explanation_text()
+	return ..()
+
+/datum/objective/specialization/proc/gain_specialization()
+	for(var/datum/antagonist/vampire/vampire_datum in owner.antag_datums)
+		subclass = vampire_datum.subclass
+
+	update_explanation_text()
+
+/datum/objective/specialization/update_explanation_text()
+	if(!subclass)
+		return
+
+	var/departments = list("security", "service", "research", "medical", "engineering", "supply")
+	explanation_text = replacetext(pick(subclass.unique_objectives), "%DEPARTMENT", pick(departments))
+
+// Flayers
+
 #define SWARM_GOAL_LOWER_BOUND	130
 #define SWARM_GOAL_UPPER_BOUND	400
 
@@ -1018,6 +1047,195 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 #undef SWARM_GOAL_LOWER_BOUND
 #undef SWARM_GOAL_UPPER_BOUND
+
+/datum/objective/download
+	name = "Download Files"
+	needs_target = FALSE
+	var/obj/machinery/computer/target_console = null
+	var/target_console_room = null
+
+/datum/objective/download/New()
+	find_target()
+	update_explanation_text()
+	establish_signals()
+	return ..()
+
+/datum/objective/download/Destroy()
+	if(target_console)
+		UnregisterSignal(target_console, COMSIG_PARENT_QDELETING)
+	return ..()
+
+/datum/objective/download/establish_signals()
+	if(target_console)
+		RegisterSignal(target_console, COMSIG_PARENT_QDELETING, PROC_REF(on_console_destroyed), override = TRUE)
+
+/datum/objective/download/proc/on_console_destroyed()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+
+	var/list/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		to_chat(M.current, "<BR><span class='userdanger'>We sense the target console has been compromised. New vulnerability located.</span>")
+		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+
+	target_console = null
+	find_target()
+	if(!target_console)
+		holder.remove_objective(src)
+
+	// Update explanation text with new target
+	update_explanation_text()
+
+	// Announce the updated objective with new target
+	for(var/datum/mind/M in owners)
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/download/find_target()
+	if(target_console)
+		return
+
+	var/list/possible_computers = list()
+	var/list/computer_areas = list()
+
+	var/list/restricted_area_computer_types = list(
+		// ID management computers
+		/obj/machinery/computer/card,                    // Main HOP ID computer
+		/obj/machinery/computer/card/minor/hos,          // Security ID computer
+		/obj/machinery/computer/card/minor/cmo,          // Medical ID computer
+		/obj/machinery/computer/card/minor/qm,           // Supply ID computer
+		/obj/machinery/computer/card/minor/rd,           // Science ID computer
+		/obj/machinery/computer/card/minor/ce,           // Engineering ID computer
+
+		// Security
+		/obj/machinery/computer/prisoner,                // Prisoner management
+		/obj/machinery/computer/brigcells,               // Brig cell management
+
+		// Command
+		/obj/machinery/computer/communications,          // Command comms console
+		/obj/machinery/computer/teleporter,              // Teleporter control
+
+		// Science
+		/obj/machinery/computer/message_monitor,         // Message monitor
+	)
+
+	// Get all computers of the specified types
+	for(var/computer_type in restricted_area_computer_types)
+		var/list/computers_of_type = SSmachines.get_by_type(computer_type, subtypes = FALSE)
+		for(var/obj/machinery/computer/comp in computers_of_type)
+			// Skip deleted/invalid computers
+			if(QDELETED(comp))
+				continue
+			var/turf/comp_turf = get_turf(comp)
+			if(!comp_turf || !is_station_level(comp_turf.z))
+				continue
+			var/area/comp_area = get_area(comp)
+			possible_computers += comp
+			computer_areas[comp] = comp_area ? comp_area.name : "(Unknown Location - Please create an issue on GitHub!)"
+
+	if(length(possible_computers))
+		target_console = pick(possible_computers)
+		target_console_room = computer_areas[target_console]
+		establish_signals()
+	else
+		// Fallback if no computers found
+		target_console = null
+		target_console_room = "(Unknown Location - Please create an issue on GitHub!)"
+
+/datum/objective/download/found_target()
+	return target_console
+
+// Formats as title case except for "the".
+// E.g. "the Communications Console"
+/datum/objective/download/proc/get_formatted_console_name()
+	if(!target_console)
+		return "an unknown console"
+
+	var/console_name = target_console.name
+
+	var/list/words = splittext(console_name, " ")
+	var/formatted_name = ""
+	var/first_word = TRUE
+
+	for(var/word in words)
+		if(first_word && lowertext(word) == "the")
+			first_word = FALSE
+			continue
+
+		if(!first_word)
+			formatted_name += " "
+
+		// Capitalize first letter of each word
+		formatted_name += uppertext(copytext(word, 1, 2)) + lowertext(copytext(word, 2))
+		first_word = FALSE
+
+	return "the " + formatted_name
+
+/datum/objective/download/update_explanation_text()
+	explanation_text = "Use your charging implant on [get_formatted_console_name()] in the [target_console_room] to download your next objective."
+
+// We already check that the player is an IPC when assigning this objective,
+// but this protects us from cases like cybernetic revolution where the implant could be lost.
+/datum/objective/download/proc/enforce_charging_implant()
+	for(var/datum/mind/M in get_owners())
+		var/mob/living/carbon/human/H = M.current
+		if(!H)
+			continue
+
+		var/obj/item/organ/internal/left_arm_implant = H.get_organ_slot("l_arm_device")
+		var/obj/item/organ/internal/right_arm_implant = H.get_organ_slot("r_arm_device")
+
+		// Already have a charger, do nothing
+		if(istype(left_arm_implant, /obj/item/organ/internal/cyberimp/arm/power_cord) || istype(right_arm_implant, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
+
+		var/obj/item/organ/internal/cyberimp/arm/power_cord/implant = new /obj/item/organ/internal/cyberimp/arm/power_cord()
+
+		// Try to install in the first available slot
+		if(!left_arm_implant)
+			implant.slot = "l_arm_device"
+			implant.parent_organ = "l_arm"
+			implant.insert(H)
+		else if(!right_arm_implant)
+			implant.slot = "r_arm_device"
+			implant.parent_organ = "r_arm"
+			implant.insert(H)
+		else
+			// Both slots occupied, remove left arm implant and replace with charging implant
+			left_arm_implant.remove(H)
+			qdel(left_arm_implant)
+			implant.slot = "l_arm_device"
+			implant.parent_organ = "l_arm"
+			implant.insert(H)
+
+// This is called from computer.dm when the do_after of downloading is completed
+/datum/objective/download/proc/complete_objective()
+	for(var/datum/mind/M in get_owners())
+		to_chat(M.current, "<BR><span class='warning'>*gzzt* Authentication success! Welcome, [M.current.name]. Thank you for- for- for-...</span>")
+
+		var/datum/antagonist/mindflayer/flayer_datum = M.has_antag_datum(/datum/antagonist/mindflayer)
+
+		holder.replace_objective(src, flayer_datum.roll_single_human_objective())
+
+		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/download/check_completion()
+	return TRUE
+
+/datum/objective/lair
+	name = "Build a lair"
+	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area. This requires at least 150 total units of blood."
+	needs_target = FALSE
+
+/datum/objective/lair/check_completion()
+	if(..())
+		return TRUE
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/vampire/V = M.has_antag_datum(/datum/antagonist/vampire)
+		if(V.has_lair)
+			return TRUE
+		return FALSE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
