@@ -323,6 +323,7 @@
 #include "code\controllers\subsystem\SSair.dm"
 #include "code\controllers\subsystem\SSambience.dm"
 #include "code\controllers\subsystem\SSblackbox.dm"
+#include "code\controllers\subsystem\SSbugreports.dm"
 #include "code\controllers\subsystem\SScamera.dm"
 #include "code\controllers\subsystem\SSchat.dm"
 #include "code\controllers\subsystem\SScleanup.dm"
