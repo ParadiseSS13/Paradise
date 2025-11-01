@@ -45,7 +45,7 @@ Difficulty: Medium
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
 	difficulty_ore_modifier = 3
-	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
+	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull, /obj/item/crusher_trophy/retool_kit/ashenskull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
