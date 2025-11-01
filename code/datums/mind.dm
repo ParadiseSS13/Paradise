@@ -681,7 +681,7 @@
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
 			"nuclear", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "nuclear", "custom")
-      
+
 		if(!new_obj_type)
 			return
 
