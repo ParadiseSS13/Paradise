@@ -231,7 +231,6 @@
 	name = "blood barrier"
 	desc = "a grotesque structure of crystallized blood. It's slowly melting away..."
 	max_integrity = 100
-	action_background_icon_state = "bg_hemo"
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
