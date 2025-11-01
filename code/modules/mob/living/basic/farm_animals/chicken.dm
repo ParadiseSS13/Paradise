@@ -38,6 +38,7 @@
 	/// Basic mobs need a language otherwise their speech is garbled
 	add_language("Galactic Common")
 	set_default_language(GLOB.all_languages["Galactic Common"])
+	GLOB.chicken_count++
 
 /mob/living/basic/chick/scatter_atom(x_offset, y_offset)
 	pixel_x = rand(-6, 6) + x_offset
@@ -48,6 +49,7 @@
 	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
+			GLOB.chicken_count--
 			var/mob/living/basic/chicken/C = new /mob/living/basic/chicken(loc)
 			if(name != initial(name))
 				C.name = name
@@ -67,7 +69,6 @@
 		get_scooped(M, TRUE)
 	..()
 
-#define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/basic/chicken
@@ -176,14 +177,15 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if((. && prob(3) && eggsleft > 0) && egg_type)
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
-		var/obj/item/E = new egg_type(get_turf(src))
+		var/obj/item/food/egg/E = new egg_type(get_turf(src))
 		E.scatter_atom()
 		if(eggsFertile)
-			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
+			if((GLOB.chicken_count <= GLOB.configuration.general.chicken_hatched_cap) && prob(25))
+				E.fertile = TRUE
 				START_PROCESSING(SSobj, E)
 
 /obj/item/food/egg/process()
-	if(isturf(loc))
+	if(isturf(loc) && fertile && GLOB.chicken_count <= GLOB.configuration.general.chicken_hatched_cap)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			visible_message("[src] hatches with a quiet cracking sound.")
@@ -254,4 +256,3 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_hear = list("cheeps.")
 	emote_see = list("pecks at the ground", "flaps its tiny wings")
 
-#undef MAX_CHICKENS
