@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 			return FALSE
 	var/sig_return = FALSE
 	if(user)
-		sig_return = SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src)
+		sig_return = SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src, show_message)
 	if(sig_return)
 		return FALSE
 

@@ -52,7 +52,7 @@
 		human_target.health = new_max_health
 
 	on_made_callback?.Invoke(human_target)
-	ADD_TRAIT(human_target, TRAIT_FAKEDEATH, UID(src))
+	ADD_TRAIT(human_target, TRAIT_FAKEDEATH, UID())
 	human_target.become_husk(MAGIC_TRAIT)
 	human_target.faction |= "heretic"
 
@@ -79,12 +79,12 @@
 		human_target.setMaxHealth(initial(human_target.maxHealth))
 
 	on_lost_callback?.Invoke(human_target)
-	REMOVE_TRAIT(human_target, TRAIT_FAKEDEATH, UID(src))
+	REMOVE_TRAIT(human_target, TRAIT_FAKEDEATH, UID())
 	human_target.cure_husk(MAGIC_TRAIT)
 	human_target.faction -= "heretic"
 	human_target.mind?.remove_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 	var/datum/antagonist/heretic/whoetic = master_mind.has_antag_datum(/datum/antagonist/heretic)
-	LAZYREMOVE(whoetic.list_of_our_monsters,owner.UID())
+	LAZYREMOVE(whoetic.list_of_our_monsters, owner.UID())
 
 	UnregisterSignal(human_target, COMSIG_MOB_DEATH)
 	if(!QDELETED(src))

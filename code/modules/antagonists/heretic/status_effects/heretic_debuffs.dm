@@ -66,7 +66,7 @@
 	/// icon state for the overlay
 	var/effect_icon_state = "cosmic_ring"
 	/// Storage for the spell caster
-	var/spell_caster
+	var/mob/living/spell_caster
 
 /atom/movable/screen/alert/status_effect/star_mark
 	name = "Star Mark"
@@ -80,6 +80,9 @@
 	return ..()
 
 /datum/status_effect/star_mark/Destroy()
+	if(cosmic_overlay)
+		spell_caster.cut_overlay(cosmic_overlay)
+		cosmic_overlay = null
 	return ..()
 
 /datum/status_effect/star_mark/on_apply()

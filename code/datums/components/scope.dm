@@ -197,7 +197,7 @@
 	START_PROCESSING(SSprojectiles, src)
 	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(trait_to_add)
-		ADD_TRAIT(user, trait_to_add, "[UID(src)]")
+		ADD_TRAIT(user, trait_to_add, "[UID()]")
 		user.update_sight()
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
@@ -235,7 +235,7 @@
 	))
 	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(trait_to_add)
-		REMOVE_TRAIT(user, trait_to_add, "[UID(src)]")
+		REMOVE_TRAIT(user, trait_to_add, "[UID()]")
 		user.update_sight()
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)

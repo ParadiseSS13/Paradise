@@ -36,7 +36,7 @@
 	else
 		team_color = pick(COLOR_PURPLE, COLOR_GREEN)
 
-	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
+	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID())
 	to_chat(user, "<span class='alert'>Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
@@ -60,7 +60,7 @@
 	if(!istype(user))
 		return
 
-	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID(src)))
+	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID()))
 		to_chat(user, "<span class='notice'>Your heart and blood return to their regular old rhythm and flow.</span>")
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
@@ -68,7 +68,7 @@
 			spell_action.cooldown_handler.recharge_duration *= 2
 			active = FALSE
 	QDEL_NULL(component)
-	REMOVE_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
+	REMOVE_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID())
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.bleed_mod /= 3
@@ -132,12 +132,12 @@
 	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
-	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID(src)]")
+	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID()]")
 	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID(src)]")
+	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID()]")
 	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/piercing

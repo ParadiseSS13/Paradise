@@ -14,18 +14,18 @@
 	var/has_target = controller.blackboard_key_exists(target_key)
 	var/datum/action/cooldown/using_action = controller.blackboard[ability_key]
 
-	if (!is_shifted)
-		if (has_target)
+	if(!is_shifted)
+		if(has_target)
 			return // We're busy
 
-		if (using_action?.IsAvailable())
+		if(using_action?.IsAvailable())
 			controller.queue_behavior(/datum/ai_behavior/use_mob_ability/shapeshift, BB_SHAPESHIFT_ACTION) // Shift
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-	if (!has_target || !using_action?.IsAvailable())
+	if(!has_target || !using_action?.IsAvailable())
 		return SUBTREE_RETURN_FINISH_PLANNING // Lie in wait
 	var/time_on_target = controller.blackboard[BB_BASIC_MOB_HAS_TARGET_TIME] || 0
-	if (time_on_target < minimum_target_time)
+	if(time_on_target < minimum_target_time)
 		return // Wait a bit longer
 	controller.queue_behavior(/datum/ai_behavior/use_mob_ability/shapeshift, BB_SHAPESHIFT_ACTION) // Surprise!
 

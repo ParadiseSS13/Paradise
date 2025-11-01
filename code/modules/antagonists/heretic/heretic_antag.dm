@@ -319,7 +319,7 @@
  * If so, allow them to cast like normal.
  * If not, cancel the cast, and returns [SPELL_CANCEL_CAST].
  */
-/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, datum/spell/spell)
+/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, datum/spell/spell, show_message = TRUE)
 	SIGNAL_HANDLER
 
 	// Heretic spells are of the forbidden school, otherwise we don't care
@@ -337,7 +337,8 @@
 		return FALSE
 
 	// We shouldn't be able to cast this! Cancel it.
-	to_chat(source, "<span class='hierophant_warning'>You need a focus to cast this spell!</span>")
+	if(show_message)
+		to_chat(source, "<span class='hierophant_warning'>You need a focus to cast this spell!</span>")
 	return SPELL_CANCEL_CAST
 
 /*
