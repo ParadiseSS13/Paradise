@@ -14,16 +14,23 @@
 	icon_state = "rd"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 25)
 
+/obj/item/clothing/under/rank/rnd/rd/whimsy
+	name = "research director's historical uniform"
+	desc = "Corduroy slacks, just as they should be."
+	icon_state = "rd_whimsy"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_UNDER
+
 /obj/item/clothing/under/rank/rnd/rd/skirt
 	name = "research director's skirt"
 	desc = "It's a purple dress shirt and black skirt worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	icon_state = "rd_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/rnd/rd/dress
-	name = "research director's dress uniform"
-	desc = "Feminine fashion for the style conscious RD."
-	icon_state = "dress_rd"
+/obj/item/clothing/under/rank/rnd/rd/skirt/whimsy
+	name = "research director's historical dress"
+	desc = "Pleated skirt and sweater for the style conscious RD."
+	icon_state = "rd_whimsy_skirt"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
