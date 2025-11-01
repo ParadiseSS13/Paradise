@@ -2067,7 +2067,7 @@
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<hr>"
 		html += "<div align='center'>Mechanical difficulty: *****.<br></div>"
-		html += "<div style='margin:auto; border:2px solid white; width:80%;text-align:left;'>"
+		html += "<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>"
 		html += "<p style='margin-left:2%; margin-right:2%;'>Assistants have the responsibility to learn the game.<br></p>"
 		html += "<p style='margin-left:2%; margin-right:2%;'>Difficulties: Movement, world interaction, headset and language usage.<br></p></div>"
 		html += "<br>"
@@ -2093,6 +2093,7 @@
 					continue
 
 			index += 1
+			//when max jobs are listed, or the name of a "header" job is listed, make a new column
 			if((index >= limit) || (job.title in splitJobs))
 				if((index < limit) && (lastJob != null))
 					// Dynamic window width
@@ -2173,6 +2174,9 @@
 			for (var/i in 1 to job.difficulty)
 				difficultyStars += "⭐"
 
+			for (var/i in 1 to 6 - job.difficulty)
+				difficultyStars += "★"
+
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
 					html += " <font color=green>Yes</font></a>"
@@ -2192,7 +2196,7 @@
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width:33%; margin:5px; background-color:green;'><span class='dark'>[difficultyStars]</span>"
+			html += "</td><td style='width:33%; margin:5px;'><span class='dark'>[difficultyStars]</span>"
 			html += "</td></tr>"
 		index += 1
 		for(var/i in 1 to limit - index) // Finish the column so it is even
