@@ -61830,13 +61830,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "jsk" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "jtb" = (
@@ -67097,10 +67097,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"lLU" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/qm)
 "lLV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -143725,7 +143721,7 @@ mKm
 mKm
 aGP
 jsk
-mKm
+ayD
 jsk
 aIk
 mKm
@@ -143997,11 +143993,11 @@ aSb
 aSb
 aSb
 aSb
-lLU
+aSb
 vuu
 tsL
 vuu
-vuu
+bbe
 bbe
 eNt
 eNt
@@ -144239,7 +144235,7 @@ aaa
 mKm
 aGP
 jsk
-mKm
+ayD
 jsk
 aIk
 mKm
