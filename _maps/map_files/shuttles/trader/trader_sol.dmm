@@ -285,12 +285,12 @@
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/item/storage/fancy/cigarettes/cigpack_carp{
-	pixel_x = -6;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/tiles/department/command{
 	dir = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays{
+	pixel_x = -6;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
@@ -786,7 +786,7 @@ Fb
 Fb
 Fb
 Fb
-hM
+Fb
 hi
 fZ
 Xi

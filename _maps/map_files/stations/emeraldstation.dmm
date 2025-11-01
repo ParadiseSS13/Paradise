@@ -7191,7 +7191,7 @@
 /area/station/supply/qm)
 "bxY" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -118030,7 +118030,7 @@
 	dir = 2;
 	dwidth = 11;
 	height = 23;
-	id = "trade_dock";
+	id = "trader_home";
 	name = "port bay 4 at NSS Diagoras";
 	width = 23
 	},

@@ -45285,7 +45285,7 @@
 /area/station/security/brig)
 "dGd" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Port Bay 4 Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -70230,7 +70230,7 @@
 /obj/docking_port/stationary{
 	dwidth = 11;
 	height = 23;
-	id = "trade_dock";
+	id = "trader_home";
 	name = "Port Bay 4 at NSS Cyberiad";
 	width = 23
 	},
