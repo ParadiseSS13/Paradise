@@ -65,3 +65,11 @@
 	name = "silver locket"
 	desc = "A silver locket that seems to have space for a photo within."
 	icon_state = "locketsilver"
+
+/obj/item/clothing/neck/necklace/ntcharm
+	name = "\improper Nanotrasen charm necklace"
+	desc = "A decorative blue and white charm attached to a silver chain."
+	icon_state = "ntcharm"
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
