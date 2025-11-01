@@ -615,6 +615,9 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
+/datum/ai_planning_subtree/attack_obstacle_in_path/star_gazer
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
+
 /datum/ai_planning_subtree/attack_obstacle_in_path/pet_target/star_gazer
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
 
