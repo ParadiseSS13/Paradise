@@ -2100,7 +2100,7 @@
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
 					//the last job's selection color. Creating a rather nice effect.
 					for(var/i in 1 to limit - index)
-						html += "<tr bgcolor='[lastJob.selection_color]'><td width='50%' align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
+						html += "<tr bgcolor='[lastJob.selection_color]'><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
@@ -2137,7 +2137,7 @@
 			else
 				html += "<span class='dark'>[rank]</span>"
 
-			html += "</td><td width='40%'>"
+			html += "</td><td>"
 			var/prefLevelLabel = "ERROR"
 			var/prefLevelColor = "pink"
 			var/prefUpperLevel = -1 // level to assign on left click
@@ -2179,7 +2179,7 @@
 				else
 					html += " <font color=red>No</font></a>"
 				html += "</td>"
-				html += "<td width='40%'><span class='dark' style='background-color:red; margin:5px; width:200px;'>[difficultyStars]</span></td></tr>"
+				html += "<td style='width:33%; margin:5px;'><span class='dark'>[difficultyStars]</span></td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2192,11 +2192,11 @@
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='background-color:green; width:200px' ><div style='background-color:blue; width: 50%;'><span class='dark' style='background-color:red; margin:5px; width:200px;'>[difficultyStars]</span></div>"
+			html += "</td><td style='width:33%; margin:5px; background-color:green;'><span class='dark'>[difficultyStars]</span>"
 			html += "</td></tr>"
 		index += 1
 		for(var/i in 1 to limit - index) // Finish the column so it is even
-			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 
 		html += "</td></tr></table>"
 		html += "</center></table>"
