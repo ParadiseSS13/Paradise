@@ -1127,6 +1127,7 @@
 /area/station/security/brig)
 "agt" = (
 /obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "agu" = (
@@ -1407,8 +1408,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "ahF" = (
+/obj/docking_port/stationary{
+	id = "gamma_home";
+	name = "NSS Cyberiad Gamma Dock";
+	width = 7;
+	height = 6;
+	dwidth = 3;
+	dir = 8
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "ahG" = (
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
@@ -72785,13 +72794,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"qTO" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall,
-/area/space/nearstation)
 "qUj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -114103,11 +114105,11 @@ aaa
 aaa
 aaa
 abY
-afO
 aab
-afO
-qTO
-aMr
+aab
+aab
+abY
+aab
 aab
 aab
 abY
@@ -114360,13 +114362,13 @@ aaa
 aaa
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 akZ
 vDY
@@ -114617,13 +114619,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aqv
@@ -114874,13 +114876,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aey
@@ -115131,13 +115133,13 @@ afX
 afX
 aaa
 abY
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 lkO
 amB
@@ -115388,13 +115390,13 @@ afX
 afX
 afX
 aYm
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 vom
 amz
@@ -115645,13 +115647,13 @@ afX
 afO
 afX
 afX
+aaa
+aaa
+aaa
 ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
 aaa
 afm
 jVf

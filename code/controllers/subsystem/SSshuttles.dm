@@ -40,6 +40,9 @@ SUBSYSTEM_DEF(shuttle)
 	/// The current shuttle loan event, if any.
 	var/shuttle_loan_UID
 
+	// Gamma armory
+	var/obj/docking_port/mobile/gamma_armory/gamma_armory
+
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
@@ -512,6 +515,32 @@ SUBSYSTEM_DEF(shuttle)
 	// blanking the modification tab
 
 	return trade_shuttle
+
+/datum/controller/subsystem/shuttle/proc/set_gamma_armory_shuttle(datum/map_template/shuttle/gamma_armory/template)
+	var/obj/docking_port/mobile/gamma_armory/gamma_armory = getShuttle("gamma_armory")
+	if(gamma_armory)
+		var/obj/docking_port/stationary/docked_id = gamma_armory.get_docked()
+		if(docked_id?.id != "gamma_armory")
+			CRASH("Attempted to load a new Gamma Armory shuttle while the existing one was not at its home base.")
+		// Dispose of the old shuttle.
+		gamma_armory.jumpToNullSpace()
+
+	var/obj/docking_port/mobile/gamma_armory/dock = getDock("gamma_away")
+	if(!dock)
+		CRASH("Unable to load trading shuttle, no Gamma Armory dock found.")
+
+	gamma_armory = load_template(template)
+	var/result = gamma_armory.canDock(dock)
+	if(result == SHUTTLE_SOMEONE_ELSE_DOCKED)
+		gamma_armory.jumpToNullSpace()
+		CRASH("A non-Gamma Armory shuttle is blocking the trading dock.")
+	if(result != SHUTTLE_CAN_DOCK)
+		gamma_armory.jumpToNullSpace()
+		CRASH("New Gamma Armory shuttle unable to dock at the trading dock: [result]")
+
+	gamma_armory.dock(dock)
+	gamma_armory.register()
+	return gamma_armory
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))

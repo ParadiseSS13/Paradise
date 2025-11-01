@@ -36865,10 +36865,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"hvp" = (
-/obj/machinery/door/poddoor/impassable/gamma,
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/armory/secure)
 "hvq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -50838,12 +50834,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
-"kjD" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/armory/secure)
 "kjE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56013,8 +56003,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/break_room)
 "lpP" = (
+/obj/docking_port/stationary{
+	id = "gamma_home";
+	name = "NSS Diagoras Gamma Dock";
+	width = 7;
+	height = 6;
+	dwidth = 3;
+	dir = 4
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "lpW" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
@@ -100005,6 +100003,9 @@
 /area/station/medical/sleeper)
 "ucJ" = (
 /obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ucL" = (
@@ -107085,6 +107086,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"vAi" = (
+/obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/armory/secure)
 "vAu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -173904,12 +173910,12 @@ aZS
 jnP
 fiv
 ucJ
-kjD
+trj
 trj
 bAr
 kvO
-cmF
 rFY
+cmF
 ihH
 gDH
 fOE
@@ -174161,8 +174167,8 @@ aZS
 aZS
 fiv
 fiv
+vAi
 fiv
-hvp
 fiv
 fiv
 fiv
@@ -174415,13 +174421,13 @@ jnP
 jnP
 jnP
 uXb
+jnP
+jnP
+jnP
 lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
 uXb
 jnP
 jnP
@@ -174672,13 +174678,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 jnP
 qKm
@@ -174929,13 +174935,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 jnP
 qKm
@@ -175186,13 +175192,13 @@ aZS
 aZS
 aZS
 uXb
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 qKm
 qKm
@@ -175443,13 +175449,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 uCB
 jFd
@@ -175700,13 +175706,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 uCB
 lDA
