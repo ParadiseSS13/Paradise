@@ -51,6 +51,10 @@
 	name = "\improper Mining Shuttle"
 	icon_state = "shuttle"
 
+/area/shuttle/engineering
+	name = "\improper Engineering Shuttle"
+	icon_state = "shuttle"
+
 /area/shuttle/transport
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"

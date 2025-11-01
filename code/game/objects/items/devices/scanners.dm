@@ -704,7 +704,10 @@ SLIME SCANNER
 	. = ..()
 	if(!can_see(user, target, 1))
 		return
-	if(target.return_analyzable_air())
+
+	if(target.return_analyzable_fluids())
+		fluid_scan(user, target, detailed = show_detailed)
+	else if(target.return_analyzable_air())
 		atmos_scan(user, target, detailed = show_detailed)
 	else
 		atmos_scan(user, get_turf(target), detailed = show_detailed)
@@ -839,6 +842,30 @@ SLIME SCANNER
 		message += "<span class='notice'>Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)</span>"
 		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
 		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
+
+	to_chat(user, chat_box_examine(message.Join("<br>")))
+	return TRUE
+
+/obj/item/analyzer/proc/fluid_scan(mob/user, atom/target, silent = FALSE, detailed = FALSE)
+	var/list/message = list()
+	var/datum/fluid_pipe/pipe_datum
+	message += "Scanned object: [target]"
+	if(istype(target, /obj/machinery/fluid_pipe))
+		var/obj/machinery/fluid_pipe/pipe = target
+		pipe_datum = pipe.fluid_datum
+
+	if(pipe_datum)
+		message += "Total capacity: [pipe_datum.total_capacity]"
+
+	if(!pipe_datum || !length(pipe_datum.fluids))
+		message += "<span class='notice'>No fluids detected in [target]</span>"
+		to_chat(user, chat_box_examine(message.Join("<br>")))
+		return FALSE
+
+	for(var/datum/fluid/liquid in pipe_datum.fluids)
+		message += "[liquid.fluid_name]. Volume: [liquid.fluid_amount] units"
+
+	message += "Total used capacity: [pipe_datum.get_fluid_volumes()]"
 
 	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return TRUE
