@@ -22,6 +22,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		/obj/machinery/atmospherics/trinary/mixer = PIPE_GAS_MIXER,
 		/obj/machinery/atmospherics/unary/vent_scrubber = PIPE_SCRUBBER,
 		/obj/machinery/atmospherics/binary/passive_gate = PIPE_PASSIVE_GATE,
+		/obj/machinery/atmospherics/binary/temperature_gate = PIPE_TEMPERATURE_GATE,
 		/obj/machinery/atmospherics/binary/volume_pump = PIPE_VOLUME_PUMP,
 		/obj/machinery/atmospherics/unary/heat_exchanger = PIPE_HEAT_EXCHANGE,
 		/obj/machinery/atmospherics/trinary/tvalve/digital = PIPE_DTVALVE,
@@ -61,6 +62,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		"[PIPE_GAS_MIXER]" = /obj/machinery/atmospherics/trinary/mixer,
 		"[PIPE_SCRUBBER]" = /obj/machinery/atmospherics/unary/vent_scrubber,
 		"[PIPE_PASSIVE_GATE]" = /obj/machinery/atmospherics/binary/passive_gate,
+		"[PIPE_TEMPERATURE_GATE]" = /obj/machinery/atmospherics/binary/temperature_gate,
 		"[PIPE_VOLUME_PUMP]" = /obj/machinery/atmospherics/binary/volume_pump,
 		"[PIPE_HEAT_EXCHANGE]" = /obj/machinery/atmospherics/unary/heat_exchanger,
 		"[PIPE_DTVALVE]" = /obj/machinery/atmospherics/trinary/tvalve/digital,
@@ -257,7 +259,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			return dir
 
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_JUNCTION,
-			PIPE_PUMP, PIPE_VOLUME_PUMP, PIPE_PASSIVE_GATE, PIPE_MVALVE, PIPE_DVALVE, PIPE_DP_VENT,
+			PIPE_PUMP, PIPE_VOLUME_PUMP, PIPE_PASSIVE_GATE, PIPE_TEMPERATURE_GATE, PIPE_MVALVE, PIPE_DVALVE, PIPE_DP_VENT,
 			PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL,
 			PIPE_CONNECTOR, PIPE_HEAT_EXCHANGE)
 			return dir|flip
@@ -316,7 +318,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
 			return
 
-	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
+	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE, PIPE_TEMPERATURE_GATE))
 		if(T.transparent_floor) //stops jank with transparent floors and pipes
 			to_chat(user, "<span class='warning'>You can only fix simple pipes and devices over glass floors!</span>")
 			return

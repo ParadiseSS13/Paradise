@@ -37,6 +37,7 @@
 #define PIPE_PASV_VENT				37
 #define PIPE_DTVALVE				38
 #define PIPE_CIRCULATOR				39
+#define PIPE_TEMPERATURE_GATE		40
 #define PIPE_GAS_SENSOR				98
 #define PIPE_METER					99
 
