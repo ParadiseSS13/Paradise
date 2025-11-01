@@ -81470,7 +81470,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "vJt" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/passive_vent{
 	dir = 4
 	},
 /turf/simulated/floor/engine/vacuum,
