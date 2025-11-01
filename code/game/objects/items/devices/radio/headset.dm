@@ -198,6 +198,12 @@
 	icon_state = "sci_headset"
 	ks2type = /obj/item/encryptionkey/headset_sci
 
+/obj/item/radio/headset/headset_xenobio
+	name = "xenobiology radio headset"
+	desc = "A science headset, now with weather updates."
+	icon_state = "xenobio_headset"
+	ks2type = /obj/item/encryptionkey/headset_xenobio
+
 /obj/item/radio/headset/headset_medsci
 	name = "medical research radio headset"
 	desc = "A headset that is a result of the mating between medical and science."
