@@ -11,8 +11,6 @@
 	is_a_heretic_spell = TRUE
 	base_cooldown = 8 SECONDS
 
-	invocation_type = "none"
-
 	cast_range = 4
 
 	/// How long does the filter last on walls we make?

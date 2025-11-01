@@ -11,10 +11,7 @@
 	action_icon_state = "ninja_cloak"
 
 	is_a_heretic_spell = TRUE
-	clothes_req = FALSE
 
-	invocation_type = INVOCATION_NONE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	allowed_type = /turf
 
 	/// Static typecache of types that are counted as reflective.
