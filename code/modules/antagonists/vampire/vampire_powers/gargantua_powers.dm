@@ -137,7 +137,6 @@
 	action_background_icon_state = "bg_garg"
 	action_icon_state = "demonic_grasp"
 
-	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
 	invocation = null
