@@ -2042,17 +2042,17 @@
 /datum/character_save/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low)
 
-
+//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
+//widthPerColumn - Screen's width for every column.
+//height - Screen's height.
+// 1366x768 is a common screen resolution, and increasing widthPerColumn or height to above 400 and 700,
+// will result in the window being placed outside the screen for these users. If we get more jobs than limit x 3, increase limit.
 /datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
-	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
-	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-	//widthPerColumn - Screen's width for every column.
-	//height - Screen's height.
 	var/width = widthPerColumn
-
 
 	var/list/html = list()
 	html += "<body>"
@@ -2065,6 +2065,12 @@
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<hr>"
+		html += "<div align='center'>Mechanical difficulty: *****.<br></div>"
+		html += "<div style='margin:auto; border:2px solid white; width:80%;text-align:left;'>"
+		html += "<p style='margin-left:2%; margin-right:2%;'>Assistants have the responsibility to learn the game.<br></p>"
+		html += "<p style='margin-left:2%; margin-right:2%;'>Difficulties: Movement, world interaction, headset and language usage.<br></p></div>"
+		html += "<br>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
@@ -2094,7 +2100,7 @@
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
 					//the last job's selection color. Creating a rather nice effect.
 					for(var/i in 1 to limit - index)
-						html += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+						html += "<tr bgcolor='[lastJob.selection_color]'><td width='50%' align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
@@ -2132,7 +2138,6 @@
 				html += "<span class='dark'>[rank]</span>"
 
 			html += "</td><td width='40%'>"
-
 			var/prefLevelLabel = "ERROR"
 			var/prefLevelColor = "pink"
 			var/prefUpperLevel = -1 // level to assign on left click
@@ -2164,12 +2169,17 @@
 
 	//			HTML += "<a href='byond://?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
+			var/difficultyStars = ""
+			for (var/i in 1 to job.difficulty)
+				difficultyStars += "⭐"
+
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
 					html += " <font color=green>Yes</font></a>"
 				else
 					html += " <font color=red>No</font></a>"
-				html += "</td></tr>"
+				html += "</td>"
+				html += "<td width='40%'><span class='dark' style='background-color:red; margin:5px; width:200px;'>[difficultyStars]</span></td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2182,11 +2192,11 @@
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-
+			html += "</td><td style='background-color:green; width:200px' ><div style='background-color:blue; width: 50%;'><span class='dark' style='background-color:red; margin:5px; width:200px;'>[difficultyStars]</span></div>"
 			html += "</td></tr>"
 		index += 1
 		for(var/i in 1 to limit - index) // Finish the column so it is even
-			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 
 		html += "</td></tr></table>"
 		html += "</center></table>"
