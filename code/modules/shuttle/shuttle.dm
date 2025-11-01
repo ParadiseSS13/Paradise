@@ -890,6 +890,22 @@
 	timid = TRUE
 	width = 18
 
+/obj/docking_port/mobile/gamma_armory
+	dir = 1
+	dwidth = 3
+	width = 7
+	height = 6
+	id = "gamma_armory"
+	port_direction = EAST
+	timid = TRUE
+
+/obj/docking_port/mobile/gamma_armory/register()
+	if(!..())
+		return FALSE
+
+	SSshuttle.gamma_armory = src
+	return TRUE
+
 /obj/docking_port/mobile/ferry
 	dir = 8
 	dwidth = 2
