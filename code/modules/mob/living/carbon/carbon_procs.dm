@@ -1226,7 +1226,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
-	if(to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
+	var/is_glutton = HAS_TRAIT(src, TRAIT_GLUTTON)
+	if(!is_glutton && to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
 		to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
 		return FALSE
 
@@ -1243,7 +1244,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(fullness > (600 * (1 + overeatduration / 2000))) // The more you eat - the more you can eat
 		to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
 		return FALSE
-
+	if(is_glutton)
+		src.changeNext_move(CLICK_CD_RAPID) // Hungry hungry spessman
 	to_chat(src, "<span class='notice'>[jointext(reaction_msg, " ")]</span>")
 
 	return TRUE
