@@ -1186,7 +1186,6 @@
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
-	SEND_SIGNAL(src, COMSIG_SPECIES_CHANGE)
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
@@ -1367,6 +1366,7 @@
 		update_mutantrace()
 		regenerate_icons()
 
+	SEND_SIGNAL(src, COMSIG_AFTER_SPECIES_CHANGE)
 	if(dna.species)
 		return TRUE
 	else

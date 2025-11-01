@@ -739,7 +739,7 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
 	if(isskrell(M))
 		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
-	RegisterSignal(M, COMSIG_SPECIES_CHANGE, PROC_REF(on_species_change))
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
@@ -757,7 +757,7 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
-	UnregisterSignal(M, COMSIG_SPECIES_CHANGE)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/proc/on_species_change(mob/living/M)
