@@ -8,13 +8,10 @@
 	sound = 'sound/items/welder.ogg'
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
-	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 

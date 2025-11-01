@@ -17,7 +17,6 @@
 
 	invocation = "RE'L'TY PH'S'E."
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 9
 	/// The minimum range to cast the phase.

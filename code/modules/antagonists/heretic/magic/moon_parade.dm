@@ -12,12 +12,9 @@
 
 	sound = 'sound/magic/cosmic_energy.ogg'
 	is_a_heretic_spell = TRUE
-	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "L'N'R P'RAD"
-	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	selection_activated_message = "You prepare to make them join the parade!"
 	selection_deactivated_message = "You stop the music and halt the parade... for now."

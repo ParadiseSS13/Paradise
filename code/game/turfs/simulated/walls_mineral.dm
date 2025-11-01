@@ -5,7 +5,6 @@
 	canSmoothWith = null
 	var/last_event = 0
 	var/active = FALSE
-	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return //This override is needed to properly rotate the object when on a shuttle that is rotated.

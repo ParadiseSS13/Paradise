@@ -49,7 +49,6 @@
 		You can only create one at a time by this method."
 	gain_text = "My new found desires drove me to greater and greater heights."
 
-	limit = 1
 	cost = 1
 
 

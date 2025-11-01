@@ -15,7 +15,6 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 30
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -86,7 +85,6 @@
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
-	light_power = 1
 	sprite_sheets_inhand = null
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'

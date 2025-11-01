@@ -58,4 +58,3 @@
 /obj/effect/temp_visual/eldritch_smoke
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "smoke"
-	duration = 10

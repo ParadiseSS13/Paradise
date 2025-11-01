@@ -48,7 +48,6 @@
 	create a magnum opus of art. A masterpiece above all others, that exudes its own unique influence."
 	abstract_parent_type = /datum/heretic_knowledge/unsealed_art
 	required_atoms = list()
-	cost = 0
 	priority = 20 // fairly low priority
 	var/was_completed = FALSE
 

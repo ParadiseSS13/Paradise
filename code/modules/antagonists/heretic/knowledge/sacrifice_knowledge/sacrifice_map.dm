@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /obj/structure/signpost/void
 	name = "signpost at the edge of the universe"
 	desc = "A direction in the directionless cosmos."
-	density = FALSE
 	/// Brightness of the signpost.
 	var/range = 2
 	/// Light power of the signpost.

@@ -463,11 +463,9 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_y = -16
 	pixel_x = -16
-	duration = 32
 	fades = FALSE
 
 /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
-	duration = 32
 	fades = TRUE
 
 

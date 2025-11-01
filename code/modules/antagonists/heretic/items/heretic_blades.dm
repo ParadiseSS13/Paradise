@@ -11,7 +11,6 @@
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BELT
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 20
 	throwforce = 10
 	toolspeed = 0.375

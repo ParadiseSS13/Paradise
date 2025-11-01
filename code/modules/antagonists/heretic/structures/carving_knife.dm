@@ -158,7 +158,6 @@
 	desc = "Stepping on me is a guaranteed bad day."
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "trap"
-	density = FALSE
 	anchored = TRUE
 	alpha = 30 //initially quite hidden when not "recharging"
 	flags = NO_SCREENTIPS //fuck you

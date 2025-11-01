@@ -22,7 +22,6 @@
 	damtype = BURN
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashes", "curses")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
@@ -69,9 +68,6 @@
 	name = "scattering paper"
 	desc = "Pieces of paper scattering to the wind."
 	layer = ABOVE_NORMAL_TURF_LAYER
-	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "paper_scatter"
-	anchored = TRUE
 	duration = 0.5 SECONDS
 	randomdir = FALSE

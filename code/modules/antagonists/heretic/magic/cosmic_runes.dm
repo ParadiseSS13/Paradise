@@ -16,7 +16,6 @@
 
 	invocation = "ST'R R'N'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// Storage for the first rune.
 	var/first_rune
@@ -61,7 +60,6 @@
 /obj/effect/cosmic_rune
 	name = "cosmic rune"
 	desc = "A strange rune, that can instantly transport people to another location."
-	anchored = TRUE
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "cosmic_rune"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -142,7 +140,6 @@
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
-	anchored = TRUE
 	duration = 5
 
 /obj/effect/temp_visual/cosmic_rune_fade/Initialize(mapload)
@@ -157,7 +154,6 @@
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
-	anchored = TRUE
 	duration = 5
 
 /obj/effect/temp_visual/rune_light/Initialize(mapload)

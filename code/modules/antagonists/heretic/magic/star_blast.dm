@@ -14,9 +14,6 @@
 	base_cooldown = 20 SECONDS
 
 	invocation = "R'T'T' ST'R!"
-	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	clothes_req = FALSE
 	selection_activated_message = "You prepare to cast your star blast!"
 	selection_deactivated_message = "You stop swirling cosmic energies from the palm of your hand... for now."
 	fireball_type = /obj/item/projectile/magic/star_ball

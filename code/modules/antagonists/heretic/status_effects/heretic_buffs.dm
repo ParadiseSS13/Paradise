@@ -22,7 +22,6 @@
 	id = "Blessing of Wounded Soldier"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 60 SECONDS
-	tick_interval = 1 SECONDS
 	show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/marshal
 
@@ -214,7 +213,6 @@
 /datum/status_effect/caretaker_refuge
 	id = "Caretaker’s Last Refuge"
 	status_type = STATUS_EFFECT_REFRESH
-	duration = -1
 	alert_type = null
 
 /datum/status_effect/caretaker_refuge/on_apply()

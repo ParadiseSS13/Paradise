@@ -9,7 +9,6 @@
 	invocation_type = INVOCATION_SHOUT
 
 	cone_levels = 4
-	respect_density = TRUE
 	delay_between_level = 0.05 SECONDS
 
 	/// What flags do we pass to MakeSlippery when affecting turfs?
@@ -72,11 +71,8 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 30 SECONDS
 
 	invocation = "FR'ZE!"
-	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	//In room temperature, the ice won't last very long
 	//...but in space / freezing rooms, it will stick around

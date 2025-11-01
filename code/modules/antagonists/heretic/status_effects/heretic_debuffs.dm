@@ -4,7 +4,6 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	duration = 10 SECONDS
-	tick_interval = 1 SECONDS
 
 /datum/status_effect/amok/on_apply(mob/living/afflicted)
 	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
@@ -66,7 +65,7 @@
 	/// icon state for the overlay
 	var/effect_icon_state = "cosmic_ring"
 	/// Storage for the spell caster
-	var/mob/living/spell_caster
+	var/spell_caster
 
 /atom/movable/screen/alert/status_effect/star_mark
 	name = "Star Mark"
@@ -80,9 +79,6 @@
 	return ..()
 
 /datum/status_effect/star_mark/Destroy()
-	if(cosmic_overlay)
-		spell_caster.cut_overlay(cosmic_overlay)
-		cosmic_overlay = null
 	return ..()
 
 /datum/status_effect/star_mark/on_apply()

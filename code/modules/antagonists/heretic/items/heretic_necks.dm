@@ -2,7 +2,6 @@
 	name = "amber focus"
 	desc = "An amber focusing glass that provides a link to the world beyond. The necklace seems to twitch, but only when you look at it from the corner of your eye."
 	icon_state = "eldritch_necklace"
-	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
 
@@ -116,7 +115,6 @@
 	desc = "A strange medallion. Peering through the crystalline surface, the world around you melts away. You see your own beating heart, and the pulsing of a thousand others."
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "eye_medalion"
-	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// A secondary clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
@@ -150,7 +148,6 @@
 	name = "religious icon"
 	desc = "A strange plastic medallion, which makes its wearer look like they're part of some cult."
 	icon_state = "eldritch_necklace"
-	w_class = WEIGHT_CLASS_SMALL
 
 
 // The amulet conversion tool used by moon heretics
@@ -159,7 +156,6 @@
 	desc = "A piece of the mind, the soul and the moon. Gazing into it makes your head spin and hear whispers of laughter and joy."
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "moon_amulette"
-	w_class = WEIGHT_CLASS_SMALL
 	// How much brain damage does this item do?
 	var/brain_damage = 5
 

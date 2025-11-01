@@ -3,9 +3,7 @@
 	real_name = "Eldritch Demon"
 	desc = "A horror from beyond this realm."
 	icon = 'icons/mob/eldritch_mobs.dmi'
-	gender = NEUTER
 	mob_biotypes = NONE
-	attack_sound = 'sound/weapons/punch1.ogg'
 	response_help_continuous = "thinks better of touching"
 	response_help_continuous = "flails at"
 	response_harm_continuous = "reaps"
@@ -527,7 +525,6 @@
 	mob_biotypes = MOB_ORGANIC|MOB_EPIC
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	layer = LARGE_MOB_LAYER
-	speed = 0
 	maxHealth = 6000
 	health = 6000
 	initial_traits = list(TRAIT_FLYING)
@@ -618,23 +615,18 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
-/datum/ai_planning_subtree/attack_obstacle_in_path/star_gazer
-	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
-
 /datum/ai_planning_subtree/attack_obstacle_in_path/pet_target/star_gazer
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
 
 /datum/ai_behavior/attack_obstructions/star_gazer
 	action_cooldown = 0.4 SECONDS
 	can_attack_turfs = TRUE
-	can_attack_dense_objects = TRUE
 
 /datum/pet_command/attack/star_gazer
 	speech_commands = list("attack", "sic", "kill", "slash them", "die", "suffer")
 	command_feedback = "stares!"
 	pointed_reaction = "stares intensely!"
 	refuse_reaction = "..."
-	attack_behaviour = /datum/ai_behavior/basic_melee_attack
 	requires_pointing = FALSE
 
 /datum/pet_command/idle/star_gazer

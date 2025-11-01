@@ -10,11 +10,8 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
-	clothes_req = FALSE
 
 	invocation = "REALITY UNCOIL!"
-	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	shapeshift_type = /mob/living/basic/heretic_summon/armsy/prime
 	current_shapes = list(/mob/living/basic/heretic_summon/armsy/prime)
 	current_casters = list()
@@ -65,10 +62,8 @@
 
 	base_cooldown = 30 SECONDS
 
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	clothes_req = FALSE
-	human_req = FALSE
 
 
 /datum/spell/worm_contract/create_new_targeting()

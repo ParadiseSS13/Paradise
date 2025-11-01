@@ -76,7 +76,5 @@
 
 
 /obj/effect/temp_visual/knockblast
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-flash"
 	alpha = 180
-	duration = 1 SECONDS

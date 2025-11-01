@@ -16,9 +16,7 @@
 
 	invocation = "BR'NG F'RTH TH'M T' M'."
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	aoe_range = 7
 	/// The radius of the actual damage circle done before cast
 	var/damage_radius = 1
 	/// The radius of the stun applied to nearby people on cast

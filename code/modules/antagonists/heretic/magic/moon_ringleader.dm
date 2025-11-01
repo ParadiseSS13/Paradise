@@ -17,7 +17,6 @@
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "R''S 'E"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	aoe_range = 5
 	/// Effect for when the spell triggers

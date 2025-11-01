@@ -6,16 +6,12 @@
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "crucible"
 	base_icon_state = "crucible"
-	light_power = 1
 	anchored = TRUE
 	density = TRUE
-	new_attack_chain = TRUE
 	///How much mass this currently holds
 	var/current_mass = 3
 	///Maximum amount of mass
 	var/max_mass = 3
-	///Check to see if it is currently being used.
-	in_use = FALSE
 	///Cooldown for the crucible to create mass from the eldritch
 	COOLDOWN_DECLARE(refill_cooldown)
 

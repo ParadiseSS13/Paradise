@@ -29,7 +29,6 @@
 		/obj/item/clothing/suit = 1,
 		/obj/item/clothing/gloves/color/latex = 1,
 	)
-	limit = 1
 	cost = 1
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'

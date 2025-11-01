@@ -125,7 +125,6 @@
 	icon = 'icons/mob/screen_fog.dmi'
 	icon_state = "curse"
 	layer = CURSE_LAYER
-	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/stretch/flash
 	icon = 'icons/mob/screen_gen.dmi'

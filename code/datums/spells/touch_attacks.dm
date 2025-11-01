@@ -2,7 +2,6 @@
 	var/hand_path = /obj/item/melee/touch_attack
 	var/obj/item/melee/touch_attack/attached_hand = null
 	var/on_remove_message = TRUE
-	invocation_type = "none" //you scream on connecting, not summoning
 	/// Has this spell been boosted by a heretic ascending?
 	var/ascended = FALSE
 

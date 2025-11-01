@@ -15,7 +15,6 @@
 
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	sound1 = null
 	sound2 = null

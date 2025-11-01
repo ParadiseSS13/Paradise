@@ -18,7 +18,6 @@
 
 	invocation = "R'S'T."
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/spell/realignment/create_new_targeting()
 	return new /datum/spell_targeting/self

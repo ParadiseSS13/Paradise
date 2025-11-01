@@ -17,10 +17,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
-	clothes_req = FALSE
 
-	invocation_type = INVOCATION_NONE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	allowed_type = /turf
 
 /datum/spell/bloodcrawl/space_crawl/valid_target(turf/target, user)

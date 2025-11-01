@@ -9,7 +9,6 @@
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
 	anchored = TRUE
-	density = FALSE
 	layer = HIGH_SIGIL_LAYER //0.01 above sigil layer used by heretic runes
 	move_resist = INFINITY
 	/// Who is our daddy?
@@ -117,7 +116,6 @@
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
 	layer = HIGH_SIGIL_LAYER
-	duration = 1 SECONDS
 
 /obj/effect/temp_visual/destabilising_tear/Initialize(mapload)
 	. = ..()

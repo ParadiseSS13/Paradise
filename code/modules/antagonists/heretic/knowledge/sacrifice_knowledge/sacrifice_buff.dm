@@ -10,7 +10,6 @@
 /datum/status_effect/unholy_determination
 	id = "unholy_determination"
 	duration = 3 MINUTES // Given a default duration so no one gets to hold onto this buff forever by accident.
-	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/unholy_determination
 	/// How much to heal every second
 	var/heal_per_second = 0.25

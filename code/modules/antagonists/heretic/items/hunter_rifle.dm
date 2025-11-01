@@ -8,7 +8,6 @@
 	name = "\improper Lionhunter's Rifle"
 	desc = "An antique looking rifle that looks immaculate despite being clearly very old."
 	icon = 'icons/obj/weapons/wide_guns.dmi'
-	slot_flags = ITEM_SLOT_BACK
 	icon_state = "lionhunter"
 	inhand_icon_state = "lionhunter"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
@@ -29,7 +28,6 @@
 	ammo_type = /obj/item/ammo_casing/lionhunter
 	caliber = "a762-H"
 	max_ammo = 3
-	multiload = TRUE
 	multi_sprite_step = 1
 
 /obj/item/ammo_casing/lionhunter
@@ -195,7 +193,6 @@
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	light_range = 2
 
 #undef MAX_LIONHUNTER_RANGE

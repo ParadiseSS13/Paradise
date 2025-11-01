@@ -4,12 +4,10 @@
 	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid."
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "shield-cult"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
-	new_attack_chain = TRUE
 	/// What is the colour of the runes visual effects?
 	var/greyscale_colours = COLOR_LIME
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.

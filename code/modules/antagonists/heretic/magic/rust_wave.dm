@@ -18,9 +18,7 @@
 
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	cone_levels = 5
-	respect_density = TRUE
 
 /datum/spell/cone/staggered/entropic_plume/create_new_targeting()
 	var/datum/spell_targeting/cone/entropic/E = new()
@@ -90,12 +88,10 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
-	clothes_req = FALSE
 	base_cooldown = 35 SECONDS
 
 	invocation = "SPR'D TH' WO'D"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	fireball_type = /obj/item/projectile/magic/rust_wave
 
@@ -107,7 +103,6 @@
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
 	range = 15
-	speed = 1
 
 /obj/item/projectile/magic/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()

@@ -77,7 +77,6 @@
 	name = "pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
@@ -169,7 +168,6 @@
 	name = "reality smash"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "reality_smash"
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_LEVEL_TWO
 	hud_possible = list(HERETIC_HUD)

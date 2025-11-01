@@ -74,9 +74,7 @@
 	desc = "A field that cannot be passed by people marked with a cosmic star."
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "cosmic_carpet"
-	anchored = TRUE
 	density = FALSE
-	lifetime = 30 SECONDS
 	layer = ABOVE_ICYOVERLAY_LAYER // Very low layer above turfs. Ensures you can click runes, but also means it can eat bullets if you missclick.
 	plane = FLOOR_PLANE
 	/// Flags for what antimagic can just ignore our forcefields

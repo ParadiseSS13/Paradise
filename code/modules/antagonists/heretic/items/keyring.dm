@@ -3,12 +3,9 @@
 	desc = "A crack in space, impossibly deep and painful to the eyes. Definitely not safe."
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "realitycrack"
-	light_power = 1
 	light_color = COLOR_GREEN
 	light_range = 3
 	opacity = TRUE
-	density = FALSE //so we dont block doors closing
-	layer = OBJ_LAYER //under doors
 	///The knock portal we teleport to
 	var/obj/effect/lock_portal/destination
 	///The airlock we are linked to, we delete if it is destroyed

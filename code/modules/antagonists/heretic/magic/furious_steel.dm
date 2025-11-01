@@ -15,9 +15,6 @@
 	is_a_heretic_spell = TRUE
 	base_cooldown = 60 SECONDS
 	invocation = "F'LSH'NG S'LV'R!"
-	invocation_type = INVOCATION_SHOUT
-	clothes_req = FALSE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	selection_activated_message = "You summon forth three blades of furious silver."
 	selection_deactivated_message = "You conceal the blades of furious silver."
@@ -88,7 +85,6 @@
 	speed = 2
 	damage = 25
 	damage_type = BRUTE
-	pass_flags = PASSTABLE
 	nodamage = FALSE
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
@@ -156,9 +152,6 @@
 
 	base_cooldown = 40 SECONDS
 	invocation = "IA!"
-	invocation_type = INVOCATION_SHOUT
-	clothes_req = FALSE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	selection_activated_message = "You summon forth two cursed blades."
 	selection_deactivated_message = "You conceal the cursed blades."
