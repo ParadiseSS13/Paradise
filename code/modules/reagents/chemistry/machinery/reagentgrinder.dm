@@ -77,7 +77,10 @@
 		/obj/item/food/grown/apple = list("applejuice" = 0),
 		/obj/item/food/grown/grapes = list("grapejuice" = 0),
 		/obj/item/food/grown/pineapple = list("pineapplejuice" = 0),
-		/obj/item/food/grown/bungofruit = list("bungojuice" = 0)
+		/obj/item/food/grown/bungofruit = list("bungojuice" = 0),
+		/obj/item/food/grown/plum = list("plumjuice" = 0),
+		/obj/item/food/grown/redbeet = list("beetjuice" = 0),
+		/obj/item/food/grown/lettuce = list("lettucejuice" = 0)
 	)
 
 	var/list/dried_items = list(
