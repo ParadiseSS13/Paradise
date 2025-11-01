@@ -409,3 +409,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 /datum/antagonist/vampire/custom_blurb()
 	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."
+
+// Ramps up as you get more powerfull
+/datum/antagonist/vampire/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1 + bloodtotal / 500)

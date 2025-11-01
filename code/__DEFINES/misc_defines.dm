@@ -62,10 +62,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define EVENT_LEVEL_MUNDANE 1
-#define EVENT_LEVEL_MODERATE 2
-#define EVENT_LEVEL_MAJOR 3
-
 #define JANUARY		1
 #define FEBRUARY	2
 #define MARCH		3
