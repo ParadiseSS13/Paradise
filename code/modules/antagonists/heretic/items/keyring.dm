@@ -120,9 +120,12 @@
 		return
 	if(!IS_HERETIC(user))
 		return flash_card()
+	if(!length(fused_ids))
+		to_chat(user, "<span class='hierophant'>There is no ID to shapeshift into!</span>")
+		return ..()
 	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
 	if(!cardname)
-		to_chat(user, "<span class='hierophant'>There is no ID to shapeshift into!</span>")
+		to_chat(user, "<span class='hierophant'>You decide not to shapeshift the id.</span>")
 		return ..()
 	var/obj/item/card/id/card = fused_ids[cardname]
 	shapeshift(card)

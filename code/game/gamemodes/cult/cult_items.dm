@@ -15,6 +15,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	w_class = WEIGHT_CLASS_BULKY
+	force = 30
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -80,7 +81,6 @@
 	desc = "An eerie sword with a blade that is less 'black' than it is 'absolute nothingness'. It glows with furious, restrained green energy."
 	icon_state = "hauntedblade"
 	inhand_icon_state = "hauntedblade"
-	force = 30
 	throwforce = 25
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
