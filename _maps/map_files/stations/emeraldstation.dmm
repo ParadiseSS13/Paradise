@@ -56003,12 +56003,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/break_room)
 "lpP" = (
-/obj/docking_port/stationary{
-	id = "gamma_home";
-	name = "NSS Diagoras Gamma Dock";
-	width = 7;
-	height = 6;
-	dwidth = 3;
+/obj/docking_port/stationary/gamma_armory{
 	dir = 4
 	},
 /turf/space,

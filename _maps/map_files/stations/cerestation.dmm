@@ -113047,12 +113047,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "xEp" = (
-/obj/docking_port/stationary{
-	id = "gamma_home";
-	name = "NSS Farragus Gamma Dock";
-	width = 7;
-	height = 6;
-	dwidth = 3;
+/obj/docking_port/stationary/gamma_armory{
 	dir = 8
 	},
 /turf/space,

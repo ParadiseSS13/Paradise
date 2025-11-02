@@ -1408,12 +1408,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "ahF" = (
-/obj/docking_port/stationary{
-	id = "gamma_home";
-	name = "NSS Cyberiad Gamma Dock";
-	width = 7;
-	height = 6;
-	dwidth = 3;
+/obj/docking_port/stationary/gamma_armory{
 	dir = 8
 	},
 /turf/space,
