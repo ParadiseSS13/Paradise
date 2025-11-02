@@ -478,8 +478,3 @@
 	name = "Plastic"
 	id = MAT_PLASTIC
 	sheet_type = /obj/item/stack/sheet/plastic
-
-/datum/material/silk
-	name = "Silk"
-	id = MAT_SILK
-	sheet_type = /obj/item/stack/sheet/silk

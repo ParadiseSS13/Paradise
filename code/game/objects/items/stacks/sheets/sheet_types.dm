@@ -788,17 +788,38 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 //////////////////////////////
 // MARK: Silk
 //////////////////////////////
+GLOBAL_LIST_INIT(silk_recipes, list(
+	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6)))
 
 /obj/item/stack/sheet/silk
 	name = "silk spool"
 	desc = "placeholder"
-	icon_state = "sheet-cloth"
-	singular_name = "silk"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-silk"
+	singular_name = "silk spool"
+	force = 0
 	throwforce = 0
 	origin_tech = "materials=1;biotech=1"
-	materials = list(MAT_SILK = MINERAL_MATERIAL_AMOUNT)
+	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/silk
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-GLOBAL_LIST_INIT(silk_recipes, list(
-	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 3)))
+/obj/item/stack/sheet/silk/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.silk_recipes
+
+/obj/item/stack/sheet/silk/two
+	amount = 2
+
+/obj/item/stack/sheet/silk/three
+	amount = 3
+
+/obj/item/stack/sheet/silk/update_icon_state()
+	if(amount == 1)
+		icon_state = "sheet-silk"
+	else if(amount == 2)
+		icon_state = "sheet-silk_2"
+	else
+		icon_state = "sheet-silk_3"
 
