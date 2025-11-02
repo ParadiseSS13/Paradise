@@ -29,6 +29,10 @@
 	for(var/spell in actions_to_add)
 		var/datum/spell/new_spell = new spell(src)
 		AddSpell(new_spell)
+	add_numbering()
+
+/mob/living/basic/heretic_summon/proc/add_numbering()
+	name += " ([rand(1,999)])"
 
 /mob/living/basic/heretic_summon/rust_spirit
 	name = "Rust Walker"
@@ -494,6 +498,9 @@
 
 	return ..()
 
+/mob/living/basic/heretic_summon/armsy/add_numbering()
+	return
+
 /mob/living/basic/heretic_summon/armsy/prime
 	name = "Lord of the Night"
 	real_name = "Master of Decay"
@@ -598,6 +605,9 @@
 /mob/living/basic/heretic_summon/star_gazer/proc/on_teleport() // Nope, can't bait it off station
 	SIGNAL_HANDLER
 	return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/basic/heretic_summon/star_gazer/add_numbering()
+	return
 
 /datum/ai_controller/basic_controller/star_gazer
 	blackboard = list(

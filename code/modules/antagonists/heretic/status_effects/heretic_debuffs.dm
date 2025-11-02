@@ -57,7 +57,7 @@
 	id = "star_mark"
 	alert_type = /atom/movable/screen/alert/status_effect/star_mark
 	duration = 30 SECONDS
-	status_type = STATUS_EFFECT_REPLACE
+	status_type = STATUS_EFFECT_REFRESH
 	///overlay used to indicate that someone is marked
 	var/mutable_appearance/cosmic_overlay
 	/// icon file for the overlay
@@ -73,7 +73,6 @@
 	icon_state = "star_mark"
 
 /datum/status_effect/star_mark/on_creation(mob/living/new_owner, mob/living/new_spell_caster)
-	cosmic_overlay = mutable_appearance(effect_icon, effect_icon_state, BELOW_MOB_LAYER)
 	if(new_spell_caster)
 		spell_caster = new_spell_caster.UID()
 	return ..()
@@ -97,7 +96,9 @@
 /datum/status_effect/star_mark/proc/update_owner_overlay(atom/source, list/overlays)
 	SIGNAL_HANDLER
 
-	source.add_overlay(cosmic_overlay)
+	if(!cosmic_overlay)
+		cosmic_overlay = mutable_appearance(effect_icon, effect_icon_state, BELOW_MOB_LAYER)
+		source.add_overlay(cosmic_overlay)
 
 /datum/status_effect/star_mark/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
