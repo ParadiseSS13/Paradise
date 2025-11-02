@@ -643,7 +643,7 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings."
-	sound = "sound/effects/flutter.ogg"
+	sound = "sound/effects/flap.ogg"
 	// sound sourced from a minute long sample (freesound.org)
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
