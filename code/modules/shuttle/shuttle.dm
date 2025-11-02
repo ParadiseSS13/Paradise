@@ -894,9 +894,6 @@
 /obj/docking_port/stationary/gamma_armory/centcomm
 	id = "gamma_away"
 	name = "Central Command Gamma Armory Shuttle Dock"
-	width = 7
-	dwidth = 3
-	height = 6
 
 /obj/docking_port/mobile/gamma_armory
 	id = "gamma_armory"
