@@ -761,6 +761,7 @@
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
 	else

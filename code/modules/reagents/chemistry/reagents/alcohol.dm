@@ -1613,6 +1613,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/acid_dreams/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!isgrey(M))
 		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
 		M.Druggy(0 SECONDS)
@@ -1662,6 +1663,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!istajaran(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
 	else
@@ -1706,6 +1708,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/beach_feast/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!isunathi(M))
 		// No need to change the burn modifier, it gets reset when species changes.
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
@@ -1785,6 +1788,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/diona_smash/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(iskidan(M))
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus += damage_mod
@@ -1877,6 +1881,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/jungle_vox/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!isvox(M))
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
 	else
@@ -1971,6 +1976,7 @@
 	return list(0, update_flags)
 
 /datum/reagent/consumable/ethanol/sontse/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!ismoth(M))
 		M.set_light(0, null)
 	else
@@ -2031,6 +2037,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/ultramatter/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
 	if(!isplasmaman(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 	else
