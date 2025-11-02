@@ -252,7 +252,8 @@
 	qdel(C)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	V.has_lair = TRUE
-	user.mind.RemoveSpell(src)
+	V.upgrade_tiers -= type
+	V.remove_ability(src)
 
 /obj/effect/lair_rune
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

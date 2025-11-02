@@ -32,7 +32,7 @@
 
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/user)
 	. = ..()
-	name = "\proper the coffin of [user]"
+	name = "\proper the coffin of [user.mind.name]"
 	desc += "<br>This coffin's owner may not actually have been dear to anyone, or even departed quite yet.<br>\
 		<span class='warning'>It appears impervious to everything but lasers and fire! Especially fire!</span>"
 	vampire = user
