@@ -20,6 +20,7 @@ GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
 GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_full_list)
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
 GLOBAL_LIST_EMPTY(socks_m)	 //stores only socks name

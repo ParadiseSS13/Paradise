@@ -12,6 +12,10 @@
 	magical = TRUE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
+/obj/item/clothing/head/wizard/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
 	desc = "Strange-looking, red, hat-wear that most certainly belongs to a real magic user."
@@ -39,11 +43,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-		)
-
-/obj/item/clothing/head/wizard/mime/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	)
 
 /obj/item/clothing/head/wizard/fake
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
@@ -53,7 +53,12 @@
 	armor = null
 	magical = FALSE
 	resistance_flags = FLAMMABLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+
+/obj/item/clothing/head/wizard/fake/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -66,13 +71,23 @@
 	desc = "A mysterious helmet that hums with an unearthly power."
 	icon_state = "magus"
 	dog_fashion = /datum/dog_fashion/head/wizard/magus
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+
+/obj/item/clothing/head/wizard/magus/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
 	desc = "A crown-of-thorns psychic amplifier. Kind of looks like a tiara having sex with an industrial robot."
 	icon_state = "amp"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = null
+
+/obj/item/clothing/head/wizard/amp/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"

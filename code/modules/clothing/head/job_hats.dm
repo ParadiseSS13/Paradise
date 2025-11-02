@@ -15,6 +15,10 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
+/obj/item/clothing/head/chefhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
@@ -30,10 +34,18 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+/obj/item/clothing/head/caphat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_capblue"
+
+/obj/item/clothing/head/caphat/parade/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/caphat/parade/white
 	icon_state = "captain_capwhite"
@@ -50,6 +62,10 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
+
+/obj/item/clothing/head/hop/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Quartermaster
 /obj/item/clothing/head/qm
@@ -254,6 +270,10 @@
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
+/obj/item/clothing/head/hos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
@@ -261,10 +281,10 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 75)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
+	)
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"

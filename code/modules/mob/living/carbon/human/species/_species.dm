@@ -91,7 +91,10 @@
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
 	var/own_species_blood = FALSE // Can it only use blood from it's species?
+	/// Type of skin produced when butchered.
 	var/skinned_type
+	/// Type of meat produced in the gibber/meating. Distinct from `butcher_results`.
+	var/meat_type = /obj/item/food/meat
 	var/no_equip	// bitflags of slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/can_craft = TRUE // Can this mob using crafting or not?
