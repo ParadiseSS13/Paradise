@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(unplanned_controllers)
 
 /datum/controller/subsystem/unplanned_controllers/fire(resumed)
 	if(!resumed)
-		current_run = GLOB.unplanned_controllers[target_status].Copy()
+		src.current_run = GLOB.unplanned_controllers[target_status].Copy()
 	var/list/current_run = src.current_run // cache for sonic speed
 	while(length(current_run))
 		var/datum/ai_controller/unplanned = current_run[current_run.len]
