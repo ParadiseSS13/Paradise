@@ -506,10 +506,20 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/overalls
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/uniform/overalls/job/miner
+	display_name = "Overalls, miner"
+	path = /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
+	allowed_roles = list("Quartermaster", "Shaft Miner")
+
 /datum/gear/uniform/overalls/job/expedition
 	display_name = "Overalls, expedition"
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
 	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/uniform/overalls/job/smith
+	display_name = "Overalls, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/overalls
+	allowed_roles = list("Quartermaster", "Smith")
 
 /datum/gear/uniform/overalls/job/atmos
 	display_name = "Overalls, atmos"

@@ -4890,8 +4890,8 @@
 /area/mine/outpost/maintenance/south)
 "CN" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},

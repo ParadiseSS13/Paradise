@@ -35,6 +35,10 @@
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
 					valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+				for(var/config in GLOB.configuration.custom_sprites.fluff_undershirts)
+					if(user.ckey in config["ckeys"])
+						valid_undershirts[config["name"]] = GLOB.undershirt_full_list[config["name"]]
+				sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 				var/new_undershirt = tgui_input_list(user, "Choose your undershirt:", "Changing", valid_undershirts)
 				if(new_undershirt)
 					H.undershirt = new_undershirt
