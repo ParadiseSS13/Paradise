@@ -1,6 +1,3 @@
-#define RECHARGER_POWER_USAGE_GUN 250
-#define RECHARGER_POWER_USAGE_MISC 200
-
 /obj/machinery/recharger
 	name = "recharger"
 	icon_state = "recharger0"
@@ -17,6 +14,21 @@
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
 	var/anchor_toggleable = TRUE
+
+/obj/machinery/recharger/examine(mob/user)
+	. = ..()
+	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
+		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		return
+
+	if(charging)
+		. += "There's [charging ? "\a [charging.name]" : "nothing"] in [src]."
+		if(!(stat & (NOPOWER|BROKEN)))
+			var/obj/item/stock_parts/cell/C = charging.get_cell()
+			. += "<span class='notice'>Current charge: <b>[round(C.percent(), 1)]%</b>.</span>"
+			if(using_power)
+				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.</span>"
+
 
 /obj/machinery/recharger/Initialize(mapload)
 	. = ..()
@@ -221,9 +233,9 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/recharger/proc/recharge_cell(obj/item/stock_parts/cell/C, power_usage)
+/obj/machinery/recharger/proc/recharge_cell(obj/item/stock_parts/cell/C)
 	C.give(C.chargerate * recharge_coeff)
-	use_power(power_usage)
+	use_power(C.chargerate * recharge_coeff)
 
 /obj/machinery/recharger/proc/try_recharging_if_possible()
 	var/obj/item/stock_parts/cell/C = get_cell_from(charging)
@@ -231,34 +243,14 @@
 		return FALSE
 
 	if(istype(charging, /obj/item/gun/energy))
-		recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
-
 		var/obj/item/gun/energy/E = charging
 		E.on_recharge()
-	else
-		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
+	recharge_cell(C)
 
 	if(!check_cell_needs_recharging(C)) // we recharged cell, does it still need power? If no, recharger should blink yellow
 		return FALSE
 
 	return TRUE
-
-/obj/machinery/recharger/examine(mob/user)
-	. = ..()
-	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
-		return
-
-	if(charging)
-		. += "<span class='notice'>\The [src] contains:</span>"
-		. += "<span class='notice'>- \A [charging].</span>"
-		if(!(stat & (NOPOWER|BROKEN)))
-			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			. += "<span class='notice'>The status display reads:<span>"
-			if(using_power)
-				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.<span>"
-			if(charging)
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
 
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
 /obj/machinery/recharger/wallcharger
@@ -273,6 +265,3 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
-
-#undef RECHARGER_POWER_USAGE_GUN
-#undef RECHARGER_POWER_USAGE_MISC
