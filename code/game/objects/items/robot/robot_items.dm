@@ -43,11 +43,11 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 
 /obj/item/borg/push_broom
 	name = "integrated push broom"
-	desc = "This is my BROOMSTICK! It can be used manually or braced to sweep items as you move."
+	desc = "This is my BROOMSTICK! This lightweight broom can be used manually or braced to sweep items as you move."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "broom0"
 	base_icon_state = "broom"
-	force = 12
+	force = 6
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	new_attack_chain = TRUE
 	var/braced = FALSE
@@ -59,9 +59,11 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	if(!braced)
 		to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
+		RegisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED, PROC_REF(stow_broom))
 	else
 		to_chat(user, "<span class='notice'>You unbrace [src] from the ground and enter a neutral stance.</span>")
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 	braced = !braced
 	return ITEM_INTERACT_COMPLETE
 
@@ -72,6 +74,13 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 
 	sweep(user, target, FALSE)
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/borg/push_broom/proc/stow_broom(datum/source, mob/user)
+	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_DEACTIVATED
+	braced = FALSE
+	to_chat(user, "<span class='notice'>You unbrace [src] and stow it away.</span>")
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 
 /obj/item/borg/push_broom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
