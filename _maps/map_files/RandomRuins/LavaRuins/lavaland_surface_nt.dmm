@@ -1341,6 +1341,7 @@
 /area/mine/outpost/hallway/west)
 "io" = (
 /obj/effect/baseturf_helper/lava_land,
+/obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "iq" = (
@@ -6572,7 +6573,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "Mr" = (
@@ -6785,10 +6789,6 @@
 	c_tag = "Mining Outpost - Shuttle";
 	network = list("Mining Outpost");
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
