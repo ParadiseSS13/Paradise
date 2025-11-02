@@ -129,8 +129,10 @@
 		// different recipe steps with incompatible end states are valid with
 		// the same object.
 		if(!(step_attempt.recipe_step.type in step_datas))
-			step_datas[step_attempt.recipe_step.type] = step_attempt.recipe_step.follow_step(used, src)
-			step_reaction_message = step_datas[step_attempt.recipe_step.type]["message"]
+			var/step_data = step_attempt.recipe_step.follow_step(used, src)
+			if(islist(step_data))
+				step_datas[step_attempt.recipe_step.type] = step_data
+				step_reaction_message = step_datas[step_attempt.recipe_step.type]["message"]
 
 		if(step_attempt.recipe_step.is_complete(used, src, step_datas[step_attempt.recipe_step.type]))
 			recipes_last_completed_step[step_attempt.recipe] = step_attempt.current_step_index
