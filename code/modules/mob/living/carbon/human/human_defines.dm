@@ -109,8 +109,5 @@
 	/// Lazylist of sources to track what our alpha should be, alpha is set to the minimum. Use the `set_alpha_tracking` and `get_alpha` helpers.
 	var/list/alpha_sources
 
-	/// Used to prevent spam with IPC revival messages
-	COOLDOWN_DECLARE(ghost_notification)
-
 /mob/living/carbon/human/fake
 	flags = ABSTRACT
