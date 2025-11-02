@@ -74,7 +74,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/push_broom/proc/sweep(mob/user, atom/A, moving = TRUE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	var/turf/current_item_loc = moving ? user.loc : (isturf(A) ? A : A.loc)
 	if(!isturf(current_item_loc))
 		return
