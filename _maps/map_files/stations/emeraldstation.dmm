@@ -56004,7 +56004,8 @@
 /area/station/science/break_room)
 "lpP" = (
 /obj/docking_port/stationary/gamma_armory{
-	dir = 4
+	dir = 4;
+	name = "NSS Diagoras Gamma Armory Shuttle Dock"
 	},
 /turf/space,
 /area/space)

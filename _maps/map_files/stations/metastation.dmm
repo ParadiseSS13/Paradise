@@ -1025,7 +1025,8 @@
 /area/station/maintenance/electrical/fore_port)
 "alq" = (
 /obj/docking_port/stationary/gamma_armory{
-	dir = 8
+	dir = 8;
+	name = "NSS Cerebron Gamma Armory Shuttle Dock"
 	},
 /turf/space,
 /area/space)

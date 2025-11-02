@@ -52319,7 +52319,8 @@
 /area/station/medical/medbay)
 "fhF" = (
 /obj/docking_port/stationary/gamma_armory{
-	dir = 4
+	dir = 4;
+	name = "NSS Kerberos Gamma Armory Shuttle Dock"
 	},
 /turf/space,
 /area/space)
