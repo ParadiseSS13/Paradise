@@ -250,7 +250,7 @@
 
 /datum/action/item_action/organ_action/toggle/utility_belt
 	button_icon = 'icons/obj/clothing/belts.dmi'
-	button_icon_state = "utilitybelt"
+	button_icon_state = "utility"
 
 /obj/item/organ/internal/cyberimp/arm/toolset
 	name = "integrated toolset implant"
