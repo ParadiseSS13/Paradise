@@ -63,14 +63,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"aB" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Shuttle";
-	network = list("Mining Outpost")
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/mining)
 "aF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -793,7 +785,7 @@
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "fu" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -6789,7 +6781,15 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/directional/south,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	network = list("Mining Outpost");
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "NL" = (
@@ -7787,7 +7787,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "TK" = (
 /obj/machinery/alarm/directional/east,
@@ -8506,10 +8506,6 @@
 /area/lavaland/surface/outdoors/targetable)
 "Yi" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "Yk" = (
@@ -8810,7 +8806,7 @@
 /area/mine/laborcamp)
 "ZM" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "ZV" = (
 /obj/structure/lattice/catwalk/mining,
@@ -13341,7 +13337,7 @@ Qn
 Ic
 yW
 yW
-aB
+EF
 EF
 VK
 NJ
