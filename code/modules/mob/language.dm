@@ -802,7 +802,7 @@
 	ask_verb = "tones"
 	exclaim_verbs = list("tones")
 	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
+	key = "z" // Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 

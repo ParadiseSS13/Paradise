@@ -19,7 +19,6 @@
 		var/image/alert_overlay = image('icons/mob/swarmer.dmi', "ui_replicate")
 		notify_ghosts("\A [src] is about to spawn in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, PROC_REF(spawn_portal), T), 5 SECONDS)
-
 		return
 
 	log_debug("swarmers failed to find a valid turf in [impact_area]")

@@ -322,6 +322,6 @@
 
 /obj/structure/swarmer/barricade/CanPass(atom/movable/O)
 	if(istype(O, /mob/living/basic/swarmer))
-		return 1
+		return TRUE
 	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+		return TRUE

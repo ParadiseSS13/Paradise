@@ -2,7 +2,7 @@
 /datum/ai_controller/basic_controller/swarmer
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_AGGRO_RANGE = 4
+		BB_AGGRO_RANGE = 4,
 	)
 	ai_movement = /datum/ai_movement/jps
 	movement_delay = 1 SECONDS
