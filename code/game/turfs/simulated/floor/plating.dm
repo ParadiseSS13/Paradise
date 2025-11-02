@@ -8,6 +8,7 @@
 	footstep = FOOTSTEP_PLATING
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -179,6 +180,7 @@
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/update_icon_state()
 	if(!broken && !burnt)

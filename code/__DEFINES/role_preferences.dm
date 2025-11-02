@@ -28,6 +28,7 @@
 #define ROLE_TOURIST			"Tourist"
 #define ROLE_VAMPIRE			"vampire"
 #define ROLE_MIND_FLAYER		"mindflayer"
+#define ROLE_HERETIC			"heretic"
 // Role tags for EVERYONE!
 #define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
@@ -70,6 +71,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ALIEN, 										// Xenomorph
 	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
 	ROLE_MIND_FLAYER,
+	ROLE_HERETIC,
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,

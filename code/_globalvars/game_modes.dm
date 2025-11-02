@@ -8,3 +8,6 @@ GLOBAL_VAR(custom_event_msg)
 
 /// We want anomalous_particulate_tracker to exist only once and be accessible from anywhere.
 GLOBAL_DATUM_INIT(anomaly_smash_track, /datum/anomalous_particulate_tracker, new)
+
+/// We want reality_smash_tracker to exist only once and be accessible from anywhere.
+GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
