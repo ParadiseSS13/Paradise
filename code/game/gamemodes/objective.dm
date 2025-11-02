@@ -995,22 +995,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
 	needs_target = FALSE
 
-/datum/objective/specialization/New()
-	update_explanation_text()
-	return ..()
-
 /datum/objective/specialization/update_explanation_text()
 	var/datum/antagonist/vampire/V = owner?.has_antag_datum(/datum/antagonist/vampire)
-	if(!V)
-		explanation_text = "Free Objective"
-		return
 
-	if(!V.subclass)
-		explanation_text = initial(explanation_text)
-		return
-
-	var/departments = list("security", "service", "research", "medical", "engineering", "supply")
-	explanation_text = replacetext(pick(V.subclass.unique_objectives), "%DEPARTMENT", pick(departments))
+	if(V?.subclass)
+		var/departments = list("security", "service", "research", "medical", "engineering", "supply")
+		explanation_text = replacetext(pick(V.subclass.unique_objectives), "%DEPARTMENT", pick(departments))
 
 // Flayers
 
