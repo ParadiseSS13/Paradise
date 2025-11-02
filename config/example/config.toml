@@ -180,7 +180,7 @@ fluff_undershirts = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 70
+sql_version = 71
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -366,6 +366,8 @@ randomise_shift_time = true
 enable_night_shifts = true
 # Cap for monkeys spawned from monkey cubes
 monkey_cube_cap = 32
+# Cap for chickens
+chicken_hatched_cap = 50
 # Make explosions react to obstacles (walls+doors) instead of ignoring them
 reactionary_explosions = true
 # Bomb cap for explosions (Outer devastation. Other values calculate from this)
