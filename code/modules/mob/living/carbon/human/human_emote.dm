@@ -644,14 +644,14 @@
 	key_third_person = "flaps"
 	message = "flaps their wings."
 	sound = "sound/effects/flap.ogg"
-	// sound sourced from a minute long sample (freesound.org)
+	// Credits to Elfman-Rox (freesound.org) for the sound.
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
 	sound = "sound/effects/angryflap.ogg"
-	// sound sourced from a minute long sample (freesound.org)
+	// Credits to Elfman-Rox (freesound.org) for the sound.
 	message = "flaps their wings ANGRILY!"
 
 /datum/emote/living/carbon/human/flutter
@@ -659,7 +659,7 @@
 	key_third_person = "flutters"
 	message = "flutters their wings."
 	sound = "sound/effects/flutter.ogg"
-	// sound sourced from a minute long sample (freesound.org)
+	// Credits to Godowan (freesound.org) for the sound.
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/quill
