@@ -511,7 +511,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 				return FALSE
 	else
-		if(clothes_req || human_req)
+		if(human_req)
 			if(show_message)
 				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
 			return FALSE

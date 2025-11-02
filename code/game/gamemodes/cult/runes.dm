@@ -333,6 +333,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		</b></span>")
 
 	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED)) // Augh! heretic backlash!
+		playsound(convertee, 'sound/magic/voidblink.ogg', 50, FALSE)
 		if(prob(20))
 			var/mob_type = pick(list(
 				/mob/living/basic/heretic_summon/rust_spirit,
@@ -341,12 +342,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 				/mob/living/basic/heretic_summon/raw_prophet,
 				/mob/living/basic/heretic_summon/maid_in_the_mirror,
 			))
-			convertee.visible_message("<span class='danger'>A heretical beast is pulled out of [convertee] during the ritual!</span>")
+			convertee.visible_message("<span class='danger'>A heretical beast is pulled out of [convertee] during the offering!</span>")
 			new mob_type(convertee.loc)
 		for(var/mob in invokers)
 			if(iscarbon(mob))
+				to_chat(mob, "<span class='hierophant_warning'>AUGH! A vile magic recoils against our influence and poisons us!</span>")
 				var/mob/living/carbon/carbon = mob
 				carbon.reagents.add_reagent("toxin", 15)
+				carbon.reagents.add_reagent("histamine", 15)
 
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
