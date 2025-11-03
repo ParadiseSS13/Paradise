@@ -91,7 +91,7 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen() / safe_oxygen_max / safe_oxygen_max) * 10
+			var/ratio = (breath.oxygen() / safe_oxygen_max) * 10
 			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 		else
