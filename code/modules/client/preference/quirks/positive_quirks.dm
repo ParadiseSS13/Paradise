@@ -93,6 +93,16 @@
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/lungs/cybernetic/upgraded
 
+/datum/quirk/upgraded_lungs/give_organ(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	if(spawned != owner)
+		return
+	var/obj/item/organ/internal/lungs/cybernetic/new_lungs = new organ_to_give
+	if(isvox(owner))
+		new_lungs.configure_species("vox")
+	if(isplasmaman(owner))
+		new_lungs.configure_species("plasmamen")
+	INVOKE_ASYNC(new_lungs, TYPE_PROC_REF(/obj/item/organ/internal, insert), owner, TRUE)
+
 /datum/quirk/culinary_implant
 	name = "IPC Culinary Implant"
 	desc = "Either you or your creator wanted you to seem more organic, and gave you an artificial mouth and stomach."
