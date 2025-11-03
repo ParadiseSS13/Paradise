@@ -2138,7 +2138,7 @@
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
 				continue
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
-				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				html += "<font color=orange>[rank]</font></td><td></td><td></td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
 				html += "<b><span class='dark'>[rank]</span></b>"
