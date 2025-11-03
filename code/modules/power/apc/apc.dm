@@ -1159,7 +1159,7 @@
 /obj/machinery/power/apc/unbuilt
 
 /obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
-    . = ..(building = TRUE)
+	. = ..(building = TRUE)
 
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
