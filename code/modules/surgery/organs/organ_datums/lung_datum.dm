@@ -367,3 +367,13 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/datum/organ/lungs/vox/make_advanced()
+	. = ..()
+	safe_oxygen_max = 20
+
+/datum/organ/lungs/plasmamen/make_advanced()
+	. = ..()
+	safe_oxygen_max = 20
+	safe_toxins_max = 0
+
