@@ -150,5 +150,4 @@
 	desc = "You can't see well without prescription glasses."
 	cost = -1
 	trait_to_apply = TRAIT_NEARSIGHT
-	item_to_give = /obj/item/clothing/glasses/regular
 	species_flags = QUIRK_SLIME_INCOMPATIBLE
