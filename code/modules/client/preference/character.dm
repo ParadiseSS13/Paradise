@@ -2113,6 +2113,8 @@
 				index = 0
 
 			// determines the size of the job name column
+			// !! watch out for the funni open tag here. It needs to be closed later !!
+			// all this should probably be put in a function to make it easier to read and save future headaches
 			html += "<tr bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
