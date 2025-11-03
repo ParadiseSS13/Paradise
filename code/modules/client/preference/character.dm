@@ -2042,17 +2042,24 @@
 /datum/character_save/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low)
 
-//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
-//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-//widthPerColumn - Screen's width for every column.
-//height - Screen's height.
-// 1366x768 is a common screen resolution, and increasing widthPerColumn or height to above 400 and 700,
-// will result in the window being placed outside the screen for these users. If we get more jobs than limit x 3, increase limit.
+/// limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+/// splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
+/// widthPerColumn - Screen's width for every column.
+/// height - Screen's height.
+/// 1366x768 is a common screen resolution, and increasing widthPerColumn or height to above 400 and 700,
+/// will result in the window being placed outside the screen for these users. If we get more jobs than limit x 3, increase limit.
 /datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
 	var/width = widthPerColumn
+
+	// these are used to show the mechanical difficulty to the player
+	var/filledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/effects/blood_weightless.dmi", "gvomit_2")) + "'>"
+	var/unfilledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/effects/blood_weightless.dmi", "mfloor2")) + "'>"
+	var/all_difficulty
+	for (var/i in 1 to 6)
+		all_difficulty += filledDifficulty
 
 	var/list/html = list()
 	html += "<body>"
@@ -2065,10 +2072,10 @@
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<div align='center'>Mechanical difficulty is shown as [all_difficulty].<br></div>"
 		html += "<hr>"
-		html += "<div align='center'>Mechanical difficulty: *****.<br></div>"
 		html += "<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>"
-		html += "<p style='margin-left:2%; margin-right:2%;'>Assistants have the responsibility to learn the game.<br></p>"
+		html += "<p style='margin-left:2%; margin-right:2%;'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.<br></p>"
 		html += "<p style='margin-left:2%; margin-right:2%;'>Difficulties: Movement, world interaction, headset and language usage.<br></p></div>"
 		html += "<br>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
@@ -2169,13 +2176,15 @@
 			html += "<a class='white' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 	//			HTML += "<a href='byond://?_src_=prefs;preference=job;task=input;text=[rank]'>"
+			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"))
+			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"), 0)
 
-			var/difficultyStars = ""
+			var/difficultyMeter = ""
 			for (var/i in 1 to job.difficulty)
-				difficultyStars += "⭐"
+				difficultyMeter += filledDifficulty
 
 			for (var/i in 1 to 6 - job.difficulty)
-				difficultyStars += "★"
+				difficultyMeter += unfilledDifficulty
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
@@ -2183,7 +2192,7 @@
 				else
 					html += " <font color=red>No</font></a>"
 				html += "</td>"
-				html += "<td style='width:33%; margin:5px;'><span class='dark'>[difficultyStars]</span></td></tr>"
+				html += "<td style='width:33%; margin:5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2196,7 +2205,7 @@
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width:33%; margin:5px;'><span class='dark'>[difficultyStars]</span>"
+			html += "</td><td style='width:33%; margin:5px;'><span class='dark'>[difficultyMeter]</span>"
 			html += "</td></tr>"
 		index += 1
 		for(var/i in 1 to limit - index) // Finish the column so it is even
