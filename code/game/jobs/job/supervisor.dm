@@ -17,7 +17,7 @@
 	outfit = /datum/outfit/job/captain
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
-	difficulty = 5
+	difficulty = VERY_HARD_DIFFICULTY
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -113,7 +113,7 @@
 	outfit = /datum/outfit/job/hop
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Service), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
-	difficulty = 3
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -190,7 +190,7 @@
 	outfit = /datum/outfit/job/nanotrasenrep
 	important_information = "This role requires you to advise the Command team about Standard Operating Procedure, Chain of Command, and report to Central Command about various matters. You are required to act in a manner befitting someone representing Nanotrasen."
 	standard_paycheck = CREW_PAY_MEDIUM
-	difficulty = 2
+	difficulty = LOW_DIFFICULTY
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
@@ -253,7 +253,7 @@
 	outfit = /datum/outfit/job/blueshield
 	important_information = "This role requires you to ensure the safety of the Heads of Staff, not the general crew. You may perform arrests only if the combatant is directly threatening a member of Command, the Nanotrasen Representative, or the Magistrate."
 	standard_paycheck = CREW_PAY_MEDIUM
-	difficulty = 4
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
@@ -307,7 +307,7 @@
 	outfit = /datum/outfit/job/judge
 	important_information = "This role requires you to oversee legal matters and make important decisions about sentencing. You are required to have an extensive knowledge of Space Law and Security SOP and only operate within, not outside, the boundaries of the law."
 	standard_paycheck = CREW_PAY_MEDIUM
-	difficulty = 4
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -363,7 +363,7 @@
 	outfit = /datum/outfit/job/iaa
 	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are NOT a prisoner defence lawyer."
 	standard_paycheck = CREW_PAY_MEDIUM
-	difficulty = 3
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/iaa
 	name = "Internal Affairs Agent"
@@ -426,7 +426,7 @@
 	outfit = /datum/outfit/job/nct
 	important_information = "Your job is to try to assist as many crew members as possible regardless of department. You are NOT permitted to give command staff advice on any command SOP questions or aid in legal advice."
 	standard_paycheck = CREW_PAY_MEDIUM
-	difficulty = 3
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/nct
 	name = "Nanotrasen Career Trainer"
