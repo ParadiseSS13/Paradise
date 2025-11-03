@@ -364,7 +364,6 @@
 /area/ghost_bar)
 "bo" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon_state = "wood"
 	},
 /area/holodeck/source_theatre)
@@ -705,9 +704,8 @@
 /area/holodeck/source_snowfield)
 "cB" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid3"
+	icon_state = "asteroid3";
+	icon = 'icons/turf/floors/plating.dmi'
 	},
 /area/holodeck/source_desert)
 "cC" = (
@@ -9238,9 +9236,8 @@
 /area/shuttle/supply)
 "Gg" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid11"
+	icon_state = "asteroid11";
+	icon = 'icons/turf/floors/plating.dmi'
 	},
 /area/holodeck/source_desert)
 "Gh" = (
@@ -10757,9 +10754,8 @@
 /area/centcom/evac)
 "Lf" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid8"
+	icon_state = "asteroid8";
+	icon = 'icons/turf/floors/plating.dmi'
 	},
 /area/holodeck/source_desert)
 "Lg" = (
@@ -11275,9 +11271,8 @@
 /area/centcom/specops)
 "MR" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid1"
+	icon_state = "asteroid1";
+	icon = 'icons/turf/floors/plating.dmi'
 	},
 /area/holodeck/source_desert)
 "MS" = (
@@ -11914,9 +11909,8 @@
 /area/ghost_bar)
 "OT" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid2"
+	icon_state = "asteroid2";
+	icon = 'icons/turf/floors/plating.dmi'
 	},
 /area/holodeck/source_desert)
 "OU" = (
