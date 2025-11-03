@@ -2112,7 +2112,8 @@
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
-			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
+			// determines the size of the job name column
+			html += "<tr bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
@@ -2120,7 +2121,7 @@
 				rank = job.title
 			lastJob = job
 			if(jobban_isbanned(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td><td></td></tr>"
 				continue
 
 			var/difficultyMeter = ""
@@ -2132,22 +2133,26 @@
 
 			var/restrictions = job.get_exp_restrictions(user.client)
 			if(restrictions)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td><td>[difficultyMeter]</td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td><td>[difficultyMeter]</td></tr>"
 				continue
 			if(job.barred_by_missing_limbs(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MISSING LIMBS\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[FIX LIMBS\]</b></td><td>[difficultyMeter]</td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td><td>[difficultyMeter]</td></tr>"
 				continue
+
+			// Disable choice if the player has assitant selected (and this job isn't assistant)
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
 				html += "<font color=orange>[rank]</font></td><td></td><td>[difficultyMeter]</td></tr>"
 				continue
-			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+
+			// Bold head jobs
+			if((job.title in GLOB.command_positions) || (job.title == "AI"))
 				html += "<b><span class='dark'>[rank]</span></b>"
 			else
 				html += "<span class='dark'>[rank]</span>"
