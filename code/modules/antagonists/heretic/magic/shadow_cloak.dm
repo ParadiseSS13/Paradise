@@ -12,7 +12,7 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 10 SECONDS
+	base_cooldown = 12 SECONDS
 
 	/// How long before we automatically uncloak?
 	var/uncloak_time = 3 MINUTES
