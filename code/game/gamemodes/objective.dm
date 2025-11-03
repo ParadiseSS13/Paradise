@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return ..()
 
 /datum/objective/infiltrate_sec
-	name = "Infiltrate Sec"
+	name = "Infiltrate Security"
 	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of its members."
 	needs_target = FALSE
 	completed = TRUE
