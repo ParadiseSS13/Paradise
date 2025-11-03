@@ -46,9 +46,9 @@
 	timerid = QDEL_IN(src, 1 MINUTES)
 	START_PROCESSING(SSobj, src)
 	if(!length(overlay_list))
-		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_1")
-		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_2")
-		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_3")
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_1", layer = ABOVE_OPEN_TURF_LAYER)
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_2", layer = ABOVE_OPEN_TURF_LAYER)
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_3", layer = ABOVE_OPEN_TURF_LAYER)
 	build_view_turfs()
 
 /obj/structure/void_conduit/proc/build_view_turfs()

@@ -34,8 +34,8 @@
 /datum/spell/bloodcrawl/space_crawl/rise_animation(turf/tele_loc, mob/living/L, atom/A)
 	new /obj/effect/temp_visual/space_explosion(tele_loc)
 	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, SPACE_PHASING)
-	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
-	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_NOBREATH)
+	REMOVE_TRAIT(L, TRAIT_RESISTCOLD, SPACE_PHASING)
+	REMOVE_TRAIT(L, TRAIT_NOBREATH, SPACE_PHASING)
 
 /datum/spell/bloodcrawl/space_crawl/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
 	return
@@ -44,8 +44,7 @@
 	A.visible_message("<span class='danger'>[L] sinks into [A]...</span>")
 	new /obj/effect/temp_visual/space_explosion(A)
 	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, SPACE_PHASING)
-	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
-	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_NOBREATH)
-
+	ADD_TRAIT(L, TRAIT_RESISTCOLD, SPACE_PHASING)
+	ADD_TRAIT(L, TRAIT_NOBREATH, SPACE_PHASING)
 
 #undef SPACE_PHASING

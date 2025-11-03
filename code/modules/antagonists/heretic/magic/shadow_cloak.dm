@@ -12,7 +12,7 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 6 SECONDS
+	base_cooldown = 10 SECONDS
 
 	/// How long before we automatically uncloak?
 	var/uncloak_time = 3 MINUTES
@@ -38,9 +38,8 @@
 /datum/spell/shadow_cloak/cast(list/targets, mob/user)
 	. = ..()
 	if(active_cloak)
-		var/new_cd = max((uncloak_time - COOLDOWN_TIMELEFT(src,uncloak_timer)) / 3, base_cooldown)
 		uncloak_mob(user)
-		cooldown_handler.start_recharge(new_cd)
+		cooldown_handler.start_recharge(base_cooldown)
 
 	else
 		COOLDOWN_START(src,uncloak_timer, 3 MINUTES)

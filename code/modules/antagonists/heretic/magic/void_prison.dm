@@ -15,6 +15,7 @@
 	base_cooldown = 1 MINUTES
 	cast_range = 3
 
+	clothes_req = FALSE
 	sound = null
 	is_a_heretic_spell = TRUE
 	invocation = "V''D PR'S'N!"

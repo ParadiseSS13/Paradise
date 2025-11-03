@@ -212,6 +212,7 @@
 
 	if(sacrifice.mind)
 		LAZYADD(target_blacklist, sacrifice.mind)
+		sacrifice.get_ghost(FALSE)
 	heretic_datum.remove_sacrifice_target(sacrifice)
 
 
