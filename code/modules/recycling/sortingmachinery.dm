@@ -30,7 +30,7 @@
 /obj/structure/big_delivery/container_resist(mob/living/L)
 	var/breakout_time = 1 MINUTES
 	to_chat(L, "<span class='notice'>You attempt to break the wrapping on [src].</span>")
-	if(do_after(L, breakout_time, needhand = FALSE, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
+	if(do_after_once(L, breakout_time, needhand = FALSE, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 		open()
 
 /obj/structure/big_delivery/proc/open()
