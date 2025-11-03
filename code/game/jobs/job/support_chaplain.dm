@@ -17,6 +17,7 @@
 	)
 	outfit = /datum/outfit/job/chaplain
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"

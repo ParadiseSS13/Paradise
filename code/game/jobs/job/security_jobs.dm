@@ -45,6 +45,7 @@
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = EXTREMELY_HARD_DIFFICULTY
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -102,6 +103,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -162,6 +164,7 @@
 	outfit = /datum/outfit/job/detective
 	important_information = "Track, investigate, and look cool while doing it."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -233,6 +236,7 @@
 	outfit = /datum/outfit/job/officer
 	important_information = "Space Law is the law, not a suggestion."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/officer
 	name = "Security Officer"

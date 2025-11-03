@@ -36,6 +36,7 @@
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -80,6 +81,7 @@
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
@@ -119,6 +121,7 @@
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/smith
 	name = "Smith"
@@ -156,6 +159,7 @@
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -241,6 +245,7 @@
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/explorer
 	name = "Explorer"
@@ -277,6 +282,7 @@
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = LOW_DIFFICULTY
 
 /datum/outfit/job/bartender
 	name = "Bartender"
@@ -325,6 +331,7 @@
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/chef
 	name = "Chef"
@@ -366,6 +373,7 @@
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/hydro
 	name = "Botanist"
@@ -407,6 +415,7 @@
 	)
 	outfit = /datum/outfit/job/clown
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/clown
 	name = "Clown"
@@ -503,6 +512,7 @@
 	)
 	outfit = /datum/outfit/job/mime
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/mime
 	name = "Mime"
@@ -562,6 +572,7 @@
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/janitor
 	name = "Janitor"
@@ -601,6 +612,7 @@
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = LOW_DIFFICULTY
 
 /datum/outfit/job/librarian
 	name = "Librarian"

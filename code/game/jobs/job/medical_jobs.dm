@@ -34,6 +34,7 @@
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -81,6 +82,7 @@
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
@@ -122,6 +124,7 @@
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
 
 /datum/outfit/job/coroner
 	name = "Coroner"
@@ -192,6 +195,7 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/chemist
 	name = "Chemist"
@@ -238,6 +242,7 @@
 	)
 	outfit = /datum/outfit/job/virologist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 
 /datum/outfit/job/virologist
@@ -280,6 +285,7 @@
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = EASY_DIFFICULTY
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"
@@ -333,6 +339,7 @@
 	outfit = /datum/outfit/job/paramedic
 	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo, or space emergencies via the Teleporter near the Bridge."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"

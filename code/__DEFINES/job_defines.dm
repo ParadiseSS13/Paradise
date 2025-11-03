@@ -1,4 +1,5 @@
 #define MAX_DIFFICULTY				6
+#define NONE_DIFFICULTY				0
 #define EASY_DIFFICULTY				1
 #define LOW_DIFFICULTY				2
 #define MEDIUM_DIFFICULTY			3

@@ -37,6 +37,7 @@
 	outfit = /datum/outfit/job/chief_engineer
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = HARD_DIFFICULTY
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -90,6 +91,7 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/engineer
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -138,6 +140,7 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/atmos
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"

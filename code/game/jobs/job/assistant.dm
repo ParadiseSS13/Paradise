@@ -10,6 +10,7 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	alt_titles = list("Off-Duty", "Retired", "Intern")
 	outfit = /datum/outfit/job/assistant
+	difficulty = NONE_DIFFICULTY
 
 /datum/job/assistant/get_access()
 	if(GLOB.configuration.jobs.assistant_maint_access)
