@@ -2055,8 +2055,8 @@
 	var/width = widthPerColumn
 
 	// these are used to show the mechanical difficulty to the player
-	var/filledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/effects/blood_weightless.dmi", "gvomit_2")) + "'>"
-	var/unfilledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/effects/blood_weightless.dmi", "mfloor2")) + "'>"
+	var/filledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
+	var/unfilledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
 	var/all_difficulty
 	for (var/i in 1 to MAX_DIFFICULTY)
 		all_difficulty += filledDifficulty
