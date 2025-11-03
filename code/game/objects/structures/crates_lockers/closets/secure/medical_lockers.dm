@@ -202,6 +202,7 @@
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)
+	new /obj/item/grenade/jaunter_grenade(src)
 	new /obj/item/storage/toolbox/emergency(src)
 	new /obj/item/fulton_core(src)
 	new /obj/item/extraction_pack(src)
