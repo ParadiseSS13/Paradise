@@ -2123,6 +2123,13 @@
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue
 
+			var/difficultyMeter = ""
+			for (var/i in 1 to job.difficulty)
+				difficultyMeter += filledDifficulty
+
+			for (var/i in 1 to MAX_DIFFICULTY - job.difficulty)
+				difficultyMeter += unfilledDifficulty
+
 			var/restrictions = job.get_exp_restrictions(user.client)
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
@@ -2138,7 +2145,7 @@
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
 				continue
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
-				html += "<font color=orange>[rank]</font></td><td></td><td></td></tr>"
+				html += "<font color=orange>[rank]</font></td><td></td><td>[difficultyMeter]</td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
 				html += "<b><span class='dark'>[rank]</span></b>"
@@ -2179,12 +2186,7 @@
 			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"))
 			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"), 0)
 
-			var/difficultyMeter = ""
-			for (var/i in 1 to job.difficulty)
-				difficultyMeter += filledDifficulty
 
-			for (var/i in 1 to MAX_DIFFICULTY - job.difficulty)
-				difficultyMeter += unfilledDifficulty
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
