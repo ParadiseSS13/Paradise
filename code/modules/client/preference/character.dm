@@ -2089,6 +2089,13 @@
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
 
+			var/difficultyMeter = ""
+			for (var/i in 1 to job.difficulty)
+				difficultyMeter += filledDifficulty
+
+			for (var/i in 1 to MAX_DIFFICULTY - job.difficulty)
+				difficultyMeter += unfilledDifficulty
+
 			if(job.admin_only)
 				continue
 
@@ -2112,6 +2119,8 @@
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
+			lastJob = job
+
 			// determines the size of the job name column
 			// !! watch out for the funni open tag here. It needs to be closed later !!
 			// all this should probably be put in a function to make it easier to read and save future headaches
@@ -2121,19 +2130,11 @@
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			lastJob = job
+
+			var/restrictions = job.get_exp_restrictions(user.client)
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td><td></td></tr>"
 				continue
-
-			var/difficultyMeter = ""
-			for (var/i in 1 to job.difficulty)
-				difficultyMeter += filledDifficulty
-
-			for (var/i in 1 to MAX_DIFFICULTY - job.difficulty)
-				difficultyMeter += unfilledDifficulty
-
-			var/restrictions = job.get_exp_restrictions(user.client)
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td><td>[difficultyMeter]</td></tr>"
 				continue
@@ -2150,7 +2151,8 @@
 
 			// Disable choice if the player has assitant selected (and this job isn't assistant)
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
-				html += "<font color=orange>[rank]</font></td><td></td><td>[difficultyMeter]</td></tr>"
+				// this determines the job preference column when assistant is enabled, since the other choices will be hidden
+				html += "<font color=orange>[rank]</font></td><td style='width:20%;'></td><td>[difficultyMeter]</td></tr>"
 				continue
 
 			// Bold head jobs
@@ -2159,7 +2161,7 @@
 			else
 				html += "<span class='dark'>[rank]</span>"
 
-			html += "</td><td>"
+			html += "</td><td style='text-align:center;'>"
 			var/prefLevelLabel = "ERROR"
 			var/prefLevelColor = "pink"
 			var/prefUpperLevel = -1 // level to assign on left click
@@ -2201,7 +2203,9 @@
 				else
 					html += " <font color=red>No</font></a>"
 				html += "</td>"
-				html += "<td style='width:33%; margin:5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
+				// sets the size of the job preference column, but only for assistant.
+				// It will pick the bigger number of this and the rest of the column
+				html += "<td style='margin:5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2213,11 +2217,13 @@
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
+			//determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width:33%; margin:5px;'><span class='dark'>[difficultyMeter]</span>"
+			html += "</td><td style='width:30%; margin:5px;'><span class='dark'>[difficultyMeter]</span>"
 			html += "</td></tr>"
+
 		index += 1
-		for(var/i in 1 to limit - index) // Finish the column so it is even
+		for(var/i in 1 to limit - index) // Fill the column with blank slots so it is even
 			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 
 		html += "</td></tr></table>"
