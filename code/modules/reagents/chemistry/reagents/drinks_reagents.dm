@@ -282,9 +282,9 @@
 /datum/reagent/consumable/drink/milk/cream
 	name = "Cream"
 	id = "cream"
-	description = "The fatty, still liquid part of milk. Why don't you mix this with some scotch, eh?"
+	description = "A mix of higher-fat fractions of milk that have been skimmed off. Occasionally drunk straight, but more often used as a mixer or culinary ingrediant."
 	drink_name = "Glass of cream"
-	drink_desc = "Ewwww..."
+	drink_desc = "A glass of cream, a mix of higher-fat fractions of milk that have been skimmed off. Occasionally drunk straight, but more often used as a mixer or culinary ingrediant."
 	taste_description = "cream"
 
 /datum/reagent/consumable/drink/milk/chocolate_milk
