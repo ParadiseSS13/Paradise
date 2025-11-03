@@ -22,6 +22,7 @@
 	item_to_give = /obj/item/taperecorder
 	blacklisted = TRUE
 	trait_to_apply = TRAIT_FOREIGNER
+	species_flags = QUIRK_PLASMAMAN_INCOMPATIBLE
 
 /datum/quirk/foreigner/apply_quirk_effects(mob/living/quirky)
 	..()
