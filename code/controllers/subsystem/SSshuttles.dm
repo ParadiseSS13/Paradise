@@ -604,6 +604,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
 	mobile_port.dock(docking_port, force = TRUE)
+	mobile_port.register()
 	emergency = mobile_port
 
 #undef CALL_SHUTTLE_REASON_LENGTH
