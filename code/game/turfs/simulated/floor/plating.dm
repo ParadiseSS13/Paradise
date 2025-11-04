@@ -315,6 +315,14 @@
 	oxygen = 0
 	nitrogen = 0
 
+/turf/simulated/floor/engine/water_vapor
+#warn make sure the temp here makes the water vapor not condense
+	name = "\improper H2O floor"
+	water_vapor = 10000
+	oxygen = 0
+	nitrogen = 0
+	temperature = 60
+
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
 	temperature = 80

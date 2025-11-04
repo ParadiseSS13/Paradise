@@ -71,8 +71,8 @@
 	ASSERT(istype(high_corner))
 	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
 
-/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
-	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 
 /proc/get_tile_atmos(turf/T, list/L)
 	return RUSTLIB_CALL(milla_get_tile, T, L)
@@ -119,8 +119,8 @@
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)
 
-/proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, temperature)
-	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, temperature)
+/proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
+	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
 
 /proc/set_zlevel_freeze(z, bool_frozen)
 	return RUSTLIB_CALL(milla_set_zlevel_frozen, z, bool_frozen)
@@ -259,28 +259,29 @@
 #define MILLA_INDEX_SLEEPING_AGENT			6
 #define MILLA_INDEX_AGENT_B					7
 #define MILLA_INDEX_HYDROGEN				8
-#define MILLA_INDEX_ATMOS_MODE				9
-#define MILLA_INDEX_ENVIRONMENT_ID			10
-#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH	11
-#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST	12
-#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH	13
-#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	14
-#define MILLA_INDEX_INNATE_HEAT_CAPACITY	15
-#define MILLA_INDEX_TEMPERATURE				16
-#define MILLA_INDEX_HOTSPOT_TEMPERATURE		17
-#define MILLA_INDEX_HOTSPOT_VOLUME			18
-#define MILLA_INDEX_WIND_X					19
-#define MILLA_INDEX_WIND_Y					20
-#define MILLA_INDEX_FUEL_BURNT				21
+#define MILLA_INDEX_WATER_VAPOR				9
+#define MILLA_INDEX_ATMOS_MODE				10
+#define MILLA_INDEX_ENVIRONMENT_ID			11
+#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH	12
+#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST	13
+#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH	14
+#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	15
+#define MILLA_INDEX_INNATE_HEAT_CAPACITY	16
+#define MILLA_INDEX_TEMPERATURE				17
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE		18
+#define MILLA_INDEX_HOTSPOT_VOLUME			19
+#define MILLA_INDEX_WIND_X					20
+#define MILLA_INDEX_WIND_Y					21
+#define MILLA_INDEX_FUEL_BURNT				22
 
 /// The number of values per tile.
 #define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					22
-#define MILLA_INDEX_INTERESTING_REASONS		23
-#define MILLA_INDEX_AIRFLOW_X				24
-#define MILLA_INDEX_AIRFLOW_Y				25
+#define MILLA_INDEX_TURF					23
+#define MILLA_INDEX_INTERESTING_REASONS		24
+#define MILLA_INDEX_AIRFLOW_X				25
+#define MILLA_INDEX_AIRFLOW_Y				26
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y
