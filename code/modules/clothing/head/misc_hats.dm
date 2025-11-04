@@ -215,6 +215,11 @@
 	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
 
+/obj/item/clothing/head/cowboyhat/hydro
+	name = "botany cowboy hat"
+	desc = "For the Farmer in us all."
+	icon_state = "cowboyhat_botany"
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
