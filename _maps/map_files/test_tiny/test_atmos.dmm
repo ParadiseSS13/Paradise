@@ -4,26 +4,26 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2,
-/area/space)
+/area/shuttle/arrival/station)
 "bB" = (
 /obj/effect/turf_decal/alphanumeric/nitrogen,
 /turf/simulated/floor/engine/n2,
-/area/space)
+/area/shuttle/arrival/station)
 "bP" = (
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2,
-/area/space)
+/area/shuttle/arrival/station)
 "cg" = (
 /obj/effect/turf_decal/alphanumeric/nitrous_oxide{
 	dir = 8
 	},
 /turf/simulated/floor/engine/n20,
-/area/space)
+/area/shuttle/arrival/station)
 "cs" = (
 /turf/simulated/floor/engine/n2,
-/area/space)
+/area/shuttle/arrival/station)
 "cW" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -71,7 +71,7 @@
 /area/shuttle/arrival/station)
 "ig" = (
 /turf/simulated/floor/engine/co2,
-/area/space)
+/area/shuttle/arrival/station)
 "iE" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -164,7 +164,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/co2,
-/area/space)
+/area/shuttle/arrival/station)
 "sO" = (
 /turf/simulated/wall/mineral/titanium,
 /area/space)
@@ -186,14 +186,14 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/plasma,
-/area/space)
+/area/shuttle/arrival/station)
 "uh" = (
 /obj/effect/turf_decal/alphanumeric/oxygen,
 /turf/simulated/floor/engine/o2,
-/area/space)
+/area/shuttle/arrival/station)
 "wg" = (
 /turf/simulated/floor/engine/hydrogen,
-/area/space)
+/area/shuttle/arrival/station)
 "wm" = (
 /obj/machinery/light{
 	dir = 1
@@ -218,7 +218,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
-/area/space)
+/area/shuttle/arrival/station)
 "Ac" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	autolink_sensors = list("n2_sensor");
@@ -236,12 +236,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/plasma,
-/area/space)
+/area/shuttle/arrival/station)
 "BF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/arrival/station)
+"BN" = (
+/obj/machinery/atmospherics/portable/canister/water_vapor,
+/turf/simulated/floor/engine/water_vapor,
 /area/shuttle/arrival/station)
 "Cq" = (
 /obj/machinery/light{
@@ -280,7 +284,7 @@
 "ED" = (
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/engine/agent_b,
-/area/space)
+/area/shuttle/arrival/station)
 "Fc" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -321,16 +325,16 @@
 "Ky" = (
 /obj/machinery/atmospherics/portable/canister/hydrogen,
 /turf/simulated/floor/engine/hydrogen,
-/area/space)
+/area/shuttle/arrival/station)
 "KA" = (
 /turf/simulated/floor/engine/n20,
-/area/space)
+/area/shuttle/arrival/station)
 "LR" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/co2,
-/area/space)
+/area/shuttle/arrival/station)
 "Mn" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 8
@@ -350,7 +354,7 @@
 /area/space)
 "Od" = (
 /turf/simulated/floor/engine/o2,
-/area/space)
+/area/shuttle/arrival/station)
 "OZ" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
 	dir = 8
@@ -382,20 +386,23 @@
 	autolink_id = "n2_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/n2,
-/area/space)
+/area/shuttle/arrival/station)
 "SY" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/arrival/station)
 "Tu" = (
 /turf/simulated/floor/engine/agent_b,
-/area/space)
+/area/shuttle/arrival/station)
 "TY" = (
 /turf/simulated/floor/engine/plasma,
-/area/space)
+/area/shuttle/arrival/station)
 "Ud" = (
 /obj/machinery/atmospherics/binary/pump,
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/arrival/station)
+"Uz" = (
+/turf/simulated/floor/engine/water_vapor,
 /area/shuttle/arrival/station)
 "UN" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -31406,10 +31413,10 @@ gW
 gW
 gW
 gW
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
 iE
 nF
 nF
@@ -31663,7 +31670,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 cs
 cs
 Re
@@ -31920,7 +31927,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 cs
 aa
 bB
@@ -32177,7 +32184,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 cs
 cs
 cs
@@ -32434,10 +32441,10 @@ gW
 gW
 gW
 gW
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
 iE
 wm
 BF
@@ -32691,7 +32698,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Od
 Od
 Od
@@ -32948,7 +32955,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Od
 bP
 uh
@@ -33205,7 +33212,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Od
 Od
 Od
@@ -33462,10 +33469,10 @@ gW
 gW
 gW
 gW
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
 iE
 wm
 BF
@@ -33719,7 +33726,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Tu
 Tu
 Tu
@@ -33976,7 +33983,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Tu
 ED
 Tu
@@ -34233,7 +34240,7 @@ gW
 gW
 gW
 gW
-sO
+iE
 Tu
 Tu
 Tu
@@ -34490,10 +34497,10 @@ gW
 gW
 gW
 gW
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
 iE
 iE
 sc
@@ -34752,19 +34759,19 @@ gW
 gW
 gW
 gW
-sO
+iE
 ig
 sw
 ig
-sO
+iE
 TY
 AN
 TY
-sO
+iE
 KA
 cg
 KA
-sO
+iE
 gW
 Fc
 Fc
@@ -35009,19 +35016,19 @@ gW
 gW
 gW
 gW
-sO
+iE
 ig
 LR
 ig
-sO
+iE
 TY
 tM
 TY
-sO
+iE
 KA
 zJ
 KA
-sO
+iE
 gW
 Fc
 Fc
@@ -35266,19 +35273,19 @@ gW
 gW
 gW
 gW
-sO
+iE
 ig
 ig
 ig
-sO
+iE
 TY
 TY
 TY
-sO
+iE
 KA
 KA
 KA
-sO
+iE
 gW
 Fc
 Fc
@@ -35523,19 +35530,19 @@ gW
 gW
 gW
 gW
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
+iE
+iE
+cW
+iE
+iE
+iE
+cW
+iE
+iE
 gW
 Fc
 Fc
@@ -35784,15 +35791,15 @@ gW
 gW
 gW
 gW
-gW
-gW
-gW
-gW
-sO
+iE
+Uz
+Uz
+Uz
+iE
 wg
 wg
 wg
-sO
+iE
 gW
 Fc
 Fc
@@ -36041,15 +36048,15 @@ gW
 gW
 gW
 gW
-gW
-gW
-gW
-gW
-sO
+iE
+Uz
+BN
+Uz
+iE
 wg
 Ky
 wg
-sO
+iE
 gW
 jD
 fz
@@ -36298,15 +36305,15 @@ gW
 gW
 gW
 gW
-gW
-gW
-gW
-gW
-sO
+iE
+Uz
+Uz
+Uz
+iE
 wg
 wg
 wg
-sO
+iE
 gW
 gW
 gW
@@ -36555,15 +36562,15 @@ gW
 gW
 gW
 gW
-gW
-gW
-gW
-gW
-sO
-sO
-sO
-sO
-sO
+iE
+iE
+iE
+iE
+iE
+iE
+iE
+iE
+iE
 gW
 gW
 gW

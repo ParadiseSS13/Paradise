@@ -462,6 +462,11 @@ pub(crate) fn check_interesting(
         {
             // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
+        } else if (my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
+            != (my_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
+        {
+            // Crossed the sleeping agent visibility threshold.
+            reasons |= ReasonFlags::DISPLAY;
         }
 
         if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {

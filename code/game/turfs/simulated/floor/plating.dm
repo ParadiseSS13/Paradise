@@ -320,7 +320,7 @@
 	water_vapor = 10000
 	oxygen = 0
 	nitrogen = 0
-	temperature = 60
+	temperature = 593
 
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
