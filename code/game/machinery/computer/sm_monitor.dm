@@ -67,6 +67,7 @@
 			gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
 			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
 			gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / TM, 0.01))))
 		else
 			gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
 			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
@@ -74,6 +75,7 @@
 			gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
 			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
 			gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = 0,"portion" = 0)))
 		data["gases"] = gasdata
 	else
 		var/list/SMS = list()

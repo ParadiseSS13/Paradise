@@ -83,14 +83,14 @@
 
 	if(!isturf(loc))
 		return FALSE
-
+	var/freerunner_multiplier = HAS_TRAIT(user, TRAIT_FREERUNNER) ? 0.8 : 1
 	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
-		if(!do_after(user, 0.5 SECONDS, target = src))
+		if(!do_after(user, 0.5 SECONDS * freerunner_multiplier, target = src))
 			return FALSE
 	else
 		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
-		if(!do_after(user, 5 SECONDS, target = src))
+		if(!do_after(user, 5 SECONDS * freerunner_multiplier, target = src))
 			return FALSE
 
 	if(!can_touch(user) || !climbable)

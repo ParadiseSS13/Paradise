@@ -27,7 +27,7 @@ export const AtmosTankControl = (props) => {
                 ''
               )}
 
-              {['o2', 'n2', 'plasma', 'co2', 'n2o'].map((g) =>
+              {['o2', 'n2', 'plasma', 'co2', 'n2o', 'h2'].map((g) =>
                 Object.keys(sensors_list[s]).indexOf(g) > -1 ? (
                   <LabeledList.Item key={getGasLabel(g)} label={getGasLabel(g)}>
                     <ProgressBar color={getGasColor(g)} value={sensors_list[s][g]} minValue={0} maxValue={100}>
@@ -221,6 +221,16 @@ const TankControlScrubbersView = (props) => {
             onClick={() =>
               act('command', {
                 cmd: 'n2_scrub',
+                id_tag: s.id_tag,
+              })
+            }
+          />
+          <Button
+            content="Hydrogen"
+            selected={s.filter_h2}
+            onClick={() =>
+              act('command', {
+                cmd: 'h2_scrub',
                 id_tag: s.id_tag,
               })
             }
