@@ -93,8 +93,11 @@ RESTRICT_TYPE(/datum/ai_controller)
 		possess_pawn(new_pawn)
 
 /datum/ai_controller/Destroy(force)
-	set_ai_status(AI_STATUS_OFF)
 	unpossess_pawn(FALSE)
+
+	if(ai_status)
+		GLOB.ai_controllers_by_status[ai_status] -= src
+
 	our_cells = null
 	set_movement_target(type, null)
 	if(ai_movement.moving_controllers[src])
