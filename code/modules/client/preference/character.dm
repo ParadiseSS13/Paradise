@@ -2067,18 +2067,33 @@
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
-		html += "<tt><center>"
-		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
-		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
-		html += "<div align='center'>Mechanical difficulty is shown as [all_difficulty].<br></div>"
-		html += "<hr>"
-		html += "<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>"
-		html += "<p style='margin-left:2%; margin-right:2%;'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.<br></p>"
-		html += "<p style='margin-left:2%; margin-right:2%;'>Difficulties: Movement, world interaction, headset and language usage.<br></p></div>"
-		html += "<br>"
-		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		html += "\
+		<tt>\
+			<center>\
+				<b>Choose occupation chances</b>\
+				<br>\
+				<p>Unavailable occupations are crossed out.</p>\
+				<br>\
+				<center>\
+					<a href='byond://?_src_=prefs;preference=job;task=close'>Save</a>\
+				</center>\
+				<br>\
+				<div align='center'>\
+					<p>Left-click to raise an occupation preference, right-click to lower it.</p>\
+				</div>\
+					<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>\
+				<div align='center'>Mechanical difficulty is shown as [all_difficulty].\
+					<br>\
+				</div>\
+				<hr>\
+				<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>\
+					<p id='tooltip' style='margin-left:2%; margin-right:2%;'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.</p>\
+					<br>\
+				</div>\
+				<br>\
+				<table width='100%' cellpadding='1' cellspacing='0'>\
+					<tr>\
+					<td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
 
@@ -2121,10 +2136,22 @@
 
 			lastJob = job
 
+
+			var/tooltip_script = "\
+			<script>\
+				let x = document.getElementById(`tooltip`);\
+				x.innerHTML = `test tooltip`;\
+				function display(text){\
+					x.innerHTML = text;\
+				}\
+			\
+			</script>"
+			html += tooltip_script
+
 			// determines the size of the job name column
 			// !! watch out for the funni open tag here. It needs to be closed later !!
 			// all this should probably be put in a function to make it easier to read and save future headaches
-			html += "<tr bgcolor='[job.selection_color]'><td width='50%' align='right'>"
+			html += "<tr onmouseover='display(`[job.title]`)' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
