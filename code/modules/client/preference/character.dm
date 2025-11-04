@@ -2067,17 +2067,28 @@
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
+		var/unavailable_job
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				unavailable_job = "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+			if(BE_ASSISTANT)
+				unavailable_job = "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
+			if(RETURN_TO_LOBBY)
+				unavailable_job= "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+
+
 		html += "\
 		<tt>\
 			<center>\
-				<b>Choose occupation chances</b>\
-				<br>\
-				<p>Unavailable occupations are crossed out.</p>\
-				<br>\
-				<center>\
-					<a href='byond://?_src_=prefs;preference=job;task=close'>Save</a>\
-				</center>\
-				<br>\
+				<div style='margin:5px; '>\
+					<div style='align-text: center;'>\
+						<a href='byond://?_src_=prefs;preference=job;task=close'>Save</a>\
+						<a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a>\
+						<a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>\
+						<br>\
+						[unavailable_job]\
+					</div>\
+				</div>\
 				<div align='center'>\
 					<p>Left-click to raise an occupation preference, right-click to lower it.</p>\
 				</div>\
@@ -2088,7 +2099,6 @@
 				<hr>\
 				<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>\
 					<p id='tooltip' style='margin-left:2%; margin-right:2%;'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.</p>\
-					<br>\
 				</div>\
 				<br>\
 				<table width='100%' cellpadding='1' cellspacing='0'>\
@@ -2096,6 +2106,9 @@
 					<td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
+
+
+
 
 		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
@@ -2244,16 +2257,6 @@
 		html += "</td></tr></table>"
 		html += "</center></table>"
 
-		switch(alternate_option)
-			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
-			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
-
-		html += "<center><a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
-		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")
