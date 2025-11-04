@@ -1061,12 +1061,9 @@
 /area/station/legal/lawoffice)
 "alI" = (
 /obj/machinery/icemachine,
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -6233,8 +6230,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "aRA" = (
@@ -8537,7 +8534,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/white/grid,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "bdy" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
@@ -9727,7 +9724,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "bif" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -10465,10 +10462,8 @@
 /area/station/medical/medbay)
 "blx" = (
 /obj/structure/table,
-/obj/machinery/processor{
-	pixel_y = 8
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/storage/bag/tray,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bly" = (
@@ -12611,9 +12606,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "buX" = (
@@ -17305,7 +17298,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/white/grid,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "bQR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17334,9 +17327,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 4
@@ -17652,7 +17642,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white/grid,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "bSk" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -18654,7 +18644,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "bXq" = (
 /obj/structure/sign/poster/official/random/directional/east,
 /obj/structure/reagent_dispensers/watertank/high,
@@ -30554,7 +30544,6 @@
 	dir = 4
 	},
 /obj/item/kitchen/knife,
-/obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -31538,6 +31527,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
+"dJG" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel/white,
+/area/station/service/kitchen)
 "dJM" = (
 /obj/machinery/doppler_array,
 /obj/effect/turf_decal/delivery,
@@ -31774,7 +31768,7 @@
 	layer = 5
 	},
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "dOQ" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
@@ -43925,8 +43919,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "igm" = (
-/turf/simulated/wall,
-/area/station/service/kitchen/storage)
+/obj/effect/turf_decal/tiles/department/security/corner,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/east)
 "igq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -52798,7 +52793,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "ljS" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty{
@@ -59922,7 +59917,6 @@
 /area/station/maintenance/starboard)
 "nOF" = (
 /obj/machinery/gibber,
-/obj/machinery/alarm/kitchen_cold_room/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -63364,7 +63358,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/white/grid,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "pcd" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/utensil/pfork,
@@ -64164,7 +64158,7 @@
 /obj/item/reagent_containers/condiment/pack/ketchup,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "psr" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
@@ -66648,7 +66642,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "qlu" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Containment Pen #3";
@@ -67773,9 +67767,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "qIh" = (
@@ -69262,9 +69254,7 @@
 	c_tag = "Starboard Primary Hallway - Tech Storage";
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "rjU" = (
@@ -69854,9 +69844,7 @@
 /area/station/maintenance/electrical/port)
 "rve" = (
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "rvm" = (
@@ -71748,7 +71736,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "sdO" = (
 /obj/machinery/disposal,
 /obj/machinery/status_display{
@@ -71891,7 +71879,7 @@
 	},
 /obj/effect/landmark/start/chef,
 /turf/simulated/floor/plasteel/white/grid,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "sgx" = (
 /obj/vehicle/janicart,
 /obj/effect/turf_decal/delivery/hollow,
@@ -77414,7 +77402,7 @@
 /obj/structure/sign/poster/random/directional/south,
 /obj/machinery/economy/vending/chefdrobe,
 /turf/simulated/floor/plasteel/white/full,
-/area/station/service/kitchen/storage)
+/area/station/service/kitchen/freezer)
 "ule" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -123114,7 +123102,7 @@ lBQ
 fjy
 wxY
 uOM
-nic
+dJG
 bQI
 bQI
 vfe
@@ -124138,12 +124126,12 @@ rDd
 rDd
 sAP
 pah
-igm
+vPk
 prI
 sdJ
 pcb
 dON
-igm
+vPk
 fWa
 bgO
 bNA
@@ -124395,13 +124383,13 @@ uft
 bHP
 tZl
 ncl
-igm
+vPk
 sgk
 bdx
 bQQ
 ukO
-igm
-igm
+vPk
+vPk
 xbt
 bYA
 bYA
@@ -124652,13 +124640,13 @@ ljZ
 bCy
 gFz
 nos
-igm
+vPk
 bXo
 qlh
 bSj
 ljo
 bie
-igm
+vPk
 bXl
 bNC
 qXW
@@ -126183,7 +126171,7 @@ aLl
 aLl
 tNg
 fQt
-bqx
+igm
 bAB
 cbX
 nTX
@@ -126440,7 +126428,7 @@ bgr
 aLl
 bqB
 fQt
-bqx
+igm
 bAB
 soT
 rvF
@@ -126697,7 +126685,7 @@ bgs
 blq
 iHk
 xfn
-bqx
+igm
 tKV
 sqH
 sqH
@@ -126954,7 +126942,7 @@ bjC
 aLl
 bnp
 fQt
-bqx
+igm
 bAB
 cZD
 nxh
@@ -127211,7 +127199,7 @@ bam
 bam
 cMY
 fQt
-bqx
+igm
 bAB
 dfg
 bAB
