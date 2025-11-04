@@ -168,6 +168,11 @@
 	path = /obj/item/clothing/head/cowboyhat/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
+/datum/gear/hat/cowboyhat/hydro
+	display_name = "Cowboy hat, botany"
+	path = /obj/item/clothing/head/cowboyhat/hydro
+	allowed_roles = list("Botanist")
+
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
