@@ -246,7 +246,6 @@
 			show_hud(hud_version, M)
 	else if(viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
-		viewmob.show_other_mob_action_buttons(mymob)
 	plane_masters_update()
 	return TRUE
 

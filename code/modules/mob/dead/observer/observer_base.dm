@@ -936,7 +936,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		bag.update_viewers(src)
 
 	if(!QDELETED(target) && istype(target))
-		hide_other_mob_action_buttons(target)
 		target.observers -= src
 
 /mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom)
