@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
 	mobile_port.dock(docking_port, force = TRUE)
-	emergency = mobile_port
+	gamma_armory = mobile_port
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
