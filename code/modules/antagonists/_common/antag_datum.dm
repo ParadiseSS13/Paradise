@@ -571,6 +571,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return
 	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
 	possible_opponents -= owner
+	if(!length(possible_opponents))
+		log_debug("[owner] was picked to start a document exchange but there were no other antagonists.")
+		return
 	var/datum/mind/opponent = pick(possible_opponents)
 	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
 	if(other_antag)
