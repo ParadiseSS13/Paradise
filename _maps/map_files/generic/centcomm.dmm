@@ -979,16 +979,6 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
-"dB" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "dC" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating,
@@ -1062,19 +1052,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
-"dQ" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "dR" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3148,10 +3125,6 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"kG" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/gamma)
 "kH" = (
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
@@ -4691,12 +4664,9 @@
 /turf/simulated/floor/plasteel,
 /area/syndicate_mothership)
 "pB" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass,
-/obj/docking_port/mobile/gamma_armory,
 /obj/docking_port/stationary/gamma_armory/centcomm,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
+/turf/space,
+/area/space/centcomm)
 "pD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5545,12 +5515,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"sq" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/medbeam,
-/obj/item/gun/medbeam,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "sr" = (
 /obj/machinery/door/poddoor/impassable{
 	name = "Heavy Supply";
@@ -6224,12 +6188,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"uE" = (
-/obj/machinery/recharger/wallcharger/upgraded{
-	pixel_y = -32
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "uF" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/snow,
@@ -6320,9 +6278,6 @@
 /obj/structure/statue/uranium/nuke,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
-"va" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/gamma)
 "vd" = (
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
@@ -6557,26 +6512,6 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
-"vR" = (
-/obj/machinery/autolathe/upgraded/gamma,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/structure/sign/vacuum/external{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
-"vS" = (
-/obj/machinery/computer/mech_bay_power_console{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "vT" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
@@ -6584,11 +6519,6 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/admin)
-"vU" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "vV" = (
 /obj/machinery/cooking/ice_cream_mixer/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -7029,9 +6959,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"xn" = (
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "xo" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -7140,17 +7067,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"xN" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/immolator/multi,
-/obj/item/gun/energy/immolator/multi,
-/obj/item/gun/energy/immolator/multi,
-/obj/machinery/ai_status_display{
-	pixel_x = 32
-	},
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "xO" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/wizrobe/magusblue,
@@ -8063,13 +7979,6 @@
 /obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"Bn" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/gun/nuclear,
-/obj/item/gun/energy/gun/nuclear,
-/obj/item/gun/energy/gun/nuclear,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "Bo" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -8641,16 +8550,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
-"Ds" = (
-/obj/machinery/suit_storage_unit/gamma/secure,
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "Du" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tiles/department/security/corner,
@@ -9033,12 +8932,6 @@
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"EO" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/gamma)
 "EP" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 4
@@ -9057,12 +8950,6 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
-"ES" = (
-/obj/machinery/recharger/wallcharger/upgraded{
-	pixel_y = 32
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "ET" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -9081,9 +8968,6 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EY" = (
-/turf/simulated/wall/indestructible/riveted,
-/area/space/nearstation/centcom)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -9975,11 +9859,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"Ib" = (
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/effect/turf_decal/delivery/red,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation/centcom)
 "Id" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
@@ -12729,12 +12608,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"Ry" = (
-/obj/machinery/mech_bay_recharge_port/upgraded{
-	dir = 2
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "Rz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigars{
@@ -13576,10 +13449,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"Ut" = (
-/obj/mecha/combat/marauder/ares/loaded,
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/shuttle/gamma)
 "Uv" = (
 /turf/simulated/floor/holofloor{
 	icon = 'icons/turf/floors/plating.dmi';
@@ -13727,17 +13596,6 @@
 /obj/machinery/computer/security/telescreen,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"UY" = (
-/obj/structure/table/reinforced,
-/obj/item/grenade/clusterbuster,
-/obj/item/grenade/chem_grenade/incendiary{
-	name = "Incendiary Grenade"
-	},
-/obj/item/kitchen/knife/combat,
-/obj/item/kitchen/knife/combat,
-/obj/item/kitchen/knife/combat,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "UZ" = (
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel/dark,
@@ -14496,12 +14354,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"Xw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma)
 "Xx" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
@@ -30769,13 +30621,13 @@ aN
 aN
 aN
 aN
-Ib
-tL
-tL
-tL
-tL
-tL
-Ib
+Db
+aN
+aN
+aN
+aN
+aN
+Db
 sm
 EZ
 Ge
@@ -31026,13 +30878,13 @@ aN
 aN
 aN
 aN
-tL
-EO
-va
-va
-va
-va
-EO
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 sm
 JH
 vt
@@ -31283,13 +31135,13 @@ aN
 aN
 aN
 aN
-tL
-va
-Ds
-Ry
-Ut
-vS
-va
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 YA
 YA
 ku
@@ -31540,13 +31392,13 @@ aN
 aN
 aN
 aN
-EY
-vU
-Xw
-xn
-xn
-xn
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Te
 Fz
 Hi
@@ -31797,12 +31649,12 @@ aN
 aN
 aN
 aN
-tL
-va
-vR
-UY
-sq
-xn
+aN
+aN
+aN
+aN
+aN
+aN
 pB
 mJ
 Hi
@@ -32054,13 +31906,13 @@ aN
 aN
 aN
 aN
-tL
-va
-ES
-xn
-xn
-uE
-va
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Te
 og
 Hi
@@ -32311,13 +32163,13 @@ aN
 aN
 aN
 aN
-tL
-va
-dQ
-dB
-Bn
-xN
-va
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Te
 wa
 Mh
@@ -32568,13 +32420,13 @@ aN
 aN
 aN
 aN
-tL
-va
-va
-va
-va
-va
-va
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Te
 JM
 Iq
@@ -32825,13 +32677,13 @@ aN
 aN
 aN
 aN
-Ib
-tL
-tL
-tL
-tL
-tL
-Ib
+Db
+aN
+aN
+aN
+aN
+aN
+Db
 AX
 Te
 pO

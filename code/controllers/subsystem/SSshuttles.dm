@@ -71,6 +71,8 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+	if(!gamma_armory)
+		WARNING("No /obj/docking_port/mobile/gamma_armory placed on the map!")
 
 	initial_load()
 	initial_move()
@@ -516,31 +518,24 @@ SUBSYSTEM_DEF(shuttle)
 
 	return trade_shuttle
 
-/datum/controller/subsystem/shuttle/proc/set_gamma_armory_shuttle(datum/map_template/shuttle/gamma_armory/template)
+/datum/controller/subsystem/shuttle/proc/load_initial_gamma_armory_shuttle(gamma_armory_shuttle_id)
 	var/obj/docking_port/mobile/gamma_armory/gamma_armory = getShuttle("gamma_armory")
 	if(gamma_armory)
-		var/obj/docking_port/stationary/docked_id = gamma_armory.get_docked()
-		if(docked_id?.id != "gamma_armory")
-			CRASH("Attempted to load a new Gamma Armory shuttle while the existing one was not at its home base.")
-		// Dispose of the old shuttle.
-		gamma_armory.jumpToNullSpace()
+		log_debug("requested to load initial Gamma Armory shuttle when one already exists")
 
-	var/obj/docking_port/mobile/gamma_armory/dock = getDock("gamma_away")
-	if(!dock)
-		CRASH("Unable to load trading shuttle, no Gamma Armory dock found.")
+	var/obj/docking_port/docking_port = SSshuttle.getDock("gamma_away")
+	if(!istype(docking_port))
+		log_debug("could not find Gamma Armory docking port")
+		return
 
-	gamma_armory = load_template(template)
-	var/result = gamma_armory.canDock(dock)
-	if(result == SHUTTLE_SOMEONE_ELSE_DOCKED)
-		gamma_armory.jumpToNullSpace()
-		CRASH("A non-Gamma Armory shuttle is blocking the trading dock.")
-	if(result != SHUTTLE_CAN_DOCK)
-		gamma_armory.jumpToNullSpace()
-		CRASH("New Gamma Armory shuttle unable to dock at the trading dock: [result]")
+	var/datum/map_template/shuttle/shuttle_template = GLOB.shuttle_templates[gamma_armory_shuttle_id]
+	if(!shuttle_template)
+		log_debug("could not find Gamma Armory shuttle template")
+		return
 
-	gamma_armory.dock(dock)
-	gamma_armory.register()
-	return gamma_armory
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
+	mobile_port.dock(docking_port, force = TRUE)
+	emergency = mobile_port
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
