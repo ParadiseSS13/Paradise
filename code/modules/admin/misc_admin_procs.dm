@@ -867,7 +867,6 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!SSshuttle.gamma_armory)
 		log_debug("move_gamma_ship(): There is no Gamma Armory shuttle, but the Gamma Armory shuttle was called. Loading a default Gamma Armory shuttle.")
 		SSshuttle.load_initial_gamma_armory_shuttle(SSmapping.gamma_armory_shuttle_id)
-		return
 
 	if(SSshuttle.gamma_armory.mode != (SHUTTLE_IDLE || SHUTTLE_DOCKED))
 		to_chat(usr, "The Gamma Armory shuttle is currently in transit. Please try again in a few moments.")
