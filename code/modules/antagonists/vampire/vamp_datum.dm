@@ -25,11 +25,14 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 									/datum/vampire_passive/vision = 100,
 									/datum/spell/vampire/self/specialize = 150,
 									/datum/spell/vampire/self/exfiltrate = 150,
+									/datum/spell/vampire/lair = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	/// did the vampire build a lair?
+	var/has_lair = FALSE
 	blurb_text_color = COLOR_RED
 	blurb_r = 255
 	blurb_g = 221
@@ -359,10 +362,13 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	add_antag_objective(/datum/objective/blood)
 	add_antag_objective(/datum/objective/assassinate)
 
-	if(prob(5)) // 5% chance of getting protect. 95% chance of getting steal.
+	if(prob(5)) // 5% chance of getting protect. 95% chance of getting a steal / specialization-specific objective.
 		add_antag_objective(/datum/objective/protect)
+	else if(prob(50))
+		add_antag_objective(/datum/objective/specialization)
 	else
 		add_antag_objective(/datum/objective/steal)
+	add_antag_objective(/datum/objective/lair)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
 		add_antag_objective(/datum/objective/survive)

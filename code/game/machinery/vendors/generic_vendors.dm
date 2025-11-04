@@ -60,6 +60,7 @@
 					/obj/item/reagent_containers/drinks/bottle/cream = 4,
 					/obj/item/reagent_containers/drinks/cans/tonic = 8,
 					/obj/item/reagent_containers/drinks/cans/cola = 8,
+					/obj/item/reagent_containers/drinks/cans/electrolytes = 4,
 					/obj/item/reagent_containers/drinks/cans/sodawater = 15,
 					/obj/item/reagent_containers/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
@@ -1048,6 +1049,7 @@
 					/obj/item/reagent_containers/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/drinks/cans/space_up = 10,
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
+					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 
 	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5)
@@ -1058,6 +1060,7 @@
 				/obj/item/reagent_containers/drinks/cans/starkist = 50,
 				/obj/item/reagent_containers/drinks/cans/space_up = 50,
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
+				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
 				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 
 	refill_canister = /obj/item/vending_refill/cola
@@ -1101,7 +1104,8 @@
 					/obj/item/pen/red = 5,
 					/obj/item/pen/fancy = 2)
 
-	contraband = list(/obj/item/toy/crayon/mime = 1,
+	contraband = list(/obj/item/storage/toolbox/artistic = 1,
+					/obj/item/toy/crayon/mime = 1,
 					/obj/item/toy/crayon/rainbow = 1,
 					/obj/item/poster/random_contraband = 5)
 
