@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(events)
 	var/list/active_events = list()
 	var/list/finished_events = list()
 	var/list/allEvents
-	var/alist/event_containers = alist(
+	var/list/event_containers = alist(
 			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
 			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major,
@@ -42,7 +42,8 @@ SUBSYSTEM_DEF(events)
 	for(var/datum/event/E in active_events)
 		E.process()
 
-	for(var/datum/event_container/EC in event_containers)
+	for(var/container in event_containers)
+		var/datum/event_container/EC = event_containers[container]
 		EC.process()
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)

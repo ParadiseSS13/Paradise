@@ -3,7 +3,7 @@
 	/// Do we want to enable random events at all
 	var/enable_random_events = TRUE
 	/// Assoc list of when the first event in a group can run. key: severity | value: assoc list with upper and low bounds (key: "upper"/"lower" | value: time in deciseconds)
-	var/alist/first_run_times = alist(
+	var/list/first_run_times = alist(
 		EVENT_LEVEL_MUNDANE = null,
 		EVENT_LEVEL_MODERATE = list("lower" = 19 MINUTES, "upper" = 23 MINUTES),
 		EVENT_LEVEL_MAJOR = list("lower" = 29 MINUTES, "upper" = 36 MINUTES),
@@ -11,14 +11,14 @@
 	) // <---- Whoever designed this needs to be shot
 
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
-	var/alist/delay_lower_bound = alist(
+	var/list/delay_lower_bound = alist(
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
 		EVENT_LEVEL_MODERATE = 7.5 MINUTES,
 		EVENT_LEVEL_MAJOR = 12 MINUTES,
 		EVENT_LEVEL_DISASTER = 9 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
-	var/alist/delay_upper_bound = alist(
+	var/list/delay_upper_bound = alist(
 		EVENT_LEVEL_MUNDANE = 7.5 MINUTES,
 		EVENT_LEVEL_MODERATE = 12 MINUTES,
 		EVENT_LEVEL_MAJOR = 17 MINUTES,
@@ -39,7 +39,7 @@
 		expected_round_length = data["expected_round_length"] MINUTES // Convert from minutes to deciseconds
 
 	// Load event severities. This is quite awful but needs to be done so we can account for config mistakes. This event system is awful
-	/*
+
 	if(islist(data["event_delay_lower_bounds"]))
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MUNDANE], data["event_delay_lower_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MODERATE], data["event_delay_lower_bounds"]["moderate"], MINUTES)
@@ -68,6 +68,6 @@
 					target = EVENT_LEVEL_DISASTER
 			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR, EVENT_LEVEL_DISASTER))
 			first_run_times[target] = list("lower" = assoclist["lower_bound"] MINUTES, "upper" = assoclist["upper_bound"] MINUTES)
-*/
+
 	CONFIG_LOAD_NUM(blob_highpop_trigger, data["blob_highpop_trigger"])
 
