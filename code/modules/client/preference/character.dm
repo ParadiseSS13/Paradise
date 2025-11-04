@@ -2136,22 +2136,10 @@
 
 			lastJob = job
 
-
-			var/tooltip_script = "\
-			<script>\
-				let x = document.getElementById(`tooltip`);\
-				x.innerHTML = `test tooltip`;\
-				function display(text){\
-					x.innerHTML = text;\
-				}\
-			\
-			</script>"
-			html += tooltip_script
-
 			// determines the size of the job name column
 			// !! watch out for the funni open tag here. It needs to be closed later !!
 			// all this should probably be put in a function to make it easier to read and save future headaches
-			html += "<tr onmouseover='display(`[job.title]`)' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
+			html += "<tr onmouseover='document.getElementById(`tooltip`).innerHTML = `[job.title]`' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
