@@ -97,6 +97,16 @@
 	path = /obj/item/clothing/head/soft/hydroponics_alt
 	allowed_roles = list("Botanist")
 
+/datum/gear/hat/capengi
+	display_name = "Cap, engineer"
+	path = /obj/item/clothing/head/soft/engineer
+	allowed_roles = list("Chief Engineer, Station Engineer")
+
+/datum/gear/hat/capatmos
+	display_name = "Cap, atmospheric technician"
+	path = /obj/item/clothing/head/soft/atmos
+	allowed_roles = list("Chief Engineer, Life Support Specialist")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -157,6 +167,11 @@
 	display_name = "Cowboy hat, security"
 	path = /obj/item/clothing/head/cowboyhat/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
+
+/datum/gear/hat/cowboyhat/hydro
+	display_name = "Cowboy hat, botany"
+	path = /obj/item/clothing/head/cowboyhat/hydro
+	allowed_roles = list("Botanist")
 
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"

@@ -261,6 +261,9 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+/datum/status_effect/bluespace_slowdown/long
+	duration = 1 MINUTES
+
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null
@@ -441,7 +444,9 @@
 	var/actual_strength = strength
 	var/datum/mind/M = owner.mind
 	var/is_robot = ismachineperson(owner) || issilicon(owner)
-
+	if(ishuman(owner))
+		var/mob/living/carbon/human/drunkard = owner
+		actual_strength *= drunkard.physiology.alcohol_mod
 	if(HAS_TRAIT(owner, TRAIT_ALCOHOL_TOLERANCE))
 		alcohol_resistance = 2
 
@@ -653,6 +658,23 @@
 
 	if(dreamer.mind?.has_antag_datum(/datum/antagonist/vampire))
 		var/mob/living/carbon/human/V = owner
+		if(istype(V.loc, /obj/structure/closet/coffin/vampire))
+			var/obj/structure/closet/coffin/vampire/C = V.loc
+			if(C.vampire == V)
+				V.adjustBruteLoss(-3)
+				V.adjustFireLoss(-3)
+				V.adjustToxLoss(-3)
+				V.adjustOxyLoss(-3)
+				V.adjustCloneLoss(-1.5)
+				if(!isnull(V.viruses) && prob(25))
+					for(var/datum/disease/virus in V.viruses)
+						virus.cure()
+				for(var/obj/item/organ/external/E in V.bodyparts)
+					if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT))
+						E.rejuvenate()
+						break	// just one limb per sleep tick because vampires can just Rejuvenate out of sleep
+				for(var/obj/item/organ/internal/I in V.internal_organs)
+					I.heal_internal_damage(2, TRUE)
 		if(istype(V.loc, /obj/structure/closet/coffin))
 			V.adjustBruteLoss(-1)
 			V.adjustFireLoss(-1)

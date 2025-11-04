@@ -115,11 +115,7 @@
 	var/model = ""
 	/// Bot Purpose under Show Laws
 	var/bot_purpose = "improve the station to the best of your ability"
-	/// Bot control frequency
-	var/control_freq = BOT_FREQ
 
-	/// The radio filter the bot uses to identify itself on the network.
-	var/bot_filter
 	/// Type of bot, one of the *_BOT defines.
 	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.

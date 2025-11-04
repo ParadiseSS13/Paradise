@@ -76,6 +76,7 @@
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
 		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
+		ANOMALOUS_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -110,6 +111,7 @@
 	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
 	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
 	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
+	t+= "<span class='notice'>Hydrogen: [environment.hydrogen()] \n</span>"
 
 	usr.show_message(t, EMOTE_VISIBLE)
 

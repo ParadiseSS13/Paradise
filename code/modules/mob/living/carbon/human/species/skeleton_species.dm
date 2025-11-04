@@ -29,6 +29,7 @@
 		"is twisting their skull off!")
 
 	vision_organ = null
+	meat_type = /obj/item/food/meat/human // They've always done this.
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.

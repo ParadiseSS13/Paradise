@@ -423,6 +423,8 @@
 				)
 				I.damage = 0
 				I.surgeryize()
+				if(istype(tool, /obj/item/stack/nanopaste))
+					I.rejuvenate()
 	target.update_stat("internal organs repaired")
 	return ..()
 

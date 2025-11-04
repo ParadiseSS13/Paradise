@@ -129,12 +129,14 @@
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
@@ -212,6 +214,11 @@
 	name = "security cowboy hat"
 	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
+
+/obj/item/clothing/head/cowboyhat/hydro
+	name = "botany cowboy hat"
+	desc = "For the Farmer in us all."
+	icon_state = "cowboyhat_botany"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
