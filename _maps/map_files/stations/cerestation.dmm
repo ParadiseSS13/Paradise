@@ -64155,7 +64155,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/public/sleep)
 "mQb" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/passive_vent{
 	dir = 4
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -101810,10 +101810,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"vju" = (
-/obj/effect/spawner/random/dirt/frequent,
-/turf/space,
-/area/station/public/storefront)
 "vjB" = (
 /obj/structure/chair/wood,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -110739,8 +110735,8 @@
 /area/station/maintenance/security/port)
 "xcH" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "xcT" = (
@@ -162995,7 +162991,7 @@ fmI
 cjh
 uJv
 xcH
-vju
+lTP
 hnP
 uJv
 uJv

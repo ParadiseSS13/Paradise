@@ -305,7 +305,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			if(candidate.get_job_exp_restrictions(job))
 				young++
 				continue
-			if(candidate.is_barred_by_disability(job) || candidate.is_barred_by_missing_limbs(job))
+			if(candidate.is_barred_by_disability(job) || candidate.is_barred_by_missing_limbs(job) || candidate.is_barred_by_quirk(job))
 				disabled++
 				continue
 			if(candidate.wants_job(job, 1))

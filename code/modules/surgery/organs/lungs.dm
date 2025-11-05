@@ -46,6 +46,7 @@
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "default"
+	var/list/possible = list("default" = /datum/organ/lungs, "vox" = /datum/organ/lungs/vox, "plasmamen" = /datum/organ/lungs/plasmamen)
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
@@ -55,15 +56,15 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	var/possible = list("default" = /datum/organ/lungs, "vox" = /datum/organ/lungs/vox, "plasmamen" = /datum/organ/lungs/plasmamen)
 	var/chosen = input(user, "Select lung type", "What kind of lung settings?") as null|anything in possible
 	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	species_state = chosen
 	to_chat(user, "<span class='notice'>You configure [src] to [chosen] settings.</span>")
+	configure_species(chosen)
 
-	var/typepath = possible[chosen]
+/obj/item/organ/internal/lungs/cybernetic/proc/configure_species(new_species_state)
+	species_state = new_species_state
+	var/typepath = possible[new_species_state]
 	var/datum/organ/lungs/lungs = new typepath(src)
 	qdel(organ_datums[lungs.organ_tag])
 	organ_datums[lungs.organ_tag] = lungs
@@ -75,10 +76,9 @@
 	desc = "A more advanced version of the stock cybernetic lungs. They are capable of filtering out lower levels of toxins and carbon dioxide."
 	icon_state = "lungs-c-u"
 	origin_tech = "biotech=5"
-
 	organ_datums = list(/datum/organ/lungs/advanced_cyber)
 
-/obj/item/organ/internal/lungs/cybernetic/upgraded/multitool_act(mob/user, obj/item/I)
+/obj/item/organ/internal/lungs/cybernetic/upgraded/configure_species(new_species_state)
 	. = ..()
 	var/datum/organ/lungs/lungs = organ_datums[ORGAN_DATUM_LUNGS]
 	lungs.make_advanced()

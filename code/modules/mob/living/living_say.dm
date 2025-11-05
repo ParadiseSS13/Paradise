@@ -320,7 +320,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_tags(message)
-
+	if(HAS_TRAIT(src, TRAIT_NO_WHISPERING) && !cannot_speak_loudly()) //If you're whispering cause you're out of breath, no blabbermouth will help with that
+		say(message)
+		return TRUE
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
