@@ -255,7 +255,6 @@
 
 	sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
 
-
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/our_turf)
 
 	// Visible and audible encouragement!

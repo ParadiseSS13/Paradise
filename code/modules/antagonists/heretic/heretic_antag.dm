@@ -600,7 +600,63 @@
 /datum/antagonist/heretic/proc/on_target_deleted(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
 
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner.current)
+	var/mob/living/new_target = reroll_target(owner, heretic_datum, source)
+	if(new_target)
+		to_chat(owner.current, "<span class='heirophant'>We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]</span>")
+	else
+		to_chat(owner.current, "<span class='heirophant'>We feel that [source] has gone beyond our reach, and we were unable to find a new target.</span>")
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	remove_sacrifice_target(source)
+
+/datum/antagonist/heretic/proc/reroll_target(mob/living/user, datum/antagonist/heretic/heretic_datum, mob/living/target)
+	if(!user.mind.job_datum)
+		return FALSE
+	if(!target || !target.mind)
+		return FALSE
+	var/datum/heretic_knowledge/hunt_and_sacrifice/knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
+	var/list/datum/mind/valid_targets = list()
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
+		if(possible_target == user.mind)
+			continue
+		if(!possible_target.assigned_role)
+			continue
+		if(is_invalid_target(possible_target))
+			continue
+		if(knowledge && (possible_target in knowledge.target_blacklist))
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		if(possible_target.current.stat == DEAD)
+			continue
+
+		valid_targets += possible_target
+
+	if(!valid_targets)
+		return FALSE
+
+	var/list/datum/mind/final_targets = list()
+	if(target.mind.assigned_role in GLOB.command_head_positions)
+		for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
+			if(head_mind.assigned_role in GLOB.command_head_positions)
+				heretic_datum.add_sacrifice_target(head_mind.current)
+				return head_mind.current
+
+	if(target.mind.assigned_role in GLOB.active_security_positions)
+		for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
+			if(sec_mind.assigned_role in GLOB.active_security_positions)
+				heretic_datum.add_sacrifice_target(sec_mind.current)
+				return sec_mind.current
+
+	// just grab literal anyone else
+	for(var/datum/mind/any_mind as anything in shuffle(valid_targets))
+		if(any_mind.assigned_role in GLOB.active_security_positions)
+			heretic_datum.add_sacrifice_target(any_mind.current)
+			return any_mind.current
+
+	// somehow we didnt get anyone
+	return FALSE
+
 
 /**
  * Increments knowledge by one.
@@ -631,28 +687,17 @@
 		var/datum/antagonist/heretic/our_heretic = heretic.has_antag_datum(/datum/antagonist/heretic)
 		text += "<br><b>Sacrifices Made:</b> [our_heretic.total_sacrifices]"
 		text += "<br>The heretic's sacrifice targets were: [english_list(our_heretic.all_sac_targets, nothing_text = "No one")]."
-		var/traitorwin = TRUE
 		var/list/all_objectives = heretic.get_all_objectives()
 
 		if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
-				if(objective.check_completion())
-					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
-				else
-					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
-					traitorwin = FALSE
+				text += "<br><b>Objective #[count]</b>: [objective.explanation_text]</b></font>"
 				count++
 		if(our_heretic.feast_of_owls)
 			text += "<br><span class='greentext'>Ascension Forsaken</span>"
 		if(our_heretic.ascended)
 			text += "<br><span class='hierophant_warning'>THE HERETIC ASCENDED!</span>"
-
-		else
-			if(traitorwin)
-				text += "<br><span class='hierophant'>The heretic was successful!</span>"
-			else
-				text += "<br><span class='redtext'>The heretic has failed.</span>"
 
 		text += "<br><b>Knowledge Researched:</b> "
 
