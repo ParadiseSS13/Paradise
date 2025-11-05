@@ -335,6 +335,7 @@
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
+	neck = /obj/item/clothing/neck/neckerchief/red
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
