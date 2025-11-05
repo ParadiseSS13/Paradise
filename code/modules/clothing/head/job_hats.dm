@@ -2,7 +2,7 @@
 // Chef
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "The commander in chef's head wear."
+	desc = "The commander in chef's headwear."
 	icon_state = "chef"
 	inhand_icon_state = "chefhat"
 	strip_delay = 10
@@ -14,6 +14,18 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+
+/obj/item/clothing/head/chefhat/red
+	name = "chef's red hat"
+	icon_state = "chef_red"
+
+/obj/item/clothing/head/chefhat/black
+	name = "chef's black hat"
+	icon_state = "chef_black"
+
+/obj/item/clothing/head/chefhat/bw
+	name = "chef's black and white hat"
+	icon_state = "chef_bw"
 
 /obj/item/clothing/head/chefhat/Initialize(mapload)
 	. = ..()
