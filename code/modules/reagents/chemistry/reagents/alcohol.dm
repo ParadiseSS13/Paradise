@@ -1994,7 +1994,7 @@
 	alcohol_perc = 0.7
 	drink_icon = "ultramatter"
 	drink_name = "Ultramatter"
-	drink_desc = "In the triangle of fire, this is apex of fuel. A sacred drink from Boron 5, it is used in cultural and religious events, and is regularly consumed by leadership of the Plasmamen as a show of status."
+	drink_desc = "In the triangle of fire, this is the apex of fuel. A sacred drink from Boron 5, it is used in cultural and religious events, and is regularly consumed by leadership of the Plasmamen as a show of status."
 	taste_description = "fire"
 	goal_difficulty = REAGENT_GOAL_HARD
 	var/inflamed = FALSE
