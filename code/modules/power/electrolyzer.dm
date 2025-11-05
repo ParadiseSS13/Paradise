@@ -126,7 +126,7 @@
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
 
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
-		var/water_vapor_to_remove = min(removed.water_vapor(), (HYDROGEN_BURN_ENERGY / 2))
+		var/water_vapor_to_remove = removed.water_vapor()
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(removed.water_vapor() - water_vapor_to_remove)
