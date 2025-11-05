@@ -2062,6 +2062,40 @@
 		all_difficulty += filledDifficulty
 
 	var/list/html = list()
+	html += {"
+	<head>
+		<style>
+		.info-div-wrapper {
+			display:flex;
+			flex-direction:row;
+			width:100%;
+			margin-bottom: 5px;'
+		}
+
+		.info-div {
+			line-height: 1;
+			display: flex;
+			flex-direction: column;
+			width:50%;
+			padding: 10px;
+			text-align:left;
+			border:1px solid white;
+		}
+
+		.left-side {
+			margin-left: 5px;
+		}
+
+		.right-side {
+			margin-right: 5px;
+		}
+
+		.flex-end {
+			align-self: flex-end;
+		}
+		</style>
+	</head>
+	"}
 	html += "<body>"
 	if(!length(SSjobs.occupations))
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
@@ -2087,15 +2121,15 @@
 					<br>
 				</div>
 				<hr>
-				<div style='display:flex; flex-direction:row; width:100%; margin-bottom: 5px;'>
-					<div style='line-height: 1; display: flex; flex-direction: column; width:50%; padding: 10px; text-align:left; margin-right: 5px; border:1px solid white;'>
+				<div class='info-div-wrapper'>
+					<div class='info-div right-side'>
 						<p>Save preferences: <a href='byond://?_src_=prefs;preference=job;task=close'>Save and Close This Window</a></p>
 						<p>Reset preferences: <a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></p>
 						<p>If job preferences are unavailable: [unavailable_job]</p>
 						<br>
-						<a style='align-self: flex-end;' href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
+						<a class='flex-end' href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
 					</div>
-					<div style='line-height: 1; display: flex; flex-direction: column; width:50%; padding:10px; text-align:left; margin-left: 5px; border:1px solid white; '>
+					<div class='info-div left-side'>
 						<p id='tooltip'>Hover over a job to get more information about it, as well as various challenges that comes with it.</p>
 					</div>
 				</div>
