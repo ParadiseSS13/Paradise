@@ -2088,15 +2088,15 @@
 				</div>
 				<hr>
 				<div style='display:flex; flex-direction:row; width:100%; margin-bottom: 5px;'>
-					<div style='width:50%; padding: 10px; text-align:left; margin-right: 5px; border:1px solid white;'>
+					<div style='line-height: 1; display: flex; flex-direction: column; width:50%; padding: 10px; text-align:left; margin-right: 5px; border:1px solid white;'>
 						<p>Save preferences: <a href='byond://?_src_=prefs;preference=job;task=close'>Save and Close This Window</a></p>
 						<p>Reset preferences: <a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></p>
 						<p>If job preferences are unavailable: [unavailable_job]</p>
 						<br>
-						<a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
+						<a style='align-self: flex-end;' href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
 					</div>
-					<div style='width:50%; padding:10px; text-align:left; margin-left: 5px; border:1px solid white; '>
-						<p id='tooltip'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.</p>
+					<div style='line-height: 1; display: flex; flex-direction: column; width:50%; padding:10px; text-align:left; margin-left: 5px; border:1px solid white; '>
+						<p id='tooltip'>Hover over a job to get more information about it, as well as various challenges that comes with it.</p>
 					</div>
 				</div>
 				<table width='100%' cellpadding='1' cellspacing='0'>
