@@ -204,7 +204,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(is_station_level(src.loc.z))
-		to_chat(user, "<span class='warning'>[src] clicks. It's internal safety prevents it from firing near the station.</span>")
+		to_chat(user, "<span class='warning'>[src] clicks. Its internal safety prevents it from firing near the station.</span>")
 		return
 	return ..()
 
@@ -222,11 +222,11 @@
 	. += "During the pizza party celebrating the release of the new crusher designs, the Mining Research and Development team members were only allowed one slice. \
 	One member exclaimed 'I wish we could have more than one slice' and another replied 'I wish we could shoot the accelerator more than once' and thus, the repeater \
 	was born. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
-	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you cant carry as many mods compared to a regular accelerator."
+	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you can't carry as many mods compared to a regular accelerator."
 
 /obj/item/gun/energy/kinetic_accelerator/shotgun
 	name = "proto-kinetic shotgun"
-	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple simultaneous kinetic blasts to be released simultaneously."
+	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple kinetic blasts to be released simultaneously."
 	icon_state = "kineticshotgun"
 	base_icon_state = "kineticshotgun"
 	overheat_time = 2 SECONDS
@@ -239,7 +239,7 @@
 	. += "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
 	other research members with one blast. The MR&D Director immediately thought of a genius idea, creating the proto-kinetic shotgun moments later, which he \
 	immediately used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
-	of firing three shots at once with reduce range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
+	of firing three shots at once with reduced range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
 	Looks like you need both hands to use it effectively."
 
 /obj/item/gun/energy/kinetic_accelerator/shockwave
@@ -255,7 +255,7 @@
 	. = ..()
 	. += "Quite frankly, we have no idea how the Mining Research and Development team came up with this one, all we know is that alot of \
 	beer was involved. This proto-kinetic design will slam the ground, creating a shockwave around the user, with the same power as the base PKA.\
-	The only downside is the lowered mod capacity, the lack of range it offers, and the higher cooldown, but its pretty good for clearing rocks."
+	The only downside is the lowered mod capacity, the lack of range it offers, and the higher cooldown, but it's pretty good for clearing rocks."
 
 /obj/item/gun/energy/kinetic_accelerator/shockwave/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	target = get_edge_target_turf(user, user.dir)
