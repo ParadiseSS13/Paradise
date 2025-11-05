@@ -2070,40 +2070,38 @@
 		var/unavailable_job
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
-				unavailable_job = "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Get a random job</a></u>"
 			if(BE_ASSISTANT)
-				unavailable_job = "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Be an assistant</a></u>"
 			if(RETURN_TO_LOBBY)
-				unavailable_job= "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+				unavailable_job= "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Return to lobby</a></u>"
 
-
-		html += "\
-		<tt>\
-			<center>\
-				<div style='margin:5px; '>\
-					<div style='align-text: center;'>\
-						<a href='byond://?_src_=prefs;preference=job;task=close'>Save</a>\
-						<a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a>\
-						<a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>\
-						<br>\
-						[unavailable_job]\
-					</div>\
-				</div>\
-				<div align='center'>\
-					<p>Left-click to raise an occupation preference, right-click to lower it.</p>\
-				</div>\
-					<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>\
-				<div align='center'>Mechanical difficulty is shown as [all_difficulty].\
-					<br>\
-				</div>\
-				<hr>\
-				<div style='margin:auto; border:1px solid white; width:80%;text-align:left;'>\
-					<p id='tooltip' style='margin-left:2%; margin-right:2%;'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.</p>\
-				</div>\
-				<br>\
-				<table width='100%' cellpadding='1' cellspacing='0'>\
-					<tr>\
-					<td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		html += {"
+		<tt>
+			<center>
+				<div align='center'>
+					<p>Left-click to raise an occupation preference, right-click to lower it.</p>
+				</div>
+					<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>
+				<div align='center'>Mechanical difficulty is shown as [all_difficulty].
+					<br>
+				</div>
+				<hr>
+				<div style='display:flex; flex-direction:row; width:100%; margin-bottom: 5px;'>
+					<div style='width:50%; padding: 10px; text-align:left; margin-right: 5px; border:1px solid white;'>
+						<p>Save preferences: <a href='byond://?_src_=prefs;preference=job;task=close'>Save and Close This Window</a></p>
+						<p>Reset preferences: <a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></p>
+						<p>If job preferences are unavailable: [unavailable_job]</p>
+						<br>
+						<a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
+					</div>
+					<div style='width:50%; padding:10px; text-align:left; margin-left: 5px; border:1px solid white; '>
+						<p id='tooltip'>Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead, on the crew.</p>
+					</div>
+				</div>
+				<table width='100%' cellpadding='1' cellspacing='0'>
+					<tr>
+					<td width='20%'>"} // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
 
