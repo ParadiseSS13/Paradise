@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// What map was used last round?
 	var/datum/map/last_map
+	/// The trader shuttle to load at Centcom in late_mapping.
+	var/datum/map_template/shuttle/trader_shuttle_id = /datum/map_template/shuttle/trader/synthetic
 	/// List of all areas that can be accessed via IC means
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means

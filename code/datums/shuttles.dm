@@ -236,8 +236,6 @@
 	name = "Steadfast Co. Trade Freighter"
 	description = "Trading vessel for steadfast company traders."
 
-// This shuttle is the one that's mapped into CC as the base type. There must be one there or the shuttle manipulator can't do anything with the trader ships.
-// It's also based on the old trader trader shuttle back when there was only one, so it fits the role fine.
 /datum/map_template/shuttle/trader/synthetic
 	suffix = "synth"
 	name = "Synthetic Union Trade Vessel"

@@ -70550,13 +70550,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
 "rHu" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 11;
-	height = 23;
-	id = "trader_home";
-	name = "port bay 4 at NSS Cerebron";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Cerebron";
+	dir = 8
 	},
 /turf/space,
 /area/space)

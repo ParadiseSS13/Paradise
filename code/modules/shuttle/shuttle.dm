@@ -899,12 +899,24 @@
 	width = 5
 	preferred_direction = EAST
 
+/obj/docking_port/stationary/trader
+	id = "trader_home"
+	name = "Docking bay 4 at station"
+	width = 22
+	dwidth = 11
+	height = 30
+
+/obj/docking_port/stationary/trader/centcom
+	id = "trader_away"
+	name = "Docking bay at trade hub"
+	dir = 8
+
 /obj/docking_port/mobile/trader
 	dir = 8
 	dwidth = 11
 	height = 30
 	id = "trader"
-	name = "sol trade shuttle"
+	name = "trade shuttle"
 	width = 22
 	preferred_direction = EAST
 	timid = TRUE

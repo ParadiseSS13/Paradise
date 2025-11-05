@@ -14,6 +14,12 @@ SUBSYSTEM_DEF(late_mapping)
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
+	if(SSmapping.trader_shuttle_id)
+		var/template = new SSmapping.trader_shuttle_id()
+		SSshuttle.set_trader_shuttle(template)
+	else
+		WARNING("no valid trader shuttle template was set in SSmapping")
+
 	for(var/obj/machinery/computer/shuttle/console in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
 		if(console.find_destinations_in_late_mapping)
 			console.connect()

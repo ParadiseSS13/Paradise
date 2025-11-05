@@ -70227,12 +70227,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "pNm" = (
-/obj/docking_port/stationary{
-	dwidth = 11;
-	height = 23;
-	id = "trader_home";
-	name = "Port Bay 4 at NSS Cyberiad";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Cyberiad"
 	},
 /turf/space,
 /area/space)
