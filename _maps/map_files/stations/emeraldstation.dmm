@@ -26640,7 +26640,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "frd" = (
-/obj/machinery/economy/vending/cigarette,
+/obj/machinery/economy/vending/capdrobe,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "frf" = (

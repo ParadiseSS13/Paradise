@@ -10798,6 +10798,8 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
+/obj/item/coin/plasma,
+/obj/item/melee/chainofcommand,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "bmW" = (
@@ -13079,7 +13081,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/displaycase/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -13092,6 +13093,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/economy/vending/capdrobe,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bwp" = (
@@ -55884,13 +55886,20 @@
 /area/station/engineering/secure_storage)
 "moW" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 3
+	},
 /obj/structure/window/reinforced,
 /obj/machinery/phone{
 	pixel_y = 11;
 	pixel_x = 14
 	},
-/obj/item/pen/cap,
+/obj/item/pen/cap{
+	pixel_x = 3
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -9
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "mpr" = (
@@ -63441,13 +63450,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "pcy" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/coin/plasma,
-/obj/item/melee/chainofcommand,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/power/apc/important/directional/west,
@@ -63457,6 +63462,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "pcA" = (

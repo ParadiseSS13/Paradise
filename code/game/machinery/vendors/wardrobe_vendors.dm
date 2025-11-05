@@ -764,28 +764,15 @@
 	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
 					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
-					/obj/item/clothing/suit/chef/bw = 2,
-					/obj/item/clothing/suit/chef/red = 2,
-					/obj/item/clothing/suit/chef/darkgreen = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/chef = 2,
 					/obj/item/storage/belt/chef = 2,
-					/obj/item/storage/belt/chef/black = 2,
-					/obj/item/storage/belt/chef/red = 2,
-					/obj/item/storage/belt/chef/green = 2,
 					/obj/item/clothing/head/chefhat = 2,
-					/obj/item/clothing/head/chefhat/bw = 2,
-					/obj/item/clothing/head/chefhat/black = 2,
-					/obj/item/clothing/head/chefhat/red = 2,
 					/obj/item/clothing/head/soft/white = 2,
 					/obj/item/clothing/head/beret/white = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/white = 2,
 					/obj/item/clothing/shoes/black = 2,
-					/obj/item/clothing/neck/neckerchief = 2,
-					/obj/item/clothing/neck/neckerchief/black = 2,
-					/obj/item/clothing/neck/neckerchief/red = 2,
-					/obj/item/clothing/neck/neckerchief/green = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
@@ -793,9 +780,7 @@
 					/obj/item/storage/box/crewvend = 1,
 					/obj/item/storage/box/autochef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/chef = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/chef/bw = 2,
 					/obj/item/clothing/under/plasmaman/chef = 2,
-					/obj/item/clothing/under/plasmaman/chef/bw = 2,
 					/obj/item/cartridge/chef = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
@@ -803,28 +788,15 @@
 	prices = list(/obj/item/clothing/under/rank/civilian/chef = 50,
 				/obj/item/clothing/under/misc/waiter = 50,
 				/obj/item/clothing/suit/chef = 50,
-				/obj/item/clothing/suit/chef/bw = 50,
-				/obj/item/clothing/suit/chef/red = 50,
-				/obj/item/clothing/suit/chef/darkgreen = 50,
 				/obj/item/clothing/suit/chef/classic = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/chef = 75,
 				/obj/item/storage/belt/chef = 50,
-				/obj/item/storage/belt/chef/black = 50,
-				/obj/item/storage/belt/chef/red = 50,
-				/obj/item/storage/belt/chef/green = 50,
 				/obj/item/clothing/head/chefhat = 50,
-				/obj/item/clothing/head/chefhat/bw = 50,
-				/obj/item/clothing/head/chefhat/black = 50,
-				/obj/item/clothing/head/chefhat/red = 50,
 				/obj/item/clothing/head/soft/white = 30,
 				/obj/item/clothing/head/beret/white = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
 				/obj/item/clothing/shoes/black = 20,
-				/obj/item/clothing/neck/neckerchief = 20,
-				/obj/item/clothing/neck/neckerchief/black = 20,
-				/obj/item/clothing/neck/neckerchief/red = 20,
-				/obj/item/clothing/neck/neckerchief/green = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
 				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
@@ -832,9 +804,7 @@
 				/obj/item/storage/box/crewvend = 100,
 				/obj/item/storage/box/autochef = 100,
 				/obj/item/clothing/head/helmet/space/plasmaman/chef = 60,
-				/obj/item/clothing/head/helmet/space/plasmaman/chef/bw = 60,
 				/obj/item/clothing/under/plasmaman/chef = 60,
-				/obj/item/clothing/under/plasmaman/chef/bw = 60,
 				/obj/item/cartridge/chef = 50)
 
 	refill_canister = /obj/item/vending_refill/chefdrobe
@@ -1170,3 +1140,75 @@
 					/obj/item/clothing/under/plasmaman/chaplain/blue = 60)
 
 	refill_canister = /obj/item/vending_refill/chapdrobe
+
+/obj/machinery/economy/vending/capdrobe
+	name = "\improper CapDrobe"
+	desc = "This wardrobe dispenses the premier attire for station leadership."
+	icon_state = "cap_drobe"
+	icon_lightmask = "cap_drobe"
+	icon_panel = "cap_drobe"
+	icon_broken = "cap_drobe"
+	icon_off = "cap_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("Command respect!", "They all depend on you!")
+	vend_reply = "Good day, Captain."
+	products = list(
+		/obj/item/clothing/head/caphat = 1,
+		/obj/item/clothing/head/caphat/parade = 1,
+		/obj/item/clothing/head/caphat/parade/white = 1,
+		/obj/item/clothing/head/beret/captain = 1,
+		/obj/item/clothing/head/beret/captain/white = 1,
+		/obj/item/clothing/head/crown/fancy = 1,
+		/obj/item/clothing/neck/cloak/captain = 1,
+		/obj/item/clothing/suit/armor/vest/capcarapace = 1,
+		/obj/item/clothing/suit/armor/vest/capcarapace/jacket = 1,
+		/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic = 1,
+		/obj/item/clothing/suit/armor/vest/capcarapace/coat = 1,
+		/obj/item/clothing/suit/armor/vest/capcarapace/coat/white = 1,
+		/obj/item/clothing/suit/hooded/wintercoat/captain = 1,
+		/obj/item/clothing/suit/hooded/wintercoat/captain/white = 1,
+		/obj/item/clothing/neck/cloak/captain_mantle = 1,
+		/obj/item/clothing/under/rank/captain = 1,
+		/obj/item/clothing/under/rank/captain/skirt = 1,
+		/obj/item/clothing/under/rank/captain/white = 1,
+		/obj/item/clothing/under/rank/captain/skirt/white = 1,
+		/obj/item/clothing/under/rank/captain/parade = 1,
+		/obj/item/clothing/under/rank/captain/dress = 1,
+		/obj/item/clothing/gloves/color/captain = 1,
+		/obj/item/clothing/shoes/brown = 1,
+		/obj/item/clothing/shoes/laceup = 1,
+		/obj/item/clothing/glasses/sunglasses = 1,
+		/obj/item/clothing/glasses/hud/security/sunglasses = 1,
+		/obj/item/clothing/glasses/hud/health/sunglasses = 1,
+		/obj/item/clothing/head/helmet/space/plasmaman/captain = 1,
+		/obj/item/clothing/under/plasmaman/captain = 1)
+
+	prices = list(
+		/obj/item/clothing/head/caphat = 40,
+		/obj/item/clothing/head/caphat/parade = 40,
+		/obj/item/clothing/head/caphat/parade/white = 40,
+		/obj/item/clothing/head/beret/captain = 40,
+		/obj/item/clothing/head/beret/captain/white = 40,
+		/obj/item/clothing/head/crown/fancy = 200,
+		/obj/item/clothing/neck/cloak/captain = 80,
+		/obj/item/clothing/suit/armor/vest/capcarapace/jacket = 150,
+		/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic = 150,
+		/obj/item/clothing/suit/armor/vest/capcarapace/coat = 150,
+		/obj/item/clothing/suit/armor/vest/capcarapace/coat/white = 150,
+		/obj/item/clothing/suit/hooded/wintercoat/captain = 100,
+		/obj/item/clothing/suit/hooded/wintercoat/captain/white = 100,
+		/obj/item/clothing/neck/cloak/captain_mantle = 80,
+		/obj/item/clothing/under/rank/captain = 60,
+		/obj/item/clothing/under/rank/captain/skirt = 60,
+		/obj/item/clothing/under/rank/captain/white = 60,
+		/obj/item/clothing/under/rank/captain/skirt/white = 60,
+		/obj/item/clothing/under/rank/captain/parade = 100,
+		/obj/item/clothing/under/rank/captain/dress = 100,
+		/obj/item/clothing/gloves/color/captain = 40,
+		/obj/item/clothing/shoes/brown = 20,
+		/obj/item/clothing/shoes/laceup = 20,
+		/obj/item/clothing/glasses/sunglasses = 20,
+		/obj/item/clothing/head/helmet/space/plasmaman/captain = 80,
+		/obj/item/clothing/under/plasmaman/captain = 80)
+
+	refill_canister = /obj/item/vending_refill/capdrobe

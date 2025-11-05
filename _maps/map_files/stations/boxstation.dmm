@@ -56484,13 +56484,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "jdt" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_y = 4
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/suit_storage_unit/captain/secure,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "jdz" = (
@@ -67131,12 +67128,16 @@
 "ooe" = (
 /obj/machinery/light_switch{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 24;
+	pixel_x = -11
 	},
-/obj/structure/dresser,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/dresser,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 13
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
@@ -85547,8 +85548,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "xwJ" = (
-/obj/machinery/suit_storage_unit/captain/secure,
 /obj/machinery/requests_console/directional/east,
+/obj/machinery/economy/vending/capdrobe,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "xwU" = (

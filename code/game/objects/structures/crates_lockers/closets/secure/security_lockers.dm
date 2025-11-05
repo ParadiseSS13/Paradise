@@ -10,7 +10,6 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/storage/belt/sheath/saber(src)

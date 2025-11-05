@@ -25761,6 +25761,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/economy/vending/capdrobe,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bYB" = (
