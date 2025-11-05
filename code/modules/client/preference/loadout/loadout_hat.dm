@@ -364,3 +364,23 @@
 /datum/gear/hat/wizard
 	display_name = "Wizard hat"
 	path = /obj/item/clothing/head/wizard/fake
+
+/datum/gear/hat/chef
+	main_typepath = /datum/gear/hat/chef
+	allowed_roles = list("Chef")
+
+/datum/gear/hat/chef/white
+	display_name = "Chef hat, white"
+	path = /obj/item/clothing/head/chefhat
+
+/datum/gear/hat/chef/bw
+	display_name = "Chef hat, black and white"
+	path = /obj/item/clothing/head/chefhat/bw
+
+/datum/gear/hat/chef/black
+	display_name = "Chef hat, black"
+	path = /obj/item/clothing/head/chefhat/black
+
+/datum/gear/hat/chef/red
+	display_name = "Chef hat, red"
+	path = /obj/item/clothing/head/chefhat/red

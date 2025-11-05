@@ -151,7 +151,7 @@
 /datum/status_effect/saw_bleed/bloodletting
 	id = "bloodletting"
 	bleed_cap = 7
-	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_damage = 50
 	bleed_amount = 6
 
 /datum/status_effect/stacking/ground_pound
