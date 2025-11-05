@@ -293,6 +293,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer
 	access = ACCESS_STATION_ENGINEER
 
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine
+	access = ACCESS_ENGINE
+
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
 
