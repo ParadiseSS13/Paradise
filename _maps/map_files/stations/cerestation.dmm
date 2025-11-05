@@ -35078,12 +35078,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
-"gzi" = (
-/obj/machinery/computer/arcade{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
 "gzl" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -63207,6 +63201,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
+"mEo" = (
+/obj/machinery/computer/arcade{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "mEq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
@@ -104035,9 +104035,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
-"vGs" = (
-/turf/simulated/wall,
-/area/space)
 "vGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -147785,7 +147782,7 @@ abW
 dxS
 auU
 ikc
-vGs
+eTm
 eTm
 wPw
 uXj
@@ -148303,7 +148300,7 @@ eTm
 uBe
 vUn
 aVo
-aEU
+mEo
 qEF
 uaz
 eTm
@@ -150361,7 +150358,7 @@ aBj
 ovr
 meB
 uER
-gzi
+aEU
 eTm
 fgx
 oJf
