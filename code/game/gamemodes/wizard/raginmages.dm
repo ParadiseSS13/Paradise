@@ -135,6 +135,7 @@
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
 	G.client.prefs.active_character.copy_to(new_character)
 	new_character.key = G.key
+	new_character.clear_quirks()
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()

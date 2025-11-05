@@ -187,7 +187,7 @@
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 	for(var/datum/objective/specialization/objective in owner.get_all_objectives())
-		objective.gain_specialization()
+		objective.update_explanation_text()
 
 /datum/spell/vampire/glare
 	name = "Glare"
@@ -252,7 +252,8 @@
 	qdel(C)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	V.has_lair = TRUE
-	user.mind.RemoveSpell(src)
+	V.upgrade_tiers -= type
+	V.remove_ability(src)
 
 /obj/effect/lair_rune
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
