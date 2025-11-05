@@ -366,3 +366,24 @@
 	display_name = "Chaplain, hasidic coat"
 	path = /obj/item/clothing/suit/hasidic_coat
 	allowed_roles = list("Chaplain")
+
+//Chef
+/datum/gear/suit/job/chef
+	main_typepath = /datum/gear/suit/job/chef
+	allowed_roles = list("Chef")
+
+/datum/gear/suit/job/chef/white
+	display_name = "Chef's coat"
+	path = /obj/item/clothing/suit/chef
+
+/datum/gear/suit/job/chef/bw
+	display_name = "Chef's black-piped coat"
+	path = /obj/item/clothing/suit/chef/bw
+
+/datum/gear/suit/job/chef/red
+	display_name = "Chef's red-piped coat"
+	path = /obj/item/clothing/suit/chef/red
+
+/datum/gear/suit/job/chef/darkgreen
+	display_name = "Chef's dark coat"
+	path = /obj/item/clothing/suit/chef/darkgreen
