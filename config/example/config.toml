@@ -163,6 +163,13 @@ ipc_screens = [
     "Icon State 2",
   ]},
 ]
+fluff_undershirts = [
+	{ name = "Shirt Name Here", ckeys = [
+		"ckeyhere1",
+		"ckeyhere2",
+	] },
+]
+
 
 ################################################################
 
@@ -173,7 +180,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 70
+sql_version = 71
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -359,6 +366,8 @@ randomise_shift_time = true
 enable_night_shifts = true
 # Cap for monkeys spawned from monkey cubes
 monkey_cube_cap = 32
+# Cap for chickens
+chicken_hatched_cap = 50
 # Make explosions react to obstacles (walls+doors) instead of ignoring them
 reactionary_explosions = true
 # Bomb cap for explosions (Outer devastation. Other values calculate from this)
@@ -657,6 +666,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/engineering_vessel.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
@@ -669,6 +679,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/sieged_lab.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/telecoms_shuttle.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
@@ -764,6 +775,8 @@ shutdown_on_reboot = false
 #api_host = "http://127.0.0.1:8080"
 # Access key for the internal API.
 #api_key = "your_secret_here"
+# Github API token for in game bug reporting
+#github_api_token = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
 # Turn this to true if you are running a production server

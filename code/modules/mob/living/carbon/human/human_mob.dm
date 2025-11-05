@@ -67,6 +67,7 @@
 	. = ..()
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST_CONTENTS(bodyparts)
+	QDEL_LIST_CONTENTS(quirks)
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
@@ -315,6 +316,9 @@
 			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
+
+	if(HAS_TRAIT(src, TRAIT_FRAIL))
+		limb_loss_chance *= 2
 
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)
@@ -1235,10 +1239,8 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
-
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
-
 	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
 	if(keep_missing_bodyparts)
 		for(var/organ_name as anything in bodyparts_by_name)
@@ -1394,6 +1396,8 @@
 		return
 	if(bloody_hands <= 1)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		to_chat(src, "<span class='warning'>Your hands aren't bloody enough!</span>")
+		return
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
@@ -1780,25 +1784,27 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/can_eat(flags = 255)
-	return dna.species && (dna.species.dietflags & flags)
+	return dna.species && ((dna.species.dietflags & flags) || HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
 
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
-		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-		return FALSE
+		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
+			to_chat(src, "<span class='notice'>Where do you intend to put [toEat]? You don't have a mouth!</span>")
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-			return FALSE
+		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
+			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
+				to_chat(user, "<span class='notice'>Where do you intend to put [toEat]? \The [src] doesn't have a mouth!</span>")
+				return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
-			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
+			to_chat(src, "<span class='notice'>Where do you intend to put \the [src]? You don't have a mouth!</span>")
 			return FALSE
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")

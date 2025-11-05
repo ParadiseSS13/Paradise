@@ -67,10 +67,10 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "ao" = (
 /turf/simulated/wall/mineral/titanium/interior,
@@ -143,10 +143,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aB" = (
 /obj/structure/lattice/catwalk,
@@ -163,10 +163,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor/secret,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aE" = (
 /obj/effect/spawner/window/shuttle,
@@ -213,9 +213,8 @@
 	pixel_y = 5
 	},
 /obj/structure/shelf,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aK" = (
 /obj/structure/lattice/catwalk,
@@ -240,10 +239,10 @@
 	pixel_y = 1
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aN" = (
 /obj/structure/lattice/catwalk,
@@ -274,9 +273,8 @@
 "aR" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aS" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -286,10 +284,10 @@
 /turf/template_noop,
 /area/ruin/space/djstation)
 "aU" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aV" = (
 /obj/effect/spawner/window/shuttle,
@@ -303,10 +301,10 @@
 	dir = 8
 	},
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aX" = (
 /obj/structure/shelf,
@@ -317,9 +315,8 @@
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aY" = (
 /turf/simulated/floor/plasteel{
@@ -337,16 +334,15 @@
 	},
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "ba" = (
 /obj/machinery/economy/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -360,10 +356,10 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bc" = (
 /obj/machinery/door/airlock/public/glass{
@@ -372,9 +368,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bd" = (
 /obj/structure/cable/yellow{
@@ -386,16 +380,16 @@
 	},
 /area/ruin/space/djstation/solars)
 "be" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bf" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -413,10 +407,10 @@
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bi" = (
 /obj/structure/cable{
@@ -426,10 +420,10 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bj" = (
 /obj/structure/cable{
@@ -438,15 +432,13 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /obj/structure/sign/poster/contraband/communist_state/directional/north,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bl" = (
 /obj/structure/lattice,
@@ -455,28 +447,23 @@
 /turf/template_noop,
 /area/space/nearstation)
 "bm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bn" = (
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bo" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bp" = (
 /obj/structure/chair/office,
@@ -487,10 +474,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "br" = (
 /obj/effect/spawner/window/shuttle,
@@ -515,31 +502,29 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bu" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bv" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bw" = (
 /obj/structure/table,
@@ -548,17 +533,15 @@
 	icon_state = "4-8"
 	},
 /obj/item/paper/djstation/diary_note,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bx" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "by" = (
 /obj/structure/chair/comfy/beige{
@@ -571,33 +554,33 @@
 	pixel_x = -38;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bz" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bA" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bB" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bC" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bD" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bE" = (
 /obj/machinery/door/airlock{
@@ -633,18 +616,16 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
 /area/ruin/space/djstation)
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bL" = (
 /obj/effect/spawner/window/shuttle,
@@ -660,9 +641,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -672,10 +651,7 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bO" = (
 /obj/structure/lattice,
@@ -706,10 +682,10 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bT" = (
 /obj/machinery/shower/directional/north,
@@ -729,10 +705,10 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bV" = (
 /obj/machinery/light/small{
@@ -774,17 +750,16 @@
 /obj/item/vending_refill/cigarette,
 /obj/item/vending_refill/cigarette,
 /obj/item/vending_refill/sovietsoda,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "gx" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "mL" = (
 /obj/machinery/light/small{
@@ -810,10 +785,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/newscaster/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "qj" = (
 /obj/structure/shelf,
@@ -824,9 +799,8 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "rn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -837,20 +811,20 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "sZ" = (
 /obj/machinery/tcomms/relay/ruskie,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -861,10 +835,10 @@
 /obj/item/multitool,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/box/tapes,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "uf" = (
 /obj/structure/cable{
@@ -876,7 +850,7 @@
 /obj/item/gun/projectile/automatic/pistol,
 /obj/structure/safe/floor,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -893,10 +867,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "yr" = (
 /obj/item/kirbyplants/large,
@@ -904,17 +878,17 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "CQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "Do" = (
 /obj/structure/extinguisher_cabinet{
@@ -924,14 +898,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "DD" = (
 /obj/machinery/computer/security/telescreen/entertainment/television,
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "FR" = (
 /obj/structure/cable{
@@ -940,10 +914,10 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "Mj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -973,17 +947,16 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "RH" = (
 /obj/machinery/economy/vending/snack/free,
 /obj/structure/sign/poster/contraband/cc64k_ad/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "Sf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -993,19 +966,18 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "TF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "UP" = (
 /obj/structure/cable{
@@ -1029,7 +1001,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/grimy,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 
 (1,1,1) = {"
