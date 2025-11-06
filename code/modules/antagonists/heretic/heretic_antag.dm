@@ -635,7 +635,6 @@
 	if(!valid_targets)
 		return FALSE
 
-	var/list/datum/mind/final_targets = list()
 	if(target.mind.assigned_role in GLOB.command_head_positions)
 		for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
 			if(head_mind.assigned_role in GLOB.command_head_positions)
