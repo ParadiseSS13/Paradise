@@ -485,7 +485,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null, list/extra_checks = list())
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null, list/extra_checks = list(), allow_moving_target = FALSE)
 	if(!user || !target)
 		return
 
@@ -497,7 +497,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 
 	extra_checks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks, interaction_key = interaction_key)
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks, interaction_key = interaction_key, allow_moving_target = allow_moving_target)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 // Please don't use this unless you absolutely need to. Just have a direct call to do_after_once whenever possible.
