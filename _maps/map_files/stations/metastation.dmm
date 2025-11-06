@@ -26887,6 +26887,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "cLU" = (
