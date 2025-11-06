@@ -166,7 +166,7 @@
 			borg.visible_message("<span class='warning'><span class='name'>[user]</span> drops their hat!</span>",
 							"<span class='warning'>As you flip your hat falls off!</span>")
 
-	if(prob(5) && ishuman(user))
+	if(prob(5) && ishuman(user) && !HAS_TRAIT(user, TRAIT_COOL))
 		var/turf = get_turf(L)
 		message = "attempts a flip and [isspaceturf(turf) ? "loses balance" : "crashes to the floor"]!"
 		if(istype(L))
@@ -190,7 +190,7 @@
 	if(!.)
 		return FALSE
 
-	if(prob(95) || isobserver(user) || !ishuman(user))
+	if(prob(95) || isobserver(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_COOL))
 		user.spin(20, 1)
 		return TRUE
 

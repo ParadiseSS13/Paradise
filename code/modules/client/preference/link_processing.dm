@@ -199,6 +199,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.quirks = list() //Reset their quirks
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
@@ -680,6 +681,11 @@
 				if("loadout")
 					var/datum/ui_module/loadout/loadout = new()
 					loadout.ui_interact(user)
+					return FALSE
+
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
 					return FALSE
 
 				if("nt_relation")
