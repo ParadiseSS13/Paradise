@@ -1,24 +1,26 @@
-/*
+
 /mob/living/update_blind_effects(sleeping = FALSE, force_clear_sleeping = FALSE)
 	if(force_clear_sleeping) //We force it on waking up, as if you are blind from other methods it will refuse to clear it.
 		clear_fullscreen("sleepblind")
 		clear_fullscreen("disky")
 	if(!has_vision(information_only=TRUE))
+		/*
 		if(sleeping)
 			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/center/blind/sleeping, animated = 2 SECONDS)
 			overlay_fullscreen("disky", /atom/movable/screen/fullscreen/center/blind/disky, animated = 7 SECONDS)
 			throw_alert("blind", /atom/movable/screen/alert/blind)
 			return TRUE
+		*/
 		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/stretch/blind)
 		throw_alert("blind", /atom/movable/screen/alert/blind)
 		return TRUE
 	else
 		clear_fullscreen("blind")
-		clear_fullscreen("sleepblind")
-		clear_fullscreen("disky")
+		// clear_fullscreen("sleepblind")
+		// clear_fullscreen("disky")
 		clear_alert("blind")
 		return FALSE
-*/
+
 
 /mob/living/update_blurry_effects()
 	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
