@@ -19,6 +19,7 @@
 	. = ..()
 	reagents.add_reagent("water", 150)
 	stored_mop = new /obj/item/mop(src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/mopbucket/Destroy()
 	GLOB.janitorial_equipment -= src
