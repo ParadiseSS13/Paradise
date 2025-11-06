@@ -51,7 +51,7 @@
 	/// How many levels of foam do we have on us? Capped at 5
 	var/foam_level = 0
 
-	///Is this barricaded?
+	/// Is this door barricaded?
 	var/barricaded = FALSE
 
 	/// How much this door reduces superconductivity to when closed.
@@ -281,7 +281,7 @@
 	if(istype(Q, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/S = Q
 		if(!density)
-			to_chat(user, "<span class='warning'>[src] must be closed!</span>")
+			to_chat(user, "<span class='warning'>[src] must be closed before you can barricade it!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
@@ -302,8 +302,10 @@
 				return ITEM_INTERACT_COMPLETE
 			else if(!barricaded) //one last check in case someone pre-barricades it
 				close()
-				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
-				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+				user.visible_message(
+					"<span class='warning'>[user] barricades [src] shut!</span>",
+					"<span class='notice'>You barricade [src] shut.</span>"
+				)
 				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 				transfer_fingerprints_to(newbarricade)
 				return ITEM_INTERACT_COMPLETE
