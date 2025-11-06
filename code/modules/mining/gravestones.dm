@@ -23,7 +23,6 @@
     // In case somehow something is buried here already
     dig_up()
     return INITIALIZE_HINT_QDEL
-//update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/grave/examine(mob/user)
 	. = ..()
