@@ -122,13 +122,20 @@
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
 	for(var/atom/potential_door as anything in get_turf(src))
-		if(istype(potential_door, /obj/structure/mineral_door||istype(potential_door,/obj/machinery/door)))
-			potential_door.door_barricaded = TRUE
-
+		if(istype(potential_door, /obj/machinery/door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.door_barricaded = TRUE
+		else if(istype(potential_door, /obj/structure/mineral_door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.door_barricaded = TRUE
 /obj/structure/barricade/wooden/Destroy()
 	for(var/atom/potential_door as anything in get_turf(src))
-		if(istype(potential_door, /obj/structure/mineral_door||istype(potential_door,/obj/machinery/door)))
-			potential_door.door_barricaded = FALSE
+		if(istype(potential_door, /obj/machinery/door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.door_barricaded = TRUE
+		else if(istype(potential_door, /obj/structure/mineral_door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.door_barricaded = TRUE
 	. = ..()
 
 /obj/structure/barricade/wooden/crude
@@ -146,12 +153,16 @@
 			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 			return
 		to_chat(user, "<span class='notice'> You start repairing [src]...</span>")
-		if(do_after(user, 2 SECONDS, target = src))
-			S.use(1)
-			to_chat(user, "<span class='notice'> You repair [src].</span>")
-			user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
-			obj_integrity = max_integrity
-			transfer_fingerprints_to(src)
+		if(do_after_once(user, 4 SECONDS, target = src))
+			if(!S.use(1))
+				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
+				return
+			else
+				S.use(1)
+				to_chat(user, "<span class='notice'> You repair [src].</span>")
+				user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
+				obj_integrity = max_integrity
+				transfer_fingerprints_to(src)
 		return
 
 	return ..()

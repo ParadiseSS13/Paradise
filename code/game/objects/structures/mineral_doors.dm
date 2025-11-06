@@ -125,7 +125,7 @@
 		if(!density)
 			to_chat(user, "<span class='warning'>\The [src] must be closed!</span>")
 			return
-		if(S.get_amount() < 2)
+		if(!S.use(2))
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
 		if(door_barricaded)
@@ -135,15 +135,17 @@
 			to_chat(user, "<span class='warning'>There's someone blocking [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-		if(do_after_once(user, 4 SECONDS, target = src) && S.get_amount() > 2)
-			S.use(2)
-			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-			transfer_fingerprints_to(newbarricade)
-			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
-			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
-			return
-		else if(S.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You ran out of wood during construction.</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			if(!S.use(2))
+				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
+				return
+			else
+				S.use(2)
+				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+				transfer_fingerprints_to(newbarricade)
+				return
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
