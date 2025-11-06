@@ -254,10 +254,11 @@
 		if(door_barricaded)
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
-		for(var/mob/living/blocker in get_turf(src))
-		if((/mob/living) in get_turf(src))
-			to_chat(user, "<span class='warning'>There's someone blocking \the [src]!</span>")
-			return
+		var/turf/buildloc = get_turf(src)
+		for(var/mob/living/blocker in buildloc.contents)
+			if(blocker.density)
+				to_chat(user, "<span class='warning'>There's someone blocking [src]!</span>")
+				return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 		if(do_after_once(user, 4 SECONDS, target = src))
 			if(!S.use(2))
