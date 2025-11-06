@@ -42,7 +42,7 @@
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
 	///Is this barricaded?
-	var barricaded = FALSE
+	var/barricaded = FALSE
 
 
 /obj/structure/window/rad_act(atom/source, amount, emission_type)

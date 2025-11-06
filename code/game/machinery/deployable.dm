@@ -149,8 +149,9 @@
 	proj_pass_rate = 65
 
 //Barricade repairs
-/obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
-	if((istype(S, /obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
+/obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if((istype(I, /obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
 		if(obj_integrity >= max_integrity)
 			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 			return ITEM_INTERACT_COMPLETE
@@ -166,7 +167,6 @@
 				obj_integrity = max_integrity
 				transfer_fingerprints_to(src)
 		return ITEM_INTERACT_COMPLETE
-
 	return ..()
 
 /obj/structure/barricade/wooden/crude/snow
