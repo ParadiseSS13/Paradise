@@ -219,17 +219,9 @@ const checkBlacklistMatch = (node, regex, words) => {
     // Is a text node
     if (childNode.nodeType === 3) {
       const text = childNode.textContent;
-      // Check regex first
+      // Use regex if available
       if (regex && regex.test(text)) {
         return true;
-      }
-      // Check words
-      if (words && words.length > 0) {
-        for (let word of words) {
-          if (text.toLowerCase().includes(word.toLowerCase())) {
-            return true;
-          }
-        }
       }
     } else {
       // Recursively check child nodes
