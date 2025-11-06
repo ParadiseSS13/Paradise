@@ -75795,14 +75795,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
-"stM" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "stX" = (
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -76514,10 +76506,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "sNM" = (
-/obj/machinery/camera{
-	c_tag = "Prison Cafeteria";
-	network = list("Prison","SS13")
-	},
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/machinery/light{
 	dir = 4
@@ -77267,6 +77255,11 @@
 /obj/item/trash/snack_bowl,
 /obj/item/trash/snack_bowl,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/machinery/camera{
+	c_tag = "Prison Cafeteria";
+	network = list("Prison","SS13");
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "tij" = (
@@ -104584,7 +104577,7 @@ uFH
 qXR
 qQy
 pDV
-stM
+qQy
 lXd
 oEG
 gAt
