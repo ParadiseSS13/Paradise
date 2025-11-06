@@ -61,9 +61,39 @@
 	description = "Just like a carrot, but without the crunching."
 	color = "#FFA500"
 	drink_icon = "carrotjuice"
-	drink_name = "Glass of  carrot juice"
+	drink_name = "Glass of carrot juice"
 	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
+
+/datum/reagent/consumable/drink/beetjuice
+	name = "Beet juice"
+	id = "beetjuice"
+	description = "Sweet as a 'sugar beet' would imply."
+	color = "#7E0243"
+	drink_icon = "glass_magenta"
+	drink_name = "Glass of beet juice"
+	drink_desc = "Sweet as a 'sugar beet' would imply."
+	taste_description = "beet juice"
+
+/datum/reagent/consumable/drink/plumjuice
+	name = "Plum juice"
+	id = "plumjuice"
+	description = "A fan favorite of old people across the galaxy."
+	color = "#99305D"
+	drink_icon = "glass_magenta"
+	drink_name = "Glass of plum juice"
+	drink_desc = "A fan favorite of old people across the galaxy."
+	taste_description = "prune juice"
+
+/datum/reagent/consumable/drink/lettucejuice
+	name = "Lettuce juice"
+	id = "lettucejuice"
+	description = "They say you should eat your greens, but drinking them is just as good."
+	color = "#79B330"
+	drink_icon = "glass_green"
+	drink_name = "Glass of lettuce juice"
+	drink_desc = "They say you should eat your greens, but drinking them is just as good."
+	taste_description = "lettuce juice"
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -95,7 +125,7 @@
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	color = "#B5FF00"
 	drink_icon = "triplecitrus"
-	drink_name = "Glass of Triplecitrus Juice"
+	drink_name = "Glass of triple citrus Juice"
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
@@ -252,9 +282,9 @@
 /datum/reagent/consumable/drink/milk/cream
 	name = "Cream"
 	id = "cream"
-	description = "The fatty, still liquid part of milk. Why don't you mix this with some scotch, eh?"
+	description = "A mix of higher-fat fractions of milk that have been skimmed off. Occasionally drunk straight, but more often used as a mixer or culinary ingrediant."
 	drink_name = "Glass of cream"
-	drink_desc = "Ewwww..."
+	drink_desc = "A glass of cream, a mix of higher-fat fractions of milk that have been skimmed off. Occasionally drunk straight, but more often used as a mixer or culinary ingrediant."
 	taste_description = "cream"
 
 /datum/reagent/consumable/drink/milk/chocolate_milk
@@ -727,11 +757,11 @@
 /datum/reagent/consumable/drink/fyrsskar_tears
 	name = "Tears of Fyrsskar"
 	id = "fyrsskartears"
-	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	color = "#C300AE" // rgb: 195, 0, 174
 	drink_icon = "fyrsskartears"
 	drink_name = "Tears of Fyrsskar"
-	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
@@ -739,10 +769,16 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
 	if(isskrell(M))
 		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
 	if(!isskrell(M))
 		return ..()
+
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id, 5)
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
 	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
@@ -751,6 +787,15 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/drink/fyrsskar_tears/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isskrell(M))
+		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	else
+		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
 
 /datum/reagent/consumable/drink/lean
 	name = "Lean"
@@ -775,4 +820,179 @@
 /datum/reagent/consumable/drink/melonade/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 5
+	return ..()
+
+/datum/reagent/consumable/drink/royrogers
+	name = "Roy Rogers"
+	description = "A cola classic from the days of Earth."
+	id = "royrogers"
+	color = "#8F1909"
+	drink_icon = "royrogers_glass"
+	drink_name = "Roy Rogers"
+	drink_desc = "The rootinest, tootinest drink you can get at the bar without any alcohol."
+	taste_description = "berries and cola"
+
+/datum/reagent/consumable/drink/shirleytemple
+	name = "Shirley Temple"
+	description = "A bubbly, fruity delight from the days of Earth."
+	id = "shirleytemple"
+	color = "#FF7970"
+	drink_icon = "shirleytemple_glass"
+	drink_name = "Shirley Temple"
+	drink_desc = "A soft drink classic with a cherry on top."
+	taste_description = "berries and carbonation"
+
+/datum/reagent/consumable/drink/partypunch
+	name = "Party Punch"
+	description = "A vibrant mix of fruit juices. A real punch of flavor."
+	id = "partypunch"
+	color = "#E8313f"
+	drink_icon = "partypunch_glass"
+	drink_name = "Glass of Party Punch"
+	drink_desc = "A vibrant mix of fruit juices. A real punch of flavor."
+	taste_description = "a punch of fruit"
+
+/datum/reagent/consumable/drink/coffee/eggcoffee
+	name = "Egg Coffee"
+	description = "Rich coffee with custard foam."
+	id = "eggcoffee"
+	color = "#824D27"
+	drink_icon = "eggcoffee_glass"
+	drink_name = "Glass Mug of Egg Coffee"
+	drink_desc = "Rich coffee with custard foam."
+	taste_description = "rich foam"
+
+/datum/reagent/consumable/drink/horchata
+	name = "Horchata"
+	description = "Sweetened rice milk topped with cinnamon."
+	id = "horchata"
+	color = "#E0DDD5"
+	drink_icon = "horchata_glass"
+	drink_name = "Glass of Horchata"
+	drink_desc = "Sweetened rice milk topped with cinnamon."
+	taste_description = "cinnamony rice milk"
+
+/datum/reagent/consumable/drink/monstermix
+	name = "Monster Mix"
+	description = "A mix of every soda in the dispenser. You monster."
+	id = "monstermix"
+	color = "#CBFF71"
+	drink_icon = "monstermix_glass"
+	drink_name = "Glass of Monster Mix"
+	drink_desc = "A mix of every soda in the dispenser. You monster."
+	taste_description = "an unholy amalgam"
+
+/datum/reagent/consumable/drink/spessamatosmash
+	name = "Spessamato Smash"
+	description = "Fruity yet salty."
+	id = "tomato_spaceup"
+	color = "#B72429"
+	drink_icon = "tomato_spaceup"
+	drink_name = "Glass of Spessamato Smash"
+	drink_desc = "Fruity yet salty."
+	taste_description = "sparkling tomato"
+
+/datum/reagent/consumable/drink/eggcream
+	name = "Egg Cream"
+	description = "Smells like custard."
+	id = "eggcream"
+	color = "#F5D4BB"
+	drink_icon = "eggcream_glass"
+	drink_name = "Glass of Egg Cream"
+	drink_desc = "You now have a glass of custard."
+	taste_description = "sweet egg"
+
+/datum/reagent/consumable/drink/beetshrub
+	name = "Beet Shrub"
+	description = "So, so sour."
+	id = "beetshrub"
+	color = "#99305D"
+	drink_icon = "beetshrub_glass"
+	drink_name = "Glass of Beet Shrub"
+	drink_desc = "The vinegar gives this far more bite than any ordinary person would drink straight."
+	taste_description = "vinegar"
+
+/datum/reagent/consumable/drink/berrybeetrefresher
+	name = "Berry Beet Refresher"
+	description = "Tangy, sweet, with just a bit of bite."
+	id = "berrybeetrefresher"
+	color = "#C7437C"
+	drink_icon = "berry_beet_refresher"
+	drink_name = "Glass of Berry Beet Refresher"
+	drink_desc = "Tangy, sweet, with just a bit of bite."
+	taste_description = "tangy, bubbly fruit"
+
+/datum/reagent/consumable/drink/smoothie
+	name = "Empty Smoothie"
+	description = ABSTRACT_TYPE_DESC
+	id = "smoothie"
+	color = "#9933FF"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "glass_magenta"
+	drink_name = "Glass of Empty Smoothie"
+	drink_desc = ABSTRACT_TYPE_DESC
+
+/datum/reagent/consumable/drink/smoothie/on_mob_life(mob/living/M)
+	if(M.satiety < 600)
+		M.satiety += 5
+	return ..()
+
+/datum/reagent/consumable/drink/smoothie/pbnbanana
+	name = "Peanut Butter and Banana Smoothie"
+	description = "This is so smooth, it's definitely made with creamy peanut butter."
+	id = "smoothie_pbnbanana"
+	color = "#F3BC58"
+	drink_icon = "smoothie_pbnbanana"
+	drink_name = "Glass of PB Banana Smoothie"
+	drink_desc = "So smooth and fluffy."
+	taste_description = "nutty banana"
+
+/datum/reagent/consumable/drink/smoothie/veryberry
+	name = "Very Berry Smoothie"
+	description = "Berries give this creamy beverage its speckled appearance."
+	id = "smoothie_veryberry"
+	color = "#C7437C"
+	drink_icon = "smoothie_veryberry"
+	drink_name = "Glass of Very Berry Smoothie"
+	drink_desc = "Berries give this creamy beverage its speckled appearance."
+	taste_description = "berries and cream"
+
+/datum/reagent/consumable/drink/vegetablemix
+	name = "Vegetable Juice Mix"
+	description = "More vitamins than you can shake a stick at."
+	id = "vegjuice"
+	color = "#B36131"
+	drink_icon = "vegjuice_glass"
+	drink_name = "Glass of Vegetable Juice"
+	drink_desc = "Mellow and creamy vegetable juice."
+	taste_description = "so many vitamins"
+
+/datum/reagent/consumable/drink/vegetablemix/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(M.satiety < 600)
+		M.satiety += 5
+	if(prob(10))
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/electrolytes
+	name = "Electrolytes"
+	description = "That's fancy talk for salted water."
+	id = "electrolytes"
+	color = "#67D6F0"
+	drink_icon = "electrolytes_glass"
+	drink_name = "Glass of Electrolytes"
+	drink_desc = "The fastest way to rehydration without an IV."
+	taste_description = "salt"
+	adj_dizzy = -5 SECONDS
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/consumable/drink/electrolytes/on_mob_life(mob/living/M)
+	M.AdjustConfused(-5 SECONDS)
+	M.AdjustEyeBlurry(-2 SECONDS)
+	if(ishuman(M) && prob(10))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.5
 	return ..()

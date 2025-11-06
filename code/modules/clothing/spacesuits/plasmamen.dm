@@ -187,9 +187,18 @@
 	icon_state = "smith_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
-	name = "chaplain's plasma envirosuit helmet"
+	name = "chaplain's black plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen."
-	icon_state = "chap_envirohelm"
+	icon_state = "chapbw_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/green
+	name = "chaplain's white plasma envirosuit helmet"
+	icon_state = "chapwg_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange
+	name = "chaplain's orange plasma envirosuit helmet"
+	desc = "An envirohelmet specially designed for only the most pious of plasmamen, molded like a turban."
+	icon_state = "chapco_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/white
 	name = "white plasma envirosuit helmet"
@@ -200,6 +209,9 @@
 	name = "chef plasma envirosuit helmet"
 	desc = "An envirohelm designed for plasmamen chefs."
 	icon_state = "chef_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chef/bw
+	icon_state = "chef_envirohelm_bw"
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
 	name = "librarian plasma envirosuit helmet"

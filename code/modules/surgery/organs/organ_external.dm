@@ -66,6 +66,10 @@
 	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
 	var/augmented_skin_cover_level = 0
 
+// When the limb is not on a person, make sure it faces south so it's always visible.
+/obj/item/organ/external/setDir()
+	dir = SOUTH
+
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
@@ -220,6 +224,8 @@
 	var/max_limb_damage = max_damage
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
+	if(owner && HAS_TRAIT(owner, TRAIT_FRAIL))
+		max_limb_damage /= 2
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -315,9 +321,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(limb_brute + limb_burn >= max_damage && prob(original_brute / 2))
+			if(limb_brute + limb_burn >= max_limb_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(limb_brute + limb_burn >= max_damage && prob(original_burn / 2))
+			if(limb_brute + limb_burn >= max_limb_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -525,21 +531,33 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
-	if(GLOB.configuration.general.breakable_bones && brute_dam > min_broken_damage && !is_robotic())
-		if(prob(damage_inflicted))
+	var/frail_multiplier = 1
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
+	if(GLOB.configuration.general.breakable_bones && brute_dam > adjusted_broken_damage && !is_robotic())
+		if(prob(damage_inflicted * frail_multiplier))
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	var/frail_multiplier = 1
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > min_broken_damage && prob(damage))
+	if(damage > 15 && local_damage > adjusted_broken_damage && prob(damage * frail_multiplier))
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
+	var/frail_multiplier = 1
 	if(is_robotic())
 		return
-	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
+	if(burn_dam >= adjusted_broken_damage && prob(damage * frail_multiplier * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
 		cause_burn_wound(update_health)
 
 /obj/item/organ/external/proc/check_skin_covers(brute, burn)
@@ -645,7 +663,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
-		dir = 2
+		dir = SOUTH
 
 	if(victim)
 		victim.updatehealth("droplimb")
@@ -663,7 +681,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				// Throw limb around.
 				if(src && isturf(loc))
 					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
-				dir = 2
+				dir = SOUTH
 			brute_dam = 0
 			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
 			return dropped_part

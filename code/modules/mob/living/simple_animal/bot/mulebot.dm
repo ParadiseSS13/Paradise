@@ -21,7 +21,6 @@
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
-	bot_filter = RADIO_MULEBOT
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
@@ -103,6 +102,7 @@
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
+
 		var/obj/item/stock_parts/cell/C = I
 		C.forceMove(src)
 		cell = C
@@ -111,6 +111,7 @@
 		update_controls()
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
+
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -135,6 +136,16 @@
 	visible_message("[user] crowbars out the power cell from [src].",
 					"<span class='notice'>You pry the powercell out of [src].</span>")
 	update_controls()
+	update_icon()
+
+/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
+	if(allowed(user))
+		locked = !locked
+		update_controls()
+		return TRUE
+	else
+		to_chat(user, "<span class='danger'>Access denied.</span>")
+		return FALSE
 
 /mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
 	if(!open)
@@ -220,41 +231,71 @@
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
 			wires.cut_random()
 
-/mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
-	if(..())
-		return 1
+/// MARK: UI Section
+/mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
+	if(!open)
+		ui_interact(user)
+	else if(is_ai(user))
+		to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
+	else
+		wires.Interact(user)
 
-	switch(href_list["op"])
-		if("lock")
-			toggle_lock(usr)
+/mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BotMule", name)
+		ui.open()
+
+/mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
+	var/list/data = ..()
+	data["mode"] = mode
+	data["load"] = !!load
+	data["cell"] = !!cell
+	data["auto_pickup"]  = auto_pickup
+	data["auto_return"] = auto_return
+	data["report"] = report_delivery
+	data["destination"] = new_destination
+	data["bot_suffix"] = suffix
+	data["set_home"] = home_destination
+	return data
+
+/mob/living/simple_animal/bot/mulebot/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["cargo_IMG"] = load ? icon2base64(icon(load.icon, load.icon_state, dir = SOUTH, frame = 1, moving = FALSE)) : null
+	data["cargo_info"] = load ? load.name : null
+	return data
+
+/mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
 		if("power")
 			if(on)
 				turn_off()
 			else if(cell && !open)
-				if(!turn_on())
+				if(turn_on())
+					visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] [src].</span>")
+				else
 					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-					return
-			else
-				return
-			visible_message("[usr] switches [on ? "on" : "off"] [src].")
-		if("cellremove")
-			if(open && cell && !usr.get_active_hand())
-				cell.update_icon()
-				usr.put_in_active_hand(cell)
-				cell.add_fingerprint(usr)
-				cell = null
-
-				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
-		if("cellinsert")
-			if(open && !cell)
-				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
-				if(istype(C))
-					usr.drop_item()
-					cell = C
-					C.forceMove(src)
-					C.add_fingerprint(usr)
-
-					usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("auto_pickup")
+			auto_pickup = !auto_pickup
+		if("auto_return")
+			auto_return = !auto_return
+		if("report")
+			report_delivery = !report_delivery
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
@@ -280,90 +321,14 @@
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
+					update_static_data(ui.user)
 				else
 					unload(0)
-		if("autoret")
-			auto_return = !auto_return
-		if("autopick")
-			auto_pickup = !auto_pickup
-		if("report")
-			report_delivery = !report_delivery
-	update_controls()
-
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
-	if(allowed(user))
-		locked = !locked
-		update_controls()
-		return 1
-	else
-		to_chat(user, "<span class='danger'>Access denied.</span>")
-		return 0
-
-// TODO: remove this; PDAs currently depend on it
-/mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
-	var/ai = issilicon(user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<h3>Multiple Utility Load Effector Mk. V</h3>"
-	dat += "<b>ID:</b> [suffix]<BR>"
-	dat += "<b>Power:</b> [on ? "On" : "Off"]<BR>"
-
-	if(!open)
-		dat += "<h3>Status</h3>"
-		dat += "<div class='statusDisplay'>"
-		switch(mode)
-			if(BOT_IDLE)
-				dat += "<span class='good'>Ready</span>"
-			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
-			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
-			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
-			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
-			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
-		dat += "</div>"
-
-		dat += "<b>Current Load:</b> [load ? load.name : "<i>none</i>"]<BR>"
-		dat += "<b>Destination:</b> [!destination ? "<i>none</i>" : destination]<BR>"
-		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
-
-		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='byond://?src=[UID()];op=unlock'>Unlock Controls</A>"
-		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='byond://?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
-
-			dat += "<A href='byond://?src=[UID()];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=stop'>Stop</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=go'>Proceed</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=home'>Return to Home</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='byond://?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='byond://?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
-			if(load)
-				dat += "<A href='byond://?src=[UID()];op=unload'>Unload Now</A><BR>"
-			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
-	else
-		if(!ai)
-			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
-			dat += "<b>Power cell:</b> "
-			if(cell)
-				dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
-			else
-				dat += "<A href='byond://?src=[UID()];op=cellinsert'>Removed</A><BR>"
-
-			wires.Interact(user)
-		else
-			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
-
-	return dat
-
+					update_static_data(ui.user)
+		if("load")
+			find_crate()
+		if("refresh")
+			update_static_data(ui.user)
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()
@@ -665,22 +630,9 @@
 				var/obj/structure/closet/crate/C = load
 				C.notifyRecipient(destination)
 			unload(loaddir)
-		else
-			// not loaded
-			if(auto_pickup) // find a crate
-				var/atom/movable/AM
-				if(wires.is_cut(WIRE_LOADCHECK)) // if hacked, load first unanchored thing we find
-					for(var/atom/movable/A in get_step(loc, loaddir))
-						if(!A.anchored)
-							AM = A
-							break
-				else			// otherwise, look for crates only
-					AM = locate(/obj/structure/closet/crate) in get_step(loc,loaddir)
-				if(AM && AM.Adjacent(src))
-					load(AM)
-					if(report_delivery)
-						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_channel)
-		// whatever happened, check to see if we return home
+
+		if(auto_pickup)
+			find_crate()
 
 		if(auto_return && home_destination && destination != home_destination)
 			// auto return set and not at home already
@@ -690,6 +642,27 @@
 			bot_reset()	// otherwise go idle
 
 	return
+
+/mob/living/simple_animal/bot/mulebot/proc/find_crate()
+	var/atom/movable/AM
+	loaddir = dir
+	if(wires.is_cut(WIRE_LOADCHECK)) // if hacked, load first unanchored thing we find
+		for(var/atom/movable/A in get_step(loc, loaddir))
+			if(!A.anchored)
+				AM = A
+				break
+	else
+		// otherwise, look for crates only
+		AM = locate(/obj/structure/closet/crate) in get_step(loc,loaddir)
+
+	// Nothing found
+	if(!AM || !AM.Adjacent(src))
+		return
+
+	// Load found item if adjacent
+	load(AM)
+	if(report_delivery)
+		speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_channel)
 
 /mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
 	. = ..()
