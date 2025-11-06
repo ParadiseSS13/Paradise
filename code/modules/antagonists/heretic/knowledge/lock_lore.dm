@@ -106,7 +106,7 @@
 	research_tree_icon_path = 'icons/obj/card.dmi'
 	research_tree_icon_state = "card_gold"
 	/// passes the sacrificed ID's access to the card.
-	var/list/accesses
+	var/list/accesses = list()
 
 /datum/heretic_knowledge/key_ring/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	if(!length(result_atoms))
@@ -119,7 +119,7 @@
 			new_card.access = accesses
 		else
 			new result(our_turf)
-	accesses = null
+	accesses = list()
 	return TRUE
 
 /datum/heretic_knowledge/mark/lock_mark
