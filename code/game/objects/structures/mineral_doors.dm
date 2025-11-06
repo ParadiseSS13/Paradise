@@ -135,6 +135,7 @@
 			to_chat(user, "<span class='warning'>There's someone blocking [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
+<<<<<<< Updated upstream
 		if(do_after_once(user, 4 SECONDS, target = src))
 			if(!S.use(2))
 				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
@@ -146,6 +147,15 @@
 				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 				transfer_fingerprints_to(newbarricade)
 				return
+=======
+		if(do_after_once(user, 4 SECONDS, target = src) && S.get_amount() > 2)
+			S.use(2)
+			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			transfer_fingerprints_to(newbarricade)
+			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+			return
+>>>>>>> Stashed changes
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
