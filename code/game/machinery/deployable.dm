@@ -121,16 +121,14 @@
 //This is for when barricades are constructed or deconstructed on windows or doors to prevent stacking
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
-	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded = TRUE
-	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded = TRUE
+	for(var/atom/potential_door as anything in get_turf(src))
+		if(istype(potential_door, /obj/structure/mineral_door||istype(potential_door,/obj/machinery/door)))
+			potential_door.door_barricaded = TRUE
 
 /obj/structure/barricade/wooden/Destroy()
-	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded = FALSE
-	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded = FALSE
+	for(var/atom/potential_door as anything in get_turf(src))
+		if(istype(potential_door, /obj/structure/mineral_door||istype(potential_door,/obj/machinery/door)))
+			potential_door.door_barricaded = FALSE
 	. = ..()
 
 /obj/structure/barricade/wooden/crude
