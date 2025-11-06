@@ -154,7 +154,7 @@
 	M.metal = metal_kind
 	M.update_state()
 
-/obj/effect/particle_effect/foam/metal/temperature_expose(exposed_temperature, exposed_volume)
+/obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/particle_effect/foam/metal/on_atom_entered(datum/source, atom/movable/entered)

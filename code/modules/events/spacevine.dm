@@ -701,12 +701,12 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(temp, volume)
+/obj/structure/spacevine/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		override += SM.process_temperature(src, temp, volume)
+		override += SM.process_temperature(src, exposed_temperature, exposed_volume)
 	if(!override)
 		wither()
 
