@@ -41,6 +41,8 @@
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
+	///Is this barricaded?
+	var barricaded = FALSE
 
 
 /obj/structure/window/rad_act(atom/source, amount, emission_type)
@@ -254,6 +256,26 @@
 					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
+	else if(istype(I,/obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
+		if(!S.use(2))
+			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if((/obj/structure/barricade/wooden) in get_turf(src)) //don't need a var for this because it doesn't get called much i hope
+			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			if(!S.use(2))
+				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
+				return ITEM_INTERACT_COMPLETE
+			else if(!barricaded) //one last check in case someone pre-barricades it
+				S.use(2)
+				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+				transfer_fingerprints_to(newbarricade)
+				return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

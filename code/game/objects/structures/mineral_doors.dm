@@ -25,6 +25,8 @@
 	var/damageSound = null
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
+	///Is this barricaded?
+	var/barricaded = FALSE
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
@@ -73,6 +75,8 @@
 		return
 	if(foam_level)
 		return
+	if(barricaded)
+		return
 	if(isliving(user))
 		var/mob/living/M = user
 		if(M.client)
@@ -110,6 +114,38 @@
 	if(state_open && close_delay != -1)
 		addtimer(CALLBACK(src, PROC_REF(operate)), close_delay)
 
+/obj/structure/mineral_door/proc/construct_barricade(obj/item/Q, mob/user)
+	if(istype(Q, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = Q
+		if(!density)
+			to_chat(user, "<span class='warning'>[src] must be closed!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(!S.use(2))
+			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(barricaded)
+			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/turf/buildloc = get_turf(src)
+		for(var/atom/blocker in buildloc.contents)
+			if(blocker != src)
+				if(blocker.density)
+					to_chat(user, "<span class='warning'>There's something preventing [src] from closing!</span>")
+					return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			if(!S.use(2))
+				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
+				return ITEM_INTERACT_COMPLETE
+			else if(!barricaded) //one last check in case someone pre-barricades it
+				S.use(2)
+				operate()
+				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+				transfer_fingerprints_to(newbarricade)
+				return ITEM_INTERACT_COMPLETE
+
 /obj/structure/mineral_door/update_icon_state()
 	if(state_open)
 		icon_state = "[initial_state]open"
@@ -124,6 +160,8 @@
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 		return ITEM_INTERACT_COMPLETE
+	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent != INTENT_HARM)
+		construct_barricade(W, user)
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
