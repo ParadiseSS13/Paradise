@@ -275,6 +275,7 @@ class ChatRenderer {
       const setting = blacklistSettingById[id];
       const text = setting.blacklistText;
       const censor = setting.censor;
+      const matchWord = setting.matchWord;
       const matchCase = setting.matchCase;
       const allowedRegex = /^[a-zа-яё0-9_\-$/^[\s\]\\]+$/gi;
       const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
@@ -324,9 +325,10 @@ class ChatRenderer {
       try {
         // setting regex overrides blacklistWords
         if (regexStr) {
-          blacklistRegex = new RegExp(regexStr, flags);
-        } else {
-          const pattern = blacklistWords.join('|');
+          blacklistRegex = new RegExp('(' + regexStr + ')', flags);
+        }
+        else {
+          const pattern = `${matchWord ? '\\b' : ''}(${blacklistWords.join('|')})${matchWord ? '\\b' : ''}`;
           blacklistRegex = new RegExp(pattern, flags);
         }
       } catch {
