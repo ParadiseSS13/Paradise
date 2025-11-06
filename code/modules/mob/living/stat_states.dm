@@ -16,13 +16,14 @@
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-
+/*
 	if(updating)
 		update_sight()
 		update_blind_effects(TRUE)
 		set_typing_indicator(FALSE)
 		if(hud_used && client)
 			hud_used.show_hud(HUD_STYLE_ACTIONHUD)
+*/
 
 	return TRUE
 
@@ -40,12 +41,13 @@
 	set_stat(CONSCIOUS)
 	REMOVE_TRAITS_IN(src, STAT_TRAIT)
 
+/*
 	if(updating)
 		update_sight()
 		update_blind_effects(force_clear_sleeping = TRUE)
 		if(hud_used && client)
 			hud_used.show_hud(HUD_STYLE_STANDARD)
-
+*/
 	return TRUE
 
 // death() is used to make a mob die
