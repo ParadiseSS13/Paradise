@@ -94,9 +94,18 @@
 
 /obj/item/food/ham_leg
 	name = "Leg of Ham"
-	desc = "A leg of ham. Is that fur?"
+	desc = "A leg of ham."
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "ham_leg"
 	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("long pork" = 1, "fur" = 1)
+	tastes = list("long pork" = 1, "burnt hair" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/meow_mein
+	name = "Meow Mein"
+	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "ham_leg"
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("" = 1, "burnt hair" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
