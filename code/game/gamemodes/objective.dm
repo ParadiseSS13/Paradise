@@ -294,6 +294,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return
 	return ..()
 
+/datum/objective/infiltrate_sec
+	name = "Infiltrate Security"
+	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of its members."
+	needs_target = FALSE
+	completed = TRUE
+
+/datum/objective/infiltrate_sec/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/mutiny
 	name = "Mutiny"
 	martyr_compatible = TRUE
@@ -571,7 +580,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in owners)
 		var/turf/location = get_turf(M.current)
 		if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
-			return FALSE
+			if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+				var/mob/living/A = owner.current
+				var/mob/living/carbon/carbon_A = A
+				if(!(carbon_A.handcuffed))
+					return TRUE
+			else
+				return FALSE
 		if(!location.onCentcom() && !location.onSyndieBase())
 			return FALSE
 
