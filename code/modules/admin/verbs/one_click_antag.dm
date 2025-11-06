@@ -345,6 +345,7 @@
 		for(var/i = 0, i<numHeretics, i++)
 			H = pick(candidates)
 			H.mind.make_heretic()
+			log_admin("[key_name(H)] was made a heretic with one-click antag.")
 			candidates.Remove(H)
 
 		return 1

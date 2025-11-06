@@ -601,7 +601,7 @@
 	SIGNAL_HANDLER
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner.current)
-	var/mob/living/new_target = reroll_target(owner, heretic_datum, source)
+	var/mob/living/new_target = reroll_target(owner.current, heretic_datum, source)
 	if(new_target)
 		to_chat(owner.current, "<span class='heirophant'>We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]</span>")
 	else
