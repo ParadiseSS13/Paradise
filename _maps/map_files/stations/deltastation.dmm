@@ -77405,7 +77405,6 @@
 "qjO" = (
 /obj/item/wrench,
 /obj/item/storage/bag/trash,
-/obj/item/mop,
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /obj/structure/shelf,
 /turf/simulated/floor/plating,
@@ -96939,7 +96938,6 @@
 /area/station/maintenance/fore)
 "yhn" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4

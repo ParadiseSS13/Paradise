@@ -41911,7 +41911,6 @@
 /area/station/maintenance/apmaint)
 "iwv" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
@@ -51654,8 +51653,10 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "ksv" = (
-/obj/structure/mopbucket/full,
 /obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/mopbucket/full{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -52741,10 +52742,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"kFA" = (
-/obj/item/mop,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/fore)
 "kFC" = (
 /obj/structure/chair{
 	dir = 1
@@ -170793,7 +170790,7 @@ aZS
 aZS
 cwI
 sUW
-kFA
+gjn
 wiA
 gjn
 sgI

@@ -31182,7 +31182,6 @@
 /area/station/medical/patients_rooms_secondary)
 "cpd" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/item/caution,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -45052,7 +45051,6 @@
 /area/station/maintenance/disposal)
 "dzN" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "dAq" = (

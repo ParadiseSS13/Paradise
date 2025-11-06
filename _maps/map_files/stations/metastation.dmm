@@ -29328,7 +29328,6 @@
 	dir = 1
 	},
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/item/caution,
 /obj/item/caution,
