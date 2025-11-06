@@ -1,0 +1,10 @@
+help: 'Use the specific directional subtypes for this emergency locker.'
+/obj/structure/closet/walllocker/emerglocker:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - name
+=/obj/structure/closet/walllocker/emerglocker:
+  banned: true
+=/obj/structure/closet/walllocker/emerglocker/directional:
+  banned: true

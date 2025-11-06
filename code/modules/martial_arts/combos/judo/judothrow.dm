@@ -4,7 +4,7 @@
 	explaination_text = "Establish a gripset on your opponent and throw them to the floor, inflicting stamina damage"
 	combo_text_override = "Grab, Disarm"
 /datum/martial_combo/judo/judothrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(user.IsKnockedDown() || IS_HORIZONTAL(target))
+	if(IS_HORIZONTAL(user) || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] judo throws [target] to ground!</span>", \
 						"<span class='userdanger'>[user] judo throws you to the ground!</span>")

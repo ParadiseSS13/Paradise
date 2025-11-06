@@ -16,7 +16,6 @@
 	name = "emergency closet"
 	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
 	icon_state = "emergency"
-	open_door_sprite = "emergency_door"
 
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
@@ -60,7 +59,6 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "fire"
-	open_door_sprite = "fire_door"
 
 /obj/structure/closet/firecloset/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -68,6 +66,7 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
 
 /obj/structure/closet/firecloset/full/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -76,6 +75,7 @@
 	new /obj/item/flashlight(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
 
 
 /*
@@ -84,13 +84,12 @@
 /obj/structure/closet/toolcloset
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
-	icon_state = "eng_tool"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	closed_door_sprite = "eng_tool"
 
 /obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
-		new /obj/item/clothing/suit/storage/hazardvest(src)
+		new /obj/item/clothing/suit/storage/hazardvest/staff(src)
 	if(prob(70))
 		new /obj/item/flashlight(src)
 	if(prob(70))
@@ -127,9 +126,8 @@
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
-	icon_state = "eng_rad"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	closed_door_sprite = "eng_rad"
 
 /obj/structure/closet/radiation/populate_contents()
 	new /obj/item/geiger_counter(src)
@@ -143,7 +141,6 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	open_door_sprite = "bomb_door"
 
 /obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
@@ -156,7 +153,6 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	open_door_sprite = "bomb_door"
 
 /obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )

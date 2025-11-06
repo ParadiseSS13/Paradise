@@ -2,7 +2,7 @@
 	name = "Variety of Food"
 	progress_type = /datum/secondary_goal_progress/variety_food
 	department = "Kitchen"
-	abstract = FALSE
+	weight = 1
 	/// How many different types of food are needed.
 	var/different_types = 10
 	/// How many of each food type are needed.
@@ -53,8 +53,8 @@
 	return copy
 
 /datum/secondary_goal_progress/variety_food/update(obj/item/food/food, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(food))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(food))
 		return
 
 	// Not food? Ignore.

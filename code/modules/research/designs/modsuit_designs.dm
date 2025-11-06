@@ -52,6 +52,16 @@
 	build_path = /obj/item/mod/construction/boots
 	category = list("MODsuit Construction")
 
+/datum/design/mod_scryer
+	name = "MODlink Scryer"
+	desc = "A neck-worn piece of gear that can call with another MODlink-compatible device."
+	id = "mod_scryer"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_GOLD = 500)
+	construction_time = 2 SECONDS
+	build_path = /obj/item/clothing/neck/link_scryer
+	category = list("MODsuit Construction", "Equipment")
+
 /datum/design/mod_plating
 	name = "MOD External Plating"
 	desc = "External plating for a MODsuit."
@@ -260,6 +270,13 @@
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/injector
+
+/datum/design/module/mod_monitor
+	name = "Crew Monitor Module"
+	id = "mod_monitor"
+	req_tech = list("biotech" = 3, "materials" = 5, "magnets" = 4)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
+	build_path = /obj/item/mod/module/monitor
 
 /datum/design/module/defibrillator
 	name = "Defibrillator Module"

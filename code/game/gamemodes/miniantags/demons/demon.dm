@@ -1,19 +1,18 @@
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	desc = "you shouldnt be reading this, file a github report"
+	desc = "you shouldnt be reading this, file a github report."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
-	speed = 1
 	a_intent = INTENT_HARM
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	stop_automated_movement = TRUE
-	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 10
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("demon")
@@ -27,7 +26,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
-	var/datum/action/innate/demon/whisper/whisper_action
+	var/datum/action/innate/demon_whisper/whisper_action
 
 /mob/living/simple_animal/demon/Initialize(mapload)
 	. = ..()

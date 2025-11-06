@@ -46,7 +46,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 10
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -55,7 +55,10 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
+	var/xenomorph_acid_boosted = FALSE
+	var/heal_boost = 1
 	var/datum/spell/vampire/self/vamp_claws/parent_spell
+	new_attack_chain = TRUE
 
 /obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -71,42 +74,61 @@
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
-/obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/vamp_claws/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/attacker = user
-
 	if(!V)
 		return
-
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+	if(xenomorph_acid_boosted)
+		target.acid_act(42, 10) // 42 is the acid power of facid, 10 is equal to 100 units.
+	if(!iscarbon(target))
+		return FINISH_ATTACK
+	var/mob/living/carbon/C = target
+	if(isalien(target))
+		if(!xenomorph_acid_boosted)
+			if(C.ckey && C.stat != DEAD)
+				to_chat(user, "<span class='warning'>As [C] bleeds acid, you mix it into your claws!</span>")
+				xenomorph_acid_boosted = TRUE
+				durability += 5 // Small boost in durability once.
+				blood_drain_amount *= 1.5
+				blood_absorbed_amount *= 1.5
+				force *= 1.5 // 15 force
+				heal_boost = 2 // This *might* let you survive xeno disarms. Maybe.
+				damtype = BURN
+				hitsound = 'sound/weapons/sear.ogg'
+				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
+				user.update_inv_r_hand()
+				user.update_inv_l_hand()
+	if(C.ckey && C.stat != DEAD && C.affects_vampire(user))
+		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-			attacker.adjustStaminaLoss(-20) // security is dead
-			attacker.heal_overall_damage(4, 4) // the station is full
-			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
-		if(!V.get_ability(/datum/vampire_passive/blood_spill))
-			durability--
-			if(durability <= 0)
-				qdel(src)
-				to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			attacker.adjustStaminaLoss(-20 * heal_boost) // security is dead
+			attacker.heal_overall_damage(4 * heal_boost, 4 * heal_boost) // the station is full
+			attacker.AdjustKnockDown(-1 SECONDS * heal_boost) // blood is fuel
+	if(!V.get_ability(/datum/vampire_passive/blood_spill))
+		durability--
+		if(durability <= 0)
+			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			qdel(src)
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/vamp_claws/attack_self(mob/user)
-	qdel(src)
+/obj/item/vamp_claws/activate_self(mob/user)
+	if(..())
+		return
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	qdel(src)
 
 /datum/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
-	desc = "You summon blood tendrils from bluespace after a delay to ensnare people in an area, slowing them down."
+	desc = "You summon a small field of horrific blood tendrils after a delay to ensnare people in an area, slowing them down."
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
@@ -115,7 +137,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <b>Left-click to cast at a target area!</b></span>"
+	selection_activated_message = "<span class='notice'>You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b></span>"
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()
@@ -144,7 +166,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
@@ -152,7 +173,7 @@
 /datum/spell/vampire/blood_barrier
 	name = "Blood Barrier (40)"
 	desc = "Select two points within 3 tiles of each other and make a barrier between them."
-	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	gain_desc = "You have gained the ability to summon a crystalline wall of blood between two points. The barrier is easily destructible, however you can walk freely through it."
 	required_blood = 40
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
@@ -205,13 +226,12 @@
 
 /obj/structure/blood_barrier
 	name = "blood barrier"
-	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+	desc = "a grotesque structure of crystallized blood. It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/Initialize(mapload)
 	. = ..()
@@ -230,7 +250,7 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target, height)
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return FALSE
 	var/mob/living/L = mover
@@ -250,7 +270,6 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
@@ -280,13 +299,19 @@
 	return A
 
 /datum/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
-	return target.z == user.z && target.mind
+	var/turf/target_turf = get_turf(target)
+	var/turf/user_turf = get_turf(user)
+	return target.mind && (target_turf.z == user_turf.z)
 
 /datum/spell/vampire/predator_senses/cast(list/targets, mob/user)
 	var/targets_by_name = list()
 	for(var/mob/living/carbon/human/H as anything in targets)
+		if(H == user)
+			continue
 		targets_by_name[H.real_name] = H
-
+	if(!length(targets_by_name))
+		to_chat(user, "<span class='cultlarge'>There is no prey to be hunted here...</span>")
+		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
 	if(!target_name)
 		return
@@ -299,7 +324,7 @@
 /datum/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
-	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
+	gain_desc = "You have gained the ability to weaponize pools of blood to damage those stood on them."
 	required_blood = 100
 	base_cooldown = 200 SECONDS
 	action_icon_state = "blood_spikes"
@@ -337,7 +362,6 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 
@@ -381,7 +405,7 @@
 		owner.AdjustWeakened(-2 SECONDS)
 		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
-			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+			to_chat(H, "<span class='warning'><b>You feel your life force draining!</b></span>")
 
 		if(beam_number >= max_beams)
 			break

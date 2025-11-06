@@ -9,15 +9,20 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_CHAPEL_OFFICE,
+		ACCESS_CREMATORIUM,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MORGUE
+	)
 	outfit = /datum/outfit/job/chaplain
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"
 	jobtype = /datum/job/chaplain
 
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chaplain
 	pda = /obj/item/pda/chaplain

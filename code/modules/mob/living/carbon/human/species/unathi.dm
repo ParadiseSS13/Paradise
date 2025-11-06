@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
-	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
@@ -34,8 +33,12 @@
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
+	male_scream_sound = 'sound/effects/unathiscream.ogg' // credits to skyrat [https://github.com/Skyrat-SS13/Skyrat-tg/pull/892]
+	female_scream_sound = 'sound/effects/unathiscream.ogg'
 	butt_sprite = "unathi"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
 		"lungs" =    /obj/item/organ/internal/lungs/unathi,
@@ -45,9 +48,16 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
-
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								/mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
+	allowed_consumed_mobs = list(
+		/mob/living/basic/mouse,
+		/mob/living/basic/lizard,
+		/mob/living/basic/chick,
+		/mob/living/basic/chicken,
+		/mob/living/basic/crab,
+		/mob/living/basic/butterfly,
+		/mob/living/simple_animal/parrot,
+		/mob/living/basic/bee,
+	)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -62,6 +72,8 @@
 		)
 	autohiss_exempt = list("Sinta'unathi")
 
+	plushie_type = /obj/item/toy/plushie/lizardplushie
+
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/unathi_ignite/fire = new()
@@ -75,7 +87,7 @@
 /datum/action/innate/unathi_ignite
 	name = "Ignite"
 	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
-	icon_icon = 'icons/obj/cigarettes.dmi'
+	button_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 20 SECONDS
@@ -88,9 +100,11 @@
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
-		if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
-			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
-			return
+		if(ismask(user.wear_mask))
+			var/obj/item/clothing/mask/worn_mask = user.wear_mask
+			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (worn_mask.flags_cover & MASKCOVERSMOUTH) && !worn_mask.up)
+				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+				return
 		var/obj/item/match/unathi/fire = new(user.loc, src)
 		if(user.put_in_hands(fire))
 			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
@@ -114,22 +128,22 @@
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
 
-	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
 	species_traits = list(LIPS, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 
-	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		)
+	// same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
+	has_organ = list(
+		"heart"		= /obj/item/organ/internal/heart/unathi,
+		"lungs"		= /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver"		= /obj/item/organ/internal/liver/unathi,
+		"kidneys"	= /obj/item/organ/internal/kidneys/unathi,
+		"brain"		= /obj/item/organ/internal/brain/unathi,
+		"appendix"	= /obj/item/organ/internal/appendix,
+		"eyes"		= /obj/item/organ/internal/eyes/unathi
+	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -137,11 +151,13 @@
 		fire.Remove(H)
 	var/datum/action/innate/unathi_ignite/ash_walker/fire = new()
 	fire.Grant(H)
+	H.faction |= "ashwalker"
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/unathi_ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
+	H.faction -= "ashwalker"
 
 /datum/species/unathi/ashwalker/movement_delay(mob/living/carbon/human/H)
 	. = ..()

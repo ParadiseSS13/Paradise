@@ -11,6 +11,8 @@
 #define FILTER_CO2 3
 /// Nitrous oxide only.
 #define FILTER_N2O 4
+/// Hydrogen only.
+#define FILTER_H2  5
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -28,7 +30,8 @@
 		"O2" = FILTER_OXYGEN,
 		"N2" = FILTER_NITROGEN,
 		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"N2O" = FILTER_N2O,
+		"H2"  = FILTER_H2,
 	)
 
 // So we can CtrlClick without triggering the anchored message.
@@ -38,21 +41,21 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
@@ -94,8 +97,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	..()
-	if(!on)
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -109,8 +111,8 @@
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles
 
-	if(air1.temperature > 0)
-		transfer_moles = pressure_delta*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if(air1.temperature() > 0)
+		transfer_moles = pressure_delta * air3.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 	//Actually transfer the gas
 
@@ -120,31 +122,35 @@
 		if(!removed)
 			return
 		var/datum/gas_mixture/filtered_out = new
-		filtered_out.temperature = removed.temperature
+		filtered_out.set_temperature(removed.temperature())
 
 		switch(filter_type)
 			if(FILTER_TOXINS)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
 
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
 			if(FILTER_OXYGEN)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
 
 			if(FILTER_NITROGEN)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
 
 			if(FILTER_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
 			if(FILTER_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
+
+			if(FILTER_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
 			else
 				filtered_out = null
 
@@ -152,11 +158,14 @@
 		air2.merge(filtered_out)
 		air3.merge(removed)
 
-	parent2.update = 1
+	if(!QDELETED(parent1))
+		parent1.update = 1
 
-	parent3.update = 1
+	if(!QDELETED(parent2))
+		parent2.update = 1
 
-	parent1.update = 1
+	if(!QDELETED(parent3))
+		parent3.update = 1
 
 	return TRUE
 
@@ -203,12 +212,12 @@
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("set_filter")
 			filter_type = text2num(params["filter"])
-			investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
+			investigate_log("was set to filter [filter_type] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("max_pressure")
@@ -223,14 +232,14 @@
 			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else
-		return ..()
+/obj/machinery/atmospherics/trinary/filter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 #undef FILTER_NOTHING
 #undef FILTER_TOXINS
@@ -238,3 +247,4 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+#undef FILTER_H2

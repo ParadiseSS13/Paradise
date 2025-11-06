@@ -2,12 +2,11 @@
 	name = "cabinet"
 	desc = "Old will forever be in fashion."
 	icon_state = "cabinet"
-	open_door_sprite = "cabinet_door"
+	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
-	close_sound_volume = 50
 	max_integrity = 70
 
 /obj/structure/closet/cabinet/wizard
@@ -29,22 +28,17 @@
 	name = "strange closet"
 	desc = "It looks alien!"
 	icon_state = "alien"
-	open_door_sprite = "alien_door"
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
 	desc = "It's a storage unit for things that have no right being here."
 	icon_state = "syndicate1"
-	open_door_sprite = "syndicate1_door"
-	anchored = FALSE
 
-/obj/structure/closet/gimmick/russian
-	name = "russian surplus closet"
-	desc = "It's a storage unit for Russian standard-issue surplus."
-	icon_state = "syndicate1"
-	open_door_sprite = "syndicate1_door"
+/obj/structure/closet/gimmick/soviet
+	name = "soviet surplus closet"
+	desc = "A storage unit for surplus USSP equipment."
 
-/obj/structure/closet/gimmick/russian/populate_contents()
+/obj/structure/closet/gimmick/soviet/populate_contents()
 	new /obj/item/clothing/head/sovietsidecap(src)
 	new /obj/item/clothing/head/sovietsidecap(src)
 	new /obj/item/clothing/head/sovietsidecap(src)
@@ -60,8 +54,6 @@
 /obj/structure/closet/gimmick/tacticool
 	name = "tacticool gear closet"
 	desc = "It's a storage unit for Tacticool gear."
-	icon_state = "syndicate1"
-	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/gimmick/tacticool/populate_contents()
 	new /obj/item/clothing/glasses/eyepatch(src)
@@ -84,7 +76,8 @@
 	name = "\improper Thunderdome closet"
 	desc = "Everything you need!"
 	icon_state = "syndicate"
-	open_door_sprite = "syndicate_door"
+	opened_door_sprite = "syndicate"
+	closed_door_sprite = "syndicate"
 	anchored = TRUE
 
 /obj/structure/closet/thunderdome/tdred
@@ -113,7 +106,8 @@
 /obj/structure/closet/thunderdome/tdgreen
 	name = "green-team Thunderdome closet"
 	icon_state = "syndicate1"
-	open_door_sprite = "syndicate1_door"
+	opened_door_sprite = "syndicate1"
+	closed_door_sprite = "syndicate1"
 
 /obj/structure/closet/thunderdome/tdgreen/populate_contents()
 	new /obj/item/clothing/suit/armor/tdome/green(src)

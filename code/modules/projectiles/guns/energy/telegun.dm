@@ -2,9 +2,9 @@
 
 /obj/item/gun/energy/telegun
 	name = "teleporter gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to Bluespace Beacons."
+	desc = "An extremely high-tech energy gun that utilizes jury-rigged bluespace technology to teleport away living targets."
 	icon_state = "telegun"
-	item_state = "telegun"
+	inhand_icon_state = "telegun"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
@@ -14,11 +14,11 @@
 	teleport_target = null
 	return ..()
 
-/obj/item/gun/energy/telegun/attack_self(mob/living/user)
+/obj/item/gun/energy/telegun/attack_self__legacy__attackchain(mob/living/user)
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		var/turf/M = get_turf(user)
 		if(!T)

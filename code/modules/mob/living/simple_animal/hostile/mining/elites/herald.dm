@@ -28,7 +28,7 @@
 	health = 1000
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -37,11 +37,12 @@
 	throw_message = "doesn't affect the purity of"
 	speed = 2
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "begins to shudder as it becomes transparent..."
-	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
-
+	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/herald
 
 	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
 								/datum/action/innate/elite_attack/herald_directionalshot,
@@ -128,7 +129,7 @@
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
 		var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
-		H.preparePixelProjectile(marker, marker, src)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
 		if(target)
@@ -139,7 +140,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/item/projectile/H = new /obj/item/projectile/herald/teleshot(startloc)
-		H.preparePixelProjectile(marker, marker, startloc)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
 		if(target)
@@ -199,7 +200,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
-	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
+	desc = "This fiendish work of magic copies the herald's attacks. Seems logical to smash it."
 	health = 60
 	maxHealth = 60
 	icon_state = "herald_mirror"
@@ -209,8 +210,8 @@
 	del_on_death = TRUE
 	is_mirror = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING // no dragging your mirror around
-	flying = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()
@@ -225,7 +226,7 @@
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	speed = 2
 
 /obj/item/projectile/herald/teleshot
@@ -257,22 +258,18 @@
 
 //Herald's loot: Cloak of the Prophet
 
-/obj/item/clothing/accessory/necklace/herald_cloak
+/obj/item/clothing/neck/cloak/herald_cloak
 	name = "cloak of the prophet"
 	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
-	item_state = "herald_cloak"
-	item_color = "herald_cloak"
-	slot_flags = SLOT_FLAG_TIE
-	allow_duplicates = FALSE
-	actions_types = list(/datum/action/item_action/accessory/herald)
+	actions_types = list(/datum/action/item_action/herald)
 
-/obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
-	if(has_suit)
-		mirror_walk()
+/obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)
+	if(slot == ITEM_SLOT_NECK)
+		return TRUE
 
-/obj/item/clothing/accessory/necklace/herald_cloak/proc/mirror_walk()
+/obj/item/clothing/neck/cloak/herald_cloak/ui_action_click()
 	var/found_mirror = FALSE
 	var/list/mirrors_to_use = list()
 	var/list/areaindex = list()
@@ -289,7 +286,7 @@
 		if(istype(i, /obj/structure/mirror))
 			var/obj/structure/mirror/B = i
 			if(B.broken)
-				return
+				continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"

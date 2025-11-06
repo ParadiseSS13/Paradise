@@ -52,7 +52,7 @@
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in GLOB.machines)
+	for(var/obj/machinery/dna_vault/V in SSmachines.get_by_type(/obj/machinery/dna_vault))
 		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
@@ -61,8 +61,8 @@
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
+	inhand_icon_state = "hypo"
 	flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()
@@ -75,7 +75,7 @@
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -94,10 +94,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals
-	if(isanimal(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
-		if(isanimal(target))
-			var/mob/living/simple_animal/A = target
-			if(!A.healable)//simple approximation of being animal not a robot or similar
+	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
+		if(isanimal_or_basicmob(target))
+			var/mob/living/A = target
+			if(!A.healable) // simple approximation of being animal not a robot or similar
 				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
 				return
 		if(animals[target.type])
@@ -134,11 +134,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	density = TRUE
 	anchored = TRUE
 	invisibility = 101
-	var/obj/machinery/parent
-
-/obj/structure/filler/Destroy()
-	parent = null
-	return ..()
 
 /obj/structure/filler/ex_act()
 	return
@@ -166,22 +161,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/completed = FALSE
 	var/static/list/power_lottery = list()
 
-	var/list/obj/structure/fillers = list()
-
 /obj/machinery/dna_vault/Initialize(mapload)
 	. = ..()
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
-		occupied += get_step(src,direct)
-	occupied += locate(x+1,y-2,z)
-	occupied += locate(x-1,y-2,z)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
-
 	if(SSticker.mode)
 		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
 			animals_max = G.animal_count
@@ -189,6 +170,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
+	AddComponent(/datum/component/multitile, list(
+		list(0, 1, MACH_CENTER, 1, 0),
+		list(0, 1,		 0,	   1, 0),
+		list(0, 1,		 0,	   1, 0)
+	))
 /obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
@@ -199,11 +185,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
-
-/obj/machinery/dna_vault/Destroy()
-	QDEL_LIST_CONTENTS(fillers)
-	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))
@@ -271,9 +252,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
-/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/dna_probe))
-		var/obj/item/dna_probe/P = I
+/obj/machinery/dna_vault/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/dna_probe))
+		var/obj/item/dna_probe/P = used
 		var/uploaded = 0
 		for(var/plant in P.plants)
 			if(!plants[plant])
@@ -289,8 +270,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				dna[ui] = 1
 		check_goal()
 		to_chat(user, "<span class='notice'>[uploaded] new datapoints uploaded.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))

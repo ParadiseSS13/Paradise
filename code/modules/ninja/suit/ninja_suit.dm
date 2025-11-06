@@ -11,9 +11,10 @@ Contents:
 	name = "ninja suit"
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
-	item_state = "s-ninja_suit"
+	inhand_icon_state = "s-ninja_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 0
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 
 	var/suitActive = 0
@@ -53,31 +54,29 @@ Contents:
 		suitShoes = user.shoes
 		suitOccupant = user
 
-		flags |= NODROP
-		suitHood.flags |= NODROP
-		suitMask.flags |= NODROP
-		suitGloves.flags |= NODROP
+		set_nodrop(TRUE)
+		suitHood.set_nodrop(TRUE)
+		suitMask.set_nodrop(TRUE)
+		suitGloves.set_nodrop(TRUE)
 		suitGloves.pickpocket = 1
-		suitShoes.flags |= NODROP
+		suitShoes.set_nodrop(TRUE)
 		suitShoes.slowdown = -2
 
 		icon_state = (user.gender == MALE ? "s-ninjan" : "s-ninjanf")
 		suitGloves.icon_state = "s-ninjan"
-		suitGloves.item_state = "s-ninjan"
 
 		return 1
 
 	else
-		flags &= ~NODROP
-		suitHood.flags &= ~NODROP
-		suitMask.flags &= ~NODROP
-		suitGloves.flags &= ~NODROP
+		set_nodrop(FALSE)
+		suitHood.set_nodrop(FALSE)
+		suitMask.set_nodrop(FALSE)
+		suitGloves.set_nodrop(FALSE)
 		suitGloves.pickpocket = 0
-		suitShoes.flags &= ~NODROP
+		suitShoes.set_nodrop(FALSE)
 		suitShoes.slowdown = -1
 		icon_state = "s-ninja"
 		suitGloves.icon_state = "s-ninja"
-		suitGloves.item_state = "s-ninja"
 
 		suitHood = null
 		suitMask = null

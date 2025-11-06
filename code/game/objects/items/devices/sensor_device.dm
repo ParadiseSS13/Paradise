@@ -4,7 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "scanner"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
 	var/datum/ui_module/crew_monitor/crew_monitor
 
@@ -16,7 +16,7 @@
 	QDEL_NULL(crew_monitor)
 	return ..()
 
-/obj/item/sensor_device/attack_self(mob/user as mob)
+/obj/item/sensor_device/attack_self__legacy__attackchain(mob/user as mob)
 	ui_interact(user)
 
 /obj/item/sensor_device/ui_state(mob/user)

@@ -1,6 +1,6 @@
 /obj/item/golden_record
 	name = "Golden Record"
-	desc = "A relic of the past, you don't know what lies inside, but you remember someone talking about it arriving in 250356 years"
+	desc = "A relic of the past, you don't know what lies inside, but you remember someone talking about it arriving in 250356 years."
 	icon = 'icons/obj/ruin_objects.dmi'
 	icon_state = "golden_record" //credits to mcramon for brand new sprite
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
@@ -16,9 +16,9 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
-/turf/simulated/satellite
+/turf/simulated/wall/satellite
 	name = "satellite components storage"
-	desc = "There is plate covering inside storage, its wide and it have engraved 'Voyager' on it."
+	desc = "There is a large plate covering the internal storage, 'Voyager' is engraved on it."
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
 	smoothing_flags = NONE

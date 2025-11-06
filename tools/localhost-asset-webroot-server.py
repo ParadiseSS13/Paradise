@@ -11,5 +11,11 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
 
 os.makedirs('../data/asset-store/', exist_ok=True)
 os.chdir('../data/asset-store/')
+
+print("==================== WARNING ====================")
+print("This script can hang randomly for no apparant reason and stop serving requests")
+print("We recommend using tools/asset_server_rs/")
+print("==================== WARNING ====================")
+
 httpd = HTTPServer(('localhost', 58715), CORSRequestHandler)
 httpd.serve_forever()

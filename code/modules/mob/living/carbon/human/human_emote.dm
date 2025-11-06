@@ -34,11 +34,9 @@
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp."
-	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/clap
-	key = "clap"
 	key = "clap"
 	key_third_person = "claps"
 	message = "claps."
@@ -117,7 +115,6 @@
 	hands_use_check = TRUE
 	sound = 'sound/weapons/slap.ogg'
 	emote_type = EMOTE_AUDIBLE
-	volume = 50
 
 /datum/emote/living/carbon/human/palm
 	key = "palm"
@@ -162,7 +159,6 @@
 	message_postfix = "at %t!"
 	muzzled_noises = list("very loud")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	only_forced_audio = FALSE
 	vary = TRUE
 	age_based = TRUE
 	cooldown = 5 SECONDS
@@ -185,6 +181,8 @@
 	var/mob/living/carbon/human/human = user
 	if(human.mind?.miming || !istype(human))
 		return
+	if(HAS_TRAIT(human, TRAIT_I_WANT_BRAINS))
+		return 'sound/voice/zombie_scream.ogg'
 	if(human.gender == FEMALE)
 		return human.dna.species.female_scream_sound
 	else
@@ -234,7 +232,7 @@
 			volume_decrease = 95
 	sound_volume -= volume_decrease
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/carbon/human/shake
 	key = "shake"
@@ -322,7 +320,7 @@
 		)
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
-			user.unEquip(cig)
+			user.unequip(cig)
 			qdel(cig)
 			H.adjustFireLoss(5)
 		return TRUE
@@ -403,6 +401,31 @@
 	status = STATUS_EFFECT_DAP
 	key_third_person = "daps"
 
+/datum/emote/living/carbon/human/highfive/payme
+	key = "payme"
+	status = STATUS_EFFECT_OFFERING_EFTPOS
+
+/datum/emote/living/carbon/human/highfive/payme/run_emote(mob/living/user, params, type_override, intentional)
+	var/obj/item/eftpos/eftpos = user.is_holding_item_of_type(/obj/item/eftpos)
+	if(!eftpos)
+		to_chat(user, "<span class='warning'>You must be holding an EFTPOS to do that!</span>")
+		return TRUE
+	if(!eftpos.can_offer)
+		to_chat(user, "<span class='warning'>[eftpos] is too bulky to hold out to someone!</span>")
+		return TRUE
+	if(!eftpos.transaction_locked)
+		to_chat(user, "<span class='warning'>You must lock [eftpos] before it can accept payments.</span>")
+		return TRUE
+	if(user.has_status_effect(status))
+		user.visible_message("<span class='notice'>[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card.</span>")
+		return TRUE
+
+	var/datum/result = set_status(user)
+	if(QDELETED(result))
+		return TRUE
+
+	return TRUE
+
 /datum/emote/living/carbon/human/highfive/handshake
 	key = "handshake"
 	key_third_person = "handshakes"
@@ -411,7 +434,6 @@
 /datum/emote/living/carbon/human/highfive/rps
 	key = "rps"
 	param_desc = "r,p,s"
-	hands_use_check = TRUE
 	status = STATUS_EFFECT_RPS
 	action_name = "play rock-paper-scissors with"
 	target_behavior = EMOTE_TARGET_BHVR_IGNORE
@@ -465,7 +487,7 @@
 		to_chat(user, "You need at least one hand in good working order to snap your fingers.")
 		return TRUE
 
-	if(prob(5))
+	if(prob(5) && !HAS_TRAIT(user, TRAIT_COOL))
 		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
@@ -489,9 +511,20 @@
 	key = "signal"
 	key_third_person = "signals"
 	message_param = "raises %t fingers."
-	param_desc = "number(0-10)"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
-	hands_use_check = TRUE
+
+/datum/emote/living/carbon/sign/signal/run_emote(mob/user, params, type_override, intentional)
+	var/fingers = round(text2num(params), 1)
+
+	if(fingers > 10)
+		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
+		return TRUE
+	else if(fingers < 0)
+		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.</span>")
+		return TRUE
+
+	params = fingers
+	return ..()
 
 /////////
 // Species-specific emotes
@@ -634,6 +667,20 @@
 	sound = "sound/effects/voxrustle.ogg"
 	species_type_whitelist_typecache = list(/datum/species/vox)
 
+/datum/emote/living/carbon/human/caw
+	key = "caw"
+	key_third_person = "caws"
+	message = "cawws!"
+	message_param = "cawws at %t!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	// Credit to zeroisnotnull (opengameart.org) for the original sound.
+	species_type_whitelist_typecache = list(/datum/species/vox)
+	muzzled_noises = list("frustrated")
+	vary = TRUE
+
+/datum/emote/living/carbon/human/caw/get_sound(mob/living/user)
+	return pick("sound/effects/voxfcaw.ogg", "sound/effects/voxrcaw.ogg")
+
 /datum/emote/living/carbon/human/warble
 	key = "warble"
 	key_third_person = "warbles"
@@ -707,6 +754,16 @@
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
 
+/datum/emote/living/carbon/human/thump
+	key = "thump"
+	key_third_person = "thumps"
+	message = "thumps their tail."
+	message_param = "thumps their tail at %t."
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	emote_type = EMOTE_AUDIBLE
+	// Credit to TylerAM (freesound.org) for the sound.
+	sound = "sound/effects/unathitailthump.ogg"
+
 /datum/emote/living/carbon/human/creak
 	key = "creak"
 	key_third_person = "creaks"
@@ -716,6 +773,16 @@
 	age_based = TRUE
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
+
+/datum/emote/living/carbon/human/diona_chirp
+	key = "chirp"
+	key_third_person = "chirps"
+	message = "chirps!"
+	message_param = "chirps at %t."
+	emote_type = EMOTE_AUDIBLE
+	age_based = TRUE
+	species_type_whitelist_typecache = list(/datum/species/diona)
+	sound = "sound/creatures/nymphchirp.ogg"
 
 /datum/emote/living/carbon/human/slime
 
@@ -766,7 +833,6 @@
 	// CC0
 	// https://freesound.org/people/greenvwbeetle/sounds/244653/
 	sound = 'sound/effects/mob_effects/slime_pop.ogg'
-	volume = 50
 
 /datum/emote/living/carbon/human/howl
 	key = "howl"

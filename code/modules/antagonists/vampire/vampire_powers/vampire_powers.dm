@@ -3,6 +3,9 @@
 	//Other vampires and thralls aren't affected
 	if(mind?.has_antag_datum(/datum/antagonist/vampire) || mind?.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		return FALSE
+	/// Chaplains with their nullrod can block a full power vampire, but a chaplain by themselfs or a crew with a null rod can not.
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY) && HAS_MIND_TRAIT(src, TRAIT_HOLY))
+		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V?.get_ability(/datum/vampire_passive/full))
@@ -10,13 +13,15 @@
 	//Holy characters are resistant to vampire powers
 	if(HAS_MIND_TRAIT(src, TRAIT_HOLY))
 		return FALSE
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY))
+		return FALSE
 	return TRUE
 
 /datum/spell/vampire
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	/// How much blood this ability costs to use
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE
@@ -53,6 +58,7 @@
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
+	antimagic_flags = NONE // So. If you have a null rod on your person, you can't cast vampire spells. I would rather not have officers abuse this by putting a nullrod in their pocket or something to block rejuvinate.
 
 /datum/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
@@ -68,6 +74,14 @@
 	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	for(var/datum/disease/zombie/zombie_infection in U.viruses)
+		zombie_infection.stage = min(zombie_infection.stage, round(7 - (V.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
+		if(zombie_infection.stage <= 0)
+			zombie_infection.cure()
+			to_chat(user, "<span class='notice'>You cleanse the plague from your system.</span>")
+		else
+			to_chat(user, "<span class='warning'>You weaken the plague in your system, but you don't have enough blood to completely remove it.</span>")
+
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
@@ -94,6 +108,22 @@
 
 	return TRUE
 
+/datum/spell/vampire/self/exfiltrate
+	name = "Conjure Blood Chalice"
+	desc = "Congeal blood into a chalice that will generate a portal away from the station."
+	gain_desc = "You can now decide to leave the station."
+	base_cooldown = 2 SECONDS
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "blood-chalice"
+	var/used = FALSE
+
+/datum/spell/vampire/self/exfiltrate/cast(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a blood chalice!</span>")
+		return
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vamp.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/vampire)
+	used = TRUE
 
 /datum/spell/vampire/self/specialize
 	name = "Choose Specialization"
@@ -156,6 +186,9 @@
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
+	for(var/datum/objective/specialization/objective in owner.get_all_objectives())
+		objective.update_explanation_text()
+
 /datum/spell/vampire/glare
 	name = "Glare"
 	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
@@ -175,6 +208,66 @@
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 2 SECONDS
 	return C
+
+/datum/spell/vampire/lair
+	name = "Lair"
+	desc = "Pick a coffin for yourself, the centrepiece of your new lair."
+	gain_desc = "You can now start a lair."
+	action_icon = 'icons/obj/closet.dmi'
+	action_icon_state = "coffin"
+	base_cooldown = 2 SECONDS
+
+/datum/spell/vampire/lair/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.range = 1
+	T.allowed_type = /obj/structure/closet/coffin
+	return T
+
+/datum/spell/vampire/lair/cast(list/targets, mob/user)
+	var/obj/structure/closet/coffin/C = targets[1] // this spell will basically always target a singular coffin unless you stack multiple on the same tile
+	if(!istype(C, /obj/structure/closet/coffin))
+		to_chat(user, "<span class='warning'>This only works on coffins!</span>")
+		return
+	if(istype(C, /obj/structure/closet/coffin/vampire))
+		to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
+		return
+	if(istype(C, /obj/structure/closet/coffin/sarcophagus))
+		to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
+		return
+	for(var/turf/T in range(1, C))
+		if(T.density)
+			to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
+			return
+	to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
+	C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
+	playsound(C, 'sound/misc/enter_blood.ogg', 20)
+	for(var/obj/machinery/light/L in range(5, user))
+		L.forced_flicker()
+	var/obj/effect/lair_rune/rune = new /obj/effect/lair_rune(get_turf(C), user)
+	if(!do_after(user, 10 SECONDS, target = C))
+		qdel(rune)
+		return
+	playsound(user, 'sound/hallucinations/im_here1.ogg', 30)
+	new /obj/structure/closet/coffin/vampire(get_turf(C), user)
+	qdel(C)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	V.has_lair = TRUE
+	V.upgrade_tiers -= type
+	V.remove_ability(src)
+
+/obj/effect/lair_rune
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_PLANE
+	layer = SIGIL_LAYER
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "vampiric_rune"
+	pixel_x = -34
+	pixel_y = -38
+
+/obj/effect/lair_rune/Initialize(mapload, mob/user)
+	. = ..()
+	if(user)
+		color = user.dna.species.blood_color
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
@@ -240,7 +333,7 @@
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
-	if(attacker_dir & reverse_direction(attacker_to_victim))
+	if(attacker_dir & REVERSE_DIR(attacker_to_victim))
 		return DEVIATION_FULL
 	// - - -
 	// # V # Attacker facing south
@@ -263,15 +356,12 @@
 
 /datum/vampire_passive/vision/advanced
 	gain_desc = "Your vampiric vision now allows you to see everything in the dark!"
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	see_in_dark = 3
-	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/vision/full
 	gain_desc = "Your vampiric vision has reached its full strength!"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 6
-	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy."
@@ -279,12 +369,7 @@
 /datum/spell/vampire/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
-	school = "transmutation"
-	base_cooldown = 100
-	clothes_req = FALSE
-	human_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'

@@ -1,0 +1,3326 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ay" = (
+/obj/item/trash/spentcasing/shotgun/rubbershot,
+/obj/structure/sign/poster/official/enlist/directional/north,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"aE" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/telepad_cargo,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"aY" = (
+/obj/structure/shelf/security,
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo,
+/obj/effect/turf_decal/delivery/red/hollow/right,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"bl" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"cl" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"cu" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"cT" = (
+/obj/item/trash/spentcasing/shotgun/dragonsbreath,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"da" = (
+/obj/item/stack/ore/iridium,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"dD" = (
+/obj/structure/grille/broken,
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"dF" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/loot_crate,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"dT" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"dZ" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"el" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"eA" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"eX" = (
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"fm" = (
+/obj/structure/chair/wood,
+/obj/structure/sign/poster/contraband/random/directional/north,
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/template_noop,
+/area/template_noop)
+"fD" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/ore/glass/basalt,
+/obj/item/grenade/chem_grenade/metalfoam,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"fK" = (
+/obj/item/circuitboard/sleeper,
+/turf/template_noop,
+/area/template_noop)
+"fM" = (
+/turf/simulated/wall/mineral/titanium,
+/area/template_noop)
+"gp" = (
+/obj/item/gun/energy/laser/retro,
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/turf/simulated/floor/plating/metalfoam/iron,
+/area/template_noop)
+"gY" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass/plastitanium,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"ha" = (
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"hf" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "burst_r"
+	},
+/turf/template_noop,
+/area/template_noop)
+"ht" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"hz" = (
+/obj/machinery/computer/loreconsole/whiteship,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"ia" = (
+/obj/structure/table/wood/poker,
+/obj/item/gun/energy/laser/retro,
+/turf/template_noop,
+/area/template_noop)
+"iM" = (
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"iP" = (
+/obj/structure/table,
+/obj/item/scalpel{
+	pixel_y = 7
+	},
+/turf/template_noop,
+/area/template_noop)
+"ja" = (
+/obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/turf/template_noop,
+/area/template_noop)
+"jb" = (
+/obj/structure/chair/wood,
+/turf/template_noop,
+/area/template_noop)
+"jt" = (
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"jK" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/item/stock_parts/matter_bin/adv,
+/turf/template_noop,
+/area/template_noop)
+"jV" = (
+/obj/machinery/recharger/wallcharger/upgraded,
+/turf/template_noop,
+/area/template_noop)
+"kF" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lq" = (
+/obj/structure/closet/crate/secure/loot{
+	codelen = 6;
+	attempts = 12
+	},
+/obj/item/rcs,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lw" = (
+/obj/item/gps/ruin{
+	gpstag = "NT Medical Ship";
+	pixel_x = -32
+	},
+/obj/structure/shelf/supply,
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/borg/upgrade/modkit/chassis_mod,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
+/obj/item/t_scanner/adv_mining_scanner,
+/obj/item/pickaxe/drill,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lA" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lN" = (
+/obj/item/stack/rods,
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"mE" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/medbay,
+/turf/template_noop,
+/area/template_noop)
+"nx" = (
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"nH" = (
+/obj/item/trash/spentcasing/shotgun,
+/obj/structure/sign/poster/official/ion_rifle/directional/north,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"or" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"oT" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"oU" = (
+/obj/effect/decal/cleanable/blood,
+/turf/template_noop,
+/area/template_noop)
+"pN" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass/plastitanium,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"qi" = (
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/obj/machinery/door_control{
+	id = "whiteminingshutter";
+	name = "Mining Bay Shutters Access Control";
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/caution/red{
+	pixel_y = -19
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"qr" = (
+/turf/template_noop,
+/area/template_noop)
+"qt" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 2
+	},
+/turf/template_noop,
+/area/template_noop)
+"qN" = (
+/obj/structure/table,
+/obj/item/tank/internals/oxygen{
+	pixel_y = 1;
+	pixel_x = -2
+	},
+/obj/item/tank/internals/oxygen{
+	pixel_x = 3;
+	pixel_y = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"qV" = (
+/obj/item/gun/energy/laser/retro,
+/obj/structure/gunrack,
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_c_foam,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"ro" = (
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"rv" = (
+/obj/structure/machine_frame,
+/obj/item/stack/cable_coil/five,
+/turf/template_noop,
+/area/template_noop)
+"rE" = (
+/obj/item/trash/spentcasing/bullet/large,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"rL" = (
+/obj/machinery/optable,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"rM" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"sl" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage,
+/turf/simulated/wall/mineral/titanium,
+/area/template_noop)
+"sm" = (
+/obj/structure/table_frame,
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"sy" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"th" = (
+/obj/structure/table/wood/poker,
+/turf/template_noop,
+/area/template_noop)
+"uw" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"uH" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"vx" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"vZ" = (
+/obj/item/mounted/frame/light_fixture,
+/obj/effect/decal/cleanable/glass,
+/turf/template_noop,
+/area/template_noop)
+"wT" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/gun_room,
+/turf/template_noop,
+/area/template_noop)
+"zm" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"zB" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/template_noop,
+/area/template_noop)
+"zY" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"AX" = (
+/obj/item/stack/ore/palladium,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Bc" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/item/shard,
+/turf/template_noop,
+/area/template_noop)
+"Bi" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
+/turf/template_noop,
+/area/template_noop)
+"Bu" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/secure/engineering,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"BP" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/machine{
+	pixel_x = -6
+	},
+/obj/item/stack/nanopaste{
+	pixel_x = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"BZ" = (
+/obj/machinery/economy/vending/coffee,
+/turf/template_noop,
+/area/template_noop)
+"Cf" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Dm" = (
+/obj/machinery/door/airlock/titanium/glass,
+/obj/effect/mapping_helpers/airlock/c_foam/three,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"Dv" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"DN" = (
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"DQ" = (
+/obj/structure/closet/crate/can,
+/turf/template_noop,
+/area/template_noop)
+"Eb" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Ek" = (
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 4
+	},
+/area/template_noop)
+"Ey" = (
+/obj/item/trash/spentcasing/shotgun/stun,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"EA" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"EH" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"Fz" = (
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"FD" = (
+/obj/structure/shelf/security,
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo,
+/obj/effect/turf_decal/delivery/red/hollow/left,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"FR" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"FY" = (
+/obj/effect/decal/cleanable/glass/plastitanium,
+/turf/simulated/floor/plating/metalfoam/iron,
+/area/template_noop)
+"Gh" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
+"Gj" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet,
+/turf/template_noop,
+/area/template_noop)
+"Hs" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/turf/template_noop,
+/area/template_noop)
+"HR" = (
+/obj/structure/sign/greencross,
+/turf/template_noop,
+/area/template_noop)
+"HU" = (
+/obj/structure/bed,
+/obj/item/bedsheet,
+/turf/template_noop,
+/area/template_noop)
+"IL" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"IZ" = (
+/obj/effect/spawner/random/maintenance,
+/obj/structure/foamedmetal{
+	layer = 3.1
+	},
+/turf/simulated/floor/plating/metalfoam/iron,
+/area/template_noop)
+"Jx" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Kl" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/obj/structure/railing/cap/reversed,
+/turf/template_noop,
+/area/template_noop)
+"Nl" = (
+/obj/machinery/door/airlock/medical,
+/obj/effect/mapping_helpers/airlock/c_foam/five,
+/turf/template_noop,
+/area/template_noop)
+"Nr" = (
+/obj/structure/bed,
+/obj/effect/mob_spawn/human/alive/zombie/non_infectious,
+/obj/effect/decal/cleanable/blood,
+/obj/item/restraints/handcuffs/cable/zipties/used,
+/obj/item/stack/sheet/cloth,
+/turf/template_noop,
+/area/template_noop)
+"NL" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"NM" = (
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure{
+	volume = 0;
+	list_reagents = null;
+	icon_state = "zombiepen0"
+	},
+/obj/structure/table/flipped,
+/obj/effect/spawner/random/trash,
+/turf/template_noop,
+/area/template_noop)
+"NZ" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "whiteminingshutter";
+	name = "Mining Bay Shutters"
+	},
+/obj/effect/turf_decal/delivery/red/partial{
+	dir = 1
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage,
+/turf/template_noop,
+/area/template_noop)
+"On" = (
+/obj/item/flashlight/flare/used,
+/turf/template_noop,
+/area/template_noop)
+"Ow" = (
+/obj/machinery/door/airlock/science/glass,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"OT" = (
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"Py" = (
+/obj/machinery/door/airlock/titanium,
+/turf/template_noop,
+/area/template_noop)
+"PF" = (
+/obj/structure/sign/mech,
+/turf/template_noop,
+/area/template_noop)
+"QE" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards,
+/turf/template_noop,
+/area/template_noop)
+"Ri" = (
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"RE" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"RH" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"RU" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "whiteminingshutter";
+	name = "Mining Bay Shutters"
+	},
+/obj/effect/turf_decal/delivery/red/partial{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"SS" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -2;
+	pixel_x = -10
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 11;
+	pixel_x = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 11;
+	pixel_x = 5
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"TD" = (
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/obj/effect/turf_decal/caution/red{
+	pixel_y = -19
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"UP" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/machinery/telepad,
+/turf/template_noop,
+/area/template_noop)
+"Vf" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/robot_parts/chest,
+/obj/item/robot_parts/head,
+/obj/item/robot_parts/l_arm,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_arm,
+/obj/item/robot_parts/r_leg,
+/obj/effect/spawner/random/pool/spaceloot/whiteship_robotics,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Vj" = (
+/obj/structure/bed,
+/obj/item/bedsheet,
+/obj/item/stock_parts/manipulator/nano,
+/turf/template_noop,
+/area/template_noop)
+"VE" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"VR" = (
+/obj/item/stack/ore/titanium,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Xk" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"XJ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/template_noop,
+/area/template_noop)
+"Yn" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/template_noop,
+/area/template_noop)
+"Zf" = (
+/obj/structure/table,
+/obj/item/shard,
+/obj/item/scalpel/laser/laser2,
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(2,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(3,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(4,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(5,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+wT
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(6,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+Gj
+Dv
+Gj
+sl
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+XJ
+qt
+BZ
+DQ
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(7,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+Gj
+zB
+Gj
+fM
+qr
+qr
+qr
+qr
+qr
+qr
+mE
+qr
+qr
+qr
+qr
+XJ
+qr
+qr
+qr
+Yn
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(8,1,1) = {"
+qr
+qr
+qr
+qr
+Py
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+eA
+iP
+qr
+qr
+qr
+qr
+qr
+Gh
+fM
+fm
+th
+ia
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(9,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+el
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+XJ
+jb
+QE
+th
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(10,1,1) = {"
+qr
+qr
+qr
+Gh
+qr
+qr
+Bi
+qr
+qr
+qr
+Gh
+Yn
+qr
+zB
+qr
+qr
+qr
+qr
+qr
+qr
+XJ
+uH
+ht
+ht
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(11,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+RE
+FR
+qr
+qr
+qr
+qr
+HR
+zm
+qr
+Hs
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(12,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+hf
+hf
+qr
+qr
+qr
+qr
+qr
+HU
+HU
+qN
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(13,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+jV
+qr
+wT
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(14,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+fM
+uw
+rE
+Ey
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(15,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+lw
+lA
+TD
+NZ
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+fM
+ay
+aY
+dZ
+Ri
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(16,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+VR
+Cf
+qi
+RU
+qr
+qr
+qr
+qr
+qr
+qr
+mE
+qr
+qr
+qr
+Gh
+fM
+kF
+qV
+Jx
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(17,1,1) = {"
+qr
+qr
+qr
+qr
+ja
+zY
+AX
+bl
+qr
+qr
+qr
+qr
+rv
+Zf
+qr
+qr
+qr
+qr
+qr
+qr
+fM
+nH
+FD
+Xk
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(18,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+cu
+Fz
+qr
+qr
+qr
+qr
+qr
+jK
+On
+qr
+qr
+qr
+qr
+qr
+qr
+fM
+Eb
+VE
+cT
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(19,1,1) = {"
+qr
+qr
+qr
+Gh
+qr
+iM
+sy
+qr
+qr
+qr
+Gh
+Nl
+oU
+fK
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(20,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+RE
+FR
+qr
+qr
+qr
+qr
+HR
+vZ
+qr
+Bc
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(21,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+hf
+hf
+qr
+qr
+qr
+qr
+qr
+Vj
+Nr
+NM
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(22,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+wT
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(23,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+gY
+nx
+nx
+DN
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(24,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+UP
+Kl
+aE
+sl
+qr
+qr
+qr
+qr
+qr
+qr
+mE
+qr
+qr
+qr
+qr
+pN
+DN
+da
+ro
+Dm
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(25,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+hz
+Ek
+NL
+fM
+qr
+qr
+qr
+rM
+Vf
+qr
+qr
+qr
+qr
+qr
+Gh
+FY
+cl
+sm
+OT
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(26,1,1) = {"
+qr
+qr
+qr
+qr
+Py
+zY
+ha
+bl
+qr
+qr
+qr
+qr
+EA
+eX
+qr
+qr
+qr
+qr
+qr
+qr
+dD
+ro
+oT
+fD
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(27,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+vx
+Bu
+qr
+qr
+qr
+Gh
+Ow
+EA
+IL
+bl
+qr
+qr
+qr
+qr
+qr
+RH
+gp
+IZ
+lN
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(28,1,1) = {"
+qr
+qr
+qr
+Gh
+qr
+lq
+dF
+qr
+qr
+qr
+qr
+PF
+dT
+or
+BP
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(29,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+RE
+FR
+qr
+qr
+qr
+qr
+qr
+jt
+rL
+SS
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(30,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+hf
+hf
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(31,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+EH
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(32,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(33,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(34,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(35,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(36,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(37,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(38,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(39,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(40,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(41,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(42,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(43,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(44,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(45,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(46,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(47,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(48,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(49,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(50,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(51,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(52,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(53,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(54,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(55,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(56,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(57,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(58,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(59,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(60,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}

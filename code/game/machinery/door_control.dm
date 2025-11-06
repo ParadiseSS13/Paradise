@@ -1,7 +1,6 @@
 /obj/machinery/door_control
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	var/id = null
@@ -35,9 +34,9 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
-	if(istype(W, /obj/item/detective_scanner))
-		return
+/obj/machinery/door_control/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/detective_scanner))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/door_control/emag_act(user as mob)
@@ -136,7 +135,6 @@
 
 /obj/machinery/door_control/no_emag/no_cyborg
 	desc = "A remote control-switch for a door. Looks strangely analog in design."
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door_control/no_emag/no_cyborg/attack_ai(mob/user)
 	to_chat(user, "<span class='warning'>Error, no route to host.</span>")

@@ -1,11 +1,8 @@
 /datum/spell/infinite_guns
 	name = "Lesser Summon Guns"
 	desc = "Why reload when you have infinite guns? Summons an unending stream of bolt action rifles. Requires both hands free to use."
-	invocation_type = "none"
 
-	school = "conjuration"
 	base_cooldown = 600
-	clothes_req = TRUE
 	cooldown_min = 10 //Gun wizard
 	action_icon_state = "bolt_action"
 	var/gun_type = /obj/item/gun/projectile/shotgun/boltaction/enchanted
@@ -25,7 +22,6 @@
 	name = "Rapid-fire Fireball"
 	desc = "Multiple Fireballs. Need I explain more? Requires both hands free to use."
 
-	school = "evocation"
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	invocation = "ONI SOMA-SOMA-SOMA"
@@ -38,9 +34,6 @@
 	desc = "A small flame, ready to launch from your hand."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unathi"
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	color = "#e1ff00" // red + yellow = orange
 	guns_left = 20
 	fire_sound = 'sound/magic/Fireball.ogg'

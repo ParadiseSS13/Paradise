@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/binary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
 	power_state = IDLE_POWER_USE
 
@@ -14,6 +13,7 @@
 
 	var/datum/pipeline/parent1
 	var/datum/pipeline/parent2
+
 
 /obj/machinery/atmospherics/binary/New()
 	..()
@@ -129,6 +129,9 @@
 	else if(A == node2)
 		return parent2
 
+/obj/machinery/atmospherics/binary/get_machinery_pipelines()
+	return list(parent1, parent2)
+
 /obj/machinery/atmospherics/binary/is_pipenet_split()
 	return TRUE
 
@@ -144,16 +147,10 @@
 	var/turf/T = get_turf(src)
 	if(T)
 		//Remove the gas from air1+air2 and assume it
-		var/datum/gas_mixture/environment = T.return_air()
-		var/lost = pressures*environment.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
-		var/shared_loss = lost/2
+		var/lost = pressures * CELL_VOLUME / (air1.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures * CELL_VOLUME / (air2.temperature() * R_IDEAL_GAS_EQUATION)
+		var/shared_loss = lost / 2
 
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
-		T.assume_air(to_release)
-		air_update_turf(1)
-
-/obj/machinery/atmospherics/binary/process_atmos()
-	..()
-	return parent1 && parent2
+		T.blind_release_air(to_release)

@@ -2,7 +2,7 @@
 	name = "bow"
 	desc = "A sturdy bow made out of wood and reinforced with iron."
 	icon_state = "bow_unloaded"
-	item_state = "bow"
+	inhand_icon_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
@@ -28,7 +28,7 @@
 		ready_to_fire = FALSE
 		update_icon()
 
-/obj/item/gun/projectile/bow/attack_self(mob/living/user)
+/obj/item/gun/projectile/bow/attack_self__legacy__attackchain(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, 1)
@@ -37,8 +37,8 @@
 		ready_to_fire = FALSE
 		update_icon()
 
-/obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby(A, user, params, 1)
+/obj/item/gun/projectile/bow/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
 		update_icon()
@@ -71,7 +71,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
-	damage_type = BRUTE
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
@@ -87,11 +86,8 @@
 	name = "quiver"
 	desc = "A quiver for holding arrows."
 	icon_state = "quiver"
-	item_state = "quiver"
 	storage_slots = 20
-	can_hold = list(
-		/obj/item/ammo_casing/caseless/arrow
-		)
+	can_hold = list(/obj/item/ammo_casing/caseless/arrow)
 
 /obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)

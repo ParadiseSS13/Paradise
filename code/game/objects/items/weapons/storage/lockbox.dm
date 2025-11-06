@@ -2,10 +2,9 @@
 	name = "lockbox"
 	desc = "A locked box."
 	icon_state = "lockbox+l"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
 	req_access = list(ACCESS_ARMORY)
 	var/locked = TRUE
@@ -14,7 +13,7 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
-/obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/lockbox/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)
 			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
@@ -22,16 +21,14 @@
 		if(check_access(W))
 			locked = !locked
 			if(locked)
-				icon_state = icon_locked
 				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
 				if(user.s_active)
 					user.s_active.close(user)
-				return
 			else
-				icon_state = icon_closed
 				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
 				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
-				return
+			update_icon()
+			return
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
@@ -50,12 +47,24 @@
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 		return
+	if(!locked && user.s_active != src)
+		return ..()
 	if(allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
-		icon_state = "[locked ? icon_locked : icon_closed]"
+		update_icon()
+		if(user.s_active == src)
+			close(user)
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+
+/obj/item/storage/lockbox/update_icon_state()
+	if(broken)
+		icon_state = icon_broken
+	else if(locked)
+		icon_state = icon_locked
+	else
+		icon_state = icon_closed // good variable name bro
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
@@ -76,9 +85,9 @@
 		broken = TRUE
 		locked = FALSE
 		desc = "It appears to be broken."
-		icon_state = icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+		update_icon()
 		return
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M as mob, list/message_pieces)
@@ -109,7 +118,6 @@
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
-	item_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 20
@@ -163,7 +171,7 @@
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
-/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/lockbox/medal/hardmode_box/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/fauna_research))
 		var/obj/item/disk/fauna_research/disky = W
 		var/obj/item/pride = new disky.output(get_turf(src))
@@ -213,7 +221,7 @@
 	if(prob(10))
 		new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
 		return
-	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
+	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/ai_upgrade/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
 	if(prob(25))
 		if(rand(1, 6) == 1) //organ time. I want this to be more balanced in distribution, so organs are under a prob 25
 			new /obj/item/organ/internal/alien/plasmavessel/drone(src)  //Disected drone before the place got wiped. No hivenode.

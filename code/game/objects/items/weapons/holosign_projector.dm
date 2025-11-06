@@ -1,15 +1,12 @@
 /obj/item/holosign_creator
 	name = "holographic sign projector"
-	desc = "This shouldnt exist, if it does, tell a coder"
+	desc = "This shouldnt exist, if it does, tell a coder."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "holosign_creator"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	flags = NOBLUDGEON
 	var/list/signs = list()
@@ -18,7 +15,7 @@
 	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(flag)
 		if(!check_allowed_items(target, 1))
 			return
@@ -28,7 +25,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
 			qdel(H)
 		else
-			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
@@ -42,7 +39,7 @@
 						holocreator_busy = FALSE
 						if(length(signs) >= max_signs)
 							return
-						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
@@ -50,10 +47,10 @@
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
-/obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/holosign_creator/attack__legacy__attackchain(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/holosign_creator/attack_self(mob/user)
+/obj/item/holosign_creator/attack_self__legacy__attackchain(mob/user)
 	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
@@ -77,10 +74,10 @@
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		. += "<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
+		. += "<span class='notice'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
 
-/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/janitor/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
 		WS.wet_timer_start(src)
@@ -116,7 +113,6 @@
 	icon_state = "signmaker_engi"
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/cyborg
@@ -127,7 +123,7 @@
 	holosign_type = /obj/structure/holosign/barrier/cyborg
 	var/shock = 0
 
-/obj/item/holosign_creator/cyborg/attack_self(mob/user)
+/obj/item/holosign_creator/cyborg/attack_self__legacy__attackchain(mob/user)
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 

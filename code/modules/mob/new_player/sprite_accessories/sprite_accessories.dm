@@ -97,7 +97,6 @@
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
 	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
-	icon_state = "accessory_none"
 
 /* BODY MARKINGS */
 
@@ -114,7 +113,6 @@
 
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()
-	icon_state = "accessory_none"
 	marking_location = "tail"
 	tails_allowed = null
 
@@ -370,6 +368,10 @@
 	name = "Corgi Shirt"
 	icon_state = "shirt_corgi"
 
+/datum/sprite_accessory/undershirt/shirt_en
+	name = "Borgi Shirt" // E-N!
+	icon_state = "shirt_borgi"
+
 /datum/sprite_accessory/undershirt/shirt_clown
 	name = "Clown Shirt"
 	icon_state = "shirt_clown"
@@ -433,6 +435,35 @@
 /datum/sprite_accessory/undershirt/brightblue_striped
 	name = "Striped Bright Blue Shirt"
 	icon_state = "shirt_brightbluestripe"
+
+/datum/sprite_accessory/undershirt/shirt_trans
+	name = "Transgender Shirt"
+	icon_state = "shirt_trans"
+
+/datum/sprite_accessory/undershirt/shirt_nonbinary
+	name = "Nonbinary Shirt"
+	icon_state = "shirt_nonbinary"
+
+/datum/sprite_accessory/undershirt/shirt_bisexual
+	name = "Bisexual Shirt"
+	icon_state = "shirt_bisexual"
+
+/datum/sprite_accessory/undershirt/shirt_pansexual
+	name = "Pansexual Shirt"
+	icon_state = "shirt_pansexual"
+
+/datum/sprite_accessory/undershirt/shirt_asexual
+	name = "Asexual Shirt"
+	icon_state = "shirt_asexual"
+
+/datum/sprite_accessory/undershirt/shirt_rainbow
+	name = "Rainbow Shirt"
+	icon_state = "shirt_rainbow"
+
+/datum/sprite_accessory/undershirt/shirt_wave
+	name = "Great Wave Shirt"
+	icon_state = "shirt_wave"
+
 //end graphic shirts
 
 //short sleeved
@@ -537,6 +568,15 @@
 	name = "Striped Tank-Top"
 	icon_state = "tank_stripes"
 //end tanktops
+
+//paratoberfest/contributor reward items
+/datum/sprite_accessory/undershirt/reward
+	fluff = TRUE
+
+/datum/sprite_accessory/undershirt/reward/ptbf24
+	name = "Great Synthwave Shirt"
+	icon_state = "shirt_ptbf24"
+//end rewards
 
 ///////////////////////
 // Socks Definitions //

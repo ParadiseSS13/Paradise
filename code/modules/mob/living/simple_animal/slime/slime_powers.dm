@@ -7,11 +7,11 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/IsAvailable(show_message = TRUE)
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -28,6 +28,10 @@
 	for(var/mob/living/C in view(1,src))
 		if(C!=src && Adjacent(C))
 			choices += C
+
+	if(!length(choices))
+		to_chat(src, "<span class='warning'>No subjects nearby to feed on!</span>")
+		return
 
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feeding Selection", choices)
 	if(!M)
@@ -118,7 +122,7 @@
 			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
-		buckled.unbuckle_mob(src,force=TRUE)
+		unbuckle(force=TRUE)
 
 /mob/living/simple_animal/slime/proc/Evolve()
 	if(stat)
@@ -132,7 +136,7 @@
 			for(var/datum/action/innate/slime/evolve/E in actions)
 				E.Remove(src)
 			regenerate_icons()
-			update_name()
+			update_appearance(UPDATE_NAME)
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 	else
@@ -163,7 +167,8 @@
 
 			if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
 				return //no you cannot split while you're in the matrix (this prevents GC issues and slimes disappearing)
-
+			if(holding_organ)
+				eject_organ()
 			var/list/babies = list()
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)

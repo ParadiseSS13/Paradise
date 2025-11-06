@@ -29,34 +29,33 @@
 	..()
 
 /obj/machinery/atmospherics/unary/heat_exchanger/process_atmos()
-	..()
 	if(!partner)
 		return 0
 
-	if(!SSair || SSair.times_fired <= update_cycle)
+	if(!SSair || SSair.milla_tick <= update_cycle)
 		return 0
 
-	update_cycle = SSair.times_fired
-	partner.update_cycle = SSair.times_fired
+	update_cycle = SSair.milla_tick
+	partner.update_cycle = SSair.milla_tick
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/other_air_heat_capacity = partner.air_contents.heat_capacity()
 	var/combined_heat_capacity = other_air_heat_capacity + air_heat_capacity
 
-	var/old_temperature = air_contents.temperature
-	var/other_old_temperature = partner.air_contents.temperature
+	var/old_temperature = air_contents.temperature()
+	var/other_old_temperature = partner.air_contents.temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = partner.air_contents.temperature*other_air_heat_capacity + air_heat_capacity*air_contents.temperature
+		var/combined_energy = partner.air_contents.temperature() * other_air_heat_capacity + air_heat_capacity * air_contents.temperature()
 
 		var/new_temperature = combined_energy/combined_heat_capacity
-		air_contents.temperature = new_temperature
-		partner.air_contents.temperature = new_temperature
+		air_contents.set_temperature(new_temperature)
+		partner.air_contents.set_temperature(new_temperature)
 
-	if(abs(old_temperature-air_contents.temperature) > 1)
+	if(abs(old_temperature-air_contents.temperature()) > 1)
 		parent.update = 1
 
-	if(abs(other_old_temperature-partner.air_contents.temperature) > 1)
+	if(abs(other_old_temperature-partner.air_contents.temperature()) > 1)
 		partner.parent.update = 1
 
 

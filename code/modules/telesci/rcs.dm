@@ -10,23 +10,25 @@
 	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
-	item_state = "rcd"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
-	throw_speed = 2
 	throw_range = 5
-	toolspeed = 1
-	usesound = 'sound/machines/click.ogg'
+	usesound = 'sound/weapons/flash.ogg'
+	origin_tech = "bluespace=3"
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
 	var/obj/machinery/pad = null
-
 	/// Currently teleporting something?
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
+
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/rcs/get_cell()
 	return rcell
@@ -46,14 +48,14 @@
 /**
   * Used to select telepad location.
   */
-/obj/item/rcs/attack_self(mob/user)
+/obj/item/rcs/attack_self__legacy__attackchain(mob/user)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
 		return
 
 	var/list/L = list() // List of avaliable telepads
 	var/list/areaindex = list() // Telepad area location
-	for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
+	for(var/obj/machinery/telepad_cargo/R in SSmachines.get_by_type(/obj/machinery/telepad_cargo))
 		if(R.stage)
 			continue
 		var/turf/T = get_turf(R)
@@ -79,21 +81,18 @@
 /**
   * Returns a random location in a z level
   *
-  * Defaults to Z level 1, with a 50% chance of being a different one.
-  * Z levels 1 to 4 are excluded from the alternatives.
+  * Defaults to station Z level, with a 50% chance of being a different one.
+  * Alternatives are space z levels with ruins.
   * Coordinates are constrained within 50-200 x & y.
   */
 /obj/item/rcs/proc/random_coords()
-	var/Z = 1 // Z level
+	var/Z = level_name_to_num(MAIN_STATION)
 	// Random Coordinates
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
 
 	if(prob(50)) // 50% chance of being a different Z level
-		var/list/z_levels = GLOB.space_manager.levels_by_name.Copy()
-		z_levels.Cut(1, 5) // Remove the first four z levels from the list (Station, CC, Lavaland, Gateway)
-		Z = pick(z_levels) // Pick a z level
-		Z = z_levels.Find(Z) + 4 // And get the corresponding number + 4
+		Z = pick(levels_by_trait(SPAWN_RUINS))
 
 	return locate(rand_x, rand_y, Z)
 
@@ -127,14 +126,15 @@
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
-	playsound(src, usesound, 50, TRUE)
+	playsound(get_turf(src), usesound, 25, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
 		teleporting = FALSE
 		return
 
 	teleporting = FALSE
-	rcell.use(chargecost)
-	do_sparks(5, TRUE, C)
+	var/final_cost = chargecost * bit_efficiency_mod
+	rcell.use(final_cost)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/final_cost)] charge\s left.</span>")

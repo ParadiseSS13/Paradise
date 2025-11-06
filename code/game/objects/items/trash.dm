@@ -17,6 +17,9 @@
 		return TRUE
 	return ..()
 
+/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
+	return
+
 /obj/item/trash/raisins
 	name = "4no raisins"
 	icon_state= "4no_raisins"
@@ -38,8 +41,9 @@
 	icon_state = "twimsts"
 
 /obj/item/trash/popcorn
-	name = "Popcorn"
+	name = "popcorn"
 	icon_state = "popcorn"
+	gender = PLURAL
 
 /obj/item/trash/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
@@ -69,8 +73,7 @@
 /obj/item/trash/fried_vox
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
-	item_state = "fried_vox_empty"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
 	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
@@ -116,12 +119,6 @@
 	name = "bread tube"
 	icon_state = "tastybread"
 
-/obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
-	name = "bullet casing"
-	desc = "A spent bullet casing. Smells like cordite."
-	icon_state = "gshell"
-
 /obj/item/trash/tapetrash
 	name = "old duct tape"
 	icon_state = "tape"
@@ -133,5 +130,66 @@
 	icon_state = "popsicle_stick_s"
 	desc = "Still tastes sweet."
 
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
-	return
+/obj/item/trash/caviar
+	name = "caviar can"
+	icon_state = "caviar-empty"
+	desc = "There's none left."
+
+// Ammo casings
+/obj/item/trash/spentcasing
+	icon = 'icons/obj/bullet.dmi'
+	name = "arbitrary spent casing item"
+	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
+	icon_state = "pistol_brass"
+	scatter_distance = 10
+
+/obj/item/trash/spentcasing/Initialize(mapload)
+	. = ..()
+	scatter_atom()
+	transform = turn(transform, rand(0, 360))
+
+/obj/item/trash/spentcasing/shotgun
+	name = "spent buckshot shell"
+	desc = "A spent shotgun shell. It smells like cordite."
+	icon_state = "buckshot"
+
+/obj/item/trash/spentcasing/shotgun/rubbershot
+	name = "spent rubbershot shell"
+	desc = "A spent shotgun shell. It smells like cordite and singed rubber."
+	icon_state = "rubbershot"
+
+/obj/item/trash/spentcasing/shotgun/beanbag
+	name = "spent beanbag shell"
+	icon_state = "beanbag"
+
+/obj/item/trash/spentcasing/shotgun/slug
+	name = "spent slug shell"
+	icon_state = "slug"
+
+/obj/item/trash/spentcasing/shotgun/dragonsbreath
+	name = "spent dragonsbreath shell"
+	desc = "A spent shotgun shell. It smells like cordite, burnt plastic, and a hint of petroleum."
+	icon_state = "dragonsbreath"
+
+/obj/item/trash/spentcasing/shotgun/stun
+	name = "spent stun shell"
+	icon_state = "taser"
+
+/obj/item/trash/spentcasing/bullet
+	name = "spent bullet casing"
+	desc = "A spent bullet casing. It smells of brass and cordite."
+	icon_state = "rifle_brass"
+
+/obj/item/trash/spentcasing/bullet/medium
+	name = "spent large bullet casing"
+	desc = "A spent high-caliber bullet casing. It smells of brass and cordite."
+	icon_state = "heavy_brass"
+
+/obj/item/trash/spentcasing/bullet/large
+	name = "spent .50 BMG bullet casing"
+	desc = "A spent .50 BMG bullet casing. It smells of brass and cordite."
+	icon_state = "heavy_steel"
+
+/obj/item/trash/spentcasing/bullet/lasershot
+	desc = "A spent IK-series single-use lasershot cell. It smells of burnt plastic with a metallic-chemical undertone."
+	icon_state = "lasercasing"

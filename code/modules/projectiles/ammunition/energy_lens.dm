@@ -1,12 +1,16 @@
 /obj/item/ammo_casing/energy
 	name = "energy weapon lens"
-	desc = "The part of the gun that makes the laser go pew"
+	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	/// Damage multiplier from equipped lenses
+	var/lens_damage_multiplier = 1
+	/// Speed multiplier from equipped lenses.
+	var/lens_speed_multiplier = 1
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -23,6 +27,9 @@
 	e_cost = 83
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/lever_action
+	fire_sound = 'sound/weapons/laser4.ogg'
+
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
 
@@ -36,6 +43,15 @@
 	pellets = 5
 	variance = 25
 	select_name = "scatter"
+
+/obj/item/ammo_casing/energy/laser/eshotgun
+	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
+	pellets = 6
+	variance = 25
+	delay = 1 SECONDS
+
+/obj/item/ammo_casing/energy/laser/eshotgun/cyborg
+	e_cost = 500
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
@@ -74,7 +90,6 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
-	e_cost = 100
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/immolator
@@ -84,7 +99,6 @@
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	e_cost = 125
 	select_name = "precise"
 
 /obj/item/ammo_casing/energy/immolator/strong/cyborg
@@ -93,7 +107,6 @@
 
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
-	e_cost = 125
 	pellets = 6
 	variance = 25
 	select_name = "scatter"
@@ -179,7 +192,18 @@
 	click_cooldown_override = 2
 	variance = 15
 	randomspread = 1
-	delay = 2
+	delay = 0
+
+/obj/item/ammo_casing/energy/disabler/fake
+	projectile_type = /obj/item/projectile/beam/disabler/fake
+	e_cost = 100
+
+/obj/item/ammo_casing/energy/disabler/eshotgun
+	projectile_type = /obj/item/projectile/beam/disabler/pellet
+	e_cost = 75
+	delay = 1 SECONDS
+	pellets = 6
+	variance = 25
 
 /// seperate balancing for cyborg, again
 /obj/item/ammo_casing/energy/disabler/cyborg
@@ -205,7 +229,6 @@
 	projectile_type = /obj/item/projectile/beam/wormhole
 	muzzle_flash_color = "#33CCFF"
 	delay = 10
-	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/obj/item/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
@@ -255,14 +278,13 @@
 
 /obj/item/ammo_casing/energy/arc_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
-	e_cost = 125 //8 shots?
 	select_name = "lightning beam" //I guess
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
 	projectile_type = /obj/item/projectile/energy/arc_revolver
 	///This number is randomly generated when the arc revolver is made. This ensures the beams only link to beams from the gun, one lower or higher than the number on the boosted object.
 	var/random_link_number
 
-/obj/item/ammo_casing/energy/arc_revolver/Initialize()
+/obj/item/ammo_casing/energy/arc_revolver/Initialize(mapload)
 	. = ..()
 	random_link_number = rand(1, 9999999)
 
@@ -280,7 +302,7 @@
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
 
 /obj/item/ammo_casing/energy/charged_plasma
-	projectile_type = /obj/item/projectile/energy/charged_plasma
+	projectile_type = /obj/item/projectile/homing/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
@@ -296,7 +318,6 @@
 	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
-	e_cost = 100
 	delay = 2 SECONDS // Lasers fire twice every second for 40 dps, this fires every 2 seconds for 15 dps. Seems fair, since every cyborg will have this with more shots?
 	select_name = "emitter"
 

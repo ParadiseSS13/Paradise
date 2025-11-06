@@ -10,10 +10,7 @@
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
 	pda.set_light(fon ? f_lum : 0)
-	if(fon)
-		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
-	else
-		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+	pda.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
@@ -85,11 +82,11 @@
 			messages.Add("<span class='notice'>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
-/datum/data/pda/utility/scanmode/halogen
-	base_name = "Halogen Counter"
+/datum/data/pda/utility/scanmode/rad_scanner
+	base_name = "Radiation Scanner"
 	icon = "exclamation-circle"
 
-/datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
+/datum/data/pda/utility/scanmode/rad_scanner/scan_mob(mob/living/C as mob, mob/living/user as mob)
 	var/list/messages = list()
 	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
 

@@ -3,13 +3,12 @@
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "saber"
-	item_state = "saber"
+	inhand_icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
-	burst_size = 3
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -20,7 +19,7 @@
 	name = "foam force pistol"
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
 	icon_state = "pistol"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -43,17 +42,17 @@
 	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
 	. = ..()
 	if(suppressed)
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
-		var/flashlight = "Enforcer_light"
+		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
-			flashlight = "Enforcer_light-on"
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = flashlight, pixel_x = 0)
+			flashlight = "uflashlight_attached-on"
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
@@ -82,14 +81,15 @@
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
 	icon_state = "crossbow"
-	item_state = "foamcrossbow"
+	worn_icon_state = "gun"
+	inhand_icon_state = "foamcrossbow"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gun/projectile/automatic/c20r/toy
@@ -99,6 +99,7 @@
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
+	origin_tech = "combat=3;materials=2;syndicate=2"
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -110,9 +111,9 @@
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
+	origin_tech = "combat=5;engineering=3;syndicate=3"
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -123,9 +124,8 @@
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "tommygun"
-	item_state = "shotgun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32

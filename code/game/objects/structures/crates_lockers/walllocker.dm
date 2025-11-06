@@ -5,11 +5,13 @@
 	desc = "A wall mounted storage locker."
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
-	icon_state = "wall-locker"
+	icon_state = null
+	door_anim_time = 0
+	enable_door_overlay = FALSE
 	density = FALSE
 	anchored = TRUE
-	icon_closed = "wall-locker"
-	icon_opened = "wall-lockeropen"
+	icon_closed = null
+	icon_opened = null
 
 /obj/structure/closet/walllocker/close()
 	. = ..()
@@ -17,34 +19,33 @@
 
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
-	desc = "A wall mounted locker with emergency supplies"
+	desc = "A wall mounted locker with emergency supplies."
 	icon_state = "emerg"
 	icon_closed = "emerg"
 	icon_opened = "emerg_open"
 
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
+	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10)))
+		if("small")
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/clothing/mask/breath(src)
+		if("aid")
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/storage/toolbox/emergency(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/storage/firstaid/o2(src)
+		if("tank")
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+		if("both")
+			new /obj/item/storage/toolbox/emergency(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/storage/firstaid/o2(src)
 
-/obj/structure/closet/walllocker/emerglocker/north
-	pixel_y = 32
-	dir = SOUTH
 
-/obj/structure/closet/walllocker/emerglocker/south
-	pixel_y = -32
-	dir = NORTH
-
-/obj/structure/closet/walllocker/emerglocker/west
-	pixel_x = -32
-	dir = WEST
-
-/obj/structure/closet/walllocker/emerglocker/east
-	pixel_x = 32
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)

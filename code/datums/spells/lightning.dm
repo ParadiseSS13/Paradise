@@ -2,7 +2,6 @@
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
 	base_cooldown	= 30 SECONDS
-	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
 	cooldown_min = 3 SECONDS
@@ -38,6 +37,12 @@
 	origin.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
 /datum/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
+	if(target.can_block_magic(antimagic_flags))
+		target.visible_message(
+			"<span class='warning'>[target] absorbs the spell, remaining unharmed!</span>",
+			"<span class='danger'>You absorb the spell, remaining unharmed!</span>"
+		)
+		return
 	if(damaging)
 		target.electrocute_act(energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 	else

@@ -11,12 +11,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define VENT_ID		"[id_to_link]_vent"
-#define EXT_DOOR_ID	"[id_to_link]_door_ext"
-#define INT_DOOR_ID	"[id_to_link]_door_int"
-#define EXT_BTN_ID	"[id_to_link]_btn_ext"
-#define INT_BTN_ID	"[id_to_link]_btn_int"
-
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
 	desc = "If you can see this, there's probably a missing airlock here. Better tell an admin and report this on the github."
@@ -33,13 +27,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/tiles_in_x_direction = 1
 	var/tiles_in_y_direction = 1
 	var/id_to_link
-	req_access_txt = ACCESS_EXTERNAL_AIRLOCKS //If req_one_access_txt is set, this is ignored
 	var/door_name = "external access"
 	var/door_type = /obj/machinery/door/airlock/external/glass
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
 	var/one_door_exterior //See above
 
-/obj/effect/spawner/airlock/Initialize()
+/obj/effect/spawner/airlock/Initialize(mapload)
 	..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps
@@ -56,7 +49,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	handle_door_creation(turf_interior, TRUE, one_door_interior)
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
-	handle_control_placement()
+
+	var/obj/machinery/airlock_controller/controller = make_controller()
+	controller.link_all_items()
+
+	for(var/obj/effect/mapping_helpers/airlock/access/access_helper in loc)
+		qdel(access_helper)
 
 	return INITIALIZE_HINT_QDEL
 
@@ -81,19 +79,19 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/access_button/the_button = spawn_button(T, is_this_an_interior_airlock ? interior_direction : exterior_direction, is_this_an_interior_airlock)
 	if(one_door_only == DOOR_NORMAL_PLACEMENT) //We only need one door, we are done
 		return
-	if(!(tiles_in_x_direction % 2) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
+	if(ISEVEN(tiles_in_x_direction) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, EAST))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, EAST))
-	else if(!(tiles_in_y_direction % 2) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
+	else if(ISEVEN(tiles_in_y_direction) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, NORTH))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, NORTH))
 
 /obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/A, is_this_an_interior_airlock) //This sets up the door vars correctly and then locks it before first use
-	A.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID : EXT_DOOR_ID
+	A.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID(id_to_link) : EXT_DOOR_ID(id_to_link)
 	set_access_helper(A)
 	A.name = door_name
 	A.lock()
@@ -101,9 +99,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/proc/spawn_button(turf/T, some_direction, interior)
 	var/obj/machinery/access_button/the_button = new(T)
 	if(interior)
-		the_button.autolink_id = INT_BTN_ID
+		the_button.autolink_id = INT_BTN_ID(id_to_link)
 	else
-		the_button.autolink_id = EXT_BTN_ID
+		the_button.autolink_id = EXT_BTN_ID(id_to_link)
 
 	switch(some_direction)
 		if(NORTH)
@@ -121,15 +119,16 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	set_access_helper(the_button)
 	return the_button
 
-/obj/effect/spawner/airlock/proc/handle_control_placement() //Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
+/// Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs.
+/obj/effect/spawner/airlock/proc/make_controller()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
 	set_access_helper(AC)
-	AC.vent_link_id = VENT_ID
-	AC.int_door_link_id = INT_DOOR_ID
-	AC.ext_door_link_id = EXT_DOOR_ID
-	AC.int_button_link_id = INT_BTN_ID
-	AC.ext_button_link_id = EXT_BTN_ID
+	AC.vent_link_id = VENT_ID(id_to_link)
+	AC.int_door_link_id = INT_DOOR_ID(id_to_link)
+	AC.ext_door_link_id = EXT_DOOR_ID(id_to_link)
+	AC.int_button_link_id = INT_BTN_ID(id_to_link)
+	AC.ext_button_link_id = EXT_BTN_ID(id_to_link)
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place it there
 		AC.pixel_x -= 25
 		AC.pixel_y += 9
@@ -141,6 +140,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		AC.forceMove(T)
 		AC.pixel_x += 25
 		AC.pixel_y += 9
+
+	return AC
 
 /obj/effect/spawner/airlock/proc/handle_pipes_creation(turf/T) //This places all required piping down, then properly initializes it. T is the turf that the interior airlock occupies
 	var/turf/below_T = get_step(T, opposite_interior_direction)
@@ -195,15 +196,23 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
 	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
-		created_pump.autolink_id = VENT_ID
+		created_pump.autolink_id = VENT_ID(id_to_link)
 
 /obj/effect/spawner/airlock/proc/set_access_helper(obj/I)
-	if(req_one_access_txt == "0")
-		I.req_access_txt = "[req_access_txt]"
+	var/obj/machinery/door/airlock/airlock = I
+	if(istype(airlock))
+		for(var/obj/effect/mapping_helpers/airlock/access/access_helper in loc)
+			access_helper.payload(airlock)
+		// Since airlocks are created first, we steal the payload logic
+		// to apply to the controls later
+		req_access = airlock.req_access
+		req_one_access = airlock.req_one_access
 	else
-		I.req_one_access_txt = "[req_one_access_txt]"
+		I.req_access = req_access
+		I.req_one_access = req_one_access
 
-//Premade airlocks for mappers, probably won't need all of these but whatever
+// MARK: AIRLOCK HELPERS
+
 /obj/effect/spawner/airlock/s_to_n
 	name = "1 by 1 airlock spawner (interior south, exterior north)"
 	icon_state = "1x1_S_to_N"
@@ -222,7 +231,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	interior_direction = WEST
 	exterior_direction = EAST
 
-/// Long and thin
+// MARK: LONG AIRLOCKS
+
 /obj/effect/spawner/airlock/long
 	name = "long airlock spawner (interior north, exterior south)"
 	icon_state = "1x2_N_to_S"
@@ -232,14 +242,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "long airlock spawner (interior south, exterior north)"
 	icon_state = "1x2_S_to_N"
 	tiles_in_y_direction = 2
-
-/obj/effect/spawner/airlock/s_to_n/long/square/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/s_to_n/long/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/e_to_w/long
 	name = "long airlock spawner (interior east, exterior west)"
@@ -251,7 +253,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	icon_state = "1x2_W_to_E"
 	tiles_in_x_direction = 2
 
-/// Square
+// MARK: SQUARE AIRLOCKS
 /obj/effect/spawner/airlock/long/square
 	name = "square airlock spawner (interior north, exterior south)"
 	icon_state = "2x2_N_to_S"
@@ -276,7 +278,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "square airlock spawner (interior east, exterior south)"
 	icon_state = "2x2_E_to_S"
 	interior_direction = EAST
-	exterior_direction = SOUTH
 
 /obj/effect/spawner/airlock/long/square/wide
 	name = "rectangular airlock spawner (interior north, exterior south)"
@@ -301,71 +302,11 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/long/square/three
 	name = "3 by 3 square airlock spawner (interior north, exterior south)"
 	icon_state = "3x3_N_to_S"
-	interior_direction = NORTH
-	exterior_direction = SOUTH
 	tiles_in_x_direction = 3
 	tiles_in_y_direction = 3
 
-/obj/effect/spawner/airlock/e_to_w/arrivals
-	req_access_txt = null
-
-/obj/effect/spawner/airlock/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/e_to_w/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/w_to_e/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/s_to_n/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/long/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/long/square/engine
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engine external access"
-	icon_state = "2x2_N_to_S_leftdoors"
-	door_type = /obj/machinery/door/airlock/external
-	one_door_interior = DOOR_NORMAL_PLACEMENT
-	one_door_exterior = DOOR_NORMAL_PLACEMENT
-
-/obj/effect/spawner/airlock/long/square/engine/reversed
-	icon_state = "2x2_N_to_S_rightdoors"
-	one_door_interior = DOOR_FLIPPED_PLACEMENT
-	one_door_exterior = DOOR_FLIPPED_PLACEMENT
-
-/obj/effect/spawner/airlock/w_to_e/long/square/wide/mining
-	door_name = "mining external access"
-	req_access_txt = ACCESS_MINING
-
-/obj/effect/spawner/airlock/long/square/wide/mining
-	door_name = "mining external access"
-	req_access_txt = ACCESS_MINING
-
-/obj/effect/spawner/airlock/e_to_w/minisat
-	door_name = "minisat external access"
-	req_access_txt = ACCESS_MINISAT
-
 /obj/effect/spawner/airlock/long/square/e_to_s/telecoms
 	door_name = "telecoms external access"
-	req_access_txt = "61;13" //ACCESS_TCOMSAT,ACCESS_EXTERNAL_AIRLOCKS
-	door_type = /obj/machinery/door/airlock/external
-
-/obj/effect/spawner/airlock/long/square/three/syndicate
-	name = "3 by 3 square airlock spawner (interior west, exterior north)"
-	icon_state = "3x3_W_to_N"
-	interior_direction = WEST
-	exterior_direction = NORTH
-	door_name = "ship external access"
-	req_access_txt = ACCESS_SYNDICATE
 	door_type = /obj/machinery/door/airlock/external
 
 #undef HALF_X
@@ -375,8 +316,3 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #undef CHAMBER_BIGGER
 #undef DOOR_NORMAL_PLACEMENT
 #undef DOOR_FLIPPED_PLACEMENT
-#undef VENT_ID
-#undef EXT_DOOR_ID
-#undef INT_DOOR_ID
-#undef EXT_BTN_ID
-#undef INT_BTN_ID

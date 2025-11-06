@@ -3,17 +3,18 @@
 	desc = "A hand-held emergency light."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
-	item_state = "flashlight"
+	inhand_icon_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffffd0"
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	update_brightness()
 
@@ -30,19 +31,17 @@
 		set_light(0)
 	update_icon()
 
-/obj/item/flashlight/attack_self(mob/user)
+/obj/item/flashlight/attack_self__legacy__attackchain(mob/user)
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
 		return FALSE
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
-/obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
 	if(on && user.zone_selected == "eyes")
 
@@ -91,10 +90,10 @@
 	name = "penlight"
 	desc = "A pen, and a light. Used by medical staff."
 	icon_state = "penlight"
-	item_state = ""
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
-	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	brightness_on = 2
 	var/colour = "blue" // Ink color
 
@@ -102,7 +101,7 @@
 	name = "seclite"
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
-	item_state = "seclite"
+	inhand_icon_state = "seclite"
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -111,8 +110,6 @@
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
-	item_state = ""
-	flags = CONDUCT
 	brightness_on = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -121,12 +118,12 @@
 	name = "desk lamp"
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
-	item_state = "lamp"
+	inhand_icon_state = "lamp"
 	brightness_on = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -136,7 +133,8 @@
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
-	item_state = "lampgreen"
+	inhand_icon_state = "lampgreen"
+	light_color = "#AAFFAA"
 
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
@@ -145,14 +143,15 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
-	item_state = "bananalamp"
+	inhand_icon_state = "lampgreen"
+	light_color = "#f7ff57"
 
 // FLARES
 
@@ -162,7 +161,7 @@
 	brightness_on = 8
 	light_color = "#ff0000"
 	icon_state = "flare"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/fuel = 0
 	var/on_damage = 7
@@ -175,11 +174,7 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
-
+	inhand_icon_state = "[initial(inhand_icon_state)][on ? "-on" : ""]"
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -188,7 +183,7 @@
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
 	if(pos && produce_heat)
-		pos.hotspot_expose(produce_heat, 5)
+		pos.hotspot_expose(produce_heat, 1)
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
 		turn_off()
@@ -206,7 +201,7 @@
 	attack_verb = list()
 	update_brightness()
 
-/obj/item/flashlight/flare/attack_self(mob/user)
+/obj/item/flashlight/flare/attack_self__legacy__attackchain(mob/user)
 	// Usual checks
 	if(!fuel)
 		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
@@ -225,6 +220,22 @@
 			hitsound = 'sound/items/welder.ogg'
 			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
+
+/obj/item/flashlight/flare/used
+
+/obj/item/flashlight/flare/used/Initialize(mapload)
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/glowstick/used/Initialize(mapload)
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && !fuel)
@@ -245,16 +256,16 @@
 	brightness_on = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
-	item_state = "glowstick"
+	inhand_icon_state = null
 	togglesound = 'sound/effects/bone_break_1.ogg'
 	produce_heat = FALSE
 	fuel_lower = 1600
 	fuel_upp = 2000
 	blocks_emissive = FALSE
 
-/obj/item/flashlight/flare/glowstick/Initialize()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
+	. = ..()
 	light_color = color
-	..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
@@ -294,17 +305,6 @@
 	fuel_lower = 30
 	fuel_upp = 90
 
-/obj/item/flashlight/flare/glowstick/random
-	name = "random colored glowstick"
-	icon_state = "random_glowstick"
-	color = null
-
-/obj/item/flashlight/flare/glowstick/random/Initialize()
-	. = ..()
-	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
-	new T(loc)
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
-
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
@@ -315,12 +315,10 @@
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
+	icon_state = "torch"
+	inhand_icon_state = "torch"
 	w_class = WEIGHT_CLASS_BULKY
 	brightness_on = 7
-	icon_state = "torch"
-	item_state = "torch"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
@@ -328,9 +326,8 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
-	item_state = "slime"
+	icon_state = "slime-on"
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6
 	light_color = "#FFBF00"
@@ -344,7 +341,7 @@
 		update_brightness()
 		icon_state = initial(icon_state)
 
-/obj/item/flashlight/slime/attack_self(mob/user)
+/obj/item/flashlight/slime/attack_self__legacy__attackchain(mob/user)
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
@@ -360,7 +357,6 @@
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4
 	var/charge_tick = 0
-
 
 /obj/item/flashlight/emp/New()
 	..()
@@ -378,12 +374,12 @@
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
-/obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/emp/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_selected == "eyes") // call original attack proc only if aiming at the eyes
 		..()
 	return
 
-/obj/item/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
+/obj/item/flashlight/emp/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user, proximity)
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
@@ -393,7 +389,7 @@
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
-		A.emp_act(1)
+		A.emp_act(EMP_HEAVY)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
@@ -405,7 +401,6 @@
 	icon_state = null
 	light_color = null
 	brightness_on = 0
-	light_range = 0
 	light_power = 10
 	alpha = 0
 	layer = 0
@@ -418,6 +413,5 @@
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
 	light_range = 15
-	light_power = 1
 	flags = CONDUCT | DROPDEL
 	actions_types = list()

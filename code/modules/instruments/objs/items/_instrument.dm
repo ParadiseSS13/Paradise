@@ -1,12 +1,12 @@
 //copy pasta of the space piano, don't hurt me -Pete
 /obj/item/instrument
 	name = "generic instrument"
-	force = 10
-	max_integrity = 100
-	resistance_flags = FLAMMABLE
 	icon = 'icons/obj/musician.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
+	force = 10
+	max_integrity = 100
+	resistance_flags = FLAMMABLE
 	/// Our song datum.
 	var/datum/song/handheld/song
 	/// Our allowed list of instrument ids. This is nulled on initialize.
@@ -27,7 +27,7 @@
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/instrument/attack_self(mob/user)
+/obj/item/instrument/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/instrument/ui_data(mob/user)

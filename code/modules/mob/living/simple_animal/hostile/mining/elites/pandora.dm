@@ -19,7 +19,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
-	desc = "A large magic box with similar power and design to the Hierophant.  Once it opens, it's not easy to close it."
+	desc = "A large magic box with similar power and design to the Hierophant. Once it opens, it's not easy to close it."
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"
@@ -30,17 +30,19 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
 	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
-	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
+	loot_drop = /obj/item/clothing/accessory/pandora_hope
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/pandora
 
 	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,
@@ -198,25 +200,23 @@
 	friendly_fire_check = TRUE
 
 
-//Pandora's loot: Hope //Hope I know what to make it do
-/obj/item/clothing/accessory/necklace/pandora_hope
+//Pandora's loot: Hope
+//This should probably be turned into a pin at some point
+/obj/item/clothing/accessory/pandora_hope
 	name = "Hope"
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
-	item_state = "hope"
-	item_color = "hope"
-	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
+/obj/item/clothing/accessory/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
 	if(isliving(S.loc))
 		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+/obj/item/clothing/accessory/pandora_hope/on_removed(mob/user)
 	if(isliving(has_suit.loc))
 		var/mob/living/M = has_suit.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)

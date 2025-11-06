@@ -6,6 +6,8 @@
 	stats_action.Grant(user, src)
 	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
 		add_thrusters()
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.give_targeted_action()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -14,10 +16,12 @@
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	thrusters_action.Remove(user)
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.remove_targeted_action()
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	var/obj/mecha/chassis
 
 /datum/action/innate/mecha/Grant(mob/living/L, obj/mecha/M)
@@ -51,7 +55,7 @@
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.occupant_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
 	chassis.log_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/action/innate/mecha/mech_toggle_lights
 	name = "Toggle Lights"
@@ -62,14 +66,14 @@
 		return
 	chassis.lights = !chassis.lights
 	if(chassis.lights)
-		chassis.set_light(chassis.lights_power)
+		chassis.set_light(chassis.lights_range, chassis.lights_power)
 		button_icon_state = "mech_lights_on"
 	else
-		chassis.set_light(-chassis.lights_power)
+		chassis.set_light(chassis.lights_range_ambient, chassis.lights_power_ambient)
 		button_icon_state = "mech_lights_off"
 	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
 	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].")
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/action/innate/mecha/mech_view_stats
 	name = "View Stats"
@@ -99,7 +103,7 @@
 		chassis.deflect_chance = initial(chassis.deflect_chance)
 		chassis.occupant_message("<span class='danger'>You disable [chassis] defence mode.</span>")
 	chassis.log_message("Toggled defence mode.")
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/action/innate/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"
@@ -123,13 +127,16 @@
 		chassis.step_in = min(1, round(chassis.step_in / 2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min, chassis.step_energy_drain * chassis.leg_overload_coeff)
 		chassis.occupant_message("<span class='danger'>You enable leg actuators overload.</span>")
+		if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+			chassis.occupant_message("<span class='danger'>Your shields turn off as your actuators overload.</span>")
 	else
 		chassis.leg_overload_mode = 0
 		// chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
 		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
-	UpdateButtons()
+	build_all_button_icons()
+	chassis.update_icon(UPDATE_OVERLAYS)
 
 /datum/action/innate/mecha/mech_toggle_thrusters
 	name = "Toggle Thrusters"
@@ -179,7 +186,7 @@
 			SEND_SOUND(owner, sound(chassis.zoomsound, volume = 50))
 		else
 			owner.client.RemoveViewMod("mecha")
-		UpdateButtons()
+		build_all_button_icons()
 
 /datum/action/innate/mecha/mech_toggle_phasing
 	name = "Toggle Phasing"
@@ -191,7 +198,7 @@
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.occupant_message("<font color=\"[chassis.phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
-	UpdateButtons()
+	build_all_button_icons()
 
 
 /datum/action/innate/mecha/mech_switch_damtype
@@ -214,5 +221,45 @@
 			chassis.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
-	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
-	UpdateButtons()
+	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
+	build_all_button_icons()
+
+// Floor Buffer Action
+/datum/action/innate/mecha/mech_toggle_floorbuffer
+	name = "Toggle Floor Buffer"
+	desc = "Movement speed is decreased while active."
+	button_icon = 'icons/obj/vehicles.dmi'
+	button_icon_state = "upgrade"
+
+/datum/action/innate/mecha/mech_toggle_floorbuffer/Activate()
+	if(!chassis.floor_buffer)
+		chassis.floor_buffer = TRUE
+		chassis.step_in += chassis.buffer_delay
+	else
+		chassis.floor_buffer = FALSE
+		chassis.step_in -= chassis.buffer_delay
+	to_chat(usr, "<span class='notice'>The floor buffer is now [chassis.floor_buffer ? "active" : "deactivated"].</span>")
+
+/datum/action/innate/mecha/select_module
+	name = "Hey, you shouldn't see this please make a bug report"
+	var/obj/item/mecha_parts/mecha_equipment/equipment
+
+/datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
+	if(!_equipment)
+		return FALSE
+	equipment = _equipment
+	button_icon = equipment.icon
+	button_icon_state = equipment.icon_state
+	name = "Switch module to [equipment.name]"
+	return ..()
+
+/datum/action/innate/mecha/select_module/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(chassis.selected)
+		chassis.selected.on_unequip()
+	chassis.selected = equipment
+	chassis.selected.on_equip()
+	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
+	chassis.visible_message("[chassis] raises [equipment.name]")
+	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())

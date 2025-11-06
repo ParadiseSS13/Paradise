@@ -7,8 +7,9 @@
 
 	maxHealth = 25
 	health = 25
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 1)
 	density = FALSE
+	surgery_container = /datum/xenobiology_surgery_container/alien/larva
 
 	var/temperature_resistance = T0C+75
 	var/amount_grown = 0

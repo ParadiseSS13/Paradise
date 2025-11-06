@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(!check_rights(R_ADMIN))
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(alert("Do you want to send in the Syndicate Infiltration Team?", null,"Yes","No")=="No")
@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(!input)
 			alert("No mission specified. Aborting.")
 			return
-	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
+	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 100-150.") as num
 	var/tcamount = text2num(tctext)
 	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
@@ -141,16 +141,16 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), SLOT_HUD_BACK)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(new /obj/item/storage/backpack(src), ITEM_SLOT_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), ITEM_SLOT_JUMPSUIT)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/flashlight(src), SLOT_HUD_IN_BACKPACK)
-		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), SLOT_HUD_BELT)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), ITEM_SLOT_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), ITEM_SLOT_BELT)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
 	G.name = "black gloves"
-	equip_to_slot_or_del(G, SLOT_HUD_GLOVES)
+	equip_to_slot_or_del(G, ITEM_SLOT_GLOVES)
 
 	// Implants:
 	// Uplink
@@ -167,11 +167,11 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Radio & PDA
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
-	equip_or_collect(new /obj/item/pda(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(R, ITEM_SLOT_LEFT_EAR)
+	equip_or_collect(new /obj/item/pda(src), ITEM_SLOT_IN_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_SHOES)
 
 	var/obj/item/card/id/syndicate/W = new(src)
 	if(flag_mgmt)
@@ -191,6 +191,6 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		W.access += get_syndicate_access("Syndicate Operative")
 	W.name = "[real_name]'s ID Card ([W.assignment])"
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 	return 1

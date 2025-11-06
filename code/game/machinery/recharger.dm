@@ -1,9 +1,5 @@
-#define RECHARGER_POWER_USAGE_GUN 250
-#define RECHARGER_POWER_USAGE_MISC 200
-
 /obj/machinery/recharger
 	name = "recharger"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "recharger0"
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
@@ -12,11 +8,27 @@
 	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver, /obj/item/clothing/neck/link_scryer, /obj/item/melee/secsword)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
+	var/anchor_toggleable = TRUE
+
+/obj/machinery/recharger/examine(mob/user)
+	. = ..()
+	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
+		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		return
+
+	if(charging)
+		. += "There's [charging ? "\a [charging.name]" : "nothing"] in [src]."
+		if(!(stat & (NOPOWER|BROKEN)))
+			var/obj/item/stock_parts/cell/C = charging.get_cell()
+			. += "<span class='notice'>Current charge: <b>[round(C.percent(), 1)]%</b>.</span>"
+			if(using_power)
+				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.</span>"
+
 
 /obj/machinery/recharger/Initialize(mapload)
 	. = ..()
@@ -29,44 +41,44 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
-	var/allowed = is_type_in_list(G, allowed_devices)
+/obj/machinery/recharger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/allowed = is_type_in_list(used, allowed_devices)
 
 	if(!allowed)
 		return ..()
 
-	. = TRUE
-
 	if(!anchored)
 		to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(charging)
 		to_chat(user, "<span class='warning'>There's \a [charging] inserted in [src] already!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
-	if(!istype(A) || !A.powernet.equipment_powered)
-		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
-		return
+	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
+		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [used].</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(G, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = G
+	if(istype(used, /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = used
 		if(!E.can_charge)
 			to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item())
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	G.forceMove(src)
-	charging = G
+	used.forceMove(src)
+	charging = used
 	change_power_mode(ACTIVE_POWER_USE)
-	using_power = check_cell_needs_recharging(get_cell_from(G))
+	using_power = check_cell_needs_recharging(get_cell_from(used))
 	update_icon()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
@@ -91,6 +103,8 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!anchor_toggleable)	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
+		return
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
@@ -201,6 +215,17 @@
 		var/obj/item/clothing/suit/armor/reactive/A = I
 		return A.cell
 
+	if(istype(I, /obj/item/wormhole_jaunter/wormhole_weaver))
+		var/obj/item/wormhole_jaunter/wormhole_weaver/W = I
+		return W.wcell
+	if(istype(I, /obj/item/clothing/neck/link_scryer))
+		var/obj/item/clothing/neck/link_scryer/LS = I
+		return LS.cell
+
+	if(istype(I, /obj/item/melee/secsword))
+		var/obj/item/melee/secsword/secsword = I
+		return secsword.cell
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
@@ -208,9 +233,9 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/recharger/proc/recharge_cell(obj/item/stock_parts/cell/C, power_usage)
+/obj/machinery/recharger/proc/recharge_cell(obj/item/stock_parts/cell/C)
 	C.give(C.chargerate * recharge_coeff)
-	use_power(power_usage)
+	use_power(C.chargerate * recharge_coeff)
 
 /obj/machinery/recharger/proc/try_recharging_if_possible()
 	var/obj/item/stock_parts/cell/C = get_cell_from(charging)
@@ -218,40 +243,21 @@
 		return FALSE
 
 	if(istype(charging, /obj/item/gun/energy))
-		recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
-
 		var/obj/item/gun/energy/E = charging
 		E.on_recharge()
-	else
-		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
+	recharge_cell(C)
 
 	if(!check_cell_needs_recharging(C)) // we recharged cell, does it still need power? If no, recharger should blink yellow
 		return FALSE
 
 	return TRUE
 
-/obj/machinery/recharger/examine(mob/user)
-	. = ..()
-	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
-		return
-
-	if(charging)
-		. += "<span class='notice'>\The [src] contains:</span>"
-		. += "<span class='notice'>- \A [charging].</span>"
-		if(!(stat & (NOPOWER|BROKEN)))
-			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			. += "<span class='notice'>The status display reads:<span>"
-			if(using_power)
-				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.<span>"
-			if(charging)
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
-
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
 /obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon_state = "wrecharger0"
 	base_icon_state = "wrecharger"
+	anchor_toggleable = FALSE
 
 /obj/machinery/recharger/wallcharger/upgraded/Initialize(mapload)
 	. = ..()
@@ -259,6 +265,3 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
-
-#undef RECHARGER_POWER_USAGE_GUN
-#undef RECHARGER_POWER_USAGE_MISC

@@ -2,11 +2,10 @@
 	icon = 'icons/atmos/manifold.dmi'
 	icon_state = ""
 	name = "4-way pipe manifold"
-	desc = "A manifold composed of regular pipes"
+	desc = "A manifold composed of regular pipes."
 
 	volume = 140
 
-	dir = SOUTH
 	initialize_directions = NORTH|SOUTH|EAST|WEST
 
 	var/obj/machinery/atmospherics/node1
@@ -27,12 +26,6 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/pipeline_expansion()
 	return list(node1, node2, node3, node4)
-
-/obj/machinery/atmospherics/pipe/manifold4w/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
 
 /obj/machinery/atmospherics/pipe/manifold4w/Destroy()
 	. = ..()
@@ -95,8 +88,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/update_overlays()
 	. = ..()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, pipe_color, "4way" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, null, "clamps_4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, pipe_color, "4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, null, "clamps_4way" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
@@ -166,12 +159,11 @@
 /obj/machinery/atmospherics/pipe/manifold4w/visible
 	icon_state = "map_4way"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -186,7 +178,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
 	name="4-way air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map_4way-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -213,14 +205,12 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden
 	icon_state = "map_4way"
-	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	plane = FLOOR_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers
-	name="4-way scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	name = "4-way scrubbers pipe manifold"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -234,8 +224,8 @@
 	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
-	name="4-way air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	name = "4-way air supply pipe manifold"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map_4way-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET

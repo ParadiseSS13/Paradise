@@ -1,0 +1,9047 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/floodlight{
+	anchored = 1
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"an" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/effect/abstract/cheese_trap,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"ax" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/lattice,
+/obj/machinery/light,
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"aN" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/mob/living/basic/malf_drone,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"bb" = (
+/obj/machinery/teleport/hub,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"bE" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"bI" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"bJ" = (
+/obj/effect/abstract/loot_trap,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"bO" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"bP" = (
+/obj/machinery/ai_slipper,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/spawner/random/pool/spaceloot/dvorak_core_table,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"bR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"ca" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"cz" = (
+/obj/machinery/floodlight{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"cH" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"cJ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"dn" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"du" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"dv" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"dB" = (
+/obj/machinery/power/smes{
+	charge = 2.5e+006;
+	input_level = 200000
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"dD" = (
+/obj/structure/closet/crate,
+/obj/item/multitool,
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"dR" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/east{
+	malfhack = 1;
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
+	},
+/obj/structure/environmental_storytelling_holopad/control_room,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"eb" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/directional/north{
+	malfhack = 1;
+	hacked_by_ruin_AI = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"ei" = (
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"eA" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
+"eE" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"eH" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/computer)
+"eJ" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
+	name = "LETHAL TURRETS";
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"eR" = (
+/obj/structure/filingcabinet,
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"fa" = (
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/no_teleport)
+"fc" = (
+/obj/structure/machine_frame,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"fq" = (
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"fs" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"fv" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"gg" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"gi" = (
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"gm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"gr" = (
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"gw" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"gG" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/shieldwallgen/telecomms,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"gI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"gJ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Satellite"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"gR" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"hq" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"hU" = (
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"ia" = (
+/obj/effect/spawner/random/pool/spaceloot/dvorak_emp_loot,
+/turf/simulated/floor/engine,
+/area/ruin/space/telecomms/computer)
+"ik" = (
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
+"il" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"iy" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"iD" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/space/nearstation/no_teleport)
+"iE" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"iR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
+"iZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"jo" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"kj" = (
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"kl" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/telecomms/computer)
+"kr" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/telecomms/powercontrol)
+"ky" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Power Control"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/tele)
+"kA" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 9;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/abstract/cheese_trap,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomms)
+"kT" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"kU" = (
+/obj/structure/closet/malf_suits,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"kV" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"li" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation/no_teleport)
+"lo" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"lp" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"lr" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random/oil/often,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"lB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"lH" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"lW" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"mb" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"mc" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"mh" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"mD" = (
+/obj/structure/table,
+/obj/effect/spawner/random/bluespace_tap/organic_uncommon,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"mH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"mN" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"mO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"mZ" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Core Access";
+	locked = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"nh" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/shieldwallgen/telecomms,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"np" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"nD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"nI" = (
+/obj/machinery/computer/security{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"nL" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"nQ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"nS" = (
+/obj/structure/table,
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"oe" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"ot" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"ou" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"oz" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"oB" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"oE" = (
+/obj/structure/lattice,
+/obj/effect/abstract/cheese_trap,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"oG" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor/heavy,
+/turf/simulated/floor/plating,
+/area/ruin/space/telecomms/tele)
+"oW" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor/heavy,
+/turf/simulated/floor/plating,
+/area/ruin/space/telecomms/tele)
+"oY" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation/no_teleport)
+"pa" = (
+/obj/machinery/computer/borgupload,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"ph" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"pE" = (
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/engine,
+/area/ruin/space/telecomms/computer)
+"pS" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"pU" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"pV" = (
+/obj/item/paper/monitorkey,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"qe" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"qn" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 9;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomms)
+"qo" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"qD" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/powercontrol)
+"qE" = (
+/obj/structure/environmental_storytelling_holopad/junk_room,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"qF" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"qM" = (
+/obj/structure/table,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"qO" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/environmental_storytelling_holopad/teleporter_room,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"qP" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"rd" = (
+/obj/item/pen/gray,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"rD" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"rL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"rT" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"sh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"si" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
+"sn" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"sq" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	on = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"sv" = (
+/obj/effect/mob_spawn/human/corpse/scientist,
+/turf/simulated/floor/engine,
+/area/ruin/space/telecomms/computer)
+"sH" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"sM" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/structure/table,
+/obj/machinery/autolathe/trapped,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"sO" = (
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"sT" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"tm" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/abstract/cheese_trap,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"to" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/abstract/cheese_trap,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomms)
+"tx" = (
+/obj/item/radio/intercom{
+	pixel_x = 29;
+	broadcasting = 1
+	},
+/obj/machinery/bluespace_beacon,
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"tz" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/north{
+	malfhack = 1;
+	hacked_by_ruin_AI = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"tD" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	external_pressure_bound = 140;
+	on = 1;
+	pressure_checks = 0
+	},
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/item/folder/yellow{
+	pixel_x = 5
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"tF" = (
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"tH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"tY" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"uj" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"ul" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"um" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"ux" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
+"uM" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/foyer)
+"uT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/telecomms/powercontrol)
+"vd" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"ve" = (
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"vp" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"vu" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"vJ" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"vK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"vU" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"vZ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"wh" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"wA" = (
+/obj/machinery/power/smes{
+	charge = 2.5e+006;
+	input_level = 200000
+	},
+/obj/structure/cable,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"wH" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"wW" = (
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
+/obj/machinery/computer/message_monitor,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"wX" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms)
+"wY" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
+/obj/item/salvage/ruin/nanotrasen,
+/obj/item/stamp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"xa" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"xj" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"xv" = (
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"xF" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"xG" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"xL" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Lounge"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"yh" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/telecomms)
+"yl" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Telecoms Storage"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms)
+"yo" = (
+/obj/structure/lattice,
+/obj/structure/grille/broken,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"yq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"yr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"yC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/hivebot/strong/malfborg,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"yD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms East Wing"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/foyer)
+"yG" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
+"yJ" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"yN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped,
+/obj/item/radio/intercom{
+	pixel_y = 25;
+	broadcasting = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"yU" = (
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"za" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/glasses/night,
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"zk" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"zq" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"zG" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
+"Ac" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/telecomms_trap_tank,
+/obj/effect/abstract/cheese_trap,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Ad" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	pixel_y = 10;
+	pixel_x = -7
+	},
+/obj/effect/spawner/random/cobweb/right/rare,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"Af" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Ai" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/bluespace/trapped,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Aj" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/telecomms/computer)
+"Ay" = (
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Az" = (
+/obj/structure/lattice,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"AJ" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"AX" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/abstract/bot_trap,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"AY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Bf" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
+	name = "LETHAL TURRETS";
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Bn" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Bq" = (
+/obj/effect/spawner/airlock/long/square/e_to_s/telecoms,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/powercontrol)
+"BQ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"BT" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"BW" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"BZ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Cq" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/template_noop,
+/area/space/no_teleport)
+"Ct" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"CC" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"CD" = (
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"CG" = (
+/obj/machinery/power/grounding_rod,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"CI" = (
+/obj/effect/spawner/random/pool/spaceloot/dvorak_displaycase,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"CM" = (
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "STAY_AWAY";
+	name = "Exterior Status Terminal";
+	desc = "A status terminal for this satellite. All it shows is a bunch of errors, and a message to stay away."
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/telecomms/powercontrol)
+"CU" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Dd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"De" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor/secret{
+	dir = 1;
+	name = "Telecoms Power Monitoring"
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Dr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Dy" = (
+/obj/structure/lattice,
+/obj/structure/grille/broken,
+/mob/living/basic/malf_drone,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"DT" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"DV" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Ed" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/template_noop,
+/area/space/no_teleport)
+"Ew" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"EF" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"EK" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"EM" = (
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"EO" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"EQ" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"ES" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/tracker,
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Ff" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Fg" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"FA" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'SERVER ROOM'.";
+	name = "SERVER ROOM"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
+"FC" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms)
+"FG" = (
+/obj/structure/telecomms_shield_cover,
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomms)
+"FN" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"Ga" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"Gd" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Gf" = (
+/obj/machinery/light,
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"Go" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Gt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Gz" = (
+/obj/machinery/blackbox_recorder,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"GE" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation/no_teleport)
+"GH" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"GQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Hc" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/machinery/power/apc/directional/north{
+	malfhack = 1;
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Ho" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"Hr" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/computer)
+"Ht" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Hu" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Hw" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"HK" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"HP" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/table,
+/obj/machinery/turretid/lethal{
+	check_borgs = 1;
+	faction = "malf_drone";
+	check_synth = 1;
+	locked = 0
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/tele)
+"HQ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/vendor_room,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
+"HR" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"HV" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"HW" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/closet,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Ig" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"IE" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"IL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms West Wing"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/foyer)
+"IU" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Jm" = (
+/obj/machinery/computer/sm_monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"Jz" = (
+/obj/structure/closet/malf_suits,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"JC" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"JG" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"JO" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"JQ" = (
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"JR" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Kc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"Kt" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Ky" = (
+/obj/machinery/computer/nonfunctional,
+/obj/effect/spawner/random/cobweb/left/rare,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"KH" = (
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 4
+	},
+/turf/template_noop,
+/area/space/no_teleport)
+"KQ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/emcloset,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/reagent_containers/syringe,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Le" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
+"Lh" = (
+/obj/machinery/tcomms/relay/dvorak,
+/obj/effect/abstract/loot_trap,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Lk" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/tele)
+"Ln" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Lp" = (
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Lq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/mob/living/silicon/decoy/telecomms,
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"LK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"LS" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
+"LW" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Ma" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/no_teleport)
+"Ml" = (
+/obj/structure/cable,
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Mm" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"ME" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/abstract/bot_trap,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"ML" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Nb" = (
+/obj/effect/spawner/random/oil/often,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"No" = (
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Nr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Nv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Nz" = (
+/obj/structure/rack,
+/obj/item/circuitboard/sleeper/syndicate,
+/obj/effect/spawner/random/telecomms_teleprod_maybe,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"NY" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Od" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Oi" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"On" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"OS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/box/white,
+/obj/structure/telecomms_doomsday_device,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"Pl" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"Pp" = (
+/obj/machinery/camera/motion/dvorak{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Px" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/girder/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"PA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"PQ" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/tele)
+"PU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Satellite"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"PZ" = (
+/turf/template_noop,
+/area/space/no_teleport)
+"Qf" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Qg" = (
+/obj/structure/table,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"Qx" = (
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Qz" = (
+/obj/machinery/door_control{
+	id = "dvorak"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
+"QN" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"QP" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"QR" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/hivebot/strong/malfborg,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"QZ" = (
+/obj/machinery/power/solar,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation/no_teleport)
+"Ra" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Rh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"Ri" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Rt" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Rv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"Rw" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"RB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"RW" = (
+/obj/structure/table,
+/obj/item/stock_parts/micro_laser,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/capacitor,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/micro_laser/high,
+/obj/effect/spawner/random/maintenance,
+/obj/item/stock_parts/matter_bin,
+/obj/item/stock_parts/matter_bin,
+/obj/item/stock_parts/matter_bin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"Sm" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Sn" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Sr" = (
+/obj/machinery/telepad,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Sv" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"Sx" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/turret_room,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
+"SA" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/powercontrol)
+"SH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"SO" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Ta" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"Tw" = (
+/obj/machinery/computer/telescience{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"TL" = (
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"TT" = (
+/obj/machinery/doppler_array,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"TU" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"TY" = (
+/mob/living/basic/malf_drone,
+/turf/template_noop,
+/area/space/no_teleport)
+"Uw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Ux" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
+"UD" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/telecomms_trap_tank,
+/obj/effect/abstract/cheese_trap,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"UE" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"UF" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/tele)
+"UH" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Vb" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Vl" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation/no_teleport)
+"Vn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
+"Vp" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"Vv" = (
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"VO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Wc" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"Wp" = (
+/obj/machinery/teleport/station,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Wq" = (
+/obj/structure/window/reinforced,
+/obj/structure/lattice,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/template_noop,
+/area/ruin/space/telecomms)
+"WC" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomms)
+"WO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"WR" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/directional/north{
+	malfhack = 1;
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Xb" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
+"Xf" = (
+/obj/structure/window/reinforced,
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"XB" = (
+/obj/structure/environmental_storytelling_holopad/core_room,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"XJ" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/tele)
+"XP" = (
+/turf/template_noop,
+/area/template_noop)
+"Yr" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/telecomms/tele)
+"Yw" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"YA" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"YC" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"YF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/abstract/bot_trap,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"YN" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"YO" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/no_teleport)
+"YQ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"YW" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/directional/east{
+	malfhack = 1;
+	hacked_by_ruin_AI = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Zb" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"Zd" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen/blue{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
+"Zj" = (
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Core Access"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
+"Zl" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"Zt" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera/tracking_head/dvorak{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"Zu" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
+"ZB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/spawner/random/oil/often,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"ZQ" = (
+/obj/machinery/power/solar_control/autostart{
+	name = "Telecoms Solar Control"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms/powercontrol)
+"ZV" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/bluegrid{
+	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+
+(1,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(2,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(3,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(4,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+cJ
+QZ
+PZ
+PZ
+PZ
+oY
+cJ
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(5,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(6,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(7,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(8,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(9,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+On
+On
+On
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(10,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(11,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Dy
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(12,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(13,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(14,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+On
+On
+On
+oY
+Hw
+QZ
+PZ
+yo
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(15,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(16,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(17,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(18,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(19,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Hw
+QZ
+PZ
+PZ
+PZ
+oY
+Hw
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(20,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+PZ
+du
+Oi
+Oi
+Kt
+Oi
+Oi
+sn
+PZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(21,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+On
+PZ
+PZ
+PZ
+Ay
+Ig
+PZ
+PZ
+PZ
+PZ
+Gd
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(22,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+YA
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+yU
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+pU
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(23,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+YA
+GH
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+yG
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+yG
+ik
+ik
+Sv
+pU
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(24,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+YA
+GH
+ik
+ik
+FC
+FC
+FC
+wX
+FC
+iD
+FC
+FC
+wX
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+wX
+FC
+FC
+FC
+ik
+ik
+Sv
+lW
+Ga
+Vl
+mh
+Lp
+Lp
+ES
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(25,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ik
+FC
+On
+Ho
+PZ
+PZ
+PZ
+oE
+PZ
+PZ
+PZ
+PZ
+FG
+PZ
+PZ
+PZ
+PZ
+oE
+PZ
+PZ
+KH
+Ho
+On
+FC
+ik
+SA
+SA
+SA
+Bq
+uT
+Lp
+Lp
+Ig
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(26,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+On
+On
+On
+On
+On
+On
+to
+On
+On
+On
+On
+WC
+On
+On
+On
+On
+kA
+On
+On
+On
+On
+On
+Ma
+FC
+SA
+aN
+HV
+HV
+kr
+Oi
+Oi
+oe
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(27,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+PZ
+On
+TY
+PZ
+PZ
+PZ
+oE
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+oE
+PZ
+PZ
+PZ
+TY
+On
+PZ
+FC
+SA
+jo
+Nb
+Qx
+CM
+Pp
+Lp
+Ig
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(28,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+Ed
+EK
+Cq
+PZ
+iZ
+iZ
+an
+iZ
+iZ
+iZ
+iZ
+JG
+iZ
+iZ
+iZ
+iZ
+an
+iZ
+iZ
+Ay
+PZ
+On
+PZ
+wX
+SA
+jo
+Qx
+SA
+SA
+SA
+SA
+mO
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(29,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+Yw
+sq
+JQ
+Ra
+JR
+uj
+UD
+oB
+BQ
+Zb
+nL
+ML
+ML
+AX
+uj
+uj
+Ac
+Ln
+ei
+pS
+PZ
+On
+PZ
+FC
+SA
+AJ
+tY
+mb
+wH
+Ml
+SA
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(30,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+Hc
+LW
+sO
+EO
+Sm
+YQ
+tm
+EF
+UH
+Ff
+gw
+zk
+gw
+gw
+gw
+gw
+tm
+QP
+YN
+pS
+PZ
+On
+PZ
+FC
+qD
+Bn
+lr
+Qx
+ZB
+dB
+SA
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(31,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+FC
+ou
+ca
+ca
+DT
+lB
+ax
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Wq
+YN
+hq
+On
+On
+Gf
+FC
+SA
+sT
+jo
+Qx
+PA
+KQ
+qD
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(32,1,1) = {"
+XP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+yo
+Gd
+Gd
+Gd
+Gd
+xa
+ik
+wX
+TU
+lH
+Hu
+CU
+xF
+pS
+Zu
+gi
+EM
+EM
+EM
+sH
+EM
+EM
+EM
+EM
+Zu
+Xf
+YN
+pS
+PZ
+On
+FC
+FC
+SA
+ot
+lr
+Qx
+PA
+Ai
+SA
+xa
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+yo
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+XP
+"}
+(33,1,1) = {"
+XP
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+xa
+ik
+FC
+BW
+fv
+HW
+lo
+xF
+pS
+Zu
+ve
+bJ
+Lh
+bJ
+Sr
+cz
+il
+CG
+EM
+Zu
+Xf
+yr
+pS
+Lk
+oG
+PQ
+PQ
+SA
+Zl
+ZQ
+YW
+lp
+HP
+SA
+xa
+Gd
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+Ay
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+Gd
+XP
+"}
+(34,1,1) = {"
+XP
+Gd
+PZ
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+On
+PZ
+xa
+ik
+FC
+FC
+EQ
+gw
+Xf
+vK
+pS
+Zu
+EM
+bJ
+bP
+bJ
+Tw
+eE
+il
+TT
+EM
+Zu
+uM
+IL
+uM
+Sx
+yJ
+BZ
+PQ
+PQ
+PQ
+PQ
+PQ
+ky
+Yr
+PQ
+Sv
+pU
+PZ
+PZ
+On
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+PZ
+Gd
+XP
+"}
+(35,1,1) = {"
+XP
+Gd
+On
+qP
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+mh
+On
+xa
+ik
+ik
+ux
+Hr
+eH
+Hr
+yN
+Hr
+Zu
+WR
+bJ
+bJ
+bJ
+il
+il
+il
+il
+EM
+Zu
+eJ
+nD
+eJ
+eA
+DV
+gI
+PQ
+PQ
+XJ
+PQ
+iE
+LK
+vJ
+PQ
+PQ
+Sv
+pU
+On
+rD
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+oe
+On
+Gd
+XP
+"}
+(36,1,1) = {"
+XP
+Gd
+PZ
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+Ig
+PZ
+xa
+yG
+ik
+ux
+Ky
+Pl
+Dd
+Px
+wY
+Zu
+qe
+il
+il
+Ct
+EM
+bO
+il
+il
+EM
+Zu
+eb
+nD
+Ri
+Ux
+PQ
+Qf
+PQ
+PQ
+PQ
+sM
+mc
+LK
+mc
+dD
+PQ
+PQ
+Az
+PZ
+Ig
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+PZ
+Gd
+XP
+"}
+(37,1,1) = {"
+XP
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+Ig
+PZ
+xa
+ik
+ik
+ux
+eR
+Pl
+dv
+np
+Pl
+Zu
+Ew
+il
+fc
+nh
+EM
+nh
+um
+il
+vp
+Zu
+WO
+nD
+Ri
+eA
+xv
+tH
+UF
+kU
+Jz
+gm
+zq
+Fg
+zq
+iE
+hU
+PQ
+xa
+PZ
+Ig
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+Gd
+XP
+"}
+(38,1,1) = {"
+XP
+Gd
+PZ
+PZ
+TY
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+NY
+Oi
+gr
+ik
+ik
+ux
+tD
+xG
+Pl
+JO
+yq
+zG
+wh
+Rv
+OS
+Nr
+Lq
+Nv
+aa
+Rv
+nQ
+zG
+Dr
+ph
+UE
+PU
+Sn
+cH
+gJ
+IE
+IE
+vZ
+qO
+HK
+iE
+iE
+Wp
+XJ
+CD
+Oi
+Go
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+TY
+Gd
+XP
+"}
+(39,1,1) = {"
+XP
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+Ig
+PZ
+xa
+ik
+ik
+ux
+Zd
+Ta
+rd
+np
+Pl
+Zu
+EM
+il
+Jm
+gG
+EM
+gG
+pa
+il
+Zt
+Qz
+Xb
+oz
+Ri
+eA
+Rt
+Uw
+UF
+za
+iE
+Uw
+iE
+iE
+iE
+No
+bb
+PQ
+xa
+PZ
+Ig
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+yo
+XP
+"}
+(40,1,1) = {"
+XP
+Gd
+PZ
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+Ig
+PZ
+xa
+ik
+ik
+ux
+wW
+pV
+Pl
+dR
+Pl
+Zu
+EM
+il
+il
+nI
+EM
+FN
+il
+il
+qe
+Zu
+Gt
+GQ
+Ri
+eA
+Yr
+VO
+PQ
+XJ
+PQ
+tz
+vu
+vu
+vu
+CC
+PQ
+PQ
+xa
+PZ
+Ig
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+GE
+PZ
+Gd
+XP
+"}
+(41,1,1) = {"
+XP
+Gd
+On
+qP
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+sn
+On
+xa
+ik
+ik
+ux
+Ad
+tF
+iy
+Zu
+mZ
+FA
+EM
+XB
+il
+il
+il
+il
+il
+il
+qe
+Zu
+Bf
+nD
+Bf
+eA
+iE
+AY
+PQ
+ik
+PQ
+PQ
+bI
+tx
+bI
+PQ
+PQ
+YA
+GH
+On
+du
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+IU
+oe
+On
+Gd
+XP
+"}
+(42,1,1) = {"
+XP
+Gd
+PZ
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+On
+PZ
+xa
+ik
+iD
+ux
+ux
+ux
+ux
+Zu
+ME
+Zj
+EM
+il
+Af
+il
+Gz
+CI
+il
+QR
+kT
+Zu
+uM
+yD
+uM
+eA
+HR
+De
+PQ
+ik
+YC
+PQ
+PQ
+PQ
+XJ
+PQ
+YA
+GH
+PZ
+PZ
+On
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
+PZ
+Gd
+XP
+"}
+(43,1,1) = {"
+XP
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+Ay
+PZ
+On
+PZ
+xa
+ik
+iD
+pE
+sv
+ia
+kl
+Zu
+Zu
+FA
+EM
+il
+dn
+il
+Gz
+Gz
+il
+yC
+rT
+Zu
+Xf
+sh
+pS
+Lk
+oW
+PQ
+PQ
+ik
+YA
+lW
+lW
+lW
+lW
+lW
+GH
+Gd
+Gd
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+Gd
+XP
+"}
+(44,1,1) = {"
+XP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+yo
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+xa
+ik
+ux
+ux
+Aj
+Hr
+ux
+ux
+HQ
+Zu
+fq
+EM
+EM
+EM
+Vb
+EM
+EM
+ZV
+wA
+Zu
+Xf
+rL
+pS
+PZ
+On
+FC
+FC
+ik
+xa
+Gd
+On
+On
+Gd
+Gd
+Gd
+Gd
+Gd
+On
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+yo
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+XP
+"}
+(45,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+Pl
+Pl
+Pl
+qo
+Pl
+si
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Zu
+Rw
+YN
+pS
+PZ
+On
+Gf
+FC
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(46,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+Pl
+Pl
+Pl
+SH
+Pl
+ux
+JG
+JG
+JG
+SO
+QN
+BT
+iZ
+iZ
+iZ
+iZ
+JG
+fs
+YN
+pS
+PZ
+On
+PZ
+FC
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(47,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+Le
+ux
+Pl
+Pl
+Pl
+Kc
+RB
+xL
+YF
+nL
+nL
+vd
+Od
+xj
+nL
+nL
+nL
+nL
+nL
+nL
+vU
+pS
+PZ
+On
+PZ
+wX
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(48,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+Vv
+Pl
+Pl
+Pl
+Pl
+ux
+gg
+gw
+gw
+gw
+Wc
+rL
+bE
+gw
+gw
+gw
+EQ
+gw
+gw
+Ay
+PZ
+On
+PZ
+FC
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(49,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+Pl
+Pl
+Pl
+Pl
+Pl
+ux
+On
+PZ
+yh
+yh
+yh
+yl
+yh
+yh
+yh
+PZ
+On
+PZ
+PZ
+PZ
+TY
+On
+PZ
+FC
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(50,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+Pl
+Pl
+Pl
+Pl
+ul
+ux
+WC
+On
+yh
+RW
+Qg
+Rh
+JC
+mD
+yh
+On
+qn
+On
+On
+On
+On
+On
+On
+FC
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(51,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+xa
+ik
+ux
+ux
+si
+ux
+ux
+iR
+ux
+On
+Vp
+yh
+kj
+JC
+qE
+qF
+mD
+yh
+PZ
+On
+Vp
+PZ
+fa
+PZ
+On
+FC
+ik
+ik
+xa
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(52,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Sv
+pU
+ik
+ik
+ik
+LS
+ik
+Vn
+ik
+FC
+wX
+FC
+Nz
+nS
+gR
+mN
+qM
+FC
+FC
+FC
+FC
+FC
+wX
+FC
+FC
+ik
+ik
+YA
+GH
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(53,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Sv
+pU
+ik
+ik
+yG
+ik
+Vn
+ik
+ik
+ik
+ik
+FC
+FC
+FC
+wX
+FC
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+ik
+YA
+GH
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(54,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Sv
+lW
+lW
+lW
+lW
+bR
+lW
+lW
+pU
+ik
+ik
+ik
+ik
+ik
+ik
+yG
+YA
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+GH
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(55,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+mH
+Gd
+Gd
+Sv
+lW
+lW
+lW
+TL
+lW
+lW
+lW
+GH
+Gd
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(56,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+YO
+Gd
+Gd
+PZ
+On
+PZ
+Ay
+Ig
+PZ
+PZ
+On
+PZ
+Gd
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(57,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+On
+rD
+Oi
+Oi
+Mm
+Oi
+Oi
+mh
+On
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(58,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(59,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(60,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(61,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+yo
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(62,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(63,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+On
+On
+On
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(64,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+TY
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(65,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(66,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(67,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(68,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+On
+On
+On
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(69,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(70,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(71,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+yo
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(72,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+kV
+QZ
+PZ
+PZ
+PZ
+oY
+kV
+QZ
+PZ
+yo
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(73,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+oY
+Mm
+QZ
+PZ
+PZ
+PZ
+oY
+Mm
+QZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(74,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+PZ
+PZ
+On
+PZ
+PZ
+PZ
+PZ
+PZ
+On
+PZ
+PZ
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(75,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}
+(76,1,1) = {"
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+"}

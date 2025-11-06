@@ -53,7 +53,7 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="57"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/command/hop
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="58"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/security/hos
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="61"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms
-/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="62"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/command/expedition
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="62"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/supply/expedition
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="63"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/security/doors
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="64"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/medical/psychology
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt="66"} : /obj/machinery/door/airlock/@SUBTYPES {@OLD;req_access_txt=@SKIP}, /obj/effect/mapping_helpers/airlock/access/all/medical/paramedic

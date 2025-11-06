@@ -4,6 +4,7 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "scard"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	/// Has this been scratched yet?
 	var/scratched = FALSE
 	/// The prob chance for it to be the winner card
@@ -11,11 +12,12 @@
 	/// Is this the winner card?
 	var/winner = FALSE
 
-/obj/item/scratch/attackby(obj/item/I, mob/user, params)
+/obj/item/scratch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(scratched)
 		return
-	if(!(istype(I, /obj/item/card) || istype(I, /obj/item/coin))) // We scratch with cards or coins!
+
+	if(!(istype(used, /obj/item/card) || istype(used, /obj/item/coin))) // We scratch with cards or coins!
 		return
 
 	if(prob(winning_chance))
@@ -27,17 +29,19 @@
 		icon_state = "scard_loser"
 	playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
 	scratched = TRUE
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/scratch/attack_obj(obj/O, mob/living/user, params)
-	if(winner && istype(O, /obj/machinery/economy/atm))
-		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
-		O.atom_say("Congratulations for winning the lottery!")
-		var/obj/item/reward = new /obj/item/stack/spacecash/c1000
-		qdel(src)
-		user.put_in_hands(reward)
-		return
-	..()
+/obj/item/scratch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!winner || !istype(target, /obj/machinery/economy/atm))
+		return ..()
+	
+	playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
+	target.atom_say("Congratulations for winning the lottery!")
+	var/obj/item/reward = new /obj/item/stack/spacecash/c1000
+	qdel(src)
+	user.put_in_hands(reward)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/storage/box/scratch_cards
 	name = "scratch cards box"

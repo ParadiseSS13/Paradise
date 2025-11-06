@@ -1,10 +1,9 @@
 /// this type path is a crime, ponies what the fuck
 /obj/structure/closet/statue
 	name = "statue"
-	desc = "An incredibly lifelike marble carving"
+	desc = "An incredibly lifelike marble carving."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = TRUE
 	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
@@ -81,10 +80,6 @@
 
 /obj/structure/closet/statue/open()
 	return
-
-/obj/structure/closet/statue/open()
-	return
-
 
 /obj/structure/closet/statue/close()
 	return

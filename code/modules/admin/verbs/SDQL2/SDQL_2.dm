@@ -28,6 +28,14 @@
 	if(!query_text || length(query_text) < 1)
 		return
 
+	run_sdql2_query(query_text)
+
+/client/proc/run_sdql2_query(query_text)
+	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
+		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute an SDQL query!</span>")
+		log_admin("Non-admin [key_name(usr)] attempted to execute an SDQL query: [query_text]")
+		return
+
 //	to_chat(world, query_text)
 
 	var/list/query_list = SDQL2_tokenize(query_text)
@@ -146,7 +154,7 @@
 		to_chat(usr, "  at: [e.file]:[e.line]")
 
 /proc/SDQL_parse(list/query_list)
-	var/datum/SDQL_parser/parser = new()
+	var/datum/sdql_parser/parser = new()
 	var/list/querys = list()
 	var/list/query_tree = list()
 	var/pos = 1

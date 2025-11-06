@@ -2,7 +2,7 @@
 	name = "headphones"
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
-	item_state = "headphones0"
+	inhand_icon_state = "headphones"
 	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
 	var/on = FALSE
@@ -23,9 +23,15 @@
 /obj/item/clothing/ears/headphones/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/change_headphones_song)
 		ui_interact(user)
-	else
-		on = !on
-		update_icon(UPDATE_ICON_STATE)
+	else if(actiontype == /datum/action/item_action/toggle_music_notes)
+		toggle_visual_notes(user)
+
+	update_action_buttons()
+
+/obj/item/clothing/ears/headphones/proc/toggle_visual_notes(mob/user)
+	on = !on
+	update_icon(UPDATE_ICON_STATE)
+	user.regenerate_icons()
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
@@ -41,14 +47,14 @@
 	return song.ui_act(action, params)
 
 /obj/item/clothing/ears/headphones/update_icon_state()
+	icon_state = "headphones[on]"
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
 		user.update_inv_ears()
-	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_LEFT_EAR || slot == SLOT_HUD_RIGHT_EAR)
+	if(slot & ITEM_SLOT_BOTH_EARS)
 		return TRUE
 
 /**

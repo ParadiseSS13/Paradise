@@ -48,7 +48,6 @@
 
 /area/centcom/docks
 	name = "\improper Central Command Docks"
-	icon_state = "centcom"
 
 // Admin areas
 
@@ -79,19 +78,9 @@
 
 /area/tdome/arena_source
 	name = "\improper Thunderdome Arena Template"
-	icon_state = "thunder"
 
 /area/tdome/arena
 	name = "\improper Thunderdome Arena"
-	icon_state = "thunder"
-
-/area/tdome/tdome1
-	name = "\improper Thunderdome (Team 1)"
-	icon_state = "green"
-
-/area/tdome/tdome2
-	name = "\improper Thunderdome (Team 2)"
-	icon_state = "yellow"
 
 /area/tdome/tdomeadmin
 	name = "\improper Thunderdome (Admin.)"
@@ -107,7 +96,6 @@
 	name = "\improper Abductor Ship"
 	icon_state = "yellow"
 	requires_power = FALSE
-	has_gravity = TRUE
 
 /area/wizard_station
 	name = "\improper Wizard's Den"
@@ -135,11 +123,16 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
-	name = "Jupiter Station 6"
+	name = "Trading Satellite"
 
 /area/ghost_bar
 	name = "Ghost Bar"
 	icon_state = "observatory"
 	requires_power = FALSE
-	has_gravity = TRUE
 	hide_attacklogs = TRUE
+
+/area/backrooms
+	name = "Backrooms"
+	icon_state = "yellow"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED

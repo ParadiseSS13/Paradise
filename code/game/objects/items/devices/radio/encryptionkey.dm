@@ -1,10 +1,8 @@
-
 /obj/item/encryptionkey
 	name = "Standard Encryption Key"
 	desc = "An encyption key for a radio headset. Contains cypherkeys."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
-	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=2;bluespace=1"
 	var/translate_binary = FALSE
@@ -23,7 +21,7 @@
 	var/fake_name = "Agent ALERT_A_CODER"
 	var/static/list/fakename_list
 
-/obj/item/encryptionkey/syndicate/Initialize()
+/obj/item/encryptionkey/syndicate/Initialize(mapload)
 	if(!LAZYLEN(fakename_list))
 		fakename_list = GLOB.html_colors.Copy()
 	. = ..()
@@ -42,7 +40,6 @@
 
 /obj/item/encryptionkey/soviet
 	name = "soviet encryption key"
-	icon_state = "cypherkey"
 	channels = list("Special Ops" = 1)
 	origin_tech = "syndicate=4"
 
@@ -169,6 +166,11 @@
 /// ported from bay, this goes 'inside' the AI.
 /obj/item/encryptionkey/heads/ai_integrated
 	name = "AI Integrated Encryption Key"
-	desc = "Integrated encryption key"
+	desc = "Integrated encryption key."
 	icon_state = "cap_cypherkey"
 	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1, "Procedure" = 1)
+
+/obj/item/encryptionkey/headset_nct
+	name = "NCT Radio Encryption Key"
+	icon_state = "com_cypherkey"
+	channels = list("Procedure" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1)

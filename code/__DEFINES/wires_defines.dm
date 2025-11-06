@@ -23,7 +23,7 @@
 #define WIRE_BOLT_LIGHT "Bolt Lights"
 
 // Air alarm
-#define WIRE_SYPHON "Siphon"
+#define WIRE_SIPHON "Siphon"
 #define WIRE_AALARM "Atmospherics Alarm"
 
 // Camera
@@ -83,3 +83,4 @@
 #define WIRE_DISABLE "Disable"
 #define WIRE_INTERFACE "Interface"
 
+#define ZLVL_BASED_WIRES "Zlvl_based_wires"

@@ -6,7 +6,6 @@
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
-	flags = CONDUCT
 	blocks_emissive = FALSE
 	var/circuitry_installed = 1
 	var/buildstage = 0
@@ -16,13 +15,12 @@
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
 	custom_name = TRUE
-	broadcasting = FALSE
 	listening = FALSE
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
 	custom_name = TRUE
-	frequency  = AIRLOCK_FREQ
+	frequency  = INTERROGATION_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
@@ -32,7 +30,7 @@
 /obj/item/radio/intercom/command
 	name = "station intercom (Command)"
 	custom_name = TRUE
-	frequency = COMM_FREQ
+	frequency = COM_FREQ
 
 /obj/item/radio/intercom/specops
 	name = "\improper Special Operations intercom"
@@ -42,8 +40,6 @@
 /obj/item/radio/intercom/department
 	canhear_range = 5
 	custom_name = TRUE
-	broadcasting = FALSE
-	listening = TRUE
 
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"
@@ -67,7 +63,7 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/item/radio/intercom/Initialize()
+/obj/item/radio/intercom/Initialize(mapload)
 	. = ..()
 	if(!custom_name)
 		name = "station intercom (General)"
@@ -103,7 +99,7 @@
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(AI_FREQ)  = list(),
-		num2text(COMM_FREQ)= list(),
+		num2text(COM_FREQ)= list(),
 		num2text(ENG_FREQ) = list(),
 		num2text(MED_FREQ) = list(),
 		num2text(MED_I_FREQ)=list(),
@@ -121,11 +117,11 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/radio/intercom/receive_range(freq, level)
 	if(!is_listening())
@@ -151,7 +147,7 @@
 		if(2)
 			. += "<span class='notice'>The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.</span>"
 
-/obj/item/radio/intercom/attackby(obj/item/W, mob/user)
+/obj/item/radio/intercom/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
 	else if(iscoil(W) && buildstage == 1)
@@ -173,6 +169,11 @@
 		return 1
 	else
 		return ..()
+
+/obj/item/radio/intercom/AltClick(mob/user)
+	. = ..()
+	if(broadcasting)
+		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) ///Allows us to track who spams all these on if they do.
 
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != 1)
@@ -245,7 +246,7 @@
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
-	if(!loc) // We init a few radios in nullspace to prevent them from needing power. 
+	if(!loc) // We init a few radios in nullspace to prevent them from needing power.
 		return
 	var/area/current_area = get_area(src)
 	if(on)
@@ -279,7 +280,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked

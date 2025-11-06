@@ -2,6 +2,9 @@
 	set name = "Set Default Language"
 	set category = "IC"
 
+	if(!(language in languages) && !isnull(language))
+		to_chat(src, "<span class='warning'>You don't seem to know how to speak [language].</span>")
+		return
 	if(language)
 		to_chat(src, "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>")
 	else
@@ -13,6 +16,9 @@
 	set name = "Set Default Language"
 	set category = "IC"
 
+	if(!(language in speech_synthesizer_langs) && !isnull(language))
+		to_chat(src, "<span class='warning'>You don't seem to know how to speak [language].</span>")
+		return
 	if(language)
 		to_chat(src, "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>")
 	else

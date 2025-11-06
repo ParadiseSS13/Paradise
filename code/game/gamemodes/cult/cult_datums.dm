@@ -42,6 +42,10 @@
 	var/harvester_icon_state = "harvester"
 	var/harvester_dead_state = "shade_dead"
 
+	//Proteon Construct
+	var/proteon_name = "Proteon"
+	var/proteon_icon_state = "proteon"
+	var/proteon_dead_state = "shade_dead"
 	//Shade Spirit
 	var/shade_name = "Shade"
 	var/shade_icon_state = "shade2"
@@ -66,7 +70,6 @@
 	var/archives_icon_state_off = "archives_off"
 
 	var/runed_metal_icon_state = "sheet-runed"
-	var/runed_metal_item_state = "sheet-runed"
 
 	var/airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	var/airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
@@ -127,7 +130,6 @@
 	archives_icon_state_off = "hell_archives_off"
 
 	runed_metal_icon_state = "sheet_runed_hell"
-	runed_metal_item_state = "sheet_runed_hell"
 
 	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/hell.dmi'
 	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/hell-overlays.dmi'
@@ -187,7 +189,6 @@
 	archives_icon_state_off = "reaper_archives_off"
 
 	runed_metal_icon_state = "sheet_runed_reaper"
-	runed_metal_item_state = "sheet_runed_reaper"
 
 	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/reaper.dmi'
 	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/reaper-overlays.dmi'
@@ -211,6 +212,8 @@
 			return harvester_name
 		if("wraith")
 			return wraith_name
+		if("proteon")
+			return proteon_name
 		if("shade")
 			return shade_name
 
@@ -230,6 +233,8 @@
 			return harvester_icon_state
 		if("wraith")
 			return wraith_icon_state
+		if("proteon")
+			return proteon_icon_state
 		if("shade")
 			return shade_icon_state
 		if("forge")

@@ -8,9 +8,9 @@
 	origin_tech = "materials=2;engineering=3"
 	amount = 6
 	max_amount = 6
-	toolspeed = 1
+	merge_type = /obj/item/stack/nanopaste
 
-/obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/stack/nanopaste/attack__legacy__attackchain(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0
 	if(isrobot(M))	//Repairing cyborgs
@@ -18,7 +18,7 @@
 		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
-			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
+			user.visible_message("<span class='notice'>[user] applies some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
@@ -31,6 +31,28 @@
 			robotic_limb_repair(user, external_limb, H)
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+
+/obj/item/stack/nanopaste/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
+	if(!ismecha(A) || user.a_intent == INTENT_HARM || !proximity_flag)
+		return
+	var/obj/mecha/mecha = A
+	if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
+		to_chat(user, "<span class='notice'>[mecha] is at full integrity!</span>")
+		return
+	if(mecha.state == MECHA_MAINT_OFF)
+		to_chat(user, "<span class='warning'>[mecha] cannot be repaired without maintenance protocols active!</span>")
+		return
+	if(mecha.repairing)
+		to_chat(user, "<span class='notice'>[mecha] is currently being repaired!</span>")
+		return
+	if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
+		mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
+		user.visible_message("<span class='notice'>[user] repairs the damaged air tank.</span>", "<span class='notice'>You repair the damaged air tank.</span>")
+	else if(mecha.obj_integrity < mecha.max_integrity)
+		mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
+		use(1)
+		user.visible_message("<span class='notice'>[user] applies some [src] to [mecha]'s damaged areas.</span>",\
+		"<span class='notice'>You apply some [src] to [mecha]'s damaged areas.</span>")
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
@@ -70,7 +92,7 @@
 	energy_type = /datum/robot_storage/energy/medical/nanopaste
 	is_cyborg = TRUE
 
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
+/obj/item/stack/nanopaste/cyborg/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
 	else

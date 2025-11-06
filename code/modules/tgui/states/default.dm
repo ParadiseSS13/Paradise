@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 		return UI_INTERACTIVE
 	return UI_CLOSE
 
-/mob/living/simple_animal/revenant/default_can_use_topic(src_object)
+/mob/living/basic/revenant/default_can_use_topic(src_object)
 	return UI_UPDATE
 
 /mob/living/simple_animal/demon/pulse_demon/default_can_use_topic(src_object)
@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 
 /mob/living/silicon/pai/default_can_use_topic(src_object)
 	// pAIs can only use themselves and the owner's radio.
-	if((src_object == src || src_object == radio) && !stat)
+	if((src_object == src || src_object == radio) && stat == CONSCIOUS)
 		return UI_INTERACTIVE
 	else
 		return ..()

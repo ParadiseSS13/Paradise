@@ -23,7 +23,7 @@
 	anchored = TRUE
 	idle_power_consumption = 50
 
-	var/freq = AIRLOCK_FREQ		// radio frequency
+	var/freq = MAGNET_FREQ		// radio frequency
 	var/electricity_level = MIN_ELECTRICITY_LEVEL // intensity of the magnetic pull
 	var/magnetic_field = MIN_MAGNETIC_FIELD // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
@@ -165,7 +165,7 @@
 					step_towards(M, center)
 
 			for(var/mob/living/silicon/S in orange(magnetic_field, center))
-				if(isAI(S)) continue
+				if(is_ai(S)) continue
 				step_towards(S, center)
 
 		use_power(electricity_level * 5)
@@ -182,7 +182,7 @@
 	idle_power_consumption = 45
 
 	// this is a temp measure
-	var/frequency = AIRLOCK_FREQ
+	var/frequency = MAGNET_FREQ
 	var/datum/radio_frequency/radio_connection
 	var/code = 0
 	var/list/magnets = list()
@@ -212,9 +212,8 @@
 		return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/magnetic_controller/LateInitialize()
-	..()
 	if(autolink)
-		// GLOB.machines is populated in /machinery/Initialize
+		// SSmachines is populated in /machinery/Initialize
 		// so linkage gets delayed until that one finished.
 		link_magnets()
 
@@ -228,7 +227,7 @@
 
 /obj/machinery/magnetic_controller/proc/link_magnets()
 	magnets = list()
-	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+	for(var/obj/machinery/magnetic_module/M in SSmachines.get_by_type(/obj/machinery/magnetic_module))
 		if(M.freq == frequency && M.code == code)
 			magnets.Add(M)
 			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del), TRUE)
@@ -425,7 +424,6 @@
 
 		// Prepare the radio signal
 		var/datum/signal/signal = new
-		signal.transmission_method = TRANSMISSION_RADIO // radio transmission
 		signal.source = src
 		signal.frequency = frequency
 		signal.data["code"] = code

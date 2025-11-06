@@ -6,21 +6,21 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/administration)
 "ad" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "101"
+	name = "Shuttle Hatch"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "ae" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "101"
+	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 8;
 	height = 15;
@@ -60,7 +60,7 @@
 	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -98,12 +98,12 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "adminshuttleblast";
 	name = "Blast Doors";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "General Access";
-	req_access_txt = "101"
+	name = "General Access"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -169,15 +169,15 @@
 	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aB" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Workshop";
-	req_access_txt = "101"
+	name = "Workshop"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -339,10 +339,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bd" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Bridge";
-	req_access_txt = "101"
+	name = "Bridge"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -357,10 +357,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bh" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Medbay";
-	req_access_txt = "101"
+	name = "Medbay"
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -399,18 +399,18 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bp" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/security,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Holding Cell";
-	req_access_txt = "104"
+	name = "Holding Cell"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bq" = (
 /obj/machinery/door/window/reinforced/normal{
 	color = "#d70000";
-	req_access_txt = "104";
-	dir = 8
+	dir = 8;
+	req_access = list(104)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -464,7 +464,7 @@
 /obj/item/circular_saw,
 /obj/item/scalpel,
 /obj/item/retractor,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "by" = (

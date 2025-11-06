@@ -1,0 +1,30 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/game_test)
+"d" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/game_test)
+"X" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/table,
+/turf/simulated/floor,
+/area/game_test)
+
+(1,1,1) = {"
+a
+"}
+(2,1,1) = {"
+X
+"}
+(3,1,1) = {"
+d
+"}

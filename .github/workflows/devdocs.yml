@@ -1,0 +1,30 @@
+name: Deploy Devdocs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build docs
+        run: |
+          python -m pip install mkdocs==1.6.0 mkdocs-material[imaging]==9.5.31 mkdocs-github-admonitions-plugin==0.0.2 mkdocs-glightbox==0.4.0
+          python -m mkdocs build
+
+      - name: Deploy docs
+        uses: Azure/static-web-apps-deploy@1a947af9992250f3bc2e68ad0754c0b0c11566c9
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: 'upload'
+          app_location: 'site'
+          skip_app_build: true
+          skip_api_build: true
+        env:
+          SKIP_DEPLOY_ON_MISSING_SECRETS: true

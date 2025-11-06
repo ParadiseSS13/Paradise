@@ -1,0 +1,1361 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"au" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"aY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/rocky_motel/asteroid)
+"cx" = (
+/obj/machinery/light_switch/off{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/effect/turf_decal/tiles/dark/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"cN" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/multi/fountain,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"cT" = (
+/obj/structure/sink/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"dh" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"dt" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/sign/poster/random/directional/west,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"dV" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/dress/sundress,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"fK" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"gf" = (
+/obj/effect/spawner/random/fancy_table,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"gs" = (
+/obj/structure/cable{
+	icon_state = "2-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"gP" = (
+/obj/structure/table/wood,
+/obj/item/radio{
+	icon_state = "radio";
+	name = "old radio";
+	pixel_y = 10
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"gY" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light_switch/off{
+	pixel_y = 24
+	},
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	lit = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"hd" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel,
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"hB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"ib" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"ic" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable,
+/obj/effect/turf_decal/tiles/dark/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"if" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"iT" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"iY" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"kp" = (
+/obj/structure/closet/secure_closet/freezer/fridge/mixed,
+/obj/machinery/light_switch/off{
+	pixel_y = 24
+	},
+/obj/effect/spawner/random/loot/bluespace_tap/food_mixed,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"lk" = (
+/obj/structure/shelf,
+/obj/item/push_broom,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/emergency,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"lq" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/suit/navy,
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/suit/sovietcoat,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"mO" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"nb" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"nN" = (
+/obj/structure/chair/sofa/left{
+	dir = 1;
+	color = "#512D1F"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"oy" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/shoes/cowboy,
+/obj/item/clothing/shoes/black,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"oI" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"ph" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"pw" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/rocky_motel/asteroid)
+"qE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/rocky_motel/asteroid)
+"qN" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/rocky_motel/asteroid)
+"qT" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"sQ" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"sW" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"tq" = (
+/obj/structure/sign/poster/random/directional/west,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"uO" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"vk" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"vN" = (
+/turf/template_noop,
+/area/template_noop)
+"vV" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"vW" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	on = 0
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"wQ" = (
+/obj/machinery/cooking/deepfryer/loaded,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"xn" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/rocky_motel/asteroid)
+"zs" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/item/toy/plushie/nianplushie,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"zx" = (
+/obj/structure/curtain/black,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/rocky_motel)
+"Aa" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/rocky_motel/asteroid)
+"AG" = (
+/obj/effect/turf_decal/tiles/dark/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"AS" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"Bb" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"Cq" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"Cw" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"CF" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"CP" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Dm" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"DV" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/paper/rocky_motel,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"Ed" = (
+/obj/effect/spawner/airlock/w_to_e,
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"EQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"EZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Fc" = (
+/obj/structure/sink/directional/north,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"Ff" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/mineral/ancient,
+/area/ruin/space/rocky_motel/asteroid)
+"Ha" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"Hp" = (
+/obj/machinery/power/solar_control/autostart,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"Hw" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"Hy" = (
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/regular,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"Id" = (
+/obj/structure/falsewall/rock_ancient,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Il" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/cable{
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"IS" = (
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"IZ" = (
+/obj/machinery/light_switch/off{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"Kh" = (
+/obj/item/stack/spacecash/c200,
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/clothing/gloves/ring/plasma,
+/obj/item/banhammer,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
+/obj/structure/safe/floor,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"Kn" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"KJ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/door/airlock,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"LE" = (
+/obj/machinery/suit_storage_unit/standard_unit{
+	storage_type = /obj/item/tank/internals/oxygen
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"LF" = (
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"LY" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"Ml" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/rocky_motel/asteroid)
+"MT" = (
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"NL" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Or" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"OA" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/light_switch/off{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"PM" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Qv" = (
+/obj/structure/table,
+/obj/machinery/cooking/stovetop/loaded,
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"RC" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"Sk" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/rocky_motel/asteroid)
+"SL" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"Tb" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board{
+	pixel_y = 18
+	},
+/obj/item/storage/box/kitchen_utensils{
+	pixel_y = -12;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -10;
+	pixel_y = -12
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = -12
+	},
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"Tc" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"Ts" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"TK" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"TQ" = (
+/obj/structure/chair/sofa/right{
+	dir = 1;
+	color = "#512D1F"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"TT" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/rocky_motel)
+"Ub" = (
+/obj/structure/curtain/open/shower,
+/obj/item/soap,
+/obj/machinery/shower/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"Uu" = (
+/obj/machinery/cooking/oven/loaded,
+/obj/machinery/smartfridge/food/chef{
+	pixel_y = 32
+	},
+/turf/simulated/floor/vault,
+/area/ruin/space/rocky_motel)
+"UI" = (
+/obj/structure/cable,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"Vl" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"VD" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"Wa" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"Wn" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"WD" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/rocky_motel)
+"WY" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Xd" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"Xo" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
+"XM" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/rocky_motel/asteroid)
+"XP" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"Ya" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/rocky_motel/asteroid)
+"Yu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/rocky_motel/asteroid)
+"YM" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"Zd" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/rocky_motel/asteroid)
+"Ze" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/rocky_motel)
+"Zs" = (
+/obj/structure/mirror,
+/turf/simulated/wall,
+/area/ruin/space/rocky_motel)
+"Zz" = (
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
+"ZJ" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/rocky_motel/asteroid)
+
+(1,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(2,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+Kn
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+Ya
+Ya
+Ya
+Ya
+vN
+vN
+vN
+"}
+(3,1,1) = {"
+vN
+vN
+vN
+vN
+IS
+nb
+UI
+vN
+iT
+iT
+iT
+iT
+vN
+Ya
+Ya
+Ya
+vN
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+vN
+vN
+"}
+(4,1,1) = {"
+vN
+vN
+vN
+vN
+IS
+nb
+UI
+Wn
+NL
+NL
+NL
+sW
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+vN
+"}
+(5,1,1) = {"
+vN
+vN
+vN
+vN
+XM
+XP
+UI
+PM
+AS
+AS
+AS
+AS
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+vN
+"}
+(6,1,1) = {"
+vN
+vN
+vN
+vN
+XM
+nb
+UI
+PM
+xn
+Ya
+Ya
+MT
+MT
+MT
+MT
+MT
+MT
+MT
+hd
+Ya
+Ya
+Ya
+Ya
+vN
+vN
+"}
+(7,1,1) = {"
+vN
+vN
+vN
+vN
+XM
+nb
+UI
+PM
+MT
+MT
+MT
+MT
+qT
+tq
+vW
+MT
+Ub
+Zz
+MT
+Ya
+Ya
+Ya
+vN
+vN
+vN
+"}
+(8,1,1) = {"
+vN
+Ya
+ZJ
+Wn
+Yu
+mO
+Yu
+Dm
+MT
+dV
+OA
+MT
+SL
+WD
+Hy
+MT
+IZ
+Bb
+MT
+Ya
+Ya
+vN
+vN
+vN
+vN
+"}
+(9,1,1) = {"
+vN
+Ya
+qE
+CF
+MT
+MT
+MT
+MT
+Zs
+oy
+iY
+vV
+WD
+WD
+WD
+Wa
+YM
+cT
+MT
+Ya
+vN
+vN
+vN
+vN
+vN
+"}
+(10,1,1) = {"
+vN
+Ya
+Ff
+CP
+oI
+Vl
+dt
+Xd
+MT
+lq
+Kh
+MT
+zs
+LY
+WD
+MT
+MT
+Zs
+MT
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(11,1,1) = {"
+vN
+vN
+Ya
+CF
+MT
+lk
+sQ
+AG
+MT
+MT
+MT
+MT
+MT
+MT
+vk
+MT
+LF
+Hw
+zx
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(12,1,1) = {"
+vN
+vN
+Ya
+CF
+VD
+LE
+Ts
+ic
+MT
+gY
+DV
+cN
+MT
+kp
+LF
+fK
+LF
+gf
+zx
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(13,1,1) = {"
+vN
+Ya
+Ya
+WY
+MT
+Ha
+RC
+AG
+KJ
+ib
+ib
+Cq
+if
+LF
+LF
+LF
+LF
+Tc
+zx
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(14,1,1) = {"
+vN
+Ya
+Ya
+CF
+MT
+Hp
+hB
+cx
+MT
+ib
+Xo
+nN
+MT
+Fc
+LF
+LF
+LF
+LF
+zx
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(15,1,1) = {"
+vN
+vN
+Ya
+CF
+MT
+Ze
+Il
+EQ
+dh
+ib
+gP
+TQ
+MT
+Uu
+Qv
+Tb
+Cw
+wQ
+MT
+au
+Or
+vN
+vN
+vN
+vN
+"}
+(16,1,1) = {"
+vN
+vN
+Ya
+CF
+MT
+MT
+MT
+TT
+Ed
+MT
+MT
+MT
+MT
+MT
+MT
+MT
+MT
+MT
+MT
+Ya
+au
+vN
+vN
+vN
+vN
+"}
+(17,1,1) = {"
+vN
+vN
+Ya
+gs
+Yu
+uO
+MT
+TT
+MT
+Ya
+qN
+Sk
+qN
+Ml
+au
+Ya
+Ya
+Ya
+Ya
+pw
+vN
+vN
+vN
+vN
+vN
+"}
+(18,1,1) = {"
+vN
+vN
+Ya
+Ya
+Ya
+CF
+MT
+TT
+MT
+Ya
+Aa
+aY
+aY
+Zd
+au
+au
+Ya
+Ya
+Ya
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(19,1,1) = {"
+vN
+vN
+vN
+Ya
+Ya
+gs
+Id
+EZ
+au
+Ya
+qN
+qN
+qN
+Ml
+au
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(20,1,1) = {"
+vN
+vN
+vN
+vN
+Ya
+Ya
+Ya
+au
+ph
+Ya
+Ya
+vN
+TK
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(21,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+Ya
+Ya
+ph
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(22,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}

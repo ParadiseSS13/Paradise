@@ -116,7 +116,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/output
-	output += "<!DOCTYPE html><form method='GET' name='search' action='?'>\
+	output += "<!DOCTYPE html><meta charset='UTF-8'><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"

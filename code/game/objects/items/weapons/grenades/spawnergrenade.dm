@@ -1,14 +1,12 @@
 /obj/item/grenade/spawnergrenade
-	desc = "It is set to detonate in 5 seconds. It will unleash unleash an unspecified anomaly into the vicinity."
 	name = "delivery grenade"
-	icon = 'icons/obj/grenade.dmi'
+	desc = "Upon detonation, this will unleash an unspecified anomaly into the vicinity."
 	icon_state = "delivery"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
 	var/flash_viewers = TRUE
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
+	spawner_type = /mob/living/basic/viscerator
 
 /obj/item/grenade/spawnergrenade/prime() // Prime now just handles the two loops that query for people in lockers and people who can see it.
 
@@ -33,21 +31,24 @@
 	return
 
 /obj/item/grenade/spawnergrenade/manhacks
-	name = "manhack delivery grenade"
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
+	name = "viscerator delivery grenade"
+	desc = "This grenade contains 5 viscerators, tiny flying drones with lethally sharp blades. Upon detonation, they will be deployed and begin searching the area for targets."
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/spesscarp
 	name = "carp delivery grenade"
-	spawner_type = /mob/living/simple_animal/hostile/carp
+	desc = "This grenade contains 5 dehydrated space carp in a similar manner to dehydrated monkeys, which, upon detonation, \
+	will be rehydrated by a small reservoir of water contained within the grenade. These space carp will then attack anything in sight."
+	spawner_type = /mob/living/basic/carp
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
-	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
-	spawner_type = /mob/living/simple_animal/hostile/feral_cat
+	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, \
+	will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	spawner_type = /mob/living/basic/feral_cat
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	flash_viewers = FALSE

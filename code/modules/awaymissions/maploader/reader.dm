@@ -26,17 +26,26 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * allowed to romp unchecked.
  */
 /datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE)
-	var/tfile = dmm_file// the map file we're creating
+	var/map_data
 	var/fname = "Lambda"
-	if(isfile(tfile))
-		fname = "[tfile]"
+	if(isfile(dmm_file))
+		fname = "[dmm_file]"
 		// Make sure we dont load a dir up
 		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
-			log_debug("Attempted to load map template without filename (Attempted [tfile])")
+			log_debug("Attempted to load map template without filename (Attempted [dmm_file])")
 			return
-		tfile = wrap_file2text(tfile)
-		if(!length(tfile))
+
+		// use rustlib to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		// is not passed `dmm_file` because byondapi-rs doesn't support resource types yet
+		map_data = mapmanip_read_dmm(fname)
+		// if rustlib for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!map_data)
+			map_data = wrap_file2text(dmm_file)
+
+		if(!length(map_data))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
@@ -51,13 +60,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/key_len = 0
 
 	var/datum/dmm_suite/loaded_map/LM = new
+	var/expanded_x
+	var/expanded_y
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
-	var/watch = start_watch()
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
 		LM.index = 1
-		while(dmmRegex.Find(tfile, LM.index))
+		while(dmmRegex.Find(map_data, LM.index))
 			LM.index = dmmRegex.next
 
 			// "aa" = (/type{vars=blah})
@@ -114,6 +124,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				if(!shouldCropMap && ycrd > world.maxy)
 					if(!measureOnly)
 						world.maxy = ycrd // Expand Y here.  X is expanded in the loop below
+						expanded_y = TRUE
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], ycrd)
 				else
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
@@ -132,6 +143,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 										break
 									else
 										world.maxx = xcrd
+										expanded_x = TRUE
 
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
@@ -153,13 +165,15 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		throw e
 
 	GLOB._preloader.reset()
-	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
 		if(!measureOnly)
-			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
+			if(expanded_x || expanded_y)
+				SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPANDED_WORLD_BOUNDS, expanded_x, expanded_y)
+
+			for(var/t in block(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ], bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]))
 				var/turf/T = t
 				// we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 				T.AfterChange(TRUE, keep_cabling = TRUE)

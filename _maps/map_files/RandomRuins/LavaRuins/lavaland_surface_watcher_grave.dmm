@@ -34,7 +34,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/item/food/snacks/egg/watcher,
+/obj/item/food/egg/watcher,
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

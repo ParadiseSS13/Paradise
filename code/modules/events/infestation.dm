@@ -27,27 +27,37 @@
 
 /datum/event/infestation/start()
 	var/list/turf/simulated/floor/turfs = list()
-	spawn_area_type = pick(spawn_areas)
-	for(var/areapath in typesof(spawn_area_type))
-		var/area/A = locate(areapath)
-		if(!A)
-			log_debug("Failed to locate area for infestation event!")
-			kill()
-			return
-		for(var/turf/simulated/floor/F in A.contents)
-			if(turf_clear(F))
-				turfs += F
+	// shuffle in place so we don't have do that dance where we make a copy of
+	// the list, then pick and take, then do some conditional logic to make sure
+	// there's still areas to choose from, etc etc, it's a small list, it's cheap
+	shuffle_inplace(spawn_areas)
+	for(var/spawn_area in spawn_areas)
+		for(var/area_type in typesof(spawn_area))
+			var/area/destination = locate(area_type)
+			if(!destination)
+				continue
+			for(var/turf/simulated/floor/F in destination.contents)
+				if(!F.is_blocked_turf())
+					turfs += F
+			if(length(turfs))
+				spawn_area_type = area_type
+				spawn_on_turfs(turfs)
+				return
 
+	log_debug("Failed to locate area for infestation event!")
+	kill()
+
+/datum/event/infestation/proc/spawn_on_turfs(list/turfs)
 	var/list/spawn_types = list()
 	var/max_number
 	vermin = rand(0, 2)
 	switch(vermin)
 		if(VERM_MICE)
-			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
+			spawn_types = list(/mob/living/basic/mouse/gray, /mob/living/basic/mouse/brown, /mob/living/basic/mouse/white)
 			max_number = 12
 			vermstring = "mice"
 		if(VERM_LIZARDS)
-			spawn_types = list(/mob/living/simple_animal/lizard)
+			spawn_types = list(/mob/living/basic/lizard)
 			max_number = 6
 			vermstring = "lizards"
 		if(VERM_SPIDERS)

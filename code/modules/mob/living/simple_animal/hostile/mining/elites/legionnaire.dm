@@ -28,18 +28,19 @@
 	health = 1000
 	melee_damage_lower = 35
 	melee_damage_upper = 35
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
 	var/datum/effect_system/smoke_spread/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/legionnaire
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,
@@ -281,23 +282,29 @@
 //The legionnaire's bonfire, which can be swapped positions with.  Also sets flammable living beings on fire when they walk over it.
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
-	desc = "A pile of bones which seems to occasionally move a little.  It's probably a good idea to smash them."
+	desc = "A pile of bones which seems to occasionally move a little. It's probably a good idea to smash them."
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
-/obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(source))
-		var/obj/object = source
+/obj/structure/legionnaire_bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/legionnaire_bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isobj(entered))
+		var/obj/object = entered
 		object.fire_act(1000, 500)
-	if(isliving(source))
-		var/mob/living/fire_walker = source
+	if(isliving(entered))
+		var/mob/living/fire_walker = entered
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
@@ -308,7 +315,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()
@@ -332,12 +338,11 @@
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(user.loc)
-	A.GiveTarget(target)
-	A.friends += user
+	var/mob/living/basic/mining/hivelordbrood/legion/A = new /mob/living/basic/mining/hivelordbrood/legion(user.loc)
+	A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	A.faction = user.faction.Copy()
 
-/obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
+/obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/LivingUser = user
@@ -346,8 +351,7 @@
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
 		return
 	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(LivingUser.loc)
-	LegionSkull.friends += LivingUser
+	var/mob/living/basic/mining/hivelordbrood/legion/LegionSkull = new /mob/living/basic/mining/hivelordbrood/legion(LivingUser.loc)
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
 

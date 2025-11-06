@@ -1,0 +1,2 @@
+/obj/structure/cable/@SUBTYPES : /obj/structure/cable/@SUBTYPES{@OLD;d1=@SKIP;d2=@SKIP}
+/area : /area/space

@@ -1,46 +1,11 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
- *			hex2num & num2hex
  *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
  */
-
-//Returns an integer given a hex input
-/proc/hex2num(hex)
-	if(!(istext(hex)))
-		return
-
-	var/num = 0
-	var/power = 0
-	var/i = null
-	i = length(hex)
-	while(i > 0)
-		var/char = copytext(hex, i, i + 1)
-		switch(char)
-			if("0")
-				pass() // Do nothing
-			if("9", "8", "7", "6", "5", "4", "3", "2", "1")
-				num += text2num(char) * 16 ** power
-			if("a", "A")
-				num += 16 ** power * 10
-			if("b", "B")
-				num += 16 ** power * 11
-			if("c", "C")
-				num += 16 ** power * 12
-			if("d", "D")
-				num += 16 ** power * 13
-			if("e", "E")
-				num += 16 ** power * 14
-			if("f", "F")
-				num += 16 ** power * 15
-			else
-				return
-		power++
-		i--
-	return num
 
 //Returns an integer value for R of R/G/B given a hex color input.
 /proc/color2R(hex)
@@ -69,7 +34,7 @@
 		num_list += text2num(x)
 	return num_list
 
-//Splits the text of a file at seperator and returns them in a list.
+//Splits the text of a file at separator and returns them in a list.
 /proc/file2list(filename, separator = "\n", no_empty = TRUE)
 	var/list/result = list()
 	for(var/line in splittext(return_file_text(filename), separator))
@@ -167,26 +132,23 @@
 		if(BLEND_SUBTRACT) return ICON_SUBTRACT
 		else               return ICON_OVERLAY
 
-//Converts a rights bitfield into a string
-/proc/rights2text(rights,seperator="")
-	if(rights & R_BUILDMODE)	. += "[seperator]+BUILDMODE"
-	if(rights & R_ADMIN)		. += "[seperator]+ADMIN"
-	if(rights & R_BAN)			. += "[seperator]+BAN"
-	if(rights & R_EVENT)		. += "[seperator]+EVENT"
-	if(rights & R_SERVER)		. += "[seperator]+SERVER"
-	if(rights & R_DEBUG)		. += "[seperator]+DEBUG"
-	if(rights & R_POSSESS)		. += "[seperator]+POSSESS"
-	if(rights & R_PERMISSIONS)	. += "[seperator]+PERMISSIONS"
-	if(rights & R_STEALTH)		. += "[seperator]+STEALTH"
-	if(rights & R_REJUVINATE)	. += "[seperator]+REJUVINATE"
-	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
-	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
-	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
-	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
-	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
-	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
-	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
-	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
+///Converts a rights bitfield into a string
+/proc/rights2text(rights,separator="")
+	. = ""
+	for(var/bit in GLOB.admin_permission_names)
+		if(rights & bit)
+			. += "[separator]+[GLOB.admin_permission_names[bit]]"
+
+///Converts the full permissions details of a DB-ranked admin to a HTML-colored string
+/proc/ranked_rights2text(rank_rights, extra_rights, removed_rights, separator="")
+	. = ""
+	for(var/bit in GLOB.admin_permission_names)
+		if(removed_rights & bit)
+			. += "[separator]<span style='color: #FF5555'><s>-[GLOB.admin_permission_names[bit]]</s></span>"
+		else if(extra_rights & bit)
+			. += "[separator]<span style='color: #5555FF'>+[GLOB.admin_permission_names[bit]]</span>"
+		else if(rank_rights & bit)
+			. += "[separator]<span style='color: #FF55FF'>+[GLOB.admin_permission_names[bit]]</span>"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
@@ -200,6 +162,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Clockwork")
+			return 'icons/mob/screen_clockwork.dmi'
 		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
 		else
@@ -283,7 +247,7 @@
 /proc/heat2color_g(temp)
 	temp /= 100
 	if(temp <= 66)
-		. = max(0, min(255, 99.4708025861 * log(temp) - 161.1195681661))
+		. = max(0, min(255, 99.4708025861 * log(max(temp, 1)) - 161.1195681661))
 	else
 		. = max(0, min(255, 288.1221695283 * ((temp - 60) ** -0.0755148492)))
 
@@ -295,7 +259,7 @@
 		if(temp <= 16)
 			. = 0
 		else
-			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+			. = max(0, min(255, 138.5177312231 * log(max(temp - 10, 1)) - 305.0447927307))
 
 //Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
 /proc/text2matrix(matrixtext)

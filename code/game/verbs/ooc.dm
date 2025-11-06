@@ -1,4 +1,5 @@
 #define DEFAULT_PLAYER_OOC_COLOUR "#075FE5" // Can't initial() a global so we store the default in a macro instead
+#define BUG_REPORT_CD (5 MINUTES)
 GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR)
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
@@ -53,21 +54,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	log_ooc(msg, src)
 	mob.create_log(OOC_LOG, msg)
 
-	var/display_colour = GLOB.normal_ooc_colour
-	if(holder && !holder.fakekey)
-		display_colour = GLOB.mentor_ooc_colour
-		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
-			display_colour = GLOB.moderator_ooc_colour
-		else if(check_rights(R_ADMIN,0))
-			if(GLOB.configuration.admin.allow_admin_ooc_colour)
-				display_colour = src.prefs.ooccolor
-			else
-				display_colour = GLOB.admin_ooc_colour
-
-	if(prefs.unlock_content)
-		if(display_colour == GLOB.normal_ooc_colour)
-			if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
-				display_colour = GLOB.member_ooc_colour
+	var/display_colour = get_ooc_color()
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
@@ -94,6 +81,19 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+
+/client/proc/get_ooc_color()
+	if(!holder || holder.fakekey)
+		if(prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
+			return GLOB.member_ooc_colour
+		return GLOB.normal_ooc_colour
+	if(!check_rights(R_ADMIN, FALSE))
+		if(check_rights(R_MOD, FALSE))
+			return GLOB.moderator_ooc_colour
+		return GLOB.mentor_ooc_colour
+	if(!GLOB.configuration.admin.allow_admin_ooc_colour)
+		return GLOB.admin_ooc_colour
+	return prefs.ooccolor
 
 /proc/toggle_ooc()
 	GLOB.ooc_enabled = (!GLOB.ooc_enabled)
@@ -177,10 +177,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(target.mob in heard)
 				send = 1
-				if(isAI(target.mob))
+				if(is_ai(target.mob))
 					prefix = " (Core)"
 
-			else if(isAI(target.mob)) // Special case
+			else if(is_ai(target.mob)) // Special case
 				var/mob/living/silicon/ai/A = target.mob
 				if(A.eyeobj in hearers(7, source))
 					send = 1
@@ -283,4 +283,73 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	init_verbs()
 
+/client/verb/show_own_notes()
+	set name = "Show My Notes"
+	set desc = "View your public notes."
+	set category = "OOC"
+
+	if(!key)
+		return
+	if(!SSdbcore.IsConnected())
+		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		return
+	var/list/output = list("<!DOCTYPE html>")
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
+		SELECT timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id
+		FROM notes WHERE ckey=:targetkey AND deleted=0 AND public=1 ORDER BY timestamp"}, list(
+			"targetkey" = ckey
+		))
+	if(!query_get_notes.warn_execute())
+		to_chat(src, "<span class='danger'>Unfortunately, we were not able to retrieve your notes.</span>")
+		qdel(query_get_notes)
+		return
+	output += "<h2><center>Notes of [ckey]</center></h2><br><center><font size='1'>Don't discuss warnings or other punishments from the admins in Paradise Discord.</font></center>"
+	output += "<hr style='background:#000000; border:0; height:3px'>"
+	var/found_notes = FALSE
+	while(query_get_notes.NextRow())
+		found_notes = TRUE
+		var/timestamp = query_get_notes.item[1]
+		var/notetext = query_get_notes.item[2]
+		var/adminckey = query_get_notes.item[3]
+		var/last_editor = query_get_notes.item[4]
+		var/server = query_get_notes.item[5]
+		var/mins = text2num(query_get_notes.item[6])
+		var/round_id = text2num(query_get_notes.item[7])
+		output += "<b>[timestamp][round_id ? " (Round [round_id])" : ""] | [server] | [adminckey]"
+		if(mins)
+			var/playstring = get_exp_format(mins)
+			output += " | [playstring] as Crew"
+		output += "</b>"
+
+		if(last_editor)
+			output += " <font size='1'>Last edit by [last_editor].</font>"
+		output += "<br>[replacetext(notetext, "\n", "<br>")]<hr style='background:#000000; border:0; height:1px'>"
+	if(!found_notes)
+		output += "<b>You have no public notes.</b>"
+	qdel(query_get_notes)
+	var/datum/browser/popup = new(mob, "show_public_notes", "Public Notes", 900, 500)
+	popup.set_content(output.Join(""))
+	popup.open()
+
+/client/verb/submitbug()
+	set name = "Report a Bug"
+	set desc = "Submit a bug report."
+	set category = "OOC"
+	set hidden = TRUE
+	if(!usr?.client)
+		return
+
+	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.client] + BUG_REPORT_CD))
+		var/cd_total_time = GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD - world.time
+		var/cd_minutes = round(cd_total_time / (1 MINUTES))
+		var/cd_seconds = round((cd_total_time - cd_minutes MINUTES) / (1 SECONDS))
+		tgui_alert(usr, "You must wait another [cd_minutes]:[cd_seconds < 10 ? "0" : ""][cd_seconds] minute[cd_minutes < 2 ? "" : "s"] before submitting another bug report", "Bug Report Rate Limit")
+		return
+
+	var/datum/tgui_bug_report_form/report = new(usr)
+
+	report.ui_interact(usr)
+	return
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
+#undef BUG_REPORT_CD

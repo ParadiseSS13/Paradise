@@ -140,7 +140,7 @@
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
-	
+
 	// Make sure the target tile does not contain a teleporter on it
 	for(var/teleporter_type in blacklisted)
 		var/teleporters = destturf.search_contents_for(teleporter_type)
@@ -149,6 +149,10 @@
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
+	if(!ignore_area_flag) // Admin or contractor portal, let em through without running signals
+		if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
+			return FALSE
+
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
 	var/area/destarea = get_area(destturf)
@@ -167,7 +171,7 @@
 	if(isliving(teleatom))
 		var/mob/living/target_mob = teleatom
 		if(target_mob.buckled)
-			target_mob.buckled.unbuckle_mob(target_mob, force = TRUE)
+			target_mob.unbuckle(force = TRUE)
 		if(target_mob.has_buckled_mobs())
 			target_mob.unbuckle_all_mobs(force = TRUE)
 		if(ismachinery(target_mob.loc) || istype(target_mob.loc, /obj/item/mecha_parts/mecha_equipment/medical/sleeper))
@@ -234,3 +238,51 @@
 
 		if(random_location.is_safe())
 			return random_location
+
+/// Returns a random department of areas to pass into get_safe_random_station_turf() for more equal spawning.
+/proc/get_safe_random_station_turf_equal_weight()
+	// Big list of departments, each with lists of each area subtype.
+	var/static/list/department_areas
+	if(isnull(department_areas))
+		department_areas = list(
+				subtypesof(/area/station/engineering), \
+				subtypesof(/area/station/medical), \
+				subtypesof(/area/station/science), \
+				subtypesof(/area/station/security), \
+				subtypesof(/area/station/service), \
+				subtypesof(/area/station/command), \
+				subtypesof(/area/station/hallway), \
+				subtypesof(/area/station/supply)
+			)
+
+	var/list/area/final_department = pick(department_areas) // Pick a department
+	var/list/area/final_area_list = list()
+
+	for(var/checked_area in final_department) // Check each area to make sure it exists on the station
+		if(checked_area in SSmapping.existing_station_areas_types)
+			final_area_list += checked_area
+
+	if(!length(final_area_list)) // Failsafe
+		return get_safe_random_station_turf()
+
+	return get_safe_random_station_turf(final_area_list)
+
+/proc/get_safe_random_station_turf(list/areas_to_pick_from = SSmapping.existing_station_areas_types)
+	for(var/i in 1 to 5)
+		var/list/turf_list = get_area_turfs(pick(areas_to_pick_from))
+		var/turf/target
+		while(length(turf_list) && !target)
+			var/I = rand(1, length(turf_list))
+			var/turf/checked_turf = turf_list[I]
+			if(!checked_turf.density)
+				var/clear = TRUE
+				for(var/obj/checked_object in checked_turf)
+					if(checked_object.density)
+						clear = FALSE
+						break
+				if(clear)
+					target = checked_turf
+			if(!target)
+				turf_list.Cut(I, I + 1)
+		if(target)
+			return target

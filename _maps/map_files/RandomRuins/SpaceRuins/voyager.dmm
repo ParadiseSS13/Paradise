@@ -1,94 +1,132 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/power/solar,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
-"c" = (
-/obj/structure/lattice,
-/obj/machinery/power/solar,
-/turf/template_noop,
-/area/template_noop)
-"e" = (
 /obj/structure/lattice,
 /obj/structure/window/full/shuttle{
 	name = "satellite lense"
 	},
 /turf/template_noop,
 /area/template_noop)
-"q" = (
+"c" = (
 /obj/structure/safe/floor,
 /obj/item/golden_record,
-/turf/simulated/satellite,
+/turf/simulated/wall/satellite,
+/area/ruin/unpowered)
+"e" = (
+/turf/template_noop,
 /area/template_noop)
-"O" = (
+"k" = (
+/obj/machinery/power/solar,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"q" = (
 /obj/structure/target_stake{
 	name = "low gain antenna";
 	anchored = 1
 	},
 /turf/template_noop,
 /area/template_noop)
-"R" = (
+"O" = (
 /obj/structure/lattice,
+/obj/machinery/power/solar,
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "S" = (
+/obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 
 (1,1,1) = {"
-S
-c
-S
-S
-S
-S
+e
+e
+e
+e
+e
+e
+e
+e
 "}
 (2,1,1) = {"
-S
-a
-S
-S
-S
-S
-"}
-(3,1,1) = {"
-S
-c
-S
-S
-S
-S
-"}
-(4,1,1) = {"
+e
+e
 O
-q
+e
+e
 e
 R
-R
-R
+e
+"}
+(3,1,1) = {"
+e
+e
+k
+e
+e
+e
+e
+e
+"}
+(4,1,1) = {"
+e
+e
+O
+e
+e
+e
+e
+e
 "}
 (5,1,1) = {"
-S
+e
+q
+c
 a
 S
 S
 S
-S
+e
 "}
 (6,1,1) = {"
-S
-a
-S
-S
-S
-S
+e
+e
+k
+e
+e
+e
+e
+e
 "}
 (7,1,1) = {"
-S
-a
-S
-S
-S
-S
+e
+e
+k
+e
+e
+e
+e
+e
+"}
+(8,1,1) = {"
+e
+e
+k
+e
+e
+e
+e
+e
+"}
+(9,1,1) = {"
+e
+e
+e
+e
+e
+e
+e
+e
 "}

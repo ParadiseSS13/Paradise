@@ -52,12 +52,12 @@
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/CanPass(atom/movable/mover, border_dir)
 	if(!density)
 		return TRUE
 	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
@@ -70,7 +70,7 @@
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_LIGHT_INSULATION
+	rad_insulation_beta = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
@@ -78,28 +78,31 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
-	layer = ABOVE_MOB_LAYER
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_LIGHT_INSULATION
+	rad_insulation_beta = RAD_LIGHT_INSULATION
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
-/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T)
+// Airtight.
+/obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
 	return FALSE
+
+// Heatproof.
+/obj/structure/holosign/barrier/atmos/get_superconductivity(direction)
+	return 0
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "A fragile energy field that blocks movement. Excels at blocking lethal projectiles."
-	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 

@@ -3,14 +3,15 @@
 	desc = "A handy pocket card used to extract an artificial intelligence for transport."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags = NOBLUDGEON
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
+/obj/item/aicard/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -45,7 +46,7 @@
 		else
 			. += "ai"
 
-/obj/item/aicard/attack_self(mob/user)
+/obj/item/aicard/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/aicard/ui_state(mob/user)
@@ -125,7 +126,7 @@
 
 	if(!GetComponent(/datum/component/ducttape) && AI.builtInCamera)
 		. += "<span class='notice'>You see a small [AI]'s camera staring at you.</span>"
-		. += "<span class='info'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"
+		. += "<span class='notice'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"
 
 /obj/item/aicard/proc/wipe_ai()
 	var/mob/living/silicon/ai/AI = locate() in src

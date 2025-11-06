@@ -9,7 +9,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
@@ -46,7 +46,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?", null, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?", null, 21, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
 	if(!length(commando_ghosts))
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
@@ -124,36 +124,36 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE, full_gear = FALSE)
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
-	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(R, ITEM_SLOT_LEFT_EAR)
+	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), ITEM_SLOT_JUMPSUIT)
 	if(!full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), SLOT_HUD_SHOES)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), SLOT_HUD_GLOVES)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), ITEM_SLOT_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), ITEM_SLOT_GLOVES)
 
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), SLOT_HUD_BACK)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), ITEM_SLOT_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndie(src), ITEM_SLOT_IN_BACKPACK)
 
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), ITEM_SLOT_IN_BACKPACK)
 	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/pinpointer(src), SLOT_HUD_IN_BACKPACK)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), SLOT_HUD_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/pinpointer(src), ITEM_SLOT_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), ITEM_SLOT_IN_BACKPACK)
 	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/card/emag(src), SLOT_HUD_RIGHT_STORE)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), SLOT_HUD_LEFT_STORE)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/card/emag(src), ITEM_SLOT_RIGHT_POCKET)
+	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), ITEM_SLOT_LEFT_POCKET)
 
 	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), SLOT_HUD_WEAR_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), SLOT_HUD_OUTER_SUIT)
-		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), SLOT_HUD_GLASSES)
-		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), SLOT_HUD_BELT)
-		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), SLOT_HUD_SUIT_STORE)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/elite(src), SLOT_HUD_SHOES)
-		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), SLOT_HUD_RIGHT_HAND)
-		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), SLOT_HUD_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), ITEM_SLOT_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), ITEM_SLOT_OUTER_SUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), ITEM_SLOT_EYES)
+		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), ITEM_SLOT_BELT)
+		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), ITEM_SLOT_SUIT_STORE)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/elite(src), ITEM_SLOT_SHOES)
+		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), ITEM_SLOT_RIGHT_HAND)
+		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm762x51(src), ITEM_SLOT_IN_BACKPACK)
 
 	var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(src)
 	D.implant(src)
@@ -163,7 +163,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	W.assignment = "Syndicate Commando"
 	W.access += get_syndicate_access(W.assignment)
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 	return 1
 

@@ -17,8 +17,8 @@
 	var/datum/secondary_goal_progress/progress
 	/// Tracker that manages the goal progress, permanent and temporary.
 	var/datum/secondary_goal_tracker/tracker
-	/// Abstract goals can't be used directly.
-	var/abstract = TRUE
+	/// The goal weight of a secondary goal type defines how many copies of it are in the grab bag that new secondary goals are pulled from. When the bag is empty, it gets refilled with the same number of each secondary goal type. Max 10.
+	weight = 0
 
 /datum/station_goal/secondary/proc/Initialize(requester_name_in, requester_account)
 	SHOULD_CALL_PARENT(TRUE)
@@ -45,31 +45,49 @@
 		message_parts += "Suitable task found. Task details:"
 	message_parts += ""
 	message_parts += report_message
+	message_parts += ""
+	message_parts += "All requested materials must be properly labeled for transport, or be inside a properly-labeled container. You can configure a hand labeler to create suitable labels by by swiping your ID card on it."
 	if(should_send_crate)
-		message_parts += "You must submit this in a locked personal crate. One will be sent to your Cargo department. More can be ordered if needed."
-	send_requests_console_message(message_parts, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
+		message_parts += "For your convenience, a pre-labeled personal crate will be sent to your cargo department."
+		send_requests_console_message("A new secondary goal crate for [requester] from [department] is ready to ship with your next order.", "Procurement Office", "Cargo Bay", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
+	send_requests_console_message(message_parts, "Procurement Office", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	if(department !=  "Captain's Desk")
-		send_requests_console_message(message_parts, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+		send_requests_console_message(message_parts, "Procurement Office", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 	if(department !=  "Bridge")
-		send_requests_console_message(message_parts, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+		send_requests_console_message(message_parts, "Procurement Office", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 
-/proc/generate_secondary_goal(department, requester = null, mob/user = null)
-	var/list/possible = list()
-	var/list/departments = list()
+/proc/init_secondary_goal_grab_bags()
+	SSticker.mode.secondary_goal_grab_bags = list()
 	for(var/T in subtypesof(/datum/station_goal/secondary))
 		var/datum/station_goal/secondary/G = T
-		if(!initial(G.abstract) && !departments[initial(G.department)])
-			departments[initial(G.department)] = TRUE
-		if(initial(G.department) != department || initial(G.abstract))
+		if(initial(G.weight) < 1)
 			continue
-		possible += G
+		var/department = initial(G.department)
+		if(isnull(SSticker.mode.secondary_goal_grab_bags[department]))
+			SSticker.mode.secondary_goal_grab_bags[department] = list()
+		for(var/i in 1 to min(10, initial(G.weight)))
+			SSticker.mode.secondary_goal_grab_bags[department] += G
 
-	if(!length(possible))
+/proc/generate_secondary_goal(department, requester = null, mob/user = null)
+	if(isnull(SSticker.mode.secondary_goal_grab_bags))
+		init_secondary_goal_grab_bags()
+
+	var/list/possible = SSticker.mode.secondary_goal_grab_bags[department]
+
+	if(isnull(possible))
 		if(user)
-			to_chat(user, "<span class='info'>No goals available for [department]. Goals are currently available for [english_list(departments)].</span>")
+			to_chat(user, "<span class='notice'>No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)].</span>")
 		return
 
-	var/datum/station_goal/secondary/picked = pick(possible)
+	if(length(possible) == 0)
+		for(var/T in subtypesof(/datum/station_goal/secondary))
+			var/datum/station_goal/secondary/G = T
+			if(initial(G.weight) < 1 || initial(G.department) != department)
+				continue
+			for(var/i in 1 to min(10, initial(G.weight)))
+				possible += G
+
+	var/datum/station_goal/secondary/picked = pick_n_take(possible)
 	var/datum/station_goal/secondary/built = new picked
 
 	var/requester_name = null

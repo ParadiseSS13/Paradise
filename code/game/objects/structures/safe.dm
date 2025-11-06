@@ -20,7 +20,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe
 	name = "safe"
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -71,10 +70,16 @@ GLOBAL_LIST_EMPTY(safes)
 	// Combination generation
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
+	if(mapload)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
+
+/obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
 	for(var/obj/item/I in loc)
+		if(I.density || I.anchored)
+			continue
 		if(space >= maxspace)
-			return
+			break
 		if(I.w_class + space <= maxspace)
 			space += I.w_class
 			I.forceMove(src)
@@ -95,7 +100,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
-	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
@@ -182,30 +187,33 @@ GLOBAL_LIST_EMPTY(safes)
 	else
 		ui_interact(user)
 
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
+/obj/structure/safe/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(open)
 		if(I.flags && ABSTRACT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
 			locked = FALSE
 			update_icon()
+			return ITEM_INTERACT_COMPLETE
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			space += I.w_class
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			SStgui.update_uis(src)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
+			return ITEM_INTERACT_COMPLETE
 	else
-		if(istype(I, /obj/item/clothing/accessory/stethoscope))
+		if(istype(I, /obj/item/clothing/neck/stethoscope))
 			attack_hand(user)
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(istype(I, /obj/item/thermal_drill))
 			if(drill)
 				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
@@ -217,9 +225,10 @@ GLOBAL_LIST_EMPTY(safes)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier
 				update_icon()
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 /obj/structure/safe/ui_state(mob/user)
 	return GLOB.physical_state
@@ -262,14 +271,11 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		var/list/accessories = H.w_uniform?.accessories
 		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
-			if(H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+			if(H.is_in_hands(/obj/item/clothing/neck/stethoscope))
 				canhear = TRUE
-			else
-				for(var/obj/item/clothing/accessory/stethoscope/S in accessories)
-					canhear = TRUE
-					break
+			if(istype(H.neck, /obj/item/clothing/neck/stethoscope))
+				canhear = TRUE
 
 	. = TRUE
 	switch(action)
@@ -290,7 +296,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial - 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISEVEN(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
@@ -310,7 +316,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial + 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISODD(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
@@ -339,14 +345,14 @@ GLOBAL_LIST_EMPTY(safes)
 	if(get_dist(src, driller) >= 9)
 		return //You need to be near the drill if you want to get the buff.
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
 	for(var/mob/living/carbon/human/H in view(9, driller))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
@@ -435,7 +441,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)

@@ -45,11 +45,6 @@
 	var/damage = 0.0
 	var/range = 10.0
 
-/obj/effect/begin
-	name = "begin"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "begin"
-
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
@@ -58,7 +53,7 @@
 /obj/effect/shut_controller
 	name = "shut controller"
 	var/moving = null
-	var/list/parts = list(  )
+	var/list/parts = list()
 
 /obj/structure/showcase
 	name = "Showcase"
@@ -86,7 +81,7 @@
 	name = "mobl"
 	var/master = null
 
-	var/list/container = list(  )
+	var/list/container = list()
 
 
 /obj/structure/showcase/horrific_experiment
@@ -99,7 +94,7 @@
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright
 	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
+	icon_state = null // null iconstate is white by default
 	plane = LIGHTING_PLANE
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
@@ -139,10 +134,8 @@
 	render_target = "*snap[id]"
 
 /obj/effect/frosty_breath
-	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()

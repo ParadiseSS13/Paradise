@@ -1,7 +1,7 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
 /client/verb/wiki()
 	set name = "wiki"
-	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
+	set desc = "Type what you want to know about. This will open the wiki in your web browser."
 	set hidden = 1
 	if(GLOB.configuration.url.wiki_url)
 		var/query = tgui_input_text(src, "Enter Search:", "Wiki Search", "Homepage")

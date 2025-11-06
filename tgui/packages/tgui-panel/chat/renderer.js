@@ -4,21 +4,21 @@
  * @license MIT
  */
 
-import { EventEmitter } from 'common/events';
-import { classes } from 'common/react';
+import DOMPurify from 'dompurify';
 import { createLogger } from 'tgui/logging';
+import { EventEmitter } from 'tgui-core/events';
+
 import {
   COMBINE_MAX_MESSAGES,
   COMBINE_MAX_TIME_WINDOW,
-  MAX_PERSISTED_MESSAGES,
-  MAX_VISIBLE_MESSAGES,
   IMAGE_RETRY_DELAY,
   IMAGE_RETRY_LIMIT,
   IMAGE_RETRY_MESSAGE_AGE,
+  MAX_VISIBLE_MESSAGES,
   MESSAGE_PRUNE_INTERVAL,
-  MESSAGE_TYPES,
   MESSAGE_TYPE_INTERNAL,
   MESSAGE_TYPE_UNKNOWN,
+  MESSAGE_TYPES,
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
@@ -28,6 +28,9 @@ const logger = createLogger('chatRenderer');
 // We consider this as the smallest possible scroll offset
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
+
+// List of blacklisted tags
+const blacklisted_tags = ['iframe', 'video'];
 
 const findNearestScrollableParent = (startingNode) => {
   const body = document.body;
@@ -68,6 +71,9 @@ const handleImageError = (e) => {
   setTimeout(() => {
     /** @type {HTMLImageElement} */
     const node = e.target;
+    if (!node) {
+      return;
+    }
     const attempts = parseInt(node.getAttribute('data-reload-n'), 10) || 0;
     if (attempts >= IMAGE_RETRY_LIMIT) {
       logger.error(`failed to load an image after ${attempts} attempts`);
@@ -92,10 +98,7 @@ const updateMessageBadge = (message) => {
   const foundBadge = node.querySelector('.Chat__badge');
   const badge = foundBadge || document.createElement('div');
   badge.textContent = times;
-  badge.className = classes(['Chat__badge', 'Chat__badge--animate']);
-  requestAnimationFrame(() => {
-    badge.className = 'Chat__badge';
-  });
+  badge.className = 'Chat__badge';
   if (!foundBadge) {
     node.appendChild(badge);
   }
@@ -120,8 +123,7 @@ class ChatRenderer {
       const node = this.scrollNode;
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
-      const scrollTracking =
-        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
+      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -242,9 +244,7 @@ class ChatRenderer {
         if (regexStr) {
           highlightRegex = new RegExp('(' + regexStr + ')', flags);
         } else {
-          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join(
-            '|'
-          )})${matchWord ? '\\b' : ''}`;
+          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join('|')})${matchWord ? '\\b' : ''}`;
           highlightRegex = new RegExp(pattern, flags);
         }
       } catch {
@@ -296,11 +296,7 @@ class ChatRenderer {
     }
   }
 
-  getCombinableMessage(predicate) {
-    const now = Date.now();
-    const len = this.visibleMessages.length;
-    const from = len - 1;
-    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
+  getCombinableMessage(predicate, now, from, to) {
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
       // prettier-ignore
@@ -335,10 +331,14 @@ class ChatRenderer {
     const fragment = document.createDocumentFragment();
     const countByType = {};
     let node;
+
+    const len = this.visibleMessages.length;
+    const from = len - 1;
+    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let payload of batch) {
       const message = createMessage(payload);
       // Combine messages
-      const combinable = this.getCombinableMessage(message);
+      const combinable = this.getCombinableMessage(message, now, from, to);
       if (combinable) {
         combinable.times = (combinable.times || 1) + 1;
         updateMessageBadge(combinable);
@@ -362,6 +362,11 @@ class ChatRenderer {
         // Payload is HTML
         else if (message.html) {
           node.innerHTML = message.html;
+          node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
+            // No iframes in my chat kkthxbye
+            FORBID_TAGS: blacklisted_tags,
+            ALLOW_UNKNOWN_PROTOCOLS: true,
+          });
         } else {
           logger.error('Error: message is missing text payload', message);
         }
@@ -369,11 +374,8 @@ class ChatRenderer {
         // Highlight text
         if (!message.avoidHighlighting && this.highlightParsers) {
           this.highlightParsers.map((parser) => {
-            const highlighted = highlightNode(
-              node,
-              parser.highlightRegex,
-              parser.highlightWords,
-              (text) => createHighlightNode(text, parser.highlightColor)
+            const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
+              createHighlightNode(text, parser.highlightColor)
             );
             if (highlighted && parser.highlightWholeMessage) {
               node.className += ' ChatMessage--highlighted';
@@ -398,9 +400,7 @@ class ChatRenderer {
       message.node = node;
       // Query all possible selectors to find out the message type
       if (!message.type) {
-        const typeDef = MESSAGE_TYPES.find(
-          (typeDef) => typeDef.selector && node.querySelector(typeDef.selector)
-        );
+        const typeDef = MESSAGE_TYPES.find((typeDef) => typeDef.selector && node.querySelector(typeDef.selector));
         message.type = typeDef?.type || MESSAGE_TYPE_UNKNOWN;
       }
       updateMessageBadge(message);
@@ -464,10 +464,7 @@ class ChatRenderer {
     }
     // All messages
     {
-      const fromIndex = Math.max(
-        0,
-        this.messages.length - MAX_VISIBLE_MESSAGES
-      );
+      const fromIndex = Math.max(0, this.messages.length - MAX_VISIBLE_MESSAGES);
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
         logger.log(`pruned ${fromIndex} stored messages`);
@@ -513,9 +510,7 @@ class ChatRenderer {
       message.node = 'pruned';
     }
     // Remove pruned messages from the message array
-    this.messages = this.messages.filter(
-      (message) => message.node !== 'pruned'
-    );
+    this.messages = this.messages.filter((message) => message.node !== 'pruned');
     logger.log(`Cleared chat`);
   }
 
@@ -555,13 +550,9 @@ class ChatRenderer {
       + '</body>\n'
       + '</html>\n';
     // Create and send a nice blob
-    const blob = new Blob([pageHtml]);
-    const timestamp = new Date()
-      .toISOString()
-      .substring(0, 19)
-      .replace(/[-:]/g, '')
-      .replace('T', '-');
-    window.navigator.msSaveBlob(blob, `ss13-chatlog-${timestamp}.html`);
+    const blob = new Blob([pageHtml], { type: 'text/plain' });
+    const timestamp = new Date().toISOString().substring(0, 19).replace(/[-:]/g, '').replace('T', '-');
+    Byond.saveBlob(blob, `ss13-paradise-chatlog-${timestamp}.html`, '.html');
   }
 }
 

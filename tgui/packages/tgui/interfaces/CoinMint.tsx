@@ -1,7 +1,8 @@
-import { classes } from '../../common/react';
-import { BooleanLike } from 'common/react';
+import { Button, NoticeBox, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Section, ProgressBar, Stack, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 type MintData = {
@@ -22,11 +23,10 @@ type MintMaterial = {
   id: string;
 };
 
-export const CoinMint = (props, context) => {
-  const { act, data } = useBackend<MintData>(context);
+export const CoinMint = (props) => {
+  const { act, data } = useBackend<MintData>();
   const { materials, moneyBag, moneyBagContent, moneyBagMaxContent } = data;
-  const dynamicHeight =
-    (moneyBag ? 210 : 138) + Math.ceil(materials.length / 4) * 64;
+  const dynamicHeight = (moneyBag ? 210 : 138) + Math.ceil(materials.length / 4) * 64;
   return (
     <Window width={210} height={dynamicHeight}>
       <Window.Content>
@@ -54,18 +54,10 @@ export const CoinMint = (props, context) => {
                 <Stack.Item>
                   <Stack>
                     <Stack.Item grow>
-                      <ProgressBar
-                        minValue={0}
-                        maxValue={data.maxMaterials}
-                        value={data.totalMaterials}
-                      />
+                      <ProgressBar minValue={0} maxValue={data.maxMaterials} value={data.totalMaterials} />
                     </Stack.Item>
                     <Stack.Item>
-                      <Button
-                        icon={'eject'}
-                        tooltip={'Eject selected material'}
-                        onClick={() => act('ejectMat')}
-                      />
+                      <Button icon={'eject'} tooltip={'Eject selected material'} onClick={() => act('ejectMat')} />
                     </Stack.Item>
                   </Stack>
                 </Stack.Item>
@@ -77,20 +69,15 @@ export const CoinMint = (props, context) => {
                       inline
                       m={0.2}
                       textAlign={'center'}
-                      color={'translucent'}
                       selected={material.id === data.chosenMaterial}
                       tooltip={material.name}
                       content={
                         <Stack vertical>
-                          <Stack.Item
-                            className={classes(['materials32x32', material.id])}
-                          />
+                          <Stack.Item className={classes(['materials32x32', material.id])} />
                           <Stack.Item>{material.amount}</Stack.Item>
                         </Stack>
                       }
-                      onClick={() =>
-                        act('selectMaterial', { material: material.id })
-                      }
+                      onClick={() => act('selectMaterial', { material: material.id })}
                     />
                   ))}
                 </Stack.Item>
@@ -102,20 +89,10 @@ export const CoinMint = (props, context) => {
               <Section
                 title={'Money Bag'}
                 buttons={
-                  <Button
-                    icon={'eject'}
-                    content={'Eject'}
-                    disabled={data.active}
-                    onClick={() => act('ejectBag')}
-                  />
+                  <Button icon={'eject'} content={'Eject'} disabled={data.active} onClick={() => act('ejectBag')} />
                 }
               >
-                <ProgressBar
-                  width={'100%'}
-                  minValue={0}
-                  maxValue={moneyBagMaxContent}
-                  value={moneyBagContent}
-                >
+                <ProgressBar width={'100%'} minValue={0} maxValue={moneyBagMaxContent} value={moneyBagContent}>
                   {moneyBagContent} / {moneyBagMaxContent}
                 </ProgressBar>
               </Section>

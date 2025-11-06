@@ -1,823 +1,1762 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
-/turf/simulated/wall/mineral/titanium,
-/area/ruin/space/unpowered)
-"c" = (
+"ax" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"aU" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"bz" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"bM" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"cz" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"cB" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"cD" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"cJ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"cS" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"ex" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/clown_mime_ruin)
+"eQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"fo" = (
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"fN" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"fS" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger{
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"gE" = (
+/obj/item/grenade/bananade,
+/obj/item/reagent_containers/drinks/bottle/bottleofbanana,
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"gS" = (
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"hk" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clothing/head/helmet/space/eva/clown,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"hu" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"hz" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"hC" = (
+/obj/machinery/computer/nonfunctional,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"hD" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"ie" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/clown_mime_ruin)
+"ii" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"ik" = (
+/obj/item/stack/sheet/wood,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"in" = (
+/obj/effect/mob_spawn/human/corpse/clown,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"iK" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"jW" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"ku" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/clown_mime_ruin)
+"kv" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"kQ" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"lS" = (
+/obj/machinery/light,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"me" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"mp" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"mG" = (
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"mX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/cap,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"e" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"f" = (
-/obj/item/broken_bottle,
-/obj/effect/mob_spawn/human/corpse/mime,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"g" = (
-/obj/item/shard,
-/obj/effect/mob_spawn/human/corpse/mime,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"h" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/obj/effect/mob_spawn/human/corpse/mime,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"j" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"k" = (
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"m" = (
-/turf/simulated/mineral,
-/area/ruin/space/unpowered)
-"n" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"p" = (
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"q" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"s" = (
-/obj/item/shard,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"t" = (
-/obj/effect/mob_spawn/human/corpse/mime{
-	name = "Mime Pilot"
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"x" = (
-/obj/effect/mob_spawn/human/corpse/clown,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"y" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"z" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/item/stack/ore/bananium,
-/obj/item/grenade/bananade,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"A" = (
+/area/ruin/space/clown_mime_ruin)
+"nF" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"B" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion_l"
-	},
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_r"
+/obj/machinery/atmospherics/pipe/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"C" = (
-/obj/effect/mob_spawn/human/corpse/clown/soldier,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"D" = (
+/area/ruin/space/clown_mime_ruin)
+"nL" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"nN" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"nX" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/clown_mime_ruin)
+"ok" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"on" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"pj" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/stack/sheet/wood,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"pB" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"qc" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"qf" = (
 /obj/item/stack/ore/bananium,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"E" = (
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"qh" = (
+/turf/template_noop,
+/area/template_noop)
+"qp" = (
+/obj/item/stock_parts/cell/high,
+/obj/item/stack/cable_coil,
+/obj/item/multitool,
+/obj/structure/closet/crate/engineering,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"qw" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"qE" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"qJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"qV" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"qW" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"rg" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"ri" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"rR" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion_l"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"F" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"G" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/area/ruin/space/clown_mime_ruin)
+"rY" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"H" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"sJ" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"sZ" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"tg" = (
+/obj/item/flag/mime,
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"tz" = (
+/obj/item/broken_bottle,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"tI" = (
+/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"tN" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/ruin/space/powered)
+"ub" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"uE" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mob_spawn/human/corpse/mime{
+	name = "Mime Pilot"
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"vu" = (
+/obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"vz" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"vC" = (
 /obj/effect/mob_spawn/human/corpse/clown{
 	name = "Clown Pilot"
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"I" = (
-/obj/item/paper/clownship,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"J" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"K" = (
-/obj/item/shard,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"wb" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"wp" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"wL" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"wP" = (
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"wU" = (
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"xm" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/clown,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"xB" = (
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"yK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"L" = (
-/obj/item/shard{
-	icon_state = "medium"
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"O" = (
-/obj/effect/mob_spawn/human/corpse/clown/officer,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"P" = (
-/obj/item/pickaxe,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"Q" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"R" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion_l"
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"ze" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/electrical,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"zy" = (
+/obj/effect/spawner/random/blood/often,
+/obj/item/gun/energy/clown,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"zz" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/largecrate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"zU" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion_l"
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"Ab" = (
+/turf/simulated/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/ruin/space/powered)
+"Aj" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Au" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"Ax" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/cap{
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/clown_mime_ruin)
+"AT" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"Bb" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"BE" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"BW" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"BZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"Ca" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Cs" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Dj" = (
+/obj/item/toy/ai,
+/obj/item/toy/plushie/lizardplushie,
+/obj/item/toy/plushie/voxplushie,
+/obj/item/toy/plushie/greyplushie,
+/obj/structure/closet/crate/plastic,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"DZ" = (
+/obj/item/pickaxe,
+/obj/item/t_scanner/adv_mining_scanner/lesser,
+/obj/item/shovel,
+/obj/item/storage/box/emptysandbags,
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Ee" = (
+/obj/item/beach_ball/baseball,
+/obj/item/clothing/shoes/black,
+/obj/item/clothing/under/color/white,
+/obj/item/clothing/head/soft/white,
+/obj/item/melee/baseball_bat,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"EQ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"EY" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Fm" = (
+/turf/simulated/wall/mineral/titanium/interior,
+/area/ruin/space/clown_mime_ruin)
+"Fq" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"FW" = (
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Gq" = (
+/obj/machinery/light,
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/clown_mime_ruin)
+"Gx" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"GS" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Ht" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"HP" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"Il" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"IR" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"IU" = (
+/obj/item/flag/clown,
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"Ke" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"Kk" = (
+/obj/machinery/light,
+/obj/structure/largecrate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Ln" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"LC" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/clown/officer,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"LF" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
 /area/ruin/space/unpowered)
+"LY" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"MF" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/clown_mime_ruin)
+"MI" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"MP" = (
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"NL" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Oc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Oz" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"OK" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"OZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/stack/sheet/wood,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Pt" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"QS" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/clown_mime_ruin)
+"RY" = (
+/turf/template_noop,
+/area/space/nearstation)
+"Se" = (
+/obj/effect/decal/cleanable/blood/slime/streak,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"SH" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"TC" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"TG" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
+"UC" = (
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"UE" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
+"Vh" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Vo" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
+"Vq" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"VH" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clothing/head/helmet/space/eva/mime,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"VL" = (
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Wh" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Xb" = (
+/obj/effect/mob_spawn/human/corpse/clown/soldier,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"Xi" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Xq" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/powered)
+"Xu" = (
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"Yq" = (
+/obj/effect/spawner/random/blood/often,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"YN" = (
+/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/mob_spawn/human/corpse/clown,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
 
 (1,1,1) = {"
-a
-a
-a
-a
-m
-m
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (2,1,1) = {"
-a
-a
-a
-m
-m
-m
-m
-m
-a
-a
-a
-a
-a
-a
-m
-m
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+BW
+BW
+BW
+BW
+BW
+BW
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (3,1,1) = {"
-a
-a
-a
-m
-m
-m
-m
-m
-m
-a
-m
-m
-m
-m
-m
-m
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+BW
+BW
+Pt
+QS
+QS
+Wh
+BW
+BW
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (4,1,1) = {"
-a
-a
-a
-a
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+BW
+LY
+OK
+NL
+NL
+Cs
+fS
+BW
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+Fm
+hu
+Oc
+LC
+zy
+aU
+Gq
+Fm
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (6,1,1) = {"
-a
-a
-a
-a
-a
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+Fm
+nX
+mG
+wL
+Ht
+hz
+aU
+ie
+nX
+Fm
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (7,1,1) = {"
-a
-a
-a
-a
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+nX
+nX
+nX
+nX
+kQ
+kQ
+nX
+nX
+nX
+nX
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (8,1,1) = {"
-a
-a
-a
-n
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+vz
+Bb
+YN
+nX
+Cs
+OK
+nX
+wP
+Bb
+OZ
+nX
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+qh
 "}
 (9,1,1) = {"
-a
-a
-b
-b
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-n
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+vz
+qp
+Dj
+nX
+OK
+OK
+nX
+zz
+Gx
+tN
+tN
+tN
+UE
+UE
+rg
+xB
+Ab
+xB
+iK
+pB
+qh
 "}
 (10,1,1) = {"
-b
-e
-b
-b
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-n
-n
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+mp
+vz
+Kk
+nX
+Se
+lS
+nX
+pj
+Gx
+kv
+xB
+xB
+Oz
+uE
+xB
+xB
+hC
+jW
+iK
+pB
+qh
 "}
 (11,1,1) = {"
-c
-f
-j
-p
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-n
-n
-n
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+gE
+ii
+Vq
+BW
+gS
+hz
+BW
+Aj
+TC
+tN
+tN
+tN
+cJ
+BZ
+yK
+cJ
+fN
+tg
+iK
+pB
+qh
 "}
 (12,1,1) = {"
-c
-g
-k
-q
-s
-n
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-n
-n
-a
+qh
+tN
+tN
+tN
+tN
+tN
+Xq
+Bb
+Bb
+ub
+Xi
+vC
+gS
+Xi
+tz
+VH
+Gx
+nX
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+tN
+qh
 "}
 (13,1,1) = {"
-c
-h
-j
-q
-t
-n
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-a
+qh
+Ca
+EY
+HP
+Vo
+tN
+tN
+tN
+Bb
+Vh
+Xi
+gS
+gS
+Xi
+qc
+VL
+DZ
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (14,1,1) = {"
-b
-e
-b
-b
-b
-m
-m
-n
-m
-m
-m
-m
-m
-m
-m
-m
-m
-n
-m
-a
+qh
+Ca
+EY
+bz
+UC
+UC
+UC
+Au
+Bb
+GS
+BW
+hz
+vu
+BW
+ok
+vz
+vz
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (15,1,1) = {"
-a
-a
-b
-b
-m
-m
-m
-n
-n
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
-m
+qh
+Ca
+EY
+rY
+IU
+LF
+tN
+tN
+Bb
+ik
+nX
+FW
+Cs
+nX
+Ee
+wp
+tI
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (16,1,1) = {"
-a
-a
-a
-a
-m
-a
-a
-a
-b
-m
-m
-J
-b
-m
-m
-m
-m
-m
-m
-m
+qh
+tN
+tN
+tN
+tN
+tN
+Xq
+xm
+hk
+qf
+nX
+gS
+OK
+nX
+wU
+wp
+Xu
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (17,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-b
-m
-F
-k
-b
-m
-m
-m
-m
-n
-m
-m
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+qf
+qf
+nX
+nX
+gS
+gS
+nX
+nX
+wU
+wU
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (18,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-b
-m
-G
-K
-b
-b
-m
-m
-m
-n
-m
-m
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+nX
+nX
+nX
+Xb
+Ht
+gS
+qw
+nX
+nX
+nX
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-n
-p
-H
-k
-O
-b
-m
-m
-m
-n
-n
-n
+qh
+qh
+qh
+qh
+qh
+qh
+cz
+qJ
+wb
+sZ
+Ht
+Cs
+OK
+gS
+sZ
+wb
+qE
+cz
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (20,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-x
-C
-k
-L
-P
-b
-m
-m
-m
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+cz
+ri
+IR
+sZ
+gS
+OK
+gS
+Cs
+sZ
+me
+qE
+cz
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (21,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-e
-k
-k
-I
-k
-k
-e
-m
-m
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+nX
+nX
+nX
+Il
+bM
+BW
+Il
+nX
+nX
+nX
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (22,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-e
-k
-k
-D
-x
-k
-e
-m
-m
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+nX
+qV
+eQ
+cB
+zU
+cD
+Fq
+cS
+Ln
+nX
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (23,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-y
-k
-k
-k
-Q
-b
-m
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+rR
+mX
+MP
+cB
+nL
+nN
+nN
+EQ
+MI
+sJ
+Ax
+ku
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (24,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-y
-k
-D
-k
-y
-b
-m
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+rR
+mX
+MP
+in
+MI
+Yq
+hD
+Ke
+nL
+TG
+Ax
+ku
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (25,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-z
-D
-k
-k
-y
-b
-m
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+nX
+on
+qW
+ax
+ze
+AT
+BE
+SH
+fo
+nX
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (26,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-k
-k
-D
-D
-k
-b
-a
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+nF
+nF
+nF
+nX
+nX
+nF
+nF
+nF
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (27,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-A
-A
-A
-A
-A
-b
-a
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+MF
+MF
+ex
+nX
+nX
+MF
+MF
+ex
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}
 (28,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-B
-E
-E
-E
-R
-a
-a
-a
-a
-a
-a
-a
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+MF
+MF
+MF
+nX
+nX
+MF
+MF
+MF
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(29,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+RY
+RY
+RY
+qh
+qh
+RY
+RY
+RY
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(30,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 "}

@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 	if(module)
 		msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()

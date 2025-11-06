@@ -66,11 +66,16 @@ SUBSYSTEM_DEF(chat)
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue
-		LAZYADDASSOC(client_to_payloads, client.ckey, generate_payload(client, message_data))
+		LAZYADDASSOCLIST(client_to_payloads, client.ckey, generate_payload(client, message_data))
 
 /datum/controller/subsystem/chat/proc/send_immediate(send_target, list/message_data)
 	var/list/targets = islist(send_target) ? send_target : list(send_target)
 	for(var/target in targets)
+#ifdef GAME_TESTS
+		var/mob/M = target
+		if(istype(M) && M?:mind?:key == "interaction_test_[M.UID()]")
+			LAZYADD(GLOB.game_test_chats[M.mind.key], message_to_html(message_data))
+#endif
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue

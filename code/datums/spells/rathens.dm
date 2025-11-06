@@ -2,7 +2,6 @@
 	name = "Rathen's Secret"
 	desc = "Summons a powerful shockwave around you that tears the appendix out of enemies, and occasionally removes their limbs."
 	base_cooldown = 50 SECONDS
-	clothes_req = TRUE
 	invocation = "APPEN NATH!"
 	invocation_type = "shout"
 	cooldown_min = 20 SECONDS
@@ -15,6 +14,8 @@
 
 /datum/spell/rathens/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
+		if(H.can_block_magic(antimagic_flags))
+			continue
 		var/datum/effect_system/smoke_spread/s = new
 		s.set_up(5, FALSE, H)
 		s.start()

@@ -28,7 +28,6 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
 
@@ -95,7 +94,8 @@
 	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
@@ -138,13 +138,33 @@
 		start_cooldown()
 		return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/pulse_shield
+	name = "EPS-99 pulse shield generator"
+	desc = "A shield module that covers the exosuit in an energy barrier that absorbs damage. Requires energy to operate."
+	icon_state = "mecha_pulse_shield"
+	origin_tech = "materials=4;combat=4"
+	equip_cooldown = 10
+	energy_drain = 50
+	range = 0
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_equip()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_unequip()
+	. = ..()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/proc/attack_react(mob/user as mob)
+	if(action_checks(user))
+		start_cooldown()
+		return TRUE
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
 	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
-	icon_state = "repair_droid"
+	icon_state = "repair_droid_item"
 	origin_tech ="magnets=3;programming=3;engineering=4"
 	equip_cooldown = 20
 	energy_drain = 50
@@ -162,7 +182,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
 	..()
-	droid_overlay = new(icon, icon_state = "repair_droid")
+	droid_overlay = new(icon, icon_state = "repair_droid_off")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
@@ -176,17 +196,18 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle_repairs"])
 		chassis.overlays -= droid_overlay
 		if(equip_ready)
 			START_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid_a")
+			droid_overlay = new(icon, icon_state = "repair_droid_on")
 			log_message("Activated.")
 			set_ready_state(0)
 		else
 			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid")
+			droid_overlay = new(icon, icon_state = "repair_droid_off")
 			log_message("Deactivated.")
 			set_ready_state(1)
 		chassis.overlays += droid_overlay
@@ -221,7 +242,7 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		chassis.overlays -= droid_overlay
-		droid_overlay = new(icon, icon_state = "repair_droid")
+		droid_overlay = new(icon, icon_state = "repair_droid_off")
 		chassis.overlays += droid_overlay
 
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
@@ -231,7 +252,6 @@
 	desc = "An exosuit module that wirelessly drains energy from any available power channel in an area. The performance index barely compensates for movement costs."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
-	energy_drain = 0
 	range = 0
 	var/coeff = 100
 	var/list/use_channels = list(PW_CHANNEL_EQUIPMENT, PW_CHANNEL_ENVIRONMENT, PW_CHANNEL_LIGHTING)
@@ -264,7 +284,8 @@
 	return pow_chan
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle_relay"])
 		if(equip_ready) //inactive
 			START_PROCESSING(SSobj, src)
@@ -285,6 +306,9 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		return
+	if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		chassis.selected.on_unequip() // No shields while recharging
+		occupant_message("Shields disabled.")
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
@@ -307,12 +331,10 @@
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/generator
-	name = "exosuit plasma converter"
+	name = "exosuit plasma generator"
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
-	range = MECHA_MELEE
-	energy_drain = 0 //for allow load fuel without energy
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000 // 45k energy for 75 plasma/ 375 cr.
@@ -332,7 +354,8 @@
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle"])
 		if(equip_ready) //inactive
 			set_ready_state(0)
@@ -352,36 +375,36 @@
 	if(chassis)
 		var/result = load_fuel(target)
 		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			send_byjax(chassis.occupant,"exosuit.browser", "\ref[src]", get_equip_info())
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
-		if(istype(I, /obj/item/stack/sheet))
-			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
-			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
-				if(units)
-					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
-					P.use(units)
-					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
-					return added_fuel
-			else
-				occupant_message("Unit is full.")
-				return 0
-		else // Some other object containing our fuel's type, so we just eat it (ores mainly)
-			var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
+		if(!istype(I, /obj/item/stack/sheet)) // Some other object containing our fuel's type, so we just eat it (ores mainly)
+			var/to_load = clamp(I.materials[fuel_type], 0, max_fuel - fuel_amount)
 			if(to_load == 0)
-				return 0
+				return FALSE
 			fuel_amount += to_load
 			qdel(I)
-			return to_load
+			return 0
+
+		if(fuel_amount >= max_fuel)
+			occupant_message("Unit is full.")
+			return 0
+
+		var/obj/item/stack/sheet/P = I
+		var/to_load = max_fuel - fuel_amount
+
+		var/units = clamp(round(to_load / P.perunit), 1, P.amount)
+		if(units)
+			var/added_fuel = units * P.perunit
+			fuel_amount += added_fuel
+			P.use(units)
+			occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
+			return added_fuel
 
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
-		for(var/baz in I.contents)
-			var/obj/item/O = baz
+		for(var/obj/item/O as anything in I.contents)
 			if(fuel_type in O.materials)
 				fuel_added = load_fuel(O)
 				break
@@ -391,7 +414,7 @@
 		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)
 	load_fuel(weapon)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
@@ -422,19 +445,17 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
 	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
 	max_fuel = 50000 // around 83k energy for 25 uranium/ 0 cr.
-	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
-	var/rad_per_cycle = 30
+	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		radiation_pulse(get_turf(src), rad_per_cycle)
+		radiation_pulse(get_turf(src), rad_per_cycle, BETA_RAD)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"

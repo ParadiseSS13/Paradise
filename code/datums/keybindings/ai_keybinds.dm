@@ -2,7 +2,7 @@
 	category = KB_CATEGORY_AI
 
 /datum/keybinding/ai/can_use(client/C, mob/M)
-	return isAI(M) && ..()
+	return is_ai(M) && ..()
 
 /datum/keybinding/ai/to_core
 	name = "Jump to Core"
@@ -50,11 +50,15 @@
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
 
+	if(ismecha(AI.loc))
+		to_chat(AI, "<span class='warning'>You can't change camera locations while in a mech!</span>")
+		return
+
 	if(AI.stored_locations[location_number] == "unset")
 		to_chat(AI, "<span class='warning'>You haven't set location [location_number] yet!</span>")
 		return
 
-	AI.eyeobj.setLoc(AI.stored_locations[location_number])
+	AI.eyeobj.set_loc(AI.stored_locations[location_number])
 
 /datum/keybinding/ai/to_location/one
 	name = "Jump to Location One"

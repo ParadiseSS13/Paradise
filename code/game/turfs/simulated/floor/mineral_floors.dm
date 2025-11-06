@@ -29,19 +29,21 @@
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 
-/turf/simulated/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/simulated/floor/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+/turf/simulated/floor/mineral/plasma/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(attacking.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		ignite(W.get_heat())
-		return
-	..()
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
+		ignite(attacking.get_heat())
+		return FINISH_ATTACK
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -51,7 +53,7 @@
 		ignite(2500) //Big enough to ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
@@ -79,6 +81,13 @@
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
@@ -167,10 +176,11 @@
 		if(istype(M))
 			squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		honk()
+/turf/simulated/floor/mineral/bananium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	honk()
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
@@ -204,6 +214,13 @@
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
@@ -230,16 +247,22 @@
 	var/last_event = 0
 	var/active = FALSE
 
+/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
+
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()
 	if(!.)
 		if(istype(AM))
 			radiate()
 
-/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		radiate()
+/turf/simulated/floor/mineral/uranium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	radiate()
 
 /turf/simulated/floor/mineral/uranium/attack_hand(mob/user)
 	.=..()
@@ -250,7 +273,7 @@
 	if(!active)
 		if(world.time > last_event + 15)
 			active = TRUE
-			radiation_pulse(src, 10)
+			radiation_pulse(src, 40, ALPHA_RAD)
 			for(var/turf/simulated/floor/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
@@ -287,6 +310,8 @@
 	return //unburnable
 
 /turf/simulated/floor/plating/abductor/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

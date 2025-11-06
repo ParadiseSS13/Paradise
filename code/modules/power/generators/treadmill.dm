@@ -16,32 +16,46 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_atom_exited),
+	)
+
 /obj/machinery/power/treadmill/Initialize(mapload)
 	. = ..()
+	on_anchor_changed()
+
+/obj/machinery/power/treadmill/proc/on_anchor_changed()
 	if(anchored)
 		connect_to_network()
+		AddElement(/datum/element/connect_loc, loc_connections)
+	else
+		disconnect_from_network()
+		RemoveElement(/datum/element/connect_loc)
 
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
-/obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored && !M.anchored)
-		if(!istype(M) || M.dir != dir)
-			throw_off(M)
-		else
-			mobs_running[M] = M.last_movement
-	. = ..()
+/obj/machinery/power/treadmill/proc/on_atom_entered(datum/source, mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(crossed.anchored || crossed.throwing)
+		return
 
-/obj/machinery/power/treadmill/Uncrossed(mob/living/M)
-	if(anchored && istype(M))
-		mobs_running -= M
-	. = ..()
+	if(!istype(crossed) || crossed.dir != dir)
+		throw_off(crossed)
+	else
+		mobs_running[crossed] = crossed.last_movement
+
+/obj/machinery/power/treadmill/proc/on_atom_exited(mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
+	if(istype(crossed))
+		mobs_running -= crossed
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
 	if(speed && A.move_resist < INFINITY)
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
-		A.throw_at(get_distant_turf(get_turf(src), reverse_direction(dir), dist), A.throw_range, A.throw_speed, src, 1)
+		A.throw_at(get_distant_turf(get_turf(src), REVERSE_DIR(dir), dist), A.throw_range, A.throw_speed, null, 1)
 
 /obj/machinery/power/treadmill/process()
 	if(!anchored)
@@ -96,15 +110,13 @@
 		spawn(100)
 			stat &= ~BROKEN
 
-/obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W, time = 60))
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
+/obj/machinery/power/treadmill/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_unfasten_wrench(user, used, time = 60))
+		on_anchor_changed()
 		speed = 0
 		update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 #undef BASE_MOVE_DELAY
@@ -121,9 +133,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = FALSE					// if we should be metering or not
@@ -139,7 +149,7 @@
 /obj/machinery/treadmill_monitor/Initialize(mapload)
 	. = ..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
+		for(var/obj/machinery/power/treadmill/T in SSmachines.get_by_type(/obj/machinery/power/treadmill))
 			if(T.id == id)
 				treadmill = T
 				break

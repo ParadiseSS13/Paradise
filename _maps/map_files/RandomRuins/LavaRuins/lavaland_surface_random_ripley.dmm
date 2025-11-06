@@ -9,9 +9,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
-/obj/mecha/working/ripley/mining{
-	ruin_mecha = 1
-	},
+/obj/mecha/working/ripley/mining/old,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "e" = (

@@ -33,6 +33,8 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
+/datum/chemical_reaction/proc/last_can_react_check(datum/reagents/holder)
+	return TRUE
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)
@@ -56,17 +58,17 @@
 			C.flash_eyes()
 
 		for(var/i in 1 to amount_to_spawn)
-			var/mob/living/simple_animal/S
+			var/mob/living/new_mob
 			if(random)
-				S = create_random_mob(get_turf(holder.my_atom), mob_class)
+				new_mob = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
-				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
+				new_mob = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
 			if(gold_core_spawn) //For tracking xenobiology mobs
-				S.xenobiology_spawned = TRUE
-			S.faction |= mob_faction
+				ADD_TRAIT(new_mob, TRAIT_XENOBIO_SPAWNED, "xenobio")
+			new_mob.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(S, pick(NORTH,SOUTH,EAST,WEST))
+					step(new_mob, pick(NORTH,SOUTH,EAST,WEST))
 
 /**
   * Throws or pulls objects to/from a chem reaction

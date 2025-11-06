@@ -14,7 +14,6 @@
 	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
-	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	bodyflags = BALD | SHAVED
 	reagent_tag = PROCESS_ORG
@@ -36,6 +35,8 @@
 		"realizes the existential problem of being made out of plasma!",
 		"shows their true colors, which happens to be the color of plasma!")
 
+	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/plasmaman,
 		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
@@ -50,6 +51,8 @@
 	autohiss_basic_map = list(
 			"s" = list("ss", "sss", "ssss")
 		)
+
+	plushie_type = /obj/item/toy/plushie/plasmamanplushie
 
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/current_job = J.title
@@ -67,13 +70,13 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
+		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative")
 			O = new /datum/outfit/plasmaman/bar
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Special Operations Officer")
+		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -88,8 +91,14 @@
 		if("Cargo Technician", "Quartermaster")
 			O = new /datum/outfit/plasmaman/cargo
 
+		if("Explorer")
+			O = new /datum/outfit/plasmaman/expedition
+
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
+
+		if("Smith")
+			O = new /datum/outfit/plasmaman/smith
 
 		if("Medical Doctor", "Paramedic", "Coroner")
 			O = new /datum/outfit/plasmaman/medical
@@ -142,19 +151,32 @@
 		if("Assistant")
 			O = new /datum/outfit/plasmaman/assistant
 
+		if("Nanotrasen Career Trainer")
+			O = new /datum/outfit/plasmaman/trainer
+
+		if("Nanotrasen Navy Officer")
+			O = new /datum/outfit/plasmaman/navyofficer
+
+		if("Special Operations Officer", "Trans-Solar Federation General")
+			O = new /datum/outfit/plasmaman/soo
+
 	H.equipOutfit(O, visualsOnly)
-	H.internal = H.r_hand
 	H.update_action_buttons_icon()
-	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
-		var/datum/gas_mixture/environment = H.loc.return_air()
+		var/datum/gas_mixture/environment = null
+		if(isobj(H.loc))
+			var/obj/O = H.loc
+			environment = O.return_obj_air()
+		if(isnull(environment))
+			var/turf/T = get_turf(H)
+			environment = T.get_readonly_air()
 		if(environment)
 			if(environment.total_moles())
 				if(!HAS_TRAIT(H, TRAIT_NOFIRE))
-					if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+					if(environment.oxygen() && environment.oxygen() >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 						H.adjust_fire_stacks(0.5)
 						if(!H.on_fire && H.fire_stacks > 0)
 							H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
@@ -178,9 +200,9 @@
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_to_ground(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), SLOT_HUD_WEAR_MASK)
+	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref) //Diseasel, here you go
@@ -188,8 +210,8 @@
 	else
 		internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
 	if(!H.equip_to_appropriate_slot(internal_tank) && !H.put_in_any_hand_if_possible(internal_tank))
-		H.unEquip(H.l_hand)
-		H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
+		H.drop_item_to_ground(H.l_hand)
+		H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
 		to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug.</span>")
 		stack_trace("Failed to equip plasmaman with a tank, with the job [J.type]")
 	H.internal = internal_tank

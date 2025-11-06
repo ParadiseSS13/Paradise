@@ -14,18 +14,14 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
@@ -37,9 +33,7 @@
 /area/shuttle/escape)
 "am" = (
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "an" = (
 /obj/machinery/computer/crew,
@@ -49,9 +43,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -59,14 +51,10 @@
 /area/shuttle/escape)
 "ap" = (
 /obj/item/toy/snappop,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -82,30 +70,22 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "au" = (
 /obj/item/toy/snappop/phoenix,
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "av" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aw" = (
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aB" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
@@ -132,14 +112,10 @@
 	dir = 1
 	},
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
@@ -155,9 +131,7 @@
 /turf/simulated/wall/indestructible/fakedoor,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
@@ -233,9 +207,7 @@
 	},
 /obj/machinery/light/spot,
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/noticeboard,
@@ -247,9 +219,7 @@
 	hackProof = 1;
 	name = "Shuttle Cargo Hatch"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aY" = (
 /obj/machinery/door/airlock/titanium{
@@ -264,9 +234,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/economy/vending/clothing,
@@ -293,11 +261,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -378,6 +342,9 @@
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
+"MA" = (
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/area/shuttle/escape)
 "Uo" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -434,7 +401,7 @@ ab
 aw
 bf
 bj
-ab
+MA
 ab
 "}
 (3,1,1) = {"
@@ -468,7 +435,7 @@ aa
 aa
 ab
 ac
-ab
+MA
 as
 Dr
 aB
@@ -492,11 +459,11 @@ bt
 (5,1,1) = {"
 aa
 ab
-ab
+MA
 ak
 ao
 at
-Dr
+tH
 tH
 aI
 tH
@@ -517,7 +484,7 @@ bt
 "}
 (6,1,1) = {"
 ab
-ab
+MA
 ah
 ai
 am
@@ -569,7 +536,7 @@ aa
 "}
 (8,1,1) = {"
 ab
-ab
+MA
 aj
 ai
 ap
@@ -596,7 +563,7 @@ ab
 (9,1,1) = {"
 aa
 ab
-ab
+MA
 an
 aq
 av
@@ -624,7 +591,7 @@ aa
 aa
 ab
 ac
-ab
+MA
 Uo
 ab
 aD
@@ -694,7 +661,7 @@ ac
 be
 bi
 aw
-ab
+MA
 ab
 "}
 (13,1,1) = {"

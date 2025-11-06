@@ -4,28 +4,16 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'common/redux';
-import {
-  Button,
-  Collapsible,
-  Divider,
-  Input,
-  Section,
-  Stack,
-} from 'tgui/components';
-import {
-  moveChatPageLeft,
-  moveChatPageRight,
-  removeChatPage,
-  toggleAcceptedType,
-  updateChatPage,
-} from './actions';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Button, Collapsible, Divider, Input, Section, Stack } from 'tgui-core/components';
+
+import { moveChatPageLeft, moveChatPageRight, removeChatPage, toggleAcceptedType, updateChatPage } from './actions';
 import { MESSAGE_TYPES } from './constants';
 import { selectCurrentChatPage } from './selectors';
 
-export const ChatPageSettings = (props, context) => {
-  const page = useSelector(context, selectCurrentChatPage);
-  const dispatch = useDispatch(context);
+export const ChatPageSettings = (props) => {
+  const page = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
     <Section fill>
       <Stack align="center">
@@ -44,11 +32,11 @@ export const ChatPageSettings = (props, context) => {
             />
           </Stack.Item>
         )}
-        <Stack.Item grow ml={0.5}>
+        <Stack.Item grow>
           <Input
             width="100%"
             value={page.name}
-            onChange={(e, value) =>
+            onChange={(value) =>
               dispatch(
                 updateChatPage({
                   pageId: page.id,
@@ -59,7 +47,7 @@ export const ChatPageSettings = (props, context) => {
           />
         </Stack.Item>
         {!page.isMain && (
-          <Stack.Item ml={0.5}>
+          <Stack.Item>
             <Button
               tooltip={'Reorder tab to the right'}
               icon={'angle-right'}
@@ -106,10 +94,8 @@ export const ChatPageSettings = (props, context) => {
         </Stack.Item>
       </Stack>
       <Divider />
-      <Section title="Messages to display" level={2}>
-        {MESSAGE_TYPES.filter(
-          (typeDef) => !typeDef.important && !typeDef.admin
-        ).map((typeDef) => (
+      <Section title="Messages to display">
+        {MESSAGE_TYPES.filter((typeDef) => !typeDef.important && !typeDef.admin).map((typeDef) => (
           <Button.Checkbox
             key={typeDef.type}
             checked={page.acceptedTypes[typeDef.type]}
@@ -126,9 +112,7 @@ export const ChatPageSettings = (props, context) => {
           </Button.Checkbox>
         ))}
         <Collapsible mt={1} color="transparent" title="Admin stuff">
-          {MESSAGE_TYPES.filter(
-            (typeDef) => !typeDef.important && typeDef.admin
-          ).map((typeDef) => (
+          {MESSAGE_TYPES.filter((typeDef) => !typeDef.important && typeDef.admin).map((typeDef) => (
             <Button.Checkbox
               key={typeDef.type}
               checked={page.acceptedTypes[typeDef.type]}

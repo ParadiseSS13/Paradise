@@ -23,7 +23,7 @@
 
 /datum/design/bluespace_belt
 	name = "Belt of Holding"
-	desc = "An astonishingly complex belt popularized by a rich bluespace technology magnate."
+	desc = "A bleeding-edge storage medium that brings the principles first used in the Bag of Holding to belt form."
 	id = "bluespace_belt"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
 	build_type = PROTOLATHE
@@ -53,7 +53,7 @@
 
 /datum/design/bluespace_belt_holder
 	name = "Bluespace Conveyor Belt Placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. This one is powered by bluespace."
+	desc = "This device facilitates the rapid deployment of conveyor belts via the incorporation of experimental Bluespace technology."
 	id = "bluespace_belt_holder"
 	req_tech = list("materials" = 1, "engineering" = 3, "bluespace" = 3)
 	build_type = PROTOLATHE
@@ -71,6 +71,16 @@
 	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
 
+/datum/design/rcs
+	name = "Rapid Crate Sender"
+	desc = "Used to warp crates and closets to cargo telepads."
+	id = "rcs"
+	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3750)
+	build_path = /obj/item/rcs
+	category = list("Bluespace")
+
 /datum/design/beacon
 	name = "Tracking Beacon"
 	desc = "A bluespace tracking beacon."
@@ -78,7 +88,7 @@
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
-	build_path = /obj/item/radio/beacon
+	build_path = /obj/item/beacon
 	category = list("Bluespace")
 
 /datum/design/brpd

@@ -75,14 +75,14 @@
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
-		hud_used?.reload_fullscreen()
+		reload_fullscreen()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 
 	if(mind)
 		for(var/S in mind.spell_list)
 			var/datum/spell/spell = S
-			spell.UpdateButtons()
+			spell.build_all_button_icons()
 
 	return TRUE
 

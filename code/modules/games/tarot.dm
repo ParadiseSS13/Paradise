@@ -15,7 +15,7 @@
 
 /obj/item/deck/tarot/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 1 SECONDS)
+	if(shuffle_cooldown < world.time - 1 SECONDS)
 		var/list/newcards = list()
 		while(length(cards))
 			var/datum/playingcard/P = pick(cards)
@@ -25,7 +25,11 @@
 			newcards += P
 			cards -= P
 		cards = newcards
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>", "<span class='notice'>You shuffle [src].</span>")
-		cooldown = world.time
+		playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
+		user.visible_message(
+			"<span class='notice'>[user] shuffles [src].</span>",
+			"<span class='notice'>You shuffle [src].</span>",
+			"<span class='notice'>You hear cards being shuffled.</span>"
+		)
+		shuffle_cooldown = world.time
 

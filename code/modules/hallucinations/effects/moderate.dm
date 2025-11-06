@@ -61,8 +61,8 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
-		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw"),
+		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "shotgun_combat"),
 		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
 		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
 		"fireaxe" = list('icons/obj/weapons/melee.dmi', "fireaxe1"),
@@ -81,7 +81,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -195,7 +195,7 @@
 	// Let's check if we can spawn somewhere first
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -257,7 +257,8 @@
 
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
-		if(!is_blocked_turf(vent) && !vent.welded)
+		var/turf/vent_turf = get_turf(vent)
+		if(!vent_turf.is_blocked_turf() && !vent.welded)
 			vents += vent
 	if(!length(vents))
 		qdel(src)
@@ -284,9 +285,9 @@
 		var/turf/source_turf = t
 		expand_queue -= source_turf
 		// Expand to each dir
-		for(var/dir in GLOB.cardinal)
-			var/turf/target_turf = get_step(source_turf, dir)
-			if(processed[target_turf] || !source_turf.CanAtmosPass(target_turf))
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
 				continue
 			create_plasma(target_turf)
 			expand_queue += target_turf
@@ -320,7 +321,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -344,7 +345,10 @@
 /obj/effect/hallucination/stunprodding/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
@@ -366,7 +370,10 @@
 /obj/effect/hallucination/energy_sword/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 	target.playsound_local(T, 'sound/weapons/saberon.ogg', 20, TRUE)
 
@@ -398,7 +405,10 @@
 /obj/effect/hallucination/gunfire/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 
 	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')
@@ -421,7 +431,6 @@
   * Changes the target's appearance to something else temporarily.
   */
 /obj/effect/hallucination/self_delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/self_delusion/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -445,7 +454,6 @@
   * Changes the appearance of all humans around the target.
   */
 /obj/effect/hallucination/delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/delusion/Initialize(mapload, mob/living/carbon/target, override_icon, override_icon_state)
 	. = ..()
@@ -467,3 +475,71 @@
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
 	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+
+/**
+  * # Hallucination - Vent Peek
+  *
+  * A suspicious individual peers out of a nearby vent at the target.
+  */
+/obj/effect/hallucination/ventpeek
+	duration = 4 SECONDS
+
+/obj/effect/hallucination/ventpeek/Initialize(mapload, mob/living/carbon/hallucination_target)
+	. = ..()
+
+	var/list/venttargets = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
+		venttargets += vent
+	if(!length(venttargets))
+		return INITIALIZE_HINT_QDEL
+	var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
+	add_icon(I)
+	flick("hallucination_clown", I)
+	addtimer(CALLBACK(src, PROC_REF(play_honk)), 2.3 SECONDS)
+
+/obj/effect/hallucination/ventpeek/proc/play_honk()
+	target.playsound_local(target, 'sound/items/bikehorn.ogg', 10, TRUE)
+
+// Doppelganger hallucination
+// Spawns a copy of the player that briefly follows them around
+/obj/effect/hallucination/doppelganger
+	duration = 10 SECONDS
+	var/obj/effect/hallucination/chaser/you/fake_you
+
+/obj/effect/hallucination/doppelganger/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		if(!T.is_blocked_turf())
+			locs += T
+	if(!length(locs))
+		return INITIALIZE_HINT_QDEL
+
+	var/turf/T = pick(locs)
+	fake_you = new(T, target)
+
+/obj/effect/hallucination/doppelganger/Destroy()
+	QDEL_NULL(fake_you)
+	return ..()
+
+/obj/effect/hallucination/chaser/you
+	duration = 10 SECONDS
+	min_distance = 2
+	var/image/I = new
+
+/obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	name = "???"
+	I.appearance = target.appearance
+	I.loc = src
+	I.override = TRUE
+	add_icon(I)
+
+/obj/effect/hallucination/chaser/you/chase()
+	..()
+	I.dir = get_dir(src, target)
+
+/obj/effect/hallucination/chaser/you/Destroy()
+	QDEL_NULL(I)
+	return ..()

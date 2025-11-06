@@ -10,6 +10,7 @@
 	var/shoes = null
 	var/head = null
 	var/mask = null
+	var/neck = null
 	var/l_ear = null
 	var/r_ear = null
 	var/glasses = null
@@ -70,29 +71,31 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		equip_item(H, uniform, SLOT_HUD_JUMPSUIT)
+		equip_item(H, uniform, ITEM_SLOT_JUMPSUIT)
 	if(suit)
-		equip_item(H, suit, SLOT_HUD_OUTER_SUIT)
+		equip_item(H, suit, ITEM_SLOT_OUTER_SUIT)
 	if(back)
-		equip_item(H, back, SLOT_HUD_BACK)
+		equip_item(H, back, ITEM_SLOT_BACK)
 	if(belt)
-		equip_item(H, belt, SLOT_HUD_BELT)
+		equip_item(H, belt, ITEM_SLOT_BELT)
 	if(gloves)
-		equip_item(H, gloves, SLOT_HUD_GLOVES)
+		equip_item(H, gloves, ITEM_SLOT_GLOVES)
 	if(shoes)
-		equip_item(H, shoes, SLOT_HUD_SHOES)
+		equip_item(H, shoes, ITEM_SLOT_SHOES)
 	if(head)
-		equip_item(H, head, SLOT_HUD_HEAD)
+		equip_item(H, head, ITEM_SLOT_HEAD)
 	if(mask)
-		equip_item(H, mask, SLOT_HUD_WEAR_MASK)
+		equip_item(H, mask, ITEM_SLOT_MASK)
+	if(neck)
+		equip_item(H, neck, ITEM_SLOT_NECK)
 	if(l_ear)
-		equip_item(H, l_ear, SLOT_HUD_LEFT_EAR)
+		equip_item(H, l_ear, ITEM_SLOT_LEFT_EAR)
 	if(r_ear)
-		equip_item(H, r_ear, SLOT_HUD_RIGHT_EAR)
+		equip_item(H, r_ear, ITEM_SLOT_RIGHT_EAR)
 	if(glasses)
-		equip_item(H, glasses, SLOT_HUD_GLASSES)
+		equip_item(H, glasses, ITEM_SLOT_EYES)
 	if(id)
-		equip_item(H, id, SLOT_HUD_WEAR_ID)
+		equip_item(H, id, ITEM_SLOT_ID)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -102,7 +105,7 @@
 		C.quick_activation()
 
 	if(suit_store)
-		equip_item(H, suit_store, SLOT_HUD_SUIT_STORE)
+		equip_item(H, suit_store, ITEM_SLOT_SUIT_STORE)
 
 	if(l_hand)
 		H.put_in_l_hand(new l_hand(H))
@@ -110,7 +113,7 @@
 		H.put_in_r_hand(new r_hand(H))
 
 	if(pda)
-		equip_item(H, pda, SLOT_HUD_WEAR_PDA)
+		equip_item(H, pda, ITEM_SLOT_PDA)
 
 	if(uniform)
 		for(var/path in accessories)
@@ -120,9 +123,9 @@
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			equip_item(H, l_pocket, SLOT_HUD_LEFT_STORE)
+			equip_item(H, l_pocket, ITEM_SLOT_LEFT_POCKET)
 		if(r_pocket)
-			equip_item(H, r_pocket, SLOT_HUD_RIGHT_STORE)
+			equip_item(H, r_pocket, ITEM_SLOT_RIGHT_POCKET)
 
 		if(box)
 			if(!backpack_contents)
@@ -135,7 +138,7 @@
 			if(!number)
 				number = 1
 			for(var/i in 1 to number)
-				H.equip_or_collect(new path(H), SLOT_HUD_IN_BACKPACK)
+				H.equip_or_collect(new path(H), ITEM_SLOT_IN_BACKPACK)
 
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path
@@ -172,6 +175,8 @@
 		H.wear_suit.add_fingerprint(H, 1)
 	if(H.wear_mask)
 		H.wear_mask.add_fingerprint(H, 1)
+	if(H.neck)
+		H.neck.add_fingerprint(H, 1)
 	if(H.head)
 		H.head.add_fingerprint(H, 1)
 	if(H.shoes)
@@ -199,7 +204,7 @@
 	return 1
 
 /datum/outfit/proc/get_chameleon_disguise_info()
-	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
 	types += chameleon_extras
 	listclearnulls(types)
 	return types
@@ -225,6 +230,7 @@
 	shoes = text2path(outfit_data["shoes"])
 	head = text2path(outfit_data["head"])
 	mask = text2path(outfit_data["mask"])
+	neck = text2path(outfit_data["neck"])
 	l_ear = text2path(outfit_data["l_ear"])
 	r_ear = text2path(outfit_data["r_ear"])
 	glasses = text2path(outfit_data["glasses"])
@@ -281,6 +287,7 @@
 	.["shoes"] = shoes
 	.["head"] = head
 	.["mask"] = mask
+	.["neck"] = neck
 	.["l_ear"] = l_ear
 	.["r_ear"] = r_ear
 	.["glasses"] = glasses

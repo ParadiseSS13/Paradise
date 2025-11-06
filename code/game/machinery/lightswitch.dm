@@ -26,6 +26,23 @@
 			dir = WEST
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	var/area/A = get_area(src)
+	// Yes, we're listening to the area to update its signal.
+	RegisterSignal(A, COMSIG_ATOM_UPDATED_ICON, PROC_REF(signal_lightswitch_icon_update))
+	RegisterSignal(A, COMSIG_AREA_LIGHTSWITCH_DELETING, PROC_REF(lightswitch_cancel_autoswitch))
+
+/obj/machinery/light_switch/Destroy()
+	var/area/A = get_area(src)
+	UnregisterSignal(A, COMSIG_AREA_LIGHTSWITCH_DELETING) // make sure src isnt included, if we're the last light switch to go the lights will turn back on
+	if(SEND_SIGNAL(A, COMSIG_AREA_LIGHTSWITCH_DELETING) & COMSIG_AREA_LIGHTSWITCH_CANCEL)
+		return ..()
+
+	// Toggle the lights on if there are no other light switches
+	set_area_lightswitch(TRUE)
+	return ..()
+
+/obj/machinery/light_switch/proc/signal_lightswitch_icon_update()
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
@@ -54,18 +71,9 @@
 		return attack_hand(user)
 
 /obj/machinery/light_switch/attack_hand(mob/user)
-	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-
 	var/area/A = get_area(src)
-
-	A.lightswitch = !A.lightswitch
-	A.update_icon(UPDATE_ICON_STATE)
-
-	for(var/obj/machinery/light_switch/L in A)
-		L.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-
-	machine_powernet.power_change()
+	set_area_lightswitch(!A.lightswitch)
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 
 /obj/machinery/light_switch/power_change()
 	if(!..())
@@ -92,9 +100,28 @@
 		return
 
 	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
 	qdel(src)
+
+/obj/machinery/light_switch/proc/set_area_lightswitch(new_state)
+	var/area/A = get_area(src)
+	if(A.lightswitch == new_state)
+		return
+	A.lightswitch = new_state
+	// Sends an area signal to all lightswitches in our area to update their icons and overlays
+	A.update_icon(UPDATE_ICON_STATE)
+
+	// Update all the lights in our area
+	machine_powernet.power_change()
+
+/obj/machinery/light_switch/proc/lightswitch_cancel_autoswitch()
+	SIGNAL_HANDLER // COMSIG_AREA_LIGHTSWITCH_DELETING
+	return COMSIG_AREA_LIGHTSWITCH_CANCEL
+
+/obj/machinery/light_switch/off/Initialize(mapload, build_dir)
+	. = ..()
+	set_area_lightswitch(FALSE)

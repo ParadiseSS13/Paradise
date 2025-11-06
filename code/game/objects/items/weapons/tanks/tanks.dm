@@ -2,9 +2,8 @@
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
@@ -22,7 +21,7 @@
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	populate_gas()
 
@@ -85,7 +84,7 @@
 			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature - T0C
+	var/celsius_temperature = air_contents.temperature() - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -111,7 +110,7 @@
 			qdel(src)
 
 		if(air_contents)
-			location.assume_air(air_contents)
+			location.blind_release_air(air_contents)
 
 		qdel(src)
 
@@ -133,12 +132,11 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.assume_air(air_contents)
-			air_update_turf()
+			T.blind_release_air(air_contents)
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/tank/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	add_fingerprint(user)
@@ -148,7 +146,7 @@
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
-/obj/item/tank/attack_self(mob/user as mob)
+/obj/item/tank/attack_self__legacy__attackchain(mob/user as mob)
 	if(!(air_contents))
 		return
 
@@ -205,21 +203,12 @@
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/tank/remove_air(amount)
-	return air_contents.remove(amount)
-
-/obj/item/tank/return_air()
+/obj/item/tank/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/return_analyzable_air()
 	return air_contents
-
-/obj/item/tank/assume_air(datum/gas_mixture/giver)
-	air_contents.merge(giver)
-
-	check_status()
-	return 1
 
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
@@ -228,9 +217,9 @@
 	var/tank_pressure = air_contents.return_pressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
-	return remove_air(moles_needed)
+	return air_contents.remove(moles_needed)
 
 /obj/item/tank/process()
 	//Allow for reactions
@@ -260,7 +249,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = "Exploding tank rupture")
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else
@@ -272,8 +261,8 @@
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
-			T.assume_air(air_contents)
-			playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			T.blind_release_air(air_contents)
+			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
 			integrity--
@@ -285,7 +274,7 @@
 			if(!T)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.assume_air(leaked_gas)
+			T.blind_release_air(leaked_gas)
 		else
 			integrity--
 

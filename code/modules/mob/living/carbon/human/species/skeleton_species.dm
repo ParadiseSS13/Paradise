@@ -11,7 +11,7 @@
 	flesh_color = "#E6E6C6"
 
 	species_traits = list(NO_BLOOD, NO_HAIR, NOT_SELECTABLE)
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	tox_mod = 0
 	clone_mod = 0
@@ -29,6 +29,7 @@
 		"is twisting their skull off!")
 
 	vision_organ = null
+	meat_type = /obj/item/food/meat/human // They've always done this.
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
@@ -63,6 +64,6 @@
 /datum/species/skeleton/brittle
 	name = "Brittle Skeleton"
 	name_plural = "Brittle Skeletons"
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE, TRAIT_BURN_WOUND_IMMUNE)
 	milk_heal_amount = 0.66 // On par with saline-glucose (after averaging that out)
 	milk_fracture_repair_probability = 0 //no bone juice here

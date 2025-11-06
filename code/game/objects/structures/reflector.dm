@@ -3,13 +3,16 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
-	anchored = FALSE
 	density = TRUE
-	layer = 3
+	max_integrity = 50
 	var/finished = FALSE
 	var/obj/item/stack/sheet/build_stack_type
 	var/build_stack_amount
 
+/obj/structure/reflector/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		anchored = TRUE
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
@@ -17,7 +20,7 @@
 	if(!istype(P, /obj/item/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
-	if(new_dir)
+	if(new_dir && anchored)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
 		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
@@ -36,8 +39,8 @@
 	new_dir = 0
 	return -1
 
-
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -90,13 +93,13 @@
 		return
 	if(anchored)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		anchored = FALSE
 	else
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 		anchored = TRUE

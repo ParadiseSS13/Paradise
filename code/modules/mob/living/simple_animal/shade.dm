@@ -1,7 +1,7 @@
 /mob/living/simple_animal/shade
 	name = "Shade"
 	real_name = "Shade"
-	desc = "A bound spirit"
+	desc = "A bound spirit."
 	icon = 'icons/mob/cult.dmi'
 	icon_state = "shade"
 	icon_living = "shade"
@@ -22,26 +22,23 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = -1
 	stop_automated_movement = TRUE
-	status_flags = 0
 	pull_force = 0
 	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
-	status_flags = CANPUSH
-	flying = TRUE
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
+	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
+/mob/living/simple_animal/shade/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		SS.transfer_soul("SHADE", src, user)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
 
-/mob/living/simple_animal/shade/Process_Spacemove()
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/shade/holy
@@ -70,13 +67,13 @@
 	if(istype(host_sword))
 		health = host_sword.obj_integrity
 
-/mob/living/simple_animal/shade/sword/bread
-	name = "Bread spirit"
+/mob/living/simple_animal/shade/sword/generic_item
+	name = "Trapped spirit"
 
-/mob/living/simple_animal/shade/sword/bread/update_runechat_msg_location()
+/mob/living/simple_animal/shade/sword/generic_item/update_runechat_msg_location()
 	runechat_msg_location = loc.UID()
 
-/mob/living/simple_animal/shade/sword/bread/proc/handle_bread_deletion(source)
+/mob/living/simple_animal/shade/sword/generic_item/proc/handle_item_deletion(source)
 	SIGNAL_HANDLER
 	qdel(src)
 

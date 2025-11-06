@@ -5,7 +5,7 @@
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/area_atmos
 
-	var/list/connectedscrubbers = new()
+	var/list/connectedscrubbers = list()
 	var/status = ""
 
 	var/range = 25

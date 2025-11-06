@@ -8,14 +8,14 @@
 	if(!isturf(target))
 		return
 
-	var/datum/gas_mixture/GM = target.return_air()
+	var/datum/gas_mixture/GM = target.get_readonly_air()
 	var/burning = 0
 	if(issimulatedturf(target))
 		var/turf/simulated/T = target
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("<span class='warning'>BURNING</span>"):(null)]</span>")
+	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen()] T:[GM.toxins()] N:[GM.nitrogen()] C:[GM.carbon_dioxide()] N2O: [GM.sleeping_agent()] Agent B: [GM.agent_b()] Hydrogen: [GM.hydrogen()] w [GM.temperature()] Kelvin, [GM.return_pressure()] kPa [(burning)?("<span class='warning'>BURNING</span>"):(null)]</span>")
 
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")
@@ -70,14 +70,7 @@
 		return
 
 	var/filters = list(
-		"1" = "RADIO_TO_AIRALARM",
-		"2" = "RADIO_FROM_AIRALARM",
 		"3" = "RADIO_CHAT",
-		"4" = "RADIO_ATMOSIA",
-		"5" = "RADIO_NAVBEACONS",
-		"6" = "RADIO_AIRLOCK",
-		"7" = "RADIO_SECBOT",
-		"8" = "RADIO_MULEBOT",
 		"_default" = "NO_FILTER"
 		)
 	var/output = "<b>Radio Report</b><hr>"
@@ -112,6 +105,10 @@
 
 	if(!check_rights(R_SERVER))
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
 
 	message_admins("[key_name_admin(usr)] has manually reloaded admins")
 	log_admin("[key_name(usr)] has manually reloaded admins")

@@ -91,6 +91,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/start()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -101,6 +102,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/announce(false_alarm = FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -112,6 +114,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/tick()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -125,6 +128,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/end()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -197,7 +201,7 @@
 //Only called once.
 /datum/event/proc/announce_to_ghosts(atom/atom_of_interest)
 	if(atom_of_interest)
-		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)
+		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 
 /// Override this to make a custom fake announcement that differs from the normal announcement.
 /// Used for false alarms.

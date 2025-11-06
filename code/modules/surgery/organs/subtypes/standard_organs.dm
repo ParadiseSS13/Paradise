@@ -37,7 +37,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = TRUE
-	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = TRUE
 
@@ -46,13 +45,12 @@
 	name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	malfdamage = 35
 	body_part = ARM_LEFT
-	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
+	fragile = TRUE
 
 /obj/item/organ/external/arm/emp_act(severity)
 	..()
@@ -60,7 +58,7 @@
 		return
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+		owner.drop_item_to_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
@@ -77,14 +75,14 @@
 	name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	malfdamage = 35
 	body_part = LEG_LEFT
 	icon_position = LEFT
 	parent_organ = "groin"
 	amputation_point = "left hip"
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
+	fragile = TRUE
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -117,12 +115,14 @@
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
+	malfdamage = 20
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = FOOT_LEFT
 	icon_position = LEFT
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+	fragile = TRUE
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -141,7 +141,8 @@
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes)
+		owner.drop_item_to_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -159,11 +160,13 @@
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
+	malfdamage = 20
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+	fragile = TRUE
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -171,7 +174,7 @@
 		return
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+		owner.drop_item_to_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
@@ -179,15 +182,15 @@
 	if(owner)
 		update_hand_missing()
 		if(owner.gloves)
-			owner.unEquip(owner.gloves)
+			owner.drop_item_to_ground(owner.gloves)
 		if(owner.l_hand && (body_part == HAND_LEFT))
-			owner.unEquip(owner.l_hand, TRUE)
+			owner.drop_item_to_ground(owner.l_hand, force = TRUE)
 		if(owner.r_hand && (body_part == HAND_RIGHT))
-			owner.unEquip(owner.r_hand, TRUE)
+			owner.drop_item_to_ground(owner.r_hand, force = TRUE)
 
 	. = ..()
 
-/obj/item/organ/external/hand/necrotize(update_sprite)
+/obj/item/organ/external/hand/necrotize(update_sprite, ignore_vital_death = FALSE)
 	. = ..()
 	update_hand_missing()
 
@@ -205,9 +208,9 @@
 
 /obj/item/organ/external/hand/proc/update_hand_missing()
 	// we need to come back to this once the hand is actually removed/dead
-	if(!owner) // Rather not have this trigger on already remove limbs
+	if(!owner) // Rather not have this trigger on already removed limbs
 		return
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud), 0))
+	END_OF_TICK(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud)))
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
@@ -223,12 +226,11 @@
 	name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
-	parent_organ = "chest"
 	amputation_point = "neck"
 	gendered_icon = TRUE
 	encased = "skull"
+	fragile = TRUE
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
 
@@ -259,25 +261,30 @@
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
 
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
+	return ..(clean, disintegrate, ignore_children, nodamage)
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses, force = TRUE)
+			owner.drop_item_to_ground(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head, force = TRUE)
+			owner.drop_item_to_ground(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask, force = TRUE)
+			owner.drop_item_to_ground(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
+	get_icon()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()

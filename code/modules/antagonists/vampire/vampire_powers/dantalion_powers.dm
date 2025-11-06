@@ -28,7 +28,7 @@
 	var/mob/living/target = targets[1]
 	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-	if(do_mob(user, target, 15 SECONDS))
+	if(do_mob(user, target, 15 SECONDS, hidden = TRUE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
@@ -69,8 +69,7 @@
 
 	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
-	if(jobban_isbanned(H, ROLE_VAMPIRE))
-		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
+
 	H.Stun(4 SECONDS)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
@@ -162,10 +161,16 @@
 
 /datum/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
+		to_chat(target, "<span class='warning'>You feel space bending, but it rapidly dissipates.</span>")
+		return FALSE
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	target.forceMove(user_turf)
-	user.forceMove(target_turf)
+	if(!(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, user_turf) & COMPONENT_BLOCK_TELEPORT))
+		target.forceMove(user_turf)
+	if(!(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, target_turf) & COMPONENT_BLOCK_TELEPORT))
+		user.forceMove(target_turf)
 
 /datum/spell/vampire/self/decoy
 	name = "Deploy Decoy (30)"

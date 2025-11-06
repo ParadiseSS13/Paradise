@@ -1,7 +1,7 @@
 /datum/station_goal/secondary/random_bulk_reagent/scichem
 	name = "Random Bulk Chemical"
 	department = "Science"
-	abstract = FALSE
+	weight = 9
 
 /datum/station_goal/secondary/random_bulk_reagent/scichem/randomize_params()
 	..()

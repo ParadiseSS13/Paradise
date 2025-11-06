@@ -38,7 +38,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/i = 1, i <= 3, i++)
-		var/obj/item/food/snacks/monkeycube/M = new /obj/item/food/snacks/monkeycube
+		var/obj/item/food/monkeycube/M = new /obj/item/food/monkeycube
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -149,37 +149,38 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 	var/list/blocked = list(
-		/obj/item/food/snacks,
-		/obj/item/food/snacks/breadslice,
-		/obj/item/food/snacks/sliceable,
-		/obj/item/food/snacks/sliceable/pizza,
-		/obj/item/food/snacks/margheritapizzaslice,
-		/obj/item/food/snacks/meatpizzaslice,
-		/obj/item/food/snacks/mushroompizzaslice,
-		/obj/item/food/snacks/vegetablepizzaslice,
-		/obj/item/food/snacks/cheesepizzaslice,
-		/obj/item/food/snacks/garlicpizzaslice,
-		/obj/item/food/snacks/donkpocketpizzaslice,
-		/obj/item/food/snacks/dankpizzaslice,
-		/obj/item/food/snacks/macpizzaslice,
-		/obj/item/food/snacks/firecrackerpizzaslice,
-		/obj/item/food/snacks/pestopizzaslice,
-		/obj/item/food/snacks/pepperonipizzaslice,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat/slab,
-		/obj/item/food/snacks/grown,
-		/obj/item/food/snacks/grown/shell,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/deepfryholder,
-		/obj/item/food/snacks/chinese,
-		/obj/item/food/snacks/human,
-		/obj/item/food/snacks/monstermeat,
-		/obj/item/food/snacks/meatsteak/stimulating,
-		/obj/item/food/snacks/egg/watcher
+		/obj/item/food,
+		/obj/item/food/burger, // abstract burger
+		/obj/item/food/sliced/bread,
+		/obj/item/food/sliceable,
+		/obj/item/food/sliceable/pizza,
+		/obj/item/food/sliced/margherita_pizza,
+		/obj/item/food/sliced/meat_pizza,
+		/obj/item/food/sliced/mushroom_pizza,
+		/obj/item/food/sliced/vegetable_pizza,
+		/obj/item/food/sliced/cheese_pizza,
+		/obj/item/food/sliced/garlic_pizza,
+		/obj/item/food/sliced/donk_pocket_pizza,
+		/obj/item/food/sliced/dank_pizza,
+		/obj/item/food/sliced/mac_pizza,
+		/obj/item/food/sliced/fire_cracker_pizza,
+		/obj/item/food/sliced/pesto_pizza,
+		/obj/item/food/sliced/pepperoni_pizza,
+		/obj/item/food/meat,
+		/obj/item/food/meat/slab,
+		/obj/item/food/grown,
+		/obj/item/food/grown/shell,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/chinese,
+		/obj/item/food/human,
+		/obj/item/food/monstermeat,
+		/obj/item/food/meatsteak/stimulating,
+		/obj/item/food/egg/watcher,
+		/obj/item/food/supermatter_sandwich,
 		)
-	blocked |= typesof(/obj/item/food/snacks/customizable)
+	blocked |= typesof(/obj/item/food/customizable)
 
-	var/list/borks = typesof(/obj/item/food/snacks) - blocked
+	var/list/borks = typesof(/obj/item/food) - blocked
 	// BORK BORK BORK
 
 	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -338,7 +339,10 @@
 		if(holder && holder.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
 			if(istype(T))
-				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
+				var/datum/gas_mixture/air = new()
+				air.set_temperature(1000)
+				air.set_toxins(20)
+				T.blind_release_air(air)
 
 //Yellow
 
@@ -460,7 +464,7 @@
 		if(slime.docile) //Undoes docility, but doesn't make rabid.
 			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
 			slime.docile = FALSE
-			slime.update_name()
+			slime.update_appearance(UPDATE_NAME)
 			continue
 		slime.rabid = TRUE
 		slime.visible_message("<span class='danger'>[slime] is driven into a frenzy!</span>")
@@ -510,6 +514,28 @@
 /datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
+/datum/chemical_reaction/viral_gene_extraction
+	name = "Virus Gene Extraction"
+	id = "virus_gene_extraction"
+	result = "virus_genes"
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/black
+
+/datum/chemical_reaction/viral_gene_extraction/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/result_bottle = new(get_turf(holder.my_atom))
+	holder.trans_to(result_bottle, holder.total_volume)
+	var/datum/reagent/virus_genes/result_genes = locate() in result_bottle.reagents.reagent_list
+	var/list/strains = list("slime" = list())
+	if(result_genes.data && result_genes.data["viruses"])
+		for(var/datum/disease/advance/advanced_virus in result_genes.data["viruses"])
+			strains["slime"] += list(advanced_virus.strain)
+			result_bottle.name = "[advanced_virus.strain] Strain Viral Genetic Matter"
+			break
+	result_genes.data = strains
+
 //Oil
 /datum/chemical_reaction/slime_explosion
 	name = "Slime Explosion"
@@ -533,7 +559,7 @@
 	var/turf/extract_turf = get_turf(extract)
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
-	explosion(extract_turf, 1, 3, 6)
+	explosion(extract_turf, 1, 3, 6, cause = "Oil Slime explosion")
 
 /datum/chemical_reaction/oil_slick
 	name = "Oil Potion"
@@ -713,7 +739,7 @@
 		P.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)
-/datum/chemical_reaction/slimeRNG
+/datum/chemical_reaction/slime_rng
 	name = "Random Core"
 	id = "slimerng"
 	result = null
@@ -722,7 +748,7 @@
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/rainbow
 
-/datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slime_rng/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")

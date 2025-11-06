@@ -30,16 +30,14 @@ Difficulty: Medium
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	light_color = "#E4C7C5"
-	flying = FALSE
 	speak_emote = list("roars")
 	speed = 3
-	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -7
-	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
+	crusher_loot = list(/obj/item/crusher_trophy/miner_eye)
 	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
 	wander = FALSE
 	del_on_death = TRUE
@@ -61,11 +59,13 @@ Difficulty: Medium
 							/datum/action/innate/megafauna_attack/kinetic_accelerator,
 							/datum/action/innate/megafauna_attack/transform_weapon)
 
+	initial_traits = list() // Don't want to inherit flight from parent type /megafauna/
+	var/death_simplemob_representation = /obj/effect/temp_visual/dir_setting/miner_death
+
 /obj/item/gps/internal/miner
 	icon_state = null
 	gpstag = "Resonant Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
@@ -73,21 +73,21 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now dashing to your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	icon_icon = 'icons/obj/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = "<span class='colossus'>You are now shooting your kinetic accelerator.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = "<span class='colossus'>You are now transforming your weapon.</span>"
 	chosen_attack_num = 3
@@ -115,7 +115,7 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
-/obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/cleaving_saw/miner/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
 	..()
 	target.remove_stun_absorption("miner")
@@ -139,11 +139,11 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
 	if(health > 0)
 		return
-	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
+	new death_simplemob_representation(loc, dir)
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
-	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
+	if(dashing) //we're not stupid!
 		return FALSE
 	return ..()
 
@@ -156,6 +156,16 @@ Difficulty: Medium
 	transform_stop_attack = FALSE
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/butcher(mob/living/L)
+	visible_message("<span class='danger'>[src] butchers [L]!</span>",
+	"<span class='userdanger'>You butcher [L], restoring your health!</span>")
+	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
+		if(guidance)
+			adjustHealth(-L.maxHealth)
+		else
+			adjustHealth(-(L.maxHealth * 0.5))
+	L.gib()
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/AttackingTarget()
 	if(client)
 		transform_stop_attack = FALSE
@@ -165,14 +175,7 @@ Difficulty: Medium
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			visible_message("<span class='danger'>[src] butchers [L]!</span>",
-			"<span class='userdanger'>You butcher [L], restoring your health!</span>")
-			if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-				if(guidance)
-					adjustHealth(-L.maxHealth)
-				else
-					adjustHealth(-(L.maxHealth * 0.5))
-			L.gib()
+			butcher(L)
 			return TRUE
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
@@ -241,7 +244,7 @@ Difficulty: Medium
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
 			for(var/turf/T in get_line(own_turf, O))
-				if(is_blocked_turf(T, TRUE))
+				if(T.is_blocked_turf(exclude_mobs = TRUE))
 					valid = FALSE
 					continue
 			if(valid)
@@ -265,14 +268,14 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/small_smoke/halfsecond(step_forward_turf)
 	var/obj/effect/temp_visual/decoy/fading/halfsecond/D = new (own_turf, src)
 	forceMove(step_back_turf)
-	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
 	SLEEP_CHECK_DEATH(2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
-	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	SLEEP_CHECK_DEATH(1)
 	dashing = FALSE
 	return TRUE
@@ -281,13 +284,13 @@ Difficulty: Medium
 	if(time_until_next_transform <= world.time)
 		miner_saw.transform_cooldown = 0
 		miner_saw.transform_weapon(src, TRUE)
-		if(!miner_saw.active)
+		if(!HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE))
 			rapid_melee = 5 // 4 deci cooldown before changes, npcpool subsystem wait is 20, 20/4 = 5
 		else
 			rapid_melee = 3 // same thing but halved (slightly rounded up)
 		transform_stop_attack = TRUE
-		icon_state = "miner[miner_saw.active ? "_transformed":""]"
-		icon_living = "miner[miner_saw.active ? "_transformed":""]"
+		icon_state = "miner[HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE) ? "_transformed":""]"
+		icon_living = "miner[HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE) ? "_transformed":""]"
 		time_until_next_transform = world.time + rand(50, 100)
 
 /obj/effect/temp_visual/dir_setting/miner_death

@@ -8,7 +8,7 @@
 				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
 				add_attack_logs(M, src, "alien disarmed")
 			else
-				Stun(4 SECONDS)
+				adjustStaminaLoss(30) //Same as carbons, I guess?
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
 				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
@@ -19,7 +19,6 @@
 
 /mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
-		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))
@@ -55,3 +54,12 @@
 				step_away(src, user, 15)
 				sleep(3)
 				step_away(src, user, 15)
+
+/mob/living/silicon/robot/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
+	if(!affect_silicon || !can_be_flashed())
+		return
+	Confused(intensity * 4 SECONDS)
+	var/software_damage = (intensity * 40)
+	adjustStaminaLoss(software_damage)
+	to_chat(src, "<span class='warning'>Error: Optical sensors overstimulated.</span>")
+	..()

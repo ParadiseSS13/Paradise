@@ -11,9 +11,18 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/wirecutters = 35 // silly goose
+		/obj/item/chainsaw = 90,	// Chainsaws were actually invented to replace manual bonesaws. Obvously *these* chainsaws aren't exactly designed for that, but then again, neither is a hatchet or a set of wirecutters.
+		TOOL_WIRECUTTER = 35 	// Silly goose!
 	)
 
+	preop_sound = list(
+		TOOL_SAW = 'sound/surgery/saw.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
+		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
+	)
+
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 5.4 SECONDS
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -31,8 +40,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",
-		"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>",
+		"<span class='notice'>[user] has cut [target]'s [affected.encased] open with \the [tool].</span>",
+		"<span class='notice'>You have cut [target]'s [affected.encased] open with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -43,8 +52,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" ,
-		"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" ,
+		"<span class='warning'>Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -62,6 +71,8 @@
 		TOOL_CROWBAR = 90
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -80,8 +91,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'> [user] forces open [target]'s [affected.encased] with \the [tool].</span>",
-		"<span class='notice'> You force open [target]'s [affected.encased] with \the [tool].</span>",
+		"<span class='notice'>[user] forces open [target]'s [affected.encased] with \the [tool].</span>",
+		"<span class='notice'>You force open [target]'s [affected.encased] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -93,8 +104,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased]!</span>",
-		"<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>",
+		"<span class='warning'>[user]'s hand slips, cracking [target]'s [affected.encased]!</span>",
+		"<span class='warning'>Your hand slips, cracking [target]'s  [affected.encased]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -111,6 +122,8 @@
 		TOOL_CROWBAR = 90
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -156,14 +169,20 @@
 		TOOL_SCREWDRIVER = 90
 	)
 
+	preop_sound = list(
+		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+	)
+
 	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"[user] starts applying \the [tool] to [target]'s [affected.encased].",
-		"You start applying \the [tool] to [target]'s [affected.encased].",
+		"[user] starts applying [tool] to [target]'s [affected.encased].",
+		"You start applying [tool] to [target]'s [affected.encased].",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("Something hurts horribly in your [affected.name]!")
@@ -173,8 +192,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'> [user] applied \the [tool] to [target]'s [affected.encased].</span>",
-		"<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>",
+		"<span class='notice'>[user] applied [tool] to [target]'s [affected.encased].</span>",
+		"<span class='notice'>You applied \the [tool] to [target]'s [affected.encased].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 

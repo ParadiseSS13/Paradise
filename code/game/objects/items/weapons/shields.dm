@@ -21,10 +21,9 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
@@ -33,7 +32,7 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_type_in_list(W, allowed_bashers))
 		if(cooldown < world.time - 2.5 SECONDS)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
@@ -46,12 +45,11 @@
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
-	item_state = "roman_shield"
 	materials = list(MAT_METAL=8500)
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 0, acid = 0)
+	armor = null
 
 /obj/item/shield/riot/roman/fake/add_parry_component()
 	return
@@ -60,14 +58,23 @@
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
-	item_state = "buckler"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 
 /obj/item/shield/riot/buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (10 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
+/obj/item/shield/riot/bone
+	name = "bone shield"
+	desc = "A primitive yet durable shield made from bone."
+	icon_state = "bone_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=4"
+	resistance_flags = FLAMMABLE
+
+/obj/item/shield/riot/bone/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 3, _stamina_coefficient = 0.6, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -96,7 +103,7 @@
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
-/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
+/obj/item/shield/energy/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	toggle(user, FALSE)
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
@@ -139,32 +146,35 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	var/active = FALSE
+	materials = list(MAT_GLASS = 4000, MAT_METAL = 1000)
+
+/obj/item/shield/riot/tele/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS, _requires_activation = TRUE)
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
 	return FALSE // by not calling the parent the hit_reaction signal is never sent
 
-/obj/item/shield/riot/tele/attack_self(mob/living/user)
-	active = !active
-	icon_state = "teleriot[active]"
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
-
-	if(active)
-		force = 8
-		throwforce = 5
-		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
-	else
+/obj/item/shield/riot/tele/attack_self__legacy__attackchain(mob/living/user)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	else
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = 8
+		throwforce = 5
+		throw_speed = 2
+		w_class = WEIGHT_CLASS_BULKY
+		slot_flags = ITEM_SLOT_BACK
+		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
+	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

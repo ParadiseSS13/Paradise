@@ -7,11 +7,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
-	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -33,7 +31,7 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -66,9 +64,6 @@
 	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
-	var/ricochets = 0
-	var/ricochets_max = 2
-	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -90,6 +85,9 @@
 
 	///Has the projectile been fired?
 	var/has_been_fired = FALSE
+
+	/// Does this projectile hit living non dense mobs?
+	var/always_hit_living_nondense = FALSE
 
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
@@ -114,8 +112,41 @@
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
 
+	/// how many times we've ricochet'd so far (instance variable, not a stat)
+	var/ricochets = 0
+	/// how many times we can ricochet max
+	var/ricochets_max = 0
+	/// how many times we have to ricochet min (unless we hit an atom we can ricochet off)
+	var/min_ricochets = 0
+	/// 0-100 (or more, I guess), the base chance of ricocheting, before being modified by the atom we shoot and our chance decay
+	var/ricochet_chance = 0
+	/// 0-1 (or more, I guess) multiplier, the ricochet_chance is modified by multiplying this after each ricochet
+	var/ricochet_decay_chance = 0.7
+	/// 0-1 (or more, I guess) multiplier, the projectile's damage is modified by multiplying this after each ricochet
+	var/ricochet_decay_damage = 0.7
+	/// On ricochet, if nonzero, we consider all mobs within this range of our projectile at the time of ricochet to home in on like Revolver Ocelot, as governed by ricochet_auto_aim_angle
+	var/ricochet_auto_aim_range = 0
+	/// On ricochet, if ricochet_auto_aim_range is nonzero, we'll consider any mobs within this range of the normal angle of incidence to home in on, higher = more auto aim
+	var/ricochet_auto_aim_angle = 30
+	/// the angle of impact must be within this many degrees of the struck surface, set to 0 to allow any angle
+	var/ricochet_incidence_leeway = 40
+	/// Can our ricochet autoaim hit our firer?
+	var/ricochet_shoots_firer = TRUE
+
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost
+
 /obj/item/projectile/New()
 	return ..()
+
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -132,12 +163,23 @@
 	qdel(src)
 
 /obj/item/projectile/proc/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+			damage = 0
+			nodamage = 1
+			return FALSE
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+			return FALSE
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
@@ -183,7 +225,7 @@
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
+						M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)
@@ -192,12 +234,12 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
@@ -241,16 +283,14 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return
-
+/obj/item/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
+			permutated.Cut()
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
@@ -270,7 +310,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
@@ -281,7 +321,7 @@
 	prehit(A)
 	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
-	if(pre_permutation != ATOM_PREHIT_FAILURE)
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(A in permutated))
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
@@ -301,7 +341,7 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()
@@ -341,6 +381,8 @@
 		trajectory.increment(trajectory_multiplier)
 		var/turf/T = trajectory.return_turf()
 		if(!istype(T))
+			// if we've gone off of the map, we need to step back once so that hitscanning projectiles have a valid end turf
+			trajectory.increment(-trajectory_multiplier)
 			qdel(src)
 			return
 		if(T.z != loc.z)
@@ -355,7 +397,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (ismob(original) || original.proj_ignores_layer || original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original, TRUE)
 	if(QDELETED(src)) //deleted on last move
@@ -409,10 +451,13 @@
 	xo = new_x - curloc.x
 	set_angle(get_angle(curloc, original))
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+/// A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(entered))
+		return
+	var/mob/living_entered = entered
+	if(((living_entered.density || !living_entered.projectile_hit_check(src))) && !checkpass(PASSMOB) && !(living_entered in permutated) && (living_entered.loc == loc))
+		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)
@@ -429,7 +474,21 @@
 
 
 /obj/item/projectile/proc/on_ricochet(atom/A)
-	return
+	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
+		return
+
+	var/mob/living/unlucky_sob
+	var/best_angle = ricochet_auto_aim_angle
+	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
+		if(L.stat == DEAD || !isInSight(src, L) || (!ricochet_shoots_firer && L == firer))
+			continue
+		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
+		if(our_angle < best_angle)
+			best_angle = our_angle
+			unlucky_sob = L
+
+	if(unlucky_sob)
+		set_angle(get_angle(src, unlucky_sob.loc))
 
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
@@ -437,19 +496,26 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
+
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+		return TRUE
+
 	return FALSE
 
 /obj/item/projectile/set_angle(new_angle)
 	..()
+
 	Angle = new_angle
-	trajectory.set_angle(new_angle)
+	if(trajectory)
+		trajectory.set_angle(new_angle)
 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
 		last_angle_set_hitscan_store = loc
 		var/datum/point/point_cache = new (src)
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
@@ -463,7 +529,7 @@
 	return TRUE
 
 /obj/item/projectile/experience_pressure_difference()
-	return
+	return // Immune to gas flow.
 
 /obj/item/projectile/forceMove(atom/target)
 	. = ..()
@@ -543,6 +609,40 @@
 
 /obj/item/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
+
+/**
+ * Is this projectile considered "hostile"?
+ *
+ * By default all projectiles which deal damage or impart crowd control effects (including stamina) are hostile
+ *
+ * This is NOT used for pacifist checks, that's handled by [/obj/item/ammo_casing/var/harmful]
+ * This is used in places such as AI responses to determine if they're being threatened or not (among other places)
+ */
+/obj/item/projectile/proc/is_hostile_projectile()
+	if(damage > 0 || stamina > 0)
+		return TRUE
+
+	if(stun + weaken + paralyze + knockdown > 0 SECONDS)
+		return TRUE
+
+	return FALSE
+
+/// Fire a projectile from this atom at another atom
+/atom/proc/fire_projectile(projectile_type, atom/target, sound, firer, list/ignore_targets = list())
+	if(!isnull(sound))
+		playsound(src, sound, vol = 100, vary = TRUE)
+
+	var/turf/startloc = get_turf(src)
+	var/obj/item/projectile/bullet = new projectile_type(startloc)
+	bullet.starting = startloc
+	bullet.firer = firer || src
+	bullet.firer_source_atom = src
+	bullet.yo = target.y - startloc.y
+	bullet.xo = target.x - startloc.x
+	bullet.original = target
+	bullet.preparePixelProjectile(target, src)
+	bullet.fire()
+	return bullet
 
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT

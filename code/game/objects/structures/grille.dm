@@ -1,7 +1,6 @@
 /obj/structure/grille
-	desc = "A flimsy framework of metal rods."
+	desc = "A robust framework of metal rods. Commonly used for reinforcing high-security windows, and for building protective screens to intercept meteors and space debris."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
@@ -11,8 +10,9 @@
 	layer = BELOW_OBJ_LAYER
 	level = 3
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
-	max_integrity = 50
-	integrity_failure = 20
+	integrity_failure = 100
+	cares_about_temperature = TRUE
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -25,30 +25,10 @@
 	. = ..()
 	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
 	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
-
-
-/obj/structure/grille/fence
-	var/width = 3
-
-/obj/structure/grille/fence/Initialize(mapload)
-	. = ..()
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
-
-/obj/structure/grille/fence/east_west
-	//width=80
-	//height=42
-	icon='icons/fence-ew.dmi'
-
-/obj/structure/grille/fence/north_south
-	//width=80
-	//height=42
-	icon='icons/fence-ns.dmi'
+	if(anchored)
+		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+	else
+		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -63,13 +43,6 @@
 	if(ratio > 0.5)
 		return
 	icon_state = "grille50_[rand(0,3)]"
-
-/obj/structure/grille/examine(mob/user)
-	. = ..()
-	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
-	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
@@ -90,6 +63,19 @@
 		return
 
 	take_damage(rand(5,10), BRUTE, MELEE, 1)
+
+/obj/structure/grille/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(!. || QDELETED(src) || shock(attacker, 70))
+		return
+
+	if(attacker.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		return
+
+	take_damage(rand(5, 10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -117,35 +103,33 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/grille/CanPass(atom/movable/mover, border_dir)
 	. = !density
-	if(height==0)
-		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
 	if(isprojectile(mover))
 		return (prob(30) || !density)
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/grille/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSGRILLE
 
-/obj/structure/grille/attackby(obj/item/I, mob/user, params)
+/obj/structure/grille/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && broken)
 		repair(user, I)
+		return ITEM_INTERACT_COMPLETE
 
 //window placing begin
 	else if(is_glass_sheet(I))
 		build_window(I, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 //window placing end
 
-	else if(istype(I, /obj/item/shard) || !shock(user, 70))
-		return ..()
+	else if((!istype(I, /obj/item/shard)) && shock(user, 70))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
 	if(R.get_amount() >= 1)
@@ -205,7 +189,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
@@ -258,7 +242,7 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)

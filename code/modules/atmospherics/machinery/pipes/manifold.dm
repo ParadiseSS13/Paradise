@@ -2,11 +2,10 @@
 	icon = 'icons/atmos/manifold.dmi'
 	icon_state = ""
 	name = "pipe manifold"
-	desc = "A manifold composed of regular pipes"
+	desc = "A manifold composed of regular pipes."
 
 	volume = 105
 
-	dir = SOUTH
 	initialize_directions = EAST|NORTH|WEST
 
 	var/obj/machinery/atmospherics/node1
@@ -70,12 +69,6 @@
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
 
-/obj/machinery/atmospherics/pipe/manifold/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/manifold/Destroy()
 	. = ..()
 
@@ -122,8 +115,8 @@
 /obj/machinery/atmospherics/pipe/manifold/update_overlays()
 	. = ..()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, pipe_color, "core" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, null, "clamps" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, pipe_color, "core" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, null, "clamps" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()
@@ -156,12 +149,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
 	name="Scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -176,7 +168,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -209,14 +201,12 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
-	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	plane = FLOOR_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
 	name="Scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -231,7 +221,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET

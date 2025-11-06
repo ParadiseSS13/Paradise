@@ -4,7 +4,6 @@
 /datum/data/pda/messenger_plugin/proc/user_act(mob/user as mob, obj/item/pda/P)
 	return
 
-
 /datum/data/pda/messenger_plugin/virus
 	name = "*Send Virus*"
 

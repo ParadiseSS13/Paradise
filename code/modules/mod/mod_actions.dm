@@ -1,12 +1,11 @@
 /datum/action/item_action/mod
-	background_icon_state = "bg_mod"
-	button_icon_state = "bg_mod_border"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_icon_state = "bg_mod_border"
+	background_icon = 'icons/mob/actions/actions_mod.dmi'
+	background_icon_state = "bg_mod"
 	check_flags = AB_CHECK_CONSCIOUS
-	use_itemicon = FALSE
 
-/datum/action/item_action/mod/New(Target, custom_icon, custom_icon_state)
+/datum/action/item_action/mod/New(Target)
 	..()
 	if(!ismodcontrol(Target))
 		qdel(src)
@@ -49,7 +48,7 @@
 	if(!ready && left_click)
 		ready = TRUE
 		button_icon_state = "activate-ready"
-		UpdateButtons()
+		build_all_button_icons()
 		addtimer(CALLBACK(src, PROC_REF(reset_ready)), 3 SECONDS)
 		return
 	var/obj/item/mod/control/mod = target
@@ -60,7 +59,7 @@
 /datum/action/item_action/mod/activate/proc/reset_ready()
 	ready = FALSE
 	button_icon_state = initial(button_icon_state)
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/action/item_action/mod/module
 	name = "Toggle Module"
@@ -88,24 +87,26 @@
 
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
-	icon_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	button_icon_state = "module"
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
 	/// A ref to the mob we are pinned to.
 	var/pinner_uid
 
-/datum/action/item_action/mod/pinned_module/New(Target, custom_icon, custom_icon_state, obj/item/mod/module/linked_module, mob/user)
+/datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
+	button_icon = linked_module.icon
+	button_icon_state = linked_module.icon_state
 	name = "Activate [capitalize(linked_module.name)]"
 	desc = "Quickly activate [linked_module]."
 	..()
 	module = linked_module
-	button_icon_state = module.icon_state
+	background_icon_state = ((module.module_type == MODULE_TOGGLE && module.active) ? "bg_mod_active" : "bg_mod")
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
 	Grant(user)
+	RegisterSignals(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED), PROC_REF(linked_button_update))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -114,7 +115,7 @@
 	return ..()
 
 /datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_uid = UID(user)
+	var/user_uid = user.UID()
 	if(!pinner_uid)
 		pinner_uid = user_uid
 		module.pinned_to[pinner_uid] = src
@@ -127,3 +128,8 @@
 	if(!.)
 		return
 	module.on_select()
+
+/datum/action/item_action/mod/pinned_module/proc/linked_button_update()
+	if(module.module_type != MODULE_PASSIVE)
+		background_icon_state = (module.active ? "bg_mod_active" : "bg_mod")
+		build_all_button_icons()

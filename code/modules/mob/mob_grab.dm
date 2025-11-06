@@ -10,6 +10,7 @@
 
 /obj/item/grab
 	name = "grab"
+	icon = 'icons/mob/screen_gen.dmi'
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
@@ -24,10 +25,7 @@
 
 	layer = 21
 	plane = HUD_PLANE
-	item_state = "nothing"
-	icon = 'icons/mob/screen_gen.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-
 
 /obj/item/grab/New(mob/user, mob/victim)
 	..()
@@ -47,6 +45,7 @@
 	affecting.grabbed_by += src
 	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
 	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
+	RegisterSignal(assailant, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, PROC_REF(on_updated_glide_size))
 
 	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -74,12 +73,21 @@
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
-		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(assailant, list(
+			COMSIG_MOVABLE_MOVED,
+			COMSIG_MOVABLE_UPDATED_GLIDE_SIZE,
+		))
 		if(assailant.client)
 			assailant.client.screen -= hud
 		assailant = null
+
 	QDEL_NULL(hud)
 	return ..()
+
+/obj/item/grab/proc/on_updated_glide_size(mob/living/grabber, old_size)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UPDATED_GLIDE_SIZE
+	if(affecting && grabber == assailant && affecting != assailant)
+		affecting.set_glide_size(grabber.glide_size)
 
 /obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
 	SIGNAL_HANDLER
@@ -88,11 +96,13 @@
 	if(!assailant.Adjacent(old_turf))
 		qdel(src)
 		return
-	var/list/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
-	var/assailant_glide_speed = TICKS2DS(world.icon_size / assailant.glide_size)
-	if(state in grab_states_not_moving)
-		affecting.glide_for(assailant_glide_speed)
-	else if(get_turf(affecting) != old_turf)
+
+	if(istype(assailant.buckled, /obj/tgvehicle/scooter/skateboard))
+		qdel(src)
+		to_chat(assailant, "<span class='warning'>You can't pull things along while skateboarding!</span>")
+		return
+
+	if(get_turf(affecting) != old_turf)
 		var/possible_dest = list()
 		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
 		var/list/dest_1_sort = list() // just better dest to be picked first
@@ -131,7 +141,7 @@
 			if(get_turf(affecting) == dest)
 				success_move = TRUE
 				continue
-			if(affecting.Move(dest, get_dir(affecting, dest), assailant_glide_speed))
+			if(affecting.Move(dest, get_dir(affecting, dest), glide_size))
 				success_move = TRUE
 				break
 			continue
@@ -178,10 +188,11 @@
 /obj/item/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
+			hud.screen_loc = UI_RHAND
 		else
-			hud.screen_loc = ui_lhand
-		assailant.client.screen += hud
+			hud.screen_loc = UI_LHAND
+		if(assailant.client)
+			assailant.client.screen += hud
 
 /obj/item/grab/process()
 	if(!confirm())
@@ -247,7 +258,7 @@
 	adjust_position()
 
 
-/obj/item/grab/attack_self(mob/user)
+/obj/item/grab/attack_self__legacy__attackchain(mob/user)
 	s_click(hud)
 
 //Updating pixelshift, position and direction
@@ -336,10 +347,6 @@
 		icon_state = "grabbed+1"
 
 		add_attack_logs(assailant, affecting, "Neck grabbed", ATKLOG_ALL)
-		if(!iscarbon(assailant))
-			affecting.LAssailant = null
-		else
-			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
 		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured
@@ -370,7 +377,7 @@
 	return 1
 
 
-/obj/item/grab/attack(mob/living/M, mob/living/carbon/user)
+/obj/item/grab/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
 	if(!affecting)
 		return
 
@@ -401,8 +408,8 @@
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, MELEE))
-						playsound(assailant.loc, "swing_hit", 25, 1, -1)
+						affecting.apply_damage(damage * rand(90, 110) / 100, BRUTE, BODY_ZONE_HEAD, affected.run_armor_check(affecting, MELEE))
+						playsound(assailant.loc, "swing_hit", 25, TRUE, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return
 
@@ -467,9 +474,9 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
+			if(istype(affecting, /mob/living/basic/bee)) //Eating a bee will end up damaging you
 				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
-				var/mob/living/simple_animal/hostile/poison/bees/B = affecting
+				var/mob/living/basic/bee/B = affecting
 				mouth.receive_damage(1)
 				if(B.beegent)
 					B.beegent.reaction_mob(assailant, REAGENT_INGEST)

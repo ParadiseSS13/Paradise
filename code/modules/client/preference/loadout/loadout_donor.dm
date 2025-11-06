@@ -30,7 +30,7 @@
 
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
-	path = /obj/item/clothing/suit/furcape
+	path = /obj/item/clothing/neck/cloak/furcape
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
@@ -75,6 +75,18 @@
 /datum/gear/donor/furcap
 	display_name = "Fur Cap"
 	path = /obj/item/clothing/head/furcap
+
+/datum/gear/donor/welding_blueflame
+	display_name = "Blue flame decal welding helmet"
+	path = /obj/item/clothing/head/welding/flamedecal/blue
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist", "Roboticist")
+	cost = 2
+
+/datum/gear/donor/welding_white
+	display_name = "White decal welding helmet"
+	path = /obj/item/clothing/head/welding/white
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist", "Roboticist")
+	cost = 2
 
 /datum/gear/donor/fawkes
 	display_name = "Guy Fawkes mask"

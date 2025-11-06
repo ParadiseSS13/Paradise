@@ -26,7 +26,6 @@
 					/obj/item/storage/box/iv_bags,
 					/obj/item/vending_refill/medical)
 	cost = 400
-	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
 
 /datum/supply_packs/medical/firstaid
@@ -119,7 +118,6 @@
 
 /datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
-	cost = 100
 	contains = list(/obj/item/vending_refill/medidrobe,
 					/obj/item/vending_refill/chemdrobe,
 					/obj/item/vending_refill/virodrobe)
@@ -129,12 +127,12 @@
 	name = "Blood Pack Variety Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus,
+					/obj/item/reagent_containers/iv_bag/blood/a_plus,
+					/obj/item/reagent_containers/iv_bag/blood/a_minus,
+					/obj/item/reagent_containers/iv_bag/blood/b_plus,
+					/obj/item/reagent_containers/iv_bag/blood/b_minus,
+					/obj/item/reagent_containers/iv_bag/blood/o_plus,
+					/obj/item/reagent_containers/iv_bag/blood/o_minus,
 					/obj/item/reagent_containers/iv_bag/slime,
 					/obj/item/reagent_containers/iv_bag/blood/vox,
 					/obj/machinery/iv_drip)
@@ -148,13 +146,14 @@
 					/obj/item/surgicaldrill,
 					/obj/item/clothing/mask/breath/medical,
 					/obj/item/tank/internals/anesthetic,
-					/obj/item/FixOVein,
+					/obj/item/fix_o_vein,
 					/obj/item/hemostat,
 					/obj/item/scalpel,
 					/obj/item/bonegel,
 					/obj/item/retractor,
 					/obj/item/bonesetter,
-					/obj/item/circular_saw)
+					/obj/item/circular_saw,
+					/obj/item/surgical_drapes)
 	cost = 400
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"
@@ -174,3 +173,32 @@
 	contains = list(/obj/item/reagent_containers/glass/bottle/reagent/omnizine)
 	cost = 300
 	containername = "omnizine shipment crate"
+
+/datum/supply_packs/medical/biosuits
+	name = "Biosuit 4-pack"
+	contains = list(
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+	)
+	cost = 400
+	containername = "biosuit shipment crate"
+
+/datum/supply_packs/medical/surgical_masks
+	name = "Sterile Mask And Goggles 4-pack"
+	contains = list(/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+				)
+	cost = 200
+	containername = "sterile mask shipment crate"

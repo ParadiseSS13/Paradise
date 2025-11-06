@@ -7,11 +7,14 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_antagonists2,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
+	/client/proc/admin_observe,			/*allows us to freely observe mobs */
+	/client/proc/admin_observe_target,			/*and gives it to us on right click*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -20,6 +23,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
+	/client/proc/get_server_logs_by_round_id,
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
@@ -39,8 +43,10 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
+	/client/proc/cmd_staff_say,
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_dev_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
@@ -48,6 +54,9 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
+	/client/proc/view_devsays,
+	/client/proc/view_staffsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -62,7 +71,9 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
-	/client/proc/debugstatpanel
+	/client/proc/debugstatpanel,
+	/client/proc/create_rnd_restore_disk,
+	/client/proc/open_admin_zlevel_manager,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -73,21 +84,26 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
-	/client/proc/stop_global_admin_sounds
+	/client/proc/stop_global_admin_sounds,
+	/client/proc/stop_sounds_global,
+	/client/proc/play_sound_tgchat
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
+	/client/proc/disease_outbreak,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/economy_manager,
+	/client/proc/everyone_random,
 	/client/proc/make_sound,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
+	/client/proc/set_holiday,
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
@@ -102,7 +118,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
-	/datum/admins/proc/station_traits_panel
+	/datum/admins/proc/station_traits_panel,
+	/datum/admins/proc/toggle_ai,
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -114,7 +131,6 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
-	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/end_round,
@@ -123,12 +139,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/client/proc/toggle_log_hrefs,
-	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
-	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_debug_del_sing,
-	/client/proc/library_manager,
-	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_next_map,
@@ -140,7 +150,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_debug_make_powernets,
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
-	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_sing,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
@@ -152,10 +161,10 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
+	/client/proc/map_template_load_lazy,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
-	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
@@ -170,7 +179,15 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/profile_code
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
+	/client/proc/profile_code,
+	/client/proc/debug_atom_init,
+	/client/proc/debug_bloom,
+	/client/proc/cmd_mass_screenshot,
+	/client/proc/allow_browser_inspect,
+	/client/proc/view_bug_reports,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -196,20 +213,33 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
-	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/admin_observe,
+	/client/proc/admin_observe_target,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
+	/client/proc/admin_observe_target,
+	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
+	/client/proc/cmd_staff_say,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
+))
+GLOBAL_LIST_INIT(admin_verbs_dev, list(
+	/client/proc/cmd_dev_say,
+	/client/proc/view_devsays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/SDQL2_query
+	/client/proc/SDQL2_query,
+	/client/proc/load_sdql2_query,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
@@ -225,7 +255,6 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
-	/client/proc/allow_browser_inspect, // XSS prevention
 ))
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
@@ -235,16 +264,23 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
-	/client/proc/profile_code
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
+	/client/proc/profile_code,
+	/client/proc/view_bug_reports,
+))
+GLOBAL_LIST_INIT(view_logs_verbs, list(
+	/client/proc/getserverlogs,
+	/client/proc/get_server_logs_by_round_id,
 ))
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES AND/OR DEV, then give them the default admin verbs
+		if(holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM))
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -287,6 +323,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(holder.rights & R_DEV_TEAM)
+			add_verb(src, GLOB.admin_verbs_dev)
+		if(holder.rights & R_VIEWLOGS)
+			add_verb(src, GLOB.view_logs_verbs)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -301,6 +341,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		/client/proc/togglebuildmodeself,
 		/client/proc/stealth,
 		/client/proc/readmin,
+		/client/proc/cmd_dev_say,
 		/client/proc/export_current_character,
 		GLOB.admin_verbs_default,
 		GLOB.admin_verbs_admin,
@@ -318,7 +359,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer
+		GLOB.admin_verbs_maintainer,
+		GLOB.admin_verbs_dev
 	))
 	add_verb(src, /client/proc/show_verbs)
 
@@ -339,6 +381,48 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/mentor_ghost()
+	var/is_mentor = check_rights(R_MENTOR, FALSE)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD, FALSE)
+
+	if(!is_mentor && !is_full_admin)
+		to_chat(src, "<span class='warning'>You aren't allowed to use this!</span>")
+		return
+
+	// mentors are allowed only if they have the observe trait, which is given on observe.
+	// they should also not be given this proc.
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MENTOR_OBSERVING) || !is_mentor))
+		return
+
+	do_aghost()
+
+/client/proc/do_aghost()
+	if(isobserver(mob))
+		//re-enter
+		var/mob/dead/observer/ghost = mob
+		var/old_turf = get_turf(ghost)
+		ghost.ghost_flags |= GHOST_CAN_REENTER // just in-case.
+		ghost.reenter_corpse()
+		log_admin("[key_name(usr)] re-entered their body")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		if(ishuman(mob))
+			var/mob/living/carbon/human/H = mob
+			H.regenerate_icons() // workaround for #13269
+		if(is_ai(mob)) // client.mob, built in byond client var
+			var/mob/living/silicon/ai/ai = mob
+			ai.eyeobj.set_loc(old_turf)
+	else if(isnewplayer(mob))
+		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
+	else
+		//ghostize
+		var/mob/body = mob
+		body.ghostize()
+		if(body && !body.key)
+			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+		log_admin("[key_name(usr)] has admin-ghosted")
+		// TODO: SStgui.on_transfer() to move windows from old and new
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/admin_ghost()
 	set category = "Admin"
 	set name = "Aghost"
@@ -346,31 +430,129 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
+	do_aghost()
+
+/// Allow an admin to observe someone.
+/// mentors are allowed to use this verb while living, but with some stipulations:
+/// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
+/client/proc/admin_observe()
+	set name = "Aobserve"
+	set category = "Admin"
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+		return
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	var/mob/target
+
+	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
+	if(isnull(target))
+		return
+	if(target == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
+		return
+
+	admin_observe_target(target)
+
+/client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
+	if(!istype(ghost) || !ghost.mob_observed)
+		return FALSE
+
+	// un-follow them
+	ghost.cleanup_observe()
+	// if it's a mentor, make sure they go back to their body.
+	if(HAS_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING))
+		// handler will handle removing the trait
+		mob.stop_orbit()
+	log_admin("[key_name(src)] has de-activated Aobserve")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+	return TRUE
+
+/// targeted form of admin_observe: this should only appear in the right-click menu.
+/client/proc/admin_observe_target(mob/target as mob in GLOB.mob_list)
+	set name = "\[Admin\] Aobserve"
+	set category = null
+
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR, mob))
+		return
+
+	var/full_admin = check_rights(R_ADMIN|R_MOD, FALSE, mob)
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
+	var/mob/dead/observer/observer = mob
+	if(istype(observer) && target == locateUID(observer.mob_observed))
+		cleanup_admin_observe(mob)
+		return
+	cleanup_admin_observe(mob)
+
+	if(isnull(target) || target == src)
+		// let the default one find the target if there isn't one
+		admin_observe()
+		return
+
+	// observers don't need to ghost, so we don't need to worry about adding any traits
 	if(isobserver(mob))
-		//re-enter
 		var/mob/dead/observer/ghost = mob
-		var/old_turf = get_turf(ghost)
-		ghost.can_reenter_corpse = 1			//just in-case.
-		ghost.reenter_corpse()
-		log_admin("[key_name(usr)] re-entered their body")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		if(ishuman(mob))
-			var/mob/living/carbon/human/H = mob
-			H.regenerate_icons() // workaround for #13269
-		if(isAI(mob)) // client.mob, built in byond client var
-			var/mob/living/silicon/ai/ai = mob
-			ai.eyeobj.setLoc(old_turf)
-	else if(isnewplayer(mob))
-		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+		ghost.do_observe(target)
+		return
+
+	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
+	do_aghost()
+	var/mob/dead/observer/ghost = mob
+
+	if(!full_admin)
+		// if they're a me and they're alive, add the MENTOR_OBSERVINGtrait to ensure that they can only go back to their body.
+		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
+		ADD_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
+		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_admin("[key_name(src)] has mobserved out of their body to follow [target].")
 	else
-		//ghostize
-		var/mob/body = mob
-		body.ghostize(1)
-		if(body && !body.key)
-			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
-		log_admin("[key_name(usr)] has admin-ghosted")
-		// TODO: SStgui.on_transfer() to move windows from old and new
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		log_admin("[key_name(src)] is aobserving [target].")
+
+
+	ghost.do_observe(target)
+
+/client/proc/on_mentor_observe_end(atom/movable/us, atom/movable/orbited)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBITER_STOP
+	if(!isobserver(mob))
+		log_and_message_admins("A mentor somehow managed to end observing while not being a ghost. Please investigate and notify coders.")
+		return
+	var/mob/dead/observer/ghost = mob
+
+	// just to be safe
+	ghost.cleanup_observe()
+
+	REMOVE_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
+
+	if(!ghost.reenter_corpse())
+		// tell everyone since this is kinda nasty.
+		log_debug("Mentor [key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		log_and_message_admins("[key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, and you should probably ahelp.</span>")
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -415,6 +597,19 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	holder.check_antagonists()
 	log_admin("[key_name(usr)] checked antagonists")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/proc/check_antagonists2()
+	set name = "TGUI - Antagonists"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/ban_panel()
@@ -505,8 +700,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = 1
+			if(isobserver(mob))
+				mob.invisibility = 90
+				mob.see_invisible = 90
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
@@ -524,11 +722,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3, 3, cause = "[ckey]: Drop Bomb command")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4, 4, cause = "[ckey]: Drop Bomb command")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7, 5, cause = "[ckey]: Drop Bomb command")
 		if("Custom Bomb")
 			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(devastation_range))
@@ -542,7 +740,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(flash_range))
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[ckey]: Drop Bomb command")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -576,12 +774,53 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!D) return
-	T.ForceContractDisease(new D)
+	var/datum/disease/given_disease = null
+
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+	T.ForceContractDisease(given_disease)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	log_admin("[key_name(usr)] gave [key_name(T)] the disease [given_disease].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [given_disease].</span>")
+
+/client/proc/disease_outbreak()
+	set category = "Event"
+	set name = "Disease Outbreak"
+	set desc = "Creates a disease and infects a random player with it"
+	var/datum/disease/given_disease = null
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+
+	for(var/thing in shuffle(GLOB.human_list))
+		var/mob/living/carbon/human/H = thing
+		if(H.stat == DEAD || !is_station_level(H.z))
+			continue
+		if(!H.HasDisease(given_disease))
+			H.ForceContractDisease(given_disease)
+			break
+	if(istype(given_disease, /datum/disease/advance))
+		var/datum/disease/advance/given_advanced_disease = given_disease
+		var/list/name_symptoms = list()
+		for(var/datum/symptom/S in given_advanced_disease.symptoms)
+			name_symptoms += S.name
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
+	else
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_disease.name]!")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set name = "\[Admin\] Make Sound"
@@ -637,115 +876,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
-	if(check_rights(R_ADMIN, FALSE))
-		GLOB.de_admins += ckey
-	else
-		GLOB.de_mentors += ckey
 	deadmin()
-	add_verb(src, /client/proc/readmin)
-	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/readmin()
-	set name = "Re-admin self"
-	set category = "Admin"
-	set desc = "Regain your admin powers."
-
-	var/datum/admins/D = GLOB.admin_datums[ckey]
-	var/rank = null
-	if(!GLOB.configuration.admin.use_database_admins)
-		for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
-			var/_ckey = ckey(iterator_key) // Snip out formatting
-			if(ckey != _ckey)
-				continue
-			rank = GLOB.configuration.admin.ckey_rank_map[iterator_key]
-			break
-	else
-		if(!SSdbcore.IsConnected())
-			to_chat(src, "Warning, MYSQL database is not connected.")
-			return
-
-		var/datum/db_query/rank_read = SSdbcore.NewQuery(
-			"SELECT admin_rank FROM admin WHERE ckey=:ckey",
-			list("ckey" = ckey)
-		)
-
-		if(!rank_read.warn_execute())
-			qdel(rank_read)
-			return FALSE
-
-		while(rank_read.NextRow())
-			rank = ckeyEx(rank_read.item[1])
-
-		qdel(rank_read)
-	if(!D)
-		D = try_localhost_autoadmin()
-		if(!D)
-			if(!GLOB.configuration.admin.use_database_admins)
-				if(GLOB.admin_ranks[rank] == null)
-					error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
-					to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
-					return
-
-				// Do a little check here
-				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-					to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-					return
-				D = new(rank, GLOB.admin_ranks[rank], ckey)
-			else
-				if(!SSdbcore.IsConnected())
-					to_chat(src, "Warning, MYSQL database is not connected.")
-					return
-
-				var/datum/db_query/admin_read = SSdbcore.NewQuery(
-					"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
-					list("ckey" = ckey)
-				)
-
-				if(!admin_read.warn_execute())
-					qdel(admin_read)
-					return FALSE
-
-				while(admin_read.NextRow())
-					var/admin_ckey = admin_read.item[1]
-					var/admin_rank = admin_read.item[2]
-					var/flags = admin_read.item[3]
-					if(!admin_ckey)
-						to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
-						qdel(admin_read)
-						return
-					if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
-						to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
-						qdel(admin_read)
-						return
-
-					if(istext(flags))
-						flags = text2num(flags)
-					var/client/check_client = GLOB.directory[ckey]
-					// Do a little check here
-					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-						to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-						qdel(admin_read)
-						return
-					D = new(admin_rank, flags, ckey)
-				qdel(admin_read)
-
-		var/client/C = GLOB.directory[ckey]
-		D.associate(C)
-		update_active_keybindings()
-		message_admins("[key_name_admin(usr)] re-adminned themselves.")
-		log_admin("[key_name(usr)] re-adminned themselves.")
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
-		return
-	else
-		to_chat(src, "You are already an admin.")
-		remove_verb(src, /client/proc/readmin)
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
-		return
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
@@ -753,6 +886,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!check_rights(R_SERVER))
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
 
 	// Why would we ever turn this off?
 	if(GLOB.configuration.logging.href_logging)
@@ -885,9 +1022,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
-
-	if(confirm == "Yes")
+	if(tgui_alert("Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
@@ -928,28 +1063,27 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?", null,"Yes", "No", "Custom Message")
+	var/default_text = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
+	var/new_text = tgui_input_text(src, "Input your message, or use the default.", "Admin Message - Text Selector", default_text, 500, TRUE)
 
-	switch(alert_type)
-		if("Yes")
-			var/message = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
-			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
-			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
-			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+	if(!new_text)
+		return
 
-		if("Custom Message")
-			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
-			if(!message)
-				return
-			message = strip_html(message, 500)
+	if(default_text == new_text)
+		show_blurb(about_to_be_banned, 15, new_text, null, "center", "center", COLOR_RED, null, null, 1)
+		log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		return
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
-				return
+	new_text = strip_html(new_text, 500)
 
-			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
-			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+	var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector", COLOR_RED)
+	if(isnull(message_color))
+		return
+
+	show_blurb(about_to_be_banned, 15, new_text, null, "center", "center", message_color, null, null, 1)
+	log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
+	message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
 
 /client/proc/debugstatpanel()
 	set name = "Debug Stat Panel"
@@ -970,3 +1104,158 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()
+
+/client/proc/raw_gas_scan()
+	set name = "Raw Gas Scan"
+	set category = "Debug"
+	set desc = "Scans your current tile, including LINDA data not normally displayed."
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
+
+/client/proc/teleport_interesting_turf()
+	set name = "Interesting Turf"
+	set category = "Debug"
+	set desc = "Teleports you to a random Interesting Turf from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
+		return
+
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.manual_follow(T)
+
+/client/proc/visualize_interesting_turfs()
+	set name = "Visualize Interesting Turfs"
+	set category = "Debug"
+	set desc = "Shows all the Interesting Turfs from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		if(tgui_alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
+			is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope")) != "I am sure")
+			return
+	else
+		if(tgui_alert(usr, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
+			return
+
+	var/display_turfs_overlay = FALSE
+	if(tgui_alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
+		display_turfs_overlay = TRUE
+
+	message_admins("[key_name_admin(usr)] is visualizing interesting atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+
+	var/list/coords = get_interesting_atmos_tiles()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	while(length(coords))
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
+
+
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
+
+	var/z_to_view = tgui_input_number(usr, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualize. Enter 0 or close the window to cancel", "Selection", 0)
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(usr, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)
+
+
+/client/proc/create_rnd_restore_disk()
+	set name = "Create RnD Backup Restore Disk"
+	set category = "Event" // Im putting this in event because the name is long and will offset everything
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/list/targets = list()
+
+	for(var/rnc_uid in SSresearch.backups)
+		var/datum/rnd_backup/B = SSresearch.backups[rnc_uid]
+
+		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
+
+	var/choice = input(src, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	if(!choice || !(choice in targets))
+		return
+
+	var/actual_target = targets[choice]
+	if(!(actual_target in SSresearch.backups))
+		return
+
+	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
+	if(tgui_alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
+		return
+
+	B.to_backup_disk(get_turf(usr))
+
+/proc/ghost_follow_uid(mob/user, uid)
+	var/client/client = user.client
+	if(!isobserver(user))
+		if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+			return
+		user.client.admin_ghost()
+	var/datum/target = locateUID(uid)
+	if(QDELETED(target))
+		to_chat(user, "<span class='warning'>This datum has been deleted!</span>")
+		return
+
+	if(istype(target, /datum/mind))
+		var/datum/mind/mind = target
+		if(!ismob(mind.current))
+			to_chat(user, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+		target = mind.current
+
+	var/mob/dead/observer/A = client.mob
+	A.manual_follow(target)

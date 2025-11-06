@@ -61,18 +61,18 @@
 	is_ragin_restricted = TRUE
 
 /datum/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), ITEM_SLOT_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), ITEM_SLOT_JUMPSUIT)
 
 /datum/spellbook_entry/loadout/greytide
 	name = "Tyde the Grey"
 	desc = "A set of legendary artifacts used by a bald, grey wizard, now passed on to you. <br> \
 		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
 		If your Homing Toolbox spell is not enough, you might want to raid the Armory or loot a Security Officer to get more ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
-		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
-	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
+		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask, Warning Cone, Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
+	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/head/cone, /obj/item/clothing/shoes/black, \
 		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/forcewall, \
 		/datum/spell/aoe/knock, /datum/spell/noclothes, /datum/spell/fireball/toolbox)
@@ -86,10 +86,10 @@
 		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor.</span>")
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
-	user.unEquip(user.wear_id)
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, SLOT_HUD_JUMPSUIT) //Just in case they're naked
+	user.drop_item_to_ground(user.wear_id)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, ITEM_SLOT_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-	user.equip_to_slot_or_del(wizid, SLOT_HUD_WEAR_ID)
+	user.equip_to_slot_or_del(wizid, ITEM_SLOT_ID)
 	wizid.registered_name = user.real_name
 	wizid.access = list(ACCESS_MAINT_TUNNELS)
 	wizid.assignment = "Assistant"
@@ -124,30 +124,25 @@
 /datum/spellbook_entry/loadout/fireball
 	name = "Fireball. Fireball. Fireball."
 	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
-		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
+		</i>Provides fire & explosion immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
 	spells_path = list(/datum/spell/sacred_flame, /datum/spell/fireball/homing, /datum/spell/infinite_guns/fireball)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(user.wear_suit)
-		var/jumpsuit = user.wear_suit
-		user.unEquip(user.wear_suit, TRUE)
-		qdel(jumpsuit)
-	if(user.head)
-		var/head = user.head
-		user.unEquip(user.head, TRUE)
-		qdel(head)
+	qdel(user.wear_suit)
+	qdel(user.head)
 
 	// Part of Sacred Flame
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, MAGIC_TRAIT)
 
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), SLOT_HUD_OUTER_SUIT)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), ITEM_SLOT_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), ITEM_SLOT_HEAD)
 
-	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), SLOT_HUD_BELT)
+	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), ITEM_SLOT_BELT)
 
 /obj/item/clothing/suit/wizrobe/red/fireball
 	name = "infernal robe"

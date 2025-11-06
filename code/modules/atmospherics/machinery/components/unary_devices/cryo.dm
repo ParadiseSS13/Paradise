@@ -8,9 +8,7 @@
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 	interact_offline = TRUE
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 30, ACID = 30)
@@ -28,6 +26,8 @@
 	var/efficiency
 	/// Timer that we use to remove people that are in us for too long
 	var/removal_timer
+	/// Auto-eject the occupant after 1 minute
+	var/force_eject = TRUE
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -38,14 +38,16 @@
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+		if(!force_eject)
+			. += "<span class='warning'>The auto-eject light is off!</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
 	if(!(stat & (BROKEN | NOPOWER)))
-		set_light(2)
+		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 	else
 		set_light(0)
 
@@ -108,10 +110,10 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
@@ -178,15 +180,14 @@
 	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
-	..()
 	if(!node || !on)
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
 
 
@@ -241,11 +242,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -299,39 +300,43 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
-		var/obj/item/reagent_containers/B = G
+/obj/machinery/atmospherics/unary/cryo_cell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
+		var/obj/item/reagent_containers/B = used
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, "[B] is stuck to you!")
-			return
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
+			return ITEM_INTERACT_COMPLETE
+
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(exchange_parts(user, G))
-		return
-
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/GG = used
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
+			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			return ITEM_INTERACT_COMPLETE
+
 		if(!ismob(GG.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
-		return
+
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
@@ -371,6 +376,21 @@
 		var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 		. += lid
 
+/obj/machinery/atmospherics/unary/cryo_cell/proc/attempt_escape(mob/living/carbon/user, effective_breakout_time)
+	if(effective_breakout_time)
+		user.visible_message("<span class='warning'>[user] attempts to trigger the release on [src]!</span>", "<span class='notice'>You attempt to trigger the release on [src]...</span>")
+		to_chat(user, "<span class='notice'>You attempt to trigger the release on [src]. (This will take around [DisplayTimeText(effective_breakout_time)].)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE, allow_sleeping_or_dead = TRUE))
+		user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+		to_chat(user, "<span class='warning'>You fail to trigger the release on [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+	go_out()
+
+/obj/machinery/atmospherics/unary/cryo_cell/container_resist(mob/living/carbon/C)
+	C.cryo_resist(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
@@ -380,14 +400,14 @@
 		occupant.bodytemperature = T0C
 		return
 
-	occupant.bodytemperature += 2 * (air_contents.temperature - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
-	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+	occupant.bodytemperature += 2 * (air_contents.temperature() - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature()) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 
 	if(occupant.bodytemperature < T0C)
 		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
 		occupant.Sleeping(stun_time)
 
-		var/heal_mod = air_contents.oxygen < 2 ? 0.2 : 1
+		var/heal_mod = air_contents.oxygen() < 2 ? 0.2 : 1
 		occupant.adjustOxyLoss(-6 * heal_mod)
 
 	if(beaker && world.time >= last_injection + injection_cooldown)
@@ -404,8 +424,8 @@
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
 	if(combined_heat_capacity > 0)
-		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+		var/combined_energy = T20C * current_heat_capacity + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
@@ -416,6 +436,7 @@
 	if(ishuman(occupant) && occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected. Xenos also fit in these and they don't have dna
 		occupant.bodytemperature = occupant.dna.species.cold_level_1
 
+	occupant.clear_alert("cryogenics")
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	deltimer(removal_timer)
@@ -456,8 +477,19 @@
 	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
-	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	if(force_eject)
+		removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	else
+		M.throw_alert("cryogenics", /atom/movable/screen/alert/restrained/cryocell)
 	return TRUE
+
+/obj/machinery/atmospherics/unary/cryo_cell/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(panel_open)
+		force_eject = !force_eject
+		to_chat(user, "<span class='notice'>You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src].</span>")
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

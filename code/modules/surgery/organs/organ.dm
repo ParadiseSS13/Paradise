@@ -32,7 +32,8 @@
 	var/requires_robotic_bodypart = FALSE
 	/// When this variable is true, it can only be installed on the machine person species.
 	var/requires_machine_person = FALSE
-
+	/// When this variable is true, it can only be inserted on the golem species.
+	var/requires_golem_person = FALSE
 	///Should this organ be destroyed on removal?
 	var/destroy_on_removal = FALSE
 
@@ -71,7 +72,7 @@
 		if(species_override)
 			dna.species = new species_override
 
-/obj/item/organ/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/nano = I
 		nano.use(1)
@@ -89,7 +90,7 @@
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.blood_type
 
-/obj/item/organ/proc/necrotize(update_sprite = TRUE)
+/obj/item/organ/proc/necrotize(update_sprite = TRUE, ignore_vital_death = FALSE)
 	damage = max_damage
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)
@@ -262,7 +263,14 @@
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
 
-	forceMove(get_turf(owner))
+	// In-game, organs will be moved to their parent turf.
+	// During ghost-mob creation, we toss the organs
+	// after we're done generating the sprite with them,
+	// so to nullspace they go.
+	if(get_turf(owner))
+		forceMove(get_turf(owner))
+	else
+		moveToNullspace()
 	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

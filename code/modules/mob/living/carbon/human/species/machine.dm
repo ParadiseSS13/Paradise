@@ -3,16 +3,15 @@
 	name_plural = "Machines"
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
-	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans Solar Federation. \
-	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
-	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
-	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
+	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans-Solar Federation. \
+	Similar to the organic species of the Orion Arm, IPCs possess full sapience, as well as creativity and adaptability on par with other life. Unlike traditional cyborgs and AI units, IPCs are given full rights by Nanotrasen and do not possess lawsets.<br/><br/> \
+	Views on IPCs vary widely between groups across the sector, ranging from openly discriminatory, to supportive of their rights. \
+	In recent years, IPCs have formed diplomatic relations with various governments in the sector, elevating their status from tools and assistants to minor players in interstellar affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
-	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	tox_mod = 0
@@ -21,11 +20,10 @@
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
-	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS, TRAIT_NOFAT) // Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
-	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
@@ -33,7 +31,7 @@
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
 	dies_at_threshold = TRUE
-	can_revive_by_healing = 1
+	can_revive_by_healing = TRUE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
@@ -44,8 +42,9 @@
 	butt_sprite = "machine"
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
-	hunger_type = "machine"
 
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
+	meat_type = /obj/item/food/meat/human/robot
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
@@ -75,6 +74,7 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	plushie_type = /obj/item/toy/plushie/ipcplushie
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -116,12 +116,19 @@
 	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this
 		return
+
 	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
+		return
+
+	// We invented surge protectors and power monitors for just this occasion.
+	if(H.nutrition >= NUTRITION_LEVEL_FAT)
+		H.nutrition = NUTRITION_LEVEL_FULL
 		return
 
 	var/obj/item/organ/internal/cell/microbattery = H.get_organ_slot("heart")
 	if(!istype(microbattery)) //Maybe they're powered by an abductor gland or sheer force of will
 		return
+
 	if(prob(6))
 		to_chat(H, "<span class='warning'>Error 74: Microbattery critical malfunction, likely cause: Extended strain.</span>")
 		microbattery.receive_damage(4, TRUE)
@@ -153,11 +160,11 @@
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
+		var/optic_colour = tgui_input_color(H, "Please select an optic color", "Select Optic Color", H.m_colours["head"])
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+			to_chat(H, "<span class='warning'>You were interrupted while changing the color of your optics.</span>")
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
@@ -176,7 +183,7 @@
 		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
 		if(!new_style)
 			return
-		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
+		var/new_color = tgui_input_color(H, "Please select hair color.", "Monitor Color", head_organ.hair_colour)
 
 		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
@@ -184,14 +191,13 @@
 
 		if(new_style)
 			H.change_hair(new_style, 1)							// The 1 is to enable custom sprites
-		if(new_color)
+		if(!isnull(new_color))
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
 	if(flags & SHOCK_ILLUSION)
 		return
-	H.adjustBrainLoss(shock_damage)
-	H.adjust_nutrition(shock_damage)
+	H.adjust_nutrition(clamp(shock_damage, 0, (NUTRITION_LEVEL_FULL - H.nutrition)))
 
 /datum/species/machine/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	H.adjustBrainLoss(H.radiation / 100)
@@ -220,3 +226,6 @@
 								)
 		var/error_message = pick(error_messages)
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
+
+/datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/stack/sheet/mineral/titanium(H.loc)

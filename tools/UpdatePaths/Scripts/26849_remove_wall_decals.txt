@@ -1,0 +1,3 @@
+/obj/effect/decal/cleanable/fungus : /obj/effect/spawner/random/fungus/frequent
+/obj/effect/spawner/random_spawners/fungus_maybe : /obj/effect/spawner/random/fungus/maybe
+/obj/effect/spawner/random_spawners/fungus_probably : /obj/effect/spawner/random/fungus/probably

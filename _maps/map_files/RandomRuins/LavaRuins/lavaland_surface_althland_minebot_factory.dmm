@@ -1,0 +1,3835 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/sign/poster/ripped/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ay" = (
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"aS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"aZ" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"bq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/south{
+	plane = -6;
+	layer = 1.9
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"bG" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"bJ" = (
+/obj/structure/machine_frame,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"bL" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"bS" = (
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"cj" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"cs" = (
+/obj/structure/sign/poster/ripped/directional/north,
+/obj/item/conveyor_construct{
+	pixel_y = -9;
+	pixel_x = -2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"dm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"dq" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"dA" = (
+/obj/effect/turf_decal,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"dN" = (
+/obj/machinery/atmospherics/portable/scrubber,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"dV" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"dW" = (
+/obj/structure/lattice/lava,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"dY" = (
+/obj/item/clothing/suit/hooded/explorer,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"eo" = (
+/obj/structure/shelf/supply,
+/obj/structure/shelf/supply,
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"eD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"eF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"eJ" = (
+/obj/item/clothing/suit/hooded/explorer,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"fb" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gibtonite,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"fj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib{
+	pixel_y = 9
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"fp" = (
+/obj/structure/table/holotable,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ft" = (
+/obj/item/rack_parts,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"fA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"fL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"fR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"fW" = (
+/obj/structure/table,
+/obj/item/circuitboard/aiupload_broken,
+/obj/item/screwdriver,
+/obj/item/multitool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"fZ" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"gd" = (
+/obj/effect/turf_decal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ge" = (
+/obj/structure/shelf/supply,
+/obj/structure/sign/poster/ripped/directional/east,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"gj" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"gs" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_y = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"gL" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"gX" = (
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/traders/minerals,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"gZ" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"hB" = (
+/obj/structure/table/holotable,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"hP" = (
+/obj/structure/shelf/service,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"hV" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"hX" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"iK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ja" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_x = -2;
+	pixel_y = 35
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jd" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"je" = (
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ji" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"jt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"jB" = (
+/obj/effect/turf_decal,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"jI" = (
+/obj/item/stack/ore/plasma,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"jT" = (
+/obj/structure/table,
+/obj/item/t_scanner/adv_mining_scanner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ka" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"kf" = (
+/obj/structure/chair/sofa/left,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"kg" = (
+/obj/structure/sign/poster/official/air2/directional/north,
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/item/slimepotion/sentience/mining,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"kl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"kp" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"kz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/effect/decal/cleanable/blood/gibs/robot/gib{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"kB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"kK" = (
+/obj/item/conveyor_construct{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"kU" = (
+/obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/caution/stand_clear/white,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"kX" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"lf" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ln" = (
+/obj/structure/sign/poster/official/walk/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"lo" = (
+/obj/structure/table/reinforced,
+/obj/item/borg/upgrade/modkit/minebot_passthrough,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"lV" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"me" = (
+/obj/machinery/atmospherics/portable/pump,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"mj" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"mo" = (
+/obj/machinery/washing_machine,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"mq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/south{
+	plane = -6;
+	layer = 1.9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"mJ" = (
+/obj/item/stack/ore/iron,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"mW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ne" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/ash,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"od" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ow" = (
+/obj/structure/shelf/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/item/circuitboard/aiupload_broken,
+/obj/item/circuitboard/aiupload_broken,
+/obj/item/circuitboard/aiupload_broken,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"oI" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"oJ" = (
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"oT" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"pp" = (
+/obj/item/conveyor_construct{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"pr" = (
+/obj/structure/chair/sofa,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"pM" = (
+/obj/item/stack/ore{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"pT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"qn" = (
+/obj/structure/rack,
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"qy" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"rn" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"rp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"rq" = (
+/obj/structure/sign/poster/official/pda_ad/directional/north,
+/obj/item/conveyor_construct{
+	pixel_y = -1;
+	pixel_x = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"rE" = (
+/obj/effect/spawner/random/loot_crate,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"rM" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"sn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"sL" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"tf" = (
+/obj/item/mounted/frame/apc_frame,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"tw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods,
+/obj/item/stack/cable_coil,
+/obj/machinery/conveyor/south{
+	plane = -6;
+	layer = 1.9
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"tG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/obj/machinery/conveyor/south{
+	plane = -6;
+	layer = 1.9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ud" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"up" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/effect/decal/cleanable/blood/gibs/robot/gib{
+	pixel_y = 9
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ut" = (
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"uz" = (
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"uT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"uU" = (
+/obj/structure/table/holotable,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"uV" = (
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ve" = (
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/red_rum/directional/north,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"vy" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"vE" = (
+/obj/item/stock_parts/scanning_module,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"vL" = (
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"vM" = (
+/obj/structure/table,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/item/extinguisher/mini,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"wu" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wO" = (
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"wW" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"xb" = (
+/obj/structure/sign/poster/official/air1/directional/north,
+/obj/machinery/computer/nonfunctional,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"xh" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"xi" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/obj/item/clothing/suit/bomb_suit,
+/obj/item/clothing/head/bomb_hood,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"xq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"xJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"xZ" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"yd" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"yj" = (
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"yE" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yF" = (
+/obj/effect/turf_decal,
+/obj/structure/sign/poster/official/air1/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"yH" = (
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"yJ" = (
+/obj/structure/sign/poster/official/soft_cap_pop_art/directional/north,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"yR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"yV" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"za" = (
+/obj/structure/bed,
+/obj/item/bedsheet,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"zc" = (
+/obj/structure/sign/poster/ripped/directional/south,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"zq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"zF" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"zR" = (
+/obj/machinery/economy/vending/assist/free,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Ak" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"As" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"AO" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"AS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Be" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"BK" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"BS" = (
+/obj/item/stack/sheet/mineral/silver,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"BZ" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Cb" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_x = 30
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Cp" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"CG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/badrecipe,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"CL" = (
+/obj/structure/machine_frame,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"CX" = (
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Dk" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ez" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"EE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Fb" = (
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Fe" = (
+/obj/structure/door_assembly/door_assembly_mhatch,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"FT" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ge" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Gk" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	name = "Truck Delivery Port"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"GN" = (
+/obj/effect/mapping_helpers/lava_magnet,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"GO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"GV" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"GX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Hh" = (
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Hl" = (
+/obj/structure/janitorialcart{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Hy" = (
+/obj/structure/shelf/supply,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Hz" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"HC" = (
+/obj/effect/spawner/random/loot_crate,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"HG" = (
+/obj/item/stack/ore/bluespace_crystal{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"HJ" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"HW" = (
+/obj/machinery/computer/nonfunctional,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"HZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Ig" = (
+/obj/effect/turf_decal,
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Ii" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Ij" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ik" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Im" = (
+/obj/machinery/power/smes,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Iz" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"IF" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Jr" = (
+/obj/machinery/economy/vending/cigarette,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"JA" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"JK" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"JL" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"JO" = (
+/obj/machinery/disposal,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"JV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Kf" = (
+/obj/structure/chair/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Kl" = (
+/obj/structure/table/holotable,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ks" = (
+/obj/structure/sign/poster/ripped/directional/south,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"KD" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"KN" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_y = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/effect/decal/cleanable/blood/gibs/robot/gib{
+	pixel_y = 9
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Lw" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"LF" = (
+/obj/structure/sign/poster/official/space_cops/directional/north,
+/obj/structure/table,
+/obj/item/mounted/frame/apc_frame,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"LH" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"LM" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"LQ" = (
+/obj/structure/door_assembly,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Mk" = (
+/obj/structure/table/reinforced,
+/obj/item/borg/upgrade/modkit/cooldown/minebot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Mm" = (
+/obj/structure/chair/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Mv" = (
+/obj/structure/sign/poster/official/cohiba_robusto_ad/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"MK" = (
+/obj/structure/chair,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"MN" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Nl" = (
+/obj/item/stack/ore{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Nm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"NN" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered/althland_factory)
+"OE" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/item/conveyor_construct,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Pb" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/obj/item/bombcore/training{
+	name = "degraded payload";
+	desc = "A weathered payload core, its once vital center now shattered, rendering it indistinguishable from a mere stone."
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Pk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Pw" = (
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/item/circuitboard/aiupload_broken,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Pz" = (
+/obj/machinery/mineral/unloading_machine,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"PB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"PI" = (
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/item/stack/cable_coil,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"PJ" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"PO" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"PQ" = (
+/obj/item/stack/ore/plasma,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Qj" = (
+/obj/structure/sign/poster/official/get_your_legs/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Qq" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/turf_decal,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Rh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ro" = (
+/obj/structure/sign/poster/ripped/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"RA" = (
+/obj/item/clothing/mask/gas/explorer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"RM" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"RN" = (
+/obj/structure/machine_frame,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"RU" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Sq" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_y = -30
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Su" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Tl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Tn" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Tp" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Tu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Tw" = (
+/obj/effect/spawner/random/loot_crate,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"TE" = (
+/obj/effect/turf_decal,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"TI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"TY" = (
+/obj/item/rack_parts,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ur" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Ux" = (
+/obj/effect/turf_decal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Uy" = (
+/obj/structure/table_frame,
+/obj/structure/sign/poster/ripped/directional/south,
+/obj/item/robotanalyzer,
+/obj/item/clothing/head/welding,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"UI" = (
+/turf/template_noop,
+/area/template_noop)
+"UJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"UO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"UP" = (
+/obj/structure/noticeboard{
+	dir = 1;
+	pixel_y = -27
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Vg" = (
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/item/circuitboard/aiupload_broken,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Wh" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Wk" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered/althland_factory)
+"Wn" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/structure/lattice/lava,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"WN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"WQ" = (
+/obj/structure/disposalpipe/broken,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"WR" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/spawner/random/loot,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Xb" = (
+/obj/structure/table,
+/obj/effect/spawner/random/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Xo" = (
+/obj/structure/shelf/service,
+/obj/item/clothing/gloves/janitor,
+/obj/item/clothing/head/soft/janitorpurple,
+/obj/item/storage/belt/janitor,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Xp" = (
+/obj/structure/table/reinforced,
+/obj/item/circuitboard/aiupload_broken,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Xq" = (
+/obj/structure/sign/poster/official/state_laws/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/obj/effect/decal/cleanable/blood/gibs/robot/gib{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"XI" = (
+/obj/item/circuitboard/cyborgrecharger,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"XM" = (
+/obj/structure/machine_frame,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"XV" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Ya" = (
+/obj/item/stack/ore,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Ys" = (
+/obj/structure/sign/poster/ripped/directional/north,
+/obj/item/rack_parts,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"YB" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"YO" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/broken,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"YS" = (
+/obj/structure/chair/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"YW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"YZ" = (
+/obj/structure/door_assembly/door_assembly_mhatch,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"Zo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"Zz" = (
+/obj/item/stack/rods,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZG" = (
+/obj/structure/door_assembly/door_assembly_mai,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ZN" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"ZQ" = (
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"ZR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+
+(1,1,1) = {"
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(2,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(3,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(4,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(5,1,1) = {"
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(6,1,1) = {"
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(7,1,1) = {"
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(8,1,1) = {"
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+kB
+kB
+kB
+kB
+kB
+Cb
+kB
+kB
+IF
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(9,1,1) = {"
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+Wk
+Wk
+Wk
+rn
+Wk
+NN
+Gk
+Gk
+NN
+Wk
+kB
+IF
+dW
+dW
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(10,1,1) = {"
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+Wk
+ow
+gX
+mJ
+Wh
+yF
+ji
+Ik
+ut
+Wk
+kB
+Wk
+WN
+dW
+dW
+dW
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(11,1,1) = {"
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+bL
+Ik
+Tu
+iK
+fb
+gd
+TI
+JV
+Tu
+bL
+kB
+Wk
+PI
+bq
+dW
+dW
+dW
+dW
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(12,1,1) = {"
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+Wk
+ve
+CX
+ft
+oI
+jB
+EE
+ji
+ln
+Wk
+kB
+Wk
+UO
+Su
+fZ
+IF
+dW
+dW
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+"}
+(13,1,1) = {"
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+Wk
+rE
+rE
+qy
+Tu
+jI
+PJ
+XV
+Ur
+Wk
+kB
+Wk
+rq
+Dk
+hX
+up
+IF
+dW
+IF
+IF
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+UI
+UI
+UI
+UI
+UI
+"}
+(14,1,1) = {"
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wk
+Ro
+EE
+RA
+xh
+hV
+kp
+PQ
+yV
+Wk
+kB
+Wk
+kK
+tG
+CL
+WN
+dW
+dW
+IF
+IF
+dW
+dW
+iK
+vL
+eo
+vL
+Wk
+UI
+UI
+UI
+UI
+UI
+"}
+(15,1,1) = {"
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wk
+HC
+Tw
+TI
+mW
+JL
+Ik
+IF
+dW
+Wk
+kB
+Wk
+lf
+Ez
+aZ
+kz
+IF
+Wk
+IF
+IF
+IF
+dW
+IF
+IF
+RM
+gs
+Wk
+UI
+UI
+UI
+UI
+UI
+"}
+(16,1,1) = {"
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wn
+Pb
+xi
+HG
+sn
+NN
+Wn
+dW
+dW
+kB
+kB
+Wk
+cs
+dm
+Mk
+UO
+Ks
+Wk
+kB
+IF
+IF
+dW
+dW
+dW
+IF
+JO
+Wk
+UI
+UI
+UI
+UI
+UI
+"}
+(17,1,1) = {"
+UI
+UI
+UI
+UI
+IF
+IF
+dW
+dW
+Ik
+BS
+jd
+ab
+NN
+Wn
+dW
+IF
+kB
+kB
+Wk
+AS
+tw
+bJ
+OE
+fj
+bL
+kB
+kB
+dW
+dW
+dW
+dW
+IF
+IF
+Wk
+UI
+UI
+UI
+UI
+UI
+"}
+(18,1,1) = {"
+UI
+UI
+UI
+UI
+IF
+IF
+dW
+dW
+od
+od
+Dk
+jt
+NN
+Wk
+dW
+kB
+kB
+Wk
+Wk
+UO
+pM
+Cp
+WN
+Wk
+Wk
+kB
+kB
+Wk
+IF
+dW
+IF
+IF
+IF
+dW
+UI
+UI
+UI
+UI
+UI
+"}
+(19,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+dW
+Wk
+Wk
+oT
+eF
+Ik
+Wk
+IF
+kB
+kB
+Wk
+Ux
+ay
+Ii
+Xp
+KN
+Wk
+kB
+kB
+kB
+Wk
+bJ
+IF
+IF
+dW
+dW
+dW
+UI
+UI
+UI
+UI
+UI
+"}
+(20,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+Wk
+wO
+MN
+LM
+dV
+kB
+kB
+kB
+ka
+dA
+sL
+bq
+RN
+UO
+Wk
+kB
+kB
+kB
+Wk
+WR
+IF
+IF
+IF
+dW
+dW
+IF
+UI
+UI
+UI
+UI
+"}
+(21,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wk
+Hy
+ge
+Ij
+Wk
+ja
+kB
+kB
+Wk
+TE
+uV
+TY
+MK
+Xq
+Wk
+kB
+kB
+kB
+Wk
+LF
+Zo
+IF
+dW
+dW
+dW
+IF
+IF
+UI
+UI
+UI
+"}
+(22,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wk
+Wk
+Wk
+bL
+Wk
+kB
+kB
+IF
+Wk
+Qq
+pp
+RM
+lo
+UO
+bL
+kB
+kB
+kB
+Wk
+jT
+jd
+dW
+dW
+Tl
+dW
+IF
+IF
+IF
+UI
+UI
+"}
+(23,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+kB
+kB
+kB
+kB
+kB
+IF
+IF
+Wk
+Ig
+uV
+mq
+CL
+up
+bL
+kB
+kB
+Wk
+Wk
+zR
+TI
+dW
+dW
+fA
+dW
+IF
+IF
+IF
+UI
+UI
+"}
+(24,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+GN
+IF
+Wk
+IF
+Pz
+YO
+mj
+bG
+ka
+kB
+kB
+ka
+uT
+wW
+ZN
+dW
+dm
+BZ
+Wk
+IF
+IF
+IF
+UI
+UI
+"}
+(25,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+IF
+dW
+IF
+dW
+IF
+rM
+Nl
+IF
+PB
+ka
+kB
+kB
+ka
+Ge
+zq
+IF
+IF
+Ya
+dN
+Wk
+IF
+IF
+UI
+UI
+UI
+"}
+(26,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+Wk
+Wk
+Wk
+bL
+bL
+dW
+IF
+dW
+dW
+dW
+dW
+dW
+dW
+dW
+rp
+Wk
+kB
+Wk
+Wk
+xb
+uz
+ne
+Tp
+ZR
+me
+Wk
+IF
+IF
+UI
+UI
+UI
+"}
+(27,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+Be
+gZ
+NN
+mo
+dW
+dW
+kB
+kB
+kB
+dW
+dW
+IF
+dW
+dW
+Ij
+Wk
+kB
+kB
+Wk
+HW
+yj
+je
+kU
+Wk
+Wk
+Wk
+IF
+IF
+UI
+UI
+UI
+"}
+(28,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+As
+Hh
+LQ
+TI
+dW
+dW
+dW
+kB
+kB
+kB
+dW
+dW
+dW
+dW
+Wk
+Wk
+kB
+kB
+Wk
+Im
+GX
+kX
+lV
+Wk
+kB
+IF
+IF
+IF
+UI
+UI
+UI
+"}
+(29,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+fp
+YS
+NN
+kl
+dW
+dW
+IF
+IF
+dW
+kB
+kB
+dW
+dW
+kB
+kB
+kB
+kB
+kB
+Wk
+Wk
+zF
+Tn
+Wk
+Wk
+kB
+IF
+IF
+IF
+UI
+UI
+UI
+"}
+(30,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+NN
+NN
+NN
+Qj
+IF
+dW
+dW
+dW
+dW
+IF
+kB
+IF
+dW
+dW
+IF
+kB
+kB
+LH
+yd
+XM
+xq
+JK
+Lw
+Wk
+kB
+kB
+IF
+IF
+IF
+UI
+UI
+"}
+(31,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+HJ
+cj
+NN
+Ya
+Fb
+dW
+kB
+dW
+dW
+dW
+IF
+IF
+dW
+kB
+IF
+IF
+kB
+kB
+gL
+HW
+GO
+vE
+Uy
+Wk
+Wk
+kB
+IF
+IF
+IF
+UI
+UI
+"}
+(32,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+yJ
+dY
+LQ
+dm
+aS
+Wk
+Wk
+Wk
+YB
+dW
+dW
+bL
+Wk
+kB
+kB
+kB
+Wk
+Wk
+Wk
+CL
+pT
+RU
+fW
+FT
+Wk
+kB
+kB
+IF
+IF
+UI
+UI
+"}
+(33,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+Kl
+Kf
+NN
+Ys
+vy
+GV
+PO
+WQ
+gj
+Pk
+IF
+dW
+Wk
+yE
+yE
+yE
+Wk
+Vg
+ZQ
+TI
+XI
+xJ
+Hz
+dq
+Wk
+kB
+kB
+IF
+IF
+UI
+UI
+"}
+(34,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+Wk
+NN
+NN
+NN
+Tu
+tf
+Mv
+dm
+Iz
+fA
+CG
+Rh
+UP
+Wk
+kB
+fL
+Sq
+Wk
+JA
+yH
+Ik
+IF
+IF
+iK
+BK
+Wk
+kB
+kB
+kB
+IF
+IF
+UI
+"}
+(35,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+Wk
+Xo
+hP
+NN
+ZG
+NN
+NN
+LQ
+NN
+NN
+xZ
+Ge
+Pk
+Fe
+HZ
+UJ
+Nm
+YZ
+Ik
+Ya
+fR
+dW
+IF
+KD
+TI
+ka
+kB
+kB
+kB
+IF
+IF
+UI
+"}
+(36,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+Wk
+yR
+AO
+As
+Ik
+NN
+Mm
+eJ
+cj
+NN
+pr
+jd
+zc
+Wk
+kB
+kB
+YW
+Wk
+kg
+bS
+IF
+dW
+dW
+IF
+vM
+Wk
+kB
+kB
+kB
+kB
+IF
+IF
+"}
+(37,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+Wk
+Wk
+Hl
+hB
+qn
+NN
+uU
+Ak
+za
+NN
+kf
+Ik
+Jr
+Wk
+eD
+Zz
+wu
+Wk
+oJ
+Pw
+IF
+dW
+dW
+IF
+Xb
+Wk
+kB
+kB
+kB
+kB
+IF
+IF
+"}
+(38,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+Wk
+ud
+dV
+Wk
+Wk
+kB
+kB
+kB
+Wk
+Wk
+Wk
+Wk
+dW
+dW
+dW
+Wk
+Wk
+kB
+kB
+kB
+kB
+kB
+IF
+"}
+(39,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+kB
+kB
+kB
+UI
+UI
+UI
+dW
+dW
+dW
+dW
+dW
+IF
+kB
+kB
+kB
+kB
+kB
+IF
+"}
+(40,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+IF
+IF
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+kB
+kB
+kB
+UI
+UI
+UI
+UI
+IF
+IF
+dW
+IF
+IF
+kB
+kB
+kB
+kB
+kB
+IF
+"}
+(41,1,1) = {"
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+UI
+kB
+kB
+kB
+UI
+UI
+UI
+UI
+UI
+UI
+IF
+UI
+UI
+kB
+kB
+kB
+kB
+kB
+kB
+"}

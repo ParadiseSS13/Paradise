@@ -1,15 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "e" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "f" = (
-/obj/machinery/light/spot{
-	dir = 1
+/obj/machinery/status_display{
+	name = "cargo display";
+	pixel_y = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "g" = (
 /obj/machinery/conveyor{
@@ -28,15 +32,12 @@
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "i" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/supply)
-"j" = (
-/obj/machinery/light/spot{
+/obj/effect/turf_decal{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"j" = (
 /obj/machinery/door_control{
 	id = "QMLoaddoor2";
 	layer = 3;
@@ -51,7 +52,10 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "k" = (
 /obj/machinery/door/airlock/external{
@@ -73,8 +77,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "o" = (
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
+/area/shuttle/supply)
+"r" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
@@ -102,6 +111,33 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
+"H" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
+"I" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"R" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"U" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
 
 (1,1,1) = {"
 a
@@ -119,72 +155,72 @@ v
 "}
 (2,1,1) = {"
 a
-e
-e
-e
-e
+I
 i
-e
-e
-e
-a
-a
+i
+i
+i
+i
+i
+I
+r
+U
 w
 "}
 (3,1,1) = {"
 a
-e
-e
-e
-e
-e
-e
-e
-e
-e
+o
+o
+o
+o
+o
+o
+o
+o
+o
 t
 x
 "}
 (4,1,1) = {"
 a
 f
-e
-e
-e
-e
-e
-e
-e
+o
+o
+o
+o
+o
+o
+o
 o
 t
 x
 "}
 (5,1,1) = {"
 a
-e
-e
-e
-e
-e
-e
-e
-e
-e
+o
+o
+o
+o
+o
+o
+o
+o
+o
 t
 x
 "}
 (6,1,1) = {"
 a
-e
+R
 e
 e
 e
 j
 e
 e
-e
-a
-a
+R
+H
+U
 y
 "}
 (7,1,1) = {"

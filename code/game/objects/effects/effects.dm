@@ -8,6 +8,7 @@
 	move_resist = INFINITY
 	anchored = TRUE
 	can_be_hit = FALSE
+	new_attack_chain = TRUE
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
@@ -31,8 +32,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference()
-	return
+/obj/effect/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity)
 	switch(severity)
@@ -55,7 +56,6 @@
 	name = "Abstract object"
 	invisibility = INVISIBILITY_ABSTRACT
 	layer = TURF_LAYER
-	density = FALSE
 	icon = null
 	icon_state = null
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
@@ -98,11 +98,17 @@
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
-/obj/effect/decal/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))
-		scoop(I, user)
+/obj/effect/decal/build_base_description(infix, suffix) // overriding this is a sin but it fixes a worse sin
+	. = list("[bicon(src)] That's \a [src][infix]. [suffix]")
+	if(desc)
+		. += desc
+
+/obj/effect/decal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks))
+		scoop(used, user)
 	else if(issimulatedturf(loc))
-		I.melee_attack_chain(user, loc)
+		used.melee_attack_chain(user, loc)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/decal/attack_animal(mob/living/simple_animal/M)
 	if(issimulatedturf(loc))
@@ -151,7 +157,6 @@
 
 /// These effects can be added to anything to hold particles, which is useful because Byond only allows a single particle per atom
 /obj/effect/abstract/particle_holder
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
 	vis_flags = VIS_INHERIT_PLANE
@@ -181,6 +186,7 @@
 	if(parent)
 		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	QDEL_NULL(particles)
+	holding_parent = null
 	parent.vis_contents -= src
 	return ..()
 
@@ -206,9 +212,9 @@
 
 	// Add new
 	if(isitem(attached_to) && ismob(attached_to.loc)) //special case we want to also be emitting from the mob
-		var/mob/particle_mob = attached_to.loc
+		holding_parent = attached_to.loc
 		last_attached_location_type = attached_to.loc
-		particle_mob.vis_contents += src
+		holding_parent.vis_contents += src
 
 	// Readd to ourselves
 	attached_to.vis_contents |= src

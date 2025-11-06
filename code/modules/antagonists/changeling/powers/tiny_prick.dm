@@ -1,28 +1,31 @@
 /datum/action/changeling/sting
 	name = "Tiny Prick"
-	desc = "Stabby stabby"
-	power_type = CHANGELING_UNOBTAINABLE_POWER
+	desc = "Stabby stabby."
 	category = /datum/changeling_power_category/stings
 	var/sting_icon = null
 	/// A middle click override used to intercept changeling stings performed on a target.
-	var/datum/middleClickOverride/callback_invoker/click_override
+	var/datum/middle_click_override/callback_invoker/click_override
 
 /datum/action/changeling/sting/New(Target)
 	. = ..()
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Destroy(force, ...)
-	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
-		cling.owner.current.middleClickOverride = null
 	QDEL_NULL(click_override)
 	if(cling.chosen_sting == src)
-		cling.chosen_sting = null
+		unset_sting()
 	return ..()
 
 /datum/action/changeling/sting/Trigger(left_click)
 	if(!cling.chosen_sting)
 		set_sting()
 	else
+		unset_sting()
+
+/datum/action/changeling/sting/Remove(mob/remove_from)
+	. = ..()
+	// Check that cling exists because in certain scenarios, it may have been deleted in Destroy() first.
+	if(cling?.chosen_sting == src)
 		unset_sting()
 
 /datum/action/changeling/sting/proc/set_sting()

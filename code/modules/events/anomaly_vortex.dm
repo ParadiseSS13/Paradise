@@ -1,5 +1,5 @@
 /datum/event/anomaly/anomaly_vortex
-	name = "Anomaly: Vortex"
+	name = "Anomaly event"
 	startWhen = 10
 	announceWhen = 3
 	anomaly_path = /obj/effect/anomaly/bhole

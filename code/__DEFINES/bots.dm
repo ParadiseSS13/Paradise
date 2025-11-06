@@ -26,6 +26,7 @@
 #define BOT_NO_ROUTE		17	// no destination beacon found (or no route)
 #define BOT_MAKE_TILE		18	// converting metal into tiles (floorbots)
 #define BOT_EAT_TILE		19	// adding said tiles to inventory (floorbots)
+#define BOT_PATHING			20	// Actively pathfinding.
 
 //Bot types
 #define SEC_BOT				"Security"	// Secutritrons (Beepsky) and ED-209s
@@ -42,3 +43,24 @@
 #define SENTIENCE_OTHER 3
 #define SENTIENCE_MINEBOT 4
 #define SENTIENCE_BOSS 5
+
+// Medbot voice keys
+#define MEDIBOT_VOICED_HOLD_ON "Hey, %TARGET%! Hold on, I'm coming."
+#define MEDIBOT_VOICED_WANT_TO_HELP "Wait, %TARGET%! I want to help!"
+#define MEDIBOT_VOICED_YOU_ARE_INJURED "%TARGET%, you appear to be injured!"
+
+#define MEDIBOT_VOICED_ALL_PATCHED_UP "All patched up!"
+#define MEDIBOT_VOICED_APPLE_A_DAY "An apple a day keeps me away."
+#define MEDIBOT_VOICED_FEEL_BETTER "Feel better soon!"
+
+#define MEDIBOT_VOICED_STAY_WITH_ME	"No! Stay with me!"
+#define MEDIBOT_VOICED_LIVE	"Live, damnit! LIVE!"
+#define MEDIBOT_VOICED_NEVER_LOST "I...I've never lost a patient before. Not today, I mean."
+
+#define MEDIBOT_VOICED_DELICIOUS "Delicious!"
+#define MEDIBOT_VOICED_PLASTIC_SURGEON "I knew it, I should've been a plastic surgeon."
+#define MEDIBOT_VOICED_MASK_ON "Radar, put a mask on!"
+#define MEDIBOT_VOICED_ALWAYS_A_CATCH "There's always a catch, and I'm the best there is."
+#define MEDIBOT_VOICED_LIKE_FLIES "What kind of medbay is this? Everyone's dropping like flies."
+
+#define MEDIBOT_VOICED_FUCK_YOU	"Fuck you."

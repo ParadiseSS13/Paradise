@@ -1,0 +1,21 @@
+.AdminAntagMenu__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    cursor: var(--cursor-pointer);
+    line-height: 24px;
+    height: 24px;
+    transition: background-color var(--transition-time-fast);
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-base);
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: hsla(from var(--color-base) h s calc(l + var(--adjust-color)) / 0.5);
+  }
+}

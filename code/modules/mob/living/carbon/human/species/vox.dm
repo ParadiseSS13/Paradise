@@ -53,6 +53,7 @@
 		8 = "Nebula"
 		)
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/vox,
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
@@ -72,14 +73,16 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
+	plushie_type = /obj/item/toy/plushie/voxplushie
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_to_ground(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox/respirator(H), SLOT_HUD_WEAR_MASK)
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox/respirator(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref)//Diseasel, here you go
@@ -88,8 +91,8 @@
 		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
-			H.unEquip(H.l_hand)
-			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
 			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
@@ -137,3 +140,6 @@
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()
+
+/datum/species/vox/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/food/fried_vox(H.loc)

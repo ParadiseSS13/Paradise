@@ -9,10 +9,14 @@
 	icon_state = "loom"
 	density = TRUE
 	anchored = TRUE
+	// TODO: should absolutely be keyed to tool speed but
+	// is just a constant for now for use in tests
+	var/disassemble_speed = 5 SECONDS
 
-/obj/structure/loom/attackby(obj/item/I, mob/user)
+/obj/structure/loom/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(weave(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/loom/crowbar_act(mob/user, obj/item/I)
@@ -20,7 +24,7 @@
 	if(!I.use_tool(src, user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, disassemble_speed, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 

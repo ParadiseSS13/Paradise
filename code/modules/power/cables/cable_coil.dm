@@ -11,31 +11,29 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil_red"
+	inhand_icon_state = "coil"
 	belt_icon = "cable_coil"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = COLOR_RED
-	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	item_state = "coil"
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
+	/// Type of cable this coil makes
+	var/cable_type = /obj/structure/cable
+	/// Bitflag of the types of cable we can add cable to with this coil.
+	/// This is different to the cable connection flag since it only governs connecting on the same tile
+	var/cable_merge_id = CABLE_MERGE_LOW_POWER
 
-/obj/item/stack/cable_coil/New(location, length = MAXCOIL, paramcolor = null)
+/obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
 	if(paramcolor)
 		color = paramcolor
-
-/obj/item/stack/cable_coil/Initialize(mapload)
-	. = ..()
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
@@ -77,12 +75,23 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	else
 		. += "A coil of power cables."
 
+/obj/item/stack/cable_coil/can_merge(obj/item/stack/check, inhand = FALSE)
+	. = FALSE
+	if(istype(check, merge_type))
+		var/obj/item/stack/cable_coil/coil_check = check
+		. = coil_check.cable_merge_id == cable_merge_id
+	return . && ..()
+
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/M, mob/user)
+/obj/item/stack/cable_coil/attack__legacy__attackchain(mob/M, mob/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
+
+	if(!S && ismachineperson(M) && user.a_intent == INTENT_HELP)
+		to_chat(user, "<span class='notice'>[M.p_they(TRUE)] [M.p_are()] missing that limb!</span>")
+		return
 
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
@@ -131,11 +140,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
-/obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
+/obj/item/stack/cable_coil/attackby__legacy__attackchain(obj/item/W, mob/user)
 	. = ..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		// Cable merging is handled by parent proc
+		if(C.cable_merge_id != cable_merge_id)
+			to_chat(user, "These coils are of different types.")
+			return
 		if(C.get_amount() >= MAXCOIL)
 			to_chat(user, "The coil is as long as it will get.")
 			return
@@ -148,14 +160,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+		cable_color(C.dye_color)
 
 ///////////////////////////////////////////////
 // Cable laying procedures
 //////////////////////////////////////////////
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
-	var/obj/structure/cable/C = new(location)
+	var/obj/structure/cable/C = new cable_type(location)
 	C.cable_color(color)
 
 	return C
@@ -207,7 +219,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
@@ -215,6 +227,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /// called when cable_coil is click on an installed obj/cable or click on a turf that already contains a "node" cable
 /obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user)
+	if(C.merge_id != cable_merge_id)
+		return
 	var/turf/U = user.loc
 	if(!isturf(U))
 		return
@@ -332,8 +346,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		color = COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
-	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+	else if(colorC == "orange") // byond only knows 16 colors by name, and orange isn't one of them
 		color = COLOR_ORANGE
+	else if(colorC == "pink")
+		color = COLOR_PINK // nor is pink.. thanks byond
 	else
 		color = colorC
 
@@ -348,8 +364,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
-/obj/item/stack/cable_coil/five/New(loc, new_amount = 5, merge = TRUE, paramcolor = null)
-	..()
+/obj/item/stack/cable_coil/five
+	amount = 5
+
+/obj/item/stack/cable_coil/ten
+	amount = 10
 
 /obj/item/stack/cable_coil/yellow
 	color = COLOR_YELLOW
@@ -372,12 +391,35 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
-	..()
+
+/obj/item/stack/cable_coil/extra_insulated
+	name = "heavy duty cable coil"
+	singular_name = "heavy duty cable"
+	icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+	color = null
+	cable_type = /obj/structure/cable/extra_insulated
+	cable_merge_id = CABLE_MERGE_HIGH_POWER
+	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+
+/obj/item/stack/cable_coil/extra_insulated/proc/toggle_connection(user)
+	if(allowed(user))
+		if(cable_type == /obj/structure/cable/extra_insulated/pre_connect)
+			cable_type = /obj/structure/cable/extra_insulated
+			icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+		else
+			cable_type = /obj/structure/cable/extra_insulated/pre_connect
+			icon = 'icons/obj/cable_coils/heavy_duty_connected.dmi'
+
+/obj/item/stack/cable_coil/extra_insulated/attackby__legacy__attackchain(obj/item/I, mob/living/user)
+	if(I.GetID())
+		toggle_connection(user)
+	return ..()
 
 /obj/item/stack/cable_coil/cut
-	item_state = "coil2"
+	icon_state = "coil2"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
 	. = ..()
@@ -392,10 +434,21 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/cyborg/update_icon_state()
 	return // icon_state should always be a full cable
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	color = cablecolor
+/obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
+	var/cablecolor = tgui_input_list(usr, "Pick a cable color.", "Cable Color", list("red","yellow","green","blue","pink","orange","cyan","white"))
+	cable_color(cablecolor)
 	update_icon()
+
+/obj/item/stack/cable_coil/extra_insulated/cyborg
+	energy_type = /datum/robot_storage/energy/cable
+	is_cyborg = TRUE
+
+/obj/item/stack/cable_coil/extra_insulated/cyborg/attack_self__legacy__attackchain(mob/user)
+	toggle_connection(user)
+	update_icon()
+
+/obj/item/stack/cable_coil/extra_insulated/cyborg/update_icon_state()
+	return // icon_state should always be a full cable
 
 #undef HEALPERCABLE
 #undef MAXCABLEPERHEAL

@@ -23,6 +23,10 @@
 						piece = pick(S.speak)
 					else
 						piece = stars(piece)
+				else if(isbasicmob(speaker))
+					var/mob/living/basic/B = speaker
+					if(LAZYLEN(B.unintelligble_phrases))
+						piece = pick(B.unintelligble_phrases)
 				else
 					piece = SP.speaking.scramble(piece)
 			if(always_stars)
@@ -30,11 +34,16 @@
 			piece = SP.speaking.format_message(piece)
 		else
 			if(!say_understands(speaker, null))
-				piece = stars(piece)
 				if(isanimal(speaker))
 					var/mob/living/simple_animal/S = speaker
 					if(LAZYLEN(S.speak))
 						piece = pick(S.speak)
+				else if(isbasicmob(speaker))
+					var/mob/living/basic/B = speaker
+					if(LAZYLEN(B.unintelligble_phrases))
+						piece = pick(B.unintelligble_phrases)
+					else
+						piece = stars(piece)
 				if(always_stars)
 					piece = stars(piece)
 			piece = "<span class='message'><span class='body'>[piece]</span></span>"
@@ -68,7 +77,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -106,8 +115,17 @@
 	if(speaker == src)
 		for(var/datum/multilingual_say_piece/SP in message_pieces)
 			if(SP.speaking && SP.speaking.flags & INNATE)
-				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
+
+	// horrid horrid horrid
+	// better handling for basicmob interpretation is needed everywhere
+	// but it doesn't help that all the animal interpretation is snowflaked
+	// into core /mob procs
+	if(isbasicmob(speaker) && !say_understands(speaker, null))
+		var/mob/living/basic/B = speaker
+		if(LAZYLEN(B.unintelligble_speak_verbs))
+			verb = pick(B.unintelligble_speak_verbs)
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
@@ -184,7 +202,7 @@
 				heardword = html_encode(copytext(heardword, 2))
 			if(copytext(heardword,-1) in punctuation)
 				heardword = html_encode(copytext(heardword, 1, length(heardword)))
-			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+			heard = "<span class='game say'>...<i>You hear something about</i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
 	else

@@ -9,10 +9,13 @@
 	var/in_camera_mode = 0
 	var/photos_taken = 0
 	var/list/aipictures = list()
+	flashing_light = FALSE
+	actions_types = list()
 
 /// camera AI can take pictures with
 /obj/item/camera/siliconcam/ai_camera
 	name = "AI photo camera"
+	see_cult = FALSE
 
 /// camera cyborgs can take pictures with
 /obj/item/camera/siliconcam/robot_camera
@@ -112,6 +115,13 @@
 
 	toggle_camera_mode()
 
+/obj/item/camera/siliconcam/ai_camera/verb/change_lens()
+	set category = "AI Commands"
+	set name = "Set Photo Focus"
+	set desc = "Changes the lens size of your photo camera"
+
+	change_size()
+
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
 	set category = "AI Commands"
 	set name = "View Images"
@@ -133,6 +143,13 @@
 
 	toggle_camera_mode()
 
+/obj/item/camera/siliconcam/robot_camera/verb/change_lens()
+	set category = "Robot Commands"
+	set name = "Set Photo Focus"
+	set desc = "Changes the lens size of your photo camera"
+
+	change_size()
+
 /obj/item/camera/siliconcam/robot_camera/verb/view_images()
 	set category ="Robot Commands"
 	set name = "View Images"
@@ -149,7 +166,7 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/proc/getsource()
-	if(isAI(loc))
+	if(is_ai(loc))
 		return src
 
 	var/mob/living/silicon/robot/C = loc

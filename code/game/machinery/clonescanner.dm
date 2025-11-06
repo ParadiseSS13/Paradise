@@ -15,6 +15,8 @@
 
 	/// The patient's DNA
 	var/datum/dna/genetic_info
+	/// What quirks the patient has
+	var/list/quirks = list()
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -53,7 +55,8 @@
 	RefreshParts()
 
 /obj/machinery/clonescanner/RefreshParts()
-	for(var/obj/item/stock_parts/SP in component_parts)
+	scanning_tier = 0
+	for(var/obj/item/stock_parts/scanning_module/SP in component_parts)
 		scanning_tier += SP.rating
 
 /obj/machinery/clonescanner/Destroy()
@@ -101,6 +104,8 @@
 
 	has_scanned = TRUE
 
+	if(console.selected_pod?.currently_cloning)
+		return SCANNER_POD_IN_PROGRESS
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
 		return SCANNER_MISC
 	if(HAS_TRAIT(scanned, TRAIT_BADDNA) && scanning_tier < 4)
@@ -122,6 +127,7 @@
 	scan_result.name = scanned.dna.real_name
 	scan_result.mindUID = scanned.mind.UID()
 	scan_result.genetic_info = scanned.dna.Clone()
+	scan_result.quirks = scanned.quirks.Copy()
 
 	for(var/limb in scanned.dna.species.has_limbs)
 		if(scanned.bodyparts_by_name[limb])
@@ -195,3 +201,18 @@
 
 /obj/machinery/clonescanner/force_eject_occupant(mob/target)
 	remove_mob()
+
+/obj/machinery/clonescanner/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
+		return TRUE

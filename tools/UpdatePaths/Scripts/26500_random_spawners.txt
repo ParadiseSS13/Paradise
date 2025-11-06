@@ -1,0 +1,1 @@
+/obj/effect/spawner/lootdrop/maintenance/@SUBTYPES : /obj/effect/spawner/random/maintenance

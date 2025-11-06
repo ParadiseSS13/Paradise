@@ -2,12 +2,10 @@
 	name = "briefcase"
 	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
 	icon_state = "briefcase"
-	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -22,7 +20,7 @@
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()
 	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
-	new /obj/item/clothing/accessory/red(src)
+	new /obj/item/clothing/neck/tie/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
@@ -41,13 +39,13 @@
 		QDEL_NULL(stored_item)
 	return ..()
 
-/obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
+/obj/item/storage/briefcase/false_bottomed/afterattack__legacy__attackchain(atom/A, mob/user, flag, params)
 	..()
-	if(stored_item && isgun(stored_item) && !Adjacent(A))
+	if(stored_item && isgun(stored_item))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack(A, user, flag, params)
+		stored_gun.afterattack__legacy__attackchain(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
+/obj/item/storage/briefcase/false_bottomed/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
 			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
@@ -61,7 +59,7 @@
 
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
-		I.forceMove(null) //null space here we go - to stop it showing up in the briefcase
+		I.moveToNullspace() // to stop it showing up in the briefcase
 		to_chat(user, "<span class='notice'>You place [I] into the false bottom of the briefcase.</span>")
 	else
 		return ..()

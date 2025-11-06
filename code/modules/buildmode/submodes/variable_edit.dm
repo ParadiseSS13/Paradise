@@ -14,7 +14,7 @@
 // FIXME: This needs to use a standard var-editing interface instead of
 // doing its own thing here
 /datum/buildmode_mode/varedit/change_settings(mob/user)
-	var/temp_varname = input(user,"Enter variable name:", "Name", "name")
+	var/temp_varname = tgui_input_text(user, "Enter variable name:", "Name", "name")
 	if(!vv_varname_lockcheck(temp_varname))
 		return
 

@@ -18,11 +18,14 @@
 	user.updatehealth("fakedeath sting")
 	cling.regenerating = TRUE
 
+	cling.remove_specific_power(/datum/action/changeling/revive)
 	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), CHANGELING_FAKEDEATH_TIME)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
+	if(!HAS_TRAIT_FROM(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT))
+		return
 	if(!QDELETED(user) && user.mind && cling?.acquired_powers)
 		to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
 		cling.give_power(new /datum/action/changeling/revive)
@@ -32,9 +35,9 @@
 		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
 		return FALSE
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No")))
-			if("No")
-				return FALSE
+		var/death_confirmation = tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No"))
+		if(death_confirmation != "Yes")
+			return FALSE
 		// Do the checks again since we had user input
 		if(cling.owner != user.mind)
 			return FALSE

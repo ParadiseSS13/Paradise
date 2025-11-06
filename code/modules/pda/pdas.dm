@@ -16,7 +16,7 @@
 
 /obj/item/pda/detective
 	default_cartridge = /obj/item/cartridge/detective
-	icon_state = "pda-security"
+	icon_state = "pda-detective"
 	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/warden
@@ -79,6 +79,11 @@
 	icon_state = "pda-rd"
 	default_pen = /obj/item/pen/rd
 
+/obj/item/pda/heads/qm
+	default_cartridge = /obj/item/cartridge/qm
+	icon_state = "pda-qm"
+	default_pen = /obj/item/pen/qm
+
 /obj/item/pda/captain
 	default_cartridge = /obj/item/cartridge/captain
 	icon_state = "pda-captain"
@@ -88,21 +93,20 @@
 
 /obj/item/pda/heads/ntrep
 	default_cartridge = /obj/item/cartridge/supervisor
-	icon_state = "pda-h"
+	icon_state = "pda-ntr"
 	default_pen = /obj/item/pen/multi/fountain
 
 /obj/item/pda/heads/magistrate
 	default_cartridge = /obj/item/cartridge/supervisor
-	icon_state = "pda-h"
+	icon_state = "pda-magistrate"
 	default_pen = /obj/item/pen/multi/gold
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
-	icon_state = "pda-h"
 	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
 	detonate = FALSE
 	default_pen = /obj/item/pen/multi/fountain
 
@@ -125,13 +129,11 @@
 	default_cartridge = /obj/item/cartridge/cargo
 	icon_state = "pda-cargo"
 
-/obj/item/pda/quartermaster
-	default_cartridge = /obj/item/cartridge/qm
-	icon_state = "pda-qm"
-	default_pen = /obj/item/pen/qm
-
 /obj/item/pda/shaftminer
 	icon_state = "pda-miner"
+
+/obj/item/pda/explorer
+	icon_state = "pda-exp"
 
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate/nuclear
@@ -144,15 +146,20 @@
 	..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
-		M.m_hidden = 1
+		M.m_hidden = TRUE
+
+/obj/item/pda/syndicate_fake
+	icon_state = "pda-syndi"
+	name = "Military PDA"
+	default_pen = /obj/item/pen/multi/syndicate
 
 /obj/item/pda/chaplain
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/pda/lawyer
-	default_cartridge = /obj/item/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/pda/iaa
+	default_cartridge = /obj/item/cartridge/iaa
+	icon_state = "pda-iaa"
 	ttone = "..."
 	default_pen = /obj/item/pen/multi
 
@@ -171,11 +178,12 @@
 	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/clear
-	icon_state = "pda-transp"
+	icon_state = "pda-clear"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition with a transparent case."
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
 /obj/item/pda/chef
+	default_cartridge = /obj/item/cartridge/chef
 	icon_state = "pda-chef"
 
 /obj/item/pda/bar
@@ -194,7 +202,8 @@
 	icon_state = "pda-genetics"
 
 /obj/item/pda/centcom
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
+	detonate = FALSE
 	icon_state = "pda-h"
 	default_pen = /obj/item/pen/multi/gold
 

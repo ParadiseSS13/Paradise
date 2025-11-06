@@ -13,7 +13,7 @@
 
 /datum/merch_item/snap_pops
 	name = "Snap-Pops"
-	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE"
+	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE!"
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
 	category = MERCH_CAT_TOY
@@ -117,6 +117,19 @@
 	cost = 500
 	category = MERCH_CAT_TOY
 
+/datum/merch_item/skateboard
+	name = "Skateboard"
+	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
+	typepath = /obj/item/melee/skateboard
+	cost = 250
+	category = MERCH_CAT_TOY
+
+/datum/merch_item/pro_skateboard
+	name = "Pro Skateboard"
+	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
+	typepath = /obj/item/melee/skateboard/pro
+	cost = 600 //Quite fast, though I expect people to fall flat on their face with this a lot.
+	category = MERCH_CAT_TOY
 
 /datum/merch_item/flag_slime
 	name = "Slime People Flag"
@@ -225,7 +238,7 @@
 
 /datum/merch_item/flag_solgov
 	name = "SolGov Flag"
-	desc = "The banner of Trans-Solar Federation, allied government."
+	desc = "The banner of Trans-Solar Federation."
 	typepath = /obj/item/flag/solgov
 	cost = 750
 	category = MERCH_CAT_DECORATION

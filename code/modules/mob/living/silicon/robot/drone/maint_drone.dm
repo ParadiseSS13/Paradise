@@ -2,13 +2,11 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE
@@ -35,7 +33,7 @@
 	var/obj/item/matter_decompiler/decompiler = null
 
 	// What objects can drones bump into
-	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
+	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/delivery_chute,
 													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
 
 	var/reboot_cooldown = 1 MINUTES
@@ -129,6 +127,11 @@
 	// force it to not actually change most things
 	return ..(newname, newname)
 
+// Drones don't have a PDA.
+/mob/living/silicon/robot/drone/open_pda()
+	to_chat(src, "<span class='warning'>This unit does not have PDA functionality!</span>")
+	return
+
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100, 999)])"
 
@@ -147,15 +150,18 @@
 
 /mob/living/silicon/robot/drone/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</span>"
 	if(isAntag(user))
-		. += "<span class='warning'>Clearly they're not loyal enough however, use of an emag will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+		. += "<span class='warning'>Using an emag on this drone will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+
+/mob/living/silicon/robot/drone/examine_more(mob/user)//I know examine_more is for lore but the length of this description is too much
+	. = ..()
+	. += "<span class='notice'><i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i></span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/borg/upgrade))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
@@ -183,7 +189,7 @@
 					drones++
 			if(drones < config.max_maint_drones)
 				request_player()*/
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
@@ -198,9 +204,9 @@
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
 
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	..()
+	return ..()
 
 /mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -356,7 +362,7 @@
 */
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
+/mob/living/silicon/robot/drone/Bump(atom/movable/AM)
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
@@ -412,7 +418,7 @@
 	return ..()
 
 /mob/living/silicon/robot/drone/do_suicide()
-	ghostize(TRUE)
+	ghostize()
 	shut_down()
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
@@ -423,7 +429,7 @@
 		return FALSE // Pretty damn hard to path through space
 
 	var/turf/target
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+	for(var/obj/machinery/drone_fabricator/DF in SSmachines.get_by_type(/obj/machinery/drone_fabricator))
 		if(DF.z != z)
 			continue
 		target = get_turf(DF)
@@ -439,12 +445,8 @@
 
 	var/datum/pathfinding_mover/pathfind = new(src, target)
 
-	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
-	var/obj/item/card/id/temp_id = new(src)
-	temp_id.access = get_all_accesses()
 	set_pathfinding(pathfind)
-	var/found_path = pathfind.generate_path(150, null, temp_id)
-	qdel(temp_id)
+	var/found_path = pathfind.generate_path(150, null, get_all_accesses())
 	if(!found_path)
 		set_pathfinding(null)
 		return FALSE

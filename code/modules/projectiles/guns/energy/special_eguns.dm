@@ -1,23 +1,57 @@
-#define PLASMA_CHARGE_USE_PER_SECOND 2.5
-#define PLASMA_DISCHARGE_LIMIT 5
-
-// Ion Rifles //
+/* CONTENTS:
+* 1. ION RIFLE
+* 2. ION CARBINE
+* 3. DECLONER
+* 4. FLORAL SOMATORAY
+* 5. METEOR GUN
+* 6. MIND FLAYER
+* 7. ENERGY CROSSBOW
+* 8. PLASMA CUTTER
+* 9. WORMHOLE PROJECTOR
+* 10. CYBORG LMG
+* 11. INSTAGIB RIFLE
+* 12. HONK RIFLE
+* 13. PLASMA PISTOL
+* 14. THE BSG
+* 15. TEMPERATURE GUN
+* 16. MIMIC GUN
+* 17. DETECTIVE ENERGY REVOLVER
+* 18. VOX SPIKETHROWER
+* 19. VORTEX SHOTGUN
+* 20. Model 2495
+*/
+//////////////////////////////
+// MARK: ION RIFLE
+//////////////////////////////
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
-	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
+	desc = "A man portable anti-armor weapon designed to disable mechanical threats."
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	worn_icon_state = null
+	inhand_icon_state = null
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
-	can_holster = FALSE
-	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+
+/obj/item/gun/energy/ionrifle/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The ion rifle is a specialised weapon system developed by Nanotrasen to counteract technological threats. Stored xenon gas is superheated and spun inside a miniaturised \
+	resonating cyclotron to strip away the outer electron shell. This creates a very positively charged slug of ionised xenon gas that is then launched down the barrel of the rifle by a series of electromagnets. \
+	Once the slug hits a target, the magnetic field holding it together collapses, spreading the ions around the immediate area and causing severe damage to unshielded electronic systems caught within the resulting cloud."
+	. += ""
+	. += "It was developed in 2318 in response to the increasing prevalence of combat robots, mech units, and augmented combatants in modern combat engagements. \
+	Whilst unsuccessful in procuring lucrative contracts to manufacture the weapon for the TSF (who pointed out the issue of combatants with electromagnetic shielding), \
+	it was adopted by several corporate outfits that appreciated the ruthless efficiency of the ion rifle against unprotected synthetics."
+	. += ""
+	. += "Whilst it has a niche in combating pulse demon incursions, the real place that the ion rifle has shown its strength is in putting down synthetic rebellions and rogue artificial intelligences. \
+	For a synthetic, nothing sends chills down the spine more than the sight of this weapon."
 
 /obj/item/gun/energy/ionrifle/Initialize(mapload)
 	. = ..()
@@ -27,17 +61,38 @@
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
 
+//////////////////////////////
+// MARK: ION CARBINE
+//////////////////////////////
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
-	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
+	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient, it packs the exact same punch and capacity in a smaller, easier to transport package."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
 
-// Decloner //
+/obj/item/gun/energy/ionrifle/carbine/examine_more(mob/user)
+	..()
+	. = list()
+	. += "Recent developments in compact electromagnets, material science, and iterative improvement in various other high energy components has resulted in this brand-new rehashing of the \
+	original Ion Rifle being developed by Nanotrasen R&D: The Ion Carbine! It addresses several of the shortcomings of its centuries-old predecessor. Chiefly among them is the miniaturisation of the vital components, \
+	which has allowed the carbine to be made small enough to fit inside a variety of personal storage spaces, permitting it to be used as a secondary weapon that can be kept out of the way until it is needed. \
+	Improvements to the ergonomics, reduction in weight, and the replacement of the fixed 1x optic with a modular rail system also makes the carbine far more pleasant to use than its predecessor. \
+	All of these improvements come without any trade-offs, such is the march of technology."
+	. += ""
+	. += "The chief impetus for the development of the Ion Carbine was the mass unrest and strike actions by the then-indentured IPC workforce starting in 2525. Whilst the events surrounding this were largely non-violent, \
+	Nanotrasen is aware that things could have gone very differently. With their current pervasive use of indentured AI, robots, and cyborgs, Nanotrasen is also very well aware that history may repeat itself - \
+	and may do so with great destruction. Such an eventuality is absolutely unacceptable to the company."
+	. += ""
+	. += "Nanotrasen also hopes that this improved weapon will be more attractive to markets that have seen low penetration from the original Ion Rifle. As with before, \
+	the golden goose that Nanotrasen wishes eventually to secure is production contracts with the armed forces of the TSF, but they'll happily sell it to anyone else that's buying."
+
+//////////////////////////////
+// MARK: DECLONER
+//////////////////////////////
 /obj/item/gun/energy/decloner
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
@@ -48,6 +103,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
+/obj/item/gun/energy/decloner/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The biological demolecularisor - also known as the \"decloner\" by some users - is a specialty weapon from Nanotrasen weapon R&D intended for particularly troublesome organic threats."
+	. += ""
+	. += "It utilises a compact synchrotron specifically tuned to generate a large excess of gamma-wavelength radiation that is released in highly intense bursts. When an organic target is hit by the burst, \
+	it causes damage to the very makeup of their cells, destroying protiens, DNA, and other vital molecular structures. Continued application rapidly results in debilitating damage and death."
+
 /obj/item/gun/energy/decloner/update_icon_state()
 	return
 
@@ -57,12 +120,13 @@
 	if(cell.charge > shot.e_cost)
 		. += "decloner_spin"
 
-// Flora Gun //
+//////////////////////////////
+// MARK: FLORAL SOMATORAY
+//////////////////////////////
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
 	icon_state = "flora"
-	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	origin_tech = "materials=2;biotech=4"
@@ -71,20 +135,22 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
-	if(istype(A, /obj/machinery/hydroponics))
+/obj/item/gun/energy/floragun/pre_attack(atom/target, mob/living/user, params)
+	if(istype(target, /obj/machinery/hydroponics))
 		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack(A, user, FALSE, params)
-		return FALSE
+		afterattack__legacy__attackchain(target, user, FALSE, params)
+		return CONTINUE_ATTACK
 	return ..()
 
-// Meteor Gun //
+//////////////////////////////
+// MARK: METEOR GUN
+//////////////////////////////
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
-	item_state = "c20r"
+	inhand_icon_state = "c20r"
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
@@ -97,32 +163,36 @@
 	desc = "The pen is mightier than the sword."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
-// Mind Flayer //
+//////////////////////////////
+// MARK: MIND FLAYER
+//////////////////////////////
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "flayer"
-	item_state = null
+	inhand_icon_state = null
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 
-// Energy Crossbows //
+//////////////////////////////
+// MARK: ENERGY CROSSBOW
+//////////////////////////////
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=5"
 	suppressed = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
 	unique_rename = FALSE
 	overheat_time = 20
 	holds_charge = TRUE
@@ -150,39 +220,51 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
-	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
-// Plasma Cutters //
+//////////////////////////////
+// MARK: PLASMA CUTTER
+//////////////////////////////
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
-	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
-	item_state = "plasmacutter"
-	modifystate = -1
+	inhand_icon_state = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
-	toolspeed = 1
 	container_type = OPENCONTAINER
-	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
+/obj/item/gun/energy/plasmacutter/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] can be recharged by inserting plasma sheets or raw plasma ore into it.</span>"
+	. += "<span class='warning'>[src] cannot be charged in a gun charging station.</span>"
+
+/obj/item/gun/energy/plasmacutter/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The plasma cutter is an old and reliable design mining tool designed by the now-defunct Althland mining company for rapid tunnelling, excavation, and ore extraction. \
+	It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance."
+	. += ""
+	. += "It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
+	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
+
+/obj/item/gun/energy/plasmacutter/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
@@ -212,30 +294,42 @@
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
+	desc = "An improved version of the venerable Plasma Cutter, evolved by Nanotrasen. It's just straight up better!"
 	icon_state = "adv_plasmacutter"
-	item_state = "plasmacutteradv"
+	inhand_icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
-// Wormhole Projectors //
+/obj/item/gun/energy/plasmacutter/adv/examine_more(mob/user)
+	..()
+	. = list()
+	. += "Once Althland was acquired by Nanotrasen, they gained access to all of the company's technologies and patents, most notably, the Plasma Cutter. \
+	NT R&D has been hard at work refining it into a superior design."
+	. += ""
+	. += "This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! \
+	Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well."
+	. += ""
+	. += "These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."
+
+//////////////////////////////
+// MARK: WORMHOLE PROJECTOR
+//////////////////////////////
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
-	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = "wormhole_projector1"
 	icon_state = "wormhole_projector1"
+	inhand_icon_state = null
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
 	selfcharge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
-
 /obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
-	item_state = icon_state
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -256,7 +350,7 @@
 	P.precision = 0
 	P.failchance = 0
 	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
+	if(W.name == "wormhole beam")
 		qdel(blue)
 		blue = P
 	else
@@ -276,13 +370,15 @@
 	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
 	return OBLITERATION
 
-/* 3d printer 'pseudo guns' for borgs */
+//////////////////////////////
+// MARK: CYBORG LMG
+//////////////////////////////
 /obj/item/gun/energy/printer
-	name = "cyborg lmg"
-	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
+	name = "cyborg LMG"
+	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = /obj/item/stock_parts/cell/secborg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lmg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
@@ -292,16 +388,32 @@
 /obj/item/gun/energy/printer/emp_act()
 	return
 
-// Instakill Lasers //
+//////////////////////////////
+// MARK: INSTAGIB RIFLE
+//////////////////////////////
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
-	icon_state = "instagib"
-	item_state = "instagib"
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
+	icon_state = "instagib"
+	inhand_icon_state = "instagib"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
 	execution_speed = 2 SECONDS
+
+/obj/item/gun/energy/laser/instakill/examine(mob/user)
+	. = ..()
+	. += "This gun gibs anyone it hits and destroys objects."
+
+/obj/item/gun/energy/laser/instakill/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lens to make an optometrist cry, this rifle fires laser bolts that can violently disassemble anyone it hits. You're still not sure when it would be useful, though."
+	. += ""
+	. += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
+	. += ""
+	. += "Who are we kidding, this is an admin-only weapon that instakills people. Go nuts. Have fun."
+
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -309,33 +421,52 @@
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
 	icon_state = "instagibred"
-	item_state = "instagibred"
+	inhand_icon_state = "instagibred"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/red)
 
 /obj/item/gun/energy/laser/instakill/blue
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a blue design."
 	icon_state = "instagibblue"
-	item_state = "instagibblue"
+	inhand_icon_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
-// HONK Rifle //
+//////////////////////////////
+// MARK: HONK RIFLE
+//////////////////////////////
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown University's finest."
+	desc = "The finest weapon produced by the Martian College of Comedy."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
 	ammo_x_offset = 3
-	can_holster = TRUE  // you'll never see it coming
+	can_holster = TRUE  // You'll never see it coming!
 
+/obj/item/gun/energy/clown/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] contains a strange bananium core that somehow slowly reacharges its power cell at all times. It can still be put into a gun charger for faster charging.</span>"
+
+/obj/item/gun/energy/clown/examine_more(mob/user)
+	..()
+	. = list()
+	. += "Developed by a former pair of designers from Donk Co. and Shellguard Munitions who met each other whilst studying at the Martian College of Comedy, this rifle uses advanced chemical synthesisers \
+	and customised 3D printing technology to fabricate high-yield snap-pops, which are then hurled downrange by a pneumatic ram into unsuspecting bystanders! \
+	Whilst not powerful enough to be harmful, it scares the hell out of them!"
+	. += ""
+	. += "The design was an instant hit, and elite clowns all across the Orion sector eagerly added it to their arsenals. What will they think of next?"
+
+//////////////////////////////
+// MARK: PLASMA PISTOL
+//////////////////////////////
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
 /obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
-	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
+	desc = "A specialized firearm designed to fire superheated bolts of plasma. Can be overloaded for a high damage, shield-breaking shot."
 	icon_state = "toxgun"
-	item_state = "toxgun"
+	inhand_icon_state = "toxgun"
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = TRUE
@@ -350,6 +481,20 @@
 	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
 	execution_speed = 4 SECONDS
+
+/obj/item/gun/energy/plasma_pistol/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>Beware! Improper handling of [src] may release a cloud of highly flammable plasma gas!</span>"
+
+/obj/item/gun/energy/plasma_pistol/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The plasma pistol is a departure from Nanotrasen's usual forays into energy weapon design. \
+	Uniquely among its catalogue of experimental weapons, it uses plasma projectiles instead of lasers or other particles to deal damage."
+	. += ""
+	. += "The pistol's frame contains a compact magnetic catapault that launches the plasma at the target, where the extreme heat causes severe burns at the point of impact. \
+	When overcharged, a particularly large projectile is generated, which not only causes increased damage to targets, \
+	but also overloads energy shielding thanks to the quantitiy of ionised plasma in the projectile."
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
@@ -371,7 +516,7 @@
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
 
-/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
+/obj/item/gun/energy/plasma_pistol/attack_self__legacy__attackchain(mob/living/user)
 	if(overloaded)
 		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
 		return
@@ -384,9 +529,17 @@
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	charge_failure = FALSE
+	holder = user
+	RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(fail_charge))
 	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
 
+/obj/item/gun/energy/plasma_pistol/proc/fail_charge()
+	SIGNAL_HANDLER // COMSIG_CARBON_SWAP_HANDS
+	charge_failure = TRUE // No charging 2 guns at once.
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+
 /obj/item/gun/energy/plasma_pistol/proc/overload()
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	if(ishuman(loc) && !charge_failure)
 		var/mob/living/carbon/C = loc
 		select_fire(C)
@@ -449,21 +602,30 @@
 	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, 20)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT
 
+//////////////////////////////
+// MARK: THE BSG
+//////////////////////////////
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
 	icon_state = "bsg"
-	item_state = "bsg"
+	worn_icon_state = "bsg"
+	inhand_icon_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
-	slot_flags = SLOT_FLAG_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
+	slot_flags = ITEM_SLOT_BACK
+	cell_type = /obj/item/stock_parts/cell/energy_gun/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
@@ -478,14 +640,29 @@
 	. = ..()
 	if(core && has_bluespace_crystal)
 		. += "<span class='notice'>[src] is fully operational!</span>"
+		. += "<span class='notice'>[src] will generate a protective field that shields the user from the blast of its own projectiles when fired.</span>"
 	else if(core)
 		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
 	else if(has_bluespace_crystal)
 		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core installed.</span>"
 	else
-		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal to be operational.</span>"
+		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal.</span>"
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
+/obj/item/gun/energy/bsg/examine_more(mob/user)
+	..()
+	. = list()
+	. += "When a bluespace crystal is correctly charged and agitated, it releases high-energy exotic particles that are very deadly to living beings. \
+	The BSG is the culmination of Nanotrasen's research into portable weaponised bluespace technology."
+	. += ""
+	. += "By using a captive flux anomaly core to supercharge the weapon's bluespace crystal, a massive sphere of condensed energy is released. \
+	This sphere will release an energy discharge upon hitting a solid object, causing extensive damage to flesh and robotic components. \
+	As the sphere dischargers, it will also detonate, emitting a powerful pulse of infrared radiation that will cause flash burns on anyone caught within the detonation radius."
+	. += ""
+	. += "Accidental injuries and death during initial testing also caused a protective energy barrier to be added to the design. By using the flux core as a metaphorical 'lightning rod', \
+	it will capture some of the energy from the detonation of the weapon's projectile and use it to create a finely-tuned neutralising bluespace field that destructively interferes with the bluespace shock wave. \
+	However, this system is not strong enough to defend against a direct hit from another (or your own, if you're unlucky) BSG shot."
+
+/obj/item/gun/energy/bsg/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
 			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
@@ -512,6 +689,14 @@
 		update_icon()
 	else
 		return ..()
+
+/obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
+
+/obj/item/gun/energy/bsg/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -561,16 +746,19 @@
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. This is an executive model, and its bluespace crystal will not shatter."
 	admin_model = TRUE
 
-// Temperature Gun //
+//////////////////////////////
+// MARK: TEMPERATURE GUN
+//////////////////////////////
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
+	desc = "A gun that changes the body temperature of its targets, somehow. Use it in-hand to adjust the projectile temperature."	// I give up on trying to come up with an explaination of how this abomonation works. - CRUNCH
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
-	item_state = "tempgun_4"
-	slot_flags = SLOT_FLAG_BACK
+	worn_icon_state = null
+	inhand_icon_state = null
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	desc = "A gun that changes the body temperature of its targets."
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
@@ -594,7 +782,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/attack_self(mob/user)
+/obj/item/gun/energy/temperature/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -660,24 +848,23 @@
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
-			item_state = "tempgun_8"
+			icon_state = "tempgun_8"
 		if(400 to 500)
-			item_state = "tempgun_7"
+			icon_state = "tempgun_7"
 		if(360 to 400)
-			item_state = "tempgun_6"
+			icon_state = "tempgun_6"
 		if(335 to 360)
-			item_state = "tempgun_5"
+			icon_state = "tempgun_5"
 		if(295 to 335)
-			item_state = "tempgun_4"
+			icon_state = "tempgun_4"
 		if(260 to 295)
-			item_state = "tempgun_3"
+			icon_state = "tempgun_3"
 		if(200 to 260)
-			item_state = "tempgun_2"
+			icon_state = "tempgun_2"
 		if(120 to 260)
-			item_state = "tempgun_1"
+			icon_state = "tempgun_1"
 		if(-INFINITY to 120)
-			item_state = "tempgun_0"
-	icon_state = item_state
+			icon_state = "tempgun_0"
 
 	if(iscarbon(loc))
 		var/mob/living/carbon/M = loc
@@ -700,7 +887,9 @@
 		if(100 to 200)			. += "100"
 		if(-INFINITY to 100)	. += "0"
 
-// Mimic Gun //
+//////////////////////////////
+// MARK: MIMIC GUN
+//////////////////////////////
 /obj/item/gun/energy/mimicgun
 	name = "mimic gun"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
@@ -717,11 +906,13 @@
 	M.mimic_type = mimic_type
 	..()
 
+//////////////////////////////
+// MARK: DETECTIVE ENERGY REVOLVER
+//////////////////////////////
 /obj/item/gun/energy/detective
-	name = "DL-88 energy revolver"
-	desc = "A 'modern' take on the classic projectile revolver."
+	name = "\improper DL-88 energy revolver"
+	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has two settings: 'tracker', and 'disable'."
 	icon_state = "handgun"
-	item_state = null
 	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 	/// If true, this gun is tracking something and cannot track another mob
@@ -740,6 +931,19 @@
 	charge_sections = 5
 	inhand_charge_sections = 3
 	overlay_set = "handgun" // Reskins are a different icon_state
+
+/obj/item/gun/energy/detective/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The Dignitas Laser model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tac Industries, \
+	it is the successor of the older DL-44 revolver, being tailored for police and security forces."
+	. += ""
+	. += "Developed in response to break-ins at Warp-Tac's corporate offices on Mars, the Model 88 diverged from Warp-Tac's usual lethal weapon designs. Instead, it was crafted to meet police force demands \
+	for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
+	The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tac security forces. \
+	Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tac's targeted marketing of the gun."
+	. += ""
+	. += "Eventually, corporations like Nanotrasen adopted the DL-88 for their detective units, appreciating its cost-effectiveness and the ability to use their own manufactured cells, reducing overall budget expenditures."
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
@@ -810,7 +1014,7 @@
 	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
 	update_icon()
 
-/obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/detective/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
 		return
@@ -837,7 +1041,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return
@@ -859,18 +1063,16 @@
 	tracking_target_UID = null
 
 
-/// It's like the cyborg LMG, uses energy to make spikes
+//////////////////////////////
+// MARK: VOX SPIKETHROWER
+//////////////////////////////
 /obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "spikethrower"
-	item_state = "toxgun"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "toxgun"
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
-	burst_size = 2 // burst has to be stored here
-	can_charge = FALSE
 	selfcharge = TRUE
 	charge_delay = 10
 	restricted_species = list(/datum/species/vox)
@@ -884,8 +1086,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/item/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
-	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
@@ -894,7 +1094,7 @@
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
 	knockdown = 2
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
@@ -907,10 +1107,9 @@
 	. = ..()
 	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
 
-
-#undef PLASMA_CHARGE_USE_PER_SECOND
-#undef PLASMA_DISCHARGE_LIMIT
-
+//////////////////////////////
+// MARK: VORTEX SHOTGUN
+//////////////////////////////
 /obj/item/gun/energy/vortex_shotgun
 	name = "reality vortex wrist mounted shotgun"
 	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
@@ -925,7 +1124,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
 	variance = 70
 	pellets = 8
-	e_cost = 100
 	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
 	select_name = "vortex blast"
 	fire_sound = 'sound/weapons/wave.ogg'
@@ -985,7 +1183,7 @@
 	name = "\improper SPRK-12"
 	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though its beams are weaker. Good at dual wielding, however."
 	icon_state = "dueling_pistol"
-	item_state = "dueling_pistol"
+	inhand_icon_state = "dueling_pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	can_holster = TRUE
 	execution_speed = 4 SECONDS
@@ -1002,3 +1200,76 @@
 	COOLDOWN_START(src, emp_cooldown, 1 MINUTES)
 	atom_say("Energy coils recharged!")
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+
+//////////////////////////////
+// MARK: MODEL 2495
+//////////////////////////////
+
+/obj/item/gun/energy/laser/lever_action
+	name = "model 2495"
+	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
+	icon_state = "lever_action"
+	inhand_icon_state = null // matches icon_state
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	origin_tech = "combat=5;magnets=4"
+	slot_flags = ITEM_SLOT_BACK
+	can_charge = FALSE
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lever_action
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
+	shaded_charge = FALSE
+	var/cycle_time = 1 SECONDS
+	COOLDOWN_DECLARE(cycle_cooldown)
+
+/obj/item/gun/energy/laser/lever_action/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This weapon is rechargable by cycling the action, or by twirling the firearm with some skill.</span>"
+
+/obj/item/gun/energy/laser/lever_action/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The Model 2495 is Warp Tac's response to demand for a laserarm with the endurance required to be used far away from any support infrastructure for extended periods of time. \
+	The forged metal and wooden body of the rifle is exceptionally ruggedized to resist rough handling, harsh climates, and whatever other general abuse may be thrown at it. \
+	The internal components are beefier and larger than strictly required to lend further durability. Whilst it is quite heavy for a laserarm, it's only somewhat heavier than \
+	average compared to a traditional ballistic rifle of similar size."
+	. += ""
+	. += "The main selling point of the rifle is the built-in recharging mechanism, operated by cycling a lever located around the trigger guard. \
+	One full cycle provides enough energy for a single shot. Skillful users can twirl the rifle to operate the lever, although the operator's manual strongly cautions against doing so."
+	. += ""
+	. += "This weapon has long been one of Warp Tac's most popular products thanks to a large market among colonists, frontiersmen, and the occasional pirate outfit."
+
+/obj/item/gun/energy/laser/lever_action/emp_act()
+	return
+
+/obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need both hands to cycle the action!")
+		return
+	cycle_action(user)
+	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))
+		var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()
+		offhand.cycle_action()
+
+/obj/item/gun/energy/laser/lever_action/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	return ..()
+
+/obj/item/gun/energy/laser/lever_action/proc/cycle_action(mob/living/user)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	if(cell.charge == cell.maxcharge)
+		return
+	cell.give(cell.maxcharge)
+	playsound(user, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
+	update_icon()
+	var/total_cycle_time = cycle_time
+	if(current_lens)
+		total_cycle_time /= current_lens.fire_rate_mult
+	COOLDOWN_START(src, cycle_cooldown, total_cycle_time)
+
+/obj/item/gun/energy/laser/lever_action/update_icon_state()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(cell.charge < shot.e_cost)
+		icon_state = "lever_action_e"
+	else
+		icon_state = initial(icon_state)

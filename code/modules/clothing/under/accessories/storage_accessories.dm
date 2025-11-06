@@ -2,7 +2,6 @@
 	name = "load bearing equipment"
 	desc = "Used to hold things when you don't have enough hands."
 	icon_state = "webbing"
-	item_color = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/slots = 3
 	var/obj/item/storage/internal/hold
@@ -33,8 +32,8 @@
 	if(hold.handle_mousedrop(usr, over_object))
 		..(over_object)
 
-/obj/item/clothing/accessory/storage/attackby(obj/item/W as obj, mob/user as mob, params)
-	return hold.attackby(W, user, params)
+/obj/item/clothing/accessory/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+	return hold.attackby__legacy__attackchain(W, user, params)
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()
@@ -50,7 +49,7 @@
 
 /obj/item/clothing/accessory/storage/proc/return_inv()
 
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 
@@ -62,7 +61,7 @@
 			L += G.gift:return_inv()
 	return L
 
-/obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/storage/attack_self__legacy__attackchain(mob/user as mob)
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
@@ -76,8 +75,6 @@
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
-	icon_state = "webbing"
-	item_color = "webbing"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -87,21 +84,18 @@
 	name = "black webbing vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	icon_state = "vest_black"
-	item_color = "vest_black"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/brown_vest
 	name = "brown webbing vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	icon_state = "vest_brown"
-	item_color = "vest_brown"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/knifeharness
 	name = "decorated harness"
 	desc = "A heavily decorated harness of sinew and leather with two knife-loops."
 	icon_state = "unathiharness2"
-	item_color = "unathiharness2"
 	slots = 2
 
 /obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)

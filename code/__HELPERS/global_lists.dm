@@ -17,7 +17,7 @@
 	//underwear
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f, GLOB.undershirt_full_list)
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list, GLOB.socks_m, GLOB.socks_f)
 	//alt heads
@@ -75,35 +75,60 @@
 		GLOB.pai_software_by_key[P.id] = P
 
 	// Setup loadout gear
-	for(var/geartype in subtypesof(/datum/gear))
-		var/datum/gear/G = geartype
+	for(var/gear_type in subtypesof(/datum/gear))
+		var/datum/gear/gear = gear_type
 
-		var/use_category = initial(G.sort_category)
-
-		if(G == initial(G.main_typepath))
+		if(gear == initial(gear.main_typepath))
 			continue
 
-		if(!initial(G.display_name))
-			stack_trace("Loadout - Missing display name: [G]")
+		if(!initial(gear.display_name))
+			stack_trace("Loadout - Missing display name: [gear]")
 			continue
-		if(!initial(G.cost))
-			stack_trace("Loadout - Missing cost: [G]")
+		if(!initial(gear.cost))
+			stack_trace("Loadout - Missing cost: [gear]")
 			continue
-		if(!initial(G.path))
-			stack_trace("Loadout - Missing path definition: [G]")
+		if(!initial(gear.path))
+			stack_trace("Loadout - Missing path definition: [gear]")
 			continue
 
-		if(!GLOB.loadout_categories[use_category])
-			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[geartype] = new geartype
-		LC.gear[geartype] = GLOB.gear_datums[geartype]
+		gear = new gear_type
+		var/obj/gear_item = gear.path
+		var/list/tweaks = list()
+		for(var/datum/gear_tweak/tweak as anything in gear.gear_tweaks)
+			tweaks[tweak.type] += list(list(
+				"name" = tweak.display_type,
+				"icon" = tweak.fa_icon,
+				"tooltip" = tweak.info,
+			))
 
-	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-	for(var/loadout_category in GLOB.loadout_categories)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[loadout_category]
-		LC.gear = sortAssoc(LC.gear)
+		GLOB.gear_tgui_info[gear.sort_category] += list(
+			"[gear_type]" = list(
+				"name" = gear.display_name,
+				"desc" = gear.description,
+				"icon" = gear_item.icon,
+				"icon_state" = gear_item.icon_state,
+				"cost" = gear.cost,
+				"gear_tier" = gear.donator_tier,
+				"allowed_roles" = gear.allowed_roles,
+				"tweaks" = tweaks,
+			)
+		)
 
+		GLOB.gear_datums[gear_type] = gear
+
+	for(var/quirk_path in subtypesof(/datum/quirk))
+		var/datum/quirk/quirk = quirk_path
+		if(!quirk || !quirk.name) // Filter out quirks without names so we don't show basetypes
+			continue
+		quirk = new quirk_path
+		var/list/data = list(
+			"name" = quirk.name,
+			"desc" = quirk.desc,
+			"cost" = quirk.cost,
+			"path" = quirk.type
+		)
+		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
+		GLOB.quirk_tgui_info += list(data)
 
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()
@@ -133,6 +158,9 @@
 
 	GLOB.emote_list = init_emote_list()
 
+	// Set up PCWJ recipes
+	initialize_cooking_recipes()
+
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
 		var/datum/keybinding/D = path
@@ -142,7 +170,7 @@
 	for(var/path in subtypesof(/datum/preference_toggle))
 		var/datum/preference_toggle/pref_toggle = path
 		if(initial(pref_toggle.name))
-			GLOB.preference_toggles += new path()
+			GLOB.preference_toggles[path] = new path()
 
 	for(var/path in subtypesof(/datum/objective))
 		var/datum/objective/O = path
@@ -156,6 +184,10 @@
 			continue
 		crit = new path()
 		GLOB.tilt_crits[path] = crit
+
+	for(var/path in subtypesof(/datum/tech))
+		var/datum/tech/T = path
+		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

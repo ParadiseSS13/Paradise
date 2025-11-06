@@ -1,0 +1,13 @@
+[
+	{
+		// Submap of Rocky Motel with a pod crashed into it
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 14,
+		"submap_size_y": 15,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/rocky_motel_submap.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	}
+]

@@ -5,7 +5,7 @@
 	fire_sound_text = "thwock"
 
 	var/obj/item/to_launch
-	var/list/valid_projectile_type
+	var/obj/item/valid_projectile_type
 	var/max_capacity = 1
 	var/list/loaded_projectiles = list()
 
@@ -47,7 +47,7 @@
 /obj/item/gun/throw/update_overlays()
 	return list()
 
-/obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
 		if(get_ammocount() < max_capacity)
 			user.drop_item()

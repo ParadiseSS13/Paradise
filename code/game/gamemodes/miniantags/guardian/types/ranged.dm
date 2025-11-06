@@ -2,14 +2,12 @@
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 20
-	damage_type = BRUTE
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 1
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -77,11 +75,23 @@
 
 	to_chat(src, "<span class='notice'>[msg]</span>")
 
-/obj/item/effect/snare
+/mob/living/simple_animal/hostile/guardian/ranged/blob_act(obj/structure/blob/B)
+	if(toggle)
+		return // we don't want blob tiles to hurt us when we fly over them and trigger /Crossed(), this prevents ranged scouts from being insta killed
+	return ..() // otherwise do normal damage!
+
+/obj/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
 	var/mob/living/spawner
 	invisibility = 101
+
+/obj/effect/snare/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/snare/singularity_act()
 	return
@@ -89,12 +99,12 @@
 /obj/effect/snare/singularity_pull()
 	return
 
-/obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
-	if(isliving(AM))
+/obj/effect/snare/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
-			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+			to_chat(spawner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
 			if(isguardian(spawner))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+					to_chat(G.summoner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")

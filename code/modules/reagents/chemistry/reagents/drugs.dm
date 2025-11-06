@@ -9,7 +9,6 @@
 	name = "Lithium"
 	id = "lithium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "metal"
 
@@ -40,9 +39,10 @@
 /datum/reagent/space_drugs
 	name = "Space drugs"
 	id = "space_drugs"
-	description = "An illegal chemical compound used as drug."
+	description = "A synthetic compound well-known for its narcotic effects in both organics and synthetics. It is also an important constituent of some chemical reactions."
 	reagent_state = LIQUID
 	color = "#9087A2"
+	process_flags = ORGANIC | SYNTHETIC // These are SPACE drugs! This is the FUTURE! We can get EVERYONE high!
 	metabolization_rate = 0.2
 	addiction_chance = 15
 	addiction_threshold = 10
@@ -58,13 +58,16 @@
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
-		M.emote(pick("twitch","drool","moan","giggle"))
+		if(!ismachineperson(M))
+			M.emote(pick("twitch", "drool", "moan", "giggle"))
+		else
+			M.emote(pick("twitch", "stare", "moan", "giggle"))
 	return ..() | update_flags
 
 /datum/reagent/psilocybin
 	name = "Psilocybin"
 	id = "psilocybin"
-	description = "A strong psycotropic derived from certain species of mushroom."
+	description = "A strong psychotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
 	taste_description = "visions"
 
@@ -162,6 +165,29 @@
 
 	return ..()
 
+/datum/reagent/nicotine/dense
+	name = "Densed Nicotine"
+	id = "dnicotine"
+	description = "Deals minor lung damage. If overdosed it will also deal toxin and oxygen damage."
+	color = "#305e47"
+	overdose_threshold = 15
+	minor_addiction = FALSE
+	taste_description = "harsh"
+
+/datum/reagent/nicotine/dense/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/death_smoke_message = pick("You feel grimy.", "You feel less lively.", "You feel more bleak.", "You feel you're dying inside.", "You feel you're one step closer to grave.")
+	if(prob(10))
+		to_chat(M, "<span class='warning'>[death_smoke_message]</span>")
+
+	var/obj/item/organ/internal/lungs/A = M.get_int_organ(/obj/item/organ/internal/lungs)
+	if(ishuman(M))
+		if(prob(5))
+			A.receive_damage(1)
+			M.emote("cough")
+
+	return ..() | update_flags
+
 // basic antistun chem, removes stuns and stamina, mild downsides
 /datum/reagent/crank
 	name = "Crank"
@@ -190,7 +216,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		M.emote(pick("laugh", "giggle"))
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)) //let us see how this feels
@@ -248,7 +274,6 @@
 	name = "Pump Up"
 	id = "pump_up"
 	description = "An awful smelling mixture which acts as a makeshift stimulant"
-	reagent_state = SOLID
 	color = COLOR_HALF_TRANSPARENT_BLACK
 	taste_description = "poorly mixed coffee"
 	metabolization_rate = 1
@@ -314,7 +339,7 @@
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		to_chat(M, "<span class='warning'>You feel too chill!</span>")
 		M.emote(pick("yawn", "drool"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)
@@ -345,7 +370,10 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]</b> sways and falls over!</span>")
+			M.visible_message(
+				"<span class='warning'>[M] sways and falls over!</span>",
+				"<span class='warning'>You sway and fall over!</span>"
+			)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
@@ -353,7 +381,10 @@
 		else if(effect <= 4)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
+				H.visible_message(
+					"<span class='danger'>[M]'s skin is rotting away!</span>",
+					"<span class='userdanger'>Your skin is rotting away!</span>"
+				)
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
 				H.become_husk("krokodil_overdose")
@@ -398,7 +429,7 @@
 	update_flags |= M.adjustStaminaLoss(-30, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(7 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
@@ -443,7 +474,6 @@
 	name = "Bath Salts"
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -596,8 +626,8 @@
 	// you can take 7 disabler shots (30 base * 0.5 stam mod = 15 stam damage each, 7 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down.
 	// Strong combined with another drug, but frankly I could do meth crank hydro for a better mix. Will be interesting with batons?
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. I want to turn this down, but someone will just iv drip a certian bar drink
+	if(prob(3 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs.
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
@@ -617,7 +647,7 @@
 /datum/reagent/happiness
 	name = "Happiness"
 	id = "happiness"
-	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	description = "Fills you with ecstatic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
 	reagent_state = LIQUID
 	color = "#f2ff00"
 	overdose_threshold = 20
@@ -801,7 +831,7 @@
 /datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
-	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
+	description = "A constantly swirling, oddly colorful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
@@ -828,8 +858,9 @@
 
 // Mephedrone.
 
-#define CONSTANT_DOSE_SAFE_LIMIT 60
-#define CONSTANT_DOSE_DEATH_LIMIT 600
+// These defines are in CYCLES
+#define CONSTANT_DOSE_SAFE_LIMIT 30
+#define CONSTANT_DOSE_DEATH_LIMIT 300
 
 #define MEPHEDRONE_SCREEN_FILTER "mephedrone_screen_filter"
 #define MEPHEDRONE_SCREEN_BLUR "mephedrone_screen_blur"
@@ -850,12 +881,10 @@
 	metabolization_rate = 0.375 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	addiction_chance = 3
-	addiction_threshold = 15
+	addiction_threshold = 20 //High chance so higher threshold
 	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
 	allowed_overdose_process = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	/// How much time has the drug been in them?
-	var/constant_dose_time = 0
 	/// Keeps track of how many chemicals we are delaying the changeling by.
 	var/changeling_chemical_tracker = 0
 	goal_department = "Science"
@@ -906,28 +935,28 @@
 		cling.chem_recharge_slowdown -= changeling_chemical_tracker
 		changeling_chemical_tracker = 0
 
-	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
+	if(current_cycle < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
 		L.visible_message(
 			"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
 			"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
-		L.adjustStaminaLoss(constant_dose_time)
+		L.adjustStaminaLoss(current_cycle * 2)
 	else // Much longer than that however, and you're not gonna have a good day
 		L.visible_message(
 			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
 			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 		L.bleed(25)
-		L.apply_damage(max(constant_dose_time / 3, 60), STAMINA)
-		L.KnockDown((constant_dose_time / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
-		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
+		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
+		L.KnockDown((current_cycle * 2 / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
+		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || current_cycle >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 				if(datum_heart)
 					var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-					our_heart.receive_damage(0.15 * constant_dose_time, TRUE) // Basically you might die. Especially if you are a slime.
+					our_heart.receive_damage(0.15 * current_cycle * 2, TRUE) // Basically you might die. Especially if you are a slime.
 				else
-					handle_heartless(L, 0.15 * constant_dose_time)
+					handle_heartless(L, 0.15 * current_cycle * 2)
 
 
 	if(!L.hud_used)
@@ -994,8 +1023,6 @@
 
 /datum/reagent/mephedrone/on_mob_life(mob/living/carbon/L)
 	. = ..()
-
-	constant_dose_time += 2
 
 	if(ishuman(L))
 		var/heart_damage = 0.1
@@ -1083,17 +1110,17 @@
 	update_flags |= L.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brain damage.
-//IPC brain damage gets an increase with liquid solder, so it matters
+//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brute on OD. Used to be brain damage but new brain damage is much deadlier and ipcs would fall asleep in the middle of using the drug
+//IPC brute damage scales over time. Endleslly running an OD on this will not work well. Theoretically they could run a low dose well, but over 10 minutes will make them explode on wear off.
 //Otherwise, the user hallucinates a bunch, and as well takes stamina damage. This will block passive stamina regen, and most likely require antistun drugs to use as well
 
 /datum/reagent/mephedrone/proc/handle_heartless(mob/living/carbon/L, damage_input)
 	if(ismachineperson(L))
-		L.adjust_nutrition(-damage_input * 7.5)
-		if(damage_input == 0.9) //This is the input from the OD
-			L.adjustBrainLoss(1.75)
-			if(L.reagents.has_reagent("liquid_solder"))
-				L.adjustBrainLoss(2.75)
+		if(damage_input >= 0.9) //This is the input from the OD
+			L.adjustBruteLoss((1 + (current_cycle * (damage_input + 0.1) / 100)), TRUE) //Yes, this means an IPC on this drug for 10+ minutes, that has it wear off, will instantly lego. That is funny.
+			L.adjust_nutrition(-damage_input * 3.75) // I don't think they should have to charge like twice in the middle of combat. Still will need to charge after however!
+		else
+			L.adjust_nutrition(-damage_input * 15)
 	else //Corazone or skeletons. We go hard on them.
 		L.Hallucinate(damage_input * 50 SECONDS)
 		L.apply_damage(damage_input * 3, STAMINA)
@@ -1127,17 +1154,133 @@
 #undef MEPHEDRONE_BLUR_EFFECT
 #undef MEPHEDRONE_OVERDOSE_BLUR_EFFECT
 
+//MARK: Robot Drugs
+// Made for robots, by robots.
 
-//////////////////////////////
-//		Synth-Drugs			//
-//////////////////////////////
+// Robot weed. Mixes the effects of CBD and THC.
+/datum/reagent/w33d
+	name = "W33D"
+	id = "w33d"
+	description = "A thick, oily concoction designed to mimic the effects of cannabis in synthetics. \
+	As a happy coincidence, when it dries out it can also function as servicable filler, sealant, and insulator."
+	reagent_state = LIQUID
+	color = "#17dd17"
+	process_flags = SYNTHETIC
+	taste_description = "man, like, totally the best most relaxing thing ever, dude"
 
-//Ultra-Lube: Meth
+/datum/reagent/w33d/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.AdjustStuttering(rand(0, 6 SECONDS))
+	if(prob(5))
+		M.emote(pick("hsigh", "giggle", "laugh", "smile"))
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You whirr softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(4))
+		M.Confused(20 SECONDS)
+	if(prob(10))
+		M.AdjustConfused(-10 SECONDS)
+		M.SetWeakened(0, FALSE)
+	if(prob(25))
+		if(ishuman(M))
+			var/mob/living/carbon/human/dude = M
+			update_flags |= dude.adjustBruteLoss(-2, FALSE, robotic = TRUE)
+			update_flags |= dude.adjustFireLoss(-2, FALSE, robotic = TRUE)
+	if(volume >= 50 && prob(25))
+		if(prob(10))
+			M.Drowsy(20 SECONDS)
+	return ..() | update_flags
+
+// Robot Krokodil
+/datum/reagent/grokodil
+	name = "Grokodil"
+	id = "grokodil"
+	description = "An experimental compound cooked up in the back alleys of New Canaan, designed to mimic the effects of Krokodil in synthetics. \
+	Unfortunately, this worked a little too well, as it also faithfully replicates the fact that there are serious side-effects. \
+	Overconsumption will cause extreme corrosion and a combonation of endothermic and exothermic reactions that will lead to localized melting and generalized temperature reduction."
+	color = "#212121"
+	process_flags = SYNTHETIC
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 10
+	taste_description = "very poor life choices"
+	allowed_overdose_process = TRUE
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/grokodil/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustJitter(-80 SECONDS)
+	if(prob(25))
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	if(prob(15))
+		M.emote(pick("smile", "grin", "chuckle", "laugh"))
+	if(prob(10))
+		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		M.bodytemperature--
+		M.emote("smile")
+	if(prob(5))
+		to_chat(M, "<span class='warning'>You feel too chill!</span>")
+		M.emote(pick("shiver", "cross"))
+		M.Stun(2 SECONDS, FALSE)
+		update_flags |= M.adjustFireLoss(1, FALSE)
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+		M.bodytemperature -= 20
+	if(prob(2))
+		to_chat(M, "<span class='warning'>Patches of corrosion appear on your chassis!</span>")
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/grokodil/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.Stun(6 SECONDS)
+			do_sparks(5, FALSE, M)
+			M.emote("stare")
+		else if(effect <= 4)
+			M.emote("shiver")
+			M.bodytemperature -= 40
+		else if(effect <= 7)
+			to_chat(M, "<span class='warning'>Your chassis and internals are corroding!</span>")
+			update_flags |= M.adjustBruteLoss(5, FALSE)
+			update_flags |= M.adjustFireLoss(2, FALSE)
+			update_flags |= M.adjustBrainLoss(1, FALSE)
+			M.emote("cry")
+		return list(effect, update_flags)
+
+	if(severity == 2)
+		if(effect <= 2)
+			M.visible_message(
+				"<span class='warning'>[M] sways and falls over!</span>",
+				"<span class='warning'>You sway and fall over!</span>"
+			)
+			update_flags |= M.adjustBruteLoss(3, FALSE)
+			update_flags |= M.adjustBrainLoss(3, FALSE)
+			M.Weaken(16 SECONDS)
+			M.emote("faint")
+		else if(effect <= 4)
+			M.visible_message(
+				"<span class='danger'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>",
+				"<span class='userdanger'>Large cracks appear on your casing and the surrounding area starts to melt!</span>"
+			)
+			update_flags |= M.adjustBruteLoss(25, FALSE)
+			update_flags |= M.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
+			M.emote("scream")
+			M.emote("faint")
+		else if(effect <= 7)
+			M.emote("shiver")
+			M.bodytemperature -= 70
+	return list(effect, update_flags)
+
+// Robot Meth.
 /datum/reagent/lube/ultra
 	name = "Ultra-Lube"
 	id = "ultralube"
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
-	reagent_state = LIQUID
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -1163,7 +1306,7 @@
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(12 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
+	if(prob(6 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -1175,6 +1318,24 @@
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags
 
+/// Used to test if an IPC is a mindflayer or not
+/datum/reagent/lube/conductive
+	name = "Conductive Lubricant"
+	id = "conductivelube"
+	description = "This is a special lubricant designed to attract onto and excite parasitic mindflayer swarms, revealing if someone hosts a hive. Doesn't include a cooling agent, so tends to cause overheating."
+	harmless = FALSE
+	color = "#163b39"
+	taste_description = "batteries"
+	process_flags = SYNTHETIC
+
+/datum/reagent/lube/conductive/on_mob_life(mob/living/M)
+	var/datum/antagonist/mindflayer/flayer = M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer && (flayer.total_swarms_gathered > 0)) // Like vampires, give flayers who haven't done anything yet a pass
+		M.Jitter(30 SECONDS_TO_JITTER)
+		if(prob(20))
+			do_sparks(5, FALSE, M)
+	M.bodytemperature += 40
+	return ..()
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
@@ -1198,7 +1359,7 @@
 	update_flags |= M.adjustBrainLoss(3, FALSE)
 	return list(effect, update_flags)
 
-//Surge: crank
+// Robot Crank.
 /datum/reagent/surge
 	name = "Surge"
 	id = "surge"
@@ -1215,7 +1376,6 @@
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_HARD
 
-
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/recent_consumption = holder.addiction_threshold_accumulated[type]
@@ -1230,7 +1390,7 @@
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
@@ -1256,103 +1416,6 @@
 		update_flags |= M.adjustFireLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
-
-
-//surge+, used in supercharge implants
-/datum/reagent/surge_plus
-	name = "Surge Plus"
-	id = "surge_plus"
-	description = "A superconducting gel that overloads processors, causing an effect reportedly similar to benzodiazepines in synthetic units."
-	reagent_state = LIQUID
-	color = "#28b581"
-
-	process_flags = SYNTHETIC
-	overdose_threshold = 30
-	addiction_chance = 1
-	addiction_chance_additional = 20
-	addiction_threshold = 5
-	addiction_decay_rate = 0.2
-	taste_description = "silicon"
-
-/datum/reagent/surge_plus/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustParalysis(-8 SECONDS)
-	M.AdjustStunned(-8 SECONDS)
-	M.AdjustWeakened(-8 SECONDS)
-	M.AdjustKnockDown(-8 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-25, FALSE)
-	if(prob(5))
-		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
-		if(prob(10))
-			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-
-	return ..() | update_flags
-
-/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	var/recent_consumption = holder.addiction_threshold_accumulated[type]
-	M.Jitter(40 SECONDS)
-	M.Stuttering(10 SECONDS)
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
-		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
-		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
-	if(prob(10))
-		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
-		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
-		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
-		I.Turn(-135)
-		var/obj/effect/overlay/beam/B = new(get_turf(M))
-		B.pixel_x = rand(-20, 0)
-		B.pixel_y = rand(-20, 0)
-		B.icon = I
-		update_flags |= M.adjustFireLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	return list(0, update_flags)
-
-//Servo Lube, supercharge
-/datum/reagent/lube/combat
-	name = "Combat-Lube"
-	id = "combatlube"
-	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
-	process_flags = SYNTHETIC
-	overdose_threshold = 30
-	addiction_chance = 1
-	addiction_chance_additional = 20
-
-/datum/reagent/lube/combat/on_mob_add(mob/living/L)
-	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
-
-/datum/reagent/lube/combat/on_mob_life(mob/living/M)
-	M.SetSleeping(0)
-	M.SetDrowsy(0)
-
-	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
-	if(prob(10))
-		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
-	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	return ..()
-
-/datum/reagent/lube/combat/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	..()
-
-/datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
-	var/list/overdose_info = ..()
-	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
-	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	if(prob(20))
-		M.emote("ping")
-	if(prob(33))
-		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-	update_flags |= M.adjustFireLoss(5, FALSE)
-	update_flags |= M.adjustBrainLoss(3, FALSE)
-	return list(effect, update_flags)
 
 #undef DRAWBACK_CHANCE_MODIFIER
 #undef CONSTANT_DOSE_SAFE_LIMIT

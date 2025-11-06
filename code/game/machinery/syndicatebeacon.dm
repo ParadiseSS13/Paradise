@@ -5,12 +5,11 @@
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
 	icon = 'icons/obj/singularity.dmi'
-	icon_state = "beacon"
+	icon_state = "beacon0"
 
 	anchored = FALSE
 	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
-	stat = 0
 
 	var/active = FALSE
 	var/icontype = "beacon"

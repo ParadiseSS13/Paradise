@@ -1,0 +1,3576 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ac" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"ad" = (
+/obj/machinery/economy/atm/directional/west,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"ai" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"aj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"ar" = (
+/obj/effect/spawner/window/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/hall)
+"aw" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"aC" = (
+/turf/simulated/wall/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"aD" = (
+/obj/structure/table/glass/reinforced,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"aW" = (
+/obj/structure/table/glass/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"aX" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered/casino/engine)
+"bq" = (
+/obj/structure/rack,
+/obj/item/radio{
+	pixel_x = -4
+	},
+/obj/item/radio{
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"bH" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"bJ" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"bR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"cc" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"ck" = (
+/obj/structure/mineral_door/silver,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"cy" = (
+/obj/structure/sink/directional/south,
+/obj/structure/mirror{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"cM" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"cQ" = (
+/obj/machinery/power/apc/off_station/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"dd" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"dg" = (
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"dm" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"du" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"dx" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"dL" = (
+/obj/structure/table/wood/fancy,
+/obj/item/kitchen/knife/plastic{
+	pixel_x = -5
+	},
+/obj/item/kitchen/utensil/pfork,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"dM" = (
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"dN" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"ep" = (
+/obj/effect/spawner/window/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/kitchen)
+"eu" = (
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"eP" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/docked_ships)
+"eQ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/template_noop)
+"ft" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"fG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"fI" = (
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"fT" = (
+/obj/item/kirbyplants/medium/medium2,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"fV" = (
+/obj/machinery/power/apc/off_station/directional/east,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"fY" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"gm" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"go" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"gC" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"gH" = (
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"gO" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"gQ" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"hb" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/casino/docked_ships)
+"hi" = (
+/obj/item/paper_bin{
+	pixel_y = 4;
+	pixel_x = 5
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -1
+	},
+/obj/item/storage/secure/safe{
+	pixel_x = 35;
+	pixel_y = 5
+	},
+/obj/structure/table,
+/obj/item/restraints/handcuffs/cable/random,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"hv" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"hJ" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/power/apc/off_station/directional/west,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"hM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"id" = (
+/obj/structure/safe,
+/obj/item/circuitboard/teleporter_hub{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/stack/spacecash/c1000,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"in" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"iw" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"iL" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/docked_ships)
+"ja" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"jc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"jh" = (
+/obj/machinery/light/small,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"jn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"jt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"jz" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"jJ" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"jK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"jS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"kh" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"kk" = (
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"kx" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"ky" = (
+/obj/effect/spawner/random/cobweb/left/rare,
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"kC" = (
+/obj/item/kirbyplants/large/plant12,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"kH" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"lj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"lu" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"lD" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"lS" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"lU" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"lZ" = (
+/obj/machinery/light{
+	dir = 1;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"mh" = (
+/obj/machinery/economy/slot_machine,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"mi" = (
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/maints)
+"mp" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"my" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"mz" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"mA" = (
+/obj/structure/table/wood/poker,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"mP" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"mW" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/kitchen)
+"no" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"nx" = (
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/powered/casino/hall)
+"nB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"nQ" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin{
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"nT" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"oc" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"od" = (
+/obj/item/food/grown/lily,
+/turf/simulated/floor/beach/away/water/deep,
+/area/ruin/space/powered/casino/hall)
+"oi" = (
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/teleporter)
+"oo" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/powered/casino/docked_ships)
+"op" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"oq" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"oP" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"pt" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"pB" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/mug{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/drinks/flask/barflask{
+	pixel_y = 6;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"pO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/security)
+"pV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"qe" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/hall)
+"qi" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"ql" = (
+/obj/machinery/cooking/ice_cream_mixer,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"qw" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"qK" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"qZ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"rh" = (
+/obj/structure/grille/broken,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"rp" = (
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"rJ" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"sx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/engineering,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"sA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"sO" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/kitchen)
+"tu" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"tG" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"uv" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"uE" = (
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/security)
+"uX" = (
+/obj/machinery/light,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"va" = (
+/obj/structure/cable,
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered/casino/engine)
+"vb" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/powered/casino/docked_ships)
+"vf" = (
+/obj/structure/grille/broken,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"vh" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"vo" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"vQ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"wb" = (
+/obj/structure/sign/poster/official/high_class_martini/directional/west,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"wg" = (
+/turf/template_noop,
+/area/template_noop)
+"wh" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"wl" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"wn" = (
+/obj/structure/toilet/directional/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"wo" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/template_noop)
+"wq" = (
+/obj/structure/mineral_door/silver,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/powered/casino/hall)
+"wu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"wx" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"wB" = (
+/obj/machinery/door/airlock/freezer,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/kitchen)
+"wD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"wF" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"wP" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"wY" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"xd" = (
+/obj/structure/table/reinforced,
+/obj/item/radio{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/item/lighter{
+	pixel_x = 7
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"xq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"xw" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/arrivals)
+"xD" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/shaker,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"ye" = (
+/turf/simulated/floor/beach/away/water/deep,
+/area/ruin/space/powered/casino/hall)
+"yr" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"yu" = (
+/obj/machinery/power/solar_control/autostart{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"yK" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"yN" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/sofa/corp{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"yV" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/security)
+"zg" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"zu" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"zM" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"zX" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"An" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Aw" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/floor)
+"AK" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"AM" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"AN" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"AO" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"Bp" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered/casino/engine)
+"BC" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"Cj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"Cp" = (
+/obj/structure/grille/broken,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"Cr" = (
+/obj/structure/statue/sandstone/assistant,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"CF" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"CH" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/largecrate,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"CK" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"CP" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Do" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"Dp" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Dv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Dy" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"DJ" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"DL" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"DM" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"DR" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Ed" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Eq" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"Ev" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"Ex" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"EK" = (
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"EZ" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Fk" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Fm" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/hall)
+"FP" = (
+/obj/structure/mineral_door/silver,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/powered/casino/hall)
+"FV" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/engine)
+"Gr" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"GB" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"GJ" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"GP" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/maints)
+"GX" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"Hl" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Hq" = (
+/obj/structure/toilet/directional/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"Hx" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"Hz" = (
+/obj/structure/roulette,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"HF" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Is" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"It" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"ID" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"IJ" = (
+/obj/structure/table/wood/fancy,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"IR" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"IS" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"IU" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/maints)
+"IV" = (
+/obj/structure/computerframe{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"JW" = (
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
+"Ky" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"KD" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"KH" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"KJ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window{
+	dir = 4;
+	name = "Security Check"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/security)
+"KV" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/engine)
+"LI" = (
+/obj/structure/rack,
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"LK" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/arrivals)
+"Mt" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/casino/docked_ships)
+"MG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8;
+	color = "#888888"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"MM" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"MU" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Nh" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/oxygen,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"Nj" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Nx" = (
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/engine)
+"NX" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Oc" = (
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"Of" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"Om" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#6ea0c7";
+	color = "#6ea0c7"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"On" = (
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/hall)
+"Oq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"ON" = (
+/obj/effect/spawner/window/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
+"OU" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"OZ" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"Pz" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"PG" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"PI" = (
+/obj/structure/table/reinforced,
+/obj/item/folder{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"PQ" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Qg" = (
+/obj/structure/mineral_door/silver,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Qk" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"QW" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/floor)
+"Rh" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"Ri" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/kitchen)
+"Ro" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/cooking/oven,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"Rw" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/security)
+"RB" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"RS" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"RW" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Sk" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards/black,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Sr" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Sv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"Sz" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"SK" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/powered/casino/docked_ships)
+"SO" = (
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"SX" = (
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"SZ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Th" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Tj" = (
+/obj/structure/table/reinforced,
+/obj/item/newspaper,
+/obj/item/clothing/glasses/regular,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered/casino/docked_ships)
+"Tl" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Tx" = (
+/obj/machinery/light{
+	dir = 1;
+	brightness_color = "#6ea0c7";
+	color = "#6ea0c7"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Ty" = (
+/obj/machinery/door/airlock,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
+"TA" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
+/turf/template_noop,
+/area/template_noop)
+"TO" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"TV" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"TW" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"Uc" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"Ud" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/sofa/corp{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"Ue" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"Uf" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = -1
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_y = -2;
+	pixel_x = 1
+	},
+/obj/item/flashlight{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stack/cable_coil/five,
+/obj/item/stack/rods/ten,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"Uu" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"Uy" = (
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered/casino/arrivals)
+"UE" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/maints)
+"UI" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/powered/casino/hall)
+"UO" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"UW" = (
+/obj/structure/table,
+/obj/item/kitchen/rollingpin{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/powered/casino/kitchen)
+"UY" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"Vw" = (
+/obj/effect/spawner/window/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/arrivals)
+"VI" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/security)
+"VM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/casino/kitchen)
+"VW" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/security)
+"We" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/casino/docked_ships)
+"Wh" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/space/powered/casino/kitchen)
+"Wo" = (
+/obj/machinery/economy/slot_machine,
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#6ea0c7";
+	color = "#6ea0c7"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Ws" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
+"WA" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/teleporter)
+"WK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"WW" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Xe" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Xo" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/casino/floor)
+"Xv" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Coat Check"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/maints)
+"Xz" = (
+/turf/simulated/wall,
+/area/ruin/space/powered/casino/teleporter)
+"XN" = (
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"Yo" = (
+/obj/structure/curtain/black,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/kitchen)
+"Yy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
+"YH" = (
+/obj/machinery/power/apc/off_station/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
+"Zj" = (
+/obj/structure/table/glass/reinforced,
+/obj/item/ashtray/bronze,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"Zr" = (
+/obj/structure/coatrack,
+/obj/item/storage/bag/garment,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"ZJ" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+"ZM" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/janitorialcart{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"ZR" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered/casino/floor)
+
+(1,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(2,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+iL
+iL
+iL
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(3,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+xd
+We
+Nh
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(4,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+MG
+MG
+MG
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(5,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+yK
+yK
+yK
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(6,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+Mt
+yK
+Mt
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(7,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+hb
+Mt
+rJ
+Mt
+hb
+wg
+wg
+wg
+wg
+wg
+kx
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(8,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+Vw
+kH
+Vw
+LK
+LK
+Vw
+kH
+Vw
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+sO
+ep
+ep
+ep
+ep
+ep
+sO
+wg
+wg
+wg
+"}
+(9,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+LK
+Yy
+Yy
+Yy
+aj
+Yy
+Yy
+Yy
+Yy
+sO
+UO
+Is
+Is
+Is
+BC
+Ws
+sO
+wg
+kx
+wg
+wg
+wg
+sO
+sO
+sO
+IJ
+dL
+TV
+dL
+IJ
+sO
+wg
+wg
+wg
+"}
+(10,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+LK
+ac
+cc
+cc
+cc
+cc
+SZ
+cc
+cc
+fT
+sO
+OZ
+RS
+Is
+Is
+Is
+gH
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+Cj
+TV
+Pz
+Pz
+TV
+Pz
+Pz
+sO
+sO
+lZ
+wg
+"}
+(11,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+fT
+cc
+cc
+Cr
+Uy
+Uy
+Uy
+Uy
+Uy
+Uy
+sO
+mW
+mW
+wB
+mW
+sO
+sO
+sO
+dm
+Ro
+op
+sO
+MM
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+Cj
+ep
+wg
+wg
+"}
+(12,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+DL
+LK
+LK
+cc
+cc
+cc
+Uy
+Uy
+ky
+dd
+dd
+EZ
+DJ
+dd
+dd
+It
+oP
+cQ
+rh
+sO
+lS
+lS
+lS
+lS
+sO
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+TV
+ep
+wg
+wg
+"}
+(13,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+Vw
+XN
+cc
+cc
+Uy
+Uy
+It
+dd
+dd
+vf
+GP
+CH
+CH
+CH
+rp
+TO
+in
+PG
+Ri
+lS
+lS
+TW
+lS
+Yo
+TV
+TV
+TV
+TV
+nT
+GB
+TV
+TV
+TV
+TV
+ep
+wg
+wg
+"}
+(14,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+Vw
+cc
+cc
+Uy
+Uy
+Zr
+oP
+oP
+aC
+aC
+aC
+aC
+aC
+UE
+GP
+GP
+GP
+IS
+sO
+lS
+lS
+lS
+lS
+sO
+hM
+TV
+TV
+TV
+IJ
+dL
+TV
+TV
+TV
+TV
+ep
+wg
+wg
+"}
+(15,1,1) = {"
+wg
+wg
+SK
+eP
+SK
+wg
+Vw
+cc
+cc
+Uy
+Zr
+oP
+oP
+aC
+aC
+my
+yN
+oq
+aC
+aC
+ZM
+oP
+An
+IS
+sO
+UW
+EK
+ql
+DM
+sO
+nT
+nT
+TV
+TV
+IJ
+bH
+TV
+TV
+nT
+nT
+ep
+wg
+wg
+"}
+(16,1,1) = {"
+wg
+wg
+SK
+Ev
+SK
+wg
+Vw
+cc
+cc
+Uy
+oP
+Ed
+aC
+aC
+SX
+SX
+nx
+SX
+wx
+aC
+aC
+LI
+UE
+qK
+UE
+Xz
+Xz
+Xz
+Xz
+Xz
+dL
+IJ
+TV
+TV
+gC
+Pz
+TV
+TV
+IJ
+dL
+ep
+wg
+wg
+"}
+(17,1,1) = {"
+wg
+wg
+SK
+Ev
+SK
+wg
+Vw
+cc
+cc
+Uy
+PQ
+aC
+aC
+SX
+SX
+SX
+SX
+SX
+SX
+SX
+aC
+aC
+UE
+ja
+KH
+Xz
+IV
+jn
+dM
+Xz
+IJ
+IJ
+TV
+TV
+TV
+TV
+TV
+TV
+IJ
+IJ
+ep
+wg
+wg
+"}
+(18,1,1) = {"
+wg
+wg
+vb
+yr
+vb
+wg
+Vw
+cc
+qi
+Uy
+IU
+aC
+mz
+SX
+kC
+Fm
+Fm
+Fm
+kC
+SX
+uX
+aC
+aC
+IS
+WW
+Xz
+GJ
+CK
+UY
+Xz
+Pz
+Pz
+TV
+fV
+VM
+Qk
+TV
+TV
+Pz
+Pz
+ep
+wg
+wg
+"}
+(19,1,1) = {"
+wg
+LK
+LK
+xw
+LK
+LK
+LK
+cc
+cc
+Uy
+Xv
+aC
+SX
+SX
+Fm
+Fm
+od
+Fm
+Fm
+SX
+SX
+SX
+aC
+zM
+mi
+oi
+oi
+WA
+oi
+oi
+Wh
+Wh
+Wh
+Wh
+Wh
+Sv
+AK
+Wh
+Wh
+Wh
+sO
+wg
+wg
+"}
+(20,1,1) = {"
+wg
+xw
+Dv
+Yy
+DR
+jt
+mP
+cc
+cc
+mP
+cc
+wq
+SX
+SX
+Fm
+ye
+ye
+od
+Fm
+SX
+SX
+SX
+wq
+oc
+Uu
+SX
+SX
+oc
+SX
+SX
+SX
+SX
+SX
+Uu
+SX
+oc
+SX
+SX
+SX
+UI
+ar
+wg
+wg
+"}
+(21,1,1) = {"
+wg
+xw
+wD
+jK
+zg
+sA
+cc
+cc
+IR
+Ex
+qZ
+wq
+SX
+SX
+Fm
+od
+ye
+ye
+Fm
+SX
+SX
+gO
+FP
+tu
+Do
+Do
+wh
+CF
+Do
+Do
+Do
+vo
+Do
+Do
+Do
+GX
+SX
+aw
+SX
+SX
+ar
+wg
+wg
+"}
+(22,1,1) = {"
+wg
+LK
+LK
+xw
+LK
+LK
+LK
+cc
+Sr
+Uy
+KJ
+aC
+SX
+SX
+Fm
+Fm
+ye
+Fm
+Fm
+SX
+SO
+dN
+aC
+fI
+On
+On
+Ty
+On
+On
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Qg
+ck
+Xo
+Xo
+Xo
+QW
+wg
+wg
+"}
+(23,1,1) = {"
+wg
+wg
+oo
+yr
+oo
+wg
+Vw
+cc
+qi
+Uy
+pO
+aC
+mz
+SX
+kC
+Fm
+Fm
+Fm
+kC
+SX
+uX
+aC
+aC
+pV
+qe
+nQ
+wF
+fY
+qe
+Hl
+wb
+aD
+hJ
+ad
+wu
+Dp
+Th
+mh
+Wo
+mh
+ON
+wg
+wg
+"}
+(24,1,1) = {"
+wg
+wg
+SK
+jc
+SK
+wg
+Vw
+cc
+cc
+Uy
+uE
+aC
+aC
+SX
+SX
+SX
+SX
+SX
+SX
+wx
+aC
+aC
+Hx
+tG
+qe
+qe
+qe
+zu
+qe
+Ky
+Th
+Zj
+ZJ
+Th
+Th
+Th
+Th
+cM
+cM
+cM
+ON
+wg
+wg
+"}
+(25,1,1) = {"
+wg
+wg
+SK
+jc
+SK
+wg
+Vw
+cc
+cc
+Uy
+ai
+lU
+aC
+aC
+SX
+SX
+nx
+SX
+SX
+aC
+aC
+bq
+zX
+jh
+qe
+Hq
+bJ
+cy
+qe
+gQ
+MU
+aD
+ZJ
+Th
+Th
+Th
+Th
+Th
+Th
+Th
+ON
+wg
+wg
+"}
+(26,1,1) = {"
+wg
+wg
+SK
+eP
+SK
+wg
+Vw
+cc
+XN
+Uy
+eu
+ai
+KD
+aC
+aC
+AN
+Ud
+RB
+aC
+aC
+kk
+wY
+zX
+id
+qe
+qe
+qe
+AO
+qe
+Tx
+Th
+aD
+ZJ
+Th
+Th
+Sz
+ZR
+Sz
+Th
+Th
+ON
+wg
+wg
+"}
+(27,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+Vw
+cc
+cc
+Uy
+Uy
+dx
+vh
+Cp
+aC
+aC
+aC
+aC
+aC
+Rw
+VW
+go
+zX
+iw
+qe
+wn
+bJ
+cy
+qe
+xD
+Th
+aD
+ZJ
+Th
+lu
+mA
+Sk
+mA
+Nj
+Th
+ON
+wg
+wg
+"}
+(28,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+Vw
+cc
+cc
+cc
+Uy
+Uy
+qw
+xq
+xq
+xq
+xq
+VI
+VI
+OU
+JW
+bR
+bR
+hi
+qe
+qe
+qe
+qe
+qe
+hv
+Th
+aD
+ZJ
+Th
+Th
+mA
+jJ
+mA
+Th
+Th
+ON
+wg
+wg
+"}
+(29,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+DL
+LK
+LK
+cc
+cc
+cc
+Uy
+Uy
+Oc
+ID
+uv
+pt
+AM
+yV
+sx
+FV
+FV
+KV
+KV
+KV
+jz
+du
+no
+Dy
+Th
+Th
+aW
+ZJ
+Th
+Th
+Th
+Th
+Th
+Th
+Th
+ON
+wg
+wg
+"}
+(30,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+fT
+cc
+cc
+Cr
+Uy
+Uy
+Uy
+Uy
+Uy
+Uy
+Nx
+WK
+YH
+yu
+nB
+gm
+KV
+pB
+Gr
+du
+QW
+NX
+Th
+Th
+Th
+Th
+Th
+Th
+Th
+Th
+Th
+Om
+ON
+wg
+wg
+"}
+(31,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+LK
+ac
+cc
+cc
+cc
+cc
+HF
+cc
+cc
+fT
+FV
+Rh
+vQ
+Of
+lj
+FV
+FV
+Aw
+QW
+QW
+QW
+QW
+QW
+QW
+Tl
+Om
+lD
+Th
+kh
+Th
+lD
+QW
+QW
+lZ
+wg
+"}
+(32,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+LK
+Oq
+jK
+jK
+jK
+jK
+jK
+jK
+jK
+FV
+Uf
+mp
+Eq
+fG
+jS
+ft
+jS
+wo
+Xe
+wg
+wg
+wg
+QW
+QW
+QW
+Hz
+Th
+Hz
+Th
+Hz
+QW
+wg
+wg
+wg
+"}
+(33,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+LK
+Vw
+kH
+Vw
+LK
+LK
+Vw
+kH
+Vw
+FV
+FV
+FV
+FV
+FV
+FV
+FV
+FV
+wg
+Fk
+wg
+wg
+wg
+CP
+wg
+QW
+ON
+ON
+ON
+ON
+ON
+QW
+wg
+wg
+wg
+"}
+(34,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+oo
+yr
+SK
+yr
+oo
+wg
+wg
+wg
+wg
+wg
+wg
+TA
+wg
+wg
+wg
+CP
+wg
+wg
+wg
+Fk
+wg
+wg
+wg
+CP
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(35,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+dg
+dg
+dg
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+aX
+aX
+aX
+aX
+aX
+Fk
+aX
+aX
+aX
+aX
+aX
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(36,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+jc
+jc
+jc
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wl
+Ue
+Ue
+Ue
+Ue
+RW
+Uc
+Uc
+Uc
+Uc
+eQ
+va
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(37,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+jc
+jc
+jc
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Bp
+Bp
+Bp
+Bp
+Bp
+wg
+Bp
+Bp
+Bp
+Bp
+Bp
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(38,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+Tj
+wP
+PI
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(39,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+eP
+eP
+eP
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(40,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}

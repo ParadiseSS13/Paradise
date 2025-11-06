@@ -27,7 +27,7 @@
 			<img width="15%" alt="Discord" hspace="3%" src=".github/assets/discord-dark.png">
 		</picture>
 	</a>
-	<a href="https://codedocs.paradisestation.org">
+	<a href="https://devdocs.paradisestation.org">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
@@ -56,7 +56,7 @@
 > [!TIP]
 > Want to contribute for the first time but unsure where to start?<br>
 > Join our Discord and check out the [#coding_chat](https://discord.com/channels/145533722026967040/145700319819464704) channel for helpful links and advice!<br>
-> Alternatively, have a look at our community maintained [Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
+> Alternatively, have a look at our community maintained [Getting Started Guide](https://devdocs.paradisestation.org/contributing/getting_started/)
 
 # Useful Documents and Links
 
@@ -64,28 +64,27 @@
 
 This reference site by the creators of BYOND details information on the DM language, the syntax used, functionality of native procs, and a lot more. This is always useful to have on hand when contributing.
 
-- ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- ### [Autodocumentation Guide](https://devdocs.paradisestation.org/references/autodoc/)
 
 This guide shows you how to leave code comments that comply with "autodocumentation", a system designed to make everyone's lives easier when reading or reviewing code!
 
-- ### [Code of Conduct](./CODE_OF_CONDUCT.md)
+- ### [Code of Conduct](https://devdocs.paradisestation.org/code_of_conduct/)
 
 All contributors are expected to read our Code of Conduct before they take part in our community.
 
-- ### [Contribution Guide](.github/CONTRIBUTING.md)
+- ### [Contribution Guide](https://devdocs.paradisestation.org/contributing/)
 
 Not sure how to take part and contribute? This guide gives an overview of how to make comments, pull requests, and open issues.
 
 This guide also sets out our code standards that we expect all submitted code to adhere to.
 
-- ### [Community Maintained Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
+- ### [Community Maintained Guide to Contributing](https://devdocs.paradisestation.org/contributing/getting_started/)
 
 This community maintained guide covers how to set yourself up for success when attempting to contribute to Paracode.
 
 > [!IMPORTANT]
 > Paradise does not provide precompiled binaries, requiring you to build from source to host a local server.<br>
 > Building Paradise is quick and simple, all you need to install is [BYOND](https://www.byond.com/download/).<br>
-> You can learn more in our [Installation Guide](.github/DOWNLOADING.md).
 
 - ### [Paradise Station Development Team Structure](https://www.paradisestation.org/dev/policy/)
 
@@ -140,7 +139,17 @@ Mapping for Paradise station can be daunting to new contributors. Here's a compr
 </details>
 
 <details>
+
+<summary><a href="#"><img src="https://img.shields.io/badge/licence-CC_4.0_BY--NC-blue?style=for-the-badge" alt="Creative Commons 4.0 BY-NC" align="centre"></a></summary>
+
+>Any files with the ancestor directories [`Paradise/icons/tgmc`](icons/tgmc) are licensed under the [Creative Commons 4.0 BY-NC license](https://creativecommons.org/licenses/by-nc/4.0).
+>
+>Further files or folders may also fall under this license, and any such instances will be specified within the folder or file.
+</details>
+
+<details>
 <summary><a href="#"><img src="https://img.shields.io/badge/licence-CC_3.0_BY--SA-lightblue?style=for-the-badge" alt="Creative Commons 3.0 BY-SA"></a></summary>
 
 >All other non-code assets, including icons and sound files, are licensed under the [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/), unless otherwise specified within the folder or file.
 </details>
+

@@ -3,7 +3,8 @@
 //When making a new status effect, add a define to status_effects.dm in __DEFINES for ease of use!
 
 /datum/status_effect
-	var/id = "effect" //Used for screen alerts.
+	/// A unique ID that is used to see if there is already a status effect of the same type on something. Also used for screen alerts
+	var/id
 	var/duration = -1 //How long the status effect lasts in DECISECONDS. Enter -1 for an effect that never ends unless removed through some means.
 	var/tick_interval = 10 //How many deciseconds between ticks, approximately. Leave at 10 for every second. Setting this to -1 will stop processing if duration is also unlimited.
 	var/mob/living/owner //The mob affected by the status effect.
@@ -14,6 +15,11 @@
 	var/atom/movable/screen/alert/status_effect/linked_alert = null //the alert itself, if it exists
 
 /datum/status_effect/New(list/arguments)
+	if(!id)
+		stack_trace("[src] was created but did not have an unique ID. Deleting.")
+		qdel(src)
+		return
+
 	on_creation(arglist(arguments))
 
 /datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
@@ -176,11 +182,9 @@
 
 /datum/status_effect/stacking
 	id = "stacking_base"
-	duration = -1 //removed under specific conditions
 	alert_type = null
 	var/stacks = 0 //how many stacks are accumulated, also is # of stacks that target will have when first applied
 	var/delay_before_decay //deciseconds until ticks start occuring, which removes stacks (first stack will be removed at this time plus tick_interval)
-	tick_interval = 10 //deciseconds between decays once decay starts
 	var/stack_decay = 1 //how many stacks are lost per tick (decay trigger)
 	var/stack_threshold //special effects trigger when stacks reach this amount
 	var/max_stacks //stacks cannot exceed this amount
@@ -256,6 +260,7 @@
 
 /// Status effect from multiple sources, when all sources are removed, so is the effect
 /datum/status_effect/grouped
+	id = "grouped"
 	status_type = STATUS_EFFECT_MULTIPLE //! Adds itself to sources and destroys itself if one exists already, there are never multiple
 	var/list/sources = list()
 
@@ -280,6 +285,7 @@
  * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
  */
 /datum/status_effect/transient
+	id = "transient"
 	tick_interval = 0.2 SECONDS // SSfastprocess interval
 	alert_type = null
 	/// How much strength left before expiring? time in deciseconds.

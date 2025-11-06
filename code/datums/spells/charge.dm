@@ -1,7 +1,6 @@
 /datum/spell/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
-	school = "transmutation"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	invocation = "DIRI CEL"
@@ -72,12 +71,6 @@
 				break
 			else if(istype(item, /obj/item/stock_parts/cell/))
 				var/obj/item/stock_parts/cell/C = item
-				if(!C.self_recharge)
-					if(prob(80))
-						C.maxcharge -= 200
-					if(C.maxcharge <= 1) //Div by 0 protection
-						C.maxcharge = 1
-						burnt_out = TRUE
 				C.charge = C.maxcharge
 				charged_item = C
 				break
@@ -86,12 +79,6 @@
 				for(I in item.contents)
 					if(istype(I, /obj/item/stock_parts/cell/))
 						var/obj/item/stock_parts/cell/C = I
-						if(!C.self_recharge)
-							if(prob(80))
-								C.maxcharge -= 200
-							if(C.maxcharge <= 1) //Div by 0 protection
-								C.maxcharge = 1
-								burnt_out = TRUE
 						C.charge = C.maxcharge
 						item.update_icon()
 						charged_item = item

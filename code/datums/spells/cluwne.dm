@@ -3,10 +3,7 @@
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
 	hand_path = /obj/item/melee/touch_attack/cluwne
 
-	school = "transmutation"
-
 	base_cooldown = 1 MINUTES
-	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "cluwne"
@@ -34,17 +31,17 @@
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
-	unEquip(w_uniform, 1)
-	unEquip(shoes, 1)
-	unEquip(gloves, 1)
+	drop_item_to_ground(w_uniform, force = TRUE)
+	drop_item_to_ground(shoes, force = TRUE)
+	drop_item_to_ground(gloves, force = TRUE)
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
-		unEquip(wear_mask, 1)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES, TRUE, TRUE)
+		drop_item_to_ground(wear_mask, force = TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -54,7 +51,7 @@
 	SetConfused(0)
 	SetJitter(0)
 	if(mind)
-		mind.assigned_role = "Lawyer"
+		mind.assigned_role = "Internal Affairs Agent"
 
 	var/obj/item/organ/internal/honktumor/cursed/tumor = get_int_organ(/obj/item/organ/internal/honktumor/cursed)
 	if(tumor)
@@ -67,23 +64,14 @@
 	dna.SetSEState(GLOB.nervousblock, FALSE)
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 
-	var/obj/item/clothing/under/U = w_uniform
-	unEquip(w_uniform, 1)
-	if(U)
-		qdel(U)
-
-	var/obj/item/clothing/shoes/S = shoes
-	unEquip(shoes, 1)
-	if(S)
-		qdel(S)
+	qdel(w_uniform)
+	qdel(shoes)
 
 	if(istype(wear_mask, /obj/item/clothing/mask/cursedclown))
-		unEquip(wear_mask, 1)
+		qdel(wear_mask)
 
 	if(istype(gloves, /obj/item/clothing/gloves/cursedclown))
-		var/obj/item/clothing/gloves/G = gloves
-		unEquip(gloves, 1)
-		qdel(G)
+		qdel(gloves)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/lawyer/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/iaa/formal/black, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES, TRUE, TRUE)

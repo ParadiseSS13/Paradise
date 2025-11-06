@@ -3,19 +3,46 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/ruin/space/unpowered/no_grav/way_home)
 "c" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "d" = (
-/obj/structure/signpost{
+/obj/structure/signpost/ruin{
 	name = "salvation"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
+"g" = (
+/obj/structure/spawner/mining/hivelord/space,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"n" = (
+/turf/simulated/mineral/random/high_chance/clown,
+/area/ruin/space/unpowered/no_grav/way_home)
+"s" = (
+/mob/living/basic/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
+"z" = (
+/obj/structure/spawner/mining/basilisk/space,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"O" = (
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"P" = (
+/mob/living/basic/carp,
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/unpowered/no_grav/way_home)
 
 (1,1,1) = {"
+a
 a
 a
 a
@@ -76,6 +103,7 @@ a
 a
 a
 a
+P
 a
 a
 "}
@@ -104,8 +132,9 @@ a
 a
 a
 a
-b
-b
+a
+R
+R
 a
 a
 a
@@ -136,9 +165,10 @@ a
 a
 a
 a
-b
-b
-b
+a
+R
+R
+R
 a
 a
 a
@@ -169,13 +199,15 @@ a
 a
 a
 a
-b
+a
+R
 a
 a
-a
+P
 a
 "}
 (6,1,1) = {"
+a
 a
 a
 a
@@ -220,6 +252,7 @@ a
 a
 a
 a
+a
 b
 b
 a
@@ -234,7 +267,7 @@ a
 a
 a
 a
-a
+P
 a
 a
 a
@@ -250,9 +283,10 @@ a
 a
 a
 a
+a
 b
 b
-b
+R
 b
 b
 b
@@ -281,11 +315,12 @@ a
 a
 a
 a
+a
 b
-b
-b
-b
-b
+R
+R
+R
+R
 b
 b
 a
@@ -311,17 +346,18 @@ a
 a
 a
 a
+a
 b
 b
 b
 b
-b
-b
+R
+R
 b
 b
 a
 a
-a
+P
 a
 a
 a
@@ -340,6 +376,7 @@ a
 a
 a
 a
+a
 b
 a
 b
@@ -348,7 +385,7 @@ b
 b
 b
 b
-b
+R
 b
 c
 a
@@ -356,7 +393,7 @@ a
 a
 a
 a
-a
+s
 a
 a
 a
@@ -372,12 +409,13 @@ a
 a
 a
 a
+a
 b
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
@@ -404,11 +442,12 @@ a
 a
 a
 a
+a
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
@@ -423,7 +462,7 @@ a
 a
 a
 a
-a
+P
 a
 a
 a
@@ -435,18 +474,19 @@ a
 a
 a
 a
+a
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
 b
 b
 c
-c
+g
 c
 c
 c
@@ -466,13 +506,14 @@ a
 (15,1,1) = {"
 a
 a
+a
 b
 b
 b
+R
+R
 b
-b
-b
-b
+R
 b
 b
 c
@@ -499,6 +540,7 @@ a
 a
 a
 a
+a
 b
 b
 b
@@ -507,7 +549,7 @@ b
 b
 b
 c
-c
+O
 c
 a
 a
@@ -532,6 +574,7 @@ a
 a
 a
 a
+a
 b
 b
 b
@@ -546,7 +589,7 @@ a
 a
 c
 c
-c
+O
 c
 c
 c
@@ -564,6 +607,7 @@ a
 a
 a
 a
+a
 b
 b
 b
@@ -583,7 +627,7 @@ c
 b
 b
 b
-b
+n
 b
 b
 a
@@ -596,6 +640,7 @@ a
 a
 a
 a
+a
 b
 b
 a
@@ -612,11 +657,11 @@ a
 a
 c
 c
-c
+z
 b
-b
-b
-b
+R
+n
+n
 b
 a
 a
@@ -633,6 +678,7 @@ a
 a
 a
 a
+a
 b
 a
 a
@@ -647,8 +693,8 @@ c
 c
 c
 b
-b
-b
+n
+n
 b
 b
 a
@@ -677,17 +723,19 @@ a
 a
 a
 a
+a
 c
 b
 b
-b
-b
+n
+n
 b
 a
 a
 a
 "}
 (22,1,1) = {"
+a
 a
 a
 a
@@ -720,6 +768,7 @@ a
 a
 "}
 (23,1,1) = {"
+a
 a
 a
 a
@@ -777,8 +826,9 @@ a
 a
 a
 a
-b
-b
+a
+R
+R
 a
 a
 a
@@ -814,10 +864,12 @@ a
 a
 a
 a
+a
 "}
 (26,1,1) = {"
 a
 a
+P
 a
 a
 a
@@ -851,6 +903,7 @@ a
 a
 a
 a
+P
 a
 a
 a
@@ -883,6 +936,7 @@ a
 a
 a
 a
+P
 a
 a
 a
@@ -914,7 +968,8 @@ a
 (29,1,1) = {"
 a
 a
-a
+P
+P
 a
 a
 a
@@ -944,6 +999,40 @@ a
 a
 "}
 (30,1,1) = {"
+a
+s
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(31,1,1) = {"
+a
 a
 a
 a

@@ -272,6 +272,7 @@ SUBSYSTEM_DEF(garbage)
 	if(time > 10)
 		log_game("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete)")
 		message_admins("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete).")
+		log_debug("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete).")
 		postpone(time)
 
 /datum/controller/subsystem/garbage/Recover()
@@ -435,7 +436,7 @@ SUBSYSTEM_DEF(garbage)
 
 	log_gc("Completed search for references to a [type].")
 	#ifdef FIND_REF_NOTIFY_ON_COMPLETE
-	rustg_create_toast("ParadiseSS13", "GC search complete for [type]")
+	rustlibs_create_toast("ParadiseSS13", "GC search complete for [type]")
 	#endif
 	if(usr && usr.client)
 		usr.client.running_find_references = null

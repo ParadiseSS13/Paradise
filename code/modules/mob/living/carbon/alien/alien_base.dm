@@ -5,6 +5,7 @@
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
+	faction = list("alien")
 
 	var/nightvision = TRUE
 	see_in_dark = 4
@@ -21,6 +22,9 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	ignore_generic_organs = TRUE
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/alien
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
@@ -72,11 +76,11 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
+	var/loc_temp = get_temperature(readonly_environment)
 
 	if(!on_fire) // If you're on fire, ignore local air temperature
 		if(loc_temp > bodytemperature)
@@ -164,14 +168,6 @@
 
 	return threatcount
 
-/mob/living/carbon/alien/death(gibbed)
-	. = ..()
-	if(!.)
-		return
-
-	deathrattle()
-
-
 /mob/living/carbon/alien/proc/deathrattle()
 	var/alien_message = deathrattle_message()
 	for(var/mob/living/carbon/alien/M in GLOB.player_list)
@@ -213,7 +209,7 @@ Des: Removes all infected images from the alien.
 and carry the owner just to make sure*/
 /mob/living/carbon/proc/update_plasma_display(mob/owner)
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtons()
+		action.build_all_button_icons()
 	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens
 		return
 	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[get_plasma()]</font></div>"
@@ -263,3 +259,6 @@ and carry the owner just to make sure*/
 	if(health <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
 		KnockOut()
 	return ..()
+
+/mob/living/carbon/alien/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/face_hugger, curse_time)

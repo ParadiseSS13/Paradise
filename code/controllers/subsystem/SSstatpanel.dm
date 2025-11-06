@@ -6,7 +6,10 @@ SUBSYSTEM_DEF(statpanels)
 	flags = SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	var/list/currentrun = list()
+	/// Stuff shown to everyone.
 	var/list/global_data
+	/// Stuff shown to all admins.
+	var/list/admin_data
 	var/list/mc_data
 
 	/// How many subsystem fires between most tab updates
@@ -35,10 +38,24 @@ SUBSYSTEM_DEF(statpanels)
 			list("Players in Lobby:", "[length(GLOB.new_player_mobs)]")
 		)
 
+		admin_data = list()
+		if(SSticker?.current_state == GAME_STATE_PREGAME)
+			global_data += list(list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED"))
+
+			var/players_ready = 0
+			admin_data += list(list("Players Ready:", "?"))
+			var/players_ready_index = length(admin_data)
+			for(var/mob/new_player/player in GLOB.player_list)
+				admin_data += list(list("[player.key]", player.ready ? "(Ready)" : "(Not ready)"))
+				if(player.ready)
+					players_ready++
+
+			admin_data[players_ready_index][2] = "[players_ready]"
+
 		if(SSshuttle.emergency)
 			var/eta = SSshuttle.emergency.getModeStr()
 			if(eta)
-				global_data[++global_data.len] = list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
+				global_data += list(list("[eta]", "[SSshuttle.emergency.getTimerStr()]"))
 		src.currentrun = GLOB.clients.Copy()
 		mc_data = null
 
@@ -142,6 +159,7 @@ SUBSYSTEM_DEF(statpanels)
 	var/list/to_make = obj_window.atoms_to_imagify
 	var/list/turf_items = list()
 	var/i = 0
+	var/client_uid = load_from.UID()
 	for(var/atom/turf_item as anything in obj_window.atoms_to_show)
 		// Limit what we send to the client's rendered section.
 		i++
@@ -154,8 +172,13 @@ SUBSYSTEM_DEF(statpanels)
 		if(existing_image == OBJ_IMAGE_LOADING)
 			continue
 		// We already have it. Success!
+
+		// Store the cache the MD5'd UID for safety reasons
+		var/obj_m5_uid = turf_item.MD5_UID()
+		load_from.m5_uid_cache[obj_m5_uid] = turf_item.unique_datum_id
+
 		if(existing_image)
-			turf_items["[i]"] = list("[turf_item.name]", turf_item.UID(), SSassets.transport.get_asset_url(existing_image), existing_image)
+			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid, SSassets.transport.get_asset_url(existing_image), existing_image, client_uid)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
@@ -263,7 +286,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(ismob(thing) || length(thing.overlays) > 2)
 			generated_string = costly_icon2asset(thing, parent)
 		else
-			generated_string = icon2asset(thing, parent)
+			generated_string = icon2asset(thing, parent, thing.icon_state)
 
 		newly_seen[thing] = generated_string
 		if(TICK_CHECK)
@@ -288,7 +311,7 @@ SUBSYSTEM_DEF(statpanels)
 	actively_tracking = TRUE
 
 /datum/object_window_info/proc/stop_turf_tracking()
-	qdel(GetComponent(/datum/component/connect_mob_behalf))
+	DeleteComponent(/datum/component/connect_mob_behalf)
 	actively_tracking = FALSE
 
 /datum/object_window_info/proc/on_mob_move(mob/source)

@@ -111,6 +111,7 @@
 
 #define COLOR_BLOOD_BASE "#A10808"
 #define COLOR_BLOOD_MACHINE "#1F181F"
+#define COLOR_BLOOD_XENO "#05EE05"
 
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
@@ -153,3 +154,6 @@
 #define COMPLEMENTARY_COLOR_CRYOGENIC_LIQUID "#a8b7df"
 #define COMPLEMENTARY_COLOR_SORIUM "#a2a256"
 #define COMPLEMENTARY_COLOR_TESLIUM_PASTE "#412968"
+
+/// Color for dead external organs/zombies
+#define	COLORTONE_DEAD_EXT_ORGAN "#0A3200"

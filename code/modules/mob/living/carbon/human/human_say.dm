@@ -47,15 +47,18 @@
 	return FALSE
 
 /mob/living/carbon/human/GetVoice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
+
 	var/has_changer = HasVoiceChanger()
 
 	if(has_changer)
 		return has_changer
 
 	if(mind)
-		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(cling?.mimicing)
-			return cling.mimicing
+		var/datum/antagonist/antagonist_status = mind.has_antag_datum(/datum/antagonist)
+		if(antagonist_status?.mimicking)
+			return antagonist_status.mimicking
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -223,6 +226,8 @@ GLOBAL_LIST_INIT(soapy_words, list(
 				R.talk_into(src, message_pieces, null, verb)
 
 		if("whisper")
+			if(HAS_TRAIT(src, TRAIT_NO_WHISPERING))
+				return FALSE
 			whisper_say(message_pieces)
 			return 1
 		else

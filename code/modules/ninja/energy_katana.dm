@@ -1,22 +1,19 @@
 /obj/item/katana/energy
 	name = "energy katana"
-	desc = "A katana infused with a strong energy"
+	desc = "A katana infused with a strong energy."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "energy_katana"
-	item_state = "energy_katana"
-	force = 40
 	throwforce = 20
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 10
 	var/cooldown = 0 // Because spam aint cool, yo.
 	var/datum/effect_system/spark_spread/spark_system
 
-
-/obj/item/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(user, 'sound/weapons/blade1.ogg', 50, 1, -1)
+/obj/item/katana/energy/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(user, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	return ..()
 
-/obj/item/katana/energy/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/katana/energy/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!user || !target)
 		return
 
@@ -40,7 +37,6 @@
 				return
 	..()*/
 
-
 /obj/item/katana/energy/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
 	if(!istype(user))
 		return
@@ -54,7 +50,7 @@
 
 	if(user.put_in_hands(src))
 		msg = "Your Energy Katana teleports into your hand!"
-	else if(user.equip_to_slot_if_possible(src, SLOT_HUD_BELT, FALSE, TRUE))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, FALSE, TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
 	else
 		loc = get_turf(user)

@@ -22,7 +22,7 @@
 		pinned_target = null
 		density = TRUE
 
-/obj/structure/target_stake/attackby(obj/item/W, mob/user, params)
+/obj/structure/target_stake/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Putting objects on the stake. Most importantly, targets
 	if(istype(W, /obj/item/target) && !pinned_target)
 		density = FALSE
@@ -32,7 +32,7 @@
 		W.layer = 3.1
 		pinned_target = W
 		to_chat(user, "You slide the target into the stake.")
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/target_stake/attack_hand(mob/user)

@@ -3,6 +3,8 @@
 ## Enforce text mode and LF line breaks
 *.js text eol=lf
 *.jsx text eol=lf
+*.cjs text eol=lf
+*.mjs text eol=lf
 *.ts text eol=lf
 *.tsx text eol=lf
 *.css text eol=lf

@@ -2,7 +2,6 @@
 	name = "heart"
 	icon_state = "heart-on"
 	organ_tag = "heart"
-	parent_organ = "chest"
 	slot = "heart"
 	origin_tech = "biotech=5"
 	dead_icon = "heart-off"
@@ -16,7 +15,7 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-/obj/item/organ/internal/heart/attack_self(mob/user)
+/obj/item/organ/internal/heart/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(status & ORGAN_DEAD)
 		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
@@ -36,6 +35,7 @@
 	base_icon_state = "cursedheart"
 	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
+	organ_datums = list(/datum/organ/heart, /datum/organ/battery) // This doesn't actually work for IPCs but it also doesn't kill you, and it's funny
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
 	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
@@ -55,7 +55,7 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
+/obj/item/organ/internal/heart/cursed/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
@@ -191,6 +191,7 @@
 	base_icon_state = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
+	organ_datums = list(/datum/organ/heart, /datum/organ/battery)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
@@ -235,19 +236,23 @@
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE) // Mötley Crüe - Kickstart My Heart
+			owner.adjustOxyLoss(-100)
+			owner.SetLoseBreath(0)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(10))
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE)
+			owner.adjustOxyLoss(-100)
+			owner.SetLoseBreath(0)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 3 SECONDS)
 
 	if(owner.HasDisease(/datum/disease/critical/heart_failure))
@@ -257,19 +262,19 @@
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 

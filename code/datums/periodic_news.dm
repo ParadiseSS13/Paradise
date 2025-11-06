@@ -5,6 +5,7 @@
 
 	var/round_time // time of the round at which this should be announced, in seconds
 	var/message // body of the message
+	var/headline
 	var/author = "Nanotrasen Editor"
 	var/channel_name = "Nyx Daily"
 	var/can_be_redacted = FALSE
@@ -12,7 +13,8 @@
 
 /datum/news_announcement/revolution_inciting_event/paycuts_suspicion
 	round_time = 60*10
-	message = {"Reports have leaked that Nanotrasen Inc. is planning to put paycuts into
+	headline = "Paycuts Suspected at Nanotrasen"
+	message = {"Reports have leaked that Nanotrasen Inc. is planning to put pay cuts into
 				effect on many of its Research Stations in Tau Ceti. Apparently these research
 				stations haven't been able to yield the expected revenue, and thus adjustments
 				have to be made."}
@@ -20,13 +22,15 @@
 
 /datum/news_announcement/revolution_inciting_event/paycuts_confirmation
 	round_time = 60*40
-	message = {"Earlier rumours about paycuts on Research Stations in the Tau Ceti system have
+	headline = "Paycuts Confirmed at Nanotrasen"
+	message = {"Earlier rumours about pay cuts on Research Stations in the Tau Ceti system have
 				been confirmed. Shockingly, however, the cuts will only affect lower tier
 				personnel. Heads of Staff will, according to our sources, not be affected."}
 	author = "Unauthorized"
 
 /datum/news_announcement/revolution_inciting_event/human_experiments
 	round_time = 60*90
+	headline = "Human Experimentation Alleged at Nanotrasen"
 	message = {"Unbelievable reports about human experimentation have reached our ears. According
 				to a refugee from one of the Tau Ceti Research Stations, their station, in order
 				to increase revenue, has refactored several of their facilities to perform experiments
@@ -36,8 +40,9 @@
 				the experiments, and reported to have died in a \"work accident\" by Nanotrasen Inc."}
 	author = "Unauthorized"
 
-/datum/news_announcement/bluespace_research/announcement
+/datum/news_announcement/bluespace_research
 	round_time = 60*20
+	headline = "Bluespace Research Advances"
 	message = {"The new field of research trying to explain several interesting spacetime oddities,
 				also known as \"Bluespace Research\", has reached new heights. Of the several
 				hundred space stations now orbiting in Tau Ceti, fifteen are now specially equipped
@@ -48,6 +53,7 @@
 /datum/news_announcement/random_junk/cheesy_honkers
 	author = "Assistant Editor Carl Ritz"
 	channel_name = "The Gibson Gazette"
+	headline = "Cheesy Honkers Alleged Health Risk"
 	message = {"Do cheesy honkers increase risk of having a miscarriage? Several health administrations
 				say so!"}
 	round_time = 60 * 15
@@ -55,24 +61,23 @@
 /datum/news_announcement/random_junk/net_block
 	author = "Assistant Editor Carl Ritz"
 	channel_name = "The Gibson Gazette"
+	headline = "WETSKRELL.NT Blocked"
 	message = {"Several corporations banding together to block access to 'wetskrell.nt', site administrators
 	claiming violation of net laws."}
 	round_time = 60 * 50
 
 /datum/news_announcement/random_junk/found_ssd
-	channel_name = "Nyx Daily"
 	author = "Doctor Eric Hanfield"
-
+	headline = "Employees found SSD"
 	message = {"Several people have been found unconscious at their terminals. It is thought that it was due
 				to a lack of sleep or of simply migraines from staring at the screen too long. Camera footage
 				reveals that many of them were playing games instead of working and their pay has been docked
 				accordingly."}
 	round_time = 60 * 90
 
-/datum/news_announcement/lotus_tree/explosions
-	channel_name = "Nyx Daily"
+/datum/news_announcement/lotus_tree
 	author = "Reporter Leland H. Howards"
-
+	headline = "Explosion on Civilian Transport"
 	message = {"The newly-christened civilian transport Lotus Tree suffered two very large explosions near the
 				bridge today, and there are unconfirmed reports that the death toll has passed 50. The cause of
 				the explosions remain unknown, but there is speculation that it might have something to do with
@@ -82,9 +87,8 @@
 	round_time = 60 * 30
 
 /datum/news_announcement/food_riots/breaking_news
-	channel_name = "Nyx Daily"
 	author = "Reporter Ro'kii Ar-Raqis"
-
+	headline = "Food Riots in Tenebrae Lupus"
 	message = {"Breaking news: Food riots have broken out throughout the Refuge asteroid colony in the Tenebrae
 				Lupus system. This comes only hours after Nanotrasen officials announced they will no longer trade with the
 				colony, citing the increased presence of \"hostile factions\" on the colony has made trade too dangerous to
@@ -93,9 +97,8 @@
 	round_time = 60 * 10
 
 /datum/news_announcement/food_riots/more
-	channel_name = "Nyx Daily"
 	author = "Reporter Ro'kii Ar-Raqis"
-
+	headline = "Food Riots Continue Amid NT Withdrawl"
 	message = {"More on the Refuge food riots: The Refuge Council has condemned Nanotrasen's withdrawal from
 	the colony, claiming \"there has been no increase in anti-Nanotrasen activity\", and \"\[the only] reason
 	Nanotrasen withdrew was because the \[Tenebrae Lupus] system's Plasma deposits have been completely mined out.
@@ -132,6 +135,7 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 	newMsg.author = news.author ? news.author : sendto.author
 	newMsg.admin_locked = !news.can_be_redacted
 	newMsg.body = news.message
+	newMsg.title = "[news.channel_name]: [news.headline]"
 
 	sendto.add_message(newMsg)
 

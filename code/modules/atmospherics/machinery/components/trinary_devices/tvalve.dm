@@ -6,7 +6,7 @@
 	icon_state = "map_tvalve0"
 
 	name = "manual switching valve"
-	desc = "A pipe valve"
+	desc = "A pipe valve."
 
 	can_unwrench = TRUE
 
@@ -26,7 +26,6 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
@@ -73,7 +72,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/proc/go_straight()
@@ -88,7 +87,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/attack_ai(mob/user)
@@ -122,7 +121,6 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()

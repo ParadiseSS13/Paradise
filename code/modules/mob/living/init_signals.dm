@@ -1,4 +1,4 @@
-/// Called on [/mob/living/Initialize(mapload)], for the mob to register to relevant signals.
+/// Called on [/mob/living/proc/Initialize], for the mob to register to relevant signals.
 /mob/living/proc/register_init_signals()
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_loss))
@@ -26,6 +26,12 @@
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNKNOWN), PROC_REF(on_unknown_trait))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_UNKNOWN), PROC_REF(on_unknown_trait))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_loss))
 
 /// Called when [TRAIT_KNOCKEDOUT] is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
@@ -160,3 +166,25 @@
 	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
 	remove_status_effect(STATUS_EFFECT_REVIVABLE)
 
+/// Gaining or losing [TRAIT_UNKNOWN] updates our name and our sechud
+/mob/living/proc/on_unknown_trait(datum/source)
+	SIGNAL_HANDLER // SIGNAL_ADDTRAIT(TRAIT_UNKNOWN), SIGNAL_REMOVETRAIT(TRAIT_UNKNOWN)
+	addtimer(CALLBACK(src, PROC_REF(on_unknown_trait_part_2)), 0.1 SECONDS) // Remove signal is sent before the trait is removed, we need to wait a tick
+
+/mob/living/proc/on_unknown_trait_part_2()
+	name = get_visible_name()
+	sec_hud_set_ID()
+
+/// Called when [TRAIT_PRESSURE_VISION] is added to the mob.
+/mob/living/proc/on_pressure_vision_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(!(src in hud.hudusers))
+		hud.add_hud_to(src)
+
+/// Called when [TRAIT_PRESSURE_VISION] is removed from the mob.
+/mob/living/proc/on_pressure_vision_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(src in hud.hudusers)
+		hud.remove_hud_from(src)

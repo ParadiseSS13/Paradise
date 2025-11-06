@@ -1,0 +1,1135 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aZ" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/engineering)
+"bF" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"cI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"dg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"dq" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"dt" = (
+/obj/item/cigbutt/roach,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"dK" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"ec" = (
+/mob/living/basic/drakehound_breacher,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"fJ" = (
+/obj/structure/rack,
+/obj/item/storage/box/breacher,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"fN" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"he" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"hB" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"hP" = (
+/obj/effect/turf_decal/siding,
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"hT" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"iF" = (
+/obj/effect/spawner/random/food_trash,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"jo" = (
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/space/unathi_breacher/dorms)
+"jA" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"jC" = (
+/obj/structure/rack,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"kb" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"kf" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"kt" = (
+/obj/structure/table,
+/obj/item/screwdriver,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"li" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"lq" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/bottle/random_drink,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"lJ" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"mj" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/mob/living/basic/drakehound_breacher,
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"mC" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/bar)
+"mH" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"ny" = (
+/obj/item/stack/sheet/mineral/plasma,
+/turf/template_noop,
+/area/template_noop)
+"nU" = (
+/obj/structure/shuttle/engine/large{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"oa" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"ol" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"oK" = (
+/obj/structure/rack,
+/obj/item/claymore/ceremonial,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"pP" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/dorms)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unathi_breacher/bridge)
+"pZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"qp" = (
+/obj/structure/table,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"ri" = (
+/mob/living/basic/lizard{
+	name = "Lil' Fella"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"rl" = (
+/obj/item/toy/plushie/voxplushie{
+	has_stuffing = 0
+	},
+/turf/template_noop,
+/area/template_noop)
+"rv" = (
+/obj/structure/chair/stool/bar,
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"rx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"rI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"rJ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"tT" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"uN" = (
+/obj/item/stack/rods,
+/obj/item/stack/rods,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"vc" = (
+/obj/machinery/suit_storage_unit,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"vY" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"wV" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"xJ" = (
+/obj/item/stack/rods,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/template_noop,
+/area/template_noop)
+"yi" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"yx" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"yy" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"yB" = (
+/obj/item/cigbutt/roach,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"za" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"zC" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"zQ" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unathi_breacher/bridge)
+"zX" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"Ah" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"Aj" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"AA" = (
+/obj/structure/rack,
+/obj/item/salvage/loot/pirate,
+/obj/item/salvage/loot/pirate,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"AL" = (
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Bg" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/mob/living/basic/drakehound_breacher,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"CC" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"CM" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"CZ" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Dp" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"Eq" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"FR" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Gb" = (
+/turf/template_noop,
+/area/template_noop)
+"GH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"GR" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/unathi_breacher/hold)
+"Hr" = (
+/obj/item/cigbutt/roach,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"Hz" = (
+/obj/structure/shelf,
+/obj/item/weldingtool/largetank,
+/obj/item/weldingtool/largetank,
+/obj/item/weldingtool/largetank,
+/obj/item/reagent_containers/glass/bottle/thermite,
+/obj/item/reagent_containers/glass/bottle/thermite,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"HK" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"Ik" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"IN" = (
+/obj/item/toy/plushie/lizardplushie,
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Jy" = (
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"Kf" = (
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"LO" = (
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/space/unathi_breacher/bridge)
+"LX" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Mt" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"MI" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/bridge)
+"MX" = (
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/space/unathi_breacher/bar)
+"NT" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/engineering)
+"Oe" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"OW" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/burnt/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"Pq" = (
+/obj/machinery/atmospherics/unary/tank/oxygen,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"Pr" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"Pt" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"PE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"PV" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"Qa" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"Qh" = (
+/obj/item/stack/cable_coil/ten,
+/turf/template_noop,
+/area/template_noop)
+"QI" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/turf/template_noop,
+/area/template_noop)
+"QK" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"QL" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "secure hold door";
+	locked = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"QS" = (
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"RI" = (
+/obj/item/stack/rods,
+/obj/structure/table_frame,
+/mob/living/basic/drakehound_breacher,
+/turf/template_noop,
+/area/template_noop)
+"Sg" = (
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"SR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"Tg" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"Tk" = (
+/obj/machinery/barsign,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/unathi_breacher/hold)
+"Uk" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"UV" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"UX" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/turf_decal/stripes/red/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"VI" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"VX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Wu" = (
+/obj/effect/spawner/random/food_trash,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"Xq" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"XA" = (
+/obj/item/toy/plushie/lizardplushie,
+/obj/structure/table,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"Yf" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+"YO" = (
+/obj/effect/turf_decal/siding{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"Za" = (
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
+"Zl" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/dorms)
+"ZR" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
+"ZY" = (
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
+
+(1,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+"}
+(2,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Mt
+Gb
+PV
+nU
+Gb
+Gb
+Gb
+"}
+(3,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+QI
+Mt
+wV
+PV
+PV
+NT
+Gb
+Gb
+"}
+(4,1,1) = {"
+Gb
+Gb
+xJ
+Gb
+CC
+Gb
+Qh
+ol
+ol
+NT
+NT
+NT
+NT
+Gb
+Gb
+"}
+(5,1,1) = {"
+Gb
+Gb
+xJ
+ny
+rl
+xJ
+OW
+oa
+ec
+Mt
+zX
+kt
+NT
+Gb
+Gb
+"}
+(6,1,1) = {"
+Gb
+Gb
+NT
+RI
+FR
+ZY
+Hr
+uN
+Mt
+dt
+Oe
+qp
+NT
+Gb
+Gb
+"}
+(7,1,1) = {"
+Gb
+Gb
+Zl
+Zl
+Zl
+pP
+Mt
+Mt
+Yf
+mC
+mC
+mC
+mC
+Gb
+Gb
+"}
+(8,1,1) = {"
+Gb
+Gb
+Zl
+hB
+hB
+Zl
+QK
+PV
+rI
+mC
+PE
+PE
+mC
+Gb
+Gb
+"}
+(9,1,1) = {"
+Gb
+Zl
+Zl
+CZ
+UV
+Zl
+yB
+Kf
+rI
+mC
+HK
+mH
+mC
+mC
+Gb
+"}
+(10,1,1) = {"
+Gb
+Zl
+hB
+CZ
+iF
+aZ
+fN
+yy
+kf
+aZ
+dK
+mH
+mH
+mC
+Gb
+"}
+(11,1,1) = {"
+Gb
+Zl
+AL
+CZ
+VX
+Zl
+vc
+Pq
+vc
+mC
+rJ
+lq
+VI
+mC
+Gb
+"}
+(12,1,1) = {"
+Gb
+Zl
+tT
+CZ
+ZR
+GR
+GR
+GR
+GR
+Tk
+bF
+rv
+UX
+mC
+Gb
+"}
+(13,1,1) = {"
+Gb
+Xq
+li
+CZ
+LX
+GR
+fJ
+Uk
+AA
+GR
+Wu
+mH
+pZ
+yi
+Gb
+"}
+(14,1,1) = {"
+Gb
+Zl
+vY
+QS
+XA
+GR
+Pr
+ri
+Za
+GR
+Ik
+mH
+za
+mC
+Gb
+"}
+(15,1,1) = {"
+Gb
+jo
+Pt
+CZ
+hB
+GR
+CM
+rx
+oK
+GR
+GH
+mH
+mH
+MX
+Gb
+"}
+(16,1,1) = {"
+Gb
+jo
+CZ
+VX
+CZ
+GR
+Za
+rx
+Za
+GR
+rJ
+mH
+mH
+MX
+Gb
+"}
+(17,1,1) = {"
+Gb
+Zl
+IN
+CZ
+VX
+GR
+jC
+rx
+kb
+GR
+Eq
+PE
+Tg
+mC
+Gb
+"}
+(18,1,1) = {"
+Gb
+Zl
+Zl
+Zl
+Qa
+GR
+GR
+QL
+GR
+GR
+jA
+mC
+mC
+mC
+Gb
+"}
+(19,1,1) = {"
+Gb
+Gb
+MI
+zC
+zC
+mj
+yx
+he
+Aj
+Bg
+Dp
+zC
+MI
+Gb
+Gb
+"}
+(20,1,1) = {"
+Gb
+Gb
+LO
+zC
+Jy
+Sg
+yx
+yx
+yx
+YO
+Jy
+zC
+LO
+Gb
+Gb
+"}
+(21,1,1) = {"
+Gb
+Gb
+MI
+hP
+SR
+yx
+Hz
+dg
+yx
+yx
+lJ
+hT
+MI
+Gb
+Gb
+"}
+(22,1,1) = {"
+Gb
+Gb
+MI
+MI
+cI
+cI
+MI
+Ah
+MI
+cI
+cI
+MI
+MI
+Gb
+Gb
+"}
+(23,1,1) = {"
+Gb
+Gb
+Gb
+MI
+dq
+dq
+MI
+pW
+MI
+dq
+dq
+MI
+Gb
+Gb
+Gb
+"}
+(24,1,1) = {"
+Gb
+Gb
+Gb
+MI
+MI
+MI
+MI
+zQ
+MI
+MI
+MI
+MI
+Gb
+Gb
+Gb
+"}
+(25,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+MI
+MI
+Gb
+Gb
+Gb
+MI
+MI
+Gb
+Gb
+Gb
+Gb
+"}
+(26,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+Gb
+Gb
+"}
+(27,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+Gb
+Gb
+"}
+(28,1,1) = {"
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+"}

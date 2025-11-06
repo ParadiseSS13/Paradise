@@ -96,7 +96,6 @@
 
 /datum/holiday/april_fools
 	name = APRIL_FOOLS
-	begin_day = 1
 	begin_month = APRIL
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
@@ -112,7 +111,6 @@
 
 /datum/holiday/labor
 	name = "Labor Day"
-	begin_day = 1
 	begin_month = MAY
 
 /datum/holiday/firefighter
@@ -124,10 +122,9 @@
 
 /datum/holiday/doctor
 	name = "Doctor's Day"
-	begin_day = 1
 	begin_month = JULY
 
-/datum/holiday/UFO
+/datum/holiday/ufo
 	name = "UFO Day"
 	begin_day = 2
 	begin_month = JULY
@@ -193,7 +190,6 @@
 
 /datum/holiday/vegan
 	name = "Vegan Day"
-	begin_day = 1
 	begin_month = NOVEMBER
 
 /datum/holiday/kindness
@@ -325,7 +321,7 @@
 	return ..()
 
 
-/client/proc/Set_Holiday(T as text|null)
+/client/proc/set_holiday(T as text|null)
 	set name = "Set Holiday"
 	set category = "Event"
 	set desc = "Force-set the Holiday variable to make the game think it's a certain day."

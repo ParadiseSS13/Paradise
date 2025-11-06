@@ -4,7 +4,6 @@
 	name = "clutter"
 	desc = "Someone should clean that up."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shards"
@@ -36,21 +35,22 @@
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
 
+/obj/effect/decal/cleanable/glass/plastitanium
+	icon_state = "plastitaniumtiny"
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
 	base_icon_state = "dirt"
-	smoothing_flags = NONE
 	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -72,9 +72,7 @@
 	name = "flour"
 	desc = "It's still good. Four second rule!"
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
 /obj/effect/decal/cleanable/flour/nanofrost
@@ -95,10 +93,8 @@
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	light_range = 1
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)
@@ -111,21 +107,14 @@
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
 	desc = "Somebody should remove that."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
 	resistance_flags = FLAMMABLE
 
 /obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
 	desc = "It looks like a melted... something."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	gender = NEUTER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
 	mergeable_decal = FALSE
 
@@ -136,19 +125,14 @@
 /obj/effect/decal/cleanable/cobweb2
 	name = "cobweb"
 	desc = "Somebody should remove that."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
 
 /obj/effect/decal/cleanable/vomit
 	name = "vomit"
 	desc = "Gosh, how unpleasant."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
-	plane = FLOOR_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
@@ -159,9 +143,8 @@
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	gravity_check = has_gravity(src, T)
-	if(loc != T)
-		forceMove(T)
+	check_gravity(T)
+
 	if(!gravity_check)
 		layer = MOB_LAYER
 		plane = GAME_PLANE
@@ -171,21 +154,34 @@
 			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
-/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
-	. = ..()
-	if(A.density)
-		splat(A)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+/obj/effect/decal/cleanable/vomit/Bump(atom/A)
+	if(gravity_check)
+		return ..()
+
+	if(iswallturf(A) || istype(A, /obj/structure/window))
+		splat(A)
+		return
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	return ..()
+
+/obj/effect/decal/cleanable/vomit/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!gravity_check)
-		splat(AM)
-	..()
+		splat(entered)
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(gravity_check)
 		return
 	var/turf/T = get_turf(A)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T)
@@ -199,22 +195,11 @@
 		plane = initial(plane)
 	animate(src)
 
-/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
-		return 1
+		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return 1
-
-	if(pulledby && !pulledby.pulling)
-		return 1
-
-	if(throwing)
-		return 1
-
-	return 0
+	return ..()
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
@@ -232,7 +217,7 @@
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
-	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
+	if(severity == EXPLODE_DEVASTATE) //so shreds created during an explosion aren't deleted by the explosion.
 		qdel(src)
 
 /obj/effect/decal/cleanable/shreds/Initialize(mapload)
@@ -243,23 +228,19 @@
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
 	desc = "It's red."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
 
 /obj/effect/decal/cleanable/plant_smudge
 	name = "plant smudge"
-	density = FALSE
 	layer = TURF_LAYER
-	gender = NEUTER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_plant")
 
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
 	desc = "Seems like this one won't hatch."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
@@ -268,7 +249,6 @@
 /obj/effect/decal/cleanable/pie_smudge
 	name = "smashed pie"
 	desc = "It's pie cream from a cream pie."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
@@ -276,10 +256,8 @@
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."
-	density = FALSE
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)

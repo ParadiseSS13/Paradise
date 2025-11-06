@@ -39,6 +39,11 @@
 	creation_mob_ckey = creation_mob?.ckey
 	START_PROCESSING(SSobj, src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)
 
@@ -62,15 +67,15 @@
 /obj/effect/portal/singularity_act()
 	return
 
-/obj/effect/portal/Crossed(atom/movable/AM, oldloc)
-	if(isobserver(AM))
-		return ..()
+/obj/effect/portal/proc/on_atom_entered(datum/source, atom/movable/entered, old_loc)
+	if(isobserver(entered) || entered.flags_2 & HOLOGRAM_2)
+		return
 
-	if(target && (get_turf(oldloc) == get_turf(target)))
-		return ..()
+	if(target && (get_turf(old_loc) == get_turf(target)))
+		return
 
-	if(!teleport(AM))
-		return ..()
+	if(teleport(entered))
+		return TRUE
 
 /obj/effect/portal/attack_tk(mob/user)
 	return
@@ -86,7 +91,7 @@
 
 /obj/effect/portal/attack_ghost(mob/dead/observer/O)
 	if(target)
-		O.forceMove(target)
+		O.forceMove(get_turf(target))
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -158,6 +163,9 @@
 		do_sparks(5, 0, loc)
 	qdel(src)
 
+/obj/effect/portal/newtonian_move(direction, instant, start_delay)
+	return TRUE
+
 #define UNSTABLE_TIME_DELAY 2 SECONDS
 
 /obj/effect/portal/hand_tele
@@ -200,8 +208,6 @@
 	name = "advanced portal"
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
-	failchance = 0
-	precision = 0
 	ignore_tele_proof_area_setting = TRUE
 
 #undef EFFECT_COOLDOWN

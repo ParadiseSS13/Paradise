@@ -1,3 +1,6 @@
+#define QPAD_ANIM_WINDUP 0.8 SECONDS
+#define QPAD_ANIM_COOLDOWN 0.7 SECONDS
+
 /obj/machinery/quantumpad
 	name = "quantum pad"
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
@@ -9,44 +12,14 @@
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = FALSE //if it's in the process of teleporting
+	// Is the pad currently doing a teleportation?
+	var/teleporting = FALSE
+	// Power consumption multiplier.
 	var/power_efficiency = 1
+	// The pad this quantum pad will teleport to.
 	var/obj/machinery/quantumpad/linked_pad = null
+	// Pre-linked pad target, for mapped-in quantum pads.
 	var/preset_target = null
-
-/obj/machinery/quantumpad/cere/cargo_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
-/obj/machinery/quantumpad/cere/cargo_security
-	preset_target = /obj/machinery/quantumpad/cere/security_cargo
-/obj/machinery/quantumpad/cere/security_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_security
-/obj/machinery/quantumpad/cere/security_science
-	preset_target = /obj/machinery/quantumpad/cere/science_security
-/obj/machinery/quantumpad/cere/science_security
-	preset_target = /obj/machinery/quantumpad/cere/security_science
-/obj/machinery/quantumpad/cere/science_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
-/obj/machinery/quantumpad/cere/arrivals_science
-	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
-/obj/machinery/quantumpad/cere/arrivals_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals
-/obj/machinery/quantumpad/cere/security_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_security
-/obj/machinery/quantumpad/cere/medbay_security
-	preset_target = /obj/machinery/quantumpad/cere/security_medbay
-/obj/machinery/quantumpad/cere/medbay_science
-	preset_target = /obj/machinery/quantumpad/cere/science_medbay
-/obj/machinery/quantumpad/cere/science_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_science
-/obj/machinery/quantumpad/cere/arrivals_service
-	preset_target = /obj/machinery/quantumpad/cere/service_arrivals
-/obj/machinery/quantumpad/cere/service_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_service
-/obj/machinery/quantumpad/cere/cargo_service
-	preset_target = /obj/machinery/quantumpad/cere/service_cargo
-/obj/machinery/quantumpad/cere/service_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_service
-
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
@@ -60,16 +33,6 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
-/obj/machinery/quantumpad/cere/Initialize(mapload)
-	. = ..()
-	linked_pad = locate(preset_target)
-
-/obj/machinery/quantumpad/cere/PopulateParts()
-	// No parts in Cere telepads, just hardcode the efficiencies
-	power_efficiency = 4
-	teleport_speed = 10
-	teleport_cooldown = 0
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
@@ -87,11 +50,6 @@
 	teleport_speed -= (E*10)
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 100)
-
-/obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -149,7 +107,7 @@
 	return TRUE
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		return
 	if(!check_usable(user))
 		return
@@ -163,67 +121,80 @@
 	if(!istype(AI))
 		return
 	if(AI.eyeobj.loc != loc)
-		AI.eyeobj.setLoc(get_turf(loc))
+		AI.eyeobj.set_loc(get_turf(loc))
 		return
 	if(!check_usable(user))
 		return
 	var/turf/T = get_turf(linked_pad)
-	if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
-		AI.eyeobj.setLoc(T)
+	if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(T))
+		AI.eyeobj.set_loc(T)
 	else
 		to_chat(user, "<span class='warning'>Linked pad is not on or near any active cameras on the station.</span>")
-
-/obj/machinery/quantumpad/proc/sparks()
-	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
 	if(!QDELETED(linked_pad))
 		ghost.forceMove(get_turf(linked_pad))
 
+/obj/machinery/quantumpad/proc/precharge()
+	layer = HIGH_OBJ_LAYER
+	linked_pad.layer = HIGH_OBJ_LAYER
+	flick("qpad-beam", src)
+	flick("qpad-beam", linked_pad)
+	addtimer(CALLBACK(src, PROC_REF(finish_teleport)), max((teleport_speed + QPAD_ANIM_COOLDOWN), 1))
+
+/obj/machinery/quantumpad/proc/finish_teleport()
+	if(!teleporting)
+		layer = BELOW_OBJ_LAYER
+		linked_pad.layer = BELOW_OBJ_LAYER
+
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
 	if(linked_pad)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
 		teleporting = TRUE
+		src.icon_state = "qpad-charge"
+		linked_pad.icon_state = "qpad-charge"
+		addtimer(CALLBACK(src, PROC_REF(precharge)), max((teleport_speed - QPAD_ANIM_WINDUP), 1))
+		addtimer(CALLBACK(src, PROC_REF(process_teleport)), teleport_speed)
 
-		spawn(teleport_speed)
-			if(!src || QDELETED(src))
-				teleporting = FALSE
-				return
-			if(stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
-				teleporting = FALSE
-				return
-			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
-				teleporting = FALSE
-				return
+/obj/machinery/quantumpad/proc/process_teleport(mob/user)
+	if(!src || QDELETED(src))
+		teleporting = FALSE
+		return
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+		teleporting = FALSE
+		return
+	if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
+		to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+		teleporting = FALSE
+		return
 
-			teleporting = FALSE
-			last_teleport = world.time
+	teleporting = FALSE
+	last_teleport = world.time
 
-			// use a lot of power
-			use_power(10000 / power_efficiency)
-			sparks()
-			linked_pad.sparks()
-
-			flick("qpad-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			flick("qpad-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			var/tele_success = TRUE
-			for(var/atom/movable/ROI in get_turf(src))
-				// if is anchored, don't let through
-				if(ROI.anchored)
-					if(isliving(ROI))
-						var/mob/living/L = ROI
-						if(L.buckled)
-							// TP people on office chairs
-							if(L.buckled.anchored)
-								continue
-						else
-							continue
-					else if(!isobserver(ROI))
+	// use a lot of power
+	use_power(10000 / power_efficiency)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
+	playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+	var/tele_success = TRUE
+	for(var/atom/movable/ROI in get_turf(src))
+		// if is anchored, don't let through
+		if(ROI.anchored)
+			if(isliving(ROI))
+				var/mob/living/L = ROI
+				if(L.buckled)
+					// TP people on office chairs
+					if(L.buckled.anchored)
 						continue
-				tele_success = do_teleport(ROI, get_turf(linked_pad))
-			if(!tele_success)
-				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+				else
+					continue
+			else if(!isobserver(ROI))
+				continue
+		tele_success = do_teleport(ROI, get_turf(linked_pad), do_effect = FALSE)
+	if(!tele_success)
+		to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+	src.icon_state = "qpad-idle"
+	linked_pad.icon_state = "qpad-idle"
+
+#undef QPAD_ANIM_WINDUP
+#undef QPAD_ANIM_COOLDOWN

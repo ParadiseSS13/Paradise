@@ -143,7 +143,7 @@
 
 /obj/item/reagent_containers/drinks/mug/rd
 	name = "research director's mug"
-	desc = "Energy tech level: 99"
+	desc = "Energy tech level: 99."
 	icon_state = "mug_rd"
 	preset = TRUE
 
@@ -169,4 +169,10 @@
 	name = "captain's mug"
 	desc = "An inscription on the side reads \"Best Captain 2559\"... The last time the station had a worthy captain."
 	icon_state = "mug_cap"
+	preset = TRUE
+
+/obj/item/reagent_containers/drinks/mug/wood
+	name = "wooden cup"
+	desc = "This is a tower-cap cup. All craftsdwarfship is... passable."
+	icon_state = "mug_wood"
 	preset = TRUE

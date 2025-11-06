@@ -7,7 +7,7 @@
 	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
 		var/damage = rand(5, 8) + user.dna.species.punchdamagelow
 		if(!damage)
-			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 			target.visible_message("<span class='warning'>[user] swings invisible nunchcuks at [target]..and misses?</span>")
 			return MARTIAL_COMBO_DONE
 
@@ -17,7 +17,7 @@
 
 		target.visible_message("<span class='danger'>[user] has hit [target] with invisible nunchucks!</span>", \
 								"<span class='userdanger'>[user] has hit [target] with a with invisible nunchuck!</span>")
-		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		target.apply_damage(damage, STAMINA, affecting, armor_block)
 		add_attack_logs(user, target, "Melee attacked with [src] (mimechuck)")

@@ -1,3 +1,6 @@
+/// A pulse demon requires 1000 watts to regenerate
+#define DEMON_REQUIRED_POWER 1000
+
 /datum/event/spawn_pulsedemon
 	var/key_of_pulsedemon
 
@@ -11,7 +14,7 @@
 	var/mob/C = pick(candidates)
 	key_of_pulsedemon = C.key
 	dust_if_respawnable(C)
-	
+
 	if(!key_of_pulsedemon)
 		kill()
 		return
@@ -29,14 +32,14 @@
 	var/list/spawn_centers = list()
 	for(var/datum/regional_powernet/P in SSmachines.powernets)
 		for(var/obj/structure/cable/C in P.cables)
-			if(!is_station_level(C.z) || P.available_power <= 0)
+			if(!is_station_level(C.z) || P.available_power < DEMON_REQUIRED_POWER)
 				break // skip iterating over this entire powernet, it's not on station or it has zero available power (so it's not suitable)
 
 			var/turf/simulated/floor/F = get_turf(C)
 			// is a floor, not tiled, on station, in maintenance and cable has power?
 			if(istype(F) && (!F.intact && !F.transparent_floor) && istype(get_area(C), /area/station/maintenance))
 				spawn_centers += F
-	if(!spawn_centers)
+	if(!length(spawn_centers))
 		message_admins("no suitable spawn locations were found for the pulse demon event.")
 		log_debug("no suitable spawn locations were found for the pulse demon event.")
 		kill()
@@ -45,3 +48,5 @@
 
 /datum/event/spawn_pulsedemon/start()
 	INVOKE_ASYNC(src, PROC_REF(get_pulsedemon))
+
+#undef DEMON_REQUIRED_POWER

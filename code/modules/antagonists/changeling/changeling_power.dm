@@ -24,7 +24,7 @@
 	var/req_stat = CONSCIOUS
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
-	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
+	/// If this power can be used while the changeling has the `TRAIT_FAKEDEATH` trait.
 	var/bypass_fake_death = FALSE
 
 /*
@@ -49,6 +49,7 @@
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+	. = TRUE // Value doesn't appear to matter here, but it matters for the middle-click override in AltClickOn inside click.dm
 	user.changeNext_click(5)
 	if(!can_sting(user, target))
 		return

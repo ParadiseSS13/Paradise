@@ -1,5 +1,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Topic(href, href_list)
+	..()
 	if(href_list["activate"])
 		var/mob/user = usr
 		if(HAS_TRAIT(user, TRAIT_RESPAWNABLE))

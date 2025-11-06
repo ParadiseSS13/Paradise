@@ -58,8 +58,8 @@
 		"weed rate" = TRUE,
 		"weed chance" = TRUE)
 
-/obj/item/seeds/New(loc, nogenes = 0)
-	..()
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(-6, 6)
 
@@ -208,9 +208,9 @@
 	if(!mutation_level)
 		return src
 
-	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
+	return new /obj/item/unsorted_seeds(src, src, mutation_level, tray.get_mutation_focus())
 
-/obj/item/seeds/proc/harvest(mob/user = usr)
+/obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
 	var/output_loc = tray.Adjacent(user) ? user.loc : tray.loc // Needed for TK
 
@@ -222,6 +222,8 @@
 		var/obj/item/produce = new product(output_loc, mutated_seed)
 		if(!produce)
 			return
+		if(bag && bag.can_be_inserted(produce))
+			bag.handle_item_insertion(produce, user, TRUE)
 
 		product_name = produce.name
 
@@ -242,8 +244,8 @@
 			data = list("blood_type" = "O-")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// Apple tastes of apple.
-			if(istype(T, /obj/item/food/snacks/grown))
-				var/obj/item/food/snacks/grown/grown_edible = T
+			if(istype(T, /obj/item/food/grown))
+				var/obj/item/food/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
@@ -391,9 +393,9 @@
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
@@ -427,8 +429,7 @@
 	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
 		N = "experimental " + N
 	name = N + V
-	if(GetComponent(/datum/component/label))
-		GetComponent(/datum/component/label).apply_label() // Don't delete labels
+	update_appearance(UPDATE_NAME) //Append name additives such as from labels
 
 
 
@@ -525,7 +526,7 @@
 /obj/item/seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/seeds/openTip()
@@ -617,11 +618,10 @@
 
 	var/datum/unsorted_seed/seed_data
 
-/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
-	..()
+/obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
 	template = template.Copy()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(-6, 6)
+	scatter_atom()
 	if(seed_data_in)
 		seed_data = seed_data_in
 	else
@@ -636,19 +636,19 @@
 	return ..()
 
 /obj/item/unsorted_seeds/proc/Copy()
-	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
+	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
 
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)
 
-/obj/item/unsorted_seeds/attack_self(mob/user)
+/obj/item/unsorted_seeds/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] crudely sorts through [src] by hand.</span>", "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
 
-/obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/unsorted_seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
@@ -670,7 +670,7 @@
 /obj/item/unsorted_seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/unsorted_seeds/openTip()

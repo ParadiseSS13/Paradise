@@ -10,17 +10,19 @@
 	anchored = TRUE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return FALSE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return TRUE
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+	return TRUE
+
+/obj/structure/kitchenspike_frame/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/wrench))
-		if(!I.tool_use_check(user, 0))
-			return
-		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-			return
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
-	else if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
@@ -28,9 +30,9 @@
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
-		return
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/structure/kitchenspike_frame/examine(mob/user)
 	. = ..()
@@ -54,6 +56,7 @@
 	buckle_lying = FALSE
 	can_buckle = TRUE
 	max_integrity = 250
+	var/impale_time = 6 SECONDS
 
 /obj/structure/kitchenspike/examine(mob/user)
 	. = ..()
@@ -67,11 +70,13 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
+/obj/structure/kitchenspike/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
 			start_spike(G.affecting, user)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
@@ -79,15 +84,15 @@
 	if(has_buckled_mobs())
 		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
-	if(!I.use_tool(src, user, 2 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))
+	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
-	if(isanimal(user) && victim != user)
+	if(isanimal_or_basicmob(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
 	add_fingerprint(user)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure/kitchenspike, start_spike), victim, user)
@@ -101,7 +106,7 @@
 		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
 		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
 	)
-	if(do_mob(user, src, 6 SECONDS))
+	if(do_mob(user, victim, impale_time))
 		end_spike(victim, user)
 
 /obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
@@ -152,7 +157,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 2 MINUTES, target = src))
+			if(!do_after(M, 2 MINUTES, target = src, hidden = TRUE))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return
@@ -169,7 +174,6 @@
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
 	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()

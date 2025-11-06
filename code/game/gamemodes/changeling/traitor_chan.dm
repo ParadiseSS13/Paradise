@@ -5,12 +5,9 @@
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI") // Allows AI to roll traitor, but not changeling
 	required_players = 10
-	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
-	secondary_protected_species = list("Machine")
-	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
-	var/list/datum/mind/pre_changelings = list()
+	species_to_mindflayer = list("Machine")
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
@@ -24,19 +21,19 @@
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_changelings) && (player.client.prefs.active_character.species in secondary_protected_species))
-			possible_changelings -= player.mind
-
 	if(!length(possible_changelings))
 		return ..()
 
 	for(var/I in possible_changelings)
-		if(length(pre_changelings) >= secondary_enemies)
+		if((length(pre_changelings) + length(pre_mindflayers)) >= secondary_enemies)
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
-		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
+			pre_mindflayers += changeling
+			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
+			continue
+		pre_changelings += changeling
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	return ..()

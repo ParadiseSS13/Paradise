@@ -4,9 +4,7 @@
 
 /mob/living/simple_animal/hostile/winter
 	faction = list("hostile", "syndicate", "winter")
-	speak_chance = 0
 	turns_per_move = 5
-	speed = 1
 	maxHealth = 50
 	health = 50
 	icon = 'icons/mob/winter_mob.dmi'
@@ -59,7 +57,7 @@
 	icon_state = "reindeer"
 	icon_living = "reindeer"
 	icon_dead = "reindeer-dead"
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	maxHealth = 80
 	health = 80
 	melee_damage_lower = 5
@@ -91,8 +89,6 @@
 
 /// stage 1: slow melee
 /mob/living/simple_animal/hostile/winter/santa/stage_1
-	maxHealth = 150
-	health = 150
 	desc = "GET THE FAT MAN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_2
 	death_message = "<span class='danger'>HO HO HO! YOU THOUGHT IT WOULD BE THIS EASY?!?</span>"

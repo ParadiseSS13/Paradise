@@ -52,7 +52,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 
-/obj/item/garrote/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/garrote/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(garrote_time > world.time) // Cooldown
 		return
 
@@ -84,7 +84,7 @@
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
 		return
 
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
 	var/obj/item/grab/G = M.grabbedby(U, 1)
@@ -105,7 +105,7 @@
 	strangling = M
 	update_icon(UPDATE_ICON_STATE)
 
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
 
 	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
 				"<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
@@ -174,5 +174,5 @@
 
 /obj/item/garrote/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
 	return OXYLOSS

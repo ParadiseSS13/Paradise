@@ -19,11 +19,12 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	idle_power_consumption = 2
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	resistance_flags = FIRE_PROOF
+	cares_about_temperature = TRUE
 
 	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
@@ -107,7 +108,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/machinery/firealarm/temperature_expose(temperature, volume)
 	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
@@ -125,26 +126,30 @@ FIRE ALARM
 		alarm(rand(30/severity, 60/severity))
 	..()
 
-/obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/firealarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
-	if(wiresexposed)
-		if(buildstage == FIRE_ALARM_UNWIRED)
-			if(istype(I, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/coil = I
-				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-					return
-				buildstage = FIRE_ALARM_READY
-				playsound(get_turf(src), I.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
-				update_icon()
-		if(buildstage == FIRE_ALARM_FRAME)
-			if(istype(I, /obj/item/firealarm_electronics))
-				to_chat(user, "<span class='notice'>You insert the circuit!</span>")
-				qdel(I)
-				buildstage = FIRE_ALARM_UNWIRED
-				update_icon()
-		return
+	if(!wiresexposed)
+		return ..()
+
+	if(buildstage == FIRE_ALARM_UNWIRED && istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = used
+		if(!coil.use(5))
+			to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		buildstage = FIRE_ALARM_READY
+		playsound(get_turf(src), used.usesound, 50, TRUE)
+		to_chat(user, "<span class='notice'>You wire [src]!</span>")
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	if(buildstage == FIRE_ALARM_FRAME && istype(used, /obj/item/firealarm_electronics))
+		to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+		qdel(used)
+		buildstage = FIRE_ALARM_UNWIRED
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)
@@ -198,6 +203,7 @@ FIRE ALARM
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	update_icon()
 	WIRECUTTER_SNIP_MESSAGE
 	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
 	new_coil.amount = 5
@@ -217,7 +223,7 @@ FIRE ALARM
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0 && !emagged)
 			if(prob(33))
 				alarm()
 
@@ -336,6 +342,8 @@ FIRE ALARM
 	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
+
 /*
 FIRE ALARM CIRCUIT
 Just a object used in constructing fire alarms
@@ -348,7 +356,6 @@ Just a object used in constructing fire alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef FIRE_ALARM_FRAME

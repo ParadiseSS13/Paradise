@@ -3,7 +3,6 @@
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
-	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	force = 10
@@ -29,8 +28,7 @@
 	if(isAntag(user))
 		. += "<span class='warning'>A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it. Exotic blood cannot be used.</span>"
 
-
-/obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
+/obj/item/bee_briefcase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 		if(!bees_left)
@@ -53,9 +51,9 @@
 	else if(istype(I, /obj/item/reagent_containers/spray/pestspray))
 		bees_left = max(0, (bees_left - 6))
 		to_chat(user, "You spray [I] into [src].")
-		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+		playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
 
-/obj/item/bee_briefcase/attack_self(mob/user)
+/obj/item/bee_briefcase/attack_self__legacy__attackchain(mob/user)
 	var/bees_released
 	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
@@ -67,7 +65,8 @@
 
 		//Release up to 5 bees per use. Without using Lazarus Reagent, that means two uses. WITH Lazarus Reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)
-			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(get_turf(user)) // RELEASE THE BEES!
-			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
+			var/mob/living/basic/bee/syndi/B = new /mob/living/basic/bee/syndi(get_turf(user)) // RELEASE THE BEES!
+			for(var/mob/living/fren in blood_list)
+				B.befriend(fren)
 			bees_released++
 		bees_left -= bees_released

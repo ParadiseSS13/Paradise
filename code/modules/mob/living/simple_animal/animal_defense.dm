@@ -1,10 +1,3 @@
-/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
-		add_collar(O, user)
-		return
-	else
-		return ..()
-
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()
 	switch(M.a_intent)
@@ -12,7 +5,7 @@
 		if(INTENT_HELP)
 			if(health > 0)
 				visible_message("<span class='notice'>[M] [response_help] [src].</span>", "<span class='notice'>[M] [response_help] you.</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if(INTENT_GRAB)
 			grabbedby(M)
@@ -23,7 +16,7 @@
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>", "<span class='userdanger'>[M] [response_harm] you!</span>")
-			playsound(loc, attacked_sound, 25, 1, -1)
+			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			updatehealth()
@@ -35,7 +28,7 @@
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 			return FALSE
 		..(user, TRUE)
-		playsound(loc, "punch", 25, 1, -1)
+		playsound(loc, "punch", 25, TRUE, -1)
 		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
 		adjustBruteLoss(15)
 		return TRUE
@@ -50,7 +43,7 @@
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
 		return TRUE
@@ -87,7 +80,7 @@
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
@@ -101,7 +94,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = getarmor(armor_type = BOMB)
 	switch(severity)
 		if(1)
 			if(prob(bomb_armor))
@@ -130,3 +123,9 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
+
+/mob/living/simple_animal/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		return attack_threshold_check(damage, attacker.melee_damage_type)

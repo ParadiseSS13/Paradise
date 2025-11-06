@@ -2,36 +2,17 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
-
-/area/mine/explored
-	name = "Mine"
-	icon_state = "explored"
-	always_unpowered = TRUE
-	requires_power = TRUE
-	poweralm = FALSE
-	apc_starts_off = TRUE
-	outdoors = TRUE
-	ambientsounds = MINING_SOUNDS
-	flags = NONE
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
-
-/area/mine/dangerous/explored/golem
-	name = "Small Asteroid"
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
-	requires_power = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
-	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
@@ -46,9 +27,6 @@
 
 /area/mine/unexplored/cere/command
 	name = "Command Asteroid"
-
-/area/mine/unexplored/cere/docking
-	name = "Docking Asteroid"
 
 /area/mine/unexplored/cere/engineering
 	name = "Engineering Asteroid"
@@ -66,8 +44,10 @@
 
 /area/mine/outpost
 	name = "Mining Station"
-	icon_state = "mining"
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	request_console_name = "Mining Outpost"
+	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
@@ -80,6 +60,10 @@
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"
+	icon_state = "mining"
+
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
 	icon_state = "mining"
 
 /area/mine/outpost/comms
@@ -115,9 +99,14 @@
 	name = "Mining Station Storage"
 	icon_state = "storage"
 
+/area/mine/outpost/smith_workshop
+	name = "Smith's Workshop"
+	icon_state = "smith"
+
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
 	icon_state = "maintcentral"
+	airlock_wires = /datum/wires/airlock/maint
 
 /area/mine/outpost/maintenance/south
 	name = "Mining Station South Maintenance"
@@ -142,10 +131,14 @@
 /area/mine/outpost/quartermaster
 	name = "Mining Station Quartermaster's Office"
 	icon_state = "qm"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Quartermaster's Desk"
+	request_console_announces = TRUE
 
 /area/mine/laborcamp
 	name = "Labor Camp"
 	icon_state = "brig"
+	airlock_wires = /datum/wires/airlock/security
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
@@ -157,8 +150,8 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
 	sound_environment = SOUND_AREA_LAVALAND
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -166,25 +159,20 @@
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
-	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
-/area/lavaland/underground
-	name = "Lavaland Caves"
-	icon_state = "unexplored"
-	always_unpowered = TRUE
-	requires_power = TRUE
-	poweralm = FALSE
-	apc_starts_off = TRUE
-	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
+/area/lavaland/surface/gulag_rock
+	name = "Lavaland Wastes"
+	outdoors = TRUE
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
+
+/area/lavaland/surface/outdoors/legion_arena
+	name = "Legion Arena"
 
 /// monsters and ruins spawn here
 /area/lavaland/surface/outdoors/unexplored
@@ -195,4 +183,5 @@
 	icon_state = "danger"
 
 /area/lavaland/surface/outdoors/explored
-	name = "Lavaland Labor Camp"
+
+/area/lavaland/surface/outdoors/targetable

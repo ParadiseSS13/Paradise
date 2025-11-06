@@ -8,7 +8,6 @@
 	desc = "A pneumatic tube that brings you from here to there."
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "straight"
-	density = FALSE
 	layer = 3.1
 	anchored = TRUE
 	var/list/tube_dirs = null
@@ -33,9 +32,11 @@
 		P.empty_pod()
 	return ..()
 
-/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
+/obj/structure/transit_tube/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
+	if(anchored && has_gravity(src))
+		return FALSE
 	return !density
 
 // When destroyed by explosions, properly handle contents.

@@ -20,7 +20,7 @@
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2)
+	explosion(T, 0, 0, 2, cause = "Crank reaction")
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
@@ -81,7 +81,7 @@
 /datum/chemical_reaction/mephedrone/on_reaction(datum/reagents/holder) //Will make it harder for botany, need a chem heater or will suffer, and mixing in plants wont work
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 3, 500)
-	explosion(T, 0, 0, 2, 2, flame_range = 2)
+	explosion(T, 0, 0, 2, 2, flame_range = 2, cause = "Mephedrone reaction")
 
 /datum/chemical_reaction/jenkem
 	name = "Jenkem"
@@ -138,6 +138,13 @@
 	result_amount = 2
 	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
 
+/datum/chemical_reaction/lube/conductive
+	name = "conductive lube"
+	id = "conductivelube"
+	result = "conductivelube"
+	required_reagents = list("teslium" = 1, "lube" = 1, "aluminum" = 1)
+	mix_message = "The mixture darkens and starts sparking."
+
 /datum/chemical_reaction/surge
 	name = "Surge"
 	id = "surge"
@@ -145,3 +152,21 @@
 	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 6
 	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+
+/datum/chemical_reaction/w33d
+	name = "W33D"
+	id = "w33d"
+	result = "w33d"
+	required_reagents = list("synthanol" = 1, "oil" = 1, "aluminum" = 1)
+	result_amount = 3
+	mix_message = "The mixture bubbles into a vibrant green oil with a musky smell."
+
+/datum/chemical_reaction/grokodil
+	name = "Grokodil"
+	id = "grokodil"
+	result = "grokodil"
+	required_reagents = list("mutadone" = 1, "heparin" = 1, "cleaner" = 1, "phenol" = 1, "w33d" = 1)
+	result_amount = 5
+	mix_message = "A semi-solid black powder crashes out of the solution."
+	min_temp = T0C + 100
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'

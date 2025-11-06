@@ -8,8 +8,6 @@
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE
-	anchored = FALSE
-	opacity = FALSE
 	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/metal, /obj/item/stack/rods)
 	var/salvage_num = 5
 	var/list/crowbar_salvage = list()
@@ -144,7 +142,7 @@
 
 /obj/structure/mecha_wreckage/reticence
 	name = "\improper Reticence wreckage"
-	icon_state = "reticence-broken"
+	icon_state = "mime-broken"
 	color = "#87878715"
 	desc = "..."
 
@@ -156,10 +154,6 @@
 				/obj/item/mecha_parts/part/ripley_right_arm,
 				/obj/item/mecha_parts/part/ripley_left_leg,
 				/obj/item/mecha_parts/part/ripley_right_leg)
-
-/obj/structure/mecha_wreckage/ripley/mkii
-	name = "\improper Ripley MK-II wreckage"
-	icon_state = "ripleymkii-broken"
 
 /obj/structure/mecha_wreckage/ripley/firefighter
 	name = "\improper Firefighter wreckage"
@@ -218,3 +212,15 @@
 			/obj/item/mecha_parts/part/odysseus_right_arm,
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
+
+/obj/structure/mecha_wreckage/nkarrdem
+	name = "\improper Nkarrdem wreckage"
+	icon_state = "nkarrdem-broken"
+	parts = list(
+			/obj/item/mecha_parts/part/nkarrdem_torso,
+			/obj/item/mecha_parts/part/nkarrdem_head,
+			/obj/item/mecha_parts/part/nkarrdem_left_arm,
+			/obj/item/mecha_parts/part/nkarrdem_right_arm,
+			/obj/item/mecha_parts/part/nkarrdem_left_leg,
+			/obj/item/mecha_parts/part/nkarrdem_right_leg
+	)

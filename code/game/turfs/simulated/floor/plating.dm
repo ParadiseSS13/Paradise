@@ -6,9 +6,6 @@
 	floor_tile = null
 	var/unfastened = FALSE
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
 
@@ -48,73 +45,72 @@
 	if(unfastened)
 		. += "<span class='warning'>It has been unfastened.</span>"
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
-
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/plating/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return TRUE
-		var/obj/item/stack/rods/R = C
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/rods/R = used
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
+			if(do_after(user, 30 * used.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
-					playsound(src, C.usesound, 80, 1)
+					playsound(src, used.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/stack/tile))
+	else if(istype(used, /obj/item/stack/tile))
 		if(!broken && !burnt)
-			var/obj/item/stack/tile/W = C
+			var/obj/item/stack/tile/W = used
 			if(!W.use(1))
-				return
+				return ITEM_INTERACT_COMPLETE
 			ChangeTurf(W.turf_type)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
-		return TRUE
-
-	else if(is_glass_sheet(C))
+			return ITEM_INTERACT_COMPLETE
+	else if(is_glass_sheet(used))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return TRUE
-		var/obj/item/stack/sheet/R = C
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/sheet/R = used
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
-			return TRUE
-		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
+		if(do_after(user, 3 SECONDS * used.toolspeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
-				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
+				if(istype(used, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
-				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
+				else if(istype(used, /obj/item/stack/sheet/plasmarglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
-				else if(istype(C, /obj/item/stack/sheet/glass))
+				else if(istype(used, /obj/item/stack/sheet/glass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass)
-				else if(istype(C, /obj/item/stack/sheet/rglass))
+				else if(istype(used, /obj/item/stack/sheet/rglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
-				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
+				else if(istype(used, /obj/item/stack/sheet/titaniumglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
-				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
+				else if(istype(used, /obj/item/stack/sheet/plastitaniumglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
-				playsound(src, C.usesound, 80, TRUE)
+				playsound(src, used.usesound, 80, TRUE)
 				R.use(2)
-				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
+				to_chat(user, "<span class='notice'>You swap the plating for [used].</span>")
 				new /obj/item/stack/sheet/metal(src, 2)
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
+	else if(istype(used, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
 		if(user.drop_item())
-			C.forceMove(src)
+			used.forceMove(src)
 
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
@@ -132,7 +128,7 @@
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt && !unfastened)
 		return
-	. = TRUE
+	. = ..()
 	if(!I.tool_use_check(user, 0))
 		return
 	if(user.a_intent == INTENT_HARM) // no repairing on harm intent, so you can use the welder in a fight near damaged paneling without welding your eyes out
@@ -159,7 +155,6 @@
 		TerraformTurf(baseturf, keep_icon = FALSE)
 
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -170,20 +165,26 @@
 	name = "plating"
 
 /turf/simulated/floor/plating/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
+	icon_regular_floor = "engine"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/engine/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "engine"
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -206,17 +207,16 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
-	if(!C || !user)
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
+	if(!user)
 		return
-	if(istype(C, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(!istype(src, /turf/simulated/floor/engine))
-				return
-			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+	if(W.use_tool(src, user, 3 SECONDS, 0, 50))
+		if(!istype(src, /turf/simulated/floor/engine))
+			return
+		new /obj/item/stack/rods(src, 2)
+		ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
@@ -233,6 +233,13 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	icon_regular_floor = "cult"
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
@@ -246,16 +253,20 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
-		new /obj/effect/temp_visual/cult/turf/open/floor(src)
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
+
+/turf/simulated/floor/engine/cult/proc/spawn_visual()
+	new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
 	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //air filled floors; used in atmos pressure chambers
 
@@ -292,6 +303,18 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/agent_b
+	name = "\improper agent B floor"
+	agent_b = 10000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/hydrogen
+	name = "\improper H2 floor"
+	hydrogen = 100000
+	oxygen = 0
+	nitrogen = 0
+
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
 	temperature = 80
@@ -302,19 +325,35 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/airless/nodecay
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+/turf/simulated/floor/engine/asteroid
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
 				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
@@ -338,7 +377,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
@@ -353,7 +391,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity)
 	return
@@ -364,33 +401,36 @@
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
-	var/metal = MFOAM_ALUMINUM
+	/// which kind of metal this will turn into
+	var/metal_kind = METAL_FOAM_ALUMINUM
 
 /turf/simulated/floor/plating/metalfoam/iron
 	icon_state = "ironfoam"
-	metal = MFOAM_IRON
+	metal_kind = METAL_FOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/update_icon_state()
-	switch(metal)
-		if(MFOAM_ALUMINUM)
+	switch(metal_kind)
+		if(METAL_FOAM_ALUMINUM)
 			icon_state = "metalfoam"
-		if(MFOAM_IRON)
+		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
-		return TRUE
+		return FINISH_ATTACK
 
-	if(istype(C) && C.force)
+	if(istype(attacking) && attacking.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		var/smash_prob = max(0, attacking.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
-			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
+			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [attacking]!</span>")
 			smash()
+			return FINISH_ATTACK
 		else
-			visible_message("<span class='warning'>[user]'s [C.name] bounces against \the [src]!</span>")
+			visible_message("<span class='warning'>[user]'s [attacking.name] bounces against \the [src]!</span>")
+			return FINISH_ATTACK
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
@@ -398,7 +438,7 @@
 		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
 	else
 		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
+			playsound(loc, M.attack_sound, 50, TRUE, 1)
 		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
 		smash(src)
 
@@ -449,3 +489,24 @@
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/// Used in situations like the anomalous crystal where we want
+/// floors that look and act like asteroid floors but aren't.
+/// This doesn't allow you to dig sand out of it but whatever.
+/turf/simulated/floor/plating/false_asteroid
+	gender = PLURAL
+	name = "volcanic floor"
+	baseturf = /turf/simulated/floor/plating/false_asteroid
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	var/environment_type = "basalt"
+	var/turf_type = /turf/simulated/floor/plating/false_asteroid
+	var/floor_variance = 20 //probability floor has a different icon state
+
+/turf/simulated/floor/plating/false_asteroid/AfterChange(ignore_air, keep_cabling)
+	. = ..()
+	if(prob(floor_variance))
+		icon_plating = "[environment_type][rand(0,12)]"

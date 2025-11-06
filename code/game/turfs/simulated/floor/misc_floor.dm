@@ -1,13 +1,12 @@
 /turf/simulated/floor/vault
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
-	planetary_atmos = TRUE
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/wall/vault
@@ -16,7 +15,6 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/bluegrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 
 /turf/simulated/floor/bluegrid/telecomms
@@ -28,11 +26,9 @@
 	name = "server base"
 
 /turf/simulated/floor/greengrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
 
 /turf/simulated/floor/greengrid/airless
-	icon_state = "gcircuit"
 	name = "airless floor"
 	oxygen = 0
 	nitrogen = 0
@@ -43,7 +39,6 @@
 	name = "floor"
 
 /turf/simulated/floor/redgrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "rcircuit"
 
 /turf/simulated/floor/beach
@@ -52,7 +47,14 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/desert_sand
+	name = "sand"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "desert"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -117,7 +119,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/AM, direction)
 	. = ..()
 	if(!linkedcontroller)
 		return
@@ -139,7 +141,7 @@
 /turf/simulated/floor/noslip/get_broken_states()
 	return list("noslip-damaged1", "noslip-damaged2", "noslip-damaged3")
 
-/turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
+/turf/simulated/floor/noslip/get_burnt_states()
 	return list("noslip-scorched1", "noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
@@ -149,11 +151,12 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
-	icon_state = "floor"
+	icon_state = "tile_standard"
 
 /turf/simulated/floor/lubed/Initialize(mapload)
 	. = ..()
@@ -165,6 +168,13 @@
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
+
+/turf/simulated/floor/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
@@ -192,8 +202,10 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
-		new /obj/effect/temp_visual/ratvar/floor(src)
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
+
+/turf/simulated/floor/clockwork/proc/spawn_visual()
+	new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
@@ -234,9 +246,11 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
 	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"
@@ -244,7 +258,6 @@
 	icon = 'icons/turf/floors/catwalk_floor.dmi'
 	icon_state = "catwalk"
 	base_icon_state = "catwalk"
-	baseturf = /turf/simulated/floor/plating
 	floor_tile = /obj/item/stack/tile/catwalk
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)
@@ -295,3 +308,28 @@
 			if(prob(50))
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
+
+// Carpet used in the backrooms hallucination
+/turf/simulated/floor/backrooms_carpet
+	name = "backrooms carpet"
+	desc = "An old, musty carpet. It smells faintly mildewy."
+	icon_state = "backrooms_carpet"
+	baseturf = /turf/simulated/floor/backrooms_carpet
+
+/turf/open/floor/plating/rust
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_BROWN
+
+/turf/simulated/floor/plating/rust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/rust)
+	color = null
+
+/turf/open/floor/plating/heretic_rust
+	color = COLOR_GREEN_GRAY
+
+/turf/simulated/floor/plating/heretic_rust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/rust/heretic)
+	color = null

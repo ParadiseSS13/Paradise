@@ -1,0 +1,26 @@
+.highlighted-marker {
+  box-sizing: content-box;
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-style: solid;
+  border-width: 50%;
+  border-radius: var(--border-radius-circular);
+
+  animation: var(--transition-time-slowest) infinite mark-shrink;
+}
+
+@keyframes mark-shrink {
+  from {
+    width: 200%;
+    height: 200%;
+  }
+
+  to {
+    width: 0%;
+    height: 0%;
+  }
+}

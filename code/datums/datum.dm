@@ -8,6 +8,8 @@
 	var/list/list/datum/callback/signal_procs
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
+	/// MD5'd version of the UID. Used for instances where we dont want to make clients aware of UIDs.
+	VAR_PRIVATE/tmp/md5_unique_datum_id = null // using VAR_PRIVATE means it cant be accessed outside of the MD5_UID() proc
 
 	/// Used by SSprocessing
 	var/isprocessing = FALSE
@@ -55,6 +57,15 @@
 			qdel(C, FALSE, TRUE)
 		dc.Cut()
 
+	_clear_signal_refs()
+	//END: ECS SHIT
+
+	return QDEL_HINT_QUEUE
+
+/// Do not override this. This proc exists solely to be overriden by /turf. This
+/// allows it to ignore clearing out signals which refer to it, in order to keep
+/// those signals valid after the turf has been changed.
+/datum/proc/_clear_signal_refs()
 	var/list/lookup = comp_lookup
 	if(lookup)
 		for(var/sig in lookup)
@@ -70,10 +81,3 @@
 
 	for(var/target in signal_procs)
 		UnregisterSignal(target, signal_procs[target])
-	//END: ECS SHIT
-
-	return QDEL_HINT_QUEUE
-
-
-/datum/nothing
-	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.

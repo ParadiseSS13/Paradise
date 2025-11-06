@@ -13,7 +13,7 @@
 
 /datum/gear/gloves
 	main_typepath = /datum/gear/gloves
-	slot = SLOT_HUD_GLOVES
+	slot = ITEM_SLOT_GLOVES
 	sort_category = "Gloves"
 
 /datum/gear/gloves/fingerless
@@ -27,3 +27,8 @@
 /datum/gear/gloves/goldring
 	display_name = "Gold ring"
 	path = /obj/item/clothing/gloves/ring/gold
+
+/datum/gear/gloves/white_diamondring
+	display_name = "white diamond ring"
+	path = /obj/item/clothing/gloves/ring/white_diamond
+	cost = 2

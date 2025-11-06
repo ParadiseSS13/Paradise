@@ -2,11 +2,11 @@
 	name = "fingerless gloves"
 	desc = "Plain black gloves without fingertips for the hard working."
 	icon_state = "fingerless"
-	item_state = "fingerless"
-	item_color = null	//So they don't wash.
+	inhand_icon_state = "bgloves"
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	permeability_coefficient = 1
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = TRUE
@@ -19,23 +19,20 @@
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
-	desc = "beep boop borp"
+	desc = "beep boop borp."
 	icon_state = "black"
-	item_state = "r_hands"
-
 
 /obj/item/clothing/gloves/color/black/forensics
 	name = "forensics gloves"
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
-	item_state = "forensics"
 	can_leave_fibers = FALSE
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
-	desc = "These tactical gloves are both insulated and offer protection from heat sources."
+	desc = "A tough pair of military gloves reinforced with light armor that doesn't restrict movement. A Nomex underlayer provides near complete protection from extreme temperatures."
 	icon_state = "combat"
-	item_state = "swat_gl"
+	inhand_icon_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
@@ -44,7 +41,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 200, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -56,8 +53,6 @@
 	name = "bone bracers"
 	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
 	icon_state = "bracers"
-	item_state = "bracers"
-	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	strip_delay = 40
 	body_parts_covered = ARMS
@@ -72,7 +67,6 @@
 	name = "botanist's leather gloves"
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	icon_state = "leather"
-	item_state = "ggloves"
 	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -85,40 +79,44 @@
 	name = "janitorial gloves"
 	desc = "Gloves designed to offer minor protection against messes. The rubber doesn't feel thick enough to protect you from shocks."
 	icon_state = "janitorial"
-	item_state = "janitorial"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/hands.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
-		)
+	)
 
+/obj/item/clothing/gloves/smithing
+	name = "smithing gloves"
+	desc = "Heatproof gloves designed for safely handling hot tools and even hotter metal."
+	icon_state = "smithing"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
+	)
 
 /obj/item/clothing/gloves/handwraps
 	name = "cloth handwraps"
 	desc = "A roll of treated canvas used for wrapping claws or paws."
 	icon_state = "clothwrap"
-	item_state = "clothwrap"
 	transfer_prints = TRUE
 	clipped = TRUE
-
-/obj/item/clothing/gloves/batmangloves
-	name = "batgloves"
-	desc = "Used for handling all things bat related."
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color="bmgloves"
 
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
-	item_state = "lgloves"
+	inhand_icon_state = "lgloves"
 	flags = NODROP
 
 /obj/item/clothing/gloves/color/yellow/stun
@@ -152,7 +150,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -169,7 +167,7 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
+/obj/item/clothing/gloves/color/yellow/stun/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())
@@ -235,9 +233,8 @@
 /obj/item/clothing/gloves/color/white/supermatter_immune
 	name = "hypernobilium weave gloves"
 	desc = "Sleek, white gloves woven from fabric doused in hypernobilium using a process known only to the Oblivion Order."
-	siemens_coefficient = 0
 	icon_state = "obliviongauntlets"
-	item_state = "obliviongauntlets"
+	siemens_coefficient = 0
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',

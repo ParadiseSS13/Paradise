@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Flex } from 'tgui/components';
+import { Flex } from 'tgui-core/components';
 
 export const Notifications = (props) => {
   const { children } = props;
@@ -18,9 +18,7 @@ const NotificationsItem = (props) => {
       <Flex.Item className="Notification__content" grow={1}>
         {children}
       </Flex.Item>
-      {rightSlot && (
-        <Flex.Item className="Notification__rightSlot">{rightSlot}</Flex.Item>
-      )}
+      {rightSlot && <Flex.Item className="Notification__rightSlot">{rightSlot}</Flex.Item>}
     </Flex>
   );
 };

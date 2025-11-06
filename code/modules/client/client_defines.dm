@@ -6,28 +6,26 @@
 		////////////////
 	/// hides the byond verb panel as we use our own custom version
 	show_verb_panel = FALSE
+
+	var/datum/persistent_client/persistent
+
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
-	var/datum/pm_tracker/pm_tracker
 
 		/////////
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
-	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
 	var/move_delay		= 1
 	var/moving			= null
 	var/area			= null
 
-	// why the hell do we track this when you can just file > reconnect to bypass it
-	var/time_died_as_mouse = null //when the client last died as a mouse
-
 	var/typing = FALSE // Prevents typing window stacking
-
-	var/adminhelped = 0
 
 		///////////////
 		//SOUND STUFF//
@@ -136,13 +134,6 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
-	/// Used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_up_icon = null
-	/// Used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_down_icon = null
-	/// Used to override the mouse cursor so it doesnt get reset
-	var/mouse_override_icon = null
-
 	/// Autoclick list of two elements, first being the clicked thing, second being the parameters.
 	var/list/atom/selected_target[2]
 	/// Used in MouseDrag to preserve the original mouse click parameters
@@ -225,16 +216,23 @@
 	/// Our object window datum. It stores info about and handles behavior for the object tab
 	var/datum/object_window_info/obj_window
 
-/client/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
-		// But guess what, if I have the ability to overengineer something, I am going to do it
-		if("tos_consent")
-			return FALSE
-		// Dont fuck with this
-		if("cui_entries")
-			return FALSE
-		// or this
-		if("jbh")
-			return FALSE
-	return ..()
+	/// The current fullscreen state for /client/toggle_fullscreen()
+	var/fullscreen = FALSE
+
+	/// Cache of MD5'd UIDs. This is to stop clients from poking at object UIDs and being exploity with them
+	var/list/m5_uid_cache = list()
+
+	/// If this client has any windows scaling applied
+	var/window_scaling
+
+/datum/persistent_client
+	/// Holds admin/mentor PM history.
+	var/datum/pm_tracker/pm_tracker
+	/// The Global Antag Candidacy setting from the new player menu.
+	var/skip_antag = FALSE
+	/// Used to prevent rapid mouse spamming.
+	var/time_died_as_mouse = null
+	/// All of the minds this client has been associated with.
+	var/list/minds = list()
+	/// Ckeys that sent us kudos.
+	var/list/kudos_received_from = list()

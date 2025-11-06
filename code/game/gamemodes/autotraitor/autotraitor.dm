@@ -64,14 +64,16 @@
 	var/list/possible_traitors = list()
 	for(var/mob/living/player in GLOB.mob_list)
 		if(player.client && player.stat != DEAD)
-			player_count += 1
 			if(!player.mind)
 				continue
-			if(player.mind.special_role)
+			if(player.mind.offstation_role) //Don't count as crew.
+				continue
+			player_count += 1
+			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
 				traitor_count += 1
 				continue
-			if(ishuman(player) || isAI(player))
-				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
+			if(ishuman(player) || is_ai(player))
+				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.persistent.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 					possible_traitors += player.mind
 	for(var/datum/mind/player in possible_traitors)
 		for(var/job in restricted_jobs)
@@ -80,9 +82,8 @@
 		if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
 			continue
 		var/mob/living/carbon/human/H = player.current
-		for(var/obj/item/bio_chip/mindshield/I in H.contents)
-			if(I && I.implanted)
-				possible_traitors -= player
+		if(ismindshielded(H))
+			possible_traitors -= player
 		if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
 			possible_traitors -= player
 
@@ -96,8 +97,10 @@
 	if(traitor_count < max_traitors)
 		if(prob(traitor_prob))
 			message_admins("Making a new Traitor.")
+			log_game("Making a new Traitor.")
 			if(!length(possible_traitors))
 				message_admins("No potential traitors. Cancelling new traitor.")
+				log_game("No potential traitors. Cancelling new traitor.")
 				addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 				return
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
@@ -105,6 +108,8 @@
 
 			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
+			message_admins("[key_name(new_traitor)] was added in as a traitor!")
+			log_game("[key_name(new_traitor)] was added in as a traitor.")
 
 	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
@@ -113,7 +118,7 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 
-	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.persistent.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
 		var/player_count = 0
 		var/traitor_count = 0
 		for(var/mob/living/player in GLOB.mob_list)
@@ -136,4 +141,8 @@
 
 			if(prob(traitor_prob))
 				message_admins("New traitor roll passed. Making a new Traitor.")
+				log_game("New traitor roll passed. Making a new Traitor.")
 				character.mind.make_Traitor()
+
+/datum/game_mode/traitor/autotraitor/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	possible_traitors.Remove(sleepy_mob)

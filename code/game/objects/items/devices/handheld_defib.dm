@@ -2,10 +2,8 @@
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
 	icon = 'icons/obj/medical.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
-	item_state = "defib"
+	inhand_icon_state = "defib"
 	belt_icon = "defib"
 
 	var/icon_base = "defib"
@@ -32,7 +30,7 @@
 			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
 		return TRUE
 
-/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
+/obj/item/handheld_defibrillator/attack__legacy__attackchain(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
 		return ..()
 

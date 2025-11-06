@@ -13,7 +13,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 	var/list/hud_type_lookup = list(
 		"medical" = DATA_HUD_MEDICAL_ADVANCED,
 		"security" = DATA_HUD_SECURITY_ADVANCED,
-		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
+		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED,
+		"pressure" = DATA_HUD_PRESSURE
 	)
 
 /datum/ui_module/ghost_hud_panel/ui_state(mob/user)
@@ -32,7 +33,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		data[hud] = (hud_type_lookup[hud] in ghost.data_hud_seen)
 	data["ahud"] = ghost.antagHUD
 	// Split radioactivity out as it isn't a true datahud
-	data["radioactivity"] = ghost.seerads
+	data["radioactivity"] = ghost.ghost_flags & GHOST_SEE_RADS
 	return data
 
 /datum/ui_module/ghost_hud_panel/ui_act(action, list/params)
@@ -51,11 +52,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 			var/hud_type = hud_type_lookup[params["hud_type"]]
 			ghost.remove_the_hud(hud_type)
 
-		if("rads_on")
-			ghost.set_radiation_view(TRUE)
-
-		if("rads_off")
-			ghost.set_radiation_view(FALSE)
+		if("toggle_rad")
+			ghost.toggle_rad_view()
 
 		if("ahud_on")
 			if(!GLOB.configuration.general.allow_antag_hud && !ghost.client.holder)
@@ -70,7 +68,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				if(response != "Yes")
 					return FALSE
 
-				ghost.can_reenter_corpse = FALSE
+				ghost.ghost_flags &= ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE)
 				REMOVE_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 				log_admin("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
 				message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
@@ -81,12 +79,19 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 			GLOB.antag_hud_users |= ghost.ckey
 
+			if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE))
+				// admins always get aobserve
+				add_verb(ghost, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)
 				H.add_hud_to(ghost)
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.add_hud_to(ghost)
 
 		if("ahud_off")
 			ghost.antagHUD = FALSE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)
 				H.remove_hud_from(ghost)
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.remove_hud_from(ghost)

@@ -24,7 +24,7 @@
 	name = "Short Horns"
 	icon_state = "short_horns"
 
-/datum/sprite_accessory/hairy/unathi/curled
+/datum/sprite_accessory/hair/unathi/curled
 	name = "Curled Horns"
 	icon_state = "curled_horns"
 

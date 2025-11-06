@@ -1,0 +1,3 @@
+/obj/item/kirbyplants:
+  banned_neighbors:
+    - /obj/item/kirbyplants

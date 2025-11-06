@@ -17,6 +17,7 @@
 	..()
 
 /datum/action/changeling/headslug/sting_action(mob/living/user)
+	ADD_TRAIT(user, TRAIT_CLING_BURSTING, "last_resort")
 	user.Weaken(30 SECONDS)
 	user.do_jitter_animation(1000, -1) // jitter until they are gibbed
 	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hiss.</span>")
@@ -30,11 +31,16 @@
 /datum/action/changeling/headslug/proc/become_headslug(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
+	if(isobj(user.loc))
+		var/obj/thing_to_break = user.loc
+		user.forceMove(get_turf(user)) // Get them outside of it before it breaks, to prevent issues / so they burst out of it dramatically
+		thing_to_break.visible_message("<span class='danger'>[user] violently explodes out of [thing_to_break], breaking it!</span>")
+		thing_to_break.obj_break(BRUTE)
 
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, TRUE)
 
-	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE)
+	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE, cause = "Headslug explosion")
 	for(var/mob/living/carbon/human/H in range(2, user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
 		H.KnockDown(4 SECONDS)

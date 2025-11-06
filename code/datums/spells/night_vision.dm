@@ -4,6 +4,7 @@
 
 	base_cooldown = 10
 	clothes_req = FALSE
+	antimagic_flags = NONE
 
 	message = "<span class='notice'>You toggle your night vision!</span>"
 

@@ -28,6 +28,8 @@
 /proc/level_boosts_signal(z)
 	return check_level_trait(z, BOOSTS_SIGNAL)
 
+#define is_reserved_level(z) check_level_trait(z, ZTRAIT_RESERVED)
+
 // Used for the nuke disk, or for checking if players survived through xenos
 /proc/is_secure_level(z)
 	var/secure = check_level_trait(z, STATION_LEVEL)
@@ -70,10 +72,10 @@ GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG))
   *
   * Returns a list of zlevel numbers which can be accessed from travelling space naturally
   */
-/proc/get_all_linked_levels_zpos()
+/proc/get_all_linked_levels_zpos(transit_tag = TRANSITION_TAG_SPACE)
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)
 		var/datum/space_level/SL = GLOB.space_manager.z_list[i]
-		if(SL.linkage == CROSSLINKED)
+		if(SL.transition_tag == transit_tag && SL.linkage == CROSSLINKED)
 			znums |= SL.zpos
 	return znums

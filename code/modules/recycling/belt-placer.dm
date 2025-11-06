@@ -3,7 +3,6 @@
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
 	icon_state = "belt_placer"
-	item_state = "belt_placer"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
 	can_hold = list(/obj/item/conveyor_construct)
 	flags = CONDUCT
@@ -17,15 +16,14 @@
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
+	desc = "This device facilitates the rapid deployment of conveyor belts via the incorporation of experimental Bluespace technology."
 	icon_state = "bluespace_belt_placer"
-	item_state = "bluespace_belt_placer"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
 
-/obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
+/obj/item/storage/conveyor/attackby__legacy__attackchain(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
 		var/obj/item/conveyor_switch_construct/S = I
 		var/linked = FALSE //For nice message
@@ -37,11 +35,11 @@
 	else
 		return ..()
 
-/obj/item/storage/conveyor/afterattack(atom/A, mob/user, proximity)
+/obj/item/storage/conveyor/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	var/obj/item/conveyor_construct/C = locate() in src
 	if(!C)
 		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
 	else
-		C.afterattack(A, user, proximity)
+		C.afterattack__legacy__attackchain(A, user, proximity)

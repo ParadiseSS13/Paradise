@@ -1,10 +1,10 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
-	icon_state = "s-casing"
+	icon = 'icons/obj/bullet.dmi'
+	icon_state = "pistol_brass"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
@@ -28,12 +28,13 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
+	scatter_distance = 10
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
@@ -49,7 +50,7 @@
 		BB = new projectile_type(src, params)
 	return
 
-/obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/ammo_casing/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
 		if(box.slow_loading)
@@ -117,9 +118,9 @@
 	desc = "A box of ammo?"
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "10mmbox" // placeholder icon
+	inhand_icon_state = "syringe_kit"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	item_state = "syringe_kit"
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
@@ -128,7 +129,7 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
+	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state for details
 	var/caliber
 	var/multiload = 1
 	var/slow_loading = FALSE
@@ -192,7 +193,7 @@
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return 1
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
+/obj/item/ammo_box/attackby__legacy__attackchain(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
@@ -208,9 +209,10 @@
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.transfer_item_to(AC, src)
 			num_loaded++
+		else
+			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
@@ -220,7 +222,7 @@
 
 	return num_loaded
 
-/obj/item/ammo_box/attack_self(mob/user as mob)
+/obj/item/ammo_box/attack_self__legacy__attackchain(mob/user as mob)
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)
@@ -274,3 +276,12 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
+
+/obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber

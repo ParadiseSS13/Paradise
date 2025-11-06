@@ -54,20 +54,18 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
-	..()
-
 	injecting = FALSE
 
 	if(!on || stat & NOPOWER)
 		return 0
 
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	if(air_contents.temperature() > 0)
+		var/transfer_moles = (air_contents.return_pressure()) * volume_rate / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		loc.assume_air(removed)
-		air_update_turf()
+		var/turf/T = get_turf(src)
+		T.blind_release_air(removed)
 
 		parent.update = TRUE
 
@@ -80,10 +78,3 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
-
-/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(iswrench(W))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
-			return TRUE
-	return ..()

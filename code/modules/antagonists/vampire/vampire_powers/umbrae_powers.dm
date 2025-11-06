@@ -14,7 +14,7 @@
 
 	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME)
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -62,16 +62,18 @@
 	breakouttime = 5 SECONDS
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	if(!C.affects_vampire()) // no parameter here so holy always protects
 		return
 	C.extinguish_light()
 	C.EyeBlind(20 SECONDS)
 	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
-	..()
+
+	. = ..()
+
 	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 		qdel(src)
 
@@ -84,7 +86,7 @@
 		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
 		C.EyeBlind(20 SECONDS)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
@@ -113,7 +115,7 @@
 
 /datum/spell/vampire/soul_anchor
 	name = "Soul Anchor (30)"
-	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
+	desc = "You summon a dimensional anchor after a delay. Casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
 	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you will fake a recall."
 	required_blood = 30
 	centcom_cancast = FALSE
@@ -138,7 +140,7 @@
 	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE, hidden = TRUE)) // no checks, cant fail
 			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return
@@ -173,6 +175,8 @@
 		user.make_invisible()
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 	else
+		if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, end_turf) & COMPONENT_BLOCK_TELEPORT) //You can fake it out, but no teleporting
+			return FALSE
 		user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
@@ -205,7 +209,6 @@
 	alpha = 120
 	color = "#545454"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -226,6 +229,8 @@
 
 /datum/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
 
@@ -278,8 +283,7 @@
 /datum/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
-	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
-	base_cooldown = 10 SECONDS
+	gain_desc = "You have gained the ability to shroud the area around you in darkness. Only the strongest of lights can pierce your unholy powers."
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -6

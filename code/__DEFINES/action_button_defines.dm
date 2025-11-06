@@ -6,16 +6,17 @@
 #define AB_CHECK_HANDS_BLOCKED	(1<<5)
 #define AB_CHECK_IMMOBILE		(1<<6)
 
+#define ACTION_BUTTON_DEFAULT_OVERLAY "default"
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "_use_ui_default_background"
 
 
 //Upper left (action buttons)
 
-#define ui_action_palette "WEST+0:23,NORTH-1:3"
-#define ui_action_palette_offset(north_offset) ("WEST+0:23,NORTH-[1+north_offset]:3")
+#define UI_ACTION_PALETTE "WEST+0:23,NORTH-1:3"
+#define UI_ACTION_PALETTE_OFFSET(north_offset) ("WEST+0:23,NORTH-[1+north_offset]:3")
 
-#define ui_palette_scroll "WEST+1:8,NORTH-6:28"
-#define ui_palette_scroll_offset(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:15")
+#define UI_PALETTE_SCROLL "WEST+1:8,NORTH-6:28"
+#define UI_PALETTE_SCROLL_OFFSET(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:15")
 // Defines relating to action button positions
 
 /// Whatever the base action datum thinks is best
@@ -26,3 +27,5 @@
 #define SCRN_OBJ_IN_LIST "list"
 /// In the collapseable palette
 #define SCRN_OBJ_IN_PALETTE "palette"
+/// In cult spell list
+#define SCRN_OBJ_CULT_LIST "cult_list"

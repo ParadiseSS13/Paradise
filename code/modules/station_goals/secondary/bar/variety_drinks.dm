@@ -1,9 +1,8 @@
 /datum/station_goal/secondary/variety_reagent/bar
 	name = "Variety of Drinks"
-	progress_type = /datum/secondary_goal_progress/variety_reagent
 	department = "Bar"
 	generic_name_plural = "alcoholic drinks"
-	abstract = FALSE
+	weight = 1
 
 /datum/station_goal/secondary/variety_reagent/bar/randomize_params()
 	..()

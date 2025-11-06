@@ -10,7 +10,8 @@
 	hud_possible = list(
 		HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, // from /mob/living
 		ID_HUD, WANTED_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, IMPTRACK_HUD, GLAND_HUD,
-		DIAG_STAT_HUD, DIAG_HUD // for IPCs
+		DIAG_STAT_HUD, DIAG_HUD, // for IPCs
+		MALF_AI_HUD
 	)
 	pressure_resistance = 25
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
@@ -19,7 +20,7 @@
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
 
-	var/s_tone = 0	//Skin tone
+	var/s_tone = 1	//Skin tone
 
 	//Skin colour
 	var/skin_colour = "#000000"
@@ -45,6 +46,7 @@
 	var/obj/item/clothing/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/clothing/gloves = null
+	var/obj/item/clothing/neck = null
 	var/obj/item/clothing/glasses = null
 	var/obj/item/l_ear = null
 	var/obj/item/r_ear = null
@@ -103,3 +105,13 @@
 	var/list/bodyparts = list()
 	/// map organ names to organs
 	var/list/bodyparts_by_name = list()
+
+	/// Lazylist of sources to track what our alpha should be, alpha is set to the minimum. Use the `set_alpha_tracking` and `get_alpha` helpers.
+	var/list/alpha_sources
+	/// List of quirk datums attached to the mob
+	var/list/quirks = list()
+	/// The cooldown for jumping into a closet or crate
+	COOLDOWN_DECLARE(skittish_cooldown)
+
+/mob/living/carbon/human/fake
+	flags = ABSTRACT

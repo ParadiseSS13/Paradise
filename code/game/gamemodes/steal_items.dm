@@ -2,9 +2,6 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 2
-
 /datum/theft_objective
 	var/name = "this objective is impossible, yell at a coder"
 	var/typepath=/obj/effect/debugging
@@ -16,6 +13,10 @@
 	var/special_equipment = null
 	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
+	/// Any extra information about the objective
+	var/extra_information = ""
+	/// Do we overide naming to not say steal at the front?
+	var/objective_name_overide = null
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -36,6 +37,9 @@
 /datum/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
 
+/datum/theft_objective/proc/on_hand_out_equipment(datum/objective/steal/our_objective)
+	return
+
 /datum/theft_objective/antique_laser_gun
 	name = "the captain's antique laser gun"
 	typepath = /obj/item/gun/energy/laser/captain
@@ -48,9 +52,9 @@
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
-/datum/theft_objective/captains_rapier
-	name = "the captain's rapier"
-	typepath = /obj/item/melee/rapier
+/datum/theft_objective/captains_saber
+	name = "the captain's saber"
+	typepath = /obj/item/melee/saber
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
@@ -64,7 +68,7 @@
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
-	location_override = "Teleporter"
+	location_override = "the AI Satellite, or the Captain's Office"
 
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
@@ -84,6 +88,7 @@
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
+	extra_information = "Obtaining a photograph of the blueprints is also an option."
 
 /datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
@@ -117,7 +122,7 @@
 	protected_jobs = list("Research Director", "Scientist", "Roboticist") //no one with protolathe access, who will often be handed a core
 	location_override = "the Research Director's Office"
 
-/datum/theft_objective/steal/documents
+/datum/theft_objective/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	location_override = "the Vault"
@@ -126,7 +131,7 @@
 
 /datum/theft_objective/hypospray
 	name = "the chief medical officer's advanced hypospray"
-	typepath = /obj/item/reagent_containers/hypospray/CMO
+	typepath = /obj/item/reagent_containers/hypospray/cmo
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 
@@ -154,6 +159,24 @@
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
+
+/datum/theft_objective/anomalous_particulate
+	name = "Anomalous particulate."
+	objective_name_overide = "Collect 3 clouds of anomalous particulate, and return with the PPPProcessor. Check your bag for further instructions"
+	special_equipment = /obj/item/storage/box/syndie_kit/anomalous_particulate
+	job_possession = FALSE
+
+/datum/theft_objective/anomalous_particulate/on_hand_out_equipment(datum/objective/steal/our_objective)
+	. = ..()
+	var/our_chosen_owner = our_objective.get_owners()
+	GLOB.anomaly_smash_track.add_tracked_mind(our_chosen_owner[1])
+
+/datum/theft_objective/anomalous_particulate/check_special_completion(obj/item/I)
+	if(!istype(I, /obj/item/ppp_processor))
+		return FALSE
+	var/obj/item/ppp_processor/did_we_process = I
+	if(did_we_process.fully_processed_particulate)
+		return TRUE
 
 /datum/theft_objective/engraved_dusters
 	name = "the quartermaster's engraved knuckledusters"
@@ -198,12 +221,14 @@
 /datum/theft_objective/unique/docs_red
 	name = "the \"Red\" secret documents"
 	typepath = /obj/item/documents/syndicate/red
-	location_override = "a Syndicate agent's possession"
+	special_equipment = /obj/item/documents/syndicate/blue
+	location_override = "an EOC's possession"
 
 /datum/theft_objective/unique/docs_blue
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
-	location_override = "a Syndicate agent's possession"
+	special_equipment = /obj/item/documents/syndicate/red
+	location_override = "an EOC's possession"
 
 #undef THEFT_FLAG_SPECIAL
 #undef THEFT_FLAG_UNIQUE

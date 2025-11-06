@@ -3,11 +3,11 @@
 	desc = "Use pools of blood to phase out of existence."
 	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
-	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	antimagic_flags = NONE
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -28,6 +28,8 @@
 	if(!.)
 		return
 	if(!isliving(user))
+		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_JAUNT, get_turf(user)) & COMPONENT_BLOCK_JAUNT)
 		return FALSE
 
 /datum/spell/bloodcrawl/cast(list/targets, mob/living/user)
@@ -57,10 +59,7 @@
 /// Can't use the wizard one, blocked by jaunt/slow
 /obj/effect/dummy/slaughter
 	name = "odd blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -76,7 +75,13 @@
 /obj/effect/dummy/slaughter/singularity_act()
 	return
 
-
+/obj/effect/dummy/slaughter/return_obj_air()
+	var/datum/gas_mixture/GM = new
+	GM.set_oxygen(MOLES_O2STANDARD)
+	GM.set_nitrogen(MOLES_N2STANDARD)
+	GM.set_temperature(T20C)
+	return GM
+		
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
 		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
@@ -94,7 +99,6 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
-	layer = MOB_LAYER + 0.1
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
 	. = ..()
@@ -102,7 +106,10 @@
 
 /datum/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
-	mob_loc.visible_message("<span class='danger'>[L] sinks into [A].</span>")
+	mob_loc.visible_message(
+		"<span class='danger'>[L] sinks into [A].</span>",
+		"<span class='danger'>You hear something sinking into a thick liquid.</span>"
+	)
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
 
@@ -113,16 +120,25 @@
 	if(!istype(victim))
 		return
 	if(victim.stat == CONSCIOUS)
-		A.visible_message("<span class='warning'>[victim] kicks free of [A] just before entering it!</span>")
+		A.visible_message(
+			"<span class='warning'>[victim] kicks free of [A] just before entering it!</span>",
+			"<span class='warning'>You hear something sinking into a thick liquid and someone struggling!</span>"
+		)
 		L.stop_pulling()
 		return
 
 	victim.forceMove(holder)
 	victim.emote("scream")
-	A.visible_message("<span class='warning'><b>[L] drags [victim] into [A]!</b></span>")
+	A.visible_message(
+		"<span class='danger'>[L] drags [victim] into [A]!</span>",
+		"<span class='danger'>You hear something being dragged into a thick liquid!</span>"
+	)
 	L.stop_pulling()
-	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
-	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</b></span>")
+	to_chat(L, "<b>You begin to feast on [victim]. You cannot move while you are doing this.</b>")
+	A.visible_message(
+		"<span class='danger'>Loud eating sounds come from the blood...</span>",
+		"<span class='danger'>The sound of torn flesh and snapping bones fills the air...</span>"
+	)
 	var/sound
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/SD = L
@@ -144,11 +160,11 @@
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 	else if((ishuman(victim) || isrobot(victim)))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
-	else if(isanimal(victim))
+	else if(isanimal_or_basicmob(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
 		if(!isslaughterdemon(L))
@@ -200,7 +216,10 @@
 	if(prob(25) && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, TRUE, -1)
-	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b></span>")
+	A.visible_message(
+		"<span class='danger'>[L] rises out of [A]!</span>",
+		"<span class='danger'>You hear something rising out of a thick liquid!</span>"
+	)
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 /datum/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
@@ -210,16 +229,19 @@
 		qdel(BC)
 
 /datum/spell/bloodcrawl/proc/rise_message(atom/A)
-	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
+	A.visible_message(
+		"<span class='danger'>[A] starts to bubble...</span>",
+		"<span class='danger'>You can hear bubbling...</span>"
+	)
 
 /datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/S = L
 		S.speed = 0
 		S.boost = world.time + 6 SECONDS
+	var/old_color = L.color
 	L.color = A.color
-	addtimer(VARSET_CALLBACK(L, color, null), 6 SECONDS)
-
+	animate(L, 6 SECONDS, color = old_color, easing = EASE_IN|CIRCULAR_EASING, flags = ANIMATION_PARALLEL)
 
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
 
@@ -247,10 +269,21 @@
 
 /datum/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in lit areas."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
+
+/datum/spell/bloodcrawl/shadow_crawl/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/simple_animal/demon/shadow/current_demon = user
+	if(!istype(current_demon))
+		return ..()
+
+	if(current_demon.block_shadow_crawl)
+		to_chat(user, "<span class='warning'>You are too concentrated to activate [name].</span>")
+		return FALSE
+
+	return ..()
 
 /datum/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
 	return target.get_lumcount() < 0.2

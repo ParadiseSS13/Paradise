@@ -34,7 +34,7 @@
 	if(length(contents))
 		. += "folder_paper"
 
-/obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/folder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
@@ -45,7 +45,7 @@
 	else
 		return ..()
 
-/obj/item/folder/attack_self(mob/user as mob)
+/obj/item/folder/attack_self__legacy__attackchain(mob/user as mob)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
@@ -85,11 +85,11 @@
 		else if(href_list["browse"])
 			var/obj/item/paper_bundle/P = locate(href_list["browse"])
 			if(P && (P.loc == src) && istype(P))
-				P.attack_self(usr)
+				P.attack_self__legacy__attackchain(usr)
 				onclose(usr, "[P.name]")
 
 		//Update everything
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)
 		update_icon(UPDATE_OVERLAYS)
 	return
 
@@ -97,8 +97,8 @@
 	name = "folder- 'TOP SECRET'"
 	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
 
-/obj/item/folder/documents/New()
-	..()
+/obj/item/folder/documents/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/nanotrasen(src)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -109,30 +109,32 @@
 /obj/item/folder/syndicate/red
 	icon_state = "folder_sred"
 
-/obj/item/folder/syndicate/red/New()
-	..()
+/obj/item/folder/syndicate/red/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/red(src)
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/folder/syndicate/fake_red
+	desc = "A folder stamped \"Top Secret - Property of The Syndicate\". Its glossy cover seems cheap."
+	icon_state = "folder_sred"
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
 
-/obj/item/folder/syndicate/blue/New()
-	..()
+/obj/item/folder/syndicate/blue/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/blue(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
 
-/obj/item/folder/syndicate/yellow/full/New()
-	..()
+/obj/item/folder/syndicate/yellow/full/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/folder/syndicate/mining/New()
+/obj/item/folder/syndicate/mining/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
 	update_icon(UPDATE_OVERLAYS)
-
-

@@ -1,0 +1,2 @@
+/obj/effect/decal/cleanable/blood/tracks : /obj/effect/decal/cleanable/blood/tracks/mapped{@OLD;color=@SKIP;desc=@SKIP;icon=@SKIP;icon_state=@SKIP}
+/obj/effect/decal/cleanable/blood/splatter{color="red"} : /obj/effect/decal/cleanable/blood/splatter{@OLD;color=@SKIP}

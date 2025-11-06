@@ -11,7 +11,7 @@
 	return FALSE
 
 
-/mob/living/simple_animal/hostile/poison/bees/bee_friendly()
+/mob/living/basic/bee/bee_friendly()
 	return TRUE
 
 /mob/living/simple_animal/bot/bee_friendly()
@@ -19,7 +19,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/diona/bee_friendly()
+/mob/living/basic/diona_nymph/bee_friendly()
 	return TRUE
 
 /mob/living/carbon/human/bee_friendly()
@@ -37,7 +37,7 @@
 	icon_state = "beebox"
 	anchored = TRUE
 	density = TRUE
-	var/mob/living/simple_animal/hostile/poison/bees/queen/queen_bee = null
+	var/mob/living/basic/bee/queen/queen_bee = null
 	var/list/bees = list() //bees owned by the box, not those inside it
 	var/list/honeycombs = list()
 	var/list/honey_frames = list()
@@ -51,7 +51,7 @@
 
 /obj/structure/beebox/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
+	for(var/mob/living/basic/bee/B in bees)
 		B.beehome = null
 	bees.Cut()
 	bees = null
@@ -82,7 +82,7 @@
 		honey_frames += HF
 
 	for(var/i in 1 to get_max_bees())
-		var/mob/living/simple_animal/hostile/poison/bees/B = new(src)
+		var/mob/living/basic/bee/B = new(src)
 		bees += B
 		B.beehome = src
 		B.assign_reagent(R)
@@ -95,7 +95,7 @@
 	if(queen_bee)
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST && length(honeycombs) < get_max_honeycomb())
 			bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-			var/obj/item/food/snacks/honeycomb/HC = new(src)
+			var/obj/item/food/honeycomb/HC = new(src)
 			if(queen_bee.beegent)
 				HC.set_reagent(queen_bee.beegent.id)
 			honeycombs += HC
@@ -107,7 +107,7 @@
 			if((bee_resources >= BEE_RESOURCE_NEW_BEE_COST && prob(BEE_PROB_NEW_BEE)) || freebee)
 				if(!freebee)
 					bee_resources = max(bee_resources - BEE_RESOURCE_NEW_BEE_COST, 0)
-				var/mob/living/simple_animal/hostile/poison/bees/B = new(get_turf(src))
+				var/mob/living/basic/bee/B = new(get_turf(src))
 				B.beehome = src
 				B.assign_reagent(queen_bee.beegent)
 				bees += B
@@ -146,11 +146,12 @@
 		. += "<span class='warning'>there's no room for more honeycomb!</span>"
 
 
-/obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+/obj/structure/beebox/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(length(honey_frames) < BEEBOX_MAX_FRAMES)
-			if(!user.unEquip(HF))
+			if(!user.unequip(HF))
 				return
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			HF.forceMove(src)
@@ -165,18 +166,19 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!user.unEquip(qb))
+		if(!user.transfer_item_to(qb, src))
 			return
 		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
+		queen_bee.beehome = src
 		qb.queen = null
 
 		if(queen_bee)
 			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
 			var/relocated = 0
 			for(var/b in bees)
-				var/mob/living/simple_animal/hostile/poison/bees/B = b
+				var/mob/living/basic/bee/B = b
 				if(B.reagent_incompatible(queen_bee))
 					bees -= B
 					B.beehome = null
@@ -206,18 +208,29 @@
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 
+/obj/structure/beebox/attack_animal(mob/living/simple_animal/M)
+	if(!istype(M, /mob/living/basic/bee))
+		return ..()
+
+	M.forceMove(src)
+	bees += M
+
+/obj/structure/beebox/relaymove(mob/user)
+	user.forceMove(get_turf(src))
+	bees -= user
+
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))
 		if(!user.bee_friendly())
-			//Time to get stung!
+			// Time to get stung!
 			var/bees = FALSE
-			for(var/b in bees) //everyone who's ever lived here now instantly hates you, suck it assistant!
-				var/mob/living/simple_animal/hostile/poison/bees/B = b
-				if(B.isqueen)
+			for(var/b in bees) // everyone who's ever lived here now instantly hates you, suck it assistant!
+				var/mob/living/basic/bee/B = b
+				if(B.is_queen)
 					continue
 				if(B.loc == src)
 					B.forceMove(drop_location())
-				B.target = user
+				B.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, user)
 				bees = TRUE
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
@@ -240,7 +253,7 @@
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
 						while(length(honeycombs) && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-							var/obj/item/food/snacks/honeycomb/HC = pick_n_take(honeycombs)
+							var/obj/item/food/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.forceMove(get_turf(src))
 								amtH--
@@ -268,7 +281,7 @@
 	if(disassembled)
 		mat_drop = 40
 	new /obj/item/stack/sheet/wood(loc, mat_drop)
-	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
+	for(var/mob/living/basic/bee/B in bees)
 		if(B.loc == src)
 			B.forceMove(drop_location())
 	for(var/obj/item/honey_frame/HF in honey_frames)
@@ -278,6 +291,14 @@
 
 /obj/structure/beebox/unwrenched
 	anchored = FALSE
+
+/obj/structure/beebox/proc/habitable(mob/living/basic/target)
+	if(!istype(target, /mob/living/basic/bee))
+		return FALSE
+	var/mob/living/basic/bee/citizen = target
+	if(citizen.reagent_incompatible(queen_bee) || bees.len >= get_max_bees())
+		return FALSE
+	return TRUE
 
 #undef BEEBOX_MAX_FRAMES
 #undef BEES_RATIO

@@ -17,6 +17,7 @@
 	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
 	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
 
+	eyes = "blank_eyes"
 	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
@@ -25,7 +26,6 @@
 	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
-	skinned_type = /obj/item/stack/sheet/wood
 
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
@@ -33,6 +33,8 @@
 
 	reagent_tag = PROCESS_ORG
 
+	skinned_type = /obj/item/stack/sheet/wood
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"liver" =   /obj/item/organ/internal/liver/diona,
 		"lungs" =   /obj/item/organ/internal/lungs/diona,
@@ -61,6 +63,8 @@
 		"pulls out a secret stash of herbicide and takes a hearty swig!",
 		"is pulling themselves apart!")
 
+	plushie_type = /obj/item/toy/plushie/dionaplushie
+
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
 		return TRUE
@@ -74,7 +78,7 @@
 	. = ..()
 	H.clear_alert("nolight")
 
-	for(var/mob/living/simple_animal/diona/N in H.contents) // Let nymphs wiggle out
+	for(var/mob/living/basic/diona_nymph/N in H.contents) // Let nymphs wiggle out
 		N.split()
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -134,3 +138,6 @@
 	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE
 	inherent_factions = list("plants", "vines")
+
+/datum/species/diona/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/food/salad(H.loc)

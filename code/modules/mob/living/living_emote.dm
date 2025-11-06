@@ -44,7 +44,6 @@
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
-	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -57,11 +56,6 @@
 	key_third_person = "dances"
 	message = "dances around happily."
 
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps!"
-
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"
@@ -73,10 +67,9 @@
 	muzzle_ignore = TRUE // makes sure that sound is played upon death
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
-	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
+	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."
 	message_AI = "screeches, its screen flickering as its systems slowly halt."
-	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor..."
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple = "stops moving..."
@@ -119,7 +112,7 @@
 	if(!istype(H))
 		return ..()
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, -8, frequency = H.get_age_pitch(H.dna.species.max_age), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -8, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/drool
 	key = "drool"
@@ -187,8 +180,6 @@
 	message = "points."
 	message_param = "points at %t."
 	hands_use_check = TRUE
-	target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
-	emote_target_type = EMOTE_TARGET_ANY
 
 /datum/emote/living/point/act_on_target(mob/user, target)
 	if(!target)
@@ -203,7 +194,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.has_left_hand() && !H.has_right_hand())
-			if(H.get_num_legs() != 0)
+			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
@@ -303,7 +294,6 @@
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "writhes in their sleep."
-	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS

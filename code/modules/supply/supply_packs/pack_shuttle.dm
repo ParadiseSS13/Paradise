@@ -63,7 +63,6 @@
 /datum/supply_packs/abstract/admin_notify/donations
 	name = "Donation to Lonely Corgi Foundation"
 	special = TRUE
-	special_enabled = FALSE
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 
@@ -81,12 +80,6 @@
 	cost = 2500
 	template = /datum/map_template/shuttle/emergency/old
 
-// this one isn't great but it isn't horrible either
-
-/datum/supply_packs/abstract/shuttle/cramped
-	cost = 3750
-	template = /datum/map_template/shuttle/emergency/cramped
-
 /datum/supply_packs/abstract/shuttle/military
 	cost = 3500
 	template = /datum/map_template/shuttle/emergency/military
@@ -102,10 +95,16 @@
 	template = /datum/map_template/shuttle/emergency/shadow
 	speed_factor = 2 //Fast enough that it probably won't burn down entirely after the crew looses the plasma
 
+/datum/supply_packs/abstract/shuttle/cherenkov
+	cost = 3250
+	template = /datum/map_template/shuttle/emergency/cherenkov
+	speed_factor = 2 // Speedy enough to not explode during the round trip.
+
 /datum/supply_packs/abstract/shuttle/lance
 	cost = 5000 //please don't order this for funny please sir
 	template = /datum/map_template/shuttle/emergency/lance
 	speed_factor = 1.5 //Don't need to slow down before docking
+	are_you_sure_you_want_to_be_banned = "If you are not an antagonist, and you are ordering this shuttle for no valid reason, you will be banned, or job banned. If you are an antagonist, ahelp for permision, unless you are a hijacker, or you will be antagonist banned. If you are unsure, ahelp now."
 
 /datum/supply_packs/abstract/shuttle/lance/on_order_confirm(datum/supply_order/order)
 	. = ..()
@@ -120,7 +119,7 @@
 	GLOB.major_announcement.Announce("We were unable to find an orderer. We have sent the beacon placer to the Cargo Office.", "Shuttle Purchase Receipt")
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/supply/office))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -132,12 +131,10 @@
 	return TRUE
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
-
-/datum/supply_packs/abstract/shuttle/clown
-	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
-	cmag_hidden = TRUE
-	cost = 500  // let the clown have it
-	template = /datum/map_template/shuttle/emergency/clown
+/datum/supply_packs/abstract/shuttle/clockwork
+	cost = 3000
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/clockwork
 
 /datum/supply_packs/abstract/shuttle/narnar
 	cost = 3000
@@ -148,3 +145,16 @@
 	hidden = TRUE
 	cost = 4000
 	template = /datum/map_template/shuttle/emergency/jungle
+
+// these are hidden behind cmag
+
+/datum/supply_packs/abstract/shuttle/clown
+	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
+	cmag_hidden = TRUE
+	cost = 500  // let the clown have it
+	template = /datum/map_template/shuttle/emergency/clown
+
+/datum/supply_packs/abstract/shuttle/cramped
+	cost = 3750
+	cmag_hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/cramped

@@ -13,13 +13,13 @@ Thus, the two variables affect pump operation are set in New():
 */
 
 /obj/machinery/atmospherics/binary/pump
+	name = "gas pump"
+	desc = "A pump."
 	icon = 'icons/atmos/pump.dmi'
 	icon_state = "map_off"
 
-	name = "gas pump"
-	desc = "A pump"
-
 	can_unwrench = TRUE
+	can_unwrench_while_on = FALSE
 
 	target_pressure = ONE_ATMOSPHERE
 
@@ -36,21 +36,21 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/pump/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/pump/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/pump/on
 	icon_state = "map_on"
@@ -72,7 +72,6 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process_atmos()
-	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
@@ -83,9 +82,9 @@ Thus, the two variables affect pump operation are set in New():
 		return 1
 
 	//Calculate necessary moles to transfer using PV=nRT
-	if((air1.total_moles() > 0) && (air1.temperature>0))
+	if((air1.total_moles() > 0) && (air1.temperature() > 0))
 		var/pressure_delta = target_pressure - output_starting_pressure
-		var/transfer_moles = pressure_delta*air2.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = pressure_delta * air2.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
@@ -136,7 +135,7 @@ Thus, the two variables affect pump operation are set in New():
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("max_rate")
@@ -151,20 +150,16 @@ Thus, the two variables affect pump operation are set in New():
 			target_pressure = clamp(text2num(params["rate"]), 0 , MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/pump/power_change()
 	if(!..())
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else if(!istype(W, /obj/item/wrench))
-		return ..()
-	if(!(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-		return 1
+/obj/machinery/atmospherics/binary/bump/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()

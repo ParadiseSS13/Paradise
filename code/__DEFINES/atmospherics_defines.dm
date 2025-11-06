@@ -4,6 +4,7 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 #define GAS_A_B	(1 << 5)
+#define GAS_H2 	(1 << 6)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -43,11 +44,14 @@
 
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
-//Should not exceed 0.4 else strange heat flow occur
-#define FLOOR_HEAT_TRANSFER_COEFFICIENT		0.15
+//Capped at OPEN_HEAT_TRANSFER_COEFFICIENT, both here and in Rust.
 #define WALL_HEAT_TRANSFER_COEFFICIENT		0.0
+#define DOOR_HEAT_TRANSFER_COEFFICIENT		0.001
 #define OPEN_HEAT_TRANSFER_COEFFICIENT		0.4
-#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.1		//a hack for now
+#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.001
+// This looks silly, but it's for clarity when reading elsewhere.
+#define ZERO_HEAT_TRANSFER_COEFFICIENT		0.0
+
 #define HEAT_CAPACITY_VACUUM				700000	//a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
@@ -72,6 +76,10 @@
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
 
+//HYDROGEN
+#define HYDROGEN_BURN_ENERGY				2500000
+#define HYDROGEN_MIN_IGNITE_TEMP			500
+
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
 #define WARNING_HIGH_PRESSURE				325		//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
@@ -86,7 +94,7 @@
 #define BODYTEMP_AUTORECOVERY_MINIMUM		10		//Minimum amount of kelvin moved toward 310.15K per tick. So long as abs(310.15 - bodytemp) is more than 50.
 #define BODYTEMP_COLD_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
 #define BODYTEMP_HEAT_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
-#define BODYTEMP_COOLING_MAX				30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
+#define BODYTEMP_COOLING_MAX				-30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
 #define BODYTEMP_HEATING_MAX				30		//The maximum number of degrees that your body can heat up in 1 tick, when in a hot area.
 
 #define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 50) // The limit the human body can take before it starts taking damage from heat.
@@ -148,3 +156,38 @@
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
+/// The coefficient a for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_A 1.376651173e10
+/// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition rate close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
+/// Agent B starts working at this temperature
+#define AGENT_B_CONVERSION_MIN_TEMP 900
+/// Agent B released this much energy per mole of CO2 converted to O2
+#define AGENT_B_CONVERSION_ENERGY_RELEASED 20000
+
+// From milla/src/model.rs, line 126
+#define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
+#define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
+#define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2		//! Tile is exposed to the environment, ex: lavaland
+#define ATMOS_MODE_NO_DECAY 3					//! Prevents hot tiles from automatically decaying towards T20C.
+
+/// Lavaland environment: hot, low pressure.
+#define ENVIRONMENT_LAVALAND "lavaland"
+/// Temperate environment: Normal atmosphere, 20 C.
+#define ENVIRONMENT_TEMPERATE "temperate"
+/// Cold environment: Normal atmosphere, -93 C.
+#define ENVIRONMENT_COLD "cold"
+
+/// How far away should we load the pressure HUD data from MILLA?
+#define PRESSURE_HUD_LOAD_RADIUS 15
+
+/// How far away should we send the pressure HUD to the player?
+#define PRESSURE_HUD_RADIUS 12
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2

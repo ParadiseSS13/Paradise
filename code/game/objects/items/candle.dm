@@ -7,8 +7,8 @@
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
-	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
+	light_color = "#E09D37"
 	var/wax = 200
 	/// Index for the icon state
 	var/wax_index = TALL_CANDLE
@@ -16,7 +16,6 @@
 	var/infinite = FALSE
 	var/start_lit = FALSE
 	var/flickering = FALSE
-	light_color = "#E09D37"
 
 /obj/item/candle/New()
 	..()
@@ -41,7 +40,7 @@
 	else
 		return TRUE
 
-/obj/item/candle/attackby(obj/item/W, mob/user, params)
+/obj/item/candle/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat())
 		light("<span class='notice'>[user] lights [src] with [W].</span>")
 		return
@@ -100,11 +99,11 @@
 		new/obj/item/trash/candle(src.loc)
 		if(ismob(src.loc))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.drop_item_to_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
 /obj/item/candle/proc/unlight()
 	if(lit)
@@ -113,14 +112,20 @@
 		set_light(0)
 
 
-/obj/item/candle/attack_self(mob/user)
+/obj/item/candle/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		unlight()
 
+/obj/item/candle/lit
+	start_lit = TRUE
+
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
+
+/obj/item/candle/eternal/lit
+	start_lit = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)
@@ -134,7 +139,7 @@
 	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
 	start_lit = TRUE
 
-/obj/item/candle/eternal/wizard/attack_self(mob/user)
+/obj/item/candle/eternal/wizard/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/candle/eternal/wizard/process()

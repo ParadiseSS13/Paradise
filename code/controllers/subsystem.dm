@@ -279,11 +279,15 @@
 /datum/controller/subsystem/Initialize()
 	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
 
+/// Returns what to display as the ms cost for this subsystem.
+/datum/controller/subsystem/proc/get_cost()
+	return round(cost, 1)
+
 /datum/controller/subsystem/stat_entry(msg)
 	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags))
-		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
+		msg = "[get_cost()]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
 		msg = "OFFLINE\t[ss_info]"
 
@@ -349,3 +353,7 @@
 	out["sleep_count"] = fire_sleep_count
 	out["custom"] = list() // Override as needed on child
 	return out
+
+/// Allows a subsystem to report what it was doing in case of a silent crash.
+/datum/controller/subsystem/proc/last_task()
+	return "No task specified."

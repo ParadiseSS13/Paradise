@@ -4,7 +4,6 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
@@ -14,9 +13,20 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
+/obj/machinery/field/containment/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	GLOB.tesla_containment += src
+
 /obj/machinery/field/containment/Destroy()
-	FG1.fields -= src
-	FG2.fields -= src
+	if(FG1)// These checks are mostly in case a field is spawned in by accident.
+		FG1.fields -= src
+	if(FG2)
+		FG2.fields -= src
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/field/containment/attack_hand(mob/user)
@@ -26,9 +36,9 @@
 		shock_field(user)
 		return 1
 
-/obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
+/obj/machinery/field/containment/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	shock(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -50,19 +60,19 @@
 		return
 	if(ismegafauna(M))
 		M.visible_message("<span class='warning'>[M] glows fiercely as the containment field flickers out!</span>")
-		FG1.calc_power(INFINITY) //rip that 'containment' field
+		FG1.calc_energy(INFINITY) //rip that 'containment' field
 		M.adjustHealth(-M.obj_damage)
 	else
 		..()
 
-/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
-	if(isliving(mover))
-		shock_field(mover)
+/obj/machinery/field/containment/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered))
+		shock_field(entered)
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+	if(ismachinery(entered) || isstructure(entered) || ismecha(entered))
+		bump_field(entered)
 
-/obj/machinery/field/containment/proc/set_master(master1,master2)
+/obj/machinery/field/containment/proc/set_master(master1, master2)
 	if(!master1 || !master2)
 		return 0
 	FG1 = master1
@@ -84,7 +94,7 @@
 /obj/machinery/field
 	var/hasShocked = 0 //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
-/obj/machinery/field/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/field/CanPass(atom/movable/mover, border_dir)
 	if(hasShocked)
 		return 0
 	if(isliving(mover)) // Don't let mobs through
@@ -97,7 +107,7 @@
 
 /obj/machinery/field/proc/shock_field(mob/living/user)
 	if(isliving(user))
-		var/shock_damage = min(rand(30,40),rand(30,40))
+		var/shock_damage = min(rand(30, 40), rand(30, 40))
 
 		if(isliving(user) && !issilicon(user))
 			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT

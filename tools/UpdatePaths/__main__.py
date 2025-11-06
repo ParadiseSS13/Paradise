@@ -32,6 +32,10 @@ Old paths properties:
 default_map_directory = "../../_maps"
 replacement_re = re.compile(r'\s*(?P<path>[^{]*)\s*(\{(?P<props>.*)\})?')
 
+# Specifically for separating out new paths once split from the line
+# This was originally done by splitting on commas but that's not great
+new_paths_re = re.compile(r'(?:\/[@\w]+)+\/?(?:{.*?})?')
+
 #urgent todo: replace with actual parser, this is slow as janitor in crit
 split_re = re.compile(r'((?:[A-Za-z0-9_\-$]+)\s*=\s*(?:"(?:.+?)"|[^";][^;]*)|@OLD);?')
 
@@ -68,8 +72,8 @@ def update_path(dmm_data, replacement_string, verbose=False):
     old_path_part, new_path_part = replacement_string.split(':', maxsplit=1)
     old_path, old_path_props = parse_rep_string(old_path_part, verbose)
     new_paths = list()
-    for replacement_def in new_path_part.split(','):
-        new_path, new_path_props = parse_rep_string(replacement_def, verbose)
+    for match in new_paths_re.finditer(new_path_part):
+        new_path, new_path_props = parse_rep_string(match.group(), verbose)
         new_paths.append((new_path, new_path_props))
 
     subtypes = ""

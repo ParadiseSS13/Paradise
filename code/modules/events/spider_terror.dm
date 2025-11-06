@@ -66,6 +66,7 @@
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
+	SSticker.record_biohazard_start(infestation_type)
 	SSevents.biohazards_this_round += infestation_type
 
 #undef TS_HIGHPOP_TRIGGER

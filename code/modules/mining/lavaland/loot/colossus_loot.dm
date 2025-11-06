@@ -1,22 +1,3 @@
-//Colossus
-/obj/structure/closet/crate/necropolis/colossus
-	name = "colossus chest"
-
-/obj/structure/closet/crate/necropolis/colossus/populate_contents()
-	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(crystalchoices)
-	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
-	for(var/I in 1 to 2)
-		var/loot = pick_n_take(choices)
-		new loot(src)
-
-/obj/structure/closet/crate/necropolis/colossus/crusher
-	name = "angelic colossus chest"
-
-/obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/blaster_tubes(src)
-
 ///Anomolous Crystal///
 
 /obj/machinery/anomalous_crystal
@@ -49,8 +30,8 @@
 	..()
 	ActivationReaction(user,"touch")
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	ActivationReaction(user,"weapon")
+/obj/machinery/anomalous_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	ActivationReaction(user, "weapon")
 	return ..()
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
@@ -79,7 +60,7 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/Initialize() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize(mapload) //Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
@@ -87,7 +68,6 @@
 
 /// Warps the area you're in to look like a new one
 /obj/machinery/anomalous_crystal/theme_warp
-	activation_method = "touch"
 	cooldown_add = 200
 	var/terrain_theme = "winter"
 	var/NewTerrainFloors
@@ -101,10 +81,10 @@
 	. = ..()
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
-		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
-			NewTerrainFloors = /turf/simulated/floor/plating/asteroid/basalt // Needs to be updated after turf update
+		if("lavaland")//Free cult metal, I guess.
+			NewTerrainFloors = /turf/simulated/floor/plating/false_asteroid
 			NewTerrainWalls = /turf/simulated/wall/cult
-			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
+			NewFlora = list(/mob/living/basic/mining/goldgrub)
 			florachance = 1
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update
@@ -135,16 +115,13 @@
 				if(isturf(Stuff))
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
-						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
-						if(O.air)
-							var/datum/gas_mixture/G = O.air
-							G.copy_from(O.air)
-						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
+						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
+						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
 					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
-						T.ChangeTurf(NewTerrainWalls)
+						T.ChangeTurf(NewTerrainWalls, keep_icon = FALSE)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
 					var/obj/structure/chair/Original = Stuff
@@ -162,7 +139,6 @@
 
 /// Generates a projectile when interacted with
 /obj/machinery/anomalous_crystal/emitter
-	activation_method = "touch"
 	cooldown_add = 50
 	var/generated_projectile = /obj/item/projectile/beam/emitter
 
@@ -192,7 +168,6 @@
 
 /// Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
 /obj/machinery/anomalous_crystal/dark_reprise
-	activation_method = "touch"
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
 /obj/machinery/anomalous_crystal/dark_reprise/ActivationReaction(mob/user, method)
@@ -211,13 +186,12 @@
 
 /// Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 /obj/machinery/anomalous_crystal/helpers
-	activation_method = "touch"
 	var/ready_to_deploy = 0
 
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
 		ready_to_deploy = 1
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=byond://?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=byond://?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 		GLOB.poi_list |= src // ghosts should actually know they can join as a lightgeist
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
@@ -235,7 +209,7 @@
 			if(user)
 				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
 			return
-		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
+		var/mob/living/basic/lightgeist/W = new /mob/living/basic/lightgeist(get_turf(loc))
 		W.key = user.key
 
 /obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
@@ -248,64 +222,8 @@
 	GLOB.poi_list -= src
 	return ..()
 
-/mob/living/simple_animal/hostile/lightgeist
-	name = "lightgeist"
-	desc = "This small floating creature is a completely unknown form of life... being near it fills you with a sense of tranquility."
-	icon_state = "lightgeist"
-	icon_living = "lightgeist"
-	icon_dead = "butterfly_dead"
-	turns_per_move = 1
-	response_help = "waves away"
-	response_disarm = "brushes aside"
-	response_harm = "disrupts"
-	speak_emote = list("oscillates")
-	maxHealth = 2
-	health = 2
-	harm_intent_damage = 1
-	friendly = "mends"
-	density = FALSE
-	flying = TRUE
-	obj_damage = 0
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
-	mob_size = MOB_SIZE_TINY
-	gold_core_spawnable = HOSTILE_SPAWN
-	speak_emote = list("warps")
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	luminosity = 4
-	faction = list("neutral")
-	universal_understand = TRUE
-	del_on_death = TRUE
-	unsuitable_atmos_damage = 0
-	flying = TRUE
-	minbodytemp = 0
-	maxbodytemp = 1500
-	environment_smash = 0
-	AIStatus = AI_OFF
-	stop_automated_movement = TRUE
-	var/heal_power = 5
-
-/mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
-	. = ..()
-	remove_verb(src, /mob/living/verb/pulled)
-	remove_verb(src, /mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-
-/mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	. = ..()
-	if(isliving(target) && target != src)
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			L.heal_overall_damage(heal_power, heal_power)
-			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-
-/mob/living/simple_animal/hostile/lightgeist/ghost()
-	qdel(src)
-
 /// Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
 /obj/machinery/anomalous_crystal/possessor
-	activation_method = "touch"
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)
 	if(..())
@@ -319,13 +237,12 @@
 				mobcheck = 1
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/mouse(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/basic/mouse(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
@@ -375,10 +292,9 @@
 
 /datum/spell/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing"
+	desc = "Exits the body you are possessing."
 	base_cooldown = 60
 	clothes_req = FALSE
-	invocation_type = "none"
 	action_icon_state = "exit_possession"
 	sound = null
 

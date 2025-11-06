@@ -1,0 +1,3996 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aW" = (
+/obj/structure/extinguisher_cabinet/empty{
+	pixel_x = 28
+	},
+/obj/structure/janitorialcart{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"bl" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"bs" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#00ff00"
+	},
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"bx" = (
+/obj/effect/turf_decal/tiles/neutral/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"bT" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/bureaucracy,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"cs" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/sieged_lab)
+"da" = (
+/obj/structure/table,
+/obj/item/storage/box/cups{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"dj" = (
+/obj/machinery/economy/atm/directional/north,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"dy" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"dE" = (
+/obj/structure/filingcabinet/filingcabinet,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"eA" = (
+/obj/effect/spawner/themed_mess/engineering,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ff" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"fl" = (
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"fV" = (
+/obj/effect/spawner/themed_mess/dirty,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"gv" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"gz" = (
+/obj/effect/spawner/random/engineering/tools,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ia" = (
+/obj/machinery/door/airlock/command{
+	name = "Executive Suite"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jv" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jC" = (
+/obj/structure/engineeringcart,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jD" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jL" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jV" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"jW" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"kb" = (
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"kc" = (
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"kr" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"kA" = (
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/sieged_lab)
+"le" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"lx" = (
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"lZ" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 9
+	},
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"mq" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"mv" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"mM" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"mU" = (
+/obj/structure/sign/poster/official/build/directional/north,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"nn" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/obj/item/reagent_containers/drinks/britcup{
+	pixel_x = -10
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"no" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ny" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"nY" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"oI" = (
+/obj/structure/sign/directions/security{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#ff7f00"
+	},
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"oZ" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"pu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"pT" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"pX" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"pY" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ql" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"qr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"qS" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"rd" = (
+/obj/structure/table,
+/obj/item/circuitboard/recharger,
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"rM" = (
+/obj/structure/extinguisher_cabinet/empty{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"rQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"rR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"rV" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"rW" = (
+/obj/structure/sign/directions/security,
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"sj" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Power Room"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"sS" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"tc" = (
+/obj/item/chair/stool,
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"tg" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"tn" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"tE" = (
+/obj/structure/sign/security,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/sieged_lab)
+"tV" = (
+/obj/item/flag/command,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"tZ" = (
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ua" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"uk" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#ff7f00"
+	},
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"ut" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"uu" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/maintenance,
+/obj/item/extinguisher,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"uC" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#00ff00"
+	},
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"uY" = (
+/obj/machinery/alarm/monitor/directional/north,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ve" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"vg" = (
+/obj/machinery/door/airlock,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"vy" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"wh" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"wp" = (
+/obj/machinery/alarm/all_access/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"xn" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/sieged_lab)
+"xr" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"xF" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"xS" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/vert_hallway,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"xV" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	id_tag = "SL_EndRoom"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"yn" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 6
+	},
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"yD" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"yO" = (
+/obj/structure/shelf/security,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"zf" = (
+/obj/structure/chair/stool{
+	dir = 1;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"zo" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/vert_hallway,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"zx" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"zz" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"AB" = (
+/obj/structure/noticeboard,
+/obj/item/paper/sieged_lab_research_paper,
+/obj/item/paper/sieged_lab_research_paper,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/sieged_lab)
+"AC" = (
+/obj/structure/sign/directions/engineering{
+	pixel_x = 32;
+	pixel_y = 24;
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"AI" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"BH" = (
+/obj/machinery/door_control{
+	pixel_y = 32;
+	id = "SL_EndRoom";
+	name = "executive suite lockdown control"
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"BT" = (
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Ce" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"CY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Da" = (
+/obj/structure/chair/comfy/corp,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"Dr" = (
+/obj/machinery/computer/nonfunctional,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Dw" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"DB" = (
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"DC" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"DW" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"DZ" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"Eo" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/sieged_lab)
+"Eq" = (
+/obj/effect/spawner/themed_mess/robotic,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"EK" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Fc" = (
+/turf/simulated/mineral,
+/area/ruin/space/sieged_lab)
+"Gh" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Gm" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"GQ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/medium_room,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"GU" = (
+/turf/template_noop,
+/area/template_noop)
+"GY" = (
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"Hk" = (
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/wt550,
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"HI" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Iw" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"IM" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/wood,
+/area/ruin/space/sieged_lab)
+"Jn" = (
+/obj/item/assembly/mousetrap/armed,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"Jr" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#00FFFF"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"JK" = (
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"KE" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_sieged_lab";
+	name = "Laboratory X-18"
+	},
+/turf/template_noop,
+/area/template_noop)
+"KG" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"KP" = (
+/turf/simulated/mineral/ancient/outer,
+/area/ruin/space/sieged_lab)
+"KT" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"KZ" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"La" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Mr" = (
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"Mu" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/bureaucracy,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"MU" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/sign/poster/official/cleanliness/directional/north,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Nm" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"NN" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"NX" = (
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Of" = (
+/obj/structure/sign/directions/engineering{
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"OI" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"OP" = (
+/obj/structure/table/wood,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"Ph" = (
+/obj/machinery/computer/nonfunctional,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Pm" = (
+/obj/effect/spawner/random/blood/often,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"PF" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"PI" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"PZ" = (
+/obj/effect/spawner/airlock/long/square,
+/turf/simulated/mineral,
+/area/ruin/space/sieged_lab)
+"RH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Sd" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"Ss" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/sieged_lab)
+"SF" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"SH" = (
+/obj/machinery/power/smes/empty,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"SP" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/sieged_lab)
+"SZ" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"Tn" = (
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Tt" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"TU" = (
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"TW" = (
+/obj/structure/sign/directions/engineering{
+	pixel_x = 32;
+	pixel_y = 24;
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Uq" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"UB" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"US" = (
+/obj/item/flashlight/flare/used,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Vc" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Vi" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/sieged_lab)
+"VM" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#00FFFF"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"VQ" = (
+/obj/structure/sign/poster/official/science/directional/north,
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Wo" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Xb" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Xk" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Xv" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Yk" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"YF" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/horiz_hallway,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"YK" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/sieged_lab)
+"YZ" = (
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"Zd" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ZA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"ZK" = (
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
+"ZN" = (
+/obj/machinery/door/airlock/command{
+	name = "Executive Suite"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	id_tag = "SL_EndRoom";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+
+(1,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(2,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(3,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(4,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(5,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(6,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(7,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+cs
+cs
+cs
+cs
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(8,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+cs
+cs
+cs
+cs
+cs
+cs
+cs
+cs
+cs
+cs
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(9,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+cs
+cs
+cs
+cs
+Fc
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(10,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+KP
+KP
+KP
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(11,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+KP
+KP
+KP
+KP
+KP
+KP
+Fc
+Fc
+KP
+KP
+KP
+KP
+Fc
+Fc
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(12,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+Fc
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(13,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+KP
+KP
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(14,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+KP
+ZK
+qS
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+zo
+UB
+pY
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+zo
+UB
+UB
+UB
+pY
+YZ
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(15,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+KP
+ZK
+lx
+VM
+xr
+xr
+xr
+xr
+xr
+NN
+DW
+xr
+NN
+DW
+Jr
+xr
+xr
+xr
+xr
+xr
+xr
+xr
+xr
+SF
+xr
+xr
+NN
+HI
+KP
+KP
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(16,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+Fc
+KP
+ZK
+lx
+YF
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+GQ
+ZK
+lx
+YF
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+NX
+ZK
+ZK
+lx
+YF
+ZK
+KP
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(17,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+KP
+KP
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+KG
+ZK
+Gh
+Gh
+KG
+ZK
+MU
+zx
+ZK
+lx
+HI
+ZK
+KP
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(18,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+KP
+KP
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+ZK
+aW
+Xv
+ZK
+lx
+HI
+ZK
+KP
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(19,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+KP
+KP
+KP
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+tE
+SP
+SP
+SP
+lx
+HI
+ZK
+KP
+cs
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(20,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+Fc
+KP
+KP
+KP
+ZK
+lx
+HI
+uC
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+rW
+Gh
+Gh
+Gh
+rW
+Gh
+Gh
+Gh
+JK
+mq
+yO
+SP
+lx
+HI
+ZK
+KP
+Fc
+cs
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(21,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+Fc
+KP
+KP
+KP
+KP
+ZK
+lx
+HI
+ZK
+bs
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+tZ
+tZ
+Gh
+Gh
+Gh
+xr
+Gh
+Gh
+Gh
+ZK
+OI
+rd
+SP
+lx
+HI
+ZK
+KP
+Fc
+cs
+GU
+GU
+GU
+GU
+KE
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(22,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+KP
+KP
+KP
+KP
+KP
+ZK
+lx
+HI
+ZK
+GU
+GU
+GU
+GU
+GU
+GU
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+BT
+OI
+Hk
+SP
+lx
+HI
+ZK
+KP
+KP
+cs
+cs
+GU
+KP
+KP
+pX
+EK
+ZK
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(23,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+HI
+ZK
+ZK
+mv
+mv
+mv
+mv
+ZK
+gv
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+SP
+BH
+xF
+SP
+lx
+HI
+ZK
+Fc
+KP
+KP
+KP
+KP
+KP
+ZK
+RH
+Gm
+mv
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(24,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+bx
+UB
+UB
+UB
+jD
+AI
+tn
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+zo
+pT
+HI
+ZK
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+SP
+Dr
+tc
+SP
+uY
+HI
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+RH
+Gm
+mv
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(25,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+lx
+DW
+eA
+xr
+rV
+AC
+DW
+xr
+xr
+xr
+xr
+xr
+NN
+DW
+xr
+TW
+Yk
+ZK
+Gh
+Gh
+Ce
+ZK
+Gh
+Gh
+Gh
+SP
+Ph
+zf
+SP
+VQ
+tn
+Tn
+La
+ff
+US
+UB
+La
+pu
+qr
+ut
+Gm
+mv
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(26,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+lx
+YF
+ZK
+ZK
+gv
+lx
+YF
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+GQ
+ZK
+lx
+HI
+oI
+ZK
+ZK
+ZK
+uk
+ZK
+ZK
+ZK
+SP
+SP
+SP
+xn
+jv
+lZ
+KT
+bl
+bl
+vy
+xr
+xr
+ZA
+ZA
+ZA
+CY
+mv
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(27,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+lx
+HI
+ZK
+GU
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+jv
+tn
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+UB
+zo
+lx
+Dw
+Nm
+ZK
+ZK
+ZK
+ZK
+ZK
+mv
+mv
+mv
+mv
+ZK
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(28,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+lx
+HI
+ZK
+GU
+mv
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+kb
+xr
+xr
+xr
+NN
+VM
+xr
+xr
+xr
+xr
+xr
+NN
+DW
+xr
+jW
+Xk
+ZK
+KP
+Fc
+PZ
+rR
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(29,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+ZK
+lx
+HI
+ZK
+GU
+mv
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+YF
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+GQ
+ZK
+dj
+yn
+UB
+UB
+UB
+UB
+SZ
+SZ
+SZ
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(30,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+ZK
+lx
+HI
+ZK
+GU
+mv
+lx
+HI
+uC
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+SH
+wh
+yD
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+rM
+NN
+xr
+xr
+xr
+UB
+SZ
+SZ
+SZ
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(31,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+ZK
+lx
+HI
+ZK
+GU
+mv
+lx
+HI
+ZK
+bs
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+zz
+gz
+Pm
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+YF
+ZK
+KP
+Fc
+Fc
+rR
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(32,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+KP
+ZK
+lx
+HI
+ZK
+GU
+ZK
+lx
+HI
+ZK
+kA
+Vi
+ZK
+Gh
+Gh
+KG
+ZK
+uu
+Zd
+Pm
+ZK
+lx
+HI
+ZK
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+ZK
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(33,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+ZK
+ZK
+lx
+HI
+SP
+SP
+SP
+lx
+HI
+ZK
+Eo
+Vi
+ZK
+Gh
+Gh
+Gh
+ZK
+ve
+Gh
+Iw
+ZK
+lx
+HI
+uC
+Gh
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+lx
+HI
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(34,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+SP
+SP
+ia
+ZN
+SP
+no
+SP
+vg
+vg
+ZK
+ZK
+Ss
+ZK
+Gh
+Gh
+Gh
+ZK
+ve
+Gh
+ua
+ZK
+lx
+HI
+ZK
+bs
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+DB
+HI
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(35,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+jV
+Gh
+Gh
+Gh
+Gh
+SP
+Gh
+Gh
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+ZK
+mU
+Gh
+fl
+ZK
+lx
+HI
+ZK
+DZ
+DZ
+ql
+ql
+ql
+tg
+ZK
+lx
+HI
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(36,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+wp
+Gh
+Gh
+Gh
+Gh
+SP
+Gh
+Gh
+Gh
+Gh
+Gh
+xr
+Gh
+Gh
+Gh
+sj
+Tt
+KZ
+jC
+ZK
+lx
+HI
+ZK
+ql
+ql
+ql
+ql
+IM
+tg
+ZK
+lx
+HI
+ZK
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(37,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+tV
+GY
+GY
+tV
+Gh
+SP
+Gh
+Gh
+Gh
+fV
+Of
+ZK
+Gh
+Gh
+Gh
+ZK
+ZK
+ZK
+ZK
+ZK
+tZ
+tZ
+mM
+ql
+ql
+le
+ql
+ql
+ny
+ZK
+lx
+HI
+ZK
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(38,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+AB
+GY
+PF
+dy
+GY
+Gh
+SP
+SP
+SP
+Gh
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+ZK
+DC
+YK
+PI
+ZK
+Xb
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+lx
+HI
+ZK
+KP
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(39,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+rQ
+Da
+dy
+GY
+Gh
+Gh
+dE
+SP
+da
+Gh
+Gh
+ZK
+Gh
+Gh
+Gh
+ZK
+oZ
+Sd
+oZ
+Sd
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+xS
+sS
+tZ
+Wo
+ZK
+KP
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(40,1,1) = {"
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+GY
+OP
+nn
+GY
+Gh
+Gh
+bT
+SP
+nY
+Gh
+kr
+ZK
+Gh
+Gh
+Gh
+ZK
+Sd
+Mr
+Eq
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+sS
+tZ
+kc
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(41,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+SP
+GY
+GY
+GY
+GY
+Gh
+Gh
+Mu
+SP
+ZK
+ZK
+ZK
+uk
+ZK
+ZK
+ZK
+ZK
+oZ
+Jn
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(42,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+SP
+SP
+Vc
+Gh
+Gh
+Gh
+Gh
+Gh
+xV
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+xS
+Mr
+Sd
+ZK
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(43,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+KP
+KP
+SP
+TU
+Gh
+jL
+Gh
+Gh
+Gh
+Uq
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+oZ
+Sd
+oZ
+ZK
+KP
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+KP
+KP
+KP
+Fc
+KP
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(44,1,1) = {"
+GU
+GU
+GU
+GU
+Fc
+Fc
+KP
+SP
+SP
+SP
+SP
+SP
+SP
+SP
+SP
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+ZK
+KP
+Fc
+Fc
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(45,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+KP
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(46,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+KP
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+KP
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(47,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+Fc
+Fc
+Fc
+Fc
+Fc
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(48,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(49,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}
+(50,1,1) = {"
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+GU
+"}

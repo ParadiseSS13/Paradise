@@ -4,10 +4,7 @@
 /obj/item/grenade/bananade
 	name = "bananade"
 	desc = "A yellow grenade."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "banana"
-	item_state = "grenade"
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/grown/bananapeel
 
@@ -37,13 +34,13 @@
 /obj/item/grenade/bananade/casing/attack_hand()
 	return // No activating an empty grenade
 
-/obj/item/grenade/bananade/casing/attack_self()
+/obj/item/grenade/bananade/casing/attack_self__legacy__attackchain()
 	return // Stop trying to break stuff
 
 /obj/item/grenade/bananade/casing/prime()
 	return // The grenade isnt completed yet, dont even try to blow it up
 
-/obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/bananade/casing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grown/bananapeel))
 		if(deliveryamt < 9)
 			to_chat(user, "<span  class='notice'>You add another banana peel to the assembly.</span>")
@@ -61,7 +58,7 @@
 		return TRUE
 
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 	user.put_in_hands(G)
 	G.deliveryamt = deliveryamt
 	to_chat(user, "<span class='notice'>You lock the assembly shut, readying it for HONK.</span>")

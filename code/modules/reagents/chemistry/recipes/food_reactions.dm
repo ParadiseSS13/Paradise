@@ -10,7 +10,7 @@
 /datum/chemical_reaction/tofu/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/snacks/tofu(location)
+		new /obj/item/food/tofu(location)
 
 /datum/chemical_reaction/chocolate_bar
 	name = "Chocolate Bar"
@@ -22,7 +22,7 @@
 /datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 
 /datum/chemical_reaction/chocolate_bar2
 	name = "Chocolate Bar"
@@ -34,7 +34,7 @@
 /datum/chemical_reaction/chocolate_bar2/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 
 /datum/chemical_reaction/soysauce
 	name = "Soy Sauce"
@@ -75,7 +75,27 @@
 /datum/chemical_reaction/cheesewheel/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/snacks/sliceable/cheesewheel(location)
+		new /obj/item/food/sliceable/cheesewheel(location)
+
+/datum/chemical_reaction/cheese_curds
+	name = "Cheese Curds"
+	id = "cheese_curds"
+	result = null
+	required_reagents = list("milk" = 15, "vinegar" = 5, "cream" = 5)
+	result_amount = 1
+	min_temp = T0C + 80
+
+/datum/chemical_reaction/cheese_curds/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/food/cheese_curds(location)
+
+/datum/chemical_reaction/yogurt
+	name = "Yogurt"
+	id = "yogurt"
+	result = "yogurt"
+	required_reagents = list("milk" = 10, "virusfood" = 2)
+	result_amount = 10
 
 /datum/chemical_reaction/syntiflesh
 	name = "Syntiflesh"
@@ -87,7 +107,7 @@
 /datum/chemical_reaction/syntiflesh/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/snacks/meat/syntiflesh(location)
+		new /obj/item/food/meat/syntiflesh(location)
 
 /datum/chemical_reaction/hot_ramen
 	name = "Hot Ramen"
@@ -114,7 +134,7 @@
 /datum/chemical_reaction/dough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/food/snacks/dough(location)
+		new /obj/item/food/dough(location)
 
 ///Cookies by Ume
 
@@ -129,7 +149,7 @@
 /datum/chemical_reaction/cookiedough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/food/snacks/cookiedough(location)
+		new /obj/item/food/cookiedough(location)
 
 
 /datum/chemical_reaction/corn_syrup
@@ -183,7 +203,7 @@
 /datum/chemical_reaction/weird_cheese/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/food/snacks/weirdcheesewedge(location)
+		new /obj/item/food/weirdcheesewedge(location)
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"

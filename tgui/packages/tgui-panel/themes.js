@@ -3,33 +3,40 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-
 export const THEMES = ['light', 'dark', 'ntos', 'syndicate', 'paradise'];
 
-const COLOR_DARK_BG = '#212020';
-const COLOR_DARK_BG_DARKER = '#131313';
-const COLOR_DARK_BG_BUTTON = '#4C4C4D';
-const COLOR_DARK_TEXT = '#A4BAD6';
-
-const COLOR_LIGHT_BG = '#EFEEEE';
-const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
-const COLOR_LIGHT_BUTTON = '#EEEEEE';
-const COLOR_LIGHT_TEXT = '#000000';
-
-const COLOR_NTOS_BG = '#1b2633';
-const COLOR_NTOS_BG_DARKER = '#121922';
-const COLOR_NTOS_BUTTON = '#384e68';
-const COLOR_NTOS_TEXT = '#b8cbe6';
-
-const COLOR_SYNDICATE_BG = '#4d0202';
-const COLOR_SYNDICATE_BG_DARKER = '#2b0101';
-const COLOR_SYNDICATE_BUTTON = '#397439';
-const COLOR_SYNDICATE_TEXT = '#ffffff';
-
-const COLOR_PARADISE_BG = '#800448';
-const COLOR_PARADISE_BG_DARKER = '#400125';
-const COLOR_PARADISE_BUTTON = '#208080';
-const COLOR_PARADISE_TEXT = '#ffffff';
+const COLORS = {
+  DARK: {
+    BG_BASE: '#212020',
+    BG_SECOND: '#131313',
+    BUTTON: '#4C4C4D',
+    TEXT: '#A4BAD6',
+  },
+  LIGHT: {
+    BG_BASE: '#EFEEEE',
+    BG_SECOND: '#FFFFFF',
+    BUTTON: '#EEEEEE',
+    TEXT: '#000000',
+  },
+  NTOS: {
+    BG_BASE: '#1b2633',
+    BG_SECOND: '#121922',
+    BUTTON: '#384e68',
+    TEXT: '#b8cbe6',
+  },
+  SYNDICATE: {
+    BG_BASE: '#4d0202',
+    BG_SECOND: '#2b0101',
+    BUTTON: '#397439',
+    TEXT: '#ffffff',
+  },
+  PARADISE: {
+    BG_BASE: '#800448',
+    BG_SECOND: '#400125',
+    BUTTON: '#208080',
+    TEXT: '#ffffff',
+  },
+};
 
 let setClientThemeTimer = null;
 
@@ -51,238 +58,54 @@ export const setClientTheme = (name) => {
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
   }, 1500);
-  if (name === 'light') {
-    return Byond.winset({
-      /* Buttons */
-      'rpane.textb.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.textb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.infob.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.infob.text-color': COLOR_LIGHT_TEXT,
-      'rpane.wikib.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.wikib.text-color': COLOR_LIGHT_TEXT,
-      'rpane.forumb.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.forumb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.rulesb.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.rulesb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.githubb.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.githubb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.webmap.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.webmap.text-color': COLOR_LIGHT_TEXT,
-      'rpane.changelog.background-color': COLOR_LIGHT_BUTTON,
-      'rpane.changelog.text-color': COLOR_LIGHT_TEXT,
-      /* Mainwindow */
-      'mainwindow.background-color': COLOR_LIGHT_BG,
-      'mainwindow.mainvsplit.background-color': '#EFEEEE',
-      'mainwindow.tooltip.background-color': COLOR_LIGHT_BG,
-      'outputwindow.background-color': COLOR_LIGHT_BG,
-      'outputwindow.text-color': COLOR_LIGHT_TEXT,
-      /* Rpane */
-      'rpane.background-color': COLOR_LIGHT_BG,
-      'rpane.rpanewindow.background-color': COLOR_LIGHT_BG,
-      /* Infowindow */
-      'infowindow.background-color': COLOR_LIGHT_BG,
-      'infowindow.text-color': COLOR_LIGHT_TEXT,
-      // Say, OOC, me Buttons etc.
-      'saybutton.background-color': COLOR_LIGHT_BG,
-      'saybutton.text-color': COLOR_LIGHT_TEXT,
-      'oocbutton.background-color': COLOR_LIGHT_BG,
-      'oocbutton.text-color': COLOR_LIGHT_TEXT,
-      'mebutton.background-color': COLOR_LIGHT_BG,
-      'mebutton.text-color': COLOR_LIGHT_TEXT,
-      'asset_cache_browser.background-color': COLOR_LIGHT_BG,
-      'asset_cache_browser.text-color': COLOR_LIGHT_TEXT,
-      'tooltip.background-color': COLOR_LIGHT_BG,
-      'tooltip.text-color': COLOR_LIGHT_TEXT,
-      'input.background-color': COLOR_LIGHT_BG_LIGHTER,
-      'input.text-color': COLOR_LIGHT_TEXT,
-    });
+
+  const themeColor = COLORS[name.toUpperCase()];
+  if (!themeColor) {
+    return;
   }
 
-  if (name === 'dark') {
-    Byond.winset({
-      /* Buttons */
-      'rpane.textb.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.textb.text-color': COLOR_DARK_TEXT,
-      'rpane.infob.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.infob.text-color': COLOR_DARK_TEXT,
-      'rpane.wikib.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.wikib.text-color': COLOR_DARK_TEXT,
-      'rpane.forumb.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.forumb.text-color': COLOR_DARK_TEXT,
-      'rpane.rulesb.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.rulesb.text-color': COLOR_DARK_TEXT,
-      'rpane.githubb.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.githubb.text-color': COLOR_DARK_TEXT,
-      'rpane.webmap.background-color': COLOR_DARK_BG_BUTTON,
-      'rpane.webmap.text-color': COLOR_DARK_TEXT,
-      'rpane.changelog.background-color': '#40628A',
-      'rpane.changelog.text-color': '#FFFFFF',
-      /* Mainwindow */
-      'mainwindow.background-color': COLOR_DARK_BG_DARKER,
-      'mainwindow.mainvsplit.background-color': '#212020',
-      'mainwindow.tooltip.background-color': COLOR_DARK_BG_DARKER,
-      'outputwindow.background-color': COLOR_DARK_BG,
-      'outputwindow.text-color': COLOR_DARK_TEXT,
-      /* Rpane */
-      'rpane.background-color': COLOR_DARK_BG,
-      'rpane.rpanewindow.background-color': COLOR_DARK_BG,
-      /* Infowindow */
-      'infowindow.background-color': COLOR_DARK_BG,
-      'infowindow.text-color': COLOR_DARK_TEXT,
-      // Say, OOC, me Buttons etc.
-      'saybutton.background-color': COLOR_DARK_BG_DARKER,
-      'saybutton.text-color': COLOR_DARK_TEXT,
-      'oocbutton.background-color': COLOR_DARK_BG_DARKER,
-      'oocbutton.text-color': COLOR_DARK_TEXT,
-      'mebutton.background-color': COLOR_DARK_BG_DARKER,
-      'mebutton.text-color': COLOR_DARK_TEXT,
-      'asset_cache_browser.background-color': COLOR_DARK_BG_DARKER,
-      'asset_cache_browser.text-color': COLOR_DARK_TEXT,
-      'tooltip.background-color': COLOR_DARK_BG_DARKER,
-      'tooltip.text-color': COLOR_DARK_TEXT,
-      'input.background-color': COLOR_DARK_BG_DARKER,
-      'input.text-color': COLOR_DARK_TEXT,
-    });
-  }
-
-  if (name === 'ntos') {
-    return Byond.winset({
-      /* Buttons */
-      'rpane.textb.background-color': COLOR_NTOS_BUTTON,
-      'rpane.textb.text-color': COLOR_NTOS_TEXT,
-      'rpane.infob.background-color': COLOR_NTOS_BUTTON,
-      'rpane.infob.text-color': COLOR_NTOS_TEXT,
-      'rpane.wikib.background-color': COLOR_NTOS_BUTTON,
-      'rpane.wikib.text-color': COLOR_NTOS_TEXT,
-      'rpane.forumb.background-color': COLOR_NTOS_BUTTON,
-      'rpane.forumb.text-color': COLOR_NTOS_TEXT,
-      'rpane.rulesb.background-color': COLOR_NTOS_BUTTON,
-      'rpane.rulesb.text-color': COLOR_NTOS_TEXT,
-      'rpane.githubb.background-color': COLOR_NTOS_BUTTON,
-      'rpane.githubb.text-color': COLOR_NTOS_TEXT,
-      'rpane.webmap.background-color': COLOR_NTOS_BUTTON,
-      'rpane.webmap.text-color': COLOR_NTOS_TEXT,
-      'rpane.changelog.background-color': COLOR_NTOS_BUTTON,
-      'rpane.changelog.text-color': COLOR_NTOS_TEXT,
-      /* Mainwindow */
-      'mainwindow.background-color': COLOR_NTOS_BG,
-      'mainwindow.mainvsplit.background-color': COLOR_NTOS_BG,
-      'mainwindow.tooltip.background-color': COLOR_NTOS_BG,
-      'outputwindow.background-color': COLOR_NTOS_BG,
-      'outputwindow.text-color': COLOR_NTOS_TEXT,
-      /* Rpane */
-      'rpane.background-color': COLOR_NTOS_BG,
-      'rpane.rpanewindow.background-color': COLOR_NTOS_BG,
-      /* Infowindow */
-      'infowindow.background-color': COLOR_NTOS_BG,
-      'infowindow.text-color': COLOR_NTOS_TEXT,
-      // Say, OOC, me Buttons etc.
-      'saybutton.background-color': COLOR_NTOS_BG,
-      'saybutton.text-color': COLOR_NTOS_TEXT,
-      'oocbutton.background-color': COLOR_NTOS_BG,
-      'oocbutton.text-color': COLOR_NTOS_TEXT,
-      'mebutton.background-color': COLOR_NTOS_BG,
-      'mebutton.text-color': COLOR_NTOS_TEXT,
-      'asset_cache_browser.background-color': COLOR_NTOS_BG,
-      'asset_cache_browser.text-color': COLOR_NTOS_TEXT,
-      'tooltip.background-color': COLOR_NTOS_BG,
-      'tooltip.text-color': COLOR_NTOS_TEXT,
-      'input.background-color': COLOR_NTOS_BG_DARKER,
-      'input.text-color': COLOR_NTOS_TEXT,
-    });
-  }
-
-  if (name === 'syndicate') {
-    return Byond.winset({
-      /* Buttons */
-      'rpane.textb.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.textb.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.infob.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.infob.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.wikib.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.wikib.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.forumb.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.forumb.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.rulesb.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.rulesb.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.githubb.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.githubb.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.webmap.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.webmap.text-color': COLOR_SYNDICATE_TEXT,
-      'rpane.changelog.background-color': COLOR_SYNDICATE_BUTTON,
-      'rpane.changelog.text-color': COLOR_SYNDICATE_TEXT,
-      /* Mainwindow */
-      'mainwindow.background-color': COLOR_SYNDICATE_BG,
-      'mainwindow.mainvsplit.background-color': COLOR_SYNDICATE_BG,
-      'mainwindow.tooltip.background-color': COLOR_SYNDICATE_BG,
-      'outputwindow.background-color': COLOR_SYNDICATE_BG,
-      'outputwindow.text-color': COLOR_SYNDICATE_TEXT,
-      /* Rpane */
-      'rpane.background-color': COLOR_SYNDICATE_BG,
-      'rpane.rpanewindow.background-color': COLOR_SYNDICATE_BG,
-      /* Infowindow */
-      'infowindow.background-color': COLOR_SYNDICATE_BG,
-      'infowindow.text-color': COLOR_SYNDICATE_TEXT,
-      // Say, OOC, me Buttons etc.
-      'saybutton.background-color': COLOR_SYNDICATE_BG,
-      'saybutton.text-color': COLOR_SYNDICATE_TEXT,
-      'oocbutton.background-color': COLOR_SYNDICATE_BG,
-      'oocbutton.text-color': COLOR_SYNDICATE_TEXT,
-      'mebutton.background-color': COLOR_SYNDICATE_BG,
-      'mebutton.text-color': COLOR_SYNDICATE_TEXT,
-      'asset_cache_browser.background-color': COLOR_SYNDICATE_BG,
-      'asset_cache_browser.text-color': COLOR_SYNDICATE_TEXT,
-      'tooltip.background-color': COLOR_SYNDICATE_BG,
-      'tooltip.text-color': COLOR_SYNDICATE_TEXT,
-      'input.background-color': COLOR_SYNDICATE_BG_DARKER,
-      'input.text-color': COLOR_SYNDICATE_TEXT,
-    });
-  }
-
-  if (name === 'paradise') {
-    return Byond.winset({
-      /* Buttons */
-      'rpane.textb.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.textb.text-color': COLOR_PARADISE_TEXT,
-      'rpane.infob.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.infob.text-color': COLOR_PARADISE_TEXT,
-      'rpane.wikib.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.wikib.text-color': COLOR_PARADISE_TEXT,
-      'rpane.forumb.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.forumb.text-color': COLOR_PARADISE_TEXT,
-      'rpane.rulesb.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.rulesb.text-color': COLOR_PARADISE_TEXT,
-      'rpane.githubb.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.githubb.text-color': COLOR_PARADISE_TEXT,
-      'rpane.webmap.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.webmap.text-color': COLOR_PARADISE_TEXT,
-      'rpane.changelog.background-color': COLOR_PARADISE_BUTTON,
-      'rpane.changelog.text-color': COLOR_PARADISE_TEXT,
-      /* Mainwindow */
-      'mainwindow.background-color': COLOR_PARADISE_BG,
-      'mainwindow.mainvsplit.background-color': COLOR_PARADISE_BG,
-      'mainwindow.tooltip.background-color': COLOR_PARADISE_BG,
-      'outputwindow.background-color': COLOR_PARADISE_BG,
-      'outputwindow.text-color': COLOR_PARADISE_TEXT,
-      /* Rpane */
-      'rpane.background-color': COLOR_PARADISE_BG,
-      'rpane.rpanewindow.background-color': COLOR_PARADISE_BG,
-      /* Infowindow */
-      'infowindow.background-color': COLOR_PARADISE_BG,
-      'infowindow.text-color': COLOR_PARADISE_TEXT,
-      // Say, OOC, me Buttons etc.
-      'saybutton.background-color': COLOR_PARADISE_BG,
-      'saybutton.text-color': COLOR_PARADISE_TEXT,
-      'oocbutton.background-color': COLOR_PARADISE_BG,
-      'oocbutton.text-color': COLOR_PARADISE_TEXT,
-      'mebutton.background-color': COLOR_PARADISE_BG,
-      'mebutton.text-color': COLOR_PARADISE_TEXT,
-      'asset_cache_browser.background-color': COLOR_PARADISE_BG,
-      'asset_cache_browser.text-color': COLOR_PARADISE_TEXT,
-      'tooltip.background-color': COLOR_PARADISE_BG,
-      'tooltip.text-color': COLOR_PARADISE_TEXT,
-      'input.background-color': COLOR_PARADISE_BG_DARKER,
-      'input.text-color': COLOR_PARADISE_TEXT,
-    });
-  }
+  return Byond.winset({
+    /* Buttons */
+    'rpane.textb.background-color': themeColor.BUTTON,
+    'rpane.textb.text-color': themeColor.TEXT,
+    'rpane.infob.background-color': themeColor.BUTTON,
+    'rpane.infob.text-color': themeColor.TEXT,
+    'rpane.wikib.background-color': themeColor.BUTTON,
+    'rpane.wikib.text-color': themeColor.TEXT,
+    'rpane.forumb.background-color': themeColor.BUTTON,
+    'rpane.forumb.text-color': themeColor.TEXT,
+    'rpane.rulesb.background-color': themeColor.BUTTON,
+    'rpane.rulesb.text-color': themeColor.TEXT,
+    'rpane.githubb.background-color': themeColor.BUTTON,
+    'rpane.githubb.text-color': themeColor.TEXT,
+    'rpane.webmap.background-color': themeColor.BUTTON,
+    'rpane.webmap.text-color': themeColor.TEXT,
+    'rpane.changelog.background-color': themeColor.BUTTON,
+    'rpane.changelog.text-color': themeColor.TEXT,
+    /* Mainwindow */
+    'mainwindow.background-color': themeColor.BG_BASE,
+    'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
+    'mainwindow.tooltip.background-color': themeColor.BG_BASE,
+    'outputwindow.background-color': themeColor.BG_BASE,
+    'outputwindow.text-color': themeColor.TEXT,
+    /* Rpane */
+    'rpane.background-color': themeColor.BG_BASE,
+    'rpane.rpanewindow.background-color': themeColor.BG_BASE,
+    /* Infowindow */
+    'infowindow.background-color': themeColor.BG_BASE,
+    'infowindow.text-color': themeColor.TEXT,
+    // Say, OOC, me Buttons etc.
+    'saybutton.background-color': themeColor.BG_BASE,
+    'saybutton.text-color': themeColor.TEXT,
+    'oocbutton.background-color': themeColor.BG_BASE,
+    'oocbutton.text-color': themeColor.TEXT,
+    'mebutton.background-color': themeColor.BG_BASE,
+    'mebutton.text-color': themeColor.TEXT,
+    'asset_cache_browser.background-color': themeColor.BG_BASE,
+    'asset_cache_browser.text-color': themeColor.TEXT,
+    'tooltip.background-color': themeColor.BG_BASE,
+    'tooltip.text-color': themeColor.TEXT,
+    'input.background-color': themeColor.BG_SECOND,
+    'input.text-color': themeColor.TEXT,
+  });
 };

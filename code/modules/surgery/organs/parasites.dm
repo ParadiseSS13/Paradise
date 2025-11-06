@@ -10,6 +10,7 @@
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
+	..()
 	if(stage < 5 && prob(3))
 		stage++
 
@@ -55,6 +56,7 @@
 	// Safety first.
 	if(!owner)
 		return
+	..()
 
 	// Parasite growth
 	cycle_num += 1

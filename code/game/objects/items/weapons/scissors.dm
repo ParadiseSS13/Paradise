@@ -2,23 +2,21 @@
 	name = "Scissors"
 	desc = "Those are scissors. Don't run with them!"
 	icon_state = "scissor"
-	item_state = "scissor"
+	inhand_icon_state = "scissor"
 	force = 5
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
-	toolspeed = 1
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"
 	desc = "A pair of scissors used by a barber."
 	icon_state = "bscissor"
-	item_state = "scissor"
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 	toolspeed = 0.75
 
-/obj/item/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return

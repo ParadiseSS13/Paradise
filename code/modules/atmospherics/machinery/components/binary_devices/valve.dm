@@ -10,14 +10,11 @@
 	var/open = FALSE
 	var/animating = FALSE
 
-	req_one_access_txt = "24;10"
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
-
-/obj/machinery/atmospherics/binary/valve/examine(mob/user)
-	. = ..()
 	. += "<span class='notice'>Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected.</span>"
 
 /obj/machinery/atmospherics/binary/valve/open
@@ -45,13 +42,13 @@
 	parent1.update = 0
 	parent2.update = 0
 	parent1.reconcile_air()
-	investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)

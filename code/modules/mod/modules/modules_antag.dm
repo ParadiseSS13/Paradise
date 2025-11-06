@@ -287,8 +287,9 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
-	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
+	mod.wearer.set_alpha_tracking(stealth_alpha, src, update_alpha = FALSE)
+	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -297,8 +298,9 @@
 		return
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
-	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
+	mod.wearer.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
+	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
@@ -331,7 +333,6 @@
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	stealth_alpha = 10
-	cooldown_time = 5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
@@ -389,6 +390,7 @@
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
+	removable = FALSE
 	var/obj/machinery/camera/portable/camera
 
 /obj/item/mod/module/ert_camera/on_suit_activation()
@@ -455,7 +457,7 @@
 	mod.icon_state = "[mod.skin]-control"
 	var/list/mod_skin = mod.theme.skins[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-	mod.icon_override = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	mod.worn_icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	mod.wearer.update_inv_back()
@@ -504,7 +506,7 @@
 /obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
-	qdel(shield)
+	shield.RemoveComponent()
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
 /obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner,
@@ -524,6 +526,24 @@
 
 /obj/item/mod/module/energy_shield/gamma
 	shield_icon = "shield-old"
+
+///Magic Nullifier - Protects you from magic.
+/obj/item/mod/module/anti_magic
+	name = "MOD magic nullifier module"
+	desc = "A series of obsidian rods installed into critical points around the suit, \
+		vibrated at a certain low frequency to enable them to resonate. \
+		This creates a low-range, yet strong, magic nullification field around the user, \
+		aided by a full replacement of the suit's normal coolant with holy water. \
+		Spells will spall right off this field, though it'll do nothing to help others believe you about all this."
+	icon_state = "magic_nullifier"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/anti_magic)
+
+/obj/item/mod/module/anti_magic/on_suit_activation()
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
+
+/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
 
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
@@ -579,7 +599,7 @@
 		return FALSE
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
-	qdel(shield)
+	shield.RemoveComponent()
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 	REMOVE_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 

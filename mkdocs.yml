@@ -1,0 +1,105 @@
+site_name: Paradise Contributor Documentation
+site_url: https://devdocs.paradisestation.org
+site_description: Paradise Contributor Documentation
+
+theme:
+  name: material
+  icon:
+    logo: material/palm-tree
+  palette:
+    accent: custom
+    primary: custom
+  favicon: ./images/favicon.png
+
+extra:
+  social:
+    - icon: material/forum
+      name: Paradise Station Discussion Forum
+      link: https://www.paradisestation.org/forum
+    - icon: fontawesome/brands/wikipedia-w
+      name: Paradise Station Wiki
+      link: https://www.paradisestation.org/wiki
+    - icon: fontawesome/brands/github
+      name: Paradise Station GitHub
+      link: https://github.com/ParadiseSS13/Paradise
+    - icon: fontawesome/brands/discord
+      name: Paradise Station Discord
+      link: https://discord.gg/paradisess13
+    - icon: fontawesome/brands/patreon
+      name: Paradise Station Patreon
+      link: https://www.patreon.com/ParadiseStation
+  generator: false
+
+plugins:
+  - gh-admonitions
+  - search
+  - social:
+      cards_layout_options:
+        background_color: '#861f41'
+  - glightbox
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - smarty
+  - pymdownx.highlight:
+      use_pygments: false
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets
+
+hooks:
+  - 'docs/hooks/contributing_path.py'
+
+extra_javascript:
+  - 'javascripts/highlight.min.js'
+  - 'javascripts/highlight-dm.js'
+  - 'javascripts/init.js'
+
+extra_css:
+  - 'css/para.css'
+  - 'css/atom-one-dark.css'
+
+nav:
+  # TODO: Coding / Code Style Guide
+  # TODO: Mapping / Guide to Mapmerge
+  # TODO: Spriting
+  # TODO: SS13 for Experienced Coders (maybe)
+
+  - 'Introduction': 'index.md'
+  - 'Code of Conduct': 'CODE_OF_CONDUCT.md'
+  - 'Contributing Guidelines': 'CONTRIBUTING.md'
+
+  - 'Contributing':
+      - 'Getting Started': './contributing/getting_started.md'
+      - 'Reviewer Crash Course': './contributing/reviewer.md'
+      - 'Writing Quality PRs': './contributing/quality_prs.md'
+      - 'Reporting Exploits': './contributing/exploits.md'
+
+  - 'Coding':
+      - 'Coding Quickstart': './coding/quickstart.md'
+      - 'Guide to Testing': './coding/testing_guide.md'
+      - 'Guide to Debugging': './coding/debugging.md'
+      - 'Style Guidelines': './coding/style_guidelines.md'
+      - 'Coding Requirements': './coding/coding_requirements.md'
+      - 'Testing Requirements': './coding/testing_requirements.md'
+      - 'Database Changes': './coding/db_changes.md'
+
+  - 'Mapping':
+      - 'Mapping Quickstart': './mapping/quickstart.md'
+      - 'Mapping Requirements': './mapping/requirements.md'
+      - 'Design Guidelines': './mapping/design.md'
+      - 'Random Spawners': './mapping/random_spawners.md'
+      - 'Guide to Submaps': './mapping/submaps.md'
+      - 'Spawn Pools': './mapping/spawn_pools.md'
+
+  - 'References':
+      - 'Glossary': './references/glossary.md'
+      - 'Autodoc Guide': './references/autodoc.md'
+      - 'Bitflags': './references/bitflags.md'
+      - 'Advanced Bitflags': './references/adv_bitflags.md'
+      - 'Using Feedback Data': './references/feedback_data.md'
+      - 'Tick Order': './references/tick_order.md'
+      - 'Movement Signals': './references/movement_signals.md'
+      - 'Attack Chain': './references/attack_chain.md'
+      - 'AI Controllers': './references/ai_controllers.md'

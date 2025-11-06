@@ -1,0 +1,36 @@
+.Minesweeper__closed {
+  vertical-align: middle;
+  background-color: hsl(from var(--color-base) h s calc(l + 5));
+  border: var(--border-thickness-small) outset hsl(from var(--color-base) h s calc(l + 12.5));
+}
+
+.Minesweeper__open {
+  vertical-align: middle;
+  text-align: center;
+  font-size: medium;
+  background-color: hsl(from var(--color-base) h s calc(l + 12.5)) !important;
+}
+
+.Minesweeper__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 2em;
+    line-height: 1.75em;
+    transition: background-color var(--transition-time-fast);
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-base);
+      border-color: var(--color-base);
+    }
+  }
+}
+
+.Minesweeper__infobox {
+  user-select: none;
+  max-height: 8em;
+  border: var(--border-thickness-medium) outset hsl(from var(--color-base) h s calc(l + 7.5));
+}

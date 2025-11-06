@@ -7,7 +7,11 @@
 	icon_state = "gps_console"
 	anchored = TRUE
 	local = TRUE
+	tracking = TRUE
 	gpstag = "Unknown Signal"
 
 /obj/item/gps/ruin/attack_hand(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
+
+/obj/item/gps/ruin/mining_base
+	gpstag = "Nanotrasen Mining Outpost"

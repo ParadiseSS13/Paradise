@@ -42,9 +42,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "an" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -97,10 +95,10 @@
 /area/shuttle/escape)
 "aJ" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aK" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -108,10 +106,10 @@
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/item/wrench,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aL" = (
 /obj/machinery/status_display{
@@ -120,22 +118,20 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aM" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aO" = (
@@ -145,42 +141,34 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aT" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aV" = (
 /obj/item/radio/intercom{
@@ -188,10 +176,10 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/titanium{
@@ -212,10 +200,10 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/table,
@@ -238,24 +226,22 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "ba" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/door/airlock/security/glass{
@@ -299,9 +285,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bi" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bj" = (

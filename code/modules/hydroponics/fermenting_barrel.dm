@@ -7,11 +7,10 @@
 	anchored = TRUE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	pressure_resistance = 2 * ONE_ATMOSPHERE
-	max_integrity = 300
 	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
-/obj/structure/fermenting_barrel/Initialize()
+/obj/structure/fermenting_barrel/Initialize(mapload)
 	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 	. = ..()
@@ -20,7 +19,7 @@
 	. = ..()
 	. += "<span class='notice'>It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]</span>"
 
-/obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/snacks/grown/G)
+/obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/grown/G)
 	if(G.reagents)
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	var/amount = G.seed.potency / 4
@@ -39,22 +38,21 @@
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
-/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
-	var/obj/item/food/snacks/grown/G = I
+/obj/structure/fermenting_barrel/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	var/obj/item/food/grown/G = I
 	if(istype(G))
 		if(!G.can_distill)
 			to_chat(user, "<span class='warning'>You can't distill this into anything...</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		else if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[G] is stuck to your hand!</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		G.forceMove(src)
 		to_chat(user, "<span class='notice'>You place [G] into [src] to start the fermentation process.</span>")
 		addtimer(CALLBACK(src, PROC_REF(makeWine), G), rand(80, 120) * speed_multiplier)
-	else if(I.is_refillable())
-		return FALSE // To refill via afterattack proc
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/structure/fermenting_barrel/attack_hand(mob/user)
 	open = !open

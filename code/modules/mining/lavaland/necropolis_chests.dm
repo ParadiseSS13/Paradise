@@ -8,11 +8,14 @@
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/closet/crate/necropolis/ex_act(severity) // So vetus explosion won't destroy everything inside
+	return
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 23)
+	var/loot = rand(1, 24)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -61,7 +64,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/grenade/clusterbuster/inferno(src)
+			new /obj/item/reagent_containers/drinks/everfull(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
@@ -116,7 +119,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -126,7 +129,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -136,7 +139,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -147,7 +150,7 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -183,12 +186,16 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
+	insert_max = 0
+
+/obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
-	item_color = "berserker"
 	light_color = BERSERK_COLOUR
 	light_power = 4
 	actions_types = list(/datum/action/item_action/berserk_mode)
@@ -256,8 +263,8 @@
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
 	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
 	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags |= NODROP
-	suit.flags |= NODROP
+	set_nodrop(TRUE)
+	suit.set_nodrop(TRUE, loc)
 	berserk_active = TRUE
 	START_PROCESSING(SSobj, src)
 
@@ -276,8 +283,8 @@
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
 	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
 	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags &= ~NODROP
-	suit.flags &= ~NODROP
+	set_nodrop(FALSE)
+	suit.set_nodrop(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /datum/action/item_action/berserk_mode
@@ -321,7 +328,7 @@
 	var/usedHand
 	var/mob/living/carbon/owner
 
-/obj/item/rod_of_asclepius/attack_self(mob/user)
+/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
 	if(activated)
 		return
 	if(!iscarbon(user))
@@ -369,36 +376,45 @@
 	..()
 	if(!activated || QDELETED(src))
 		return
-	addtimer(CALLBACK(src, PROC_REF(try_attach_to_owner)), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
+	END_OF_TICK(CALLBACK(src, PROC_REF(try_attach_to_owner))) // Do this once the drop call stack is done. The holding limb might be getting removed
 
 /obj/item/rod_of_asclepius/proc/try_attach_to_owner()
-	if(ishuman(owner) && !QDELETED(owner))
-		if(ishuman(loc))
-			var/mob/living/carbon/human/thief = loc
-			thief.unEquip(src, TRUE, TRUE) // You're not my owner!
-		if(owner.stat == DEAD)
-			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
-			return
-		flags |= NODROP // Readd the nodrop
-		var/mob/living/carbon/human/H = owner
-		var/limb_regrown = FALSE
-		if(usedHand == LEFT_HAND)
-			limb_regrown = H.regrow_external_limb_if_missing("l_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
-			H.drop_l_hand(TRUE)
-			H.put_in_l_hand(src, TRUE)
-		else
-			limb_regrown = H.regrow_external_limb_if_missing("r_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
-			H.drop_r_hand(TRUE)
-			H.put_in_r_hand(src, TRUE)
-		if(!limb_regrown)
-			to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
-		else
-			H.update_body() // Update the limb sprites
-			to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
-	else
+	if(!ishuman(owner) || QDELETED(owner))
 		deactivate()
+		return
+
+	var/mob/living/carbon/human/thief = loc
+
+	if(thief == owner) // stealing from yourself, huh?
+		return
+
+	if(ishuman(thief))
+		thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
+
+	if(owner.stat == DEAD)
+		qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
+		return
+
+	set_nodrop(TRUE, loc)
+	var/mob/living/carbon/human/H = owner
+	var/limb_regrown = FALSE
+
+	if(usedHand == LEFT_HAND)
+		limb_regrown = H.regrow_external_limb_if_missing("l_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
+		H.drop_l_hand(TRUE)
+		H.put_in_l_hand(src, TRUE)
+	else
+		limb_regrown = H.regrow_external_limb_if_missing("r_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
+		H.drop_r_hand(TRUE)
+		H.put_in_r_hand(src, TRUE)
+
+	if(!limb_regrown)
+		to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+	else
+		H.update_body() // Update the limb sprites
+		to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
 
 /obj/item/rod_of_asclepius/proc/activated(mob/living/carbon/new_owner)
 	owner = new_owner
@@ -435,7 +451,7 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
@@ -449,7 +465,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/Retract()
 	var/obj/item/cursed_katana/katana = holder
-	if(!katana || katana.shattered)
+	if(!katana)
 		return FALSE
 	if(!katana.drew_blood)
 		to_chat(owner, "<span class='userdanger'>[katana] lashes out at you in hunger!</span>")
@@ -460,12 +476,6 @@
 	katana.clean_blood()
 	return ..()
 
-/obj/item/organ/internal/cyberimp/arm/katana/Extend()
-	for(var/obj/item/cursed_katana/katana in contents)
-		if(katana.shattered)
-			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
-			return FALSE
-	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
 	SIGNAL_HANDLER
@@ -484,17 +494,16 @@
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	. = ..()
 
-
-#define LEFT_SLASH "Harm"
-#define RIGHT_SLASH "Disarm"
+#define HARM_SLASH "Harm"
+#define DISARM_SLASH "Disarm"
+#define GRAB_SLASH "Grab"
+#define HELP_SLASH "Help"
 #define COMBO_STEPS "steps"
 #define COMBO_PROC "proc"
 #define ATTACK_STRIKE "Hilt Strike"
-#define ATTACK_SLICE "Wide Slice"
 #define ATTACK_DASH "Dash Attack"
 #define ATTACK_CUT "Tendon Cut"
 #define ATTACK_HEAL "Dark Heal"
-#define ATTACK_SHATTER "Shatter"
 
 
 /obj/item/cursed_katana
@@ -506,13 +515,12 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
-	armour_penetration_percentage = 40
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 40
+	armor_penetration_flat = 10
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	var/shattered = FALSE
 	var/drew_blood = FALSE
 	var/timerid
 	var/list/input_list = list()
@@ -524,12 +532,10 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	combo_list = list(
-		ATTACK_STRIKE = list(COMBO_STEPS = list(LEFT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, strike)),
-		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, slice)),
-		ATTACK_DASH = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, dash)),
-		ATTACK_CUT = list(COMBO_STEPS = list(RIGHT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, cut)),
-		ATTACK_HEAL = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, heal)),
-		ATTACK_SHATTER = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, shatter)),
+		ATTACK_STRIKE = list(COMBO_STEPS = list(DISARM_SLASH, DISARM_SLASH, DISARM_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, strike)),
+		ATTACK_DASH = list(COMBO_STEPS = list(GRAB_SLASH, GRAB_SLASH, GRAB_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, dash)),
+		ATTACK_CUT = list(COMBO_STEPS = list(HARM_SLASH, HARM_SLASH, HARM_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, cut)),
+		ATTACK_HEAL = list(COMBO_STEPS = list(HELP_SLASH, HELP_SLASH, HELP_SLASH, HELP_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, heal)),
 	)
 
 	for(var/combo in combo_list)
@@ -546,11 +552,11 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self(mob/user)
+/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reset_inputs(user, TRUE)
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -558,10 +564,14 @@
 		return TRUE
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
-		input_list += RIGHT_SLASH
+		input_list += DISARM_SLASH
 	if(user.a_intent == INTENT_HARM)
-		input_list += LEFT_SLASH
-	if(ishostile(target))
+		input_list += HARM_SLASH
+	if(user.a_intent == INTENT_GRAB)
+		input_list += GRAB_SLASH
+	if(user.a_intent == INTENT_HELP)
+		input_list += HELP_SLASH
+	if(ishostile(target) || isbasicmob(target))
 		user.changeNext_move(CLICK_CD_RAPID)
 	if(length(input_list) > 4)
 		reset_inputs(user, TRUE)
@@ -617,22 +627,6 @@
 		target.AdjustConfused(8 SECONDS)
 	return NONE
 
-/obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] does a wide slice!</span>",
-		"<span class='notice'>You do a wide slice!</span>")
-	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
-	var/turf/user_turf = get_turf(user)
-	var/dir_to_target = get_dir(user_turf, get_turf(target))
-	var/static/list/cursed_katana_slice_angles = list(0, -45, 45, -90, 90) //so that the animation animates towards the target clicked and not towards a side target
-	for(var/iteration in cursed_katana_slice_angles)
-		var/turf/T = get_step(user_turf, turn(dir_to_target, iteration))
-		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
-		for(var/mob/living/additional_target in T)
-			if(user.Adjacent(additional_target) && additional_target.density)
-				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
-	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
-
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message("<span class='warning'>[user] lets [src] feast on [target]'s blood!</span>",
 		"<span class='warning'>You let [src] feast on [target], and it heals you, at a price!</span>")
@@ -662,11 +656,13 @@
 		"<span class='notice'>You dash through [target]!</span>")
 	to_chat(target, ("<span class='userdanger'>[user] dashes through you!</span>"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
-	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
+	for(var/mob/living/legion_killer in orange(1, user)) // We have replaced the AOE slash move, we want to be able to deal with legion skulls however
+		legion_killer.adjustBruteLoss(5)
+	target.apply_damage(12, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
+		if(!current_dash_target.is_blocked_turf(exclude_mobs = TRUE))
 			dash_target = current_dash_target
 		else
 			break
@@ -676,35 +672,14 @@
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 
-/obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] shatters [src] over [target]!</span>",
-		"<span class='notice'>You shatter [src] over [target]!</span>")
-	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
-	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
-	target.KnockDown(5 SECONDS)
-	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
-	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
-			if(O.holder == src)
-				O.Retract()
-	shattered = TRUE
-	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
 
-/obj/item/cursed_katana/proc/coagulate(mob/user)
-	to_chat(user, "<span class='notice'>[src] reforms!</span>")
-	shattered = FALSE
-	playsound(src, 'sound/misc/demon_consume.ogg', 50, TRUE)
-
-#undef LEFT_SLASH
-#undef RIGHT_SLASH
+#undef HARM_SLASH
+#undef DISARM_SLASH
+#undef GRAB_SLASH
+#undef HELP_SLASH
 #undef COMBO_STEPS
 #undef COMBO_PROC
 #undef ATTACK_STRIKE
-#undef ATTACK_SLICE
 #undef ATTACK_DASH
 #undef ATTACK_CUT
 #undef ATTACK_HEAL
-#undef ATTACK_SHATTER

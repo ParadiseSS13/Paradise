@@ -1,0 +1,6 @@
+/area/space:
+  banned_neighbors:
+  - /obj/machinery/door/airlock
+=/area/space:
+  banned_neighbors:
+  - /obj/structure

@@ -6,6 +6,9 @@
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 20 SECONDS
+	burn_color = "white"
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -43,6 +46,7 @@
 	temp_deviance = 500
 	size_divisor = 80
 	mob_burning = 3 // 15
+	burn_temperature = T0C + 700
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -52,6 +56,9 @@
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 40 SECONDS
+	fire_stack_applications = 4 // BURN BABY BURN
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -66,7 +73,7 @@
 	if(isspaceturf(T))
 		return
 	if(!T.reagents)
-		T.create_reagents(volume)
+		T.create_reagents(1000)
 	T.reagents.add_reagent("napalm", volume)
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -91,6 +98,9 @@
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
+	burn_temperature = T0C + 400
+	burn_duration = 15 SECONDS // Barely better than default
+
 	var/max_radius = 7
 	var/min_radius = 0
 	var/volume_radius_modifier = -0.15
@@ -130,7 +140,7 @@
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
-			explosion(T, -1, -1, boomrange, 1)
+			explosion(T, -1, -1, boomrange, 1, cause = "Hot Welding Fuel Reagent")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -139,7 +149,7 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("fuel", volume)
 
-/datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
+/datum/reagent/fuel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume) // Splashing people with welding fuel to make them easy to ignite!
 	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
@@ -152,6 +162,8 @@
 	color = "#7A2B94"
 	taste_description = "corporate assets going to waste"
 	taste_mult = 1.5
+	burn_temperature = T0C + 400
+	burn_duration = 20 SECONDS
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -181,10 +193,12 @@
 	name = "Thermite"
 	id = "thermite"
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
-	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
+	burn_temperature = T0C + 1500 // hahahahHAHAHAHAH LET IT BURN
+	burn_duration = 5 SECONDS // Not for long though
+	burn_color = "blue" // too hot!
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -207,7 +221,7 @@
 /datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
 	if(istype(S))
 		if(!S.reagents)
-			S.create_reagents(volume)
+			S.create_reagents(1000)
 		S.reagents.add_reagent("thermite", volume)
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
@@ -237,6 +251,10 @@
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
+	burn_temperature = T0C + 700
+	burn_duration = 15 SECONDS
+	fire_stack_applications = 3
+	burn_color = "green"
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -297,7 +315,6 @@
 	id = "blackpowder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
 	taste_description = "explosions"
@@ -410,7 +427,6 @@
 	description = "Carbon Tetrachloride is a foam used for fire suppression."
 	reagent_state = LIQUID
 	color = "#A0A090"
-	var/cooling_temperature = 3 // more effective than water
 	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -424,15 +440,8 @@
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
-	var/CT = cooling_temperature
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, 3) // more effective than water
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"

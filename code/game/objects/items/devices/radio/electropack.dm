@@ -2,10 +2,9 @@
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
 	icon = 'icons/obj/radio.dmi'
-	icon_state = "electropack0"
-	item_state = "electropack"
+	icon_state = "electropack"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
@@ -38,33 +37,32 @@
 
 	..()
 
-/obj/item/electropack/attack_self(mob/user)
+/obj/item/electropack/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/electropack/attackby(obj/item/W, mob/user, params)
+/obj/item/electropack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 
 	if(istype(W, /obj/item/clothing/head/helmet))
 		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
 		A.icon = 'icons/obj/assemblies.dmi'
 
-		if(!user.unEquip(W))
+		if(!user.unequip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
 			return
 
-		W.loc = A
+		W.forceMove(A)
 		W.master = A
 		A.part1 = W
 
-		user.unEquip(src)
-		loc = A
+		user.transfer_item_to(src, A)
 		master = A
 		A.part2 = src
 
 		user.put_in_hands(A)
 		A.add_fingerprint(user)
 		if(src.flags & NODROP)
-			A.flags |= NODROP
+			A.set_nodrop(TRUE)
 
 
 /obj/item/electropack/proc/handle_shock()
@@ -136,10 +134,9 @@
 
 // Electropack signaller type
 /obj/item/assembly/signaler/electropack
-	frequency = AIRLOCK_FREQ
+	frequency = ELECTROPACK_FREQ
 	code = 2
 	receiving = TRUE
-
 	var/obj/item/electropack/owning_pack
 
 /obj/item/assembly/signaler/electropack/Initialize(mapload, holding_electropack)

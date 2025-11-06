@@ -44,15 +44,14 @@
 	The most common are:
 	* mob/UnarmedAttack(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
 	* atom/attackby(item,user) - used only when adjacent
-	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
+	* item/afterattack__legacy__attackchain(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
 	if(QDELETED(A))
 		return
 
-	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+	if(check_click_intercept(params,A))
 		return
 
 	if(next_click > world.time)
@@ -73,22 +72,22 @@
 		MiddleShiftClickOn(A)
 		return
 	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
+		CtrlShiftClickOn(A, modifiers)
 		return
 	if(modifiers["shift"] && modifiers["alt"])
-		AltShiftClickOn(A)
+		AltShiftClickOn(A, modifiers)
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		ShiftClickOn(A, modifiers)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		AltClickOn(A, modifiers)
 		return
 	if(modifiers["ctrl"])
-		CtrlClickOn(A)
+		CtrlClickOn(A, modifiers)
 		return
 
 	if(incapacitated(ignore_restraints = 1, ignore_grab = 1))
@@ -108,8 +107,11 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
+	if(isclowncar(loc) && !modifiers["shift"])
+		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
+		return cc.fire_cannon_at(A, src, params)
+
 	if(restrained())
-		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 
@@ -124,7 +126,10 @@
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)
-		W.attack_self(src)
+		if(W.new_attack_chain)
+			W.activate_self(src)
+		else
+			W.attack_self__legacy__attackchain(src)
 		if(hand)
 			update_inv_l_hand()
 		else
@@ -138,7 +143,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, params)
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
@@ -150,11 +155,13 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
-
+			UnarmedAttack(A, 1, params)
 	else
 		if(W)
-			W.afterattack(A, src, 0, params) // 0: not Adjacent
+			if(W.new_attack_chain)
+				A.base_ranged_item_interaction(src, W, params)
+			else
+				W.afterattack__legacy__attackchain(A, src, 0, params) // 0: not Adjacent
 		else
 			RangedAttack(A, params)
 
@@ -179,7 +186,7 @@
 				continue
 
 			if(isturf(target) || isturf(target.loc) || (target in direct_access) || !(target.IsObscured()) || istype(target.loc, /obj/item/storage)) //Directly accessible atoms
-				if(target.Adjacent(src) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
+				if(target.Adjacent(src) || (tool && check_tool_reach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
 			closed[target] = TRUE
@@ -202,7 +209,7 @@
 /mob/living/direct_access(atom/target)
 	return ..() + get_contents()
 
-/proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
+/proc/check_tool_reach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
 		return FALSE
 	switch(reach)
@@ -258,7 +265,7 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag, params)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return
@@ -274,9 +281,11 @@
 /mob/proc/RangedAttack(atom/A, params)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	if(SEND_SIGNAL(A, COMSIG_ATOM_RANGED_ATTACKED, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
 /*
 	Restrained ClickOn
-
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */
@@ -345,10 +354,10 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(atom/A)
-	A.ShiftClick(src)
+/mob/proc/ShiftClickOn(atom/A, modifiers)
+	A.ShiftClick(src, modifiers)
 	return
-/atom/proc/ShiftClick(mob/user)
+/atom/proc/ShiftClick(mob/user, modifiers)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
@@ -357,11 +366,11 @@
 	Ctrl click
 	For most objects, pull
 */
-/mob/proc/CtrlClickOn(atom/A)
-	A.CtrlClick(src)
+/mob/proc/CtrlClickOn(atom/A, modifiers)
+	A.CtrlClick(src, modifiers)
 	return
 
-/atom/proc/CtrlClick(mob/user)
+/atom/proc/CtrlClick(mob/user, modifiers)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	var/mob/living/ML = user
 	if(istype(ML))
@@ -370,12 +379,12 @@
 /*
 	Alt click
 */
-/mob/proc/AltClickOn(atom/A)
-	A.AltClick(src)
+/mob/proc/AltClickOn(atom/A, modifiers)
+	A.AltClick(src, modifiers)
 	return
 
 // See click_override.dm
-/mob/living/AltClickOn(atom/A)
+/mob/living/AltClickOn(atom/A, modifiers)
 	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A, src)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
@@ -383,7 +392,7 @@
 		return
 	..()
 
-/atom/proc/AltClick(mob/user)
+/atom/proc/AltClick(mob/user, modifiers)
 	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_ALTCLICK)
 		return
 	var/turf/T = get_turf(src)
@@ -403,15 +412,15 @@
 	Control+Shift/Alt+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(atom/A)
-	A.CtrlShiftClick(src)
+/mob/proc/CtrlShiftClickOn(atom/A, modifiers)
+	A.CtrlShiftClick(src, modifiers)
 	return
 
-/atom/proc/CtrlShiftClick(mob/user)
+/atom/proc/CtrlShiftClick(mob/user, modifiers)
 	return
 
-/mob/proc/AltShiftClickOn(atom/A)
-	A.AltShiftClick(src)
+/mob/proc/AltShiftClickOn(atom/A, modifiers)
+	A.AltShiftClick(src, modifiers)
 	return
 
 /mob/proc/ShiftMiddleClickOn(atom/A)
@@ -462,10 +471,9 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	dir = direction
+	setDir(direction)
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -501,11 +509,24 @@
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
-		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
-		params += "&catcher=1"
-		if(T)
-			T.Click(location, control, params)
+		var/turf/click_turf = parse_caught_click_modifiers(modifiers, get_turf(usr.client ? usr.client.eye : usr), usr.client)
+		if(click_turf)
+			modifiers["catcher"] = TRUE
+			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
+
+/mob/proc/check_click_intercept(params,A)
+	// Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	// Mob level intercept
+	if(click_interceptor)
+		if(call(click_interceptor, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX

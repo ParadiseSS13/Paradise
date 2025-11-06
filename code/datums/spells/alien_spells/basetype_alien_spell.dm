@@ -15,7 +15,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
 	update_plasma_display(src)
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtons()
+		action.build_all_button_icons()
 
 /datum/spell/alien_spell
 	action_background_icon_state = "bg_alien"
@@ -24,6 +24,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE
+	antimagic_flags = NONE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 
@@ -34,7 +35,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 		name = "[name] ([plasma_cost])"
 		action.name = name
 		action.desc = desc
-		action.UpdateButtons()
+		action.build_all_button_icons()
 
 /datum/spell/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")

@@ -26,7 +26,7 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 		else
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(1)
@@ -57,6 +57,24 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 	return FALSE
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(.)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
+
+/mob/living/carbon/alien/attack_basic_mob(mob/living/basic/M, list/modifiers)
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)

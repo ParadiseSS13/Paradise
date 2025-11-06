@@ -182,7 +182,7 @@
 /obj/effect/spawner/themed_mess/cooking/drop_object(turf/T)
 	var/extra_trash = pick(
 		/obj/item/trash/plate,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/meat,
 		/obj/item/trash/snack_bowl,
 	)
 	var/obj/trash = new extra_trash(T)
@@ -194,6 +194,9 @@
 	var/mess_count = rand(5, 10)
 	for(var/i in 1 to mess_count)
 		var/area/target_area = findEventArea()
+		if(!target_area)
+			log_debug("Failed to generate themed messes: No valid event areas were found.")
+			return
 		var/list/turfs = get_area_turfs(target_area)
 		while(length(turfs))
 			var/turf/T = pick_n_take(turfs)

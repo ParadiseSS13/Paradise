@@ -25,5 +25,7 @@
 		user.handcuffed = keep_cuffs
 		user.update_handcuffed()
 	cling.update_languages()
+	var/datum/action/changeling/augmented_eyesight/eyesight = locate() in user.actions
+	eyesight?.update_eyes(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

@@ -50,7 +50,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	if(remove_gear_on_removal)
 		for(var/I in H.contents)
 			if(is_type_in_list(I, CULT_CLOTHING))
-				H.unEquip(I)
+				H.drop_item_to_ground(I)
 	return ..()
 
 
@@ -128,9 +128,9 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 		return
 	var/mob/living/carbon/human/H = owner.current
 	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET
 	)
 
 	var/where = H.equip_in_one_of_slots(new item_path(H), slots)

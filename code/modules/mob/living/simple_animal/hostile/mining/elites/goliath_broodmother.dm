@@ -18,7 +18,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother
 	name = "goliath broodmother"
-	desc = "An example of sexual dimorphism, this female goliath looks much different than the males of her species.  She is, however, just as dangerous, if not more."
+	desc = "An example of sexual dimorphism, this female goliath looks much different than the males of her species. She is, however, just as dangerous, if not more."
 	gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
@@ -29,16 +29,18 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goliath
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
 								/datum/action/innate/elite_attack/spawn_children,
@@ -165,7 +167,7 @@
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
-	desc = "A young goliath recently born from it's mother.  While they hatch from eggs, said eggs are incubated in the mother until they are ready to be born."
+	desc = "A young goliath recently born from it's mother. While they hatch from eggs, said eggs are incubated in the mother until they are ready to be born."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_baby"
 	icon_living = "goliath_baby"
@@ -176,14 +178,13 @@
 	health = 50
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
@@ -209,7 +210,7 @@
 	if(!QDELETED(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
-	explosion(src, flame_range = 3, adminlog = FALSE)
+	explosion(src, flame_range = 3, adminlog = FALSE, cause = "[name] death")
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
@@ -263,7 +264,7 @@
 	if(prob(bonus_value) && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
-/obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
+/obj/item/crusher_trophy/broodmother_tongue/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/living_user = user

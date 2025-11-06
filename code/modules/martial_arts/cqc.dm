@@ -67,12 +67,12 @@
 						"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 	add_attack_logs(A, D, "Put into a chokehold with martial-art [src]", ATKLOG_ALL)
 	chokehold_active = TRUE
-	var/damage_multiplier = 1 + A.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
-	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
+	var/damage_multiplier = 1 + D.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
+	while(do_mob(A, D, 2 SECONDS, hidden = TRUE) && chokehold_active)
 		D.apply_damage(10 * damage_multiplier, OXY)
 		D.LoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
-			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
+			D.visible_message("<span class='danger'>[A] puts [D] to sleep!</span>", \
 						"<span class='userdanger'>[A] knocks you out cold!</span>")
 			D.SetSleeping(40 SECONDS)
 			drop_chokehold()
@@ -100,16 +100,16 @@
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, STAMINA)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
-		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 10, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 10, TRUE, -1)
 	else
-		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 10, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 10, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 						"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
-		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 10, 1, -1)
+		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 10, TRUE, -1)
 		D.KnockDown(5 SECONDS)
 		A.SetKnockDown(0 SECONDS)
 		A.resting = FALSE
@@ -134,7 +134,7 @@
 		D.apply_damage(15, STAMINA)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 5, 1, -1)
+		playsound(D, 'sound/weapons/punchmiss.ogg', 5, TRUE, -1)
 
 	add_attack_logs(A, D, "Disarmed with martial-art [src]", ATKLOG_ALL)
 	return TRUE

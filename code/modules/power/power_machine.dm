@@ -13,38 +13,40 @@
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()
-
+/// Adds available power to the next powernet process (Watts)
 /obj/machinery/power/proc/produce_direct_power(amount)
 	if(powernet)
 		powernet.queued_power_production += amount
 		return TRUE
 	return FALSE
 
-/// Adds power demand to the powernet, machines should use this
+/// Adds power demand to the powernet (Watts)
+/// machines should use this proc
 /obj/machinery/power/proc/consume_direct_power(amount)
 	powernet?.power_demand += amount
 
-/// Gets surplus power available on this machines powernet, machines should use this proc
+/// Gets surplus power available on this machine's powernet (Watts)
 /obj/machinery/power/proc/get_surplus()
 	return powernet ? powernet.calculate_surplus() : 0
 
-/// Gets surplus power available on this machines powernet, machines should use this proc
+/// Gets surplus power available on this machine's powernet (Watts)
 /obj/machinery/power/proc/get_power_balance()
 	return powernet ? powernet.calculate_power_balance() : 0
 
-/// Gets power available (NOT EXTRA) on this cables powernet, machines should use this
+/// Gets power available (NOT EXTRA) on this cables powernet (Watts)
+/// machines should use this proc
 /obj/machinery/power/proc/get_available_power()
 	return powernet ? powernet.available_power : 0
 
-/// Adds queued power demand to be met next process cycle
+/// Adds queued power demand to be met next process cycle (Watts)
 /obj/machinery/power/proc/add_queued_power_demand(amount)
 	powernet?.queued_power_demand += amount
 
-/// Gets surplus power queued for next process cycle on this cables powernet
+/// Gets surplus power queued for next process cycle on this cables powernet (Watts)
 /obj/machinery/power/proc/get_queued_surplus()
 	return powernet?.calculate_queued_surplus()
 
-/// Gets available (NOT EXTRA) power queued for next process cycle on this machines powernet
+/// Gets available (NOT EXTRA) power queued for next process cycle on this machine's powernet (Watts)
 /obj/machinery/power/proc/get_queued_available_power()
 	return powernet?.queued_power_production
 
@@ -74,17 +76,18 @@
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = I
+/obj/machinery/power/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = used
 		var/turf/T = user.loc
 		if(T.intact || !isfloorturf(T))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(get_dist(src, user) > 1)
-			return
+			return ITEM_INTERACT_COMPLETE
 		coil.place_turf(T, user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 
 ////////////////////////////////////////////////

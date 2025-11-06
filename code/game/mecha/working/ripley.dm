@@ -14,7 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
-	var/list/cargo = new
+	var/list/cargo = list()
 	var/cargo_capacity = 15
 
 	/// How many goliath hides does the Ripley have? Does not stack with other armor
@@ -47,8 +47,17 @@
 		new /obj/item/stack/sheet/animalhide/armor_plate(get_turf(src))
 	for(var/i in 1 to drake_hides)
 		new /obj/item/stack/sheet/animalhide/ashdrake(get_turf(src))
+	for(var/mob/M in src)
+		if(M == occupant)
+			continue
+		M.loc = get_turf(src)
+		M.loc.Entered(M)
+		step_rand(M)
 	for(var/atom/movable/A in cargo)
-		A.forceMove(get_turf(src))
+		A.loc = get_turf(src)
+		var/turf/T = get_turf(A)
+		if(T)
+			T.Entered(A)
 		step_rand(A)
 	cargo.Cut()
 	return ..()
@@ -114,11 +123,23 @@
 //drake hides
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			underlays.Cut()
+			underlays += emissive_appearance(emissive_appearance_icon, occupant ? "ripley-d-full_lightmask" : "ripley-d-full-open_lightmask")
 			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
 		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
 		else if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 			. += occupant ? "ripley-d" : "ripley-d-open"
+
+/obj/mecha/working/ripley/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Ripley is a robust, venerable utility exosuit originally produced by Hephaestus Industries. \
+	It now sees widespread use in and around the Orion sector, being one of the most pervasive mechs ever produced. \
+	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
+	. += ""
+	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
+	To this day, it remains one of the most valuable mechs ever produced, and Hephaestus enjoys a substantial profit from sales of this aging but rugged design. \
+	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
@@ -128,22 +149,28 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	lights_power = 7
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
+/obj/mecha/working/ripley/firefighter/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>Based on the venerable Ripley chassis, designed initially by Hephaestus Industries, the Firefighter is a retrofit created by Nanotrasen as their mining operations expanded, and a robust, fireproof exosuit was needed. \
+	Adapted to fit heat-resistant shielding, the Firefighter became a popular mech for mining teams in dangerous environments.</i>"
+	. += ""
+	. += "<i>Since Nanotrasen's expansion into Epsilon Eridani and their mining operations on Lavaland, the Firefighter has grown more popular among seasoned miners looking for a safer, armored way to mine in even the hottest of biomes. \
+	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
+
 /obj/mecha/working/ripley/deathripley
-	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "DEATH-RIPLEY"
+	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE!"
 	icon_state = "deathripley"
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
@@ -155,15 +182,50 @@
 	ME.attach(src)
 	return
 
+/obj/mecha/working/ripley/deathripley/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A functioning, well-made collectable for the popular Nanotrasen-Funded holovid show, 'Deathsquad'. \
+	A retrofitted and repainted Ripley chassis, the Death Ripley was created and used by the leader of the Deathsquad, Master Sergeant Killjoy, during the climactic battle with the Spider Queen “Xerxes” at the end of Season 4. \
+	The mech bears the signature mark of the team's engineer, Corporal Ironhead, who assisted Killjoy in its construction.</i>"
+	. += ""
+	. += "<i>Replicas such as this are sought-after collectibles among the biggest fans of Deathsquad. \
+	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
+
 /obj/mecha/working/ripley/mining
-	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
-	obj_integrity = 75 //Low starting health
+
+/obj/mecha/working/ripley/mining/proc/prepare_equipment()
+	SHOULD_CALL_PARENT(FALSE)
+
+	// Diamond drill as a treat
+	var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new
+	D.attach(src)
+
+	// Add ore box to cargo
+	cargo.Add(new /obj/structure/ore_box(src))
+
+	// Attach hydraulic clamp
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
+	HC.attach(src)
+
+	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
+	scanner.attach(src)
 
 /obj/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
+	prepare_equipment()
+
+/obj/mecha/working/ripley/mining/old
+	desc = "An old, dusty mining ripley."
+	obj_integrity = 75 //Low starting health
+
+/obj/mecha/working/ripley/mining/old/add_cell()
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+
+/obj/mecha/working/ripley/mining/old/prepare_equipment()
 	//Attach drill
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
@@ -194,7 +256,8 @@
 	return ..()
 
 /obj/mecha/working/ripley/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
@@ -205,9 +268,6 @@
 			if(T)
 				T.Entered(O)
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-	return
-
-
 
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
@@ -219,21 +279,6 @@
 		output += "Nothing"
 	output += "</div>"
 	return output
-
-/obj/mecha/working/ripley/Destroy()
-	for(var/mob/M in src)
-		if(M == occupant)
-			continue
-		M.loc = get_turf(src)
-		M.loc.Entered(M)
-		step_rand(M)
-	for(var/atom/movable/A in cargo)
-		A.loc = get_turf(src)
-		var/turf/T = get_turf(A)
-		if(T)
-			T.Entered(A)
-		step_rand(A)
-	return ..()
 
 /obj/mecha/working/ripley/ex_act(severity)
 	..()

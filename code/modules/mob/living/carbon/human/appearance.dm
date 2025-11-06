@@ -235,6 +235,19 @@
 		update_body()
 	return TRUE
 
+/mob/living/carbon/human/get_runechat_color()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.chat_color
+
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000")
+	if(!dna)
+		return
+	if(colour == dna.chat_color)
+		return
+	dna.chat_color = colour
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -305,23 +318,29 @@
 	return TRUE
 
 
-/mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
-	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
+/mob/living/carbon/human/proc/change_skin_color(color = "#000000")
+	if(!is_color_text(color) || color == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
-	skin_colour = colour
+	skin_colour = color
 
 	force_update_limbs()
 	return TRUE
 
-/mob/living/carbon/human/proc/change_skin_tone(tone)
-	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
+/// Tone must be between -185 and 220. commonly used in 1 to 220, see `random_skin_tone()` for species-specific values
+/mob/living/carbon/human/proc/change_skin_tone(tone, override = FALSE)
+	if(!isnum(tone) || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
-	s_tone = tone
+	if(tone in -185 to 220)
+		if(dna.species.bodyflags & HAS_ICON_SKIN_TONE || override)
+			s_tone = tone
+		else
+			s_tone = 35 - tone
+		force_update_limbs()
+		return TRUE
 
-	force_update_limbs()
-	return TRUE
+	CRASH("Skin tone values must be between -185 and 220!")
 
 /mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -348,7 +367,7 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
 /mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
-	var/list/valid_species = new()
+	var/list/valid_species = list()
 	for(var/current_species_name in GLOB.all_species)
 		if(check_whitelist && !check_rights(R_ADMIN, FALSE, src)) //If we're using the whitelist, make sure to check it!
 			if(length(whitelist) && !(current_species_name in whitelist))
@@ -363,7 +382,7 @@
 	return sortTim(valid_species, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
-	var/list/valid_hairstyles = new()
+	var/list/valid_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -389,7 +408,7 @@
 	return sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
-	var/list/valid_facial_hairstyles = new()
+	var/list/valid_facial_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -404,7 +423,7 @@
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
+					valid_facial_hairstyles += facialhairstyle
 			else
 				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
@@ -416,7 +435,7 @@
 	return sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
-	var/list/valid_head_accessories = new()
+	var/list/valid_head_accessories = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no head accessory.
@@ -431,7 +450,7 @@
 	return sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_markings(location = "body")
-	var/list/valid_markings = new()
+	var/list/valid_markings = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
 		return //No head, no head markings.
@@ -498,3 +517,10 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+
+/mob/living/carbon/human/proc/get_blood_color()
+	var/bloodcolor = "#A10808"
+	var/list/b_data = get_blood_data(get_blood_id())
+	if(b_data)
+		bloodcolor = b_data["blood_color"]
+	return bloodcolor

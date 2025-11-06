@@ -4,7 +4,6 @@
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-255"
 	base_icon_state = "lattice"
-	density = FALSE
 	anchored = TRUE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
@@ -13,7 +12,7 @@
 	var/number_of_rods = 1
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -24,25 +23,33 @@
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
-
-/obj/structure/lattice/examine(mob/user)
-	. = ..()
 	. += "<span class='notice'>Add a floor tile to build a floor on top of the lattice.</span>"
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+/obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/wirecutters/wirecutters)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	if(istype(C, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = C
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
-		deconstruct()
-	else
-		var/turf/T = get_turf(src)
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+	if(!istype(wirecutters))
+		return
+
+	playsound(loc, wirecutters.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+	deconstruct()
+
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/lattice/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// this is still here for historical reasons though it's
+	// not clear if the original intention was to prevent indestructible
+	// lattices from e.g. being built over with plating.
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+
+	// hand this off to the turf (for building plating, catwalks, etc)
+	var/turf/T = get_turf(src)
+	return T.item_interaction(user, used, modifiers)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -57,14 +64,6 @@
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
-/obj/structure/lattice/clockwork
-	name = "cog lattice"
-	desc = "A lightweight support lattice. These hold the Justicar's station together."
-	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-
-/obj/structure/lattice/clockwork/Initialize(mapload)
-	. = ..()
-
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
@@ -72,7 +71,6 @@
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	number_of_rods = 2
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CATWALK)
 
@@ -107,14 +105,3 @@
 /obj/structure/lattice/lava/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>, but the <i>heat treatment will shatter off</i>.")
 
-/obj/structure/lattice/catwalk/clockwork
-	name = "clockwork catwalk"
-	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = null
-
-/obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
-	. = ..()
-	if(!mapload)
-		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
-		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)

@@ -3,8 +3,6 @@
 /// tracks the damage dealt to this mob by kinetic crushers
 /datum/status_effect/crusher_damage
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -72,7 +70,7 @@
 /datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags |= GODMODE
 	highfived.status_flags |= GODMODE
-	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	explosion(get_turf(user), 5, 2, 1, 3, cause = "Wizard high-five")
 	// explosions have a spawn so this makes sure that we don't get gibbed
 	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
 	add_attack_logs(user, highfived, "caused a wizard [id] explosion")
@@ -139,6 +137,29 @@
 
 /datum/status_effect/high_five/dap/get_missed_message()
 	return "sadly can't find anybody to give daps to, and daps [owner.p_themselves()]. Shameful."
+
+/datum/status_effect/high_five/offering_eftpos
+	id = "offering_eftpos"
+	request = "holds out an EFTPOS device."
+	item_path = /obj/item/eftpos
+
+/datum/status_effect/high_five/offering_eftpos/get_missed_message()
+	return "pulls back the EFTPOS device."
+
+/datum/status_effect/high_five/offering_eftpos/on_apply()
+	owner.custom_emote(EMOTE_VISIBLE, request)
+	owner.create_point_bubble_from_path(item_path, FALSE)
+	RegisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+	return TRUE
+
+/datum/status_effect/high_five/offering_eftpos/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED)
+
+/datum/status_effect/high_five/offering_eftpos/proc/on_ranged_attack(mob/living/me, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER  // COMSIG_ATOM_RANGED_ATTACKED
+	if(get_dist(me, attacker) <= 2)
+		to_chat(attacker, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/status_effect/high_five/handshake
 	id = "handshake"
@@ -249,6 +270,7 @@
 /// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
 /// although there is a maximum amount of bonus time that can be active at any given time.
 /datum/status_effect/limited_bonus
+	id = "limited_bonus"
 	/// How much extra time has been added
 	var/bonus_time = 0
 	/// How much extra time to apply per tick
@@ -270,7 +292,6 @@
 /datum/status_effect/limited_bonus/revivable
 	id = "revivable"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	duration = BASE_DEFIB_TIME_LIMIT
 
 /datum/status_effect/limited_bonus/revivable/on_apply()
@@ -316,7 +337,6 @@
 /datum/status_effect/lwap_scope
 	id = "lwap_scope"
 	alert_type = null
-	duration = -1
 	tick_interval = 4
 	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
@@ -327,12 +347,19 @@
 		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
-			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
+			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible || isLivingSSD(L)) //xenobio moment
 				continue
 			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
 #undef LWAP_LOCK_CAP
+
+/datum/status_effect/hivelord_tracking
+	id = "hivelord_tracking"
+	alert_type = null
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	var/list/list_of_uids = list()
 
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
@@ -342,9 +369,13 @@
 	var/datum/callback/expire_proc = null
 
 /datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
-	if(!new_duration || !istype(new_expire_proc))
+	if(isnull(new_duration) || !istype(new_expire_proc))
 		qdel(src)
 		return
+	if(new_duration == 0)
+		new_expire_proc.Invoke()
+		return
+
 	duration = new_duration
 	expire_proc = new_expire_proc
 	. = ..()
@@ -366,17 +397,18 @@
 	expire_proc.Invoke()
 
 /datum/status_effect/action_status_effect
+	id = "action_status_effect"
 	alert_type = null
 	tick_interval = -1
 
 /datum/status_effect/action_status_effect/remove_handcuffs
 	id = "remove_handcuffs"
 
-/datum/status_effect/action_status_effect/break_handcuffs
-	id = "break_handcuffs"
-
 /datum/status_effect/action_status_effect/remove_muzzle
 	id = "remove_muzzle"
 
 /datum/status_effect/action_status_effect/unbuckle
 	id = "unbuckle"
+
+/datum/status_effect/action_status_effect/exit_cryocell
+	id = "exit_cryocell"

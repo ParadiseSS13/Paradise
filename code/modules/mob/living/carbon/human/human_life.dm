@@ -42,6 +42,12 @@
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
+	var/datum/antagonist/mindflayer/F = mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(F)
+		F.handle_mindflayer()
+		if(life_tick == 1)
+			regenerate_icons()
+
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		handle_ghosted()
 	if(player_logged > 0 && stat != DEAD && job)
@@ -103,20 +109,22 @@
 	for(var/mutation_type in active_mutations)
 		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		mutation.on_life(src)
-
-	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
+	var/gene_bonus
+	if(mind && HAS_TRAIT(mind, TRAIT_GENETIC_BUDGET))
+		gene_bonus = 5
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1 - gene_bonus)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(10, instability * 0.67))
 			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
-		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2  - gene_bonus)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(8, instability * 0.05))
 				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(10, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
+			if(gene_stability < (GENETIC_DAMAGE_STAGE_3  - gene_bonus) && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
@@ -185,12 +193,11 @@
 
 	return null
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
-//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
+	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
@@ -202,7 +209,7 @@
 			//Place is colder than we are
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
 		else
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
@@ -254,7 +261,7 @@
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
 
-	var/pressure = environment.return_pressure()
+	var/pressure = readonly_environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 	if(status_flags & GODMODE)	return 1	//godmode
 
@@ -298,17 +305,17 @@
 		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			V.bloodusable = max(V.bloodusable - 5, 0)
 
-/mob/living/carbon/human/proc/get_thermal_protection()
+/mob/living/carbon/human/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
+			thermal_protection += (wear_suit.max_heat_protection_temperature * 0.7)
 	if(head)
 		if(head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
-			thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+			thermal_protection += (head.max_heat_protection_temperature * THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
 	return thermal_protection
 
@@ -348,6 +355,9 @@
 	if(gloves)
 		if(gloves.max_heat_protection_temperature && gloves.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= gloves.heat_protection
+	if(neck)
+		if(neck.max_heat_protection_temperature && neck.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= neck.heat_protection
 	if(wear_mask)
 		if(wear_mask.max_heat_protection_temperature && wear_mask.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= wear_mask.heat_protection
@@ -409,6 +419,9 @@
 	if(gloves)
 		if(gloves.min_cold_protection_temperature && gloves.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= gloves.cold_protection
+	if(neck)
+		if(neck.min_cold_protection_temperature && neck.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= neck.cold_protection
 	if(wear_mask)
 		if(wear_mask.min_cold_protection_temperature && wear_mask.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= wear_mask.cold_protection
@@ -450,6 +463,65 @@
 
 	return min(1,thermal_protection)
 
+//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
+/mob/living/carbon/human/proc/get_rad_protection_flags()
+	var/rad_protection_flags = 0
+	//Handle normal clothing
+	if(head)
+		if(head.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= head.body_parts_covered
+	if(wear_suit)
+		if(wear_suit.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_suit.body_parts_covered
+	if(w_uniform)
+		if(w_uniform.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= w_uniform.body_parts_covered
+	if(shoes)
+		if(shoes.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= shoes.body_parts_covered
+	if(gloves)
+		if(gloves.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= gloves.body_parts_covered
+	if(wear_mask)
+		if(wear_mask.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_mask.body_parts_covered
+
+	return rad_protection_flags
+
+/mob/living/carbon/human/proc/get_rad_protection()
+
+	if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		return 1
+
+	var/rad_protection_flags = get_rad_protection_flags()
+
+	var/rad_protection = 0
+	if(rad_protection_flags)
+		if(rad_protection_flags & HEAD)
+			rad_protection += THERMAL_PROTECTION_HEAD //This is correct. This uses the same percent defines as thermal protection.
+		if(rad_protection_flags & UPPER_TORSO)
+			rad_protection += THERMAL_PROTECTION_UPPER_TORSO
+		if(rad_protection_flags & LOWER_TORSO)
+			rad_protection += THERMAL_PROTECTION_LOWER_TORSO
+		if(rad_protection_flags & LEG_LEFT)
+			rad_protection += THERMAL_PROTECTION_LEG_LEFT
+		if(rad_protection_flags & LEG_RIGHT)
+			rad_protection += THERMAL_PROTECTION_LEG_RIGHT
+		if(rad_protection_flags & FOOT_LEFT)
+			rad_protection += THERMAL_PROTECTION_FOOT_LEFT
+		if(rad_protection_flags & FOOT_RIGHT)
+			rad_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(rad_protection_flags & ARM_LEFT)
+			rad_protection += THERMAL_PROTECTION_ARM_LEFT
+		if(rad_protection_flags & ARM_RIGHT)
+			rad_protection += THERMAL_PROTECTION_ARM_RIGHT
+		if(rad_protection_flags & HAND_LEFT)
+			rad_protection += THERMAL_PROTECTION_HAND_LEFT
+		if(rad_protection_flags & HAND_RIGHT)
+			rad_protection += THERMAL_PROTECTION_HAND_RIGHT
+
+
+	return min(1,rad_protection)
 
 /mob/living/carbon/human/proc/get_covered_bodyparts()
 	var/covered = 0
@@ -464,6 +536,8 @@
 		covered |= shoes.body_parts_covered
 	if(gloves)
 		covered |= gloves.body_parts_covered
+	if(neck)
+		covered |= neck.body_parts_covered
 	if(wear_mask)
 		covered |= wear_mask.body_parts_covered
 
@@ -547,17 +621,22 @@
 	if(status_flags & GODMODE)
 		return 0
 
+	if(status_flags & TERMINATOR_FORM)
+		return FALSE
+
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
+	if(brain?.damage >= brain?.max_damage || guaranteed_death_threshold <= -500)
 		death()
 		return
 
-	if(getBrainLoss() >= 100) // braindeath
+	if(check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL)) // braindeath
 		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
+			// No need to get the fraction of the max brain damage here, because for it to matter, they'd probably be dead already
 			var/deathchance = min(99, ((getBrainLoss() / 5) + (health + (getOxyLoss() / -2))) * -0.1)
 			if(prob(deathchance))
 				death()
@@ -612,89 +691,112 @@
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
 
+/mob/living/carbon/human/proc/can_metabolize(datum/reagent/reagent)
+	var/datum/species/species = dna.species
+	if(!species || !species.reagent_tag)
+		return FALSE
+
+	// SYNTHETIC-oriented reagents require PROCESS_SYN
+	if((reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_SYN))
+		return TRUE
+
+	// ORGANIC-oriented reagents require PROCESS_ORG
+	if((reagent.process_flags & ORGANIC) && (species.reagent_tag & PROCESS_ORG))
+		return TRUE
+
+	// Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((reagent.process_flags & ORGANIC) && (reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_DUO))
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
+				continue
+			if(R.shock_reduction && can_metabolize(R))
+				shock_reduction += R.shock_reduction
+	return shock_reduction
+
 #define BODYPART_PAIN_REDUCTION 5
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
-	if(dna.species.update_health_hud())
-		return
-	else
-		var/shock_reduction = shock_reduction()
-		if(healths)
-			var/health_amount = get_perceived_trauma(shock_reduction)
-			if(..(health_amount)) //not dead
-				switch(health_hud_override)
-					if(HEALTH_HUD_OVERRIDE_CRIT)
-						healths.icon_state = "health6"
-					if(HEALTH_HUD_OVERRIDE_DEAD)
-						healths.icon_state = "health7"
-					if(HEALTH_HUD_OVERRIDE_HEALTHY)
-						healths.icon_state = "health0"
+	var/shock_reduction = shock_reduction()
+	if(healths)
+		var/health_amount = get_perceived_trauma(shock_reduction)
+		if(..(health_amount)) //not dead
+			switch(health_hud_override)
+				if(HEALTH_HUD_OVERRIDE_CRIT)
+					healths.icon_state = "health6"
+				if(HEALTH_HUD_OVERRIDE_DEAD)
+					healths.icon_state = "health7"
+				if(HEALTH_HUD_OVERRIDE_HEALTHY)
+					healths.icon_state = "health0"
 
-		if(healthdoll)
-			if(stat == DEAD)
-				healthdoll.icon_state = "healthdoll_DEAD"
-				if(length(healthdoll.overlays))
-					healthdoll.overlays.Cut()
-			else
-				var/list/new_overlays = list()
-				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
-				// Use the dead health doll as the base, since we have proper "healthy" overlays now
-				healthdoll.icon_state = "healthdoll_DEAD"
-				for(var/obj/item/organ/external/O in bodyparts)
-					var/damage = O.get_damage()
-					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
-					var/comparison = (O.max_damage/5)
-					var/icon_num = 0
-					if(damage > 0)
-						icon_num = 1
-					if(damage > (comparison))
-						icon_num = 2
-					if(damage > (comparison*2))
-						icon_num = 3
-					if(damage > (comparison*3))
-						icon_num = 4
-					if(damage > (comparison*4))
-						icon_num = 5
-					new_overlays += "[O.limb_name][icon_num]"
-				healthdoll.overlays += (new_overlays - cached_overlays)
-				healthdoll.overlays -= (cached_overlays - new_overlays)
-				healthdoll.cached_healthdoll_overlays = new_overlays
-
-		if(health <= HEALTH_THRESHOLD_CRIT)
-			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	if(healthdoll)
+		if(stat == DEAD)
+			healthdoll.icon_state = "healthdoll_DEAD"
+			if(length(healthdoll.overlays))
+				healthdoll.overlays.Cut()
 		else
-			clear_alert("succumb")
+			var/list/new_overlays = list()
+			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+			// Use the dead health doll as the base, since we have proper "healthy" overlays now
+			healthdoll.icon_state = "healthdoll_DEAD"
+			for(var/obj/item/organ/external/O in bodyparts)
+				var/damage = O.get_damage()
+				damage -= shock_reduction / BODYPART_PAIN_REDUCTION
+				var/comparison = (O.max_damage/5)
+				var/icon_num = 0
+				if(damage > 0)
+					icon_num = 1
+				if(damage > (comparison))
+					icon_num = 2
+				if(damage > (comparison*2))
+					icon_num = 3
+				if(damage > (comparison*3))
+					icon_num = 4
+				if(damage > (comparison*4))
+					icon_num = 5
+				new_overlays += "[O.limb_name][icon_num]"
+			healthdoll.overlays += (new_overlays - cached_overlays)
+			healthdoll.overlays -= (cached_overlays - new_overlays)
+			healthdoll.cached_healthdoll_overlays = new_overlays
+
+	if(health <= HEALTH_THRESHOLD_SUCCUMB)
+		throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	else
+		clear_alert("succumb")
 
 #undef BODYPART_PAIN_REDUCTION
 
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+/mob/living/carbon/human/proc/handle_nutrition_alerts()
+	if(!nutrition_display)
 		return
-	var/new_hunger
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		nutrition_display.icon_state = null
+		return
+	nutrition_display.icon = dna.species.hunger_icon
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
+			nutrition_display.icon_state = "fat"
 		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
+			nutrition_display.icon_state = "full"
 		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
+			nutrition_display.icon_state = "well_fed"
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
+			nutrition_display.icon_state = "fed"
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
+			nutrition_display.icon_state = "hungry"
 		else
-			new_hunger = "starving"
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+			nutrition_display.icon_state = "starving"
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
-	if(!stat)
+	if(stat == CONSCIOUS)
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
@@ -767,19 +869,19 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
+	if(decaytime <= 8 MINUTES)
 		return
 
-	if(decaytime > 6000 && decaytime <= 12000)//20 minutes for decaylevel2 -- bloated and very stinky
+	if(decaytime > 8 MINUTES)
 		decaylevel = 1
 
-	if(decaytime > 12000 && decaytime <= 18000)//30 minutes for decaylevel3 -- rotting and gross
+	if(decaytime > 16 MINUTES)
 		decaylevel = 2
 
-	if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
+	if(decaytime > 24 MINUTES)
 		decaylevel = 3
 
-	if(decaytime > 27000)
+	if(decaytime > 45 MINUTES)
 		decaylevel = 4
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!
@@ -795,8 +897,9 @@
 			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				continue //too cool for puke
+			if(H.mind && HAS_TRAIT(H.mind, TRAIT_CORPSE_RESIST))
+				to_chat(H, "<span class='warning'>You smell something rotting nearby.</span>")
+				continue
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 

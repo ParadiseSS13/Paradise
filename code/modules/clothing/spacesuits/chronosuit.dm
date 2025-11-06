@@ -2,7 +2,6 @@
 	name = "chronosuit helmet"
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
-	item_state = "chronohelmet"
 	slowdown = 1
 	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -17,15 +16,14 @@
 	dropped()
 	return ..()
 
-
 /obj/item/clothing/suit/space/chronos
 	name = "chronosuit"
-	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology"
+	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology."
 	icon_state = "chronosuit"
-	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
 	var/activating = FALSE
@@ -136,9 +134,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					helmet.set_nodrop(TRUE, loc)
 					helmet.suit = src
-					flags |= NODROP
+					set_nodrop(TRUE, loc)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -167,11 +165,11 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					helmet.set_nodrop(FALSE, loc)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = FALSE
 		activating = FALSE
@@ -179,10 +177,7 @@
 
 /obj/effect/chronos_cam
 	name = "chronosuit view"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 101
-	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

@@ -104,21 +104,20 @@
 /obj/item/organ/internal/cell
 	name = "microbattery"
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "scell"
+	icon_state = "cell"
 	organ_tag = "heart"
-	parent_organ = "chest"
+	dead_icon = "cell_bork"
 	slot = "heart"
 	vital = TRUE
 	status = ORGAN_ROBOT
 	requires_robotic_bodypart = TRUE
+	organ_datums = list(/datum/organ/battery)
 
 /obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
 	status = ORGAN_ROBOT
-//	dead_icon = "camera_broken"
 	weld_proof = TRUE
 	requires_robotic_bodypart = TRUE
 
@@ -150,8 +149,7 @@
 
 /obj/item/organ/internal/ears/microphone
 	name = "microphone"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "taperecorder_idle"
+	icon_state = "voicebox"
 	status = ORGAN_ROBOT
 	dead_icon = "taperecorder_empty"
 	requires_robotic_bodypart = TRUE

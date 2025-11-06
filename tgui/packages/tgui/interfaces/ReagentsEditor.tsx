@@ -1,8 +1,9 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
+import { Button, Input, Section, Stack, Table } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, Icon, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 
 type StaticReagentInformation = {
   name: string;
@@ -32,7 +33,6 @@ type ReagentsEditorState = {
 };
 
 // The linter is raising false-positives for unused state
-/* eslint-disable react/no-unused-state */
 export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
   constructor(props: {}) {
     super(props);
@@ -41,16 +41,15 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     };
   }
 
-  handleSearchChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    this.setState({ searchText: target.value });
+  handleSearchChange = (value: string) => {
+    this.setState({ searchText: value });
   };
 
-  override render(props: {}, state: ReagentsEditorState, context: unknown) {
+  override render() {
     const {
       act,
       data: { reagentsInformation, reagents: reagentsInContainer },
-    } = useBackend<ReagentsEditorData>(this.context);
+    } = useBackend<ReagentsEditorData>();
 
     let reagents = Object.entries(reagentsInContainer)
       .map(
@@ -61,12 +60,10 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
         })
       )
       .sort((a, b) => a.name.localeCompare(b.name));
-    if (state.searchText !== '') {
+    if (this.state.searchText !== '') {
       reagents = reagents.concat(
         Object.entries(reagentsInformation)
-          .filter(
-            ([reagentID, _]) => reagentsInContainer[reagentID] === undefined
-          )
+          .filter(([reagentID, _]) => reagentsInContainer[reagentID] === undefined)
           .map(
             ([reagentID, reagent]): FilteredReagentInformation => ({
               ...reagent,
@@ -78,9 +75,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     }
 
     const reagentsRows = reagents
-      .filter(({ id: reagentID, name }) =>
-        createSearch(state.searchText, () => `${reagentID}|${name}`)({})
-      )
+      .filter(({ id: reagentID, name }) => createSearch(this.state.searchText, () => `${reagentID}|${name}`)({}))
       .map((reagent) => {
         const { volume, uid } = reagent;
         return volume === undefined ? (
@@ -96,27 +91,15 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
           <Section fill>
             <Stack fill vertical>
               <Stack.Item>
-                <Stack fill horizontal>
+                <Stack fill>
                   <Stack.Item grow>
-                    <Input
-                      fluid
-                      value={state.searchText}
-                      onChange={this.handleSearchChange}
-                    />
+                    <Input fluid value={this.state.searchText} onChange={(e) => this.handleSearchChange(e)} />
                   </Stack.Item>
                   <Stack.Item>
-                    <Button
-                      icon="sync"
-                      tooltip="Update Reagent Amounts"
-                      onClick={() => act('update_total')}
-                    />
+                    <Button icon="sync" tooltip="Update Reagent Amounts" onClick={() => act('update_total')} />
                   </Stack.Item>
                   <Stack.Item>
-                    <Button
-                      icon="fire-alt"
-                      tooltip="Force Reagent Reaction"
-                      onClick={() => act('react_reagents')}
-                    />
+                    <Button icon="fire-alt" tooltip="Force Reagent Reaction" onClick={() => act('react_reagents')} />
                   </Stack.Item>
                 </Stack>
               </Stack.Item>
@@ -132,13 +115,12 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
 }
 
 // Row for a reagent with non-zero volume
-const PresentReagentRow = (
-  {
-    reagent: { id: reagentID, name, uid, volume },
-  }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+const PresentReagentRow = ({
+  reagent: { id: reagentID, name, uid, volume },
+}: {
+  reagent: FilteredReagentInformation;
+}) => {
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row">
       <Table.Cell className="volume-cell">
@@ -156,7 +138,6 @@ const PresentReagentRow = (
                 uid,
               })
             }
-            mr="0.5em"
           />
           <Button
             className="condensed-button"
@@ -170,9 +151,7 @@ const PresentReagentRow = (
             }
           />
         </div>
-        <span className="volume-label">
-          {volume === null ? `NULL` : `${volume}u`}
-        </span>
+        <span className="volume-label">{volume === null ? `NULL` : `${volume}u`}</span>
       </Table.Cell>
       <Table.Cell>
         {reagentID} ({name})
@@ -182,11 +161,8 @@ const PresentReagentRow = (
 };
 
 // Row for a reagent with zero volume
-const AbsentReagentRow = (
-  { reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+const AbsentReagentRow = ({ reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation }) => {
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row absent-row">
       <Table.Cell className="volume-cell">

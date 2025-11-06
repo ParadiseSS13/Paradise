@@ -9,28 +9,34 @@
 /area/ruin/space/abandoned_engi_sat)
 "aN" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
+"aR" = (
+/mob/living/basic/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
 "bi" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
+/obj/machinery/light,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "bx" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "blue"
+/obj/structure/sign/singulo{
+	pixel_y = 32
 	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "bE" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "cm" = (
 /obj/machinery/mass_driver{
@@ -55,9 +61,8 @@
 	mode = 0;
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "cD" = (
 /obj/effect/turf_decal/stripes/line{
@@ -69,20 +74,17 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/status_display{
-	mode = 0;
-	pixel_y = 32
+/obj/item/kirbyplants/large/dead,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "cK" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "dk" = (
@@ -99,10 +101,11 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
+/obj/item/kirbyplants/large/dead,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 0
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "dx" = (
 /obj/item/shard{
@@ -123,10 +126,11 @@
 /obj/item/lipstick/random,
 /obj/item/lipstick/random,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "dB" = (
 /obj/structure/grille,
@@ -155,6 +159,10 @@
 /area/ruin/space/abandoned_engi_sat)
 "eG" = (
 /obj/machinery/light,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "eP" = (
@@ -174,22 +182,27 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/structure/sign/singulo{
+/obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "fe" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/empty_charge/directional/south,
-/obj/effect/landmark/burnturf,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"fs" = (
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "fA" = (
 /turf/simulated/floor/plasteel,
@@ -197,15 +210,15 @@
 "fY" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
+/obj/machinery/light,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 0
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "gi" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/abandoned_engi_sat)
 "gq" = (
 /obj/structure/girder,
@@ -224,7 +237,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "gL" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hy" = (
@@ -234,56 +247,71 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
 /obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/template_noop)
+/area/ruin/space/abandoned_engi_sat)
 "hP" = (
 /obj/machinery/status_display{
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"hR" = (
+/obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "iO" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "engineering_away";
-	name = "Engineering Dock Airlock"
-	},
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/door/airlock/external/glass{
+	name = "Engineering Dock Airlock";
+	id_tag = "engineering_away"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "jk" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower/engineering,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/abandoned_engi_sat)
 "jm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"jD" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "jG" = (
@@ -295,6 +323,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/space_heater,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "jR" = (
@@ -302,35 +331,28 @@
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "jS" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kd" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kg" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/machinery/power/smes/engineering,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "kt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kw" = (
@@ -356,32 +378,23 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sign/poster/ripped{
-	pixel_y = 32;
-	name = "torn sign";
-	pixel_x = -1
-	},
+/obj/structure/sign/poster/ripped/directional/north,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "kT" = (
 /obj/structure/mirror,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "lf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -389,22 +402,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
+"lg" = (
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/access_button/offset/northwest,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
 "lu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -414,11 +430,11 @@
 	name = "Construction Driver #0";
 	pixel_x = 25
 	},
-/obj/structure/engineeringcart,
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
+/obj/structure/engineeringcart/full,
+/obj/effect/turf_decal/delivery/hollow{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "lT" = (
 /obj/item/stack/ore/iron{
@@ -429,13 +445,9 @@
 /area/space/nearstation)
 "mB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "mG" = (
 /turf/simulated/floor/plating/airless,
@@ -443,9 +455,6 @@
 "mQ" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal{
-	dir = 4
-	},
-/obj/structure/table_frame{
 	dir = 4
 	},
 /obj/item/bedsheet/orange{
@@ -457,9 +466,8 @@
 /obj/machinery/suit_storage_unit{
 	state_open = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "mY" = (
 /obj/machinery/power/terminal{
@@ -474,14 +482,10 @@
 "ne" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -492,10 +496,10 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "nn" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "nH" = (
@@ -503,28 +507,22 @@
 /area/ruin/space/abandoned_engi_sat)
 "nR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "oG" = (
-/obj/structure/closet{
-	icon_state = "atmos_wardrobe";
-	name = "atmospherics wardrobe"
-	},
+/obj/structure/closet/wardrobe/atmospherics_yellow/empty,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "oL" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "oW" = (
@@ -533,17 +531,18 @@
 /obj/item/poster/random_contraband,
 /obj/item/poster/random_contraband,
 /obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka{
+	pixel_x = 4;
+	pixel_y = -2
+	},
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "pb" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ps" = (
@@ -554,29 +553,30 @@
 /obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
-"px" = (
-/turf/simulated/wall,
-/area/ruin/space/abandoned_engi_sat)
 "pM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/structure/machine_frame,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "pX" = (
-/obj/structure/closet{
-	icon_state = "eng_secure";
-	opened = 1;
-	open_door_sprite = "eng_secure_door";
-	name = "engineer's locker"
-	},
+/obj/structure/closet/secure_closet/engineering_personal/empty,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "qu" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
+"qV" = (
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/north,
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"rn" = (
+/mob/living/basic/carp,
+/turf/template_noop,
+/area/template_noop)
 "rr" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -588,8 +588,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "rE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/sign/securearea{
@@ -598,9 +596,7 @@
 	name = "HIGH VOLTAGE";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "rI" = (
 /obj/machinery/light_construct{
@@ -614,11 +610,20 @@
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/space/nearstation)
+"rZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"sh" = (
+/obj/structure/lattice/catwalk,
+/obj/item/lighter/zippo,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
 "si" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "blue";
+/obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "sm" = (
 /obj/machinery/light_switch{
@@ -626,21 +631,15 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "st" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -652,12 +651,25 @@
 	},
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
+"sY" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light{
+	dir = 1;
+	icon_state = "tube-broken";
+	status = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/abandoned_engi_sat)
 "to" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/abandoned_engi_sat)
+"ty" = (
+/obj/structure/bedsheetbin,
+/obj/structure/table,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "tO" = (
 /obj/machinery/computer/nonfunctional{
@@ -673,47 +685,37 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
-"uO" = (
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = -28
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/abandoned_engi_sat)
 "uQ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/map_effect/dynamic_airlock/door,
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"uU" = (
+/obj/machinery/economy/vending/tool/free,
+/obj/effect/turf_decal/delivery/hollow{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "vn" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/item/multitool,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/item/storage/toolbox/mechanical/old,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "wl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "wu" = (
 /obj/machinery/light{
@@ -723,37 +725,38 @@
 /area/ruin/space/abandoned_engi_sat)
 "wV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "xp" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	mode = 0;
 	pixel_y = 32
 	},
 /obj/structure/closet/crate/internals,
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/delivery/hollow{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"xO" = (
+/obj/structure/table,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "xW" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -761,15 +764,15 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "ya" = (
-/obj/structure/lattice,
 /obj/structure/disposaloutlet{
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/template_noop)
+/area/ruin/space/abandoned_engi_sat)
 "yj" = (
 /obj/machinery/door/airlock{
 	name = "Restroom"
@@ -799,11 +802,11 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "yJ" = (
@@ -820,9 +823,8 @@
 "zp" = (
 /obj/structure/dispenser,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "zv" = (
 /obj/structure/table,
@@ -830,13 +832,11 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
+/obj/machinery/newscaster/directional/north,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "zZ" = (
 /obj/item/stack/sheet/metal,
@@ -857,16 +857,16 @@
 "AD" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"Bg" = (
+/obj/item/kirbyplants/large/dead,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "Bu" = (
 /obj/machinery/door/poddoor{
@@ -875,14 +875,21 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "BR" = (
 /obj/structure/table,
+/obj/item/storage/toolbox/emergency/old{
+	pixel_x = 9;
+	pixel_y = 9
+	},
+/obj/item/storage/box/lights/mixed{
+	pixel_x = -5
+	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "CN" = (
-/obj/machinery/light,
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_y = -28
@@ -895,15 +902,11 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/structure/closet{
-	icon_state = "fire";
-	name = "fire-safety closet";
-	desc = "It's a storage unit for fire-fighting supplies."
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/delivery/hollow{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "CS" = (
 /obj/structure/lattice/catwalk,
@@ -918,24 +921,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
-"Db" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/abandoned_engi_sat)
 "De" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Dj" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -946,7 +942,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "DO" = (
@@ -960,12 +956,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
-"Er" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
-/area/ruin/space/abandoned_engi_sat)
 "EC" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Cabin"
@@ -976,69 +966,58 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/obj/item/kirbyplants/large/dead,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "EU" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Fm" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-8";
-	d2 = 8
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
 	name = "floor"
 	},
 /area/ruin/space/abandoned_engi_sat)
+"FN" = (
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
 "FQ" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Construction Area"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Gg" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Gi" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "Gt" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Gy" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1057,20 +1036,13 @@
 /area/ruin/space/abandoned_engi_sat)
 "HK" = (
 /obj/machinery/light,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "HL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "blue";
+/obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "HX" = (
 /obj/structure/cable,
@@ -1079,34 +1051,40 @@
 	name = "floor"
 	},
 /area/ruin/space/abandoned_engi_sat)
+"Ig" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/flashlight/flare,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
 "Iz" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "IC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
+/obj/machinery/economy/vending/engivend,
+/obj/effect/turf_decal/delivery/hollow{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "IF" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
-/obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/obj/machinery/power/solar_control/autostart,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "IM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "Jo" = (
@@ -1114,9 +1092,8 @@
 	dir = 1
 	},
 /obj/item/soap/nanotrasen,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/abandoned_engi_sat)
 "Kj" = (
 /obj/machinery/door/airlock/engineering/glass{
@@ -1126,13 +1103,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "LL" = (
-/obj/structure/toilet{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "LP" = (
 /turf/template_noop,
@@ -1140,16 +1112,21 @@
 "Mv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"MG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "MK" = (
 /obj/machinery/mass_driver{
@@ -1169,47 +1146,57 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
-"NM" = (
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+"MZ" = (
+/obj/machinery/economy/vending/cola,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"NM" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "NY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"Og" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "OG" = (
 /obj/structure/table,
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
+/obj/item/storage/box/donkpockets/empty,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"OW" = (
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "OZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1223,18 +1210,12 @@
 /area/ruin/space/abandoned_engi_sat)
 "Pb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Pj" = (
 /obj/item/stack/rods{
@@ -1247,56 +1228,42 @@
 /area/space/nearstation)
 "PH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
-"Qa" = (
-/obj/machinery/door/airlock/external,
+"Qw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/turf/simulated/floor/plating,
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
 /area/ruin/space/abandoned_engi_sat)
 "QI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "QJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/obj/structure/sink/directional/east,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "QK" = (
 /turf/simulated/floor/plasteel{
@@ -1304,15 +1271,13 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "Ro" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Rq" = (
 /obj/structure/chair/office/dark{
@@ -1329,17 +1294,20 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/abandoned_engi_sat)
+"RV" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Sa" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "blue";
+/obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "SI" = (
 /obj/machinery/light_switch{
@@ -1349,10 +1317,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
-"Tw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+"SX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Tq" = (
+/obj/machinery/economy/vending/snack,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Tw" = (
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Ud" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1362,6 +1342,7 @@
 /obj/item/stack/sheet/metal{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "Vn" = (
@@ -1386,14 +1367,10 @@
 "VJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1402,54 +1379,64 @@
 /obj/item/stack/cable_coil,
 /turf/template_noop,
 /area/space/nearstation)
+"Wc" = (
+/obj/machinery/economy/vending/coffee,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
 "WJ" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "Xn" = (
 /obj/structure/bed,
+/obj/item/bedsheet/orange{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
+"Xq" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "XP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
+"Ye" = (
+/mob/living/basic/mining/hivelord/space,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
 "Yz" = (
-/obj/structure/closet{
-	icon_state = "emergency";
-	open_door_sprite = "emergency_door";
-	name = "emergency closet";
-	desc = "It's a storage unit for emergency breathmasks and o2 tanks.";
-	opened = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/delivery/hollow{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
+"YB" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker,
+/turf/template_noop,
+/area/space/nearstation)
 "YE" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "YG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1461,9 +1448,8 @@
 	dir = 4
 	},
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/abandoned_engi_sat)
 "Zq" = (
 /obj/machinery/mass_driver{
@@ -1487,30 +1473,27 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/structure/sign/vacuum/external{
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "ZA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ZS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
+/obj/structure/sink/directional/east,
+/obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 
@@ -1550,13 +1533,13 @@ LP
 "}
 (2,1,1) = {"
 LP
+rn
 LP
 LP
 LP
 LP
 LP
-LP
-LP
+rn
 LP
 LP
 LP
@@ -1586,9 +1569,9 @@ LP
 LP
 LP
 LP
+rn
 LP
-LP
-LP
+rn
 LP
 LP
 LP
@@ -1699,11 +1682,11 @@ Gi
 Gi
 Gi
 qu
-ky
-ky
-ky
-ky
-ky
+rZ
+rZ
+rZ
+rZ
+rZ
 qu
 LP
 LP
@@ -1735,13 +1718,13 @@ dk
 oL
 OG
 HL
-HL
-et
-et
+Wc
+Tq
+MZ
 qu
 rr
 rr
-Gi
+sh
 oL
 ya
 LP
@@ -1769,9 +1752,9 @@ dk
 oL
 zv
 fA
+et
 fA
-fA
-uO
+Ha
 De
 Iz
 Iz
@@ -1780,7 +1763,7 @@ Iz
 hE
 LP
 LP
-LP
+aR
 LP
 LP
 LP
@@ -1838,7 +1821,7 @@ oL
 fc
 Rq
 Rq
-fA
+et
 dq
 IM
 RP
@@ -1863,20 +1846,20 @@ Gi
 Gi
 Gi
 qu
-ky
+rZ
 Gt
 qu
 Gt
-ky
+rZ
 kt
 bx
-Sa
+hR
 Sa
 si
 et
 yj
-Er
-Er
+Tw
+Tw
 HK
 qu
 dB
@@ -1892,11 +1875,11 @@ LP
 LP
 Vt
 Rs
+yq
+dx
 Dj
 Dj
-Dj
-Dj
-ky
+rZ
 pM
 Pb
 wl
@@ -1919,13 +1902,13 @@ LP
 LP
 LP
 LP
-LP
+YB
 LP
 "}
 (13,1,1) = {"
 LP
 rr
-yJ
+rr
 Rs
 uC
 VJ
@@ -1934,11 +1917,11 @@ pb
 wl
 ZA
 jm
-et
+jD
 nR
 kt
 gr
-fA
+Og
 fA
 et
 Ha
@@ -1960,8 +1943,8 @@ LP
 LP
 rr
 Gi
-yq
-dx
+Qw
+Dj
 Dj
 Dj
 qu
@@ -1974,7 +1957,7 @@ kt
 eP
 fA
 XP
-et
+OW
 et
 Yz
 CP
@@ -2002,7 +1985,7 @@ pb
 wl
 PH
 mY
-XP
+SX
 Ro
 kt
 jK
@@ -2032,7 +2015,7 @@ Fm
 Fm
 Fm
 Fm
-ky
+rZ
 vn
 Gg
 wl
@@ -2040,7 +2023,7 @@ kZ
 Tw
 YE
 jG
-XP
+Xq
 XP
 Ud
 fA
@@ -2067,11 +2050,11 @@ Gi
 Gi
 Gi
 qu
-ky
+rZ
 Gt
 qu
 Gt
-ky
+rZ
 kt
 hP
 et
@@ -2089,7 +2072,7 @@ cz
 ky
 Eh
 et
-ky
+rZ
 LP
 "}
 (18,1,1) = {"
@@ -2143,11 +2126,11 @@ dk
 gq
 rI
 gq
-DO
+ty
 WJ
 DO
-DO
-DO
+Bg
+Bg
 sO
 IM
 BR
@@ -2179,7 +2162,7 @@ Ux
 Vx
 mQ
 DO
-DO
+fs
 DO
 DO
 bi
@@ -2191,7 +2174,7 @@ qu
 mG
 rr
 LP
-rr
+YB
 LP
 "}
 (21,1,1) = {"
@@ -2220,7 +2203,7 @@ CN
 IM
 zp
 ZS
-BR
+xO
 qu
 dB
 rr
@@ -2245,11 +2228,11 @@ CS
 gq
 wu
 kt
-kI
+hB
 mG
 pX
-hB
-nH
+kI
+FN
 pX
 EU
 EU
@@ -2268,8 +2251,8 @@ LP
 Gi
 LP
 qu
-ky
-ky
+rZ
+rZ
 oL
 oL
 oL
@@ -2279,12 +2262,12 @@ oL
 oL
 Kj
 iV
-ky
-ky
-ky
-ky
-ky
-ky
+rZ
+rZ
+rZ
+rZ
+rZ
+rZ
 EU
 Gi
 LP
@@ -2308,8 +2291,8 @@ oL
 mW
 NM
 mW
-BR
-IC
+Ig
+uU
 IC
 ao
 iV
@@ -2336,7 +2319,7 @@ LP
 Gi
 LP
 qu
-to
+sY
 Tw
 FQ
 fA
@@ -2348,7 +2331,7 @@ fA
 ex
 iV
 iV
-LP
+dB
 LP
 LP
 rr
@@ -2357,11 +2340,11 @@ LP
 Gi
 LP
 LP
+rn
 LP
 LP
 LP
-LP
-LP
+rn
 LP
 "}
 (26,1,1) = {"
@@ -2370,19 +2353,19 @@ LP
 Gi
 LP
 qu
-Db
+to
 Tw
 oL
 xp
 gL
 fA
-kd
+RV
 fA
-fA
+Ye
 fA
 eG
 iV
-LP
+dB
 LP
 LP
 LP
@@ -2404,8 +2387,8 @@ rr
 Gi
 LP
 qu
-ky
-ky
+rZ
+rZ
 oL
 lQ
 cD
@@ -2416,18 +2399,18 @@ DJ
 fA
 Zs
 qu
+oL
 Gi
 Gi
 Gi
 Gi
 Gi
 Gi
-Gi
-px
+oL
 LP
 LP
 LP
-LP
+rn
 LP
 LP
 LP
@@ -2448,7 +2431,7 @@ cm
 oL
 MK
 qu
-Qa
+lg
 qu
 LP
 LP
@@ -2456,8 +2439,8 @@ LP
 LP
 LP
 rr
-px
-px
+oL
+oL
 LP
 LP
 LP
@@ -2476,9 +2459,9 @@ LP
 rr
 rr
 qu
-uQ
+MG
 oL
-uQ
+MG
 oL
 kJ
 qu
@@ -2486,7 +2469,7 @@ uQ
 qu
 LP
 LP
-LP
+rn
 LP
 LP
 LP
@@ -2516,14 +2499,14 @@ Bu
 qu
 yt
 qu
-Qa
+qV
 qu
 LP
 LP
 LP
 LP
 LP
-LP
+rn
 LP
 LP
 LP
@@ -2535,40 +2518,6 @@ LP
 LP
 "}
 (31,1,1) = {"
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-"}
-(32,1,1) = {"
 LP
 LP
 LP

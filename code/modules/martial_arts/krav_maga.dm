@@ -1,3 +1,7 @@
+/* CONTENTS:
+* .1 KRAV MAGA MARTIAL ART
+* .2 KRAV MAGA GLOVES
+*/
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	weight = 7 //Higher weight, since you can choose to put on or take off the gloves
@@ -17,7 +21,7 @@
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
 		return
 	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
-	owner.visible_message("<span class='danger'> [owner] relaxes [owner.p_their()] stance.</span>")
+	owner.visible_message("<span class='danger'>[owner] relaxes [owner.p_their()] stance.</span>")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -52,7 +56,10 @@
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	if(!owner.get_num_legs())
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</spawn>")
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
+		return
+	if(HAS_TRAIT(owner, TRAIT_PARAPLEGIC))
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone without working legs.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
@@ -123,7 +130,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = D.get_active_hand()
-	if(prob(60) && D.unEquip(I))
+	if(prob(60) && D.drop_item_to_ground(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
 			A.put_in_hands(I)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
@@ -135,21 +142,19 @@
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
-//Krav Maga Gloves
-
+// Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
-	resistance_flags = NONE
+	var/datum/martial_art/krav_maga/style
 
-/obj/item/clothing/gloves/color/black/krav_maga/Initialize()
+/obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()
 	style = new()
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		var/mob/living/carbon/human/H = user
 		style.teach(H, TRUE)
 
@@ -158,31 +163,49 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(H)
 
-/obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
+// Warden gloves
+/obj/item/clothing/gloves/color/black/krav_maga/sec
 	name = "Krav Maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
 	icon_state = "fightgloves"
-	item_state = "fightgloves"
+	dyeable = FALSE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
-/// for nukies
+/obj/item/clothing/gloves/color/black/krav_maga/sec/examine_more(mob/user)
+	..()
+	. = list()
+	. += "These gloves are experimental combat gear developed by Nanotrasen R&D, capable of teaching the wearer the art of Krav Maga without prior training."
+	. += ""
+	. += "They function using embedded nanochips that host a non-sapient machine intelligence. Probes in the gloves allow the on-board intelligence limited control of the somatic nervous system, \
+	allowing it to direct the wearer's body in the correct manner to execute the selected move when it detects the corresponding activation motion."
+	. += ""
+	. += "Most users are not aware of their body being puppeted in this manner - it feels like a reflexive movement. Particularly observant individuals or unarmed combat specialists trained in a different martial art \
+	do report noticing their limbs being redirected, but they generally get used to it after sufficient exposure."
+	. += ""
+	. += "Because it is the gloves, and not the user that is handling the martial art, users return to previous proficiency when the gloves are removed."
+
+// Syndicate Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga/combat
 	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"
-	item_state = "swat_gl"
+	inhand_icon_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 8 SECONDS
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+
+/obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)
+	..()
+	. = list()
+	. += "These gloves are made using similar gloves stolen from Nanotrasen. The Syndicate has extensively dissected several stolen sets of such gloves, but the method of manufacture cannot be gleaned directly from them."
+	. += ""
+	. += "In light of this, Syndicate researchers simply transplanted the working components from the stolen gloves into proper combat gloves and declared it a sufficient upgrade. Because of this method of manufacture, \
+	these gloves are in very short supply - each set requiring one to be stolen from Nanotrasen to make."

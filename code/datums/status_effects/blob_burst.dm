@@ -1,4 +1,5 @@
 /datum/status_effect/blob_burst
+	id = "blob_burst"
 	alert_type = /atom/movable/screen/alert/status_effect/blob_burst
 	var/datum/callback/blob_burst_callback
 

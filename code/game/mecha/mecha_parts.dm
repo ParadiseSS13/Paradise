@@ -21,13 +21,12 @@
 	name = "mecha chassis"
 	icon_state = "backbone"
 	var/datum/construction/construct
-	flags = CONDUCT
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
+/obj/item/mecha_parts/chassis/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!construct || !construct.action(W, user))
 		return ..()
 
@@ -39,8 +38,8 @@
 /obj/item/mecha_parts/chassis/ripley
 	name = "\improper Ripley chassis"
 
-/obj/item/mecha_parts/chassis/ripley/New()
-	..()
+/obj/item/mecha_parts/chassis/ripley/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/ripley_chassis(src)
 
 /obj/item/mecha_parts/part/ripley_torso
@@ -74,8 +73,8 @@
 /obj/item/mecha_parts/chassis/gygax
 	name = "\improper Gygax chassis"
 
-/obj/item/mecha_parts/chassis/gygax/New()
-	..()
+/obj/item/mecha_parts/chassis/gygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/gygax_chassis(src)
 
 /obj/item/mecha_parts/part/gygax_torso
@@ -123,8 +122,8 @@
 /obj/item/mecha_parts/chassis/durand
 	name = "\improper Durand chassis"
 
-/obj/item/mecha_parts/chassis/durand/New()
-	..()
+/obj/item/mecha_parts/chassis/durand/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/durand_chassis(src)
 
 /obj/item/mecha_parts/part/durand_torso
@@ -169,8 +168,8 @@
 /obj/item/mecha_parts/chassis/firefighter
 	name = "\improper Firefighter chassis"
 
-/obj/item/mecha_parts/chassis/firefighter/New()
-	..()
+/obj/item/mecha_parts/chassis/firefighter/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
 ////////// HONK
@@ -178,8 +177,8 @@
 /obj/item/mecha_parts/chassis/honker
 	name = "\improper H.O.N.K chassis"
 
-/obj/item/mecha_parts/chassis/honker/New()
-	..()
+/obj/item/mecha_parts/chassis/honker/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/honker_chassis(src)
 
 /obj/item/mecha_parts/part/honker_torso
@@ -212,16 +211,16 @@
 /obj/item/mecha_parts/chassis/reticence
 	name = "\improper Reticence chassis"
 
-/obj/item/mecha_parts/chassis/reticence/New()
-	..()
+/obj/item/mecha_parts/chassis/reticence/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/reticence_chassis(src)
 
 /obj/effect/dummy/mecha_emote_step
 	var/emote
 
-/obj/effect/dummy/mecha_emote_step/New(e)
+/obj/effect/dummy/mecha_emote_step/Initialize(mapload, emote_)
 	. = ..()
-	emote = e
+	emote = emote_
 
 /obj/item/mecha_parts/chassis/reticence/hear_message(mob/living/M, msg)
 	if(!istype(M) || !istype(construct, /datum/construction/reversible/mecha/reticence))
@@ -261,11 +260,11 @@
 /obj/item/mecha_parts/chassis/phazon
 	name = "\improper Phazon chassis"
 
-/obj/item/mecha_parts/chassis/phazon/New()
-	..()
+/obj/item/mecha_parts/chassis/phazon/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
-/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/chassis/phazon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
 		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
@@ -310,8 +309,8 @@
 /obj/item/mecha_parts/chassis/odysseus
 	name = "\improper Odysseus Chassis"
 
-/obj/item/mecha_parts/chassis/odysseus/New()
-	..()
+/obj/item/mecha_parts/chassis/odysseus/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/odysseus_chassis(src)
 
 /obj/item/mecha_parts/part/odysseus_head
@@ -349,6 +348,44 @@
 	icon_state = "odysseus_armour"
 	origin_tech = "materials=3;engineering=3")*/
 
+///////// Nkarrdem
+/obj/item/mecha_parts/chassis/nkarrdem
+	name = "\improper Nkarrdem Chassis"
+
+/obj/item/mecha_parts/chassis/nkarrdem/Initialize(mapload)
+	. = ..()
+	construct = new /datum/construction/mecha/nkarrdem_chassis(src)
+
+/obj/item/mecha_parts/part/nkarrdem_head
+	name = "\improper Nkarrdem head"
+	icon_state = "nkarrdem_head"
+
+/obj/item/mecha_parts/part/nkarrdem_torso
+	name = "\improper Nkarrdem torso"
+	desc = "A torso part of Nkarrdem. Contains power unit, processing core and life support systems."
+	icon_state = "nkarrdem_harness"
+	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+
+/obj/item/mecha_parts/part/nkarrdem_left_arm
+	name = "\improper Nkarrdem left arm"
+	desc = "A Nkarrdem left arm. Data and power sockets are compatible with most exosuit tools."
+	icon_state = "nkarrdem_l_arm"
+
+/obj/item/mecha_parts/part/nkarrdem_right_arm
+	name = "\improper Nkarrdem right arm"
+	desc = "A Nkarrdem right arm. Data and power sockets are compatible with most exosuit tools."
+	icon_state = "nkarrdem_r_arm"
+
+/obj/item/mecha_parts/part/nkarrdem_left_leg
+	name = "\improper Nkarrdem left leg"
+	desc = "A Nkarrdem left leg. Contains somewhat complex servodrives and balance maintaining systems."
+	icon_state = "nkarrdem_l_leg"
+
+/obj/item/mecha_parts/part/nkarrdem_right_leg
+	name = "\improper Nkarrdem right leg"
+	desc = "A Nkarrdem right leg. Contains somewhat complex servodrives and balance maintaining systems."
+	icon_state = "nkarrdem_r_leg"
+
 
 ///////// Circuitboards
 
@@ -363,7 +400,6 @@
 
 
 /obj/item/circuitboard/mecha/ripley
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/mecha/ripley/main
 	board_name = "Ripley Central Control Module"
@@ -373,6 +409,15 @@
 	board_name = "Ripley Peripherals Control Module"
 	icon_state = "mcontroller"
 
+/obj/item/circuitboard/mecha/nkarrdem
+
+/obj/item/circuitboard/mecha/nkarrdem/main
+	board_name = "Nkarrdem Central Control Module"
+	icon_state = "mainboard"
+
+/obj/item/circuitboard/mecha/nkarrdem/peripherals
+	board_name = "Nkarrdem Peripherals Control Module"
+	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/gygax
 	origin_tech = "programming=4;combat=3;engineering=3"

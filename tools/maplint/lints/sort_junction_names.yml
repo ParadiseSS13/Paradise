@@ -1,0 +1,4 @@
+help: "Sort Junctions update their own names. Do not varedit them."
+/obj/structure/disposalpipe/sortjunction:
+  banned_variables:
+  - name

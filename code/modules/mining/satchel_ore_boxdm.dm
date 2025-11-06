@@ -9,24 +9,25 @@
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
+/obj/structure/ore_box/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_item())
-			return
-		W.forceMove(src)
+		if(user.drop_item())
+			W.forceMove(src)
+		return ITEM_INTERACT_COMPLETE
 	else if(isstorage(W))
 		var/obj/item/storage/S = W
-		S.hide_from(usr)
-		for(var/obj/item/stack/ore/O in S.contents)
-			S.remove_from_storage(O, src) //This will move the item to this item's contents
-			CHECK_TICK
-		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
+		S.hide_from(user)
+		if(length(S.contents))
+			for(var/obj/item/stack/ore/O in S.contents)
+				S.remove_from_storage(O, src) //This will move the item to this item's contents
+			to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 5 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return
 	user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 	deconstruct(TRUE, user)
@@ -84,8 +85,8 @@
 	if(Adjacent(user))
 		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to empty the ore box.</span>"
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	return ..()
 
 /obj/structure/ore_box/AltShiftClick(mob/user)
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

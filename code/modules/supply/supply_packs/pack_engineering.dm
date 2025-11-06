@@ -12,6 +12,13 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
+/datum/supply_packs/engineering/foamtank
+	name = "Firefighting Foam Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/watertank/firetank)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "firefighting foam tank crate"
+
 /// the most robust crate
 /datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
@@ -26,7 +33,6 @@
 
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
-	cost = 50
 	contains = list(/obj/item/vending_refill/engivend,
 					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
@@ -61,9 +67,9 @@
 	contains = list(/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
@@ -118,12 +124,11 @@
 	name = "Field Generator Crate"
 	contains = list(/obj/machinery/field/generator,
 					/obj/machinery/field/generator)
-	cost = 100
 	containername = "field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
-	name = "Singularity Generator Crate"
-	contains = list(/obj/machinery/the_singularitygen)
+	name = "Singularity Generator And Console Circuitboard Crate"
+	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
 	cost = 350
 	containername = "singularity generator crate"
 
@@ -138,14 +143,12 @@
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil)
-	cost = 100
 	containername = "tesla coil crate"
 
 /datum/supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
-	cost = 100
 	containername = "grounding rod crate"
 
 /datum/supply_packs/engineering/engine/collector
@@ -153,10 +156,9 @@
 	contains = list(/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
-	cost = 100
 	containername = "collector crate"
 
-/datum/supply_packs/engineering/engine/PA
+/datum/supply_packs/engineering/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
@@ -167,6 +169,12 @@
 					/obj/structure/particle_accelerator/end_cap)
 	cost = 250
 	containername = "particle accelerator crate"
+
+/datum/supply_packs/engineering/transmission_laser
+	name = "Power Transmission Laser Circuitboard"
+	cost = 1500
+	contains = list(/obj/item/circuitboard/machine/transmission_laser)
+	containername = "power transmission laser circuitboard crate"
 
 /datum/supply_packs/engineering/radiation
 	name = "Radiation Protection Crate"
@@ -206,9 +214,7 @@
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	cost = 750 //So cargo thinks twice before killing themselves with it
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
-	access = ACCESS_CE
 
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
@@ -264,3 +270,24 @@
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
+
+/datum/supply_packs/engineering/chemical_flamethrower
+	name = "Chemical Flamethrower Starter Pack"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 750
+	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
+	containername = "chemical flamethrower crate"
+
+/datum/supply_packs/engineering/chemical_canister
+	name = "Chemical Flamethrower Canister Pack"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 500
+	containertype = /obj/structure/closet/crate
+	containername = "chemical flamethrower canister crate"
+
+/datum/supply_packs/engineering/canister/large_air_pump
+	name = "Large Air Pump"
+	contains = list(/obj/machinery/atmospherics/portable/pump/big)
+	cost = 400
+	containertype = /obj/structure/largecrate
+	containername = "Large Air Pump Crate"

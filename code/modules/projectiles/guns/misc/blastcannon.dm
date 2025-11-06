@@ -2,21 +2,19 @@
 	name = "pipe gun"
 	desc = "A pipe welded onto a gun stock, with a mechanical trigger. The pipe has an opening near the top, and there seems to be a spring loaded wheel in the hole."
 	icon_state = "empty_blastcannon"
-	var/icon_state_loaded = "loaded_blastcannon"
-	item_state = "blastcannon_empty"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "blastcannon_empty"
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	needs_permit = FALSE
 	clumsy_check = FALSE
-
+	var/icon_state_loaded = "loaded_blastcannon"
 	var/obj/item/transfer_valve/bomb
 
 /obj/item/gun/blastcannon/Destroy()
 	QDEL_NULL(bomb)
 	return ..()
 
-/obj/item/gun/blastcannon/attack_self(mob/user)
+/obj/item/gun/blastcannon/attack_self__legacy__attackchain(mob/user)
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
@@ -45,7 +43,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
+/obj/item/gun/blastcannon/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/transfer_valve))
 		var/obj/item/transfer_valve/T = O
 		if(!T.tank_one || !T.tank_two)
@@ -76,7 +74,7 @@
 		return 0
 	return (pressure / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
 	if((!bomb) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = calculate_bomb()
@@ -92,14 +90,13 @@
 	message_admins("Blast wave fired from [ADMIN_COORDJMP(starting)] ([get_area_name(user, TRUE)]) at [ADMIN_COORDJMP(targturf)] ([target.name]) by [key_name_admin(user)] with power [heavy]/[medium]/[light].")
 	log_game("Blast wave fired from ([starting.x], [starting.y], [starting.z]) ([get_area_name(user, TRUE)]) at ([target.x], [target.y], [target.z]) ([target]) by [key_name(user)] with power [heavy]/[medium]/[light].")
 	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
+	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
 	BW.fire()
 
 /obj/item/projectile/blastwave
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
-	nodamage = FALSE
 	forcedodge = -1
 	range = 150
 	var/heavyr = 0

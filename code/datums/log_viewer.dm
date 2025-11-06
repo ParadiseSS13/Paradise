@@ -186,7 +186,7 @@ if(!result || result.ckey != __ckey){\
 		var/time = gameTimestamp(wtime = L.raw_time - 9.99) // The time rounds up for some reason. Will result in weird filtering results
 
 		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(L.log_type)]'>[L.log_type]</td>\
-		<td style='[tdStyleWho]'>[L.who]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
+		<td style='[tdStyleWho]'>[L.who][L.who_usr]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
 		<td style='[tdStyleWho]'>[L.target]</td><td style='[tdStyleWhere]'>[L.where]</td></tr>"
 	dat += "</table>"
 	dat += "</div>"

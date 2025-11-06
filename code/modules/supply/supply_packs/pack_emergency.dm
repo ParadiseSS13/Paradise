@@ -20,12 +20,40 @@
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/grenade/gas/oxygen,
-					/obj/item/grenade/gas/oxygen)
+					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/oxygen_grenades)
 	cost = 400
-	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
-	group = SUPPLY_EMERGENCY
+
+/datum/supply_packs/emergency/glowstick/emergency
+	name = "Emergency Glowstick Crate"
+	contains = list(/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency)
+	cost = 100
+	containertype = /obj/structure/closet/crate
+	containername = "emergency glowstick crate"
+
+/datum/supply_packs/emergency/glowstick/premium
+	name = "Premium Glowstick Crate"
+	contains = list(/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium)
+	cost = 200
+	containertype = /obj/structure/closet/crate
+	containername = "premium glowstick crate"
+
+/datum/supply_packs/emergency/flares
+	name = "Emergency Flare Crate"
+	contains = list(/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares)
+	cost = 150
+	containertype = /obj/structure/closet/crate
+	containername = "emergency flare crate"
 
 /datum/supply_packs/emergency/internals
 	name = "Internals Crate"
@@ -84,7 +112,7 @@
 					/obj/item/tank/internals/emergency_oxygen/double/vox,
 					/obj/item/tank/internals/emergency_oxygen/double/vox)
 	cost = 200
-	containertype = /obj/structure/closet/crate/medical
+	containertype = /obj/structure/closet/crate/internals/nitrogen
 	containername = "vox life support supplies crate"
 
 /datum/supply_packs/emergency/plasmamansupport

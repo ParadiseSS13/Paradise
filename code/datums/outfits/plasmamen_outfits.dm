@@ -70,11 +70,23 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	uniform = /obj/item/clothing/under/plasmaman/cargo
 
+/datum/outfit/plasmaman/expedition
+	name = "Plasmaman Expedition"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/expedition
+	uniform = /obj/item/clothing/under/plasmaman/expedition
+
 /datum/outfit/plasmaman/mining
 	name = "Plasmaman Mining"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mining
 	uniform = /obj/item/clothing/under/plasmaman/mining
+
+/datum/outfit/plasmaman/smith
+	name = "Plasmaman Smith"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/smith
+	uniform = /obj/item/clothing/under/plasmaman/smith
 
 /datum/outfit/plasmaman/medical
 	name = "Plasmaman Medical"
@@ -182,5 +194,24 @@
 
 /datum/outfit/plasmaman/assistant
 	name = "Assistant Plasmaman"
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
 	uniform = /obj/item/clothing/under/plasmaman/assistant
+
+/datum/outfit/plasmaman/trainer
+	name = "Plasmaman Career Trainer"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/trainer
+	uniform = /obj/item/clothing/under/plasmaman/trainer
+
+/datum/outfit/plasmaman/navyofficer
+	name = "Plasmaman Navy Officer"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/centcom
+	uniform = /obj/item/clothing/under/plasmaman/centcom
+
+/datum/outfit/plasmaman/soo
+	name = "Plasmaman Special Operations Officer"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/centcom/soo
+	uniform = /obj/item/clothing/under/plasmaman/centcom

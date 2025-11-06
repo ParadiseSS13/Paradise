@@ -9,6 +9,7 @@
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 60
+	can_unwrench_while_on = FALSE
 
 	can_unwrench = TRUE
 
@@ -22,6 +23,7 @@
 	var/scrub_CO2 = TRUE
 	var/scrub_Toxins = FALSE
 	var/scrub_N2O = FALSE
+	var/scrub_H2 = FALSE
 
 	var/volume_rate = 200
 	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
@@ -34,25 +36,34 @@
 	on = TRUE
 	icon_state = "map_scrubber"
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon
+	scrubbing = FALSE
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
 	. = ..()
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.scrubbers += src
+	GLOB.all_scrubbers += src
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
-
-/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)
 		initial_loc.scrubbers -= src
 
+	GLOB.all_scrubbers -= src
+
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
 	if(welded)
 		. += "It seems welded shut."
 
@@ -75,8 +86,8 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
-	update_pipe_image()
+	. += GLOB.pipe_icon_manager.get_atmos_icon("device", state = scrubber_icon)
+	update_pipe_image(.)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -100,8 +111,6 @@
 	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
-	..()
-
 	if(widenet)
 		check_turfs()
 
@@ -138,59 +147,92 @@
 	if(!tile || !istype(tile))
 		return 0
 
-	var/datum/gas_mixture/environment = tile.return_air()
+	if(scrubbing && !should_scrub(tile.get_readonly_air()))
+		return 0
 
-	if(scrubbing)
-		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.sleeping_agent) || (environment.agent_b))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+	var/datum/milla_safe/vent_scrubber_process/milla = new()
+	milla.invoke_async(src, tile)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
+	if(scrub_O2 && environment.oxygen() > 0.001)
+		return TRUE
+	if(scrub_N2 && environment.nitrogen() > 0.001)
+		return TRUE
+	if(scrub_CO2 && environment.carbon_dioxide() > 0.001)
+		return TRUE
+	if(scrub_Toxins && environment.toxins() > 0.001)
+		return TRUE
+	if(environment.sleeping_agent() > 0.001)
+		return TRUE
+	if(environment.agent_b() > 0.001)
+		return TRUE
+	if(environment.hydrogen() > 0.001)
+		return TRUE
+
+	return FALSE
+
+/datum/milla_safe/vent_scrubber_process
+
+/datum/milla_safe/vent_scrubber_process/on_run(obj/machinery/atmospherics/unary/vent_scrubber/scrubber, turf/simulated/tile)
+	if(!tile || !istype(tile))
+		return 0
+
+	var/datum/gas_mixture/environment = get_turf_air(tile)
+
+	if(scrubber.scrubbing)
+		if(scrubber.should_scrub(environment))
+			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 			if(isnull(removed)) //in space
 				return
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
-			filtered_out.temperature = removed.temperature
-			if(scrub_O2)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
-			if(scrub_N2)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
-			if(scrub_Toxins)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
-			if(scrub_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+			filtered_out.set_temperature(removed.temperature())
+			if(scrubber.scrub_O2)
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
+			if(scrubber.scrub_N2)
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
+			if(scrubber.scrub_Toxins)
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
+			if(scrubber.scrub_CO2)
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
-			if(removed.agent_b)
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+			if(removed.agent_b())
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
-			if(scrub_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+			if(scrubber.scrub_N2O)
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
+
+			if(scrubber.scrub_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
 
 			//Remix the resulting gases
-			air_contents.merge(filtered_out)
+			scrubber.air_contents.merge(filtered_out)
 
-			tile.assume_air(removed)
-			tile.air_update_turf()
+			environment.merge(removed)
 
 	else //Just siphoning all air
-		if(air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
+		if(scrubber.air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
 			return
 
-		var/transfer_moles = environment.total_moles() * (volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles() * (scrubber.volume_rate / environment.volume)
 
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 
-		air_contents.merge(removed)
-		tile.air_update_turf()
+		scrubber.air_contents.merge(removed)
 
-	parent.update = 1
+	if(!QDELETED(scrubber.parent))
+		scrubber.parent.update = 1
 
 	return 1
 
@@ -215,14 +257,6 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return TRUE
-
-	return ..()
-
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -238,3 +272,11 @@
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/I)
+	if(!ismultitool(I))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer.</span>")

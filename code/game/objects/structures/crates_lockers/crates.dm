@@ -6,11 +6,10 @@
 	icon_opened = "crate_open"
 	icon_closed = "crate"
 	climbable = TRUE
+	enable_door_overlay = FALSE
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
 	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -37,7 +36,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
 				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
@@ -48,7 +47,8 @@
 			if(L.electrocute_act(17, src))
 				do_sparks(5, 1, src)
 				return 2
-
+	if(climbable)
+		structure_shaken()
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
 		O.forceMove(loc)
@@ -56,9 +56,6 @@
 		M.forceMove(loc)
 	icon_state = icon_opened
 	opened = TRUE
-
-	if(climbable)
-		structure_shaken()
 
 	return TRUE
 
@@ -75,12 +72,10 @@
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
 			continue
-		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
+		if(ismob(O) && !(HAS_TRAIT(O, TRAIT_CONTORTED_BODY) || HAS_TRAIT(O, TRAIT_SKITTISH)))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
+		if(O.has_buckled_mobs()) // You can't put (most) mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+			continue
 		O.forceMove(src)
 		itemcount++
 
@@ -88,9 +83,9 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!opened && try_rig(W, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
@@ -162,7 +157,7 @@
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in announce_beacons[destination])
-				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
+				D.createMessage(name, "Your Crate has Arrived!", msg, RQ_NORMALPRIORITY)
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
@@ -173,7 +168,6 @@
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
 	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
@@ -207,7 +201,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = "Tamper-proof secure crate")
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
@@ -216,16 +210,21 @@
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
-		return
+		return FALSE
 	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
-		return
+		return FALSE
+	if(user.loc == src)
+		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		return FALSE
 	if(allowed(user))
 		locked = !locked
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		return FALSE
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
@@ -283,12 +282,19 @@
 
 /obj/structure/closet/crate/secure/personal
 	name = "personal crate"
-	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
+	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it."
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	/// The name of the person this crate is registered to.
 	var/registered_name = null
 	// Unlike most secure crates, personal crates are easily obtained.
 	crate_value = DEFAULT_CRATE_VALUE
+
+/obj/structure/closet/crate/secure/personal/examine(mob/user)
+	. = ..()
+	if(registered_name)
+		. += "Owned by [registered_name]."
+	else
+		. += "This crate has no owner, and can be claimed by swiping your ID card."
 
 /obj/structure/closet/crate/secure/personal/allowed(mob/user)
 	if(..())
@@ -306,32 +312,31 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/card/id/id = I
 	if(!is_usable_id(id))
 		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name && allowed(user))
 		return ..()
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		desc = "Owned by [id.registered_name]."
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name == id.registered_name)
 		return ..()
 
-	return FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
@@ -350,12 +355,23 @@
 	icon_opened = "o2crate_open"
 	icon_closed = "o2crate"
 
+/obj/structure/closet/crate/internals/nitrogen
+	icon_state = "n2crate"
+	icon_opened = "n2crate_open"
+	icon_closed = "n2crate"
+
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
+
+/obj/structure/closet/crate/trashcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -383,23 +399,32 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
-	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
-	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+/obj/structure/closet/crate/freezer/deluxe
+	name = "Deluxe Freezer"
+	desc = "A fancy looking freezer emblazoned with the Nanotrasen logo."
+	icon_state = "freezerdeluxe"
+	icon_opened = "freezerdeluxe_open"
+	icon_closed = "freezerdeluxe"
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+/obj/structure/closet/crate/freezer/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/T = get_turf(src)
+		gas = T.get_readonly_air()
+	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
+	newgas.volume = gas.volume
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
+
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/freezer/iv_storage
@@ -407,12 +432,12 @@
 	desc = "A freezer used to store IV bags containing various blood types."
 
 /obj/structure/closet/crate/freezer/iv_storage/populate_contents()
-	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_plus(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
@@ -517,6 +542,12 @@
 	icon_opened = "scicrate_open"
 	icon_closed = "scicrate"
 
+/obj/structure/closet/crate/sci/robo
+	desc = "A science crate. Contain various mech parts."
+	icon_state = "scicrate_mech"
+	icon_opened = "scicrate_mech_open"
+	icon_closed = "scicrate_mech"
+
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
@@ -544,6 +575,20 @@
 	icon_state = "electricalcrate"
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
+
+/obj/structure/closet/crate/nanotrasen
+	name = "corporate crate"
+	desc = "A Nanotrasen crate."
+	icon_state = "nanotrasen"
+	icon_opened = "nanotrasen_open"
+	icon_closed = "nanotrasen"
+
+/obj/structure/closet/crate/secure/nanotrasen
+	name = "secure corporate crate"
+	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
 
 /obj/structure/closet/crate/mail
 	name = "mail crate"
@@ -574,24 +619,41 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-//crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/populate_contents()
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/card/id/golem(src)
-	new /obj/item/flashlight/lantern(src)
+/obj/structure/closet/crate/cookware
+	name = "cookware crate"
+	icon_state = "cookware"
+	icon_opened = "cookware_open"
+	icon_closed = "cookware"
+
+/obj/structure/closet/crate/cookware/populate_contents()
+	// Ice cream mixer containers
+	new /obj/item/reagent_containers/cooking/icecream_bowl(src)
+	// Oven containers
+	new /obj/item/reagent_containers/cooking/oven(src)
+	// Stovetop containers
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	// Deepfryer containers
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	// Cutting board
+	new /obj/item/reagent_containers/cooking/board(src)
+	// Grill containers
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	// Prep bowls
+	new /obj/item/reagent_containers/cooking/bowl(src)
+	new /obj/item/reagent_containers/cooking/bowl(src)
 
 #define RECURSION_PANIC_AMOUNT 10
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -640,10 +702,14 @@
 		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	bought_items += /obj/item/storage/bag/garment/syndie // Guaranteed to spawn with drip (doesn't affect balance, it's only a bunch of fancy clothing)
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+		itemlog += purchased.name // To make the item more readable for the log compared to just uplink_item.item
+	var/item_list = jointext(sortList(itemlog), ", ")
+	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
+	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount
@@ -670,3 +736,24 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin
+	name = "locked crate"
+	desc = "The side of the crate has a slot for a keycard to be swiped."
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
+	if(!user)
+		return
+
+	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
+	if(!istype(keycard))
+		return
+
+	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	return TRUE
+
+/obj/item/card/sec_shuttle_ruin
+	name = "warden's card"
+	desc = "A card used by the warden to unlock their crate."
+	icon_state = "data"

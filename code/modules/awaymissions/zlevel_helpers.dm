@@ -1,21 +1,17 @@
-// Call this before you remove the last dirt on a z level - that way, all objects
-// will have proper atmos and other important enviro things
-/proc/late_setup_level(turfs, smoothTurfs)
-	var/total_timer = start_watch()
-	var/subtimer = start_watch()
-	if(!smoothTurfs)
-		smoothTurfs = turfs
+/datum/milla_safe_must_sleep/late_setup_level
 
-	log_debug("Setting up atmos")
+// Ensures that atmos and environment are set up.
+/datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
+	if(!smoothTurfs)
+		smoothTurfs = block(bot_left, top_right)
+
 	/* setup_allturfs is superfluous during server initialization because
 	 * air subsystem will call subsequently call setup_allturfs with _every_
 	 * turf in the world */
 	if(SSair && SSair.initialized)
-		SSair.setup_allturfs(turfs)
-	log_debug("\tTook [stop_watch(subtimer)]s")
+		SSair.setup_turfs(bot_left, top_right)
+	set_zlevel_freeze(bot_left.z, FALSE)
 
-	subtimer = start_watch()
-	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smoothing_flags)
 			QUEUE_SMOOTH(T)
@@ -23,14 +19,9 @@
 			var/atom/A = R
 			if(A.smoothing_flags)
 				QUEUE_SMOOTH(A)
-	log_debug("\tTook [stop_watch(subtimer)]s")
-	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
-	var/timer = start_watch()
-	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
-	empty_region(block(locate(low_x, low_y, z), locate(hi_x, hi_y, z)))
-	log_debug("Took [stop_watch(timer)]s")
+	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)
@@ -39,49 +30,10 @@
 			qdel(otherthing)
 		T.ChangeTurf(T.baseturf)
 
-/datum/map_template/ruin/proc/try_to_place(z,allowed_areas)
-	var/sanity = PLACEMENT_TRIES
-	while(sanity > 0)
-		sanity--
-		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width / 2)
-		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height / 2)
-		var/turf/central_turf = locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
-		var/valid = TRUE
+/datum/milla_safe/freeze_z_level
+	var/done = FALSE
 
-		for(var/turf/check in get_affected_turfs(central_turf,1))
-			var/area/new_area = get_area(check)
-			if(!(istype(new_area, allowed_areas)) || check.flags & NO_RUINS)
-				valid = FALSE
-				break
-
-		if(!valid)
-			continue
-
-		log_world("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
-
-		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
-			for(var/obj/structure/spawner/nest in T)
-				qdel(nest)
-			for(var/mob/living/simple_animal/monster in T)
-				qdel(monster)
-			for(var/obj/structure/flora/ash/plant in T)
-				qdel(plant)
-
-		load(central_turf,centered = TRUE)
-		loaded++
-
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
-			T.flags |= NO_RUINS
-
-		new /obj/effect/landmark/ruin(central_turf, src)
-
-		var/map_filename = splittext(mappath, "/")
-		map_filename = map_filename[length(map_filename)]
-		SSblackbox.record_feedback("associative", "ruin_placement", 1, list(
-			"map" = map_filename,
-			"coords" = "[central_turf.x],[central_turf.y],[central_turf.z]"
-		))
-
-		return TRUE
-	return FALSE
+// Ensures that atmos is frozen before loading
+/datum/milla_safe/freeze_z_level/on_run(z)
+	set_zlevel_freeze(z, TRUE)
+	done = TRUE

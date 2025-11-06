@@ -8,12 +8,12 @@
 	/// Have we been used?
 	var/used = FALSE
 
-/obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/D = I
+/obj/machinery/computer/id_upgrader/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/D = used
 		if(!length(access_to_give))
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/did_upgrade = FALSE
 		var/list/id_access = D.GetAccess()
@@ -29,6 +29,6 @@
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()

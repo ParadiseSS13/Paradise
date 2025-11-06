@@ -4,12 +4,12 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "glowshroom" //replaced in New
+	icon_state = "glowshroomf"
+	base_icon_state = "glowshroom" //replaced in New
 	layer = ABOVE_NORMAL_TURF_LAYER
 	max_integrity = 30
+	cares_about_temperature = TRUE
 	var/floor = 0
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
@@ -20,13 +20,15 @@
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
-	icon_state = "glowcap"
+	icon_state = "glowcapf"
+	base_icon_state = "glowcap"
 	myseed = /obj/item/seeds/glowshroom/glowcap
 
 /obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
-	icon_state = "shadowshroom"
+	icon_state = "shadowshroomf"
+	base_icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
 /obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
@@ -36,8 +38,8 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
-	..()
+/obj/structure/glowshroom/Initialize(mapload, loc, obj/item/seeds/newseed, mutate_stats)
+	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()
 		myseed.forceMove(src)
@@ -54,7 +56,6 @@
 		var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 		set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 	setDir(CalcDir())
-	var/base_icon_state = initial(icon_state)
 	if(!floor)
 		switch(dir) //offset to make it be on the wall rather than on the floor
 			if(NORTH)
@@ -105,7 +106,7 @@
 	if(damage_type == BURN && damage_amount)
 		playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/glowshroom/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

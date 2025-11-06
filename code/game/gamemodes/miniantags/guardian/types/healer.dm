@@ -4,10 +4,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer
 	friendly = "heals"
-	speed = 0
 	damage_transfer = 0.7
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	playstyle_string = "As a <b>Support</b> type, you may toggle your basic attacks to a healing mode, or a surgical mode. In addition, Alt-Clicking on an adjacent mob will warp them to your bluespace beacon after a short delay."
 	magic_fluff_string = "..And draw the CMO, a potent force of life...and death."
 	tech_fluff_string = "Boot sequence complete. Medical modules active. Bluespace modules activated. Holoparasite swarm online."
@@ -27,8 +24,6 @@
 	icon_state = "seal"
 	attacktext = "slaps"
 	speak_emote = list("barks")
-	friendly = "heals"
-	speed = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
@@ -63,12 +58,13 @@
 	if(toggle == HEALING)
 		if(iscarbon(target))
 			changeNext_move(1.5 SECONDS)
-			if(heal_cooldown <= world.time && !stat)
+			if(heal_cooldown <= world.time && stat == CONSCIOUS)
 				var/mob/living/carbon/human/C = target
 				C.adjustBruteLoss(-5, robotic=1)
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
+				C.adjustCloneLoss(-1)
 				heal_cooldown = world.time + 1.5 SECONDS
 				if(C == summoner)
 					med_hud_set_health()
@@ -77,7 +73,7 @@
 		if(!iscarbon(target))
 			return
 		var/mob/living/carbon/human/C = target
-		if(surgical_cooldown <= world.time && !stat)
+		if(surgical_cooldown <= world.time && stat == CONSCIOUS)
 			to_chat(src, "<span class='notice'>You begin to do a mass repair on [C], keep them still!</span>")
 			surgical_cooldown  = world.time + 10 SECONDS
 			if(!do_after_once(src, 10 SECONDS, target = src))

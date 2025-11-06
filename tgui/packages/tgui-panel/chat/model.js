@@ -4,11 +4,11 @@
  * @license MIT
  */
 
-import { createUuid } from 'common/uuid';
-import { MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL } from './constants';
+import { createUuid } from 'tgui-core/uuid';
 
-export const canPageAcceptType = (page, type) =>
-  type.startsWith(MESSAGE_TYPE_INTERNAL) || page.acceptedTypes[type];
+import { MESSAGE_TYPE_INTERNAL, MESSAGE_TYPES } from './constants';
+
+export const canPageAcceptType = (page, type) => type.startsWith(MESSAGE_TYPE_INTERNAL) || page.acceptedTypes[type];
 
 export const createPage = (obj) => {
   let acceptedTypes = {};
@@ -55,5 +55,4 @@ export const serializeMessage = (message) => ({
 });
 
 export const isSameMessage = (a, b) =>
-  (typeof a.text === 'string' && a.text === b.text) ||
-  (typeof a.html === 'string' && a.html === b.html);
+  (typeof a.text === 'string' && a.text === b.text) || (typeof a.html === 'string' && a.html === b.html);

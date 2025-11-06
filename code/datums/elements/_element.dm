@@ -10,11 +10,21 @@
 	/**
 	  * The index of the first attach argument to consider for duplicate elements
 	  *
+	  * All arguments from this index onwards (1 based, until `argument_hash_end_idx` is reached, if set)
+	  * are hashed into the key to determine if this is a new unique element or one already exists
+	  *
 	  * Is only used when flags contains [ELEMENT_BESPOKE]
 	  *
 	  * This is infinity so you must explicitly set this
 	  */
-	var/id_arg_index = INFINITY
+	var/argument_hash_start_idx = INFINITY
+
+	/**
+	  * The index of the last attach argument to consider for duplicate elements
+	  * Only used when `element_flags` contains [ELEMENT_BESPOKE].
+	  * If not set, it'll copy every argument from `argument_hash_start_idx` onwards as normal
+	  */
+	var/argument_hash_end_idx = 0
 
 /// Activates the functionality defined by the element on the given target datum
 /datum/element/proc/Attach(datum/target)
@@ -27,8 +37,8 @@
 
 /// Deactivates the functionality defines by the element on the given datum
 /datum/element/proc/Detach(datum/source, force)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
-	SHOULD_CALL_PARENT(1)
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /datum/element/Destroy(force)

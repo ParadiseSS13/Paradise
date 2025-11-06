@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "b" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -10,22 +7,22 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "e" = (
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "f" = (
 /obj/structure/mirror{
 	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "g" = (
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "j" = (
 /obj/structure/mirror{
@@ -34,7 +31,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "k" = (
 /obj/structure/mirror{
@@ -43,7 +40,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "l" = (
 /obj/structure/mirror{
@@ -53,7 +50,7 @@
 	brightness_range = 3;
 	dir = 8
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "m" = (
 /obj/structure/mirror{
@@ -62,11 +59,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "r" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "G" = (
 /turf/simulated/wall/mineral/diamond,
@@ -75,39 +72,40 @@
 /obj/structure/mirror/magic/pride,
 /turf/simulated/wall/mineral/diamond,
 /area/ruin/powered/pride)
+"P" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Y" = (
 /obj/machinery/door/airlock/diamond,
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/mineral/silver{
-	blocks_air = 1
-	},
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
 "}
 (2,1,1) = {"
-a
-a
+P
+P
 c
 c
 c
@@ -125,7 +123,7 @@ c
 c
 c
 c
-a
+P
 "}
 (3,1,1) = {"
 b
@@ -147,7 +145,7 @@ G
 G
 G
 c
-a
+P
 "}
 (4,1,1) = {"
 c
@@ -169,7 +167,7 @@ e
 e
 G
 c
-a
+P
 "}
 (5,1,1) = {"
 c
@@ -190,8 +188,8 @@ g
 g
 r
 G
-a
-a
+P
+P
 "}
 (6,1,1) = {"
 c
@@ -212,8 +210,8 @@ g
 g
 g
 Y
-a
-a
+P
+P
 "}
 (7,1,1) = {"
 c
@@ -235,7 +233,7 @@ g
 r
 G
 c
-a
+P
 "}
 (8,1,1) = {"
 c
@@ -257,7 +255,7 @@ f
 f
 G
 c
-a
+P
 "}
 (9,1,1) = {"
 b
@@ -279,7 +277,7 @@ G
 G
 G
 c
-a
+P
 "}
 (10,1,1) = {"
 b
@@ -301,5 +299,5 @@ c
 c
 c
 c
-a
+P
 "}

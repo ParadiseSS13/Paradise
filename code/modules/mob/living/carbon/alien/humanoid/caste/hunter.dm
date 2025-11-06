@@ -8,6 +8,7 @@
 	var/leap_on_click = FALSE
 	/// Are we on leap cooldown?
 	var/on_leap_cooldown = FALSE
+	surgery_container = /datum/xenobiology_surgery_container/alien/hunter
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
@@ -74,7 +75,7 @@
 			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
-				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
+				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(armor_type = MELEE))
 				H.apply_damage(40, STAMINA)
 			else
 				L.Weaken(5 SECONDS)
@@ -88,7 +89,7 @@
 	else if(A.density && !A.CanPass(src))
 		visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
 		Weaken(2 SECONDS, TRUE)
-		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, 0, 0) // owwie
+		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, FALSE, 0) // owwie
 		..()
 	if(leaping)
 		leaping = FALSE

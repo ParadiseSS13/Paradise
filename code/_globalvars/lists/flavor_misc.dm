@@ -20,6 +20,7 @@ GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
 GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_full_list)
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
 GLOBAL_LIST_EMPTY(socks_m)	 //stores only socks name
@@ -68,3 +69,25 @@ GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFLEBAG, GBACKPACK, G
 #define POSITRONIC_BORG "Positronic"
 GLOBAL_LIST_INIT(borg_brain_choices, list(MMI_BORG, ROBOBRAIN_BORG, POSITRONIC_BORG))
 GLOBAL_PROTECT(borg_brain_choices)
+
+//Chooseable ringtones
+//Due to database reasons, the name should be 16 characters long maximum
+GLOBAL_LIST_INIT(pda_ringtone_choices, list("beep" = 'sound/machines/twobeep.ogg',
+								"boop" = 'sound/machines/boop.ogg',
+								"blup" = 'sound/misc/blup.ogg',
+								"chime" = 'sound/machines/notif2.ogg',
+								"slip" = 'sound/misc/slip.ogg',
+								"honk" = 'sound/items/bikehorn.ogg',
+								"SKREE" = 'sound/voice/shriek1.ogg',
+								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"gavel" = 'sound/items/gavel.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg',
+								"smoke" = 'sound/magic/smoke.ogg',
+								"shatter" = 'sound/effects/pylon_shatter.ogg',
+								"energy" = 'sound/weapons/egloves.ogg',
+								"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
+								"interference" = 'sound/misc/interference.ogg',
+								"zap" = 'sound/effects/eleczap.ogg',
+								"disgusting" = 'sound/effects/blobattack.ogg',
+								"hungry" = 'sound/weapons/bite.ogg'))

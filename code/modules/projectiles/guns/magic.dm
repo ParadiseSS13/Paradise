@@ -3,10 +3,11 @@
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
-	item_state = "staff"
+	inhand_icon_state = "staff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
-	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
 	var/max_charges = 6
 	var/charges = 0
@@ -15,15 +16,12 @@
 	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
+	var/antimagic_flags = MAGIC_RESISTANCE
 	origin_tech = null
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
-	can_holster = FALSE // Nothing here is a gun, and therefore shouldn't really fit into a holster
 
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-
-/obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag)
+/obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
@@ -31,6 +29,9 @@
 			return
 		else
 			no_den_usage = 0
+	if(!user.can_cast_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
+		return FALSE
 	..()
 
 /obj/item/gun/magic/can_shoot()
@@ -87,5 +88,5 @@
 
 /obj/item/gun/magic/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, fire_sound, 50, 1, -1)
+	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

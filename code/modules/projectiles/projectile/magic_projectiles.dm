@@ -4,8 +4,10 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = 1
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	flag = MAGIC
+	antimagic_flags = MAGIC_RESISTANCE
+	antimagic_charge_cost = 1
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -15,32 +17,18 @@
 	tracer_type = /obj/effect/projectile/tracer/death
 	impact_type = /obj/effect/projectile/impact/death
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_PURPLE
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
 	muzzle_flash_color_override = LIGHT_COLOR_PURPLE
 	impact_light_intensity = 7
-	impact_light_range =  2.5
+	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
-
-/obj/item/projectile/magic/fireball
-	name = "bolt of fireball"
-	icon_state = "fireball"
-	damage = 10
-	damage_type = BRUTE
-	nodamage = 0
-	immolate = 6
-
-	//explosion values
-	var/exp_devastate = -1
-	var/exp_heavy = 0
-	var/exp_light = 2
-	var/exp_flash = 3
-	var/exp_fire = 2
 
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return .
 	if(isliving(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			if(target.revive())
@@ -54,6 +42,21 @@
 		target.death(FALSE)
 
 		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+
+/obj/item/projectile/magic/fireball
+	name = "bolt of fireball"
+	icon_state = "fireball"
+	damage = 10
+	damage_type = BRUTE
+	nodamage = 0
+	immolate = 6
+
+	// explosion values
+	var/exp_devastate = -1
+	var/exp_heavy = 0
+	var/exp_light = 2
+	var/exp_flash = 3
+	var/exp_fire = 2
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -75,11 +78,13 @@
 
 /obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
-	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	if(ismob(target))
+		if(!.)
+			return .
+	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
-		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+		M.adjustFireLoss(10) // between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
 /obj/item/projectile/magic/fireball/infernal
@@ -95,6 +100,8 @@
 
 /obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return .
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.death(FALSE)
@@ -121,6 +128,8 @@
 
 /obj/item/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
+	if(!.)
+		return .
 	var/teleammount = 0
 	var/teleloc = target
 	if(!isturf(target))
@@ -135,7 +144,6 @@
 
 /obj/item/projectile/magic/door
 	name = "bolt of door creation"
-	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
@@ -149,7 +157,7 @@
 	else if(isturf(T) && T.density)
 		if(!(istype(T, /turf/simulated/wall/indestructible)))
 			CreateDoor(T)
-	else if(istype(target, /obj/machinery/door))
+	else if(isairlock(target))
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
@@ -179,36 +187,38 @@
 
 /obj/item/projectile/magic/change/on_hit(atom/change)
 	. = ..()
+	if(!.)
+		return .
 	wabbajack(change)
 
 GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
-	"carp" = /mob/living/simple_animal/hostile/carp,
-	"bear" = /mob/living/simple_animal/hostile/bear,
+	"carp" = /mob/living/basic/carp,
+	"bear" = /mob/living/basic/bear,
 	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
 	"statue" = /mob/living/simple_animal/hostile/statue,
-	"bat" = /mob/living/simple_animal/hostile/scarybat,
-	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
-	"tomato" = /mob/living/simple_animal/hostile/killertomato,
-	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
-	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
+	"bat" = /mob/living/basic/scarybat,
+	"goat" = /mob/living/basic/goat,
+	"kangaroo" = /mob/living/basic/kangaroo,
+	"tomato" = /mob/living/basic/killertomato,
+	"gorilla" = /mob/living/basic/gorilla,
 ))
 
 GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"parrot" = /mob/living/simple_animal/parrot,
 	"corgi" = /mob/living/simple_animal/pet/dog/corgi,
-	"crab" = /mob/living/simple_animal/crab,
+	"crab" = /mob/living/basic/crab,
 	"cat" = /mob/living/simple_animal/pet/cat,
-	"mouse" = /mob/living/simple_animal/mouse,
-	"chicken" = /mob/living/simple_animal/chicken,
-	"cow" = /mob/living/simple_animal/cow,
-	"lizard" = /mob/living/simple_animal/lizard,
+	"mouse" = /mob/living/basic/mouse,
+	"chicken" = /mob/living/basic/chicken,
+	"cow" = /mob/living/basic/cow,
+	"lizard" = /mob/living/basic/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
-	"chick" = /mob/living/simple_animal/chick,
+	"chick" = /mob/living/basic/chick,
 	"pug" = /mob/living/simple_animal/pet/dog/pug,
-	"turkey" = /mob/living/simple_animal/turkey,
-	"seal" = /mob/living/simple_animal/seal,
-	"bunny" = /mob/living/simple_animal/bunny,
-	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+	"turkey" = /mob/living/basic/turkey,
+	"seal" = /mob/living/basic/seal,
+	"bunny" = /mob/living/basic/bunny,
+	"penguin" = /mob/living/basic/pet/penguin/emperor,
 ))
 
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
@@ -235,7 +245,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.unequip(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob
@@ -380,6 +390,9 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	SpinAnimation()
 
 /obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(!.)
+		return .
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
@@ -394,7 +407,6 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
-	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage
 	name = "arcane bolt"
@@ -402,6 +414,4 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration_flat = 0
-	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

@@ -1,0 +1,355 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/marble,
+/area/space)
+"b" = (
+/obj/random/mre,
+/turf/simulated/floor/shuttle,
+/area/space)
+"f" = (
+/obj/random/energy,
+/turf/simulated/wall,
+/area/space)
+"j" = (
+/obj/random/energy_antag,
+/turf/simulated/wall,
+/area/space)
+"k" = (
+/obj/random/action_figure,
+/obj/random/action_figure,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"n" = (
+/obj/random/mre,
+/turf/simulated/floor/marble,
+/area/space)
+"o" = (
+/obj/random/mre,
+/turf/simulated/wall,
+/area/space)
+"p" = (
+/obj/random/handgun,
+/turf/simulated/floor/marble,
+/area/space)
+"r" = (
+/obj/random/action_figure,
+/obj/aiming_overlay,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"s" = (
+/obj/random/action_figure,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"u" = (
+/obj/random/handgun,
+/turf/simulated/wall,
+/area/space)
+"y" = (
+/obj/random/glowstick,
+/turf/simulated/floor/marble,
+/area/space)
+"z" = (
+/obj/random/firstaid,
+/turf/simulated/floor/marble,
+/area/space)
+"B" = (
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"E" = (
+/turf/simulated/wall,
+/area/space)
+"F" = (
+/turf/simulated/floor/shuttle,
+/area/space)
+"G" = (
+/obj/random/finances,
+/turf/simulated/wall,
+/area/space)
+"H" = (
+/obj/random/gift,
+/turf/simulated/floor/marble,
+/area/space)
+"J" = (
+/obj/random/chameleon,
+/turf/simulated/floor/shuttle,
+/area/space)
+"Q" = (
+/obj/aiming_overlay,
+/turf/simulated/floor/marble,
+/area/space)
+"S" = (
+/obj/aiming_overlay,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"U" = (
+/obj/random/mre,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"W" = (
+/obj/random/chameleon,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"Y" = (
+/obj/random/action_figure,
+/turf/simulated/floor/marble,
+/area/space)
+"Z" = (
+/obj/random/chameleon,
+/turf/simulated/floor/marble,
+/area/space)
+
+(1,1,1) = {"
+E
+j
+j
+E
+E
+E
+E
+E
+E
+E
+E
+E
+G
+G
+a
+"}
+(2,1,1) = {"
+f
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+z
+"}
+(3,1,1) = {"
+f
+B
+B
+B
+B
+Q
+a
+a
+a
+a
+a
+a
+a
+B
+z
+"}
+(4,1,1) = {"
+E
+B
+B
+a
+a
+Q
+B
+B
+B
+B
+B
+B
+B
+B
+a
+"}
+(5,1,1) = {"
+E
+B
+s
+Y
+B
+S
+B
+B
+B
+B
+B
+s
+B
+F
+a
+"}
+(6,1,1) = {"
+E
+s
+s
+Y
+s
+S
+s
+a
+Q
+B
+B
+B
+B
+F
+a
+"}
+(7,1,1) = {"
+E
+B
+B
+a
+B
+r
+s
+B
+S
+B
+B
+B
+B
+F
+a
+"}
+(8,1,1) = {"
+E
+W
+a
+a
+B
+S
+B
+s
+S
+s
+B
+B
+F
+F
+a
+"}
+(9,1,1) = {"
+o
+W
+n
+U
+U
+S
+U
+B
+r
+s
+k
+k
+b
+U
+n
+"}
+(10,1,1) = {"
+E
+W
+Z
+B
+B
+B
+B
+B
+S
+B
+B
+k
+F
+B
+a
+"}
+(11,1,1) = {"
+E
+B
+Z
+W
+B
+B
+B
+U
+S
+U
+U
+U
+F
+B
+a
+"}
+(12,1,1) = {"
+E
+B
+B
+W
+W
+B
+B
+B
+B
+B
+B
+B
+B
+B
+a
+"}
+(13,1,1) = {"
+u
+B
+B
+B
+B
+J
+J
+B
+B
+B
+B
+B
+B
+B
+H
+"}
+(14,1,1) = {"
+u
+B
+B
+B
+F
+F
+B
+W
+B
+B
+F
+F
+s
+B
+H
+"}
+(15,1,1) = {"
+a
+p
+p
+a
+a
+a
+a
+B
+J
+J
+J
+B
+y
+y
+a
+"}

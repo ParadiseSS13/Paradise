@@ -1,6 +1,6 @@
 /datum/spell/alien_spell/transfer_plasma
 	name = "Transfer Plasma"
-	desc = "Transfers 50 plasma to a nearby alien"
+	desc = "Transfers 50 plasma to a nearby alien."
 	action_icon_state = "alien_transfer"
 	plasma_cost = 50
 
@@ -16,15 +16,14 @@
 
 	user.Beam(target, icon_state = "sendbeam", time = 2 SECONDS, beam_color = "#f180bd")
 	target.add_plasma(50)
-	to_chat(user, "<span class='noticealien'>You have transfered 50 plasma to [target].</span>")
-	to_chat(target, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
+	to_chat(user, "<span class='noticealien'>You have transferred 50 plasma to [target].</span>")
+	to_chat(target, "<span class='noticealien'>[user] has transferred 50 plasma to you!</span>")
 	return TRUE
 
 /datum/spell/alien_spell/syphon_plasma
 	name = "Syphon plasma"
 	desc = "Syphons 150 plasma from a nearby alien."
 	action_icon_state = "alien_transfer"
-	plasma_cost = 0
 	base_cooldown = 10 SECONDS
 
 /datum/spell/alien_spell/syphon_plasma/create_new_targeting()

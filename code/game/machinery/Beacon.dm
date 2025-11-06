@@ -9,9 +9,10 @@
 	anchored = TRUE
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
-	var/obj/item/radio/beacon/Beacon
+	var/obj/item/beacon/Beacon
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
+	var/broadcast_to_teleport_hubs = TRUE
 
 /obj/machinery/bluespace_beacon/Initialize(mapload)
 	. = ..()
@@ -19,12 +20,13 @@
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
 	var/turf/T = loc
-	Beacon = new /obj/item/radio/beacon
+	Beacon = new /obj/item/beacon
 	Beacon.invisibility = INVISIBILITY_MAXIMUM
 	Beacon.loc = T
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
 	Beacon.cc_beacon = cc_beacon
+	Beacon.broadcast_to_teleport_hubs = broadcast_to_teleport_hubs
 	if(!T.transparent_floor)
 		hide(T.intact)
 
@@ -88,3 +90,14 @@
 /obj/machinery/bluespace_beacon/syndicate/infiltrator/Initialize(mapload)
 	. = ..()
 	enabled = FALSE
+
+
+/obj/structure/broken_bluespace_beacon
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "floor_beacon_broken"
+	name = "Broken Bluespace Gigabeacon"
+	desc = "A device that draws power from bluespace and creates a permanent tracking beacon. Seems this has broken down."
+	level = 1		// underfloor
+	layer = WIRE_LAYER
+	plane = FLOOR_PLANE
+	anchored = TRUE

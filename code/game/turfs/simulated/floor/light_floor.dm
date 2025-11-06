@@ -1,12 +1,9 @@
 /turf/simulated/floor/light
 	name = "light floor"
-	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	/// Are we on
 	var/on = FALSE
-	/// Are we broken
-	var/light_broken = FALSE
 	/// Can we modify a colour
 	var/can_modify_colour = TRUE
 	/// Are we draining power
@@ -50,17 +47,11 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/light/bulb)) //only for light tiles
-		if(!light_broken)
-			qdel(C)
-			light_broken = FALSE
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	else
-		return ..()
+/turf/simulated/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/simulated/floor/light/attack_robot(mob/user)
+	return attack_hand(user)
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -68,25 +59,23 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!light_broken)
-		var/new_color = input(user, "Select a bulb color", "Select a bulb color", color) as color|null
-		if(!new_color)
-			return
 
-		// Cancel if they walked away
-		if(!Adjacent(user, src))
-			return
+	var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)
+	if(isnull(new_color))
+		return
 
-		// Now lets make sure it cant go fully black. Yes I know this is more dense than my skull.
-		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
-		hsl[3] = max(hsl[3], 0.4)
-		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+	// Cancel if they walked away
+	if(!Adjacent(user, src))
+		return
 
-		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
-		update_icon()
-	else
-		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
+	// Now lets make sure it cant go fully black. Yes I know this is more dense than my skull.
+	var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+	hsl[3] = max(hsl[3], 0.4)
+	var/list/rgb = hsl2rgb(arglist(hsl))
+	color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+
+	to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+	update_icon()
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	if(!on && !power_check())
@@ -127,7 +116,7 @@
 	var/current_color
 
 // We pick a random color when we are spawned
-/turf/simulated/floor/light/disco/Initialize()
+/turf/simulated/floor/light/disco/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -154,3 +143,11 @@
 /turf/simulated/floor/light/disco/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/turf/simulated/floor/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+

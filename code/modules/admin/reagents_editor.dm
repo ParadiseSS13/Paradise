@@ -70,11 +70,14 @@
 				reagent = new reagent_prototype.type()
 				reagent.holder = target.reagents
 				reagent.on_new()
-				if(ishuman(target) && target.reagents.can_metabolize(target, reagent))
-					reagent.on_mob_add(target)
+				if(ishuman(target)) 
+					var/mob/living/carbon/human/human = target
+					if(human.can_metabolize(reagent))
+						reagent.on_mob_add(human)
 				target.reagents.reagent_list += reagent
 
 			reagent.volume = new_volume
+			log_and_message_admins("[ui.user] has added [new_volume]u of [reagent] to [target]!")
 
 		if("edit_volume")
 			var/reagent_uid = params["uid"]
@@ -85,6 +88,7 @@
 			if(isnull(new_volume))
 				return
 			reagent.volume = new_volume
+			log_and_message_admins("[ui.user] has edited volume of [reagent] to [new_volume]u in [target]!")
 
 		if("delete_reagent")
 			var/reagent_uid = params["uid"]
@@ -92,12 +96,14 @@
 			if(isnull(reagent))
 				return FALSE
 			target.reagents.reagent_list -= reagent
+			log_and_message_admins("[ui.user] has deleted [reagent] from [target]!")
 
 		if("update_total")
 			target.reagents.update_total()
 
 		if("react_reagents")
 			target.reagents.handle_reactions()
+			log_and_message_admins("[ui.user] has forced a chemical reaction in [target]!")
 
 		else
 			. = FALSE

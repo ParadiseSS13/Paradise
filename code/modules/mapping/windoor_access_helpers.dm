@@ -1,5 +1,4 @@
 /obj/effect/mapping_helpers/airlock/windoor/access
-	layer = DOOR_HELPER_LAYER
 	icon_state = "access_windoor"
 	var/access
 
@@ -11,30 +10,23 @@
 		return
 
 	// Access already set in map edit
-	if(windoor.req_access_txt != "0")
+	if(length(windoor.req_access))
 		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 		return
 
-	// Overwrite if there is no access set, otherwise add onto existing access
-	if(windoor.req_one_access_txt == "0")
-		windoor.req_one_access_txt = "[access]"
-		return
-
-	windoor.req_one_access_txt += ";[access]"
+	LAZYINITLIST(windoor.req_one_access)
+	windoor.req_one_access |= access
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir != dir)
 		return
 
-	if(windoor.req_one_access_txt != "0")
+	if(length(windoor.req_one_access))
 		log_world("[src] at [AREACOORD(src)] tried to set req_access, but req_one_access was already set!")
 		return
 
-	if(windoor.req_access_txt == "0")
-		windoor.req_access_txt = "[access]"
-		return
-
-	windoor.req_access_txt += ";[access]"
+	LAZYINITLIST(windoor.req_access)
+	windoor.req_access |= access
 
 // -------------------- Req Any (Only requires ONE of the given accesses to open)
 // -------------------- Command access helpers
@@ -53,7 +45,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/expedition
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop
@@ -181,7 +173,10 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
+
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence
+	access = ACCESS_EVIDENCE
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service
@@ -236,6 +231,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mineral_storage
 	access = ACCESS_MINERAL_STOREROOM
 
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith
+	access = ACCESS_SMITH
+
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/qm
 	access = ACCESS_QM
 
@@ -262,7 +260,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command/expedition
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/hop
@@ -390,7 +388,10 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence
+	access = ACCESS_EVIDENCE
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service
@@ -453,3 +454,10 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mule_bot
 	access = ACCESS_CARGO_BOT
+
+// -------------------- Procedure access helpers
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure
+	icon_state = "access_windoor_pro"
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer
+	access = ACCESS_TRAINER

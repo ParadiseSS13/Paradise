@@ -4,12 +4,7 @@
 // --------------------------------------------------------------------------------
 
 /obj/structure/spider/spiderling/terror_spiderling
-	name = "spiderling"
 	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
-	icon_state = "spiderling"
-	anchored = FALSE
-	layer = 2.75
-	max_integrity = 3
 	var/stillborn = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
@@ -30,18 +25,14 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	GLOB.ts_spiderling_list -= src
+	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
+		S.immediate_ventcrawl = TRUE
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
 	. = ..()
-
-
-/obj/structure/spider/spiderling/terror_spiderling/Destroy()
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
-		S.immediate_ventcrawl = TRUE
-	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
@@ -154,7 +145,7 @@
 							new_area.Entered(src)
 		else
 			frustration++
-			walk_to(src, entry_vent, 1)
+			GLOB.move_manager.move_to(src, entry_vent, 1)
 			if(frustration > 2)
 				entry_vent = null
 	else if(prob(33))
@@ -169,7 +160,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				GLOB.move_manager.move_to(src, entry_vent, 1)
 				break
 
 
@@ -194,7 +185,6 @@
 /obj/structure/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
-	icon_state = "eggs"
 	var/spider_growinstantly = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null

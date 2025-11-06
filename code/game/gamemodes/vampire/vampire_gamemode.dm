@@ -2,18 +2,17 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
-	protected_species = list("Machine")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Nanotrasen Career Trainer",  "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
+	species_to_mindflayer = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
+	/// If this gamemode should spawn less vampires than a usual vampire round, as a percentage of how many you want relative to the regular amount
+	var/vampire_penalty = 0
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-	to_chat(world, "<B>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</B>")
+	to_chat(world, "<B>There are Vampires aboard, keep your blood close and neck safe!</B>")
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -22,16 +21,20 @@
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
-	var/vampire_amount = 1 + round(num_players() / 10)
+	var/vampire_amount = 1 + (round(num_players() / 10) * (1 - vampire_penalty))
 
 	if(length(possible_vampires))
 		for(var/i in 1 to vampire_amount)
 			if(!length(possible_vampires))
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
+			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+			if(vampire.current?.client?.prefs.active_character.species in species_to_mindflayer)
+				pre_mindflayers += vampire
+				vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
+				continue
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-			vampire.restricted_roles = restricted_jobs
 
 		..()
 		return TRUE
@@ -47,36 +50,36 @@
 	if(!length(vampires))
 		return
 
-	var/list/text = list("<FONT size = 2><B>The vampires were:</B></FONT>")
+	var/list/text = list("<br><font size=3><span class='bold'>The vampires were:</span></font>")
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
-		text += "<br>[vampire.get_display_key()] was [vampire.name] ("
+		text += "<br>[vampire.get_display_key()] was [vampire.name] and "
 		if(vampire.current)
 			if(vampire.current.stat == DEAD)
-				text += "died"
+				text += "<span class='bold'>died!</span>"
 			else
-				text += "survived"
+				text += "<span class='bold'>survived!</span>"
 				if(V.subclass)
-					text += " as a [V.subclass.name]"
+					text += " as a [V.subclass.name]!"
+				else
+					text += "!"
 		else
-			text += "body destroyed"
-		text += ")"
+			text += "<span class='bold'>had [vampire.p_their()] body destroyed!</span>"
 
 		var/list/all_objectives = vampire.get_all_objectives(include_team = FALSE)
 
 		if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
+				text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
 						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
 					else
 						SSblackbox.record_feedback("nested tally", "vampire_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
 						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
@@ -85,17 +88,9 @@
 					traitorwin = FALSE
 				count++
 
-		var/special_role_text
-		if(vampire.special_role)
-			special_role_text = lowertext(vampire.special_role)
-		else
-			special_role_text = "antagonist"
-
 		if(traitorwin)
-			text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
 	return text.Join("")
 
@@ -103,18 +98,19 @@
 	if(!length(vampire_enthralled))
 		return
 
-	var/list/text = list("<FONT size = 2><B>The Enthralled were:</B></FONT>")
+	var/list/text = list("<br><font size=3><b>The Enthralled were:</b></font>")
 	for(var/datum/mind/mind in vampire_enthralled)
-		text += "<br>[mind.get_display_key()] was [mind.name] ("
+		text += "<br>[mind.get_display_key()] was [mind.name] and"
 		if(mind.current)
 			if(mind.current.stat == DEAD)
-				text += "died"
+				text += "<span class='bold'>died!</span>"
 			else
-				text += "survived"
+				text += "<span class='bold'>survived!</span>"
 			if(mind.current.real_name != mind.name)
-				text += " as [mind.current.real_name]"
+				text += "<span class='bold'> as [mind.current.real_name]!</bold>"
+			else
+				text += "!"
 		else
-			text += "body destroyed"
-		text += ")"
+			text += "<span class='bold'>had their body destroyed!</span>"
 	return text.Join("")
 

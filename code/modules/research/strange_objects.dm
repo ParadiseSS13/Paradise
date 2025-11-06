@@ -49,13 +49,17 @@
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/pet/cat,
 		/mob/living/simple_animal/pet/dog/fox,
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
-		/mob/living/simple_animal/lizard,
-		/mob/living/simple_animal/diona,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/lizard,
+		/mob/living/basic/diona_nymph,
+		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
+
+	// Assign it a random tech level
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming")
+	origin_tech = "[pick(possible_techs)]=[rand(2, 5)]"
 
 
 /obj/item/relic/proc/reveal()
@@ -76,16 +80,11 @@
 		STRANGEOBJECT_FUNCTION_PET_SPAWN,
 	)
 
-	origin_tech = pick(
-		"engineering=[rand(2,5)]",
-		"magnets=[rand(2,5)]",
-		"plasmatech=[rand(2,5)]",
-		"programming=[rand(2,5)]",
-		"powerstorage=[rand(2,5)]",
-	)
+	// You discovered it - you gambled your possible fortune! AW DANGIT!
+	origin_tech = null
 
 
-/obj/item/relic/attack_self(mob/user)
+/obj/item/relic/attack_self__legacy__attackchain(mob/user)
 	if(revealed)
 		if((last_use_time + cooldown_duration) > world.time)
 			to_chat(user, "<span class='warning'>[src] does not react!</span>")
@@ -111,6 +110,7 @@
 						R.desc = desc
 						R.function_id = function_id
 						R.revealed = TRUE
+						R.origin_tech = null
 						QDEL_IN(R, rand(10, 100))
 						INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
@@ -125,18 +125,18 @@
 
 					var/list/valid_animals = list(
 						/mob/living/simple_animal/parrot,
-						/mob/living/simple_animal/butterfly,
+						/mob/living/basic/butterfly,
 						/mob/living/simple_animal/pet/cat,
 						/mob/living/simple_animal/pet/dog/corgi,
-						/mob/living/simple_animal/crab,
+						/mob/living/basic/crab,
 						/mob/living/simple_animal/pet/dog/fox,
-						/mob/living/simple_animal/lizard,
-						/mob/living/simple_animal/mouse,
+						/mob/living/basic/lizard,
+						/mob/living/basic/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
-						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/bear/black,
+						/mob/living/basic/bear/brown,
+						/mob/living/basic/bee,
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)
@@ -185,7 +185,7 @@
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
 		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
-		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
+		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)
 
@@ -199,7 +199,7 @@
 		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
 
 	log_game(log_msg)
-	investigate_log(log_msg, "experimentor")
+	investigate_log(log_msg, "strangeobjects")
 
 
 // Make some magic smoke

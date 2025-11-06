@@ -21,6 +21,16 @@
 	time = 4 SECONDS
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/durathread_hardhat
+	name = "Durathread Hard Hat"
+	result = list(/obj/item/clothing/head/hardhat/durathread)
+	reqs = list(/obj/item/clothing/head/helmet/durathread = 1,
+				/obj/item/mounted/frame/light_fixture/small = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/light/bulb = 1)
+	time = 4 SECONDS
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
 	result = list(/obj/item/clothing/under/misc/durathread)
@@ -167,6 +177,29 @@
 	reqs = list(/obj/item/clothing/glasses/hud/skills/goggles = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsunskills
+	name = "Skills HUD sunglasses"
+	result = list(/obj/item/clothing/glasses/hud/skills/sunglasses)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsunskills/New()
+	..()
+	blacklist = subtypesof(/obj/item/clothing/glasses/hud/skills) \
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
+
+/datum/crafting_recipe/hudsunskillsremoval
+	name = "Skills HUD removal"
+	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/skills)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/sunglasses = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsunsec
 	name = "Security HUDsunglasses"
 	result = list(/obj/item/clothing/glasses/hud/security/sunglasses)
@@ -280,6 +313,24 @@
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsyndiesun
+	name = "Suspicious sunglasses"
+	result = list(/obj/item/clothing/glasses/syndie_sun)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsyndiesunremoval
+	name = "Suspicious glasses flash protection removal"
+	result = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1,)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/syndie_sun = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/beergoggles
@@ -570,7 +621,7 @@
 
 /datum/crafting_recipe/lizardboots
 	name = "Lizard Skin Boots"
-	result = list(/obj/effect/spawner/lootdrop/lizardboots)
+	result = list(/obj/effect/spawner/random/lizardboots)
 	time = 6 SECONDS
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1, /obj/item/stack/sheet/leather = 1)
 	category = CAT_CLOTHING
@@ -608,8 +659,8 @@
 	name = "Flower Crown"
 	result = list(/obj/item/clothing/head/flower_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/poppy = 3,
-				/obj/item/food/snacks/grown/lily = 3,
+	reqs = list(/obj/item/food/grown/poppy = 3,
+				/obj/item/food/grown/lily = 3,
 				/obj/item/grown/sunflower = 3)
 	category = CAT_CLOTHING
 
@@ -624,21 +675,21 @@
 	name = "Poppy Crown"
 	result = list(/obj/item/clothing/head/poppy_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/poppy = 5)
+	reqs = list(/obj/item/food/grown/poppy = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/lily_crown
 	name = "Lily Crown"
 	result = list(/obj/item/clothing/head/lily_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/lily = 5)
+	reqs = list(/obj/item/food/grown/lily = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/geranium_crown
 	name = "Geranium Crown"
 	result = list(/obj/item/clothing/head/geranium_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/geranium = 5)
+	reqs = list(/obj/item/food/grown/geranium = 5)
 	category = CAT_CLOTHING
 
 #undef ALLOWED_INGREDIENT_SUNGLASSES

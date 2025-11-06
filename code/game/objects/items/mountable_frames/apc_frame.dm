@@ -1,11 +1,10 @@
 /obj/item/mounted/frame/apc_frame
 	name = "APC frame"
-	desc = "Used for repairing or building APCs"
+	desc = "Used for repairing or building APCs."
 	icon = 'icons/obj/apc_repair.dmi'
 	icon_state = "apc_frame"
 
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
-	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/apc_frame/try_build(turf/on_wall, mob/user)
 	if(!..())
@@ -15,13 +14,16 @@
 	if(A.get_apc())
 		to_chat(user, "<span class='warning'>This area already has an APC!</span>")
 		return //only one APC per area
+
 	if(!A.requires_power)
 		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
 		return //can't place apcs in areas with no power requirement
+
 	for(var/obj/machinery/power/terminal/E in T)
 		if(E.master)
 			to_chat(user, "<span class='warning'>There is another network terminal here!</span>")
 			return
+
 		else
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(T)
 			C.amount = 10

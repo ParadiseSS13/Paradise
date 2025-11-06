@@ -25,9 +25,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
-	max_integrity = 200
 	integrity_failure = 50
-	light_range = 0
 	anchored = TRUE
 	/// The current screen index in the UI.
 	var/screen = NEWSCASTER_HEADLINES
@@ -92,7 +90,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -386,9 +384,8 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.transfer_item_to(P, src))
 					photo = P
-					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
 										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
@@ -408,7 +405,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 			return FALSE // Updating handled in that proc
 		if("censor_channel")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_channel/FC = locateUID(params["uid"])
 			if(!istype(FC))
@@ -419,7 +416,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/FM = locateUID(params["uid"])
 			if(!istype(FM))
@@ -435,7 +432,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return FALSE
 		if("clear_wanted_notice")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 			if(!WN)
@@ -645,18 +642,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
 	. = list(name = "Unknown", security = user.can_admin_interact())
 	if(ishuman(user))
-		var/mob/living/carbon/human/M = user
-		// No ID, no luck
-		if(!M.wear_id)
-			return
-		// Try to get the ID
-		var/obj/item/card/id/ID
-		if(istype(M.wear_id, /obj/item/pda))
-			var/obj/item/pda/P = M.wear_id
-			ID = P.id
-		else if(istype(M.wear_id, /obj/item/card/id))
-			ID = M.wear_id
-		if(istype(ID))
+		var/mob/living/carbon/human/human_user = user
+		var/obj/item/card/id/ID = human_user.get_id_card()
+		if(ID)
 			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
@@ -739,6 +727,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	eject_photo(user)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

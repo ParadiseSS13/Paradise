@@ -24,7 +24,9 @@
 	explosion_block = 1
 
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	flags_ricochet = RICOCHET_HARD
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
@@ -39,10 +41,6 @@
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
-	/// Are we a rusty wall or not?
-	var/rusted = FALSE
-	/// Have we got a rusty overlay?
-	var/rusted_overlay
 	/// Are we a explodable turf?
 	var/explodable = FALSE
 	/// Do we have a explodable overlay?
@@ -88,26 +86,12 @@
 	if(can_dismantle_with_welder)
 		. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
-/// Apply rust effects to the wall
-/turf/simulated/wall/proc/rust()
-	if(rusted)
-		return
-	rusted = TRUE
-	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-
-/turf/simulated/wall/update_name()
-	. = ..()
-	name = "[rusted ? "rusted " : ""][name]"
-
 /turf/simulated/wall/update_overlays()
 	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	QUEUE_SMOOTH(src)
-	if(rusted && !rusted_overlay)
-		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
-		. += rusted_overlay
 
 	if(explodable && !explodable_overlay)
 		explodable_overlay = icon('icons/turf/overlays.dmi', pick("explodable"), pick(NORTH, SOUTH, EAST, WEST))
@@ -153,17 +137,6 @@
 		dismantle_wall()
 	else
 		update_icon()
-
-/turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
-	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
-	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
-		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.set_angle(new_angle_s)
-	return TRUE
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
@@ -253,7 +226,7 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	ChangeTurf(/turf/simulated/floor)
+	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	if(melting)
@@ -282,7 +255,6 @@
 		burn_down()
 		var/turf/simulated/floor/F = src
 		F.burn_tile()
-		F.icon_state = "plating"
 		if(O)	qdel(O)
 		return
 
@@ -294,7 +266,6 @@
 
 			var/turf/simulated/floor/F = src
 			F.burn_tile()
-			F.icon_state = "plating"
 			break
 		take_damage(30)
 		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
@@ -314,7 +285,7 @@
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			dismantle_wall(1)
-			to_chat(M, "<span class='info'>You smash through the wall.</span>")
+			to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 		else
 			to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 			take_damage(rand(25, 75))
@@ -352,31 +323,33 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(!isturf(user.loc))
-		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
+		return FINISH_ATTACK // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
 
-	if(rotting && try_rot(I, user, params))
-		return
+	if(rotting && try_rot(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_decon(I, user, params))
-		return
+	if(try_decon(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_destroy(I, user, params))
-		return
+	if(try_destroy(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_wallmount(I, user, params))
-		return
+	if(try_wallmount(attacking, user, params))
+		return CONTINUE_ATTACK
+
 	// The cyborg gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	return ..()
+	if(istype(attacking, /obj/item/gripper))
+		return CONTINUE_ATTACK
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
-	. = TRUE
+	. = ..()
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
@@ -469,6 +442,14 @@
 			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+		return TRUE
+
+	else if(istype(I, /obj/item/zombie_claw))
+		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
+		if(do_after(user, isdiamond ? 2 MINUTES * I.toolspeed : 1 MINUTES * I.toolspeed, target = src)) // 120/60 seconds by default
+			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] claws through [src]!</span>","<span class='warning'>You hear the grinding of metal and bone.</span>")
 		return TRUE
 	return FALSE
 

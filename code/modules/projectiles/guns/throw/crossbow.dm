@@ -7,10 +7,8 @@
 /obj/item/gun/throw/crossbow
 	name = "powered crossbow"
 	desc = "A modern twist on an old classic. Pick up that can."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "crossbow"
-	item_state = "crossbow-solid"
+	inhand_icon_state = "crossbow-solid"
 	fire_sound_text = "a solid thunk"
 	fire_delay = 25
 
@@ -46,7 +44,7 @@
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
-	. += "<span class='info'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -68,7 +66,7 @@
 		modify_projectile(to_launch, 1)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attack_self(mob/living/user)
+/obj/item/gun/throw/crossbow/attack_self__legacy__attackchain(mob/living/user)
 	if(tension)
 		if(to_launch)
 			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
@@ -97,7 +95,7 @@
 		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/crossbow/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
 		return ..()
 
@@ -157,7 +155,7 @@
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
-	valid_projectile_type = /obj/item/food/snacks/baguette
+	valid_projectile_type = /obj/item/food/baguette
 
 /obj/item/gun/throw/crossbow/french/modify_projectile(obj/item/I, on_chamber = 0)
 	return
@@ -166,9 +164,8 @@
 	name = "bolt"
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
-	item_state = "bolt"
+	inhand_icon_state = "rods"
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.

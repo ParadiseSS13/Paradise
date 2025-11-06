@@ -14,7 +14,7 @@
 		return 0
 	if(newloc.density)
 		return 0
-	.=..()
+	. = ..()
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
@@ -58,7 +58,6 @@
 /obj/effect/particle_effect/steam
 	name = "steam"
 	icon_state = "extinguish"
-	density = FALSE
 
 /obj/effect/particle_effect/steam/New()
 	..()

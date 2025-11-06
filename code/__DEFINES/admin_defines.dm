@@ -20,7 +20,6 @@
 #define BANTYPE_ADMIN_PERMA	7
 #define BANTYPE_ADMIN_TEMP	8
 
-//Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
 #define R_BUILDMODE		(1<<0)
 #define R_ADMIN			(1<<1)
@@ -40,11 +39,14 @@
 #define R_PROCCALL		(1<<15)
 #define R_VIEWRUNTIMES	(1<<16)
 #define R_MAINTAINER	(1<<17)
-// Update the following two defines if you add more
+#define R_DEV_TEAM		(1<<18)
+#define R_VIEWLOGS		(1<<19)
+// Update the following two defines and GLOB.admin_permission_names if you add more
 
-#define R_MAXPERMISSION (1<<17) //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<19) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			((1<<18)-1) //17 bit bitmask, update me if we ever add more admin permissions. Sum of all permissions to allow easy setting.
+#define R_HOST			(~0) // Sum of all permissions to allow easy setting.
+
 
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='byond://?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
@@ -52,6 +54,7 @@
 #define ADMIN_VV(atom,display) "<a href='byond://?_src_=vars;Vars=[atom.UID()]'>[display]</a>"
 #define ADMIN_SM(user,display) "<a href='byond://?_src_=holder;subtlemessage=[user.UID()]'>[display]</a>"
 #define ADMIN_TP(user,display) "<a href='byond://?_src_=holder;traitor=[user.UID()]'>[display]</a>"
+#define ADMIN_OBS(user, display) "<a href='byond://?_src_=holder;adminobserve=[user.UID()]'>[display]</a>"
 #define ADMIN_ALERT(user, display) "<a href='byond://?_src_=holder;adminalert=[user.UID()]'>[display]</a>"
 #define ADMIN_BSA(user,display) "<a href='byond://?_src_=holder;BlueSpaceArtillery=[user.UID()]'>[display]</a>"
 #define ADMIN_CENTCOM_REPLY(user,display) "<a href='byond://?_src_=holder;CentcommReply=[user.UID()]'>[display]</a>"

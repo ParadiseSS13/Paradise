@@ -42,13 +42,11 @@
 	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/foot/diona
-	name = "left foot"
 	max_damage = 20
 	min_broken_damage = 10
 	amputation_point = "branch"
 
 /obj/item/organ/external/foot/right/diona
-	name = "right foot"
 	max_damage = 20
 	min_broken_damage = 10
 	amputation_point = "branch"
@@ -73,30 +71,30 @@
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/heart/diona
-	name = "neural strata"
+	name = "circulatory siphonostele"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /obj/item/organ/internal/lungs/diona
-	name = "respiratory vacuoles"
+	name = "respiratory nodules"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/brain/diona
-	name = "gas bladder"
+	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/kidneys/diona
-	name = "polyp segment"
+	name = "sieve-tube bundles"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/appendix/diona
-	name = "anchoring ligament"
+	name = "auxiliary bud"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
@@ -110,7 +108,7 @@
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/liver/diona
-	name = "nutrient vessel"
+	name = "nutrient sac"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5

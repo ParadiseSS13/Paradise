@@ -9,7 +9,7 @@
 	desc = "A nulling power sink which drains energy from electrical systems."
 	icon = 'icons/goonstation/objects/powersink.dmi'
 	icon_state = "powersink0"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	throwforce = 5
@@ -22,7 +22,6 @@
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
-
 	var/obj/structure/cable/attached		// the attached cable
 
 /obj/item/powersink/Destroy()
@@ -99,6 +98,7 @@
 				"<span class='italics'>You hear a click.</span>")
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
+			notify_ghosts("[user] has activated a [name]!", title = "An electrifying occurrence! (Click to follow)", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 			set_mode(OPERATING)
 
 		if(OPERATING)
@@ -141,11 +141,12 @@
 		if(!admins_warned)
 			admins_warned = TRUE
 			message_admins("Power sink at ([x],[y],[z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
-		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
+			notify_ghosts("A [name] is almost at max capacity, and is about to explode!", title = "An electrifying occurrence! (Click to follow)", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)
-		explosion(src.loc, 4,8,16,32)
+		explosion(src.loc, 4,8,16,32, cause = "Powersink Explosion")
 		qdel(src)
 
 #undef DISCONNECTED

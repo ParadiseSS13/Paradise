@@ -59,4 +59,3 @@ SUBSYSTEM_DEF(nightshift)
 		var/obj/machinery/power/apc/APC = A
 		if(is_station_level(APC.z))
 			APC.set_nightshift(active)
-			CHECK_TICK

@@ -1,13 +1,19 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
+	// We probably shouldn't ever be setting this. LONG_GLIDE makes diagonal movement faster, because you move at full speed on both axes. However, we have manual changes scatterd around that undo this, and re-establish euclidian movement. Yes, that's exactly as silly as it sounds.
+	// Still, for the moment, we should at least make all mobs behave the same way that carbons do.
+	appearance_flags = LONG_GLIDE
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	rad_insulation_beta = RAD_MOB_INSULATION
+	rad_insulation_gamma = RAD_MOB_INSULATION
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	/// Is this mob alive, unconscious or dead?
+	var/stat = CONSCIOUS // TODO: Move to /mob/living
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
@@ -27,13 +33,12 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/lastattacker = null // real name of the person  doing the attacking
-	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
+	var/list/attack_log_old = list()
 	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
@@ -52,7 +57,6 @@
 	var/gen_record = ""
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
@@ -61,7 +65,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -73,16 +76,15 @@
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null //Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
 	/// Active storage container
-	var/obj/item/storage/s_active = null //Carbon
-	var/obj/item/clothing/mask/wear_mask = null //Carbon
+	var/obj/item/storage/s_active
+	/// The currently worn mask
+	var/obj/item/wear_mask
 
 	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
@@ -133,9 +135,6 @@
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
 
-//The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
-	var/mob/living/carbon/LAssailant = null
-
 	var/list/mob_spell_list = list() //construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
 
 //List of active diseases
@@ -184,8 +183,6 @@
 
 	var/resize = 1 //Badminnery resize
 
-	var/datum/vision_override/vision_type = null //Vision override datum.
-
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
@@ -207,7 +204,7 @@
 	var/datum/input_focus = null
 	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
 	var/suiciding = FALSE
-	/// Used for some screen objects, such as
+	/// Used for some screen objects
 	var/list/screens = list()
 	/// lazy list. contains /atom/movable/screen/alert only,  On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
@@ -246,7 +243,19 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
-
+	/// List of observers currently observing us.
+	var/list/mob/dead/observer/observers = list()
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+	/// Allows a datum to intercept all click calls this mob is the source of.
+	/// This is *not* necessarily an instance of [/datum/click_intercept].
+	var/datum/click_interceptor
+
+	/// gunshot residue for det work. holds the caliber of any BALLISTIC weapon fired by this mob without gloves.
+	var/gunshot_residue
+	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
+	var/list/do_afters
+	new_attack_chain = TRUE
+
+	var/list/mousepointers = list()

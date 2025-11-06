@@ -65,13 +65,13 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src)
+	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src, raw_message=message)
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
 /**
  * Checks if the mob can understand the other speaker
- * 
+ *
  * If it return FALSE, then the message will have some letters replaced with stars from the heard message
 */
 /mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)
@@ -89,7 +89,7 @@
 		var/mob/other_mob = other
 		if(other_mob.universal_speak)
 			return TRUE
-		if(isAI(src) && ispAI(other_mob))
+		if(is_ai(src) && ispAI(other_mob))
 			return TRUE
 		if(istype(other_mob, src.type) || istype(src, other_mob.type))
 			return TRUE
@@ -159,8 +159,17 @@
 
 /mob/proc/find_valid_prefixes(message)
 	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
+	var/lower_message = lowertext(message)
+	var/is_alphanumeric = FALSE
+	var/was_alphanumeric = FALSE
 	for(var/i in 1 to length(message))
-		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
+		was_alphanumeric = is_alphanumeric
+		is_alphanumeric = GLOB.is_alphanumeric.Find(lower_message[i])
+		if(was_alphanumeric)
+			// Language prefixes should not activate in the middle of a word or number.
+			continue
+
+		var/selection = trim_right(copytext(lower_message, i, i + 3))
 		var/datum/language/L = GLOB.language_keys[selection]
 		if(L != null && can_speak_language(L)) // What the fuck... remove the L != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
 			prefixes[++prefixes.len] = list(L, i, i + length(selection))

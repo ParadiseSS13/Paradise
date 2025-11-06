@@ -1,7 +1,7 @@
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 5
-	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
 	color = "#C80000"
 	var/splatter_type = "splatter"
@@ -49,8 +49,6 @@
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
 	icon_state = "ion_fade"
-	duration = 10
-	randomdir = FALSE
 	layer = MOB_LAYER - 0.2
 
 /obj/effect/temp_visual/dir_setting/ninja
@@ -168,7 +166,6 @@
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
-	duration = 10
 	layer = MASSIVE_OBJ_LAYER
 	alpha = 250
 	blend_mode = BLEND_ADD
@@ -228,7 +225,6 @@
 	name = "kinetic explosion"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "kinetic_blast"
-	layer = ABOVE_MOB_LAYER
 	duration = 4
 
 /obj/effect/temp_visual/pka_explosion
@@ -273,7 +269,6 @@
 	name = "bleed"
 	icon = 'icons/effects/bleed.dmi'
 	icon_state = "bleed0"
-	duration = 10
 	var/shrink = TRUE
 
 /obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
@@ -304,7 +299,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
 	duration = 2
 
@@ -324,10 +319,6 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"
-	duration = 3
-
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
 	duration = 3
 
 /obj/effect/temp_visual/impact_effect
@@ -485,6 +476,17 @@
 	image_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	image_icon_state = "target_box"
 
+/obj/effect/temp_visual/ai_pointer
+	duration = 4 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_circle"
+
+/obj/effect/temp_visual/ai_sealant
+	duration = 10 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_box"
 
 /obj/effect/temp_visual/obliteration
 	duration = 2 SECONDS
@@ -520,3 +522,20 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "warning"
 	duration = 3 SECONDS
+
+/obj/effect/temp_visual/bsa_splash
+	name = "\improper Bluespace energy wave"
+	desc = "A massive, rippling wave of bluepace energy, all rapidly exhausting itself the moment it leaves the concentrated beam of light."
+	icon = 'icons/effects/beam_splash.dmi'
+	icon_state = "beam_splash_w"
+	layer = ABOVE_ALL_MOB_LAYER
+	pixel_y = -16
+	duration = 50
+
+/obj/effect/temp_visual/bsa_splash/Initialize(mapload, dir)
+	. = ..()
+	switch(dir)
+		if(WEST)
+			icon_state = "beam_splash_w"
+		if(EAST)
+			icon_state = "beam_splash_e"

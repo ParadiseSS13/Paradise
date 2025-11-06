@@ -45,19 +45,15 @@
 		return
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
-		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
+		s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220)
 	if(dna.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
-		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
+		s_col = rgb(dna.GetUIValueRange(DNA_UI_SKIN_R, 255), dna.GetUIValueRange(DNA_UI_SKIN_G, 255), dna.GetUIValueRange(DNA_UI_SKIN_B, 255))
 
 /obj/item/organ/external/head/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
-
-/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
-	get_icon()
-	. = ..()
 
 /obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
@@ -73,10 +69,10 @@
 		mob_icon = new /icon(icon_file, new_icon_state)
 		if(!skeletal && !is_robotic())
 			if(status & ORGAN_DEAD)
-				mob_icon.ColorTone(rgb(10,50,0))
+				mob_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 				mob_icon.SetIntensity(0.7)
 
-			if(!isnull(s_tone))
+			else if(!isnull(s_tone)) // we use an else here because it fucks with shit. It would be nice to fix this someday so that colors affect dead limbs
 				if(s_tone >= 0)
 					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 				else
@@ -159,7 +155,7 @@
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
 		if(gendered_icon)
-			switch(dna.GetUITriState(DNA_UI_BODY_TYPE))
+			switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 				if(DNA_GENDER_FEMALE)
 					body = "f"
 				else

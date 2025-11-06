@@ -12,25 +12,41 @@
 /obj/structure/table_frame
 	name = "table frame"
 	desc = "Four metal legs with four framing rods for a table. You could easily pass through this."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "table_frame"
-	density = FALSE
-	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 100
+	///The resource dropped when the table frame is destroyed or deconstructed
 	var/framestack = /obj/item/stack/rods
+	///How many of framestack resource are dropped
 	var/framestackamount = 2
+	///How long the table takes to make
+	var/construction_time = 5 SECONDS
+	///What stacks can be used to make the table, and if it will result in a unique table
+	var/list/restrict_table_types = list() //ex: list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type), carpet will make poker table, wood will result in standard table_type. If the list is empty, any material can be used for its default table_type.
 
-/obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(!try_make_table(I, user))
-		return ..()
+/obj/structure/table_frame/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(try_make_table(I, user))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 ///Try to make a table with the item used to attack. FALSE if you can't make a table and should attack. TRUE does not necessarily mean a table was made.
 /obj/structure/table_frame/proc/try_make_table(obj/item/stack/stack, mob/user)
 	if(!istype(stack))
 		return FALSE
 
-	if(!stack.table_type)
+	var/obj/structure/table/new_table_type = stack.table_type
+	if(length(restrict_table_types))
+		var/valid_stack_type = FALSE
+		for(var/obj/item/stack/current_stack as anything in restrict_table_types)
+			if(istype(stack, current_stack))
+				new_table_type = restrict_table_types[current_stack]
+				valid_stack_type = TRUE
+				break
+		if(!valid_stack_type)
+			return FALSE
+
+	if(!new_table_type)
 		return FALSE
 
 	if(stack.get_amount() < 1)
@@ -38,13 +54,24 @@
 		return TRUE
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(!(do_after(user, 50, target = src) && stack.use(1)))
+	if(!do_after(user, construction_time, target = src))
 		return TRUE
 
-	if(stack.table_type)
-		make_new_table(stack.table_type)
+	if(!stack.use(1))
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
 		return TRUE
+
+	var/obj/structure/table/table_already_there = locate(/obj/structure/table) in get_turf(src)
+	if(table_already_there) //check again after to make sure one wasnt added since
+		to_chat(user, "<span class='warning'>There is already [table_already_there] here.</span>")
+		return TRUE
+
+	if(!istype(new_table_type, /obj/structure/table)) //if its something unique, skip the table parts
+		new new_table_type(loc)
+		qdel(src)
+		return TRUE
+	make_new_table(new_table_type)
+	return TRUE
 
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -81,28 +108,8 @@
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
 	framestack = /obj/item/stack/sheet/wood
-	framestackamount = 2
 	resistance_flags = FLAMMABLE
-
-/obj/structure/table_frame/wood/try_make_table(obj/item/stack/stack, mob/user)
-	if(!istype(stack, /obj/item/stack/tile/carpet) && !istype(stack, /obj/item/stack/sheet/wood))
-		return FALSE
-
-	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return TRUE
-
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(!(do_after(user, 50, target = src) && stack.use(1)))
-		return TRUE
-
-	if(istype(stack, /obj/item/stack/tile/carpet))
-		make_new_table(/obj/structure/table/wood/poker)
-		return TRUE
-
-	make_new_table(stack.table_type)
-	return TRUE
+	restrict_table_types = list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type)
 
 /obj/structure/table_frame/brass
 	name = "brass table frame"
@@ -113,21 +120,8 @@
 	anchored = TRUE
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
-
-/obj/structure/table_frame/brass/try_make_table(obj/item/stack/stack, mob/user)
-	if(!istype(stack, /obj/item/stack/tile/brass))
-		return FALSE
-
-	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return TRUE
-
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(do_after(user, 20, target = src) && stack.use(1))
-		make_new_table(stack.table_type)
-
-	return TRUE
+	construction_time = 2 SECONDS
+	restrict_table_types = list(/obj/item/stack/tile/brass = /obj/item/stack/tile/brass::table_type)
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()
@@ -135,3 +129,15 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table_frame/cult
+	name = "runed metal table frame"
+	desc = "Four pieces of runed metal arranged in a square. It's cold to the touch."
+	icon_state = "cult_frame"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	density = TRUE
+	anchored = TRUE
+	framestack = /obj/item/stack/sheet/runed_metal
+	framestackamount = 1
+	construction_time = 2 SECONDS
+	restrict_table_types = list(/obj/item/stack/sheet/runed_metal = /obj/item/stack/sheet/runed_metal::table_type)

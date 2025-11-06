@@ -14,7 +14,7 @@
 /area/ruin/powered/greed)
 "e" = (
 /obj/structure/table/wood/poker,
-/obj/item/gun/projectile/revolver/russian/soul,
+/obj/item/toy/russian_revolver/soul,
 /obj/machinery/light/small{
 	dir = 1
 	},

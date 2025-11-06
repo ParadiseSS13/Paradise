@@ -69,3 +69,5 @@
 #define DNA_GENDER_FEMALE	0
 #define DNA_GENDER_MALE		1
 #define DNA_GENDER_PLURAL	2
+
+#define ENCODE_DNA_BLOCK(value) num2hex(value, 3)

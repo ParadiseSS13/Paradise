@@ -2,7 +2,6 @@
 	name = "earmuffs"
 	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon_state = "earmuffs"
-	item_state = "earmuffs"
 	flags = EARBANGPROTECT
 	strip_delay = 15
 	put_on_delay = 25
@@ -14,7 +13,7 @@
 
 /obj/item/clothing/ears/earmuffs/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && ((slot == SLOT_HUD_LEFT_EAR) || (slot == SLOT_HUD_RIGHT_EAR)))
+	if(ishuman(user) && (slot & ITEM_SLOT_BOTH_EARS))
 		ADD_TRAIT(user, TRAIT_DEAF, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/clothing/ears/earmuffs/dropped(mob/user)

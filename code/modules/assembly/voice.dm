@@ -3,7 +3,6 @@
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
-	origin_tech = "magnets=1;engineering=1"
 	var/listening = FALSE
 	var/recorded = null	//the activation message
 	var/recorded_type = 0 // 0 for say, 1 for emote
@@ -43,10 +42,10 @@
 		pulse(0)
 
 /obj/item/assembly/voice/activate()
-	return // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
+	return ..() // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
 
 
-/obj/item/assembly/voice/attack_self(mob/user)
+/obj/item/assembly/voice/attack_self__legacy__attackchain(mob/user)
 	if(!user || !secured)
 		return FALSE
 
@@ -63,12 +62,10 @@
 /obj/item/assembly/voice/noise
 	name = "noise sensor"
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
-	icon_state = "voice"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 50)
-	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 
-/obj/item/assembly/voice/noise/attack_self(mob/user)
+/obj/item/assembly/voice/noise/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)

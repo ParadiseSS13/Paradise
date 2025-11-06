@@ -112,9 +112,7 @@
 /area/start)
 "m" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/start)
 "n" = (
 /turf/simulated/floor/grass,
@@ -154,16 +152,16 @@
 /turf/simulated/floor/grass,
 /area/start)
 "r" = (
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/grass,
 /area/start)
 "s" = (

@@ -6,12 +6,10 @@
 	icon_state = "carp"
 	icon_gib = "carp_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/snacks/carpmeat = 1)
+	butcher_results = list(/obj/item/food/carpmeat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = "hits"
 	speed = 0
 	maxHealth = 25
 	health = 25
@@ -24,7 +22,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
 	faction = list("carp")
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 
 	var/carp_color = "carp" //holder for icon set
 	var/static/list/carp_colors = list(\
@@ -50,7 +48,7 @@
 	update_icons()
 
 /mob/living/simple_animal/hostile/retaliate/carp/proc/carp_randomify(rarechance)
-	// Simplified version of: /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
+	// Simplified version of: /mob/living/basic/carp/proc/carp_randomify(rarechance)
 	var/our_color
 	our_color = pick(carp_colors)
 	add_atom_colour(carp_colors[our_color], FIXED_COLOUR_PRIORITY)
@@ -68,7 +66,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	speak_emote = list("blurps")
-	butcher_results = list(/obj/item/food/snacks/salmonmeat = 1)
+	butcher_results = list(/obj/item/food/salmonmeat = 1)
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -85,7 +83,7 @@
 		icon_living = "koi[koinum]"
 		icon_dead = "koi[koinum]-dead"
 
-/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/honk

@@ -17,7 +17,6 @@
 	You can also open powered doors and your webs are airtight, being capable of blocking off exposure to space. \
 	You do not take damage from weaker weapons or projectiles. \
 	However, you only have moderate health and deal moderate damage, making you weak in direct fights and reliant on other spiders for defence."
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
@@ -34,8 +33,6 @@
 
 	canlay = 0
 	hasnested = TRUE
-	spider_spawnfrequency = 300 // 30 seconds
-	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
 	var/spider_max_children = 8
 
 
@@ -68,9 +65,6 @@
 		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
 		return
 
-	if(!prob(grant_prob))
-		return
-
 	var/list/spider_array = CountSpidersDetailed(TRUE)
 	var/brood_count = spider_array["all"]
 
@@ -100,8 +94,7 @@
 		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/show_egg_timer()
-	var/average_timer = (1 / (grant_prob / 100)) * (spider_spawnfrequency / 10)
-	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [average_timer] seconds, on average.</span>")
+	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [spider_spawnfrequency / 10] seconds.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()
 	// Princesses don't nest. However, we still need to override this in case an AI princess calls it.
@@ -109,7 +102,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/spider_special_action()
 	// Princess AI routine. GREATLY simplified version of queen routine.
-	if(!stat && !ckey)
+	if(stat == CONSCIOUS && !ckey)
 		// Utilize normal queen AI for finding a nest site (neststep=0), and activating NestMode() (neststep=1)
 		if(neststep != 2)
 			return ..()

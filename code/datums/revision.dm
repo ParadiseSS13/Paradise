@@ -18,9 +18,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 // Pull info from the rust DLL
 /datum/code_revision/New()
-	commit_hash = rustg_git_revparse("HEAD")
+	commit_hash = rustlibs_git_revparse("HEAD")
 	if(commit_hash)
-		commit_date = rustg_git_commit_date(commit_hash)
+		commit_date = rustlibs_git_commit_date(commit_hash)
 
 // Pull info from TGS
 /datum/code_revision/proc/load_tgs_info()
@@ -91,6 +91,11 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	msg += "<span class='notice'><b>Server Revision Info</b></span>"
 	// Round ID first
 	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
+	#ifdef PARADISE_PRODUCTION_HARDWARE
+	msg += "<b>Production-hardware specific compile:</b> Yes"
+	#else
+	msg += "<b>Production-hardware specific compile:</b> No"
+	#endif
 
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date && GLOB.configuration.url.github_url)
@@ -99,6 +104,11 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 			msg += "<b>Origin Commit:</b> <a href='[GLOB.configuration.url.github_url]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
+
+	if(world.TgsAvailable())
+		var/datum/tgs_version/tgs_ver = world.TgsVersion()
+		var/datum/tgs_version/api_ver = world.TgsApiVersion()
+		msg += "<b>TGS Version</b>: [tgs_ver.deprefixed_parameter] (API: [api_ver.deprefixed_parameter])"
 
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		msg += "<b>Active Testmerges:</b>"
@@ -109,4 +119,4 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	// And the clients for good measure
 	msg += "<b>Client (your) BYOND Version:</b> [byond_version].[byond_build]"
 
-	to_chat(usr, msg.Join("<br>"))
+	to_chat(usr, chat_box_examine(msg.Join("<br>")))

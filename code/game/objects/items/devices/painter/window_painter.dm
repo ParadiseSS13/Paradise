@@ -20,17 +20,17 @@
 	var/obj/structure/window/W = target
 
 	if(is_type_in_list(target, polarized_windows))
-		if((W.opacity && W.old_color == GLOB.pipe_colors[paint_setting]) || (!W.opacity && W.color == GLOB.pipe_colors[paint_setting]))
+		if((W.opacity && W.old_color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]) || (!W.opacity && W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]))
 			to_chat(user, "<span class='notice'>This window is aready painted [paint_setting]!</span>")
 			return
 		if(!W.opacity)
-			W.color = GLOB.pipe_colors[paint_setting]
-		W.old_color = GLOB.pipe_colors[paint_setting]
+			W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
+		W.old_color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
 		return TRUE
 
-	if(W.color == GLOB.pipe_colors[paint_setting])
+	if(W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting])
 		to_chat(user, "<span class='notice'>This window is aready painted [paint_setting]!</span>")
 		return
 
-	W.color = GLOB.pipe_colors[paint_setting]
+	W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
 	return TRUE

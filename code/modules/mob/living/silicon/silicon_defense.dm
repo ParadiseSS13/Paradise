@@ -5,7 +5,7 @@
 	if(..()) //if harm or disarm intent
 		var/damage = 20
 		if(prob(90))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
 			if(prob(8))
 				flash_eyes(affect_silicon = 1)
@@ -14,7 +14,7 @@
 			adjustBruteLoss(damage)
 			updatehealth()
 		else
-			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 							"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 	return
@@ -23,7 +23,7 @@
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		damage = run_armor(damage, M.melee_damage_type, MELEE, 0, M.armour_penetration_flat, M.armour_penetration_percentage)
+		damage = run_armor(damage, M.melee_damage_type, MELEE, 0, M.armor_penetration_flat, M.armor_penetration_percentage)
 		switch(M.melee_damage_type)
 			if(BRUTE)
 				adjustBruteLoss(damage)
@@ -50,7 +50,7 @@
 			return FALSE
 		..(user, TRUE)
 		adjustBruteLoss(run_armor(rand(10, 15), BRUTE, MELEE))
-		playsound(loc, "punch", 25, 1, -1)
+		playsound(loc, "punch", 25, TRUE, -1)
 		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
 		return TRUE
 	return FALSE
@@ -60,7 +60,7 @@
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
 							"<span class='notice'>You pet [src]!</span>")
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if("grab")
 			grabbedby(M)
 		else
@@ -69,3 +69,23 @@
 			visible_message("<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>", \
 						"<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>")
 	return FALSE
+
+/mob/living/silicon/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		damage = run_armor(damage, attacker.melee_damage_type, MELEE, 0, attacker.armor_penetration_flat, attacker.armor_penetration_percentage)
+		switch(attacker.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
+		updatehealth()
