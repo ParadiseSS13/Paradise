@@ -145,7 +145,7 @@
 	desc = "This space is blocked off by a crude assortment of planks."
 	icon_state = "woodenbarricade-old"
 	drop_amount = 2
-	max_integrity = 50
+	max_integrity = 75
 	proj_pass_rate = 65
 
 //Barricade repairs
@@ -156,7 +156,7 @@
 			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'> You start repairing [src]...</span>")
-		if(do_after_once(user, 4 SECONDS, target = src))
+		if(do_after_once(user, 2 SECONDS, target = src))
 			if(!S.use(1))
 				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
 				return ITEM_INTERACT_COMPLETE
