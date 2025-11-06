@@ -161,7 +161,6 @@
 				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
 				return ITEM_INTERACT_COMPLETE
 			else
-				S.use(1)
 				to_chat(user, "<span class='notice'> You repair [src].</span>")
 				user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
 				obj_integrity = max_integrity

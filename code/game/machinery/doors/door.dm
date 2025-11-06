@@ -174,7 +174,6 @@
 		return
 
 	if(barricaded)
-		to_chat(user, "<span class='warning'>The door is barricaded!</span>")
 		return
 
 	if(density && !emagged)
@@ -201,8 +200,10 @@
 
 	if(foam_level)
 		return
+
 	if(barricaded)
 		return
+
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
 
@@ -282,7 +283,7 @@
 		if(!density)
 			to_chat(user, "<span class='warning'>[src] must be closed!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!S.use(2))
+		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(barricaded)
@@ -300,7 +301,6 @@
 				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
 				return ITEM_INTERACT_COMPLETE
 			else if(!barricaded) //one last check in case someone pre-barricades it
-				S.use(2)
 				close()
 				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
 				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
@@ -313,7 +313,7 @@
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 	else if(!barricaded && user.a_intent != INTENT_HARM)
 		construct_barricade(used, user)
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ITEM_INTERACT_COMPLETE
 	else if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return ITEM_INTERACT_COMPLETE

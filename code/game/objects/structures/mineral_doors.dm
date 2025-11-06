@@ -120,7 +120,7 @@
 		if(!density)
 			to_chat(user, "<span class='warning'>[src] must be closed!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!S.use(2))
+		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(barricaded)
@@ -138,8 +138,8 @@
 				to_chat(user, "<span class='warning'>You've run out of wood!</span>")
 				return ITEM_INTERACT_COMPLETE
 			else if(!barricaded) //one last check in case someone pre-barricades it
-				S.use(2)
-				operate()
+				if(!density)
+					operate()
 				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
 				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
 				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
@@ -162,6 +162,7 @@
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent != INTENT_HARM)
 		construct_barricade(W, user)
+		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
