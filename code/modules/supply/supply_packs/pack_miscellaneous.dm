@@ -691,7 +691,7 @@
 	cost = 100
 	containername = "engineering coffee mugs crate"
 	containertype = /obj/structure/closet/crate/secure
-	access = ACCESS_ENGINEERING_GENERAL
+	access = ACCESS_CONSTRUCTION
 
 /datum/supply_packs/misc/mugs_med
 	name = "Medical Coffee Mugs Crate"
@@ -827,7 +827,7 @@
 	cost = 250
 	containertype = /obj/structure/closet/crate/secure
 	containername = "atmospherics flag crate"
-	access = ACCESS_ENGINEERING_GENERAL
+	access = ACCESS_CONSTRUCTION
 
 /datum/supply_packs/misc/flag_com
 	name = "Command Flag Crate"
