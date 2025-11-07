@@ -316,12 +316,12 @@
 	cost = 175 // Just print them at cargo
 	containername = "rubbershot shell crate"
 
-/datum/supply_packs/security/armory/incindiaryammo
-	name = "Incindiary Shell Crate"
-	contains = list(/obj/item/storage/fancy/shell/incindiary,
-					/obj/item/storage/fancy/shell/incindiary)
+/datum/supply_packs/security/armory/incendiaryammo
+	name = "Incendiary Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/incendiary,
+					/obj/item/storage/fancy/shell/incendiary)
 	cost = 225 // This is cargo printable, but slightly increased in cost due to it being lethal
-	containername = "incindiary shell crate"
+	containername = "incendiary shell crate"
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"

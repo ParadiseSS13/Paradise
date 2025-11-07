@@ -951,7 +951,7 @@
 	icon_state = "pulsebox"
 	shell_type = /obj/item/ammo_casing/shotgun/pulseslug
 
-/obj/item/storage/fancy/shell/incindiary
+/obj/item/storage/fancy/shell/incendiary
 	name = "ammunition box (Incendiary slug)"
 	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "incendiarybox"
