@@ -326,8 +326,7 @@ class ChatRenderer {
         // setting regex overrides blacklistWords
         if (regexStr) {
           blacklistRegex = new RegExp('(' + regexStr + ')', flags);
-        }
-        else {
+        } else {
           const pattern = `${matchWord ? '\\b' : ''}(${blacklistWords.join('|')})${matchWord ? '\\b' : ''}`;
           blacklistRegex = new RegExp(pattern, flags);
         }
