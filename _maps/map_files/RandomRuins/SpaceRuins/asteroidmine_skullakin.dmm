@@ -519,7 +519,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "kc" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mining)
@@ -1527,7 +1527,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
@@ -1651,7 +1651,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "HE" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
 "HG" = (
@@ -1805,7 +1805,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
@@ -1816,7 +1816,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "JN" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /turf/space,
 /area/space)
 "Ka" = (
@@ -1945,7 +1945,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
 "NF" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "NM" = (
@@ -2164,7 +2164,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "Sn" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/arrivals)
 "Ss" = (
@@ -2543,7 +2543,7 @@
 /obj/effect/gibspawner/generic,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/goliath/space,
+/mob/living/basic/mining/goliath/space,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "Ye" = (
