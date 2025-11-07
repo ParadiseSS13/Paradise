@@ -296,7 +296,7 @@
 			return
 		if ("l_hand", "r_hand")
 			usr.emote("handshake")
-			return //var/datum/emote/living/carbon/human/highfive/handshake/a = try_run_emote()
+			return
 
 	M.visible_message(\
 	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
