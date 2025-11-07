@@ -141,7 +141,7 @@
 				if(!density)
 					operate()
 				user.visible_message(
-					"<span class='warning'>[user] barricades [src] shut.</span>,"
+					"<span class='warning'>[user] barricades [src] shut.</span>",
 					"<span class='notice'>You barricade [src] shut.</span>"
 				)
 				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
