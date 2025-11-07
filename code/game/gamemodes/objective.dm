@@ -335,6 +335,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return
 	return ..()
 
+/datum/objective/infiltrate_sec
+	name = "Infiltrate Security"
+	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of its members."
+	needs_target = FALSE
+	completed = TRUE
+
+/datum/objective/infiltrate_sec/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/mutiny
 	name = "Mutiny"
 	martyr_compatible = TRUE
@@ -565,6 +574,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 						return TRUE
 	return FALSE
 
+/datum/objective/nuke
+	name = "Detonate the Station"
+	explanation_text = "Detonate the station's nuclear device. You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \
+	The Nuclear Authentication Disk can be found in the Captain's Office, or carried by the Captain."
+	martyr_compatible = TRUE
+	needs_target = FALSE
+
+/datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+			code = bombue.r_code
+			break
+	if(code)
+		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+
+/datum/objective/nuke/check_completion()
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
+
+/datum/objective/nuke/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/block
 	name = "Silicon hijack"
 	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
@@ -612,7 +645,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in owners)
 		var/turf/location = get_turf(M.current)
 		if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
-			return FALSE
+			if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+				var/mob/living/A = owner.current
+				var/mob/living/carbon/carbon_A = A
+				if(!(carbon_A.handcuffed))
+					return TRUE
+			else
+				return FALSE
 		if(!location.onCentcom() && !location.onSyndieBase())
 			return FALSE
 
@@ -1062,28 +1101,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Vampire subclass objective"
 	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
 	needs_target = FALSE
-	var/datum/vampire_subclass/subclass
-
-/datum/objective/specialization/New()
-	if(!owner.has_antag_datum(/datum/antagonist/vampire))
-		explanation_text = "Free Objective"
-		return
-
-	update_explanation_text()
-	return ..()
-
-/datum/objective/specialization/proc/gain_specialization()
-	for(var/datum/antagonist/vampire/vampire_datum in owner.antag_datums)
-		subclass = vampire_datum.subclass
-
-	update_explanation_text()
 
 /datum/objective/specialization/update_explanation_text()
-	if(!subclass)
-		return
+	var/datum/antagonist/vampire/V = owner?.has_antag_datum(/datum/antagonist/vampire)
 
-	var/departments = list("security", "service", "research", "medical", "engineering", "supply")
-	explanation_text = replacetext(pick(subclass.unique_objectives), "%DEPARTMENT", pick(departments))
+	if(V?.subclass)
+		var/departments = list("security", "service", "research", "medical", "engineering", "supply")
+		explanation_text = replacetext(pick(V.subclass.unique_objectives), "%DEPARTMENT", pick(departments))
 
 // Flayers
 

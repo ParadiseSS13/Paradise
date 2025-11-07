@@ -241,7 +241,7 @@
 	var/hack_speed
 	/// Stores the last airlock opened, opens faster on repeated use
 	var/last_airlock_uid
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_ENGINEERING_GENERAL, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/Initialize(mapload)
 	. = ..()

@@ -23,16 +23,28 @@
 	..()
 
 /obj/structure/big_delivery/attack_hand(mob/user as mob)
+	if(user in src)
+		return
+	open()
+
+/obj/structure/big_delivery/container_resist(mob/living/L)
+	var/breakout_time = 1 MINUTES
+	to_chat(L, "<span class='notice'>You attempt to break the wrapping on [src].</span>")
+	if(do_after_once(L, breakout_time, needhand = FALSE, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
+		open()
+
+/obj/structure/big_delivery/proc/open()
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
 		wrapped.forceMove(get_turf(src))
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
 			O.welded = init_welded
+			for(var/mob/living/stowaway in src)
+				stowaway.forceMove(O)
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
 		AM.loc = T
-
 	qdel(src)
 
 /obj/structure/big_delivery/item_interaction(mob/living/user, obj/item/W, list/modifiers)
@@ -233,6 +245,9 @@
 	if(amount < 3)
 		to_chat(user, "<span class='warning'>You need more paper.</span>")
 		return
+	if(user in C)
+		to_chat(user, "<span class='warning'>How do you plan to wrap it from the inside?</span>")
+		return
 	// Checking these again since it's after a delay
 	var/wrap_do_after = wrap_time
 	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
@@ -241,6 +256,8 @@
 		return
 
 	var/obj/structure/big_delivery/P = new(get_turf(C))
+	for(var/mob/living/stowaway in C)
+		stowaway.forceMove(P)
 	P.wrapped = C
 	C.loc = P
 	return P
