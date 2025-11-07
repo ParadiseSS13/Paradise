@@ -8249,9 +8249,9 @@
 /area/station/maintenance/abandonedbar)
 "aFg" = (
 /obj/machinery/door/airlock/maintenance/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "aFh" = (
@@ -47214,11 +47214,10 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/equipment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "exh" = (
@@ -52080,14 +52079,13 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/equipment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "gRE" = (
@@ -60729,10 +60727,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/general{
 	dir = 8
 	},
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "ler" = (
@@ -65251,14 +65249,11 @@
 	dir = 4;
 	name = "Engineering Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/general{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -67270,10 +67265,9 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/equipment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "osm" = (
