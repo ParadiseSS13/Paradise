@@ -248,7 +248,7 @@
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
-	icon_state = "lightreplacer_blue0"
+	icon_state = "lightreplacer_blue"
 	bluespace_toggle = TRUE
 
 /obj/item/lightreplacer/bluespace/emag_act()

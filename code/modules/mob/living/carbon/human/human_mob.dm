@@ -67,6 +67,7 @@
 	. = ..()
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST_CONTENTS(bodyparts)
+	QDEL_LIST_CONTENTS(quirks)
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
@@ -315,6 +316,9 @@
 			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
+
+	if(HAS_TRAIT(src, TRAIT_FRAIL))
+		limb_loss_chance *= 2
 
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)
@@ -1235,10 +1239,8 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
-
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
-
 	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
 	if(keep_missing_bodyparts)
 		for(var/organ_name as anything in bodyparts_by_name)
@@ -1366,6 +1368,7 @@
 		update_mutantrace()
 		regenerate_icons()
 
+	SEND_SIGNAL(src, COMSIG_AFTER_SPECIES_CHANGE)
 	if(dna.species)
 		return TRUE
 	else
