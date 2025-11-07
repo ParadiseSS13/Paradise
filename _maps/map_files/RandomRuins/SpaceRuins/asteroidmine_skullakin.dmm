@@ -725,7 +725,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "om" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
 "on" = (
