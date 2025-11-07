@@ -172,7 +172,6 @@
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
-	max_integrity = 75
 
 /obj/structure/barricade/sandbags
 	name = "sandbags"
