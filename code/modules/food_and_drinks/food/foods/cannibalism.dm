@@ -105,7 +105,7 @@
 	name = "Meow Mein"
 	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
 	icon = 'icons/obj/food/cannibalism.dmi'
-	icon_state = "ham_leg"
+	icon_state = "meow_mein"
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("" = 1, "burnt hair" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE

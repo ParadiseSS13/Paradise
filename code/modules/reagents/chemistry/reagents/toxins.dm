@@ -123,6 +123,30 @@
 		M.adjustBrainLoss(1)
 	return ..() | update_flags
 
+/datum/reagent/lead
+	name = "Lead"
+	id = "lead"
+	description = "A heavy metal that causes brain damage and kidney failure, used by some ancient civilisations as a sweetener."
+	reagent_state = LIQUID
+	color = "#484848" // rgb: 72, 72, 72
+	process_flags = ORGANIC
+	taste_description = "sweet"
+
+/datum/reagent/lead/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(70))
+		M.adjustBrainLoss(1)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/datum/organ/kidneys/datum_kidneys = H.get_int_organ_datum(ORGAN_DATUM_KIDNEYS)
+		if(prob(70))
+			if(datum_kidneys)
+				var/obj/item/organ/internal/our_kidneys = datum_kidneys.linked_organ
+				our_kidneys.receive_damage(1, TRUE)
+			else
+				M.adjustToxLoss(1)
+	return ..() | update_flags
+
 /datum/reagent/chlorine
 	name = "Chlorine"
 	id = "chlorine"
