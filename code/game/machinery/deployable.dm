@@ -125,10 +125,10 @@
 	for(var/atom/potential_door as anything in get_turf(src))
 		if(istype(potential_door, /obj/machinery/door))
 			var/obj/machinery/door/confirmed_door = potential_door
-			confirmed_door.barricaded = TRUE
+			confirmed_door.barricaded = FALSE
 		else if(istype(potential_door, /obj/structure/mineral_door))
 			var/obj/machinery/door/confirmed_door = potential_door
-			confirmed_door.barricaded = TRUE
+			confirmed_door.barricaded = FALSE
 	. = ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
