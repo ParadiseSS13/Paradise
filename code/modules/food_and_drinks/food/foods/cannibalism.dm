@@ -50,10 +50,16 @@
 	name = "Calamari"
 	desc = "A fried ring of seafood meat covered in batter."
 	icon = 'icons/obj/food/cannibalism.dmi'
-	icon_state = "calamari"
+	icon_state = "calamari_1"
+	var/list/possible_iconstates = list("calamri_1", "calamari_2", "calamari_3", "calamari_4")
 	list_reagents = list("nutriment" = 1, "protein" = 1)
 	tastes = list("squid" = 1, "acidic" = 1, "bitter" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/calamari/Initialize(mapload, icon_state, possible_iconstates)
+	. = ..()
+	iconstate = pick(possible_iconstates)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/food/frankfurrter
 	name = "Frankfurrter"
@@ -78,6 +84,7 @@
 	desc = "A grey-looking gruel, with some purple streaks running through it."
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "grey_gruel"
+	trash = /obj/item/trash/snack_bowl
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("synthetic meat" = 1, "blood" = 1, "acidic" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
@@ -106,6 +113,42 @@
 	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "meow_mein"
+	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("" = 1, "burnt hair" = 1)
+	tastes = list("stir-fried noodles" = 1, "fur" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/plasma-bone_broth
+	name = "Plasma-Bone Broth"
+	desc = "A bowl of liquid plasma ."
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "plasma-bone_broth"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("nutriment" = 3, "protein" = 5, "plasma" = 3)
+	tastes = list("bitter" = 1, "corporate assets going to waste" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/pork_rind
+	name = "Pork Rind"
+	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "pork_rind_1" // Just in case
+	var/list/possible_iconstates = list("pork_rind_1", "pork_rind_2", "pork_rind_3", "pork_rind_4")
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("long pork" = 1, "fur" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/pork_rind/Initialize(mapload, icon_state, possible_iconstates)
+	. = ..()
+	iconstate = pick(possible_iconstates)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/food/tree_salad
+	name = "Tree Salad"
+	desc = "A bowl of liquid plasma ."
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "tree_salad"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("nutriment" = 3, "plantmatter" = 5)
+	tastes = list("tree bark" = 1, "leaves" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
