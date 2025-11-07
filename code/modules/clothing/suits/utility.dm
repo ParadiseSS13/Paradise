@@ -51,6 +51,8 @@
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "firefighter_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	w_class = WEIGHT_CLASS_NORMAL
+	slowdown = 0.75
 
 /*
  * Bomb protection
