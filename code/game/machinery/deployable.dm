@@ -120,6 +120,7 @@
 		else if(istype(potential_door, /obj/structure/mineral_door))
 			var/obj/machinery/door/confirmed_door = potential_door
 			confirmed_door.barricaded = TRUE
+
 /obj/structure/barricade/wooden/Destroy()
 	for(var/atom/potential_door as anything in get_turf(src))
 		if(istype(potential_door, /obj/machinery/door))
@@ -162,7 +163,7 @@
 				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='notice'> You repair [src].</span>")
-				user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
+				user.visible_message("<span class='notice'> [user] repairs [src].</span>")
 				obj_integrity = max_integrity
 				transfer_fingerprints_to(src)
 		return ITEM_INTERACT_COMPLETE

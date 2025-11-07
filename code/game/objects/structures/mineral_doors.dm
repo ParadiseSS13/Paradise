@@ -25,7 +25,7 @@
 	var/damageSound = null
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
-	///Is this barricaded?
+	/// Is this door barricaded?
 	var/barricaded = FALSE
 
 /obj/structure/mineral_door/Initialize(mapload)
@@ -140,8 +140,10 @@
 			else if(!barricaded) //one last check in case someone pre-barricades it
 				if(!density)
 					operate()
-				to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
-				user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+				user.visible_message(
+					"<span class='warning'>[user] barricades [src] shut.</span>",
+					"<span class='notice'>You barricade [src] shut.</span>"
+				)
 				var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 				transfer_fingerprints_to(newbarricade)
 				return ITEM_INTERACT_COMPLETE
