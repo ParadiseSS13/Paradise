@@ -57,6 +57,7 @@ jobs:
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
+          python -m tools.ci.check_user_verb_params
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
