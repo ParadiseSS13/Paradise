@@ -39,6 +39,7 @@
 		4 = "Purple"
 	)
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/nian,
 		"lungs" =    /obj/item/organ/internal/lungs/nian,

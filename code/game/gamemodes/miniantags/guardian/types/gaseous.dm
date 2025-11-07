@@ -12,14 +12,15 @@
 	var/moles_of_gas = null
 	///Linda flag for the expelled gas because we need to use special flags for it that are not readable in game well.
 	var/linda_flags = null
-	/// Possible gases to expel, with how much moles they create.
+	/// Possible gases to expel, with how many moles they create.
 	var/static/list/possible_gases = list(
 		"Oxygen" = 50,
 		"Nitrogen" = 750, //overpressurizing is hard!.
 		"N2O" = 15,
 		"CO2" = 50,
 		"Plasma" = 5,
-		"Agent B" = 5
+		"Agent B" = 5,
+		"Hydrogen" = 15
 	)
 
 /mob/living/simple_animal/hostile/guardian/gaseous/Initialize(mapload, mob/living/host)
@@ -66,6 +67,8 @@
 			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
 		if("Agent B")
 			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
+		if("Hydrogen")
+			linda_flags = LINDA_SPAWN_HYDROGEN | LINDA_SPAWN_20C
 
 /mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(flow_x, flow_y)
 	return // Immune to gas flow.

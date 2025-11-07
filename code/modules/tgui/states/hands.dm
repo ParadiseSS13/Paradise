@@ -29,5 +29,5 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 		return UI_INTERACTIVE
 	return UI_CLOSE
 
-/mob/living/simple_animal/revenant/hands_can_use_topic(src_object)
+/mob/living/basic/revenant/hands_can_use_topic(src_object)
 	return UI_UPDATE

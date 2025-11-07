@@ -18,6 +18,7 @@
 		air.set_toxins(T.toxins)
 		air.set_sleeping_agent(T.sleeping_agent)
 		air.set_agent_b(T.agent_b)
+		air.set_hydrogen(T.hydrogen)
 		air.set_temperature(T.temperature)
 		T.blind_set_air(air)
 

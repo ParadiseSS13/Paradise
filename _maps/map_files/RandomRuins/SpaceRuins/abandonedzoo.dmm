@@ -81,16 +81,16 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "am" = (
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "an" = (
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "ao" = (
@@ -120,7 +120,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/structure/flora/ausbushes/leafybush,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "av" = (
@@ -163,7 +163,7 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "aC" = (

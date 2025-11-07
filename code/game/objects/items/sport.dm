@@ -86,7 +86,7 @@
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !isprojectile(AM))
 		var/atom/movable/thrower = throwingdatum?.get_thrower()
-		if(prob(50) || HAS_TRAIT(thrower, TRAIT_BADASS))
+		if(prob(50) || HAS_TRAIT(thrower, TRAIT_BADASS) || HAS_TRAIT(thrower, TRAIT_COOL))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
 		else
