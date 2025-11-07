@@ -607,4 +607,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 			other_team.add_antag_objective(red_team)
 	red_team.pair_up(blue_team, TRUE)
 
+/datum/antagonist/proc/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1)
+
 #undef SUCCESSFUL_DETACH
