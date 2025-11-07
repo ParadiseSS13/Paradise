@@ -33,7 +33,8 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		msg_sanitized = FALSE,
 		msg_language,
 		new_sound2 = null,
-		new_subtitle = null
+		new_subtitle = null,
+		force_translation = FALSE // If this announcement should be displayed to everyone no matter if they know the language or not
 	)
 
 	if(!message)
@@ -49,7 +50,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
-	var/list/combined_receivers = Get_Receivers(message_language)
+	var/list/combined_receivers = Get_Receivers(message_language, force_translation)
 	var/list/receivers = combined_receivers[1]
 	var/list/garbled_receivers = combined_receivers[2]
 
@@ -75,7 +76,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	if(config.add_log)
 		Log(message, title)
 
-/datum/announcer/proc/Get_Receivers(datum/language/message_language)
+/datum/announcer/proc/Get_Receivers(datum/language/message_language, force_translation = FALSE)
 	var/list/receivers = list()
 	var/list/garbled_receivers = list()
 
@@ -84,6 +85,8 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 			if(!M.say_understands(null, message_language))
+				if(force_translation && HAS_TRAIT(M, TRAIT_FOREIGNER))
+					continue
 				receivers -= M
 				garbled_receivers |= M
 	else
@@ -94,6 +97,8 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
+				if(force_translation && HAS_TRAIT(M, TRAIT_FOREIGNER))
+					continue
 				receivers -= M
 				garbled_receivers |= M
 		for(var/mob/M in GLOB.dead_mob_list)

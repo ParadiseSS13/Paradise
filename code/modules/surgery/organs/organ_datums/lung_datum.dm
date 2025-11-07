@@ -78,6 +78,7 @@
 	if(H.health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
+	var/asthma_multiplier = HAS_TRAIT(H, TRAIT_ASTHMATIC) ? 0.5 : 1
 	//Partial pressures in our breath
 	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
@@ -91,7 +92,7 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen() / safe_oxygen_max / safe_oxygen_max) * 10
+			var/ratio = (breath.oxygen() / safe_oxygen_max) * 10
 			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 		else
@@ -103,7 +104,7 @@
 			handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
 			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			H.clear_alert("not_enough_oxy")
 
 		// Exhale
@@ -127,7 +128,7 @@
 			handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
 			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			H.clear_alert("not_enough_nitro")
 
 		// Exhale
@@ -160,7 +161,7 @@
 			handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
 			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			H.clear_alert("not_enough_co2")
 
 		// Exhale
@@ -186,7 +187,7 @@
 			handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
 			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			H.clear_alert("not_enough_tox")
 
 		// Exhale
@@ -366,3 +367,13 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/datum/organ/lungs/vox/make_advanced()
+	. = ..()
+	safe_oxygen_max = 20
+
+/datum/organ/lungs/plasmamen/make_advanced()
+	. = ..()
+	safe_oxygen_max = 20
+	safe_toxins_max = 0
+
