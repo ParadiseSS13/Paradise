@@ -772,7 +772,7 @@ Difficulty: Hard
 					H.FindTarget(list(caster), 1)
 				else
 					H.Goto(get_turf(caster), H.move_to_delay, 3)
-	if(monster_damage_boost && (ismegafauna(target) || istype(target, /mob/living/simple_animal/hostile/asteroid)))
+	if(monster_damage_boost && (ismegafauna(target) || istype(target, /mob/living/basic/mining)))
 		target.adjustBruteLoss(damage)
 	if(caster)
 		add_attack_logs(caster, target, "Struck with a [name]")

@@ -66,10 +66,8 @@
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 
-
-
-/obj/item/grown/nettle/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user,proximity)
-	if(!proximity)
+/obj/item/grown/nettle/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..() || !proximity_flag)
 		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
@@ -104,11 +102,11 @@
 			user.Weaken(10 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
-/obj/item/grown/nettle/death/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
-	..()
-	if(!isliving(M))
-		return
+/obj/item/grown/nettle/death/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
-	to_chat(M, "<span class='danger'>You flinch as you are struck by \the [src]!</span>")
-	add_attack_logs(user, M, "Hit with [src]")
-	M.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds per hit.
+	if(isliving(target))
+		to_chat(target, "<span class='danger'>You flinch as you are struck by \the [src]!</span>")
+		add_attack_logs(user, target, "Hit with [src]")
+		target.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds per hit.
