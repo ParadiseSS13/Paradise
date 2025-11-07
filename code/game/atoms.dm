@@ -1514,7 +1514,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
 
-// MARK: PTL PROCS
+// MARK: PTL procs
 
 // Called when the target is selected
 /atom/proc/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
@@ -1548,3 +1548,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ptl)
 		ptl.target = null
 	return
+
+// MARK: Event procs
+/// Returns the cost of the atom for the event system as a list of all requirements. By default this is just 1 crew.
+/atom/proc/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_CREW = 1)
+

@@ -95,6 +95,13 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
 			organization = new org_type(src)
+			if(istype(organization, /datum/antag_org/syndicate/gorlex))
+				if(prob(50))
+					organization.intro_desc += "Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+					organization.forced_objectives = list(/datum/objective/hijack)
+				else
+					organization.intro_desc += "Get in, fuck shit up, send the station out with a bang. You know the drill."
+					organization.forced_objectives = list(/datum/objective/nuke)
 			return
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
@@ -107,6 +114,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
+	if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+		antag_hud_name = is_contractor ? "hudnukecontractor" : "hudnuke"
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
 	return ..()
@@ -151,6 +160,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		return //Hijackers only get hijack.
+
+	if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+		return // If you're gonna nuke the place, you don't need any other objectives.
 
 	// Will give objectives from our org or random objectives.
 	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
