@@ -1,0 +1,4222 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aj" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space/unpowered/no_grav)
+"av" = (
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"az" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"aB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/command/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"bh" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/drakehound_mine/bridge)
+"bw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/mechbay)
+"bM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"bS" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/flask/barflask,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"bX" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/arrivals)
+"cb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"cg" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/bar)
+"cu" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"cw" = (
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"dl" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/obj/item/pipe_meter,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"dm" = (
+/obj/effect/spawner/random/blood,
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"dq" = (
+/obj/machinery/door/airlock/science,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"ds" = (
+/obj/machinery/door/airlock/maintenance/external,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_north)
+"dE" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"dM" = (
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"dS" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"ee" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"eH" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"eS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"eW" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/drakehound_mine/hallway_north)
+"fk" = (
+/obj/structure/chair/wood/wings,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"fq" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/mechbay)
+"fu" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"fv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"fN" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"fV" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/unpowered)
+"fX" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"fY" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"ga" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar_control{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"gk" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"gq" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"gv" = (
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/ship)
+"gG" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"ha" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"hk" = (
+/obj/effect/spawner/airlock/s_to_n/long/square,
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/arrivals)
+"hD" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"hK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"hO" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"hQ" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/ship)
+"if" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"ig" = (
+/obj/effect/spawner/random/food_trash,
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"ii" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"in" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/drakehound_mine/bridge)
+"iu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"iw" = (
+/obj/machinery/computer/loreconsole/drakehound_mine{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/drakehound_mine/bridge)
+"iB" = (
+/obj/machinery/power/solar{
+	name = "Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/drakehound_mine/solars)
+"iK" = (
+/obj/effect/spawner/random/food_trash,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"iN" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"iY" = (
+/obj/effect/spawner/random/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"jg" = (
+/obj/effect/spawner/random/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"ju" = (
+/obj/effect/spawner/random/blood,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"jI" = (
+/obj/effect/spawner/random/blood,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"jJ" = (
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"ki" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/ship)
+"kn" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"ko" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/window/reinforced/tinted/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_south)
+"kr" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"kI" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"kN" = (
+/obj/machinery/door/airlock/command/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bridge)
+"kQ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/spawner/random/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"kW" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"lw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"lM" = (
+/obj/structure/rack,
+/obj/item/storage/fancy/shell/dragonsbreath,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"lN" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/mechbay)
+"lO" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"mh" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"mr" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/drakehound_mine/hallway_south)
+"mw" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"mx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"mC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"mD" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"mE" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/shreds,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"mG" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/drakehound,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"nl" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"nn" = (
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"nq" = (
+/obj/effect/spawner/random/common_ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"nD" = (
+/obj/effect/spawner/random/blood,
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"nL" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"nQ" = (
+/obj/structure/closet/firecloset/full,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"nZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/shreds,
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/rods,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/bridge)
+"od" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"ol" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"oD" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"oG" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"oK" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/space/unpowered)
+"oM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"pw" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"pA" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/uncommon_ore,
+/obj/effect/spawner/random/common_ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"pR" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/drakehound_mine/hallway_north)
+"pZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_north)
+"qb" = (
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"qm" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"qv" = (
+/obj/machinery/door/airlock/public,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"qV" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"qZ" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"re" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"rf" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"ri" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"rw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"rC" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"rI" = (
+/obj/structure/marker_beacon/dock_marker,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/ruin/space/unpowered/no_grav)
+"rX" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"rZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"st" = (
+/obj/structure/spawner/mining/basilisk/space,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"sC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"sI" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/bottle/random_drink,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"sU" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"sW" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"th" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"ti" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"tk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"tn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"tF" = (
+/mob/living/basic/drakehound_breacher/ranged/captain,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"tV" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/bar)
+"uv" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"uO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"uU" = (
+/obj/effect/spawner/random/blood,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"uY" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"vf" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"vj" = (
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"vo" = (
+/turf/simulated/mineral/random/low_chance/space,
+/area/ruin/drakehound_mine/hallway_south)
+"vN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"vV" = (
+/obj/effect/spawner/random/food_trash,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"vZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"wk" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"wl" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/shreds,
+/obj/effect/decal/cleanable/shreds,
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"wz" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"wQ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"wX" = (
+/obj/effect/mob_spawn/human/corpse/random_species/miner,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"xm" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"xY" = (
+/obj/effect/spawner/random/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"ye" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/solars)
+"yk" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"yG" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"yL" = (
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"yU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"zg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"zl" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "secure hold door";
+	locked = 1
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"zr" = (
+/obj/effect/decal/cleanable/glass,
+/turf/space,
+/area/space)
+"zA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"zQ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/bridge)
+"Ag" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards/black,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"AF" = (
+/mob/living/basic/lizard{
+	name = "Raids-the-Station"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"AI" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/bridge)
+"Bn" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"BV" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"Cq" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Cv" = (
+/obj/structure/ore_box,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"Cy" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"CE" = (
+/obj/effect/spawner/random/blood,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"CK" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/toy/carp_plushie,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"CV" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/hallway_north)
+"CZ" = (
+/obj/machinery/atmospherics/unary/tank/oxygen{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"De" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Do" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"DA" = (
+/obj/structure/grille,
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"DK" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"DV" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/drakehound_mine/hallway_north)
+"DZ" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Ef" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Et" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"EO" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"EP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"EZ" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Fj" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/drakehound_mine/ship)
+"Fk" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Fl" = (
+/obj/effect/spawner/random/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Fn" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"FB" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/hallway_south)
+"FK" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"FQ" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes/engineering,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"FZ" = (
+/obj/machinery/door/airlock/maintenance/external,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_south)
+"GE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"GG" = (
+/obj/effect/spawner/random/blood,
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"GH" = (
+/obj/machinery/door/airlock/maintenance/external,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_north)
+"GX" = (
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Hc" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/arrivals)
+"Hn" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/rare_ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Hr" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/mechbay)
+"HB" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/drakehound_mine/mechbay)
+"HD" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"HK" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/drakehound_mine/hallway_south)
+"Ie" = (
+/obj/mecha/working/ripley/mining,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/drakehound_mine/mechbay)
+"Iq" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Ir" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"IY" = (
+/obj/effect/mob_spawn/human/corpse/random_species/miner,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Ju" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"JK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"JM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Kg" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"Kx" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/drakehound_mine/ship)
+"Lm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Lo" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Lt" = (
+/obj/structure/closet/crate,
+/obj/item/storage/bag/ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"LV" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/uncommon_ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"LY" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Mn" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"MK" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"MX" = (
+/obj/machinery/economy/vending/wallmed/directional/west,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Nm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mob_spawn/human/corpse/drakehound,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"No" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Nu" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"ND" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"NP" = (
+/obj/effect/spawner/random/blood,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
+"NT" = (
+/turf/simulated/floor/pod/dark,
+/area/ruin/drakehound_mine/ship)
+"Oa" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Oh" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"Ot" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"OB" = (
+/mob/living/basic/carp,
+/turf/space,
+/area/space)
+"OR" = (
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"OS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Pm" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/drakehound_mine/bar)
+"Pw" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/drakehound_mine/hallway_north)
+"Px" = (
+/obj/structure/grille,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"PA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"PF" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"PY" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_south)
+"Qn" = (
+/mob/living/basic/drakehound_breacher,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Qv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Qx" = (
+/obj/effect/spawner/random/blood,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"QB" = (
+/obj/machinery/power/solar{
+	name = "Starboard Solar Array"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/drakehound_mine/solars)
+"QG" = (
+/turf/space,
+/area/ruin/drakehound_mine/ship)
+"QL" = (
+/obj/structure/foamedmetal,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"Ro" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"RM" = (
+/obj/structure/girder,
+/turf/space,
+/area/ruin/drakehound_mine/bridge)
+"Sp" = (
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/mob/living/basic/drakehound_breacher,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Ss" = (
+/turf/space,
+/area/space)
+"St" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"SA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/drakehound_mine/ship)
+"Tf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"Tk" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/drakehound_mine/hallway_south)
+"Tq" = (
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"Tt" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"TF" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/unpowered)
+"TH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"TP" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/mechbay)
+"TZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/arrivals)
+"Ud" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"Ui" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Un" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Ut" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"UI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/mechbay)
+"UK" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"VB" = (
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
+"VQ" = (
+/obj/effect/spawner/random/blood,
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Ww" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/ship)
+"WD" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Xd" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Xe" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"Xf" = (
+/turf/simulated/mineral/random/low_chance/space,
+/area/ruin/space/unpowered)
+"Xg" = (
+/obj/structure/rack,
+/obj/item/storage/fancy/shell/rubbershot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/drakehound_mine/ship)
+"Xq" = (
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"Xs" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"XM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/door/window{
+	name = "Bar Door";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"XX" = (
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Yl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
+"Yo" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/mob/living/basic/drakehound_breacher/ranged,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Yt" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/effect/spawner/random/common_ore,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"YG" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/drakehound_mine/ship)
+"YV" = (
+/obj/effect/spawner/random/blood,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
+"Zx" = (
+/obj/structure/rack,
+/obj/item/pickaxe/gold,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
+/obj/item/stack/sheet/mineral/gold/twenty,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/pod/dark,
+/area/ruin/drakehound_mine/ship)
+"Zy" = (
+/obj/machinery/power/tracker,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable,
+/turf/space,
+/area/ruin/drakehound_mine/solars)
+"Zz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
+"ZC" = (
+/turf/simulated/wall,
+/area/ruin/drakehound_mine/arrivals)
+"ZZ" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/drakehound_mine/bridge)
+
+(1,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(2,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(3,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+Xf
+Xf
+Xf
+Xf
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+OB
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(4,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+Xf
+Xf
+oK
+oK
+Xf
+Xf
+Xf
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(5,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+oK
+fV
+fV
+fV
+fV
+fV
+fV
+Xf
+Xf
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+OB
+Ss
+Ss
+OB
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+oK
+fV
+fV
+fV
+fV
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+Ss
+OB
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(6,1,1) = {"
+Ss
+Ss
+oK
+oK
+oK
+oK
+fV
+fV
+fV
+fV
+Ro
+Ro
+Ro
+wQ
+fV
+fV
+oK
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+fV
+fV
+fV
+fV
+Yt
+oK
+oK
+oK
+fV
+Xf
+Xf
+Xf
+oK
+TF
+oK
+oK
+Ss
+Ss
+OB
+Ss
+Ss
+Ss
+Ss
+"}
+(7,1,1) = {"
+Ss
+oK
+oK
+TF
+TF
+fV
+fV
+Ro
+Ro
+Ro
+OR
+Ro
+tF
+Ro
+oK
+oK
+fV
+TF
+TF
+TF
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+fV
+fV
+fV
+oK
+oK
+oK
+oK
+Ro
+OR
+oK
+TF
+oK
+fV
+Xf
+Xf
+TF
+TF
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(8,1,1) = {"
+Ss
+oK
+TF
+TF
+fV
+Ro
+Ro
+Ro
+TF
+Fk
+Ro
+TF
+Ro
+IY
+oK
+lN
+lN
+HB
+HB
+TF
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+Xf
+Xf
+fV
+oK
+oK
+sU
+Ro
+ol
+oK
+oK
+Ro
+Ro
+TF
+TF
+TF
+TF
+fV
+fV
+fV
+TF
+TF
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(9,1,1) = {"
+Ss
+oK
+TF
+TF
+fV
+Ro
+Ro
+Ro
+TF
+Hn
+Ro
+Ro
+Ro
+IY
+oK
+lN
+TP
+fq
+HB
+TF
+Xf
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+Xf
+Tk
+mr
+mr
+mr
+Lt
+Ro
+Ro
+oK
+oK
+Ro
+Ro
+oK
+Xf
+Xf
+oK
+oK
+oK
+oK
+fV
+fV
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(10,1,1) = {"
+Ss
+oK
+oK
+oK
+fV
+Ro
+Ro
+TF
+TF
+TF
+Ro
+Ro
+IY
+IY
+oK
+lN
+UI
+Ie
+HB
+Xf
+Xf
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+TF
+TF
+fV
+mr
+ee
+ii
+FZ
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+oK
+oK
+oK
+oK
+fV
+oK
+Ss
+OB
+Ss
+Ss
+Ss
+Ss
+"}
+(11,1,1) = {"
+Ss
+oK
+oK
+oK
+fV
+Ro
+Ro
+TF
+Ro
+Ro
+Ro
+oK
+oK
+oK
+oK
+lN
+bw
+Hr
+lN
+fV
+Xf
+Xf
+oK
+Ss
+Ss
+Ss
+Ss
+oK
+TF
+HK
+Tk
+vo
+mr
+ii
+ii
+FZ
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+Yt
+oK
+oK
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(12,1,1) = {"
+Ss
+oK
+Xf
+oK
+fV
+Ro
+Ro
+Ro
+Ro
+Ro
+oK
+TF
+oK
+CV
+CV
+CV
+dq
+CV
+CV
+CV
+DV
+DV
+DV
+CV
+pZ
+CV
+DV
+Tk
+Tk
+Tk
+vj
+nL
+mr
+mD
+mD
+mr
+EZ
+Ro
+Ro
+oK
+Xf
+oK
+Fk
+Ro
+oK
+oK
+Ro
+Ro
+Ro
+Ro
+Ro
+OR
+oK
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(13,1,1) = {"
+Ss
+Ss
+Xf
+Xf
+fV
+Ro
+Ro
+Ro
+Ro
+TF
+TF
+TF
+oK
+CV
+Lo
+MX
+jg
+rw
+rw
+FK
+Oa
+rf
+Cq
+dE
+dE
+dE
+rw
+OS
+gG
+XX
+Qx
+dS
+dS
+wX
+ii
+mr
+sU
+Ro
+ol
+oK
+Xf
+Xf
+Xf
+Xf
+Xf
+oK
+Px
+Px
+oK
+oK
+oK
+Ro
+oK
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(14,1,1) = {"
+Ss
+Ss
+oK
+Xf
+fV
+fV
+oK
+Ro
+Ro
+Ro
+TF
+TF
+oK
+CV
+LY
+hO
+Ud
+mw
+Sp
+xY
+Do
+hD
+Zz
+Do
+Lm
+yU
+yU
+mx
+Nm
+mx
+kQ
+mx
+Ut
+Ef
+ii
+Pm
+Pm
+Pm
+Pm
+Pm
+Pm
+Pm
+Pm
+Pm
+Xf
+Xf
+Ro
+QL
+QL
+oK
+TF
+TF
+oK
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(15,1,1) = {"
+Ss
+Ss
+Xf
+Xf
+oK
+fV
+oK
+Ro
+Ro
+Ro
+Xf
+TF
+Xf
+CV
+CV
+CV
+ds
+GH
+CV
+CV
+CV
+CV
+DV
+CV
+pZ
+CV
+CV
+AI
+AI
+AI
+AI
+AI
+AI
+Iq
+PA
+tV
+No
+Tt
+ju
+Yo
+Tt
+WD
+fY
+Pm
+TF
+Xf
+QL
+QL
+IY
+Ro
+TF
+TF
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(16,1,1) = {"
+Ss
+Ss
+oK
+Xf
+Xf
+fV
+fV
+TF
+Ro
+Ro
+Ro
+Ro
+Xf
+TF
+pR
+Cv
+ha
+Pw
+xm
+eW
+oK
+fV
+fV
+Ss
+Ss
+Ss
+oK
+AI
+EO
+iw
+bh
+ZZ
+AI
+iu
+kn
+tV
+bS
+Tt
+CK
+Nu
+rC
+ND
+ND
+Pm
+TF
+Xf
+Ro
+Ro
+Xf
+Ro
+Ro
+LV
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(17,1,1) = {"
+Ss
+Ss
+oK
+oK
+Xf
+oK
+fV
+TF
+TF
+Ro
+Ro
+Ro
+Xf
+TF
+eW
+xm
+ri
+ri
+xm
+eW
+oK
+fV
+oK
+oK
+Ss
+Ss
+Ss
+AI
+vZ
+iN
+GG
+in
+AI
+iY
+ti
+tV
+cu
+XM
+GE
+sC
+rC
+Tt
+YV
+Pm
+TF
+Xf
+Ro
+Ro
+Ro
+Xf
+Ro
+IY
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(18,1,1) = {"
+Ss
+Ss
+Ss
+oK
+Xf
+oK
+fV
+oK
+oK
+oK
+Ro
+Ro
+Xf
+TF
+eW
+eW
+MK
+MK
+eW
+eW
+oK
+fV
+oK
+Xf
+Ss
+Ss
+zr
+zQ
+wl
+mE
+mG
+NP
+kN
+az
+dS
+tV
+rX
+De
+Xs
+oG
+YV
+Tt
+mh
+Pm
+Xf
+TF
+TF
+TF
+TF
+TF
+Ro
+Ro
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(19,1,1) = {"
+Ss
+Ss
+Ss
+oK
+oK
+oK
+fV
+oK
+oK
+oK
+oK
+Ro
+TF
+TF
+Ro
+Ro
+Ro
+Ro
+Ro
+Ro
+oK
+fV
+Xf
+Xf
+Ss
+Ss
+Ss
+nZ
+mE
+EO
+mE
+qV
+aB
+Xd
+ii
+tV
+rX
+Un
+qZ
+kI
+Tt
+fk
+Ag
+mr
+mr
+FB
+FB
+TF
+TF
+TF
+st
+Xf
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(20,1,1) = {"
+Ss
+Ss
+Ss
+oK
+oK
+TF
+oK
+fV
+oK
+oK
+Qn
+Ro
+oK
+TF
+Ro
+Ro
+Fk
+Ro
+Ro
+Ro
+oK
+fV
+oK
+oK
+Ss
+eH
+zr
+AI
+Kx
+nn
+Kx
+mE
+AI
+az
+ii
+tV
+tV
+qv
+tV
+tV
+cg
+cg
+tV
+FB
+Mn
+Ju
+mr
+Xf
+Xf
+TF
+TF
+Xf
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(21,1,1) = {"
+Ss
+Ss
+Ss
+oK
+TF
+TF
+oK
+fV
+oK
+oK
+Ro
+Ro
+IY
+TF
+Ro
+Ro
+Ro
+Ro
+Fk
+Ro
+oK
+fV
+TF
+oK
+Ss
+Ss
+Ss
+RM
+Kx
+Fn
+Kx
+mE
+mr
+az
+dS
+gG
+dS
+oM
+ii
+dS
+fu
+Ui
+VQ
+yL
+dS
+dS
+mr
+FB
+FB
+mr
+mr
+fV
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(22,1,1) = {"
+Ss
+OB
+Ss
+oK
+TF
+TF
+TF
+fV
+oK
+oK
+nq
+Ro
+Ro
+Ro
+OR
+Ro
+Ro
+Ro
+Ro
+Yt
+oK
+fV
+TF
+oK
+Ss
+eH
+eH
+RM
+Kx
+nn
+Kx
+RM
+mr
+JM
+mx
+Fl
+mx
+nl
+uO
+Ut
+eS
+DK
+Qv
+mx
+St
+ii
+mr
+nQ
+tn
+PF
+Tk
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(23,1,1) = {"
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+fV
+oK
+oK
+oK
+oK
+oK
+TF
+TF
+oK
+Ro
+Ro
+oK
+oK
+oK
+fV
+TF
+oK
+Ss
+Ss
+Ss
+Kx
+Kx
+Fn
+Kx
+Kx
+mr
+mr
+mr
+mr
+PY
+PY
+mr
+mr
+mr
+FB
+FB
+mr
+lw
+Ot
+th
+cb
+dl
+PF
+Tk
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(24,1,1) = {"
+Ss
+Ss
+OB
+Ss
+Xf
+Xf
+oK
+fV
+fV
+oK
+TF
+TF
+TF
+TF
+oK
+oK
+Ro
+Ro
+oK
+TF
+oK
+fV
+TF
+oK
+Ss
+Ss
+Kx
+Kx
+Xg
+Kg
+lM
+Kx
+Kx
+eH
+eH
+Ss
+Ss
+Ss
+Ss
+Ss
+FB
+qm
+fN
+ko
+gk
+zA
+mr
+mr
+Tk
+Tk
+Tk
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(25,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+oK
+Xf
+Xf
+oK
+fV
+oK
+TF
+TF
+TF
+oK
+oK
+oK
+Ro
+oK
+oK
+TF
+fV
+TF
+TF
+oK
+Ss
+Kx
+Kx
+Tq
+rZ
+Fn
+vV
+gq
+Kx
+Kx
+aj
+aj
+aj
+aj
+aj
+rI
+FB
+FQ
+fX
+DZ
+TH
+mC
+mr
+fV
+fV
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+"}
+(26,1,1) = {"
+Ss
+OB
+Ss
+OB
+oK
+Xf
+Xf
+oK
+fV
+oK
+oK
+TF
+TF
+oK
+oK
+Ro
+Ro
+oK
+TF
+TF
+fV
+oK
+oK
+oK
+Ss
+Kx
+Tq
+Et
+Cy
+Kg
+Kg
+wk
+gq
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+FB
+FB
+ga
+FB
+uU
+Tf
+ZC
+Oh
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+Ss
+Ss
+Ss
+"}
+(27,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Xf
+oK
+oK
+oK
+fV
+oK
+oK
+oK
+oK
+Ro
+Ro
+Ro
+oK
+TF
+TF
+fV
+oK
+oK
+oK
+Ss
+gv
+YG
+Fj
+YG
+YG
+SA
+YG
+YG
+gv
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+aj
+FB
+FB
+FB
+av
+bM
+TZ
+ye
+Xq
+Xe
+Xq
+Xq
+Xq
+Xe
+Xq
+Xe
+DA
+Ss
+Ss
+Ss
+"}
+(28,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+fV
+oK
+oK
+oK
+oK
+Ro
+oK
+oK
+oK
+TF
+fV
+oK
+oK
+Xf
+oK
+Ss
+gv
+YG
+YG
+Kx
+zl
+Kx
+YG
+YG
+gv
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+aj
+Ss
+Ss
+ZC
+od
+vN
+bX
+Xe
+iB
+lO
+QB
+Xe
+iB
+lO
+QB
+Xe
+DA
+Ss
+Ss
+Ss
+"}
+(29,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+TF
+oK
+fV
+fV
+oK
+oK
+Ro
+Ro
+oK
+TF
+TF
+TF
+fV
+oK
+Xf
+Xf
+oK
+Ss
+Kx
+Kx
+Ir
+Kx
+NT
+Kx
+Ir
+Kx
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+ZC
+ZC
+ZC
+hk
+JK
+hK
+ZC
+Xq
+iB
+pw
+QB
+Xq
+iB
+pw
+QB
+Xq
+DA
+Ss
+Ss
+Ss
+"}
+(30,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+TF
+TF
+TF
+fV
+oK
+Ro
+GX
+Ro
+oK
+TF
+oK
+fV
+TF
+TF
+Xf
+Xf
+oK
+Ss
+dM
+jJ
+kr
+Kx
+Zx
+Kx
+kr
+VB
+dM
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+HD
+HD
+HD
+HD
+fv
+tk
+bX
+Xq
+iB
+pw
+QB
+Xe
+iB
+pw
+QB
+Xe
+Xe
+Ss
+Ss
+Ss
+"}
+(31,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+TF
+TF
+fV
+oK
+pA
+OR
+IY
+oK
+fV
+fV
+oK
+TF
+TF
+oK
+Xf
+Ss
+Ss
+Kx
+ig
+kr
+Kx
+Kx
+Kx
+kr
+yG
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+HD
+HD
+HD
+HD
+Yl
+zg
+bX
+Xq
+iB
+pw
+QB
+Xq
+iB
+pw
+QB
+Xq
+Xe
+DA
+DA
+DA
+"}
+(32,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+fV
+fV
+oK
+TF
+oK
+fV
+fV
+oK
+TF
+TF
+TF
+oK
+oK
+Ss
+Ss
+gv
+kr
+kr
+iK
+re
+kr
+cw
+kr
+gv
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+ZC
+bX
+bX
+ZC
+CE
+if
+ZC
+Xq
+iB
+pw
+QB
+Xe
+iB
+pw
+QB
+Xe
+Xe
+Xe
+Xq
+DA
+"}
+(33,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+oK
+fV
+fV
+fV
+fV
+fV
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+Ss
+Ss
+gv
+yk
+uv
+AF
+kr
+kr
+yk
+yk
+gv
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+aj
+Ss
+Ss
+bX
+dm
+qb
+Hc
+BV
+BV
+sW
+BV
+BV
+BV
+sW
+BV
+BV
+BV
+BV
+Zy
+DA
+"}
+(34,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+Xf
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Kx
+sI
+wz
+kr
+kr
+oD
+re
+sI
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+aj
+Ss
+Ss
+bX
+nD
+jI
+bX
+Xe
+iB
+Bn
+QB
+Xe
+iB
+Bn
+QB
+Xe
+Xe
+Xe
+Xq
+DA
+"}
+(35,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+Xf
+Xf
+Xf
+oK
+Xf
+Xf
+Xf
+oK
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Kx
+Kx
+Kx
+CZ
+kW
+vf
+Kx
+Kx
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+aj
+Ss
+Ss
+ZC
+uY
+UK
+ZC
+Xq
+iB
+Bn
+QB
+Xq
+iB
+Bn
+QB
+Xq
+Xe
+DA
+DA
+DA
+"}
+(36,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+Xf
+Xf
+Xf
+Xf
+Xf
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Kx
+Kx
+Ww
+Ww
+Ww
+Kx
+Kx
+eH
+aj
+aj
+aj
+aj
+aj
+rI
+aj
+Ss
+Ss
+ZC
+bX
+bX
+ZC
+Xe
+iB
+Bn
+QB
+Xe
+iB
+Bn
+QB
+Xe
+Xe
+Ss
+Ss
+Ss
+"}
+(37,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+oK
+Xf
+oK
+oK
+oK
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Kx
+hQ
+hQ
+ki
+Kx
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+DA
+Xq
+iB
+Bn
+QB
+Xq
+iB
+Bn
+QB
+Xq
+DA
+Ss
+Ss
+Ss
+"}
+(38,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+oK
+oK
+Xf
+Xf
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+QG
+hQ
+QG
+Ss
+Ss
+eH
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Xq
+Xq
+iB
+EP
+QB
+Xe
+iB
+EP
+QB
+Xe
+DA
+Ss
+Ss
+Ss
+"}
+(39,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+QG
+QG
+QG
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+DA
+Xe
+Xq
+Xe
+Xe
+Xq
+Xq
+Xe
+Xq
+Xe
+DA
+Ss
+Ss
+Ss
+"}
+(40,1,1) = {"
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+DA
+Ss
+Ss
+Ss
+"}
