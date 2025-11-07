@@ -2,7 +2,7 @@
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder
 	name = "clockwork marauder"
-	desc = "A brass machine of destruction,"
+	desc = "A brass machine of destruction."
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "clockwork_marauder"
 	icon_living = "clockwork_marauder"
