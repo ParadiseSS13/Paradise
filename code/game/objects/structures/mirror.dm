@@ -9,7 +9,10 @@
 	integrity_failure = 100
 	var/list/ui_users = list()
 	var/broken_icon_state = "mirror_broke"
+
+	/// what to show when a ghost Boo!'s this mirror
 	var/icon/spooked_icon
+	/// Whether a mirror can be Boo!'d or not. Magic mirrors are animated, so this is used to stop them from looking weird
 	var/can_be_spooked = TRUE
 
 /obj/structure/mirror/organ
