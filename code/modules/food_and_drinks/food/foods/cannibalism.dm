@@ -53,7 +53,7 @@
 	icon_state = "calamari_1"
 	var/list/possible_iconstates = list("calamri_1", "calamari_2", "calamari_3", "calamari_4")
 	list_reagents = list("nutriment" = 1, "protein" = 1)
-	tastes = list("squid" = 1, "acidic" = 1, "bitter" = 1)
+	tastes = list("squid" = 1, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/calamari/Initialize(mapload, icon_state, possible_iconstates)
@@ -145,10 +145,28 @@
 
 /obj/item/food/tree_salad
 	name = "Tree Salad"
-	desc = "A bowl of liquid plasma ."
+	desc = "A salad composed of bark and leaves. Is that a Nymph eye?"
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "tree_salad"
 	trash = /obj/item/trash/snack_bowl
 	list_reagents = list("nutriment" = 3, "plantmatter" = 5)
 	tastes = list("tree bark" = 1, "leaves" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/turkish_delight
+	name = "Turkish Delight"
+	desc = "Cubes of flavoured gelatin with sugar covering them."
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "turkish_delight"
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("jelly" = 1, "sugar" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+/obj/item/food/wafers
+	name = "Wafers"
+	desc = "A section of metal with exposed circuit wafers."
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "wafers"
+	list_reagents = list("lead" = 3, "iron" = 5, "gold" = 1)
+	tastes = list("sweet" = 1, "metallic" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
