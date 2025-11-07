@@ -160,7 +160,7 @@
 	research_tree_icon_state = "moonascend"
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
-//Qwertodo: redo this entire ultimate lmaoooo
+//Qwertodo: redo this entire ultimate lmaoooo. Emeraldtodo: Maybe some giant rideable moon that squishes people.
 	var/brain_damage = sacrifice.getBrainLoss()
 	// Checks if our target has enough brain damage
 	if(brain_damage < 50)
