@@ -1012,7 +1012,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/kill_pet/update_explanation_text()
 	if(target)
-		explanation_text = "Destroy Nanotrasen's morale by detonating [target] with C4, and take a picture of [target] before the C4 detonates."
+		explanation_text = "Destroy Nanotrasen's morale by detonating [target] with C4, and optionally take a picture of [target] before the C4 detonates."
 	else
 		explanation_text = "Free Objective."
 
