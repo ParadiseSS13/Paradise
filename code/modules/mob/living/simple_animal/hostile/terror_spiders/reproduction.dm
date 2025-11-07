@@ -49,6 +49,7 @@
 			name = "prince of terror eggs"
 		if(/mob/living/simple_animal/hostile/poison/terror_spider/queen)
 			name = "queen of terror eggs"
+	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
 	GLOB.ts_egg_list -= src

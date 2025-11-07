@@ -76,8 +76,9 @@
 		alpha = 0,
 	)
 
+	cog.invisibility = user.invisibility
 	cog.pixel_y = world.icon_size + offset_y
-	animate(cog, alpha = 255, time = COGBAR_ANIMATION_TIME)
+	animate(cog, alpha = user.alpha, time = COGBAR_ANIMATION_TIME)
 
 	if(isnull(user_client))
 		return

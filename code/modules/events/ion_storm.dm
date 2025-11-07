@@ -3,13 +3,17 @@
 #define ION_ANNOUNCE 1
 
 /datum/event/ion_storm
+	name = "Ion Storm"
+	role_weights = list(ASSIGNMENT_COMMAND = 1)
+	role_requirements = list(ASSIGNMENT_COMMAND = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
+/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, _severity, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
