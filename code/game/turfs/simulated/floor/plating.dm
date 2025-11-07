@@ -233,6 +233,13 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	icon_regular_floor = "cult"
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
@@ -295,6 +302,18 @@
 	name = "air floor"
 	oxygen = 2644
 	nitrogen = 10580
+
+/turf/simulated/floor/engine/agent_b
+	name = "\improper agent B floor"
+	agent_b = 10000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/hydrogen
+	name = "\improper H2 floor"
+	hydrogen = 100000
+	oxygen = 0
+	nitrogen = 0
 
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0

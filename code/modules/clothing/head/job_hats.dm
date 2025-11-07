@@ -2,7 +2,7 @@
 // Chef
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "The commander in chef's head wear."
+	desc = "The commander in chef's headwear."
 	icon_state = "chef"
 	inhand_icon_state = "chefhat"
 	strip_delay = 10
@@ -14,6 +14,22 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+
+/obj/item/clothing/head/chefhat/red
+	name = "chef's red hat"
+	icon_state = "chef_red"
+
+/obj/item/clothing/head/chefhat/black
+	name = "chef's black hat"
+	icon_state = "chef_black"
+
+/obj/item/clothing/head/chefhat/bw
+	name = "chef's black and white hat"
+	icon_state = "chef_bw"
+
+/obj/item/clothing/head/chefhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -30,10 +46,18 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+/obj/item/clothing/head/caphat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_capblue"
+
+/obj/item/clothing/head/caphat/parade/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/caphat/parade/white
 	icon_state = "captain_capwhite"
@@ -50,6 +74,10 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
+
+/obj/item/clothing/head/hop/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Quartermaster
 /obj/item/clothing/head/qm
@@ -254,6 +282,10 @@
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
+/obj/item/clothing/head/hos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
@@ -261,10 +293,10 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 75)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
+	)
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"

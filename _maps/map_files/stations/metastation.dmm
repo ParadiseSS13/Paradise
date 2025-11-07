@@ -234,6 +234,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
+"adr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/checker{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "adv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass,
@@ -11416,7 +11426,8 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -16701,7 +16712,8 @@
 "bNC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -18619,8 +18631,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 5
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -19752,7 +19765,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "cdi" = (
@@ -20577,7 +20593,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "chm" = (
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "chn" = (
@@ -21190,7 +21209,10 @@
 /area/station/maintenance/port)
 "cjZ" = (
 /obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "cka" = (
@@ -21427,7 +21449,10 @@
 "cll" = (
 /obj/structure/sign/poster/random/directional/south,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "clm" = (
@@ -36705,8 +36730,9 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 6
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -44525,8 +44551,11 @@
 /area/station/science/xenobiology)
 "iuh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -44702,7 +44731,10 @@
 /area/station/maintenance/aft)
 "ixf" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ixt" = (
@@ -47185,6 +47217,16 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/exam_room)
+"jsk" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/white/checker,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "jsq" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -54129,7 +54171,10 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "lJg" = (
@@ -64153,7 +64198,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pss" = (
-/obj/machinery/alarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Departure Lounge - Port Fore";
 	dir = 4
@@ -67690,8 +67734,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "qGI" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 10
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -68654,7 +68699,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -69781,7 +69827,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -71462,7 +71511,10 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "rXl" = (
@@ -72338,6 +72390,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
+"sqH" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "srB" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tiles/dark/side{
@@ -76381,8 +76442,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "tTh" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -76645,6 +76709,10 @@
 	outlet_autolink_ids = list("n2o_outlet_scrubber");
 	name = "Nitrous Oxide Supply Control"
 	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/white/corner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "tZp" = (
@@ -77633,7 +77701,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -78978,6 +79047,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
+"uQp" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "uQK" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -80183,7 +80261,10 @@
 /area/station/security/execution)
 "vmD" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -81389,7 +81470,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "vJt" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/passive_vent{
 	dir = 4
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -87745,13 +87826,13 @@
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "xXQ" = (
-/obj/machinery/requests_console/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
+/obj/machinery/requests_console/smith/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "xXY" = (
@@ -122021,10 +122102,10 @@ bVs
 nic
 wPS
 hSP
-sLS
+uQp
 vmD
 rtF
-uzt
+sqH
 qGI
 hGj
 cYQ
@@ -123305,7 +123386,7 @@ sNm
 bSx
 bQI
 naR
-sLS
+uQp
 pOW
 bYA
 cbt
@@ -133580,9 +133661,9 @@ glf
 tZG
 ogO
 sxu
-ctt
+jsk
 tZn
-mjX
+adr
 ctt
 xIL
 hOW

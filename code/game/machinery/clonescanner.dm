@@ -15,6 +15,8 @@
 
 	/// The patient's DNA
 	var/datum/dna/genetic_info
+	/// What quirks the patient has
+	var/list/quirks = list()
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -125,6 +127,7 @@
 	scan_result.name = scanned.dna.real_name
 	scan_result.mindUID = scanned.mind.UID()
 	scan_result.genetic_info = scanned.dna.Clone()
+	scan_result.quirks = scanned.quirks.Copy()
 
 	for(var/limb in scanned.dna.species.has_limbs)
 		if(scanned.bodyparts_by_name[limb])

@@ -37,6 +37,12 @@
 	name = "-meat"
 	tastes = list("salty meat" = 1)
 
+/obj/item/food/meat/human/robot // Does it make sense? No. Is it funny? Very!
+	desc = "A slab of robotic meat."
+	icon_state = "robot_meat"
+	list_reagents = list("iron" = 3, "oil" = 3)
+	tastes = list("oily meat" = 1)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
@@ -507,6 +513,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	var/fertile = FALSE
 
 /obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()

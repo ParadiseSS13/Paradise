@@ -1530,265 +1530,6 @@
 	taste_description = "bilk, cream, and cold tears"
 	goal_difficulty = REAGENT_GOAL_EASY
 
-/datum/reagent/consumable/ethanol/sontse
-	name = "Sontse"
-	id = "sontse"
-	description = "You see sun bobbing inside of this drink. How this is even possible?"
-	color = "#DDB520" // rgb: 221, 181, 32
-	alcohol_perc = 0.4
-	drink_icon = "sontse"
-	drink_name = "Sontse"
-	drink_desc = "The Sun, The Sun, The Sun, The Sun, The Sun, THE SUN!"
-	taste_description = "warmth and brightness"
-	var/light_activated = FALSE
-	goal_difficulty = REAGENT_GOAL_HARD
-
-/datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
-	if(current_cycle != 5 || !ismoth(M))
-		return ..()
-	to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
-	if(!light_activated)
-		M.set_light(2)
-		light_activated = TRUE
-	return ..()
-
-/datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
-	if(!ismoth(M))
-		return ..()
-	to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
-	M.set_light(0)
-	..()
-
-/datum/reagent/consumable/ethanol/ahdomai_eclipse
-	name = "Ahdomai's Eclipse"
-	id = "ahdomaieclipse"
-	description = "Blizzard in a glass. Tajaran signature drink!"
-	color = "#DAE0E6" // rgb: 218, 224, 230
-	alcohol_perc = 0.1
-	drink_icon = "ahdomaieclipse"
-	drink_name = "Ahdomai's Eclipse"
-	drink_desc = "Blizzard in a glass. Tajaran signature drink!"
-	taste_description = "ice"
-	var/min_achievable_temp = 250
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	. = ..()
-	if(istajaran(M) && M.bodytemperature > min_achievable_temp)
-		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
-
-/datum/reagent/consumable/ethanol/beach_feast
-	name = "Feast by the Beach"
-	id = "beachfeast"
-	description = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
-	color = "#E8E800" // rgb: 232, 232, 0
-	alcohol_perc = 0.2
-	drink_icon = "beachfeast"
-	drink_name = "Feast by the Beach"
-	drink_desc = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
-	taste_description = "sand"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
-	if(!isunathi(M))
-		return ..()
-	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	return ..()
-
-/datum/reagent/consumable/ethanol/jungle_vox
-	name = "Jungle Vox"
-	id = "junglevox"
-	description = "Classy drink in a glass vox head with a bit of liquid nitrogen added on."
-	color = "#1ED1CE" // rgb: 30, 209, 206
-	alcohol_perc = 0.2
-	drink_icon = "junglevox"
-	drink_name = "Jungle Vox"
-	drink_desc = "Classy drink in a glass vox head with a bit of liquid nitrogen added on."
-	taste_description = "bubbles"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
-	if(current_cycle <= 5 || !isvox(M))
-		return ..()
-	if(M.health > 0)
-		M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.AdjustLoseBreath(-2 SECONDS)
-	return ..()
-
-/datum/reagent/consumable/ethanol/slime_mold
-	name = "Slime Mold"
-	id = "slimemold"
-	description = "You can swear that this jelly looks alive."
-	color = "#C20458" // rgb: 194, 4, 88
-	alcohol_perc = 0.2
-	drink_icon = "slimemold"
-	drink_name = "Slime Mold"
-	drink_desc = "You can swear that this jelly looks alive."
-	taste_description = "jelly"
-	goal_difficulty = REAGENT_GOAL_HARD
-
-/datum/reagent/consumable/ethanol/slime_mold/on_mob_life(mob/living/M)
-	if(!isslimeperson(M))
-		return ..()
-	var/mob/living/carbon/human/H = M
-	if(!(NO_BLOOD in H.dna.species.species_traits))
-		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.blood_volume += REAGENTS_METABOLISM / 2 // half of the reagent is converted into blood, netting us just a little bit
-	return ..()
-
-/datum/reagent/consumable/ethanol/die_seife
-	name = "Die Seife"
-	id = "dieseife"
-	description = "There is a piece of soap at the bottom of the glass and it is slowly melting."
-	color = "#9D9E89" // rgb: 157, 158, 137
-	alcohol_perc = 0.2
-	drink_icon = "dieseife"
-	drink_name = "Die Seife"
-	drink_desc = "There is a piece of soap at the bottom of the glass and it is slowly melting."
-	taste_description = "soap"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
-	if(current_cycle % 10 != 0 || !isdrask(M))
-		return ..()
-
-	if(prob(50))
-		to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
-		M.clean_blood()
-	return ..()
-
-/datum/reagent/consumable/ethanol/acid_dreams
-	name = "Acid Dreams"
-	id = "aciddreams"
-	description = "This one looks just weird and reeks of acid."
-	color = "#B7FF6A" // rgb: 183, 255, 106
-	alcohol_perc = 0.7
-	drink_icon = "aciddreams"
-	drink_name = "Acid Dreams"
-	drink_desc = "This one looks just weird and reeks of acid."
-	taste_description = "acid"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
-	if(current_cycle % 10 != 0 || !isgrey(M))
-		return ..()
-	if(prob(50))
-		var/list/mob/living/targets = list()
-		for(var/mob/living/L in orange(14, M))
-			if(L.stat == DEAD || !L.client) //we don't care about dead mobs
-				continue
-			targets += L
-		if(length(targets))
-			var/mob/living/target = pick(targets)
-			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
-	return ..()
-
-/datum/reagent/consumable/ethanol/islay_whiskey
-	name = "Islay Whiskey"
-	id = "islaywhiskey"
-	description = "Named in honor of one of the most gritty and earth smelling types of Whiskey of Earth, this drink is a treat for any Diona."
-	color = "#461300" // rgb: 70, 19, 0
-	alcohol_perc = 0.2
-	drink_icon = "islaywhiskey"
-	drink_name = "Islay Whiskey"
-	drink_desc = "Named in honor of one of the most gritty and earth smelling types of Whiskey of Earth, this drink is a treat for any Diona."
-	taste_description = "soil"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/islay_whiskey/on_mob_life(mob/living/M)
-	if(current_cycle <=5 || !isdiona(M))
-		return ..()
-
-	var/mob/living/carbon/human/H = M
-	var/turf/T = get_turf(H)
-	var/light_amount = min(1, T.get_lumcount()) - 0.5
-
-	if(light_amount > 0.2 && !H.suiciding && H.health > 0)
-		H.adjustBruteLoss(-0.25)
-		H.adjustToxLoss(-0.25)
-		H.adjustOxyLoss(-0.25)
-	return ..()
-
-/datum/reagent/consumable/ethanol/ultramatter
-	name = "Ultramatter"
-	id = "ultramatter"
-	description = "In the triangle of fire, this is apex of fuel."
-	color = "#38004B" // rgb: 56, 0, 75
-	alcohol_perc = 0.7
-	drink_icon = "ultramatter"
-	drink_name = "Ultramatter"
-	drink_desc = "In the triangle of fire, this is apex of fuel."
-	taste_description = "fire"
-	var/on_fire = FALSE
-	goal_difficulty = REAGENT_GOAL_HARD
-
-/datum/reagent/consumable/ethanol/ultramatter/on_mob_life(mob/living/M)
-	// species agnostic as it is DRINKS on_fire, so only plasmaman can get it
-	if(on_fire)
-		M.adjust_fire_stacks(-1)
-		on_fire = FALSE
-
-	if(current_cycle % 10 != 0 || !isplasmaman(M))
-		return ..()
-
-	if(prob(30))
-		var/mob/living/carbon/human/H = M
-		to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
-		var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
-		if(suit)
-			suit.next_extinguish = world.time + 10 SECONDS
-		H.adjust_fire_stacks(1)
-		H.IgniteMob()
-		on_fire = TRUE
-
-	return ..()
-
-/datum/reagent/consumable/ethanol/howler
-	name = "Howler"
-	id = "howler"
-	description = "Old classic human drink that was adopted by Vulpkanin."
-	color = "#EC6400" // rgb: 236, 100, 0
-	alcohol_perc = 0.2
-	drink_icon = "howler"
-	drink_name = "Howler"
-	drink_desc = "Old classic human drink that was adopted by Vulpkanin."
-	taste_description = "citrus"
-	goal_difficulty = REAGENT_GOAL_EASY
-
-/datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
-	if(!isvulpkanin(M))
-		return ..()
-
-	var/mob/living/carbon/human/H = M
-	if(H.health > 0)
-		H.adjustToxLoss(-0.5)
-
-	return ..()
-
-/datum/reagent/consumable/ethanol/diona_smash
-	name = "Diona Smash"
-	id = "dionasmash"
-	description = "Fake Diona is floating carelessly in the middle of this drink."
-	color = "#00531D" // rgb: 0, 83, 29
-	alcohol_perc = 0.7
-	drink_icon = "dionasmash"
-	drink_name = "Diona Smash"
-	drink_desc = "Fake Diona is floating carelessly in the middle of this drink."
-	taste_description = "the crunch"
-	var/mutated = FALSE
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/diona_smash/on_mob_life(mob/living/M)
-	if(mutated || !iskidan(M))
-		return ..()
-
-	to_chat(M, "<span class='warning'>Mmm, tasty.</span>")
-	nutriment_factor = 1 * REAGENTS_METABOLISM
-	mutated = TRUE
-
-	return ..()
-
 /datum/reagent/consumable/ethanol/lager
 	name = "Lager"
 	id = "lager"
@@ -1817,3 +1558,487 @@
 		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
 			H.blood_volume += 0.4
 	return ..()
+
+// MARK: Species drinks
+/datum/reagent/consumable/ethanol/acid_dreams
+	name = "Acid Dreams"
+	id = "aciddreams"
+	description = "Cooked up in a single night by a bored Grey chemist killing time while waiting for a long synthesis to complete, this drink has become the stuff of legands across Mauna-b."
+	color = "#B7FF6A" // rgb: 183, 255, 106
+	alcohol_perc = 0.7
+	drink_icon = "aciddreams"
+	drink_name = "Acid Dreams"
+	drink_desc = "Cooked up in a single night by a bored Grey chemist killing time while waiting for a long synthesis to complete, this drink has become the stuff of legands across Mauna-b."
+	taste_description = "acid"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/acid_dreams/on_mob_add(mob/living/M)
+	if(isgrey(M))
+		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		M.Druggy(12 SECONDS)
+		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id) // Powerful? Sure. But everyone knows you're there. Also you've got a druggy filter over your eyes.
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
+	if(!isgrey(M))
+		return ..()
+
+	// Your galaxy brain is now so big that you cannot contain all of your toughts, when they leak out people can smell your location!
+	// Everyone that smells your powerful thoughts knows exactly who you are, but their thoughts are too dim for you to isolate. You only know that between one and INFINITY people are there.
+	M.Druggy(4 SECONDS)
+	if(prob(36))
+		var/list/mob/living/target_list = list()
+		for(var/mob/living/L in orange(14, M))
+			if(L.stat == DEAD || !L.client)
+				continue
+			target_list += L
+		if(length(target_list))
+			for(var/mob/living/target in target_list)
+				to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
+			to_chat(M, pick(
+				"<span class='warning'>The scent of your brainwaves intermingles with another!</span>",
+				"<span class='warning'>Your synapses accidentally call out your name!</span>",
+				"<span class='warning'>Your mind bumps into someone!</span>",
+				"<span class='warning'>The eyes of other minds are staring at you from across the noosphere!</span>")
+			)
+	return ..()
+
+/datum/reagent/consumable/ethanol/acid_dreams/on_mob_delete(mob/living/M)
+	if(isgrey(M))
+		to_chat(M, "<span class='warning'>Your mind shrinks down to its usual size and the world hides its secrets from you!</span>")
+		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
+		M.Druggy(0 SECONDS)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/acid_dreams/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isgrey(M))
+		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
+		M.Druggy(0 SECONDS)
+	else
+		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		M.Druggy(12 SECONDS)
+		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id)
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse
+	name = "Ahdomai's Eclipse"
+	id = "ahdomaieclipse"
+	description = "You see a fierce blizzard endlessly blowing inside this drink."
+	color = "#DAE0E6" // rgb: 218, 224, 230
+	alcohol_perc = 0.1
+	drink_icon = "ahdomaieclipse"
+	drink_name = "Ahdomai's Eclipse"
+	drink_desc = "A blizzard in a glass, however that works. Even the most distant of Tajaran will feel a strong connection to their homeworld through this drink."
+	taste_description = "ice"
+	var/min_achievable_temp = 250
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_add(mob/living/M)
+	if(istajaran(M))
+		ADD_TRAIT(M, TRAIT_RESISTCOLD, id)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
+	if(!istajaran(M))
+		return ..()
+
+	if(M.bodytemperature > min_achievable_temp)
+		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	// Don't spam the chat too much.
+	if(prob(36) && M.getFireLoss())
+		to_chat(M, "<span class='notice'>The icy energies within you soothe your burns.</span>")
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_delete(mob/living/M)
+	if(istajaran(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
+		to_chat(M, "<span class='warning'>The raging blizzard within you subsides.</span>")
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!istajaran(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTCOLD, id)
+
+/datum/reagent/consumable/ethanol/beach_feast
+	name = "Feast by the Beach"
+	id = "beachfeast"
+	description = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
+	color = "#E8E800" // rgb: 232, 232, 0
+	alcohol_perc = 0.2
+	drink_icon = "beachfeast"
+	drink_name = "Feast by the Beach"
+	drink_desc = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
+	taste_description = "sand"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/max_achievable_temp = 360
+	var/burn_modifier = 0.1 // 10 %.
+
+/datum/reagent/consumable/ethanol/beach_feast/on_mob_add(mob/living/M)
+	if(isunathi(M))
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+		var/mob/living/carbon/human/H = M
+		H.dna.species.burn_mod -= burn_modifier
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
+	if(!isunathi(M))
+		return ..()
+
+	if(M.bodytemperature < max_achievable_temp)
+		M.bodytemperature = min(max_achievable_temp, M.bodytemperature + (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	return ..()
+
+/datum/reagent/consumable/ethanol/beach_feast/on_mob_delete(mob/living/M)
+	if(isunathi(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+		var/mob/living/carbon/human/H = M
+		H.dna.species.burn_mod += burn_modifier
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/beach_feast/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isunathi(M))
+		// No need to change the burn modifier, it gets reset when species changes.
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+		var/mob/living/carbon/human/H = M
+		H.dna.species.burn_mod -= burn_modifier
+
+/datum/reagent/consumable/ethanol/die_seife
+	name = "Die Seife"
+	id = "dieseife"
+	description = "There is a piece of soap at the bottom of the glass and it is slowly melting."
+	color = "#9D9E89" // rgb: 157, 158, 137
+	overdose_threshold = 20
+	allowed_overdose_process = TRUE
+	alcohol_perc = 0.2
+	drink_icon = "dieseife"
+	drink_name = "Die Seife"
+	drink_desc = "There is a piece of soap at the bottom of the glass and it is slowly melting."
+	taste_description = "soap"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
+	if(!isdrask(M))
+		return ..()
+
+	if(prob(50))
+		M.visible_message(
+			"<span class='notice'>A soapy liqid flows out of [M]'s pores, cleaning [M.p_them()].</span>",
+			"<span class='notice'>Your skin emits a soapy liquid from its pores, cleaning you in the process.</span>",
+			"<span class='warning'>A sickening oozing sound fills the air.</span>"
+		)
+		M.clean_blood()
+	return ..()
+
+/datum/reagent/consumable/ethanol/die_seife/overdose_process(mob/living/M, severity)
+	if(!isdrask(M))
+		return ..()
+
+	if(prob(5))
+		M.visible_message(
+			"<span class='warning'>A huge surge of soapy liqid gushes out of [M]'s pores and pools on the floor!</span>",
+			"<span class='notice'>Your skin emits a surge of soapy liquid from its pores, cleaning you and the surrounding floor in the process.</span>",
+			"<span class='warning'>A vile gushing sound fills the air followed by the splattering of a thick liquid on the floor!</span>"
+		)
+		new /obj/effect/particle_effect/foam(M.loc)
+	return list(0)
+
+/datum/reagent/consumable/ethanol/diona_smash
+	name = "Diona Smash"
+	id = "dionasmash"
+	description = "Fake Diona is floating carelessly in the middle of this drink."
+	color = "#00531D" // rgb: 0, 83, 29
+	alcohol_perc = 0.7
+	drink_icon = "dionasmash"
+	drink_name = "Diona Smash"
+	drink_desc = "Fake Diona is floating carelessly in the middle of this drink."
+	taste_description = "the crunch"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/damage_mod = 4
+
+/datum/reagent/consumable/ethanol/diona_smash/on_mob_add(mob/living/M)
+	if(iskidan(M))
+		to_chat(M, "<span class='notice'>Delicious! You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
+		var/mob/living/carbon/human/H = M
+		H.physiology.melee_bonus += damage_mod
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/diona_smash/on_mob_delete(mob/living/M)
+	if(iskidan(M))
+		to_chat(M, "<span class='warning'>You no longer have the energy to smash!</span>")
+		var/mob/living/carbon/human/H = M
+		H.physiology.melee_bonus -= damage_mod
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/diona_smash/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(iskidan(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.melee_bonus += damage_mod
+		to_chat(M, "<span class='notice'>You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
+	// No need to change the damage modifier when turning into a non-Kidan, it gets reset when species changes.
+
+/datum/reagent/consumable/ethanol/howler
+	name = "Howler"
+	id = "howler"
+	description = "Old classic human drink that was adopted by Vulpkanin."
+	color = "#EC6400" // rgb: 236, 100, 0
+	alcohol_perc = 0.2
+	drink_icon = "howler"
+	drink_name = "Howler"
+	drink_desc = "Old classic human drink that was adopted by Vulpkanin."
+	taste_description = "citrus"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+	if(isvulpkanin(M))
+		M.emote("howl")
+	return ..()
+
+/datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
+	if(isvulpkanin(M))
+		var/mob/living/carbon/human/H = M
+		H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..()
+
+/datum/reagent/consumable/ethanol/islay_whiskey
+	name = "Islay Whiskey"
+	id = "islaywhiskey"
+	description = "Named in honor of one of the most gritty and earth smelling types of Whiskey of Earth, this drink is a treat for any Diona."
+	color = "#461300" // rgb: 70, 19, 0
+	alcohol_perc = 0.2
+	drink_icon = "islaywhiskey"
+	drink_name = "Islay Whiskey"
+	drink_desc = "Named in honor of one of the most gritty and earth smelling types of Whiskey of Earth, this drink is a treat for any Diona."
+	taste_description = "soil"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/islay_whiskey/on_mob_life(mob/living/M)
+	if(!isdiona(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+	var/turf/T = get_turf(H)
+	var/light_amount = min(1, T.get_lumcount()) - 0.5
+	if(light_amount > 0.2 && !H.suiciding)
+		H.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..()
+
+/datum/reagent/consumable/ethanol/jungle_vox
+	name = "Jungle Vox"
+	id = "junglevox"
+	description = "Classy drink in a glass vox head with a bit of liquid nitrogen added on. Perfect for purging dust from a Vox's system."
+	color = "#1ED1CE" // rgb: 30, 209, 206
+	alcohol_perc = 0.2
+	drink_icon = "junglevox"
+	drink_name = "Jungle Vox"
+	drink_desc = "Classy drink in a glass vox head with a bit of liquid nitrogen added on. Perfect for purging dust from a Vox's system."
+	taste_description = "bubbles"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/jungle_vox/on_mob_add(mob/living/M)
+	if(isvox(M))
+		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
+		ADD_TRAIT(M, TRAIT_NOBREATH, id)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
+	if(!isvox(M))
+		return ..()
+
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	update_flags |= H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // Dust.
+	update_flags |= H.adjustOxyLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.AdjustLoseBreath(-2 SECONDS * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/jungle_vox/on_mob_delete(mob/living/M)
+	if(isvox(M))
+		to_chat(M, "<span class='warning'>Your lungs begin to feel dusty again...</span>")
+		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/jungle_vox/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isvox(M))
+		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
+	else
+		ADD_TRAIT(M, TRAIT_NOBREATH, id)
+		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
+
+/datum/reagent/consumable/ethanol/slime_mold
+	name = "Slime Mold"
+	id = "slimemold"
+	description = "You can swear that this jelly looks alive."
+	color = "#C20458" // rgb: 194, 4, 88
+	alcohol_perc = 0.2
+	drink_icon = "slimemold"
+	drink_name = "Slime Mold"
+	drink_desc = "You can swear that this jelly looks alive."
+	taste_description = "jelly"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/slime_mold/on_mob_life(mob/living/M)
+	if(!isslimeperson(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+	if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(prob(36))
+				to_chat(M, "<span class='notice'>You feel a surge of invigoration flow through your veins!</span>")
+			H.blood_volume += REAGENTS_METABOLISM
+	return ..()
+
+/datum/reagent/consumable/ethanol/sontse
+	name = "Sontse"
+	id = "sontse"
+	description = "The Sun, in a glass! The radiant energies of this drink will empower any Nian that consumes it."
+	color = "#DDB520" // rgb: 221, 181, 32
+	overdose_threshold = 20
+	allowed_overdose_process = TRUE
+	alcohol_perc = 0.4
+	drink_icon = "sontse"
+	drink_name = "Sontse"
+	drink_desc = "The Sun, in a glass! The radiant energies of this drink will empower any Nian that consumes it."
+	taste_description = "warmth and brightness"
+	goal_difficulty = REAGENT_GOAL_HARD
+	/// Exists purely because of changelings. I hate them.
+	var/activated = FALSE
+
+/datum/reagent/consumable/ethanol/sontse/on_mob_add(mob/living/M)
+	if(ismoth(M))
+		M.set_light(3, 4)
+		M.visible_message(
+			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
+			"<span class='notice'>The Sun was within you all this time!</span>"
+		)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, TYPE_PROC_REF(/datum/reagent/consumable/ethanol/sontse, on_species_change))
+
+/datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
+	if(!ismoth(M))
+		return ..()
+
+	if(prob(10))
+		M.reagents.add_reagent("oculine", 1)
+	return ..()
+
+/datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
+	if(ismoth(M))
+		M.set_light(0, null)
+		M.visible_message(
+			"<span class='warning'>The radiant light of [M] fades away.</span>",
+			"<span class='warning'>The Sun within you subsides.</span>"
+		)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/sontse/overdose_process(mob/living/M, severity)
+	if(!ismoth(M))
+		return ..()
+
+	var/update_flags = STATUS_UPDATE_NONE
+	// The moth flew too close to the sun...
+	if(prob(30))
+		var/turf/T = M.loc
+		playsound(T, 'sound/weapons/sear.ogg', 100, TRUE)
+		new /obj/effect/dummy/lighting_obj(T, M.light_color, M.light_range + 3, M.light_power + 4, 2.6 DECISECONDS)
+		bang(T, holder.my_atom, 5, TRUE, FALSE)
+		update_flags |= M.adjustFireLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.bodytemperature += rand(15, 30)
+		M.visible_message(
+			"<span class='danger'>The radiant aura of [M] suddenly flares into a blinding flash!</span>",
+			"<span class='userdanger'>THE SUN BURNS YOU!</span>",
+			"<span class='warning'>You briefly feel a wave of warmth wash over you.</span>"
+		)
+	return list(0, update_flags)
+
+/datum/reagent/consumable/ethanol/sontse/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!ismoth(M))
+		M.set_light(0, null)
+	else
+		M.set_light(3, 4)
+		M.visible_message(
+			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
+			"<span class='notice'>The Sun was within you all this time!</span>"
+		)
+
+/datum/reagent/consumable/ethanol/ultramatter
+	name = "Ultramatter"
+	id = "ultramatter"
+	description = "In the triangle of fire, this is the apex of fuel. A sacred drink from Boron 5, it is used in cultural and religious events, and is regularly consumed by leadership of the Plasmamen as a show of status."
+	color = "#38004B" // rgb: 56, 0, 75
+	alcohol_perc = 0.7
+	drink_icon = "ultramatter"
+	drink_name = "Ultramatter"
+	drink_desc = "In the triangle of fire, this is the apex of fuel. A sacred drink from Boron 5, it is used in cultural and religious events, and is regularly consumed by leadership of the Plasmamen as a show of status."
+	taste_description = "fire"
+	goal_difficulty = REAGENT_GOAL_HARD
+	var/inflamed = FALSE
+
+/datum/reagent/consumable/ethanol/ultramatter/on_mob_add(mob/living/M)
+	if(isplasmaman(M))
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
+
+/datum/reagent/consumable/ethanol/ultramatter/on_mob_life(mob/living/M)
+	if(current_cycle <= 5)
+		return ..()
+
+	// Non plasmamen can be set on fire too. As a treat. :)
+	M.adjust_fire_stacks(3)
+	M.IgniteMob()
+	if(!isplasmaman(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+	var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
+	if(suit)
+		suit.next_extinguish = world.time + 10 SECONDS
+	if(!inflamed)
+		M.visible_message(
+			"<span class='danger'>[M] expels a flaming substance and suddenly erupts into an inferno!</span>",
+			"<span class='userdanger'>You expell flaming substance and become bathed in fire!</span>",
+			"<span class='danger'>You hear spraying and fire igniting!</span>"
+		)
+		inflamed = TRUE
+	return ..()
+
+/datum/reagent/consumable/ethanol/ultramatter/on_mob_delete(mob/living/M)
+	if(isplasmaman(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+	M.ExtinguishMob()
+	to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/ethanol/ultramatter/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isplasmaman(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
+	else
+		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)

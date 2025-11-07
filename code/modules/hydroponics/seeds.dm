@@ -208,7 +208,7 @@
 	if(!mutation_level)
 		return src
 
-	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
+	return new /obj/item/unsorted_seeds(src, src, mutation_level, tray.get_mutation_focus())
 
 /obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
@@ -636,7 +636,7 @@
 	return ..()
 
 /obj/item/unsorted_seeds/proc/Copy()
-	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
+	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
 
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)

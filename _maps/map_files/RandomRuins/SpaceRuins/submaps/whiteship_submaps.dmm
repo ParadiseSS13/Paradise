@@ -210,6 +210,22 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"lw" = (
+/obj/item/gps/ruin{
+	gpstag = "NT Medical Ship";
+	pixel_x = -32
+	},
+/obj/structure/shelf/supply,
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/borg/upgrade/modkit/chassis_mod,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
+/obj/item/t_scanner/adv_mining_scanner,
+/obj/item/pickaxe/drill,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "lA" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -288,18 +304,6 @@
 	pixel_y = 2
 	},
 /turf/template_noop,
-/area/template_noop)
-"qG" = (
-/obj/structure/shelf/supply,
-/obj/item/gun/energy/kinetic_accelerator,
-/obj/item/borg/upgrade/modkit/chassis_mod,
-/obj/item/reagent_containers/hypospray/autoinjector/survival,
-/obj/item/t_scanner/adv_mining_scanner,
-/obj/item/pickaxe/drill,
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "qN" = (
 /obj/structure/table,
@@ -1394,7 +1398,7 @@ qr
 qr
 qr
 qr
-qG
+lw
 lA
 TD
 NZ
