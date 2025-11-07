@@ -11,6 +11,7 @@
 	var/obj/item/seeds/seed = null
 	/// The unsorted seed of this plant, if any. Used by the seed extractor.
 	var/obj/item/unsorted_seeds/unsorted_seed = null
+	new_attack_chain = TRUE
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -40,10 +41,10 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
-	if(istype(O, /obj/item/plant_analyzer))
+/obj/item/grown/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/plant_analyzer))
 		send_plant_details(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
