@@ -603,16 +603,14 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner.current)
 	var/mob/living/new_target = reroll_target(owner.current, heretic_datum, source)
 	if(new_target)
-		to_chat(owner.current, "<span class='heirophant'>We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]</span>")
+		to_chat(owner.current, "<span class='hierophant'>We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]</span>")
 	else
-		to_chat(owner.current, "<span class='heirophant'>We feel that [source] has gone beyond our reach, and we were unable to find a new target.</span>")
+		to_chat(owner.current, "<span class='hierophant'>We feel that [source] has gone beyond our reach, and we were unable to find a new target.</span>")
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	remove_sacrifice_target(source)
 
 /datum/antagonist/heretic/proc/reroll_target(mob/living/user, datum/antagonist/heretic/heretic_datum, mob/living/target)
 	if(!user.mind.job_datum)
-		return FALSE
-	if(!target || !target.mind)
 		return FALSE
 	var/datum/heretic_knowledge/hunt_and_sacrifice/knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	var/list/datum/mind/valid_targets = list()
@@ -635,13 +633,13 @@
 	if(!valid_targets)
 		return FALSE
 
-	if(target.mind.assigned_role in GLOB.command_head_positions)
+	if(target && (target.mind.assigned_role in GLOB.command_head_positions))
 		for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
 			if(head_mind.assigned_role in GLOB.command_head_positions)
 				heretic_datum.add_sacrifice_target(head_mind.current)
 				return head_mind.current
 
-	if(target.mind.assigned_role in GLOB.active_security_positions)
+	if(target && (target.mind.assigned_role in GLOB.active_security_positions))
 		for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
 			if(sec_mind.assigned_role in GLOB.active_security_positions)
 				heretic_datum.add_sacrifice_target(sec_mind.current)

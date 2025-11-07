@@ -283,17 +283,22 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/sickly_blade/cursed/check_usability(mob/living/user)
+	if(!isliving(user))
+		return FALSE
 	if(IS_HERETIC_OR_MONSTER(user) || IS_CULTIST(user))
 		return TRUE
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/human_mob = user
 	if(prob(15))
-		to_chat(user, "<span class='cultlarge>[pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")]</span>")
-		user.apply_damage(5, BURN, user.get_active_hand())
+		to_chat(human_mob, "<span class='cultlarge>[pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")]</span>")
+		human_mob.apply_damage(5, BURN, user.get_active_hand())
 		playsound(src, 'sound/weapons/sear.ogg', 25, TRUE)
-		to_chat(user, "<span class='danger'>Your hand sizzles.</span>") // Nar nar might not care but their essence still doesn't like you
+		to_chat(human_mob, "<span class='danger'>Your hand sizzles.</span>") // Nar nar might not care but their essence still doesn't like you
 	else if(prob(15))
-		to_chat(user, "<span class='hierophant'>LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE</span>")
-		to_chat(user, "<span class='danger'>Horrible, unintelligible utterances flood your mind!</span>")
-		user.adjustBrainLoss(15) // This can kill you if you ignore it
+		to_chat(human_mob, "<span class='hierophant'>LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE</span>")
+		to_chat(human_mob, "<span class='danger'>Horrible, unintelligible utterances flood your mind!</span>")
+		human_mob.adjustBrainLoss(15) // This can kill you if you ignore it
 	return TRUE
 
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)

@@ -221,8 +221,8 @@
 		binding = FALSE
 		return
 
-	user.visible_message("<span class='cult'>You begin slicing open your palm on top of [src]...</span>",\
-		"<span class='cult'>[user] begins slicing open [user.p_their()] palm on top of [src]...</span>")
+	user.visible_message("<span class='cult'>[user] begins slicing open [user.p_their()] palm on top of [src]...</span>",\
+		"<span class='cult'>You begin slicing open your palm on top of [src]...</span>")
 	if(!do_after(user, 6 SECONDS, src))
 		binding = FALSE
 		to_chat(user, "<span class='notice'>You were interrupted!</span>")

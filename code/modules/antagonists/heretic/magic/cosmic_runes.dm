@@ -29,6 +29,13 @@
 	targeting.range = 0
 	return targeting
 
+/datum/spell/cosmic_rune/can_cast(mob/user, charge_check, show_message)
+	var/area/area = get_area(user)
+	if(!is_teleport_allowed(user.z) || istype(area, /area/shuttle)) // no runes on shuttles or centcomm
+		to_chat(user, "<span class='hierophant'>An unusual force prevents us from forming a rune here!</span>")
+		return FALSE
+	return ..()
+
 /datum/spell/cosmic_rune/cast(list/targets, mob/user)
 	. = ..()
 	var/obj/effect/cosmic_rune/first_rune_resolved = locateUID(first_rune)
@@ -101,6 +108,9 @@
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
 	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)
 	new rune_effect(get_turf(src))
+	if(!is_teleport_allowed(linked_rune_resolved.z) || !is_teleport_allowed(user.z))
+		to_chat(user, "<span class='hierophant'>An unusual force prevents us from using our runes here!</span>")
+		return
 	if(!(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked_rune_resolved)) & COMPONENT_BLOCK_TELEPORT))
 		user.forceMove(get_turf(linked_rune_resolved))
 	for(var/mob/living/person_on_rune in get_turf(src))
