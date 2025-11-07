@@ -306,13 +306,13 @@
 				"<span class='notice'>You barricade [src] shut.</span>"
 			)
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-			transfer_fingerprints_to(newbarricade)
+			newbarricade.add_fingerprint(user)
 			return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-	else if(is_type(used, /obj/item/stack/sheet/wood) && user.a_intent != INTENT_HARM)
+	else if(istype(used, /obj/item/stack/sheet/wood) && user.a_intent != INTENT_HARM)
 		construct_barricade(used, user)
 		return ITEM_INTERACT_COMPLETE
 	else if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)

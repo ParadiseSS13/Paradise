@@ -144,7 +144,7 @@
 				"<span class='notice'>You barricade [src] shut.</span>"
 			)
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-			transfer_fingerprints_to(newbarricade)
+			newbarricade.add_fingerprint(user)
 			return ITEM_INTERACT_COMPLETE
 
 /obj/structure/mineral_door/update_icon_state()
