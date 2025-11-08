@@ -238,7 +238,7 @@
 	list_reagents = list("sodawater" = 50)
 
 /obj/item/reagent_containers/drinks/cans/ginger_ale
-	name = "ginger ale"
+	name = "Zingiber Gold"
 	desc = "A can of ginger ale. Second-best thing for a tummy ache."
 	icon_state = "ginger_ale_can"
 	list_reagents = list("ginger_ale" = 50)
