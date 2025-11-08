@@ -1,5 +1,5 @@
-//Chain link fences
 //Sprites ported from /VG/
+/// Time to climb through a fence with a `SMALL_HOLE`.
 #define CLIMB_TIME 15 SECONDS
 /// Time to cut fences with `can_have_holes` = `TRUE`.
 #define CUT_TIME 10 SECONDS
