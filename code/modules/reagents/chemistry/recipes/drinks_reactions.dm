@@ -1070,7 +1070,7 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-<<<<<<< HEAD
+
 /datum/chemical_reaction/tapioca_pearls
 	name = "Tapioca Pearls"
 	id = "tapiocapearls"
@@ -1107,7 +1107,7 @@
 	result = "bubblemilktea"
 	required_reagents = list("milktea" = 3, "tapiocapearls" = 1)
 	result_amount = 4
-=======
+
 /datum/chemical_reaction/royrogers
 	name = "Roy Rogers"
 	id = "royrogers"
@@ -1221,5 +1221,4 @@
 	required_reagents = list("tomatojuice" = 1, "carrotjuice" = 1, "beetjuice" = 1, "lettucejuice" = 1)
 	result_amount = 4
 	mix_message = "The blended vegetables form a creamy mix."
->>>>>>> fungliosismaster
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

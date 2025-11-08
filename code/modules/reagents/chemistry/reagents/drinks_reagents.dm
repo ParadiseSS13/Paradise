@@ -822,45 +822,50 @@
 		M.satiety += 5
 	return ..()
 
-<<<<<<< HEAD
-/datum/chemical_reaction/tapioca_pearls
+
+/datum/reagent/consumable/drink/tapioca_pearls
 	name = "Tapioca Pearls"
+	description = "Tapioca pearls made from starch ground by cassava root. Tastes pretty good in tea."
 	id = "tapiocapearls"
-	result = "tapiocapearls"
-	required_reagents = list("tapioca" = 1, "water" = 1)
-	result_amount = 2
-	min_temp = T0C + 100
-	mix_message = "The water boils the powder into small pearls."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	color = "#222222"
+	drink_icon = "tapiocapearls"
+	drink_name = "Tapioca Pearls"
+	drink_desc = "This would go great with sugar, milk, and tea."
+	taste_description = "chewy starch"
 
 
-/datum/chemical_reaction/bubbletea
+/datum/reagent/consumable/drink/bubbletea
 	name = "Bubble Tea"
+	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
 	id = "bubbletea"
-	result = "bubbletea"
-	required_reagents = list("tea" = 2, "sugar" = 1, "tapiocapearls" = 1)
-	result_amount = 4
-	mix_message = "The pearls fall to the bottom of the glass as the tea mixes with the sugar."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	color = "#c79a47"
+	drink_icon = "bubbletea"
+	drink_name = "Bubble Tea"
+	drink_desc = "You feel trendy for drinking this."
+	taste_description = "sweet tea with chewy pearls"
 
 
-/datum/chemical_reaction/milktea
+/datum/reagent/consumable/drink/milktea
 	name = "Milk Tea"
+	description = "Tea and milk mixed together. Both sweet and creamy."
 	id = "milktea"
-	result = "milktea"
-	required_reagents = list("tea" = 2, "sugar" = 1, "milk" = 1)
-	result_amount = 4
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	color = "#bfa46f"
+	drink_icon = "milktea"
+	drink_name = "Milk Tea"
+	drink_desc = "A refreshing and sweet beverage."
+	taste_description = "sweet milky tea"
 
 
-/datum/chemical_reaction/bubblemilktea
+/datum/reagent/consumable/drink/bubblemilktea
 	name = "Bubble Milk Tea"
+	description = "A tea-based drink made with milk and tapioca pearls. Known by some as boba milk tea."
 	id = "bubblemilktea"
-	result = "bubblemilktea"
-	required_reagents = list("milktea" = 3, "tapiocapearls" = 1)
-	result_amount = 4
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-=======
+	color = "#d4b483"
+	drink_icon = "bubblemilktea"
+	drink_name = "Bubble Milk Tea"
+	drink_desc = "You feel extra trendy for drinking this."
+	taste_description = "sweet milky tea with chewy pearls"
+
 /datum/reagent/consumable/drink/royrogers
 	name = "Roy Rogers"
 	description = "A cola classic from the days of Earth."
@@ -1035,4 +1040,3 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	return ..()
->>>>>>> fungliosismaster
