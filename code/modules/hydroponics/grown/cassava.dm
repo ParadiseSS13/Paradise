@@ -27,7 +27,7 @@
 	tastes = list("dirt" = 0.75, "starch" = 0.25)
 
 
-    //cast-ava root (cast iron, i really was trying to think of puns for this but :shrug:)
+	//cast-ava root (cast iron, i really was trying to think of puns for this but :shrug:)
 
 
 /obj/item/seeds/cassava/iron
@@ -38,7 +38,7 @@
 	plantname = "Cast-ava"
 	product = /obj/item/food/grown/cassava/iron
 	mutatelist = list()
-	reagents_add = list("iron" = 0.4, "tapioca" = 0.1)
+	reagents_add = list("nutriment" = 0.4, "tapioca" = 0.1)
 
 
 
@@ -49,7 +49,6 @@
 	desc = "A cassava root that looks like it was forged out of cast-iron."
 	icon_state = "ironcassava"
 	filling_color = "#333333ff"
-	origin_tech = "materials = 5"
 	distill_reagent = null
 
 

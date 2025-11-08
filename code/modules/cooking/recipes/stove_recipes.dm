@@ -821,4 +821,4 @@
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
-    )
+	)

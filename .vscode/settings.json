@@ -38,4 +38,5 @@
 		"--ignore-revs-file",
 		"${workspaceRoot}/.git-blame-ignore-revs"
 	],
+	"editor.detectIndentation": false,
 }
