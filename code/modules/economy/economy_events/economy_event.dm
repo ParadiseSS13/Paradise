@@ -1,4 +1,5 @@
 /datum/event/economic_event
+	name = "Economic News"
 	endWhen = 50			// this will be set randomly, later
 	announceWhen = 15
 	var/datum/event_news/economic/news_story
