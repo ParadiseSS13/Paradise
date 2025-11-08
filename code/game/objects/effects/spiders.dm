@@ -104,6 +104,7 @@
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
+	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
 	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that...
 
 /obj/structure/spider/spiderling/Destroy()

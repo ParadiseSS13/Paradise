@@ -157,6 +157,8 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 	if(prob(60))
 		add_antag_objective(/datum/objective/steal)
+	else if(prob(10))
+		add_antag_objective(/datum/objective/protect)
 	else
 		add_antag_objective(/datum/objective/debrain)
 
@@ -471,3 +473,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 /datum/antagonist/changeling/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."
+
+// Ling Stronk
+/datum/antagonist/changeling/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 3)

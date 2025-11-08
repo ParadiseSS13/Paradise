@@ -3,6 +3,7 @@
 	name = "skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	species_restricted = list("Skrell","Human")
+	icon_monitor = null
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
@@ -26,6 +27,7 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	icon_state = null
 	species_restricted = list("Unathi")
+	icon_monitor = null
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
@@ -66,6 +68,7 @@
 	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	icon_state = null
+	icon_monitor = null
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -122,22 +125,25 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
-	icon = 'icons/mob/clothing/species/vox/under/misc.dmi'
-	species_restricted = list("Vox")
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	worn_icon = 'icons/mob/clothing/species/vox/under/misc.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi'
-		)
+	)
 
 /obj/item/clothing/under/vox/vox_casual
 	name = "Vox jumpsuit"
 	desc = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
-	icon_state = "vox-jumpsuit_s"
+	icon_state = "vox-casual-1"
+	worn_icon_state = "vox-jumpsuit"
 
 /obj/item/clothing/suit/hooded/vox_robes
 	name = "Vox robes"
 	desc = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other injuries to the wearer's body."
-	icon = 'icons/mob/clothing/species/vox/suit.dmi'
-	icon_state = "vox-robes"
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon_state = "vox-casual-2"
+	worn_icon = 'icons/mob/clothing/species/vox/suit.dmi'
+	worn_icon_state = "vox-robes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/vox_robe_hood
 	species_restricted = list("Vox")

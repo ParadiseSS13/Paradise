@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
@@ -822,7 +822,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) ||listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
 				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
 				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 

@@ -115,11 +115,7 @@
 	var/model = ""
 	/// Bot Purpose under Show Laws
 	var/bot_purpose = "improve the station to the best of your ability"
-	/// Bot control frequency
-	var/control_freq = BOT_FREQ
 
-	/// The radio filter the bot uses to identify itself on the network.
-	var/bot_filter
 	/// Type of bot, one of the *_BOT defines.
 	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
@@ -967,38 +963,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	return has_access(list(), req_access, acc)
 
-/mob/living/simple_animal/bot/Topic(href, href_list)
-	..()
-	if(href_list["close"]) // HUE HUE
-		if(usr in users)
-			users.Remove(usr)
-		return TRUE
-
-	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
-		return TRUE
-	add_fingerprint(usr)
-
-	if((href_list["power"]) && (allowed(usr) || !locked || usr.can_admin_interact()))
-		if(on)
-			turn_off()
-		else
-			turn_on()
-
-	switch(href_list["operation"])
-		if("patrol")
-			auto_patrol = !auto_patrol
-			bot_reset()
-		if("remote")
-			remote_disabled = !remote_disabled
-		if("hack")
-			handle_hacking(usr)
-		if("ejectpai")
-			if(paicard && (!locked || issilicon(usr) || usr.can_admin_interact()))
-				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
-				ejectpai(usr)
-	update_controls()
-
 /mob/living/simple_animal/bot/proc/canhack(mob/M)
 	return ((issilicon(M) && (!emagged || hacked)) || M.can_admin_interact())
 
@@ -1193,11 +1157,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["noaccess"] = topic_denied(user) // Does the current user have access? admins, silicons etc can still access bots with locked controls
 	data["maintpanel"] = open
 	data["on"] = on
-	data["autopatrol"] = auto_patrol
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
+	if(bot_type != MULE_BOT)
+		data["autopatrol"] = auto_patrol
 	return data
 
 // AI bot access verb TGUI

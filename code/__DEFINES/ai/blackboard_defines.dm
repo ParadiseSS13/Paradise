@@ -53,6 +53,8 @@
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 /// some behaviors that check current_target also set this on deep crit mobs
 #define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
+/// Blackboard key storing how long your targeting strategy has held a particular target
+#define BB_BASIC_MOB_HAS_TARGET_TIME "BB_BASIC_MOB_HAS_TARGET_TIME"
 
 //Hunting BB keys
 
@@ -230,3 +232,15 @@
 // Malf Drones
 /// Are we active?
 #define BB_MALF_DRONE_PASSIVE "BB_MALF_DRONE_PASSIVE"
+
+// bee keys
+/// the bee hive we live inside
+#define BB_CURRENT_HOME "BB_current_home"
+/// the hydro we will pollinate
+#define BB_TARGET_HYDRO "BB_target_hydro"
+
+// Goliath AI keys
+/// Key where we store the tentacleing ability
+#define BB_GOLIATH_TENTACLES "BB_GOLIATH_TENTACLES"
+/// Key where goliath stores a hole it wants to get into
+#define BB_GOLIATH_HOLE_TARGET "BB_GOLIATH_HOLE"

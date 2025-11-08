@@ -2,6 +2,7 @@
 	name = "disposals clog"
 	startWhen		= 10
 	endWhen			= 35
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/notify_title = "Clogged Disposals"
 	var/notify_image = "disposal-flush"
 	var/list/bins  = list()

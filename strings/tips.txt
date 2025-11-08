@@ -33,7 +33,7 @@ If someone is in critical condition, you can interact with them to start perform
 As the Captain, you are one of the highest priority targets on the station. Everything from nuclear operatives to traitors that need to rob you of your unique lasergun or your life are things to worry about.
 As the Captain, always take the nuclear disk and pinpointer with you every shift. It's a good idea to give one of these to another head or Blueshield you can trust with keeping it safe.
 As the Captain, you have absolute access and control over the station, but this does not mean that being a horrible person won't result in mutiny and a ban.
-As the Chief Medical Officer, your hypospray is like a refillable instant injection syringe that can hold 30 units and the unlike standard hypospray, yours is able to be filled with harmful reagents and can inject someone without telling anyone what you exactly injected the person with.
+As the Chief Medical Officer, your advanced hypospray is a refillable instant injection syringe that can hold 100 units of any chemical, including harmful reagents restricted by the standard hypospray! Additionally, your hypospray does not tell anyone what exactly you've injected into someone.
 As the Chief Medical Officer, coordinate and communicate with your doctors, chemists, and geneticists during a nuclear emergency, blob infestation, or some other crisis to keep people alive and fighting.
 As a Medical Doctor, you can surgically implant or extract things from people's chests. This can range from putting in a bomb to pulling out an alien larva.
 As a Medical Doctor, you must target the correct limb and be on help intent when trying to perform surgery on someone.

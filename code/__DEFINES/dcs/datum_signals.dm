@@ -43,7 +43,8 @@
 #define COMSIG_SPECIES_LOSS "species_loss"
 ///from /datum/species/proc/spec_hitby()
 #define COMSIG_SPECIES_HITBY "species_hitby"
-
+/// Fires after a carbon's species changes.
+#define COMSIG_AFTER_SPECIES_CHANGE "after_species_change"
 
 // /datum/song
 
@@ -97,7 +98,6 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
-
 /// /datum/component/defib
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
@@ -137,3 +137,10 @@
 #define COMSIG_RULESET_FAILED_SPECIES "failed_species"
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+//spatial grid signals
+
+/// Called from base of /datum/controller/subsystem/spatial_grid/proc/enter_cell: (/atom/movable)
+#define SPATIAL_GRID_CELL_ENTERED(contents_type) "spatial_grid_cell_entered_[contents_type]"
+/// Called from base of /datum/controller/subsystem/spatial_grid/proc/exit_cell: (/atom/movable)
+#define SPATIAL_GRID_CELL_EXITED(contents_type) "spatial_grid_cell_exited_[contents_type]"
