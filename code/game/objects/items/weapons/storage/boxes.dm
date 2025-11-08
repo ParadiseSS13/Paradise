@@ -30,6 +30,26 @@
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+	/// list of what this box can change into when colored
+	var/colorable_to
+
+/obj/item/storage/box/red_trim
+	icon_state = "sec_box"
+
+/obj/item/storage/box/blue_trim
+	icon_state = "med_box"
+
+/obj/item/storage/box/black
+	icon_state = "doom_box"
+
+/obj/item/storage/box/Initialize()
+	. = ..()
+	if (type == /obj/item/storage/box)
+		colorable_to = list(
+			COLOR_RED = list(/obj/item/storage/box/red_trim),
+			COLOR_BLUE = list(/obj/item/storage/box/blue_trim),
+			COLOR_BLACK = list(/obj/item/storage/box/black),
+			)
 
 /obj/item/storage/box/large
 	name = "large box"
