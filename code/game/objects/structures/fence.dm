@@ -52,6 +52,30 @@
 
 	return FALSE
 
+/obj/structure/fence/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(shock(user, 90))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(used, /obj/item/stack/rods))
+		return NONE
+
+	if(hole_size == NO_HOLE)
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/stack/rods/R = used
+	if(R.get_amount() < HOLE_REPAIR)
+		to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
+	if(do_after_once(user, 3 SECONDS * used.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+		playsound(src, used.usesound, 80, 1)
+		hole_size = NO_HOLE
+		obj_integrity = max_integrity
+		to_chat(user, "<span class='notice'>You repair the fence.</span>")
+		update_cut_status()
+	return ITEM_INTERACT_COMPLETE
+
 /obj/structure/fence/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(shock(user, 100))
@@ -105,30 +129,6 @@
 	. = ..()
 	if(!(flags & NODECONSTRUCT))
 		qdel(src)
-	
-/obj/structure/fence/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(shock(user, 90))
-		return ITEM_INTERACT_COMPLETE
-
-	if(!istype(used, /obj/item/stack/rods))
-		return NONE
-
-	if(hole_size == NO_HOLE)
-		return ITEM_INTERACT_COMPLETE
-
-	var/obj/item/stack/rods/R = used
-	if(R.get_amount() < HOLE_REPAIR)
-		to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
-		return ITEM_INTERACT_COMPLETE
-
-	to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-	if(do_after_once(user, 3 SECONDS * used.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
-		playsound(src, used.usesound, 80, 1)
-		hole_size = NO_HOLE
-		obj_integrity = max_integrity
-		to_chat(user, "<span class='notice'>You repair the fence.</span>")
-		update_cut_status()
-	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()
