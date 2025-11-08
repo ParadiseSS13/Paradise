@@ -108,7 +108,7 @@
 				user.visible_message(
 					"<span class='notice'>[user] cuts a hole into [src].</span>",
 					"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
-					)
+				)
 			if(SMALL_HOLE)
 				user.visible_message(
 					"<span class='notice'>[user] completely cuts through [src].</span>",
