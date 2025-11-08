@@ -1027,11 +1027,3 @@
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "starchy powder"
 
-
-/datum/reagent/consumable/tapioca_pearls
-	name = "Tapioca Pearls"
-	id = "tapiocapearls"
-	description = "Small pearls of tapioca formed by boiling tapioca powder. Good in drinks."
-	reagent_state = SOLID
-	color = "#DFDFDF" // rgb: 223, 223, 223
-	taste_description = "sweet"

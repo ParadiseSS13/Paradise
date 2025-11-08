@@ -8,7 +8,7 @@
 	product = /obj/item/food/grown/cassava
 	lifespan = 50
 	endurance = 35
-	yield = 3
+	yield = 5
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "cassava-grow"
@@ -33,7 +33,6 @@
 /obj/item/seeds/cassava/iron
 	name = "pack of cast-ava seeds."
 	desc = "These grow into cassava that are made of softened cast-iron steel."
-	icon_state = "seed-cassava"
 	species = "ironcassava"
 	plantname = "Cast-ava"
 	product = /obj/item/food/grown/cassava/iron

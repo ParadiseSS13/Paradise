@@ -823,7 +823,7 @@
 	return ..()
 
 
-/datum/reagent/consumable/drink/tapiocapearls
+/datum/reagent/consumable/drink/tapioca_pearls
 	name = "Tapioca Pearls"
 	description = "Tapioca pearls made from starch ground by cassava root. Tastes pretty good in tea."
 	id = "tapiocapearls"
