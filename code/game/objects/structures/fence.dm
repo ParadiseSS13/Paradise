@@ -87,12 +87,12 @@
 
 	user.visible_message(
 		"<span class='warning'>[user] starts cutting through [src] with [I].</span>",
-		"<span class='warnnoticeing'>You start cutting through [src] with [I].</span>"
+		"<span class='notice'>You start cutting through [src] with [I].</span>"
 	)
 	if(!can_have_holes)
 		if(I.use_tool(src, user, FULL_CUT_TIME, volume = I.tool_volume))
 			user.visible_message(
-				"<span class='notice'>[user] completely dismantles [src].</span>",
+				"<span class='warning'>[user] completely dismantles [src].</span>",
 				"<span class='notice'>You completely dismantle [src].</span>"
 			)
 			deconstruct()
@@ -106,17 +106,17 @@
 		switch(hole_size)
 			if(NO_HOLE)
 				user.visible_message(
-					"<span class='notice'>[user] cuts a hole into [src].</span>",
+					"<span class='warning'>[user] cuts a hole into [src].</span>",
 					"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
 				)
 			if(SMALL_HOLE)
 				user.visible_message(
-					"<span class='notice'>[user] completely cuts through [src].</span>",
+					"<span class='warning'>[user] completely cuts through [src].</span>",
 					"<span class='notice'>The hole in [src] is now big enough to walk through.</span>"
 				)
 			if(LARGE_HOLE)
 				user.visible_message(
-					"<span class='notice'>[user] completely dismantles [src].</span>",
+					"<span class='warning'>[user] completely dismantles [src].</span>",
 					"<span class='notice'>You completely dismantle [src].</span>"
 				)
 				deconstruct()
