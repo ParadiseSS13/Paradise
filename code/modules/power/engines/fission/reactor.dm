@@ -1076,6 +1076,14 @@
 	var/power_mod_total = 1
 	/// Holds the current accumulated power mod value from its neighbors
 	var/heat_mod_total = 1
+	/// A simple binary to prevent open/close spam mucking up the anims
+	var/lockout = FALSE
+	/// Holds our cover icon for easy manipulation
+	var/mutable_appearance/cover_icon
+	/// holds our durability bar overlay level. Updates overlays if it changes
+	var/durability_level = 0
+	/// holds our previous overlay.
+	var/previous_durability_level
 
 /obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -1087,6 +1095,7 @@
 	component_parts += new /obj/item/stack/sheet/metal(src, 2)
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
+	cover_icon = mutable_appearance(icon, layer = ABOVE_ALL_MOB_LAYER + 0.02)
 	update_icon(UPDATE_OVERLAYS)
 	return INITIALIZE_HINT_LATELOAD
 
@@ -1172,6 +1181,10 @@
 		state_overlay.icon_state = "overload_active"
 	. += state_overlay
 
+	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
+	durability_overlay.icon_state = "dur_[durability_level]"
+	. += durability_overlay
+
 // check for multiple on a tile and nuke it
 /obj/machinery/atmospherics/reactor_chamber/proc/dupe_check()
 	var/chambers_found = 0
@@ -1244,6 +1257,8 @@
 
 /obj/machinery/atmospherics/reactor_chamber/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
+		return
+	if(lockout)
 		return
 	if(linked_reactor && linked_reactor.admin_intervention)
 		to_chat(user, "<span class='warning'>An unusual force prevents you from manipulating the chamber!</span>")
@@ -1369,7 +1384,8 @@
 
 /obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
-	icon_state = "chamber_up"
+	icon_state = "chamber_up_anim"
+	addtimer(CALLBACK(src, PROC_REF(finish_raise_anim)), 1.2 SECONDS)
 	density = TRUE
 	operational = FALSE
 	enriching = FALSE
@@ -1396,6 +1412,9 @@
 		else
 			chamber.requirements_met = FALSE
 
+/obj/machinery/atmospherics/reactor_chamber/proc/finish_raise_anim()
+	icon_state = "chamber_up"
+
 /obj/machinery/atmospherics/reactor_chamber/proc/lower(playsound = TRUE)
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
@@ -1408,7 +1427,8 @@
 			linked_reactor.set_overload()
 	else
 		chamber_state = CHAMBER_DOWN
-		icon_state = "chamber_down"
+		icon_state = "chamber_down_anim"
+		addtimer(CALLBACK(src, PROC_REF(finish_down_anim)), 1.3 SECONDS)
 		if(!held_rod)
 			update_icon()
 			return
@@ -1423,19 +1443,38 @@
 		check_minimum_modifier()
 	update_icon()
 
+/obj/machinery/atmospherics/reactor_chamber/proc/finish_down_anim()
+	icon_state = "chamber_down"
+
 /obj/machinery/atmospherics/reactor_chamber/proc/close(playsound = TRUE)
 	chamber_state = CHAMBER_UP
-	icon_state = "chamber_up"
+	cover_icon.icon_state = "doors_closing"
+	addtimer(CALLBACK(src, PROC_REF(finish_closing)), 1 SECONDS)
+	lockout = TRUE
 	if(playsound)
 		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/atmospherics/reactor_chamber/proc/finish_closing()
+	lockout = FALSE
+	icon_state = "chamber_up"
+	overlays.Cut()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/open(playsound = TRUE)
 	chamber_state = CHAMBER_OPEN
 	icon_state = "chamber_open"
+	cover_icon.icon_state = "doors_opening"
+	add_overlay(cover_icon)
+	lockout = TRUE
+	addtimer(CALLBACK(src, PROC_REF(finish_opening)), 1 SECONDS)
 	if(playsound)
 		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/atmospherics/reactor_chamber/proc/finish_opening()
+	lockout = FALSE
+	cover_icon.icon_state = "door_open"
 
 /obj/machinery/atmospherics/reactor_chamber/proc/set_idle_overload()
 	if(chamber_state == CHAMBER_DOWN)
@@ -1546,6 +1585,10 @@
 		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
 		return
+	durability_level = clamp(ROUND_UP((held_rod.durability / held_rod.max_durability) / 20), 0, 6)
+	if(durability_level != previous_durability_level)
+		previous_durability_level = durability_level
+		update_icon(UPDATE_OVERLAYS)
 	if(!linked_reactor.offline)
 		held_rod.calc_stat_decrease() // only need to re-calc durability loss when the chamber is down and reactor is online
 	if(linked_reactor && linked_reactor.safety_override && !linked_reactor.control_lockout) // we only remove control lockout when the others are ready
