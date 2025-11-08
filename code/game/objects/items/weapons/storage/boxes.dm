@@ -830,7 +830,7 @@
 /obj/item/storage/fancy/shell/CtrlClick(mob/living/user)
 	if(!isliving(user))
 		return
-	if(get_dist(user, src) > 1 || user.incapacitated())
+	if((get_dist(user, src) > 1) || user.incapacitated())
 		return
 	if(we_are_open)
 		we_are_open = FALSE
