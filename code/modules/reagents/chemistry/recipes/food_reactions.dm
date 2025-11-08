@@ -263,7 +263,7 @@
 	name = "Tapioca dough"
 	id = "tapiocadough"
 	result = null
-	required_reagents = list("water" = 10, "tapioca" = 15)
+	required_reagents = list("milk" = 10, "tapioca" = 15)
 	result_amount = 1
 	mix_message = "The ingredients form a flat dough."
 

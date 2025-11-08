@@ -9,6 +9,7 @@
 	lifespan = 50
 	endurance = 35
 	yield = 3
+	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "cassava-grow"
 	icon_dead = "cassava-dead"
