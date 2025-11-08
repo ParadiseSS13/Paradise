@@ -287,14 +287,14 @@
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
-	switch (M.zone_selected)
+	switch(M.zone_selected)
 		if("head")
 			M.visible_message(\
 			"<span class='notice'>[M] pats [src] on the head.</span>",\
 			"<span class='notice'>You pat [src] on the head.</span>",\
 			)
 			return
-		if ("l_hand", "r_hand")
+		if("l_hand", "r_hand")
 			usr.emote("handshake")
 			return
 
