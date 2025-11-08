@@ -7,8 +7,8 @@
 #define FULL_CUT_TIME 30 SECONDS
 /// Fully intact fence.
 #define NO_HOLE 0 //section is intact
-/// Small hole in fance, can be climbed through.
-#define MEDIUM_HOLE 1
+/// Small hole in fence, can be climbed through.
+#define SMALL_HOLE 1
 /// Large hole in fence, can be walked through.
 #define LARGE_HOLE 2
 /// Material cost to fix a fence section.
@@ -35,7 +35,7 @@
 /obj/structure/fence/examine(mob/user)
 	. = ..()
 	switch(hole_size)
-		if(MEDIUM_HOLE)
+		if(SMALL_HOLE)
 			. += "There is a large hole in [src]."
 		if(LARGE_HOLE)
 			. += "[src] has been completely cut through."
@@ -85,7 +85,7 @@
 					"<span class='notice'>[user] cuts a hole into [src].</span>",
 					"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
 					)
-			if(MEDIUM_HOLE)
+			if(SMALL_HOLE)
 				user.visible_message(
 					"<span class='notice'>[user] completely cuts through [src].</span>",
 					"<span class='notice'>The hole in [src] is now big enough to walk through.</span>"
@@ -174,7 +174,7 @@
 		if(NO_HOLE)
 			icon_state = initial(icon_state)
 			climbable = FALSE
-		if(MEDIUM_HOLE)
+		if(SMALL_HOLE)
 			icon_state = "straight_cut2"
 			climbable = TRUE
 		if(LARGE_HOLE)
@@ -185,7 +185,7 @@
 
 /obj/structure/fence/cut/medium
 	icon_state = "straight_cut2"
-	hole_size = MEDIUM_HOLE
+	hole_size = SMALL_HOLE
 	climbable = TRUE
 
 /obj/structure/fence/cut/large
@@ -238,6 +238,6 @@
 #undef CUT_TIME
 #undef FULL_CUT_TIME
 #undef NO_HOLE
-#undef MEDIUM_HOLE
+#undef SMALL_HOLE
 #undef LARGE_HOLE
 #undef HOLE_REPAIR
