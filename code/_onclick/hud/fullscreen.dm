@@ -126,8 +126,14 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 
+/atom/movable/screen/fullscreen/stretch/flash/dark
+	icon_state = "flash_dark"
+
 /atom/movable/screen/fullscreen/stretch/flash/noise
 	icon_state = "noise"
+
+/atom/movable/screen/fullscreen/stretch/flash/noise/dark
+	icon_state = "noise_dark"
 
 /atom/movable/screen/fullscreen/stretch/high
 	icon = 'icons/mob/screen_gen.dmi'
