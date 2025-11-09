@@ -1809,7 +1809,7 @@
 
 /datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	if(isvulpkanin(M))
-		M.emote("howl")
+		M.emote("howl", intentional = TRUE)
 	return ..()
 
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
