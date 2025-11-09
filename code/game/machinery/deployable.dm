@@ -138,7 +138,7 @@
 	user.visible_message("<span class='notice'>[user] starts ripping [src] down!</span>", "<span class='notice'>You struggle to pull [src] apart...</span>", "<span class='warning'>You hear wood splintering...</span>")
 	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
 		return
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
 	qdel(src)
 
 /obj/structure/barricade/wooden/crude

@@ -132,20 +132,21 @@
 				to_chat(user, "<span class='warning'>There's something preventing [src] from closing!</span>")
 				return ITEM_INTERACT_COMPLETE
 	to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-	if(do_after_once(user, 4 SECONDS, target = src))
-		if(!S.use(2))
-			to_chat(user, "<span class='warning'>You've run out of wood!</span>")
-			return ITEM_INTERACT_COMPLETE
-		else if(!barricaded) //one last check in case someone pre-barricades it
-			if(!density)
-				operate()
-			user.visible_message(
-				"<span class='warning'>[user] barricades [src] shut.</span>",
-				"<span class='notice'>You barricade [src] shut.</span>"
-			)
-			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-			newbarricade.add_fingerprint(user)
-			return ITEM_INTERACT_COMPLETE
+	if(!(do_after_once(user, 4 SECONDS, target = src)))
+		return ITEM_INTERACT_COMPLETE
+	if(!S.use(2))
+		to_chat(user, "<span class='warning'>You've run out of wood!</span>")
+		return ITEM_INTERACT_COMPLETE
+	else if(!barricaded) //one last check in case someone pre-barricades it
+		if(!density)
+			operate()
+		user.visible_message(
+			"<span class='warning'>[user] barricades [src] shut.</span>",
+			"<span class='notice'>You barricade [src] shut.</span>"
+		)
+		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+		newbarricade.add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/mineral_door/update_icon_state()
 	if(state_open)
@@ -161,7 +162,7 @@
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent != INTENT_HARM)
+	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		construct_barricade(W, user)
 		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)
