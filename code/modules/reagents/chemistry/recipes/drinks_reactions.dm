@@ -1075,7 +1075,7 @@
 	name = "Tapioca Pearls"
 	id = "tapiocapearls"
 	result = "tapiocapearls"
-	required_reagents = list("tapioca" = 1, "water" = 1)
+	required_reagents = list("drytapioca" = 1, "water" = 1)
 	result_amount = 2
 	min_temp = T0C + 100
 	mix_message = "The water boils the powder into small pearls."
@@ -1096,8 +1096,8 @@
 	name = "Milk Tea"
 	id = "milktea"
 	result = "milktea"
-	required_reagents = list("tea" = 2, "sugar" = 1, "milk" = 1)
-	result_amount = 4
+	required_reagents = list("tea" = 1, "sugar" = 1, "milk" = 1)
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
