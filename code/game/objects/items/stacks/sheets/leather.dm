@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(human_recipes, list(
 	singular_name = "lizard skin piece"
 
 GLOBAL_LIST_INIT(lizard_recipes, list(
-	new /datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE),
+	new /datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel_lizard, 5, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
@@ -143,6 +143,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 		new /datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
 		new /datum/stack_recipe("briefcase", /obj/item/storage/briefcase, 4),
 		new /datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5),
+		new /datum/stack_recipe("smith's bag", /obj/item/storage/bag/smith, 5),
 		)),
 	null,
 	new /datum/stack_recipe("card box", /obj/item/deck/holder, 1),

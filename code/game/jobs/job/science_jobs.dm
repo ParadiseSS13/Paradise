@@ -154,6 +154,7 @@
 	jobtype = /datum/job/xenobiologist
 
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile

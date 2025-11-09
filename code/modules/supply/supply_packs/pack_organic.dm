@@ -379,7 +379,8 @@
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
 					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
@@ -390,6 +391,8 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
+					/obj/item/seeds/lettuce,
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
@@ -444,3 +447,11 @@
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
+
+/datum/supply_packs/organic/bottler
+	name = "Bottler Unit Crate"
+	contains = list(/obj/machinery/bottler)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "Bottler Unit Crate"
+	

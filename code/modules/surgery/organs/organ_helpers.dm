@@ -94,6 +94,6 @@
 	if(!has_battery)
 		return FALSE
 	for(var/obj/item/organ/internal/organ in internal_organs)
-		if(organ.vital && (organ.damage >= organ.max_damage))
+		if(organ.vital && ((organ.damage >= organ.max_damage) || organ.status & ORGAN_DEAD))
 			return FALSE
 	return TRUE

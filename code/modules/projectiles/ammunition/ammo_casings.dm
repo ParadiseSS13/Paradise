@@ -267,7 +267,7 @@
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
 	desc = "A rudimentary 12 gauge shotgun shell that replicates the effects of a laser weapon with a low-powered laser."
-	icon_state = "laser"
+	icon_state = "improvised"
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
@@ -329,8 +329,8 @@
 /obj/item/ammo_casing/shotgun/holy
 	name = "holy water dart"
 	desc = "A 12 gauge dart shell loaded with holy water."
-	icon_state = "dart"
-	projectile_type = /obj/projectile/bullet/dart/syringe/holy
+	icon_state = "holydart"
+	projectile_type = /obj/item/projectile/bullet/dart/syringe/holy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	materials = list(MAT_METAL=250)

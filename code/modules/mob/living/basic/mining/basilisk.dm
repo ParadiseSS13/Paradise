@@ -130,6 +130,3 @@
 		var/mob/living/L = target
 		if(istype(L))
 			L.apply_status_effect(/datum/status_effect/freon/watcher)
-
-/mob/living/basic/mining/basilisk/watcher/tendril
-	from_tendril = TRUE

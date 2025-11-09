@@ -157,6 +157,8 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 	if(prob(60))
 		add_antag_objective(/datum/objective/steal)
+	else if(prob(10))
+		add_antag_objective(/datum/objective/protect)
 	else
 		add_antag_objective(/datum/objective/debrain)
 
@@ -191,7 +193,10 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	remove_changeling_powers(FALSE)
 	var/datum/action/changeling/power = new /datum/action/changeling/transform
 	power.Grant(extractor)
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
 	radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Changeling")
 
@@ -468,3 +473,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 /datum/antagonist/changeling/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."
+
+// Ling Stronk
+/datum/antagonist/changeling/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 3)

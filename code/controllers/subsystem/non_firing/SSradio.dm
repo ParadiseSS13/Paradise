@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(radio)
 	var/list/radiochannels = list(
 	"Common"		= PUB_FREQ,
 	"Science"		= SCI_FREQ,
-	"Command"		= COMM_FREQ,
+	"Command"		= COM_FREQ,
 	"Procedure"		= PROC_FREQ,
 	"Medical"		= MED_FREQ,
 	"Engineering"	= ENG_FREQ,
@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(radio)
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ, STARLINE_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
-	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(radio)
 		return "centradio"
 	// This switch used to be a shit tonne of if statements. I am gonna find who made this and give them a kind talking to
 	switch(frequency)
-		if(COMM_FREQ)
+		if(COM_FREQ)
 			return "comradio"
 		if(AI_FREQ)
 			return "airadio"

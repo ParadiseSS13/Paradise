@@ -568,7 +568,7 @@
 	var/should_show_runechat = (subject && raw_message && !subject.orbiting_uid)
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/simple_animal/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/basic/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -856,3 +856,9 @@
 		// No, I don't like it either.
 		remove_from_all_data_huds()
 		add_to_all_human_data_huds()
+
+
+/// Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/mob/proc/tamed(mob/living/tamer, obj/item/food)
+	return
+

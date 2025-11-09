@@ -14,7 +14,6 @@
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
-	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
 	req_access = list(ACCESS_SECURITY)

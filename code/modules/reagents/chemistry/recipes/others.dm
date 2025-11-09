@@ -93,15 +93,11 @@
 /datum/chemical_reaction/plastic_polymers
 	name = "plastic polymers"
 	id = "plastic_polymers"
-	result = null
+	result = "molten_plastic"
 	required_reagents = list("oil" = 5, "sacid" = 2, "ash" = 3)
-	min_temp = T0C + 100
+	min_temp = T0C + 120
 	result_amount = 10
-
-/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
-	var/loc = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/stack/sheet/plastic(loc)
+	mix_message = "The mixture clumps up and becomes stringy."
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"

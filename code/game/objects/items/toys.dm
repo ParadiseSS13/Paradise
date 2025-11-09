@@ -171,7 +171,7 @@
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
-	icon_state = "sword0"
+	icon_state = "sword"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	var/active = FALSE
@@ -190,7 +190,7 @@
 	else
 		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		icon_state = "sword0"
+		icon_state = "sword"
 		w_class = WEIGHT_CLASS_SMALL
 
 	if(ishuman(user))
@@ -442,15 +442,17 @@
 	icon_state = "therapyred"
 	inhand_icon_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
-	var/cooldown = 0
 	resistance_flags = FLAMMABLE
+	var/cooldown = 0
+	/// Color of the doll. Affects appearance, make sure there is appropriate icon_state in icon file
+	var/doll_color
 
-/obj/item/toy/therapy/New()
-	..()
-	if(item_color)
-		name = "[item_color] therapy doll"
-		desc += " This one is [item_color]."
-		icon_state = "therapy[item_color]"
+/obj/item/toy/therapy/Initialize(mapload)
+	. = ..()
+	if(doll_color)
+		name = "[doll_color] therapy doll"
+		desc += " This one is [doll_color]."
+		icon_state = "therapy[doll_color]"
 
 /obj/item/toy/therapy/activate_self(mob/user)
 	if(..() || !(cooldown < world.time - 8))
@@ -460,26 +462,26 @@
 	cooldown = world.time
 
 /obj/item/toy/therapy/red
-	item_color = "red"
+	doll_color = "red"
 
 /obj/item/toy/therapy/purple
 	inhand_icon_state = "egg1" // It's the magenta egg in items_left/righthand
-	item_color = "purple"
+	doll_color = "purple"
 
 /obj/item/toy/therapy/blue
 	inhand_icon_state = "egg2" // It's the blue egg in items_left/righthand
-	item_color = "blue"
+	doll_color = "blue"
 
 /obj/item/toy/therapy/yellow
 	inhand_icon_state = "egg5" // It's the yellow egg in items_left/righthand
-	item_color = "yellow"
+	doll_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_color = "orange"
+	doll_color = "orange"
 
 /obj/item/toy/therapy/green
 	inhand_icon_state = "egg3" // It's the green egg in items_left/righthand
-	item_color = "green"
+	doll_color = "green"
 
 /*
  * Fake meteor

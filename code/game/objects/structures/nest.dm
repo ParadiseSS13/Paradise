@@ -21,7 +21,7 @@
 	var/spawn_byproduct_max = 3		// Maximum number of item spawns
 	var/spawn_is_triggered = FALSE	// This is set to TRUE once the nest is triggered, preventing multiple triggers; set it to FALSE to re-activate it
 	var/spawn_max = 2				// Maximum number of mob spawns
-	var/spawn_mob_options = list(/mob/living/simple_animal/crab)	// The nest picks one mob type of this list and spawns them
+	var/spawn_mob_options = list(/mob/living/basic/crab)	// The nest picks one mob type of this list and spawns them
 	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
 /obj/structure/nest/Initialize(mapload)
@@ -71,7 +71,10 @@
 		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
 
 /obj/structure/nest/lavaland
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/basic/mining/goldgrub)
+	spawn_mob_options = list(
+		/mob/living/basic/mining/goliath,
+		/mob/living/basic/mining/goldgrub,
+	)
 
 /obj/structure/nest/carppuppy
 	spawn_mob_options = list(/mob/living/basic/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)

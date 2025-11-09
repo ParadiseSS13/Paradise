@@ -76,6 +76,7 @@
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
 		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
+		ANOMALOUS_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -110,6 +111,7 @@
 	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
 	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
 	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
+	t+= "<span class='notice'>Hydrogen: [environment.hydrogen()] \n</span>"
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
@@ -1118,7 +1120,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 			return FALSE
 	var/obj/vent_found = pick(found_vents)
-	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	var/mob/living/basic/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
 	to_chat(host, "<span class='notice'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
@@ -1352,12 +1354,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-/mob/proc/set_sight(datum/vision_override/O)
-	QDEL_NULL(vision_type)
-	if(O) //in case of null
-		vision_type = new O
-	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
@@ -1646,3 +1642,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		client.mouse_pointer_icon = null
 		return
 	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]
+
+/mob/proc/get_event_capacity()
+	. = 1
+	var/max_symptom_severity = 0
+	for(var/datum/disease/advance/virus in viruses)
+		for(var/datum/symptom/curr_symptom in virus.symptoms)
+			if(curr_symptom.severity > max_symptom_severity)
+				max_symptom_severity = curr_symptom.severity
+	switch(max_symptom_severity)
+		if(4)
+			. *= 0.5
+		if(5 to 6)
+			return 0
+

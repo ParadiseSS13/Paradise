@@ -4,6 +4,7 @@
 	gain_desc = "You have gained the ability to temporarily resist large amounts of stuns and physical damage."
 	base_cooldown = 40 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "blood_swell"
 
 /datum/spell/vampire/self/blood_swell/cast(list/targets, mob/user)
@@ -16,6 +17,7 @@
 	name = "Seismic Stomp (30)"
 	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if your legs are restrained by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
 	required_blood = 30
@@ -77,6 +79,7 @@
 	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
 	base_cooldown = 2 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "OH_YEAAAAH"
 
 /datum/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
@@ -96,6 +99,7 @@
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "blood_rush"
 
 /datum/spell/vampire/self/blood_rush/can_cast(mob/user, charge_check, show_message)
@@ -130,9 +134,9 @@
 	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
 
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "demonic_grasp"
 
-	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
 	invocation = null
@@ -198,6 +202,7 @@
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "vampire_charge"
 
 /datum/spell/vampire/charge/create_new_targeting()
@@ -224,6 +229,7 @@
 	gain_desc = "You can now leap to a target and trap them in a conjured arena."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "duel"
 	should_recharge_after_cast = FALSE
 	var/spell_active = FALSE

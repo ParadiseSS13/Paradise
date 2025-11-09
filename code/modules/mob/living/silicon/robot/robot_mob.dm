@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/inventory_screens = list()
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
+	var/atom/movable/screen/pda_button = null
 
 	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
@@ -852,6 +853,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
+
+/mob/living/silicon/robot/open_pda()
+	rbPDA.ui_interact(src)
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)

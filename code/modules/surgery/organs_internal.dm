@@ -228,7 +228,7 @@
 					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.damage = 0
+				I.rejuvenate()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -389,6 +389,10 @@
 		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(I.requires_golem_person && !isgolem(target))
+		to_chat(user, "<span class='warning'>[I] requires a Golem body! [I] won't fit into [target]'s body.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 		to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 		return SURGERY_BEGINSTEP_SKIP
@@ -427,6 +431,9 @@
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_machine_person && !ismachineperson(target))
 		to_chat(user, "<span class='warning'>[I] requires an IPC interface!</span>")
+		return SURGERY_STEP_INCOMPLETE
+	if(I.requires_golem_person && !isgolem(target))
+		to_chat(user, "<span class='warning'>[I] requires a Golem body! [I] won't fit into [target]'s body.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")

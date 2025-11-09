@@ -159,6 +159,7 @@
 	//Basically an optional override for our glide size
 	//Sometimes you want to look like you're moving with a delay you don't actually have yet
 	visual_delay = 0
+	var/old_dir = mob.dir
 
 	if(istype(living_mob))
 		var/newdir = NONE
@@ -198,6 +199,7 @@
 	mob.set_glide_size(new_glide_size)
 
 	move_delay += add_delay
+	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
 
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()

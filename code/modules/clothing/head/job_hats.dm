@@ -2,7 +2,7 @@
 // Chef
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "The commander in chef's head wear."
+	desc = "The commander in chef's headwear."
 	icon_state = "chef"
 	inhand_icon_state = "chefhat"
 	strip_delay = 10
@@ -12,8 +12,24 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+
+/obj/item/clothing/head/chefhat/red
+	name = "chef's red hat"
+	icon_state = "chef_red"
+
+/obj/item/clothing/head/chefhat/black
+	name = "chef's black hat"
+	icon_state = "chef_black"
+
+/obj/item/clothing/head/chefhat/bw
+	name = "chef's black and white hat"
+	icon_state = "chef_bw"
+
+/obj/item/clothing/head/chefhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -28,12 +44,20 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
-		)
+	)
+
+/obj/item/clothing/head/caphat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_capblue"
+
+/obj/item/clothing/head/caphat/parade/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/caphat/parade/white
 	icon_state = "captain_capwhite"
@@ -50,6 +74,10 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
+
+/obj/item/clothing/head/hop/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Quartermaster
 /obj/item/clothing/head/qm
@@ -72,7 +100,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 
@@ -83,6 +111,16 @@
 	icon_state = "chaplain_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 //Chaplain
 /obj/item/clothing/head/hooded/nun_hood
@@ -91,6 +129,17 @@
 	icon_state = "nun_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 //Chaplain
 /obj/item/clothing/head/hooded/monk_hood
@@ -99,6 +148,111 @@
 	icon_state = "monk_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+
+//Chaplain
+/obj/item/clothing/head/turban_orange
+	name = "dastar"
+	desc = "One of the essential five K's for any Sikh."
+	icon_state = "turban_orange"
+	flags = BLOCKHAIR
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+//Chaplain
+/obj/item/clothing/head/turban_green
+	name = "turban"
+	desc = "A choice color for Islamic leaders."
+	icon_state = "turban_green"
+	flags = BLOCKHAIR
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+//Chaplain
+/obj/item/clothing/head/eboshi
+	name = "eboshi"
+	desc = "Headwear for a Shinto priest."
+	icon_state = "eboshi"
+	flags = BLOCKHAIR
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+//Chaplain
+/obj/item/clothing/head/kippah
+	name = "kippah"
+	desc = "A small, round head covering."
+	icon_state = "kippah"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+//Chaplain
+/obj/item/clothing/head/shtreimel
+	name = "shtreimel"
+	desc = "Festive head covering for Jewish men."
+	icon_state = "shtreimel"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+//Chaplain
+/obj/item/clothing/head/hijab
+	name = "hijab"
+	desc = "A cloth worn around the head for modesty and dignity."
+	icon_state = "hijab"
+	flags = BLOCKHAIR
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/head/witchhunter_hat
 	name = "witchhunter hat"
@@ -128,6 +282,10 @@
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
+/obj/item/clothing/head/hos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
@@ -135,10 +293,10 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 75)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
+	)
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"

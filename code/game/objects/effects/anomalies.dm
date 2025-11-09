@@ -19,6 +19,9 @@
 	var/countdown_colour
 	var/obj/effect/countdown/anomaly/countdown
 
+	/// Used by the canister grenades to modify functions.
+	var/canister_spawned = FALSE
+
 	/// Do we drop a core when we're neutralized?
 	var/drops_core = TRUE
 
@@ -93,6 +96,11 @@
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
+// Used by the anomalous canister grenades to make them balanced for grenade use.
+/obj/effect/anomaly/proc/anomalous_canister_setup()
+	canister_spawned = TRUE
+	return
+
 /obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
@@ -107,22 +115,22 @@
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
 	var/obj/effect/warp_effect/supermatter/warp
 
-/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
+/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE)
 	. = ..()
 	warp = new(src)
 	vis_contents += warp
-	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	if(!_drops_core) // So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
 		if(prob(75))
 			new /obj/item/stack/rods(loc)
 		if(prob(75))
 			new /obj/item/shard(loc)
-
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
@@ -207,7 +215,7 @@
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
-	if(explosive) //Let us not fuck up the sm that much
+	if(explosive || canister_spawned) // Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
 /obj/effect/anomaly/flux/proc/on_atom_entered(datum/source, atom/movable/entered)
@@ -224,17 +232,21 @@
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
 		if(!knockdown)
-			M.Weaken(explosive ? 6 SECONDS : 3 SECONDS) //Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them
+			M.Weaken((explosive || canister_spawned) ? 6 SECONDS : 3 SECONDS) // Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them
 		else
 			M.KnockDown(3 SECONDS)
 
 /obj/effect/anomaly/flux/detonate()
-	if(explosive)
+	if(explosive && !canister_spawned)
 		explosion(src, 1, 4, 16, 18, FALSE) // Set adminlog to FALSE for custom logging
 		message_admins("\A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
 		log_admin("\A [name] has detonated at [impact_area]")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
+
+/obj/effect/anomaly/flux/anomalous_canister_setup()
+	power = 3000
+	return ..()
 
 /obj/effect/anomaly/bluespace
 	name = "bluespace anomaly"
@@ -336,6 +348,10 @@
 	M.client.screen -= blueeffect
 	qdel(blueeffect)
 
+/obj/effect/anomaly/bluespace/anomalous_canister_setup()
+	mass_teleporting = FALSE
+	return ..()
+
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
@@ -362,7 +378,7 @@
 		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
-	if(produces_slime)
+	if(produces_slime && !canister_spawned)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 	if(drops_core)
 		message_admins("\A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
@@ -524,12 +540,14 @@
 				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
 			step_towards(M, src)
-			if(drops_core)
+			if(drops_core || canister_spawned)
 				M.Weaken(3.5 SECONDS) //You ran into a black hole, you ride the pain train.
 			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
 	if(T && prob(turf_removal_chance))
+		if(isfloorturf(T) && canister_spawned)
+			return
 		T.ex_act(ex_act_force)
 
 #undef ANOMALY_MOVECHANCE

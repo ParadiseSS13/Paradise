@@ -240,6 +240,21 @@
 	subtype_selection_cost = FALSE
 
 //Engineering
+
+/datum/gear/uniform/eng
+	main_typepath = /datum/gear/uniform/eng
+
+/datum/gear/uniform/eng/eng_alt
+	display_name = "Uniform, engineering corporate"
+	path = /obj/item/clothing/under/rank/engineering/engineer/corporate
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/uniform/eng/atmos_alt
+	display_name = "Uniform, atmos corporate"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/corporate
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "Skirt, atmos"
 	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
@@ -397,6 +412,36 @@
 	path = /obj/item/clothing/under/rank/civilian/hop/turtleneck
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/uniform/suit/job/chaplain/
+	display_name = "Chaplain, black"
+	path = /obj/item/clothing/under/rank/civilian/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/white
+	display_name = "Chaplain, white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/white
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/bw
+	display_name = "Chaplain, black and white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/bw
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/orange
+	display_name = "Chaplain, kasaya"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/orange
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/green
+	display_name = "Chaplain, modest"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/green
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/thobe
+	display_name = "Chaplain, thobe"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/thobe
+	allowed_roles = list("Chaplain")
+
 //Command and dignitary
 /datum/gear/uniform/skirt/captain
 	display_name = "Skirt, captain"
@@ -461,10 +506,30 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/overalls
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/uniform/overalls/job/miner
+	display_name = "Overalls, miner"
+	path = /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
+	allowed_roles = list("Quartermaster", "Shaft Miner")
+
 /datum/gear/uniform/overalls/job/expedition
 	display_name = "Overalls, expedition"
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
 	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/uniform/overalls/job/smith
+	display_name = "Overalls, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/overalls
+	allowed_roles = list("Quartermaster", "Smith")
+
+/datum/gear/uniform/overalls/job/atmos
+	display_name = "Overalls, atmos"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+/datum/gear/uniform/overalls/job/eng
+	display_name = "Overalls, engineer"
+	path = /obj/item/clothing/under/rank/engineering/engineer/overalls
+	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec

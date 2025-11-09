@@ -153,8 +153,9 @@
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
-	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/nanopaste(src)
 	new /obj/item/robotanalyzer(src)
+	new /obj/item/stack/synthetic_skin(src, 3)
 
 /obj/item/storage/firstaid/machine/empty/populate_contents()
 	return

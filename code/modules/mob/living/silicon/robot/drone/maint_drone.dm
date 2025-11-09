@@ -127,6 +127,11 @@
 	// force it to not actually change most things
 	return ..(newname, newname)
 
+// Drones don't have a PDA.
+/mob/living/silicon/robot/drone/open_pda()
+	to_chat(src, "<span class='warning'>This unit does not have PDA functionality!</span>")
+	return
+
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100, 999)])"
 
@@ -391,7 +396,7 @@
 	..()
 	update_headlamp(TRUE, 0, FALSE)
 
-/mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
+/mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 

@@ -5,24 +5,24 @@
 "bw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/communist_state/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "bE" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "ew" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/civilian,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "fg" = (
 /obj/machinery/flasher_button{
@@ -45,10 +45,10 @@
 	req_access = list(160);
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "fv" = (
 /obj/structure/chair/sofa/bench/right,
@@ -56,25 +56,24 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "fz" = (
 /obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "fO" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/security,
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "gv" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -84,16 +83,16 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "gK" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "gR" = (
 /obj/structure/fans/tiny,
@@ -140,54 +139,53 @@
 	req_access = list(160);
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "jo" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "kd" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "kV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/ashtray/plastic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "lv" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "ml" = (
 /obj/structure/chair/sofa/bench/left,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "nI" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "oM" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -196,41 +194,40 @@
 "qS" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/engineering,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "rw" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "sM" = (
 /obj/item/cigbutt,
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "uk" = (
 /obj/effect/spawner/random/traders/vehicle,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "uo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "ut" = (
 /obj/structure/bed,
@@ -241,29 +238,26 @@
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "uB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "uM" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "uY" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "vu" = (
 /obj/effect/landmark/spawner/tradergearminor,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "vz" = (
 /obj/structure/table/reinforced,
@@ -271,26 +265,26 @@
 /obj/item/stack/package_wrap{
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "vU" = (
 /obj/effect/spawner/random/traders/donksoft,
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "wu" = (
 /obj/structure/chair/sofa/bench/right,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "wQ" = (
 /obj/structure/bed,
@@ -303,16 +297,15 @@
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "xC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/obj/effect/turf_decal/tiles/department/security,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "ya" = (
 /obj/effect/spawner/random/traders/large_item,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "yg" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -321,10 +314,10 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "yx" = (
 /obj/effect/turf_decal/arrows/red,
@@ -332,10 +325,10 @@
 /area/shuttle/trade/sol)
 "zJ" = (
 /obj/structure/sign/poster/contraband/cc64k_ad/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Ao" = (
 /obj/effect/decal/cleanable/dirt,
@@ -343,10 +336,10 @@
 /area/shuttle/trade/sol)
 "Bt" = (
 /obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "By" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -365,19 +358,19 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Cr" = (
 /obj/item/stack/tile/disco_light/thirty,
 /obj/effect/spawner/random/traders/service,
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Dj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -386,10 +379,10 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "DE" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "DW" = (
 /obj/structure/table/reinforced,
@@ -399,18 +392,17 @@
 	pixel_x = 9;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Ek" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/medical,
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "EK" = (
 /turf/template_noop,
@@ -451,10 +443,10 @@
 	pixel_x = -7;
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "JE" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -463,27 +455,26 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "JY" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/minerals,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "KF" = (
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
 "Ma" = (
 /obj/effect/landmark/spawner/tradergearmajor,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Mv" = (
 /obj/structure/shuttle/engine/heater,
@@ -501,10 +492,10 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "NU" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Oj" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -514,10 +505,10 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "ON" = (
 /obj/machinery/door/airlock/titanium/glass{
@@ -532,9 +523,8 @@
 /area/shuttle/trade/sol)
 "PC" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "PX" = (
 /obj/item/flag/ussp,
@@ -543,10 +533,10 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/box/red,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Qs" = (
 /obj/item/flag/ussp,
@@ -555,17 +545,16 @@
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/box/red,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "QV" = (
 /obj/item/flag/ussp,
 /obj/effect/turf_decal/box/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RE" = (
 /obj/machinery/door/airlock/titanium/glass,
@@ -573,10 +562,10 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RG" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RR" = (
 /obj/effect/turf_decal/arrows/red{
@@ -585,10 +574,10 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "SC" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "redcorner"
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Tv" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -596,18 +585,18 @@
 "Ty" = (
 /obj/machinery/computer/shuttle/trade/sol,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "UT" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/science,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Wq" = (
 /turf/open/floor/plating,
@@ -617,10 +606,10 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "YV" = (
 /obj/machinery/door/airlock/titanium/glass,

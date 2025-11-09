@@ -97,6 +97,16 @@
 	path = /obj/item/clothing/head/soft/hydroponics_alt
 	allowed_roles = list("Botanist")
 
+/datum/gear/hat/capengi
+	display_name = "Cap, engineer"
+	path = /obj/item/clothing/head/soft/engineer
+	allowed_roles = list("Chief Engineer, Station Engineer")
+
+/datum/gear/hat/capatmos
+	display_name = "Cap, atmospheric technician"
+	path = /obj/item/clothing/head/soft/atmos
+	allowed_roles = list("Chief Engineer, Life Support Specialist")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -157,6 +167,11 @@
 	display_name = "Cowboy hat, security"
 	path = /obj/item/clothing/head/cowboyhat/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
+
+/datum/gear/hat/cowboyhat/hydro
+	display_name = "Cowboy hat, botany"
+	path = /obj/item/clothing/head/cowboyhat/hydro
+	allowed_roles = list("Botanist")
 
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
@@ -322,3 +337,50 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/hat/chaplain
+	main_typepath = /datum/gear/hat/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/hat/chaplain/turban_orange
+	display_name = "Turban, orange"
+	path = /obj/item/clothing/head/turban_orange
+
+/datum/gear/hat/chaplain/turban_green
+	display_name = "Turban, green"
+	path = /obj/item/clothing/head/turban_green
+
+/datum/gear/hat/chaplain/hijab
+	display_name = "Hijab"
+	path = /obj/item/clothing/head/hijab
+
+/datum/gear/hat/chaplain/eboshi
+	display_name = "Eboshi"
+	path = /obj/item/clothing/head/eboshi
+
+/datum/gear/hat/chaplain/kippah
+	display_name = "Kippah"
+	path = /obj/item/clothing/head/kippah
+
+/datum/gear/hat/wizard
+	display_name = "Wizard hat"
+	path = /obj/item/clothing/head/wizard/fake
+
+/datum/gear/hat/chef
+	main_typepath = /datum/gear/hat/chef
+	allowed_roles = list("Chef")
+
+/datum/gear/hat/chef/white
+	display_name = "Chef hat, white"
+	path = /obj/item/clothing/head/chefhat
+
+/datum/gear/hat/chef/bw
+	display_name = "Chef hat, black and white"
+	path = /obj/item/clothing/head/chefhat/bw
+
+/datum/gear/hat/chef/black
+	display_name = "Chef hat, black"
+	path = /obj/item/clothing/head/chefhat/black
+
+/datum/gear/hat/chef/red
+	display_name = "Chef hat, red"
+	path = /obj/item/clothing/head/chefhat/red

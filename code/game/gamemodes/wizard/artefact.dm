@@ -156,7 +156,7 @@
 /obj/item/veilrender/crabrender
 	name = "crab render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
-	spawn_type = /mob/living/simple_animal/crab
+	spawn_type = /mob/living/basic/crab
 	spawn_amt = 10
 	activate_descriptor = "sea life"
 	rend_desc = "Gently wafting with the sounds of endless clacking."
@@ -994,6 +994,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',

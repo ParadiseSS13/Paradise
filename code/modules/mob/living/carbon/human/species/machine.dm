@@ -4,15 +4,14 @@
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
 	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans-Solar Federation. \
-	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
-	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
-	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
+	Similar to the organic species of the Orion Arm, IPCs possess full sapience, as well as creativity and adaptability on par with other life. Unlike traditional cyborgs and AI units, IPCs are given full rights by Nanotrasen and do not possess lawsets.<br/><br/> \
+	Views on IPCs vary widely between groups across the sector, ranging from openly discriminatory, to supportive of their rights. \
+	In recent years, IPCs have formed diplomatic relations with various governments in the sector, elevating their status from tools and assistants to minor players in interstellar affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
-	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	tox_mod = 0
@@ -44,6 +43,8 @@
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
+	meat_type = /obj/item/food/meat/human/robot
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,

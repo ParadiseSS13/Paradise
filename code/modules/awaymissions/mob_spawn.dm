@@ -147,7 +147,8 @@
 	return FALSE
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
-	log_game("[ckey] became [mob_name]")
+	if(ckey) // we don't care about corpse spawners etc
+		log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(mob_name)
 		M.rename_character(M.real_name, mob_name)
@@ -697,6 +698,12 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/corpse/random_species/miner
+	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
+	id_job = "Shaft Miner"
+	outfit = /datum/outfit/job/mining/equipped/less
+
 /obj/effect/mob_spawn/human/corpse/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
@@ -760,6 +767,7 @@
 /obj/effect/mob_spawn/human/alive/zombie/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NPC_ZOMBIE, ROUNDSTART_TRAIT)
 	H.ForceContractDisease(new /datum/disease/zombie)
+	H.zone_selected = BODY_ZONE_CHEST
 	for(var/datum/disease/zombie/zomb in H.viruses)
 		zomb.stage = 8
 
@@ -800,7 +808,7 @@
 	pixel_x = -12
 
 /obj/effect/mob_spawn/corpse/goliath
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mob_type = /mob/living/basic/mining/goliath
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12

@@ -22,6 +22,8 @@
 	// These exist here and not as defines in `apc_defines.dm` so they can be modified for `test_apc_construction.dm`.
 	var/apc_frame_welding_time = 2 SECONDS
 	var/apc_terminal_wiring_time = 2 SECONDS
+	var/frame_type = /obj/item/mounted/frame/apc_frame
+	var/sheet_type = /obj/item/stack/sheet/metal
 
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	powernet = 0
@@ -130,29 +132,6 @@
 	var/global/list/status_overlays_environ
 	var/keep_preset_name = FALSE
 
-/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
-	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
-	..()
-	GLOB.apcs += src
-
-	wires = new(src)
-
-	if(building)
-		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
-		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
-		set_pixel_offsets_from_dir(24, -24, 24, -24)
-
-		apc_area = get_area(src)
-		apc_area.apc += src
-		opened = APC_OPENED
-		operating = FALSE
-		name = "[apc_area.name] APC"
-		stat |= MAINT
-		constructed = TRUE
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(update)), 5)
-
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
@@ -171,11 +150,13 @@
 	apc_area.apc -= src
 	return ..()
 
-
-
-/obj/machinery/power/apc/Initialize(mapload)
+/obj/machinery/power/apc/Initialize(mapload, direction, building = FALSE)
 	. = ..()
+	if(!armor)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 
+	GLOB.apcs += src
+	wires = new(src)
 	var/area/A = get_area(src)
 
 	if(A.powernet && !A.powernet.powernet_apc)
@@ -183,16 +164,7 @@
 
 	if(!mapload)
 		GLOB.apcs = sortAtom(GLOB.apcs)
-		return
 
-	electronics_state = APC_ELECTRONICS_INSTALLED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
-	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
 			apc_area = A
@@ -202,14 +174,29 @@
 		name = "\improper [apc_area.name] APC"
 	else
 		name = "\improper [get_area_name(apc_area, TRUE)] APC"
+
+	if(building)
+		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
+		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
+
+		opened = APC_OPENED
+		operating = FALSE
+		stat |= MAINT
+		constructed = TRUE
+	else
+		electronics_state = APC_ELECTRONICS_INSTALLED
+		// is starting with a power cell installed, create it and set its charge level
+		if(cell_type)
+			cell = new /obj/item/stock_parts/cell(src)
+			cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+			cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		make_terminal()
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+	//if area isn't specified use current
 	apc_area.apc |= src
-
 	update_icon()
-
-	make_terminal()
-
-	set_light(1, LIGHTING_MINIMUM_POWER)
-
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
@@ -226,6 +213,7 @@
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics() && !terminal) */
 				. += "There are no electronics nor connected wires."
+			. += shock_proof ? "There is additional plastic insulation" : "There is a place to put in some plastic insulation"
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."
@@ -233,7 +221,7 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
-	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. From lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it, or by a local synthetic.</span>"
+	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. Of lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.</span>"
 	. += "<span class='notice'>The enviroment setting controls the gas and airlock power.</span>"
 	. += "<span class='notice'>The lighting setting controls the power of all the lighting of the room.</span>"
 	. += "<span class='notice'>The equipment setting controls the power of all machines and computers in the room.</span>"
@@ -376,7 +364,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	// APC frame repair. Instant, but you consume 2 metal instead of doing it for free.
-	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
+	if(istype(used, frame_type) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
 			return ITEM_INTERACT_COMPLETE
@@ -406,6 +394,26 @@
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/sheet/plastic))
+		var/obj/item/stack/sheet/plastic/plastic_stack = used
+		if(!opened)
+			to_chat(user, "<span class='warning'>You can't add insulation with the cover closed!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(shock_proof)
+			to_chat(user, "<span class='warning'>[src] already has extra insulation installed!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(plastic_stack.get_amount() < 10)
+			to_chat(user, "<span class='warning'>You need ten sheets of plastic to add insulation to [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		plastic_stack.use(10)
+		to_chat(user, "<span class='notice'>You add extra insulation to [src].</span>")
+		shock_proof = TRUE
+
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -441,6 +449,11 @@
 			cell = null
 			charging = APC_NOT_CHARGING
 			update_icon()
+		else if(shock_proof)
+			to_chat(user, "<span class='info'>You remove the insulation from [src]</span>")
+			var/obj/item/stack/sheet/plastic/plastic_stack = new(loc, 10)
+			user.put_in_hands(plastic_stack)
+			shock_proof = FALSE
 		return
 
 	if(stat & (BROKEN|MAINT))
@@ -859,8 +872,10 @@
 	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)
 		return
 	var/drop_loc = drop_location()
-	new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
+	new sheet_type(drop_loc, 3) // Metal from the frame
 	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
+	if(shock_proof)
+		new /obj/item/stack/sheet/plastic(drop_loc, 10)
 	QDEL_NULL(terminal) // We don't want floating terminals
 	qdel(src)
 
@@ -1131,6 +1146,17 @@
 /obj/machinery/power/apc/critical
 	cell_type = 25000
 
+/// Can handle any amount of power. Made with plasteel frames and is found in maints and other high power areas.
+/obj/machinery/power/apc/reinforced
+	shock_proof = TRUE
+
+/obj/machinery/power/apc/reinforced/important
+	cell_type = 10000
+
+/obj/machinery/power/apc/reinforced/critical
+	cell_type = 25000
+
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
@@ -1139,6 +1165,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 24, 24)
 
 
 /obj/item/apc_electronics

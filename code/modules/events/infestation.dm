@@ -3,6 +3,9 @@
 #define VERM_SPIDERS 2
 
 /datum/event/infestation
+	name = "Vermin Infestation"
+	role_weights = 	list(ASSIGNMENT_JANITOR = 0.5)
+	role_requirements = list(ASSIGNMENT_JANITOR = 1)
 	announceWhen = 10
 	endWhen = 11
 	/// Which kind of vermin we'll be spawning (one of the three defines)
@@ -53,7 +56,7 @@
 	vermin = rand(0, 2)
 	switch(vermin)
 		if(VERM_MICE)
-			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
+			spawn_types = list(/mob/living/basic/mouse/gray, /mob/living/basic/mouse/brown, /mob/living/basic/mouse/white)
 			max_number = 12
 			vermstring = "mice"
 		if(VERM_LIZARDS)

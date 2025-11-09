@@ -9,7 +9,6 @@
 	pass_flags = PASSMOB
 	radio_channel = "Service" //Service
 	bot_type = HONK_BOT
-	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	window_id = "autohonk"

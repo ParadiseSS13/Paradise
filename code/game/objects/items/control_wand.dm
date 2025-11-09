@@ -144,7 +144,7 @@
 
 /obj/item/door_remote/captain
 	name = "command door remote"
-	icon_state = "gangtool-yellow"
+	icon_state = "gangtool-blue"
 	region_access = list(REGION_COMMAND)
 
 /obj/item/door_remote/chief_engineer
@@ -164,16 +164,16 @@
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
-	icon_state = "gangtool-green"
+	icon_state = "gangtool-brown"
 	region_access = list(REGION_SUPPLY)
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
-	icon_state = "gangtool-blue"
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
+	icon_state = "gangtool-green"
 	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
@@ -241,7 +241,7 @@
 	var/hack_speed
 	/// Stores the last airlock opened, opens faster on repeated use
 	var/last_airlock_uid
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_ENGINEERING_GENERAL, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/Initialize(mapload)
 	. = ..()

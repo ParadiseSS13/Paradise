@@ -44,7 +44,7 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * Call this with relevant parameters to form the request you want to make
   *
   * Arguments:
-  * * _method - HTTP Method to use, see code/__DEFINES/rust_g.dm for a full list
+  * * _method - HTTP Method to use, see code/__DEFINES/rust.dm for a full list
   * * _url - The URL to send the request to
   * * _body - The body of the request, if applicable
   * * _headers - Associative list of HTTP headers to send, if applicab;e

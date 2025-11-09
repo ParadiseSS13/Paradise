@@ -64,6 +64,35 @@
 	name = "Mining Asteroid 3"
 	description = "They dug too greedily, and too deeply..."
 
+/datum/map_template/ruin/space/asteroidmine_pirates
+	id = "asteroidmine_pirates"
+	suffix = "asteroidmine_pirates.dmm"
+	name = "Pirate Mining Outpost"
+	description = "A small gang of pirates plunders valuables from a space rock."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/asteroidmine_drakehounds
+	id = "asteroidmine_drakehounds"
+	suffix = "asteroidmine_drakehounds.dmm"
+	name = "Raided Corporate Mining Outpost"
+	description = "A small-time mining company set up a mining outpost between two large mineral-rich asteroids. \
+		The riches only served to attract a gang of drakehound raiders to steal the loot for themselves."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/asteroidmine_vox
+	id = "asteroidmine_vox"
+	suffix = "asteroidmine_vox.dmm"
+	name = "Vox Mining Expedition"
+	description = "A small group of vox miners excavate a valuable asteroid."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/asteroidmine_skullakin
+	id = "asteroidmine_skullakin"
+	suffix = "asteroidmine_skullakin.dmm"
+	name = "Skullakin Outpost"
+	description = "A small skullakin outpost found riches in the rocks it was built on. They also found goliaths."
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
 	suffix = "deepstorage.dmm"
@@ -400,3 +429,24 @@
 	description = "Nanotrasen uses relays like these to further extend telecommunications around an area of space, as well as long range beacons for easier deployment in the future. \
 		Unfortunately, the anomalous activity around Epsilon Eridani, along with orbital debris and space-faring hostiles, has rendered many of these relay stations inoperable, leaving their communications and teleportation systems offline."
 	never_spawn_on_the_same_level = list("bluespace_relay_beacon")
+
+/datum/map_template/ruin/space/alien_cache_site
+	id = "alien_cache_site"
+	suffix = "alien_cache_site.dmm"
+	name = "Alien Cache Site"
+	description = "A site containing a cache of alien design, who knows what valuable technology is hiding inside?"
+	never_spawn_on_the_same_level = list("alien_cache_site")
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/telecoms_shuttle
+	id = "telecoms_shuttle"
+	suffix = "telecoms_shuttle.dmm"
+	name = "Telecommunications Shuttle"
+	description = "A small shuttle containing resources for a telecoms relay and some medical supplies."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/engineering_vessel
+	id = "engineering_vessel"
+	suffix = "engineering_vessel.dmm"
+	name = "Engineering Vessel"
+	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
