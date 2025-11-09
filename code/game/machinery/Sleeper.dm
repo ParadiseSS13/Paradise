@@ -559,30 +559,28 @@
 		QDEL_NULL(occupant_overlay)
 	if(!occupant)
 		return
-
-	if(occupant)
-		occupant_overlay = new(get_turf(src))
-		occupant_overlay.icon = occupant.icon
-		occupant_overlay.icon_state = occupant.icon_state
-		occupant_overlay.overlays = occupant.overlays
-		occupant_overlay.dir = dir
-		occupant_overlay.layer = layer + 0.01
-		var/matrix/MA = matrix(transform)
-		if(dir == 1)
-			MA.TurnTo(0, 180)
-			occupant_overlay.dir = 2 // trust me
-		if(dir == 4)
-			MA.TurnTo(0, 270)
-			occupant_overlay.pixel_y = -8
-		if(dir == 8)
-			MA.TurnTo(0 , 90)
-			occupant_overlay.pixel_y = -8
-		MA.Scale(0.66, 0.66)
-		occupant_overlay.transform = MA
-		var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "[base_icon]_first_overlay", layer = occupant_overlay.layer + 0.01)
-		var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "[base_icon]-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
-		. += rim
-		. += lid
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.dir = dir
+	occupant_overlay.layer = layer + 0.01
+	var/matrix/MA = matrix(transform)
+	if(dir == 1)
+		MA.TurnTo(0, 180)
+		occupant_overlay.dir = 2 // trust me
+	if(dir == 4)
+		MA.TurnTo(0, 270)
+		occupant_overlay.pixel_y = -8
+	if(dir == 8)
+		MA.TurnTo(0 , 90)
+		occupant_overlay.pixel_y = -8
+	MA.Scale(0.66, 0.66)
+	occupant_overlay.transform = MA
+	var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "[base_icon]_first_overlay", layer = occupant_overlay.layer + 0.01)
+	var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "[base_icon]-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+	. += rim
+	. += lid
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
