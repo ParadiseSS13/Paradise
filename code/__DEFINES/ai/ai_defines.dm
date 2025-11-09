@@ -20,6 +20,7 @@
 // How far should we, by default, be looking for interesting things to de-idle?
 #define AI_DEFAULT_INTERESTING_DIST 10
 #define AI_SIMPLE_INTERESTING_DIST 15
+#define AI_MEGAFAUNA_INTERESTING_DIST 30
 
 /// Cooldown on planning if planning failed last time
 

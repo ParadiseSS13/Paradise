@@ -98,3 +98,12 @@
 /datum/ai_planning_subtree/attack_obstacle_in_path/prowl
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches
 	target_key = BB_PROWL_TARGET
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/walls
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/walls
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/prowl/walls
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/walls
+
+/datum/ai_behavior/attack_obstructions/walls
+	can_attack_turfs = TRUE
