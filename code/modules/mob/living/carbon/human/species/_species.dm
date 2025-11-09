@@ -258,7 +258,6 @@
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
-
 	for(var/limb_name in has_limbs)
 		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
 			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
@@ -384,7 +383,7 @@
 	var/hungry = (500 - H.nutrition) / 5 // So overeat would be 100 and default level would be 80
 	if((hungry >= 70) && !flight)
 		. += hungry/50
-	if(HAS_TRAIT(H, TRAIT_FAT))
+	if(HAS_TRAIT(H, TRAIT_FAT) && !HAS_TRAIT(H, TRAIT_GLUTTON))
 		. += (1.5 - flight)
 
 	if(H.bodytemperature < H.dna.species.cold_level_1 && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
