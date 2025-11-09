@@ -1022,8 +1022,7 @@
 /datum/reagent/consumable/tapioca_powder
 	name = "Tapioca Powder"
 	id = "tapioca"
-	description = "A starchy powder made by grinding up cassava. Would be good with milk."
-	reagent_state = SOLID
+	description = "A starchy powder made by grinding up cassava. Would be good mixed with water."
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "starchy powder"
 
@@ -1031,6 +1030,6 @@
 /datum/reagent/consumable/drytapioca_pearls
 	name = "Dry Tapioca Pearls"
 	id = "drytapioca"
-	description = "Small stiff pearls made from tapioca dough."
+	description = "Small, hard balls of dried tapioca powder."
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "dry starchy pearls"

@@ -1,7 +1,7 @@
 /obj/item/reagent_containers/food
-	name = "dry tapioca pearls"
-	desc = "Small, hard balls of dried tapioca starch."
-	inhand_icon_state = "tapioca_drypearls"
+	name = "food item"
+	desc = "A food item with reagents that can be dissolved in a glass."
+	inhand_icon_state = "tapioca_drypearls" //placeholder
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	volume = 10
@@ -47,7 +47,7 @@
 
 /obj/item/reagent_containers/food/drytapioca_pearls
 	name = "dry tapioca pearls"
-	desc = "Small, hard balls of dried tapioca starch."
+	desc = "Small, hard balls of dried tapioca powder."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "tapioca_drypearls"
 	list_reagents = list("drytapioca" = 10)
