@@ -28,4 +28,9 @@
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/event_tracker, EVENT_DEMONIC)
 
+/mob/living/basic/netherworld/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)
