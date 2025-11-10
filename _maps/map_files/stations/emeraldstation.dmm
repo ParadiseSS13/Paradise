@@ -46691,7 +46691,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/maintenance/solar_maintenance/aft_port)
 "jtP" = (
 /obj/structure/chair{
 	dir = 8
