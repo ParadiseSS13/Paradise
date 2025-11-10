@@ -3,18 +3,19 @@
 	desc = "An indescribable creature, mutated from extended exposure to bluespace energies. There is no telling what it once was."
 	health = 1500
 	maxHealth = 1500
-	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
-	icon_state = "pandora"
+	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
+	icon_state = "bluespace_horror"
 	speak_emote = list("emanates")
 	melee_attack_cooldown_min = 1 SECONDS
 	melee_attack_cooldown_max = 2 SECONDS
 	damage_coeff = list(BRUTE = 0.75, BURN = 1.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	melee_damage_lower = 25
-	melee_damage_upper = 40 // It's a megafauna. Don't get hit nerd.
+	melee_damage_lower = 35
+	melee_damage_upper = 45 // It's a megafauna. Don't get hit nerd.
 	attack_verb_simple = "strike"
 	attack_verb_continuous = "strikes"
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	see_in_dark = 20 // I see you
+	pixel_x = -32
 	step_type = FOOTSTEP_MOB_HEAVY
 	is_ranged = TRUE
 	casing_type = /obj/item/ammo_casing/caseless/bluespace_shards
@@ -83,7 +84,7 @@
 	else
 		P.fire()
 
-/// WHen hitting a mob three times, does something random
+/// WHen hitting a mob five times, does something random
 /mob/living/basic/megafauna/bluespace_horror/proc/instability_correction()
 	switch(rand(1,5))
 		// ZAP
