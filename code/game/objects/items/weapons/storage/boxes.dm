@@ -31,25 +31,132 @@
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 	/// list of what this box can change into when colored
-	var/colorable_to
+	var/static/colorable_to
+	var/static/colorable_to_radial
 
 /obj/item/storage/box/red_trim
 	icon_state = "sec_box"
 
+/obj/item/storage/box/red_full
+	icon_state = "monkey_box"
+
 /obj/item/storage/box/blue_trim
 	icon_state = "med_box"
 
-/obj/item/storage/box/black
+/obj/item/storage/box/black_full
 	icon_state = "doom_box"
+
+/obj/item/storage/box/purple_full
+	icon_state = "alien_box"
+
+/obj/item/storage/box/AltClick(mob/user, modifiers)
+	var/active_hand = user.get_active_hand()
+	if(istype(active_hand, /obj/item/toy/crayon) && colorable_to != null)
+		if(in_range(user, src) && !user.incapacitated())
+			var/obj/item/toy/crayon/crayon = active_hand
+			var/color_list = colorable_to_radial[crayon.crayon_color]
+			var/new_box
+
+			if(color_list != null)
+				// some inventories might be of different sizes or accept different items,
+				// for consistency, we dissalow painting with items inside
+				if(length(contents))
+					to_chat(usr, "<span class='warning'>The [src] is too unstable to be painted, empty it first.</span>")
+					return
+
+				if (crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
+					to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
+					new_box = make_new_box(/obj/item/storage/box)
+				else
+					var/selected_icon = show_radial_menu(usr,usr, color_list)
+					if (selected_icon == null)
+						return
+
+					new_box = make_new_box(colorable_to[crayon.crayon_color][selected_icon])
+
+
+			if (new_box != null)
+				var/static/list/slots = list(
+					"backpack" = ITEM_SLOT_IN_BACKPACK,
+					"left pocket" = ITEM_SLOT_LEFT_POCKET,
+					"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+					"left hand" = ITEM_SLOT_LEFT_HAND,
+					"right hand" = ITEM_SLOT_RIGHT_HAND,
+					)
+
+				to_chat(usr, "slot: [user.get_slot_by_item(src)]")
+				var/inactive_hand = user.get_inactive_hand()
+				var/place_in_hand = (inactive_hand == src)
+				var/palce_in_backpack = (user.find_item(src))
+				to_chat(usr, "new box: [new_box] place in hand: [place_in_hand] palce_in_backpack: [palce_in_backpack]")
+				qdel(src)
+				if(place_in_hand) // if the box was in hand, place it back
+					// try to equip it in this hand first, without the sound playing
+					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
+						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
+				else //if(palce_in_backpack) // if box was in inventory, put new one back
+					user.equip_to_slot_if_possible(new_box, ITEM_SLOT_IN_BACKPACK, 0, 1, 1)
+				// if not, leave the box on the ground
+				return
+			else
+				//if we don't have a fitting color for the box, just open it
+				. = ..()
+	else
+		. = ..()
+
+/obj/item/storage/box/proc/make_new_box(type)
+
+//need to check for location if on the same tile
+	var/turf = get_turf(src)
+	var/new_box = new type(turf)
+	return new_box
 
 /obj/item/storage/box/Initialize()
 	. = ..()
 	if (type == /obj/item/storage/box)
+		add_to_colorable_lists("red trim", 		COLOR_RED, /obj/item/storage/box/red_trim)
+		add_to_colorable_lists("red full", 		COLOR_RED, /obj/item/storage/box/red_full)
+		add_to_colorable_lists("blue trim", 	COLOR_BLUE, /obj/item/storage/box/blue_trim)
+		add_to_colorable_lists("black full", 	COLOR_BLACK, /obj/item/storage/box/black_full)
+	/*
 		colorable_to = list(
-			COLOR_RED = list(/obj/item/storage/box/red_trim),
-			COLOR_BLUE = list(/obj/item/storage/box/blue_trim),
-			COLOR_BLACK = list(/obj/item/storage/box/black),
-			)
+				"red trim" = /obj/item/storage/box/red_trim,
+				"red full" = /obj/item/storage/box/red_full
+		)
+
+		colorable_to_radial = list(
+			COLOR_RED = list(
+				"Red Trim" = image_from_obj(colorable_to["red trim"]),
+				"Red Full" = image_from_obj(colorable_to["red full"])
+				),
+			COLOR_BLUE = list(
+				"blue trim" = image_from_obj(/obj/item/storage/box/blue_trim)
+				),
+			COLOR_BLACK = list(
+				"black full" = image_from_obj(/obj/item/storage/box/black_full),
+			))
+		*/
+
+/obj/item/storage/box/proc/add_to_colorable_lists(name, color, object)
+	if(colorable_to == null)
+		colorable_to = list()
+
+	if (colorable_to[color] == null)
+		colorable_to[color] = list()
+
+	if (colorable_to_radial == null)
+		colorable_to_radial = list()
+
+	if (colorable_to_radial[color] == null)
+		colorable_to_radial[color] = list()
+
+	colorable_to[color][name] = object
+	colorable_to_radial[color][name] = image_from_obj(object)
+
+
+/obj/item/storage/box/proc/image_from_obj(obj/object)
+	return image(object.icon, object.icon_state)
+
 
 /obj/item/storage/box/large
 	name = "large box"

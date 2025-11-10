@@ -48,11 +48,6 @@
 		return
 	update_window(user)
 
-/obj/item/toy/crayon/AltClick(mob/user)
-	. = ..()
-	to_chat(usr, user.get_active_hand())
-
-
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
 	var/current_drawtype = drawtype
 	if(preset_message_index > 0)
