@@ -27,7 +27,6 @@
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/charge
 	name = "Violent Charge"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "OH_YEAAAAH"
 	desc = "Fully materialize in the material plane and charge forward!"
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
@@ -90,7 +89,6 @@
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/magic_missile
 	name = "Bluespace Missile"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "magicm"
 	desc = "Conjure bluespace projectiles to seek nearby victims!"
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
@@ -119,7 +117,6 @@
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/fireball_fan
 	name = "Fireball Fan"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "fireball"
 	desc = "Concentrate bluespace energy into a volatile volley of flame!"
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
@@ -178,7 +175,6 @@
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/blink
 	name = "Blink"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "blink"
 	desc = "Teleport away from your current location."
 	click_to_activate = FALSE

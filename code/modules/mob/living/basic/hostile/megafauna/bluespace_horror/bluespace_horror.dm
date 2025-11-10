@@ -7,7 +7,6 @@
 	icon_state = "bluespace_horror"
 	speak_emote = list("emanates")
 	melee_attack_cooldown_min = 1 SECONDS
-	melee_attack_cooldown_max = 2 SECONDS
 	damage_coeff = list(BRUTE = 0.75, BURN = 1.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 35
 	melee_damage_upper = 45 // It's a megafauna. Don't get hit nerd.
