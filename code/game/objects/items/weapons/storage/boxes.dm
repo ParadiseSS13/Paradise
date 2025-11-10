@@ -84,17 +84,17 @@
 					"right hand" = ITEM_SLOT_RIGHT_HAND,
 					)
 
-				to_chat(usr, "slot: [user.get_slot_by_item(src)]")
 				var/inactive_hand = user.get_inactive_hand()
 				var/place_in_hand = (inactive_hand == src)
-				var/palce_in_backpack = (user.find_item(src))
-				to_chat(usr, "new box: [new_box] place in hand: [place_in_hand] palce_in_backpack: [palce_in_backpack]")
+				var/obj/item/backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
+				var/place_in_backpack = (src in backpack.contents)
+
 				qdel(src)
 				if(place_in_hand) // if the box was in hand, place it back
 					// try to equip it in this hand first, without the sound playing
 					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
 						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
-				else //if(palce_in_backpack) // if box was in inventory, put new one back
+				else if(place_in_backpack) // if box was in inventory, put new one back
 					user.equip_to_slot_if_possible(new_box, ITEM_SLOT_IN_BACKPACK, 0, 1, 1)
 				// if not, leave the box on the ground
 				return
