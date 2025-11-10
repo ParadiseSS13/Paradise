@@ -868,7 +868,8 @@
 
 	var/original_volume = volume
 	var/sheets = floor(original_volume / 5)
-	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
+	if(sheets > 0)
+		new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
 
 	holder.my_atom.visible_message("<span class='notice'>The molten plastic solidifies.</span>")
 	holder.del_reagent(id)
