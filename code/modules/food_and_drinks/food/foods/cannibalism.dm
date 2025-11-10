@@ -118,7 +118,7 @@
 	tastes = list("stir-fried noodles" = 1, "fur" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/plasma-bone_broth
+/obj/item/food/plasmabone_broth
 	name = "Plasma-Bone Broth"
 	desc = "A bowl of liquid plasma ."
 	icon = 'icons/obj/food/cannibalism.dmi'
