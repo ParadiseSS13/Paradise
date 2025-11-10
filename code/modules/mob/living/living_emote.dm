@@ -78,13 +78,11 @@
 		/mob/living/brain,
 	)
 
-/datum/emote/living/deathgasp/run_emote(mob/user, emote_arg, type_override, intentional)
-	var/mob/living/living_user = user
-	if(istype(user) && living_user.health > 20)
-		to_chat(user, "<span class='warning'>You're not close enough to death to fake passing on!</span>")
-		return TRUE
-
-	return ..()
+/datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && isliving(user))
+		var/mob/living/L = user
+		L.KnockDown(10 SECONDS)
 
 /datum/emote/living/deathgasp/should_play_sound(mob/user, intentional)
 	. = ..()
