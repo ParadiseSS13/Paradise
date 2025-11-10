@@ -203,7 +203,7 @@
 	that denies use near or on the station, due to its destructive nature."
 
 /obj/item/gun/energy/kinetic_accelerator/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if(is_station_level(src.loc.z))
+	if(is_station_level(loc.z))
 		to_chat(user, "<span class='warning'>[src] clicks. Its internal safety prevents it from firing near the station.</span>")
 		return
 	return ..()
