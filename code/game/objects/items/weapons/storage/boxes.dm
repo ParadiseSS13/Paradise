@@ -118,24 +118,6 @@
 		add_to_colorable_lists("red full", 		COLOR_RED, /obj/item/storage/box/red_full)
 		add_to_colorable_lists("blue trim", 	COLOR_BLUE, /obj/item/storage/box/blue_trim)
 		add_to_colorable_lists("black full", 	COLOR_BLACK, /obj/item/storage/box/black_full)
-	/*
-		colorable_to = list(
-				"red trim" = /obj/item/storage/box/red_trim,
-				"red full" = /obj/item/storage/box/red_full
-		)
-
-		colorable_to_radial = list(
-			COLOR_RED = list(
-				"Red Trim" = image_from_obj(colorable_to["red trim"]),
-				"Red Full" = image_from_obj(colorable_to["red full"])
-				),
-			COLOR_BLUE = list(
-				"blue trim" = image_from_obj(/obj/item/storage/box/blue_trim)
-				),
-			COLOR_BLACK = list(
-				"black full" = image_from_obj(/obj/item/storage/box/black_full),
-			))
-		*/
 
 /obj/item/storage/box/proc/add_to_colorable_lists(name, color, object)
 	if(colorable_to == null)
