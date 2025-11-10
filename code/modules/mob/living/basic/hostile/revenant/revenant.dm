@@ -156,6 +156,11 @@
 	remove_from_all_data_huds()
 	giveSpells()
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_revenant_antagonist))
+	AddComponent(/datum/component/event_tracker, EVENT_REVENTANT)
+
+/mob/living/basic/revenant/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_CHAPLAIN = 1, ASSIGNMENT_CREW = 10, ASSIGNMENT_MEDICAL = 2)
 
 /mob/living/basic/revenant/proc/make_revenant_antagonist(revenant)
 	SIGNAL_HANDLER // COMSIG_BODY_TRANSFER_TO
