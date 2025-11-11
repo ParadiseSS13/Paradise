@@ -2150,7 +2150,7 @@
 			var/datum/job/job = J
 
 			var/difficultyMeter = ""
-			if (job.difficulty)
+			if(job.difficulty)
 				for(var/i in 1 to job.difficulty)
 					difficultyMeter += filledDifficulty
 
