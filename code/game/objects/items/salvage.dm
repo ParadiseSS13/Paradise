@@ -101,3 +101,12 @@
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
+
+/obj/item/salvage/loot/vox
+	name = "biotech fragment"
+	desc = "A fragment of broken vox biotechnology. While no longer functional, the inner workings are sure to be of interest to collectors and scientists."
+	icon_state = "vox_fragment"
+	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
+	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
+	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value

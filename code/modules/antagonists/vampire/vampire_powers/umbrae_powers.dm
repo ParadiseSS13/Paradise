@@ -2,6 +2,7 @@
 	name = "Cloak of Darkness"
 	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
 	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "vampire_cloak"
 	base_cooldown = 2 SECONDS
 
@@ -41,6 +42,7 @@
 	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
 	base_cooldown = 20 SECONDS
 	required_blood = 20
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "shadow_snare"
 
 /datum/spell/vampire/shadow_snare/create_new_targeting()
@@ -120,6 +122,7 @@
 	required_blood = 30
 	centcom_cancast = FALSE
 	base_cooldown = 3 MINUTES
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "shadow_anchor"
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
@@ -219,6 +222,7 @@
 	base_cooldown = 40 SECONDS
 	required_blood = 30
 	centcom_cancast = FALSE
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "dark_passage"
 
 /datum/spell/vampire/dark_passage/create_new_targeting()
@@ -246,6 +250,7 @@
 	desc = "You extinguish any light source in an area around you."
 	gain_desc = "You have gained the ability to extinguish nearby light sources."
 	base_cooldown = 20 SECONDS
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "vampire_extinguish"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
@@ -265,6 +270,7 @@
 	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "shadow_boxing"
 	required_blood = 50
 	var/target_UID
@@ -284,6 +290,7 @@
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness. Only the strongest of lights can pierce your unholy powers."
+	action_background_icon_state = "bg_umbrae"
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -6

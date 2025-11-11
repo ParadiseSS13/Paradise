@@ -195,6 +195,7 @@
 	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
+	var/obj/effect/occupant_overlay = null
 	// 15 minutes-ish safe period before being despawned.
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
@@ -451,6 +452,7 @@
 
 	QDEL_NULL(occupant)
 	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/cryopod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -605,6 +607,7 @@
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
@@ -620,6 +623,37 @@
 	icon_state = base_icon_state
 	name = initial(name)
 	playsound(src, 'sound/machines/podopen.ogg', 5)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/cryopod/update_overlays()
+	. = ..()
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+	if(!occupant)
+		return
+
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.dir = dir
+	occupant_overlay.layer = layer + 0.01
+	var/matrix/MA = matrix(transform)
+	if(dir == 1)
+		MA.TurnTo(0, 180)
+		occupant_overlay.dir = 2 // trust me
+	if(dir == 4)
+		MA.TurnTo(0, 270)
+		occupant_overlay.pixel_y = -8
+	if(dir == 8)
+		MA.TurnTo(0 , 90)
+		occupant_overlay.pixel_y = -8
+	MA.Scale(0.66, 0.66)
+	occupant_overlay.transform = MA
+	var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "bodyscanner_first_overlay", layer = occupant_overlay.layer + 0.01)
+	var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "bodyscanner-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+	. += rim
+	. += lid
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()

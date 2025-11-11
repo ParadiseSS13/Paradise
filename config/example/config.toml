@@ -229,9 +229,9 @@ forward_all_ahelps = true
 # Disable this to disable all random events
 allow_random_events = true
 # Map of lower bounds for event delays. In minutes.
-event_delay_lower_bounds = {mundane = 10, moderate = 30, major = 50}
+event_delay_lower_bounds = {mundane = 5, moderate = 7.5, major = 12, disaster = 9}
 # Map of upper bounds for event delays. In minutes.
-event_delay_upper_bounds = {mundane = 15, moderate = 45, major = 70}
+event_delay_upper_bounds = {mundane = 7.5, moderate = 12, major = 17, disaster = 12}
 # Expected round length in minutes. Changes event weights
 expected_round_length = 120
 # Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
@@ -239,8 +239,9 @@ expected_round_length = 120
 # Values are in minutes
 event_initial_delays = [
   #{severity = "mundane", lower_bound = 10, upper_bound = 15},
-  {severity = "moderate", lower_bound = 25, upper_bound = 40},
-  {severity = "major", lower_bound = 55, upper_bound = 75},
+  {severity = "moderate", lower_bound = 19, upper_bound = 23},
+  {severity = "major", lower_bound = 29, upper_bound = 36},
+  {severity = "disaster", lower_bound = 40, upper_bound = 50},
 ]
 # The population needed to allow blobs to split consciousness
 blob_highpop_trigger = 60
@@ -260,14 +261,14 @@ gamemode_probabilities = [
 	{ gamemode = "extend-a-traitormongous", probability = 0 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
-	{ gamemode = "raginmages", probability = 0 },
+	{ gamemode = "raginmages", probability = 1 },
 	{ gamemode = "revolution", probability = 0 },
 	{ gamemode = "traitor", probability = 0 },
 	{ gamemode = "traitorchan", probability = 0 },
 	{ gamemode = "traitorvamp", probability = 0 },
 	{ gamemode = "vampchan", probability = 0 },
 	{ gamemode = "vampire", probability = 0 },
-	{ gamemode = "wizard", probability = 2 },
+	{ gamemode = "wizard", probability = 1 },
 	{ gamemode = "trifecta", probability = 0 },
 	{ gamemode = "dynamic", probability = 22 },
 ]
@@ -687,6 +688,10 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_pirates.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_drakehounds.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_vox.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_skullakin.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/alien_cache_site.dmm",
 
   ### The following ruins are based from past pre-spawned Zlevel content ###

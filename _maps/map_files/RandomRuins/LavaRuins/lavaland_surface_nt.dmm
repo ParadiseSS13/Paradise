@@ -63,13 +63,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"aB" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/mining)
 "aF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -777,9 +770,6 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ft" = (
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock"
-	},
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -792,7 +782,10 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
 	width = 7
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "fu" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -1348,6 +1341,7 @@
 /area/mine/outpost/hallway/west)
 "io" = (
 /obj/effect/baseturf_helper/lava_land,
+/obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "iq" = (
@@ -5155,15 +5149,6 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "EF" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Shuttle";
-	dir = 5;
-	network = list("Mining Outpost")
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "EG" = (
@@ -6588,7 +6573,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "Mr" = (
@@ -6797,7 +6785,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/directional/south,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	network = list("Mining Outpost");
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "NL" = (
@@ -7795,7 +7787,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "TK" = (
 /obj/machinery/alarm/directional/east,
@@ -8513,9 +8505,6 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/targetable)
 "Yi" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -8817,7 +8806,7 @@
 /area/mine/laborcamp)
 "ZM" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "ZV" = (
 /obj/structure/lattice/catwalk/mining,
@@ -13187,7 +13176,7 @@ TS
 Ou
 yW
 Mr
-yW
+Mr
 Mr
 TJ
 ZM
@@ -13348,7 +13337,7 @@ Qn
 Ic
 yW
 yW
-aB
+EF
 EF
 VK
 NJ

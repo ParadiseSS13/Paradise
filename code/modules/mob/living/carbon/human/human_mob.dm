@@ -1368,6 +1368,7 @@
 		update_mutantrace()
 		regenerate_icons()
 
+	SEND_SIGNAL(src, COMSIG_AFTER_SPECIES_CHANGE)
 	if(dna.species)
 		return TRUE
 	else

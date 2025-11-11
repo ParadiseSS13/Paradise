@@ -41,7 +41,7 @@
 	var/list/entree_options = list(
 		/obj/item/food/sandwich,
 		/obj/item/food/toastedsandwich,
-		/obj/item/food/jellysandwich,
+		/obj/item/food/jellysandwich/cherry,
 		/obj/item/food/grilledcheese,
 		/obj/item/food/burger/cheese,
 		/obj/item/food/blt,
