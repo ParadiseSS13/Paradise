@@ -98,6 +98,7 @@
 			deconstruct()
 		return
 
+	// Required to avoid tool spam from stacking and instantly cutting multiple stages at once.
 	var/current_stage = hole_size
 	if(!I.use_tool(src, user, CUT_TIME * I.toolspeed, volume = I.tool_volume))
 		return
