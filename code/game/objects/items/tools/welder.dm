@@ -187,7 +187,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
+/obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks, spammable)
 	target.add_overlay(GLOB.welding_sparks)
 	var/did_thing = ..()
 	if(did_thing)
