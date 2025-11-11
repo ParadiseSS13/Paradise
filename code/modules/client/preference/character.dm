@@ -2058,7 +2058,7 @@
 	var/filledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
 	var/unfilledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
 	var/all_difficulty
-	for (var/i in 1 to MAX_DIFFICULTY)
+	for(var/i in 1 to MAX_DIFFICULTY)
 		all_difficulty += filledDifficulty
 
 	var/list/html = list()
@@ -2150,10 +2150,10 @@
 			var/datum/job/job = J
 
 			var/difficultyMeter = ""
-			for (var/i in 1 to job.difficulty)
+			for(var/i in 1 to job.difficulty)
 				difficultyMeter += filledDifficulty
 
-			for (var/i in 1 to MAX_DIFFICULTY - job.difficulty)
+			for(var/i in 1 to MAX_DIFFICULTY - job.difficulty)
 				difficultyMeter += unfilledDifficulty
 
 			if(job.admin_only)
