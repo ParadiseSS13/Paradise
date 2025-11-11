@@ -6,7 +6,7 @@
 	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Sleep"
 	agent = "Salmonella"
-	cures = list("chicken_soup")
+	cures = list("chicken_soup", "ginger_ale")
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Nausea, sickness, and vomitting."
