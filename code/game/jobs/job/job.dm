@@ -79,7 +79,7 @@
 	var/description = "Missing description"
 
 	/// How mechanically difficult this job is, shown on the job selection screen
-	var/difficulty = 1
+	var/difficulty
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
