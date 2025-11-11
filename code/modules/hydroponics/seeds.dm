@@ -351,7 +351,7 @@
 		C.value = weed_chance
 
 
-/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE)  // In case seeds have something special to tell to the analyzer
+/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE, high_details_mode = TRUE)  // In case seeds have something special to tell to the analyzer
 	var/list/text = list()
 	if(show_detail)
 		if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
@@ -362,21 +362,22 @@
 			text += "- Plant type: Mushroom. Can grow in dry soil."
 		if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 			text += "- Plant type: <span class='warning'>UNKNOWN</span> "
-	if(potency != -1)
-		text += "- Potency: [potency]"
-	if(yield != -1)
-		var/obj/machinery/hydroponics/tray = loc
-		if(istype(tray) && tray.yield_beamed)
-			text += "- Yield: [yield] (+1-3 from somatoray)"
-		else
-			text += "- Yield: [yield]"
-	text += "- Maturation speed: [maturation]"
-	if(yield != -1)
-		text += "- Production speed: [production]"
-	text += "- Endurance: [endurance]"
-	text += "- Lifespan: [lifespan]"
-	text += "- Weed Growth Rate: [weed_rate]"
-	text += "- Weed Vulnerability: [weed_chance]"
+	if(high_details_mode)
+		if(potency != -1)
+			text += "- Potency: [potency]"
+		if(yield != -1)
+			var/obj/machinery/hydroponics/tray = loc
+			if(istype(tray) && tray.yield_beamed)
+				text += "- Yield: [yield] (+1-3 from somatoray)"
+			else
+				text += "- Yield: [yield]"
+		text += "- Maturation speed: [maturation]"
+		if(yield != -1)
+			text += "- Production speed: [production]"
+		text += "- Endurance: [endurance]"
+		text += "- Lifespan: [lifespan]"
+		text += "- Weed Growth Rate: [weed_rate]"
+		text += "- Weed Vulnerability: [weed_chance]"
 	if(!show_detail)
 		return text.Join("<br>")
 	if(rarity)

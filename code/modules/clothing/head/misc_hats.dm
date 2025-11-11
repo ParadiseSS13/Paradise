@@ -106,25 +106,6 @@
 	icon_state = "greenbandana"
 	flags_inv = 0
 
-/obj/item/clothing/head/justice
-	name = "justice hat"
-	desc = "Fight for what's righteous!"
-	icon_state = "justicered"
-	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-/obj/item/clothing/head/justice/blue
-	icon_state = "justiceblue"
-
-/obj/item/clothing/head/justice/yellow
-	icon_state = "justiceyellow"
-
-/obj/item/clothing/head/justice/green
-	icon_state = "justicegreen"
-
-/obj/item/clothing/head/justice/pink
-	icon_state = "justicepink"
-
 /obj/item/clothing/head/rabbitears
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
@@ -214,6 +195,11 @@
 	name = "security cowboy hat"
 	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
+
+/obj/item/clothing/head/cowboyhat/hydro
+	name = "botany cowboy hat"
+	desc = "For the Farmer in us all."
+	icon_state = "cowboyhat_botany"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
