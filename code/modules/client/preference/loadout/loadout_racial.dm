@@ -49,7 +49,7 @@
 	display_name = "Tajaran Science Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a science HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/sci
-	allowed_roles = list("Scientist", "Research Director", "Bartender", "Chemist")
+	allowed_roles = list("Scientist", "Research Director", "Bartender", "Chemist", "Xenobiologist")
 
 /datum/gear/racial/taj/diagnostics
 	display_name = "Tajaran Diagnostic Veil"
