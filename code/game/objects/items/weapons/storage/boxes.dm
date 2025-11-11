@@ -76,16 +76,7 @@
 
 
 			if (new_box != null)
-				var/static/list/slots = list(
-					"backpack" = ITEM_SLOT_IN_BACKPACK,
-					"left pocket" = ITEM_SLOT_LEFT_POCKET,
-					"right pocket" = ITEM_SLOT_RIGHT_POCKET,
-					"left hand" = ITEM_SLOT_LEFT_HAND,
-					"right hand" = ITEM_SLOT_RIGHT_HAND,
-					)
-
-				var/inactive_hand = user.get_inactive_hand()
-				var/place_in_hand = (inactive_hand == src)
+				var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
 				var/obj/item/backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
 				var/place_in_backpack = (src in backpack.contents)
 
@@ -96,6 +87,8 @@
 						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
 				else if(place_in_backpack) // if box was in inventory, put new one back
 					user.equip_to_slot_if_possible(new_box, ITEM_SLOT_IN_BACKPACK, 0, 1, 1)
+					if(user.s_active)
+						user.s_active.show_to(user)
 				// if not, leave the box on the ground
 				return
 			else
@@ -105,8 +98,6 @@
 		. = ..()
 
 /obj/item/storage/box/proc/make_new_box(type)
-
-//need to check for location if on the same tile
 	var/turf = get_turf(src)
 	var/new_box = new type(turf)
 	return new_box
