@@ -18,6 +18,8 @@
 	outfit = /datum/outfit/job/chaplain
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
+	description = "The Chaplain has the responsibility of providing religious services for the crew.\n\n\
+					Difficulties: Controls, funerals"
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"

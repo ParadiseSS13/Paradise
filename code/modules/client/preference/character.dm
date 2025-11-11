@@ -2130,7 +2130,7 @@
 						<a class='flex-end' href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
 					</div>
 					<div class='info-div left-side'>
-						<p id='tooltip'>Hover over a job to get more information about it, as well as various challenges that comes with it.</p>
+						<p id='tooltip'>Hover over a job to get more information about it.</p>
 					</div>
 				</div>
 				<table width='100%' cellpadding='1' cellspacing='0'>
@@ -2184,7 +2184,8 @@
 			// determines the size of the job name column
 			// !! watch out for the funni open tag here. It needs to be closed later !!
 			// all this should probably be put in a function to make it easier to read and save future headaches
-			html += "<tr onmouseover='document.getElementById(`tooltip`).innerHTML = `[job.title]`' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
+			var/job_description = html_encode(replacetext_char(job.description, "\n", "<br>"))
+			html += "<tr onmouseover='document.getElementById(`tooltip`).innerHTML = `[job_description]`' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
