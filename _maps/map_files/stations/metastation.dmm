@@ -31596,7 +31596,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/xeno,
 /obj/machinery/light{
 	dir = 8
 	},
