@@ -75,7 +75,7 @@
 
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
-	if (user.s_active)
+	if(user.s_active)
 		user.s_active.show_to(user)
 
 /obj/item/photo/examine(mob/user)
