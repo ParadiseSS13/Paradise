@@ -22562,9 +22562,6 @@
 /area/station/hallway/primary/aft/north)
 "crP" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/machinery/camera{
-	c_tag = "Virology Test Subject Chamber"
-	},
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "crQ" = (
@@ -22866,6 +22863,10 @@
 "cte" = (
 /turf/simulated/wall,
 /area/station/maintenance/starboard2)
+"ctg" = (
+/obj/item/food/grown/banana,
+/turf/simulated/floor/grass/no_creep,
+/area/station/medical/virology)
 "ctm" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/alarm/directional/east,
@@ -25245,6 +25246,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Virology Central Hallway";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -31592,6 +31597,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/xeno,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "dMK" = (
@@ -41216,8 +41224,7 @@
 /area/station/engineering/control)
 "hdN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9;
-	level = 2
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -69506,9 +69513,6 @@
 /obj/item/folder/white{
 	pixel_x = 4
 	},
-/obj/item/food/grown/banana{
-	pixel_x = -9
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "rfn" = (
@@ -72054,10 +72058,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/break_room)
 "rYA" = (
-/obj/machinery/camera{
-	c_tag = "Virology Central Hallway";
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -73044,10 +73044,6 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen/red,
-/obj/item/food/grown/banana{
-	pixel_x = 12;
-	pixel_y = 5
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -85026,8 +85022,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9;
-	level = 2
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -89164,8 +89159,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "yib" = (
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/camera{
+	c_tag = "Virology Test Subject Chamber";
+	dir = 9
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
@@ -105161,7 +105157,7 @@ qJl
 tUo
 gJP
 cZw
-ewk
+ctg
 cxz
 ewk
 cNI
@@ -105421,7 +105417,7 @@ xTM
 axH
 col
 cOG
-ewk
+ctg
 dbu
 iPa
 aaa
