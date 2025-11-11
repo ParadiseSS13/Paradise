@@ -793,6 +793,15 @@
 	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
 
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barriers Briefcase"
+	desc = "A briefcase of airtight inflatable barriers."
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
+
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
 	id = "rcd"
