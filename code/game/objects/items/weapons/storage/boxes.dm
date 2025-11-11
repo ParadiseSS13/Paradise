@@ -31,8 +31,8 @@
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 	/// list of what this box can change into when colored
-	var/static/colorable_to
-	var/static/colorable_to_radial
+	var/colorable_to
+	var/colorable_to_radial
 
 /obj/item/storage/box/red_trim
 	icon_state = "sec_box"
@@ -95,8 +95,8 @@
 						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
 
 				// check if the box being deleted is open, if its not update the open inventory (prevents runtime)
-				if(user.s_active != src)
-						user.s_active.show_to(user)
+				if(user.s_active != null && user.s_active != src)
+					user.s_active.show_to(user)
 
 				/*
 				if(place_in_hand) // if the box was in hand, place it back
@@ -123,7 +123,8 @@
 
 /obj/item/storage/box/Initialize()
 	. = ..()
-	if (src.type == /obj/item/storage/box)
+	to_chat(usr, "type: [src.type]")
+	if(src.type == /obj/item/storage/box)
 		add_to_colorable_lists("red trim", 		COLOR_RED, /obj/item/storage/box/red_trim)
 		add_to_colorable_lists("red full", 		COLOR_RED, /obj/item/storage/box/red_full)
 		add_to_colorable_lists("blue trim", 	COLOR_BLUE, /obj/item/storage/box/blue_trim)
