@@ -138,6 +138,7 @@
 	name = "collectable hard hat"
 	desc = "WARNING! Offers no real protection, or luminosity, but it is damn fancy!"
 	icon_state = "hardhat0_yellow"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/collectable/hos
