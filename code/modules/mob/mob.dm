@@ -1642,3 +1642,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		client.mouse_pointer_icon = null
 		return
 	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]
+
+/mob/proc/get_event_capacity()
+	. = 1
+	var/max_symptom_severity = 0
+	for(var/datum/disease/advance/virus in viruses)
+		for(var/datum/symptom/curr_symptom in virus.symptoms)
+			if(curr_symptom.severity > max_symptom_severity)
+				max_symptom_severity = curr_symptom.severity
+	switch(max_symptom_severity)
+		if(4)
+			. *= 0.5
+		if(5 to 6)
+			return 0
+

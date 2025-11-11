@@ -5361,7 +5361,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aTW" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7859,7 +7859,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -9506,7 +9506,7 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Central Asteroid Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -9560,7 +9560,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -10197,7 +10197,7 @@
 	name = "Supermatter Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10214,7 +10214,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -10387,7 +10387,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10,24)
+	req_one_access = list(10)
 	},
 /obj/machinery/computer/sm_monitor,
 /obj/structure/disposalpipe/segment{
@@ -18018,7 +18018,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/poddoor/preopen{
@@ -18611,7 +18611,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "cVd" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
 	heat_proof = 1;
@@ -18628,7 +18628,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
 	heat_proof = 1;
@@ -19827,7 +19827,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_one_access = list(10,24)
+	req_one_access = list(10)
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
@@ -21164,7 +21164,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -24645,7 +24645,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -25296,7 +25296,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10,24)
+	req_one_access = list(10)
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
@@ -28656,7 +28656,7 @@
 	name = "Supermatter Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -37902,7 +37902,7 @@
 	name = "Engineering Delivery Chute"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -51843,7 +51843,7 @@
 /area/station/engineering/controlroom)
 "kdb" = (
 /obj/machinery/door/airlock/engineering/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -56064,7 +56064,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -58090,7 +58090,7 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -60881,7 +60881,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -62767,7 +62767,7 @@
 	},
 /area/station/security/permabrig)
 "mzk" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room/secondary)
 "mzo" = (
@@ -64469,7 +64469,7 @@
 /area/station/command/office/hos)
 "mTf" = (
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "gravity"
@@ -67692,7 +67692,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/engineering,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -69245,7 +69245,7 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -80050,7 +80050,7 @@
 	name = "Supermatter Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -86134,7 +86134,7 @@
 /area/station/security/prison/cell_block/a)
 "rOF" = (
 /obj/machinery/door/airlock/engineering,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -91215,7 +91215,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "sSF" = (
@@ -94615,7 +94615,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/engineering/glass,
 /obj/machinery/door/poddoor/preopen{
@@ -97398,7 +97398,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/machinery/door/window/classic/reversed{
 	name = "Cryo Tank Storage"
 	},

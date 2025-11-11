@@ -92,7 +92,10 @@
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/diagnostic/diag_hud = hud
+		if(!istype(diag_hud))
+			continue
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -463,7 +466,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 
