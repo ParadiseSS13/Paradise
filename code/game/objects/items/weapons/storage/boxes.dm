@@ -77,10 +77,28 @@
 
 			if (new_box != null)
 				var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
-				var/obj/item/backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
-				var/place_in_backpack = (src in backpack.contents)
+				//var/obj/item/backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
+				//if (backpack != null)
+				//	var/place_in_backpack = (src in backpack.contents)
+
+				var/obj/item/storage/loc
+				if (isstorage(src.loc))
+					loc = src.loc
 
 				qdel(src)
+				if (loc != null)
+					if (loc.can_be_inserted(new_box))
+						loc.contents += new_box
+				// try to equip it in this hand first, without the sound playing
+				else if (place_in_hand)
+					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
+						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
+
+				// check if the box being deleted is open, if its not update the open inventory (prevents runtime)
+				if(user.s_active != src)
+						user.s_active.show_to(user)
+
+				/*
 				if(place_in_hand) // if the box was in hand, place it back
 					// try to equip it in this hand first, without the sound playing
 					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
@@ -89,6 +107,7 @@
 					user.equip_to_slot_if_possible(new_box, ITEM_SLOT_IN_BACKPACK, 0, 1, 1)
 					if(user.s_active)
 						user.s_active.show_to(user)
+				*/
 				// if not, leave the box on the ground
 				return
 			else
@@ -104,7 +123,7 @@
 
 /obj/item/storage/box/Initialize()
 	. = ..()
-	if (type == /obj/item/storage/box)
+	if (src.type == /obj/item/storage/box)
 		add_to_colorable_lists("red trim", 		COLOR_RED, /obj/item/storage/box/red_trim)
 		add_to_colorable_lists("red full", 		COLOR_RED, /obj/item/storage/box/red_full)
 		add_to_colorable_lists("blue trim", 	COLOR_BLUE, /obj/item/storage/box/blue_trim)
