@@ -166,7 +166,7 @@
 		)
 
 /obj/item/clothing/head/beret/robowhite
-	name = "robotics beret"
+	name = "bioengineer beret"
 	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticswhite"
 	sprite_sheets = list(
@@ -176,7 +176,7 @@
 		)
 
 /obj/item/clothing/head/beret/roboblack
-	name = "bioengineer beret"
+	name = "robotics beret"
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
 	sprite_sheets = list(

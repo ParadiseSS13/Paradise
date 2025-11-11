@@ -282,17 +282,17 @@
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
 	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/uniform/sci/sci_alt
 	display_name = "Uniform, scientist corporate"
 	path = /obj/item/clothing/under/rank/rnd/scientist/corporate
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/uniform/skirt/job/sci_alt
 	display_name = "Skirt, scientist corporate"
 	path = /obj/item/clothing/under/rank/rnd/scientist/skirt/corporate
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/uniform/skirt/job/roboticist
 	display_name = "Skirt, roboticist"
