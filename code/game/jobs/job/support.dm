@@ -85,7 +85,7 @@
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
 	description = "Cargo Technicians have the responsibility of handling cargo orders and delivering mail.\n\n\
-					Difficulties: Cargo, economy, paperwork, menu navigation"
+					Difficulties: Loading and unloading crates, economy, paperwork, menu navigation"
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
