@@ -33,17 +33,19 @@
 	/// list of what this box can change into when colored, probably don't want to manually edit these
 	var/colorable_to
 	var/colorable_to_radial
+	var/color_state //determines what this can be colored to
 
 /obj/item/storage/box/red_trim
 	icon_state = "sec_box"
+	color_state = "red_trim"
 
 /obj/item/storage/box/red_trim/empty/populate_contents()
 	return
 
 /obj/item/storage/box/red_trim/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/red_trim || src.type == /obj/item/storage/box/red_trim/empty)
-		add_to_colorable_lists("red box", COLOR_RED, /obj/item/storage/box/red_full/empty)
+	if(color_state == "red_trim")
+		add_to_colorable_lists("red box", 				COLOR_RED, /obj/item/storage/box/red_full/empty)
 
 		add_to_colorable_lists("prisoner ID box", 		COLOR_BLACK, /obj/item/storage/box/prisoner/empty)
 		add_to_colorable_lists("evidence bag box",	 	COLOR_BLACK, /obj/item/storage/box/evidence/empty)
@@ -58,13 +60,14 @@
 
 /obj/item/storage/box/red_full
 	icon_state = "red_full"
+	color_state = "red_full"
 
 /obj/item/storage/box/red_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/red_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/red_full || src.type == /obj/item/storage/box/red_full/empty)
+	if(color_state == "red_full")
 		add_to_colorable_lists("N2 box", 				COLOR_RED, /obj/item/storage/box/survival_vox/empty)
 
 		add_to_colorable_lists("monkey cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/empty)
@@ -85,13 +88,14 @@
 
 /obj/item/storage/box/blue_trim
 	icon_state = "med_box"
+	color_state = "blue_trim"
 
 /obj/item/storage/box/blue_trim/empty/populate_contents()
 	return
 
 /obj/item/storage/box/blue_trim/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/blue_trim || src.type == /obj/item/storage/box/blue_trim/empty)
+	if(color_state == "blue_trim")
 		add_to_colorable_lists("syringe box", 			COLOR_BLACK, /obj/item/storage/box/syringes/empty)
 		add_to_colorable_lists("injector box", 			COLOR_BLACK, /obj/item/storage/box/injectors/empty)
 		add_to_colorable_lists("mask box",				COLOR_BLACK, /obj/item/storage/box/masks/empty)
@@ -109,13 +113,14 @@
 
 /obj/item/storage/box/blue_full
 	icon_state = "blue_full"
+	color_state = "blue_full"
 
 /obj/item/storage/box/blue_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/blue_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/blue_full || src.type == /obj/item/storage/box/blue_full/empty)
+	if(color_state == "blue_full")
 		add_to_colorable_lists("blue O2 box", 		COLOR_BLUE, /obj/item/storage/box/survival/empty)
 		add_to_colorable_lists("yellow O2 box", 	COLOR_YELLOW, /obj/item/storage/box/engineer/empty)
 		add_to_colorable_lists("purple O2 box", 	COLOR_PURPLE, /obj/item/storage/box/survival_mining/empty)
@@ -123,48 +128,52 @@
 
 /obj/item/storage/box/yellow_full
 	icon_state = "yellow_full"
+	color_state = "yellow_full"
 
 /obj/item/storage/box/yellow_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/yellow_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/yellow_full || src.type == /obj/item/storage/box/yellow_full/empty)
+	if(color_state == "yellow_full")
 		add_to_colorable_lists("toy box", 	COLOR_BLACK, /obj/item/storage/box/characters/empty)
 
 /obj/item/storage/box/green_full
 	icon_state = "green_full"
+	color_state = "green_full"
 
 /obj/item/storage/box/green_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/green_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/green_full || src.type == /obj/item/storage/box/green_full/empty)
+	if(color_state == "green_full")
 		add_to_colorable_lists("soviet box", 	COLOR_RED, /obj/item/storage/box/soviet/empty)
 
 
 /obj/item/storage/box/orange_full
 	icon_state = "orange_full"
+	color_state = "orange_full"
 
 /obj/item/storage/box/orange_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/orange_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/orange_full || src.type == /obj/item/storage/box/orange_full/empty)
+	if(color_state == "orange_full")
 		add_to_colorable_lists("plasma box", 	COLOR_BLACK, /obj/item/storage/box/survival_plasmaman/empty)
 
 
 /obj/item/storage/box/black_full
 	icon_state = "black_full"
+	color_state = "black_full"
 
 /obj/item/storage/box/black_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/black_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/black_full || src.type == /obj/item/storage/box/black_full/empty)
+	if(color_state == "black_full")
 		add_to_colorable_lists("nanotrasen box", 			COLOR_BLUE, /obj/item/storage/box/responseteam/empty)
 		add_to_colorable_lists("cybernetic Implants box", 	COLOR_BLUE, /obj/item/storage/box/cyber_implants/empty)
 
@@ -173,13 +182,14 @@
 
 /obj/item/storage/box/purple_full
 	icon_state = "purple_full"
+	color_state = "purple_full"
 
 /obj/item/storage/box/purple_full/empty/populate_contents()
 	return
 
 /obj/item/storage/box/purple_full/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/purple_full || src.type == /obj/item/storage/box/purple_full/empty)
+	if(color_state == "purple_full")
 		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
 		add_to_colorable_lists("purple and green box",		COLOR_GREEN, /obj/item/storage/box/alien_box/empty)
 
@@ -189,13 +199,14 @@
 
 /obj/item/storage/box/alien_box
 	icon_state = "alien_box"
+	color_state = "alien_box"
 
 /obj/item/storage/box/alien_box/empty/populate_contents()
 	return
 
 /obj/item/storage/box/alien_box/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box/alien_box || src.type == /obj/item/storage/box/alien_box/empty)
+	if(color_state == "alien_box")
 		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
 
 
@@ -205,7 +216,7 @@
 		..()
 		return
 
-	if(colorable_to == null) //if we're holding a crayon, but no available color exists, also trigger normal behaviour
+	if(colorable_to == null) //if the player is holding a crayon, but no available color exists, also trigger normal behaviour
 		..()
 		return
 
@@ -236,11 +247,15 @@
 	else
 		var/selected_icon = show_radial_menu(usr,usr, color_list)
 
-		// check again in case the player moved after selecting the box
-		if(!in_range(user, src) || user.incapacitated())
+		if(selected_icon == null)
 			return
 
-		if(selected_icon == null)
+		// check again in case the player moved after selecting the box, or put an item back into the box
+		if(!in_range(user, src) || user.incapacitated() || length(contents))
+			return
+
+		// check if the player dropped their crayon, or swapped to a different one
+		if(crayon != user.get_active_hand())
 			return
 
 		//make a new box from the color table with the selected id
@@ -280,7 +295,7 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
-	if(src.type == /obj/item/storage/box)
+	if(icon_state == "box")
 		add_to_colorable_lists("red trimmed box", 	COLOR_RED, /obj/item/storage/box/red_trim/empty)
 		add_to_colorable_lists("mousetrap box", 	COLOR_RED, /obj/item/storage/box/mousetraps/empty)
 		add_to_colorable_lists("red box", 			COLOR_RED, /obj/item/storage/box/red_full/empty)
