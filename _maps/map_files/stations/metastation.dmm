@@ -23182,7 +23182,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/exam_room)
 "cuf" = (
-/obj/machinery/economy/vending/chemdrobe,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -23190,6 +23189,7 @@
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 5
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "cui" = (
@@ -76147,6 +76147,7 @@
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
+/obj/machinery/economy/vending/chemdrobe,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "tHD" = (
@@ -84828,7 +84829,6 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/structure/closet/secure_closet/reagents,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 6
 	},
