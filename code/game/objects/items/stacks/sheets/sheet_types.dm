@@ -668,6 +668,11 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 //////////////////////////////
 // MARK: BONES
 //////////////////////////////
+
+GLOBAL_LIST_INIT(bone_recipes, list (
+	new /datum/stack_recipe("bone rods", /obj/item/stack/bone_rods, 1, time = 2 SECONDS),
+	))
+
 /obj/item/stack/sheet/bone
 	name = "bones"
 	desc = "Someone's been drinking their milk."

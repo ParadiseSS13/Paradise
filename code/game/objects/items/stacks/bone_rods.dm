@@ -9,19 +9,13 @@ GLOBAL_LIST_INIT(bone_rod_recipes, list (
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bone_rods-5"
 	inhand_icon_state = "bone_rods"
-	flags = CONDUCT
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	materials = list(MAT_METAL=1000)
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/bone_rods
-
-/obj/item/stack/rods/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
 
 /obj/item/stack/bone_rods/ten
 	amount = 10
