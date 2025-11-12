@@ -140,6 +140,7 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	hat_color = "pumpkin"
+	icon_monitor = null
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -162,6 +163,7 @@
 	hat_color = "reindeer"
 	armor = null
 	brightness_on = 1 //luminosity when on
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
 /*

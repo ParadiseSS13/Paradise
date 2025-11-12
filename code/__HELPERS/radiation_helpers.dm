@@ -9,7 +9,7 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/obj/item/projectile,
+		/obj/projectile,
 		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location)
@@ -54,7 +54,7 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/obj/item/projectile,
+		/obj/projectile,
 		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location)
@@ -109,7 +109,7 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/obj/item/projectile,
+		/obj/projectile,
 		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location) + location.contents
