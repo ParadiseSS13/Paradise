@@ -201,63 +201,77 @@
 
 /obj/item/storage/box/AltClick(mob/user, modifiers)
 	var/active_hand = user.get_active_hand()
-	if(istype(active_hand, /obj/item/toy/crayon) && colorable_to != null)
-		if(in_range(user, src) && !user.incapacitated())
-			var/obj/item/toy/crayon/crayon = active_hand
-			var/color_list = colorable_to_radial[crayon.crayon_color]
-			var/new_box
+	if(!istype(active_hand, /obj/item/toy/crayon)) //any other item than a crayon will trigger normal behavior
+		..()
+		return
 
-			if(color_list != null)
-				// some inventories might be of different sizes or accept different items,
-				// for consistency, we dissalow painting with items inside
-				if(length(contents))
-					to_chat(usr, "<span class='warning'>The [src] is too unstable to be painted, empty it first.</span>")
-					return
+	if(colorable_to == null) //if we're holding a crayon, but no available color exists, also trigger normal behaviour
+		..()
+		return
 
-				if(crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
-					to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
-					new_box = make_new_box(/obj/item/storage/box)
-				else
-					var/selected_icon = show_radial_menu(usr,usr, color_list)
+	if(!in_range(user, src))
+		return
 
-					// check again in case the player moved after selecting the box
-					if(!in_range(user, src) || user.incapacitated())
-						return
+	if(user.incapacitated())
+		return
 
-					if(selected_icon == null)
-						return
+	var/obj/item/toy/crayon/crayon = active_hand
+	var/color_list = colorable_to_radial[crayon.crayon_color]
+	var/new_box
 
-					//make a new box from the color table with the selected id
-					new_box = make_new_box(colorable_to[crayon.crayon_color][selected_icon])
-
-			if(new_box != null)
-				var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
-
-				var/obj/item/storage/previous_bag
-				if(isstorage(src.loc))
-					previous_bag = src.loc
-
-				qdel(src)
-				// add to a bag if it was in one
-				if(previous_bag != null)
-					if(previous_bag.can_be_inserted(new_box))
-						previous_bag.contents += new_box
-				// try to equip it in this hand first, without the sound playing
-				else if(place_in_hand)
-					if(!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
-						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
-
-				// check if the box being deleted is open, if its not update the open inventory (prevents runtime)
-				if(user.s_active != null && user.s_active != src)
-					user.s_active.show_to(user)
-
-				// if we don't place it in hand or in a bag, leave the box on the ground
-				return
-			else
-				//if we don't have a fitting color for the box, just open it
-				. = ..()
-	else
+	if(color_list == null)
+		//if we don't have a fitting color for the box, just open it
 		. = ..()
+		return
+
+	// some inventories might be of different sizes or accept different items,
+	// for consistency, we dissalow painting with items inside
+	if(length(contents))
+		to_chat(usr, "<span class='warning'>The [src] is too unstable to be painted, empty it first.</span>")
+		return
+
+	if(crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
+		to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
+		new_box = make_new_box(/obj/item/storage/box)
+	else
+		var/selected_icon = show_radial_menu(usr,usr, color_list)
+
+		// check again in case the player moved after selecting the box
+		if(!in_range(user, src) || user.incapacitated())
+			return
+
+		if(selected_icon == null)
+			return
+
+		//make a new box from the color table with the selected id
+		new_box = make_new_box(colorable_to[crayon.crayon_color][selected_icon])
+
+	if(new_box != null)
+		var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
+
+		var/obj/item/storage/previous_bag
+		if(isstorage(src.loc))
+			previous_bag = src.loc
+
+		qdel(src)
+		// add to a bag if it was in one
+		if(previous_bag != null)
+			if(previous_bag.can_be_inserted(new_box))
+				previous_bag.contents += new_box
+		// try to equip it in this hand first, without the sound playing
+		else if(place_in_hand)
+			if(!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
+				user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
+
+		// check if the box being deleted is open, if its not update the open inventory (prevents runtime)
+		if(user.s_active != null && user.s_active != src)
+			user.s_active.show_to(user)
+
+		// if we don't place it in hand or in a bag, leave the box on the ground
+		return
+
+
+
 
 /obj/item/storage/box/proc/make_new_box(type)
 	var/turf = get_turf(src)
