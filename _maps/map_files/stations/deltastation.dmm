@@ -13288,17 +13288,17 @@
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bbv" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "bby" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -44286,19 +44286,22 @@
 /area/station/science/robotics)
 "dsK" = (
 /obj/structure/table/reinforced,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/storage/firstaid/regular/empty,
-/obj/item/storage/firstaid/regular/empty,
 /obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dsL" = (
@@ -50083,14 +50086,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "emC" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "emI" = (
 /obj/machinery/economy/arcade/claw,
@@ -61830,13 +61833,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "jsk" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "jtb" = (
@@ -67097,10 +67100,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"lLU" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/qm)
 "lLV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -143725,7 +143724,7 @@ mKm
 mKm
 aGP
 jsk
-mKm
+ayD
 jsk
 aIk
 mKm
@@ -143997,11 +143996,11 @@ aSb
 aSb
 aSb
 aSb
-lLU
+aSb
 vuu
 tsL
 vuu
-vuu
+bbe
 bbe
 eNt
 eNt
@@ -144239,7 +144238,7 @@ aaa
 mKm
 aGP
 jsk
-mKm
+ayD
 jsk
 aIk
 mKm

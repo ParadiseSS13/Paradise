@@ -242,6 +242,8 @@
 #define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
 #define STATUS_EFFECT_EXIT_CRYOCELL /datum/status_effect/action_status_effect/exit_cryocell
 
+#define STATUS_EFFECT_REVIVE_NOTICE /datum/status_effect/revive_notice_delay
+
 //////////////////////////
 // Mind batter variants //
 //////////////////////////
