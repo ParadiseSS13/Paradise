@@ -15,6 +15,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/on = FALSE
 	var/prob_quality_decrease = 0
 	var/allow_temp_change = TRUE
+	var/allow_toggling = TRUE
 	VAR_PRIVATE/burn_callback
 	VAR_PRIVATE/fire_callback
 	VAR_PRIVATE/alarm_callback
