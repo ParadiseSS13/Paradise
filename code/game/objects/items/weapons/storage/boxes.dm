@@ -40,7 +40,7 @@
 /obj/item/storage/box/red_trim/empty/populate_contents()
 	return
 
-/obj/item/storage/box/red_trim/Initialize()
+/obj/item/storage/box/red_trim/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/red_trim || src.type == /obj/item/storage/box/red_trim/empty)
 		add_to_colorable_lists("red box", COLOR_RED, /obj/item/storage/box/red_full/empty)
@@ -62,7 +62,7 @@
 /obj/item/storage/box/red_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/red_full/Initialize()
+/obj/item/storage/box/red_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/red_full || src.type == /obj/item/storage/box/red_full/empty)
 		add_to_colorable_lists("N2 box", 				COLOR_RED, /obj/item/storage/box/survival_vox/empty)
@@ -89,7 +89,7 @@
 /obj/item/storage/box/blue_trim/empty/populate_contents()
 	return
 
-/obj/item/storage/box/blue_trim/Initialize()
+/obj/item/storage/box/blue_trim/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/blue_trim || src.type == /obj/item/storage/box/blue_trim/empty)
 		add_to_colorable_lists("syringe box", 			COLOR_BLACK, /obj/item/storage/box/syringes/empty)
@@ -113,7 +113,7 @@
 /obj/item/storage/box/blue_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/blue_full/Initialize()
+/obj/item/storage/box/blue_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/blue_full || src.type == /obj/item/storage/box/blue_full/empty)
 		add_to_colorable_lists("blue O2 box", 		COLOR_BLUE, /obj/item/storage/box/survival/empty)
@@ -127,7 +127,7 @@
 /obj/item/storage/box/yellow_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/yellow_full/Initialize()
+/obj/item/storage/box/yellow_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/yellow_full || src.type == /obj/item/storage/box/yellow_full/empty)
 		add_to_colorable_lists("toy box", 	COLOR_BLACK, /obj/item/storage/box/characters/empty)
@@ -138,7 +138,7 @@
 /obj/item/storage/box/green_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/green_full/Initialize()
+/obj/item/storage/box/green_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/green_full || src.type == /obj/item/storage/box/green_full/empty)
 		add_to_colorable_lists("soviet box", 	COLOR_RED, /obj/item/storage/box/soviet/empty)
@@ -150,7 +150,7 @@
 /obj/item/storage/box/orange_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/orange_full/Initialize()
+/obj/item/storage/box/orange_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/orange_full || src.type == /obj/item/storage/box/orange_full/empty)
 		add_to_colorable_lists("plasma box", 	COLOR_BLACK, /obj/item/storage/box/survival_plasmaman/empty)
@@ -162,7 +162,7 @@
 /obj/item/storage/box/black_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/black_full/Initialize()
+/obj/item/storage/box/black_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/black_full || src.type == /obj/item/storage/box/black_full/empty)
 		add_to_colorable_lists("nanotrasen box", 			COLOR_BLUE, /obj/item/storage/box/responseteam/empty)
@@ -177,7 +177,7 @@
 /obj/item/storage/box/purple_full/empty/populate_contents()
 	return
 
-/obj/item/storage/box/purple_full/Initialize()
+/obj/item/storage/box/purple_full/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/purple_full || src.type == /obj/item/storage/box/purple_full/empty)
 		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
@@ -193,7 +193,7 @@
 /obj/item/storage/box/alien_box/empty/populate_contents()
 	return
 
-/obj/item/storage/box/alien_box/Initialize()
+/obj/item/storage/box/alien_box/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box/alien_box || src.type == /obj/item/storage/box/alien_box/empty)
 		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
@@ -264,7 +264,7 @@
 	var/new_box = new type(turf)
 	return new_box
 
-/obj/item/storage/box/Initialize()
+/obj/item/storage/box/Initialize(mapload)
 	. = ..()
 	if(src.type == /obj/item/storage/box)
 		add_to_colorable_lists("red trimmed box", 	COLOR_RED, /obj/item/storage/box/red_trim/empty)

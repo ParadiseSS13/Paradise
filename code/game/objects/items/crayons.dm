@@ -258,7 +258,7 @@
 	dye_color = DYE_MIME
 	uses = 0
 
-/obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
+/obj/item/toy/crayon/mime/update_window(mob/living/user)
 	dat += "<center><span style='border:1px solid #161616; background-color: [crayon_color];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
@@ -281,7 +281,7 @@
 	dye_color = DYE_RAINBOW
 	uses = 0
 
-/obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
+/obj/item/toy/crayon/rainbow/update_window(mob/living/user)
 	dat += "<center><span style='border:1px solid #161616; background-color: [crayon_color];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
