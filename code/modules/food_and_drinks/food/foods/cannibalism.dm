@@ -18,7 +18,7 @@
 	tastes = list("fluff" = 1, "debt" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/fried_nian
+/obj/item/food/fried_nian_bbq
 	name = "Moffolo Wild Wings"
 	desc = "A bucket of Moffolo Wild Wings. The 'B' on the bucket is crossed out in blue pen, and the letter 'M' has been crudely written above."
 	icon = 'icons/obj/food/cannibalism.dmi'
