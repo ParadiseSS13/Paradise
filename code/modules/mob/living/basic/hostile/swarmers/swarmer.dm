@@ -40,7 +40,7 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/beam/disabler
+	projectile_type = /obj/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 	see_in_dark = 6
@@ -323,5 +323,5 @@
 /obj/structure/swarmer/barricade/CanPass(atom/movable/O)
 	if(istype(O, /mob/living/basic/swarmer))
 		return TRUE
-	if(istype(O, /obj/item/projectile/beam/disabler))
+	if(istype(O, /obj/projectile/beam/disabler))
 		return TRUE
