@@ -1,4 +1,4 @@
-/obj/item/projectile/hivebotbullet
+/obj/projectile/hivebotbullet
 
 /mob/living/basic/hivebot
 	name = "Hivebot"
@@ -28,7 +28,7 @@
 	basic_mob_flags = DEL_ON_DEATH
 	step_type = FOOTSTEP_MOB_CLAW
 	ai_controller = /datum/ai_controller/basic_controller/hivebot
-	projectile_type = /obj/item/projectile/hivebotbullet
+	projectile_type = /obj/projectile/hivebotbullet
 	projectile_sound = 'sound/weapons/gunshots/gunshot.ogg'
 
 /mob/living/basic/hivebot/range
