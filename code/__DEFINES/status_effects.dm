@@ -118,6 +118,8 @@
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
+#define STATUS_EFFECT_BLUESPACESLOWDOWN_LONG /datum/status_effect/bluespace_slowdown/long
+
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
@@ -231,11 +233,16 @@
 /// Causes a random safe teleport every 2 seconds for a limited time
 #define STATUS_EFFECT_TELEPORT_ROULETTE /datum/status_effect/teleport_roulette
 
+/// Use by hivelords to determine if they can attack yet.
+#define STATUS_EFFECT_HIVELORD_TRACKING /datum/status_effect/hivelord_tracking
+
 /// Status effects for different actions
 #define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
 #define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle
 #define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
 #define STATUS_EFFECT_EXIT_CRYOCELL /datum/status_effect/action_status_effect/exit_cryocell
+
+#define STATUS_EFFECT_REVIVE_NOTICE /datum/status_effect/revive_notice_delay
 
 //////////////////////////
 // Mind batter variants //

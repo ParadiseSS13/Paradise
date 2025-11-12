@@ -12,7 +12,6 @@
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
-	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	tox_mod = 0
@@ -44,6 +43,8 @@
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
+	meat_type = /obj/item/food/meat/human/robot
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
@@ -79,10 +80,13 @@
 	..()
 	var/datum/action/innate/change_monitor/monitor = new()
 	monitor.Grant(H)
-	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
-		medhud.remove_from_hud(H)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(H)
+	for(var/hud_key, hud in GLOB.huds)
+		if(istype(hud, /datum/atom_hud/data/diagnostic))
+			var/datum/atom_hud/data/diagnostic/diag_hud = hud
+			diag_hud.add_to_hud(H)
+		else if(istype(hud, /datum/atom_hud/data/human/medical))
+			var/datum/atom_hud/data/human/medical/med_hud = hud
+			med_hud.remove_from_hud(H)
 
 	// i love snowflake code
 	var/image/health_bar = H.hud_list[DIAG_HUD]
@@ -97,10 +101,13 @@
 	..()
 	for(var/datum/action/innate/change_monitor/monitor in H.actions)
 		monitor.Remove(H)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_from_hud(H)
-	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
-		medhud.add_to_hud(H)
+	for(var/hud_key, hud in GLOB.huds)
+		if(istype(hud, /datum/atom_hud/data/diagnostic))
+			var/datum/atom_hud/data/diagnostic/diag_hud = hud
+			diag_hud.remove_from_hud(H)
+		else if(istype(hud, /datum/atom_hud/data/human/medical))
+			var/datum/atom_hud/data/human/medical/med_hud = hud
+			med_hud.add_hud_to(H)
 
 	// i love snowflake code
 	var/image/health_bar = H.hud_list[DIAG_HUD]

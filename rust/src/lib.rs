@@ -10,5 +10,6 @@ mod rustlibs_json;
 mod rustlibs_logging;
 mod rustlibs_noisegen;
 mod rustlibs_redispubsub;
+mod rustlibs_sql;
 mod rustlibs_toast;
 mod rustlibs_toml;

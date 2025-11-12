@@ -353,7 +353,9 @@
 
 		organ.damage = desired_data.organs[candidate_for_insertion][1]
 		organ.status = desired_data.organs[candidate_for_insertion][2]
-
+	for(var/datum/quirk/quirk as anything in patient_data.quirks)
+		quirk.apply_quirk_effects(clone)
+		
 	clone.updatehealth("droplimb")
 	clone.regenerate_icons()
 
