@@ -8,10 +8,22 @@
 			if(B)
 				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && ipc_vital_organ_check() && !suiciding)
 					var/mob/dead/observer/ghost = get_ghost()
+					if(!client && !check_ghost_client() && !key)
+						if(!has_status_effect(STATUS_EFFECT_REVIVE_NOTICE))
+							visible_message("<span class='danger'>[src]'[p_s()] posibrain fails its power-on self-test. Any recovery from this state is unlikely.</span>")
+							apply_status_effect(STATUS_EFFECT_REVIVE_NOTICE)
+						return
+
 					if(ghost)
-						to_chat(ghost, "<span class='ghostalert'>Your chassis has been repaired and repowered, re-enter if you want to continue playing!</span> (Verbs -> Ghost -> Re-enter corpse)")
-						SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
+						if(!has_status_effect(STATUS_EFFECT_REVIVE_NOTICE))
+							to_chat(ghost, "<span class='ghostalert'>Your chassis has been repaired and repowered, re-enter if you want to continue playing!</span> (Verbs -> Ghost -> Re-enter corpse)")
+							SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
+							visible_message("<span class='notice'>[src]'[p_s()] posibrain buffers...</span>")
+							apply_status_effect(STATUS_EFFECT_REVIVE_NOTICE)
+						return
+
 					update_revive()
+					emote("me", EMOTE_AUDIBLE, "chimes as [p_they()] reactivate[p_s()]!")
 					create_debug_log("revived from healing, trigger reason: [reason]")
 
 /mob/living/carbon/human/update_nearsighted_effects()
