@@ -27,7 +27,7 @@
 	/// Message to output if throwing damage is absorbed
 	var/throw_blocked_message = "bounces off"
 
-/mob/living/basic/mining/bullet_act(obj/item/projectile/P) // Reduces damage from most projectiles to curb off-screen kills
+/mob/living/basic/mining/bullet_act(obj/projectile/P) // Reduces damage from most projectiles to curb off-screen kills
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
 		visible_message("<span class='danger'>[P] has a reduced effect on [src]!</span>")

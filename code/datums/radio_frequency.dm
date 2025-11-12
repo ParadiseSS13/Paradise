@@ -33,7 +33,7 @@
 			if(start_point.z!=end_point.z || get_dist(start_point, end_point) > range)
 				continue
 
-		device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
+		device.receive_signal(signal, frequency)
 
 /datum/radio_frequency/proc/add_listener(obj/device as obj, filter as text|null)
 	if(!filter)
@@ -64,11 +64,6 @@
 /datum/signal
 	var/obj/source
 
-	var/transmission_method = 0 //unused at the moment
-	//0 = wire
-	//1 = radio transmission
-	//2 = subspace transmission
-
 	var/list/data = list()
 	var/encryption
 
@@ -76,7 +71,6 @@
 
 /datum/signal/proc/copy_from(datum/signal/model)
 	source = model.source
-	transmission_method = model.transmission_method
 	data = model.data
 	encryption = model.encryption
 	frequency = model.frequency
@@ -112,5 +106,5 @@
 		. = "Unidentifiable"
 
 //callback used by objects to react to incoming radio signals
-/obj/proc/receive_signal(datum/signal/signal, receive_method, receive_param)
+/obj/proc/receive_signal(datum/signal/signal, receive_param)
 	return null

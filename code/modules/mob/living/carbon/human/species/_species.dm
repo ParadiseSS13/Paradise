@@ -89,7 +89,10 @@
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
 	var/own_species_blood = FALSE // Can it only use blood from it's species?
+	/// Type of skin produced when butchered.
 	var/skinned_type
+	/// Type of meat produced in the gibber/meating. Distinct from `butcher_results`.
+	var/meat_type = /obj/item/food/meat
 	var/no_equip	// bitflags of slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/can_craft = TRUE // Can this mob using crafting or not?
@@ -255,7 +258,6 @@
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
-
 	for(var/limb_name in has_limbs)
 		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
 			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
@@ -381,7 +383,7 @@
 	var/hungry = (500 - H.nutrition) / 5 // So overeat would be 100 and default level would be 80
 	if((hungry >= 70) && !flight)
 		. += hungry/50
-	if(HAS_TRAIT(H, TRAIT_FAT))
+	if(HAS_TRAIT(H, TRAIT_FAT) && !HAS_TRAIT(H, TRAIT_GLUTTON))
 		. += (1.5 - flight)
 
 	if(H.bodytemperature < H.dna.species.cold_level_1 && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
@@ -1069,7 +1071,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	M.adjust_bodytemperature(clamp((temperature + M.bodytemperature) * 0.5 - M.bodytemperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) // Approximation for gradual heating or cooling.
 
-/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+/datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
