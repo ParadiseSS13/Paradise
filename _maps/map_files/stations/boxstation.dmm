@@ -26065,7 +26065,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bTq" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -32620,12 +32620,12 @@
 /area/station/medical/patients_rooms_secondary)
 "cuD" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "cuE" = (
@@ -45276,6 +45276,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"dGp" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "dGO" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -57180,12 +57184,12 @@
 /area/station/command/bridge)
 "jvE" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/machinery/door/airlock/external/glass{
 	id_tag = "mining_home";
-	locked = 1;
 	name = "Mining Dock Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "jvM" = (
@@ -63688,12 +63692,12 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "mDy" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "mDF" = (
@@ -65946,6 +65950,10 @@
 "nOo" = (
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"nOv" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "nOx" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
@@ -86482,7 +86490,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "xSH" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "xSM" = (
@@ -105078,7 +105086,7 @@ aaa
 wNM
 bRI
 mDy
-wNM
+nOv
 mDy
 bUg
 wNM
@@ -105335,7 +105343,7 @@ aaa
 hMm
 bRK
 xSH
-bxb
+dGp
 bTq
 bYw
 hMm
@@ -105592,7 +105600,7 @@ hMm
 hMm
 bRI
 cuD
-hMm
+bxb
 cuD
 bUg
 hMm
@@ -108429,11 +108437,11 @@ fPF
 yfi
 aaa
 aaa
-wPp
+cam
 wPp
 jvE
 wPp
-wPp
+cam
 aaa
 aab
 gzN
