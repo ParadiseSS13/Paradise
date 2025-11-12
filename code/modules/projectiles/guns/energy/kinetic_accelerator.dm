@@ -270,20 +270,20 @@
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/railgun
-	projectile_type = /obj/item/projectile/kinetic/railgun
+	projectile_type = /obj/projectile/kinetic/railgun
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/repeater
-	projectile_type = /obj/item/projectile/kinetic/repeater
+	projectile_type = /obj/projectile/kinetic/repeater
 	e_cost = 150 // Three shots
 
 /obj/item/ammo_casing/energy/kinetic/shotgun
-	projectile_type = /obj/item/projectile/kinetic/shotgun
+	projectile_type = /obj/projectile/kinetic/shotgun
 	pellets = 6
 	variance = 50
 
 /obj/item/ammo_casing/energy/kinetic/shockwave
-	projectile_type = /obj/item/projectile/kinetic/shockwave
+	projectile_type = /obj/projectile/kinetic/shockwave
 	pellets = 8
 	variance = 360
 	fire_sound = 'sound/weapons/cannon.ogg'
