@@ -102,3 +102,6 @@
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)
+
+/obj/item/storage/box/grenades/empty/populate_contents()
+	return

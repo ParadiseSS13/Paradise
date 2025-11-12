@@ -30,141 +30,173 @@
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
-	/// list of what this box can change into when colored
+	/// list of what this box can change into when colored, probably don't want to manually edit these
 	var/colorable_to
 	var/colorable_to_radial
 
 /obj/item/storage/box/red_trim
 	icon_state = "sec_box"
 
+/obj/item/storage/box/red_trim/empty/populate_contents()
+	return
+
 /obj/item/storage/box/red_trim/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/red_trim)
-		add_to_colorable_lists("red box", COLOR_RED, /obj/item/storage/box/red_full)
+	if(src.type == /obj/item/storage/box/red_trim || src.type == /obj/item/storage/box/red_trim/empty)
+		add_to_colorable_lists("red box", COLOR_RED, /obj/item/storage/box/red_full/empty)
 
-		add_to_colorable_lists("prisoner ID box", 		COLOR_BLACK, /obj/item/storage/box/prisoner)
-		add_to_colorable_lists("evidence bag box",	 	COLOR_BLACK, /obj/item/storage/box/evidence)
-		add_to_colorable_lists("holobadge box", 		COLOR_BLACK, /obj/item/storage/box/holobadge)
-		add_to_colorable_lists("handcuffs box", 		COLOR_BLACK, /obj/item/storage/box/handcuffs)
-		add_to_colorable_lists("ziptie box", 			COLOR_BLACK, /obj/item/storage/box/zipties)
-		add_to_colorable_lists("grenade box", 			COLOR_BLACK, /obj/item/storage/box/grenades)
-		add_to_colorable_lists("flashbang box", 		COLOR_BLACK, /obj/item/storage/box/flashbangs)
-		add_to_colorable_lists("teargas grenade box", 	COLOR_BLACK, /obj/item/storage/box/teargas)
-		add_to_colorable_lists("emp grenade box", 		COLOR_BLACK, /obj/item/storage/box/emps)
-		add_to_colorable_lists("flashbulb box", 		COLOR_BLACK, /obj/item/storage/box/flashes)
+		add_to_colorable_lists("prisoner ID box", 		COLOR_BLACK, /obj/item/storage/box/prisoner/empty)
+		add_to_colorable_lists("evidence bag box",	 	COLOR_BLACK, /obj/item/storage/box/evidence/empty)
+		add_to_colorable_lists("holobadge box", 		COLOR_BLACK, /obj/item/storage/box/holobadge/empty)
+		add_to_colorable_lists("handcuffs box", 		COLOR_BLACK, /obj/item/storage/box/handcuffs/empty)
+		add_to_colorable_lists("ziptie box", 			COLOR_BLACK, /obj/item/storage/box/zipties/empty)
+		add_to_colorable_lists("grenade box", 			COLOR_BLACK, /obj/item/storage/box/grenades/empty)
+		add_to_colorable_lists("flashbang box", 		COLOR_BLACK, /obj/item/storage/box/flashbangs/empty)
+		add_to_colorable_lists("teargas grenade box", 	COLOR_BLACK, /obj/item/storage/box/teargas/empty)
+		add_to_colorable_lists("emp grenade box", 		COLOR_BLACK, /obj/item/storage/box/emps/empty)
+		add_to_colorable_lists("flashbulb box", 		COLOR_BLACK, /obj/item/storage/box/flashes/empty)
 
 /obj/item/storage/box/red_full
 	icon_state = "red_full"
 
+/obj/item/storage/box/red_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/red_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/red_full)
-		add_to_colorable_lists("N2 box", 				COLOR_RED, /obj/item/storage/box/survival_vox)
+	if(src.type == /obj/item/storage/box/red_full || src.type == /obj/item/storage/box/red_full/empty)
+		add_to_colorable_lists("N2 box", 				COLOR_RED, /obj/item/storage/box/survival_vox/empty)
 
-		add_to_colorable_lists("monkey cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes)
-		add_to_colorable_lists("naera cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/neaeracubes)
-		add_to_colorable_lists("stok cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/stokcubes)
-		add_to_colorable_lists("farwa cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/farwacubes)
-		add_to_colorable_lists("wolpin cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/wolpincubes)
-		add_to_colorable_lists("nian worme cube box", 	COLOR_BLACK, /obj/item/storage/box/monkeycubes/nian_worme_cubes)
-		add_to_colorable_lists("suspicious ID box", 	COLOR_BLACK, /obj/item/storage/box/id_syndie_box)
+		add_to_colorable_lists("monkey cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/empty)
+		add_to_colorable_lists("naera cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/neaeracubes/empty)
+		add_to_colorable_lists("stok cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/stokcubes/empty)
+		add_to_colorable_lists("farwa cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/farwacubes/empty)
+		add_to_colorable_lists("wolpin cube box", 		COLOR_BLACK, /obj/item/storage/box/monkeycubes/wolpincubes/empty)
+		add_to_colorable_lists("nian worme cube box", 	COLOR_BLACK, /obj/item/storage/box/monkeycubes/nian_worme_cubes/empty)
+		add_to_colorable_lists("suspicious ID box", 	COLOR_BLACK, /obj/item/storage/box/id_syndie_box/empty)
 
 /obj/item/storage/box/id_syndie_box
 	name = "Suspicious ID box"
 	desc = "A dusty box meant for IDs."
 	icon_state = "id_syndie_box"
 
+/obj/item/storage/box/id_syndie_box/empty/populate_contents()
+	return
 
 /obj/item/storage/box/blue_trim
 	icon_state = "med_box"
 
+/obj/item/storage/box/blue_trim/empty/populate_contents()
+	return
+
 /obj/item/storage/box/blue_trim/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/blue_trim)
-		add_to_colorable_lists("syringe box", 			COLOR_BLACK, /obj/item/storage/box/syringes)
-		add_to_colorable_lists("injector box", 			COLOR_BLACK, /obj/item/storage/box/injectors)
-		add_to_colorable_lists("mask box",				COLOR_BLACK, /obj/item/storage/box/masks)
-		add_to_colorable_lists("pill bottle box", 		COLOR_BLACK, /obj/item/storage/box/pillbottles)
-		add_to_colorable_lists("patch pack box", 		COLOR_BLACK, /obj/item/storage/box/patch_packs)
-		add_to_colorable_lists("bodybag box", 			COLOR_BLACK, /obj/item/storage/box/bodybags)
-		add_to_colorable_lists("glasses box", 			COLOR_BLACK, /obj/item/storage/box/rxglasses)
-		add_to_colorable_lists("latex gloves box", 		COLOR_BLACK, /obj/item/storage/box/gloves)
-		add_to_colorable_lists("iv bag box", 			COLOR_BLACK, /obj/item/storage/box/iv_bags)
-		add_to_colorable_lists("beaker box", 			COLOR_BLACK, /obj/item/storage/box/beakers)
-		add_to_colorable_lists("bluespace beaker box", 	COLOR_BLACK, /obj/item/storage/box/beakers/bluespace)
+	if(src.type == /obj/item/storage/box/blue_trim || src.type == /obj/item/storage/box/blue_trim/empty)
+		add_to_colorable_lists("syringe box", 			COLOR_BLACK, /obj/item/storage/box/syringes/empty)
+		add_to_colorable_lists("injector box", 			COLOR_BLACK, /obj/item/storage/box/injectors/empty)
+		add_to_colorable_lists("mask box",				COLOR_BLACK, /obj/item/storage/box/masks/empty)
+		add_to_colorable_lists("pill bottle box", 		COLOR_BLACK, /obj/item/storage/box/pillbottles/empty)
+		add_to_colorable_lists("patch pack box", 		COLOR_BLACK, /obj/item/storage/box/patch_packs/empty)
+		add_to_colorable_lists("bodybag box", 			COLOR_BLACK, /obj/item/storage/box/bodybags/empty)
+		add_to_colorable_lists("glasses box", 			COLOR_BLACK, /obj/item/storage/box/rxglasses/empty)
+		add_to_colorable_lists("latex gloves box", 		COLOR_BLACK, /obj/item/storage/box/gloves/empty)
+		add_to_colorable_lists("iv bag box", 			COLOR_BLACK, /obj/item/storage/box/iv_bags/empty)
+		add_to_colorable_lists("beaker box", 			COLOR_BLACK, /obj/item/storage/box/beakers/empty)
+		add_to_colorable_lists("bluespace beaker box", 	COLOR_BLACK, /obj/item/storage/box/beakers/bluespace/empty)
 
-		add_to_colorable_lists("blue box", 				COLOR_BLUE, /obj/item/storage/box/blue_full)
+		add_to_colorable_lists("blue box", 				COLOR_BLUE, /obj/item/storage/box/blue_full/empty)
 
 
 /obj/item/storage/box/blue_full
 	icon_state = "blue_full"
 
+/obj/item/storage/box/blue_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/blue_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/blue_full)
-		add_to_colorable_lists("blue O2 box", 		COLOR_BLUE, /obj/item/storage/box/survival)
-		add_to_colorable_lists("yellow O2 box", 	COLOR_YELLOW, /obj/item/storage/box/engineer)
-		add_to_colorable_lists("purple O2 box", 	COLOR_PURPLE, /obj/item/storage/box/survival_mining)
+	if(src.type == /obj/item/storage/box/blue_full || src.type == /obj/item/storage/box/blue_full/empty)
+		add_to_colorable_lists("blue O2 box", 		COLOR_BLUE, /obj/item/storage/box/survival/empty)
+		add_to_colorable_lists("yellow O2 box", 	COLOR_YELLOW, /obj/item/storage/box/engineer/empty)
+		add_to_colorable_lists("purple O2 box", 	COLOR_PURPLE, /obj/item/storage/box/survival_mining/empty)
 
 
 /obj/item/storage/box/yellow_full
 	icon_state = "yellow_full"
 
+/obj/item/storage/box/yellow_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/yellow_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/yellow_full)
-		add_to_colorable_lists("toy box", 	COLOR_BLACK, /obj/item/storage/box/characters)
+	if(src.type == /obj/item/storage/box/yellow_full || src.type == /obj/item/storage/box/yellow_full/empty)
+		add_to_colorable_lists("toy box", 	COLOR_BLACK, /obj/item/storage/box/characters/empty)
 
 /obj/item/storage/box/green_full
 	icon_state = "green_full"
 
+/obj/item/storage/box/green_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/green_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/green_full)
-		add_to_colorable_lists("soviet box", 	COLOR_RED, /obj/item/storage/box/soviet)
+	if(src.type == /obj/item/storage/box/green_full || src.type == /obj/item/storage/box/green_full/empty)
+		add_to_colorable_lists("soviet box", 	COLOR_RED, /obj/item/storage/box/soviet/empty)
 
 
 /obj/item/storage/box/orange_full
 	icon_state = "orange_full"
 
+/obj/item/storage/box/orange_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/orange_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/orange_full)
-		add_to_colorable_lists("plasma box", 	COLOR_BLACK, /obj/item/storage/box/survival_plasmaman)
+	if(src.type == /obj/item/storage/box/orange_full || src.type == /obj/item/storage/box/orange_full/empty)
+		add_to_colorable_lists("plasma box", 	COLOR_BLACK, /obj/item/storage/box/survival_plasmaman/empty)
 
 
 /obj/item/storage/box/black_full
 	icon_state = "black_full"
 
+/obj/item/storage/box/black_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/black_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/black_full)
-		add_to_colorable_lists("nanotrasen box", 			COLOR_BLUE, /obj/item/storage/box/responseteam)
-		add_to_colorable_lists("cybernetic Implants box", 	COLOR_BLUE, /obj/item/storage/box/cyber_implants)
+	if(src.type == /obj/item/storage/box/black_full || src.type == /obj/item/storage/box/black_full/empty)
+		add_to_colorable_lists("nanotrasen box", 			COLOR_BLUE, /obj/item/storage/box/responseteam/empty)
+		add_to_colorable_lists("cybernetic Implants box", 	COLOR_BLUE, /obj/item/storage/box/cyber_implants/empty)
 
-		add_to_colorable_lists("suspicious box", 			COLOR_RED, /obj/item/storage/box/fakesyndiesuit)
-		add_to_colorable_lists("black O2 box", 				COLOR_RED, /obj/item/storage/box/survival_syndie)
+		add_to_colorable_lists("suspicious box", 			COLOR_RED, /obj/item/storage/box/fakesyndiesuit/empty)
+		add_to_colorable_lists("black O2 box", 				COLOR_RED, /obj/item/storage/box/survival_syndie/empty)
 
 /obj/item/storage/box/purple_full
 	icon_state = "purple_full"
 
+/obj/item/storage/box/purple_full/empty/populate_contents()
+	return
+
 /obj/item/storage/box/purple_full/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/purple_full)
-		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs)
-		add_to_colorable_lists("purple and green box",		COLOR_GREEN, /obj/item/storage/box/alien_box)
+	if(src.type == /obj/item/storage/box/purple_full || src.type == /obj/item/storage/box/purple_full/empty)
+		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
+		add_to_colorable_lists("purple and green box",		COLOR_GREEN, /obj/item/storage/box/alien_box/empty)
 
-		add_to_colorable_lists("wizard box", 				COLOR_YELLOW, /obj/item/storage/box/wizard)
+		add_to_colorable_lists("wizard box", 				COLOR_YELLOW, /obj/item/storage/box/wizard/empty)
 
-		add_to_colorable_lists("hug box", 					COLOR_RED, /obj/item/storage/box/hug)
+		add_to_colorable_lists("hug box", 					COLOR_RED, /obj/item/storage/box/hug/empty)
 
 /obj/item/storage/box/alien_box
 	icon_state = "alien_box"
 
+/obj/item/storage/box/alien_box/empty/populate_contents()
+	return
+
 /obj/item/storage/box/alien_box/Initialize()
 	. = ..()
-	if(src.type == /obj/item/storage/box/alien_box)
-		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs)
+	if(src.type == /obj/item/storage/box/alien_box || src.type == /obj/item/storage/box/alien_box/empty)
+		add_to_colorable_lists("purple handcuffs box", 		COLOR_GREEN, /obj/item/storage/box/alienhandcuffs/empty)
 
 
 /obj/item/storage/box/AltClick(mob/user, modifiers)
@@ -187,26 +219,29 @@
 					new_box = make_new_box(/obj/item/storage/box)
 				else
 					var/selected_icon = show_radial_menu(usr,usr, color_list)
+
+					// check again in case the player moved after selecting the box
+					if(!in_range(user, src) || user.incapacitated())
+						return
+
 					if (selected_icon == null)
 						return
 
+					//make a new box from the color table with the selected id
 					new_box = make_new_box(colorable_to[crayon.crayon_color][selected_icon])
-
 
 			if (new_box != null)
 				var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
-				//var/obj/item/backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
-				//if (backpack != null)
-				//	var/place_in_backpack = (src in backpack.contents)
 
-				var/obj/item/storage/loc
+				var/obj/item/storage/previous_bag
 				if (isstorage(src.loc))
-					loc = src.loc
+					previous_bag = src.loc
 
 				qdel(src)
-				if (loc != null)
-					if (loc.can_be_inserted(new_box))
-						loc.contents += new_box
+				// add to a bag if it was in one
+				if (previous_bag != null)
+					if (previous_bag.can_be_inserted(new_box))
+						previous_bag.contents += new_box
 				// try to equip it in this hand first, without the sound playing
 				else if (place_in_hand)
 					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
@@ -216,17 +251,7 @@
 				if(user.s_active != null && user.s_active != src)
 					user.s_active.show_to(user)
 
-				/*
-				if(place_in_hand) // if the box was in hand, place it back
-					// try to equip it in this hand first, without the sound playing
-					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
-						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
-				else if(place_in_backpack) // if box was in inventory, put new one back
-					user.equip_to_slot_if_possible(new_box, ITEM_SLOT_IN_BACKPACK, 0, 1, 1)
-					if(user.s_active)
-						user.s_active.show_to(user)
-				*/
-				// if not, leave the box on the ground
+				// if we don't place it in hand or in a bag, leave the box on the ground
 				return
 			else
 				//if we don't have a fitting color for the box, just open it
@@ -242,29 +267,29 @@
 /obj/item/storage/box/Initialize()
 	. = ..()
 	if(src.type == /obj/item/storage/box)
-		add_to_colorable_lists("red trimmed box", 	COLOR_RED, /obj/item/storage/box/red_trim)
-		add_to_colorable_lists("mousetrap box", 	COLOR_RED, /obj/item/storage/box/mousetraps)
-		add_to_colorable_lists("red box", 			COLOR_RED, /obj/item/storage/box/red_full)
+		add_to_colorable_lists("red trimmed box", 	COLOR_RED, /obj/item/storage/box/red_trim/empty)
+		add_to_colorable_lists("mousetrap box", 	COLOR_RED, /obj/item/storage/box/mousetraps/empty)
+		add_to_colorable_lists("red box", 			COLOR_RED, /obj/item/storage/box/red_full/empty)
 
-		add_to_colorable_lists("blue trimmed box", 	COLOR_BLUE, /obj/item/storage/box/blue_trim)
-		add_to_colorable_lists("blue box", 			COLOR_BLUE, /obj/item/storage/box/blue_full)
+		add_to_colorable_lists("blue trimmed box", 	COLOR_BLUE, /obj/item/storage/box/blue_trim/empty)
+		add_to_colorable_lists("blue box", 			COLOR_BLUE, /obj/item/storage/box/blue_full/empty)
 
-		add_to_colorable_lists("purple box", 		COLOR_PURPLE, /obj/item/storage/box/purple_full)
+		add_to_colorable_lists("purple box", 		COLOR_PURPLE, /obj/item/storage/box/purple_full/empty)
 
-		add_to_colorable_lists("yellow box", 		COLOR_YELLOW, /obj/item/storage/box/yellow_full)
+		add_to_colorable_lists("yellow box", 		COLOR_YELLOW, /obj/item/storage/box/yellow_full/empty)
 
-		add_to_colorable_lists("green box", 		COLOR_GREEN, /obj/item/storage/box/green_full)
+		add_to_colorable_lists("green box", 		COLOR_GREEN, /obj/item/storage/box/green_full/empty)
 
-		add_to_colorable_lists("orange box", 		COLOR_ORANGE, /obj/item/storage/box/orange_full)
+		add_to_colorable_lists("orange box", 		COLOR_ORANGE, /obj/item/storage/box/orange_full/empty)
 
-		add_to_colorable_lists("cup box", 			COLOR_BLACK, /obj/item/storage/box/cups)
-		add_to_colorable_lists("tape box", 			COLOR_BLACK, /obj/item/storage/box/tapes)
-		add_to_colorable_lists("ID box", 			COLOR_BLACK, /obj/item/storage/box/ids)
-		add_to_colorable_lists("pda box", 			COLOR_BLACK, /obj/item/storage/box/pdas)
-		add_to_colorable_lists("disk box", 			COLOR_BLACK, /obj/item/storage/box/disks)
-		add_to_colorable_lists("circuit box", 		COLOR_BLACK, /obj/item/storage/box/rndboards)
-		add_to_colorable_lists("implants box", 		COLOR_BLACK, /obj/item/storage/box/trackimp)
-		add_to_colorable_lists("black box", 		COLOR_BLACK, /obj/item/storage/box/black_full)
+		add_to_colorable_lists("cup box", 			COLOR_BLACK, /obj/item/storage/box/cups/empty)
+		add_to_colorable_lists("tape box", 			COLOR_BLACK, /obj/item/storage/box/tapes/empty)
+		add_to_colorable_lists("ID box", 			COLOR_BLACK, /obj/item/storage/box/ids/empty)
+		add_to_colorable_lists("pda box", 			COLOR_BLACK, /obj/item/storage/box/pdas/empty)
+		add_to_colorable_lists("disk box", 			COLOR_BLACK, /obj/item/storage/box/disks/empty)
+		add_to_colorable_lists("circuit box", 		COLOR_BLACK, /obj/item/storage/box/rndboards/empty)
+		add_to_colorable_lists("implants box", 		COLOR_BLACK, /obj/item/storage/box/trackimp/empty)
+		add_to_colorable_lists("black box", 		COLOR_BLACK, /obj/item/storage/box/black_full/empty)
 
 /obj/item/storage/box/proc/add_to_colorable_lists(name, color, object)
 	if(colorable_to == null)
@@ -313,6 +338,8 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
+/obj/item/storage/box/survival/empty/populate_contents()
+	return
 
 /obj/item/storage/box/survival_vox
 	icon_state = "vox_box"
@@ -327,6 +354,9 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
+/obj/item/storage/box/survival_vox/empty/populate_contents()
+	return
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "plasma_box"
 
@@ -339,6 +369,9 @@
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/survival_plasmaman/empty/populate_contents()
+	return
 
 /obj/item/storage/box/engineer
 	icon_state = "eng_box"
@@ -354,6 +387,9 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
+/obj/item/storage/box/engineer/empty/populate_contents()
+	return
+
 /obj/item/storage/box/survival_mining
 	icon_state = "min_box"
 
@@ -368,6 +404,9 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
+/obj/item/storage/box/survival_mining/empty/populate_contents()
+	return
+
 /obj/item/storage/box/survival_syndie
 	icon_state = "syndie_box"
 	desc = "A sleek, sturdy box."
@@ -379,6 +418,9 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/empty/populate_contents()
+	return
 
 /obj/item/storage/box/survival_syndie/traitor/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
@@ -411,6 +453,9 @@
 	for(var/I in 1 to 6)
 		new /obj/item/tape/random(src)
 
+/obj/item/storage/box/tapes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
@@ -420,6 +465,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/drinks/sillycup(src)
 
+/obj/item/storage/box/cups/empty/populate_contents()
+	return
+
 /obj/item/storage/box/drinkingglasses
 	name = "box of drinking glasses"
 	desc = "It has a picture of drinking glasses on it."
@@ -427,6 +475,9 @@
 /obj/item/storage/box/drinkingglasses/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/drinks/drinkingglass(src)
+
+/obj/item/storage/box/drinkingglasses/empty/populate_contents()
+	return
 
 /obj/item/storage/box/condimentbottles
 	name = "box of condiment bottles"
@@ -445,6 +496,9 @@
 	for(var/I in 1 to 6)
 		new /obj/item/assembly/mousetrap(src)
 
+/obj/item/storage/box/mousetraps/empty/populate_contents()
+	return
+
 /obj/item/storage/box/ids
 	name = "spare IDs"
 	desc = "Has so many empty IDs."
@@ -453,6 +507,9 @@
 /obj/item/storage/box/ids/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/card/id(src)
+
+/obj/item/storage/box/ids/empty/populate_contents()
+	return
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
@@ -512,6 +569,9 @@
 	new /obj/item/pda(src)
 	new /obj/item/cartridge/head(src)
 	new newcart(src)
+
+/obj/item/storage/box/pdas/empty/populate_contents()
+	return
 
 ///////////////////
 /* Special Boxes */
@@ -590,6 +650,9 @@
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
 
+/obj/item/storage/box/characters/empty/populate_contents()
+	return
+
 /obj/item/storage/box/large/rnd_parts
 	name = "\improper R&D components box"
 	desc = "A full set of labelled components for assembling an R&D setup with. There are wordless picrographs of how to assemble everything on the back."
@@ -659,6 +722,9 @@
 	for(var/I in 1 to 5)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/monkeycubes/obj_destruction(damage_flag)
 	if(damage_flag == ACID || damage_flag == FIRE)
 		for(var/obj/item/food/monkeycube/mkc in contents)
@@ -675,11 +741,17 @@
 	icon_state = "farwa_box"
 	monkey_cube_type = /obj/item/food/monkeycube/farwacube
 
+/obj/item/storage/box/monkeycubes/farwacubes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
 	icon_state = "stok_box"
 	monkey_cube_type = /obj/item/food/monkeycube/stokcube
+
+/obj/item/storage/box/monkeycubes/stokcubes/empty/populate_contents()
+	return
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
@@ -687,17 +759,26 @@
 	icon_state = "neaera_box"
 	monkey_cube_type = /obj/item/food/monkeycube/neaeracube
 
+/obj/item/storage/box/monkeycubes/neaeracubes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/wolpincubes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/monkeycubes/nian_worme_cubes
 	name = "nian worme cube box"
 	desc = "Nian Trade Guild brand worme cubes. Just add water!"
 	icon_state = "nian_worme_box"
 	monkey_cube_type = /obj/item/food/monkeycube/nian_wormecube
+
+/obj/item/storage/box/monkeycubes/nian_worme_cubes/empty/populate_contents()
+	return
 
 ///////////////////
 /* Medical Boxes */
@@ -711,6 +792,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/clothing/gloves/color/latex(src)
 
+/obj/item/storage/box/gloves/empty/populate_contents()
+	return
+
 /obj/item/storage/box/masks
 	name = "sterile masks"
 	desc = "This box contains masks of sterility."
@@ -719,6 +803,9 @@
 /obj/item/storage/box/masks/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/clothing/mask/surgical(src)
+
+/obj/item/storage/box/masks/empty/populate_contents()
+	return
 
 /obj/item/storage/box/syringes
 	name = "syringes"
@@ -729,6 +816,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/syringe(src)
 
+/obj/item/storage/box/syringes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/beakers
 	name = "beaker box"
 	icon_state = "beaker_box"
@@ -737,6 +827,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/glass/beaker(src)
 
+/obj/item/storage/box/beakers/empty/populate_contents()
+	return
+
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
 	icon_state = "beaker_bs_box"
@@ -744,6 +837,9 @@
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+
+/obj/item/storage/box/beakers/bluespace/empty/populate_contents()
+	return
 
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
@@ -754,6 +850,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/iv_bag(src)
 
+/obj/item/storage/box/iv_bags/empty/populate_contents()
+	return
+
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
 	desc = "Contains autoinjectors."
@@ -762,6 +861,9 @@
 /obj/item/storage/box/autoinjectors/populate_contents()
 	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/box/autoinjectors/empty/populate_contents()
+	return
 
 /obj/item/storage/box/autoinjectors/utility
 	name = "autoinjector kit"
@@ -784,6 +886,9 @@
 		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
 		P.apply_wrapper_color(I)
 
+/obj/item/storage/box/pillbottles/empty/populate_contents()
+	return
+
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
 	desc = "It has pictures of patch packs on its front."
@@ -794,6 +899,9 @@
 		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
 		P.apply_wrapper_color(I)
 
+/obj/item/storage/box/patch_packs/empty/populate_contents()
+	return
+
 /obj/item/storage/box/bodybags
 	name = "body bags"
 	desc = "This box contains body bags."
@@ -803,6 +911,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/bodybag(src)
 
+/obj/item/storage/box/bodybags/empty/populate_contents()
+	return
+
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
 	desc = "This box contains nerd glasses."
@@ -811,6 +922,9 @@
 /obj/item/storage/box/rxglasses/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/clothing/glasses/regular(src)
+
+/obj/item/storage/box/rxglasses/empty/populate_contents()
+	return
 
 ////////////////////
 /* Security Boxes */
@@ -823,6 +937,9 @@
 /obj/item/storage/box/flashbangs/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
+
+/obj/item/storage/box/flashbangs/empty/populate_contents()
+	return
 
 /obj/item/storage/box/stingers
 	name = "box of stinger grenades (WARNING)"
@@ -851,6 +968,9 @@
 	for(var/I in 1 to 6)
 		new /obj/item/flash(src)
 
+/obj/item/storage/box/flashes/empty/populate_contents()
+	return
+
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
@@ -860,6 +980,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/chem_grenade/teargas(src)
 
+/obj/item/storage/box/teargas/empty/populate_contents()
+	return
+
 /obj/item/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
@@ -868,6 +991,9 @@
 /obj/item/storage/box/emps/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/empgrenade(src)
+
+/obj/item/storage/box/emps/empty/populate_contents()
+	return
 
 /obj/item/storage/box/prisoner
 	name = "prisoner IDs"
@@ -882,6 +1008,9 @@
 	new /obj/item/card/id/prisoner/five(src)
 	new /obj/item/card/id/prisoner/six(src)
 	new /obj/item/card/id/prisoner/seven(src)
+
+/obj/item/storage/box/prisoner/empty/populate_contents()
+	return
 
 /obj/item/storage/box/seccarts
 	name = "spare R.O.B.U.S.T. Cartridges"
@@ -905,6 +1034,9 @@
 	new /obj/item/clothing/accessory/holobadge/cord(src)
 	new /obj/item/clothing/accessory/holobadge/cord(src)
 
+/obj/item/storage/box/holobadge/empty/populate_contents()
+	return
+
 /obj/item/storage/box/evidence
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
@@ -913,6 +1045,9 @@
 /obj/item/storage/box/evidence/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/evidencebag(src)
+
+/obj/item/storage/box/evidence/empty/populate_contents()
+	return
 
 /obj/item/storage/box/handcuffs
 	name = "spare handcuffs"
@@ -923,6 +1058,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/restraints/handcuffs(src)
 
+/obj/item/storage/box/handcuffs/empty/populate_contents()
+	return
+
 /obj/item/storage/box/zipties
 	name = "box of spare zipties"
 	desc = "A box full of zipties."
@@ -931,6 +1069,9 @@
 /obj/item/storage/box/zipties/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/restraints/handcuffs/cable/zipties(src)
+
+/obj/item/storage/box/zipties/empty/populate_contents()
+	return
 
 ////////////////////
 /* Implants Boxes */
@@ -948,6 +1089,9 @@
 	new /obj/item/bio_chip_implanter(src)
 	new /obj/item/bio_chip_pad(src)
 	new /obj/item/gps/security(src)
+
+/obj/item/storage/box/trackimp/empty/populate_contents()
+	return
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking bio-chip kit"
@@ -1173,6 +1317,9 @@
 	for(var/I in 1 to 7)
 		new	/obj/item/restraints/handcuffs/alien(src)
 
+/obj/item/storage/box/alienhandcuffs/empty/populate_contents()
+	return
+
 /obj/item/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
@@ -1181,6 +1328,9 @@
 /obj/item/storage/box/fakesyndiesuit/populate_contents()
 	new /obj/item/clothing/head/syndicatefake(src)
 	new /obj/item/clothing/suit/syndicatefake(src)
+
+/obj/item/storage/box/fakesyndiesuit/empty/populate_contents()
+	return
 
 /obj/item/storage/box/enforcer_rubber
 	name = "\improper Enforcer pistol kit (rubber)"
@@ -1311,6 +1461,8 @@
 	for(var/I in 1 to 6)
 		new /obj/item/dnainjector/h2m(src)
 
+/obj/item/storage/box/injectors/empty/populate_contents()
+	return
 
 #define NODESIGN "None"
 #define NANOTRASEN "NanotrasenStandard"
@@ -1429,6 +1581,9 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
+/obj/item/storage/box/responseteam/empty/populate_contents()
+	return
+
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
 	icon_state = "doom_box"
@@ -1457,6 +1612,9 @@
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 
+/obj/item/storage/box/soviet/empty/populate_contents()
+	return
+
 /obj/item/storage/box/clown
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown."
@@ -1481,6 +1639,9 @@
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
+
+/obj/item/storage/box/rndboards/empty/populate_contents()
+	return
 
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
@@ -1541,11 +1702,17 @@
 	playsound(loc, "rustle", 50, TRUE, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
+/obj/item/storage/box/hug/empty/populate_contents()
+	return
+
 /obj/item/storage/box/wizard
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "wizard_box"
 	w_class = WEIGHT_CLASS_GIGANTIC
+
+/obj/item/storage/box/wizard/empty/populate_contents()
+	return
 
 /obj/item/storage/box/wizard/hardsuit
 	name = "battlemage armour bundle"
