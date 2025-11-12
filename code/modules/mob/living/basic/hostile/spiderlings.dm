@@ -22,10 +22,13 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	can_hide = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/spiderling
+	/// How grown up is the spider?
 	var/amount_grown = 0
+	/// The mob the spiderling will grow into. null is giant spiders.
 	var/grow_as = null
-	var/travelling_in_vent = FALSE
+	/// Is the spider supposed to be player controlled?
 	var/player_spiders = FALSE
+	/// Are we selecting a player?
 	var/selecting_player = FALSE
 
 /mob/living/basic/spiderling/Initialize(mapload)
@@ -55,6 +58,7 @@
 		ADD_TRAIT(S, TRAIT_XENOBIO_SPAWNED, "xenobio")
 		SSmobs.xenobiology_mobs++
 	if(!player_spiders)
+		qdel(src)
 		return
 	if(selecting_player)
 		return
