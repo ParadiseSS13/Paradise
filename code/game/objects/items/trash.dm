@@ -81,6 +81,17 @@
 	"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+/obj/item/trash/fried_nian
+	name = "Moffolo Wild Wings"
+	icon_state = "fried_nian_empty"
+	slot_flags = ITEM_SLOT_HEAD
+	dog_fashion = /datum/dog_fashion/head/fried_nian_empty
+	sprite_sheets = list(
+	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+	"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+	)
+
 /obj/item/trash/pistachios
 	name = "Pistachios pack"
 	icon_state = "pistachios_pack"

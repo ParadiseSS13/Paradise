@@ -58,7 +58,7 @@
 
 /obj/item/food/calamari/Initialize(mapload, icon_state, possible_iconstates)
 	. = ..()
-	iconstate = pick(possible_iconstates)
+	icon_state = pick(possible_iconstates)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/food/frankfurrter
@@ -140,7 +140,7 @@
 
 /obj/item/food/pork_rind/Initialize(mapload, icon_state, possible_iconstates)
 	. = ..()
-	iconstate = pick(possible_iconstates)
+	icon_state = pick(possible_iconstates)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/food/tree_salad

@@ -138,10 +138,9 @@
 		M.adjustBrainLoss(1)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/kidneys/datum_kidneys = H.get_int_organ_datum(ORGAN_DATUM_KIDNEYS)
+		var/obj/item/organ/internal/kidneys/our_kidneys = H.internal_organs
 		if(prob(70))
-			if(datum_kidneys)
-				var/obj/item/organ/internal/our_kidneys = datum_kidneys.linked_organ
+			if(our_kidneys)
 				our_kidneys.receive_damage(1, TRUE)
 			else
 				M.adjustToxLoss(1)
