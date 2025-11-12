@@ -10,7 +10,7 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	proj_type = /obj/item/projectile/magic/magic_missile
+	proj_type = /obj/projectile/magic/magic_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 2
@@ -29,7 +29,7 @@
 	T.max_targets = INFINITY
 	return T
 
-/obj/item/projectile/magic/magic_missile
+/obj/projectile/magic/magic_missile
 	name = "Magic Missile"
 	hitsound = 'sound/magic/mm_hit.ogg'
 	weaken = 6 SECONDS
@@ -48,7 +48,7 @@
 	proj_icon_state = "bike_horn"
 	proj_name = "A bike horn"
 	proj_lingering = 1
-	proj_type = /obj/item/projectile/magic/magic_missile/honk_missile
+	proj_type = /obj/projectile/magic/magic_missile/honk_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -68,7 +68,7 @@
 	T.max_targets = INFINITY
 	return T
 
-/obj/item/projectile/magic/magic_missile/honk_missile
+/obj/projectile/magic/magic_missile/honk_missile
 	name = "Funny Missile"
 	hitsound = 'sound/items/bikehorn.ogg'
 
@@ -324,7 +324,7 @@
 	selection_activated_message		= "<span class='notice'>You prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
 
-	var/fireball_type = /obj/item/projectile/magic/fireball
+	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
@@ -350,7 +350,7 @@
 	if(!isturf(U) || !isturf(T))
 		return FALSE
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/projectile/magic/fireball/FB = new fireball_type(user.loc)
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
@@ -364,7 +364,7 @@
 	name = "Homing Toolbox"
 	desc = "This spell summons and throws a magical homing toolbox at your opponent."
 	sound = 'sound/weapons/smash.ogg'
-	fireball_type = /obj/item/projectile/homing/magic/toolbox
+	fireball_type = /obj/projectile/homing/magic/toolbox
 	invocation = "ROBUSTIO!"
 
 	selection_activated_message		= "<span class='notice'>You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
@@ -374,7 +374,7 @@
 	name = "Greater Homing Fireball"
 	desc = "This spell fires a strong homing fireball at a target."
 	invocation = "ZI-ONI SOMA"
-	fireball_type = /obj/item/projectile/homing/magic/homing_fireball
+	fireball_type = /obj/projectile/homing/magic/homing_fireball
 
 	selection_activated_message = "<span class='notice'>You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
 
