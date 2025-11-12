@@ -157,6 +157,8 @@
 	giveSpells()
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_revenant_antagonist))
 	AddComponent(/datum/component/event_tracker, EVENT_REVENTANT)
+	add_language("Galactic Common")
+	set_default_language(GLOB.all_languages["Galactic Common"])
 
 /mob/living/basic/revenant/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
