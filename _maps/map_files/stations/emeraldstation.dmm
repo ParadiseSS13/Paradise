@@ -5311,7 +5311,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "bff" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -28017,12 +28017,12 @@
 /area/station/security/prison/cell_block)
 "fFb" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "fFi" = (
@@ -39522,11 +39522,6 @@
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
 "hXK" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -39536,7 +39531,12 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "hXO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40739,13 +40739,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "ijM" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock Airlock"
-	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "mining_home";
+	name = "Mining Dock Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "ijS" = (
@@ -62579,12 +62579,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
 "mLi" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "mLj" = (
@@ -68804,6 +68804,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/primary/central/west)
+"nUk" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
+/area/station/supply/storage)
 "nUr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/tiles/department/virology,
@@ -76592,18 +76596,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "pud" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "puf" = (
 /obj/machinery/status_display,
@@ -90270,9 +90274,7 @@
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "sgs" = (
 /obj/structure/sign/vacuum/external,
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/random/blood/maybe,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/station/supply/storage)
 "sgG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -117931,7 +117933,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/security/fore)
 "xLI" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "xLK" = (
@@ -136465,7 +136467,7 @@ jnP
 lQZ
 her
 xLI
-mQe
+nUk
 bff
 fQE
 lQZ
@@ -136722,7 +136724,7 @@ lQZ
 lQZ
 afC
 fFb
-lQZ
+mQe
 fFb
 wom
 lQZ

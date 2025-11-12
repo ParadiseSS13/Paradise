@@ -65,7 +65,7 @@
 	else if(isprojectile(mover))
 		if(!anchored)
 			return TRUE
-		var/obj/item/projectile/proj = mover
+		var/obj/projectile/proj = mover
 		if(directional_blockage)
 			if(one_eighty_check(mover))
 				return FALSE
@@ -275,7 +275,7 @@
 	..()
 	take_damage(40 / severity, BRUTE) //chances are the EMP will also hit the generator, we don't want it to double up too heavily
 
-/obj/structure/barricade/dropwall/bullet_act(obj/item/projectile/P)
+/obj/structure/barricade/dropwall/bullet_act(obj/projectile/P)
 	if(P.shield_buster)
 		qdel(src)
 	else
@@ -381,7 +381,7 @@
 	else
 		return ..()
 
-/obj/structure/dropwall_generator/bullet_act(obj/item/projectile/P)
+/obj/structure/dropwall_generator/bullet_act(obj/projectile/P)
 	if(!protected)
 		return ..()
 	else
@@ -455,7 +455,7 @@
 /obj/structure/barricade/dropwall/firewall/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!isprojectile(entered))
 		return
-	var/obj/item/projectile/P = entered
+	var/obj/projectile/P = entered
 	P.immolate ++
 
 /obj/item/grenade/turret
@@ -497,7 +497,7 @@
 	. += "It would need [(5 - foam_level)] more blobs of foam to fully block the airlock."
 
 /obj/structure/barricade/foam/CanPass(atom/movable/mover, border_dir)
-	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
+	return istype(mover, /obj/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
 
 /obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)
 	return FALSE
