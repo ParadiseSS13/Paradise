@@ -560,7 +560,7 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
 	ailock = 1;
 	check_borgs = 1
 	},

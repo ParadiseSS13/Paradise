@@ -14,6 +14,7 @@
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	new_attack_chain = TRUE
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
@@ -128,7 +129,10 @@
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/crowbar/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/crowbar/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
