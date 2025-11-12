@@ -60,7 +60,7 @@
 	icon_state = "piratespaceranged"
 	icon_living = "piratespaceranged"
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/beam
+	projectile_type = /obj/projectile/beam
 	projectile_sound = 'sound/weapons/laser.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS // Same fire rate as people!

@@ -892,8 +892,8 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+		var/obj/projectile/P = hitby
+		if(P.shield_buster || istype(P, /obj/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")

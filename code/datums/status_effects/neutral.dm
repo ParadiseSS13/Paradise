@@ -412,3 +412,8 @@
 
 /datum/status_effect/action_status_effect/exit_cryocell
 	id = "exit_cryocell"
+
+/datum/status_effect/revive_notice_delay
+	id = "revive_notice_delay"
+	alert_type = null
+	duration = 15 SECONDS
