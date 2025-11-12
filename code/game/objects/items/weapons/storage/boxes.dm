@@ -214,7 +214,7 @@
 					to_chat(usr, "<span class='warning'>The [src] is too unstable to be painted, empty it first.</span>")
 					return
 
-				if (crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
+				if(crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
 					to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
 					new_box = make_new_box(/obj/item/storage/box)
 				else
@@ -224,27 +224,27 @@
 					if(!in_range(user, src) || user.incapacitated())
 						return
 
-					if (selected_icon == null)
+					if(selected_icon == null)
 						return
 
 					//make a new box from the color table with the selected id
 					new_box = make_new_box(colorable_to[crayon.crayon_color][selected_icon])
 
-			if (new_box != null)
+			if(new_box != null)
 				var/place_in_hand = (user.get_inactive_hand() == src) //the active hand should have a crayon
 
 				var/obj/item/storage/previous_bag
-				if (isstorage(src.loc))
+				if(isstorage(src.loc))
 					previous_bag = src.loc
 
 				qdel(src)
 				// add to a bag if it was in one
-				if (previous_bag != null)
-					if (previous_bag.can_be_inserted(new_box))
+				if(previous_bag != null)
+					if(previous_bag.can_be_inserted(new_box))
 						previous_bag.contents += new_box
 				// try to equip it in this hand first, without the sound playing
-				else if (place_in_hand)
-					if (!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
+				else if(place_in_hand)
+					if(!user.equip_to_slot_if_possible(new_box, ITEM_SLOT_RIGHT_HAND, 0, 1, 1))
 						user.equip_to_slot_if_possible(new_box, ITEM_SLOT_LEFT_HAND, 0, 1, 1)
 
 				// check if the box being deleted is open, if its not update the open inventory (prevents runtime)
@@ -295,13 +295,13 @@
 	if(colorable_to == null)
 		colorable_to = list()
 
-	if (colorable_to[color] == null)
+	if(colorable_to[color] == null)
 		colorable_to[color] = list()
 
-	if (colorable_to_radial == null)
+	if(colorable_to_radial == null)
 		colorable_to_radial = list()
 
-	if (colorable_to_radial[color] == null)
+	if(colorable_to_radial[color] == null)
 		colorable_to_radial[color] = list()
 
 	colorable_to[color][name] = object
