@@ -77659,11 +77659,14 @@
 "pSz" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Labor Camp Airlock";
-	id_tag = "laborcamp_home";
-	locked = 1
+	id_tag = "laborcamp_home"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "pSC" = (
@@ -102516,6 +102519,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"vrm" = (
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "vrp" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating{
@@ -130570,7 +130583,7 @@ rNK
 rNK
 rNK
 rNK
-pSz
+vrm
 mFT
 apb
 mFT

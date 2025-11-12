@@ -40631,11 +40631,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "gSd" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Perma Gate";
@@ -40645,7 +40640,12 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "gSe" = (
 /obj/effect/turf_decal/stripes/line{
@@ -72156,7 +72156,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "sgZ" = (
 /obj/effect/turf_decal/tiles/white/corner{
@@ -73793,7 +73793,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "sPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78788,17 +78788,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "uJy" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/external/glass{
+	name = "Labor Camp Airlock";
+	id_tag = "laborcamp_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "uJF" = (
 /obj/effect/decal/station_sign{
