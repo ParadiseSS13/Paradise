@@ -237,13 +237,13 @@
 	var/special_type = pick("grappler", "enflamed", "hastened", "electrified", "juggernaut")
 	switch(special_type)
 		if("grappler")
-			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, burst_shots = 1, projectile_sound = 'sound/weapons/wave.ogg')
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_grappler, burst_shots = 1, projectile_sound = 'sound/weapons/wave.ogg')
 			new_mob.name = "grappling " + new_mob.name
 			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
 			new_mob.update_appearance(UPDATE_NAME)
 			new_mob.color = "#5494DA"
 		if("enflamed")
-			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/magic/fireball/small, burst_shots = 1, projectile_sound = 'sound/magic/fireball.ogg')
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/magic/fireball/small, burst_shots = 1, projectile_sound = 'sound/magic/fireball.ogg')
 			new_mob.name = "enflamed " + new_mob.name
 			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
 			new_mob.update_appearance(UPDATE_NAME)
@@ -254,7 +254,7 @@
 			new_mob.color = "#1fd437"
 			new_mob.speed = -1
 		if("electrified")
-			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
 			new_mob.name = "electrified " + new_mob.name
 			ADD_TRAIT(new_mob, TRAIT_SHOCKIMMUNE, "electrified")
 			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)

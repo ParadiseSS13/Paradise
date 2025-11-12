@@ -114,7 +114,7 @@
 	health = 90
 	maxHealth = 90
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/laser
 	projectile_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	ranged_cooldown = 2.5 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/incursion/ranged_distance
@@ -149,10 +149,10 @@
 		loot += pick(/obj/item/clothing/head/fedora, /obj/item/clothing/under/suit/mafia)
 
 /obj/item/ammo_casing/skeleton_smg
-	projectile_type = /obj/item/projectile/bullet/skeleton_smg
+	projectile_type = /obj/projectile/bullet/skeleton_smg
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/projectile/bullet/skeleton_smg
+/obj/projectile/bullet/skeleton_smg
 	damage = 5
 
 /mob/living/basic/skeleton/reanimator
@@ -161,7 +161,7 @@
 	icon_state = "skeleton_reanimator"
 	icon_living = "skeleton_reanimator"
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/magic/necrotic_bolt
+	projectile_type = /obj/projectile/magic/necrotic_bolt
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.35 SECONDS
 	projectile_sound = 'sound/magic/magic_missile.ogg'
@@ -204,7 +204,7 @@
 		dust_if_respawnable(chosen_ghost)
 		to_chat(blank, "<span class='userdanger'>You have been raised by the dead to serve as a footsoldier in the incursion. Strike down your foes!</span>")
 
-/obj/item/projectile/magic/necrotic_bolt
+/obj/projectile/magic/necrotic_bolt
 	name = "necrotic bolt"
 	damage = 10
 	damage_type = BURN
