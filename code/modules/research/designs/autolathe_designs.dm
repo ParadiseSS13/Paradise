@@ -795,7 +795,6 @@
 
 /datum/design/inflatable_briefcase
 	name = "Inflatable Barrier Box"
-	desc = "A briefcase of airtight inflatable barriers."
 	id = "inflatable_briefcase"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
