@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/objective_holder/holder
 
 	/// What is the text we show when our objective is delayed?
-	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	var/delayed_objective_text = "Someone forgot to set a delayed objective text! Report it on the github and ask an admin what type of objective this is!"
 	/// If the objective needs another person with a paired objective
 	var/needs_pair = FALSE
 
