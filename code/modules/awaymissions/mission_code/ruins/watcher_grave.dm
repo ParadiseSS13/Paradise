@@ -150,7 +150,7 @@
 	/// Datum which keeps us hanging out with our parent
 	var/datum/movement_detector/tracker
 	/// Type of projectile we fire
-	var/projectile_type = /obj/item/projectile/baby_watcher_blast
+	var/projectile_type = /obj/projectile/baby_watcher_blast
 	/// Sound to make when we shoot
 	var/projectile_sound = 'sound/weapons/pierce.ogg'
 	/// Time between taking potshots at goliaths
@@ -193,7 +193,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/O = new projectile_type(T)
+	var/obj/projectile/O = new projectile_type(T)
 	playsound(get_turf(src), projectile_sound, 75, TRUE)
 	O.firer = parent // no hitting owner.
 	O.current = T
@@ -253,6 +253,6 @@
 
 
 /// Beam fired by a baby watcher, doesn't actually do less damage than its parent
-/obj/item/projectile/baby_watcher_blast
+/obj/projectile/baby_watcher_blast
 	name = "hatchling beam"
 	icon_state = "ice_2"

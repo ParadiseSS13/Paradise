@@ -32,7 +32,7 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	speak_emote = list("roars")
 	speed = 3
-	projectiletype = /obj/item/projectile/kinetic/miner
+	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
@@ -120,13 +120,13 @@ Difficulty: Medium
 	..()
 	target.remove_stun_absorption("miner")
 
-/obj/item/projectile/kinetic/miner
+/obj/projectile/kinetic/miner
 	damage = 20
 	speed = 0.9
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/obj/item/projectile/kinetic/miner/enraged
+/obj/projectile/kinetic/miner/enraged
 	damage = 35
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE)
@@ -201,7 +201,7 @@ Difficulty: Medium
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
-	projectiletype = /obj/item/projectile/kinetic/miner/enraged
+	projectiletype = /obj/projectile/kinetic/miner/enraged
 	maxHealth = 1800
 	health = 1800 //Bit more of a challenge.
 

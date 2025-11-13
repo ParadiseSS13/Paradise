@@ -15,7 +15,7 @@
 	is_ranged = TRUE
 	ranged_burst_count = 3
 	ranged_burst_interval = 0.4
-	projectile_type = /obj/item/projectile/beam/immolator/weak/hitscan
+	projectile_type = /obj/projectile/beam/immolator/weak/hitscan
 	projectile_sound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
@@ -34,6 +34,7 @@
 	set_default_language(GLOB.all_languages["Galactic Common"])
 	AddElement(/datum/element/ai_retaliate)
 	update_icons()
+	AddComponent(/datum/component/event_tracker, EVENT_DRONE)
 
 /mob/living/basic/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	var/turf/T = get_turf(oldloc)
@@ -87,7 +88,7 @@
 		update_icons()
 
 /// We overide the basic effect, as malfunctioning drones are in space, and use jets to dodge. Also lets us do cool effects.
-/mob/living/basic/malf_drone/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+/mob/living/basic/malf_drone/advanced_bullet_dodge(mob/living/source, obj/projectile/hitting_projectile)
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return NONE
 	if(source.stat != CONSCIOUS)
