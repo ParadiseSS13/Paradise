@@ -100,7 +100,9 @@
 	if(!ishuman(target))
 		new currently_dispensing(T)
 		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
-	else if(do_after(user, 1 SECONDS, target = target))
+		return ITEM_INTERACT_COMPLETE
+
+	if(do_after_once(user, 1 SECONDS, target = target))
 		var/mob/living/carbon/human/esteemed_individual = target
 		var/dispensed_item = new currently_dispensing(T)
 		if(esteemed_individual.put_in_hands(dispensed_item))
@@ -108,7 +110,12 @@
 				"<span class='notice'>[user] hands [target] \a [dispensed_item].</span>",
 				"<span class='notice'>[user] hands you \a [dispensed_item].</span>"
 			)
-			playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+		else
+			target.visible_message(
+				"<span class='warning'>[user] tries to hand [target] \a [dispensed_item], but it tumbles down onto the floor!</span>",
+				"<span class='warning'>[user] tries to hand you \a [dispensed_item], but it tumbles down onto the floor!</span>"
+			)
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rsf/proc/get_radial_contents()
