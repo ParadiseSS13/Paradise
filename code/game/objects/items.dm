@@ -217,6 +217,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		new path(src)
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
@@ -1043,7 +1045,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
   * * direct_attackby_item - Used if the cigarette item is clicked on directly with a lighter instead of a mob wearing a cigarette.
   */
 /obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	if(!user || !target)
+	if(!user || !istype(target))
 		return null
 
 	var/obj/item/clothing/mask/cigarette/cig = direct_attackby_item ? direct_attackby_item : target.wear_mask

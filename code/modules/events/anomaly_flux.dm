@@ -1,4 +1,4 @@
 /datum/event/anomaly/anomaly_flux
-	name = "Anomaly event"
+	name = "Flux Anomaly"
 	startWhen = 10
 	announceWhen = 3

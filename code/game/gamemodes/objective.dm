@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/objective_holder/holder
 
 	/// What is the text we show when our objective is delayed?
-	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	var/delayed_objective_text = "Someone forgot to set a delayed objective text! Report it on the github and ask an admin what type of objective this is!"
 	/// If the objective needs another person with a paired objective
 	var/needs_pair = FALSE
 
@@ -531,6 +531,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(get_area(player) == A)
 					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/mineral/plastitanium/red/brig))
 						return TRUE
+	return FALSE
+
+/datum/objective/nuke
+	name = "Detonate the Station"
+	explanation_text = "Detonate the station's nuclear device. You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \
+	The Nuclear Authentication Disk can be found in the Captain's Office, or carried by the Captain."
+	martyr_compatible = TRUE
+	needs_target = FALSE
+
+/datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+			code = bombue.r_code
+			break
+	if(code)
+		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+
+/datum/objective/nuke/check_completion()
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
+
+/datum/objective/nuke/is_valid_exfiltration()
 	return FALSE
 
 /datum/objective/block
