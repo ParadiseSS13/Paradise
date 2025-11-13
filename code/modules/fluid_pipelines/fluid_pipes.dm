@@ -230,9 +230,17 @@
 
 
 	if(href_list[VV_HK_DELFLUID])
+		if(!check_rights(R_DEBUG|R_SERVER))
+			return
+
+		var/alist/fluids_to_pick_from = alist()
+		for(var/datum/fluid/liquid as anything in fluid_datum.fluids)
+			fluids_to_pick_from[GLOB.fluid_id_to_path[liquid.id]] = liquid
+		var/fluid_type = tgui_alert(usr, "What fluid do you want to remove?")
 		to_chat(usr, "No shot, unimplemented")
 
 // DGTODO remove this
+// Almost ready to remove yeah, just some rpd kinks left in the cable
 /obj/item/pipe_creator
 	name = "pipe creator"
 	desc = "Makes pipes. Debug item."

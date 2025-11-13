@@ -1,6 +1,6 @@
 /datum/fluid_pipe
 	/// The fluid container datum reference
-	var/datum/fluid_container/fluid_container
+//	var/datum/fluid_container/fluid_container DGTODO remove this
 	/// All the connected pipes in this pipeline
 	var/list/connected_pipes = list()
 	/// All connected machinery in this pipeline
