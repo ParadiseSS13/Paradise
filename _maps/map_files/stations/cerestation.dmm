@@ -26122,8 +26122,8 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
-/obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/tiles/department/science,
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "ewC" = (
@@ -53342,6 +53342,7 @@
 "kvs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tiles/department/science/corner,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "kvu" = (
@@ -79536,6 +79537,7 @@
 	network = list("SS13","RD")
 	},
 /obj/effect/turf_decal/tiles/department/science,
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "qqb" = (
