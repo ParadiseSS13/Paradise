@@ -45,6 +45,10 @@
 		CRASH("Brainmob without container.")
 	forceMove(container)
 
+/mob/living/brain/rejuvenate()
+	. = ..()
+	emp_damage = 0
+
 /*
 This will return true if the brain has a container that leaves it less helpless than a naked brain
 
