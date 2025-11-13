@@ -65,7 +65,7 @@
 			return
 
 /// Even if another component blocked this hit, someone still shot at us
-/datum/element/relay_attackers/proc/on_bullet_act(atom/target, obj/item/projectile/hit_projectile)
+/datum/element/relay_attackers/proc/on_bullet_act(atom/target, obj/projectile/hit_projectile)
 	SIGNAL_HANDLER // COMSIG_ATOM_BULLET_ACT
 	if(!hit_projectile.is_hostile_projectile())
 		return
