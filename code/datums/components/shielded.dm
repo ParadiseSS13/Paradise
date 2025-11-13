@@ -154,7 +154,7 @@
 	var/charge_loss = 1 // how many charges do we lose
 
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.shield_buster)
 			charge_loss = 3
 			if(lose_multiple_charges)
