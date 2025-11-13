@@ -23,7 +23,9 @@
 	imprinted_master = null
 	return ..()
 
-/obj/item/mmi/robotic_brain/attack_self__legacy__attackchain(mob/user)
+/obj/item/mmi/robotic_brain/activate_self(mob/user)
+	if(..())
+		return
 	if(isgolem(user))
 		to_chat(user, "<span class='warning'>Your golem fingers are too large to press the switch on [src].</span>")
 		return
@@ -152,7 +154,7 @@
 			if(UNCONSCIOUS)
 				msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
 			if(DEAD)
-				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+				msg += "<span class='deadsay'>It appears to be completely broken.</span>\n"
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	msg += "</span>"
