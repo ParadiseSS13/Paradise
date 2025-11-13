@@ -794,7 +794,7 @@
 	category = list("initial", "Tools")
 
 /datum/design/inflatable_briefcase
-	name = "Inflatable Barriers Briefcase"
+	name = "Inflatable Barrier Box"
 	desc = "A briefcase of airtight inflatable barriers."
 	id = "inflatable_briefcase"
 	build_type = AUTOLATHE
