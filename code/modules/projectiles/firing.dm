@@ -94,7 +94,7 @@
  * - deviation: (Optional) How the trajectory should deviate from the target in degrees.
  *   - //Spread is FORCED!
  */
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, atom/source, list/modifiers = null, deviation = 0)
+/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, list/modifiers = null, deviation = 0)
 	if(!(isnull(modifiers) || islist(modifiers)))
 		stack_trace("WARNING: Projectile [type] fired with non-list modifiers, likely was passed click params.")
 		modifiers = null

@@ -33,7 +33,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
-	projectiletype = /obj/item/projectile/terrorqueenspit
+	projectiletype = /obj/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
 	loudspeaker = TRUE
 	spider_opens_doors = 2
@@ -352,7 +352,7 @@
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 30, ASSIGNMENT_MEDICAL = 2)
 
-/obj/item/projectile/terrorqueenspit
+/obj/projectile/terrorqueenspit
 	name = "acid spit"
 	damage = 40
 	icon_state = "toxin"
