@@ -501,7 +501,7 @@
 
 /obj/effect/hallucination/sniper/proc/fire_bullet(turf/shot_loc, mob/living/carbon/target)
 	// Fire the bullet
-	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
+	var/obj/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
 	bullet.hallucinator = target
 	bullet.def_zone = BODY_ZONE_HEAD
 	bullet.suppressed = TRUE
@@ -537,7 +537,7 @@
 	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination
+/obj/projectile/bullet/sniper/penetrator/hallucination
 	nodamage = TRUE
 	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
 	/// The hallucinator
@@ -545,7 +545,7 @@
 	/// Handles only the victim seeing it
 	var/image/bullet_image = null
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
 	if(!isliving(target))
 		return
 	if(target != hallucinator)
@@ -560,7 +560,7 @@
 	new /obj/effect/hallucination/sniper_bloodsplatter(get_turf(src), hit_target)
 	to_chat(hit_target, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
+/obj/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
 	if(!yes) // prevents double bumps.
 		return
 	var/turf/target_turf = get_turf(A)

@@ -1040,3 +1040,13 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	return ..()
+
+/datum/reagent/consumable/drink/gingerale
+	name = "Ginger Ale"
+	description = "Spicy and fizzy soda."
+	id = "ginger_ale"
+	color = "#996B2B"
+	drink_icon = "ginger_ale_glass"
+	drink_name = "Glass of Ginger Ale"
+	drink_desc = "Spicy and fizzy soda."
+	taste_description = "sweet, carbonated ginger"

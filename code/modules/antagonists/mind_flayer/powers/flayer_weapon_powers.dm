@@ -133,7 +133,7 @@
 /obj/item/ammo_casing/magic/grapple_ammo
 	name = "grapple"
 	desc = "a hand"
-	projectile_type = /obj/item/projectile/tether/flayer
+	projectile_type = /obj/projectile/tether/flayer
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	caliber = "grapple"
@@ -149,7 +149,7 @@
 	. = ..()
 	grapple = null
 
-/obj/item/projectile/tether/flayer
+/obj/projectile/tether/flayer
 	name = "Grapple Arm"
 	range = 10
 	damage = 15
@@ -160,20 +160,20 @@
 	/// The ammo this came from
 	var/obj/item/ammo_casing/magic/grapple_ammo/ammo
 
-/obj/item/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
+/obj/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
 	. = ..()
 	ammo = grapple_casing
 
-/obj/item/projectile/tether/flayer/fire(setAngle)
+/obj/projectile/tether/flayer/fire(setAngle)
 	. = ..()
 	make_chain()
 	SEND_SIGNAL(firer, COMSIG_FLAYER_RETRACT_IMPLANTS)
 
-/obj/item/projectile/tether/flayer/Destroy()
+/obj/projectile/tether/flayer/Destroy()
 	. = ..()
 	ammo = null
 
-/obj/item/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
+/obj/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	playsound(target, 'sound/items/zip.ogg', 75, TRUE)
 	if(isliving(target) && blocked < 100)

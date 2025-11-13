@@ -78,11 +78,11 @@
 #define DECALTYPE_SCORCH 1
 #define DECALTYPE_BULLET 2
 
-/obj/item/target/bullet_act(obj/item/projectile/P)
+/obj/item/target/bullet_act(obj/projectile/P)
 	var/p_x = P.p_x + pick(0,0,0,0,0,-1,1) // really ugly way of coding "sometimes offset P.p_x!"
 	var/p_y = P.p_y + pick(0,0,0,0,0,-1,1)
 	var/decaltype = DECALTYPE_SCORCH
-	if(istype(P, /obj/item/projectile/bullet))
+	if(istype(P, /obj/projectile/bullet))
 		decaltype = DECALTYPE_BULLET
 
 	var/icon/C = icon(icon, icon_state)
@@ -96,7 +96,7 @@
 		bullet_hole.pixel_x = p_x - 1 //offset correction
 		bullet_hole.pixel_y = p_y - 1
 		if(decaltype == DECALTYPE_SCORCH)
-			if(P.damage >= 20 || istype(P, /obj/item/projectile/beam/practice))
+			if(P.damage >= 20 || istype(P, /obj/projectile/beam/practice))
 				bullet_hole.dir = pick(NORTH,SOUTH,EAST,WEST) // random scorch design. light_scorch does not have different directions
 			else
 				bullet_hole.icon_state = "light_scorch"
