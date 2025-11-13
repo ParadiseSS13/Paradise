@@ -1069,3 +1069,118 @@
 	required_reagents = list("watermelonjuice" = 2, "lemonade" = 2, "ice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/royrogers
+	name = "Roy Rogers"
+	id = "royrogers"
+	result = "royrogers"
+	required_reagents = list("berryjuice" = 1, "cola" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/shirleytemple
+	name = "Shirley Temple"
+	id = "shirleytemple"
+	result = "shirleytemple"
+	required_reagents = list("berryjuice" = 1, "space_up" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/partypunch
+	name = "Party Punch"
+	id = "partypunch"
+	result = "partypunch"
+	required_reagents = list("sodawater" = 2, "banana" = 1, "berryjuice" = 1, "triple_citrus" = 1, "pineapplejuice" = 1, "watermelonjuice" = 1, "grapejuice" = 1)
+	result_amount = 8
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/eggcoffee
+	name = "Egg Coffee"
+	id = "eggcoffee"
+	result = "eggcoffee"
+	required_reagents = list("eggcream" = 2, "coffee" = 3)
+	result_amount = 5
+	mix_message = "The egg cream forms a rich foam atop the coffee."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/eggcream
+	name = "Whipped Egg Cream"
+	id = "eggcream"
+	result = "eggcream"
+	required_reagents = list("egg" = 5, "milk" = 5, "sugar" = 10)
+	max_temp = 290
+	min_temp = 275
+	result_amount = 20
+	mix_message = "The egg and milk whip nicely together."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/horchata
+	name = "Horchata"
+	id = "horchata"
+	result = "horchata"
+	required_reagents = list("rice" = 2, "water" = 4, "sugar" = 1, "vanilla" = 1)
+	result_amount = 8
+	mix_message = "Blending rice with water forms a milky beverage."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/monstermix
+	name = "Monster Mix"
+	id = "monstermix"
+	result = "monstermix"
+	required_reagents = list("sodawater" = 1, "dr_gibb" = 1, "spacemountainwind" = 1, "space_up" = 1, "cola" = 1, "ice" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/tomato_spaceup
+	name = "Spessamato Smash"
+	id = "tomato_spaceup"
+	result = "tomato_spaceup"
+	required_reagents = list("tomatojuice" = 1, "space_up" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/beetshrub
+	name = "Beet Shrub"
+	id = "beetshrub"
+	result = "beetshrub"
+	required_reagents = list("beetjuice" = 2, "vinegar" = 1, "corn_syrup" = 1)
+	min_temp = 373
+	max_temp = 390
+	result_amount = 3
+	mix_message = "You get a strong whiff of vinegar as the boiling settles."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/berrybeetrefresher
+	name = "Berry Beet Refresher"
+	id = "berrybeetrefresher"
+	result = "berrybeetrefresher"
+	required_reagents = list("beetshrub" = 1, "sodawater" = 4, "berryjuice" = 1, "limejuice" = 1, "ice" = 3)
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/smoothie/pbnbanana
+	name = "Peanut Butter Banana Smoothie"
+	id = "smoothie_pbnbanana"
+	result = "smoothie_pbnbanana"
+	required_reagents = list("soymilk" = 1, "banana" = 1, "peanutbutter" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "The peanut butter streaks inside the glass as it mixes."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/smoothie/veryberry
+	name = "Very Berry Smoothie"
+	id = "smoothie_veryberry"
+	result = "smoothie_veryberry"
+	required_reagents = list("cream" = 1, "berryjuice" = 1, "plumjuice" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "The ice and cream thicken to create a fluffy texture."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vegetablemix
+	name = "Vegetable Juice Mix"
+	id = "vegjuice"
+	result = "vegjuice"
+	required_reagents = list("tomatojuice" = 1, "carrotjuice" = 1, "beetjuice" = 1, "lettucejuice" = 1)
+	result_amount = 4
+	mix_message = "The blended vegetables form a creamy mix."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

@@ -74,7 +74,7 @@
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Research Director", "Geneticist")
+	allowed_roles = list("Scientist", "Research Director", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
@@ -187,7 +187,7 @@
 /datum/gear/suit/bomber/job/science
 	display_name = "Bomber jacket, science"
 	path = /obj/item/clothing/suit/jacket/bomber/sci
-	allowed_roles = list("Research Director", "Scientist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/bomber/job/robotics
 	display_name = "Bomber jacket, robotics"
@@ -366,3 +366,24 @@
 	display_name = "Chaplain, hasidic coat"
 	path = /obj/item/clothing/suit/hasidic_coat
 	allowed_roles = list("Chaplain")
+
+//Chef
+/datum/gear/suit/job/chef
+	main_typepath = /datum/gear/suit/job/chef
+	allowed_roles = list("Chef")
+
+/datum/gear/suit/job/chef/white
+	display_name = "Chef's coat"
+	path = /obj/item/clothing/suit/chef
+
+/datum/gear/suit/job/chef/bw
+	display_name = "Chef's black-piped coat"
+	path = /obj/item/clothing/suit/chef/bw
+
+/datum/gear/suit/job/chef/red
+	display_name = "Chef's red-piped coat"
+	path = /obj/item/clothing/suit/chef/red
+
+/datum/gear/suit/job/chef/darkgreen
+	display_name = "Chef's dark coat"
+	path = /obj/item/clothing/suit/chef/darkgreen
