@@ -102,7 +102,7 @@
 		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 		return ITEM_INTERACT_COMPLETE
 
-	if(do_after_once(user, 1 SECONDS, target = target))
+	if(do_after_once(user, DEFAULT_ITEM_PUTON_DELAY, target = target))
 		var/mob/living/carbon/human/esteemed_individual = target
 		var/dispensed_item = new currently_dispensing(T)
 		if(esteemed_individual.put_in_hands(dispensed_item))
