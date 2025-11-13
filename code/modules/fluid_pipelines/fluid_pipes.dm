@@ -235,9 +235,11 @@
 
 		var/alist/fluids_to_pick_from = alist()
 		for(var/datum/fluid/liquid as anything in fluid_datum.fluids)
-			fluids_to_pick_from[GLOB.fluid_id_to_path[liquid.id]] = liquid
-		var/fluid_type = tgui_alert(usr, "What fluid do you want to remove?")
-		to_chat(usr, "No shot, unimplemented")
+			fluids_to_pick_from[liquid.fluid_name] = liquid.type
+		var/fluid_name = tgui_alert(usr, "What fluid do you want to remove?", "Fluid removal", fluids_to_pick_from)
+		if(!fluid_name)
+			return
+		fluid_datum.remove_fluid(fluids_to_pick_from[fluid_name])
 
 // DGTODO remove this
 // Almost ready to remove yeah, just some rpd kinks left in the cable
