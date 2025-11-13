@@ -27832,7 +27832,6 @@
 	},
 /obj/item/caution,
 /obj/item/caution,
-/obj/item/mop,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
@@ -52303,7 +52302,6 @@
 	dir = 8
 	},
 /obj/item/caution,
-/obj/item/mop,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/cargo,
 /turf/simulated/floor/plasteel/dark,
@@ -80521,7 +80519,6 @@
 /obj/structure/mopbucket/full{
 	dir = 8
 	},
-/obj/item/mop,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore_starboard)
 "qAR" = (
