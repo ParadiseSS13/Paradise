@@ -29786,14 +29786,6 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/port)
-"cjf" = (
-/obj/structure/table/glass,
-/obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "cjg" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/generic,
@@ -50558,11 +50550,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/port/east)
-"gea" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "geb" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -57512,7 +57499,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "jDL" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -58321,7 +58309,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "jWV" = (
 /obj/machinery/light/small{
@@ -66136,7 +66124,8 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "nSQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -68062,11 +68051,6 @@
 "oJr" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/asmaint)
-"oJO" = (
-/obj/machinery/light/small,
-/obj/structure/closet/firecloset/full,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "oJX" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -71774,7 +71758,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/barrier/temporary,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "qzV" = (
 /obj/structure/chair{
@@ -73550,6 +73534,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
+"rov" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "roQ" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "atmos";
@@ -82079,6 +82070,11 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
+"vKe" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "vKr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -100991,10 +100987,10 @@ gbU
 cvp
 lRv
 lRv
-lRv
-lRv
+cvp
+cvp
 lGJ
-aaa
+cvp
 cyk
 cgQ
 cgQ
@@ -101244,14 +101240,14 @@ cjg
 bnw
 vwk
 gzN
+rov
 coL
-iez
-cjf
 kUo
 kJk
-oJO
+coL
+qov
 cvp
-lRv
+vKe
 cvp
 fJK
 rcY
@@ -101501,11 +101497,11 @@ bnK
 bII
 pcH
 nSG
-gea
+bGn
 swy
 swy
-gea
-gea
+bGn
+bGn
 swy
 qzE
 bGn
