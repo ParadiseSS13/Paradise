@@ -148,9 +148,9 @@
 	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
 	fire_act()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/food/plasmabone_broth/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, amount*10)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 30) // Borrowing from plasma sheets, 3 sheets' worth * the 10
 	qdel(src)
 
 /obj/item/food/pork_rind
