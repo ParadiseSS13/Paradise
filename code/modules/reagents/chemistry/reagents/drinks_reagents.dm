@@ -864,7 +864,7 @@
 
 /datum/reagent/consumable/drink/coffee/eggcoffee/on_mob_life(mob/living/M)
 	if(prob(3))
-		M.reagents.add_reagent("cholesterol", rand(1,2))
+		M.reagents.add_reagent("cholesterol", rand(1, 2))
 	return ..()
 
 /datum/reagent/consumable/drink/horchata
@@ -909,7 +909,7 @@
 
 /datum/reagent/consumable/drink/eggcream/on_mob_life(mob/living/M)
 	if(prob(2))
-		M.reagents.add_reagent("cholesterol", rand(1,2))
+		M.reagents.add_reagent("cholesterol", rand(1, 2))
 	return ..()
 
 /datum/reagent/consumable/drink/beetshrub
