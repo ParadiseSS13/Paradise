@@ -41224,6 +41224,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "ddG" = (

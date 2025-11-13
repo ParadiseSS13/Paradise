@@ -22922,6 +22922,7 @@
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
 /obj/effect/turf_decal/tiles/department/science/corner,
+/obj/item/storage/belt/medical/surgery,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "eGv" = (
@@ -23858,6 +23859,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"eRa" = (
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/processor{
+	name = "Slime Processor"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "eRc" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59926,12 +59934,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "mhu" = (
-/obj/machinery/processor{
-	name = "Slime Processor"
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "mhv" = (
@@ -76173,10 +76179,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "pps" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -76186,6 +76188,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "ppt" = (
@@ -107589,11 +107592,12 @@
 	pixel_y = 24;
 	pixel_x = 10
 	},
-/obj/structure/table,
-/obj/item/storage/belt/medical/surgery,
-/obj/item/reagent_containers/glass/bottle/reagent/morphine,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
@@ -116077,6 +116081,10 @@
 	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/reagent/morphine{
+	pixel_x = -6;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
@@ -168894,7 +168902,7 @@ mzC
 cte
 mzC
 nlT
-mzC
+eRa
 lpZ
 yfA
 lDv
