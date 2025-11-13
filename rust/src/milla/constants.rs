@@ -59,8 +59,11 @@ pub(crate) const GAS_SLEEPING_AGENT: usize = 4;
 /// Index for agent b in gas list.
 pub(crate) const GAS_AGENT_B: usize = 5;
 
+/// Index for hydrogen in gas list.
+pub(crate) const GAS_HYDROGEN: usize = 6;
+
 /// How many gases are there?
-pub(crate) const GAS_COUNT: usize = GAS_AGENT_B + 1;
+pub(crate) const GAS_COUNT: usize = GAS_HYDROGEN + 1; // should contain the gas right above it
 
 /// The two axes, Y and X. The order is arbitrary, but may break things if changed.
 pub(crate) const AXES: [(i32, i32); 2] = [(1, 0), (0, 1)];
@@ -103,6 +106,9 @@ pub(crate) const SPECIFIC_HEAT_SLEEPING_AGENT: f32 = 40.0;
 // The specific heat of agent b, in joules per kelvin-mole.
 pub(crate) const SPECIFIC_HEAT_AGENT_B: f32 = 300.0;
 
+// The specific heat of hydrogen, in joules per kelvin-mole.
+pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 15.0;
+
 // Convenience array, so we can add loop through gases and calculate heat capacity.
 pub(crate) const SPECIFIC_HEATS: [f32; GAS_COUNT] = [
     SPECIFIC_HEAT_OXYGEN,
@@ -111,6 +117,7 @@ pub(crate) const SPECIFIC_HEATS: [f32; GAS_COUNT] = [
     SPECIFIC_HEAT_TOXINS,
     SPECIFIC_HEAT_SLEEPING_AGENT,
     SPECIFIC_HEAT_AGENT_B,
+    SPECIFIC_HEAT_HYDROGEN,
 ];
 
 /// How hot does it need to be for a plasma fire to start?
@@ -131,6 +138,18 @@ pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 /// How much oxygen do we use per plasma?
 pub(crate) const PLASMA_BURN_OXYGEN_PER_PLASMA: f32 = 0.4;
 
+/// How hot does hydrogen need to be for it to ignite?
+pub(crate) const HYDROGEN_MIN_IGNITE_TEMP: f32 = 500.0 + T0C;
+
+/// How hot does hydrogen need to be for it to burn as well as possible?
+pub(crate) const HYDROGEN_OPTIMAL_BURN_TEMP: f32 = 2500.0 + T0C;
+
+/// How much of the hydrogen are we willing to burn each tick?
+pub(crate) const HYDROGEN_BURN_MAX_RATIO: f32 = 0.07;
+
+/// How much oxygen do we consume for every hydrogen?
+pub(crate) const HYDROGEN_BURN_OXYGEN_PER_HYDROGEN: f32 = 0.5;
+
 /// How much thermal energy is produced, in joules per mole of agent b.
 pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 
@@ -139,6 +158,9 @@ pub(crate) const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
 
 /// How much thermal energy is produced, in joules per mole of sleeping toxins.
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
+
+/// How much thermal energy is produced, in joules per mole of hydrogen.
+pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 2_500_000.0;
 
 /// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]

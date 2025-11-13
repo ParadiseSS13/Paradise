@@ -253,7 +253,7 @@
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
 	desc = "a tentacle."
-	projectile_type = /obj/item/projectile/tentacle
+	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "tentacle_end"
@@ -269,7 +269,7 @@
 	gun = null
 	return ..()
 
-/obj/item/projectile/tentacle
+/obj/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
 	damage = 0
@@ -278,11 +278,11 @@
 	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
-/obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
+/obj/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
 	source = tentacle_casing
 	..()
 
-/obj/item/projectile/tentacle/fire(setAngle)
+/obj/projectile/tentacle/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 	..()
@@ -298,7 +298,7 @@
 		I.melee_attack_chain(src, C)//Hits the victim with whatever they are holding that is no the zero force tentacle
 
 
-/obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
+/obj/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	var/mob/living/carbon/human/H = firer
 	source.gun.hit_something = TRUE
 	source.gun.check_should_delete()
@@ -369,7 +369,7 @@
 			C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
 			return TRUE
 
-/obj/item/projectile/tentacle/Destroy()
+/obj/projectile/tentacle/Destroy()
 	qdel(chain)
 	source = null
 	return ..()

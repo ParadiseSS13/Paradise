@@ -1,4 +1,6 @@
 /datum/event/spider_infestation
+	name = "Spider Infestation"
+	role_weights = list(ASSIGNMENT_SECURITY = 30)
 	announceWhen	= 400
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.

@@ -2,7 +2,7 @@
 // Chef
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "The commander in chef's head wear."
+	desc = "The commander in chef's headwear."
 	icon_state = "chef"
 	inhand_icon_state = "chefhat"
 	strip_delay = 10
@@ -14,6 +14,18 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+
+/obj/item/clothing/head/chefhat/red
+	name = "chef's red hat"
+	icon_state = "chef_red"
+
+/obj/item/clothing/head/chefhat/black
+	name = "chef's black hat"
+	icon_state = "chef_black"
+
+/obj/item/clothing/head/chefhat/bw
+	name = "chef's black and white hat"
+	icon_state = "chef_bw"
 
 /obj/item/clothing/head/chefhat/Initialize(mapload)
 	. = ..()
@@ -79,6 +91,10 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
+/obj/item/clothing/head/qm/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
 	name = "Nanotrasen Representative's hat"
@@ -91,6 +107,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
+/obj/item/clothing/head/ntrep/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -246,16 +265,17 @@
 	name = "witchhunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "witchhunterhat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	allowed = list(/obj/item/food/candy/candy_corn, /obj/item/pen)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
-
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
@@ -292,6 +312,7 @@
 	icon_state = "sechat"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/drillsgt
@@ -315,6 +336,10 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+/obj/item/clothing/head/rd/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 //Medical
 /obj/item/clothing/head/cmo
 	name = "chief medical officer's cap"
@@ -328,11 +353,16 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+/obj/item/clothing/head/cmo/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/surgery
 	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
@@ -367,3 +397,7 @@
 	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style."
 	icon_state = "trainercampaign"
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+
+/obj/item/clothing/head/drilltrainer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)

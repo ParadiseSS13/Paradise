@@ -3,6 +3,9 @@
 #define VERM_SPIDERS 2
 
 /datum/event/infestation
+	name = "Vermin Infestation"
+	role_weights = 	list(ASSIGNMENT_JANITOR = 0.5)
+	role_requirements = list(ASSIGNMENT_JANITOR = 1)
 	announceWhen = 10
 	endWhen = 11
 	/// Which kind of vermin we'll be spawning (one of the three defines)

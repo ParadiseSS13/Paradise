@@ -17,6 +17,7 @@ SUBSYSTEM_DEF(bugreports)
 		bug_report.initial_key = query_bug_reports.item[2]
 		bug_report.bug_report_data = json_decode(query_bug_reports.item[5])
 		bug_report.awaiting_approval = TRUE
+	qdel(query_bug_reports)
 
 /datum/controller/subsystem/bugreports/Shutdown()
 	record_bug_reports()
