@@ -154,7 +154,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/list/instant_known_objs = list(/datum/objective/hijack, /datum/objective/nuke)
 		for(var/forced_objectives in organization.forced_objectives)
 			var/datum/objective/forced_obj = forced_objectives
-			if(!is_path_in_list(forced_obj, instant_known_objs) && delayed_objectives) // Hijackers know their objective immediately
+			if(!is_path_in_list(forced_obj, instant_known_objs) && delayed_objectives) // Some objectives are known instantly
 				forced_obj = new /datum/objective/delayed(forced_obj)
 			add_antag_objective(forced_obj)
 			iteration++
