@@ -194,7 +194,7 @@
 		return
 	locked = FALSE
 	if(opened || open())
-		user.forceMove(src.loc)
+		user.forceMove(loc)
 		close()
 		COOLDOWN_START(user, skittish_cooldown, 2 SECONDS)
 
