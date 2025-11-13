@@ -25,7 +25,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/watcher
 	is_ranged = TRUE
 	ranged_cooldown = 3 SECONDS
-	projectile_type = /obj/item/projectile/temp/basilisk
+	projectile_type = /obj/projectile/temp/basilisk
 	projectile_sound = 'sound/weapons/pierce.ogg'
 
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
@@ -35,12 +35,12 @@
 	. = ..()
 	AddElement(/datum/element/ai_retaliate)
 
-/obj/item/projectile/temp/basilisk
+/obj/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
 	temperature = 50
 
-/obj/item/projectile/temp/basilisk/on_hit(atom/target, blocked)
+/obj/projectile/temp/basilisk/on_hit(atom/target, blocked)
 	..()
 	if(isrobot(target))
 		var/mob/living/silicon/robot/cyborg = target
@@ -94,7 +94,7 @@
 	light_range = 3
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
-	projectile_type = /obj/item/projectile/temp/basilisk/magmawing
+	projectile_type = /obj/projectile/temp/basilisk/magmawing
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	crusher_drop_mod = 100 // These things are extremely rare (1/133 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 
@@ -107,12 +107,12 @@
 	icon_dead = "watcher_icewing_dead"
 	maxHealth = 170
 	health = 170
-	projectile_type = /obj/item/projectile/temp/basilisk/icewing
+	projectile_type = /obj/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) // No sinew; the wings are too fragile to be usable
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 100 // These things are extremely rare (1/400 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 
-/obj/item/projectile/temp/basilisk/magmawing
+/obj/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
 	icon_state = "lava"
 	damage = 5
@@ -120,11 +120,11 @@
 	temperature = 500 // Heats you up!
 	immolate = 1
 
-/obj/item/projectile/temp/basilisk/icewing
+/obj/projectile/temp/basilisk/icewing
 	damage = 5
 	nodamage = FALSE
 
-/obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(.)
 		var/mob/living/L = target

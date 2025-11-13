@@ -474,7 +474,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/projectile/bomb = new /obj/item/projectile/bullet/reusable/mining_bomb(get_turf(mod.wearer))
+	var/obj/projectile/bomb = new /obj/projectile/bullet/reusable/mining_bomb(get_turf(mod.wearer))
 	bomb.original = target
 	bomb.firer = mod.wearer
 	bomb.preparePixelProjectile(target, mod.wearer)
@@ -494,7 +494,7 @@
 		return
 	on_deactivation()
 
-/obj/item/projectile/bullet/reusable/mining_bomb
+/obj/projectile/bullet/reusable/mining_bomb
 	name = "mining bomb"
 	desc = "A bomb. Why are you staring at this?"
 	icon_state = "mine_bomb"
@@ -506,7 +506,7 @@
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
 
-/obj/item/projectile/bullet/reusable/mining_bomb/handle_drop()
+/obj/projectile/bullet/reusable/mining_bomb/handle_drop()
 	if(!dropped)
 		new ammo_type(loc, firer)
 		dropped = TRUE
@@ -566,7 +566,7 @@
 		object.take_damage(damage, BRUTE, BOMB)
 	qdel(src)
 
-/obj/item/projectile/bullet/reusable/mining_bomb/mecha
+/obj/projectile/bullet/reusable/mining_bomb/mecha
 	ammo_type = /obj/structure/mining_bomb/mecha
 
 /obj/structure/mining_bomb/mecha
