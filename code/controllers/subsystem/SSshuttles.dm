@@ -522,17 +522,14 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/gamma_armory/gamma_armory = getShuttle("gamma_armory")
 	if(gamma_armory)
 		log_debug("requested to load initial Gamma Armory shuttle when one already exists")
-
 	var/obj/docking_port/docking_port = SSshuttle.getDock("gamma_away")
 	if(!istype(docking_port))
 		log_debug("could not find Gamma Armory docking port")
 		return
-
 	var/datum/map_template/shuttle/shuttle_template = GLOB.shuttle_templates[gamma_armory_shuttle_id]
 	if(!shuttle_template)
 		log_debug("could not find Gamma Armory shuttle template")
 		return
-
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
 	mobile_port.dock(docking_port, force = TRUE)
 	mobile_port.register()
