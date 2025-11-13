@@ -22,15 +22,18 @@ SUBSYSTEM_DEF(events)
 	var/list/active_events = list()
 	var/list/finished_events = list()
 	var/list/allEvents
-	var/list/event_containers = list(
+	var/list/event_containers = alist(
 			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
-			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
+			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major,
+			EVENT_LEVEL_DISASTER = new/datum/event_container/disaster
 		)
 
 	var/datum/event_meta/new_event = new
 
 	var/list/biohazards_this_round = list()
+	/// Artificial staffing for debug purpouses
+	var/list/debug_resources = list()
 
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
@@ -39,8 +42,8 @@ SUBSYSTEM_DEF(events)
 	for(var/datum/event/E in active_events)
 		E.process()
 
-	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-		var/datum/event_container/EC = event_containers[i]
+	for(var/container in event_containers)
+		var/datum/event_container/EC = event_containers[container]
 		EC.process()
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)
@@ -64,9 +67,9 @@ SUBSYSTEM_DEF(events)
 	// Add the event back to the list of available events
 	var/datum/event_container/EC = event_containers[theseverity]
 	var/datum/event_meta/EM = E.event_meta
-	EC.available_events += EM
+	EC.available_events |= EM
 
-	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
+	log_debug("Event '[EM.skeleton.name]' has completed at [station_time_timestamp()].")
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]
@@ -87,9 +90,9 @@ SUBSYSTEM_DEF(events)
 	to_chat(world, "<br><br><br><font size=3><b>Random Events This Round:</b></font>")
 	for(var/datum/event/E in active_events|finished_events)
 		var/datum/event_meta/EM = E.event_meta
-		if(EM.name == "Nothing")
+		if(EM.skeleton.name == "Nothing")
 			continue
-		var/message = "'[EM.name]' began at [station_time_timestamp("hh:mm:ss", E.startedAt)] "
+		var/message = "'[EM.skeleton.name]' began at [station_time_timestamp("hh:mm:ss", E.startedAt)] "
 		if(E.isRunning)
 			message += "and is still running."
 		else
@@ -102,9 +105,10 @@ SUBSYSTEM_DEF(events)
 
 /datum/controller/subsystem/events/proc/GetInteractWindow()
 	var/html = "<A align='right' href='byond://?src=[UID()];refresh=1'>Refresh</A>"
-
+	html += "<A align='right' href='byond://?src=[UID()];resource=1'>Resources</A>"
 	if(selected_event_container)
 		var/event_time = max(0, selected_event_container.next_event_time - world.time)
+		var/list/total_resources = get_total_resources()
 		html += "<A align='right' href='byond://?src=[UID()];back=1'>Back</A><br>"
 		html += "Time till start: [round(event_time / 600, 0.1)]<br>"
 		html += "<div class='block'>"
@@ -112,14 +116,16 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
+			if(!EM.skeleton)
+				continue
 			html += "<tr>"
-			html += "<td>[EM.name]</td>"
+			html += "<td>[EM.skeleton.name]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
 			html += "<td>[EM.min_weight]</td>"
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
-			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
+			html += "<td><span class='alert'>[EM.get_weight(total_resources)]</span></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
 			html += "</tr>"
 		html += "</table>"
@@ -130,8 +136,8 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options2]>Name</td><td [row_options2]>Type</td><td [row_options1]>Weight</td><td [row_options1]>OneShot</td></tr>"
 		html += "<tr>"
-		html += "<td><A align='right' href='byond://?src=[UID()];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</A></td>"
-		html += "<td><A align='right' href='byond://?src=[UID()];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];set_name=\ref[new_event]'>[new_event?.skeleton?.name ? new_event?.skeleton?.name : "Enter Event"]</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];set_type=\ref[new_event]'>[new_event?.skeleton?.type ? new_event?.skeleton?.type : "Select Type"]</A></td>"
 		html += "<td><A align='right' href='byond://?src=[UID()];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</A></td>"
 		html += "<td><A align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</A></td>"
 		html += "</tr>"
@@ -145,7 +151,7 @@ SUBSYSTEM_DEF(events)
 
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options1]>Starts At</td><td [row_options1]>Starts In</td><td [row_options3]>Adjust Start</td><td [row_options1]>Pause</td><td [row_options1]>Interval Mod</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
+		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_DISASTER)
 			var/datum/event_container/EC = event_containers[severity]
 			var/next_event_at = max(0, EC.next_event_time - world.time)
 			html += "<tr>"
@@ -172,12 +178,12 @@ SUBSYSTEM_DEF(events)
 		html += "<h2>Next Event</h2>"
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options2]>Name</td><td [row_options3]>Event Rotation</td><td>Clear</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
+		for(var/severity in EVENT_LEVEL_MUNDANE to EVENT_LEVEL_DISASTER)
 			var/datum/event_container/EC = event_containers[severity]
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[severity]]</td>"
-			html += "<td><A align='right' href='byond://?src=[UID()];select_event=\ref[EC]'>[EM ? EM.name : "Random"]</A></td>"
+			html += "<td><A align='right' href='byond://?src=[UID()];select_event=\ref[EC]'>[EM ? EM.skeleton.name : "Random"]</A></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];view_events=\ref[EC]'>View</A></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];clear=\ref[EC]'>Clear</A></td>"
 			html += "</tr>"
@@ -190,15 +196,14 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options2]>Name</td><td [row_options1]>Ends At</td><td [row_options1]>Ends In</td><td [row_options3]>Stop</td></tr>"
 		for(var/datum/event/E in active_events)
-			if(!E.event_meta)
+			if(!E)
 				continue
-			var/datum/event_meta/EM = E.event_meta
 			var/ends_at = E.startedAt + (E.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
 			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
 			var/no_end = E.noAutoEnd
 			html += "<tr>"
-			html += "<td>[GLOB.severity_to_string[EM.severity]]</td>"
-			html += "<td>[EM.name] [ADMIN_VV(E, "VV")]</td>"
+			html += "<td>[GLOB.severity_to_string[E.severity]]</td>"
+			html += "<td>[E.name] [ADMIN_VV(E, "VV")]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];stop=\ref[E]'>Stop</A></td>"
@@ -232,7 +237,7 @@ SUBSYSTEM_DEF(events)
 		var/datum/event_container/EC = locate(href_list["select_event"])
 		var/datum/event_meta/EM = EC.SelectEvent()
 		if(EM)
-			log_and_message_admins("has queued the [GLOB.severity_to_string[EC.severity]] event '[EM.name]'.")
+			log_and_message_admins("has queued the [GLOB.severity_to_string[EC.severity]] event '[EM.skeleton.name]'.")
 	else if(href_list["pause"])
 		var/datum/event_container/EC = locate(href_list["pause"])
 		EC.delayed = !EC.delayed
@@ -248,7 +253,7 @@ SUBSYSTEM_DEF(events)
 			return
 		var/datum/event/E = locate(href_list["stop"])
 		var/datum/event_meta/EM = E.event_meta
-		log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.skeleton.severity]] event '[EM.skeleton.name]'.")
 		E.kill()
 	else if(href_list["view_events"])
 		selected_event_container = locate(href_list["view_events"])
@@ -258,48 +263,81 @@ SUBSYSTEM_DEF(events)
 		var/name = clean_input("Enter event name.", "Set Name")
 		if(name)
 			var/datum/event_meta/EM = locate(href_list["set_name"])
-			EM.name = name
+			EM.skeleton.name = name
 	else if(href_list["set_type"])
 		var/type = input("Select event type.", "Select") as null|anything in allEvents
 		if(type)
 			var/datum/event_meta/EM = locate(href_list["set_type"])
-			EM.event_type = type
+			EM.change_event(type)
 	else if(href_list["set_weight"])
 		var/weight = input("Enter weight. A higher value means higher chance for the event of being selected.", "Set Weight") as num|null
 		if(weight && weight > 0)
 			var/datum/event_meta/EM = locate(href_list["set_weight"])
 			EM.weight = weight
 			if(EM != new_event)
-				log_and_message_admins("has changed the weight of the [GLOB.severity_to_string[EM.severity]] event '[EM.name]' to [EM.weight].")
+				log_and_message_admins("has changed the weight of the [GLOB.severity_to_string[EM.skeleton.severity]] event '[EM.skeleton.name]' to [EM.weight].")
 	else if(href_list["toggle_oneshot"])
 		var/datum/event_meta/EM = locate(href_list["toggle_oneshot"])
 		EM.one_shot = !EM.one_shot
 		if(EM != new_event)
-			log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+			log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [GLOB.severity_to_string[EM.skeleton.severity]] event '[EM.skeleton.name]'.")
 	else if(href_list["toggle_enabled"])
 		var/datum/event_meta/EM = locate(href_list["toggle_enabled"])
 		EM.enabled = !EM.enabled
-		log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [GLOB.severity_to_string[EM.skeleton.severity]] event '[EM.skeleton.name]'.")
 	else if(href_list["remove"])
 		if(alert("This will remove the event from rotation. Continue?","Removing Event!","Yes","No") != "Yes")
 			return
 		var/datum/event_meta/EM = locate(href_list["remove"])
 		var/datum/event_container/EC = locate(href_list["EC"])
 		EC.available_events -= EM
-		log_and_message_admins("has removed the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
+		log_and_message_admins("has removed the [GLOB.severity_to_string[EM.skeleton.severity]] event '[EM.skeleton.name]'.")
 	else if(href_list["add"])
-		if(!new_event.name || !new_event.event_type)
+		if(!new_event.skeleton.name || !new_event.skeleton.type)
 			return
 		if(alert("This will add a new event to the rotation. Continue?","Add Event!","Yes","No") != "Yes")
 			return
-		new_event.severity = selected_event_container.severity
+		new_event.skeleton.severity = selected_event_container.severity
 		selected_event_container.available_events += new_event
-		log_and_message_admins("has added \a [GLOB.severity_to_string[new_event.severity]] event '[new_event.name]' of type [new_event.event_type] with weight [new_event.weight].")
+		log_and_message_admins("has added \a [GLOB.severity_to_string[new_event.skeleton.severity]] event '[new_event.skeleton.name]' of type [new_event.skeleton.type] with weight [new_event.weight].")
 		new_event = new
 	else if(href_list["clear"])
 		var/datum/event_container/EC = locate(href_list["clear"])
 		if(EC.next_event)
-			log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.name]'.")
+			log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.skeleton.name]'.")
 			EC.next_event = null
+	else if(href_list["resource"])
+		GetResourceWindow()
 
 	Interact(usr)
+
+/datum/controller/subsystem/events/proc/GetResourceWindow()
+	var/html = "<A align='right' href='byond://?src=[UID()];refresh=1'>Refresh</A>"
+	var/list/total_resources = get_total_resources()
+	html += "<div class='block'>"
+	html += "<h2>Total Resources</h2>"
+	html += "<table [table_options]>"
+	html += "<tr [head_options]><td [row_options2]>Name <td [row_options3]>Weight</tr>"
+	for(var/resource in total_resources)
+		html += "<tr>"
+		html += "<td>[resource]</td>"
+		html += "<td>[total_resources[resource]]</td>"
+		html += "</tr>"
+	html += "</table>"
+	html += "</div>"
+	var/list/net_resources = number_active_with_role()
+	html += "<div class='block'>"
+	html += "<h2>Net Resources</h2>"
+	html += "<table [table_options]>"
+	html += "<tr [head_options]><td [row_options2]>Name <td [row_options3]>Weight</tr>"
+	for(var/resource in net_resources)
+		html += "<tr>"
+		html += "<td>[resource]</td>"
+		html += "<td>[net_resources[resource]]</td>"
+		html += "</tr>"
+	html += "</table>"
+	html += "</div>"
+
+	var/datum/browser/popup = new(usr, "resources", "Resources", window_x, window_y)
+	popup.set_content(html)
+	popup.open()

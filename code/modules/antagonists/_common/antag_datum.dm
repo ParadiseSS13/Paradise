@@ -412,6 +412,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		if(prob(50)) // 50% chance you have to detonate the nuke instead
+			add_antag_objective(/datum/objective/nuke)
+			return
 		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
@@ -603,5 +606,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 			add_antag_objective(blue_team)
 			other_team.add_antag_objective(red_team)
 	red_team.pair_up(blue_team, TRUE)
+
+/datum/antagonist/proc/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1)
 
 #undef SUCCESSFUL_DETACH
