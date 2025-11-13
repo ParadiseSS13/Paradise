@@ -49,6 +49,13 @@
 	. = ..()
 	emp_damage = 0
 
+/mob/living/brain/update_revive(updating)
+	. = ..()
+	var/mob/dead/observer/ghost = get_ghost()
+	if(ghost)
+		to_chat(ghost, "<span class='ghostalert'>Your brain has been fixed, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
+		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
+
 /*
 This will return true if the brain has a container that leaves it less helpless than a naked brain
 
