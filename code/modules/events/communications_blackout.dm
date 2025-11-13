@@ -1,3 +1,7 @@
+/datum/event/communications_blackout
+	name = "Communication Blackout"
+	nominal_severity = EVENT_LEVEL_MODERATE
+
 /datum/event/communications_blackout/announce(false_alarm)
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \
 						"Ionospheric anomalies detected. Temporary telecommunication failu*3mga;b4;'1v?-BZZZT", \

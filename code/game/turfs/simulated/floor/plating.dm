@@ -303,6 +303,18 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/agent_b
+	name = "\improper agent B floor"
+	agent_b = 10000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/hydrogen
+	name = "\improper H2 floor"
+	hydrogen = 100000
+	oxygen = 0
+	nitrogen = 0
+
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
 	temperature = 80

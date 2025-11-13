@@ -9,7 +9,7 @@
 	volume = 15
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
-	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
+	var/projectile_type = /obj/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
