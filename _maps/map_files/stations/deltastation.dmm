@@ -63540,9 +63540,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "kgO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
