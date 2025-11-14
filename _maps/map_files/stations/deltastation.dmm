@@ -11131,20 +11131,14 @@
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "aTf" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
-	pixel_y = 11
+	pixel_y = 12
 	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "aTi" = (
@@ -54933,14 +54927,36 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "gml" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
+/obj/structure/closet/crate,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/effect/turf_decal/tiles/dark/checker,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = -25
 	},
-/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "gmT" = (
@@ -66193,8 +66209,19 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/clothing/head/chefhat{
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "lpI" = (
@@ -77391,7 +77418,6 @@
 "qjO" = (
 /obj/item/wrench,
 /obj/item/storage/bag/trash,
-/obj/item/mop,
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /obj/structure/shelf,
 /turf/simulated/floor/plating,
@@ -92052,22 +92078,22 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "wfO" = (
+/obj/structure/closet/crate,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/onion,
+/obj/item/food/grown/onion,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/fancy/egg_box,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
+/obj/effect/turf_decal/tiles/dark/checker,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/structure/closet/crate,
-/obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/condiment/rice,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/storage/box/donkpockets,
-/obj/item/food/grown/onion,
-/obj/item/food/grown/onion,
-/obj/item/food/grown/potato,
-/obj/item/food/grown/potato,
-/obj/item/food/sliced/bread,
-/obj/item/food/sliced/bread,
-/obj/item/food/sliced/bread,
-/obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "wgg" = (
@@ -96985,7 +97011,6 @@
 /area/station/maintenance/fore)
 "yhn" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
