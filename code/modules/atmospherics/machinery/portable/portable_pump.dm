@@ -28,7 +28,7 @@
 
 /obj/machinery/atmospherics/portable/pump/empty
 
-/obj/machinery/atmospherics/portable/pump/Initialize(mapload)
+/obj/machinery/atmospherics/portable/pump/empty/Initialize(mapload)
 	. = ..()
 	air_contents.set_oxygen(0)
 	air_contents.set_nitrogen(0)
