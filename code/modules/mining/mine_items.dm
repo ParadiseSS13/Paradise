@@ -52,4 +52,4 @@
 	circuit = /obj/item/circuitboard/engineering_shuttle
 	shuttleId = "engineering"
 	possible_destinations = "engineering_home;engineering_away"
-	req_access = list(ACCESS_CONSTRUCTION)
+	req_access = list(ACCESS_ENGINEERING_GENERAL)

@@ -103,13 +103,6 @@
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
-"cj" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/engineering)
 "cJ" = (
 /obj/structure/rack{
 	dir = 8;
@@ -588,13 +581,16 @@
 	name = "engineering outpost";
 	width = 7
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "pS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
 "pV" = (
@@ -851,6 +847,7 @@
 /area/engi_outpost/airlock)
 "vU" = (
 /obj/effect/baseturf_helper/lava_land,
+/obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "vZ" = (
@@ -968,7 +965,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/engineering)
 "zo" = (
 /obj/machinery/light,
@@ -982,15 +979,6 @@
 /area/engi_outpost/shuttle_landing_post)
 "zL" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle";
-	dir = 5;
-	network = list("Engineering Outpost")
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "Aj" = (
@@ -1018,7 +1006,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/directional/south,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	network = list("Mining Outpost");
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
 "Cb" = (
@@ -1147,7 +1139,7 @@
 /area/engi_outpost/bridges)
 "Ha" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/engineering)
 "Hx" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1343,9 +1335,6 @@
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
 "Ox" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
@@ -2030,7 +2019,7 @@ La
 TF
 Un
 Wr
-Un
+Wr
 Wr
 zm
 Ha
@@ -2070,7 +2059,7 @@ Vu
 uf
 Un
 Un
-cj
+zL
 zL
 lx
 BW
