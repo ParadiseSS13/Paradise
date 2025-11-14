@@ -319,7 +319,7 @@
 	if(!S)
 		return
 
-	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/pierce_ignore(src)
+	chambered.BB = new /obj/projectile/bullet/dart/syringe/pierce_ignore(src)
 	update_loaded_syringe()
 	chambered.BB.name = S.name
 

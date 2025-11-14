@@ -731,6 +731,23 @@
 /* Ammo Boxes */
 ////////////////
 
+#define TRANQ "Tranquilizer"
+#define RUBBER "Rubbershot"
+#define BUCK "Buckshot"
+#define SLUG "Slug"
+#define BEAN "Beanbag"
+#define TASER "Taser"
+#define DRAGON "Dragonsbreath"
+#define HOLY "Holy"
+#define CLOWN "Confetti"
+#define METEOR "Meteorshot"
+#define ION "Ionshot"
+#define PULSE "Pulse"
+#define INCENDIARY "Incendiary"
+#define LASERSHOT "Laser"
+#define FRAG "Frag"
+
+
 /obj/item/storage/fancy/shell
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
@@ -738,11 +755,16 @@
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	/// What shell do we fill the box with
 	var/shell_type
+	/// Is the box open or closed?
+	var/we_are_open = FALSE
+	/// What is the closed icon state of the box?
+	var/closed_icon_state = null
 
 /obj/item/storage/fancy/shell/fancy_storage_examine(mob/user)
 	. = list()
 	if(!length(contents))
 		. += "There are no shells in the box."
+		. += "<span class='notice'>Ctrl-click to open or close the box!</span>"
 		return
 
 	var/list/shell_list = list() // Associated list of all shells in the box
@@ -754,11 +776,77 @@
 			. += "There is one [thing] in the box."
 		else
 			. += "There are [shell_list[thing]] [thing]s in the box."
+	. += "<span class='notice'>Ctrl-click to open or close the box!</span>"
+
+/obj/item/storage/fancy/shell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+	if(!is_pen(W))
+		return ..()
+	var/list/static/designs = list(TRANQ, RUBBER, BUCK, SLUG, BEAN, TASER, DRAGON, HOLY, CLOWN, METEOR, ION, PULSE, INCENDIARY, LASERSHOT, FRAG)
+	var/switchDesign = tgui_input_list(user, "Select a Design", "Shotgun Box Designs", sortList(designs))
+	if(!switchDesign)
+		return
+	if(we_are_open)
+		to_chat(user, "<span class='warning'>Close the box first!</span>")
+		return
+	if(get_dist(user, src) > 1 && !user.incapacitated())
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		return
+	to_chat(user, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+	switch(switchDesign)
+		if(TRANQ)
+			icon_state = "tranqbox"
+		if(RUBBER)
+			icon_state = "rubberbox"
+		if(BUCK)
+			icon_state = "buckbox"
+		if(SLUG)
+			icon_state = "slugbox"
+		if(BEAN)
+			icon_state = "beanbox"
+		if(TASER)
+			icon_state = "stunbox"
+		if(DRAGON)
+			icon_state = "dragonsbox"
+		if(HOLY)
+			icon_state = "holybox"
+		if(CLOWN)
+			icon_state = "partybox"
+		if(METEOR)
+			icon_state = "meteorbox"
+		if(ION)
+			icon_state = "ionbox"
+		if(PULSE)
+			icon_state = "pulsebox"
+		if(INCENDIARY)
+			icon_state = "incendiarybox"
+		if(LASERSHOT)
+			icon_state = "lasershotbox"
+		if(FRAG)
+			icon_state = "frag12box"
+	closed_icon_state = icon_state
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	return
+
+/obj/item/storage/fancy/shell/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if((get_dist(user, src) > 1) || user.incapacitated())
+		return
+	if(we_are_open)
+		we_are_open = FALSE
+	else
+		we_are_open = TRUE
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
 
 /obj/item/storage/fancy/shell/update_icon_state()
-	icon_state = "open"
+	if(we_are_open)
+		icon_state = "open"
+	else
+		icon_state = closed_icon_state
 
 /obj/item/storage/fancy/shell/populate_contents()
+	closed_icon_state = icon_state
 	if(!shell_type)
 		return
 	for(var/i in 1 to storage_slots)
@@ -766,6 +854,8 @@
 
 /obj/item/storage/fancy/shell/update_overlays()
 	. = ..()
+	if(!we_are_open)
+		return
 	var/list/cached_contents = contents
 	for(var/index in 1 to length(cached_contents))
 		var/obj/shell = cached_contents[index]
@@ -775,6 +865,19 @@
 		. += I
 
 	. += "shell_box_front" // need to add another overlay to prevent from other overlays from showing on top
+
+/obj/item/storage/fancy/shell/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
+	. = ..()
+	if(.)
+		we_are_open = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
+/obj/item/storage/fancy/shell/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	if(.)
+		we_are_open = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
 
 /obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
@@ -848,7 +951,7 @@
 	icon_state = "pulsebox"
 	shell_type = /obj/item/ammo_casing/shotgun/pulseslug
 
-/obj/item/storage/fancy/shell/incindiary
+/obj/item/storage/fancy/shell/incendiary
 	name = "ammunition box (Incendiary slug)"
 	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "incendiarybox"
@@ -865,6 +968,27 @@
 	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "frag12box"
 	shell_type = /obj/item/ammo_casing/shotgun/frag12
+
+/obj/item/storage/fancy/shell/empty
+	name = "custom shotgun ammunition box"
+	desc = "A small box capable of holding eight shotgun shells. Hand packed, just for you!"
+	icon_state = "buckbox"
+
+#undef TRANQ
+#undef RUBBER
+#undef BUCK
+#undef SLUG
+#undef BEAN
+#undef TASER
+#undef DRAGON
+#undef HOLY
+#undef CLOWN
+#undef METEOR
+#undef ION
+#undef PULSE
+#undef INCENDIARY
+#undef LASERSHOT
+#undef FRAG
 
 ////////////////
 /* Donk Boxes */

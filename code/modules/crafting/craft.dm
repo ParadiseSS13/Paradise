@@ -31,7 +31,9 @@
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS
 						),
-						CAT_CLOTHING) //Clothing subcategories
+						// Clothing subcategories
+						list(CAT_CLOTHING_GENERAL,
+							CAT_CLOTHING_RACIAL))
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 
