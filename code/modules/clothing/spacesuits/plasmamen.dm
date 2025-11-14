@@ -318,17 +318,20 @@
 			name = initial(name)
 			desc = initial(desc)
 			base_icon_state = initial(base_icon_state)
+			icon_state = initial(icon_state)
 			light_icon = initial(light_icon)
 		if("Knight")
 			name = "knight envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
 			base_icon_state = "knight_envirohelm"
+			icon_state = "knight_envirohelm"
 			visor_icon = "knight_envisor"
 			light_icon = "knight_enlight"
 		if("Skull")
 			name = "skull envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a skull."
 			base_icon_state = "skull_envirohelm"
+			icon_state = "skull_envirohelm"
 			visor_icon = "skull_envisor"
 			light_icon = "skull_enlight"
 	update_icon()
