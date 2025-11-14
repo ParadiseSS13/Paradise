@@ -154,6 +154,10 @@
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/meatkebab/bone
+	icon_state = "kebab_bone"
+	trash = /obj/item/stack/bone_rods
+
 /obj/item/food/syntikebab
 	name = "synthimeat-kebab"
 	desc = "Delicious synthetic meat, on a stick."
@@ -162,6 +166,10 @@
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
 
+/obj/item/food/syntikebab/bone
+	icon_state = "kebab_bone"
+	trash = /obj/item/stack/bone_rods
+
 /obj/item/food/human/kebab
 	name = "-kebab"
 	desc = "Human meat, on a stick."
@@ -169,6 +177,10 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+
+/obj/item/food/human/kebab/bone
+	icon_state = "kebab_bone"
+	trash = /obj/item/stack/bone_rods
 
 /obj/item/food/tofukebab
 	name = "tofu-kebab"
@@ -179,6 +191,10 @@
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/tofukebab/bone
+	icon_state = "kebab_bone"
+	trash = /obj/item/stack/bone_rods
+
 /obj/item/food/picoss_kebab
 	name = "picoss-kebab"
 	desc = "A popular Moghes street food consisting of vinegar-marinated space carp on a skewer with onion and chillis."
@@ -188,3 +204,7 @@
 	filling_color = "#A85340"
 	tastes = list("fish" = 4, "acid" = 1, "onion" = 1, "heat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/picoss_kebab/bone
+	icon_state = "picoss_skewer_bone"
+	trash = /obj/item/stack/bone_rods

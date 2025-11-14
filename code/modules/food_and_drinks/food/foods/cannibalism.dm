@@ -142,10 +142,10 @@
 
 /obj/item/food/plasmabone_broth/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
-	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
-	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
+	message_admins("Plasma-Bone Broth ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
+	log_game("Plasma-Bone Broth ignited by [key_name(user)] in [COORD(T)]")
 	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
-	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
+	user.create_log(MISC_LOG, "Plasma-Bone Broth ignited using [I]", src)
 	fire_act()
 
 /obj/item/food/plasmabone_broth/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -155,12 +155,12 @@
 
 /obj/item/food/pork_rind
 	name = "Pork Rind"
-	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
+	desc = "A piece of pork rind."
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "pork_rind_1" // Just in case
 	var/list/possible_iconstates = list("pork_rind_1", "pork_rind_2", "pork_rind_3", "pork_rind_4")
 	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("long pork" = 1, "fur" = 1)
+	tastes = list("long pork" = 1, "salty" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/pork_rind/Initialize(mapload, icon_state, possible_iconstates)

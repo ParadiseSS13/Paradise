@@ -123,6 +123,17 @@
 	input = /obj/item/grown/log
 	output = /obj/item/popsicle_stick
 
+/datum/food_processor_process/species_limb
+	input = /obj/item/organ/external
+	if(!istype(input))
+		return
+
+	if(istype(input.dna.species, /datum/species/slime))
+		output = /obj/item/food/turkish_delight
+
+	if(istype(input.dna.species, /datum/species/kidan))
+		output = /obj/item/food/bug_bar
+
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////
