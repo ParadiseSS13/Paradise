@@ -15,12 +15,7 @@ type AudioOptions = {
 };
 
 function isProtectedError(error: ErrorEvent): boolean {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'isTrusted' in error &&
-    error.isTrusted
-  );
+  return typeof error === 'object' && error !== null && 'isTrusted' in error && error.isTrusted;
 }
 
 export class AudioPlayer {
@@ -76,11 +71,7 @@ export class AudioPlayer {
 
     if (this.options.end) {
       audio.addEventListener('timeupdate', () => {
-        if (
-          this.options.end &&
-          this.options.end > 0 &&
-          audio.currentTime >= this.options.end
-        ) {
+        if (this.options.end && this.options.end > 0 && audio.currentTime >= this.options.end) {
           this.stop();
         }
       });
