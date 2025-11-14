@@ -63,7 +63,7 @@ export class AudioPlayer {
       });
     }
 
-    audio.play();
+    audio.play().catch((error) => logger.log('playback error', error));
 
     this.onPlaySubscribers.forEach((subscriber) => subscriber());
   }
