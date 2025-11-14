@@ -3155,6 +3155,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
+"uh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -28;
+	pixel_y = 2
+	},
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -26;
+	pixel_y = 5
+	},
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/syndicate_space_base/storage)
 "ui" = (
 /obj/structure/cable/green{
 	icon_state = "2-8"
@@ -6917,16 +6934,16 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/chemical_flamethrower{
-	pixel_x = 0;
-	pixel_y = -2
+	pixel_x = -2;
+	pixel_y = 6
 	},
 /obj/item/chemical_flamethrower{
-	pixel_x = 0;
-	pixel_y = 4
+	pixel_x = -1;
+	pixel_y = 9
 	},
 /obj/item/chemical_flamethrower{
-	pixel_x = 0;
-	pixel_y = 10
+	pixel_x = 1;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -11469,7 +11486,7 @@ xo
 xo
 xo
 US
-xo
+uh
 xo
 xo
 mQ
