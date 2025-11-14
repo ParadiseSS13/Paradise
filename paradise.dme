@@ -2396,6 +2396,7 @@
 #include "code\modules\mining\equipment\explorer_gear.dm"
 #include "code\modules\mining\equipment\hardmode_grenade.dm"
 #include "code\modules\mining\equipment\kinetic_crusher.dm"
+#include "code\modules\mining\equipment\kinetic_crusher_cosmetics.dm"
 #include "code\modules\mining\equipment\lazarus_injector.dm"
 #include "code\modules\mining\equipment\marker_beacons.dm"
 #include "code\modules\mining\equipment\mineral_scanner.dm"
