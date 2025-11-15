@@ -70,10 +70,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	// The reports shouldn't persist unless being made or reviewed.
 	qdel(src)
 
-/datum/tgui_bug_report_form/Destroy()
-	bug_reports -= src
-	return ..()
-
 /datum/tgui_bug_report_form/proc/sanitize_payload(list/params)
 	for(var/param in params)
 		params[param] = html_decode(sanitize(params[param], list("\t"=" ","�"=" ","<"=" ",">"=" ","&"=" ")))
@@ -174,7 +170,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		if(initial_user)
 			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 		// Update bug report status on the DB
-		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index VALUES(:index)", list("index" = row_index))
+		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 		if(!query_update_submission.warn_execute())
 			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
 
@@ -223,7 +219,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
-	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=-1 WHERE id=:index VALUES(:index)", list("index" = row_index))
+	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=-1 WHERE id=:index", list("index" = row_index))
 	if(!query_update_submission.warn_execute())
 		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
 	else
@@ -248,8 +244,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		bug_report.row_index = query_bug_reports.item[1]
 		bug_report.file_time = query_bug_reports.item[2]
 		bug_report.initial_key = query_bug_reports.item[3]
-		bug_report.title = query_bug_reports.item[4]
-		bug_report.round_id = query_bug_reports.item[5]
 		bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
 		bug_report.awaiting_approval = TRUE
 	qdel(query_bug_reports)
@@ -263,12 +257,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		qdel(query_bug_reports)
 		return
 	var/datum/tgui_bug_report_form/bug_report = new()
-	bug_reports += bug_report
 	bug_report.row_index = query_bug_reports.item[1]
 	bug_report.file_time = query_bug_reports.item[2]
 	bug_report.initial_key = query_bug_reports.item[3]
-	bug_report.title = query_bug_reports.item[4]
-	bug_report.round_id = query_bug_reports.item[5]
 	bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
 	bug_report.awaiting_approval = query_bug_reports.item[7] == 0
 	qdel(query_bug_reports)
@@ -277,14 +268,14 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /datum/tgui_bug_report_form/proc/load_to_db()
 	. = TRUE
 	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
-				INSERT IGNORE INTO bug_reports (file_time, author_ckey, title, round_id, contents_json) VALUES (:file_time, :author_ckey, :title, :round_id, :contents_json)
+				INSERT INTO bug_reports (filetime, author_ckey, title, round_id, contents_json) VALUES (:filetime, :author_ckey, :title, :round_id, :contents_json)
 				"},
 				list(
-					"filetime" = bug_report.file_time,
-					"author_ckey" = bug_report.initial_key,
-					"title" = bug_report.bug_report_data["title"],
-					"round_id" = bug_report.bug_report_data["round_id"],
-					"contents_json" = json_encode(bug_report.bug_report_data),
+					"filetime" = file_time,
+					"author_ckey" = initial_key,
+					"title" = bug_report_data["title"],
+					"round_id" = bug_report_data["round_id"],
+					"contents_json" = json_encode(bug_report_data),
 				)
 			)
 	bug_query.warn_execute()
