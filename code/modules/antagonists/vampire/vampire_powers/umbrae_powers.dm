@@ -323,7 +323,7 @@
 	for(var/mob/living/L in view(8, owner))
 		if(L.affects_vampire(owner))
 			L.adjust_bodytemperature(-3 * TEMPERATURE_DAMAGE_COEFFICIENT) //The dark is cold and unforgiving. Equivelnt to -60 with previous values.
-	for(var/obj/item/projectile/P in view(8, owner))
+	for(var/obj/projectile/P in view(8, owner))
 		if(P.flag == ENERGY || P.flag == LASER)
 			P.damage *= 0.7
 
