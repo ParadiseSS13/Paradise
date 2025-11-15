@@ -240,6 +240,7 @@
 	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/inflatable)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
 
 /obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
