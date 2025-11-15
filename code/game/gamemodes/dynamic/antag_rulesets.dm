@@ -142,7 +142,8 @@
 	// Assemble a list of active players without jobbans.
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(is_valid_candidate(player))
-			candidates += player.mind
+			// We can't return the mind since we need to check the candidate's species while latespawning.
+			candidates += player
 
 	return shuffle(candidates)
 
@@ -162,9 +163,6 @@
 	// Make sure they actually want to be this antagonist
 	if(!(antagonist_type::job_rank in player.client.prefs.be_special))
 		return FALSE
-	// Make sure their species CAN be this antagonist
-	if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
-		return FALSE
 	// Make sure they're not in a banned job
 	if(player.mind.assigned_role in banned_jobs)
 		return FALSE
@@ -174,19 +172,25 @@
 	latespawns_enabled = TRUE
 
 /datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
-	var/list/datum/mind/possible_antags = get_latejoin_players()
-	var/antags_rolled = 0
-	//CHUGAFIX I think this case is possible when it's lowpop and nobody has antag on. Not 100% sure.
+	var/list/mob/living/carbon/human/possible_antags = get_latejoin_players()
+
+	//CHUGAFIX I think this case is possible when it's lowpop and nobody has antag on. This needs testing.
 	if(length(possible_antags) < antag_amount)
 		var/wasted_budget = (antag_amount - length(possible_antags)) * antag_cost
-		log_dynamic("Tried to roll [antag_amount] [name], but there were only [possible_antags] candidates! Wasting [wasted_budget] budget.")
+		log_dynamic("Tried to roll [antag_amount] [name], but there were only [length(possible_antags)] candidates! Wasting [wasted_budget] budget.")
 		antag_amount = length(possible_antags)
 
-	while(antag_amount > 0)
-		var/datum/mind/antag = pick_n_take(possible_antags)
-		antag.add_antag_datum(antagonist_type)
-		antag_amount--
-		antags_rolled++
+	var/antags_rolled = 0
+	for(var/mob/living/carbon/human/player as anything in possible_antags)
+		if(antag_amount <= 0)
+			break
+		// This check needs to be here so that we can signal the implied ruleset. Yes, this is jank.
+		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
+			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
+			continue
+		player.mind.add_antag_datum(antagonist_type)
+		antag_amount -= 1
+		antags_rolled += 1
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
 	log_dynamic("Latespawned [antags_rolled] [name]\s.")

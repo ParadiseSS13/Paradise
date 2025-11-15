@@ -138,8 +138,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			log_dynamic("Rolled [ruleset.name]: failed, removing [ruleset.name] ruleset.")
 			temp_rulesets -= ruleset
 			continue
-		ruleset.antag_amount++
-		antags_rolled++
+		ruleset.antag_amount += 1
+		antags_rolled += 1
 		antag_budget -= ruleset.antag_cost
 		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [antag_budget].")
 	log_dynamic("No more antagonist budget remaining. Antagonists rolled: [antags_rolled]")
@@ -175,10 +175,11 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
-	antag_budget++
+	antag_budget += 1
 	if(antag_budget >= min_latespawn_budget)
+		log_dynamic("Antagonist budget at [min_latespawn_budget] threshold. Attempting to roll latespawns...")
 		if(apply_antag_budget(TRUE))
-			for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets))
+			for(var/datum/ruleset/ruleset as anything in (rulesets + implied_rulesets))
 				if(ruleset.antag_amount <= 0)
 					continue
 				ruleset.latespawn(src)
@@ -187,7 +188,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	var/turf/T = get_turf(cryopod)
 	if(!T || is_admin_level(T.z))
 		return
-	antag_budget--
+	antag_budget -= 1
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
 		return
 	for(var/datum/antagonist/antag in sleepy_mob.mind.antag_datums)
