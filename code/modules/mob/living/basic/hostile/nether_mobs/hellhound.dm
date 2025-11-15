@@ -157,3 +157,8 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 50
 	gold_core_spawnable = NO_SPAWN
+
+/mob/living/basic/hellhound/whelp
+	name = "hellhound whelp"
+	maxHealth = 150
+	health = 150

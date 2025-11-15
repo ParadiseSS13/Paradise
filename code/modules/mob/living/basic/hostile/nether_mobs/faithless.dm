@@ -7,7 +7,7 @@
 	icon_dead = "faithless_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_upper = 20
 	harm_intent_damage = 10
 	obj_damage = 50
 	attack_verb_simple = "grip"
