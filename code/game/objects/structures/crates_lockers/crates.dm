@@ -586,7 +586,6 @@
 /obj/structure/closet/crate/supply
 	name = "supply crate"
 	desc = "A supply crate."
-	icon_state = "crate"
 
 /obj/structure/closet/crate/secure/supply
 	name = "secure supply crate"
