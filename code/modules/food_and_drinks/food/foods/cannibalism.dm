@@ -159,7 +159,7 @@
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "pork_rind_1" // Just in case
 	var/list/possible_iconstates = list("pork_rind_1", "pork_rind_2", "pork_rind_3", "pork_rind_4")
-	list_reagents = list("nutriment" = 3, "protein" = 5)
+	list_reagents = list("nutriment" = 1, "protein" = 1)
 	tastes = list("long pork" = 1, "salty" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
