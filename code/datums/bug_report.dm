@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
-	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=-1 WHERE id=:index", list("index" = row_index))
+	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 	if(!query_update_submission.warn_execute())
 		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
 	else
