@@ -682,6 +682,10 @@ GLOBAL_LIST_INIT(bone_recipes, list (
 	force = 7
 	origin_tech = "materials=2;biotech=2"
 
+/obj/item/stack/sheet/bone/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.bone_recipes
+
 //////////////////////////////
 // MARK: PLASTIC
 //////////////////////////////

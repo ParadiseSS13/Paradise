@@ -122,7 +122,7 @@
 	name = "Plasma-Bone Broth"
 	desc = "A bowl of liquid plasma ."
 	icon = 'icons/obj/food/cannibalism.dmi'
-	icon_state = "plasma-bone_broth"
+	icon_state = "plasmabone_broth"
 	trash = /obj/item/trash/snack_bowl
 	resistance_flags = FLAMMABLE
 	list_reagents = list("nutriment" = 3, "protein" = 5, "plasma" = 3)

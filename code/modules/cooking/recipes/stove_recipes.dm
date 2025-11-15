@@ -150,7 +150,7 @@
 	if(!istype(external))
 		return PCWJ_CHECK_INVALID
 
-	if(istype(external.dna.species, /datum/species/human))
+	if(istype(external.dna.species, /datum/species/skrell))
 		return PCWJ_CHECK_VALID
 
 	return PCWJ_CHECK_INVALID
