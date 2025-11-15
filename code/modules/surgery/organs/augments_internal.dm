@@ -1068,3 +1068,6 @@
 	while(length(contents) <= amount)
 		implant = pick(boxed)
 		new implant(src)
+
+/obj/item/storage/box/cyber_implants/empty/populate_contents()
+	return

@@ -23,7 +23,7 @@
 		to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
 		return
 	RemoveCurrentCoat()
-	var/colour = spraycan.colour
+	var/colour = spraycan.crayon_color
 	current_paint = colour
 	var/atom/A = parent
 	A.add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
