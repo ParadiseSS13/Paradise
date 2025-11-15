@@ -1711,7 +1711,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		return PROCESS_KILL
 
-/obj/machinery/door/airlock/temperature_expose(exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(heat_proof)
 		return
