@@ -38,14 +38,10 @@
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER)
+		infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER)
 	else
 		infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 	switch(infestation_type)
-		if(TS_INFESTATION_GREEN_SPIDER)
-			// Weakest, only used during lowpop.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
-			spawncount = 5
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
