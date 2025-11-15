@@ -2153,10 +2153,10 @@
 			var/difficultyMeter = ""
 			if(job.difficulty)
 				for(var/i in 1 to ceil(MAX_DIFFICULTY/2))
-					if (job.difficulty >= (2*i))
+					if(job.difficulty >= (2*i))
 						difficultyMeter += filledDifficulty
 						continue
-					if (job.difficulty > (2*(i-1)))
+					if(job.difficulty > (2*(i-1)))
 						difficultyMeter += halfDifficulty
 						continue
 					difficultyMeter += unfilledDifficulty
