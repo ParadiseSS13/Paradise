@@ -130,8 +130,11 @@
 	if(istype(input.dna.species, /datum/species/slime))
 		output = /obj/item/food/turkish_delight
 
-	if(istype(input.dna.species, /datum/species/kidan))
+	else if(istype(input.dna.species, /datum/species/kidan))
 		output = /obj/item/food/bug_bar
+
+	else if(istype(input.dna.species, /datum/species/machine))
+		output = /obj/item/food/wafers
 
 /////////////////////////
 ///END OBJECT RECIPES////

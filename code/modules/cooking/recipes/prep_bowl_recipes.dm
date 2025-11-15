@@ -138,6 +138,24 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
 	)
 
+/datum/cooking/recipe_step/add_item/diona/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/diona))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/tree_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/tree_salad
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/diona(),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/validsalad
 	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/valid

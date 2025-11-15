@@ -67,6 +67,15 @@
 		PCWJ_ADD_ITEM(/obj/item/organ/internal/brain),
 	)
 
+/datum/cooking/recipe/bug_burger
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/bug_burger
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_ITEM(/obj/item/food/bug_bar),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/cheeseburger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/cheese
