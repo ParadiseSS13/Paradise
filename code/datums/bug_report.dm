@@ -266,9 +266,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	return bug_reports
 
 /proc/read_bug_report(var/index)
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE id=:index VALUES(:index)", list("index"=index))
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE id=:index", list("index"=index))
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load bug report from DB")
+		qdel(query_bug_reports)
+		return
+	if(!query_bug_reports.item)
+		log_debug("Attempted to load bug report from DB with invalid index")
 		qdel(query_bug_reports)
 		return
 	var/datum/tgui_bug_report_form/bug_report = new()
@@ -293,7 +297,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 					"contents_json" = json_encode(bug_report_data),
 				)
 			)
-	bug_query.warn_execute()
+	if(!bug_query.warn_execute())
+		. = FALSE
 	qdel(bug_query)
 
 #undef STATUS_SUCCESS

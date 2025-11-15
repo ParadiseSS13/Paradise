@@ -935,9 +935,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
 		return
 	var/selection = tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_reports)
-	if(isnull(selection))
+	if(!bug_reports[selection])
 		return
-	var/datum/tgui_bug_report_form/form = read_bug_report(selection)
+	var/datum/tgui_bug_report_form/form = read_bug_report(bug_reports[selection])
 	if(!form?.assign_approver(usr))
 		qdel(form)
 		return
