@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	return bug_reports
 
-/proc/read_bug_report(var/index)
+/proc/read_bug_report(index)
 	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE id=:index", list("index" = index))
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load bug report from DB")
