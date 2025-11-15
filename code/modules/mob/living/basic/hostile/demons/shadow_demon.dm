@@ -1,4 +1,4 @@
-/mob/living/simple_animal/demon/shadow
+/mob/living/basic/demon/shadow
 	name = "shadow demon"
 	desc = "A creature that's barely tangible, you can feel its gaze piercing you."
 	icon = 'icons/mob/mob.dmi'
@@ -17,7 +17,7 @@
 	/// Used for fault tolerance. If you set it manually, it may fuck up shooting_grapple var.
 	var/last_block_shadow_crawl = 0
 
-/mob/living/simple_animal/demon/shadow/Login()
+/mob/living/basic/demon/shadow/Login()
 	..()
 	var/list/L = list(
 		"<span class='deadsay'><font size=3><b>You are a shadow demon!</b></font></span>",
@@ -30,7 +30,7 @@
 	)
 	to_chat(src, chat_box_red(L.Join("<br>")))
 
-/mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
+/mob/living/basic/demon/shadow/Life(seconds, times_fired)
 	. = ..()
 	var/lum_count = check_darkness()
 	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
@@ -41,7 +41,7 @@
 	else
 		adjustBruteLoss(-20)
 
-/mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
+/mob/living/basic/demon/shadow/UnarmedAttack(atom/A)
 	// Pick a random attack sound for each attack
 	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(A))
@@ -52,7 +52,7 @@
 	if(target.stat != DEAD)
 		return ..()
 
-	if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
+	if(isLivingSSD(target) && client.send_ssd_warning(target)) // Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
 		return
 
 	if(wrapping)
@@ -71,16 +71,16 @@
 	target.forceMove(C)
 	wrapping = FALSE
 
-/mob/living/simple_animal/demon/shadow/proc/block_shadow_crawl()
+/mob/living/basic/demon/shadow/proc/block_shadow_crawl()
 	last_block_shadow_crawl = world.time
 	block_shadow_crawl = TRUE
 	addtimer(CALLBACK(src, PROC_REF(check_block_shadow_crawl), last_block_shadow_crawl), 10 SECONDS)
 
-/mob/living/simple_animal/demon/shadow/proc/unblock_shadow_crawl()
+/mob/living/basic/demon/shadow/proc/unblock_shadow_crawl()
 	last_block_shadow_crawl = 0
 	block_shadow_crawl = FALSE
 
-/mob/living/simple_animal/demon/shadow/proc/check_block_shadow_crawl(block_time)
+/mob/living/basic/demon/shadow/proc/check_block_shadow_crawl(block_time)
 	if(block_time == last_block_shadow_crawl)
 		/// it means 10 seconds passed from last shadow grapple shot and it didnt unset block_shadow_crawl
 		to_chat(src, "<span class='warning'>You feel good enough to use Shadow Crawl again.</span>")
@@ -109,7 +109,7 @@
 
 /obj/structure/shadowcocoon/examine(mob/user)
 	. = ..()
-	if(istype(user, /mob/living/simple_animal/demon/shadow))
+	if(istype(user, /mob/living/basic/demon/shadow))
 		. += silent ? "<span class='notice'>The tendrils are idle and will not produce noise.</span>" : "<span class='notice'>The tendrils are agitated <b>and will occasionally produce noise to lure in more prey.</b></span>"
 		. += "<span class='notice'>Alt+Click to toggle whether [src] should produce noise to lure in victims.</span>"
 
@@ -161,12 +161,12 @@
 		A.forceMove(loc)
 	return..()
 
-/mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/mob/living/basic/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
 		return
 	..()
 
-/mob/living/simple_animal/demon/shadow/Initialize(mapload)
+/mob/living/basic/demon/shadow/Initialize(mapload)
 	. = ..()
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
@@ -175,11 +175,11 @@
 	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
-		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/basic/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
 	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
 
-/mob/living/simple_animal/demon/shadow/proc/check_darkness()
+/mob/living/basic/demon/shadow/proc/check_darkness()
 	var/turf/T = get_turf(src)
 	var/lum_count = T.get_lumcount()
 	if(lum_count > 0.2)
@@ -195,98 +195,3 @@
 		alpha = 125
 		speed = 0.5
 	return lum_count
-
-
-/datum/spell/fireball/shadow_grapple
-	name = "Shadow Grapple"
-	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
-	base_cooldown = 10 SECONDS
-	fireball_type = /obj/projectile/magic/shadow_hand
-
-	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
-	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
-
-	action_background_icon_state = "shadow_demon_bg"
-	action_icon_state = "shadow_grapple"
-	sound = null
-	invocation_type = "none"
-	invocation = null
-
-/datum/spell/fireball/shadow_grapple/update_spell_icon()
-	return
-
-/obj/projectile/magic/shadow_hand
-	name = "shadow hand"
-	icon_state = "shadow_hand"
-	plane = FLOOR_PLANE
-	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
-	var/hit = FALSE
-
-/obj/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
-	. = ..()
-	var/obj/machinery/light/floor/floor_light = locate(/obj/machinery/light/floor) in get_turf(src)
-	if(floor_light)
-		Bump(floor_light)
-
-/obj/projectile/magic/shadow_hand/fire(setAngle)
-	if(firer)
-		var/mob/living/simple_animal/demon/shadow/current_demon = firer
-		if(istype(current_demon))
-			current_demon.block_shadow_crawl()
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
-	return ..()
-
-/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
-	if(hit)
-		return
-	hit = TRUE // to prevent double hits from the pull
-	. = ..()
-	for(var/atom/extinguish_target in range(2, src))
-		extinguish_target.extinguish_light(TRUE)
-	if(!isliving(target))
-		if(isshadowdemon(firer))
-			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10, callback = CALLBACK(firer, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, unblock_shadow_crawl)))
-		else
-			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-	else
-		unblock_shadowdemon_crawl()
-	if(!.)
-		return
-	else
-		var/mob/living/L = target
-		L.Immobilize(2 SECONDS)
-		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
-		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-
-/obj/projectile/magic/shadow_hand/Destroy()
-	if(!hit)
-		unblock_shadowdemon_crawl()
-	return ..()
-
-/obj/projectile/magic/shadow_hand/proc/unblock_shadowdemon_crawl()
-	var/mob/living/simple_animal/demon/shadow/current_demon = firer
-	if(istype(current_demon))
-		current_demon.unblock_shadow_crawl()
-
-/obj/effect/ebeam/floor
-	plane = FLOOR_PLANE
-
-/obj/item/organ/internal/heart/demon/shadow
-	name = "heart of darkness"
-	desc = "It still beats furiously, emitting an aura of fear."
-	color = COLOR_BLACK
-
-/obj/item/organ/internal/heart/demon/shadow/attack_self__legacy__attackchain(mob/living/user)
-	. = ..()
-	user.drop_item()
-	insert(user)
-
-/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
-	. = ..()
-	if(M.mind)
-		M.mind.AddSpell(new /datum/spell/fireball/shadow_grapple)
-
-/obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-	if(M.mind)
-		M.mind.RemoveSpell(/datum/spell/fireball/shadow_grapple)
