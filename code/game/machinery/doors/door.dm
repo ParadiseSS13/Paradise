@@ -51,6 +51,9 @@
 	/// How many levels of foam do we have on us? Capped at 5
 	var/foam_level = 0
 
+	/// Is this door barricaded?
+	var/barricaded = FALSE
+
 	/// How much this door reduces superconductivity to when closed.
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
 	/// So explosion doesn't deal extra damage for multitile airlocks
@@ -108,7 +111,7 @@
 
 /obj/machinery/door/Bumped(atom/AM)
 	. = ..()
-	if(operating || emagged || foam_level)
+	if(operating || emagged || foam_level || barricaded)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -170,6 +173,9 @@
 	if(foam_level)
 		return
 
+	if(barricaded)
+		return
+
 	if(density && !emagged)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -193,6 +199,9 @@
 		return
 
 	if(foam_level)
+		return
+
+	if(!barricaded)
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
@@ -234,7 +243,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged || foam_level)
+	if(operating || emagged || foam_level || barricaded)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
@@ -268,10 +277,44 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
+/obj/machinery/door/proc/construct_barricade(obj/item/Q, mob/user)
+	var/obj/item/stack/sheet/wood/S = Q
+	if(!density)
+		to_chat(user, "<span class='warning'>[src] must be closed before you can barricade it!</span>")
+		return FINISH_ATTACK
+	if(S.get_amount() < 2)
+		to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
+		return FINISH_ATTACK
+	if(barricaded)
+		to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
+		return FINISH_ATTACK
+	var/turf/buildloc = get_turf(src)
+	for(var/atom/blocker in buildloc.contents)
+		if(blocker != src)
+			if(blocker.density)
+				to_chat(user, "<span class='warning'>There's something in the way of [src]!</span>")
+				return FINISH_ATTACK
+	to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
+	if(!(do_after_once(user, 4 SECONDS, target = src)))
+		return FINISH_ATTACK
+	if(!S.use(2))
+		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+		return FINISH_ATTACK
+	if(!barricaded) //one last check in case someone pre-barricades it
+		close()
+		user.visible_message(
+			"<span class='warning'>[user] barricades [src] shut!</span>",
+			"<span class='notice'>You barricade [src] shut.</span>"
+		)
+		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+		newbarricade.add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
 /obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-
+	else if(istype(used, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		construct_barricade(used, user)
 	else if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return ITEM_INTERACT_COMPLETE
