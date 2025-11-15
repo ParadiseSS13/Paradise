@@ -301,6 +301,7 @@
 /datum/ruleset/team
 	name = "BASE TEAM RULESET"
 	ruleset_weight = 0
+	latespawns_enabled = FALSE
 	/// Whether there should only be one of this kind of team. This could be used for blood-brothers if false.
 	var/unique_team = TRUE
 	/// How many players on a team.
