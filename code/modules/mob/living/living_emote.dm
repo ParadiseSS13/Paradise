@@ -49,7 +49,10 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.KnockDown(10 SECONDS)
+		if(intentional)
+			L.KnockDown(4 SECONDS)
+		else
+			L.KnockDown(10 SECONDS)
 
 /datum/emote/living/dance
 	key = "dance"
@@ -82,7 +85,7 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.KnockDown(10 SECONDS)
+		L.KnockDown(4 SECONDS)
 
 /datum/emote/living/deathgasp/should_play_sound(mob/user, intentional)
 	. = ..()
