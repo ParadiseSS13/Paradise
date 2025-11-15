@@ -5,6 +5,7 @@
 		/obj/effect/spawner/random/pool/lavaland_fauna/megafauna,
 		/obj/effect/spawner/random/pool/lavaland_fauna/megafauna/unique,
 		/obj/effect/spawner/random/pool/tendril_spawner,
+		/obj/effect/spawner/random/pool/geyser_spawner
 	)
 
 /datum/spawn_pool/lavaland_fauna
@@ -138,3 +139,21 @@
 			return FALSE
 
 	return ..()
+
+/datum/spawn_pool/geysers
+	available_points = 8
+
+/obj/effect/spawner/random/pool/geyser_spawner
+	spawn_all_loot = TRUE
+	spawn_pool = /datum/spawn_pool/geysers
+	point_value = 1
+	loot = list(
+		/obj/structure/geyser/plasma,
+		/obj/structure/geyser/water,
+		/obj/structure/geyser/brine,
+		/obj/structure/geyser/oil,
+		/obj/structure/geyser/plasma,
+		/obj/structure/geyser/water,
+		/obj/structure/geyser/brine,
+		/obj/structure/geyser/oil
+	)
