@@ -12096,12 +12096,10 @@
 /area/station/supply/office)
 "aWu" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/mob/living/basic/gorilla/cargo_domestic/forklift,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aWv" = (
@@ -96005,9 +96003,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
 "xIN" = (
-/mob/living/basic/kangaroo{
-	name = "Darwin"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -96017,6 +96012,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/mob/living/basic/kangaroo/darwin,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "xJo" = (

@@ -115624,6 +115624,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"xmC" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "xmH" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
@@ -120456,18 +120460,6 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
-"ylD" = (
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ylG" = (
@@ -139426,7 +139418,7 @@ wdE
 wsR
 iws
 ave
-ave
+xmC
 ave
 giX
 nfe
@@ -139939,7 +139931,7 @@ ifs
 mLY
 ave
 cTI
-ylD
+jON
 jON
 jON
 jON
