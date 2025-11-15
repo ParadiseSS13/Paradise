@@ -113,7 +113,8 @@ SUBSYSTEM_DEF(economy)
 		SUPPLY_MATERIALS,
 		SUPPLY_MISC,
 		SUPPLY_VEND,
-		SUPPLY_SHUTTLE
+		SUPPLY_SHUTTLE,
+		SUPPLY_TELECOMMUNICATIONS
 	)
 	///The modifier on crate prices to multiple the price by.
 	var/pack_price_modifier = 1

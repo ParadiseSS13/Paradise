@@ -380,6 +380,12 @@
 	icon_opened = "medicalcrate_open"
 	icon_closed = "medicalcrate"
 
+/obj/structure/closet/crate/secure/medical
+	desc = "A crate with a lock on it, painted in the scheme of the station's medical bay."
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
+
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
 	name = "\improper RCD crate"
@@ -496,6 +502,13 @@
 	icon_opened = "hydrosecurecrate_open"
 	icon_closed = "hydrosecurecrate"
 
+/obj/structure/closet/crate/secure/service
+	desc = "A crate with a lock on it, painted in the scheme of the station's service department."
+	name = "secure service crate"
+	icon_state = "servicesecurecrate"
+	icon_opened = "servicesecurecrate_open"
+	icon_closed = "servicesecurecrate"
+
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
@@ -569,6 +582,19 @@
 	icon_opened = "engisecurecrate_open"
 	icon_closed = "engisecurecrate"
 
+
+/obj/structure/closet/crate/supply
+	name = "supply crate"
+	desc = "A supply crate."
+	icon_state = "crate"
+
+/obj/structure/closet/crate/secure/supply
+	name = "secure supply crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's supply department."
+	icon_state = "supplysecurecrate"
+	icon_opened = "supplysecurecrate_open"
+	icon_closed = "supplysecurecrate"
+
 /obj/structure/closet/crate/engineering/electrical
 	name = "electrical engineering crate"
 	desc = "An electrical engineering crate."
@@ -586,6 +612,13 @@
 /obj/structure/closet/crate/secure/nanotrasen
 	name = "secure corporate crate"
 	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
+
+/obj/structure/closet/crate/secure/command
+	name = "secure command crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's command."
 	icon_state = "nanotrasensecure"
 	icon_opened = "nanotrasensecure_open"
 	icon_closed = "nanotrasensecure"
