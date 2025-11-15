@@ -156,7 +156,7 @@
 
 /obj/docking_port/proc/register()
 	return 0
-
+// MARK: Stationary port
 /obj/docking_port/stationary
 	name = "dock"
 
@@ -169,12 +169,6 @@
 	. = ..()
 	if(!mapload)
 		register()
-
-// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
-/obj/docking_port/stationary/whiteship
-	dwidth = 6
-	height = 19
-	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -215,7 +209,7 @@
 
 	SSshuttle.transit_docking_ports += src
 	return 1
-
+// MARK: Mobile port
 /obj/docking_port/mobile
 	name = "shuttle"
 	icon_state = "pinonclose"
@@ -829,7 +823,7 @@
 	SSshuttle.request_transit_dock(src)
 	return FALSE
 
-
+// MARK: Shuttle Ports
 /obj/docking_port/mobile/labour
 	dir = 8
 	dwidth = 2
@@ -890,6 +884,33 @@
 	timid = TRUE
 	width = 18
 
+/obj/docking_port/stationary/gamma_armory
+	id = "gamma_home"
+	name = "Station Gamma Armory Shuttle Dock"
+	width = 7
+	dwidth = 3
+	height = 6
+
+/obj/docking_port/stationary/gamma_armory/centcomm
+	id = "gamma_away"
+	name = "Central Command Gamma Armory Shuttle Dock"
+
+/obj/docking_port/mobile/gamma_armory
+	id = "gamma_armory"
+	name = "Gamma Armory shuttle"
+	width = 7
+	dwidth = 3
+	height = 6
+	port_direction = EAST
+	timid = TRUE
+
+/obj/docking_port/mobile/gamma_armory/register()
+	if(!..())
+		return FALSE
+
+	SSshuttle.gamma_armory = src
+	return TRUE
+
 /obj/docking_port/mobile/ferry
 	dir = 8
 	dwidth = 2
@@ -918,6 +939,11 @@
 	name = "syndicate infiltrator"
 	width = 18
 
+/obj/docking_port/stationary/whiteship
+	dwidth = 6
+	height = 19
+	width = 12
+
 /obj/docking_port/mobile/whiteship
 	dir = 8
 	id = "whiteship"
@@ -928,6 +954,7 @@
 	preferred_direction = WEST
 	port_direction = SOUTH
 
+// MARK: Shuttle Comp
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
@@ -1083,7 +1110,6 @@
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
-
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "Navigation console"
