@@ -26,6 +26,13 @@
 	air_contents.set_oxygen(MAX_TARGET_PRESSURE * O2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 	air_contents.set_nitrogen(MAX_TARGET_PRESSURE * N2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 
+/obj/machinery/atmospherics/portable/pump/empty
+
+/obj/machinery/atmospherics/portable/pump/empty/Initialize(mapload)
+	. = ..()
+	air_contents.set_oxygen(0)
+	air_contents.set_nitrogen(0)
+
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
