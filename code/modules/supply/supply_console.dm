@@ -70,6 +70,8 @@
 			return "Vending"
 		if(SUPPLY_SHUTTLE)
 			return "Shuttles"
+		if(SUPPLY_TELECOMMUNICATIONS)
+			return "Telecommunications"
 
 /obj/machinery/computer/supplycomp/proc/build_request_data(mob/user)
 	var/list/requests = list()
