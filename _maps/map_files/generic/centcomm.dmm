@@ -5564,6 +5564,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"sJ" = (
+/obj/docking_port/stationary/trader/centcom,
+/turf/space,
+/area/space/centcomm)
 "sK" = (
 /turf/simulated/floor/plasteel/stairs/left,
 /area/syndicate_mothership)
@@ -5893,24 +5897,11 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"tY" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 11;
-	height = 30;
-	id = "trader_base";
-	name = "docking bay at Trading Satellite";
-	width = 22
-	},
-/turf/space,
-/area/space/centcomm)
 "tZ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trader_base";
-	name = "Docking Port"
-	},
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trader_away"
+	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "ua" = (
@@ -43553,6 +43544,18 @@ aN
 aN
 aN
 aN
+Db
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
 aN
 aN
 aN
@@ -43565,19 +43568,7 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -47665,6 +47656,7 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
@@ -47688,8 +47680,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -51274,8 +51265,8 @@ aN
 aN
 aN
 aN
+sJ
 aN
-tY
 aN
 aN
 aN
@@ -51520,8 +51511,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -51545,6 +51535,7 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
@@ -51786,7 +51777,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 sv
 tF
@@ -51796,6 +51786,7 @@ wc
 wB
 wB
 vG
+aN
 aN
 aN
 aN
@@ -52043,7 +52034,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tl
 tF
@@ -52053,6 +52043,7 @@ wd
 wB
 xa
 vG
+aN
 aN
 aN
 aN
@@ -52300,7 +52291,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tt
 tF
@@ -52310,6 +52300,7 @@ wf
 wD
 vG
 vG
+aN
 aN
 aN
 aN
@@ -52557,7 +52548,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tA
 tF
@@ -52566,7 +52556,8 @@ vG
 vG
 vG
 vG
-vG
+aN
+aN
 aN
 aN
 aN
@@ -52814,7 +52805,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tB
 tF
@@ -52822,6 +52812,7 @@ tF
 vs
 wg
 po
+aN
 aN
 aN
 aN
@@ -53071,7 +53062,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tD
 tF
@@ -53079,6 +53069,7 @@ tF
 vu
 wi
 po
+aN
 aN
 aN
 aN
@@ -53328,7 +53319,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tE
 tF
@@ -53336,6 +53326,7 @@ vf
 vx
 wj
 po
+aN
 aN
 aN
 aN
@@ -53584,7 +53575,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 vG
 Ai
@@ -53593,6 +53583,7 @@ vf
 vA
 wl
 po
+aN
 aN
 aN
 aN
@@ -53841,7 +53832,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -53850,6 +53840,7 @@ vf
 vB
 wn
 po
+aN
 aN
 aN
 aN
@@ -54098,7 +54089,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -54107,6 +54097,7 @@ tF
 vD
 wp
 po
+aN
 aN
 aN
 aN
@@ -54355,7 +54346,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -54364,6 +54354,7 @@ tF
 Ec
 ws
 vG
+aN
 aN
 aN
 aN
@@ -54612,15 +54603,15 @@ aN
 aN
 aN
 aN
+vG
+vG
+tH
+Tu
+Tu
+tH
+vG
+vG
 aN
-vG
-vG
-tH
-Tu
-Tu
-tH
-vG
-vG
 aN
 aN
 aN
@@ -54870,13 +54861,13 @@ aN
 aN
 aN
 aN
-aN
 vG
 ig
 ig
 ig
 oQ
 vG
+aN
 aN
 aN
 aN
@@ -55127,12 +55118,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+vG
+vG
+vG
+vG
+vG
+vG
 aN
 aN
 aN

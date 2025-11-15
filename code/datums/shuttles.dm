@@ -33,6 +33,10 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
+/datum/map_template/shuttle/trader
+	port_id = "trader"
+	name = "Base Shuttle Template (Trader)"
+	prefix = "_maps/map_files/shuttles/trader/"
 
 // Shuttles start here:
 
@@ -207,10 +211,6 @@
 	description = "Vox skipjack ship."
 
 // Trader Shuttles:
-/datum/map_template/shuttle/trader
-	port_id = "trader_base"
-	prefix = "_maps/map_files/shuttles/trader/"
-
 /datum/map_template/shuttle/trader/sol
 	suffix = "sol"
 	name = "Solgov Trade Freighter"

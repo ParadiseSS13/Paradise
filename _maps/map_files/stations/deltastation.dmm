@@ -9883,13 +9883,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "aOn" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "port bay 4 at NSS Kerberos";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Kerberos";
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -60762,7 +60758,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -75115,7 +75111,7 @@
 "pjO" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
