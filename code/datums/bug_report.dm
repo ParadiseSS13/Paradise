@@ -159,18 +159,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	request.prepare(RUSTLIBS_HTTP_METHOD_POST, url, json_encode(payload), headers)
 	request.begin_async()
 
-	// Report has been handled so we can remove it from the DB.
-	// If the request fails the user is prompted to open an issue on Github, so we consider it handled as well.
-	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
-			"DELETE FROM bug_reports WHERE (file_time=:file_time AND author_ckey=:author_ckey)",
-			list(
-				"filetime" = file_time,
-				"author_ckey" = initial_key,
-				)
-		)
-	query_delete_bug_report.warn_execute()
-	qdel(query_delete_bug_report)
-
 	var/start_time = world.time
 	UNTIL(request.is_complete() || (world.time > start_time + 5 SECONDS))
 	if(!request.is_complete() && world.time > start_time + 5 SECONDS)
@@ -185,6 +173,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 		if(initial_user)
 			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+		// Update bug report status on the DB
+		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index VALUES(:index)", list("index" = row_index))
+		if(!query_update_submission.warn_execute())
+			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
