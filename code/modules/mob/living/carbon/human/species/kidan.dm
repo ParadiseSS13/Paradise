@@ -28,6 +28,9 @@
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
+	male_scream_sound = 'sound/voice/scream_kidan.ogg'
+	female_scream_sound = 'sound/voice/scream_kidan.ogg'
+
 	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/kidan,
