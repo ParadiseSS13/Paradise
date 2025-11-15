@@ -487,6 +487,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Dark flash:</b> <a href='byond://?_src_=prefs;preference=dark_flash'>[(toggles3 & PREFTOGGLE_3_DARK_FLASH) ? "Yes" : "No"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_ANTAG) // Antagonist's Preferences (and maps)

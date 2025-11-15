@@ -1065,6 +1065,9 @@
 						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/cogbar) in parent.screen
 						PM.backdrop(parent.mob)
 
+				if("dark_flash")
+					toggles3 ^= PREFTOGGLE_3_DARK_FLASH
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
