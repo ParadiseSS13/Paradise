@@ -60,6 +60,10 @@
 	prize_list["Kinetic Weapons"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Railgun", /obj/item/gun/energy/kinetic_accelerator/railgun, 1500),
+		EQUIPMENT("Kinetic Repeater", /obj/item/gun/energy/kinetic_accelerator/repeater, 1500),
+		EQUIPMENT("Kinetic Shotgun", /obj/item/gun/energy/kinetic_accelerator/shotgun, 1500),
+		EQUIPMENT("Kinetic Shockwave", /obj/item/gun/energy/kinetic_accelerator/shockwave, 1500),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
 		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
@@ -396,6 +400,10 @@
 	prize_list["Kinetic Weapons"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Pistol", /obj/item/gun/energy/kinetic_accelerator/pistol, 500),
+		EQUIPMENT("Kinetic Railgun", /obj/item/gun/energy/kinetic_accelerator/railgun, 1500),
+		EQUIPMENT("Kinetic Repeater", /obj/item/gun/energy/kinetic_accelerator/repeater, 1500),
+		EQUIPMENT("Kinetic Shotgun", /obj/item/gun/energy/kinetic_accelerator/shotgun, 1500),
+		EQUIPMENT("Kinetic Shockwave", /obj/item/gun/energy/kinetic_accelerator/shockwave, 1500),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
 		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
