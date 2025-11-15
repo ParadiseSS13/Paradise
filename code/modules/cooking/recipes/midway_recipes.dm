@@ -88,7 +88,7 @@
 	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_nian_bbq
 	steps = list(
-		new /datum/cooking/recipe_step/add_item/fried_nian_bbq(),
+		new /datum/cooking/recipe_step/add_item/fried_nian(),
 		PCWJ_ADD_REAGENT("bbqsauce", 5),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
 	)
