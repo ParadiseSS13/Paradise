@@ -67,12 +67,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/ui_close(mob/user)
 	. = ..()
-	var/client/initial_user = locateUID(initial_user_uid)
-	if(!approving_user && user.client == initial_user && !selected_confirm) // user closes the ui without selecting confirm or approve.
-		qdel(src)
-		return
-	approving_user = null
-	selected_confirm = FALSE
+	// The reports shouldn't persist unless being made or reviewed.
+	qdel(src)
 
 /datum/tgui_bug_report_form/Destroy()
 	bug_reports -= src
@@ -145,7 +141,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	if(token == null)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
 		external_link_prompt(user)
-		qdel(src)
 		return
 
 	var/url = "https://api.github.com/repos/[org]/[repo_name]/issues"
@@ -191,9 +186,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		if(initial_user)
 			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 
-	// approved and submitted, we no longer need the datum.
-	qdel(src)
-
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
 	var/client/initial_user = locateUID(initial_user_uid)
@@ -204,23 +196,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	if(initial_user)
 		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
 	message_admins(general_message)
-	qdel(src)
-
-/datum/tgui_bug_report_form/proc/load_to_db()
-	. = TRUE
-	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
-				INSERT IGNORE INTO bug_reports (file_time, author_ckey, title, round_id, contents_json) VALUES (:file_time, :author_ckey, :title, :round_id, :contents_json)
-				"},
-				list(
-					"filetime" = bug_report.file_time,
-					"author_ckey" = bug_report.initial_key,
-					"title" = bug_report.bug_report_data["title"],
-					"round_id" = bug_report.bug_report_data["round_id"],
-					"contents_json" = json_encode(bug_report.bug_report_data),
-				)
-			)
-	bug_query.warn_execute()
-	qdel(bug_query)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -235,18 +210,18 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 			bug_report_data = sanitize_payload(params)
 			add_metadata(user)
 			selected_confirm = TRUE
-			// bug report request is now waiting for admin approval
+			// Bug report request is being submitted for approval
 			if(!awaiting_approval)
 				bug_report_request()
 				GLOB.bug_report_time[user.ckey] = world.time
 				awaiting_approval = TRUE
-			else // otherwise it's been approved
+			// Otherwise it's being approved
+			else
 				var/payload_body = create_form()
 				send_request(payload_body, user.client)
 		if("cancel")
 			if(awaiting_approval) // admin has chosen to reject the bug report
 				reject(user.client)
-			qdel(src)
 	ui.close()
 	. = TRUE
 
@@ -256,10 +231,16 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
-	message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-	var/client/initial_user = locateUID(initial_user_uid)
-	if(initial_user)
-		to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=-1 WHERE id=:index VALUES(:index)", list("index" = row_index))
+	if(!query_update_submission.warn_execute())
+		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
+	else
+		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		var/client/initial_user = locateUID(initial_user_uid)
+		if(initial_user)
+			to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	qdel(query_update_submission)
+	return
 
 /// Populates a list using the bug reports db table and returns it
 /proc/read_bug_report_table()
@@ -282,5 +263,39 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	qdel(query_bug_reports)
 
 	return bug_reports
+
+/proc/read_bug_report(var/index)
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE id=:index VALUES(:index)", list("index"=index))
+	if(!query_bug_reports.warn_execute())
+		log_debug("Failed to load bug report from DB")
+		qdel(query_bug_reports)
+		return
+	var/datum/tgui_bug_report_form/bug_report = new()
+	bug_reports += bug_report
+	bug_report.row_index = query_bug_reports.item[1]
+	bug_report.file_time = query_bug_reports.item[2]
+	bug_report.initial_key = query_bug_reports.item[3]
+	bug_report.title = query_bug_reports.item[4]
+	bug_report.round_id = query_bug_reports.item[5]
+	bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
+	bug_report.awaiting_approval = query_bug_reports.item[7] == 0
+	qdel(query_bug_reports)
+	return bug_report
+
+/datum/tgui_bug_report_form/proc/load_to_db()
+	. = TRUE
+	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
+				INSERT IGNORE INTO bug_reports (file_time, author_ckey, title, round_id, contents_json) VALUES (:file_time, :author_ckey, :title, :round_id, :contents_json)
+				"},
+				list(
+					"filetime" = bug_report.file_time,
+					"author_ckey" = bug_report.initial_key,
+					"title" = bug_report.bug_report_data["title"],
+					"round_id" = bug_report.bug_report_data["round_id"],
+					"contents_json" = json_encode(bug_report.bug_report_data),
+				)
+			)
+	bug_query.warn_execute()
+	qdel(bug_query)
 
 #undef STATUS_SUCCESS

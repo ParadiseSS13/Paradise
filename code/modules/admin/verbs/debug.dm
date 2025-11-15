@@ -938,7 +938,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/datum/tgui_bug_report_form/report in bug_reports)
 		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
 	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	bug_reports -= form
+	for(var/datum/tgui_bug_report_form/report in bug_reports)
+		qdel(report)
 	if(!form?.assign_approver(usr))
+		qdel(form)
 		return
 	form.ui_interact(usr)
 	return
