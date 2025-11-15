@@ -10,7 +10,8 @@
 	layer = BELOW_OBJ_LAYER
 	level = 3
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
-	integrity_failure = 100
+	max_integrity = 50
+	integrity_failure = 20
 	cares_about_temperature = TRUE
 	rad_insulation_beta = RAD_BETA_BLOCKER
 	var/rods_type = /obj/item/stack/rods
