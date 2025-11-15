@@ -210,6 +210,16 @@
 		playsound(loc, "pageturn", 50, 1)
 		read_book(usr) //scuffed but this is how you update the UI
 		updateUsrDialog()
+	if(href_list["seek_page"]) //to use page-seeking urls, define pages of the book on initialize and structure urls like this: byond://?src=[UID()];seek_page=1
+		var/requested_page = text2num(href_list["seek_page"])
+		current_page = requested_page
+		if(requested_page < 1)
+			current_page = 0
+		if(requested_page > length(pages))
+			current_page = length(pages) - 1
+		playsound(loc, "pageturn", 50, 1)
+		read_book(usr) //scuffed but this is how you update the UI
+		updateUsrDialog()
 
 /**
   * Edit Book Proc
