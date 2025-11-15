@@ -2,6 +2,7 @@
 /datum/ai_behavior/befriend_target
 
 /datum/ai_behavior/befriend_target/perform(seconds_per_tick, datum/ai_controller/controller, target_key, befriend_message)
+	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	var/mob/living/living_target = controller.blackboard[target_key]
 	if(QDELETED(living_target))

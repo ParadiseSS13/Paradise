@@ -32,6 +32,7 @@
 /// `finish_action` proc is given TRUE or FALSE depending on whether or not the
 /// return value of `perform` is marked as successful or unsuccessful.
 /datum/ai_behavior/proc/perform(seconds_per_tick, datum/ai_controller/controller, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	controller.behavior_cooldowns[src] = world.time + action_cooldown
 
 /// Called when the action is finished. This needs the same args as `perform`
@@ -42,6 +43,7 @@
 /// [/datum/ai_behavior/proc/perform] returns [AI_BEHAVIOR_SUCCEEDED] or
 /// [AI_BEHAVIOR_FAILED].
 /datum/ai_behavior/proc/finish_action(datum/ai_controller/controller, succeeded, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(controller.current_behaviors, src)
 	controller.behavior_args -= type
 	// If this was a movement task, reset our movement target if necessary
