@@ -49,7 +49,7 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
-		/datum/ruleset/traitor/autotraitor,
+		// /datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
@@ -59,7 +59,9 @@
 	/// All of the minds that we will make into our antagonist type
 	var/list/datum/mind/pre_antags = list()
 	/// If non-zero, how long from the start of the game should a latespawn for this role occur?
-	var/latespawn_time
+	var/latespawn_time = 0
+	/// Should this ruleset roll latespawns?
+	var/latespawns_enabled = TRUE
 
 /datum/ruleset/Destroy(force, ...)
 	stack_trace("[src] ([type]) was destroyed.")
@@ -139,45 +141,56 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		// Has a mind
-		if(!player.mind)
-			continue
-		// Connected and not AFK
-		if(!player.client || (locate(player) in SSafk.afk_players))
-			continue
-		// Not antag-banned and not specific antag banned
-		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
-			continue
-		// Make sure they want to play antag, and that they're not already something (off station or antag)
-		if(player.client.persistent.skip_antag || player.mind.offstation_role || player.mind.special_role)
-			continue
-		// Make sure they actually want to be this antagonist
-		if(!(antagonist_type::job_rank in player.client.prefs.be_special))
-			continue
-		// Make sure their species CAN be this antagonist
-		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
-			continue
-		// Make sure they're not in a banned job
-		if(player.mind.assigned_role in banned_jobs)
-			continue
-
-		candidates += player.mind
+		if(is_valid_candidate(player))
+			candidates += player.mind
 
 	return shuffle(candidates)
 
-/datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
-	// latespawning is only used by traitors at this point, so we're just going to be naive and allocate all budget when this proc is called.
-	var/late_antag_amount = floor(dynamic.antag_budget / antag_cost)
-	dynamic.antag_budget -= (late_antag_amount * antag_cost)
+/datum/ruleset/proc/is_valid_candidate(mob/living/carbon/human/player)
+	// Has a mind
+	if(!player.mind)
+		return FALSE
+	// Connected and not AFK
+	if(!player.client || (locate(player) in SSafk.afk_players))
+		return FALSE
+	// Not antag-banned and not specific antag banned
+	if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
+		return FALSE
+	// Make sure they want to play antag, and that they're not already something (off station or antag)
+	if(player.client.persistent.skip_antag || player.mind.offstation_role || player.mind.special_role)
+		return FALSE
+	// Make sure they actually want to be this antagonist
+	if(!(antagonist_type::job_rank in player.client.prefs.be_special))
+		return FALSE
+	// Make sure their species CAN be this antagonist
+	if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
+		return FALSE
+	// Make sure they're not in a banned job
+	if(player.mind.assigned_role in banned_jobs)
+		return FALSE
+	return TRUE
 
+/datum/ruleset/proc/enable_latespawns()
+	latespawns_enabled = TRUE
+
+/datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
 	var/list/datum/mind/possible_antags = get_latejoin_players()
-	for(var/i in 1 to late_antag_amount)
+	var/antags_rolled = 0
+	//CHUGAFIX I think this case is possible when it's lowpop and nobody has antag on. Not 100% sure.
+	if(length(possible_antags) < antag_amount)
+		var/wasted_budget = (antag_amount - length(possible_antags)) * antag_cost
+		log_dynamic("Tried to roll [antag_amount] [name], but there were only [possible_antags] candidates! Wasting [wasted_budget] budget.")
+		antag_amount = length(possible_antags)
+
+	while(antag_amount > 0)
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
+		antag_amount--
+		antags_rolled++
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
-	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
-	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
+	log_dynamic("Latespawned [antags_rolled] [name]\s.")
+	message_admins("Dynamic latespawned [antags_rolled] [name]\s.")
 
 /datum/ruleset/proc/automatic_deduct(budget)
 	. = antag_cost * antag_amount
@@ -203,21 +216,21 @@
 		antag.add_antag_datum(traitor_datum)
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
-/datum/ruleset/traitor/autotraitor
-	name = "Autotraitor"
-	ruleset_weight = 2
-	antag_cost = 10
-	banned_mutual_rulesets = list(
-		/datum/ruleset/traitor,
-		/datum/ruleset/vampire,
-		/datum/ruleset/changeling,
-		/datum/ruleset/team/cult
-	)
+// /datum/ruleset/traitor/autotraitor
+// 	name = "Autotraitor"
+// 	ruleset_weight = 2
+// 	antag_cost = 10
+// 	banned_mutual_rulesets = list(
+// 		/datum/ruleset/traitor,
+// 		/datum/ruleset/vampire,
+// 		/datum/ruleset/changeling,
+// 		/datum/ruleset/team/cult
+// 	)
 
-/datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
-	. = ..()
-	latespawn_time = null
-	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
+// /datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
+// 	. = ..()
+// 	latespawn_time = 0
+// 	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
 
 /datum/ruleset/vampire
 	name = "Vampire"
@@ -316,7 +329,7 @@
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
-		/datum/ruleset/traitor/autotraitor,
+		// /datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)

@@ -14,6 +14,9 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	/// Log for what happens in a dynamic round
 	var/list/dynamic_log = list()
 
+	/// Minimum amount of budget required to start considering latespawns
+	var/min_latespawn_budget = 15
+
 /datum/game_mode/dynamic/announce()
 	to_chat(world, "<b>The current game mode is - Dynamic</b>")
 	var/list/possible_rulesets = list()
@@ -123,21 +126,24 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 	apply_antag_budget()
 
-/datum/game_mode/dynamic/proc/apply_antag_budget() // todo, can be called later in the game to apply more budget. That also means there has to be shit done for latejoins.
+/datum/game_mode/dynamic/proc/apply_antag_budget(consider_latespawns = FALSE)
 	var/list/temp_rulesets = rulesets.Copy()
+	var/antags_rolled = 0
 	while(antag_budget >= 0)
 		var/datum/ruleset/ruleset = pickweight(temp_rulesets)
 		if(!ruleset)
-			log_dynamic("No rulesets remaining. Remaining budget: [antag_budget].")
-			return
-		if(!ruleset.antagonist_possible(antag_budget))
+			log_dynamic("No rulesets remaining. Remaining budget: [antag_budget]. Antagonists rolled: [antags_rolled]")
+			return antags_rolled
+		if((consider_latespawns && !ruleset.latespawns_enabled) || !ruleset.antagonist_possible(antag_budget))
 			log_dynamic("Rolled [ruleset.name]: failed, removing [ruleset.name] ruleset.")
 			temp_rulesets -= ruleset
 			continue
 		ruleset.antag_amount++
+		antags_rolled++
 		antag_budget -= ruleset.antag_cost
 		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [antag_budget].")
-	log_dynamic("No more antagonist budget remaining.")
+	log_dynamic("No more antagonist budget remaining. Antagonists rolled: [antags_rolled]")
+	return antags_rolled
 
 /datum/game_mode/dynamic/pre_setup()
 	var/watch = start_watch()
@@ -162,13 +168,20 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			log_dynamic("Making antag datums for [ruleset.name] ruleset.")
 		ruleset.roundstart_post_setup(src)
 		if(ruleset.latespawn_time)
-			addtimer(CALLBACK(ruleset, TYPE_PROC_REF(/datum/ruleset, latespawn), src), ruleset.latespawn_time)
+			ruleset.latespawns_enabled = FALSE
+			addtimer(CALLBACK(ruleset, TYPE_PROC_REF(/datum/ruleset, enable_latespawns)), ruleset.latespawn_time)
 			log_dynamic("[ruleset]s will latespawn at [ruleset.latespawn_time / 600].")
 	..()
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
 	antag_budget++
+	if(antag_budget >= min_latespawn_budget)
+		if(apply_antag_budget(TRUE))
+			for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets))
+				if(ruleset.antag_amount <= 0)
+					continue
+				ruleset.latespawn(src)
 
 /datum/game_mode/dynamic/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
 	var/turf/T = get_turf(cryopod)
