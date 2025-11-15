@@ -405,8 +405,8 @@
 	var/transfer_moles = environment.total_moles() * input_fraction
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
-	// Record how much gas we took in for the UI
-	compressor.gas_throughput = compressor.gas_contained.total_moles()
+	// Record how much gas we took in for the UI. We divided by 2 due to the turbine ticking over once every two seconds
+	compressor.gas_throughput = compressor.gas_contained.total_moles() / 2
 
 	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
 	var/total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)
