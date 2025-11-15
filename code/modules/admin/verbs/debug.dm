@@ -930,17 +930,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
 		return
-	var/list/bug_reports = read_bug_report_table()
+	var/list/bug_reports = read_bug_report_titles()
 	if(!length(bug_reports))
 		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
 		return
-	var/list/bug_report_selection = list()
-	for(var/datum/tgui_bug_report_form/report in bug_reports)
-		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
-	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
-	bug_reports -= form
-	for(var/datum/tgui_bug_report_form/report in bug_reports)
-		qdel(report)
+	var/selection = tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_reports)
+	if(isnull(selection))
+		return
+	var/datum/tgui_bug_report_form/form = read_bug_report(selection)
 	if(!form?.assign_approver(usr))
 		qdel(form)
 		return

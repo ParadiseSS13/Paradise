@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
-	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
+	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=2 WHERE id=:index", list("index" = row_index))
 	if(!query_update_submission.warn_execute())
 		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
 	else
@@ -246,6 +246,21 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		bug_report.initial_key = query_bug_reports.item[3]
 		bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
 		bug_report.awaiting_approval = TRUE
+	qdel(query_bug_reports)
+
+	return bug_reports
+
+/// Create a list of ids, authors and titles of bug reports awaiting approval
+/proc/read_bug_report_titles()
+	var/list/bug_reports = list()
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, author_ckey, contents_json FROM bug_reports WHERE submitted=0")
+	if(!query_bug_reports.warn_execute())
+		log_debug("Failed to load stored bug reports from DB")
+		qdel(query_bug_reports)
+		return list()
+	while(query_bug_reports.NextRow())
+		var/list/report_data = json_decode(query_bug_reports.item[3])
+		bug_reports["[query_bug_reports.item[2]] - [report_data["title"]]"] = query_bug_reports.item[1]
 	qdel(query_bug_reports)
 
 	return bug_reports
