@@ -140,7 +140,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/internal/kidneys/our_kidneys = H.get_int_organ(/obj/item/organ/internal/kidneys)
 		if(prob(70))
-			if(our_kidneys)
+			if(our_kidneys && our_kidneys.damage < 60)
 				our_kidneys.receive_damage(1, TRUE)
 			else
 				M.adjustToxLoss(1)
