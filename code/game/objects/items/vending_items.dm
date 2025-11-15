@@ -234,3 +234,7 @@
 /obj/item/vending_refill/chapdrobe
 	machine_name = "ChapDrobe"
 	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/capdrobe
+	machine_name = "CapDrobe"
+	icon_state = "refill_clothes"

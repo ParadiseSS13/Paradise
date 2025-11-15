@@ -2769,6 +2769,8 @@
 /obj/item/storage/secure/safe{
 	pixel_y = 32
 	},
+/obj/item/bedsheet/captain,
+/obj/structure/bed,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "auW" = (
@@ -3017,6 +3019,10 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/crew/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "axI" = (
@@ -4489,20 +4495,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"aLQ" = (
-/obj/machinery/door/airlock/command{
-	name = "Captain's Quarters"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/captain)
 "aLU" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -5501,10 +5493,10 @@
 /area/station/command/meeting_room)
 "aVg" = (
 /obj/structure/table/wood,
-/obj/item/melee/chainofcommand,
 /obj/machinery/phone{
 	pixel_y = 2
 	},
+/obj/item/melee/chainofcommand,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "aVi" = (
@@ -11841,6 +11833,10 @@
 /obj/structure/railing/corner,
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
+"bRV" = (
+/obj/machinery/economy/vending/capdrobe,
+/turf/simulated/floor/wood,
+/area/station/command/office/captain)
 "bRX" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 6
@@ -23414,12 +23410,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
-"dPP" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
 "dPY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -63257,6 +63247,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
+"mEo" = (
+/obj/machinery/computer/arcade{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "mEq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
@@ -75191,9 +75187,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
-"poW" = (
-/turf/simulated/floor/wood,
-/area/station/command/office/captain)
 "poY" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/freezer,
@@ -80997,9 +80990,9 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "qGL" = (
-/obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/multi/fountain,
+/obj/structure/table/wood,
 /obj/item/stamp/captain{
 	pixel_x = -10
 	},
@@ -104105,15 +104098,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
-"vGs" = (
-/obj/structure/bed,
-/obj/item/bedsheet/captain,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/captain)
 "vGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109607,6 +109591,11 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/door/airlock/command{
+	name = "Captain's Quarters"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "wPE" = (
@@ -147867,8 +147856,8 @@ abW
 dxS
 auU
 ikc
-vGs
-poW
+eTm
+eTm
 wPw
 uXj
 aCb
@@ -148125,8 +148114,8 @@ dxS
 eTm
 awk
 eTm
-eTm
-aLQ
+bRV
+vUn
 uXj
 uXj
 uXj
@@ -148385,7 +148374,7 @@ eTm
 uBe
 vUn
 aVo
-dPP
+mEo
 qEF
 uaz
 eTm
