@@ -335,12 +335,11 @@
 	if(isstorage(target) || ismodcontrol(target))
 		return NONE
 
+	if(ismob(target))
+		return NONE
+
 	if(world.time < lastused + spawndelay)
 		return ITEM_INTERACT_COMPLETE
-
-	// Use as melee weapon
-	if(user.a_intent == INTENT_HARM)
-		return NONE
 
 	var/turf/T = get_turf(target)
 	if(!T)
