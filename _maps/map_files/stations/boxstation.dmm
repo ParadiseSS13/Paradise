@@ -8122,7 +8122,6 @@
 "aEG" = (
 /obj/structure/safe/floor,
 /obj/item/clothing/suit/storage/det_suit/forensics,
-/obj/item/detective_scanner,
 /obj/item/gun/projectile/revolver/capgun,
 /obj/item/ammo_box/caps,
 /obj/item/ammo_box/caps,
