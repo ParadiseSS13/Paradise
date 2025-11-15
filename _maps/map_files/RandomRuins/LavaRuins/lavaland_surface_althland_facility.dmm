@@ -429,12 +429,9 @@
 "pn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "pP" = (
@@ -1307,10 +1304,7 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Wl" = (
@@ -1331,10 +1325,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "WU" = (
