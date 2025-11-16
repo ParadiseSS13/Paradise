@@ -42,11 +42,11 @@
 	if(istype(used,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
 		if(istype(used, /obj/item/organ/internal/brain/golem))
 			to_chat(user, "<span class='warning'>You can't find a way to plug [used] into [src].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/organ/internal/brain/B = used
 		if(!B.brainmob)
 			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			CRASH("[user] tried to stick a [used] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
@@ -88,7 +88,7 @@
 	if(istype(used, /obj/item/mmi_radio_upgrade))
 		if(radio)
 			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] begins to install [used] into [src]...</span>", \
 			"<span class='notice'>You start to install [used] into [src]...</span>")
 		if(do_after(user, 2 SECONDS, target=src))
@@ -104,7 +104,7 @@
 				to_chat(user, "<span class='warning'>You can't drop [used]!</span>")
 	if(istype(used, /obj/item/stack/nanopaste)) //MMIs can get EMP damaged too so this isn't just for robobrains
 		if(!brainmob)
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/nanopaste/nano = used
 		if(nano.use(1))
 			brainmob.rejuvenate()
@@ -112,7 +112,6 @@
 			return ITEM_INTERACT_COMPLETE
 
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
@@ -126,6 +125,7 @@
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
 						"<span class='notice'>You uninstall the radio from [src].</span>")
+	return TRUE
 
 
 /obj/item/mmi/activate_self(mob/user)
