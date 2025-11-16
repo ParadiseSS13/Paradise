@@ -289,6 +289,22 @@
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/potass_chloride
+	name = "Potassium Salt"
+	id = "potass_chloride"
+	description = "Potassium chloride, for folks who need to watch their sodium intake."
+	color = "#B1B0B0"
+	harmless = FALSE
+	overdose_threshold = 100
+	taste_mult = 2
+	taste_description = "salt"
+
+/datum/reagent/consumable/potass_chloride/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
 	id = "blackpepper"

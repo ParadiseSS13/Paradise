@@ -1338,7 +1338,7 @@
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/synthanol/gear_grinder/on_mob_life(mob/living/M)
-	if((M.dna.species.reagent_tag & PROCESS_SYN))
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		M.SetSlowed(8, 2)
 		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
 			to_chat(M, "Your joints struggle to move.")
