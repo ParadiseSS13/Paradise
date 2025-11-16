@@ -1181,3 +1181,12 @@
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
+
+/datum/cooking/recipe/tapiocaflatbread
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/tapiocaflatbread
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
+	)
