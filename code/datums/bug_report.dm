@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /// Populates a list using the bug reports db table and returns it
 /proc/read_bug_report_table()
 	var/list/bug_reports = list()
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE submitted=0")
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE submitted=0")
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load stored bug reports from DB")
 		qdel(query_bug_reports)
@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	return bug_reports
 
 /proc/read_bug_report(index)
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT * FROM bug_reports WHERE id=:index", list("index" = index))
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE id=:index", list("index" = index))
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load bug report from DB")
 		qdel(query_bug_reports)
