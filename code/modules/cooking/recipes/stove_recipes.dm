@@ -811,7 +811,6 @@
 		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
 	)
 
-
 /datum/cooking/recipe/tapioca_pudding
 	container_type =/obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/tapioca_pudding

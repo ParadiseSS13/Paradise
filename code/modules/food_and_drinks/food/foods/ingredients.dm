@@ -295,7 +295,6 @@
 
 	return NONE
 
-
 /obj/item/food/rawcookies/chocochips
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
 	icon_state = "unbaked_cookies_choco"

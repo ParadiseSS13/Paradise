@@ -16,7 +16,6 @@
 	mutatelist = list(/obj/item/seeds/cassava/iron)
 	reagents_add = list("tapioca" = 0.4, "nutriment" = 0.1)
 
-
 /obj/item/food/grown/cassava
 	seed = /obj/item/seeds/cassava
 	name = "cassava root"
@@ -26,10 +25,7 @@
 	bitesize = 5
 	tastes = list("dirt" = 0.75, "starch" = 0.25)
 
-
-	//cast-ava root (cast iron, i really was trying to think of puns for this but :shrug:)
-
-
+// Cast-ava root (cast iron, i really was trying to think of puns for this but :shrug:)
 /obj/item/seeds/cassava/iron
 	name = "pack of cast-ava seeds."
 	desc = "These grow into cassava that are made of softened cast-iron steel."
@@ -39,9 +35,6 @@
 	mutatelist = list()
 	reagents_add = list("nutriment" = 0.4, "tapioca" = 0.1)
 
-
-
-
 /obj/item/food/grown/cassava/iron
 	seed = /obj/item/seeds/cassava/iron
 	name = "cast-ava root"
@@ -49,7 +42,3 @@
 	icon_state = "ironcassava"
 	filling_color = "#333333ff"
 	distill_reagent = null
-
-
-
-

@@ -1081,7 +1081,6 @@
 	mix_message = "The water boils the powder into small pearls."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-
 /datum/chemical_reaction/bubbletea
 	name = "Bubble Tea"
 	id = "bubbletea"
@@ -1091,7 +1090,6 @@
 	mix_message = "The pearls fall to the bottom of the glass as the tea mixes with the sugar."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-
 /datum/chemical_reaction/milktea
 	name = "Milk Tea"
 	id = "milktea"
@@ -1099,7 +1097,6 @@
 	required_reagents = list("tea" = 1, "sugar" = 1, "milk" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 
 /datum/chemical_reaction/bubblemilktea
 	name = "Bubble Milk Tea"
