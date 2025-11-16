@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(swarmer_blacklist, list(
 	/obj/machinery/blackbox_recorder,
 	/obj/machinery/power,
 	/obj/machinery/cryopod,
+	/obj/item/mmi,
+	/obj/item/organ/internal/brain,
 	/obj/machinery/computer/cryopod,
 	/obj/machinery/porta_turret,
 	/obj/machinery/clonepod,
