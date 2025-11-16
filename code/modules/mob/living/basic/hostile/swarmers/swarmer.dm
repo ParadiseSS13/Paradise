@@ -42,6 +42,7 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
+	ranged_cooldown = 1 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 	see_in_dark = 6
 	light_range = 2
@@ -65,12 +66,24 @@
 
 /mob/living/basic/swarmer/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
 	updatename()
 	grant_actions_by_list(innate_actions)
 	set_default_language(GLOB.all_languages["Swarmer"])
+
+/mob/living/basic/swarmer/proc/retaliate_callback(mob/living/attacker)
+	if(!istype(attacker))
+		return
+	if(attacker.ai_controller) // Don't chain retaliates.
+		var/list/shitlist = attacker.ai_controller.blackboard[BB_BASIC_MOB_RETALIATE_LIST]
+		if(src in shitlist)
+			return
+	for(var/mob/living/basic/swarmer/lesser/the_swarm in oview(src, 7))
+		if(the_swarm == attacker) // Do not commit suicide attacking yourself
+			continue
+		the_swarm.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
 /mob/living/basic/swarmer/proc/updatename()
 	real_name = "Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
@@ -138,8 +151,11 @@
 				C.Jitter(6 SECONDS)
 				return ..()
 			else if(C.canBeHandcuffed() && !C.handcuffed)
+				L.apply_damage(30, STAMINA)
 				var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
-				cuffs.apply_cuffs(target, src)
+				playsound(loc, cuffs.cuffsound, 15, TRUE, -10)
+				if(do_mob(src, C, 1 SECONDS))
+					cuffs.apply_cuffs(target, src)
 				return FALSE
 			// Make it go away.
 			disintegrate_mob(target)
@@ -159,8 +175,11 @@
 
 /mob/living/basic/swarmer/proc/disintegrate_wall(turf/simulated/wall/target)
 	if(istype(target, /turf/simulated/wall/indestructible))
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
-
+	if(spacecheck(target))
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+		return
 	new /obj/effect/temp_visual/swarmer(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
@@ -168,21 +187,23 @@
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
 	resources = clamp(resources + 8, 0, resource_max)
+	adjustHealth(-40)
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	target.ex_act(EXPLODE_HEAVY)
 
 /mob/living/basic/swarmer/proc/disintegrate_machine(obj/machinery/target)
-	if(isairlock(target))
-		if(spacecheck(target))
-			return
+	if(spacecheck(target))
+		return
 
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
 	resources = clamp(resources + 10, 0, resource_max)
+	adjustHealth(-20)
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(istype(target, /obj/structure/reagent_dispensers))
 		var/obj/structure/reagent_dispensers/dispenser = target
@@ -193,6 +214,7 @@
 /mob/living/basic/swarmer/proc/integrate(obj/item/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
 	resources = clamp(resources + 10, 0, resource_max)
+	adjustHealth(-10)
 	qdel(target)
 
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
@@ -200,12 +222,15 @@
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	to_chat(src, "<span class='notice'>Beginning integration of [target].")
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target].", interaction_key = "disintegrate"))
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 		return
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	resources = clamp(resources + 50, 0, resource_max)
+	adjustHealth(-40)
 	if(isanimal_or_basicmob(target) || issilicon(target)) // Not crew? Are a silicon? Don't care.
 		target.gib()
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
 	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 	disappear_mob(target)
@@ -315,7 +340,7 @@
 	var/mob/living/L = entered
 	if(istype(L, /mob/living/basic/swarmer))
 		return
-	playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
+	playsound(loc,'sound/effects/snap.ogg', 50, 1, -1)
 	L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 	L.Weaken(10 SECONDS)
 	qdel(src)

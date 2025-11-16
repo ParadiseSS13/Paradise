@@ -64,7 +64,7 @@
 	button_icon_state = "ui_replicate"
 	desc = "Construct a new swarmer, using 50 resources."
 	click_to_activate = FALSE
-	cooldown_time = 45 SECONDS
+	cooldown_time = 20 SECONDS
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
 	shared_cooldown = NONE
 

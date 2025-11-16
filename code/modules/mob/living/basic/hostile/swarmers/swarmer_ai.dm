@@ -5,14 +5,13 @@
 		BB_AGGRO_RANGE = 4,
 	)
 	ai_movement = /datum/ai_movement/jps
-	movement_delay = 1 SECONDS
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 
 	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
 
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/target_retaliate,
+		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
@@ -23,13 +22,18 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls/swarmer_hunting,
 		/datum/ai_planning_subtree/find_and_hunt_target/corpses/swarmer,
 		/datum/ai_planning_subtree/find_and_hunt_target/swarmer_objects,
+		/datum/ai_planning_subtree/find_and_hunt_target/prowl,
 	)
 
-/// Attacks people it can see, disintegrates things based on priority.
+/// Attacks people it can see, disintegrates things based on priority. More aggressive.
 /datum/ai_controller/basic_controller/swarmer/lesser
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_AGGRO_RANGE = 8,
+	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/target_retaliate,
+		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
@@ -39,6 +43,7 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls/swarmer_hunting,
 		/datum/ai_planning_subtree/find_and_hunt_target/corpses/swarmer,
 		/datum/ai_planning_subtree/find_and_hunt_target/swarmer_objects,
+		/datum/ai_planning_subtree/find_and_hunt_target/prowl,
 	)
 
 /datum/ai_planning_subtree/find_and_hunt_target/corpses/swarmer
