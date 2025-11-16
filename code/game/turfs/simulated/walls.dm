@@ -30,6 +30,7 @@
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	rust_resistance = RUST_RESISTANCE_BASIC
 	var/heat_resistance = 5000
 
 	var/can_dismantle_with_welder = TRUE
@@ -550,5 +551,12 @@
 
 /turf/simulated/wall/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
+
+/turf/simulated/wall/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/floor/plating)// Did you know most walls baseturf is space?
+		return
+
+	return ..()
 
 #undef MAX_DENT_DECALS

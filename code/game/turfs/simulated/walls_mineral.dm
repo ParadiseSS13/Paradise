@@ -40,6 +40,7 @@
 	explosion_block = 3
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_DIAMOND_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
@@ -71,6 +72,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
@@ -197,6 +199,7 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 
 /////////////////////Titanium walls/////////////////////
 
@@ -213,6 +216,14 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	rust_resistance = RUST_RESISTANCE_TITANIUM
+
+/turf/simulated/wall/mineral/titanium/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/wall)
+		rust_turf() //Not magic rusting intentionally
+		return
+	return ..()
 
 /turf/simulated/wall/mineral/titanium/copyTurf(turf/T)
 	. = ..()
@@ -259,6 +270,14 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	rust_resistance = RUST_RESISTANCE_TITANIUM
+
+/turf/simulated/wall/mineral/plastitanium/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/wall)
+		rust_turf() //Not magic rusting intentionally
+		return
+	return ..()
 
 /turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()

@@ -2,6 +2,11 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
+	var/signal_result = SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
+
+	if(signal_result & COMPONENT_LIVING_CANCEL_LIFE_PROCESSING) // mmm less work
+		return
+
 	if(HAS_TRAIT(src, TRAIT_FLYING) && !floating) //TODO: Better floating
 		float(TRUE)
 
