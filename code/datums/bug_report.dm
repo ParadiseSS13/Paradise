@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 			to_chat(user, "<span class='warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
 		return FALSE
 	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
-		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [SQLtime()].")
 		return FALSE
 
 	approving_user = user.client
@@ -166,13 +166,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		external_link_prompt(user)
 	else
 		var/client/initial_user = locateUID(initial_user_uid)
-		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		if(initial_user)
 			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 		// Update bug report status on the DB
 		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 		if(!query_update_submission.warn_execute())
-			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
+			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [SQLtime()]. DB request failed")
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
@@ -221,9 +221,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /datum/tgui_bug_report_form/proc/reject(client/user)
 	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=2 WHERE id=:index", list("index" = row_index))
 	if(!query_update_submission.warn_execute())
-		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]. DB request failed")
+		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()]. DB request failed")
 	else
-		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		var/client/initial_user = locateUID(initial_user_uid)
 		if(initial_user)
 			to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
