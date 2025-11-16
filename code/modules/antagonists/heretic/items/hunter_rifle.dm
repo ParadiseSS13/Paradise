@@ -34,7 +34,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "310-casing"
 	caliber = "a762-H"
-	projectile_type = /obj/item/projectile/homing/lionhunter
+	projectile_type = /obj/projectile/homing/lionhunter
 	/// Whether we're currently aiming this casing at something
 	var/currently_aiming = FALSE
 	/// How many seconds it takes to aim per tile of distance between the target
@@ -124,13 +124,13 @@
 		BB.stutter = 6 SECONDS
 		BB.forcedodge = -1
 		BB.armor_penetration_flat = 100 //No parrying this bad boy
-		if(istype(BB, /obj/item/projectile/homing/lionhunter))
-			var/obj/item/projectile/homing/lionhunter/if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad = BB
+		if(istype(BB, /obj/projectile/homing/lionhunter))
+			var/obj/projectile/homing/lionhunter/if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad = BB
 			if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad.homing_active = TRUE
 
 	return ..()
 
-/obj/item/projectile/homing/lionhunter
+/obj/projectile/homing/lionhunter
 	name = "hunter's .310 bullet"
 	// These stats are only applied if the weapon is fired unscoped
 	// If fired without aiming or at someone too close, it will do this much
@@ -140,7 +140,7 @@
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
 
-/obj/item/projectile/homing/lionhunter/fire(angle, atom/direct_target)
+/obj/projectile/homing/lionhunter/fire(angle, atom/direct_target)
 	. = ..()
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
 		return
@@ -150,16 +150,16 @@
 		stored_mob = living_firer
 
 
-/obj/item/projectile/homing/lionhunter/Exited(atom/movable/gone)
+/obj/projectile/homing/lionhunter/Exited(atom/movable/gone)
 	if(gone == stored_mob)
 		stored_mob = null
 	return ..()
 
-/obj/item/projectile/homing/lionhunter/on_range()
+/obj/projectile/homing/lionhunter/on_range()
 	stored_mob?.forceMove(loc)
 	return ..()
 
-/obj/item/projectile/homing/lionhunter/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/homing/lionhunter/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if(target != original)
 		return
@@ -174,7 +174,7 @@
 	qdel(src)
 	return
 
-/obj/item/projectile/homing/lionhunter/Destroy()
+/obj/projectile/homing/lionhunter/Destroy()
 	if(stored_mob)
 		stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
 		stored_mob.forceMove(loc)

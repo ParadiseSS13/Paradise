@@ -18,10 +18,10 @@
 
 	selection_activated_message = "You prepare to make them join the parade!"
 	selection_deactivated_message = "You stop the music and halt the parade... for now."
-	fireball_type = /obj/item/projectile/moon_parade
+	fireball_type = /obj/projectile/moon_parade
 
 
-/obj/item/projectile/moon_parade
+/obj/projectile/moon_parade
 	name = "Lunar parade"
 	icon_state = "lunar_parade"
 	damage = 0
@@ -41,13 +41,13 @@
 	/// Have we been disabled by hitting an antimagic person
 	var/disabled = FALSE
 
-/obj/item/projectile/moon_parade/Initialize(mapload)
+/obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), TRUE)
 	addtimer(CALLBACK(src, GLOBAL_PROC_REF(qdel), src), 12 SECONDS)
 
 
-/obj/item/projectile/moon_parade/prehit(atom/target)
+/obj/projectile/moon_parade/prehit(atom/target)
 	if(!isliving(firer) || !isliving(target))
 		return ..()
 	var/mob/living/caster = firer
@@ -72,7 +72,7 @@
 
 	return ..()
 
-/obj/item/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
+/obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
 		qdel(src)
@@ -101,7 +101,7 @@
 		victim.adjustBrainLoss(15)
 		log_override = TRUE
 
-/obj/item/projectile/moon_parade/Destroy()
+/obj/projectile/moon_parade/Destroy()
 	for(var/mob/living/leftover_mob as anything in mobs_hit)
 		clear_mob(leftover_mob)
 	mobs_hit.Cut() // You never know
@@ -109,7 +109,7 @@
 	return ..()
 
 
-/obj/item/projectile/moon_parade/proc/clear_mob(datum/source)
+/obj/projectile/moon_parade/proc/clear_mob(datum/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 	mobs_hit -= source

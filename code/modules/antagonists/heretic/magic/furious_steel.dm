@@ -18,7 +18,7 @@
 
 	selection_activated_message = "You summon forth three blades of furious silver."
 	selection_deactivated_message = "You conceal the blades of furious silver."
-	fireball_type = /obj/item/projectile/magic/floating_blade
+	fireball_type = /obj/projectile/magic/floating_blade
 	projectile_amount = 3
 	cares_about_turf = FALSE
 
@@ -78,7 +78,7 @@
 	remove_ranged_ability(action.owner) //there has to be a better way to get this
 
 
-/obj/item/projectile/magic/floating_blade
+/obj/projectile/magic/floating_blade
 	name = "blade"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
@@ -89,11 +89,11 @@
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
 
-/obj/item/projectile/magic/floating_blade/Initialize(mapload)
+/obj/projectile/magic/floating_blade/Initialize(mapload)
 	. = ..()
 	add_filter("dio_knife", 2, list("type" = "outline", "color" = outline_color, "size" = 1))
 
-/obj/item/projectile/magic/floating_blade/prehit(atom/target)
+/obj/projectile/magic/floating_blade/prehit(atom/target)
 	if(isliving(target) && isliving(firer))
 		var/mob/living/caster = firer
 		var/mob/living/victim = target
@@ -113,7 +113,7 @@
 	return ..()
 
 
-/obj/item/projectile/magic/floating_blade/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/floating_blade/on_hit(atom/target, blocked, hit_zone)
 	if(isliving(target) && isliving(firer))
 		var/mob/living/caster = firer
 		var/mob/living/victim = target
@@ -128,7 +128,7 @@
 
 	return ..()
 
-/obj/item/projectile/magic/floating_blade/haunted
+/obj/projectile/magic/floating_blade/haunted
 	name = "ritual blade"
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
@@ -156,5 +156,5 @@
 	selection_activated_message = "You summon forth two cursed blades."
 	selection_deactivated_message = "You conceal the cursed blades."
 	projectile_amount = 2
-	fireball_type = /obj/item/projectile/magic/floating_blade/haunted
+	fireball_type = /obj/projectile/magic/floating_blade/haunted
 	projectile_effect = /obj/effect/floating_blade/haunted

@@ -93,9 +93,9 @@
 	invocation = "SPR'D TH' WO'D"
 	invocation_type = INVOCATION_WHISPER
 
-	fireball_type = /obj/item/projectile/magic/rust_wave
+	fireball_type = /obj/projectile/magic/rust_wave
 
-/obj/item/projectile/magic/rust_wave
+/obj/projectile/magic/rust_wave
 	name = "Patron's Reach"
 	icon_state = "eldritch_projectile"
 	alpha = 180
@@ -104,7 +104,7 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	range = 15
 
-/obj/item/projectile/magic/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+/obj/projectile/magic/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
@@ -123,8 +123,8 @@
 
 /datum/spell/fireball/rust_wave/short
 	name = "Lesser Patron's Reach"
-	fireball_type = /obj/item/projectile/magic/rust_wave/short
+	fireball_type = /obj/projectile/magic/rust_wave/short
 
-/obj/item/projectile/magic/rust_wave/short
+/obj/projectile/magic/rust_wave/short
 	range = 7
 	speed = 0.5

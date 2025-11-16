@@ -16,10 +16,10 @@
 	invocation = "R'T'T' ST'R!"
 	selection_activated_message = "You prepare to cast your star blast!"
 	selection_deactivated_message = "You stop swirling cosmic energies from the palm of your hand... for now."
-	fireball_type = /obj/item/projectile/magic/star_ball
+	fireball_type = /obj/projectile/magic/star_ball
 	cares_about_turf = FALSE
 
-/obj/item/projectile/magic/star_ball
+/obj/projectile/magic/star_ball
 	name = "star ball"
 	icon_state = "star_ball"
 	damage = 20
@@ -32,11 +32,11 @@
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 3
 
-/obj/item/projectile/magic/star_ball/Initialize(mapload)
+/obj/projectile/magic/star_ball/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
 
-/obj/item/projectile/magic/star_ball/on_hit(atom/target, blocked = 0, pierce_hit)
+/obj/projectile/magic/star_ball/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	var/mob/living/cast_on = firer
 	var/pins_hit = 0
@@ -50,7 +50,7 @@
 		for(var/mob/nearby_mob in range(9, target))
 			to_chat(nearby_mob, "<span class='hierophant_warning'>STRIKE!</span>")
 
-/obj/item/projectile/magic/star_ball/Destroy()
+/obj/projectile/magic/star_ball/Destroy()
 	playsound(get_turf(src), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
 	for(var/turf/cast_turf in RANGE_TURFS(1, src))
 		new /obj/effect/forcefield/cosmic_field(cast_turf)

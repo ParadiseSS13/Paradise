@@ -372,7 +372,7 @@
 /obj/effect/ebeam/curse_arm
 	name = "curse arm"
 
-/obj/item/projectile/curse_hand
+/obj/projectile/curse_hand
 	name = "curse hand"
 	icon_state = "cursehand0"
 	base_icon_state = "cursehand"
@@ -387,32 +387,32 @@
 	var/datum/beam/arm
 	var/handedness = 0
 
-/obj/item/projectile/curse_hand/Initialize(mapload)
+/obj/projectile/curse_hand/Initialize(mapload)
 	. = ..()
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
 
-/obj/item/projectile/curse_hand/Destroy()
+/obj/projectile/curse_hand/Destroy()
 	QDEL_NULL(arm)
 	return ..()
 
-/obj/item/projectile/curse_hand/update_icon_state()
+/obj/projectile/curse_hand/update_icon_state()
 	icon_state = "[base_icon_state]0[handedness]"
 	return ..()
 
-/obj/item/projectile/curse_hand/fire(setAngle)
+/obj/projectile/curse_hand/fire(setAngle)
 	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
 		return
 	if(starting)
 		arm = Beam(starting, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm, maxdistance = 20)
 	..()
 
-/obj/item/projectile/curse_hand/on_range()
+/obj/projectile/curse_hand/on_range()
 	finale()
 	return ..()
 
 /// The visual effect for the hand disappearing
-/obj/item/projectile/curse_hand/proc/finale()
+/obj/projectile/curse_hand/proc/finale()
 	if(arm)
 		QDEL_NULL(arm)
 	playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
@@ -429,7 +429,7 @@
 		animate(every, alpha = 0, time = 32)
 	qdel(src)
 
-/obj/item/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if(target == original)
 		if(isliving(target))
@@ -438,7 +438,7 @@
 			out_target.Weaken(weaken_damage)
 		finale()
 
-/obj/item/projectile/curse_hand/hel //Used in helbital's impure reagent
+/obj/projectile/curse_hand/hel //Used in helbital's impure reagent
 	name = "Hel's grasp"
 	speed = 1
 	range = 20

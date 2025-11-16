@@ -307,7 +307,7 @@
 		return FALSE
 	return TRUE
 
-/datum/heretic_knowledge/ultimate/void_final/proc/hit_by_projectile(mob/living/ascended_heretic, obj/item/projectile/hitting_projectile, def_zone)
+/datum/heretic_knowledge/ultimate/void_final/proc/hit_by_projectile(mob/living/ascended_heretic, obj/projectile/hitting_projectile, def_zone)
 	SIGNAL_HANDLER
 
 	if(!can_deflect(ascended_heretic))
