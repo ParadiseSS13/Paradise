@@ -167,6 +167,9 @@
 		M.pulledby?.stop_pulling()
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(istype(src, /obj/structure/chair/wheelchair) && buckled_mob != user)
+		if(!do_after(user, 2 SECONDS, target = buckled_mob)) // 2 second delay so that crew stop bullying paraplegic people
+			return
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
