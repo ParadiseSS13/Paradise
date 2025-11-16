@@ -69,6 +69,10 @@
 		EQUIPMENT("KA Range Increase", /obj/item/borg/upgrade/modkit/range, 1000),
 		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
 		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
+		EQUIPMENT("Crusher Retool Kit: Sword", /obj/item/crusher_trophy/retool_kit/sword, 250),
+		EQUIPMENT("Crusher Retool Kit: Harpoon", /obj/item/crusher_trophy/retool_kit/harpoon, 250),
+		EQUIPMENT("Crusher Retool Kit: Glaive", /obj/item/crusher_trophy/retool_kit/glaive, 250),
+		EQUIPMENT("Crusher Retool Kit: Dagger and Blaster", /obj/item/crusher_trophy/retool_kit/dagger, 250),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
