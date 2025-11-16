@@ -124,7 +124,8 @@
 
 /obj/item/organ/internal/brain/rejuvenate()
 	. = ..()
-	brainmob.rejuvenate()
+	if(brainmob)
+		brainmob.rejuvenate()
 
 /obj/item/organ/internal/brain/on_life()
 	if(decoy_brain)
