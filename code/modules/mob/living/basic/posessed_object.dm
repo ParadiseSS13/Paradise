@@ -196,7 +196,6 @@
 	melee_attack_cooldown_min = 4 SECONDS
 	melee_attack_cooldown_max = 5 SECONDS
 	faction = list("revenant")
-	speed = -1
 	a_intent = INTENT_HARM
 	escape_chance = 100
 	revenant_possessed = TRUE
