@@ -33,7 +33,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
-	projectiletype = /obj/item/projectile/terrorqueenspit
+	projectiletype = /obj/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
 	loudspeaker = TRUE
 	spider_opens_doors = 2
@@ -112,7 +112,7 @@
 			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
 			T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
-			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
+			var/mob/living/basic/spiderling/terror_spiderling/T = thing
 			if(T.spider_myqueen && T.spider_myqueen == src)
 				qdel(T)
 	return ..()
@@ -352,7 +352,7 @@
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 30, ASSIGNMENT_MEDICAL = 2)
 
-/obj/item/projectile/terrorqueenspit
+/obj/projectile/terrorqueenspit
 	name = "acid spit"
 	damage = 40
 	icon_state = "toxin"

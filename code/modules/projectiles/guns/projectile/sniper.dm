@@ -24,8 +24,8 @@
 		AddComponent(/datum/component/scope, range_modifier = 2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))
-		var/obj/item/projectile/bullet/sniper/S = chambered.BB
+	if(istype(chambered.BB, /obj/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))
+		var/obj/projectile/bullet/sniper/S = chambered.BB
 		if(S.non_zoom_spread)
 			to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
 			bonus_spread += S.non_zoom_spread
@@ -62,11 +62,11 @@
 	desc = "A .50 BMG rifle cartridge, commonly used in anti-materiel rifles and heavy machine guns."
 	icon_state = "heavy_steel"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper
+	projectile_type = /obj/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/projectile/bullet/sniper
+/obj/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
 	armor_penetration_flat = 70
@@ -86,14 +86,14 @@
 	desc = "A .50 BMG high-explosive cartridge. Does not actually contain antimatter."
 	icon_state = "heavy_steel_incin"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/antimatter
+	projectile_type = /obj/projectile/bullet/sniper/antimatter
 
-/obj/item/projectile/bullet/sniper/antimatter
+/obj/projectile/bullet/sniper/antimatter
 	name = "antimatter bullet"
 	dismemberment = 50
 	non_zoom_spread = 60
 
-/obj/item/projectile/bullet/sniper/antimatter/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/antimatter/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target)))
 		target.ex_act(rand(1,2))
 
@@ -113,15 +113,15 @@
 	desc = "A .50 BMG hypodermic cartridge, loaded with sedatives for instant incapacitation."
 	icon_state = "heavy_steel_rubber"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	harmful = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific
+/obj/projectile/bullet/sniper/soporific
 	armor_penetration_flat = 0
 	nodamage = 1
 	weaken = 0
 
-/obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
 		L.SetSleeping(40 SECONDS)
@@ -141,14 +141,14 @@
 	desc = "A .50 BMG 'Shredder' cartridge, with a heavily serrated bullet intended to cause massive blood loss."
 	icon_state = "heavy_steel_hollow"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage
 
-/obj/item/projectile/bullet/sniper/haemorrhage
+/obj/projectile/bullet/sniper/haemorrhage
 	armor_penetration_flat = 25
 	damage = 45
 	weaken = 6 SECONDS
 
-/obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.bleed(150)
@@ -169,9 +169,9 @@
 	desc = "A .50 BMG Sabot Penetrator cartridge, capable of punching through just about anything."
 	icon_state = "heavy_steel_ap"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 
-/obj/item/projectile/bullet/sniper/penetrator
+/obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60

@@ -929,7 +929,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 
-/mob/living/silicon/robot/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	if(prob(75) && Proj.damage > 0) spark_system.start()
 	return 2
@@ -1683,7 +1683,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
+/mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)

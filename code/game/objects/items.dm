@@ -217,6 +217,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		new path(src)
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)

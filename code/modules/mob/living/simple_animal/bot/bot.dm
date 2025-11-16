@@ -161,7 +161,10 @@
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/diagnostic/diag_hud = hud
+		if(!istype(diag_hud))
+			continue
 		diag_hud.add_to_hud(src)
 		permanent_huds |= diag_hud
 
@@ -512,7 +515,7 @@
 	add_fingerprint(user)
 	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
 
-/mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, 1, src)

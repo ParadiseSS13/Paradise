@@ -114,8 +114,8 @@
 		H.adjustBruteLoss(2)
 	..()
 
-/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H, def_zone)
-	if(istype(P, /obj/item/projectile/energy/floramut))
+/datum/species/diona/bullet_act(obj/projectile/P, mob/living/carbon/human/H, def_zone)
+	if(istype(P, /obj/projectile/energy/floramut))
 		P.nodamage = TRUE
 		H.Weaken(1 SECONDS)
 		if(prob(80))
@@ -123,7 +123,7 @@
 		else
 			randmutg(H)
 		H.visible_message("[H] writhes for a moment as [H.p_their()] nymphs squirm and mutate.", "All of you squirm uncomfortably for a moment as you feel your genes changing.")
-	else if(istype(P, /obj/item/projectile/energy/florayield))
+	else if(istype(P, /obj/projectile/energy/florayield))
 		P.nodamage = TRUE
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
 		if(!organ)

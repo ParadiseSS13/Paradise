@@ -311,7 +311,7 @@
 	if(!.) // they did not block the attack
 		return
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_ENERGY)
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")

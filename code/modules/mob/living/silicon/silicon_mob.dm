@@ -92,7 +92,10 @@
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/diagnostic/diag_hud = hud
+		if(!istype(diag_hud))
+			continue
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -281,7 +284,7 @@
 	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
-/mob/living/silicon/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/projectile/Proj)
 	if(!Proj.nodamage)
 		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armor_penetration_flat, Proj.armor_penetration_percentage)
 		switch(Proj.damage_type)

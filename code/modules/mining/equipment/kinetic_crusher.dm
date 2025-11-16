@@ -32,6 +32,10 @@
 	/// Tracker for the current amount of force used when the item is wielded.
 	/// Note that this isn't wired to anything, and must be updated with AddComponent to have value.
 	var/force_wielded = 20
+	/// The file in which our projectile icon resides
+	var/projectile_icon = 'icons/obj/projectiles.dmi'
+	/// Used by retool kits when changing the crusher's projectile sprite
+	var/projectile_icon_state = "pulse1"
 
 /obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
@@ -118,7 +122,9 @@
 		var/turf/proj_turf = get_turf_for_projectile(user)
 		if(!isturf(proj_turf))
 			return
-		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(proj_turf)
+		var/obj/projectile/destabilizer/D = new /obj/projectile/destabilizer(proj_turf)
+		D.icon = projectile_icon
+		D.icon_state = projectile_icon_state
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
@@ -186,7 +192,7 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/kinetic_crusher/update_icon_state()
-	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	inhand_icon_state = "[icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/kinetic_crusher/update_overlays()
 	. = ..()
@@ -197,7 +203,7 @@
 	update_action_buttons()
 
 //destablizing force
-/obj/item/projectile/destabilizer
+/obj/projectile/destabilizer
 	name = "destabilizing force"
 	icon_state = "pulse1"
 	nodamage = TRUE
@@ -207,11 +213,11 @@
 	log_override = TRUE
 	var/obj/item/kinetic_crusher/hammer_synced
 
-/obj/item/projectile/destabilizer/Destroy()
+/obj/projectile/destabilizer/Destroy()
 	hammer_synced = null
 	return ..()
 
-/obj/item/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
 		var/had_effect = (L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)) //used as a boolean
@@ -279,7 +285,7 @@
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 	return
 
-/obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+/obj/item/crusher_trophy/proc/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
 	return
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
@@ -346,7 +352,7 @@
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
 	return "mark detonation to make the next destabilizer shot deal <b>[bonus_value]</b> damage"
 
-/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "heated [marker.name]"
 		marker.icon_state = "lava"
@@ -479,7 +485,7 @@
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
 	return "mark detonation to make the next destabilizer shot deal <b>[bonus_value]</b> damage but move slower"
 
-/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "deadly [marker.name]"
 		marker.icon_state = "chronobolt"

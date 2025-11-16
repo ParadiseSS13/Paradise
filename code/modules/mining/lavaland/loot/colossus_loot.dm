@@ -34,9 +34,9 @@
 	ActivationReaction(user, "weapon")
 	return ..()
 
-/obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	..()
-	if(istype(P, /obj/item/projectile/magic))
+	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, "magic", P.damage_type)
 		return
 	ActivationReaction(P.firer, P.flag, P.damage_type)
@@ -140,17 +140,17 @@
 /// Generates a projectile when interacted with
 /obj/machinery/anomalous_crystal/emitter
 	cooldown_add = 50
-	var/generated_projectile = /obj/item/projectile/beam/emitter
+	var/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
-								/obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus,
-								/obj/item/projectile/moon_parade, /obj/item/projectile/magic/star_ball, /obj/item/projectile/magic/rust_wave/short)
+	generated_projectile = pick(/obj/projectile/magic/fireball/infernal,
+								/obj/projectile/bullet/meteorshot, /obj/projectile/beam/xray, /obj/projectile/colossus,
+								/obj/projectile/moon_parade, /obj/projectile/magic/star_ball, /obj/projectile/magic/rust_wave/short)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
-		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
+		var/obj/projectile/P = new generated_projectile(get_turf(src))
 		P.dir = dir
 		switch(dir)
 			if(NORTH)
