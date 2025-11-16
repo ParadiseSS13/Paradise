@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/client/initial_user = locateUID(initial_user_uid)
 	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
 	file_time = SQLtime()
-	if(!load_to_db())
+	if(!save_to_db())
 		external_link_prompt(initial_user)
 	if(initial_user)
 		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
@@ -228,7 +228,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		if(initial_user)
 			to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 	qdel(query_update_submission)
-	return
 
 /// Populates a list using the bug reports db table and returns it
 /proc/read_bug_report_table()
@@ -279,12 +278,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	bug_report.row_index = query_bug_reports.item[1]
 	bug_report.file_time = query_bug_reports.item[2]
 	bug_report.initial_key = query_bug_reports.item[3]
-	bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
+	bug_report.bug_report_data = json_decode(query_bug_reports.item[4])
 	bug_report.awaiting_approval = TRUE
 	qdel(query_bug_reports)
 	return bug_report
 
-/datum/tgui_bug_report_form/proc/load_to_db()
+/datum/tgui_bug_report_form/proc/save_to_db()
 	. = TRUE
 	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
 				INSERT INTO bug_reports (filetime, author_ckey, title, round_id, contents_json) VALUES (:filetime, :author_ckey, :title, :round_id, :contents_json)
