@@ -265,6 +265,7 @@
 	product_type = /obj/item/food/meow_mein
 	steps = list(
 		new /datum/cooking/recipe_step/add_item/fried_taj(),
+		PCWJ_ADD_REAGENT("soysauce", 5, optional = TRUE),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 	appear_in_default_catalog = FALSE
