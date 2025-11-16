@@ -181,17 +181,17 @@
 	. += "At any rate, Nanotrasen is looking to sell these to sniper units who will undoubtedly appreciate the devastating effect that one of these can have when given proper operating distance."
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/item/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
-/obj/item/projectile/beam/laser/accelerator
+/obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "heavylaser"
 	range = 255
 	damage = 6
 
-/obj/item/projectile/beam/laser/accelerator/Range()
+/obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage+7, 100)
 
@@ -250,7 +250,7 @@
 	return //no manual ammo changing.
 
 /obj/item/ammo_casing/energy/laser/sniper
-	projectile_type = /obj/item/projectile/beam/laser/sniper
+	projectile_type = /obj/projectile/beam/laser/sniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -259,9 +259,9 @@
 	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/laser/sniper/pierce
-	projectile_type = /obj/item/projectile/beam/laser/sniper/pierce
+	projectile_type = /obj/projectile/beam/laser/sniper/pierce
 
-/obj/item/projectile/beam/laser/sniper
+/obj/projectile/beam/laser/sniper
 	name = "sniper laser"
 	icon_state = "sniperlaser"
 	range = 255
@@ -271,18 +271,18 @@
 	forced_accuracy = TRUE
 	var/can_knockdown = TRUE
 
-/obj/item/projectile/beam/laser/sniper/Range()
+/obj/projectile/beam/laser/sniper/Range()
 	..()
 	damage = min(damage + 5, 100)
 
-/obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	..()
 	var/mob/living/carbon/human/H = target
 	if(istype(H) && damage >= 40 && can_knockdown)
 		H.KnockDown(2 SECONDS * (damage / 10))
 	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
 
-/obj/item/projectile/beam/laser/sniper/pierce
+/obj/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
 	always_hit_living_nondense = TRUE //This means if you are scoped in sniping at crit xenomorphs or crit humans, you can always hit them even if you do not directly click on them
@@ -290,7 +290,7 @@
 	var/hit_a_r_wall = FALSE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 
-/obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
+/obj/projectile/beam/laser/sniper/pierce/prehit(atom/target)
 	if(istype(target, /turf/simulated/wall/r_wall))
 		if(!hit_a_r_wall)
 			hit_a_r_wall = TRUE

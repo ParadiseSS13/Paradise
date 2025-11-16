@@ -100,12 +100,17 @@
 /datum/gear/hat/capengi
 	display_name = "Cap, engineer"
 	path = /obj/item/clothing/head/soft/engineer
-	allowed_roles = list("Chief Engineer, Station Engineer")
+	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/hat/capatmos
 	display_name = "Cap, atmospheric technician"
 	path = /obj/item/clothing/head/soft/atmos
-	allowed_roles = list("Chief Engineer, Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+/datum/gear/hat/caprobo
+	display_name = "Cap, roboticist"
+	path = /obj/item/clothing/head/soft/robotics
+	allowed_roles = list("Research Director", "Roboticist")
 
 /datum/gear/hat/capred
 	display_name = "Cap, red"
@@ -265,17 +270,37 @@
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
+
+/datum/gear/hat/beret_job/sci_alt
+	display_name = "Beret, science corporate"
+	path = /obj/item/clothing/head/beret/sci_alt
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/hat/beret_job/robowhite
-	display_name = "Beret, robotics"
+	display_name = "Beret, bioengineer"
 	path = /obj/item/clothing/head/beret/robowhite
 	allowed_roles = list("Research Director", "Roboticist")
 
 /datum/gear/hat/beret_job/roboblack
-	display_name = "Beret, bioengineer"
+	display_name = "Beret, robotics"
 	path = /obj/item/clothing/head/beret/roboblack
 	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/hat/beret_job/gene
+	display_name = "Beret, geneticist"
+	path = /obj/item/clothing/head/beret/gene
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/hat/beret_job/gene_alt
+	display_name = "Beret, geneticist corporate"
+	path = /obj/item/clothing/head/beret/gene_alt
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/hat/beret_job/gene_wine
+	display_name = "Beret, geneticist wine"
+	path = /obj/item/clothing/head/beret/gene_wine
+	allowed_roles = list("Research Director", "Geneticist")
 
 /datum/gear/hat/beret_job/rd
 	display_name = "Beret, research director"
