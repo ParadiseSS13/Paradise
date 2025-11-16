@@ -242,9 +242,9 @@
 	can_cut_open = 1
 	icon_state = "winterboots"
 	cold_protection = FEET|LEGS
-	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	heat_protection = FEET|LEGS
-	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/cult
