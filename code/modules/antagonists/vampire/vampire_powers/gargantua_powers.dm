@@ -129,7 +129,7 @@
 	desc = "Summon a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
 	gain_desc = "You have gained the ability to snare and disrupt people with demonic appendages."
 	base_cooldown = 30 SECONDS
-	fireball_type = /obj/item/projectile/magic/demonic_grasp
+	fireball_type = /obj/projectile/magic/demonic_grasp
 
 	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
@@ -149,17 +149,17 @@
 	V.required_blood = 20
 	return V
 
-/obj/item/projectile/magic/demonic_grasp
+/obj/projectile/magic/demonic_grasp
 	name = "demonic grasp"
 	// parry this you filthy casual
 	reflectability = REFLECTABILITY_NEVER
 	icon_state = null
 
-/obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
+/obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
 	new /obj/effect/temp_visual/demonic_grasp(loc)
 
-/obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(!.)
 		return
@@ -184,7 +184,7 @@
 			throw_target = get_step(firer, get_dir(firer, L))
 			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // pull towards
 
-/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
+/obj/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
 	new /obj/effect/temp_visual/demonic_snare(target.loc)
 
 /obj/effect/temp_visual/demonic_grasp

@@ -257,7 +257,7 @@
 /obj/item/organ/internal/heart/gland/spiderman/trigger()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
 	owner.faction |= "spiders"
-	var/obj/structure/spider/spiderling/S = new(owner.loc)
+	var/mob/living/basic/spiderling/S = new(owner.loc)
 	S.master_commander = owner
 
 /obj/item/organ/internal/heart/gland/egg
