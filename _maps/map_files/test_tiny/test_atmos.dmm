@@ -10,6 +10,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/arrival/station)
 "aJ" = (
@@ -18,12 +19,11 @@
 	dir = 1
 	},
 /obj/structure/window/plastitanium{
-	dir = 4
-	},
-/obj/structure/window/plastitanium{
 	dir = 8
 	},
-/obj/machinery/power/electrolyzer,
+/obj/machinery/power/electrolyzer{
+	anchored = 1
+	},
 /obj/machinery/atmospherics/unary/passive_vent,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -393,12 +393,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/arrival/station)
-"xM" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/arrival/station)
 "xV" = (
 /obj/structure/sign/vacuum{
 	pixel_y = -32
@@ -630,7 +624,7 @@
 /area/shuttle/arrival/station)
 "KW" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "LR" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
@@ -651,18 +645,6 @@
 	autolink_id = "waste_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/shuttle/arrival/station)
-"Mv" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/shuttle/arrival/station)
 "MQ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
@@ -737,6 +719,9 @@
 /obj/machinery/power/smes/magical,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/arrival/station)
+"Sl" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/arrival/station)
 "So" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -758,9 +743,6 @@
 	comp_id = "incineratorturbine";
 	dir = 4;
 	luminosity = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/shuttle/arrival/station)
@@ -30816,11 +30798,11 @@ gW
 gW
 gW
 gW
-iE
-iE
+Sl
+Sl
 TB
-iE
-iE
+Sl
+Sl
 gW
 gW
 gW
@@ -31844,7 +31826,7 @@ aJ
 rJ
 DE
 nF
-iE
+Sl
 So
 zI
 vu
@@ -32356,7 +32338,7 @@ nF
 nF
 iP
 Rr
-xM
+xF
 Ud
 rJ
 MQ
@@ -34409,7 +34391,7 @@ rJ
 Mn
 rJ
 Mn
-Mn
+rJ
 Mn
 zh
 yL
@@ -34666,7 +34648,7 @@ ov
 UN
 ss
 GD
-Mv
+ov
 UN
 lE
 pm

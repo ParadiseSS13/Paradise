@@ -5,6 +5,7 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
+	active_power_consumption = 240000
 	/// whether or not we're actively using power/seeking water vapor in the air
 	var/on = FALSE
 	var/datum/gas_mixture/gas
@@ -24,16 +25,30 @@
 		connect_to_network()
 
 	if(powernet)
-		RegisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(power_change), override = TRUE)
+		RegisterSignal(powernet)
 
 	RefreshParts()
 
-/obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
+// /obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
+// 	if(on)
+// 		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
+// 		return FALSE
+// 	. = TRUE
+// 	default_unfasten_wrench(user, I, 4 SECONDS)
+
+/obj/machinery/power/electrolyzer/wrench_act(mob/living/user, obj/item/I)
 	if(on)
-		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
-		return FALSE
+		return
 	. = TRUE
-	default_unfasten_wrench(user, I, 4 SECONDS)
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	if(!anchored)
+		connect_to_network()
+		to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+	else
+		disconnect_from_network()
+		to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+	anchored = !anchored
 
 /obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -77,7 +92,8 @@
 	return ..()
 
 /obj/machinery/power/electrolyzer/process()
-	if(on)
+	if(on && get_surplus() >= active_power_consumption)
+		consume_direct_power(active_power_consumption)
 		var/datum/milla_safe/electrolyzer_process/milla = new()
 		milla.invoke_async(src)
 
