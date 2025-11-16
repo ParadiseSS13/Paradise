@@ -34,7 +34,7 @@
 	var/static/list/edibles = list(
 		/mob/living/basic/butterfly,
 		/mob/living/basic/cockroach,
-		/obj/structure/spider/spiderling
+		/mob/living/basic/spiderling
 	)
 	/// Lizards start with a tail
 	var/has_tail = TRUE
