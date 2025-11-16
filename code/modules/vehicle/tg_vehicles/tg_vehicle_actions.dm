@@ -221,7 +221,7 @@
 		rider.Weaken(5 SECONDS)
 		vehicle.visible_message("<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>")
 		return
-	if((locate(/obj/structure/table) in landing_turf) || (locate(/obj/structure/railing) in landing_turf))
+	if((locate(/obj/structure/table) in landing_turf) || (locate(/obj/structure/railing) in landing_turf) || (locate(/obj/machinery/fluid_pipe) in landing_turf))
 		vehicle.grinding = TRUE
 		vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
 		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)
