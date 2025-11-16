@@ -133,7 +133,7 @@
 	/// Where do we store the target data
 	var/target_key = BB_SWARMER_CONSTRUCT_TARGET
 	/// How far do we look for valid turfs?
-	var/scan_range = 3
+	var/scan_range = 5
 
 /datum/ai_behavior/swarmer_find_construction_target/perform(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/swarmer = controller.pawn
@@ -172,6 +172,8 @@
 		if(locate(/obj/structure/swarmer) in turf_in_view)
 			return FALSE
 	if(HAS_TRAIT(target_turf, TRAIT_SWARMER_CONSTRUCTION))
+		return FALSE
+	if(isspaceturf(target_turf))
 		return FALSE
 	return !target_turf.is_blocked_turf(source_atom = swarmer)
 

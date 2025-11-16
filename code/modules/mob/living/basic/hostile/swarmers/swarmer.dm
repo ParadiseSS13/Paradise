@@ -147,6 +147,9 @@
 		if(issilicon(target))
 			var/mob/living/silicon/S = target
 			S.apply_damage(30, STAMINA)
+			if(S.IsWeakened())
+				disintegrate_mob(target)
+
 	return ..()
 
 /mob/living/basic/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -197,7 +200,7 @@
 		return
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	resources = clamp(resources + 50, 0, resource_max)
-	if(isanimal_or_basicmob(target)) // Not crew? Don't care.
+	if(isanimal_or_basicmob(target) || issilicon(target)) // Not crew? Are a silicon? Don't care.
 		target.gib()
 		return
 	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
