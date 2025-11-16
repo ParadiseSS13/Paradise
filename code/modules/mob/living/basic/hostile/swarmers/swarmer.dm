@@ -83,6 +83,8 @@
 	for(var/mob/living/basic/swarmer/lesser/the_swarm in oview(src, 7))
 		if(the_swarm == attacker) // Do not commit suicide attacking yourself
 			continue
+		if(the_swarm.faction_check_mob(attacker, FALSE)) // Don't attack other swarmers
+			continue
 		the_swarm.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
 /mob/living/basic/swarmer/proc/updatename()
