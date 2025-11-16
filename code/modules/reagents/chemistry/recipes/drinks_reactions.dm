@@ -813,7 +813,6 @@
 	id = "csv"
 	result = "csv"
 	required_reagents = list("cognac" = 1, "synthanol" = 1, "vodka" = 1)
-	result_amount = 3
 	mix_message = "The mixture turns bright red as you garnish it with a comma."
 
 /datum/chemical_reaction/synthanol/hard_reset
@@ -829,7 +828,6 @@
 	id = "overclock_somewhere"
 	result = "overclock_somewhere"
 	required_reagents = list("synthanol" = 1, "ultralube" = 1, "oil" = 1)
-	result_amount = 3
 	mix_message = "The oils rise to form a shimmering layer on the top."
 
 /datum/chemical_reaction/synthanol/bluescreen
@@ -856,7 +854,6 @@
 	id = "dryer_martini"
 	result = "dryer_martini"
 	required_reagents = list("synthanol" = 2, "drying_agent" = 1)
-	result_amount = 3
 	mix_message = "Most of the fluid in the glass dries up, leaving a thick paste behind."
 
 /datum/chemical_reaction/triple_citrus

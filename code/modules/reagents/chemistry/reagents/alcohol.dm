@@ -1392,7 +1392,6 @@
 	id = "hard_reset"
 	description = "This looks like it'll set your systems right."
 	color = "#1b1c20"
-	alcohol_perc = 0.5
 	dizzy_adj = 2 SECONDS
 	drink_icon = "hard_reset_glass"
 	drink_name = "Glass of Hard Reset"
@@ -1435,7 +1434,6 @@
 	description = "A premium mix of premium lubricants for robots."
 	color = "#107bd6"
 	shock_reduction = 20
-	alcohol_perc = 0.5
 	dizzy_adj = 30 SECONDS
 	drink_icon = "overclock_somewhere_glass"
 	drink_name = "Glass of It's Overclock Somewhere"
@@ -1511,7 +1509,6 @@
 	id = "dryer_martini"
 	description = "In general, you want the martini to taste dry, not dry up."
 	color = "#d004e7"
-	alcohol_perc = 0.5
 	dizzy_adj = 14 SECONDS
 	drink_icon = "dryer_martini_glass"
 	drink_name = "Glass of Dryer Martini"
