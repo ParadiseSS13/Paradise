@@ -286,6 +286,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return PROCESS_KILL
 
 /obj/machinery/computer/general_air_control/large_tank_control
+	name = "large tank control"
 	circuit = /obj/item/circuitboard/large_tank_control
 
 	// Map set vars

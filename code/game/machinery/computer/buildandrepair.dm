@@ -486,7 +486,7 @@
 	origin_tech = "programming=3;bluespace=3;plasmatech=4"
 
 /obj/item/circuitboard/large_tank_control
-	board_name = "Atmospheric Tank Control"
+	board_name = "Large Tank Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control
 	origin_tech = "programming=2;engineering=3;materials=2"
