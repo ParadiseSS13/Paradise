@@ -184,6 +184,10 @@
 		return
 	resources = clamp(resources + 10, 0, resource_max)
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
+	if(istype(target, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/dispenser = target
+		dispenser.boom()
+		return
 	target.deconstruct()
 
 /mob/living/basic/swarmer/proc/integrate(obj/item/target)
