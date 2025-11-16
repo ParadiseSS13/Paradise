@@ -50,7 +50,7 @@
 		if("Unknown")
 			name = "G-6"
 			air.set_agent_b(250)
-		if("Hydrogen")
+		if("H2")
 			name = "G-7"
 			air.set_hydrogen(250)
 
