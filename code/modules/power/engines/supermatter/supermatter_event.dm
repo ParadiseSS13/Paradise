@@ -120,6 +120,15 @@
 	air.set_hydrogen(2000)
 	supermatter_turf.blind_release_air(air)
 
+//water vapor
+/datum/engi_event/supermatter_event/charlie_tier/water_vapor
+	name = "C-5"
+
+/datum/engi_event/supermatter_event/charlie_tier/water_vapor/on_start()
+	var/datum/gas_mixture/air = new()
+	air.set_water_vapor(2000)
+	supermatter_turf.blind_release_air(air)
+
 //Class B events
 /datum/engi_event/supermatter_event/bravo_tier
 	threat_level = SM_EVENT_THREAT_B

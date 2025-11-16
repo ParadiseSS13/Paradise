@@ -117,6 +117,15 @@ const AirStatus = (props) => {
               <ProgressBar value={air.contents.h2 / 100} fractionDigits="1" color={Danger2Colour(air.danger.h2)} />
             </LabeledList.Item>
           )}
+          {air.contents.water_vapor > 0.1 && (
+            <LabeledList.Item label="Water Vapor">
+              <ProgressBar
+                value={air.contents.water_vapor / 100}
+                fractionDigits="1"
+                color={Danger2Colour(air.danger.water_vapor)}
+              />
+            </LabeledList.Item>
+          )}
           {air.contents.other > 0.1 && (
             <LabeledList.Item label="Other">
               <ProgressBar
@@ -377,6 +386,17 @@ const AirAlarmScrubbersView = (props) => {
               act('command', {
                 cmd: 'h2_scrub',
                 val: !s.filter_h2,
+                id_tag: s.id_tag,
+              })
+            }
+          />
+          <Button
+            content="Water Vapor"
+            selected={s.filter_h2o}
+            onClick={() =>
+              act('command', {
+                cmd: 'h2o_scrub',
+                val: !s.filter_h2o,
                 id_tag: s.id_tag,
               })
             }
