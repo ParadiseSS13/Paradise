@@ -676,10 +676,9 @@ CREATE TABLE `bug_reports` (
     `filetime` DATETIME NOT NULL DEFAULT NOW(),
     `author_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
     `title` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-    `round_id` INT(11) NULL DEFAULT NULL,
+    `round_id` INT(11) NOT NULL DEFAULT 0,
     `contents_json` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
     `submitted` BIT(2) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     INDEX `submitted` (`submitted`)
-)
-COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
