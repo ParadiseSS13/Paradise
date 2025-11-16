@@ -1026,7 +1026,6 @@
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "starchy powder"
 
-
 /datum/reagent/consumable/drytapioca_pearls
 	name = "Dry Tapioca Pearls"
 	id = "drytapioca"

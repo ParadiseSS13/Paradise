@@ -1344,7 +1344,7 @@
 
 /obj/item/food/tapiocaflatbread
 	name = "tapioca flatbread"
-	desc = "A delicious flatbread made by tapioca."
+	desc = "A delicious flatbread made from tapioca."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "tapioca_flatbread"
 	bitesize = 4

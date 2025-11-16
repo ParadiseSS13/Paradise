@@ -18302,7 +18302,6 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bVP" = (
@@ -29321,7 +29320,6 @@
 	dir = 1
 	},
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/item/caution,
 /obj/item/caution,
@@ -86396,9 +86394,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "xrl" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86406,6 +86401,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "xrx" = (

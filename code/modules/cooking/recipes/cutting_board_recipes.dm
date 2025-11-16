@@ -586,6 +586,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/tomato),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
+
 /datum/cooking/recipe/drytapioca_pearls
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/reagent_containers/food/drytapioca_pearls

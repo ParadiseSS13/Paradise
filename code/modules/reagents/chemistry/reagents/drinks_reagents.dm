@@ -833,7 +833,6 @@
 	drink_desc = "This would go great with sugar, milk, and tea."
 	taste_description = "chewy starch"
 
-
 /datum/reagent/consumable/drink/bubbletea
 	name = "Bubble Tea"
 	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
@@ -844,7 +843,6 @@
 	drink_desc = "You feel trendy for drinking this."
 	taste_description = "sweet tea with chewy pearls"
 
-
 /datum/reagent/consumable/drink/milktea
 	name = "Milk Tea"
 	description = "Tea and milk mixed together. Both sweet and creamy."
@@ -854,7 +852,6 @@
 	drink_name = "Milk Tea"
 	drink_desc = "A refreshing and sweet beverage."
 	taste_description = "sweet milky tea"
-
 
 /datum/reagent/consumable/drink/bubblemilktea
 	name = "Bubble Milk Tea"
