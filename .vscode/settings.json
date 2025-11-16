@@ -1,0 +1,41 @@
+{
+	// ESLint settings:
+	"eslint.workingDirectories": ["tgui/"],
+	"eslint.nodePath": "tgui/.yarn/sdks",
+	"prettier.configPath": "tgui/.prettierrc.yml",
+	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
+	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true,
+		"tgui/public/**/*": true
+	},
+	"eslint.format.enable": true,
+	"eslint.rules.customizations": [
+		// We really want to fail the CI builds on styling errors,
+		// but it's better to show them as yellow squigglies in IDE
+		// and thus differentiate from the red typescript ones which
+		// are actually hard errors.
+		{ "rule": "*", "severity": "warn" }
+	],
+
+	"[javascript][javascriptreact][typescript][typescriptreact][scss][css][html]": {
+		"editor.rulers": [120],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[toml]": {
+		"editor.formatOnSave": false
+	},
+
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"files.insertFinalNewline": true,
+	"gitlens.advanced.blame.customArguments": [
+		"--ignore-revs-file",
+		"${workspaceRoot}/.git-blame-ignore-revs"
+	],
+}
