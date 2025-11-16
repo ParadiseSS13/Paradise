@@ -77806,10 +77806,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/cable/yellow{
+/obj/machinery/door/firedoor,
+/obj/structure/cable/extra_insulated/pre_connect{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "tAE" = (

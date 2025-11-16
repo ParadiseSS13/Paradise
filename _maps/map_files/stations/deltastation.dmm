@@ -21459,7 +21459,6 @@
 /obj/structure/sign/vacuum{
 	pixel_y = -32
 	},
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Virology Lab";
 	network = list("SS13","Medical");
@@ -21467,6 +21466,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 6
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -46821,10 +46823,11 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "dJr" = (
-/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 9
 	},
+/obj/structure/sink/directional/west,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "dJu" = (
@@ -46913,7 +46916,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
@@ -51683,7 +51685,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "eTB" = (
@@ -54648,10 +54649,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "gfM" = (
@@ -60219,10 +60220,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"iKv" = (
-/obj/structure/curtain/open,
-/turf/simulated/wall,
-/area/station/medical/virology)
 "iKN" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -61113,6 +61110,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "jdb" = (
@@ -62173,8 +62171,15 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow/left,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/sign/deathsposal{
-	pixel_y = 32
+	pixel_x = -31
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -64852,10 +64857,6 @@
 "kMN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91608,12 +91609,6 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
-"vWy" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 9
-	},
-/turf/simulated/wall,
-/area/station/medical/virology)
 "vWI" = (
 /obj/structure/closet/secure_closet/reagents,
 /obj/effect/turf_decal/stripes/line{
@@ -145381,7 +145376,7 @@ dGw
 dGw
 oKO
 iub
-iKv
+dGw
 hWu
 jWI
 dGw
@@ -145898,7 +145893,7 @@ pcJ
 oaI
 xJo
 pIP
-vWy
+dGw
 jDT
 ebB
 wWX
@@ -147189,7 +147184,7 @@ bPV
 dNr
 mgc
 dFG
-aaa
+dFG
 aaa
 aaa
 aaa
