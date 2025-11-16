@@ -2349,6 +2349,25 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"if" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/structure/sink/directional/east,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
 "ig" = (
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -3826,7 +3845,6 @@
 /obj/structure/mopbucket/full{
 	dir = 4
 	},
-/obj/item/mop,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "mS" = (
@@ -4589,9 +4607,8 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "pu" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
 /obj/structure/sink/directional/north,
+/obj/structure/mopbucket/full,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "pw" = (
@@ -6613,13 +6630,6 @@
 "wB" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
-"wD" = (
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/structure/sink/directional/east,
-/turf/simulated/floor/plasteel/freezer,
-/area/trader_station/sol)
 "wE" = (
 /obj/structure/rack,
 /obj/item/gun/energy/meteorgun,
@@ -6908,11 +6918,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "xw" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
+	},
+/obj/structure/mopbucket/full{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -10072,6 +10083,22 @@
 /obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Ja" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/mopbucket/full{
+	dir = 4
+	},
+/obj/item/soap,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
 "Jb" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
@@ -10698,12 +10725,13 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "KW" = (
-/obj/structure/mopbucket,
-/obj/item/soap/syndie,
-/obj/item/mop,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/mopbucket/full{
+	dir = 8
+	},
+/obj/item/soap/syndie,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "KX" = (
@@ -52039,7 +52067,7 @@ tF
 tF
 vG
 wd
-wB
+Ja
 xa
 vG
 aN
@@ -52296,7 +52324,7 @@ tF
 tF
 vr
 wf
-wD
+if
 vG
 vG
 aN

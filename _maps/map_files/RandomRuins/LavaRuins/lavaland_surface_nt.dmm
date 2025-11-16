@@ -4053,7 +4053,6 @@
 /area/mine/laborcamp)
 "ye" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4

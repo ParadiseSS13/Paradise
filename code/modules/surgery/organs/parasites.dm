@@ -31,7 +31,7 @@
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
-					new/obj/structure/spider/spiderling(get_turf(owner))
+					new/mob/living/basic/spiderling(get_turf(owner))
 				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
 				owner.gib()
 
@@ -85,7 +85,7 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
 	var/infection_completed = FALSE
-	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
+	var/mob/living/basic/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
@@ -98,7 +98,6 @@
 		if(4) // 5th
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			infection_completed = TRUE
-	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
 	owner.Paralyse(20 SECONDS)
