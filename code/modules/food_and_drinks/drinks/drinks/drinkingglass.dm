@@ -26,6 +26,20 @@
 				qdel(egg)
 		return ITEM_INTERACT_COMPLETE
 
+/obj/item/reagent_containers/drinks/drinkingglass/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!reagents || !reagents.total_volume)
+		return ..()
+	if(istype(reagents.get_master_reagent(), /datum/reagent/consumable/drink/salt_and_battery) && user.a_intent == INTENT_HARM)
+		return CONTINUE_ATTACK
+	return ..()
+
+/obj/item/reagent_containers/drinks/drinkingglass/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!reagents || !reagents.total_volume)
+		return ..()
+	if(istype(reagents.get_master_reagent(), /datum/reagent/consumable/drink/salt_and_battery) && user.a_intent == INTENT_HARM)
+		reagents.remove_reagent("salt_and_battery", 10) // this is not an unlimited weapon
+	return ..()
+
 /obj/item/reagent_containers/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)
 		return
@@ -41,6 +55,8 @@
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = R.drink_name
 		desc = R.drink_desc
+		force = (istype(R, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? 10 : initial(force)
+		attack_verb = (istype(R, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
 		if(R.drink_icon)
 			icon_state = R.drink_icon
 		else
@@ -48,6 +64,8 @@
 			I.color = mix_color_from_reagents(reagents.reagent_list)
 			overlays += I
 	else
+		force = initial(force)
+		attack_verb = initial(attack_verb)
 		icon_state = "glass_empty"
 		name = initial(name)
 		desc = initial(desc)
