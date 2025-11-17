@@ -86,6 +86,7 @@
 	stamina = 12.5
 	icon_state = "bullet-r"
 	armor_penetration_flat = -10
+	never_detonate_tanks = TRUE
 
 /obj/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
 	. = ..()

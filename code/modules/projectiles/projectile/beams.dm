@@ -281,6 +281,7 @@
 	damage = 5
 	stamina = 25
 	eyeblur = 2 SECONDS
+	never_detonate_tanks = TRUE
 
 /obj/projectile/beam/laser/detective/overcharged
 	name = "overcharged shot"
@@ -291,6 +292,7 @@
 	damage = 45
 	stamina = 15
 	eyeblur = 4 SECONDS
+	never_detonate_tanks = FALSE
 
 /obj/projectile/beam/laser/detective/tracker_warrant_shot
 	name = "tracker shot"
