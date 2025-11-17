@@ -1,4 +1,5 @@
 // This is a base used for food ingredients that is to be turned into a reagent, it's mainly pill code, with no swallowing function.
+/obj/item/reagent_containers/food
 	name = "food item"
 	desc = ABSTRACT_TYPE_DESC
 	inhand_icon_state = "tapioca_drypearls" //placeholder
