@@ -98,7 +98,7 @@
 
 /mob/living/basic/swarmer/emp_act()
 	if(health > 35)
-		adjustHealth(-35)
+		adjustHealth(35)
 	else
 		death()
 
