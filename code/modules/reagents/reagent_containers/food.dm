@@ -1,6 +1,6 @@
 // This is a base used for food ingredients that is to be turned into a reagent, it's mainly pill code, with no swallowing function.
 	name = "food item"
-	desc = "A food item with reagents that can be dissolved in a glass."
+	desc = ABSTRACT_TYPE_DESC
 	inhand_icon_state = "tapioca_drypearls" //placeholder
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
