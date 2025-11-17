@@ -599,6 +599,12 @@
 	for(var/i in 1 to MAX_PILL_SPRITE)
 		sprites += list("pill[i]")
 
+/datum/chemical_production_mode/pills/configure_item(data, datum/reagents/R, obj/item/reagent_containers/P)
+	..()
+	var/scale_amount = sqrt((R.total_volume + 1) / 10) //This looks arbitrary but I graphed this and 1u is approx. .45x scale, 10u is about 1x, 20 is 1.45x, 100 is 3.17x
+	scale_amount = clamp(scale_amount, 0.2, 10) //It should never hit either of these but just in case
+	P.transform = P.transform.Scale(scale_amount, scale_amount)
+
 /datum/chemical_production_mode/patches
 	mode_id = "patches"
 	production_name = "Patches"
