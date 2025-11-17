@@ -1046,6 +1046,7 @@
 	if(drop)
 		if(drop.amount < 5)
 			drop.amount++
+			drop.reagents.add_reagent("zero_day", 1)
 			var/image/I = image(drop.icon, drop.random_icon_states)
 			I.icon += drop.basecolor
 			drop.overlays |= I
@@ -1053,6 +1054,7 @@
 			drop.update_icon()
 	else
 		drop = new drop_type(T, color)
+		drop.reagents.add_reagent("zero_day", 1)
 		drop.desc = "Looks like someone spilled their drink."
 		drop.update_icon()
 	COOLDOWN_START(src, drip_cooldown, 2.6 SECONDS)
@@ -1115,7 +1117,7 @@
 	var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
 	if(!istype(microbattery)) //if there's no microbattery don't bother
 		return ..()
-	if(M.nutrition > 450 && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
+	if(M.nutrition > NUTRITION_LEVEL_FULL && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
 		do_sparks(2, FALSE, M)
 		M.visible_message(
 			"<span class='notice'>[M] lets off a few sparks.</span>",
@@ -1124,9 +1126,9 @@
 		)
 		microbattery.receive_damage(2, TRUE) //this drink is not great for you when you're already charged
 		COOLDOWN_START(src, drink_overcharge_cooldown, 30 SECONDS)
-	if(M.nutrition < 400)
+	if(M.nutrition < NUTRITION_LEVEL_WELL_FED)
 		M.nutrition += 1
-	if(M.nutrition < 200)
+	if(M.nutrition < NUTRITION_LEVEL_HUNGRY)
 		metabolization_rate += 0.8 //charging triple means burning through triple
 		M.nutrition += 2
 		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
@@ -1278,10 +1280,12 @@
 	if(prob(50))
 		M.AdjustConfused(-5 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id,5)
-			else
-				M.reagents.remove_reagent(R.id,2)
+		if(R == src)
+			M.reagents.remove_reagent(R.id,1)
+			continue
+		if(R.id == "ultralube" || R.id == "lube")
+			//Flushes lube and ultra-lube even faster than other chems
+			M.reagents.remove_reagent(R.id,5)
+		else
+			M.reagents.remove_reagent(R.id,2)
 	return ..()

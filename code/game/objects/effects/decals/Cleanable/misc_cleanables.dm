@@ -314,6 +314,7 @@
 
 /obj/effect/decal/cleanable/reagent/Initialize(mapload, decal_color)
 	. = ..()
+	reagents = new(amount)
 	if(decal_color)
 		color = decal_color
 	base_icon_state = icon_state

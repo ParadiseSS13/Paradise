@@ -1338,11 +1338,12 @@
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/synthanol/gear_grinder/on_mob_life(mob/living/M)
-	if(M.dna.species.reagent_tag & PROCESS_SYN)
-		M.SetSlowed(8, 2)
-		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
-			to_chat(M, "Your joints struggle to move.")
-			COOLDOWN_START(src, drink_message_cooldown, 10 SECONDS)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	M.SetSlowed(8, 2)
+	if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+		to_chat(M, "Your joints struggle to move.")
+		COOLDOWN_START(src, drink_message_cooldown, 10 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/runtime
@@ -1410,7 +1411,7 @@
 	var/mob/living/carbon/Mc = M
 	if(istype(Mc))
 		Mc.wetlevel = 0
-	M.germ_level -= min(volume*30, M.germ_level)
+	M.germ_level -= min(volume * 30, M.germ_level)
 	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
 		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
 		M.Paralyse(5 SECONDS)
@@ -1420,12 +1421,14 @@
 	if(prob(50))
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id,10)
-			else
-				M.reagents.remove_reagent(R.id,4)
+		if(R == src)
+			M.reagents.remove_reagent(R.id,2)
+			continue
+		if(R.id == "ultralube" || R.id == "lube")
+			//Flushes lube and ultra-lube even faster than other chems
+			M.reagents.remove_reagent(R.id,10)
+		else
+			M.reagents.remove_reagent(R.id,4)
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/overclock_somewhere
