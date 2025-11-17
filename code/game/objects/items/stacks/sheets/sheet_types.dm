@@ -711,12 +711,6 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 //////////////////////////////
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
-	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),
-	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
-	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
-	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
-	new /datum/stack_recipe("spray bottle", /obj/item/reagent_containers/spray/empty, 6),
-	null,
 	new /datum/stack_recipe_list("first-aid kits", list(
 		new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4),
 		new /datum/stack_recipe("brute trauma treatment kit", /obj/item/storage/firstaid/brute, 4),
@@ -727,15 +721,24 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("machine repair kit", /obj/item/storage/firstaid/machine, 4),
 		new /datum/stack_recipe("aquatic starter kit", /obj/item/storage/firstaid/aquatic_kit, 4),
 		)),
-	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
-	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
-	new /datum/stack_recipe("biomesh", /obj/item/biomesh, 1),
-	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
-	null,
-	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 1 SECONDS),
-	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
-	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
-	null,
+	new /datum/stack_recipe_list("liquids", list(
+		new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
+		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
+		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
+		new /datum/stack_recipe("spray bottle", /obj/item/reagent_containers/spray/empty, 6),
+		)),
+	new /datum/stack_recipe_list("storage", list(
+		new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
+		new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
+		new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
+		)),
+	new /datum/stack_recipe_list("misc", list(
+		new /datum/stack_recipe("biomesh", /obj/item/biomesh, 1),
+		new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
+		new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
+		new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),
+		new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 1 SECONDS),
+		)),
 	new /datum/stack_recipe_list("plastic utensils", list(
 		new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = TRUE),
 		new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = TRUE),
