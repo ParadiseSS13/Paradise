@@ -94616,15 +94616,6 @@
 	},
 /turf/space,
 /area/space)
-"xgx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "xgy" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -131328,7 +131319,7 @@ ueF
 qGl
 mFy
 qtk
-xgx
+qtk
 qtk
 acF
 acF
