@@ -3826,7 +3826,6 @@
 /obj/structure/mopbucket/full{
 	dir = 4
 	},
-/obj/item/mop,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "mS" = (
@@ -4589,9 +4588,8 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "pu" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
 /obj/structure/sink/directional/north,
+/obj/structure/mopbucket/full,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "pw" = (
@@ -6477,7 +6475,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "wd" = (
-/obj/structure/mopbucket,
+/obj/structure/mopbucket/full{
+	dir = 4
+	},
 /obj/item/soap,
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
@@ -6487,7 +6487,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "wf" = (
-/obj/item/mop,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -6917,11 +6916,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "xw" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
+	},
+/obj/structure/mopbucket/full{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -10707,12 +10707,13 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "KW" = (
-/obj/structure/mopbucket,
-/obj/item/soap/syndie,
-/obj/item/mop,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/mopbucket/full{
+	dir = 8
+	},
+/obj/item/soap/syndie,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "KX" = (
