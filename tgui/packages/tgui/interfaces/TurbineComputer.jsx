@@ -111,7 +111,7 @@ const TurbineWorking = (props) => {
       <LabeledList.Item label="Gasmix Post Burn Temp">{toFixed(postBurnTemperature, 2)} K</LabeledList.Item>
       <LabeledList.Item label="Compressor Temp">{toFixed(temperature, 2)} K</LabeledList.Item>
       <LabeledList.Item label="Thermal Efficiency">{toFixed(thermalEfficiency * 100, 2)} %</LabeledList.Item>
-      <LabeledList.Item label="Gas Throughput">{toFixed(gasThroughput, 2) / 2} mol/s</LabeledList.Item>
+      <LabeledList.Item label="Gas Throughput">{toFixed(gasThroughput, 2)} mol/s</LabeledList.Item>
       <LabeledList.Item label="Generated Power">{formatPower(power)}</LabeledList.Item>
       <LabeledList.Item label="Bearing Damage">
         <ProgressBar
