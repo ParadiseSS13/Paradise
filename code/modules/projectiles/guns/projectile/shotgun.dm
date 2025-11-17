@@ -311,6 +311,9 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	execution_speed = 5 SECONDS
 
+/obj/item/gun/projectile/shotgun/automatic/combat/confetti
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/confetti
+
 /// Service Malfunction Borg Combat Shotgun Variant
 /obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	name = "cyborg shotgun"
