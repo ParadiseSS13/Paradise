@@ -760,7 +760,7 @@
 				This machine can dispense empty bottles and cans for your drinks, and it can also mix several unique drinks.
 				<h2>Other supplies</h2>
 				You are also supplied with a shaker for mixing drinks, a cabinet for booze, weapons for self-defense, a lighter to heat up drinks that require it, and materials for your bottler, among other niceties. Take good care of them.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -789,7 +789,7 @@
 				Mix one part each of synthanol, soda water, and oil. Chemistry can help.
 				<h2>Synthignon:</h2>
 				Mix one part synthanol to one part wine.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -900,7 +900,7 @@
 				Mix two parts whiskey to one part soda water.
 				<h2>White Russian:</h2>
 				Mix three parts Black Russian to two parts cream.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -955,7 +955,7 @@
 				Mix one part each of cider, vodka, welding fuel, and epinephrine. Chemistry or Medical can help.
 				<h2>Toxins Special:</h2>
 				Mix two parts each of rum and plasma to one part vermouth. Chemistry or Cargo can help.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -992,7 +992,7 @@
 				Mix five parts Singulo (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>) to one part plasma dust. Cargo or Chemistry can help.
 				<h2>Whiskey Sour:</h2>
 				Mix 1 part each of egg, whiskey, lemon juice, and sugar. The Kitchen or Botany can help.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1021,7 +1021,7 @@
 				Mix two parts each of milk and ice to one part cream.
 				<h2>Triple Citrus:</h2>
 				Mix one part each of lemon juice, lime juice, and orange juice.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1064,7 +1064,7 @@
 				Mix one part tomato juice to one part space-up.
 				<h2>The Doctor's Delight:</h2>
 				Mix one part each of lime juice, tomato juice, orange juice, and cream.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1101,7 +1101,7 @@
 				Mix five parts each of egg, coffee, and vanilla powder. Botany or the Kitchen can help.
 				<h2>Very Berry Smoothie:</h2>
 				Mix one part each of cream, berry juice, plum juice, and ice. Botany can help.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1126,7 +1126,7 @@
 				Mix six parts cola to one part uranium. Cargo can help.
 				<h2>Vegetable Juice Mix:</h2>
 				Mix one part each of tomato juice, carrot juice, beet juice, and lettuce juice. Botany can help.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1151,7 +1151,7 @@
 				Unrefined Ore, Wheat, Unrefined Ore.
 				<h2>Paradise Punch:</h2>
 				Grapes, Banana, Cherries.
-				<br><br><a href='byond://?src=[UID()];seek_page=1'>back to Table of Contents</a>
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"})
