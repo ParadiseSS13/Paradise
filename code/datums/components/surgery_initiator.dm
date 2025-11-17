@@ -361,6 +361,11 @@
 	can_cancel = FALSE
 	surgery_start_sound = "rustle"
 
+/datum/component/surgery_initiator/cloth/Initialize(datum/surgery/forced_surgery, surgery_effectiveness)
+	. = ..()
+	if(surgery_effectiveness)
+		germ_prevention_quality = surgery_effectiveness
+
 /datum/component/surgery_initiator/cloth/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
 	user.visible_message(
 		"<span class='notice'>[user] drapes [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
