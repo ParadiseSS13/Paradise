@@ -133,7 +133,7 @@ GLOBAL_LIST(end_titles)
 			monkies[H?.name] += 1
 		else if(H?.real_name in GLOB.crew_list) // Only crew deaths
 			corpses += H?.real_name
-	if(corpses.len)
+	if(length(corpses))
 		titles += "<center>BASED ON REAL EVENTS<br>In memory of [english_list(corpses)].</center>"
 
 	// CKEYS
@@ -152,7 +152,7 @@ GLOBAL_LIST(end_titles)
 
 	titles += "<center>[jointext(staff,"<br>")]</center>"
 
-	if(goodboys.len)
+	if(length(goodboys))
 		titles += "<center>STAFF'S GOOD BOYS:<br>[english_list(goodboys)]</center><br>"
 
 	var/disclaimer = "<br>Sponsored by [pick("Nanotrasen", "The Syndicate", "The Changeling Hivemind", "The Vampire Coven", "The Cultist Library", "YOU, THE PLAYER",)].<br>All rights reserved.<br>\
