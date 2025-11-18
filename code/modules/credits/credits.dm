@@ -118,7 +118,7 @@ GLOBAL_LIST(end_titles)
 			cast += "<center>[jointext(chunk,"<br>")]</center>"
 			chunk.Cut()
 			chunksize = 0
-	if(chunk.len)
+	if(length(chunk))
 		cast += "<center>[jointext(chunk,"<br>")]</center>"
 
 	titles += cast
