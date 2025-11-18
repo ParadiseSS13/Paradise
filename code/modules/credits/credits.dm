@@ -3,8 +3,6 @@
 #define CREDIT_ANIMATE_HEIGHT (14 * world.icon_size)
 #define CREDIT_EASE_DURATION 22
 
-#define JOINTEXT(X) jointext(X, null) // Why is this needed? Why is this here? Oh well
-
 GLOBAL_VAR_INIT(end_credits_song, null)
 GLOBAL_VAR_INIT(end_credits_title, null)
 GLOBAL_LIST(end_titles)
@@ -104,23 +102,18 @@ GLOBAL_LIST(end_titles)
 		titles += "<center><h1>EPISODE [rand(1,1000)]<br>[GLOB.end_credits_title]<h1></h1></h1></center>"
 
 	// The Living
-	var/list/minds = list()
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
-		if(H.mind)
-			minds += H.mind
-
-	for(var/datum/mind/mind in minds)
-		if(!mind)
+		if(!H.mind)
 			continue
-		if(!cast.len && !chunksize)
+		if(!length(cast) && !chunksize)
 			chunk += "CREW:"
-		var/jobtitle = mind?.assigned_role || "No title"
-		var/used_name = mind?.current?.name
+		var/jobtitle = H.mind?.assigned_role || "No title"
+		var/used_name = H.mind?.current?.name
 		var/antag_string
-		for(var/datum/antagonist/antagonist as anything in mind?.antag_datums)
+		for(var/datum/antagonist/antagonist as anything in H.mind?.antag_datums)
 			antag_string ? (antag_string += ", ") : (antag_string += "...")
 			antag_string += "[antagonist?.name]"
-		chunk += "[used_name] as the [mind?.antag_datums ? "[antag_string] and [jobtitle]" : jobtitle]"
+		chunk += "[used_name] as the [H.mind?.antag_datums ? "[antag_string] and [jobtitle]" : jobtitle]"
 		chunksize++
 
 		if(chunksize > 2)
@@ -149,7 +142,7 @@ GLOBAL_LIST(end_titles)
 	var/list/staff = list("PRODUCTION STAFF:")
 	var/static/list/staffjobs = list("Coffee Fetcher", "Cameraman", "Angry Yeller", "Chair Operator", "Choreographer", "Historical Consultant", "Costume Designer", "Chief Editor", "Executive Assistant")
 	var/list/goodboys = list()
-	for(var/client/C)
+	for(var/client/C in GLOB.clients)
 		if(!C?.holder)
 			continue
 		if(C?.holder?.fakekey) // No stealthmins
@@ -183,7 +176,7 @@ GLOBAL_LIST(end_titles)
 					"The Vampire Coven - operating from the shadows!", "The Cultist Library - spreading true knowledge!", "You, and other players like you!",)](TM)).",
 					"No animals were harmed in the making of this motion picture except for those listed previously as dead. Do not try this at home before signing a waiver.")
 	titles += "<hr>"
-	titles += "<center><span style='font-size:6pt;'>[JOINTEXT(disclaimer)]</span></center>"
+	titles += "<center><span style='font-size:6pt;'>[disclaimer]</span></center>"
 
 	return titles
 
@@ -191,4 +184,3 @@ GLOBAL_LIST(end_titles)
 #undef CREDIT_SPAWN_SPEED
 #undef CREDIT_ANIMATE_HEIGHT
 #undef CREDIT_EASE_DURATION
-#undef JOINTEXT
