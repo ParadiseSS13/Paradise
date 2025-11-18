@@ -1018,8 +1018,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_port)
 "alq" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 8;
+	name = "NSS Cerebron Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "alr" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -71864,6 +71868,7 @@
 /area/station/hallway/primary/fore/north)
 "rZN" = (
 /obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
 "rZZ" = (
@@ -115355,13 +115360,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abW
 abW
 bOX
@@ -115612,13 +115617,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 ajo
 abq
 abq
@@ -115869,13 +115874,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 aaa
@@ -116126,13 +116131,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 aaa
@@ -116383,13 +116388,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 jGk
@@ -116640,13 +116645,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
 alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
 ajo
 aaa
 eoe

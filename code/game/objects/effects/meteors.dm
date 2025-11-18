@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/damage_cap = wall.damage_cap
 	if(wall.rotting)
 		damage_cap /= 10
-	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE 
+	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	if(damage_needed <= 0)
 		wall.dismantle_wall()
 	else if(damage_needed < obj_integrity)
@@ -199,6 +199,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		. = TRUE // Hit an object.
 
 		var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE)
+		if(istype(obstacle, /obj/structure/grille))
+			damage_needed *= 6
+
 		if(obj_integrity > damage_needed)
 			obj_integrity -= damage_needed
 			obstacle.obj_break(MELEE)
