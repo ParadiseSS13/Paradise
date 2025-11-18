@@ -75,6 +75,7 @@
 						S.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
 				for(var/mob/living/carbon/human/machine/M in orange(HIGH_ATTRACTION_RANGE, affected_mob))
 					M.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
+	return
 
 #undef LOW_ATTRACTION_RANGE
 #undef MEDIUM_ATTRACTION_RANGE
