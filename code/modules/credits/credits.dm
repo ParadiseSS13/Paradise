@@ -20,15 +20,13 @@ GLOBAL_LIST(end_titles)
 	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
-	LAZYINITLIST(credits)
-
-	var/list/_credits = credits
+	var/list/credits = list()
 	verbs += /client/proc/ClearCredits
 	for(var/I in GLOB.end_titles)
 		if(!credits)
 			return
 		var/atom/movable/screen/credit/T = new(null, null, I, src)
-		_credits += T
+		credits += T
 		T.rollem()
 		sleep(CREDIT_SPAWN_SPEED)
 	sleep(CREDIT_ROLL_SPEED - CREDIT_SPAWN_SPEED)

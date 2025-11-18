@@ -118,7 +118,7 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
-	/// Lazy list of all credit object bound to this client
+	/// list of all credit object bound to this client
 	var/list/credits
 
 	/// Client's pAI save
