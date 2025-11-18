@@ -808,6 +808,59 @@ GLOBAL_VAR(bomb_set)
 		if(length(open_turfs))
 			return pick(open_turfs)
 
+// MARK: NAD Scanner
+
+/obj/item/nad_scanner
+	name = "authentication disk decryptor"
+	desc = "A tiny tablet computer that can scan a nuclear authentication disk. The syndicate will relay the activation codes to you but it is likely the transmission will be intercepted by NT. Be prepared for a fight."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "pinoff"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
+	w_class = WEIGHT_CLASS_TINY
+	/// The currently stored NAD
+	var/obj/item/disk/nuclear/disky
+	/// Is the device currently scanning?
+	var/scanning = FALSE
+
+/obj/item/nad_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(attacking, /obj/item/disk/nuclear))
+		. = ..()
+	if(disky)
+		to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+
+	if(used.flags & NODROP || !user.transfer_item_to(used, src))
+		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+
+/obj/item/nad_scanner/activate_self(mob/user)
+	scan_nad()
+	return ..()
+
+/obj/item/nad_scanner/scan_nad()
+	if(do_after(src, 10 SECONDS, needhand = FALSE, allow_moving = TRUE, hidden = TRUE))
+		if(istype(disky, /obj/item/disk/nuclear/training))
+			say("Incompatible disk detected!")
+			return
+		var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n We have decrypted the codes from the nuclear authentication disk."
+		var/code
+		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+				code = bombue.r_code
+				break
+		complete_message += " The code is [code]. Take them down. \n"
+		complete_message += "We suspect the syndicate is trying to detonate your nuclear device. All crew are to ensure this does not happen."
+
+		GLOB.major_announcement.Announce(
+				complete_message,
+				new_title = "Enemy Communication Intercepted",
+				new_subtitle = "Intercepted Syndicate Communique",
+				new_sound = 'sound/AI/intercept.ogg'
+			)
+			print_command_report(complete_message, new_subtitle)
+
 // MARK: Training Nuke
 
 /obj/machinery/nuclearbomb/training
