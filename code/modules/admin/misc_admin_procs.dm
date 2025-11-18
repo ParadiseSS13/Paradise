@@ -863,33 +863,25 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 //ALL DONE
 //*********************************************************************************************************
 
-GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
-
 /proc/move_gamma_ship()
-	var/area/fromArea
-	var/area/toArea
-	if(GLOB.gamma_ship_location == 1)
-		fromArea = locate(/area/shuttle/gamma/space)
-		toArea = locate(/area/shuttle/gamma/station)
+	if(!SSshuttle.gamma_armory)
+		log_debug("move_gamma_ship(): There is no Gamma Armory shuttle, but the Gamma Armory shuttle was called. Loading a default Gamma Armory shuttle.")
+		SSshuttle.load_initial_gamma_armory_shuttle(SSmapping.gamma_armory_shuttle_id)
+
+	if(SSshuttle.gamma_armory.mode != (SHUTTLE_IDLE || SHUTTLE_DOCKED))
+		to_chat(usr, "The Gamma Armory shuttle is currently in transit. Please try again in a few moments.")
+		return
+
+	if(SSshuttle.gamma_armory.loc.z == level_name_to_num(CENTCOMM))
+		SSshuttle.moveShuttle("gamma_armory", "gamma_home", TRUE, usr)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.open()
 		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_deploy.ogg')
 	else
-		fromArea = locate(/area/shuttle/gamma/station)
-		toArea = locate(/area/shuttle/gamma/space)
+		SSshuttle.moveShuttle("gamma_armory", "gamma_away", TRUE, usr)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.close() //DOOR STUCK
 		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_recall.ogg')
-	fromArea.move_contents_to(toArea)
-
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
-		P.update_recharge_turf()
-
-	if(GLOB.gamma_ship_location)
-		GLOB.gamma_ship_location = 0
-	else
-		GLOB.gamma_ship_location = 1
-	return
 
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
