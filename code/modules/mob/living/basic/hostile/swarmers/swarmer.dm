@@ -108,12 +108,14 @@
 
 /mob/living/basic/swarmer/Login() // In case an admin gets a funny idea.
 	..()
-	to_chat(src, "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>")
-	to_chat(src, "<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>")
-	to_chat(src, "<b>Prime Directives:</b>")
-	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
-	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
-	to_chat(src, "3. Defend yourself and your fellow machines.")
+	var/list/string_list = list()
+	string_list += "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>"
+	string_list += "<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>"
+	string_list += "<b>Prime Directives:</b>"
+	string_list += "1. Consume resources and replicate until there are no more resources left."
+	string_list += "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable."
+	string_list += "3. Defend yourself and your fellow machines."
+	to_chat(src, string_list.Join())
 
 /mob/living/basic/swarmer/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	face_atom(target)
@@ -323,7 +325,7 @@
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/swarmer/emp_act()
-	..()
+	do_sparks(3, 1, src)
 	qdel(src)
 
 /obj/structure/swarmer/trap

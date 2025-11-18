@@ -1,5 +1,4 @@
 /datum/event/swarmers
-
 	name = "Swarmer Infestation"
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_ENGINEERING = 5, ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 0.8)
