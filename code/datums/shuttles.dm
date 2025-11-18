@@ -43,10 +43,6 @@
 	name = "Base Gamma Armory Template"
 	prefix = "_maps/map_files/shuttles/gamma_armory/"
 
-/datum/map_template/shuttle/trader
-	port_id = "trader_base"
-	prefix = "_maps/map_files/shuttles/trader/"
-
 // MARK: Emergency
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
