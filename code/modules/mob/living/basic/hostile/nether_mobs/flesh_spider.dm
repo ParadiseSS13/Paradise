@@ -23,12 +23,9 @@
 /mob/living/basic/giant_spider/flesh_spider/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/event_tracker)
+	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/giant_spider/flesh_spider/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)
-
-/mob/living/basic/giant_spider/flesh_spider/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/ai_retaliate)
