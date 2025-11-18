@@ -39,12 +39,6 @@
 	AddElement(/datum/element/ai_retaliate)
 	add_language("Galactic Common")
 	set_default_language(GLOB.all_languages["Galactic Common"])
-	AddComponent(/datum/component/event_tracker)
-
-/mob/living/basic/skeleton/event_cost()
-	. = list()
-	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)
 
 /mob/living/basic/skeleton/arctic
 	name = "undead arctic explorer"
@@ -105,6 +99,15 @@
 	desc = "It's got a bone to pick with you."
 	health = 75
 	maxHealth = 75
+
+/mob/living/basic/skeleton/incursion/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/event_tracker)
+
+/mob/living/basic/skeleton/incursion/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)
 
 /mob/living/basic/skeleton/incursion/security
 	name = "skeletal officer"
