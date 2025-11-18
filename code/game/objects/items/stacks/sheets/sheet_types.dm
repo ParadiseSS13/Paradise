@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
 		)),
-	new /datum/stack_recipe_list("electronics", list(
+	new /datum/stack_recipe_list("wall-mounted", list(
 		new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 5 SECONDS, one_per_turf = FALSE, on_floor = TRUE),
 		new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 		new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1),
@@ -72,8 +72,10 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 		new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
 		new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
+		new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 		new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 		new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 5 SECONDS, one_per_turf = FALSE, on_floor = TRUE),
+
 		)),
 	new /datum/stack_recipe_list("construction", list(
 		new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -83,7 +85,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 		new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
 		new /datum/stack_recipe("storage shelf", /obj/structure/shelf, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
