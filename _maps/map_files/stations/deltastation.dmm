@@ -11125,20 +11125,14 @@
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "aTf" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
-	pixel_y = 11
+	pixel_y = 12
 	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "aTi" = (
@@ -17420,10 +17414,6 @@
 /obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
-"bsF" = (
-/obj/machinery/door/poddoor/impassable/gamma,
-/turf/simulated/floor/plating,
-/area/station/security/armory/secure)
 "bsG" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
@@ -21450,6 +21440,33 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
+"bIw" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/iv_bags{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/syringes,
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Virology Lab";
+	network = list("SS13","Medical");
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/virology)
 "bIx" = (
 /obj/machinery/drone_fabricator,
 /obj/effect/turf_decal/tiles/department/engineering/side{
@@ -46805,10 +46822,11 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "dJr" = (
-/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 9
 	},
+/obj/structure/sink/directional/west,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "dJu" = (
@@ -46897,7 +46915,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
@@ -51685,7 +51702,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "eTB" = (
@@ -52265,8 +52281,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "fhF" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 4;
+	name = "NSS Kerberos Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "fhG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -54669,10 +54689,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "gfM" = (
@@ -54920,14 +54940,36 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "gml" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
+/obj/structure/closet/crate,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/knife/plastic,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pspoon,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/snack_bowl,
+/obj/effect/turf_decal/tiles/dark/checker,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = -25
 	},
-/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "gmT" = (
@@ -60231,10 +60273,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"iKv" = (
-/obj/structure/curtain/open,
-/turf/simulated/wall,
-/area/station/medical/virology)
 "iKN" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -61125,6 +61163,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "jdb" = (
@@ -62178,8 +62217,15 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow/left,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/sign/deathsposal{
-	pixel_y = 32
+	pixel_x = -31
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -64850,10 +64896,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -66110,8 +66152,19 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/clothing/head/chefhat{
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "lpI" = (
@@ -77317,7 +77370,6 @@
 "qjO" = (
 /obj/item/wrench,
 /obj/item/storage/bag/trash,
-/obj/item/mop,
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /obj/structure/shelf,
 /turf/simulated/floor/plating,
@@ -77380,31 +77432,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
-"qkN" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/iv_bags{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/syringes,
-/obj/structure/sign/vacuum{
-	pixel_y = -32
-	},
-/obj/machinery/firealarm/directional/east,
-/obj/machinery/camera{
-	c_tag = "Virology Lab";
-	network = list("SS13","Medical");
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/virology)
 "qlz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -86918,6 +86945,11 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"uaa" = (
+/obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/security/armory/secure)
 "uad" = (
 /obj/effect/spawner/airlock/e_to_w/long,
 /turf/simulated/wall,
@@ -91609,12 +91641,6 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
-"vWy" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 9
-	},
-/turf/simulated/wall,
-/area/station/medical/virology)
 "vWI" = (
 /obj/structure/closet/secure_closet/reagents,
 /obj/effect/turf_decal/stripes/line{
@@ -91977,22 +92003,22 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "wfO" = (
+/obj/structure/closet/crate,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/onion,
+/obj/item/food/grown/onion,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/fancy/egg_box,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
+/obj/effect/turf_decal/tiles/dark/checker,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/structure/closet/crate,
-/obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/condiment/rice,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/storage/box/donkpockets,
-/obj/item/food/grown/onion,
-/obj/item/food/grown/onion,
-/obj/item/food/grown/potato,
-/obj/item/food/grown/potato,
-/obj/item/food/sliced/bread,
-/obj/item/food/sliced/bread,
-/obj/item/food/sliced/bread,
-/obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "wgg" = (
@@ -94616,15 +94642,6 @@
 	},
 /turf/space,
 /area/space)
-"xgx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "xgy" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -96911,7 +96928,6 @@
 /area/station/maintenance/fore)
 "yhn" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
@@ -131328,7 +131344,7 @@ ueF
 qGl
 mFy
 qtk
-xgx
+qtk
 qtk
 acF
 acF
@@ -145357,7 +145373,7 @@ dGw
 dGw
 oKO
 iub
-iKv
+dGw
 hWu
 jWI
 dGw
@@ -145874,7 +145890,7 @@ pcJ
 oaI
 xJo
 wdL
-vWy
+dGw
 jDT
 ebB
 uZh
@@ -146907,7 +146923,7 @@ miC
 ipg
 sMn
 hfU
-qkN
+bIw
 dFG
 abj
 abj
@@ -147165,7 +147181,7 @@ bPV
 dNr
 mgc
 dFG
-aaa
+dFG
 aaa
 aaa
 aaa
@@ -154526,8 +154542,8 @@ esj
 bhi
 boZ
 eXP
-wRa
 bnp
+wRa
 qcb
 taj
 aMq
@@ -154783,8 +154799,8 @@ esj
 ngg
 ngg
 ngg
+uaa
 ngg
-bsF
 ngg
 ngg
 ngg
@@ -155037,13 +155053,13 @@ kkK
 agt
 tOM
 bNE
+aaa
+aaa
+aaa
 fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
 gLn
 aaa
 aaa
@@ -155294,13 +155310,13 @@ upp
 xmZ
 stH
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -155551,13 +155567,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -155808,13 +155824,13 @@ abj
 abj
 abj
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -156065,13 +156081,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -156322,13 +156338,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
