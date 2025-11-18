@@ -5863,7 +5863,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tB" = (
@@ -6349,6 +6349,7 @@
 /area/trader_station/sol)
 "vs" = (
 /obj/structure/railing,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "vt" = (
