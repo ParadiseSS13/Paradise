@@ -108,7 +108,7 @@
 	needs_target = FALSE
 
 /datum/objective/experiment
-	explanation_text = "Experiment on some humans."
+	explanation_text = "Experiment on some test subjects."
 	target_amount = 6
 	needs_target = FALSE
 	/// Which abductor team number does this belong to.
@@ -116,7 +116,7 @@
 
 /datum/objective/experiment/New()
 	..()
-	explanation_text = "Experiment on [target_amount] humans."
+	explanation_text = "Experiment on [target_amount] test subjects."
 
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number
