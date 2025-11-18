@@ -266,6 +266,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
 			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
 				protect_obj.target = assassination_target
+				// Cancel the fallback timer since we now have a target
+				if(protect_obj.fallback_timer_id)
+					deltimer(protect_obj.fallback_timer_id)
+					protect_obj.fallback_timer_id = null
 				addtimer(CALLBACK(protect_obj, TYPE_PROC_REF(/datum/objective/protect, notify_protect_objectives)), 1 MINUTES)
 				return
 
@@ -334,6 +338,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
 			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
 				protect_obj.target = assassination_target
+				// Cancel the fallback timer since we now have a target
+				if(protect_obj.fallback_timer_id)
+					deltimer(protect_obj.fallback_timer_id)
+					protect_obj.fallback_timer_id = null
 				addtimer(CALLBACK(protect_obj, TYPE_PROC_REF(/datum/objective/protect, notify_protect_objectives)), 1 MINUTES)
 				return
 
