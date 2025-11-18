@@ -18,6 +18,9 @@
 	if(!..())
 		return FALSE
 	switch(stage)
+		if(1)
+			if(prob(5))
+				to_chat(affected_mob, "<span class='danger'>You query upon the nature of miracles...</span>") // Fucking magnets, how do they work!?
 		if(2) // Non-harmfully pull in metal stuff next to you.
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>You feel a light tingling sensation.</span>")
