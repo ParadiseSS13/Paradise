@@ -489,6 +489,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 							objective_to_add = roll_single_human_objective()
 						else
 							objective_to_add = /datum/objective/infiltrate_sec
+
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 			if(INCRIMINATE_OBJECTIVE)
