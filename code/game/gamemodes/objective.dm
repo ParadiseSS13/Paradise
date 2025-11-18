@@ -1238,7 +1238,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		var/datum/antagonist/mindflayer/flayer_datum = M.has_antag_datum(/datum/antagonist/mindflayer)
 
-		holder.replace_objective(src, flayer_datum.roll_single_human_objective())
+		// replace_objective doesn't trigger things like giving SM sliver steal kits or the PPP, so we'll replace it manually
+		var/download_index = flayer_datum.objective_holder.objectives.Find(src)
+		var/datum/objective/new_objective = flayer_datum.add_antag_objective(flayer_datum.roll_single_human_objective())
+
+		// Move the new objective to where the download objective was
+		if(download_index && new_objective)
+			flayer_datum.objective_holder.objectives -= new_objective
+			flayer_datum.objective_holder.objectives.Insert(download_index, new_objective)
+
+		holder.remove_objective(src)
 
 		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 		var/list/messages = M.prepare_announce_objectives(FALSE)
