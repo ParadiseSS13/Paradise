@@ -1018,8 +1018,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_port)
 "alq" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 8;
+	name = "NSS Cerebron Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "alr" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -18302,7 +18306,6 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bVP" = (
@@ -29322,7 +29325,6 @@
 	dir = 1
 	},
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/item/caution,
 /obj/item/caution,
 /obj/item/caution,
@@ -71867,6 +71869,7 @@
 /area/station/hallway/primary/fore/north)
 "rZN" = (
 /obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
 "rZZ" = (
@@ -86397,9 +86400,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "xrl" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86407,6 +86407,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "xrx" = (
@@ -115365,13 +115368,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abW
 abW
 bOX
@@ -115622,13 +115625,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 ajo
 abq
 abq
@@ -115879,13 +115882,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 aaa
@@ -116136,13 +116139,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 aaa
@@ -116393,13 +116396,13 @@ aaa
 aaa
 aaa
 aaa
-alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 aaa
 jGk
@@ -116650,13 +116653,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
 alq
-alq
-alq
-alq
-alq
-alq
-alq
+aaa
+aaa
+aaa
 ajo
 aaa
 eoe

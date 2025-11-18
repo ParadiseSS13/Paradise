@@ -14,6 +14,12 @@ SUBSYSTEM_DEF(late_mapping)
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
+	// Load a Gamma Armoury shuttle at Centcom.
+	if(SSmapping.gamma_armory_shuttle_id)
+		SSshuttle.load_initial_gamma_armory_shuttle(SSmapping.gamma_armory_shuttle_id)
+	else
+		WARNING("no valid Gamma Armory shuttle template was set in SSmapping")
+
 	for(var/obj/machinery/computer/shuttle/console in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
 		if(console.find_destinations_in_late_mapping)
 			console.connect()

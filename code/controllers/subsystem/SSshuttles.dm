@@ -40,6 +40,9 @@ SUBSYSTEM_DEF(shuttle)
 	/// The current shuttle loan event, if any.
 	var/shuttle_loan_UID
 
+	// Gamma armory
+	var/obj/docking_port/mobile/gamma_armory/gamma_armory
+
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
@@ -68,6 +71,8 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+	if(!gamma_armory)
+		WARNING("No /obj/docking_port/mobile/gamma_armory placed on the map!")
 
 	initial_load()
 	initial_move()
@@ -512,6 +517,23 @@ SUBSYSTEM_DEF(shuttle)
 	// blanking the modification tab
 
 	return trade_shuttle
+
+/datum/controller/subsystem/shuttle/proc/load_initial_gamma_armory_shuttle(gamma_armory_shuttle_id)
+	var/obj/docking_port/mobile/gamma_armory/gamma_armory = getShuttle("gamma_armory")
+	if(gamma_armory)
+		log_debug("requested to load initial Gamma Armory shuttle when one already exists")
+	var/obj/docking_port/docking_port = SSshuttle.getDock("gamma_away")
+	if(!istype(docking_port))
+		log_debug("could not find Gamma Armory docking port")
+		return
+	var/datum/map_template/shuttle/shuttle_template = GLOB.shuttle_templates[gamma_armory_shuttle_id]
+	if(!shuttle_template)
+		log_debug("could not find Gamma Armory shuttle template")
+		return
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
+	mobile_port.dock(docking_port, force = TRUE)
+	mobile_port.register()
+	gamma_armory = mobile_port
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
