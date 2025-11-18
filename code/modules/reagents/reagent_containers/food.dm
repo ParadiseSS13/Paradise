@@ -2,7 +2,7 @@
 /obj/item/reagent_containers/food
 	name = "food item"
 	desc = ABSTRACT_TYPE_DESC
-	inhand_icon_state = "tapioca_drypearls" //placeholder
+	inhand_icon_state = "tapioca_drypearls" // placeholder
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	volume = 10

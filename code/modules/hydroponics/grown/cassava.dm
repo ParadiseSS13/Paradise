@@ -1,4 +1,4 @@
-//cassava root
+// cassava root
 /obj/item/seeds/cassava
 	name = "pack of cassava seeds"
 	desc = "These seeds grow into Cassava."
