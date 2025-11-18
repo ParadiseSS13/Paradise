@@ -77,8 +77,12 @@
 		if(M.stat == DEAD)
 			return TRUE
 	for(var/turf/T in range(1, dinner))
+		var/datum/gas_mixture/environment = T.get_readonly_air()
+		var/environment_pressure = environment.return_pressure()
+		var/datum/tlv/cur_tlv = new/datum/tlv(ONE_ATMOSPHERE * 0.80, ONE_ATMOSPHERE  *0.90, ONE_ATMOSPHERE * 1.10,ONE_ATMOSPHERE * 1.20) /* kpa */
+		var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter))
+		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter) || pressure_dangerlevel)
 			return FALSE
 	return TRUE
 
@@ -179,6 +183,12 @@
 	if(HAS_TRAIT(target_turf, TRAIT_SWARMER_CONSTRUCTION))
 		return FALSE
 	if(isspaceturf(target_turf))
+		return FALSE
+	var/datum/gas_mixture/environment = target_turf.get_readonly_air()
+	var/datum/tlv/cur_tlv = new/datum/tlv(ONE_ATMOSPHERE * 0.80, ONE_ATMOSPHERE  *0.90, ONE_ATMOSPHERE * 1.10,ONE_ATMOSPHERE * 1.20) /* kpa */
+	var/environment_pressure = environment.return_pressure()
+	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
+	if(pressure_dangerlevel)
 		return FALSE
 	return !target_turf.is_blocked_turf(source_atom = swarmer)
 
