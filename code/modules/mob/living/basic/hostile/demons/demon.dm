@@ -34,6 +34,8 @@
 	. = ..()
 	whisper_action = new()
 	whisper_action.Grant(src)
+	add_language("Galactic Common")
+	set_default_language(GLOB.all_languages["Galactic Common"])
 
 /mob/living/basic/demon/Destroy()
 	QDEL_NULL(whisper_action)
