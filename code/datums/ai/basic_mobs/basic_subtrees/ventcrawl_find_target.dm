@@ -1,4 +1,5 @@
 /datum/ai_planning_subtree/ventcrawl_find_target
+	var/crawl_behavior = /datum/ai_behavior/find_ventcrawl_target
 
 /datum/ai_planning_subtree/ventcrawl_find_target/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	// We have a target already
@@ -11,7 +12,7 @@
 	else
 		vision_range = controller.blackboard[BB_VENT_SEARCH_RANGE]
 	// Find a target
-	controller.queue_behavior(/datum/ai_behavior/find_ventcrawl_target, BB_VENTCRAWL_FINAL_TARGET, vision_range)
+	controller.queue_behavior(crawl_behavior, BB_VENTCRAWL_FINAL_TARGET, vision_range)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
 /datum/ai_behavior/find_ventcrawl_target

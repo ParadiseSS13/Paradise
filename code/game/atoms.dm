@@ -184,6 +184,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
+	if(desc == ABSTRACT_TYPE_DESC)
+		stack_trace("[type] was initialized, but is marked as an abstract base type")
+
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
@@ -378,7 +381,7 @@
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
 
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+/atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
@@ -1210,7 +1213,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/zap_act(power, zap_flags)
 	return
 
-/atom/proc/handle_ricochet(obj/item/projectile/ricocheting_projectile)
+/atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
 	var/turf/p_turf = get_turf(ricocheting_projectile)
 	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
 	var/face_angle = dir2angle(face_direction)
@@ -1448,7 +1451,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = !density
 
 
-/atom/proc/atom_prehit(obj/item/projectile/P)
+/atom/proc/atom_prehit(obj/projectile/P)
 	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)
 
 /// Passes Stat Browser Panel clicks to the game and calls client click on an atom
@@ -1511,7 +1514,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
 
-// MARK: PTL PROCS
+// MARK: PTL procs
 
 // Called when the target is selected
 /atom/proc/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
@@ -1545,3 +1548,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ptl)
 		ptl.target = null
 	return
+
+// MARK: Event procs
+/// Returns the cost of the atom for the event system as a list of all requirements. By default this is just 1 crew.
+/atom/proc/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_CREW = 1)
+

@@ -129,7 +129,7 @@
 	return
 
 /obj/structure/table/CanPass(atom/movable/mover, border_dir)
-	if(istype(mover,/obj/item/projectile))
+	if(istype(mover,/obj/projectile))
 		return check_cover(mover, border_dir)
 
 	var/mob/living/living_mover = mover
@@ -163,7 +163,7 @@
  * * P - The projectile trying to cross.
  * * proj_dir - The incoming direction of the projectile.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P, proj_dir)
+/obj/structure/table/proc/check_cover(obj/projectile/P, proj_dir)
 	. = TRUE
 	if(!flipped)
 		return
@@ -229,8 +229,8 @@
 		tablepush(I, user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
-		return ITEM_INTERACT_COMPLETE
+	if(I.is_robot_module())
+		return ..()
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
@@ -359,7 +359,7 @@
 		return 0 SECONDS // sure
 	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
-	if(istype(flipper, /mob/living/simple_animal/revenant))
+	if(istype(flipper, /mob/living/basic/revenant))
 		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)

@@ -87,6 +87,7 @@
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_pocket = /obj/item/mail_scanner
+	r_pocket = /obj/item/storage/bag/mail
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
@@ -125,6 +126,7 @@
 
 	gloves = /obj/item/clothing/gloves/smithing
 	uniform = /obj/item/clothing/under/rank/cargo/smith
+	r_pocket = /obj/item/storage/bag/smith
 	l_ear = /obj/item/radio/headset/headset_cargo
 	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
@@ -198,6 +200,12 @@
 		/obj/item/stack/marker_beacon/ten=1
 	)
 
+/datum/outfit/job/mining/equipped/less
+	backpack_contents = list(
+		/obj/item/flashlight/seclite=1,\
+		/obj/item/stack/marker_beacon/ten=1
+	)
+
 /datum/outfit/job/mining/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -246,6 +254,8 @@
 	l_ear = /obj/item/radio/headset/headset_cargo/expedition
 	head = /obj/item/clothing/head/soft/expedition
 	uniform = /obj/item/clothing/under/rank/cargo/expedition
+	l_pocket = /obj/item/storage/bag/expedition
+	r_pocket = /obj/item/storage/bag/ore
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/storage/belt/utility/expedition
@@ -331,6 +341,7 @@
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
+	neck = /obj/item/clothing/neck/neckerchief/red
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
@@ -342,6 +353,7 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H) // requires mind
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/job/hydro
 	title = "Botanist"
@@ -372,6 +384,7 @@
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/storage/bag/plants/portaseeder
+	r_pocket = /obj/item/storage/bag/plants
 	pda = /obj/item/pda/botanist
 	id = /obj/item/card/id/botanist
 	backpack = /obj/item/storage/backpack/botany

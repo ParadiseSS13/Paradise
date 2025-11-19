@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	else
 		..()
 
-/obj/item/gibtonite/bullet_act(obj/item/projectile/P)
+/obj/item/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_PLASMA = 400)
 	credits = 80
 
-/obj/item/coin/plasma/bullet_act(obj/item/projectile/P)
+/obj/item/coin/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
 		log_and_set_aflame(P.firer, P)
 

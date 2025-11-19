@@ -30,9 +30,15 @@
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
 	if(prob(grappler_chance))
-		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
+		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
 		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/prowler(src)
 		update_appearance(UPDATE_NAME)
 		color = "#5494DA"
 	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/event_tracker, EVENT_DEMONIC)
+
+/mob/living/basic/netherworld/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)

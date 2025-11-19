@@ -474,6 +474,7 @@
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
 		proximity_monitor = new(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)

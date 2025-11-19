@@ -1,3 +1,9 @@
+/datum/event/spacevine
+	name = "Space Vines"
+	role_weights = list(ASSIGNMENT_CREW = 0.4, ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_BOTANIST = 2)
+	role_requirements = list(ASSIGNMENT_CREW = 25 , ASSIGNMENT_BOTANIST = 1, ASSIGNMENT_ENGINEERING = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
+
 /datum/event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 

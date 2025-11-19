@@ -491,6 +491,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("shotgun ammo box", /obj/item/storage/fancy/shell/empty, 2),
 	null,
 	new /datum/stack_recipe_list("chess pieces", list(
 		new /datum/stack_recipe("black pawn", /obj/item/chesspiece/bpawn, 1),
@@ -560,13 +561,16 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 //////////////////////////////
 
 GLOBAL_LIST_INIT(cult_recipes, list (
+	new /datum/stack_recipe_list("furniture ", list(
+		new /datum/stack_recipe("runed metal chair", /obj/structure/chair/comfy/cult, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe/cult("runed metal table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
+	)),
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("runed table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal

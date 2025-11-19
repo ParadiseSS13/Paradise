@@ -33,9 +33,16 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
+/datum/map_template/shuttle/gamma_armory
+	port_id = "gamma_armory"
+	name = "Base Gamma Armory Template"
+	prefix = "_maps/map_files/shuttles/gamma_armory/"
 
-// Shuttles start here:
+/datum/map_template/shuttle/trader
+	port_id = "trader_base"
+	prefix = "_maps/map_files/shuttles/trader/"
 
+// MARK: Emergency
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
 	name = "NTV Bullet (Bar)"
@@ -56,7 +63,6 @@
 	name = "NTV Charon (Militarized)"
 	description = "A militarized Charon-class shuttle hull featuring defense turrets and minimal crew comforts."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
-
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -169,6 +175,7 @@
 	qdel(home, TRUE)
 	SSshuttle.emergency_locked_in = TRUE
 
+// MARK: Ferry
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"
@@ -186,6 +193,7 @@
 	admin_notes = "Meat currently contains no zombifying reagents, people on \
 		meatspike must be spawned in."
 
+// MARK: Admin
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
 	name = "NHV Asclepius"
@@ -206,11 +214,24 @@
 	name = "Vox Skipjack"
 	description = "Vox skipjack ship."
 
-// Trader Shuttles:
-/datum/map_template/shuttle/trader
-	port_id = "trader_base"
-	prefix = "_maps/map_files/shuttles/trader/"
+// MARK: Gamma
+/datum/map_template/shuttle/gamma_armory/standard
+	suffix = "base"
+	name = "Gamma Armory (standard)"
+	description = "The standard Gamma level armory shuttle, for assisting station crews in dire need of more firepower."
+	admin_notes = "Equipped with: 3 Multi-lens immolators, 3 Advanced Eguns, 3 Saber SMGs (plus 3 spare mags), 3 combat shotguns (plus 3 spare buckshot speedloaders),\
+	2 medbeam guns, 3 combat knives, 1 cluster flashbang, 1 plasma incendiary grenade, a gamma autolathe,\
+	1 shielded safeguard MODsuit, 1 Ares mech (pre-equipped)."
 
+/datum/map_template/shuttle/gamma_armory/clown
+	suffix = "clown"
+	name = "Gamma Armory (HONK!)"
+	description = "A special Gamma level armory shuttle, for assisting station crews in dire need of more FUN."
+	admin_notes = "Equipped with: 6 bananas, 3 HONK rifles, 3 pie cannons (plus 9 spare pies), 3 combat shotguns loaded with confetti shot (plus 3 spare confetti speedloaders),\
+	1 clown statue, 3 bike horns, 1 lube clusterbang, 1 confetti grenade, a gamma autolathe,\
+	1 clown EVA suit, 1 HONK mech (pre-equipped)."
+
+// MARK: Trader
 /datum/map_template/shuttle/trader/sol
 	suffix = "sol"
 	name = "Solgov Trade Freighter"

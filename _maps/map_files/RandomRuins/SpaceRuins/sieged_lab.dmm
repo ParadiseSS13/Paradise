@@ -7,17 +7,17 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
+/obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "bl" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "bs" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -27,9 +27,8 @@
 /turf/simulated/wall,
 /area/ruin/space/sieged_lab)
 "bx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/obj/effect/turf_decal/tiles/neutral/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "bT" = (
 /obj/structure/table/wood,
@@ -50,9 +49,8 @@
 /area/ruin/space/sieged_lab)
 "dj" = (
 /obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "dy" = (
 /obj/structure/table/wood,
@@ -64,22 +62,21 @@
 /area/ruin/space/sieged_lab)
 "eA" = (
 /obj/effect/spawner/themed_mess/engineering,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "ff" = (
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "fl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "fV" = (
 /obj/effect/spawner/themed_mess/dirty,
@@ -100,31 +97,29 @@
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "jv" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "jC" = (
 /obj/structure/engineeringcart,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "jD" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "jL" = (
 /obj/machinery/light{
@@ -138,21 +133,20 @@
 /area/ruin/space/sieged_lab)
 "jW" = (
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
+/obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kc" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kr" = (
 /obj/effect/spawner/random/storage,
@@ -175,25 +169,24 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "lx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "lZ" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9
 	},
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "mq" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "mv" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -205,10 +198,10 @@
 /area/ruin/space/sieged_lab)
 "mU" = (
 /obj/structure/sign/poster/official/build/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "nn" = (
 /obj/structure/table/wood,
@@ -248,36 +241,35 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "pT" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "pX" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "pY" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "ql" = (
 /turf/simulated/floor/wood,
@@ -289,33 +281,30 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "qS" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/obj/effect/turf_decal/tiles/neutral/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "rd" = (
 /obj/structure/table,
 /obj/item/circuitboard/recharger,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "rM" = (
 /obj/structure/extinguisher_cabinet/empty{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "rQ" = (
 /obj/machinery/light{
@@ -331,10 +320,10 @@
 /area/template_noop)
 "rV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "rW" = (
 /obj/structure/sign/directions/security,
@@ -344,10 +333,10 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Power Room"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "sS" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -356,9 +345,8 @@
 "tc" = (
 /obj/item/chair/stool,
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "tg" = (
 /obj/structure/table/wood,
@@ -366,10 +354,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "tn" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "tE" = (
 /obj/structure/sign/security,
@@ -380,15 +368,13 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "tZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "ua" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "uk" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -401,19 +387,19 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "uu" = (
 /obj/structure/shelf,
 /obj/effect/spawner/random/maintenance,
 /obj/item/extinguisher,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "uC" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -423,22 +409,21 @@
 /area/ruin/space/sieged_lab)
 "uY" = (
 /obj/machinery/alarm/monitor/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "ve" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "vg" = (
 /obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "vy" = (
 /obj/machinery/light{
@@ -447,19 +432,19 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "wh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "wp" = (
 /obj/machinery/alarm/all_access/directional/north,
@@ -472,15 +457,14 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/sieged_lab)
 "xr" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "xF" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "xS" = (
 /obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/vert_hallway,
@@ -492,68 +476,68 @@
 /obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "SL_EndRoom"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "yn" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 6
 	},
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "yD" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "yO" = (
 /obj/structure/shelf/security,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "zf" = (
 /obj/structure/chair/stool{
 	dir = 1;
 	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "zo" = (
 /obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/vert_hallway,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "zx" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "zz" = (
 /obj/structure/shelf,
 /obj/effect/spawner/random/engineering/toolbox,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "AB" = (
 /obj/structure/noticeboard,
@@ -567,17 +551,15 @@
 	pixel_y = 24;
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "AI" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "BH" = (
 /obj/machinery/door_control{
@@ -585,18 +567,18 @@
 	id = "SL_EndRoom";
 	name = "executive suite lockdown control"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "BT" = (
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Ce" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -608,10 +590,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Da" = (
 /obj/structure/chair/comfy/corp,
@@ -619,36 +601,35 @@
 /area/ruin/space/sieged_lab)
 "Dr" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Dw" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "DB" = (
 /obj/structure/sign/poster/official/work_for_a_future/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "DC" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/sieged_lab)
 "DW" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "DZ" = (
 /obj/structure/bookcase/random,
@@ -671,10 +652,10 @@
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Fc" = (
 /turf/simulated/mineral,
@@ -684,17 +665,17 @@
 /area/ruin/space/sieged_lab)
 "Gm" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "GQ" = (
 /obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/medium_room,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "GU" = (
 /turf/template_noop,
@@ -705,24 +686,22 @@
 "Hk" = (
 /obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "HI" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Iw" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "IM" = (
 /obj/structure/chair/office/dark,
@@ -736,18 +715,18 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	color = "#00FFFF"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "JK" = (
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "KE" = (
 /obj/docking_port/stationary/whiteship{
@@ -767,24 +746,24 @@
 "KT" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "KZ" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "La" = (
 /obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Mr" = (
 /obj/effect/spawner/random/maintenance,
@@ -798,9 +777,8 @@
 "MU" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/sign/poster/official/cleanliness/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Nm" = (
 /obj/effect/spawner/random/blood/often,
@@ -808,18 +786,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "NN" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "NX" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Of" = (
 /obj/structure/sign/directions/engineering{
@@ -828,10 +806,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "OI" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "OP" = (
 /obj/structure/table/wood,
@@ -840,19 +818,18 @@
 /area/ruin/space/sieged_lab)
 "Ph" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Pm" = (
 /obj/effect/spawner/random/blood/often,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "PF" = (
 /obj/structure/safe/floor,
@@ -872,9 +849,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Sd" = (
 /obj/effect/spawner/random/trash,
@@ -888,19 +864,18 @@
 /area/ruin/space/sieged_lab)
 "SF" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/effect/turf_decal/tiles/neutral,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "SH" = (
 /obj/machinery/power/smes/empty,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "SP" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -911,16 +886,16 @@
 /area/template_noop)
 "Tn" = (
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Tt" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "TU" = (
 /obj/machinery/economy/vending/snack,
@@ -932,31 +907,31 @@
 	pixel_y = 24;
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Uq" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "UB" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "US" = (
 /obj/item/flashlight/flare/used,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Vc" = (
 /obj/machinery/economy/vending/cola,
@@ -971,30 +946,29 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	color = "#00FFFF"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "VQ" = (
 /obj/structure/sign/poster/official/science/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Wo" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Xb" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Xk" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -1002,45 +976,45 @@
 	},
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Xv" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Yk" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	color = "#ff7f00"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "YF" = (
 /obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/horiz_hallway,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "YK" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/sieged_lab)
 "YZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
+/obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "Zd" = (
 /obj/effect/spawner/random/trash,
@@ -1050,10 +1024,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "ZK" = (
 /turf/simulated/wall,

@@ -42,7 +42,7 @@
 	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Lime",
 		2 = "Plum",
 		3 = "Brown",
@@ -53,6 +53,7 @@
 		8 = "Nebula"
 		)
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/vox,
 		"lungs" =    /obj/item/organ/internal/lungs/vox,

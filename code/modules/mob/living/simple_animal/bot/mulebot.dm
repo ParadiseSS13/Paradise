@@ -21,7 +21,6 @@
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
-	bot_filter = RADIO_MULEBOT
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
@@ -224,7 +223,7 @@
 			wires.cut_random()
 	return
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	if(..())
 		if(prob(50) && !isnull(load))
 			unload(0)
@@ -330,72 +329,6 @@
 			find_crate()
 		if("refresh")
 			update_static_data(ui.user)
-
-//MARK:
-// TODO: remove this -PDA Check
-/mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
-	var/ai = issilicon(user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<h3>Multiple Utility Load Effector Mk. V</h3>"
-	dat += "<b>ID:</b> [suffix]<BR>"
-	dat += "<b>Power:</b> [on ? "On" : "Off"]<BR>"
-
-	if(!open)
-		dat += "<h3>Status</h3>"
-		dat += "<div class='statusDisplay'>"
-		switch(mode)
-			if(BOT_IDLE)
-				dat += "<span class='good'>Ready</span>"
-			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
-			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
-			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
-			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
-			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
-		dat += "</div>"
-
-		dat += "<b>Current Load:</b> [load ? load.name : "<i>none</i>"]<BR>"
-		dat += "<b>Destination:</b> [!destination ? "<i>none</i>" : destination]<BR>"
-		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
-
-		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='byond://?src=[UID()];op=unlock'>Unlock Controls</A>"
-		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='byond://?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
-
-			dat += "<A href='byond://?src=[UID()];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=stop'>Stop</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=go'>Proceed</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=home'>Return to Home</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='byond://?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='byond://?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='byond://?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
-			if(load)
-				dat += "<A href='byond://?src=[UID()];op=unload'>Unload Now</A><BR>"
-			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
-	else
-		if(!ai)
-			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
-			dat += "<b>Power cell:</b> "
-			if(cell)
-				dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
-			else
-				dat += "<A href='byond://?src=[UID()];op=cellinsert'>Removed</A><BR>"
-
-			wires.Interact(user)
-		else
-			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
-
-	return dat
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()

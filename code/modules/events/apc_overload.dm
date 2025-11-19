@@ -1,6 +1,10 @@
 #define APC_BREAK_PROBABILITY 25 // the probability that a given APC will be broken
 
 /datum/event/apc_overload
+	name = "APC Overload"
+	nominal_severity = EVENT_LEVEL_MAJOR
+	role_weights = list(ASSIGNMENT_ENGINEERING = 4, ASSIGNMENT_CREW = 0.5)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 5, ASSIGNMENT_CREW = 30)
 	var/const/announce_after_mc_ticks     = 5
 	var/const/delayed                     = FALSE
 	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
@@ -9,7 +13,7 @@
 	announceWhen = announce_after_mc_ticks
 
 /datum/event/apc_overload/setup()
-	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks)
+	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks) + 2700
 
 /datum/event/apc_overload/start()
 	apc_overload_failure(announce=delayed)

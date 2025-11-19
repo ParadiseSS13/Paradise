@@ -720,7 +720,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
+		apply_to_card(I, H, get_all_centcom_access(), name, "tsf")
 	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
 
@@ -751,7 +751,8 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
@@ -773,9 +774,9 @@
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = name
 	if(istype(I) && is_solgov_lieutenant)
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "tsf")
 	else if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "tsf")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
@@ -815,7 +816,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/eyes/cybernetic/shield
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
@@ -1610,7 +1611,7 @@
 	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "tsf")
 
 	H.DeleteComponent(/datum/component/footstep)
 
