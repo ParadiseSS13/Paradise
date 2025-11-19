@@ -28,8 +28,9 @@
 	initial_traits = list()
 	crusher_loot = list()
 	true_spawn = FALSE
-	innate_actions = list()
-
+	innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/vox_armalis/activate_qani,
+	)
 /mob/living/basic/megafauna/vox_armalis/Initialize(mapload)
 	. = ..()
 	add_language("Galactic Common")
@@ -55,6 +56,9 @@
 
 		if(3)
 			adjustBruteLoss(10)
+
+/mob/living/basic/megafauna/vox_armalis/devour(mob/living/L)
+	return
 
 /mob/living/basic/megafauna/vox_armalis/death(gibbed)
 	death_explosion()
