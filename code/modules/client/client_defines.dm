@@ -119,7 +119,7 @@
 	var/watchlisted = FALSE
 
 	/// list of all credit object bound to this client
-	var/list/credits
+	var/list/credits = list()
 
 	/// Client's pAI save
 	var/datum/pai_save/pai_save

@@ -13,14 +13,15 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles = generate_titles()
 
 	for(var/client/C)
-		if(!C?.credits)
-			C?.RollCredits()
+		if(!C)
+			continue
+		if(!length(C.credits))
+			C.RollCredits()
 
 /client/proc/RollCredits()
 	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
-	var/list/credits = list()
 	verbs += /client/proc/ClearCredits
 	for(var/I in GLOB.end_titles)
 		if(!credits)
@@ -38,7 +39,7 @@ GLOBAL_LIST(end_titles)
 	set name = "Stop End Titles"
 	set category = "OOC"
 	verbs -= /client/proc/ClearCredits
-	QDEL_LAZYLIST(credits)
+	QDEL_LIST_CONTENTS(credits)
 
 /atom/movable/screen/credit
 	icon_state = "blank"
@@ -65,7 +66,6 @@ GLOBAL_LIST(end_titles)
 	parent?.screen += src
 
 /atom/movable/screen/credit/proc/fadeout(matrix/direction)
-
 	sleep(CREDIT_EASE_DURATION)
 	qdel(src)
 
@@ -73,9 +73,9 @@ GLOBAL_LIST(end_titles)
 	var/client/P = parent
 	if(parent)
 		P.screen -= src
-	LAZYREMOVE(P?.credits, src)
+	P?.credits -= src
 	parent = null
-	. = ..()
+	return ..()
 
 /proc/generate_titles()
 	var/list/titles = list()
