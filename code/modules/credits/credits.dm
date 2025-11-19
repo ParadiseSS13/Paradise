@@ -12,7 +12,7 @@ GLOBAL_LIST(end_titles)
 	if(!GLOB.end_titles)
 		GLOB.end_titles = generate_titles()
 
-	for(var/client/C)
+	for(var/client/C in GLOB.clients)
 		if(!C)
 			continue
 		if(!length(C.credits))
