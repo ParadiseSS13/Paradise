@@ -136,7 +136,8 @@
 	if(!advanced)
 		C.apply_damage(10, BRUTE, drilled_organ)
 	var/obj/item/organ/internal/replaced = C.get_organ_slot(storedorgan.slot)
-	if(replaced && !istype(replaced, /obj/item/organ/internal/cell)) //Lets not destroy someones brain fully by putting someone elses brain in that slot. Also don't remove microbatteries.
+	// Don't remove an IPC's microbattery - you probably don't intend to kill them.
+	if(replaced && !istype(replaced, /obj/item/organ/internal/cell)) //Lets not destroy someones brain fully by putting someone elses brain in that slot.
 		replaced.remove(C)
 		replaced.forceMove(get_turf(src))
 		if(istype(storedorgan, /obj/item/organ/internal/heart) && ((/obj/item/organ/internal/cyberimp/brain/sensory_enhancer in C.internal_organs) || C.reagents.addiction_threshold_accumulated[/datum/reagent/mephedrone]))
