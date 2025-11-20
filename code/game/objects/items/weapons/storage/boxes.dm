@@ -344,7 +344,7 @@
 
 /obj/item/storage/box/examine(mob/user)
 	. = ..()
-	if (color_state != null || icon_state == "box")
+	if(color_state != null || icon_state == "box")
 		. += "<span class='notice'><b>Alt-Click</b> [src] with an appropriate crayon in hand to color it.</span>"
 
 
