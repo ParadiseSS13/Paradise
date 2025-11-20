@@ -1,6 +1,7 @@
 /datum/ai_behavior/find_mineral_wall
 
 /datum/ai_behavior/find_mineral_wall/perform(seconds_per_tick, datum/ai_controller/controller, found_wall_key)
+	. = ..()
 	var/mob/living_pawn = controller.pawn
 
 	for(var/turf/simulated/mineral/potential_wall in oview(9, living_pawn))
@@ -45,6 +46,7 @@
 	action_cooldown = 15 SECONDS
 
 /datum/ai_behavior/interact_with_target/mine_wall/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/basic/living_pawn = controller.pawn
 	var/turf/simulated/mineral/target = controller.blackboard[target_key]
 	if(!controller.ai_interact(target = target))

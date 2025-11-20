@@ -484,7 +484,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 						objective_to_add = /datum/objective/assassinate
 
 					if(INFIL_SEC_OBJECTIVE)
-						objective_to_add = /datum/objective/infiltrate_sec
+						// Prevent duplicate infiltrate objectives
+						if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						else
+							objective_to_add = /datum/objective/infiltrate_sec
+
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 			if(INCRIMINATE_OBJECTIVE)
