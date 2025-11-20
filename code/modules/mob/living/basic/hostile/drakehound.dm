@@ -40,6 +40,7 @@
 	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
 	add_language("Sinta'unathi")
 	set_default_language(GLOB.all_languages["Sinta'unathi"])
+	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/aggro_emote, aggro_sound = 'sound/effects/unathihiss.ogg', emote_chance = 100)
 	if(prob(50))
 		loot = list(
@@ -149,7 +150,7 @@
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/drakehound,
-		/datum/ai_planning_subtree/target_retaliate,
+		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
