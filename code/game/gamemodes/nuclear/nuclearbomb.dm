@@ -861,6 +861,9 @@ GLOBAL_VAR(bomb_set)
 		return
 
 /obj/item/nad_scanner/activate_self(mob/user)
+	if(world.time < 45 MINUTES) // 60 minutes of no nuke
+		to_chat(user, "<span class='warning'>[src] is still calibrating. Please wait another [round((27000 - world.time) / 600)] minutes before trying again.</span>")
+		return
 	scan_nad(user)
 	return ..()
 
