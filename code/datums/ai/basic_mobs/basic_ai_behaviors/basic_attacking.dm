@@ -16,6 +16,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/basic_melee_attack/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
+	. = ..()
 	if(isliving(controller.pawn))
 		var/mob/living/pawn = controller.pawn
 		if(world.time < pawn.next_move)
@@ -70,6 +71,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/basic_ranged_attack/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
+	. = ..()
 	var/mob/living/basic/basic_mob = controller.pawn
 	//targeting strategy will kill the action if not real anymore
 	var/atom/target = controller.blackboard[target_key]

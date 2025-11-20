@@ -20,6 +20,7 @@
 	action_cooldown = 45 SECONDS
 
 /datum/ai_behavior/find_ventcrawl_target/perform(seconds_per_tick, datum/ai_controller/controller, target_key, range)
+	. = ..()
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(range, controller.pawn))
 		if(!v.welded)
