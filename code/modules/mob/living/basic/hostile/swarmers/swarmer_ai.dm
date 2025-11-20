@@ -119,6 +119,7 @@
 	return ..()
 
 /datum/ai_behavior/swarmer_replicate/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
+	. = ..()
 	var/datum/action/cooldown/mob_cooldown/swarmer_replicate/replicate_action = controller.blackboard[action_key]
 	var/result = replicate_action.Trigger()
 	if(result)
@@ -145,6 +146,7 @@
 	var/scan_range = 5
 
 /datum/ai_behavior/swarmer_find_construction_target/perform(seconds_per_tick, datum/ai_controller/controller)
+	. = ..()
 	var/mob/living/swarmer = controller.pawn
 	var/atom/current_target = controller.blackboard[target_key]
 	if(current_target && !(locate(/obj/structure/swarmer) in current_target))
@@ -226,6 +228,7 @@
 	return ..()
 
 /datum/ai_behavior/swarmer_create_trap/perform(seconds_per_tick, datum/ai_controller/controller, action_key, target_key)
+	. = ..()
 	var/datum/action/cooldown/mob_cooldown/swarmer_trap/trap_action = controller.blackboard[action_key]
 	var/result = trap_action.Trigger()
 	if(result)
@@ -270,6 +273,7 @@
 	return ..()
 
 /datum/ai_behavior/swarmer_create_barricade/perform(seconds_per_tick, datum/ai_controller/controller, action_key, target_key)
+	. = ..()
 	var/datum/action/cooldown/mob_cooldown/swarmer_barrier/barrier_action = controller.blackboard[action_key]
 	if(barrier_action?.Trigger())
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

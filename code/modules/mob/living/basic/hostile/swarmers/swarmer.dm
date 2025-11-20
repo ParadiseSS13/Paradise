@@ -97,10 +97,7 @@
 	return status_tab_data
 
 /mob/living/basic/swarmer/emp_act()
-	if(health > 35)
-		adjustHealth(35)
-	else
-		death()
+	adjustHealth(35)
 
 /mob/living/basic/swarmer/death(gibbed)
 	do_sparks(3, 1, src)

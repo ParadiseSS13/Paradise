@@ -12,10 +12,12 @@
 /datum/event/swarmers/start()
 	if(isnull(impact_area))
 		log_debug("No valid event areas could be generated for swarmers.")
+		return
 	var/list/area_turfs = get_area_turfs(impact_area)
-	while(length(area_turfs))
+	for(var/i in 0 to length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
 		if(T.is_blocked_turf())
+			shuffle(area_turfs)
 			continue
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/swarmer.dmi', "ui_replicate")
