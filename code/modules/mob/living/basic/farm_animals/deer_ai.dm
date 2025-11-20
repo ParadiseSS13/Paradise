@@ -138,6 +138,7 @@
 	return FALSE
 
 /datum/ai_behavior/return_home/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	var/static/list/possible_emotes = list("rests its legs...", "yawns and naps...", "curls up and rests...")
 	living_pawn.custom_emote(EMOTE_VISIBLE, pick(possible_emotes))
@@ -149,4 +150,5 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
 /datum/ai_behavior/return_home/incursion_portal/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	return AI_BEHAVIOR_SUCCEEDED
