@@ -814,7 +814,7 @@ GLOBAL_VAR(bomb_set)
 	name = "authentication disk decryptor"
 	desc = "A tiny tablet computer that can scan a nuclear authentication disk. The syndicate will relay the activation codes to you but it is likely the transmission will be intercepted by NT. Be prepared for a fight."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinoff"
+	icon_state = "nadscanner"
 	worn_icon_state = "electronic"
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
@@ -822,44 +822,95 @@ GLOBAL_VAR(bomb_set)
 	var/obj/item/disk/nuclear/disky
 	/// Is the device currently scanning?
 	var/scanning = FALSE
+	/// Is the device done decryption?
+	var/decrypted = FALSE
+
+	new_attack_chain = TRUE
+
+/obj/item/nad_scanner/examine(mob/user)
+	. = ..()
+	if(decrypted)
+		. += "<span class='warning'>It's burnt out!</span>"
 
 /obj/item/nad_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(attacking, /obj/item/disk/nuclear))
+	if(!istype(used, /obj/item/disk/nuclear))
 		. = ..()
 	if(disky)
 		to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
 
 	if(used.flags & NODROP || !user.transfer_item_to(used, src))
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+	disky = used
+	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/nad_scanner/update_icon_state(updates)
+	icon_state = "nadscanner"
+	if(decrypted && disky)
+		icon_state += "_decrypted"
+		return
+	if(scanning && disky)
+		icon_state += "_decrypting"
+		return
+	if(disky)
+		icon_state += "_insert"
+		return
 
 /obj/item/nad_scanner/activate_self(mob/user)
-	scan_nad()
+	scan_nad(user)
 	return ..()
 
-/obj/item/nad_scanner/scan_nad()
-	if(do_after(src, 10 SECONDS, needhand = FALSE, allow_moving = TRUE, hidden = TRUE))
+/obj/item/nad_scanner/AltClick(mob/user, modifiers)
+	. = ..()
+	eject_nad(user)
+	return ..()
+
+/obj/item/nad_scanner/proc/eject_nad(mob/living/carbon/user)
+	if(!disky)
+		return
+	var/mob/M = loc
+	M.put_in_hands(disky)
+	to_chat(user, "<span class='notice'>You remove [disky] from [src].</span>")
+	disky = null
+	update_icon(UPDATE_ICON_STATE)
+	playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+/obj/item/nad_scanner/proc/scan_nad(mob/user)
+	if(!disky)
+		to_chat(user, "<span class='warning'>There is no disk inserted!</span>")
+		return
+	if(decrypted)
+		to_chat(user, "<span class='warning'>This device is burnt out!</span>")
+		return
+	scanning = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	if(do_after(user, 10 SECONDS, needhand = FALSE, allow_moving = TRUE, hidden = TRUE))
 		if(istype(disky, /obj/item/disk/nuclear/training))
-			say("Incompatible disk detected!")
+			atom_say("Incompatible disk detected!")
 			return
-		var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n We have decrypted the codes from the nuclear authentication disk."
+		var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n\"We have decrypted the codes from the nuclear authentication disk."
 		var/code
 		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 				code = bombue.r_code
 				break
-		complete_message += " The code is [code]. Take them down. \n"
+		complete_message += " The code is [code]. Take them down.\" \n"
 		complete_message += "We suspect the syndicate is trying to detonate your nuclear device. All crew are to ensure this does not happen."
 
 		GLOB.major_announcement.Announce(
-				complete_message,
-				new_title = "Enemy Communication Intercepted",
-				new_subtitle = "Intercepted Syndicate Communique",
-				new_sound = 'sound/AI/intercept.ogg'
-			)
-			print_command_report(complete_message, new_subtitle)
+			complete_message,
+			new_title = "Enemy Communication Intercepted",
+			new_subtitle = "Intercepted Syndicate Communique",
+			new_sound = 'sound/AI/intercept.ogg'
+		)
+		print_command_report(complete_message, "Intercepted Syndicate Communique")
+		decrypted = TRUE
+	scanning = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 // MARK: Training Nuke
 
