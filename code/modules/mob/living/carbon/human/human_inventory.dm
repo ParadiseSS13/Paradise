@@ -88,7 +88,7 @@
 		//Again, makes sense for pockets to drop.
 		if(drop_inventory)
 			// IPCs have pockets on their bodies, let's assume they stored their stuff there.
-			if (!ismachineperson(src))
+			if(!ismachineperson(src))
 				if(r_store)
 					drop_item_to_ground(r_store, force = TRUE)
 				if(l_store)
