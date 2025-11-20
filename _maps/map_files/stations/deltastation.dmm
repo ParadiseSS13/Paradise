@@ -66079,7 +66079,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "llU" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/binary/valve{
 	dir = 4;
 	name = "Hot Loop to Port"
 	},
@@ -92299,7 +92299,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
