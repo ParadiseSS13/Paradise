@@ -85,7 +85,7 @@
 			update_inv_gloves()
 		update_inv_wear_suit()
 	else if(target == w_uniform)
-		//Again, makes sense for pockets to drop
+		//Again, makes sense for pockets to drop.
 		if(drop_inventory)
 			// IPCs have pockets on their bodies, let's assume they stored their stuff there.
 			if (!ismachineperson(src))
