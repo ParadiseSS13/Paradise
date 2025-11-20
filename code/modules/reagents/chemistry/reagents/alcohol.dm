@@ -322,7 +322,7 @@
 	description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
-	drink_icon = "ginvodkaglass"
+	drink_icon = "goldschlagerglass"
 	drink_name = "Glass of goldschlager"
 	drink_desc = "100 proof that teen girls will drink anything with gold in it."
 	taste_description = "a deep, spicy warmth"
