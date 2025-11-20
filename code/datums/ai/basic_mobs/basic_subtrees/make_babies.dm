@@ -40,6 +40,7 @@
 	var/max_nearby_pop = 3
 
 /datum/ai_behavior/find_partner/perform(seconds_per_tick, datum/ai_controller/controller, target_key, partner_types_key, child_types_key)
+	. = ..()
 	var/maximum_pop = controller.blackboard[BB_MAX_CHILDREN] || max_nearby_pop
 	var/mob/pawn_mob = controller.pawn
 	var/list/similar_species_types = controller.blackboard[partner_types_key] + controller.blackboard[child_types_key]
@@ -84,6 +85,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/make_babies/perform(seconds_per_tick, datum/ai_controller/controller, target_key, child_types_key)
+	. = ..()
 	var/mob/target = controller.blackboard[target_key]
 	if(QDELETED(target) || target.stat != CONSCIOUS)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
