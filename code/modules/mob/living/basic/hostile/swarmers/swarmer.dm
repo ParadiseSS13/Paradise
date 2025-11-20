@@ -93,8 +93,8 @@
 
 /mob/living/basic/swarmer/get_status_tab_items()
 	var/list/status_tab_data = ..()
-	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Resources:", "[resources] / [resource_max]")
+	return status_tab_data
 
 /mob/living/basic/swarmer/emp_act()
 	if(health > 35)

@@ -54,8 +54,7 @@
 	return possible_areas
 
 /proc/findMaintananceEventArea() // For maintanance events ONLY
-	var/list/maintanance_area = typecacheof(list(
-	/area/station/maintenance))
+	var/list/maintanance_area = typecacheof(list(/area/station/maintenance))
 
 	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, maintanance_area)
 

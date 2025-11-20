@@ -17,7 +17,7 @@
 		to_chat(user, "<span class='warning'>Insufficient resources. Aborting.</span>")
 		return
 	user.resources -= 25
-	var/T = user.loc
+	var/turf/T = get_turf(user)
 	for(var/turf/turf_in_view in view(1, T))
 		if(locate(/obj/structure/swarmer) in turf_in_view)
 			to_chat(user, "<span class='warning'>Location too close to existing hardware. Aborting.</span>")
@@ -45,7 +45,7 @@
 	if(user.resources < 25)
 		to_chat(user, "<span class='warning'>Insufficient resources. Aborting.</span>")
 		return
-	var/T = user.loc
+	var/turf/T = get_turf(user)
 	for(var/turf/turf_in_view in view(1, T))
 		if(locate(/obj/structure/swarmer) in turf_in_view)
 			to_chat(user, "<span class='warning'>Location too close to existing hardware. Aborting.</span>")
@@ -76,7 +76,7 @@
 	if(user.resources < 50)
 		to_chat(user, "<span class='warning'>Insufficient resources. Aborting.</span>")
 		return
-	var/T = user.loc
+	var/turf/T = get_turf(user)
 	if(!do_after_once(user, 4 SECONDS, target = user, attempt_cancel_message = "You stop building a new swarmer.", interaction_key = "swarmer_replicate_create"))
 		return
 	user.resources -= 50
