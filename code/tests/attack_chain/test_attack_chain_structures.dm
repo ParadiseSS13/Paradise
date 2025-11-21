@@ -184,7 +184,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You dismantle [loom]")
 	player.drop_held_item()
 
-	var/obj/structure/mineral_door/iron/door = teleport_to_first(player, /obj/structure/mineral_door/iron)
+	var/obj/structure/mineral_door/door = teleport_to_first(player, /obj/structure/mineral_door)
 	player.spawn_fast_tool(/obj/item/pickaxe)
 	player.click_on(door)
 	TEST_ASSERT_LAST_CHATLOG(player, "You finished digging.")
