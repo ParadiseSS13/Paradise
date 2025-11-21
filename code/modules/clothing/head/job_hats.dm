@@ -60,6 +60,7 @@
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/caphat/parade/white
+	name = "captain's white parade cap"
 	icon_state = "captain_capwhite"
 
 //Head of Personnel
