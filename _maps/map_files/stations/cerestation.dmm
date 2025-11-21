@@ -9687,10 +9687,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/binary/pump/on{
-	dir = 8;
-	name = "Gas to Filter"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -106732,9 +106728,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/green,
 /obj/structure/sign/magboots{
 	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -110852,7 +110850,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/door_control{
 	id = "engsm";
 	name = "Radiation Shutters Control";
@@ -110862,6 +110859,9 @@
 /obj/machinery/camera{
 	c_tag = "Supermatter South";
 	network = list("SS13","CE","engine")
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)

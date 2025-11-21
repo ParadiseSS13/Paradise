@@ -7472,10 +7472,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aFX" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8;
-	name = "Gas to Filter"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -7498,7 +7494,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aFZ" = (
@@ -8487,7 +8485,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/green,
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 9
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aJv" = (

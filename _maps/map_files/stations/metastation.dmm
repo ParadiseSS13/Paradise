@@ -5852,10 +5852,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aPs" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 8;
-	initialize_directions = 11
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -5867,6 +5863,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -7018,9 +7017,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
 "aVs" = (
-/obj/machinery/atmospherics/binary/pump/on{
-	name = "Gas to Filter"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -77942,9 +77938,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "urF" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/green{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Port";
 	dir = 8;
@@ -77961,6 +77954,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 6
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)

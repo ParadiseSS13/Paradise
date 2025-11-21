@@ -31995,15 +31995,15 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "gut" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 4
-	},
 /obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
@@ -47812,7 +47812,6 @@
 	pixel_x = -22;
 	req_access = list(10)
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -63716,9 +63715,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/binary/pump/on{
-	name = "Gas to Filter"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -68515,7 +68511,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "nQI" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/structure/disaster_counter/supermatter{
 	pixel_x = -32
 	},
@@ -115475,9 +115470,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "xlH" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/green{
-	dir = 4
-	},
 /obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 8
@@ -115488,6 +115480,9 @@
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 10
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)

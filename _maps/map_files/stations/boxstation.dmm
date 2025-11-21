@@ -41406,9 +41406,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "deA" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/green{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Supermatter Fore";
 	dir = 1;
@@ -41419,13 +41416,12 @@
 /obj/structure/sign/magboots{
 	pixel_y = -32
 	},
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 10
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "deB" = (
-/obj/machinery/atmospherics/binary/pump/on{
-	dir = 8;
-	name = "Gas to Filter"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -46527,7 +46523,7 @@
 /area/station/maintenance/apmaint)
 "egO" = (
 /obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 9
 	},
 /turf/simulated/wall/r_wall,
@@ -60346,7 +60342,7 @@
 /area/station/hallway/primary/central/west)
 "kUR" = (
 /obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
 	},
 /turf/simulated/wall/r_wall,
@@ -74625,9 +74621,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "rPZ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 1
-	},
 /obj/machinery/door_control{
 	id = "engsm";
 	name = "Radiation Shutters Control";
@@ -74635,6 +74628,9 @@
 	req_access = list(32)
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "rQp" = (
