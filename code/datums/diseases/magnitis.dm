@@ -19,9 +19,9 @@
 		return FALSE
 	switch(stage)
 		if(1)
-			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You query upon the nature of miracles...</span>") // Fucking magnets, how do they work!?
-		if(2) // Non-harmfully pull in metal stuff next to you.
+			if(prob(5)) // Water, air, fire and dirt! Fucking magnets, how do they work!?
+				to_chat(affected_mob, "<span class='danger'>You query upon the nature of miracles...</span>")
+		if(2)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>You feel a light tingling sensation.</span>")
 			if(prob(10))
@@ -59,7 +59,6 @@
 				valid_pull_targets |= A
 
 	for(var/atom/movable/attracted_body in valid_pull_targets)
-		// If true, throw item, else pull it harmlessly.
 		if(prob(throw_chance))
 			attracted_body.throw_at(affected_mob, pull_range + 1, 1)
 		else
