@@ -66,7 +66,6 @@
 			for(var/i in 1 to rand(1, 2))
 				step_towards(attracted_body, affected_mob)
 
-
 #undef LOW_ATTRACTION_RANGE
 #undef MEDIUM_ATTRACTION_RANGE
 #undef HIGH_ATTRACTION_RANGE
