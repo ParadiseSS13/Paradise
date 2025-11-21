@@ -48,7 +48,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 
 /datum/ai_controller/monkey/pun_pun
-	movement_delay = 0.7 SECONDS //pun pun moves slower so the bartender can keep track of them
+	movement_delay = 0.7 SECONDS // pun pun moves slower so the bartender can keep track of them
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/monkey_combat,
@@ -64,7 +64,7 @@ have ways of interacting with a specific mob and control it.
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
 	pawn = new_pawn
-	set_blackboard_key(BB_MONKEY_AGGRESSIVE, TRUE) //Angry cunt
+	set_blackboard_key(BB_MONKEY_AGGRESSIVE, TRUE) // Angry monke
 	set_trip_mode(mode = FALSE)
 
 /datum/ai_controller/monkey/try_possess_pawn(atom/new_pawn)
@@ -113,7 +113,7 @@ have ways of interacting with a specific mob and control it.
 /datum/ai_controller/monkey/proc/set_trip_mode(mode = TRUE)
 	tripping = mode
 
-///re-used behavior pattern by monkeys for finding a weapon
+/// re-used behavior pattern by monkeys for finding a weapon
 /datum/ai_controller/monkey/proc/TryFindWeapon()
 	var/mob/living/living_pawn = pawn
 
@@ -156,7 +156,7 @@ have ways of interacting with a specific mob and control it.
 		queue_behavior(/datum/ai_behavior/monkey_equip/ground, BB_MONKEY_PICKUPTARGET)
 	return TRUE
 
-///Reactive events to being hit
+/// Reactive events to being hit
 /datum/ai_controller/monkey/proc/retaliate(mob/living/living_mob)
 	// just to be safe
 	if(QDELETED(living_mob))

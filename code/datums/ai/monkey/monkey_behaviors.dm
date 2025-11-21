@@ -234,7 +234,7 @@
 	if(!target)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	if(target.pulledby != living_pawn && !HAS_AI_CONTROLLER_TYPE(target.pulledby, /datum/ai_controller/monkey)) //Dont steal from my fellow monkeys.
+	if(target.pulledby != living_pawn && !HAS_AI_CONTROLLER_TYPE(target.pulledby, /datum/ai_controller/monkey)) // Dont steal from my fellow monkeys.
 		if(living_pawn.Adjacent(target) && isturf(target.loc))
 			target.grabbedby(living_pawn)
 		return AI_BEHAVIOR_DELAY // Do the rest next turn
@@ -246,9 +246,9 @@
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(living_pawn.Adjacent(disposal))
-		INVOKE_ASYNC(src, PROC_REF(try_disposal_mob), controller, attack_target_key, disposal_target_key) //put him in!
+		INVOKE_ASYNC(src, PROC_REF(try_disposal_mob), controller, attack_target_key, disposal_target_key) // put him in!
 		return AI_BEHAVIOR_DELAY
-	//This means we might be getting pissed!
+	// This means we might be getting pissed!
 	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/disposal_mob/proc/try_disposal_mob(datum/ai_controller/controller, attack_target_key, disposal_target_key)

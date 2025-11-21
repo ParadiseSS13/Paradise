@@ -28,7 +28,7 @@
 	var/mob/living/living_pawn = controller.pawn
 	var/list/enemies = controller.blackboard[BB_MONKEY_ENEMIES]
 
-	if((HAS_TRAIT(controller.pawn, TRAIT_PACIFISM)) || (!length(enemies) && !controller.blackboard[BB_MONKEY_AGGRESSIVE])) //Pacifist, or we have no enemies and we're not pissed
+	if((HAS_TRAIT(controller.pawn, TRAIT_PACIFISM)) || (!length(enemies) && !controller.blackboard[BB_MONKEY_AGGRESSIVE])) // Pacifist, or we have no enemies and we're not pissed
 		living_pawn.a_intent = INTENT_HELP
 		return
 
