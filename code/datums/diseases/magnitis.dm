@@ -32,7 +32,7 @@
 				to_chat(affected_mob, "<span class='danger'>You feel pins and needles radiating through you!</span>")
 			if(prob(10))
 				to_chat(affected_mob, "<span class='userdanger'>You feel a strong shock course through your body.</span>")
-				magnetic_pull(affected_mob, MEDIUM_ATTRACTION_RANGE, 100)
+				magnetic_pull(affected_mob, MEDIUM_ATTRACTION_RANGE, 50)
 		if(4)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='userdanger'>You feel a thousand pinpricks across every inch of your body!</span>")
