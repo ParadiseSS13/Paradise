@@ -24,6 +24,14 @@
 	message_param = "bows to %t."
 	message_postfix = "to %t."
 
+/datum/emote/living/sing_tune
+	key = "tunesing"
+	key_third_person = "sings a tune"
+	message = "sings a tune."
+	message_mime = "opens their mouth rather obnoxiously."
+	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("melodic")
+
 /datum/emote/living/burp
 	key = "burp"
 	key_third_person = "burps"

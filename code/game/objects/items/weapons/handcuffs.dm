@@ -93,6 +93,7 @@
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
 		playsound(loc, cuffsound, 15, TRUE, -10)
+		SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")

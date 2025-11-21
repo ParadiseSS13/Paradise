@@ -45,18 +45,6 @@
 	if(H.radiation > RAD_MOB_GORILLIZE && prob(RAD_MOB_GORILLIZE_PROB))
 		H.gorillize()
 
-/datum/species/monkey/handle_npc(mob/living/carbon/human/H)
-	if(H.stat != CONSCIOUS)
-		return
-	if(prob(1))
-		H.emote(pick("scratch","jump","roll","tail"))
-	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		var/dir_to_go = pick(GLOB.cardinal)
-		var/turf/to_go = get_step(H, dir_to_go)
-		if(islava(to_go) || ischasm(to_go))
-			return
-		step(H, dir_to_go)
-
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
