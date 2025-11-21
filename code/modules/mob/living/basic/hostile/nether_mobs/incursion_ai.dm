@@ -126,6 +126,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/conjure_skulls/perform(seconds_per_tick, datum/ai_controller/controller, action_key, target_key)
+	. = ..()
 	var/datum/action/cooldown/mob_cooldown/summon_skulls/skull_action = controller.blackboard[action_key]
 	var/result = skull_action.Trigger()
 	if(result)
