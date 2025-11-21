@@ -59,7 +59,6 @@
 
 /// Use the currently held item, or unarmed, on a weakref to an object in the world
 /datum/ai_behavior/use_on_object
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
 /datum/ai_behavior/use_on_object/setup(datum/ai_controller/controller, target_key)

@@ -832,10 +832,6 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 		index += 1
 
-/// Abstract proc for initializing the pawn to the new controller
-/datum/ai_controller/proc/TryPossessPawn(atom/new_pawn)
-	return
-
 #undef TRACK_AI_DATUM_TARGET
 #undef CLEAR_AI_DATUM_TARGET
 #undef TRAIT_AI_TRACKING
