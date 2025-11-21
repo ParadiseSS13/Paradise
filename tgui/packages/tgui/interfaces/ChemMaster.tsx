@@ -383,7 +383,7 @@ function ChemMasterNameInput(props) {
 const ChemMasterProductionCommon = (props: { children: ReactNode; productionData: ProductionData }) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { children, productionData } = props;
-  const { buffer_reagents } = data;
+  const { buffer_reagents = [] } = data;
   const { id, max_items_amount, set_name, set_items_amount, placeholder_name } = productionData;
   return (
     <LabeledList>

@@ -29,6 +29,11 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		speed_increase += 20 * (M.rating - 1)
 
+/obj/machinery/chem_heater/AltClick(mob/user, modifiers)
+	if(!Adjacent(user))
+		return
+	eject_beaker()
+
 /obj/machinery/chem_heater/process()
 	..()
 	if(stat & (NOPOWER|BROKEN))

@@ -81,6 +81,19 @@
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		reagents.maximum_volume += 2 * B.reagents.maximum_volume
 
+/obj/machinery/chem_master/AltClick(mob/user, modifiers)
+	if(!beaker)
+		return
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
+		return
+	beaker.forceMove(get_turf(user))
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker)
+		beaker = null
+		update_icon()
+
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
 		if(beaker)
@@ -98,7 +111,7 @@
 		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon_state()
-	icon_state = "mixer[beaker ? "1" : "0"][has_power() ? "" : "_nopower"]"
+	icon_state = "mixer[beaker || reagents.total_volume ? "1" : "0"][has_power() ? "" : "_nopower"]"
 
 /obj/machinery/chem_master/update_overlays()
 	. = ..()
@@ -286,11 +299,14 @@
 		else
 			. = FALSE
 
-	if(. || !beaker)
+	if(.)
 		return
 
 	. = TRUE
-	var/datum/reagents/R = beaker.reagents
+	var/datum/reagents/R
+	if(beaker)
+		R = beaker.reagents
+	
 	switch(action)
 		if("add")
 			var/id = params["id"]
@@ -316,13 +332,13 @@
 			beaker = null
 			update_icon()
 		if("create_items")
-			if(!reagents.total_volume)
-				return
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
+				to_chat(ui.user, "<span class='notice'>M == null</span>")
 				return
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
+			update_icon()
 		else
 			return FALSE
 
@@ -371,7 +387,6 @@
 	data["buffer_reagents"] = buffer_reagents_list
 	for(var/datum/reagent/R in reagents.reagent_list)
 		buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
-
 	var/production_data = list()
 	for(var/key in production_modes)
 		var/datum/chemical_production_mode/M = production_modes[key]
@@ -555,6 +570,7 @@
 
 /datum/chemical_production_mode/proc/synthesize(user, location, datum/reagents/reagents, obj/item/storage/S = null)
 	if(!reagents.total_volume)
+		to_chat(user, "<span class='notice'>synthesize / total_volume == 0</span>")
 		return
 
 	var/medicine_name = set_name
@@ -570,6 +586,7 @@
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
+		to_chat(user, "<span class='warning'>Making new item at [location]!</span>")
 		if(!isnull(medicine_name))
 			P.name = "[medicine_name][name_suffix]"
 		P.scatter_atom()
