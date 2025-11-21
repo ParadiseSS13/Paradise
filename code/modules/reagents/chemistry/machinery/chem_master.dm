@@ -11,6 +11,8 @@
 #define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
 
 #define DEFAULT_CUSTOM_TRANSFER_AMOUNT 30
+#define MINIMUM_CUSTOM_TRANSFER_AMOUNT 1
+#define MAXIMUM_CUSTOM_TRANSFER_AMOUNT 200
 
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
@@ -314,7 +316,7 @@
 			if(!beaker || !beaker.reagents.total_volume)
 				return
 			var/id = params["id"]
-			var/amount = isgoodnumber(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, min_value=0))
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
 			if(!id || !amount)
 				return
 			R.trans_id_to(src, id, amount)
@@ -322,7 +324,7 @@
 			if(!reagents.total_volume)
 				return
 			var/id = params["id"]
-			var/amount = isgoodnumber(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, min_value=0))
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
 			if(!id || !amount)
 				return
 			if(mode)
@@ -491,18 +493,6 @@
 					return FALSE
 		else
 			return FALSE
-
-/obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
-		if(num > 200)
-			num = 200
-		else if(num < 0)
-			num = 1
-		else
-			num = round(num)
-		return num
-	else
-		return FALSE
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
@@ -683,3 +673,5 @@
 #undef SAFE_MAX_TEMPERATURE
 
 #undef DEFAULT_CUSTOM_TRANSFER_AMOUNT
+#undef MINIMUM_CUSTOM_TRANSFER_AMOUNT
+#undef MAXIMUM_CUSTOM_TRANSFER_AMOUNT
