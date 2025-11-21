@@ -43,7 +43,7 @@
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 3,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 6,
-		BB_AGGRO_RANGE = 6
+		BB_AGGRO_RANGE = 6,
 	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,

@@ -227,7 +227,7 @@
 /datum/action/cooldown/mob_cooldown/summon_skulls/Activate(atom/target)
 	var/mob/living/summoner = target
 	if(!istype(summoner))
-		to_chat(target, "<span class='warning'>I am unable to summon skulls!</span>")
+		to_chat(target, "<span class='warning'>You are unable to summon skulls!</span>")
 		return
 
 	for(var/i in 1 to 2)
