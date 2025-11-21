@@ -110,6 +110,7 @@
 /datum/ai_behavior/monkey_flee
 
 /datum/ai_behavior/monkey_flee/perform(seconds_per_tick, datum/ai_controller/controller)
+	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 
 	if(living_pawn.health >= MONKEY_FLEE_HEALTH) //we're back in bussiness
@@ -136,6 +137,7 @@
 	set_movement_target(controller, controller.blackboard[target_key])
 
 /datum/ai_behavior/monkey_attack_mob/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
 	var/datum/targeting_strategy/strategy = GET_TARGETING_STRATEGY(controller.blackboard[BB_TARGETING_STRATEGY])
@@ -223,6 +225,7 @@
 	controller.clear_blackboard_key(disposal_target_key) // No target disposal
 
 /datum/ai_behavior/disposal_mob/perform(seconds_per_tick, datum/ai_controller/controller, attack_target_key, disposal_target_key)
+	. = ..()
 	if(controller.blackboard[BB_MONKEY_DISPOSING]) // We are disposing, don't do ANYTHING!!!!
 		return AI_BEHAVIOR_DELAY
 
@@ -264,6 +267,7 @@
 
 
 /datum/ai_behavior/recruit_monkeys/perform(seconds_per_tick, datum/ai_controller/controller)
+	. = ..()
 	controller.set_blackboard_key(BB_MONKEY_RECRUIT_COOLDOWN, world.time + MONKEY_RECRUIT_COOLDOWN)
 	var/mob/living/living_pawn = controller.pawn
 
@@ -280,6 +284,7 @@
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/monkey_set_combat_target/perform(seconds_per_tick, datum/ai_controller/controller, set_key, enemies_key)
+	. = ..()
 	var/list/enemies = controller.blackboard[enemies_key]
 	var/list/valids = list()
 	for(var/mob/living/possible_enemy in view(MONKEY_ENEMY_VISION, controller.pawn))

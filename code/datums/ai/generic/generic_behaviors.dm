@@ -1,6 +1,7 @@
 /datum/ai_behavior/perform_emote
 
 /datum/ai_behavior/perform_emote/perform(seconds_per_tick, datum/ai_controller/controller, emote, speech_sound)
+	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return AI_BEHAVIOR_INSTANT
@@ -69,6 +70,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/use_on_object/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/obj/item/held_item = pawn.get_item_by_slot(pawn.get_active_hand())
 	var/atom/target = controller.blackboard[target_key]
