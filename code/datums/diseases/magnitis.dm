@@ -26,57 +26,46 @@
 				to_chat(affected_mob, "<span class='danger'>You feel a light tingling sensation.</span>")
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>You feel a slight shock course through your body!</span>")
-				for(var/obj/O in orange(LOW_ATTRACTION_RANGE, affected_mob))
-					if(!O.anchored && (O.flags & CONDUCT))
-						step_towards(O,affected_mob)
-				for(var/mob/living/silicon/S in orange(LOW_ATTRACTION_RANGE, affected_mob))
-					if(is_ai(S))
-						continue
-					step_towards(S, affected_mob)
-				for(var/mob/living/carbon/human/machine/M in orange(LOW_ATTRACTION_RANGE, affected_mob))
-					step_towards(M, affected_mob)
-		if(3) // 50/50 chance to non harmfully pull or have metal stuff thrown at you from further away.
+				magnetic_pull(affected_mob, LOW_ATTRACTION_RANGE, 0)
+		if(3)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>You feel pins and needles radiating through you!</span>")
 			if(prob(4))
 				to_chat(affected_mob, "<span class='userdanger'>You feel a strong shock course through your body.</span>")
-				for(var/obj/O in orange(MEDIUM_ATTRACTION_RANGE, affected_mob))
-					if(!O.anchored && (O.flags & CONDUCT))
-						if(prob(50))
-							for(i in 1 to rand(1, 2))
-								step_towards(O,affected_mob)
-						else
-							O.throw_at(affected_mob, MEDIUM_ATTRACTION_RANGE + 1, 1)
-				for(var/mob/living/silicon/S in orange(MEDIUM_ATTRACTION_RANGE, affected_mob))
-					if(is_ai(S))
-						continue
-					if(prob(50))
-						for(i in 1 to rand(1, 2))
-							step_towards(S, affected_mob)
-					else
-						S.throw_at(affected_mob, MEDIUM_ATTRACTION_RANGE + 1, 1)
-				for(var/mob/living/carbon/human/machine/M in orange(MEDIUM_ATTRACTION_RANGE, affected_mob))
-					if(prob(50))
-						var/i
-						var/iter = rand(1,2)
-						for(i=0,i<iter,i++)
-							step_towards(M, affected_mob)
-					else
-						M.throw_at(affected_mob, MEDIUM_ATTRACTION_RANGE + 1, 1)
-		if(4) // All metal stuff will be violently thrown at you from across the room.
+				magnetic_pull(affected_mob, MEDIUM_ATTRACTION_RANGE, 100)
+		if(4)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='userdanger'>You feel a thousand pinpricks across every inch of your body!</span>")
 			if(prob(8))
 				to_chat(affected_mob, "<span class='userdanger'>You feel a powerful shock course through your body!</span>")
-				for(var/obj/O in orange(HIGH_ATTRACTION_RANGE, affected_mob))
-					if(!O.anchored && (O.flags & CONDUCT))
-						O.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
-				for(var/mob/living/silicon/S in orange(HIGH_ATTRACTION_RANGE, affected_mob))
-					if(is_ai(S))
-						continue
-					S.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
-				for(var/mob/living/carbon/human/machine/M in orange(HIGH_ATTRACTION_RANGE, affected_mob))
-					M.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
+				magnetic_pull(affected_mob, HIGH_ATTRACTION_RANGE, 100)
+
+/**
+* Handles magnitis pulling and throwing stuff.
+* Arguments:
+* * `affected_mob` - The magnitis-affected mob doing the pulling.
+* * `pull_range` - How far the magnetic influence reaches.
+* * `throw_chance` - Probability affected objects will be violently thrown at the `affected_mob` instead of being harmlessly pulled.
+*/
+/datum/disease/magnitis/proc/magnetic_pull(mob/living/affected_mob, pull_range, throw_chance)
+	var/list/valid_pull_targets = list()
+	for(var/atom/movable/A in orange(pull_range, affected_mob))
+		if(!A.anchored && (A.flags & CONDUCT))
+			valid_pull_targets |= A
+			continue
+		if((ismachineperson(A) || issilicon(A)))
+			var/mob/living/M = A
+			if(!M.anchored && !HAS_TRAIT(M, TRAIT_MAGPULSE))
+				valid_pull_targets |= A
+
+	for(var/atom/movable/attracted_body in valid_pull_targets)
+		// If true, throw item, else pull it harmlessly.
+		if(prob(throw_chance))
+			attracted_body.throw_at(affected_mob, pull_range + 1, 1)
+		else
+			for(var/i in 1 to rand(1, 2))
+				step_towards(attracted_body, affected_mob)
+
 
 #undef LOW_ATTRACTION_RANGE
 #undef MEDIUM_ATTRACTION_RANGE
