@@ -834,7 +834,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/nad_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/disk/nuclear))
-		. = ..()
+		return ..()
 	if(disky)
 		to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -868,14 +868,16 @@ GLOBAL_VAR(bomb_set)
 	return ..()
 
 /obj/item/nad_scanner/AltClick(mob/user, modifiers)
-	. = ..()
+	if(scanning)
+		to_chat(user, "<span class='warning'>The disk is currently being scanned!</span>")
+		return ..()
 	eject_nad(user)
 	return ..()
 
 /obj/item/nad_scanner/proc/eject_nad(mob/living/carbon/user)
 	if(!disky)
 		return
-	var/mob/M = loc
+	var/mob/M = user
 	M.put_in_hands(disky)
 	to_chat(user, "<span class='notice'>You remove [disky] from [src].</span>")
 	disky = null
@@ -889,29 +891,38 @@ GLOBAL_VAR(bomb_set)
 	if(decrypted)
 		to_chat(user, "<span class='warning'>This device is burnt out!</span>")
 		return
+	if(scanning)
+		to_chat(user, "<span class='warning'>You are already scanning a disk!</span>")
+		return
 	scanning = TRUE
+	to_chat(user, "<span class='biggerdanger'>You start the decryption process.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	if(do_after(user, 10 SECONDS, needhand = FALSE, allow_moving = TRUE, hidden = TRUE))
-		if(istype(disky, /obj/item/disk/nuclear/training))
-			atom_say("Incompatible disk detected!")
-			return
-		var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n\"We have decrypted the codes from the nuclear authentication disk."
-		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-				code = bombue.r_code
-				break
-		complete_message += " The code is [code]. Take them down.\" \n"
-		complete_message += "We suspect the syndicate is trying to detonate your nuclear device. All crew are to ensure this does not happen."
+	if(!do_after(user, 10 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, hidden = TRUE))
+		to_chat(user, "<span class='warning'>You stop the decryption process.</span>")
+		return
+	if(istype(disky, /obj/item/disk/nuclear/training))
+		atom_say("Incompatible disk detected!")
+		return
+	var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n\"We have decrypted the codes from the nuclear authentication disk."
+	var/code
+	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+			code = bombue.r_code
+			break
+	if(!code)
+		atom_say("No nuclear device detected!")
+		return
+	complete_message += " The code is [code]. Take those scum down.\" \n"
+	complete_message += "We suspect the syndicate is trying to detonate your nuclear device. All crew are to ensure this does not happen."
 
-		GLOB.major_announcement.Announce(
-			complete_message,
-			new_title = "Enemy Communication Intercepted",
-			new_subtitle = "Intercepted Syndicate Communique",
-			new_sound = 'sound/AI/intercept.ogg'
-		)
-		print_command_report(complete_message, "Intercepted Syndicate Communique")
-		decrypted = TRUE
+	GLOB.major_announcement.Announce(
+		complete_message,
+		new_title = "Enemy Communication Intercepted",
+		new_subtitle = "Intercepted Syndicate Communique",
+		new_sound = 'sound/AI/intercept.ogg'
+	)
+	print_command_report(complete_message, "Intercepted Syndicate Communique")
+	decrypted = TRUE
 	scanning = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
