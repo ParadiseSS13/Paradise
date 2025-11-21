@@ -185,7 +185,7 @@
 	if(living_pawn.next_move > world.time)
 		return FALSE
 
-	//are we holding a gun? can we shoot it? if so, FIRE
+	// are we holding a gun? can we shoot it? if so, FIRE
 	var/obj/item/gun/gun_to_shoot = locate() in living_pawn.held_items()
 	if(gun_to_shoot?.can_shoot())
 		if(gun_to_shoot != living_pawn.get_active_hand())
@@ -193,15 +193,15 @@
 		controller.ai_interact(target, INTENT_HARM)
 		return TRUE
 
-	//look for any potential weapons we're holding
+	// look for any potential weapons we're holding
 	var/obj/item/potential_weapon = locate() in living_pawn.held_items()
 	if(!living_pawn.Adjacent(target, potential_weapon))
 		return FALSE
 
 	if(isnull(potential_weapon))
-		controller.ai_interact(target, INTENT_DISARM)
+		controller.ai_interact(target, INTENT_HARM)
 		if(disarm && !isnull(holding_weapon) && controller.blackboard[BB_MONKEY_BLACKLISTITEMS][holding_weapon])
-			controller.remove_thing_from_blackboard_key(BB_MONKEY_BLACKLISTITEMS, holding_weapon) //lets try to pickpocket it again!
+			controller.remove_thing_from_blackboard_key(BB_MONKEY_BLACKLISTITEMS, holding_weapon) // lets try to pickpocket it again!
 		return TRUE
 
 	if(potential_weapon != living_pawn.get_active_hand())
@@ -210,7 +210,7 @@
 	return TRUE
 
 /datum/ai_behavior/disposal_mob
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM // performs to increase frustration
 
 /datum/ai_behavior/disposal_mob/setup(datum/ai_controller/controller, attack_target_key, disposal_target_key)
 	. = ..()
