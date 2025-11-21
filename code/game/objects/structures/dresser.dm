@@ -137,12 +137,12 @@
 	if(!Adjacent(user))
 		return
 	item_to_retrieve.forceMove(loc)
+	to_chat(user, "<span class='notice'>You take [item_to_retrieve] out of [src].</span>")
 	if(issilicon(user))
 		return
 	user.put_in_hands(item_to_retrieve)
 	var/mob/living/carbon/human/H = user
 	add_fingerprint(H)
-	to_chat(user, "<span class='notice'>You take [item_to_retrieve] out of [src].</span>")
 
 /obj/structure/dresser/wardrobe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(locked)
