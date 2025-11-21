@@ -18,7 +18,7 @@
 	if(..())
 		return TRUE
 	for(var/datum/mind/M in get_owners())
-		var/datum/antagonist/ninja/N = M.has_antag_datum(/datum/antagonist/ninja)
+		var/datum/antagonist/space_ninja/N = M.has_antag_datum(/datum/antagonist/space_ninja)
 		for(var/datum/objective/ninja/ninja_objective in N.objective_holder)
 			if(!ninja_objective.completed)
 				return FALSE
@@ -32,7 +32,7 @@
 	if(..())
 		return TRUE
 	for(var/datum/mind/M in get_owners())
-		var/datum/antagonist/ninja/N = M.has_antag_datum(/datum/antagonist/ninja)
+		var/datum/antagonist/space_ninja/N = M.has_antag_datum(/datum/antagonist/space_ninja)
 		N.forge_new_objective()
 
 /datum/objective/ninja/kill
@@ -84,7 +84,7 @@
 	name = "EMP Department"
 	needs_target = FALSE
 
-/datum/objective/ninja/bomb_department/update_explanation_text()
+/datum/objective/ninja/emp_department/update_explanation_text()
 	explanation_text = "Use the special flare provided to call down and arm an EMP bomb. The target department is inscribed on the flare."
 
 /datum/objective/ninja_exfiltrate
