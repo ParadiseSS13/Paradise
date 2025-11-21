@@ -43,9 +43,7 @@
 				for(var/obj/O in orange(MEDIUM_ATTRACTION_RANGE, affected_mob))
 					if(!O.anchored && (O.flags & CONDUCT))
 						if(prob(50))
-							var/i
-							var/iter = rand(1,2)
-							for(i=0,i<iter,i++)
+							for(i in 1 to rand(1, 2))
 								step_towards(O,affected_mob)
 						else
 							O.throw_at(affected_mob, MEDIUM_ATTRACTION_RANGE + 1, 1)
@@ -53,9 +51,7 @@
 					if(is_ai(S))
 						continue
 					if(prob(50))
-						var/i
-						var/iter = rand(1,2)
-						for(i=0,i<iter,i++)
+						for(i in 1 to rand(1, 2))
 							step_towards(S, affected_mob)
 					else
 						S.throw_at(affected_mob, MEDIUM_ATTRACTION_RANGE + 1, 1)
@@ -81,7 +77,6 @@
 					S.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
 				for(var/mob/living/carbon/human/machine/M in orange(HIGH_ATTRACTION_RANGE, affected_mob))
 					M.throw_at(affected_mob, HIGH_ATTRACTION_RANGE + 1, 1)
-	return
 
 #undef LOW_ATTRACTION_RANGE
 #undef MEDIUM_ATTRACTION_RANGE
