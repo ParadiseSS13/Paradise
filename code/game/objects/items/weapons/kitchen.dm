@@ -121,7 +121,7 @@
 
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/surgery_initiator/robo)
+	AddComponent(/datum/component/surgery_initiator/robo/sharp)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 

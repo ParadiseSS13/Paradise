@@ -88,3 +88,25 @@
 				lung_sound = "gurgling"
 				color = "warning"
 		to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+
+/obj/item/clothing/neck/neckerchief
+	name = "white neckerchief"
+	desc = "A neatly tied neckerchief for the service professional."
+	icon_state = "neckerchief_white"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi'
+	)
+
+/obj/item/clothing/neck/neckerchief/black
+	name = "black neckerchief"
+	icon_state = "neckerchief_black"
+
+/obj/item/clothing/neck/neckerchief/green
+	name = "green neckerchief"
+	icon_state = "neckerchief_green"
+
+/obj/item/clothing/neck/neckerchief/red
+	name = "red neckerchief"
+	icon_state = "neckerchief_red"

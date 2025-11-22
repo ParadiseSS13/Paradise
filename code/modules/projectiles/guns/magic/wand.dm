@@ -278,7 +278,7 @@ CONTENTS:
 		"Would you like a glass of water?", "What fun is there in making sense?", "Maybe you ought to go back home and crawl under your bed.", \
 		"Time to dual wield chaos wands!", "Sixty percent of the time, it works every time.", "Cheese for everyone!", "You hear a deep voice cackling.", \
 		"Xom bursts into laughter!", "Xom thinks this is hilarious!")]</span>")
-	var/obj/item/projectile/magic/chaos/proj = new /obj/item/projectile/magic/chaos(src)
+	var/obj/projectile/magic/chaos/proj = new /obj/projectile/magic/chaos(src)
 	proj.chaos_chaos(user)
 	qdel(proj)
 	charges--
