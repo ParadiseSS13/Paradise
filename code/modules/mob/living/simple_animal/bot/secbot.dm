@@ -13,7 +13,6 @@
 
 	radio_channel = "Security" //Security channel
 	bot_type = SEC_BOT
-	bot_filter = RADIO_SECBOT
 	model = "Securitron"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
 	req_access = list(ACCESS_SECURITY)
@@ -208,14 +207,14 @@
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
-/mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
+	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
 
-/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/item/projectile/P)
+/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/projectile/P)
 	return FALSE
 
 

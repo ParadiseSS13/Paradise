@@ -9,7 +9,6 @@
 	pass_flags = PASSMOB
 	radio_channel = "Service" //Service
 	bot_type = HONK_BOT
-	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	window_id = "autohonk"
@@ -157,8 +156,8 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += "<span class='warning'>Yellow ooze seems to be seeping from the case...</span>"
 
-/mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+/mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
+	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	..()
 

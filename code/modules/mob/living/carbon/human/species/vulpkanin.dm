@@ -5,7 +5,6 @@
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
-	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Vulpkanin are bipedal canid-like beings from the Vazzend binary system, having been forced from their homeworld by a cataclysmic event and scattered throughout the Orion Sector. \
@@ -27,6 +26,8 @@
 
 	scream_verb = "yelps"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/fur
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
 		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
@@ -37,16 +38,15 @@
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
-
 	allowed_consumed_mobs = list(
 		/mob/living/basic/mouse,
 		/mob/living/basic/lizard,
 		/mob/living/basic/chick,
 		/mob/living/basic/chicken,
-		/mob/living/simple_animal/crab,
+		/mob/living/basic/crab,
 		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/hostile/poison/bees,
+		/mob/living/basic/bee,
 	)
 
 	suicide_messages = list(

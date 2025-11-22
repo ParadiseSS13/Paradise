@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(target)
 			open_nearest_door(target)
 
-/mob/living/silicon/ai/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	return 2
 
@@ -1131,6 +1131,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Animal")
 			var/icon_list[] = list(
 				"Bear",
+				"Butterfly",
 				"Carp",
 				"Chicken",
 				"Corgi",
@@ -1142,6 +1143,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				"Goose",
 				"Kitten",
 				"Kitten2",
+				"Lizard",
 				"Pig",
 				"Poly",
 				"Pug",
@@ -1153,6 +1155,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				"Hellhound",
 				"Lightgeist",
 				"Cockroach",
+				"Nian Caterpillar",
+				"Slime",
 				"Mecha-Cat",
 				"Mecha-Fairy",
 				"Mecha-Fox",
@@ -1169,6 +1173,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				switch(input)
 					if("Bear")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "bear"), FALSE, hologram_color)
+					if("Butterfly")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "butterfly"), FALSE, hologram_color)
 					if("Carp")
 						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi', "holocarp"), FALSE, hologram_color)
 					if("Chicken")
@@ -1191,6 +1197,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat"), FALSE, hologram_color)
 					if("Kitten2")
 						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat2"), FALSE, hologram_color)
+					if("Lizard")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "lizard"), FALSE, hologram_color)
 					if("Pig")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "pig"), FALSE, hologram_color)
 					if("Poly")
@@ -1213,6 +1221,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "lightgeist"), FALSE, hologram_color)
 					if("Cockroach")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cockroach"), FALSE, hologram_color)
+					if("Nian Caterpillar")
+						holo_icon = getHologramIcon(icon('icons/mob/monkey.dmi', "mothroach"), FALSE, hologram_color)
+					if("Slime")
+						holo_icon = getHologramIcon(icon('icons/mob/slimes.dmi', "grey baby slime"), FALSE, hologram_color)
 					if("Mecha-Cat")
 						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "cat"), FALSE, hologram_color)
 					if("Mecha-Fairy")

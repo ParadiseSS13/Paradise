@@ -8,21 +8,28 @@
 	armor = list(MELEE = 20, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
 
+/obj/item/clothing/head/centhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"
 	desc = "Smells nice."
 	icon_state = "hairflower"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."
 	icon_state = "pwig"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/justice_wig
 	name = "justice wig"
 	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
 	icon_state = "jwig"
 	dog_fashion = /datum/dog_fashion/head/justice_wig
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/that
 	name = "top-hat"
@@ -31,15 +38,21 @@
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
+/obj/item/clothing/head/that/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
 	desc = "<i>'I guess it's a redhead.'</i>"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/mailman
 	name = "mailman's hat"
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
@@ -53,7 +66,11 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	)
+
+/obj/item/clothing/head/plaguedoctorhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -61,12 +78,14 @@
 	icon_state = "hasturhood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
 	dog_fashion = /datum/dog_fashion/head/nurse
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
@@ -74,6 +93,7 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -88,6 +108,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/head/snowman
@@ -97,43 +118,28 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "greenbandana"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	flags_inv = 0
-
-/obj/item/clothing/head/justice
-	name = "justice hat"
-	desc = "Fight for what's righteous!"
-	icon_state = "justicered"
-	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-/obj/item/clothing/head/justice/blue
-	icon_state = "justiceblue"
-
-/obj/item/clothing/head/justice/yellow
-	icon_state = "justiceyellow"
-
-/obj/item/clothing/head/justice/green
-	icon_state = "justicegreen"
-
-/obj/item/clothing/head/justice/pink
-	icon_state = "justicepink"
 
 /obj/item/clothing/head/rabbitears
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
@@ -211,6 +217,11 @@
 	name = "security cowboy hat"
 	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
+
+/obj/item/clothing/head/cowboyhat/hydro
+	name = "botany cowboy hat"
+	desc = "For the Farmer in us all."
+	icon_state = "cowboyhat_botany"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -395,6 +406,7 @@
 	icon_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -415,6 +427,7 @@
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
@@ -508,6 +521,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
 /obj/item/clothing/head/cool_bandana
 	name = "badass bandana"
 	desc = "You know what time it is."
@@ -519,3 +533,11 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
+
+/obj/item/clothing/head/hooded/dark_hood
+	name = "dark hood"
+	desc = "A dark hood for dark times."
+	icon_state = "dark_hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+

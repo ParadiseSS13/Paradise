@@ -58,8 +58,8 @@
 		"weed rate" = TRUE,
 		"weed chance" = TRUE)
 
-/obj/item/seeds/New(loc, nogenes = 0)
-	..()
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(-6, 6)
 
@@ -174,8 +174,8 @@
 		if("weed chance")
 			adjust_weed_chance(mod)
 
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) // Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florayield))
+/obj/item/seeds/bullet_act(obj/projectile/Proj) // Works with the Somatoray to modify plant variables.
+	if(istype(Proj, /obj/projectile/energy/florayield))
 		var/rating = 1
 		if(istype(loc, /obj/machinery/hydroponics))
 			var/obj/machinery/hydroponics/H = loc
@@ -208,7 +208,7 @@
 	if(!mutation_level)
 		return src
 
-	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
+	return new /obj/item/unsorted_seeds(src, src, mutation_level, tray.get_mutation_focus())
 
 /obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
@@ -351,7 +351,7 @@
 		C.value = weed_chance
 
 
-/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE)  // In case seeds have something special to tell to the analyzer
+/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE, high_details_mode = TRUE)  // In case seeds have something special to tell to the analyzer
 	var/list/text = list()
 	if(show_detail)
 		if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
@@ -362,21 +362,22 @@
 			text += "- Plant type: Mushroom. Can grow in dry soil."
 		if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 			text += "- Plant type: <span class='warning'>UNKNOWN</span> "
-	if(potency != -1)
-		text += "- Potency: [potency]"
-	if(yield != -1)
-		var/obj/machinery/hydroponics/tray = loc
-		if(istype(tray) && tray.yield_beamed)
-			text += "- Yield: [yield] (+1-3 from somatoray)"
-		else
-			text += "- Yield: [yield]"
-	text += "- Maturation speed: [maturation]"
-	if(yield != -1)
-		text += "- Production speed: [production]"
-	text += "- Endurance: [endurance]"
-	text += "- Lifespan: [lifespan]"
-	text += "- Weed Growth Rate: [weed_rate]"
-	text += "- Weed Vulnerability: [weed_chance]"
+	if(high_details_mode)
+		if(potency != -1)
+			text += "- Potency: [potency]"
+		if(yield != -1)
+			var/obj/machinery/hydroponics/tray = loc
+			if(istype(tray) && tray.yield_beamed)
+				text += "- Yield: [yield] (+1-3 from somatoray)"
+			else
+				text += "- Yield: [yield]"
+		text += "- Maturation speed: [maturation]"
+		if(yield != -1)
+			text += "- Production speed: [production]"
+		text += "- Endurance: [endurance]"
+		text += "- Lifespan: [lifespan]"
+		text += "- Weed Growth Rate: [weed_rate]"
+		text += "- Weed Vulnerability: [weed_chance]"
 	if(!show_detail)
 		return text.Join("<br>")
 	if(rarity)
@@ -618,8 +619,8 @@
 
 	var/datum/unsorted_seed/seed_data
 
-/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
-	..()
+/obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
 	template = template.Copy()
 	scatter_atom()
 	if(seed_data_in)
@@ -636,7 +637,7 @@
 	return ..()
 
 /obj/item/unsorted_seeds/proc/Copy()
-	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
+	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
 
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)

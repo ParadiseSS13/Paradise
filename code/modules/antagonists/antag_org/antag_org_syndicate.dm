@@ -56,7 +56,7 @@
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
 	targeted_departments = list(DEPARTMENT_SCIENCE)
-	theft_targets = list(/datum/theft_objective/reactive, /datum/theft_objective/documents, /datum/theft_objective/hand_tele)
+	theft_targets = list(/datum/theft_objective/reactive, /datum/theft_objective/documents, /datum/theft_objective/hand_tele, /datum/theft_objective/anomalous_particulate)
 
 /datum/antag_org/syndicate/electra // Mostly target Engineering
 	name = "Electra Dynamics"
@@ -64,7 +64,7 @@
 		Nanotrasen's burgeoning monopoly must be stopped. We've transmitted you local points of failure, ensure they fail."
 	focus = 70
 	targeted_departments = list(DEPARTMENT_ENGINEERING)
-	theft_targets = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit, /datum/theft_objective/magboots)
+	theft_targets = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit, /datum/theft_objective/magboots, /datum/theft_objective/anomalous_particulate)
 
 /datum/antag_org/syndicate/spiderclan // Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "Spider Clan"
@@ -83,7 +83,6 @@
 
 /datum/antag_org/syndicate/gorlex // Hijack only
 	name = "Gorlex Marauders"
-	intro_desc = "You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats. \
-		Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	intro_desc = "You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats."
 	forced_objectives = list(/datum/objective/hijack)
 	chaos_level = ORG_CHAOS_HIJACK

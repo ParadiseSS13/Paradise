@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
-	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
@@ -38,6 +37,8 @@
 	female_scream_sound = 'sound/effects/unathiscream.ogg'
 	butt_sprite = "unathi"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
 		"lungs" =    /obj/item/organ/internal/lungs/unathi,
@@ -47,16 +48,15 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
-
 	allowed_consumed_mobs = list(
 		/mob/living/basic/mouse,
 		/mob/living/basic/lizard,
 		/mob/living/basic/chick,
 		/mob/living/basic/chicken,
-		/mob/living/simple_animal/crab,
+		/mob/living/basic/crab,
 		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/hostile/poison/bees,
+		/mob/living/basic/bee,
 	)
 
 	suicide_messages = list(
