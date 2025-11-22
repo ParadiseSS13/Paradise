@@ -125,6 +125,18 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		icon_state = "autolathe"
 		disguise_broken = TRUE
 
+/obj/machinery/autolathe/trapped/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(busy)
+		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		return
+	if(disguise_broken == FALSE)
+		default_deconstruction_screwdriver(user, "rechargeropen", initial(icon_state), I)
+	else
+		default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
+
 /obj/machinery/shieldgen/telecomms
 	name = "overclocked shield generator"
 	desc = "These shield generators seem to have been rewired a lot."
