@@ -395,7 +395,7 @@
 	wrap_overlay = "cable_wrap"
 	speed_mod = 0.1
 	productivity_mod = -0.1
-	damage_increase = 1
+	force_increase = 1
 	conductive = TRUE
 
 /datum/handle_wrapping/cloth

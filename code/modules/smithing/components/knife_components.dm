@@ -2,6 +2,7 @@
 	name = "Debug knife blade"
 	desc = "Debug smithed component part of a knife. If you see this, notify the development team."
 	icon_state = "knife_blade"
+	part_type = PART_PRIMARY
 	hammer_time = 4
 
 /obj/item/smithed_item/component/knife_blade/utility
@@ -26,6 +27,7 @@
 	name = "Debug knife handle"
 	desc = "Debug smithed component part of a knife. If you see this, notify the development team."
 	icon_state = "knife_handle"
+	part_type = PART_SECONDARY
 	hammer_time = 2
 
 /obj/item/smithed_item/component/knife_handle/utility
