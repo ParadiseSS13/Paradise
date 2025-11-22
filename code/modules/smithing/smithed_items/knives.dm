@@ -62,19 +62,32 @@
 		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100 * quality.stat_mult, 0, 0, 1.5)
 		START_PROCESSING(SSradiation, radioactivity)
 
+/obj/item/kitchen/knife/smithed/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(!wrap_type)
+		. += "basic_wrap"
+		return
+	. += wrap_type.wrap_overlay
+
 /obj/item/kitchen/knife/smithed/proc/attach_wrapping(/datum/handle_wrapping/wrap)
 	force += wrap.force_increase
 	throwforce += wrap.throw_force_increase
 	toolspeed += wrap.speed_mod
 	bit_productivity_mod += wrap.productivity_mod
 	embed_chance += wrap.embed_chance_increase
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/kitchen/knife/smithed/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(!isstack(used))
 		return ITEM_INTERACT_COMPLETE
 	var/item/stack/stacked_item = used
+	if(wrap_type)
+		to_chat(user, "<span class='warning'>There is already a wrap on [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
 	var/wrap_type
+	var/temp_color
 	switch(stacked_item.type)
 		if(/obj/item/stack/cable_coil)
 			wrap_type = /datum/handle_wrapping/cable
@@ -86,12 +99,22 @@
 			wrap_type = /datum/handle_wrapping/leather
 		if(/obj/item/stack/sheet/animalhide/goliath_hide)
 			wrap_type = /datum/handle_wrapping/goliath_hide
+		if(/obj/item/stack/sheet/mothsilk)
+			wrap_type = /datum/handle_wrapping/mothsilk
 		else
+			to_chat(user, "<span class='warning'>You cannot wrap [stacked_item] around [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
 	if(do_after_once(user, 10 SECONDS, target = src))
 		if(stacked_item.use(5))
 			attach_wrapping(wrap_type)
 			return ITEM_INTERACT_COMPLETE
+
+/obj/item/kitchen/knife/smithed/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(wrap_type)
+		to_chat(user, "<span class='notice'>You cut off the wrap on [src].</span>")
+		QDEL_NULL(wrap_type)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/kitchen/knife/smithed/utility
 	name = "utility knife"

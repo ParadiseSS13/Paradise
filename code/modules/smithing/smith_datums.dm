@@ -375,6 +375,8 @@
 
 /datum/handle_wrapping
 	var/name = "Boring Debug"
+	/// Wrap overlay icon
+	var/wrap_overlay = "basic_wrap"
 	/// Speed modifier
 	var/speed_mod = 0.0
 	/// Productivity mod
@@ -389,36 +391,42 @@
 	var/conductive = FALSE
 
 /datum/handle_wrapping/cable
-	var/name = "cable wrapping"
+	name = "cable wrapping"
+	wrap_overlay = "cable_wrap"
 	speed_mod = 0.1
 	productivity_mod = -0.1
 	damage_increase = 1
 	conductive = TRUE
 
 /datum/handle_wrapping/cloth
-	var/name = "cloth wrapping"
+	name = "cloth wrapping"
+	wrap_overlay = "cloth_wrap"
 	speed_mod = 0.1
 	productivity_mod = 0.1
 
 /datum/handle_wrapping/leather
-	var/name = "leather wrapping"
+	name = "leather wrapping"
+	wrap_overlay = "leather_wrap"
 	force_increase = 1
 	throw_force_increase = 1
 	embed_chance_increase = 5
 
 /datum/handle_wrapping/durathread
-	var/name = "durathread wrapping"
+	name = "durathread wrapping"
+	wrap_overlay = "durathread_wrap"
 	speed_mod = 0.15
 	productivity_mod = 0.15
 
 /datum/handle_wrapping/goliath_hide
-	var/name = "goliath hide wrapping"
+	name = "goliath hide wrapping"
+	wrap_overlay = "goliath_wrap"
 	force_increase = 1
 	throw_force_increase = 1
 	embed_chance_increase = 10
 
 /datum/handle_wrapping/mothsilk
-	var/name = "mothsilk wrapping"
+	name = "mothsilk wrapping"
+	wrap_overlay = "moth_wrap"
 	speed_mod = 0.2
 	productivity_mod = 0.2
 	force_increase = 1.5

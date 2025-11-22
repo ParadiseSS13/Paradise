@@ -25,6 +25,7 @@
 /obj/item/smithed_item/component/knife_handle
 	name = "Debug knife handle"
 	desc = "Debug smithed component part of a knife. If you see this, notify the development team."
+	icon_state = "knife_handle"
 	hammer_time = 2
 
 /obj/item/smithed_item/component/knife_handle/utility

@@ -190,6 +190,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/moth_caterpillar,
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
+		/datum/ai_planning_subtree/spin_mothsilk,
 		/datum/ai_planning_subtree/flee_target,
 		/datum/ai_planning_subtree/find_food/nian_caterpillar,
 	)
@@ -209,3 +210,16 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "chitters.", "chatters.")
 	emote_see = list("flutters.", "chitters.", "chatters.")
+
+/datum/ai_planning_subtree/spin_mothsilk
+
+/datum/ai_planning_subtree/spin_mothsilk/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/nian_caterpillar/caterpillar = controller.pawn
+	if(caterpillar.nutrition >= 400)
+		controller.queue_behavior(/datum/ai_behavior/spin_mothsilk)
+
+/datum/ai_behavior/spin_mothsilk/perform(seconds_per_tick, datum/ai_controller/controller, action_key, target_key)
+	var/datum/action/innate/wrap_giant_spider/wrap_action = controller.blackboard[action_key]
+	if(wrap_action?.Trigger())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
