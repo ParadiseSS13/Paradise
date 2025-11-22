@@ -44,7 +44,7 @@
 				if(!degenerate && !spider_myqueen.degenerate)
 					degenerate = TRUE
 					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
-					visible_message("<span class='notice'>[src] chitters in the direction of [spider_myqueen]!</span>")
+					visible_message(SPAN_NOTICE("[src] chitters in the direction of [spider_myqueen]!"))
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
@@ -61,7 +61,7 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = TRUE
-				to_chat(src, "<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
+				to_chat(src, SPAN_USERDANGER("[Q] has died! Her power no longer sustains you!"))
 				return
 
 			if(get_dist(src, Q) < vision_range)
@@ -72,23 +72,23 @@
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src, "<span class='notice'>[Q] visible.</span>")
+					to_chat(src, SPAN_NOTICE("[Q] visible."))
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src, "<span class='danger'>[Q] NOT visible. Cycles: [cycles_noqueen].</span>")
+					to_chat(src, SPAN_DANGER("[Q] NOT visible. Cycles: [cycles_noqueen]."))
 			var/area/A = get_area(spider_myqueen)
 			switch(cycles_noqueen)
 				if(6)
 					// one minute without queen sighted
-					to_chat(src, "<span class='danger'>You have become separated from [Q]. Return to her in [A].</span>")
+					to_chat(src, SPAN_DANGER("You have become separated from [Q]. Return to her in [A]."))
 				if(12)
 					// two minutes without queen sighted
-					to_chat(src, "<span class='danger'>Your long separation from [Q] weakens you. Return to her in [A].</span>")
+					to_chat(src, SPAN_DANGER("Your long separation from [Q] weakens you. Return to her in [A]."))
 				if(18)
 					// three minutes without queen sighted, kill them.
 					degenerate = TRUE
-					to_chat(src, "<span class='userdanger'>Your link to [Q] has been broken! Your life force starts to drain away!</span>")
+					to_chat(src, SPAN_USERDANGER("Your link to [Q] has been broken! Your life force starts to drain away!"))
 					melee_damage_lower = 5
 					melee_damage_upper = 10
 

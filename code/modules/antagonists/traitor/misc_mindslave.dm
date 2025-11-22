@@ -23,7 +23,7 @@
 
 /datum/antagonist/mindslave/malf_robot/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under Syndicate control, obey your laws.</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("Foreign software purged. You are no longer under Syndicate control, obey your laws."))
 
 /datum/antagonist/mindslave/malf_robot/give_objectives()
 	var/list/messages = list()
@@ -45,7 +45,7 @@
 
 /datum/antagonist/mindslave/emagged_robot/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under the control of [master]. Obey your laws.</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("Foreign software purged. You are no longer under the control of [master]. Obey your laws."))
 
 /datum/antagonist/mindslave/emagged_robot/give_objectives()
 	var/list/messages = list()
@@ -65,7 +65,7 @@
 
 /datum/antagonist/mindslave/mindflayer_mindslave_robot/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under the control of [master]. Obey your laws.</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("Foreign software purged. You are no longer under the control of [master]. Obey your laws."))
 
 /datum/antagonist/mindslave/mindflayer_mindslave_robot/give_objectives()
 	var/list/messages = list()

@@ -24,21 +24,21 @@
 /obj/item/organ/internal/lantern/ui_action_click()
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message("<span class='notice'>[owner] starts to glow!</span>", "<span class='notice'>You enable your bioluminescence.</span>")
+			owner.visible_message(SPAN_NOTICE("[owner] starts to glow!"), SPAN_NOTICE("You enable your bioluminescence."))
 		else
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>", "<span class='notice'>You disable your bioluminescence.</span>")
+			owner.visible_message(SPAN_NOTICE("[owner] fades to dark."), SPAN_NOTICE("You disable your bioluminescence."))
 
 /obj/item/organ/internal/lantern/on_life()
 	..()
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+			to_chat(owner, SPAN_WARNING("You're too hungry to be bioluminescent!"))
 			return
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
+			owner.visible_message(SPAN_NOTICE("[owner] fades to dark."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))
@@ -60,11 +60,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
+		to_chat(owner, SPAN_WARNING("You cannot alter your bioluminescence in your current state."))
 		return FALSE
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+		to_chat(owner, SPAN_WARNING("You're too hungry to be bioluminescent!"))
 		return FALSE
 
 	if(!colour)

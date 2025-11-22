@@ -41,7 +41,7 @@
 
 /obj/machinery/magma_crucible/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can check the contents of [src] using a multitool.</span>"
+	. += SPAN_NOTICE("You can check the contents of [src] using a multitool.")
 
 /obj/machinery/magma_crucible/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -142,11 +142,11 @@
 			return
 		var/obj/item/multitool/multi = I
 		multi.set_multitool_buffer(user, src)
-		to_chat(user, "<span class='notice'>You save [src]'s linking data to the buffer.</span>")
+		to_chat(user, SPAN_NOTICE("You save [src]'s linking data to the buffer."))
 		return
 
 	var/list/msgs = list()
-	msgs += "<span class='notice'>Scanning contents of [src]:</span>"
+	msgs += SPAN_NOTICE("Scanning contents of [src]:")
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)

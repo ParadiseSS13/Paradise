@@ -233,7 +233,7 @@
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
 	/// No ammo warning
-	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
+	var/no_ammo_message = SPAN_WARNING("The \'Low Ammo\' light on the device blinks yellow.")
 	/// The spark system used to create sparks when the user interacts with the RCD.
 	var/datum/effect_system/spark_spread/spark_system
 	/// The current amount of matter stored.
@@ -347,23 +347,23 @@
 	user.Immobilize(10 SECONDS) // You cannot move.
 	set_nodrop(TRUE, user)
 	if(mode == MODE_DECON)
-		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!"))
 		var/datum/rcd_act/remove_user/act = new()
 		if(!act.try_act(user, src, user))
 			set_nodrop(FALSE, user)
 			return SHAME
-		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] deconstructs [user.p_themselves()] with [src]!"))
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
 			user.drop_item_to_ground(W)			// Dump everything on the floor instead.
 		set_nodrop(FALSE, user)
 		user.dust()					// (held items fall to the floor when dusting).
 		return OBLITERATION
 
-	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(!interact_with_atom(get_turf(src), user, TRUE))
 		set_nodrop(FALSE, user)
 		return SHAME
-	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] explodes as [src] builds a structure inside [user.p_them()]!"))
 	set_nodrop(FALSE, user)
 	user.gib()
 	return OBLITERATION
@@ -407,12 +407,12 @@
 */
 /obj/item/rcd/proc/load(obj/item/rcd_ammo/cart, mob/living/user)
 	if(matter == max_matter)
-		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
+		to_chat(user, SPAN_NOTICE("The RCD can't hold any more matter-units."))
 		return FALSE
 	matter = clamp((matter + cart.ammoamt), 0, max_matter)
 	qdel(cart)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	to_chat(user, SPAN_NOTICE("The RCD now holds [matter]/[max_matter] matter-units."))
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
@@ -470,7 +470,7 @@
 	if(prob(20))
 		spark_system.start()
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	to_chat(user, SPAN_NOTICE("You change [src]'s mode to '[choice]'."))
 
 /obj/item/rcd/activate_self(mob/user)
 	if(..())
@@ -553,7 +553,7 @@
 
 		if("set_lock")
 			if(!allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, SPAN_WARNING("Access denied."))
 				return FALSE
 			locked = params["new_lock"] == "lock" ? TRUE : FALSE
 
@@ -622,9 +622,9 @@
 			return ITEM_INTERACT_COMPLETE
 
 	if(mode == MODE_DECON)
-		to_chat(user, "<span class='warning'>You can't deconstruct that!</span>")
+		to_chat(user, SPAN_WARNING("You can't deconstruct that!"))
 	else
-		to_chat(user, "<span class='warning'>Location unsuitable for construction.</span>")
+		to_chat(user, SPAN_WARNING("Location unsuitable for construction."))
 
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
@@ -690,7 +690,7 @@
  * Creates a delayed explosion centered around the RCD.
  */
 /obj/item/rcd/proc/detonate_pulse()
-	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
+	audible_message(SPAN_DANGER("<b>[src] begins to vibrate and buzz loudly!</b>"), SPAN_DANGER("<b>[src] begins vibrating violently!</b>"))
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 

@@ -33,20 +33,20 @@
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/user)
 	if(opened)
-		to_chat(user, "<span class='notice'>Close the locker first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the locker first."))
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
+		to_chat(user, SPAN_WARNING("The locker appears to be broken."))
 		return
 	if(user.loc == src)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		to_chat(user, SPAN_NOTICE("You can't reach the lock from inside."))
 		return
 	if(allowed(user))
 		locked = !locked
-		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
+		visible_message(SPAN_NOTICE("The locker has been [locked ? null : "un"]locked by [user]."))
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		to_chat(user, SPAN_NOTICE("Access Denied."))
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
@@ -62,7 +62,7 @@
 		broken = TRUE
 		locked = FALSE
 		flick_overlay_view(image(icon, src, "sparking"), src, 1 SECONDS)
-		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You break the lock on [src]."))
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS) // Update the icon so the lock actually appears broken
 		return TRUE
 
@@ -83,9 +83,9 @@
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)</span>")
+	to_chat(L, SPAN_WARNING("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)"))
 	for(var/mob/O in viewers(src))
-		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
+		O.show_message(SPAN_DANGER("[src] begins to shake violently!"), 1)
 
 
 	spawn(0)
@@ -103,9 +103,9 @@
 			locked = FALSE
 			welded = FALSE
 			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
+			to_chat(usr, SPAN_WARNING("You successfully break out!"))
 			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+				O.show_message(SPAN_DANGER("\the [usr] successfully broke out of \the [src]!"), 1)
 			if(istype(loc, /obj/structure/big_delivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
 				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)

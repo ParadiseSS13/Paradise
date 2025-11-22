@@ -764,7 +764,7 @@
 	. = list()
 	if(!length(contents))
 		. += "There are no shells in the box."
-		. += "<span class='notice'>Ctrl-click to open or close the box!</span>"
+		. += SPAN_NOTICE("Ctrl-click to open or close the box!")
 		return
 
 	var/list/shell_list = list() // Associated list of all shells in the box
@@ -776,7 +776,7 @@
 			. += "There is one [thing] in the box."
 		else
 			. += "There are [shell_list[thing]] [thing]s in the box."
-	. += "<span class='notice'>Ctrl-click to open or close the box!</span>"
+	. += SPAN_NOTICE("Ctrl-click to open or close the box!")
 
 /obj/item/storage/fancy/shell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!is_pen(W))
@@ -786,12 +786,12 @@
 	if(!switchDesign)
 		return
 	if(we_are_open)
-		to_chat(user, "<span class='warning'>Close the box first!</span>")
+		to_chat(user, SPAN_WARNING("Close the box first!"))
 		return
 	if(get_dist(user, src) > 1 && !user.incapacitated())
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		to_chat(user, SPAN_WARNING("You have moved too far away!"))
 		return
-	to_chat(user, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+	to_chat(user, SPAN_NOTICE("You make some modifications to [src] using your pen."))
 	switch(switchDesign)
 		if(TRANQ)
 			icon_state = "tranqbox"
@@ -1215,30 +1215,30 @@
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
-			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
+			to_chat(user, SPAN_WARNING("You can't modify [src] with items still inside!"))
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
 		var/switchDesign = tgui_input_list(user, "Select a Design", "Paper Sack Design", designs)
 		if(!switchDesign)
 			return
 		if(get_dist(usr, src) > 1 && !usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+			to_chat(usr, SPAN_WARNING("You have moved too far away!"))
 			return
 		if(design == switchDesign)
 			return
-		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		to_chat(usr, SPAN_NOTICE("You make some modifications to [src] using your pen."))
 		design = switchDesign
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(W.sharp)
 		if(!length(contents))
 			if(icon_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
+				to_chat(user, SPAN_NOTICE("You cut eyeholes into [src]."))
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
 				return
 			else if(icon_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
+				to_chat(user, SPAN_NOTICE("You cut eyeholes into [src] and modify the design."))
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
 				return
@@ -1400,14 +1400,14 @@
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(SPAN_SUICIDE("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return (BRUTELOSS)
 
 /obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] hugs \the [src]."),SPAN_NOTICE("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"

@@ -41,7 +41,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
+			to_chat(C, SPAN_DEBUG("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(GLOB.configuration.logging.game_logging)
@@ -235,7 +235,7 @@ GLOBAL_PROTECT(log_end)
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
-		to_chat(world, "<span class='danger'>[message]</span>")
+		to_chat(world, SPAN_DANGER("[message]"))
 		log_world(message)
 
 /* For logging round startup. */

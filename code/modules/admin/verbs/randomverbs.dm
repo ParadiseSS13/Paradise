@@ -40,9 +40,9 @@
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_JUMPSUIT)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_SHOES)
 		spawn(50)
-			to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
+			to_chat(M, SPAN_WARNING("You have been sent to the prison station!"))
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.</span>", 1)
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] sent [key_name_admin(M)] to the prison station."), 1)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Prison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
@@ -67,7 +67,7 @@
 				to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
-	message_admins("<span class='boldnotice'>Subtle Message: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>", 1)
+	message_admins(SPAN_BOLDNOTICE("Subtle Message: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]"), 1)
 	M.create_log(MISC_LOG, "Subtle Message: [msg]", "From: [key_name_admin(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Subtle Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -134,7 +134,7 @@
 	msg = admin_pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
-	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
+	message_admins(SPAN_BOLDNOTICE("GlobalNarrate: [key_name_admin(usr)]: [msg]<BR>"), 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
@@ -157,7 +157,7 @@
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
-	message_admins("<span class='boldnotice'>Direct Narrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<br></span>", 1)
+	message_admins(SPAN_BOLDNOTICE("Direct Narrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<br>"), 1)
 	M.create_log(MISC_LOG, "Direct Narrate: [msg]", "From: [key_name_admin(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -208,7 +208,7 @@
 		return
 
 	M.status_flags ^= GODMODE
-	to_chat(usr, "<span class='notice'>Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]</span>")
+	to_chat(usr, SPAN_NOTICE("Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"))
 
 	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
 	message_admins("[key_name_admin(usr)] has toggled [key_name_admin(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]", 1)
@@ -304,18 +304,18 @@
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
-				to_chat(g, "<span class='danger'>The Administrators have disabled AntagHUD.</span>")
+				to_chat(g, SPAN_DANGER("The Administrators have disabled AntagHUD."))
 		GLOB.configuration.general.allow_antag_hud = FALSE
-		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
+		to_chat(src, SPAN_DANGER("AntagHUD usage has been disabled"))
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
-				to_chat(g, "<span class='boldnotice'>The Administrators have enabled AntagHUD.</span>")// Notify all observers they can now use AntagHUD
+				to_chat(g, SPAN_BOLDNOTICE("The Administrators have enabled AntagHUD."))// Notify all observers they can now use AntagHUD
 
 		GLOB.configuration.general.allow_antag_hud = TRUE
 		action = "enabled"
-		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
+		to_chat(src, SPAN_BOLDNOTICE("AntagHUD usage has been enabled"))
 
 
 	log_admin("[key_name(usr)] has [action] antagHUD usage for observers")
@@ -336,19 +336,19 @@
 	var/action=""
 	if(GLOB.configuration.general.restrict_antag_hud_rejoin)
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
+			to_chat(g, SPAN_BOLDNOTICE("The administrator has lifted restrictions on joining the round if you use AntagHUD"))
 		action = "lifted restrictions"
 		GLOB.configuration.general.restrict_antag_hud_rejoin = FALSE
-		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
+		to_chat(src, SPAN_BOLDNOTICE("AntagHUD restrictions have been lifted"))
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
-			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions.</span>")
+			to_chat(g, SPAN_DANGER("The administrator has placed restrictions on joining the round if you use AntagHUD"))
+			to_chat(g, SPAN_DANGER("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."))
 			g.antagHUD = FALSE
 			GLOB.antag_hud_users -= g.ckey
 		action = "placed restrictions"
 		GLOB.configuration.general.restrict_antag_hud_rejoin = TRUE
-		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
+		to_chat(src, SPAN_DANGER("AntagHUD restrictions have been enabled"))
 
 	log_admin("[key_name(usr)] has [action] on joining the round if they use AntagHUD")
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
@@ -402,7 +402,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
 				new_xeno.key = G_found.key
 				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
-				message_admins("<span class='notice'>[key_name_admin(usr)] has respawned [new_xeno.key] as a filthy xeno.</span>", 1)
+				message_admins(SPAN_NOTICE("[key_name_admin(usr)] has respawned [new_xeno.key] as a filthy xeno."), 1)
 				return	//all done. The ghost is auto-deleted
 
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
@@ -513,7 +513,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(alert(new_character,"Would you like an active AI to announce this character?", null,"No","Yes")=="Yes")
 				call(TYPE_PROC_REF(/mob/new_player, AnnounceArrival))(new_character, new_character.mind.assigned_role)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has respawned [key_name_admin(G_found)] as [new_character.real_name].</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has respawned [key_name_admin(G_found)] as [new_character.real_name]."), 1)
 
 	to_chat(new_character, "You have been fully respawned. Enjoy the game.")
 
@@ -554,7 +554,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else			return 0
 
 	new_xeno.ckey = ckey
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned [ckey] as a filthy xeno [alien_caste].</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has spawned [ckey] as a filthy xeno [alien_caste]."), 1)
 	return 1
 
 
@@ -617,7 +617,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	M.revive()
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
-	message_admins("<span class='warning'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)]!</span>", 1)
+	message_admins(SPAN_WARNING("Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)]!"), 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvenate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_create_centcom_report()
@@ -710,7 +710,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSjobs)
 		var/currentpositiontally
 		var/totalpositiontally
-		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>")
+		to_chat(src, SPAN_NOTICE("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"))
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
@@ -812,7 +812,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			mob.gib()
 
 		log_admin("[key_name(usr)] used gibself.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] used gibself.</span>", 1)
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] used gibself."), 1)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gibself") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
@@ -840,7 +840,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		view = world.view
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
-	//message_admins("<span class='notice'>[key_name_admin(usr)] changed their view range to [view].</span>", 1)	//why? removed by order of XSI
+	//message_admins(SPAN_NOTICE("[key_name_admin(usr)] changed their view range to [view]."), 1)	//why? removed by order of XSI
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -870,7 +870,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Call Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
+	message_admins(SPAN_ADMINNOTICE("[key_name_admin(usr)] admin-called the emergency shuttle."))
 	return
 
 /client/proc/admin_cancel_shuttle()
@@ -898,7 +898,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
+	message_admins(SPAN_ADMINNOTICE("[key_name_admin(usr)] admin-recalled the emergency shuttle."))
 	return
 
 /client/proc/admin_deny_shuttle()
@@ -920,7 +920,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(alert == "Allow")
 		if(!length(SSshuttle.hostile_environments))
-			to_chat(usr, "<span class='notice'>No hostile environments found, cleared for takeoff!</span>")
+			to_chat(usr, SPAN_NOTICE("No hostile environments found, cleared for takeoff!"))
 			return
 		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
 			SSshuttle.hostile_environments.Cut()
@@ -940,7 +940,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(usr, "<span class='danger'>Attack Log for [mob]</span>")
+	to_chat(usr, SPAN_DANGER("Attack Log for [mob]"))
 	for(var/t in M.attack_log_old)
 		to_chat(usr, t)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Attack Log") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -973,7 +973,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("Admin [key_name_admin(usr)] has forced the players to have random appearances.", 1)
 
 	if(notifyplayers == "Yes")
-		to_chat(world, "<span class='notice'><b>Admin [usr.key] has forced the players to have completely random identities!</b></span>")
+		to_chat(world, SPAN_NOTICE("<b>Admin [usr.key] has forced the players to have completely random identities!</b>"))
 
 	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.")
 
@@ -1123,12 +1123,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = FALSE
-		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
+		to_chat(usr, SPAN_NOTICE("ERT has been <b>Enabled</b>."))
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
 		SSticker.mode.ert_disabled = TRUE
-		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
+		to_chat(usr, SPAN_WARNING("ERT has been <b>Disabled</b>."))
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
 
@@ -1171,7 +1171,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /datum/admins/proc/modify_goals()
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
+		to_chat(usr, SPAN_WARNING("This verb can only be used if the round has started."))
 		return
 
 	var/list/dat = list("<!DOCTYPE html>")

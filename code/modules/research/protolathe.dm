@@ -89,7 +89,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return ITEM_INTERACT_COMPLETE
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

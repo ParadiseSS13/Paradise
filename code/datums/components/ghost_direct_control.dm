@@ -63,7 +63,7 @@
 	var/mob/living/our_mob = parent
 	if(our_mob.stat == DEAD || our_mob.key || awaiting_ghosts)
 		return
-	examine_text += "<span class='boldnotice'>You could take control of this mob by clicking on it.</span>"
+	examine_text += SPAN_BOLDNOTICE("You could take control of this mob by clicking on it.")
 
 /// Send out a request for a brain
 /datum/component/ghost_direct_control/proc/request_ghost_control(poll_question, role_name, poll_length)
@@ -95,10 +95,10 @@
 	if(!hopeful_ghost.client)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(awaiting_ghosts)
-		to_chat(hopeful_ghost, "<span class='warning'>Ghost candidate selection currently in progress!</span>")
+		to_chat(hopeful_ghost, SPAN_WARNING("Ghost candidate selection currently in progress!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(!SSticker.HasRoundStarted())
-		to_chat(hopeful_ghost, "<span class='warning'>You cannot assume control of this until after the round has started!</span>")
+		to_chat(hopeful_ghost, SPAN_WARNING("You cannot assume control of this until after the round has started!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	INVOKE_ASYNC(src, PROC_REF(attempt_possession), our_mob, hopeful_ghost)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -113,17 +113,17 @@
 /// Grant possession of our mob, component is now no longer required
 /datum/component/ghost_direct_control/proc/assume_direct_control(mob/harbinger)
 	if(QDELETED(src))
-		to_chat(harbinger, "<span class='warning'>Offer to possess creature has expired!</span>")
+		to_chat(harbinger, SPAN_WARNING("Offer to possess creature has expired!"))
 		return
 	if(jobban_isbanned(harbinger, ban_type) || jobban_isbanned(harbinger, ROLE_SENTIENT) || (is_antag_spawner && jobban_isbanned(harbinger, ROLE_SYNDICATE)))
-		to_chat(harbinger, "<span class='warning'>You are banned from playing as this role!</span>")
+		to_chat(harbinger, SPAN_WARNING("You are banned from playing as this role!"))
 		return
 	var/mob/living/new_body = parent
 	if(new_body.stat == DEAD)
-		to_chat(harbinger, "<span class='warning'>This body has passed away, it is of no use!</span>")
+		to_chat(harbinger, SPAN_WARNING("This body has passed away, it is of no use!"))
 		return
 	if(new_body.key)
-		to_chat(harbinger, "<span class='warning'>[parent] has already become sapient!</span>")
+		to_chat(harbinger, SPAN_WARNING("[parent] has already become sapient!"))
 		qdel(src)
 		return
 	if(extra_control_checks && !extra_control_checks.Invoke(harbinger))
@@ -142,6 +142,6 @@
 	// This proc is called the very moment .key is set, so we need to force mind to initialize here if we want the invoke to affect the mind of the mob
 	if(isnull(harbinger.mind))
 		harbinger.mind_initialize()
-	to_chat(harbinger, "<span class='boldnotice'>[assumed_control_message]</span>")
+	to_chat(harbinger, SPAN_BOLDNOTICE("[assumed_control_message]"))
 	after_assumed_control?.Invoke(harbinger)
 	qdel(src)

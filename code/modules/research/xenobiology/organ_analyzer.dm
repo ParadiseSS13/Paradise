@@ -67,7 +67,7 @@
 /obj/machinery/organ_analyzer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(processing_organ || contains_organ)
-		to_chat(user, "<span class='warning'>The machine cannot be opened while holding an organ! Remove it first.</span>")
+		to_chat(user, SPAN_WARNING("The machine cannot be opened while holding an organ! Remove it first."))
 		return TRUE
 	default_deconstruction_screwdriver(user, "organ_analyzer1", "organ_analyzer0", I)
 
@@ -79,13 +79,13 @@
 
 /obj/machinery/organ_analyzer/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
+		to_chat(user, SPAN_WARNING("You can't interact with the machine while the panel is open!"))
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(contains_organ)
 		if(processing_organ)
-			to_chat(user, "<span class='warning'>The machine is already analyzing the organ!</span>")
+			to_chat(user, SPAN_WARNING("The machine is already analyzing the organ!"))
 			return
 		else
 			COOLDOWN_START(src, process_organ, time_to_complete)
@@ -95,16 +95,16 @@
 
 /obj/machinery/organ_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/organ/internal))
-		to_chat(user, "<span class='warning'>The machines rejects [used]; it finds no possible potential in it.</span>")
+		to_chat(user, SPAN_WARNING("The machines rejects [used]; it finds no possible potential in it."))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
+		to_chat(user, SPAN_WARNING("You can't interact with the machine while the panel is open!"))
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/organ/internal/organ = used
 	if(organ.is_xeno_organ)
 		if(organ.type in GLOB.scanned_organs)
 			if(GLOB.scanned_organs[organ.type] >= 3) // No more than
-				to_chat(user, "<span class='warning'>The analyzer rejects the organ. It's gotten as much data as it can from this type of organ.</span>")
+				to_chat(user, SPAN_WARNING("The analyzer rejects the organ. It's gotten as much data as it can from this type of organ."))
 				return ITEM_INTERACT_COMPLETE
 			else
 				GLOB.scanned_organs[organ.type]++
@@ -119,10 +119,10 @@
 
 /obj/machinery/organ_analyzer/AltClick(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
+		to_chat(user, SPAN_WARNING("You can't interact with the machine while the panel is open!"))
 		return
 	if(processing_organ)
-		to_chat(user, "<span class='warning'>You cannot remove an organ currently being processed!</span>")
+		to_chat(user, SPAN_WARNING("You cannot remove an organ currently being processed!"))
 		return
 	if(contains_organ)
 		user.put_in_hands(contains_organ)

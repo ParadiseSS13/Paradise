@@ -24,7 +24,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/examine()
 	. = ..()
-	. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.</span>"
+	. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.")
 
 /obj/item/clothing/glasses/hud/tajblind/activate_self(mob/user)
 	if(..())
@@ -69,7 +69,7 @@
 		return
 	if(electronics)
 		electronics = FALSE
-		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) != src)
 			hud_types = null
 			return
@@ -79,7 +79,7 @@
 		hud_types = null
 		return
 	electronics = TRUE
-	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 	hud_types = list(initial(hud_types))
 	if(user.get_item_by_slot(ITEM_SLOT_EYES) != src)
 		return
@@ -93,7 +93,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has an optical meson scanner integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
@@ -101,13 +101,13 @@
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 			user.update_sight()
-		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
 	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		user.update_sight()
-	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -131,17 +131,17 @@
 
 /obj/item/clothing/glasses/hud/tajblind/sci/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has science goggles integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/sci/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
 		scan_reagents = FALSE
-		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
 	scan_reagents = TRUE
-	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -154,7 +154,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/med/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a health HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "\improper Tajaran security veil"
@@ -163,7 +163,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a security HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/skill
 	name = "\improper Tajaran skills veil"
@@ -172,7 +172,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/skill/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a skill HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a skill HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/jani
 	name = "\improper Tajaran janitorial veil"
@@ -181,7 +181,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/jani/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a janitorial HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a janitorial HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/diag
 	name = "\improper Tajaran diagnostics veil"
@@ -190,7 +190,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/diag/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a diagnostics HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a diagnostics HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/hydro
 	name = "\improper Tajaran hydroponics veil"
@@ -199,7 +199,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/hydro/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a hydroponics HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a hydroponics HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded
 	name = "shaded Tajaran veil"
@@ -208,7 +208,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has an in-built flash protection.</span>"
+	desc += "<br>[SPAN_NOTICE("It has an in-built flash protection.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
@@ -216,7 +216,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has an optical meson scanner integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
@@ -224,13 +224,13 @@
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 			user.update_sight()
-		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
 	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		user.update_sight()
-	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -254,17 +254,17 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has science goggles integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
 		scan_reagents = FALSE
-		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
 	scan_reagents = TRUE
-	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -277,7 +277,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a health HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
@@ -287,7 +287,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a security HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/skill
 	name = "shaded Tajaran skills veil"
@@ -296,7 +296,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/skill/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a skill HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a skill HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/jani
 	name = "shaded Tajaran janitorial veil"
@@ -305,7 +305,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/jani/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a janitorial HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a janitorial HUD integrated into it.")]"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/diag
 	name = "shaded Tajaran diagnostics veil"
@@ -314,7 +314,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/diag/Initialize(mapload)
 	. = ..()
-	desc += "<br><span class='notice'>It has a diagnostics HUD integrated into it.</span>"
+	desc += "<br>[SPAN_NOTICE("It has a diagnostics HUD integrated into it.")]"
 
 #undef MODE_OFF
 #undef MODE_NATURAL

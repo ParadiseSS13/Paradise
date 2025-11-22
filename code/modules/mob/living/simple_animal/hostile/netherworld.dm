@@ -17,17 +17,17 @@
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		. += "A direct link to another dimension full of creatures very happy to see you. <span class='nicegreen'>You can see your house from here!</span>"
+		. += "A direct link to another dimension full of creatures very happy to see you. [SPAN_NICEGREEN("You can see your house from here!")]"
 	else
-		. += "A direct link to another dimension full of creatures not very happy to see you. <span class='warning'>Entering the link would be a very bad idea.</span>"
+		. += "A direct link to another dimension full of creatures not very happy to see you. [SPAN_WARNING("Entering the link would be a very bad idea.")]"
 
 /obj/structure/spawner/nether/attack_hand(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		to_chat(user, "<span class='notice'>You don't feel like going home yet...</span>")
+		to_chat(user, SPAN_NOTICE("You don't feel like going home yet..."))
 	else
-		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
-							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
+		user.visible_message(SPAN_WARNING("[user] is violently pulled into the link!"), \
+							SPAN_USERDANGER("Touching the portal, you are quickly pulled through into a world of unimaginable horror!"))
 		contents.Add(user)
 
 /obj/structure/spawner/nether/process()
@@ -41,7 +41,7 @@
 				blank = new(loc)
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
-				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
+				visible_message(SPAN_WARNING("[M] reemerges from the link!"))
 				blank.held_body = M
 				M.forceMove(blank)
 

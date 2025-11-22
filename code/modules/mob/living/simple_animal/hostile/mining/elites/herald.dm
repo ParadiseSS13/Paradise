@@ -75,25 +75,25 @@
 /datum/action/innate/elite_attack/herald_trishot
 	name = "Triple Shot"
 	button_icon_state = "herald_trishot"
-	chosen_message = "<span class='boldwarning'>You are now firing three shots in your chosen direction.</span>"
+	chosen_message = SPAN_BOLDWARNING("You are now firing three shots in your chosen direction.")
 	chosen_attack_num = HERALD_TRISHOT
 
 /datum/action/innate/elite_attack/herald_directionalshot
 	name = "Circular Shot"
 	button_icon_state = "herald_directionalshot"
-	chosen_message = "<span class='boldwarning'>You are firing projectiles in all directions.</span>"
+	chosen_message = SPAN_BOLDWARNING("You are firing projectiles in all directions.")
 	chosen_attack_num = HERALD_DIRECTIONALSHOT
 
 /datum/action/innate/elite_attack/herald_teleshot
 	name = "Teleport Shot"
 	button_icon_state = "herald_teleshot"
-	chosen_message = "<span class='boldwarning'>You will now fire a shot which teleports you where it lands.</span>"
+	chosen_message = SPAN_BOLDWARNING("You will now fire a shot which teleports you where it lands.")
 	chosen_attack_num = HERALD_TELESHOT
 
 /datum/action/innate/elite_attack/herald_mirror
 	name = "Summon Mirror"
 	button_icon_state = "herald_mirror"
-	chosen_message = "<span class='boldwarning'>You will spawn a mirror which duplicates your attacks.</span>"
+	chosen_message = SPAN_BOLDWARNING("You will spawn a mirror which duplicates your attacks.")
 	chosen_attack_num = HERALD_MIRROR
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/OpenFire()
@@ -299,23 +299,23 @@
 		starting_mirror = i
 
 	if(!found_mirror)
-		to_chat(usr, "<span class='warning'>You are not close enough to a working mirror to teleport!</span>")
+		to_chat(usr, SPAN_WARNING("You are not close enough to a working mirror to teleport!"))
 		return
 	var/input_mirror = tgui_input_list(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to", mirrors_to_use)
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
-	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
-			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
+	usr.visible_message(SPAN_WARNING("[usr] starts to crawl into [starting_mirror]..."), \
+			SPAN_NOTICE("You start to crawl into the [starting_mirror]..."))
 	if(do_after(usr, 2 SECONDS, target = usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
-		usr.visible_message("<span class='warning'>[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!</span>", \
-			"<span class='notice'>You crawl into the [starting_mirror]...</span>")
+		usr.visible_message(SPAN_WARNING("[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!"), \
+			SPAN_NOTICE("You crawl into the [starting_mirror]..."))
 		usr.forceMove(destination)
-		usr.visible_message("<span class='warning'>[usr] crawls out of [chosen], causing it to shatter!</span>", \
-			"<span class='warning'>You crawl out of your own reflection, shattering the mirror!</span>")
+		usr.visible_message(SPAN_WARNING("[usr] crawls out of [chosen], causing it to shatter!"), \
+			SPAN_WARNING("You crawl out of your own reflection, shattering the mirror!"))
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")

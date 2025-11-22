@@ -34,5 +34,5 @@ Bonus
 			if(M.reagents.get_reagent_amount("salbutamol") < 20)
 				M.reagents.add_reagent("salbutamol", 20)
 		else
-			to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]</span>")
+			to_chat(M, SPAN_NOTICE("[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]"))
 	return

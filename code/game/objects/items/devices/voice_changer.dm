@@ -27,7 +27,7 @@
 /obj/item/voice_changer/attack_self__legacy__attackchain(mob/user)
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
-	to_chat(user, "<span class='notice'>You toggle [src] [active ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You toggle [src] [active ? "on" : "off"]."))
 
 	update_action_buttons()
 
@@ -35,11 +35,11 @@
 	var/chosen_voice = tgui_input_text(user, "What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer")
 	if(!chosen_voice)
 		voice = null
-		to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")
+		to_chat(user, SPAN_NOTICE("You are now mimicking the voice on your ID card."))
 		return
 
 	voice = sanitize_for_ic(copytext_char(chosen_voice, 1, MAX_MESSAGE_LEN))
-	to_chat(user, "<span class='notice'>You are now mimicking <b>[voice]</b>.</span>")
+	to_chat(user, SPAN_NOTICE("You are now mimicking <b>[voice]</b>."))
 
 /obj/item/voice_changer/voice_modulator
 	name = "voice modulator"

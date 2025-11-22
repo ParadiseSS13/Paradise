@@ -584,7 +584,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
+		user.visible_message(SPAN_WARNING("[user] disables the [src]'s safeties'."), SPAN_WARNING("You disable the [src]'s safeties'."))
 	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap

@@ -106,7 +106,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		return
 
 	if(GLOB.announcing_vox > world.time)
-		to_chat(src, "<span class='warning'>Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds.</span>")
+		to_chat(src, SPAN_WARNING("Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds."))
 		return
 
 	var/message = tgui_input_text(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement)
@@ -134,7 +134,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 			incorrect_words += word
 
 	if(length(incorrect_words))
-		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
+		to_chat(src, SPAN_WARNING("These words are not available on the announcement system: [english_list(incorrect_words)]."))
 		return
 
 	GLOB.announcing_vox = world.time + VOX_DELAY

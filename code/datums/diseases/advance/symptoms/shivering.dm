@@ -26,7 +26,7 @@ Bonus
 
 /datum/symptom/shivering/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
+	to_chat(M, SPAN_WARNING("[pick("You feel cold.", "You start shivering.")]"))
 	M.emote("shiver")
 	if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
 		Chill(M, A)

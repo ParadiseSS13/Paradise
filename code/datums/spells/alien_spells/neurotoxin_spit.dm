@@ -3,8 +3,8 @@
 	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applying a small amount of stamina damage as well."
 	base_cooldown = 3 SECONDS
 	plasma_cost = 50
-	selection_activated_message		= "<span class='notice'><B>Your prepare some neurotoxin!</B></span>"
-	selection_deactivated_message	= "<span class='notice'><B>You swallow your prepared neurotoxin.</B></span>"
+	selection_activated_message		= SPAN_NOTICE("<B>Your prepare some neurotoxin!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("<B>You swallow your prepared neurotoxin.</B>")
 	var/neurotoxin_type = /obj/projectile/bullet/neurotoxin
 	action_icon_state = "alien_neurotoxin_0"
 

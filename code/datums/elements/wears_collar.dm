@@ -89,14 +89,14 @@
 	if(!istype(attacking_item, /obj/item/petcollar))
 		return NONE
 	if(locate(/obj/item/petcollar) in source)
-		to_chat(user, "<span class='warning'>[source] is already wearing a collar!</span>")
+		to_chat(user, SPAN_WARNING("[source] is already wearing a collar!"))
 		return COMPONENT_SKIP_AFTERATTACK
 
 	if(user.drop_item())
 		attacking_item.forceMove(source)
-		to_chat(user, "<span class='notice'>You put [attacking_item] around [source]'s neck.</span>")
+		to_chat(user, SPAN_NOTICE("You put [attacking_item] around [source]'s neck."))
 	else
-		to_chat(user, "<span class='warning'>[attacking_item] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[attacking_item] is stuck to your hand!"))
 
 	return COMPONENT_SKIP_AFTERATTACK
 

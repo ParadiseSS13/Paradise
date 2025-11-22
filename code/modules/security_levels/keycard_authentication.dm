@@ -40,7 +40,7 @@
 
 
 /obj/machinery/keycard_auth/attack_ai(mob/user)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, SPAN_WARNING("The station AI is not to interact with these devices."))
 	return
 
 /obj/machinery/keycard_auth/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -49,10 +49,10 @@
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!check_access(used))
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Access denied."))
 			return ITEM_INTERACT_COMPLETE
 		if(user == event_source?.triggered_by)
-			to_chat(user, "<span class='warning'>Identical body-signature detected. Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Identical body-signature detected. Access denied."))
 			return ITEM_INTERACT_COMPLETE
 		if(active)
 			//This is not the device that made the initial request. It is the device confirming the request.
@@ -66,7 +66,7 @@
 			return ITEM_INTERACT_COMPLETE
 		if(swiping)
 			if(event == "Emergency Response Team" && !ert_reason)
-				to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
+				to_chat(user, SPAN_WARNING("Supply a reason for calling the ERT first!"))
 				return ITEM_INTERACT_COMPLETE
 			triggered_by = user
 			SStgui.update_uis(src)
@@ -113,10 +113,10 @@
 	if(..())
 		return
 	if(busy)
-		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		to_chat(usr, SPAN_WARNING("This device is busy."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 		return
 	. = TRUE
 	switch(action)

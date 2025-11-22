@@ -5,13 +5,13 @@
 			var/obj/item/I = get_active_hand()
 			if(I)
 				uneq_active()
-				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
+				visible_message(SPAN_DANGER("[M] disarmed [src]!"), SPAN_USERDANGER("[M] has disabled [src]'s active module!"))
 				add_attack_logs(M, src, "alien disarmed")
 			else
 				adjustStaminaLoss(30) //Same as carbons, I guess?
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
-				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
+				visible_message(SPAN_DANGER("[M] forces back [src]!"), SPAN_USERDANGER("[M] forces back [src]!"))
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 	else
 		..()
@@ -41,7 +41,7 @@
 			cell.update_icon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
-			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
+			to_chat(user, SPAN_NOTICE("You remove \the [cell]."))
 			var/datum/robot_component/C = components["power cell"]
 			C.uninstall()
 			module?.update_cells(TRUE)
@@ -61,5 +61,5 @@
 	Confused(intensity * 4 SECONDS)
 	var/software_damage = (intensity * 40)
 	adjustStaminaLoss(software_damage)
-	to_chat(src, "<span class='warning'>Error: Optical sensors overstimulated.</span>")
+	to_chat(src, SPAN_WARNING("Error: Optical sensors overstimulated."))
 	..()

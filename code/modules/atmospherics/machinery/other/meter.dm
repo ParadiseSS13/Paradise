@@ -58,12 +58,12 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Measures the volume and temperature of the pipe under the meter.</span>"
+	. += SPAN_NOTICE("Measures the volume and temperature of the pipe under the meter.")
 	if(get_dist(user, src) > 3 && !(is_ai(user) || istype(user, /mob/dead)))
-		. += "<span class='boldnotice'>You are too far away to read it.</span>"
+		. += SPAN_BOLDNOTICE("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))
-		. += "<span class='danger'>The display is off.</span>"
+		. += SPAN_DANGER("The display is off.")
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_obj_air()
@@ -83,13 +83,13 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter/wrench_act(mob/living/user, obj/item/wrench/W)
 	// don't call parent here, we're kind of different
-	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to unfasten [src]..."))
 	if(!W.use_tool(src, user, volume = W.tool_volume))
 		return
 
 	user.visible_message(
 		"[user] unfastens [src].",
-		"<span class='notice'>You have unfastened [src].</span>",
+		SPAN_NOTICE("You have unfastened [src]."),
 		"You hear ratchet."
 	)
 	deconstruct(TRUE)
@@ -112,4 +112,4 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))

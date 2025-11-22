@@ -47,7 +47,7 @@
 	if(istype(exiter, /mob/living/basic/giant_spider) || isterrorspider(exiter))
 		return
 	if(isliving(exiter) && prob(50))
-		to_chat(exiter, "<span class='danger'>You get stuck in [src] for a moment.</span>")
+		to_chat(exiter, SPAN_DANGER("You get stuck in [src] for a moment."))
 		return COMPONENT_ATOM_BLOCK_EXIT
 	if(isprojectile(exiter) && prob(30))
 		return COMPONENT_ATOM_BLOCK_EXIT
@@ -94,7 +94,7 @@
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
-	visible_message("<span class='danger'>[src] splits open.</span>")
+	visible_message(SPAN_DANGER("[src] splits open."))
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return ..()

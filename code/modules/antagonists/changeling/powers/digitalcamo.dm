@@ -16,10 +16,10 @@
 	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
 		user.set_invisible(INVISIBILITY_MINIMUM)
-		to_chat(user, "<span class='notice'>We return to normal.</span>")
+		to_chat(user, SPAN_NOTICE("We return to normal."))
 	else
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
-		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
+		to_chat(user, SPAN_NOTICE("We distort our form to prevent AI-tracking."))
 		user.set_invisible(SEE_INVISIBLE_LIVING)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

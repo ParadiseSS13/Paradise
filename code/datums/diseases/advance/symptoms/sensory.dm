@@ -59,4 +59,4 @@ Bonus
 				M.reagents.add_reagent("oculine", 20)
 		else
 			if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-				to_chat(M, "<span class='notice'>[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]</span>")
+				to_chat(M, SPAN_NOTICE("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]"))

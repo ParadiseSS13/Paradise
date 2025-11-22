@@ -53,11 +53,11 @@
 				break
 
 	if(name)
-		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
-		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
-		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
+		to_chat(user, "[SPAN_NOTICE("Match found in station records: <b>[name]</b>")]<br>\
+		<i>Fingerprint:</i>[SPAN_NOTICE(" [fingerprint]")]<br>\
+		<i>Blood DNA:</i>[SPAN_NOTICE(" [dna]")]")
 	else
-		to_chat(user, "<span class='warning'>No match found in station records.</span>")
+		to_chat(user, SPAN_WARNING("No match found in station records."))
 
 /obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/print_forensic_report)
@@ -68,14 +68,14 @@
 /obj/item/detective_scanner/proc/print_scanner_report()
 	if(length(log) && !scanning)
 		scanning = TRUE
-		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
+		to_chat(usr, SPAN_NOTICE("Printing report, please wait..."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 
 		addtimer(CALLBACK(src, PROC_REF(make_paper), log), 10 SECONDS) // Create our paper
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, SPAN_WARNING("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(get_turf(src))
@@ -88,16 +88,16 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(P)
-		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+		to_chat(M, SPAN_NOTICE("Report printed. Log cleared."))
 
 
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), usr, SPAN_NOTICE("Scanner logs cleared.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, SPAN_WARNING("The scanner has no logs or is in use."))
 
 
 /obj/item/detective_scanner/attack__legacy__attackchain()
@@ -118,7 +118,7 @@
 		scanning = TRUE
 
 		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
-		"<span class='notice'>You scan [A]. The scanner is now analysing the results...</span>")
+		SPAN_NOTICE("You scan [A]. The scanner is now analysing the results..."))
 
 
 		// GATHER INFORMATION
@@ -172,7 +172,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='notice'><B>Prints:</B></span>")
+			add_log(SPAN_NOTICE("<B>Prints:</B>"))
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -180,7 +180,7 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log("<span class='notice'><B>Blood:</B></span>")
+			add_log(SPAN_NOTICE("<B>Blood:</B>"))
 			found_something = TRUE
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -188,7 +188,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='notice'><B>Fibers:</B></span>")
+			add_log(SPAN_NOTICE("<B>Fibers:</B>"))
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -196,7 +196,7 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='notice'><B>Reagents:</B></span>")
+			add_log(SPAN_NOTICE("<B>Reagents:</B>"))
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE
@@ -209,10 +209,10 @@
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [A]!</span>")
+				to_chat(holder, SPAN_NOTICE("Unable to locate any fingerprints, materials, fibers, or blood on [A]!"))
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning [A].</span>")
+				to_chat(holder, SPAN_NOTICE("You finish scanning [A]."))
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE

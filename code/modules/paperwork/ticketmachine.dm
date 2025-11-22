@@ -24,7 +24,7 @@
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		ticket.visible_message(SPAN_NOTICE("\the [ticket] disperses!"))
 		qdel(ticket)
 	tickets.Cut()
 	return ..()
@@ -32,12 +32,12 @@
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
 		return
-	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
+	to_chat(user, SPAN_WARNING("You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting."))
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		ticket.visible_message(SPAN_NOTICE("\the [ticket] disperses!"))
 		qdel(ticket)
 	tickets.Cut()
 	update_icon()
@@ -52,7 +52,7 @@
 		return
 	if(current_number && !(emagged) && tickets[current_number])
 		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-		ticket.audible_message("<span class='notice'>\the [tickets[current_number]] disperses!</span>")
+		ticket.audible_message(SPAN_NOTICE("\the [tickets[current_number]] disperses!"))
 		qdel(ticket)
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
@@ -60,7 +60,7 @@
 		atom_say("Now serving ticket #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
+			ticket.audible_message(SPAN_NOTICE("\the [tickets[current_number]] vibrates!"))
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
 /obj/machinery/door_control/ticket_machine_button
@@ -83,7 +83,7 @@
 				M.increment()
 				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 		flick("doorctrl-denied", src)
 
 /obj/machinery/door_control/ticket_machine_button/update_icon_state()
@@ -117,17 +117,17 @@
 /obj/machinery/ticket_machine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/hand_labeler_refill))
 		if(!(ticket_number >= max_number))
-			to_chat(user, "<span class='notice'>[src] refuses [used]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
+			to_chat(user, SPAN_NOTICE("[src] refuses [used]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
+		to_chat(user, SPAN_NOTICE("You start to refill [src]'s ticket holder (doing this will reset its ticket count!)."))
 		if(do_after(user, 30, target = src))
-			to_chat(user, "<span class='notice'>You insert [used] into [src] as it whirs nondescriptly.</span>")
+			to_chat(user, SPAN_NOTICE("You insert [used] into [src] as it whirs nondescriptly."))
 			user.drop_item()
 			qdel(used)
 			ticket_number = 0
 			current_number = 0
 			for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-				ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
+				ticket.audible_message(SPAN_NOTICE("\the [ticket] disperses!"))
 				qdel(ticket)
 			tickets.Cut()
 			max_number = initial(max_number)
@@ -138,10 +138,10 @@
 		var/obj/item/card/id/heldID = used
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
-			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
+			to_chat(user, SPAN_NOTICE("You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!"))
 			handle_maptext()
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
+		to_chat(user, SPAN_WARNING("You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -152,20 +152,20 @@
 /obj/machinery/ticket_machine/attack_hand(mob/living/carbon/user)
 	. = ..()
 	if(!ready)
-		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
+		to_chat(user,SPAN_WARNING("You press the button, but nothing happens..."))
 		return
 	if(!dispense_enabled)
-		to_chat(user, "<span class='warning'>[src] is disabled.</span>")
+		to_chat(user, SPAN_WARNING("[src] is disabled."))
 		return
 	if(ticket_number >= max_number)
-		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
+		to_chat(user,SPAN_WARNING("Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!"))
 		return
 	if((user.UID() in ticket_holders) && !(emagged))
-		to_chat(user, "<span class='warning'>You already have a ticket!</span>")
+		to_chat(user, SPAN_WARNING("You already have a ticket!"))
 		return
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 100, FALSE)
 	ticket_number ++
-	to_chat(user, "<span class='notice'>You take a ticket from [src], looks like you're ticket number #[ticket_number]...</span>")
+	to_chat(user, SPAN_NOTICE("You take a ticket from [src], looks like you're ticket number #[ticket_number]..."))
 	var/obj/item/ticket_machine_ticket/theirticket = new /obj/item/ticket_machine_ticket(get_turf(src))
 	theirticket.name = "Ticket #[ticket_number]"
 	theirticket.maptext = "<font color='#000000' face='Small Fonts'>[ticket_number]</font>"
@@ -190,7 +190,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+	. += SPAN_NOTICE("Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.")
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
@@ -215,13 +215,13 @@
 	..()
 	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
-								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
+			user.visible_message(SPAN_WARNING("[user] accidentally ignites [user.p_themselves()]!"), \
+								SPAN_USERDANGER("You miss the paper and accidentally light yourself on fire!"))
 			user.drop_item()
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message(SPAN_DANGER("[user] lights [src] ablaze with [P]!"), SPAN_DANGER("You light [src] on fire!"))
 		fire_act()
 
 /obj/item/paper/extinguish()

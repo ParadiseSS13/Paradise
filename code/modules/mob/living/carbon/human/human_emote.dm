@@ -53,7 +53,7 @@
 	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 			// no arms...
-			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+			to_chat(user, SPAN_WARNING("You need arms to be able to clap."))
 		else
 			// well, we've got at least one
 			user.visible_message("[user] makes the sound of one hand clapping.")
@@ -304,19 +304,19 @@
 /datum/emote/living/carbon/human/johnny/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
-		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
+		to_chat(user, SPAN_WARNING("You can't be that cool without a cigarette between your lips."))
 		return TRUE
 
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 
 	if(!cig.lit)
-		to_chat(user, "<span class='warning'>You have to light that [cig] first, cool cat.</span>")
+		to_chat(user, SPAN_WARNING("You have to light that [cig] first, cool cat."))
 		return TRUE
 
 	if(H.getOxyLoss() > 30)
 		user.visible_message(
-			"<span class='warning'>[user] gasps for air and swallows their cigarette!</span>",
-			"<span class='warning'>You gasp for air and accidentally swallow your [cig]!</span>"
+			SPAN_WARNING("[user] gasps for air and swallows their cigarette!"),
+			SPAN_WARNING("You gasp for air and accidentally swallow your [cig]!")
 		)
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
@@ -357,9 +357,9 @@
 	else
 		smacking_hand = new /obj/item/slapper(user)
 	if(user.put_in_hands(smacking_hand))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		to_chat(user, SPAN_NOTICE("You ready your slapping hand."))
 	else
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+		to_chat(user, SPAN_WARNING("You're incapable of slapping in your current state."))
 
 /datum/emote/living/carbon/human/wink
 	key = "wink"
@@ -408,16 +408,16 @@
 /datum/emote/living/carbon/human/highfive/payme/run_emote(mob/living/user, params, type_override, intentional)
 	var/obj/item/eftpos/eftpos = user.is_holding_item_of_type(/obj/item/eftpos)
 	if(!eftpos)
-		to_chat(user, "<span class='warning'>You must be holding an EFTPOS to do that!</span>")
+		to_chat(user, SPAN_WARNING("You must be holding an EFTPOS to do that!"))
 		return TRUE
 	if(!eftpos.can_offer)
-		to_chat(user, "<span class='warning'>[eftpos] is too bulky to hold out to someone!</span>")
+		to_chat(user, SPAN_WARNING("[eftpos] is too bulky to hold out to someone!"))
 		return TRUE
 	if(!eftpos.transaction_locked)
-		to_chat(user, "<span class='warning'>You must lock [eftpos] before it can accept payments.</span>")
+		to_chat(user, SPAN_WARNING("You must lock [eftpos] before it can accept payments."))
 		return TRUE
 	if(user.has_status_effect(status))
-		user.visible_message("<span class='notice'>[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card.</span>")
+		user.visible_message(SPAN_NOTICE("[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card."))
 		return TRUE
 
 	var/datum/result = set_status(user)
@@ -488,7 +488,7 @@
 		return TRUE
 
 	if(prob(5) && !HAS_TRAIT(user, TRAIT_COOL))
-		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
+		user.visible_message(SPAN_DANGER("<b>[user]</b> snaps [user.p_their()] fingers right off!"))
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
 	return ..()
@@ -517,10 +517,10 @@
 	var/fingers = round(text2num(params), 1)
 
 	if(fingers > 10)
-		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
+		to_chat(user, SPAN_WARNING("You don't have enough fingers!"))
 		return TRUE
 	else if(fingers < 0)
-		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.</span>")
+		to_chat(user, SPAN_WARNING("You're not entirely sure how to raise negative fingers."))
 		return TRUE
 
 	params = fingers

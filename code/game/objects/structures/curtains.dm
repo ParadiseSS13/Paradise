@@ -30,7 +30,7 @@
 	if(!istype(target, /obj/structure/window) && !istype(target, /turf/simulated/wall))
 		return
 	var/on_wall = get_turf(target)
-	to_chat(user, "<span class='notice'>You begin attaching [src] to [on_wall].</span>")
+	to_chat(user, SPAN_NOTICE("You begin attaching [src] to [on_wall]."))
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 3 SECONDS, target = on_wall))
 		return
@@ -39,13 +39,13 @@
 	curtain.fingerprintshidden = src.fingerprintshidden
 	curtain.fingerprintslast = src.fingerprintslast
 
-	user.visible_message("<span class='notice'>[user] attaches the [src] to [on_wall].</span>", \
-		"<span class='notice'>You attach the [src] to [on_wall].</span>")
+	user.visible_message(SPAN_NOTICE("[user] attaches the [src] to [on_wall]."), \
+		SPAN_NOTICE("You attach the [src] to [on_wall]."))
 	qdel(src)
 
 /obj/item/mounted/curtain/curtain_fixture/activate_self(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>You begin attaching [src] to the ceiling.</span>")
+	to_chat(user, SPAN_NOTICE("You begin attaching [src] to the ceiling."))
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 3 SECONDS, target = get_turf(user)))
 		return
@@ -54,22 +54,22 @@
 	curtain.fingerprintshidden = src.fingerprintshidden
 	curtain.fingerprintslast = src.fingerprintslast
 
-	user.visible_message("<span class='notice'>[user] attaches the [src] to the ceiling.</span>", \
-		"<span class='notice'>You attach the [src] to the ceiling.</span>")
+	user.visible_message(SPAN_NOTICE("[user] attaches the [src] to the ceiling."), \
+		SPAN_NOTICE("You attach the [src] to the ceiling."))
 	qdel(src)
 
 /obj/structure/curtain/examine(mob/user)
 	. = ..()
 
 	if(!assembled)
-		. += "<span class='notice'>Alt-Click to take it down.</span>"
+		. += SPAN_NOTICE("Alt-Click to take it down.")
 
 /obj/structure/curtain/AltClick(mob/user)
 	if(assembled)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
@@ -86,7 +86,7 @@
 	if(!assembled && istype(used, /obj/item/stack/sheet/cloth)) // Are we putting the cloth onto the assembly on the wall?
 		var/obj/item/stack/sheet/cloth/cloth_used = used
 		if(!cloth_used.use(2))
-			to_chat(user, "<span class='warning'> You need two sheets of cloth to hang the curtains.</span>")
+			to_chat(user, SPAN_WARNING(" You need two sheets of cloth to hang the curtains."))
 			return ITEM_INTERACT_COMPLETE
 
 		assembled = TRUE
@@ -153,24 +153,24 @@
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!assembled)
-		to_chat(user, "<span class='notice'>You should probably add some drapes to [src] before anchoring it in place...</span>")
+		to_chat(user, SPAN_NOTICE("You should probably add some drapes to [src] before anchoring it in place..."))
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='notice'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message(SPAN_NOTICE("[user] unscrews [src] from the floor."), SPAN_NOTICE("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && anchored)
 			anchored = FALSE
-			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+			to_chat(user, SPAN_NOTICE("You unscrew [src] from the floor."))
 	else
-		user.visible_message("<span class='notice'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message(SPAN_NOTICE("[user] screws [src] to the floor."), SPAN_NOTICE("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && !anchored)
 			anchored = TRUE
-			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+			to_chat(user, SPAN_NOTICE("You screw [src] to the floor."))
 
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
-		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> anchoring [src] before removing the drapes.</span>")
+		to_chat(user, SPAN_WARNING("You will need to undo the <b>screws</b> anchoring [src] before removing the drapes."))
 		return TRUE
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))

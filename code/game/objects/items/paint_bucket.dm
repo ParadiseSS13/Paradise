@@ -19,7 +19,7 @@
 	if(!is_open_container())
 		return ITEM_INTERACT_COMPLETE
 	if(istype(target) && reagents.total_volume >= 5)
-		user.visible_message("<span class='warning'>[target] has been splashed with something by [user]!</span>")
+		user.visible_message(SPAN_WARNING("[target] has been splashed with something by [user]!"))
 		spawn(5)
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.remove_any(5)

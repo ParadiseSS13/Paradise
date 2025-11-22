@@ -30,19 +30,19 @@
 		return
 
 	if(ismachineperson(C))
-		to_chat(user, "<span class='warning'>[user == C ? "You" : C] can't use [src]!</span>")
+		to_chat(user, SPAN_WARNING("[user == C ? "You" : C] can't use [src]!"))
 		return
 
 	if(user == C)
-		to_chat(user, "<span class='notice'>You apply [src].</span>")
+		to_chat(user, SPAN_NOTICE("You apply [src]."))
 	else
 		if(!instant_application)
-			C.visible_message("<span class='warning'>[user] attempts to force [C] to apply [src].</span>")
+			C.visible_message(SPAN_WARNING("[user] attempts to force [C] to apply [src]."))
 			if(!do_after(user, 3 SECONDS, TRUE, C, TRUE))
 				return
 
 		C.forceFedAttackLog(src, user)
-		C.visible_message("<span class='warning'>[user] forces [C] to apply [src].</span>")
+		C.visible_message(SPAN_WARNING("[user] forces [C] to apply [src]."))
 
 	if(user.get_active_hand() == src)
 		user.drop_item() // Only drop if they're holding the patch directly

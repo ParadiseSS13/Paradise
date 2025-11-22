@@ -226,7 +226,7 @@
 	var/mob/living/L = entered
 	var/damage = 50
 	if(L.stat == DEAD)
-		visible_message("<span class='danger'>[L] is disintegrated by the beam!</span>")
+		visible_message(SPAN_DANGER("[L] is disintegrated by the beam!"))
 		L.dust()
 	if(isliving(owner.origin))
 		var/mob/living/O = owner.origin
@@ -234,7 +234,7 @@
 			return
 		damage = 70 - ((O.health / O.maxHealth) * 20)
 	playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
-	to_chat(L, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
+	to_chat(L, SPAN_USERDANGER("You're struck by a disintegration laser!"))
 	var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	var/armor = L.run_armor_check(limb_to_hit, LASER)
 	L.apply_damage(damage, BURN, limb_to_hit, armor)

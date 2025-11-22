@@ -42,7 +42,7 @@
 
 /obj/item/painter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl+click it in your hand to change the type!</span>"
+	. += SPAN_NOTICE("Ctrl+click it in your hand to change the type!")
 
 
 /**
@@ -115,7 +115,7 @@
 
 
 /obj/item/painter/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, usesound, 50, TRUE)
 	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs") // not going to use an organ datum here, would be too easy for slime people to throw up their brains
 	var/turf/T = get_turf(user)
@@ -132,7 +132,7 @@
 	L.forceMove(T)
 
 	user.emote("scream")
-	user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [L.name]!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] vomits out [user.p_their()] [L.name]!"))
 	playsound(T, 'sound/effects/splat.ogg', 50, TRUE)
 
 	// make some vomit under the player, and apply colorful reagent

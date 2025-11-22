@@ -16,5 +16,5 @@ SUBSYSTEM_DEF(heartbeat)
 /datum/controller/subsystem/heartbeat/fire(resumed)
 	// If the last heartbeat is 0, we never got one this round
 	if(last_heartbeat != 0 && (last_heartbeat + 2 MINUTES < REALTIMEOFDAY) && !warning_tripped)
-		to_chat(GLOB.admins, "<hr><center><span class='userdanger'><big>--- CRITICAL ---</big></span><br>The server hasn't received an uptime check from the server daemon for over 2 minutes. Inform AA ASAP.</center><hr>")
+		to_chat(GLOB.admins, "<hr><center>[SPAN_USERDANGER("<big>--- CRITICAL ---</big>")]<br>The server hasn't received an uptime check from the server daemon for over 2 minutes. Inform AA ASAP.</center><hr>")
 		warning_tripped = TRUE

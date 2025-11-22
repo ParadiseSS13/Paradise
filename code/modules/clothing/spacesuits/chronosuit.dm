@@ -60,7 +60,7 @@
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
+				to_chat(user, SPAN_USERDANGER("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)

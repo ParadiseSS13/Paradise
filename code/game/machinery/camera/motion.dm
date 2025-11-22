@@ -53,7 +53,7 @@
 	if(status)
 		var/area/A = get_area(src)
 		GLOB.alarm_manager.trigger_alarm("Motion", A, A.cameras, src)
-		visible_message("<span class='warning'>A red light flashes on [src]!</span>")
+		visible_message(SPAN_WARNING("A red light flashes on [src]!"))
 	detectTime = -1
 	return TRUE
 

@@ -105,23 +105,23 @@ field_generator energy level display
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(active >= FG_CHARGING)
-				to_chat(user, "<span class='warning'>You are unable to turn off [src] once it is online!</span>")
+				to_chat(user, SPAN_WARNING("You are unable to turn off [src] once it is online!"))
 				return 1
 			else
 				user.visible_message("[user] turns on [src].", \
-					"<span class='notice'>You turn on [src].</span>", \
-					"<span class='italics'>You hear heavy droning.</span>")
+					SPAN_NOTICE("You turn on [src]."), \
+					SPAN_ITALICS("You hear heavy droning."))
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [user.key].", INVESTIGATE_SINGULO)
 
 				add_fingerprint(user)
 	else
-		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be firmly secured to the floor first!"))
 
 /obj/machinery/field/generator/wrench_act(mob/living/user, obj/item/W)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be off!"))
 		return
 	switch(state)
 		if(FG_UNSECURED)
@@ -129,23 +129,23 @@ field_generator energy level display
 			state = FG_SECURED
 			W.play_tool_sound(W, 75)
 			user.visible_message("[user.name] secures [name] to the floor.", \
-				"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
-				"<span class='italics'>You hear ratchet.</span>")
+				SPAN_NOTICE("You secure the external reinforcing bolts to the floor."), \
+				SPAN_ITALICS("You hear ratchet."))
 			anchored = TRUE
 		if(FG_SECURED)
 			state = FG_UNSECURED
 			W.play_tool_sound(W, 75)
 			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
-				"<span class='notice'>You undo the external reinforcing bolts.</span>", \
-				"<span class='italics'>You hear ratchet.</span>")
+				SPAN_NOTICE("You undo the external reinforcing bolts."), \
+				SPAN_ITALICS("You hear ratchet."))
 			anchored = FALSE
 		if(FG_WELDED)
-			to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
+			to_chat(user, SPAN_WARNING("[src] needs to be unwelded from the floor!"))
 
 /obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state == FG_UNSECURED)
-		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be wrenched to the floor!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -168,7 +168,7 @@ field_generator energy level display
 	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
 		state = FG_UNSECURED
 		anchored = FALSE
-		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+		M.visible_message(SPAN_WARNING("[M] rips [src] free from its moorings!"))
 	else
 		..()
 	if(!anchored)
@@ -226,7 +226,7 @@ field_generator energy level display
 		check_energy_level()
 		return TRUE
 	else
-		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message(SPAN_DANGER("[src] shuts down!"), SPAN_ITALICS("You hear something shutting down."))
 		turn_off()
 		investigate_log("ran out of energy and <font color='red'>deactivated</font>",INVESTIGATE_SINGULO)
 		energy = 0

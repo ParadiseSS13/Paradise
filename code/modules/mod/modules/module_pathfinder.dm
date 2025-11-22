@@ -27,9 +27,9 @@
 /obj/item/mod/module/pathfinder/examine(mob/user)
 	. = ..()
 	if(implant)
-		. += "<span class='notice'>Use it on a human to implant them.</span>"
+		. += SPAN_NOTICE("Use it on a human to implant them.")
 	else
-		. += "<span class='warning'>The implant is missing.</span>"
+		. += SPAN_WARNING("The implant is missing.")
 
 /obj/item/mod/module/pathfinder/attack__legacy__attackchain(mob/living/target, mob/living/user, params)
 	if(!ishuman(target) || !implant)
@@ -37,12 +37,12 @@
 	if(!do_after(user, 1.5 SECONDS, target = target))
 		return
 	if(!implant.implant(target, user))
-		to_chat(user, "<span class='warning'>Unable to implant [target]!</span>")
+		to_chat(user, SPAN_WARNING("Unable to implant [target]!"))
 		return
 	if(target == user)
-		to_chat(user, "<span class='notice'>You implant yourself with [implant].</span>")
+		to_chat(user, SPAN_NOTICE("You implant yourself with [implant]."))
 	else
-		target.visible_message("<span class='notice'>[user] implants [target].</span>", "<span class='notice'>[user] implants you with [implant].</span>")
+		target.visible_message(SPAN_NOTICE("[user] implants [target]."), SPAN_NOTICE("[user] implants you with [implant]."))
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"
 	implant = null
@@ -94,32 +94,32 @@
 /obj/item/bio_chip/mod/proc/recall()
 	target = get_turf(imp_in)
 	if(!module?.mod)
-		to_chat(imp_in, "<span class='warning'>Module is not attached to a suit!</span>")
+		to_chat(imp_in, SPAN_WARNING("Module is not attached to a suit!"))
 		return FALSE
 	if(module.mod.open)
-		to_chat(imp_in, "<span class='warning'>Suit is open!</span>")
+		to_chat(imp_in, SPAN_WARNING("Suit is open!"))
 		return FALSE
 	if(length(path))
-		to_chat(imp_in, "<span class='warning'>Suit is already on the way!</span>")
+		to_chat(imp_in, SPAN_WARNING("Suit is already on the way!"))
 		return FALSE
 	if(ismob(get_atom_on_turf(module.mod)))
-		to_chat(imp_in, "<span class='warning'>Suit is being worn!</span>")
+		to_chat(imp_in, SPAN_WARNING("Suit is being worn!"))
 		return FALSE
 	if(module.mod.loc != get_turf(module.mod))
-		to_chat(imp_in, "<span class='warning'>Suit contained inside of something!</span>")
+		to_chat(imp_in, SPAN_WARNING("Suit contained inside of something!"))
 		return FALSE
 	if(module.z != z || get_dist(imp_in, module.mod) > 150)
-		to_chat(imp_in, "<span class='warning'>Suit is too far away!</span>")
+		to_chat(imp_in, SPAN_WARNING("Suit is too far away!"))
 		return FALSE
 	if(!ishuman(imp_in)) //Need to be specific
-		to_chat(imp_in, "<span class='warning'>The implant does not recognize you as a known species!</span>")
+		to_chat(imp_in, SPAN_WARNING("The implant does not recognize you as a known species!"))
 		return FALSE
 	var/mob/living/carbon/human/H = imp_in
 	set_path(get_path_to(module.mod, target, 150, access = H?.wear_id.GetAccess(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
-		to_chat(H, "<span class='warning'>No viable path found!</span>")
+		to_chat(H, SPAN_WARNING("No viable path found!"))
 		return FALSE
-	to_chat(H, "<span class='notice'>Suit on route!</span>")
+	to_chat(H, SPAN_NOTICE("Suit on route!"))
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -138,7 +138,7 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		to_chat(imp_in, "<span class='warning'>Lost connection to suit!</span>")
+		to_chat(imp_in, SPAN_WARNING("Lost connection to suit!"))
 		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/bio_chip/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
@@ -231,7 +231,7 @@
 		return
 	var/obj/item/bio_chip/mod/implant = target
 	if(!COOLDOWN_FINISHED(src, recall_cooldown))
-		to_chat(usr, "<span class='warning'>On cooldown!</span>")
+		to_chat(usr, SPAN_WARNING("On cooldown!"))
 		return
 	if(implant.recall())
 		COOLDOWN_START(src, recall_cooldown, 15 SECONDS)

@@ -86,7 +86,7 @@
 	if(!istype(M))
 		return FALSE
 	if(!silent)
-		M.visible_message("<span class='notice'>[M] climbs into \the [src]!</span>")
+		M.visible_message(SPAN_NOTICE("[M] climbs into \the [src]!"))
 	M.forceMove(src)
 	add_occupant(M)
 	return TRUE
@@ -104,7 +104,7 @@
 		M.throw_at(target_turf, 5, 10)
 
 	if(!silent)
-		M.visible_message("<span class='notice'>[M] drops out of \the [src]!</span>")
+		M.visible_message(SPAN_NOTICE("[M] drops out of \the [src]!"))
 	return TRUE
 
 /obj/tgvehicle/sealed/proc/exit_location(M)
@@ -113,9 +113,9 @@
 /obj/tgvehicle/sealed/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(key_type && !is_key(inserted_key) && is_key(I))
 		if(I.flags & NODROP || !user.drop_item() || !I.forceMove(src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
 		if(inserted_key) // just in case there's an invalid key
 			inserted_key.forceMove(drop_location())
 		inserted_key = I
@@ -125,12 +125,12 @@
 
 /obj/tgvehicle/sealed/proc/remove_key(mob/user)
 	if(!inserted_key)
-		to_chat(user, "<span class='warning'>There is no key in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is no key in [src]!"))
 		return
 	if(!is_occupant(user) || !(occupants[user] & VEHICLE_CONTROL_DRIVE))
-		to_chat(user, "<span class='warning'>You must be driving [src] to remove [src]'s key!</span>")
+		to_chat(user, SPAN_WARNING("You must be driving [src] to remove [src]'s key!"))
 		return
-	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [inserted_key] from [src]."))
 	user.put_in_hands(inserted_key)
 	inserted_key = null
 

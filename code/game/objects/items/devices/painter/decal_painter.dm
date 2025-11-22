@@ -63,7 +63,7 @@
 
 /datum/painter/decal/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor))
-		to_chat(user, "<span class='warning'>[holder] can only be used on flooring.</span>")
+		to_chat(user, SPAN_WARNING("[holder] can only be used on flooring."))
 		return FALSE
 	var/turf/target_turf = get_turf(target)
 	var/list/datum/element/decal/decals = target_turf.get_decals()
@@ -71,7 +71,7 @@
 		remove_decals(target)
 		return TRUE
 	if(length(decals) >= max_decals)
-		to_chat(user, "<span class='warning'>You can't fit more decals on [target].</span>")
+		to_chat(user, SPAN_WARNING("You can't fit more decals on [target]."))
 		return FALSE
 
 	if(ispath(selected_type, /obj/effect/turf_decal))

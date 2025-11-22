@@ -30,28 +30,28 @@
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ("head")
 	if(held_item && !findtextEx(head.h_style, "Tentacles"))
-		owner.visible_message("<span class='notice'>[held_item] falls from [owner]'s [name]!</span>", "<span class='notice'>[held_item] falls from your [name]!</span>")
+		owner.visible_message(SPAN_NOTICE("[held_item] falls from [owner]'s [name]!"), SPAN_NOTICE("[held_item] falls from your [name]!"))
 		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
 	if(held_item)
-		owner.visible_message("<span class='notice'>[owner] removes [held_item] from [owner.p_their()] [name].</span>", "<span class='notice'>You remove [held_item] from your [name].</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] removes [held_item] from [owner.p_their()] [name]."), SPAN_NOTICE("You remove [held_item] from your [name]."))
 		owner.put_in_hands(held_item)
 		held_item = null
 		update_button_state()
 	else
 		var/obj/item/I = owner.get_active_hand()
 		if(!I)
-			to_chat(owner, "<span class='notice'>You're not holding anything in your main hand to put in your [name].</span>")
+			to_chat(owner, SPAN_NOTICE("You're not holding anything in your main hand to put in your [name]."))
 			return
 		if(istype(I, /obj/item/disk/nuclear))
-			to_chat(owner, "<span class='warning'>[I] slips out of your [name]!</span>")
+			to_chat(owner, SPAN_WARNING("[I] slips out of your [name]!"))
 			return
 		if(I.w_class > WEIGHT_CLASS_SMALL)
-			to_chat(owner, "<span class='notice'>[I] is too large to fit in your [name].</span>")
+			to_chat(owner, SPAN_NOTICE("[I] is too large to fit in your [name]."))
 			return
 		if(owner.unequip(I))
-			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
+			owner.visible_message(SPAN_NOTICE("[owner] places [I] into [owner.p_their()] [name]."), SPAN_NOTICE("You place [I] into your [name]."))
 			I.forceMove(src)
 			held_item = I
 			update_button_state()

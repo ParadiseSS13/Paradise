@@ -73,7 +73,7 @@
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	if(has_safety)
-		. += "<span class='notice'>The safety is [safety_active ? "on" : "off"].</span>"
+		. += SPAN_NOTICE("The safety is [safety_active ? "on" : "off"].")
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
@@ -95,7 +95,7 @@
 
 	safety_active = !safety_active
 	icon_state = "[base_icon_state][!safety_active]"
-	to_chat(user, "<span class='notice'>You [safety_active ? "enable" : "disable"] [src]'s safety.</span>")
+	to_chat(user, SPAN_NOTICE("You [safety_active ? "enable" : "disable"] [src]'s safety."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -118,16 +118,16 @@
 		return FALSE
 
 	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[src] is already full.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already full."))
 		return TRUE
 
 	var/obj/structure/reagent_dispensers/watertank/W = target
 	var/transferred = W.reagents.trans_to(src, reagent_capacity)
 	if(!transferred)
-		to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("\The [W] is empty!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
+	to_chat(user, SPAN_NOTICE("[src] has been refilled with [transferred] units."))
 	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	return TRUE
 
@@ -142,7 +142,7 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='danger'>[src] is empty.</span>")
+		to_chat(user, SPAN_DANGER("[src] is empty."))
 		return
 
 	if(A.loc == user)

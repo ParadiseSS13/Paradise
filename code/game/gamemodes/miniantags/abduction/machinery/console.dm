@@ -51,7 +51,7 @@
 	if(..())
 		return
 	if(!isabductor(user))
-		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
+		to_chat(user, SPAN_WARNING("You start mashing alien buttons at random!"))
 		if(do_after(user, 100, target = src))
 			TeleporterSend()
 		return
@@ -73,34 +73,34 @@
 		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</a><br>"
 		dat += "<a href='byond://?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</a><br>"
 	else
-		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
+		dat += "[SPAN_BAD("NO EXPERIMENT MACHINE DETECTED")] <br>"
 
 	if(pad)
-		dat += "<span class='bad'>Emergency Teleporter System.</span>"
-		dat += "<span class='bad'>Consider using primary observation console first.</span>"
+		dat += SPAN_BAD("Emergency Teleporter System.")
+		dat += SPAN_BAD("Consider using primary observation console first.")
 		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
 		if(gizmo && gizmo.marked)
 			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
-			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
+			dat += "[SPAN_LINKOFF("Retrieve Mark")]<br>"
 	else
-		dat += "<span class='bad'>NO TELEPAD DETECTED</span></br>"
+		dat += "[SPAN_BAD("NO TELEPAD DETECTED")]</br>"
 
 	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
 		if(mode == ABDUCTOR_VEST_STEALTH)
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</A>"
-			dat += "<span class='linkOff'>Stealth</span>"
+			dat += SPAN_LINKOFF("Stealth")
 		else
-			dat += "<span class='linkOff'>Combat</span>"
+			dat += SPAN_LINKOFF("Combat")
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</A>"
 
 		dat+="<br>"
 		dat += "<a href='byond://?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 		dat += "<a href='byond://?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
 	else
-		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
+		dat += SPAN_BAD("NO AGENT VEST DETECTED")
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
 	popup.open()
@@ -160,12 +160,12 @@
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
 	if(!istype(location))
-		to_chat(user, "<span class='warning'>That place is not safe for the specimen.</span>")
+		to_chat(user, SPAN_WARNING("That place is not safe for the specimen."))
 		return
 
 	if(pad)
 		pad.teleport_target = location
-		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
+		to_chat(user, SPAN_NOTICE("Location marked as test subject release point."))
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
@@ -220,10 +220,10 @@
 
 /obj/machinery/abductor/console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/abductor/gizmo) && AddGizmo(used))
-		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
+		to_chat(user, SPAN_NOTICE("You link the tool to the console."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
-		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
+		to_chat(user, SPAN_NOTICE("You link the vest to the console."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

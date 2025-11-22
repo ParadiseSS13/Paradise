@@ -18,12 +18,12 @@
 
 /obj/item/teleportation_scroll/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Number of uses: [uses]. This scroll will vanish after the final use.</span>"
-	. += "<span class='notice'>P.S. Don't forget to bring your gear, you'll need it to cast most spells.</span>"
+	. += SPAN_NOTICE("Number of uses: [uses]. This scroll will vanish after the final use.")
+	. += SPAN_NOTICE("P.S. Don't forget to bring your gear, you'll need it to cast most spells.")
 
 /obj/item/teleportation_scroll/attack_self__legacy__attackchain(mob/living/user)
 	if(!uses) //somehow?
-		to_chat(user, "<span class='warning'>You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!</span>")
+		to_chat(user, SPAN_WARNING("You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!"))
 		qdel(src)
 		return
 
@@ -40,7 +40,7 @@
 		return //They can't use it if they put it in their bag or drop it and walk off, but if they are stood next to it they can.
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) //Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry
-		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
+		to_chat(user, SPAN_WARNING("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -55,7 +55,7 @@
 		L.Add(T)
 
 	if(!length(L))
-		to_chat(user, "<span class='warning'>The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.</span>")
+		to_chat(user, SPAN_WARNING("The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."))
 		return
 
 	if(user && user.buckled)
@@ -69,7 +69,7 @@
 	uses--
 
 	if(!uses)
-		to_chat(user, "<span class='warning'>The scroll fizzles out of existence as the last of the magic within fades.</span>")
+		to_chat(user, SPAN_WARNING("The scroll fizzles out of existence as the last of the magic within fades."))
 		qdel(src)
 
 	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable

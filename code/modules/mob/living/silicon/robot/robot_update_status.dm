@@ -30,7 +30,7 @@
 					camera.turn_on(src, FALSE)
 			var/mob/dead/observer/ghost = get_ghost()
 			if(ghost)
-				to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired and repowered, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
+				to_chat(ghost, "[SPAN_GHOSTALERT("Your cyborg shell has been repaired and repowered, re-enter if you want to continue!")] (Verbs -> Ghost -> Re-enter corpse)")
 				SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 			create_attack_log("revived, trigger reason: [reason]")
 			create_log(MISC_LOG, "revived, trigger reason: [reason]")

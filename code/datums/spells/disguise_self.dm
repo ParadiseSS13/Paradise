@@ -19,13 +19,13 @@
 	var/mob/living/carbon/human/H = user
 
 	H.emote("spin")
-	to_chat(H, "<span class='notice'>You start spinning in place and casting [src]...</span>")
+	to_chat(H, SPAN_NOTICE("You start spinning in place and casting [src]..."))
 	if(do_after(H, 2 SECONDS, FALSE, H))
 		finish_disguise(H)
 		return TRUE
 	else
 		H.slip("your own foot", 1 SECONDS, 0, 0, 1, "trip")
-		to_chat(H, "<span class='danger'>You must stand still to cast [src]!</span>")
+		to_chat(H, SPAN_DANGER("You must stand still to cast [src]!"))
 		return FALSE
 
 /datum/spell/disguise_self/proc/finish_disguise(mob/living/carbon/human/H)

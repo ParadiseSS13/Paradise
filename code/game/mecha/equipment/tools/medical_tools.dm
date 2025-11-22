@@ -57,8 +57,8 @@
 		return
 	if(!patient_insertion_check(target))
 		return
-	occupant_message("<span class='notice'>You start putting [target] into [src]...</span>")
-	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
+	occupant_message(SPAN_NOTICE("You start putting [target] into [src]..."))
+	chassis.visible_message(SPAN_WARNING("[chassis] starts putting [target] into \the [src]."))
 	if(do_after_cooldown(target))
 		if(!patient_insertion_check(target))
 			return
@@ -66,19 +66,19 @@
 		patient = target
 		START_PROCESSING(SSobj, src)
 		update_equip_info()
-		occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged.</span>")
-		chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
+		occupant_message(SPAN_NOTICE("[target] successfully loaded into [src]. Life support functions engaged."))
+		chassis.visible_message(SPAN_WARNING("[chassis] loads [target] into [src]."))
 		log_message("[target] loaded. Life support functions engaged.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message("<span class='warning'>[target] will not fit into the sleeper because [target.p_they()] [target.p_are()] buckled to [target.buckled]!</span>")
+		occupant_message(SPAN_WARNING("[target] will not fit into the sleeper because [target.p_they()] [target.p_are()] buckled to [target.buckled]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message("<span class='warning'>[target] will not fit into the sleeper because of the creatures attached to it!</span>")
+		occupant_message(SPAN_WARNING("[target] will not fit into the sleeper because of the creatures attached to it!"))
 		return FALSE
 	if(patient)
-		occupant_message("<span class='warning'>The sleeper is already occupied!</span>")
+		occupant_message(SPAN_WARNING("The sleeper is already occupied!"))
 		return FALSE
 	return TRUE
 
@@ -94,7 +94,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach()
 	if(patient)
-		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
+		occupant_message(SPAN_WARNING("Unable to detach [src] - equipment occupied!"))
 		return
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -292,10 +292,10 @@
 	if(mode)
 		return analyze_reagents(target)
 	if(!length(syringes))
-		occupant_message("<span class='alert'>No syringes loaded.</span>")
+		occupant_message(SPAN_ALERT("No syringes loaded."))
 		return
 	if(reagents.total_volume<=0)
-		occupant_message("<span class='alert'>No available reagents to load syringe with.</span>")
+		occupant_message(SPAN_ALERT("No available reagents to load syringe with."))
 		return
 	var/turf/trg = get_turf(target)
 	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
@@ -324,7 +324,7 @@
 			var/mob/living/carbon/M = safepick(mobs)
 			if(M)
 				var/R
-				mechsyringe.visible_message("<span class='attack'> [M] was hit by the syringe!</span>")
+				mechsyringe.visible_message(SPAN_ATTACK(" [M] was hit by the syringe!"))
 				if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 					if(mechsyringe.reagents)
 						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
@@ -471,7 +471,7 @@
 		occupant_message("The object is too far away.")
 		return FALSE
 	if(!A.reagents || ismob(A))
-		occupant_message("<span class='alert'>No reagent info gained from [A].</span>")
+		occupant_message(SPAN_ALERT("No reagent info gained from [A]."))
 		return FALSE
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R as anything in A.reagents.reagent_list)
@@ -534,12 +534,12 @@
 	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
-			target.visible_message("<span class='notice'>[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>", \
+			target.visible_message(SPAN_NOTICE("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second."), \
 								"<span class='notice'[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>")
 		else
 			push_aside(chassis, M)//out of the way, I have people to save!
-			occupant_message("<span class='notice'>You gently push [target] out of the way.</span>")
-			chassis.visible_message("<span class='notice'>[chassis] gently pushes [target] out of the way.</span>")
+			occupant_message(SPAN_NOTICE("You gently push [target] out of the way."))
+			chassis.visible_message(SPAN_NOTICE("[chassis] gently pushes [target] out of the way."))
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
 	switch(get_dir(M, L))

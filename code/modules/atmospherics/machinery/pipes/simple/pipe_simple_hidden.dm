@@ -42,7 +42,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.</span>"
+	. += SPAN_NOTICE("This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.")
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
 	. = list()

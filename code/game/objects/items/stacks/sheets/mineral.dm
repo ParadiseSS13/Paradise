@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/emptysandbag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/glass))
 		var/obj/item/stack/ore/glass/G = I
-		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
+		to_chat(user, SPAN_NOTICE("You fill the sandbag."))
 		var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
 		qdel(src)
 		if(Adjacent(user) && !issilicon(user))

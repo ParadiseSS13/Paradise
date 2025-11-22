@@ -442,7 +442,7 @@
 		if(!user.unequip(A)) // forceMove happens in add_pen
 			return
 		add_pen(A)
-		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [A] into [src]."))
 
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	if(modified)
@@ -470,7 +470,7 @@
 		FD.damage = initial(FD.damage)
 		FD.nodamage = initial(FD.nodamage)
 		user.put_in_hands(FD.pen)
-		to_chat(user, "<span class='notice'>You remove [FD.pen] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [FD.pen] from [src]."))
 		FD.pen = null
 
 /obj/item/ammo_casing/caseless/foam_dart/riot

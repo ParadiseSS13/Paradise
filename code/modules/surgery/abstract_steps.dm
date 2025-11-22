@@ -267,7 +267,7 @@
 	else
 		// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 		// It's alright for intermediate surgeries, though, since they never get called like that.
-		to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
+		to_chat(user, SPAN_WARNING("The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending."))
 
 	return FALSE
 
@@ -290,7 +290,7 @@
 	if(affected.status & ORGAN_BROKEN)
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
+		to_chat(user, SPAN_WARNING("The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending."))
 	return FALSE
 
 /datum/surgery/intermediate/treat_burns

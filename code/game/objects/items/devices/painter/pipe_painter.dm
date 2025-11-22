@@ -26,12 +26,12 @@
 		return
 
 	if(P.pipe_color == GLOB.pipe_icon_manager.pipe_colors[paint_setting])
-		to_chat(user, "<span class='notice'>This pipe is aready painted [paint_setting]!</span>")
+		to_chat(user, SPAN_NOTICE("This pipe is aready painted [paint_setting]!"))
 		return
 
 	var/turf/T = get_turf(P)
 	if(P.level < 2 && T.level == 1 && T.intact && !T.transparent_floor)
-		to_chat(user, "<span class='warning'>You must remove the flooring first.</span>")
+		to_chat(user, SPAN_WARNING("You must remove the flooring first."))
 		return
 
 	P.change_color(GLOB.pipe_icon_manager.pipe_colors[paint_setting])

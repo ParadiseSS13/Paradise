@@ -139,7 +139,7 @@
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
 	if(!a_left || !a_right)
-		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
+		to_chat(user, SPAN_WARNING("BUG:Assembly part missing, please report this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -148,16 +148,16 @@
 	a_right.toggle_secure()
 	secured = !secured
 	if(secured)
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be taken apart!"))
 	update_icon()
 
 /obj/item/assembly_holder/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
+			to_chat(user, SPAN_WARNING("Assembly part missing!"))
 			return
 		if(istype(a_left, a_right.type)) // If they are the same type it causes issues due to window code
 			switch(tgui_alert(user, "Which side would you like to use?", "Choose", list("Left", "Right")))

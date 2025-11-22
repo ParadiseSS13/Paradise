@@ -31,14 +31,14 @@
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
-				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
+				to_chat(user, SPAN_NOTICE("Take off the carbon copy first."))
 				add_fingerprint(user)
 				return
 
 		amount++
 		if(screen == 2)
 			screen = 1
-		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+		to_chat(user, SPAN_NOTICE("You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
 		user.transfer_item_to(P, src)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -50,7 +50,7 @@
 		photos++
 		if(screen == 2)
 			screen = 1
-		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+		to_chat(user, SPAN_NOTICE("You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
 		user.transfer_item_to(W, src)
 
 	else if(W.get_heat())
@@ -63,7 +63,7 @@
 			src.amount++
 			if(screen == 2)
 				screen = 1
-		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+		to_chat(user, SPAN_NOTICE("You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
 		qdel(W)
 
 	else
@@ -92,12 +92,12 @@
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
-	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to undo the paper bundle.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] with a pen in hand to rename it.")
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> [src] to undo the paper bundle.")
 	if(in_range(user, src))
 		show_content(user)
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += SPAN_NOTICE("It is too far away.")
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
@@ -159,7 +159,7 @@
 		if(href_list["remove"])
 			var/obj/item/W = get_page()
 			usr.put_in_hands(W)
-			to_chat(usr, "<span class='notice'>You remove [W] from the bundle.</span>")
+			to_chat(usr, SPAN_NOTICE("You remove [W] from the bundle."))
 			if(amount == 1)
 				var/obj/item/paper/P = get_page(1)
 				usr.unequip(src)
@@ -182,7 +182,7 @@
 			amount--
 			update_icon()
 	else
-		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
+		to_chat(usr, SPAN_NOTICE("You need to hold it in your hands to change pages."))
 	if(ismob(loc))
 		attack_self__legacy__attackchain(loc)
 
@@ -205,7 +205,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	to_chat(user, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(user, SPAN_NOTICE("You loosen the bundle."))
 
 	for(var/obj/O in src)
 		O.forceMove(get_turf(user))

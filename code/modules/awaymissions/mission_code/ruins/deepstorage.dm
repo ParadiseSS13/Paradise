@@ -44,9 +44,9 @@
 		if(faction_check(faction, L.faction, FALSE))
 			continue
 
-		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-			"<span class='userdanger'>You feel a strong force throwing you!</span>",
-			"<span class='danger'>You hear a thud.</span>")
+		L.visible_message(SPAN_DANGER("[L] was thrown by [src]!"),
+			SPAN_USERDANGER("You feel a strong force throwing you!"),
+			SPAN_DANGER("You hear a thud."))
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
@@ -108,7 +108,7 @@
 	if(charging)
 		if(isliving(A))
 			var/mob/living/L = A
-			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+			L.visible_message(SPAN_DANGER("[src] slams into [L]!"), SPAN_USERDANGER("[src] tramples you into the ground!"))
 			forceMove(get_turf(L))
 			L.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -127,7 +127,7 @@
 /mob/living/simple_animal/hostile/megafauna/fleshling/death(gibbed)
 	if(can_die() && !boss_killed)
 		unlock_blast_doors(DS_BOSS_STORAGE)
-		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
+		src.visible_message(SPAN_NOTICE("Somewhere, a heavy door has opened."))
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/proc/unlock_blast_doors(target_id_tag)
@@ -215,7 +215,7 @@
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/death(gibbed)
 	if(can_die() && !has_died)
 		unlock_blast_doors(DS_ENGINEERING)
-		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
+		src.visible_message(SPAN_NOTICE("Somewhere, a heavy door has opened."))
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/unlock_blast_doors(target_id_tag)
@@ -258,7 +258,7 @@
 	var/list/boss_warning = list("Proceed" = TRUE)
 	var/final_decision = tgui_input_list(user, "Just a hunch but wherever this machine may lead, it won't be somewhere pleasant. Are you sure about this?", "Make your decision", boss_warning)
 	if(!final_decision)
-		to_chat(user, "<span class='notice'>The teleporter machine remains untouched.</span>")
+		to_chat(user, SPAN_NOTICE("The teleporter machine remains untouched."))
 		menu_open = FALSE
 		return
 

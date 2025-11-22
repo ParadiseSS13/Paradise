@@ -60,12 +60,12 @@
 		. += "It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel]."
 
 /obj/item/weldingtool/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -91,14 +91,14 @@
 
 /obj/item/weldingtool/attack_self__legacy__attackchain(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
-		to_chat(user, "<span class='notice'>You switch off [src].</span>")
+		to_chat(user, SPAN_NOTICE("You switch off [src]."))
 		toggle_welder()
 		return
 	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
-		to_chat(user, "<span class='notice'>You switch on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You switch on [src]."))
 		toggle_welder()
 	else //The welder is off and unfuelled
-		to_chat(user, "<span class='notice'>[src] is out of fuel!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is out of fuel!"))
 
 /obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
 	tool_enabled = turn_off ? FALSE : !tool_enabled
@@ -127,13 +127,13 @@
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
 		if(!silent)
-			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+			to_chat(user, SPAN_NOTICE("[src] has to be on to complete this task!"))
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
 		if(!silent)
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+			to_chat(user, SPAN_WARNING("You need more welding fuel to complete this task!"))
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -171,18 +171,18 @@
 		return !isnull(cig)
 
 	if(!tool_enabled)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		to_chat(user, SPAN_WARNING("You need to activate [src] before you can light anything with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] casually lights [cig] with [src], what a badass.</span>",
-			"<span class='notice'>You light [cig] with [src].</span>"
+			SPAN_NOTICE("[user] casually lights [cig] with [src], what a badass."),
+			SPAN_NOTICE("You light [cig] with [src].")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [cig]. What a badass.</span>",
-			"<span class='notice'>You light [cig] for [target] with [src].</span>"
+			SPAN_NOTICE("[user] holds out [src] out for [target], and casually lights [cig]. What a badass."),
+			SPAN_NOTICE("You light [cig] for [target] with [src].")
 		)
 	cig.light(user, target)
 	return TRUE
@@ -215,16 +215,16 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already full!"))
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
+		to_chat(user, SPAN_NOTICE("You refuel [src] by [amount_transferred] unit\s."))
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 		update_icon()
 		return amount_transferred
 	else
-		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
+		to_chat(user, SPAN_WARNING("There's not enough fuel in [A] to refuel [src]!"))
 
 /obj/item/weldingtool/update_icon_state()
 	if(low_fuel_changes_icon)
@@ -283,14 +283,14 @@
 	if(!user)
 		return
 
-	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	to_chat(user, "<span class='notice'>You begin tinkering with [src]...")
 	user.Immobilize(10 SECONDS)
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	user.visible_message("<span class='danger'>[src] blows up in [user]'s face!</span>", "<span class='userdanger'>Oh, shit!</span>")
+	user.visible_message(SPAN_DANGER("[src] blows up in [user]'s face!"), SPAN_USERDANGER("Oh, shit!"))
 	playsound(loc, "sound/effects/explosion1.ogg", 50, TRUE, -1)
 	user.gib()
 

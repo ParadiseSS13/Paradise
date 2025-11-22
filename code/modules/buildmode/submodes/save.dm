@@ -5,9 +5,9 @@
 	var/use_json = TRUE
 
 /datum/buildmode_mode/save/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf/obj/mob      = Select corner"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/save/change_settings(mob/user)
 	use_json = (tgui_alert("Would you like to use json (Default is \"Yes\")?", list("Yes", "No")) == "Yes")

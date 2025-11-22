@@ -50,7 +50,7 @@
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+	. += SPAN_NOTICE("[src] is configured for [species_state] standards of atmosphere.")
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -59,7 +59,7 @@
 	var/chosen = input(user, "Select lung type", "What kind of lung settings?") as null|anything in possible
 	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You configure [src] to [chosen] settings.</span>")
+	to_chat(user, SPAN_NOTICE("You configure [src] to [chosen] settings."))
 	configure_species(chosen)
 
 /obj/item/organ/internal/lungs/cybernetic/proc/configure_species(new_species_state)

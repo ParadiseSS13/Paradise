@@ -30,9 +30,9 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
+		to_chat(user, SPAN_NOTICE("You deploy your decompiler and clear out the contents of \the [T]."))
 	else
-		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+		to_chat(user, SPAN_WARNING("Nothing on \the [T] is useful to you."))
 	return
 
 // Putting the decompiler here to avoid doing list checks every tick.

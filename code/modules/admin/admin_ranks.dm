@@ -50,7 +50,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 /proc/reload_one_admin(admin_ckey, silent = FALSE)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCE("Admin reload blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to reload an admin via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to reload an admin via advanced proc-call")
 		return
@@ -65,7 +65,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	if(admin_ckey in (GLOB.de_admins + GLOB.de_mentors))
 		if(!silent)
-			message_admins("<span class='notice'>Admin permissions for [admin_ckey] will reload when they re-admin.</span>")
+			message_admins(SPAN_NOTICE("Admin permissions for [admin_ckey] will reload when they re-admin."))
 		return
 
 	if(admin_ckey in GLOB.directory)
@@ -73,7 +73,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		var/localhosted = admin.try_localhost_autoadmin()
 		if(localhosted)
 			if(!silent)
-				message_admins("<span class='notice'>Admin permissions for [admin_ckey] reloaded. Full permissions granted as they are currently connected from localhost.</span>")
+				message_admins(SPAN_NOTICE("Admin permissions for [admin_ckey] reloaded. Full permissions granted as they are currently connected from localhost."))
 			return
 
 	if(GLOB.configuration.admin.use_database_admins)
@@ -105,7 +105,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				// If you have no rights, you don't get an admin datum.
 				qdel(get_admin)
 				if(!silent)
-					message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
+					message_admins(SPAN_NOTICE("Admin permissions for [admin_ckey] have been reloaded."))
 				return
 			admin_datum = new(rank, rights, admin_ckey)
 			qdel(get_admin)
@@ -123,11 +123,11 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		admin_datum.associate(GLOB.directory[admin_ckey])
 
 	if(!silent)
-		message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
+		message_admins(SPAN_NOTICE("Admin permissions for [admin_ckey] have been reloaded."))
 
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCE("Admin reload blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to reload admins via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to reload admins via advanced proc-call")
 		return

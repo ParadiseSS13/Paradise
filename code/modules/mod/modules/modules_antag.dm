@@ -53,7 +53,7 @@
 	if(!.)
 		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(mod.wearer, "<span class='notice'>Armor deployed, EVA disabled, speed increased.</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Armor deployed, EVA disabled, speed increased."))
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
@@ -72,7 +72,7 @@
 		return
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(mod.wearer, "<span class='notice'>Armor retracted, EVA enabled, speed decreased.</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Armor retracted, EVA enabled, speed decreased."))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.detachArmor(armor_mod_2.armor)
@@ -193,7 +193,7 @@
 		return
 	if(mod.wearer.buckled)
 		return
-	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts charging a kick!</span>")
+	mod.wearer.visible_message(SPAN_WARNING("[mod.wearer] starts charging a kick!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
@@ -227,7 +227,7 @@
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.KnockDown(knockdown_time)
-		mod.wearer.visible_message("<span class='danger'>[mod.wearer] crashes into [target], knocking them over!</span>", "<span class='userdanger'>You violently crash into [target]!</span>")
+		mod.wearer.visible_message(SPAN_DANGER("[mod.wearer] crashes into [target], knocking them over!"), SPAN_USERDANGER("You violently crash into [target]!"))
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
@@ -305,7 +305,7 @@
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
+	to_chat(mod.wearer, SPAN_WARNING("[src] gets discharged from contact!"))
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
 	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
@@ -403,7 +403,7 @@
 	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
 	camera.c_tag = wearer.name
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, SPAN_NOTICE("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/mod/module/ert_camera/Destroy()
 	QDEL_NULL(camera)
@@ -438,7 +438,7 @@
 
 /obj/item/mod/module/chameleon/on_use()
 	if(mod.active || mod.activating)
-		to_chat(mod.wearer, "<span class='warning'>Your suit is already active!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Your suit is already active!"))
 		return
 	. = ..()
 	if(!.)

@@ -159,7 +159,7 @@
 
 /obj/machinery/pdapainter/proc/ejectpda(mob/user)
 	if(!storedpda)
-		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
+		to_chat(usr, SPAN_NOTICE("[src] is empty."))
 		return
 	storedpda.forceMove(get_turf(src))
 	if(ishuman(user))

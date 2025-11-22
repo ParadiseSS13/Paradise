@@ -73,7 +73,7 @@
 		if(20 to 39)
 			. +=  "It's been heavily used."
 		if(0 to 19)
-			. +=  "<span class='warning'>It's falling apart!</span>"
+			. +=  SPAN_WARNING("It's falling apart!")
 
 /obj/item/smithed_item/tool_bit/proc/damage_bit()
 	durability--

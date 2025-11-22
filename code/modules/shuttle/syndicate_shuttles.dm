@@ -23,7 +23,7 @@
 	var/time_to_go = max(SYNDICATE_CHALLENGE_TIMER, (challenge_time + 10 MINUTES))
 	if(action == "move")
 		if(challenge && world.time < time_to_go)
-			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((time_to_go - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+			to_chat(user, SPAN_WARNING("You've issued a combat challenge to the station! You've got to give them at least [round(((time_to_go - world.time) / 10) / 60)] more minutes to allow them to prepare."))
 			return FALSE
 	return TRUE
 
@@ -39,7 +39,7 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
 	if(action == "move")
 		if(z != level_name_to_num(CENTCOMM))
-			to_chat(user, "<span class='warning'>Pods are one way!</span>")
+			to_chat(user, SPAN_WARNING("Pods are one way!"))
 			return FALSE
 	return ..()
 

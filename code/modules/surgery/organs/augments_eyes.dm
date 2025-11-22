@@ -10,7 +10,7 @@
 /obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = FALSE)
 	..()
 	if(aug_message && !special)
-		to_chat(owner, "<span class='notice'>[aug_message]</span>")
+		to_chat(owner, SPAN_NOTICE("[aug_message]"))
 
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud

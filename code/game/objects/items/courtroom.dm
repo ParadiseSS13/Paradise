@@ -13,7 +13,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/gavelhammer/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] has sentenced [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] has sentenced [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/items/gavel.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -33,4 +33,4 @@
 	if(world.time > next_gavel_hit)
 		playsound(loc, 'sound/items/gavel.ogg', 100, 1)
 		next_gavel_hit = world.time + 5 SECONDS
-		user.visible_message("<span class='warning'>[user] strikes \the [src] with \the [I].</span>")
+		user.visible_message(SPAN_WARNING("[user] strikes \the [src] with \the [I]."))

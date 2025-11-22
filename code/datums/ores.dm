@@ -134,7 +134,7 @@
 	source.name = "gibtonite deposit"
 	source.desc = "An active gibtonite reserve. Run!"
 	stage = GIBTONITE_ACTIVE
-	source.visible_message("<span class='danger'>There was gibtonite inside! It's going to explode!</span>")
+	source.visible_message(SPAN_DANGER("There was gibtonite inside! It's going to explode!"))
 
 	if(!is_mining_level(source.z))
 		notify_admins = TRUE
@@ -181,7 +181,7 @@
 	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(istype(attacker, /obj/item/mining_scanner) || istype(attacker, /obj/item/t_scanner/adv_mining_scanner) && stage == GIBTONITE_ACTIVE)
-		user.visible_message("<span class='notice'>[user] holds [attacker] to [source]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
+		user.visible_message(SPAN_NOTICE("[user] holds [attacker] to [source]..."), SPAN_NOTICE("You use [attacker] to locate where to cut off the chain reaction and attempt to stop it..."))
 		defuse(source)
 		return COMPONENT_SKIP_AFTERATTACK
 
@@ -217,7 +217,7 @@
 
 		if(remaining_time < 0)
 			remaining_time = 0
-		source.visible_message("<span class='notice'>The chain reaction was stopped! The gibtonite had [remaining_time] reactions left till the explosion!</span>")
+		source.visible_message(SPAN_NOTICE("The chain reaction was stopped! The gibtonite had [remaining_time] reactions left till the explosion!"))
 
 #undef GIBTONITE_UNSTRUCK
 #undef GIBTONITE_ACTIVE

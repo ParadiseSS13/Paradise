@@ -171,9 +171,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.put_in_hands(TC))
-			to_chat(H, "<span class='notice'>Your payment materializes into your hands!</span>")
+			to_chat(H, SPAN_NOTICE("Your payment materializes into your hands!"))
 		else
-			to_chat(M, "<span class='notice'>Your payment materializes on the floor.</span>")
+			to_chat(M, SPAN_NOTICE("Your payment materializes on the floor."))
 	// Update info
 	reward_tc_paid_out += reward_tc_available
 	reward_tc_available = 0

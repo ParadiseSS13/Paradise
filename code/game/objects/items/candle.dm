@@ -35,21 +35,21 @@
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
 
 /obj/item/candle/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat())
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
+		light(SPAN_NOTICE("[user] lights [src] with [W]."))
 		return
 	return ..()
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
+		light(SPAN_NOTICE("[user] casually lights [src] with [I], what a badass."))
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
@@ -114,7 +114,7 @@
 
 /obj/item/candle/attack_self__legacy__attackchain(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] snuffs out [src]."))
 		unlight()
 
 /obj/item/candle/lit

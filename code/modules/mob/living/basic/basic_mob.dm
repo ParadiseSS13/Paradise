@@ -270,12 +270,12 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(..()) // if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", "<span class='userdanger'>[M] [response_disarm_continuous] you!</span>")
+			visible_message(SPAN_DANGER("[M] [response_disarm_continuous] [name]!"), SPAN_USERDANGER("[M] [response_disarm_continuous] you!"))
 			add_attack_logs(M, src, "Alien disarmed")
 		else
 			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			visible_message(SPAN_DANGER("[M] has slashed at [src]!"), \
+					SPAN_USERDANGER("[M] has slashed at [src]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
@@ -324,9 +324,9 @@ RESTRICT_TYPE(/mob/living/basic)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
 		if(death_message)
-			visible_message("<span class='danger'>\The [src] [death_message]</span>")
+			visible_message(SPAN_DANGER("\The [src] [death_message]"))
 		else if(!(basic_mob_flags & DEL_ON_DEATH))
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(SPAN_DANGER("\The [src] stops moving..."))
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(basic_mob_flags & DEL_ON_DEATH)
@@ -352,8 +352,8 @@ RESTRICT_TYPE(/mob/living/basic)
 		if(INTENT_HELP)
 			if(health > 0)
 				visible_message(
-					"<span class='notice'>[M] [response_help_continuous] [src].</span>",
-					"<span class='notice'>[M] [response_help_continuous] you.</span>"
+					SPAN_NOTICE("[M] [response_help_continuous] [src]."),
+					SPAN_NOTICE("[M] [response_help_continuous] you.")
 				)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
@@ -362,12 +362,12 @@ RESTRICT_TYPE(/mob/living/basic)
 
 		if(INTENT_HARM, INTENT_DISARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+				to_chat(M, SPAN_WARNING("You don't want to hurt [src]!"))
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message(
-				"<span class='danger'>[M] [response_harm_continuous] [src]!</span>",
-				"<span class='userdanger'>[M] [response_harm_continuous] you!</span>"
+				SPAN_DANGER("[M] [response_harm_continuous] [src]!"),
+				SPAN_USERDANGER("[M] [response_harm_continuous] you!")
 			)
 			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
@@ -385,7 +385,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(SPAN_WARNING("[src] looks unharmed."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))

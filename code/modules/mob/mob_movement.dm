@@ -29,7 +29,7 @@
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
+		to_chat(usr, SPAN_DANGER("This mob type cannot throw items."))
 
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
@@ -129,7 +129,7 @@
 		for(var/mob/M in orange(1, mob))
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+					to_chat(src, SPAN_WARNING("You're restrained! You can't move!"))
 					move_delay = world.time + 10
 					return 0
 				else
@@ -246,14 +246,14 @@
 					move_delay = world.time + 10
 					if(!prob(25))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
+					mob.visible_message(SPAN_DANGER("[mob] has broken free of [G.assailant]'s grip!"))
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
+					mob.visible_message(SPAN_DANGER("[mob] has broken free of [G.assailant]'s headlock!"))
 					qdel(G)
 	return FALSE
 
@@ -312,7 +312,7 @@
 		if(INCORPOREAL_MOVE_HOLY_BLOCK)
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & BLESSED_TILE)
-				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
+				to_chat(L, SPAN_WARNING("Holy energies block your path."))
 				L.notransform = TRUE
 				spawn(2)
 					L.notransform = FALSE
@@ -345,7 +345,7 @@
 	last_pushoff = world.time
 	var/opposite_dir = turn(movement_dir, 180)
 	if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-		to_chat(src, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
+		to_chat(src, SPAN_NOTICE("You push off of [backup] to propel yourself."))
 	return TRUE
 
 /**
@@ -569,7 +569,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+			to_chat(C, SPAN_NOTICE("You are legcuffed! You cannot run until you get [C.legcuffed] removed!"))
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return

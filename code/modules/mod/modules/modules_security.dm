@@ -24,20 +24,20 @@
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
-			to_chat(mod.wearer, "<span class='warning'>Nothing to holster!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("Nothing to holster!"))
 			return
 		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_NORMAL) //god no holstering a BSG / combat shotgun
-			to_chat(mod.wearer, "<span class='warning'>It's too big to fit!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("It's too big to fit!"))
 			return
 		holstered = holding
-		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
+		mod.wearer.visible_message(SPAN_NOTICE("[mod.wearer] holsters [holstered]."), SPAN_NOTICE("You holster [holstered]."))
 		mod.wearer.unequip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \
-			"<span class='warning'>You draw [msg], ready to shoot!</span>")
+		mod.wearer.visible_message(SPAN_WARNING("[mod.wearer] draws [msg], ready to shoot!"), \
+			SPAN_WARNING("You draw [msg], ready to shoot!"))
 	else
-		to_chat(mod.wearer, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("You need an empty hand to draw [holstered]!"))
 
 /obj/item/mod/module/holster/on_uninstall(deleting = FALSE)
 	if(holstered)
@@ -128,7 +128,7 @@
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = 9) // Should be audible for the radius of the sonar
-	to_chat(mod.wearer, ("<span class='notice'>You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!</span>"))
+	to_chat(mod.wearer, (SPAN_NOTICE("You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!")))
 
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS

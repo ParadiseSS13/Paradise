@@ -129,7 +129,7 @@
 	update_icons()
 	H.forceMove(src)
 	oldguy = H
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(SPAN_WARNING("The corpse of [H.name] suddenly rises!"))
 
 /mob/living/basic/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
@@ -258,6 +258,6 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
-			rendered = "<span class='blob'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span>"
+			rendered = SPAN_BLOB("Blob Telepathy, [SPAN_NAME("[name]([overmind])")][follow_text] [SPAN_MESSAGE("states, \"[message]\"")]")
 			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/basic/blob/blobbernaut))
 				M.show_message(rendered, EMOTE_AUDIBLE)

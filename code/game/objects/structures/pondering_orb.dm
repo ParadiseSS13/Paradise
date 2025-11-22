@@ -9,18 +9,18 @@
 
 /obj/structure/pondering_orb/attack_hand(mob/user)
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
+	user.visible_message(SPAN_NOTICE("[user] stares into [src], [user.p_their()] eyes glazing over."),
+					SPAN_DANGER("You stare into [src], you can see the entire universe!"))
 	ghost = user.ghostize(ghost_name = "Magic Spirit of [user.name]", ghost_color = COLOR_BLUE)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
-			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
-								"<span class='danger'>You look away from [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] blinks, returning to the world around [user.p_them()]."),
+								SPAN_DANGER("You look away from [src]."))
 			break
 		if(!Adjacent(user))
 			user.grab_ghost()
-			user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
-								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user]'s focus is forced away from [src]."),
+								SPAN_USERDANGER("Your vision is ripped away from [src]."))
 			break
 		sleep(5)
 	if(QDELETED(user))

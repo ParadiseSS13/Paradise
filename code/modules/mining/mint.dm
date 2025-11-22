@@ -113,7 +113,7 @@
 		if("ejectMat")
 			var/datum/material/material = materials.materials[chosen_material]
 			if(material.amount < MINERAL_MATERIAL_AMOUNT)
-				to_chat(usr, "<span class='warning'>Not enough [material.name] to eject!</span>")
+				to_chat(usr, SPAN_WARNING("Not enough [material.name] to eject!"))
 				return
 			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [material.name]", max_value = round(material.amount / MINERAL_MATERIAL_AMOUNT), min_value = 1)
 			if(isnull(num_sheets))
@@ -125,11 +125,11 @@
 /obj/machinery/mineral/mint/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/bag/money))
 		if(money_bag)
-			to_chat(user, "<span class='notice'>There is already a [money_bag.name] inside!</span>")
+			to_chat(user, SPAN_NOTICE("There is already a [money_bag.name] inside!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You put a [used.name] into a [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put a [used.name] into a [src]."))
 		used.forceMove(src)
 		money_bag = used
 		SStgui.update_uis(src)
@@ -143,7 +143,7 @@
 		return
 	if(length(money_bag.contents) >= money_bag.storage_slots)
 		active = FALSE
-		visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
+		visible_message(SPAN_NOTICE("[src] stops printing to prevent an overflow."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return
@@ -152,7 +152,7 @@
 	var/datum/material/material = materials.materials[chosen_material]
 	if(!materials.can_use_amount(COIN_COST, chosen_material))
 		active = FALSE
-		visible_message("<span class='notice'>[src] ceased production due to a lack of material.</span>")
+		visible_message(SPAN_NOTICE("[src] ceased production due to a lack of material."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return
@@ -165,13 +165,13 @@
 /obj/machinery/mineral/mint/proc/try_make_coins(mob/user)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(!money_bag)
-		visible_message("<span class='warning'>[src] cannot work without a money bag!</span>")
+		visible_message(SPAN_WARNING("[src] cannot work without a money bag!"))
 		return
 	if(length(money_bag.contents) == money_bag.storage_slots)
-		visible_message("<span class='warning'>[money_bag.name] is full!</span>")
+		visible_message(SPAN_WARNING("[money_bag.name] is full!"))
 		return
 	if(!materials.can_use_amount(COIN_COST, chosen_material))
-		visible_message("<span class='warning'>Lack of selected material for production!</span>")
+		visible_message(SPAN_WARNING("Lack of selected material for production!"))
 		return
 	active = TRUE
 
@@ -181,7 +181,7 @@
 	if(active)
 		active = FALSE
 	if(user.put_in_hands(money_bag))
-		to_chat(user, "<span class='notice'>You take a [money_bag.name] out of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You take a [money_bag.name] out of [src]."))
 	else
 		var/turf/T = get_step(src, output_dir)
 		money_bag.forceMove(T)

@@ -40,9 +40,9 @@
 /obj/item/pinpointer/crew/contractor/attack_self__legacy__attackchain(mob/living/user)
 	if(owner)
 		if(owner != user.mind.current)
-			to_chat(user, "<span class='warning'>[src] refuses to do anything.</span>")
+			to_chat(user, SPAN_WARNING("[src] refuses to do anything."))
 			return
 	else
 		owner = user.mind.current
-		to_chat(user, "<span class='notice'>[src] now recognizes you as its sole user.</span>")
+		to_chat(user, SPAN_NOTICE("[src] now recognizes you as its sole user."))
 	return ..()

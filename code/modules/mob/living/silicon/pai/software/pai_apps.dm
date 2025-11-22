@@ -138,15 +138,15 @@
 			// Check the carrier
 			var/answer = tgui_alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", list("Yes", "No"))
 			if(answer == "Yes")
-				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [pai_holder].</span>", "<span class='notice'>You press your thumb against [pai_holder].</span>")
+				M.visible_message(SPAN_NOTICE("[M] presses [M.p_their()] thumb against [pai_holder]."), SPAN_NOTICE("You press your thumb against [pai_holder]."))
 				var/datum/dna/dna = M.dna
-				to_chat(usr, "<span class='notice'>[M]'s UE string: [dna.unique_enzymes]</span>")
+				to_chat(usr, SPAN_NOTICE("[M]'s UE string: [dna.unique_enzymes]"))
 				if(dna.unique_enzymes == pai_holder.master_dna)
-					to_chat(usr, "<span class='notice'>DNA is a match to stored Master DNA.</span>")
+					to_chat(usr, SPAN_NOTICE("DNA is a match to stored Master DNA."))
 				else
-					to_chat(usr, "<span class='warning'>DNA does not match stored Master DNA.</span>")
+					to_chat(usr, SPAN_WARNING("DNA does not match stored Master DNA."))
 			else
-				to_chat(usr, "<span class='warning'>[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.</span>")
+				to_chat(usr, SPAN_WARNING("[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly."))
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
@@ -354,7 +354,7 @@
 			if(cable && cable.machine)
 				hackdoor = cable.machine
 				if(hacking)
-					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
+					to_chat(usr, SPAN_WARNING("You are already hacking that door!"))
 				else
 					hacking = TRUE
 					INVOKE_ASYNC(src, PROC_REF(hackloop))
@@ -363,11 +363,11 @@
 		if("cable")
 			playsound(pai_holder, 'sound/mecha/mechmove03.ogg', 25, TRUE)
 			if(cable) // Retracting
-				pai_holder.visible_message("<span class='warning'>[cable] is pulled back into [pai_holder] with a quick snap.</span>")
+				pai_holder.visible_message(SPAN_WARNING("[cable] is pulled back into [pai_holder] with a quick snap."))
 				QDEL_NULL(cable)
 			else // Extending
 				cable = new /obj/item/pai_cable(get_turf(pai_holder))
-				pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
+				pai_holder.visible_message(SPAN_WARNING("A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor."))
 
 /**
   * Door jack hack loop

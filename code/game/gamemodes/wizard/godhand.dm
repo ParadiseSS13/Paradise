@@ -27,20 +27,20 @@
 	return ..()
 
 /obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
+	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.")
 
 /obj/item/melee/touch_attack/attack(mob/living/target, mob/living/carbon/human/user)
 	if(..() || !iscarbon(user)) //Look ma, no hands
 		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
+		to_chat(user, SPAN_WARNING("You can't reach out!"))
 		return FINISH_ATTACK
 
 /obj/item/melee/touch_attack/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	var/mob/mob_victim = target
 	if(istype(mob_victim) && mob_victim.can_block_magic(attached_spell.antimagic_flags))
-		to_chat(user, "<span class='danger'>[mob_victim] absorbs your spell!</span>")
+		to_chat(user, SPAN_DANGER("[mob_victim] absorbs your spell!"))
 		blocked_by_antimagic = TRUE
 		if(attached_spell && attached_spell.cooldown_handler)
 			attached_spell.cooldown_handler.start_recharge(attached_spell.cooldown_handler.recharge_duration * 0.5)
@@ -133,7 +133,7 @@
 		return
 
 	if(iswizard(target))
-		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		to_chat(user, SPAN_WARNING("The spell has no effect on [target]."))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new

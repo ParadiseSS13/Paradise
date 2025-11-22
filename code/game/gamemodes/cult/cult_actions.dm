@@ -32,12 +32,12 @@
 		return
 
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You can't speak!</span>")
+		to_chat(user, SPAN_WARNING("You can't speak!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(SPAN_NOTICE("[user] appears to whisper to themselves."),
+		SPAN_NOTICE("You begin to whisper to yourself.")) //Make them do *something* abnormal.
 		sleep(10)
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
@@ -75,13 +75,13 @@
 	if(!message)
 		return
 	var/title = "The [user.name]"
-	living_message = "<span class='cultlarge'>[title]: [message]</span>"
+	living_message = SPAN_CULTLARGE("[title]: [message]")
 
 	for(var/mob/M in GLOB.player_list)
 		if(IS_CULTIST(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
+			to_chat(M, SPAN_CULTLARGE("[title] ([ghost_follow_link(user, ghost=M)]): [message]"))
 
 
 //Objectives
@@ -104,7 +104,7 @@
 	if(SSticker?.mode?.cult_team)
 		SSticker.mode.cult_team.study_objectives(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, SPAN_CULTITALIC("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
 
 
 //Draw rune
@@ -125,4 +125,4 @@
 		owner.put_in_hands(D)
 		D.activate_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
+		to_chat(usr, SPAN_CULTITALIC("You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell."))

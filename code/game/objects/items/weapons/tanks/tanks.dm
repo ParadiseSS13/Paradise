@@ -47,7 +47,7 @@
 		return FALSE
 
 	if(C.internal == src)
-		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
+		to_chat(C, SPAN_NOTICE("You close \the [src] valve."))
 		C.internal = null
 	else
 		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
@@ -58,16 +58,16 @@
 			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
 			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
 				if(!silent)
-					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
+					to_chat(C, SPAN_WARNING("You are not wearing a suitable mask or helmet."))
 				return FALSE
 			if(M.up) // If the mask is equipped but pushed away
 				M.adjustmask(C) // Adjust it back
 
 		if(!silent)
 			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
+				to_chat(C, SPAN_NOTICE("You switch your internals to [src]."))
 			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
+				to_chat(C, SPAN_NOTICE("You open \the [src] valve."))
 		C.internal = src
 	C.update_action_buttons_icon()
 
@@ -81,7 +81,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
+			. += SPAN_NOTICE("It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = air_contents.temperature() - T0C
@@ -100,8 +100,8 @@
 	else
 		descriptive = "furiously hot"
 
-	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
-	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
+	. += SPAN_NOTICE("\The [bicon(icon)][src] feels [descriptive]")
+	. += SPAN_NOTICE("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -116,7 +116,7 @@
 
 /obj/item/tank/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 
 	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
@@ -125,7 +125,7 @@
 		H.inflate_gib()
 		return OBLITERATION
 
-	to_chat(user, "<span class='warning'>There isn't enough pressure in [src] to commit suicide with...</span>")
+	to_chat(user, SPAN_WARNING("There isn't enough pressure in [src] to commit suicide with..."))
 	return SHAME
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
@@ -238,7 +238,7 @@
 		if(!istype(loc,/obj/item/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
-//		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
+//		to_chat(world, SPAN_NOTICE("[x],[y] tank is exploding: [pressure] kPa"))
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
 		air_contents.react()
@@ -247,7 +247,7 @@
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
-//		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
+//		to_chat(world, SPAN_NOTICE("Exploding Pressure: [pressure] kPa, intensity: [range]"))
 
 		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = "Exploding tank rupture")
 		if(istype(loc,/obj/item/transfer_valve))
@@ -256,7 +256,7 @@
 			qdel(src)
 
 	else if(pressure > TANK_RUPTURE_PRESSURE)
-//		to_chat(world, "<span class='notice'>[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]</span>")
+//		to_chat(world, SPAN_NOTICE("[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]"))
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
@@ -268,7 +268,7 @@
 			integrity--
 
 	else if(pressure > TANK_LEAK_PRESSURE)
-//		to_chat(world, "<span class='notice'>[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]</span>")
+//		to_chat(world, SPAN_NOTICE("[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]"))
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)

@@ -269,7 +269,7 @@
 /obj/machinery/economy/vending/examine(mob/user)
 	. = ..()
 	if(aggressive)
-		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
+		. += SPAN_WARNING("Its product lights seem to be blinking ominously...")
 
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
@@ -424,7 +424,7 @@
 /obj/machinery/economy/vending/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
-			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+			to_chat(user, SPAN_WARNING("[src] is tipped over and non-functional! You'll need to right it first."))
 			return ITEM_INTERACT_COMPLETE
 		return ..()
 
@@ -432,21 +432,21 @@
 		insert_cash(used, user)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/coin))
-		to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
+		to_chat(user, SPAN_WARNING("[src] does not accept coins."))
 		return ITEM_INTERACT_COMPLETE
 	if(refill_canister && istype(used, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+			to_chat(user, SPAN_NOTICE("[src] does not respond."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/vending_refill/canister = used
 		var/transferred = restock(canister)
 		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
-			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+			to_chat(user, SPAN_WARNING("[canister] is empty!"))
 		else if(transferred) // We transferred some items
-			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You loaded [transferred] items in [src]."))
 		else // Nothing transferred, parts are still left, nothing to restock!
-			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+			to_chat(user, SPAN_WARNING("There's nothing to restock!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(item_slot_check(user, used))
@@ -461,8 +461,8 @@
 		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
 		last_hit_time = world.time
 		if(should_warn)
-			visible_message("<span class='warning'>[src] seems to sway a bit!</span>")
-			to_chat(user, "<span class='danger'>You might want to think twice about doing that again, [src] looks like it could come crashing down!</span>")
+			visible_message(SPAN_WARNING("[src] seems to sway a bit!"))
+			to_chat(user, SPAN_DANGER("You might want to think twice about doing that again, [src] looks like it could come crashing down!"))
 			return
 
 		switch(rand(1, 100))
@@ -481,7 +481,7 @@
 
 
 /obj/machinery/economy/vending/proc/freebie(mob/user, num_freebies)
-	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!</span>")
+	visible_message(SPAN_NOTICE("[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!"))
 
 	for(var/i in 1 to num_freebies)
 		for(var/datum/data/vending_product/R in shuffle(product_records + physical_product_records))
@@ -501,8 +501,8 @@
 		if(to_be_tipped.incorporeal_move) // OooOooOoo spooky ghosts
 			return
 		AM.visible_message(
-			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
-			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
+			SPAN_DANGER("[src] suddenly topples over onto [AM]!"),
+			SPAN_USERDANGER("[src] topples over onto you without warning!")
 		)
 		tilt(AM, prob(5), FALSE)
 		aggressive = FALSE
@@ -514,7 +514,7 @@
 		return
 	. = TRUE
 	if(tilted)
-		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("You'll need to right it first!"))
 		return
 	if(seconds_electrified != 0 && shock(user, 100))
 		return
@@ -523,7 +523,7 @@
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("You'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -532,7 +532,7 @@
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("You'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -551,7 +551,7 @@
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("You'll need to right it first!"))
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -559,7 +559,7 @@
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -570,7 +570,7 @@
 	if(!item_slot)
 		return FALSE
 	if(inserted_item)
-		to_chat(user, "<span class='warning'>There is something already inserted!</span>")
+		to_chat(user, SPAN_WARNING("There is something already inserted!"))
 		return FALSE
 	return TRUE
 
@@ -579,7 +579,7 @@
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
-		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		to_chat(user, SPAN_WARNING("[I] isn't compatible with this machine's slot."))
 		return FALSE
 	return TRUE
 */
@@ -614,11 +614,11 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
+		to_chat(user, SPAN_WARNING("[I] is stuck to your hand, you can't seem to put it down!"))
 		return
 	inserted_item = I
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
 	SStgui.update_uis(src)
 
 /obj/machinery/economy/vending/proc/eject_item(mob/user)
@@ -666,7 +666,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first.</span>")
+		to_chat(user, SPAN_WARNING("[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first."))
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
@@ -758,7 +758,7 @@
 	var/mob/living/user = ui.user
 
 	if(issilicon(user) && !isrobot(user))
-		to_chat(user, "<span class='warning'>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
+		to_chat(user, SPAN_WARNING("The vending machine refuses to interface with you, as you are not in its target demographic!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -800,10 +800,10 @@
 
 /obj/machinery/economy/vending/proc/try_vend(key, mob/user)
 	if(!vend_ready)
-		to_chat(user, "<span class='warning'>The vending machine is busy!</span>")
+		to_chat(user, SPAN_WARNING("The vending machine is busy!"))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+		to_chat(user, SPAN_WARNING("The vending machine cannot dispense products while its service panel is open!"))
 		return
 
 	var/list/display_records = product_records + physical_product_records
@@ -849,7 +849,7 @@
 
 	var/datum/money_account/vendor_account = get_vendor_account()
 	if(cash_transaction < currently_vending.price && (isnull(vendor_account) || vendor_account.suspended))
-		to_chat(user, "<span class='warning'>Vendor account offline. Unable to process transaction.</span>")
+		to_chat(user, SPAN_WARNING("Vendor account offline. Unable to process transaction."))
 		flick(icon_deny, src)
 		return
 
@@ -861,7 +861,7 @@
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, vendor_account)
 	else if(user.can_advanced_admin_interact())
-		to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
+		to_chat(user, SPAN_NOTICE("Vending object due to admin interaction."))
 		paid = TRUE
 	else
 		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
@@ -877,7 +877,7 @@
 
 /obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user, has_delay = TRUE)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
+		to_chat(user, SPAN_WARNING("Access denied."))//Unless emagged of course
 		flick(icon_deny, src)
 		return
 
@@ -1011,7 +1011,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(SPAN_DANGER("[src] launches [throw_item.name] at [target.name]!"))
 
 /obj/machinery/economy/vending/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
 	// Don't bother notifying contents (for some reason (probably historical reasons (probably for no reason)))
@@ -1063,17 +1063,17 @@
 	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
-		target.visible_message("<span class='danger'>[attacker] slams [target] into [src]!</span>", \
-								"<span class='userdanger'>You get slammed into [src] by [attacker]!</span>", \
-								"<span class='danger'>You hear a loud crunch.</span>")
+		target.visible_message(SPAN_DANGER("[attacker] slams [target] into [src]!"), \
+								SPAN_USERDANGER("You get slammed into [src] by [attacker]!"), \
+								SPAN_DANGER("You hear a loud crunch."))
 	else if(HAS_TRAIT_FROM(attacker, TRAIT_PACIFISM, GHOST_ROLE))  // should only apply to the ghost bar
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src]), but flattened themselves.")
 		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
-		target.visible_message("<span class='warning'>[attacker] tries to slam [target] into [src], but falls face first into [src]!</span>", \
-								"<span class='userdanger'>You get pushed into [src] by [attacker], but narrowly move out of the way as it tips over on top of [attacker]!</span>", \
-								"<span class='danger'>You hear a loud crunch.</span>")
+		target.visible_message(SPAN_WARNING("[attacker] tries to slam [target] into [src], but falls face first into [src]!"), \
+								SPAN_USERDANGER("You get pushed into [src] by [attacker], but narrowly move out of the way as it tips over on top of [attacker]!"), \
+								SPAN_DANGER("You hear a loud crunch."))
 	else
-		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
+		attacker.visible_message(SPAN_NOTICE("[attacker] lightly presses [target] against [src]."), SPAN_WARNING("You lightly press [target] against [src], you don't want to hurt [target.p_them()]!"))
 	return TRUE
 
 /obj/machinery/economy/vending/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

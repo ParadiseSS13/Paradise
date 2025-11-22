@@ -28,7 +28,7 @@ CONTENTS:
 /obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
-	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
+	to_chat(user, SPAN_WARNING("You can't figure how this works!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(user)
@@ -39,7 +39,7 @@ CONTENTS:
 	var/datum/species/abductor/S = H.dna.species
 	if(S.scientist)
 		return TRUE
-	to_chat(user, "<span class='warning'>You're not trained to use this!</span>")
+	to_chat(user, SPAN_WARNING("You're not trained to use this!"))
 	return FALSE
 
 /////////////////////////////////////////
@@ -97,7 +97,7 @@ CONTENTS:
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	set_nodrop(NODROP_TOGGLE, loc)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
+		to_chat(loc, SPAN_NOTICE("Your vest is now [flags & NODROP ? "locked" : "unlocked"]."))
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -168,10 +168,10 @@ CONTENTS:
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
 		if(!COOLDOWN_FINISHED(src, abductor_adrenaline))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds.</span>")
+			to_chat(loc, SPAN_WARNING("Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds."))
 			return
 		var/mob/living/carbon/human/M = loc
-		to_chat(loc, "<span class='notice'>You feel a series of pricks down your back, followed by a surge of energy!</span>")
+		to_chat(loc, SPAN_NOTICE("You feel a series of pricks down your back, followed by a surge of energy!"))
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
 		M.SetStunned(0)
@@ -215,7 +215,7 @@ CONTENTS:
 	for(M in view(2,targloc))
 		if(M == user)
 			continue
-		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
+		to_chat(user, SPAN_NOTICE("You silence [M]'s radio devices."))
 		radio_off_mob(M)
 
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
@@ -264,7 +264,7 @@ CONTENTS:
 		if(BATON_PROBE)
 			txt = "probing"
 
-	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
+	to_chat(usr, SPAN_NOTICE("You switch the baton to [txt] mode."))
 	update_icon(UPDATE_ICON_STATE)
 	update_action_buttons()
 
@@ -325,8 +325,8 @@ CONTENTS:
 	L.apply_damage(80, STAMINA)
 	L.Stuttering(14 SECONDS)
 
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
-							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
+	L.visible_message(SPAN_DANGER("[user] has stunned [L] with [src]!"), \
+							SPAN_USERDANGER("[user] has stunned you with [src]!"))
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 	add_attack_logs(user, L, "Stunned with [src]")
@@ -337,13 +337,13 @@ CONTENTS:
 		return
 	if((C.getStaminaLoss() < 100) && !C.IsSleeping())
 		C.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned or asleep specimens!</span>")
-		C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
-						"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		to_chat(user, SPAN_WARNING("Sleep inducement works fully only on stunned or asleep specimens!"))
+		C.visible_message(SPAN_DANGER("[user] tried to induce sleep in [L] with [src]!"), \
+						SPAN_USERDANGER("You suddenly feel drowsy!"))
 		return
 	if(do_mob(user, C, 2.5 SECONDS))
-		C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
+		C.visible_message(SPAN_DANGER("[user] has induced sleep in [L] with [src]!"), \
+							SPAN_USERDANGER("You suddenly feel very drowsy!"))
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		C.Sleeping(120 SECONDS)
 		add_attack_logs(user, C, "Put to sleep with [src]")
@@ -354,36 +354,36 @@ CONTENTS:
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
-								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
+		C.visible_message(SPAN_DANGER("[user] begins restraining [C] with [src]!"), \
+								SPAN_USERDANGER("[user] begins shaping an energy field around your hands!"))
 		if(do_mob(user, C, 3 SECONDS))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy(C)
 				C.update_handcuffed()
-				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+				to_chat(user, SPAN_NOTICE("You handcuff [C]."))
 				add_attack_logs(user, C, "Handcuffed ([src])")
 		else
-			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			to_chat(user, SPAN_WARNING("You fail to handcuff [C]."))
 
 /obj/item/abductor_baton/proc/ProbeAttack(mob/living/L,mob/living/user)
-	L.visible_message("<span class='danger'>[user] probes [L] with [src]!</span>", \
-						"<span class='userdanger'>[user] probes you!</span>")
+	L.visible_message(SPAN_DANGER("[user] probes [L] with [src]!"), \
+						SPAN_USERDANGER("[user] probes you!"))
 
-	var/species = "<span class='warning'>Unknown species</span>"
-	var/helptext = "<span class='warning'>Species unsuitable for experiments.</span>"
+	var/species = SPAN_WARNING("Unknown species")
+	var/helptext = SPAN_WARNING("Species unsuitable for experiments.")
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		species = "<span clas=='notice'>[H.dna.species.name]</span>"
 		if(IS_CHANGELING(L))
-			species = "<span class='warning'>Changeling lifeform</span>"
+			species = SPAN_WARNING("Changeling lifeform")
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
 		if(temp)
-			helptext = "<span class='warning'>Experimental gland detected!</span>"
+			helptext = SPAN_WARNING("Experimental gland detected!")
 		else
-			helptext = "<span class='notice'>Subject suitable for experiments.</span>"
+			helptext = SPAN_NOTICE("Subject suitable for experiments.")
 
-	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
+	to_chat(user,"[SPAN_NOTICE("Probing result: ")][species]")
 	to_chat(user, "[helptext]")
 
 /obj/item/restraints/handcuffs/energy
@@ -395,7 +395,7 @@ CONTENTS:
 	flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
-	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", "<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
+	user.visible_message(SPAN_DANGER("[src] restraining [user] breaks in a discharge of energy!"), SPAN_USERDANGER("[src] restraining [user] breaks in a discharge of energy!"))
 	break_cuffs = TRUE
 	silent = TRUE
 	do_sparks(4, 0, user.loc)
@@ -405,13 +405,13 @@ CONTENTS:
 	. = ..()
 	switch(mode)
 		if(BATON_STUN)
-			. += "<span class='warning'>The baton is in stun mode.</span>"
+			. += SPAN_WARNING("The baton is in stun mode.")
 		if(BATON_SLEEP)
-			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
+			. += SPAN_WARNING("The baton is in sleep inducement mode.")
 		if(BATON_CUFF)
-			. += "<span class='warning'>The baton is in restraining mode.</span>"
+			. += SPAN_WARNING("The baton is in restraining mode.")
 		if(BATON_PROBE)
-			. += "<span class='warning'>The baton is in probing mode.</span>"
+			. += SPAN_WARNING("The baton is in probing mode.")
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -447,7 +447,7 @@ CONTENTS:
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to a console!</span>")
+		to_chat(user, SPAN_WARNING("The device is not linked to a console!"))
 		return
 
 	if(mode == GIZMO_SCAN)
@@ -456,13 +456,13 @@ CONTENTS:
 	else
 		mode = GIZMO_SCAN
 		icon_state = "gizmo_scan"
-	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
+	to_chat(user, SPAN_NOTICE("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
 /obj/item/abductor/gizmo/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
+		to_chat(user, SPAN_WARNING("The device is not linked to console!"))
 		return
 
 	switch(mode)
@@ -477,7 +477,7 @@ CONTENTS:
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
+		to_chat(user, SPAN_WARNING("The device is not linked to console!"))
 		return
 
 	switch(mode)
@@ -489,16 +489,16 @@ CONTENTS:
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		console.AddSnapshot(target)
-		to_chat(user, "<span class='notice'>You scan [target] and add [target.p_them()] to the database.</span>")
+		to_chat(user, SPAN_NOTICE("You scan [target] and add [target.p_them()] to the database."))
 
 /obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
-		to_chat(user, "<span class='warning'>This specimen is already marked!</span>")
+		to_chat(user, SPAN_WARNING("This specimen is already marked!"))
 		return
 	if(ishuman(target))
 		if(isabductor(target))
 			marked = target
-			to_chat(user, "<span class='notice'>You mark [target] for future retrieval.</span>")
+			to_chat(user, SPAN_NOTICE("You mark [target] for future retrieval."))
 		else
 			prepare(target,user)
 	else
@@ -506,12 +506,12 @@ CONTENTS:
 
 /obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
 	if(get_dist(target,user)>1)
-		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
+		to_chat(user, SPAN_WARNING("You need to be next to the specimen to prepare it for transport!"))
 		return
-	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
+	to_chat(user, SPAN_NOTICE("You begin preparing [target] for transport..."))
 	if(do_after(user, 100, target = target))
 		marked = target
-		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
+		to_chat(user, SPAN_NOTICE("You finish preparing [target] for transport."))
 
 /obj/item/abductor/gizmo/Destroy()
 	if(console)
@@ -535,7 +535,7 @@ CONTENTS:
 	else
 		mode = MIND_DEVICE_MESSAGE
 		icon_state = "mind_device_message"
-	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE</span>")
+	to_chat(user, SPAN_NOTICE("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
 /obj/item/abductor/mind_device/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(!ScientistCheck(user))
@@ -552,13 +552,13 @@ CONTENTS:
 		var/mob/living/carbon/C = target
 		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot("heart")
 		if(!istype(G))
-			to_chat(user, "<span class='warning'>Your target does not have an experimental gland!</span>")
+			to_chat(user, SPAN_WARNING("Your target does not have an experimental gland!"))
 			return
 		if(!G.mind_control_uses)
-			to_chat(user, "<span class='warning'>Your target's gland is spent!</span>")
+			to_chat(user, SPAN_WARNING("Your target's gland is spent!"))
 			return
 		if(G.active_mind_control)
-			to_chat(user, "<span class='warning'>Your target is already under a mind-controlling influence!</span>")
+			to_chat(user, SPAN_WARNING("Your target is already under a mind-controlling influence!"))
 			return
 
 		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
@@ -569,13 +569,13 @@ CONTENTS:
 		if(QDELETED(G))
 			return
 		G.mind_control(command, user)
-		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
+		to_chat(user, SPAN_NOTICE("You send the command to your target."))
 
 /obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			to_chat(user, "<span class='warning'>Your target is dead!</span>")
+			to_chat(user, SPAN_WARNING("Your target is dead!"))
 			return
 		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
@@ -583,8 +583,8 @@ CONTENTS:
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
-		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
+		to_chat(L, SPAN_ITALICS("You hear a voice in your head saying: </span><span class='abductor'>[message]"))
+		to_chat(user, SPAN_NOTICE("You send the message to your target."))
 		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
 /obj/item/paper/abductor

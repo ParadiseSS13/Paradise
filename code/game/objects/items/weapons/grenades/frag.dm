@@ -52,7 +52,7 @@
 
 	var/mob/living/carbon/human/human = target
 	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(human.getarmor(armor_type = BOMB))))
-		to_chat(human, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+		to_chat(human, SPAN_WARNING("Shrapnel bounces off your armor!"))
 		return
 	human.try_embed_object(new_possible_embed)
 

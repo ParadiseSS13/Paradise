@@ -28,16 +28,16 @@
 		broken = FALSE
 		burnt = FALSE
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
+			to_chat(user, SPAN_NOTICE("You remove the broken planks."))
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
+				to_chat(user, SPAN_NOTICE("You unscrew the planks."))
 			if(floor_tile)
 				new floor_tile(src)
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, SPAN_WARNING("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating()
 
 /turf/simulated/floor/wood/airless
@@ -83,7 +83,7 @@
 
 /turf/simulated/floor/grass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/shovel))
-		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+		to_chat(user, SPAN_NOTICE("You shovel the grass."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
 		return ITEM_INTERACT_COMPLETE

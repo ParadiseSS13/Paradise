@@ -27,7 +27,7 @@
 
 /obj/structure/bed/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.</span>"
+	. += SPAN_NOTICE("Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.")
 
 /obj/structure/bed/attack_hand(mob/user)
 	if(user.Move_Pulled(src))
@@ -52,7 +52,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -103,15 +103,15 @@
 
 	// nighty night
 	target.visible_message(
-		"<span class='danger'>[attacker] puts [target] to bed!</span>",
-		"<span class='userdanger'>[attacker] shoves you under the covers, and you're out like a light!</span>",
-		"<span class='notice'>You hear someone getting into bed.</span>"
+		SPAN_DANGER("[attacker] puts [target] to bed!"),
+		SPAN_USERDANGER("[attacker] shoves you under the covers, and you're out like a light!"),
+		SPAN_NOTICE("You hear someone getting into bed.")
 	)
 
 	if(sleep_ratio > 1)
 		target.visible_message(
-			"<span class='notice'>[target] seems especially cozy...[target.p_they()] probably won't be up for a while.</span>",
-			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
+			SPAN_NOTICE("[target] seems especially cozy...[target.p_they()] probably won't be up for a while."),
+			SPAN_NOTICE("You feel so cozy, you could probably stay here for a while...")
 		)
 
 	target.forceMove(loc)
@@ -169,11 +169,11 @@
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
 				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+				user.visible_message(SPAN_NOTICE("[user] unbuckles all creatures from [src]."))
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
-			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+			user.visible_message(SPAN_NOTICE("[user] collapses \the [name]."), SPAN_NOTICE("You collapse \the [name]."))
 			new folded(get_turf(src))
 			qdel(src)
 
@@ -248,7 +248,7 @@
 			return
 		if(has_buckled_mobs())
 			return 0
-		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+		usr.visible_message(SPAN_NOTICE("[usr] collapses \the [name]."), SPAN_NOTICE("You collapse \the [name]."))
 		new folded(get_turf(src))
 		qdel(src)
 		return
@@ -275,13 +275,13 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(held)
-		to_chat(user, "<span class='warning'>[src] is already full!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already full!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/roller/bed = target
 	user.visible_message(
-		"<span class='notice'>[user] collects [target].</span>",
-		"<span class='notice'>You collect [target].</span>"
+		SPAN_NOTICE("[user] collects [target]."),
+		SPAN_NOTICE("You collect [target].")
 	)
 	bed.forceMove(src)
 	held = target
@@ -292,10 +292,10 @@
 		return
 
 	if(!held)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
 
-	to_chat(user, "<span class='notice'>You deploy [held].</span>")
+	to_chat(user, SPAN_NOTICE("You deploy [held]."))
 	var/obj/structure/bed/roller/R = new held.extended(user.loc)
 	R.add_fingerprint(user)
 	QDEL_NULL(held)

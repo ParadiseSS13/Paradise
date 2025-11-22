@@ -17,7 +17,7 @@
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, SPAN_NOTICE("You tear the manifest off of the crate."))
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -26,7 +26,7 @@
 		update_icon()
 		return
 	else
-		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
+		to_chat(user, SPAN_NOTICE("You need a crowbar to pry this open!"))
 		return
 
 /obj/structure/largecrate/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -39,9 +39,9 @@
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return TRUE
 	break_open()
-	user.visible_message("<span class='notice'>[user] pries [src] open.</span>", \
-						"<span class='notice'>You pry open [src].</span>", \
-						"<span class='notice'>You hear splitting wood.</span>")
+	user.visible_message(SPAN_NOTICE("[user] pries [src] open."), \
+						SPAN_NOTICE("You pry open [src]."), \
+						SPAN_NOTICE("You hear splitting wood."))
 	if(manifest)
 		manifest.forceMove(loc)
 		manifest = null

@@ -52,15 +52,15 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			to_chat(user, "<span class='notice'>You install [diode] in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You install [diode] in [src]."))
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
 
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	if(!diode)
 		return
 
-	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [diode] from [src]."))
 	diode.forceMove(get_turf(loc))
 	diode = null
 	return TRUE
@@ -72,23 +72,23 @@
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
+		to_chat(user, SPAN_NOTICE("You point [src] at [target], but nothing happens!"))
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		to_chat(user, SPAN_WARNING("Your fingers can't press the button!"))
 		return
 	if(!(target in view(7, get_turf(src)))) // Use the turf as center so it won't use the potential xray of the user
-		to_chat(user, "<span class='warning'>There is something in the way!</span>")
+		to_chat(user, SPAN_WARNING("There is something in the way!"))
 		return
 
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		to_chat(user, SPAN_NOTICE("You point [src] at [target], but it's still charging."))
 		return
 
 	var/outmsg
@@ -108,9 +108,9 @@
 
 			//20% chance to actually hit the eyes
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity, laser_pointer = TRUE))
-				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
+				outmsg = SPAN_NOTICE("You blind [C] by shining [src] in [C.p_their()] eyes.")
 			else
-				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
+				outmsg = SPAN_WARNING("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
 
 	//robots and AI
 	else if(issilicon(target))
@@ -118,25 +118,25 @@
 		//20% chance to actually hit the sensors
 		if(prob(effectchance * diode.rating))
 			S.flash_eyes(affect_silicon = TRUE)
-			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			to_chat(S, SPAN_WARNING("Your sensors were overloaded by a laser!"))
+			outmsg = SPAN_NOTICE("You overload [S] by shining [src] at [S.p_their()] sensors.")
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			outmsg = SPAN_NOTICE("You fail to overload [S] by shining [src] at [S.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/C = target
 		if(prob(effectchance * diode.rating))
 			C.emp_act(EMP_HEAVY)
-			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
+			outmsg = SPAN_NOTICE("You hit the lens of [C] with [src], temporarily disabling the camera!")
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = "<span class='notice'>You missed the lens of [C] with [src].</span>"
+			outmsg = SPAN_NOTICE("You missed the lens of [C] with [src].")
 
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
@@ -158,7 +158,7 @@
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		to_chat(user, "<span class='notice'>You point [src] at [target].</span>")
+		to_chat(user, SPAN_NOTICE("You point [src] at [target]."))
 
 	energy -= 1
 	if(energy <= max_energy)
@@ -166,7 +166,7 @@
 			recharging = 1
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, SPAN_WARNING("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = 1
 
 	flick_overlay(I, showto, 10)

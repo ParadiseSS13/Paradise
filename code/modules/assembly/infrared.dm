@@ -28,7 +28,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
-	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/item/assembly/infra/activate()
 	if(!..())

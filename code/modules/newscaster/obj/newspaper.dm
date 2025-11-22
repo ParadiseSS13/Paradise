@@ -39,7 +39,7 @@
 
 /obj/item/newspaper/attack_self__legacy__attackchain(mob/user)
 	if(rolled)
-		to_chat(user, "<span class='warning'>Unroll it first!</span>")
+		to_chat(user, SPAN_WARNING("Unroll it first!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
@@ -124,7 +124,7 @@
 		human_user << browse(dat, "window=newspaper_main;size=300x400")
 		onclose(human_user, "newspaper_main")
 	else
-		to_chat(user, "<span class='warning'>The paper is full of unintelligible symbols!</span>")
+		to_chat(user, SPAN_WARNING("The paper is full of unintelligible symbols!"))
 
 /obj/item/newspaper/Topic(href, href_list)
 	if(..())
@@ -158,18 +158,18 @@
 /obj/item/newspaper/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		if(rolled)
-			to_chat(user, "<span class='warning'>Unroll it first!</span>")
+			to_chat(user, SPAN_WARNING("Unroll it first!"))
 			return
 		if(scribble_page == curr_page)
-			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
+			to_chat(user, SPAN_NOTICE("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))
 		else
 			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page
 			scribble = s
-			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
-								"<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] scribbles something on [src]."),\
+								SPAN_NOTICE("You scribble on page number [curr_page] of [src]."))
 			attack_self__legacy__attackchain(user)
 		return
 	return ..()
@@ -180,8 +180,8 @@
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()
 		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
-								"<span class='notice'>You [verbtext] [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] [verbtext]s [src]."),\
+								SPAN_NOTICE("You [verbtext] [src]."))
 		name = "[rolled ? "rolled" : ""] [initial(name)]"
 	return ..()
 

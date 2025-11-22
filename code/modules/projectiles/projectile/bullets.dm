@@ -248,8 +248,8 @@
 				return TRUE
 			else
 				blocked = INFINITY
-				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
-									"<span class='userdanger'>You were protected against [src]!</span>")
+				target.visible_message(SPAN_DANGER("[src] was deflected!"), \
+									SPAN_USERDANGER("You were protected against [src]!"))
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()

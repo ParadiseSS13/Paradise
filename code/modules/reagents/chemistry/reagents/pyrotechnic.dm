@@ -28,7 +28,7 @@
 	M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(10, volume * 2), 45))
-		to_chat(M, "<span class='warning'>It burns!</span>")
+		to_chat(M, SPAN_WARNING("It burns!"))
 		M.emote("scream")
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
@@ -127,7 +127,7 @@
 		var/will_explode = volume >= explosion_threshold
 		if(will_explode && holder.my_atom)
 			// Log beforehand
-			holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
+			holder.my_atom.visible_message(SPAN_DANGER("[holder.my_atom] explodes!"))
 			message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 			log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
@@ -273,7 +273,7 @@
 	M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
-		to_chat(M, "<span class='warning'>It burns!</span>")
+		to_chat(M, SPAN_WARNING("It burns!"))
 		M.emote("scream")
 
 /datum/reagent/sorium

@@ -204,7 +204,7 @@ CONTENTS:
 	if(!istype(H) || !istype(borghead))
 		return
 	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
-		to_chat(H, "<span class='warning'>The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!</span>")
+		to_chat(H, SPAN_WARNING("The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!"))
 		return
 	var/selected_borg_disguise = pick(borghead.available_disguises)
 	var/selected_borg_eyes

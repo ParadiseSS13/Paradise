@@ -37,18 +37,18 @@
 	var/energy_perc = get_energy_charge() / max_charge_time
 	if(energy_perc < 0.5)
 		cooldown_handler.start_recharge((1 - energy_perc) * cooldown_handler.recharge_duration) // Shorten the cooldown based on how long it was charged for.
-		to_chat(user, "<span class='notice'>[stop_charging_text]</span>")
+		to_chat(user, SPAN_NOTICE("[stop_charging_text]"))
 		Reset(user)
 		return TRUE
 	else
-		to_chat(user, "<span class='danger'>[stop_charging_fail_text]</span>")
+		to_chat(user, SPAN_DANGER("[stop_charging_fail_text]"))
 		return FALSE
 
 /datum/spell/charge_up/proc/get_energy_charge()
 	return min(world.time - start_time, max_charge_time)
 
 /datum/spell/charge_up/proc/StartChargeup(mob/user)
-	to_chat(user, "<span class='notice'>[start_charging_text]</span>")
+	to_chat(user, SPAN_NOTICE("[start_charging_text]"))
 	user.add_overlay(charge_up_overlay)
 	playsound(user, charge_sound, 50, FALSE, channel = charge_sound.channel)
 	start_time = world.time
@@ -70,7 +70,7 @@
 	..()
 
 /datum/spell/charge_up/proc/Discharge(mob/user)
-	to_chat(user, "<span class='danger'>You lose control over the spell!</span>")
+	to_chat(user, SPAN_DANGER("You lose control over the spell!"))
 	Reset(user)
 	spend_spell_cost(user)
 	cooldown_handler.start_recharge()

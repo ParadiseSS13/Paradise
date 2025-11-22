@@ -31,5 +31,5 @@ BONUS
 
 /datum/symptom/headache/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
-	to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your head starts pounding.")]</span>")
+	to_chat(M, SPAN_WARNING("[pick("Your head hurts.", "Your head starts pounding.")]"))
 	return

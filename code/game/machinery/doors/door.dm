@@ -204,13 +204,13 @@
 			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			return FALSE
 	if(welded)
-		to_chat(user, "<span class='warning'>The door is welded.</span>")
+		to_chat(user, SPAN_WARNING("The door is welded."))
 		return FALSE
 	if(locked)
-		to_chat(user, "<span class='warning'>The door is bolted.</span>")
+		to_chat(user, SPAN_WARNING("The door is bolted."))
 		return FALSE
 	if(density)
-		visible_message("<span class='danger'>[user] forces the door open!</span>")
+		visible_message(SPAN_DANGER("[user] forces the door open!"))
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		open(TRUE)
 	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
@@ -338,7 +338,7 @@
 			if(!density)
 				return
 			do_animate("deny")
-			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			to_chat(H, SPAN_WARNING("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
 			if(sound_ready)
 				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 				soundcooldown() //Thanks, mechs
@@ -458,7 +458,7 @@
 /obj/machinery/door/proc/crush()
 	for(var/turf/T in get_airlock_turfs())
 		for(var/mob/living/L in T)
-			L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+			L.visible_message(SPAN_WARNING("[src] closes on [L], crushing [L.p_them()]!"), SPAN_USERDANGER("[src] closes on you and crushes you!"))
 			if(isalien(L))  //For xenos
 				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 				L.emote("roar")

@@ -3,17 +3,17 @@
 	if(!length(mindflayers))
 		return
 
-	var/list/text = list("<br><font size=3><span class='bold'>The mindflayers were:</span></font>")
+	var/list/text = list("<br><font size=3>[SPAN_BOLD("The mindflayers were:")]</font>")
 	for(var/datum/mind/mindflayer in mindflayers)
 		var/traitorwin = TRUE
 		text += "<br>[mindflayer.get_display_key()] was [mindflayer.name] and "
 		if(mindflayer.current)
 			if(mindflayer.current.stat == DEAD)
-				text += "<span class='bold'>died!</span>"
+				text += SPAN_BOLD("died!")
 			else
-				text += "<span class='bold'>survived!</span>"
+				text += SPAN_BOLD("survived!")
 		else
-			text += "<span class='bold'>had [mindflayer.p_their()] body destroyed</span>!"
+			text += "[SPAN_BOLD("had [mindflayer.p_their()] body destroyed")]!"
 
 		var/list/all_objectives = mindflayer.get_all_objectives()
 

@@ -35,14 +35,14 @@
 	. = ..()
 	if(occupant)
 		if(occupant.stat == DEAD)
-			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+			. += SPAN_WARNING("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!")
 		else
-			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+			. += SPAN_NOTICE("You see [occupant.name] inside.")
 		if(!force_eject)
-			. += "<span class='warning'>The auto-eject light is off!</span>"
-	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
-	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
+			. += SPAN_WARNING("The auto-eject light is off!")
+	. += SPAN_NOTICE("The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.")
+	. += SPAN_NOTICE("Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.")
+	. += SPAN_NOTICE("<b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.")
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -139,16 +139,16 @@
 	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
+		to_chat(user, SPAN_BOLDNOTICE("The cryo cell is already occupied!"))
 		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
+		to_chat(user, SPAN_DANGER("Subject may not hold anything in their hands."))
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return TRUE
 	if(put_mob(L))
 		if(L == user)
@@ -209,7 +209,7 @@
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(usr, SPAN_BOLDNOTICE("Close the maintenance panel first."))
 		return
 
 	ui_interact(user)
@@ -304,11 +304,11 @@
 	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		var/obj/item/reagent_containers/B = used
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[B] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		B.forceMove(src)
@@ -321,14 +321,14 @@
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/GG = used
 		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(user, SPAN_WARNING("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!ismob(GG.affecting))
 			return ITEM_INTERACT_COMPLETE
 
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
+			to_chat(user, SPAN_WARNING("[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/M = GG.affecting
@@ -346,7 +346,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || on)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
@@ -378,12 +378,12 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/attempt_escape(mob/living/carbon/user, effective_breakout_time)
 	if(effective_breakout_time)
-		user.visible_message("<span class='warning'>[user] attempts to trigger the release on [src]!</span>", "<span class='notice'>You attempt to trigger the release on [src]...</span>")
-		to_chat(user, "<span class='notice'>You attempt to trigger the release on [src]. (This will take around [DisplayTimeText(effective_breakout_time)].)</span>")
+		user.visible_message(SPAN_WARNING("[user] attempts to trigger the release on [src]!"), SPAN_NOTICE("You attempt to trigger the release on [src]..."))
+		to_chat(user, SPAN_NOTICE("You attempt to trigger the release on [src]. (This will take around [DisplayTimeText(effective_breakout_time)].)"))
 
 	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
-		to_chat(user, "<span class='warning'>You fail to trigger the release on [src]!</span>")
+		to_chat(user, SPAN_WARNING("You fail to trigger the release on [src]!"))
 		return
 
 	user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
@@ -457,21 +457,21 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
-		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
+		to_chat(usr, SPAN_DANGER("The cryo cell cannot handle such a lifeform!"))
 		return
 	if(occupant)
-		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
+		to_chat(usr, SPAN_DANGER("The cryo cell is already occupied!"))
 		return
 	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Subject may not hold anything in their hands.</span>")
+		to_chat(usr, SPAN_WARNING("Subject may not hold anything in their hands."))
 		return
 	if(!node)
-		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")
+		to_chat(usr, SPAN_WARNING("The cell is not correctly connected to its pipe network!"))
 		return
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
-		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
+		to_chat(M, SPAN_BOLDNOTICE("You feel a cold liquid surround you. Your skin starts to freeze up."))
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -489,7 +489,7 @@
 		return
 	if(panel_open)
 		force_eject = !force_eject
-		to_chat(user, "<span class='notice'>You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src]."))
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

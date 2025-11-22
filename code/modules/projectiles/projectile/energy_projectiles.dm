@@ -96,7 +96,7 @@
 			continue
 		var/floored = FALSE
 		if(HAS_TRAIT(M, TRAIT_BSG_IMMUNE))
-			to_chat(M, "<span class='notice'>Your B.S.G deploys an energy shield to project you from [src]'s explosion.</span>")
+			to_chat(M, SPAN_NOTICE("Your B.S.G deploys an energy shield to project you from [src]'s explosion."))
 			new /obj/effect/temp_visual/at_shield(get_turf(M), M)
 			continue
 		var/distance = (1 + get_dist(M, src))
@@ -106,15 +106,15 @@
 			M.apply_damage((rand(60, 80) * (1.1 - distance / 10)) * damage_multiplier, BURN) //reduced by 10% per tile
 			add_attack_logs(firer, M, "Hit heavily by [src]")
 			if(floored)
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+				to_chat(M, SPAN_USERDANGER("You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!"))
 				M.KnockDown(4 SECONDS)
 			else
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+				to_chat(M, SPAN_USERDANGER("You see a flash of briliant blue light as [src] explodes, burning you!"))
 			if(immolate)
 				M.adjust_fire_stacks(immolate)
 				M.IgniteMob()
 		else
-			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
+			to_chat(M, SPAN_USERDANGER("You feel the heat of the explosion of [src], but the blast mostly misses you."))
 			add_attack_logs(firer, M, "Hit lightly by [src]")
 			M.apply_damage(rand(20, 25) * damage_multiplier, BURN)
 		if(ROLE_BLOB in M.faction)
@@ -256,9 +256,9 @@
 			if(L.stat != DEAD)
 				if(successfulshocks > 2)
 					L.visible_message(
-						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
-						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
-						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+						SPAN_DANGER("[L] was shocked by the lightning chain!"), \
+						SPAN_USERDANGER("You are shocked by the lightning chain!"), \
+						SPAN_ITALICS("You hear a heavy electrical crack.") \
 					)
 				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) * damage_multiplier //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
 				L.adjustFireLoss(damage) //time to die

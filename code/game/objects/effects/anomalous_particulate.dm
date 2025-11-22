@@ -262,16 +262,16 @@
 	var/mob/living/victim = A
 	switch(bump_effect)
 		if(BLUESPACE) // Easy out of a department... but you'll be slow and unable to fight well for a minute.
-			to_chat(victim, "<span class='userdanger'>You feel like everything around you is moving twice as fast!</span>")
+			to_chat(victim, SPAN_USERDANGER("You feel like everything around you is moving twice as fast!"))
 			victim.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN_LONG)
 			victim.Slowed(1 MINUTES, 1)
 			do_teleport(victim, get_turf(victim), 21, sound_in = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE)
 		if(GRAV) // Yeet
-			to_chat(victim, "<span class='userdanger'>You bounce right off [src]!</span>")
+			to_chat(victim, SPAN_USERDANGER("You bounce right off [src]!"))
 			var/atom/target = get_edge_target_turf(victim, get_dir(src, get_step_away(victim, src)))
 			victim.throw_at(target, 20, 3)
 		if(PYRO) // I mean yeah, hot
-			to_chat(victim, "<span class='danger'>[src] is perhaps a bit hot to the touch.</span>")
+			to_chat(victim, SPAN_DANGER("[src] is perhaps a bit hot to the touch."))
 			victim.adjust_fire_stacks(12)
 			victim.IgniteMob()
 		if(FLUX) // Shock them... or charge the cell in the item they are holding!
@@ -298,12 +298,12 @@
 			if(!charged_item)
 				victim.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 				return
-			to_chat(victim, "<span class='notice'>[charged_item] suddenly feels very warm!</span>")
+			to_chat(victim, SPAN_NOTICE("[charged_item] suddenly feels very warm!"))
 		if(VORTEX) // sharp particulate
-			to_chat(victim, "<span class='userdanger'>As you pass through [src], sharp particulate cuts into you!</span>")
+			to_chat(victim, SPAN_USERDANGER("As you pass through [src], sharp particulate cuts into you!"))
 			victim.adjustBruteLoss(30)
 		if(CRYO) // slowdown via cold
-			to_chat(victim, "<span class='userdanger'>As you pass through [src], you feel quite cold!</span>")
+			to_chat(victim, SPAN_USERDANGER("As you pass through [src], you feel quite cold!"))
 			victim.adjust_bodytemperature(-230)
 
 
@@ -312,28 +312,28 @@
 	if(!ishuman(user))
 		return
 	if(hasHUD(user, ANOMALOUS_HUD))
-		to_chat(user, "<span class='warning'>Your protective gear shields you from the anomalous effects. Best not to look at it without them.</span>")
+		to_chat(user, SPAN_WARNING("Your protective gear shields you from the anomalous effects. Best not to look at it without them."))
 		return
 
 	var/mob/living/carbon/human/victim = user
 	switch(examine_effect)
 		if(BLUESPACE) // Just a slowdown in spacetime
-			to_chat(victim, "<span class='userdanger'>[src] really begins to draw in your focus, time slips on by around you...</span>")
+			to_chat(victim, SPAN_USERDANGER("[src] really begins to draw in your focus, time slips on by around you..."))
 			victim.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 			victim.Slowed(15 SECONDS, 1)
 		if(GRAV) // bonk to the head
-			to_chat(victim, "<span class='userdanger'>Your head hurts just looking at [src]!</span>")
+			to_chat(victim, SPAN_USERDANGER("Your head hurts just looking at [src]!"))
 			victim.adjustBrainLoss(10)
 		if(PYRO) // Just a nice warm glow
-			to_chat(victim, "<span class='notice'>[src] gives off a nice warm glow.</span>")
+			to_chat(victim, SPAN_NOTICE("[src] gives off a nice warm glow."))
 		if(FLUX) // Emp yourself. This can be considered a benefit.
-			to_chat(victim, "<span class='userdanger'>As you focus on [src], a shock travels through you and your electronics!</span>")
+			to_chat(victim, SPAN_USERDANGER("As you focus on [src], a shock travels through you and your electronics!"))
 			victim.emp_act(EMP_LIGHT)
 		if(VORTEX) // Darkness consumes you. Or your vision, for a moment
-			to_chat(victim, "<span class='userdanger'>[src] is so dark that... everything else kinda is.</span>")
+			to_chat(victim, SPAN_USERDANGER("[src] is so dark that... everything else kinda is."))
 			victim.AdjustEyeBlind(5 SECONDS)
 		if(CRYO) // A cool refresher. Though a bit toxic.
-			to_chat(victim, "<span class='warning'>A cool feeling passes through you, closing your wounds. Feels... a bit off though...</span>")
+			to_chat(victim, SPAN_WARNING("A cool feeling passes through you, closing your wounds. Feels... a bit off though..."))
 			victim.adjustBruteLoss(-10)
 			victim.adjustFireLoss(-20)
 			victim.adjustToxLoss(15)
@@ -345,7 +345,7 @@
 	switch(process_effect)
 		if(BLUESPACE) // Condense a crystal now and then
 			if(prob(2))
-				visible_message( "<span class='notice'>A drop of blue particulate from [src] condenses into a shining crystal.</span>")
+				visible_message( SPAN_NOTICE("A drop of blue particulate from [src] condenses into a shining crystal."))
 				new /obj/item/stack/ore/bluespace_crystal/refined(get_turf(src))
 		if(GRAV) // Nice gravity. Invert it.
 			if(prob(1))
@@ -452,13 +452,13 @@
  */
 /obj/effect/anomalous_particulate/proc/drain_influence(mob/living/user, obj/item/ppp_processor/processor)
 	if(processor.clouds_processed >= 3)
-		to_chat(user, "<span class='warning'>Your PPPProcessor is full!</span>")
+		to_chat(user, SPAN_WARNING("Your PPPProcessor is full!"))
 		return
 	if(processor.clouds_processed == -1)
-		to_chat(user, "<span class='warning'>Your PPPProcessor has no canisters to collect particulate with!</span>")
+		to_chat(user, SPAN_WARNING("Your PPPProcessor has no canisters to collect particulate with!"))
 		return
 	being_drained = TRUE
-	to_chat(user, "<span class='notice'>Your PPPProcessor begins to energize and collect [src]...</span>")
+	to_chat(user, SPAN_NOTICE("Your PPPProcessor begins to energize and collect [src]..."))
 
 	if(!do_after(user, 10 SECONDS, target = src, hidden = TRUE))
 		being_drained = FALSE
@@ -472,13 +472,13 @@
  */
 /obj/effect/anomalous_particulate/proc/after_drain(mob/living/user, obj/item/ppp_processor/processor)
 	if(user)
-		to_chat(user, "<span class='warning'>[src] begins to intensify!</span>")
+		to_chat(user, SPAN_WARNING("[src] begins to intensify!"))
 
 	new /obj/effect/visible_anomalous_particulate(drop_location())
 
 	processor.collect()
 	if(processor.clouds_processed >= 3)
-		to_chat(user, "<span class='notice'>[processor] has it's 3 canisters filled. Be sure to process the information!</span>")
+		to_chat(user, SPAN_NOTICE("[processor] has it's 3 canisters filled. Be sure to process the information!"))
 
 	GLOB.anomaly_smash_track.num_drained++
 	qdel(src)

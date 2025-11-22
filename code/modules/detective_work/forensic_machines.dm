@@ -24,48 +24,48 @@
 
 /obj/machinery/dnaforensics/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Click while holding a sample</b> to insert a sample.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to eject the current sample.</span>"
-	. += "<span class='notice'><b>Click with an empty hand</b> to analyze the current sample.</span>"
+	. += SPAN_NOTICE("<b>Click while holding a sample</b> to insert a sample.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to eject the current sample.")
+	. += SPAN_NOTICE("<b>Click with an empty hand</b> to analyze the current sample.")
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/forensics))
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		to_chat(user, SPAN_WARNING("You must close the panel!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(swab)
-		to_chat(user, "<span class='warning'>There is already a sample inside the scanner.</span>")
+		to_chat(user, SPAN_WARNING("There is already a sample inside the scanner."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/forensics/swab))
-		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 		user.unequip(used)
 		used.forceMove(src)
 		swab = used
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>This is not a compatible sample!</span>")
+		to_chat(user, SPAN_NOTICE("This is not a compatible sample!"))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
 	if(!swab)
-		to_chat(user, "<span class='warning'>The scanner is empty!</span>")
+		to_chat(user, SPAN_WARNING("The scanner is empty!"))
 		return
 	scanning = TRUE
 	update_appearance(UPDATE_ICON)
-	to_chat(user, "<span class='notice'>The scanner begins to hum as you analyze [swab].</span>")
+	to_chat(user, SPAN_NOTICE("The scanner begins to hum as you analyze [swab]."))
 
 	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
-		to_chat(user, "<span class='notice'>You have stopped analyzing [swab || "the swab"].</span>")
+		to_chat(user, SPAN_NOTICE("You have stopped analyzing [swab || "the swab"]."))
 		scanning = FALSE
 		update_appearance(UPDATE_ICON)
 		return
 
-	to_chat(user, "<span class='notice'>Printing report...</span>")
+	to_chat(user, SPAN_NOTICE("Printing report..."))
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
 	report_num++
@@ -77,7 +77,7 @@
 	if(!isnull(bloodswab.dna))
 		data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
 		for(var/blood in bloodswab.dna)
-			data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
+			data += SPAN_NOTICE("Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br>")
 	else
 		data += "\nNo DNA found.<br>"
 	report.info = "<b>Report number: [report_num]</b><br>"
@@ -91,9 +91,9 @@
 	if(!istype(remover) || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!swab)
-		to_chat(remover, "<span class='warning'>There is no sample inside the scanner!</span>")
+		to_chat(remover, SPAN_WARNING("There is no sample inside the scanner!"))
 		return
-	to_chat(remover, "<span class='notice'>You remove [swab] from the scanner.</span>")
+	to_chat(remover, SPAN_NOTICE("You remove [swab] from the scanner."))
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
 	swab = null
@@ -154,25 +154,25 @@
 
 /obj/machinery/microscope/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Click while holding a sample</b> to insert a sample.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to eject the current sample.</span>"
-	. += "<span class='notice'><b>Click with an empty hand</b> to study the current sample.</span>"
+	. += SPAN_NOTICE("<b>Click while holding a sample</b> to insert a sample.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to eject the current sample.")
+	. += SPAN_NOTICE("<b>Click with an empty hand</b> to study the current sample.")
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/forensics/swab) && !istype(used, /obj/item/sample))
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		to_chat(user, SPAN_WARNING("You must close the panel!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(sample)
-		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
+		to_chat(user, SPAN_WARNING("There is already a sample in the microscope!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/forensics/swab)|| istype(used, /obj/item/sample/fibers) || istype(used, /obj/item/sample/print))
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You insert [used] into the microscope.</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into the microscope."))
 		user.unequip(used)
 		used.forceMove(src)
 		sample = used
@@ -182,17 +182,17 @@
 /obj/machinery/microscope/attack_hand(mob/user)
 
 	if(!sample)
-		to_chat(user, "<span class='warning'>There is no sample in the microscope to study.</span>")
+		to_chat(user, SPAN_WARNING("There is no sample in the microscope to study."))
 		return
 
 	add_fingerprint(user)
-	to_chat(user, "<span class='notice'>The microscope buzzes as you study [sample].</span>")
+	to_chat(user, SPAN_NOTICE("The microscope buzzes as you study [sample]."))
 
 	if(!do_after(user, 2.5 SECONDS, src) || !sample)
-		to_chat(user, "<span class='notice'>You stop studying [sample].</span>")
+		to_chat(user, SPAN_NOTICE("You stop studying [sample]."))
 		return
 
-	to_chat(user, "<span class='notice'>Printing Report...</span>")
+	to_chat(user, SPAN_NOTICE("Printing Report..."))
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
 	report_num++
@@ -217,7 +217,7 @@
 		if(fibers.evidence)
 			report.info += "Molecular analysis on the provided sample determined the presence of the following unique fiber strands:<br><br>"
 			for(var/fiber in fibers.evidence)
-				report.info += "<span class='notice'>Most Likely Match: [fiber]<br><br></span>"
+				report.info += SPAN_NOTICE("Most Likely Match: [fiber]<br><br>")
 		else
 			report.info += "No fibers found."
 	else if(istype(sample, /obj/item/sample/print))
@@ -228,7 +228,7 @@
 		if(card.evidence && card.evidence.len)
 			report.info += "<br>Surface analysis identified the following unique fingerprints:<br><br>"
 			for(var/prints in card.evidence)
-				report.info += "<span class='notice'>Fingerprint: </span>"
+				report.info += SPAN_NOTICE("Fingerprint: ")
 				if(!is_complete_print(prints))
 					report.info += "INCOMPLETE PRINT"
 				else
@@ -247,9 +247,9 @@
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
 		return
 	if(!sample)
-		to_chat(remover, "<span class='warning'>There is no sample inside the microscope!</span>")
+		to_chat(remover, SPAN_WARNING("There is no sample inside the microscope!"))
 		return
-	to_chat(remover, "<span class='notice'>you removed [sample] from the microscope.</span>")
+	to_chat(remover, SPAN_NOTICE("you removed [sample] from the microscope."))
 	sample.forceMove(get_turf(src))
 	remover.put_in_hands(sample)
 	sample = null

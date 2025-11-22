@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			announcer.author = id_card.assignment ? "[id_card.assignment] [id_card.registered_name]" : id_card.registered_name
 		else
 			reset_message()
-			to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
+			to_chat(user, SPAN_WARNING("You are not authorized to send announcements."))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 	if(screen == RCS_SECONDARY)

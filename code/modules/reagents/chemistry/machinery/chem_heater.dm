@@ -65,16 +65,16 @@
 /obj/machinery/chem_heater/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(beaker)
-			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, SPAN_NOTICE("A beaker is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
 		used.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+		to_chat(user, SPAN_NOTICE("You add the beaker to the machine!"))
 		icon_state = "mixer1b"
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE

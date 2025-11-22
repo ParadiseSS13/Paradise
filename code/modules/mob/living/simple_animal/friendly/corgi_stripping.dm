@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return FALSE
 
 	if(!istype(equipping, /obj/item/petcollar))
-		to_chat(user, "<span class='warning'>That's not a collar.</span>")
+		to_chat(user, SPAN_WARNING("That's not a collar."))
 		return FALSE
 
 	return TRUE
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return
 	if(!ispath(equipping.dog_fashion, /datum/dog_fashion/back))
 		var/mob/living/simple_animal/pet/dog/corgi/corgi = source
-		to_chat(user, "<span class='warning'>You set [equipping] on [source]'s back, but it falls off!</span>")
+		to_chat(user, SPAN_WARNING("You set [equipping] on [source]'s back, but it falls off!"))
 		INVOKE_ASYNC(equipping, TYPE_PROC_REF(/atom/movable, forceMove), source.drop_location())
 		if(prob(25))
 			step_rand(equipping)

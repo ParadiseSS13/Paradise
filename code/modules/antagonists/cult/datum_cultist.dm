@@ -20,7 +20,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	add_cult_actions()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/bloodcult.ogg'))
 	owner.current.create_log(CONVERSION_LOG, "Converted to the cult")
-	owner.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+	owner.current.create_attack_log(SPAN_DANGER("Has been converted to the cult!"))
 
 	var/datum/team/cult/cult = get_team()
 	ASSERT(cult)
@@ -60,8 +60,8 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 
 /datum/antagonist/cultist/farewell()
 	if(owner && owner.current)
-		owner.current.visible_message("<span class='cult'>[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
+		owner.current.visible_message(SPAN_CULT("[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!"),
+			SPAN_USERDANGER("An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it."))
 
 /datum/antagonist/cultist/create_team(team)
 	return SSticker.mode.get_cult_team()
@@ -98,7 +98,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	var/mob/living/carbon/human/H = owner.current
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 	H.update_halo_layer()
-	to_chat(H, "<span class='userdanger'>The halo above your head shatters!</span>")
+	to_chat(H, SPAN_USERDANGER("The halo above your head shatters!"))
 	playsound(H, "shatter", 50, TRUE)
 
 /datum/antagonist/cultist/proc/add_cult_actions()
@@ -121,7 +121,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 		return FALSE
 	. |= cult_give_item(/obj/item/melee/cultblade/dagger)
 	. |= cult_give_item(/obj/item/stack/sheet/runed_metal/ten)
-	to_chat(owner.current, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(owner.current, SPAN_CULT("These will help you start the cult on this station. Use them well, and remember - you are not the only one."))
 
 /datum/antagonist/cultist/proc/cult_give_item(obj/item/item_path)
 	if(!ishuman(owner.current))
@@ -135,10 +135,10 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 
 	var/where = H.equip_in_one_of_slots(new item_path(H), slots)
 	if(where)
-		to_chat(H, "<span class='danger'>You have \a [initial(item_path.name)] in your [where].</span>")
+		to_chat(H, SPAN_DANGER("You have \a [initial(item_path.name)] in your [where]."))
 		if(H.s_active) // Update whatever inventory they have open
 			H.s_active.orient2hud(H)
 			H.s_active.show_to(H)
 		return TRUE
-	to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get \a [initial(item_path.name)]. This is very bad and you should adminhelp immediately (press F1).</span>")
+	to_chat(H, SPAN_USERDANGER("Unfortunately, you weren't able to get \a [initial(item_path.name)]. This is very bad and you should adminhelp immediately (press F1)."))
 	return FALSE

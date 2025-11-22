@@ -11,7 +11,7 @@
 
 /datum/antagonist/wizard/apprentice/greet()
 	. = ..()
-	. += "<span class='danger'>You are [my_teacher.real_name]'s apprentice! You are bound by magic contract to follow [my_teacher.p_their()] orders and help [my_teacher.p_them()] in accomplishing [my_teacher.p_their()] goals.</span>"
+	. += SPAN_DANGER("You are [my_teacher.real_name]'s apprentice! You are bound by magic contract to follow [my_teacher.p_their()] orders and help [my_teacher.p_them()] in accomplishing [my_teacher.p_their()] goals.")
 
 /datum/antagonist/wizard/apprentice/give_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect

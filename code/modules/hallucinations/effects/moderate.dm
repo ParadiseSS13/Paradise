@@ -97,15 +97,15 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
+			to_chat(user, SPAN_WARNING("You try to use your hand, but it's missing!"))
 			return
 		if(!temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+			to_chat(user, SPAN_WARNING("You try to move your [temp.name], but cannot!"))
 			return
 
 	user.Weaken(4 SECONDS)
-	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
-						"<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
+	user.visible_message(SPAN_WARNING("[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!"),
+						SPAN_USERDANGER("[src] vanishes as you try grabbing it, causing you to stumble!"))
 	qdel(src)
 
 /**
@@ -220,8 +220,8 @@
 	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
-	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
-						"<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!</span>")
+	target.visible_message(SPAN_WARNING("[target] trips over nothing and flails on [get_turf(target)] as if they were falling!"),
+						SPAN_USERDANGER("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!"))
 
 /**
   * # Hallucination - Delamination Alarm
@@ -439,7 +439,7 @@
 	I.override = TRUE
 	add_icon(I)
 
-	to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+	to_chat(target, SPAN_ITALICS("...wabbajack...wabbajack..."))
 	target.playsound_local(get_turf(target), 'sound/magic/staff_change.ogg', 50, TRUE, -1)
 
 /**

@@ -167,7 +167,7 @@
 /obj/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	visible_message(SPAN_WARNING("[src] explodes!"),SPAN_WARNING("You hear a snap!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -254,7 +254,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		if(is_ancient_rock(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 			forcedodge = 0
 			return
 		forcedodge = 1

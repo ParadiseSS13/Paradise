@@ -84,6 +84,6 @@
 /obj/item/gun/projectile/automatic/speargun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You load [num_loaded] spear\s into \the [src]."))
 		update_icon()
 		chamber_round()

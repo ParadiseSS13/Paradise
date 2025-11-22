@@ -42,10 +42,10 @@
 	if(!usr || !usr.client || !isobserver(usr))
 		return
 	if(usr in followers)
-		to_chat(usr, "<span class='notice'>You will now not auto-follow [thing_followed].</span>")
+		to_chat(usr, SPAN_NOTICE("You will now not auto-follow [thing_followed]."))
 		remove_follower(usr)
 	else
-		to_chat(usr, "<span class='notice'>You are now auto-following [thing_followed]. Click again to stop.</span>")
+		to_chat(usr, SPAN_NOTICE("You are now auto-following [thing_followed]. Click again to stop."))
 		add_follower(usr)
 
 /atom/movable/screen/alert/augury/Destroy(force)

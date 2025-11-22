@@ -343,7 +343,7 @@
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
 		user.put_in_hands(pizza)
-		to_chat(user, "<span class='warning'>You take [pizza] out of [src].</span>")
+		to_chat(user, SPAN_WARNING("You take [pizza] out of [src]."))
 		pizza = null
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
@@ -355,7 +355,7 @@
 		var/obj/item/pizzabox/box = boxes[length(boxes)]
 		boxes -= box
 		user.put_in_hands(box)
-		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
+		to_chat(user, SPAN_WARNING("You remove the topmost [src] from your hand."))
 		box.update_appearance(UPDATE_DESC|UPDATE_ICON)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
@@ -392,11 +392,11 @@
 				boxes.Add(boxestoadd)
 				box.update_appearance(UPDATE_DESC|UPDATE_ICON)
 				update_appearance(UPDATE_DESC|UPDATE_ICON)
-				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
+				to_chat(user, SPAN_WARNING("You put [box] on top of [src]!"))
 			else
-				to_chat(user, "<span class='warning'>The stack is too high!</span>")
+				to_chat(user, SPAN_WARNING("The stack is too high!"))
 		else
-			to_chat(user, "<span class='warning'>Close [box] first!</span>")
+			to_chat(user, SPAN_WARNING("Close [box] first!"))
 		return
 
 	if(istype(I, /obj/item/food/sliceable/pizza)) // Long ass fucking object name
@@ -407,9 +407,9 @@
 
 			update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-			to_chat(user, "<span class='warning'>You put [I] in [src]!</span>")
+			to_chat(user, SPAN_WARNING("You put [I] in [src]!"))
 		else
-			to_chat(user, "<span class='warning'>You try to push [I] through the lid but it doesn't work!</span>")
+			to_chat(user, SPAN_WARNING("You try to push [I] through the lid but it doesn't work!"))
 		return
 
 	if(is_pen(I))
@@ -555,9 +555,9 @@
 	open = TRUE
 	opener = user
 
-	audible_message("<span class='warning'>[bicon(src)] *beep* *beep* *beep*</span>")
+	audible_message(SPAN_WARNING("[bicon(src)] *beep* *beep* *beep*"))
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
-	to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
+	to_chat(user, SPAN_DANGER("That's no pizza! That's a bomb!"))
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		atom_say("Pizza time!")
 		playsound(src, 'sound/voice/pizza_time.ogg', 50, FALSE) ///Sound effect made by BlackDog
@@ -574,10 +574,10 @@
 
 /obj/item/pizzabox/pizza_bomb/proc/go_boom()
 	if(pizza_bomb_status == PIZZA_BOMB_DISARMED)
-		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!</span>")
+		visible_message(SPAN_DANGER("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!"))
 		return
 	atom_say("Enjoy the pizza!")
-	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
+	visible_message(SPAN_USERDANGER("[src] violently explodes!"))
 	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at [ADMIN_JMP(loc)].")
 	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
 	explosion(loc, 1, 2, 4, flame_range = 2, cause = "Pizza bomb") //Identical to a minibomb
@@ -585,7 +585,7 @@
 
 /obj/item/pizzabox/pizza_bomb/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='notice'>You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce.</span>")
+		to_chat(user, SPAN_NOTICE("You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce."))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		return TRUE
 	return FALSE
@@ -595,32 +595,32 @@
 		return
 	. = TRUE
 	if(pizza_bomb_status == PIZZA_BOMB_PRIMED)
-		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
+		to_chat(user, SPAN_DANGER("Oh God, what wire do you cut?!"))
 		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
 		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return
 		playsound(src, I.usesound, 50, TRUE, 1)
-		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
+		user.visible_message(SPAN_WARNING("[user] cuts the [chosen_wire] wire!"), SPAN_DANGER("You cut the [chosen_wire] wire!"))
 		if(chosen_wire == correct_wire)
-			audible_message("<span class='warning'>[bicon(src)] [src] suddenly stops beeping and seems lifeless.</span>")
-			to_chat(user, "<span class='notice'>You did it!</span>")
+			audible_message(SPAN_WARNING("[bicon(src)] [src] suddenly stops beeping and seems lifeless."))
+			to_chat(user, SPAN_NOTICE("You did it!"))
 
 			pizza_bomb_status = PIZZA_BOMB_DISARMED
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 			return
 		else
-			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
+			to_chat(user, SPAN_USERDANGER("WRONG WIRE!"))
 			go_boom()
 			return
 
 	if(pizza_bomb_status == PIZZA_BOMB_DISARMED)
 		if(!in_range(user, src))
-			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
+			to_chat(user, SPAN_WARNING("You can't see the box well enough to cut the wires out."))
 			return
-		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts removing the payload and wires from [src]."))
 		if(I.use_tool(src, user, 4 SECONDS, volume = 50))
 			user.unequip(src)
-			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] removes the insides of [src]!"))
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
 			C.amount = 3
 			new /obj/item/bombcore/miniature(loc)

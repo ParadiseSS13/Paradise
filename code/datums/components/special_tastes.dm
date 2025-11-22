@@ -2,7 +2,7 @@
 /datum/component/special_tastes
 	/// associated list of item to reagents and tastes
 	/// Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
-	var/list/obj/item/edible_items = list() 
+	var/list/obj/item/edible_items = list()
 
 /datum/component/special_tastes/Initialize(list/edible_items)
 	if(!length(edible_items))
@@ -37,7 +37,7 @@
 	if(istype(attacking_item, /obj/item/stack))
 		var/obj/item/stack/stacked_item = attacking_item
 		if(stacked_item.amount > 1)
-			to_chat(user, "<span class='notice'>You can only eat one of [stacked_item] at a time.</span>")
+			to_chat(user, SPAN_NOTICE("You can only eat one of [stacked_item] at a time."))
 			return
 	var/obj/item/food/food = turn_into_food(attacking_item, similar_to)
 	user.drop_item_to_ground(attacking_item, TRUE, TRUE)
@@ -50,7 +50,7 @@
 		food.On_Consume(user, user)
 		qdel(attacking_item)
 		return // couldnt eat it, undo
-	to_chat(user, "<span class='notice'>You are too full to eat [attacking_item].</span>")
+	to_chat(user, SPAN_NOTICE("You are too full to eat [attacking_item]."))
 	user.drop_item_to_ground(food, TRUE, TRUE)
 	user.put_in_active_hand(attacking_item)
 	qdel(food)

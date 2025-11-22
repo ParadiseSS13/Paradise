@@ -22,7 +22,7 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!.</span>")
+	user.visible_message(SPAN_SUICIDE("[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!."))
 	plant(user)
 	return BRUTELOSS
 
@@ -38,7 +38,7 @@
 
 /obj/item/seeds/kudzu/attack_self__legacy__attackchain(mob/user)
 	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	to_chat(user, SPAN_NOTICE("You plant the kudzu. You monster."))
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()

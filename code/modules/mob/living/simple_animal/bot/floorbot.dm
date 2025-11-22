@@ -96,7 +96,7 @@
 		return
 	var/mob/user = ui.user
 	if(topic_denied(user))
-		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(user)
 	. = TRUE
@@ -139,11 +139,11 @@
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
-			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
+			to_chat(user, SPAN_NOTICE("You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
 			nagged = 0
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
+			to_chat(user, SPAN_WARNING("You need at least one floor tile to put into [src]!"))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -153,7 +153,7 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, SPAN_DANGER("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	. = ..()
@@ -226,7 +226,7 @@
 					F.break_tile_to_plating()
 				else
 					F.ReplaceWithLattice()
-				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
+				audible_message(SPAN_DANGER("[src] makes an excited booping sound."))
 				addtimer(CALLBACK(src, PROC_REF(inc_amount_callback)), 5 SECONDS)
 
 			path = list()
@@ -317,7 +317,7 @@
 	anchored = TRUE
 
 	if(isspaceturf(target_turf)) // If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
+		visible_message(SPAN_NOTICE("[src] begins to repair the hole."))
 		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
@@ -326,7 +326,7 @@
 		var/turf/simulated/floor/F = target_turf
 		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
-		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
+		visible_message(SPAN_NOTICE("[src] begins repairing the floor."))
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
 
@@ -354,7 +354,7 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to collect tiles."))
 	set_mode(BOT_EAT_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_eat_tile), T), 2 SECONDS)
@@ -380,7 +380,7 @@
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to create tiles."))
 	set_mode(BOT_MAKE_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_make_tile), M), 2 SECONDS)
@@ -423,7 +423,7 @@
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
 	N.contents = list()

@@ -79,17 +79,17 @@
 			return
 		var/cooldown = ckey_to_cooldown[source.ckey] - world.time
 		if(cooldown > 0)
-			to_chat(source, "<span class='warning'>Your deadchat control inputs are still on cooldown for another [CEILING(cooldown * 0.1, 1)] second\s.</span>")
+			to_chat(source, SPAN_WARNING("Your deadchat control inputs are still on cooldown for another [CEILING(cooldown * 0.1, 1)] second\s."))
 			return MOB_DEADSAY_SIGNAL_INTERCEPT
 		ckey_to_cooldown[source.ckey] = world.time + input_cooldown
 		addtimer(CALLBACK(src, PROC_REF(end_cooldown), source.ckey), input_cooldown)
 		inputs[message].Invoke()
-		to_chat(source, "<span class='notice'>\"[message]\" input accepted. You are now on cooldown for [input_cooldown * 0.1] second\s.</span>")
+		to_chat(source, SPAN_NOTICE("\"[message]\" input accepted. You are now on cooldown for [input_cooldown * 0.1] second\s."))
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
 		ckey_to_cooldown[source.ckey] = message
-		to_chat(source, "<span class='notice'>You have voted for \"[message]\".</span>")
+		to_chat(source, SPAN_NOTICE("You have voted for \"[message]\"."))
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 /datum/component/deadchat_control/proc/democracy_loop()
@@ -147,11 +147,11 @@
 	if(isobserver(orbiter))
 		var/mob/dead/observer/O = orbiter
 		if(O.client && !(O.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(O, "<span class='deadsay'>You have deadchat muted, and as such will not receive messages related to, nor be able to participate in, controlling this object.</span>")
-			to_chat(O, "<span class='notice'>If you would like to participate, unmute deadchat and follow this object again.</span>")
+			to_chat(O, SPAN_DEADSAY("You have deadchat muted, and as such will not receive messages related to, nor be able to participate in, controlling this object."))
+			to_chat(O, SPAN_NOTICE("If you would like to participate, unmute deadchat and follow this object again."))
 			return
 		else
-			to_chat(O, "<span class='deadsay'>[parent] is deadchat-controllable! Examine [parent] to see possible commands you can use while orbiting [parent.p_them()] to control [parent.p_their()] behavior!</span>")
+			to_chat(O, SPAN_DEADSAY("[parent] is deadchat-controllable! Examine [parent] to see possible commands you can use while orbiting [parent.p_them()] to control [parent.p_their()] behavior!"))
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
@@ -191,10 +191,10 @@
 	if(!isobserver(user))
 		return
 
-	examine_list += "<span class='notice'>[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEADCHAT_DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!</span>"
+	examine_list += SPAN_NOTICE("[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEADCHAT_DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!")
 
 	if(user.client && !(user.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		examine_list += "<span class='deadsay'>As you have deadchat disabled, you will not see vote messages, nor be able to participate in voting.</span>"
+		examine_list += SPAN_DEADSAY("As you have deadchat disabled, you will not see vote messages, nor be able to participate in voting.")
 		return
 
 	if(!(user in orbiters))
@@ -203,9 +203,9 @@
 
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
-		examine_list += "<span class='notice'>Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.</span>"
+		examine_list += SPAN_NOTICE("Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.")
 	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
-		examine_list += "<span class='notice'>Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.</span>"
+		examine_list += SPAN_NOTICE("Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.")
 
 	var/extended_examine = "<span class='notice'>Command list:"
 
@@ -221,7 +221,7 @@
 	var/mob/ghost = get_mob_by_ckey(ghost_ckey)
 	if(!ghost || isliving(ghost))
 		return
-	to_chat(ghost, "<span class='green'>Your deadchat control inputs for [parent] ([ghost_follow_link(parent, ghost)]) are no longer on cooldown.</span>")
+	to_chat(ghost, SPAN_GREEN("Your deadchat control inputs for [parent] ([ghost_follow_link(parent, ghost)]) are no longer on cooldown."))
 
 /// Dummy to call since we can't proc reference builtins
 /datum/component/deadchat_control/proc/_step(ref, dir)

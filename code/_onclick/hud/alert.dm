@@ -136,11 +136,11 @@
 	if(!usr || !usr.client)
 		return FALSE
 	if(usr != owner)
-		to_chat(usr, "<span class='notice'>Only [owner] can use that!</span>")
+		to_chat(usr, SPAN_NOTICE("Only [owner] can use that!"))
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='notice'>[desc]</span>")
+		to_chat(usr, SPAN_BOLDNOTICE("[name]</span> - <span class='notice'>[desc]"))
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
@@ -544,9 +544,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
-		to_chat(usr, "<span class='notice'>[M] connects to the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] connects to the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] failed to connect to the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] failed to connect to the port."))
 
 /atom/movable/screen/alert/mech_port_disconnect
 	name = "Disconnect from Port"
@@ -560,9 +560,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
-		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] disconnects from the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] is not connected to a port at the moment."))
 
 /atom/movable/screen/alert/mech_nocell
 	name = "Missing Power Cell"
@@ -946,6 +946,6 @@ so as to remain in compliance with the most up-to-date laws."
 			var/mob/living/carbon/C = owner
 			var/datum/organ/heart/heart = C.get_int_organ_datum(ORGAN_DATUM_HEART)
 			heart_name = heart.linked_organ.name
-		to_chat(owner, "<span class='danger'>Electricity flows through our [heart_name]! We have been brought back to life and have stopped our regeneration.</span>")
+		to_chat(owner, SPAN_DANGER("Electricity flows through our [heart_name]! We have been brought back to life and have stopped our regeneration."))
 		. = COMPONENT_DEFIB_FAKEDEATH_ACCEPTED
 	owner.clear_alert("cling_defib")

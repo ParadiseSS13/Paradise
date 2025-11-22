@@ -57,10 +57,10 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 		if("ahud_on")
 			if(!GLOB.configuration.general.allow_antag_hud && !ghost.client.holder)
-				to_chat(ghost, "<span class='warning'>Admins have disabled this for this round.</span>")
+				to_chat(ghost, SPAN_WARNING("Admins have disabled this for this round."))
 				return FALSE
 			if(jobban_isbanned(ghost, "AntagHUD"))
-				to_chat(ghost, "<span class='danger'>You have been banned from using this feature.</span>")
+				to_chat(ghost, SPAN_DANGER("You have been banned from using this feature."))
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
 			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.is_roundstart_observer() && GLOB.configuration.general.restrict_antag_hud_rejoin && !ghost.has_ahudded())

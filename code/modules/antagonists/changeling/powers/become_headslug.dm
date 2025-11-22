@@ -20,7 +20,7 @@
 	ADD_TRAIT(user, TRAIT_CLING_BURSTING, "last_resort")
 	user.Weaken(30 SECONDS)
 	user.do_jitter_animation(1000, -1) // jitter until they are gibbed
-	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hiss.</span>")
+	user.visible_message(SPAN_DANGER("A loud crack erupts from [user], followed by a hiss."))
 	playsound(get_turf(user), "bonebreak", 75, TRUE)
 	playsound(get_turf(user), 'sound/machines/hiss.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(become_headslug), user), 5 SECONDS)
@@ -34,7 +34,7 @@
 	if(isobj(user.loc))
 		var/obj/thing_to_break = user.loc
 		user.forceMove(get_turf(user)) // Get them outside of it before it breaks, to prevent issues / so they burst out of it dramatically
-		thing_to_break.visible_message("<span class='danger'>[user] violently explodes out of [thing_to_break], breaking it!</span>")
+		thing_to_break.visible_message(SPAN_DANGER("[user] violently explodes out of [thing_to_break], breaking it!"))
 		thing_to_break.obj_break(BRUTE)
 
 	for(var/obj/item/organ/internal/I in organs)
@@ -42,7 +42,7 @@
 
 	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE, cause = "Headslug explosion")
 	for(var/mob/living/carbon/human/H in range(2, user))
-		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
+		to_chat(H, SPAN_USERDANGER("You are blinded by a shower of blood!"))
 		H.KnockDown(4 SECONDS)
 		H.EyeBlurry(40 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -50,7 +50,7 @@
 			E.receive_damage(5, 1)
 		H.AdjustConfused(6 SECONDS)
 	for(var/mob/living/silicon/S in range(2, user))
-		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
+		to_chat(S, SPAN_USERDANGER("Your sensors are disabled by a shower of blood!"))
 		S.Weaken(6 SECONDS)
 	var/turf/our_turf = get_turf(user)
 	spawn(5) // So it's not killed in explosion
@@ -61,9 +61,9 @@
 		if(crab.origin)
 			crab.origin.active = TRUE
 			crab.origin.transfer_to(crab)
-			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
-			to_chat(crab, "<span class='boldnotice'>Our eggs can be laid in any humanoid by ALT-CLICKing on them, this takes 5 seconds.</span>")
-			to_chat(crab, "<span class='boldnotice'>Though this form shall perish after laying the egg, our true self shall be reborn in time.</span>")
+			to_chat(crab, SPAN_WARNING("You burst out of the remains of your former body in a shower of gore!"))
+			to_chat(crab, SPAN_BOLDNOTICE("Our eggs can be laid in any humanoid by ALT-CLICKing on them, this takes 5 seconds."))
+			to_chat(crab, SPAN_BOLDNOTICE("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
 
 	// This is done because after the original changeling gibs below, ALL of their actions are qdeleted
 	// We need to store their power types so we can re-create them later.

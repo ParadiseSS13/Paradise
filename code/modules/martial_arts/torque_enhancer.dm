@@ -34,7 +34,7 @@
 
 	if(attack_sound)
 		playsound(get_turf(D), attack_sound, 50, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(SPAN_DANGER("[A] [picked_hit_type] [D]!"), \
+					SPAN_USERDANGER("[A] [picked_hit_type] you!"))
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE

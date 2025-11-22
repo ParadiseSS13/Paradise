@@ -47,10 +47,10 @@
 	var/turf/current_location = get_turf(user)
 	if(emp_timer > world.time)
 		do_sparks(5, 0, loc)
-		to_chat(user, "<span class='warning'>[src] attempts to create a portal, but abruptly shuts off.</span>")
+		to_chat(user, SPAN_WARNING("[src] attempts to create a portal, but abruptly shuts off."))
 		return
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
+		to_chat(user, SPAN_NOTICE("\The [src] is malfunctioning."))
 		return
 	var/list/L = list()
 	for(var/obj/machinery/computer/teleporter/com in SSmachines.get_by_type(/obj/machinery/computer/teleporter))
@@ -77,10 +77,10 @@
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return
 	if(active_portals >= 3)
-		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
+		user.show_message(SPAN_NOTICE("\The [src] is recharging!"))
 		return
 	var/T = L[t1]
-	user.show_message("<span class='notice'>Locked In.</span>", 2)
+	user.show_message(SPAN_NOTICE("Locked In."), 2)
 	var/obj/effect/portal/P = new /obj/effect/portal/hand_tele(get_turf(src), T, src, creation_mob = user)
 	try_move_adjacent(P)
 	active_portals++
@@ -104,7 +104,7 @@
 /obj/item/hand_tele/examine(mob/user)
 	. = ..()
 	if(emp_timer > world.time)
-		. += "<span class='warning'>It looks inactive.</span>"
+		. += SPAN_WARNING("It looks inactive.")
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
 	active_portals--

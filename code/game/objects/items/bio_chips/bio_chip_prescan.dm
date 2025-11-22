@@ -20,7 +20,7 @@
 
 /obj/item/bio_chip/grey_autocloner/implant(mob/source, mob/user, force)
 	if(!linked)
-		to_chat(user, "<span class='warning'>Please link the implanter with a Technocracy cloning pod!</span>")
+		to_chat(user, SPAN_WARNING("Please link the implanter with a Technocracy cloning pod!"))
 		return FALSE
 	. = ..()
 	if(!. || !ishuman(imp_in))

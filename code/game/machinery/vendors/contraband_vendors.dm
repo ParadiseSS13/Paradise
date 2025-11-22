@@ -187,16 +187,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 
 /obj/machinery/economy/vending/toyliberationstation/secured/crowbar_act(mob/user, obj/item/I)
 	if(tilted)
-		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	to_chat(user, "<span class='warning'>You are unable to remove the electronics from the vendor!</span>")
+	to_chat(user, SPAN_WARNING("You are unable to remove the electronics from the vendor!"))
 
 /obj/machinery/economy/vending/toyliberationstation/secured/wrench_act(mob/user, obj/item/I)
 	if(tilted)
-		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	to_chat(user, "<span class='warning'>You are unable to loosen the bolts!</span>")
+	to_chat(user, SPAN_WARNING("You are unable to loosen the bolts!"))

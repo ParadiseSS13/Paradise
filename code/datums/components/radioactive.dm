@@ -136,7 +136,7 @@
 			fragments += "[length(fragments) ? " and [master.p_they()] " : "[master] "]hurt[master.p_s()] to look at."
 
 	if(length(fragments))
-		out += "<span class='warning'>[fragments.Join()]</span>"
+		out += SPAN_WARNING("[fragments.Join()]")
 
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER

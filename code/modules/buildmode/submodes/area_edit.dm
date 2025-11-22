@@ -20,11 +20,11 @@
 	return ..()
 
 /datum/buildmode_mode/area_edit/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on obj/turf/mob  = Paint area"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on obj/turf/mob = Select area to paint"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on buildmode button = Create new area"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/area_edit/change_settings(mob/user)
 	var/target_path = tgui_input_text(user, "Enter typepath:", "Typepath", "/area")
@@ -49,7 +49,7 @@
 
 	if(left_click)
 		if(!stored_area)
-			to_chat(user, "<span class='warning'>Configure or select the area you want to paint first!</span>")
+			to_chat(user, SPAN_WARNING("Configure or select the area you want to paint first!"))
 			return
 		var/turf/T = get_turf(object)
 		if(get_area(T) != stored_area)

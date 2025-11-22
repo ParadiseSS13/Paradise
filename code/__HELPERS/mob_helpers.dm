@@ -237,7 +237,7 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [SPAN_WARNING("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -245,7 +245,7 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [SPAN_WARNING("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -492,7 +492,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		to_chat(user, SPAN_WARNING("[attempt_cancel_message]"))
 		return FALSE
 
 	extra_checks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)
@@ -591,10 +591,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, SPAN_WARNING("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, SPAN_WARNING("No mob located in [A]."))
 
 // Suppress the mouse macros
 /mob/proc/LogMouseMacro(verbused, params)

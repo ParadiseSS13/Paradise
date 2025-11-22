@@ -37,7 +37,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(SPAN_DANGER("[src] grabs hold of [L]!"))
 		L.Stun(10 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
@@ -84,7 +84,7 @@
 /datum/status_effect/incapacitating/stun/goliath_tentacled/proc/on_helped(mob/source, mob/helping)
 	SIGNAL_HANDLER // COMSIG_CARBON_PRE_MISC_HELP
 	release()
-	source.visible_message("<span class='notice'>[helping] rips [source] from the tentacle's grasp!</span>")
+	source.visible_message(SPAN_NOTICE("[helping] rips [source] from the tentacle's grasp!"))
 	return COMPONENT_BLOCK_MISC_HELP
 
 /// Something happened to make the tentacle let go

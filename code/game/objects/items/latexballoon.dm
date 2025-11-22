@@ -24,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	user.update_inv_r_hand()
 	user.update_inv_l_hand()
-	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
+	to_chat(user, SPAN_NOTICE("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
 
 /obj/item/latexballon/proc/burst()

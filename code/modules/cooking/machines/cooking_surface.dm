@@ -25,9 +25,9 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 /datum/cooking_surface/proc/container_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice'>[examine_text()]</span>"
+	examine_list += SPAN_NOTICE("[examine_text()]")
 	if(timer)
-		examine_list += "<span class='notice'>Its alarm is configured for [timer / (1 SECONDS)] seconds.</span>"
+		examine_list += SPAN_NOTICE("Its alarm is configured for [timer / (1 SECONDS)] seconds.")
 
 /datum/cooking_surface/proc/examine_text()
 	return "This [surface_name] will cook at [temperature] temperature."

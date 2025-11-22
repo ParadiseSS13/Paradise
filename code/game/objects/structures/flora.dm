@@ -272,9 +272,9 @@
 /obj/item/kirbyplants/examine(mob/user)
 	. = ..()
 	if(hideable)
-		. += "<span class='notice'>You can hide behind [src] by picking it up with both hands free.</span>"
+		. += SPAN_NOTICE("You can hide behind [src] by picking it up with both hands free.")
 	else
-		. += "<span class='notice'>It's too small to hide behind.</span>"
+		. += SPAN_NOTICE("It's too small to hide behind.")
 
 /obj/item/kirbyplants/equipped(mob/living/carbon/user)
 	. = ..()
@@ -536,12 +536,12 @@
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
-			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")
+			to_chat(user, SPAN_WARNING("You flail away at the undergrowth, but it's too thick here."))
 		else
-			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
+			user.visible_message(SPAN_DANGER("[user] begins clearing away [src]."), SPAN_WARNING("You begin clearing away [src]."))
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
-					to_chat(user, "<span class='notice'>You clear away [src].</span>")
+					to_chat(user, SPAN_NOTICE("You clear away [src]."))
 					var/obj/item/stack/sheet/wood/W = new(src.loc)
 					W.amount = rand(3,15)
 					if(prob(50))

@@ -100,7 +100,7 @@
 	var/follow_text
 	for(var/mob/M in GLOB.mob_list)
 		follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost=M)])" : ""
-		rendered = "<span class='blob'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span>"
+		rendered = SPAN_BLOB("Blob Telepathy, [SPAN_NAME("[name]([blob_reagent_datum.name])")][follow_text] [SPAN_MESSAGE("states, \"[message]\"")]")
 		if(isovermind(M) || isobserver(M) || istype(M, /mob/living/basic/blob/blobbernaut))
 			M.show_message(rendered, EMOTE_AUDIBLE)
 

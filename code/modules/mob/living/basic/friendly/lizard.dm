@@ -70,11 +70,11 @@
 	if(stat != CONSCIOUS)
 		return
 	if(!has_tail)
-		to_chat(usr, "<span class='warning'>You have no tail to shed!</span>")
+		to_chat(usr, SPAN_WARNING("You have no tail to shed!"))
 		return
 	for(var/obj/item/grab/G in usr.grabbed_by)
 		var/mob/living/carbon/M = G.assailant
-		usr.visible_message("<span class='warning'>[usr] suddenly sheds their tail and slips out of [M]'s grasp!</span>")
+		usr.visible_message(SPAN_WARNING("[usr] suddenly sheds their tail and slips out of [M]'s grasp!"))
 		M.KnockDown(3 SECONDS) // FUCK I TRIPPED
 		playsound(usr.loc, "sound/misc/slip.ogg", 75, 1)
 		has_tail = FALSE
@@ -82,12 +82,12 @@
 
 /mob/living/basic/lizard/proc/new_tail()
 	has_tail = TRUE
-	to_chat(src, "<span class='notice'>You regrow your tail!</span>")
+	to_chat(src, SPAN_NOTICE("You regrow your tail!"))
 
 /mob/living/basic/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		user.visible_message(SPAN_NOTICE("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+		SPAN_WARNING("It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises."))
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["metal"] += 2 // having more metal than glass because blood has iron in it
 		C.stored_comms["glass"] += 1

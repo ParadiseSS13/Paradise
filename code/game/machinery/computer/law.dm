@@ -20,8 +20,8 @@
 		return
 	emagged = TRUE
 	if(user)
-		user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
-							"<span class='notice'>You emag [src], scrambling the computer's law encoding system.</span>")
+		user.visible_message(SPAN_WARNING("Sparks fly out of [src]!"),
+							SPAN_NOTICE("You emag [src], scrambling the computer's law encoding system."))
 	playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 	do_sparks(5, TRUE, src)
 	circuit = /obj/item/circuitboard/aiupload_broken
@@ -44,18 +44,18 @@
 /// checks to ensure there is a selected AI, and that it is on the same Z level
 /obj/machinery/computer/aiupload/proc/check_valid_selection(mob/user)
 	if(!current)//no AI selected
-		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
+		to_chat(user, SPAN_DANGER("No AI selected. Please choose a target before proceeding with upload."))
 		return FALSE
 	var/turf/T = get_turf(current)
 	if(!atoms_share_level(T, get_turf(src))) // off Z level
-		to_chat(user, "<span class='danger'>Unable to establish a connection: You're too far away from the target silicon!</span>")
+		to_chat(user, SPAN_DANGER("Unable to establish a connection: You're too far away from the target silicon!"))
 		return FALSE
 	return TRUE
 
 /// applies ion-like laws into either the inherent law or true ion law positions due to an emag'd AI upload being used
 /obj/machinery/computer/aiupload/proc/apply_emag_laws(mob/user)
 	if(world.time < cooldown) //if the cooldown isnt over
-		to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
+		to_chat(user, SPAN_DANGER("The program seems to have frozen. It will need some time to process."))
 		return
 	do_sparks(5, TRUE, src)
 	found_laws = length(current.laws.inherent_laws)
@@ -102,18 +102,18 @@
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user)
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
+		to_chat(user, SPAN_WARNING("The upload computer has no power!"))
 		return
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
+		to_chat(user, SPAN_WARNING("The upload computer is broken!"))
 		return
 
 	current = select_active_ai(user)
 
 	if(!current)
-		to_chat(user, "<span class='warning'>No active AIs detected.</span>")
+		to_chat(user, SPAN_WARNING("No active AIs detected."))
 		return
-	to_chat(user, "<span class='notice'>[current.name] selected for law changes.</span>")
+	to_chat(user, SPAN_NOTICE("[current.name] selected for law changes."))
 
 /obj/machinery/computer/aiupload/attack_ghost(user)
 	return TRUE
@@ -133,11 +133,11 @@
 	var/obj/item/ai_module/module = used
 	if(istype(module))
 		if(!current)//no borg selected
-			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.</span>")
+			to_chat(user, SPAN_DANGER("No borg selected. Please chose a target before proceeding with upload."))
 			return ITEM_INTERACT_COMPLETE
 		var/turf/T = get_turf(current)
 		if(!atoms_share_level(T, src))
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+			to_chat(user, "[SPAN_DANGER("Unable to establish a connection")]: You're too far away from the target silicon!")
 			return ITEM_INTERACT_COMPLETE
 		module.install(src)
 		return ITEM_INTERACT_COMPLETE
@@ -146,18 +146,18 @@
 
 /obj/machinery/computer/borgupload/attack_hand(mob/user)
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
+		to_chat(user, SPAN_WARNING("The upload computer has no power!"))
 		return
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
+		to_chat(user, SPAN_WARNING("The upload computer is broken!"))
 		return
 
 	current = freeborg(user)
 
 	if(!current)
-		to_chat(user, "<span class='warning'>No free cyborgs detected.</span>")
+		to_chat(user, SPAN_WARNING("No free cyborgs detected."))
 		return
-	to_chat(user, "<span class='notice'>[current.name] selected for law changes.</span>")
+	to_chat(user, SPAN_NOTICE("[current.name] selected for law changes."))
 
 /obj/machinery/computer/borgupload/attack_ghost(user)
 	return TRUE

@@ -39,7 +39,7 @@
 	if(!used.sharp)
 		return ..()
 
-	to_chat(user, "<span class='notice'>You cut the potato into wedges with [used].</span>")
+	to_chat(user, SPAN_NOTICE("You cut the potato into wedges with [used]."))
 	var/obj/item/food/grown/potato/wedges/W = new /obj/item/food/grown/potato/wedges
 	if(!remove_item_from_storage(user))
 		user.unequip(src)

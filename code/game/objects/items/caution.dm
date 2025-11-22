@@ -29,7 +29,7 @@
 			return
 		if(armed)
 			armed = FALSE
-			to_chat(user, "<span class='notice'>You disarm \the [src].</span>")
+			to_chat(user, SPAN_NOTICE("You disarm \the [src]."))
 			return
 		timing = !timing
 		if(timing)
@@ -37,7 +37,7 @@
 		else
 			armed = FALSE
 			timepassed = 0
-		to_chat(H, "<span class='notice'>You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]</span>")
+		to_chat(H, SPAN_NOTICE("You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]"))
 
 /obj/item/caution/proximity_sign/process()
 	if(!timing)
@@ -83,15 +83,15 @@
 	var/turf/T = get_turf(target)
 
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put mines on a tile that has dense stuff
-		to_chat(user, "<span class='notice'>The space is occupied! You cannot place a mine there!</span>")
+		to_chat(user, SPAN_NOTICE("The space is occupied! You cannot place a mine there!"))
 		return
 	if(!use(1)) //Can't place a landmine if you don't have a landmine
-		to_chat(user, "<span class='notice'>[src] is out of landmines! It can be refilled at a cyborg charger.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is out of landmines! It can be refilled at a cyborg charger."))
 		return
 	playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 	var/obj/item/caution/proximity_sign/M = new /obj/item/caution/proximity_sign(get_turf(target), src)
 	M.timing = TRUE
 	START_PROCESSING(SSobj, M)
-	to_chat(user, "<span class='notice'>You place a landmine with [src]. You have 15 seconds until it is armed.</span>")
+	to_chat(user, SPAN_NOTICE("You place a landmine with [src]. You have 15 seconds until it is armed."))
 	return M
 

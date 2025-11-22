@@ -179,17 +179,17 @@ First, let's look at `/obj/vehicle/attackby__legacy__attackchain`:
 	if(key_type && !is_key(inserted_key) && is_key(I))
 		if(user.drop_item())
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
 			inserted_key = I
 		else
-			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[I] seems to be stuck to your hand!"))
 		return
 	if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
 		vehicle_move_delay = 1
 		qdel(I)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
+		to_chat(user, SPAN_NOTICE("You upgrade [src] with [I]."))
 		return
 	return ..()
 ```
@@ -203,7 +203,7 @@ Now let's look at `/obj/vehicle/janicart/attackby__legacy__attackchain`:
 
 ```dm
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	var/fail_msg = SPAN_NOTICE("There is already one of those in [src].")
 
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(mybag)
@@ -211,7 +211,7 @@ Now let's look at `/obj/vehicle/janicart/attackby__legacy__attackchain`:
 			return
 		if(!user.drop_item())
 			return
-		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+		to_chat(user, SPAN_NOTICE("You hook [I] onto [src]."))
 		I.forceMove(src)
 		mybag = I
 		update_icon(UPDATE_OVERLAYS)
@@ -222,7 +222,7 @@ Now let's look at `/obj/vehicle/janicart/attackby__legacy__attackchain`:
 			return
 		buffer_installed = TRUE
 		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		to_chat(user,SPAN_NOTICE("You upgrade [src] with [I]."))
 		update_icon(UPDATE_OVERLAYS)
 		return
 	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
@@ -258,7 +258,7 @@ at each junction whenever we have handled the item interaction.
 ```diff
 -/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 +/obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/I, list/modifiers)
- 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+ 	var/fail_msg = SPAN_NOTICE("There is already one of those in [src].")
 
  	if(istype(I, /obj/item/storage/bag/trash))
  		if(mybag)
@@ -268,7 +268,7 @@ at each junction whenever we have handled the item interaction.
  		if(!user.drop_item())
 -			return
 +			return ITEM_INTERACT_COMPLETE
- 		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+ 		to_chat(user, SPAN_NOTICE("You hook [I] onto [src]."))
  		I.forceMove(src)
  		mybag = I
  		update_icon(UPDATE_OVERLAYS)
@@ -282,7 +282,7 @@ at each junction whenever we have handled the item interaction.
 +			return ITEM_INTERACT_COMPLETE
  		buffer_installed = TRUE
  		qdel(I)
- 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+ 		to_chat(user,SPAN_NOTICE("You upgrade [src] with [I]."))
  		update_icon(UPDATE_OVERLAYS)
 -		return
 -	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
@@ -381,7 +381,7 @@ is the proc before the migration:
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You forget how to use [src]."))
 			return
 	ui_interact(user)
 ```
@@ -450,7 +450,7 @@ The migration is complete. The proc now looks like this:
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You forget how to use [src]."))
 			return
 	ui_interact(user)
 ```
@@ -466,10 +466,10 @@ migration:
 	if(IS_CULTIST(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(M == user) // Targeting yourself
-				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+				to_chat(user, SPAN_WARNING("You can't remove holy water from yourself!"))
 			else // Targeting someone else
-				to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
-				to_chat(M, "<span class='cult'>[user] removes the taint from your body.</span>")
+				to_chat(user, SPAN_CULT("You remove the taint from [M]."))
+				to_chat(M, SPAN_CULT("[user] removes the taint from your body."))
 				M.reagents.del_reagent("holywater")
 				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
@@ -487,8 +487,8 @@ Because the dagger has a parent proc, let's also examine that:
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							"<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+		user.visible_message(SPAN_WARNING("A powerful force shoves [user] away from [target]!"),
+							SPAN_CULTLARGE("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
@@ -599,8 +599,8 @@ The resultant code looks like this:
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							"<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+		user.visible_message(SPAN_WARNING("A powerful force shoves [user] away from [target]!"),
+							SPAN_CULTLARGE("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
@@ -625,11 +625,11 @@ The resultant code looks like this:
 	if(IS_CULTIST(target))
 		if(target.reagents && target.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(target == user) // Targeting yourself
-				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+				to_chat(user, SPAN_WARNING("You can't remove holy water from yourself!"))
 
 			else // Targeting someone else
-				to_chat(user, "<span class='cult'>You remove the taint from [target].</span>")
-				to_chat(target, "<span class='cult'>[user] removes the taint from your body.</span>")
+				to_chat(user, SPAN_CULT("You remove the taint from [target]."))
+				to_chat(target, SPAN_CULT("[user] removes the taint from your body."))
 				target.reagents.del_reagent("holywater")
 				add_attack_logs(user, target, "Hit with [src], removing the holy water from them")
 

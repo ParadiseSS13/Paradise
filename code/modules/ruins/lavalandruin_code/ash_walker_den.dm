@@ -35,7 +35,7 @@
 /obj/structure/lavaland/ash_walker/proc/consume()
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
-			visible_message("<span class='warning'>Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs.</span>")
+			visible_message(SPAN_WARNING("Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs."))
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
 				if(!H.drop_item_to_ground(W))
@@ -50,7 +50,7 @@
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		new /obj/effect/mob_spawn/human/alive/ash_walker(get_step(loc, pick(GLOB.alldirs)))
-		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
+		visible_message(SPAN_DANGER("One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!"))
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/alive/ash_walker
@@ -75,7 +75,7 @@
 
 /obj/effect/mob_spawn/human/alive/ash_walker/special(mob/living/carbon/human/new_spawn)
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
-	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
+	to_chat(new_spawn, SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)"))
 
 /obj/effect/mob_spawn/human/alive/ash_walker/New()
 	. = ..()

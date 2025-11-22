@@ -99,8 +99,8 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		return
 	var/mob/living/carbon/C = user
 	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SINGULO)
-	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
-		"<span class='userdanger'>As you concentrate on the singularity, your understanding of the cosmos expands exponentially. An immense wealth of raw information is at your fingertips, and you're determined not to squander a single morsel. Within mere microseconds, you absorb a staggering amount of information—more than any AI could ever hope to access—and you can't help but feel a godlike sense of power. However, the gravity of this situation swiftly sinks in. As you sense your skull starting to collapse under pressure, you can't help but admit to yourself: That was a really dense idea, wasn't it?</span>")
+	C.visible_message(SPAN_DANGER("[C] suddenly slumps over."), \
+		SPAN_USERDANGER("As you concentrate on the singularity, your understanding of the cosmos expands exponentially. An immense wealth of raw information is at your fingertips, and you're determined not to squander a single morsel. Within mere microseconds, you absorb a staggering amount of information—more than any AI could ever hope to access—and you can't help but feel a godlike sense of power. However, the gravity of this situation swiftly sinks in. As you sense your skull starting to collapse under pressure, you can't help but admit to yourself: That was a really dense idea, wasn't it?"))
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 	C.ghostize()
 	if(B)
@@ -325,10 +325,10 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] is consumed by [src]!</span>")
+			visible_message(SPAN_USERDANGER("[GET_CULT_DATA(entity_name, A.name)] is consumed by [src]!"))
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
+			visible_message(SPAN_USERDANGER("[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!"))
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_SINGULO)
 			qdel(src)
 
@@ -459,8 +459,8 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
-		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+		C.visible_message(SPAN_WARNING("[C]'s skin bursts into flame!"), \
+						SPAN_USERDANGER("You feel an inner fire as your skin bursts into flames!"))
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -487,12 +487,12 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			continue
 
 		if(HAS_TRAIT(M, TRAIT_MESON_VISION) || HAS_TRAIT(M, SM_HALLUCINATION_IMMUNE))
-			to_chat(M, "<span class='notice'>You look directly into [src], but remain unaffected!</span>")
+			to_chat(M, SPAN_NOTICE("You look directly into [src], but remain unaffected!"))
 			return
 
 		M.Stun(6 SECONDS)
-		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
-						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
+		M.visible_message(SPAN_DANGER("[M] stares blankly at [src]!"), \
+						SPAN_USERDANGER("You look directly into [src] and feel weak."))
 
 
 /obj/singularity/proc/emp_area()

@@ -163,7 +163,7 @@
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
 	if(!(user.get_active_hand() || user.get_inactive_hand()))
-		to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
+		to_chat(user, SPAN_WARNING("You need something in your hand to use this emote!"))
 		return TRUE
 
 	var/obj/item/thing
@@ -198,7 +198,7 @@
 	else if(!(thing.flags & ABSTRACT))
 		message = "twirls [thing] around in their hand!"
 	else
-		to_chat(user, "<span class='warning'>You cannot twirl [thing]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot twirl [thing]!"))
 		return TRUE
 
 	. = ..()

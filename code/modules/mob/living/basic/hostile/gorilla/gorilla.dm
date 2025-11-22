@@ -69,13 +69,13 @@
 
 	var/mob/living/basic/gorilla/cargo_domestic/domesticated = gorilla
 	if(istype(domesticated) && LAZYLEN(domesticated.crates_in_hand))
-		to_chat(domesticated, "<span class='warning'>You can't get on all fours while carrying something!</span>")
+		to_chat(domesticated, SPAN_WARNING("You can't get on all fours while carrying something!"))
 		return
 
 	gorilla.is_bipedal = !gorilla.is_bipedal // Toggle
-	gorilla.visible_message("<span class='notice'>[gorilla] [gorilla.is_bipedal ? "stands up menacingly." : "drops back to all fours."]</span>",
-		"<span class='notice'>You [gorilla.is_bipedal ? "stand up" : "get down on all fours."]</span>",
-		"<span class='notice'>You hear the sound of a gorilla rustling.</span>")
+	gorilla.visible_message(SPAN_NOTICE("[gorilla] [gorilla.is_bipedal ? "stands up menacingly." : "drops back to all fours."]"),
+		SPAN_NOTICE("You [gorilla.is_bipedal ? "stand up" : "get down on all fours."]"),
+		SPAN_NOTICE("You hear the sound of a gorilla rustling."))
 
 	gorilla.update_icon(UPDATE_ICON_STATE)
 
@@ -103,13 +103,13 @@
 		if(is_type_in_typecache(attacked_target, carriable_cache))
 			var/atom/movable/movable_target = attacked_target
 			if(LAZYLEN(crates_in_hand) >= crate_limit)
-				to_chat(src, "<span class='warning'>You are carrying too many crates!</span>")
+				to_chat(src, SPAN_WARNING("You are carrying too many crates!"))
 				return COMPONENT_CANCEL_ATTACK_CHAIN
 
 			for(var/mob/living/inside_mob in movable_target.contents)
 				if(inside_mob.mob_size < MOB_SIZE_HUMAN)
 					continue
-				to_chat(src, "<span class='warning'>This crate is too heavy!</span>")
+				to_chat(src, SPAN_WARNING("This crate is too heavy!"))
 				return COMPONENT_CANCEL_ATTACK_CHAIN
 
 			LAZYADD(crates_in_hand, attacked_target)
@@ -143,7 +143,7 @@
 			return
 
 		living_target.apply_damage(stamina_damage, STAMINA)
-		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
+		visible_message(SPAN_WARNING("[src] knocks [living_target] down!"))
 
 /mob/living/basic/gorilla/update_icon_state()
 	. = ..()
@@ -216,8 +216,8 @@
 /mob/living/basic/gorilla/cargo_domestic/Login()
 	. = ..()
 	// Github copilot wrote the below fluff IDK
-	to_chat(src, "<span class='boldnotice'>You are [name]. You are a domesticated gorilla, and you are Cargo's pet. You are a loyal and hardworking gorilla, and you love your job. You are a good gorilla, and Cargo loves you.</span>")
-	to_chat(src, "<span class='boldnotice'>You can pick up crates by clicking them, and drop them by clicking on an open floor. You can carry [crate_limit] crates at a time.</span>")
+	to_chat(src, SPAN_BOLDNOTICE("You are [name]. You are a domesticated gorilla, and you are Cargo's pet. You are a loyal and hardworking gorilla, and you love your job. You are a good gorilla, and Cargo loves you."))
+	to_chat(src, SPAN_BOLDNOTICE("You can pick up crates by clicking them, and drop them by clicking on an open floor. You can carry [crate_limit] crates at a time."))
 
 /mob/living/basic/gorilla/cargo_domestic/Initialize(mapload)
 	. = ..()

@@ -82,11 +82,11 @@
 		else
 			H.take_organ_damage(5, 10)
 	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 		if(volume >= 10)
 			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs
@@ -101,7 +101,7 @@
 		var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
 		implant.insert(H)
 		if(!translator_pref && istype(J))
-			to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
+			to_chat(H, SPAN_NOTICE("A speech translator implant has been installed due to your role on the station."))
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid" || R.id == "facid")

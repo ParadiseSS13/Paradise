@@ -18,13 +18,13 @@
 		return FALSE
 	is_operating = TRUE
 	if(spider_counter >= 3)
-		to_chat(user, "<span class='warning'>We cannot sustain more than three spiders!</span>")
+		to_chat(user, SPAN_WARNING("We cannot sustain more than three spiders!"))
 		is_operating = FALSE
 		return FALSE
-	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
+	user.visible_message(SPAN_DANGER("[user] begins vomiting an arachnid!"))
 	if(do_after(user, 4 SECONDS, FALSE, target = user, hidden = TRUE)) // Takes 4 seconds to spawn a spider
 		spider_counter++
-		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
+		user.visible_message(SPAN_DANGER("[user] vomits up an arachnid!"))
 		var/mob/living/basic/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
 		S.ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
@@ -76,13 +76,13 @@
 		return
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
-			. += "<span class='notice'>The giant spider will remain idle but will attack anyone on sight.</span>"
+			. += SPAN_NOTICE("The giant spider will remain idle but will attack anyone on sight.")
 		if(FOLLOW_AGGRESSIVE)
-			. += "<span class='notice'>The giant spider is following us, but will attack anyone on sight.</span>"
+			. += SPAN_NOTICE("The giant spider is following us, but will attack anyone on sight.")
 		if(FOLLOW_RETALIATE)
-			. += "<span class='notice'>The giant spider is following us and staying calm, only attacking if it is attacked.</span>"
+			. += SPAN_NOTICE("The giant spider is following us and staying calm, only attacking if it is attacked.")
 		if(IDLE_RETALIATE)
-			. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
+			. += SPAN_NOTICE("The giant spider will remain idle and calm, only attacking if it is attacked.")
 
 /mob/living/basic/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
 	. = ..()
@@ -104,14 +104,14 @@
 /mob/living/basic/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
 	switch(current_order)
 		if(FOLLOW_AGGRESSIVE)
-			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
+			to_chat(user, SPAN_NOTICE("We order the giant spider to follow us but attack anyone on sight."))
 			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, FOLLOW_AGGRESSIVE)
 		if(FOLLOW_RETALIATE)
-			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
+			to_chat(user, SPAN_NOTICE("We order the giant spider to follow us and to remain calm, only attacking if it is attacked."))
 			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, FOLLOW_RETALIATE)
 		if(IDLE_RETALIATE)
-			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
+			to_chat(user, SPAN_NOTICE("We order the giant spider to remain idle and calm, only attacking if it is attacked."))
 			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_RETALIATE)
 		if(IDLE_AGGRESSIVE)
-			to_chat(user, "<span class='notice'>We order the giant spider to remain idle, but ready to attack anyone on sight.</span>")
+			to_chat(user, SPAN_NOTICE("We order the giant spider to remain idle, but ready to attack anyone on sight."))
 			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_AGGRESSIVE)

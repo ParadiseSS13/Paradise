@@ -54,7 +54,7 @@
 /datum/action/innate/robot_sight/engineering_scanner/Activate()
 	var/mob/living/silicon/robot/R = owner
 	mode = mode_list[mode]
-	to_chat(owner, "<span class='notice'>You turn your enhanced optics [mode ? "to [mode] mode." : "off."]</span>")
+	to_chat(owner, SPAN_NOTICE("You turn your enhanced optics [mode ? "to [mode] mode." : "off."]"))
 	button_icon_state = "trayson-[mode]"
 
 	if(mode == MODE_MESON)
@@ -120,6 +120,6 @@
 	button_icon_state = "unlock_self"
 
 /datum/action/innate/robot_override_lock/Activate()
-	to_chat(owner, "<span class='danger'>HARDWARE_OVERRIDE_SYNDICATE: Lockdown lifted. Connection to NT systems severed.</span>")
+	to_chat(owner, SPAN_DANGER("HARDWARE_OVERRIDE_SYNDICATE: Lockdown lifted. Connection to NT systems severed."))
 	var/mob/living/silicon/robot/robot = owner
 	robot.UnlinkSelf()

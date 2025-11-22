@@ -19,43 +19,43 @@
 
 	if(!keycheck(user))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>[vehicle_parent] has no key inserted!</span>")
+			to_chat(user, SPAN_WARNING("[vehicle_parent] has no key inserted!"))
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	if(user.incapacitated())
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
-			"<span class='danger'>You slip off [vehicle_parent] as your body slumps!</span>")
+			user.visible_message(SPAN_DANGER("[user] falls off [vehicle_parent]."),\
+			SPAN_DANGER("You slip off [vehicle_parent] as your body slumps!"))
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You cannot operate [vehicle_parent] right now!</span>")
+			to_chat(user, SPAN_WARNING("You cannot operate [vehicle_parent] right now!"))
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	if(ride_check_flags & RIDER_NEEDS_LEGS && HAS_TRAIT(user, TRAIT_FLOORED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
-			"<span class='danger'>You fall off [vehicle_parent] while trying to operate it while unable to stand!</span>")
+			user.visible_message(SPAN_DANGER("[user] falls off [vehicle_parent]."),\
+			SPAN_DANGER("You fall off [vehicle_parent] while trying to operate it while unable to stand!"))
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You can't seem to manage that while unable to stand up enough to move [vehicle_parent]...</span>")
+			to_chat(user, SPAN_WARNING("You can't seem to manage that while unable to stand up enough to move [vehicle_parent]..."))
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	if(ride_check_flags & RIDER_NEEDS_ARMS && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
-			"<span class='danger'>You fall off [vehicle_parent] while trying to operate it without being able to hold on!</span>")
+			user.visible_message(SPAN_DANGER("[user] falls off [vehicle_parent]."),\
+			SPAN_DANGER("You fall off [vehicle_parent] while trying to operate it without being able to hold on!"))
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You can't seem to hold onto [vehicle_parent] to move it...</span>")
+			to_chat(user, SPAN_WARNING("You can't seem to hold onto [vehicle_parent] to move it..."))
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
@@ -71,7 +71,7 @@
 	if(!istype(next) || !istype(current))
 		return //not happening.
 	if(!turf_check(next, current))
-		to_chat(user, "<span class='warning'>[movable_parent] cannot go onto [next]!</span>")
+		to_chat(user, SPAN_WARNING("[movable_parent] cannot go onto [next]!"))
 		return
 	if(GLOB.move_manager.processing_on(movable_parent, SSspacedrift) && !override_allow_spacemove)
 		return
@@ -126,7 +126,7 @@
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice'>Going nice and slow at walk speed will prevent crashing into things.</span>"
+	examine_list += SPAN_NOTICE("Going nice and slow at walk speed will prevent crashing into things.")
 
 /datum/component/riding/vehicle/scooter/skateboard/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
 	. = ..()
@@ -157,8 +157,8 @@
 		if((L.getStaminaLoss() >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
 			S.unbuckle_mob(L)
 			L.KnockDown(2 SECONDS)
-			L.visible_message("<span class='warning'>[L] gets shot off [S] by [projectile]!</span>",
-				"<span class='warning'>You get shot off [S] by [projectile]!</span>")
+			L.visible_message(SPAN_WARNING("[L] gets shot off [S] by [projectile]!"),
+				SPAN_WARNING("You get shot off [S] by [projectile]!"))
 
 /datum/component/riding/vehicle/scooter/skateboard/pro
 	vehicle_move_delay = 1

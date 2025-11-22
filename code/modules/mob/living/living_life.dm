@@ -87,10 +87,10 @@
 				var/view = client ? client.maxview() : world.view
 				if(get_dist(src, A) > view || !(src in viewers(view, A)))
 					clear_forced_look(TRUE)
-					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+					to_chat(src, SPAN_NOTICE("Your direction target has left your view, you are no longer facing anything."))
 			else
 				clear_forced_look(TRUE)
-				to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+				to_chat(src, SPAN_NOTICE("Your direction target has left your view, you are no longer facing anything."))
 		// Make sure it didn't get cleared
 		if(forced_look)
 			setDir()

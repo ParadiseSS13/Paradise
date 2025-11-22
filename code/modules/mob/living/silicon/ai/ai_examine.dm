@@ -2,7 +2,7 @@
 	. = ..()
 	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
+		msg += "[SPAN_DEADSAY("It appears to be powered-down.")]\n"
 	else
 		msg += "<span class='warning'>"
 		if(src.getBruteLoss())

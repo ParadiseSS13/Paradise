@@ -490,7 +490,7 @@
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
-#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
+#define MAPTEXT(text) SPAN_MAPTEXT("[##text]")
 #define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
 #define MAPTEXT_SMALL(text) {"<span style='font-family: \"Small Fonts\"; font-size: 12pt; line-height: 0.75; -dm-text-outline: 1px black'>[##text]</span>"}
 

@@ -3,7 +3,7 @@
 		if(!cleanWipe)
 			force_fold_out()
 
-		visible_message("<span class='warning'>[src] emits a dull beep before it loses power and collapses.</span>", "<span class='warning'>You hear a dull beep followed by the sound of glass crunching.</span>")
+		visible_message(SPAN_WARNING("[src] emits a dull beep before it loses power and collapses."), SPAN_WARNING("You hear a dull beep followed by the sound of glass crunching."))
 		name = "pAI debris"
 		desc = "The unfortunate remains of some poor personal AI device."
 		icon_state = "[chassis]_dead"

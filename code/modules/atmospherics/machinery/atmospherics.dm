@@ -194,16 +194,16 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
 	var/turf/T = get_turf(src)
 	if(!can_unwrench_while_on && !(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [name], turn it off first.</span>")
+		to_chat(user, SPAN_ALERT("You cannot unwrench this [name], turn it off first."))
 		return TRUE
 	if(!can_unwrench)
 		return FALSE
 	. = TRUE
 	if(wrench_floor_check())
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, SPAN_DANGER("You can't interact with something that's under the floor!"))
 		return
 	if(level == 1 && isturf(T) && T.intact)
-		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+		to_chat(user, SPAN_DANGER("You must remove the plating first."))
 		return
 	var/datum/gas_mixture/int_air = return_obj_air()
 	var/datum/gas_mixture/env_air = T.get_readonly_air()
@@ -216,7 +216,7 @@ Pipelines + Other Objects -> Pipe network
 	var/E = env_air ? env_air.return_pressure() : 0
 	var/internal_pressure = I - E
 
-	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to unfasten [src]..."))
 
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
 		safefromgusts = TRUE
@@ -224,9 +224,9 @@ Pipelines + Other Objects -> Pipe network
 	if(internal_pressure > 2 * ONE_ATMOSPHERE)
 		unsafe_wrenching = TRUE //Oh dear oh dear
 		if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
-			to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
+			to_chat(user, SPAN_USERDANGER("As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!"))
 		else
-			to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
+			to_chat(user, SPAN_WARNING("As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?"))
 
 	if(!W.use_tool(src, user, 4 SECONDS, volume = 50) || QDELETED(src))
 		return
@@ -237,16 +237,16 @@ Pipelines + Other Objects -> Pipe network
 		safefromgusts = TRUE
 
 	user.visible_message(
-		"<span class='notice'>[user] unfastens [src].</span>",
-		"<span class='notice'>You have unfastened [src].</span>",
-		"<span class='italics'>You hear ratcheting.</span>"
+		SPAN_NOTICE("[user] unfastens [src]."),
+		SPAN_NOTICE("You have unfastened [src]."),
+		SPAN_ITALICS("You hear ratcheting.")
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
+	investigate_log("was [SPAN_WARNING("REMOVED")] by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)
 		if(safefromgusts)
-			to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+			to_chat(user, SPAN_NOTICE("Your magboots cling to the floor as a great burst of wind bellows against you."))
 		else
 			unsafe_pressure_release(user,internal_pressure)
 	deconstruct(TRUE)
@@ -261,7 +261,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, SPAN_DANGER("You can't interact with something that's under the floor!"))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -283,7 +283,7 @@ Pipelines + Other Objects -> Pipe network
 		fuck_you_dir = pick(GLOB.alldirs)
 
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
-	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
+	user.visible_message(SPAN_DANGER("[user] is sent flying by pressure!"),SPAN_USERDANGER("The pressure sends you flying!"))
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction, pressures/10, pressures/50)
 
@@ -446,7 +446,7 @@ Pipelines + Other Objects -> Pipe network
 	on = !on
 	update_icon()
 	if(user)
-		to_chat(user, "<span class='notice'>You toggle [src] [on ? "on" : "off"].</span>")
+		to_chat(user, SPAN_NOTICE("You toggle [src] [on ? "on" : "off"]."))
 
 /**
  * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
@@ -462,7 +462,7 @@ Pipelines + Other Objects -> Pipe network
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()
 	if(user)
-		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
+		to_chat(user, SPAN_NOTICE("You set the target pressure of [src] to maximum."))
 
 /obj/machinery/atmospherics/proc/get_machinery_pipelines()
 	return list()

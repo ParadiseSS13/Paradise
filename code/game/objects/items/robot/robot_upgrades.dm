@@ -32,7 +32,7 @@
 	if(!pre_install_checks(user, R))
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
+		to_chat(user, SPAN_NOTICE("\The [src] is stuck to your hand, you cannot install it in [R]"))
 		return FALSE
 	if(!do_install(R))
 		return
@@ -51,15 +51,15 @@
  */
 /obj/item/borg/upgrade/proc/pre_install_checks(mob/user, mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
-		to_chat(user, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
+		to_chat(user, SPAN_WARNING("[src] will not function on a deceased cyborg."))
 		return
 	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "<span class='warning'>Upgrade mounting error! No suitable hardpoint detected!</span>")
-		to_chat(user, "<span class='warning'>There's no mounting point for the module!</span>")
+		to_chat(R, SPAN_WARNING("Upgrade mounting error! No suitable hardpoint detected!"))
+		to_chat(user, SPAN_WARNING("There's no mounting point for the module!"))
 		return
 	var/obj/item/borg/upgrade/u = locate(type) in R
 	if(u && !allow_duplicate)
-		to_chat(user, "<span class='notice'>This unit already has [src] installed!</span>")
+		to_chat(user, SPAN_NOTICE("This unit already has [src] installed!"))
 		return
 	return TRUE
 
@@ -128,7 +128,7 @@
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
+		to_chat(R, SPAN_WARNING("Internal diagnostic error: incompatible upgrade module detected."))
 		return
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
@@ -146,7 +146,7 @@
 
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
-		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
+		to_chat(usr, SPAN_WARNING("You have to repair the cyborg before using this module!"))
 		return
 
 	if(!R.key)
@@ -199,10 +199,10 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		to_chat(cyborg, SPAN_NOTICE("You activate the self-repair module."))
 		START_PROCESSING(SSobj, src)
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
+		to_chat(cyborg, SPAN_NOTICE("You deactivate the self-repair module."))
 		STOP_PROCESSING(SSobj, src)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -225,12 +225,12 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
+			to_chat(cyborg, SPAN_WARNING("Self-repair module deactivated. Please, insert the power cell."))
 			deactivate()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
+			to_chat(cyborg, SPAN_WARNING("Self-repair module deactivated. Please recharge."))
 			deactivate()
 			return
 
@@ -253,7 +253,7 @@
 				msgmode = "critical"
 			else if(cyborg.health < cyborg.maxHealth)
 				msgmode = "normal"
-			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
+			to_chat(cyborg, SPAN_NOTICE("Self-repair is active in [SPAN_BOLDNOTICE("[msgmode]")] mode."))
 			msg_cooldown = world.time
 	else
 		deactivate()
@@ -284,11 +284,11 @@
 /obj/item/borg/upgrade/disablercooler/do_install(mob/living/silicon/robot/R)
 	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
-		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
+		to_chat(usr, SPAN_NOTICE("There's no disabler in this unit!"))
 		return
 	if(T.charge_delay <= 2)
-		to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another cooling unit!</span>")
+		to_chat(R, SPAN_NOTICE("A cooling unit is already installed!"))
+		to_chat(usr, SPAN_NOTICE("There's no room for another cooling unit!"))
 		return
 
 	T.charge_delay = max(2 , T.charge_delay - 4)
@@ -390,7 +390,7 @@
 	else
 		cyborg.floorbuffer = FALSE
 		cyborg.speed -= buffer_speed
-	to_chat(cyborg, "<span class='notice'>The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"].</span>")
+	to_chat(cyborg, SPAN_NOTICE("The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"]."))
 
 /obj/item/borg/upgrade/floorbuffer/Destroy()
 	if(cyborg)
@@ -451,7 +451,7 @@
 	if(R.weapons_unlock)
 		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
 	R.weapons_unlock = TRUE
-	to_chat(R, "<span class='warning'>Warning: safety protocols have been disabled!</span>")
+	to_chat(R, SPAN_WARNING("Warning: safety protocols have been disabled!"))
 	return TRUE
 
 /obj/item/borg/upgrade/syndie_soap

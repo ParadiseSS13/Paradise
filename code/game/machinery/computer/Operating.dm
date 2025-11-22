@@ -39,7 +39,7 @@
 
 /obj/machinery/computer/operating/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This console gives information on the status of the patient on the adjacent operating table and the next surgery step required in the current surgery.</span>"
+	. += SPAN_NOTICE("This console gives information on the status of the patient on the adjacent operating table and the next surgery step required in the current surgery.")
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)

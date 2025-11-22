@@ -50,22 +50,22 @@
 	if(!length(vampires))
 		return
 
-	var/list/text = list("<br><font size=3><span class='bold'>The vampires were:</span></font>")
+	var/list/text = list("<br><font size=3>[SPAN_BOLD("The vampires were:")]</font>")
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
 		text += "<br>[vampire.get_display_key()] was [vampire.name] and "
 		if(vampire.current)
 			if(vampire.current.stat == DEAD)
-				text += "<span class='bold'>died!</span>"
+				text += SPAN_BOLD("died!")
 			else
-				text += "<span class='bold'>survived!</span>"
+				text += SPAN_BOLD("survived!")
 				if(V.subclass)
 					text += " as a [V.subclass.name]!"
 				else
 					text += "!"
 		else
-			text += "<span class='bold'>had [vampire.p_their()] body destroyed!</span>"
+			text += SPAN_BOLD("had [vampire.p_their()] body destroyed!")
 
 		var/list/all_objectives = vampire.get_all_objectives(include_team = FALSE)
 
@@ -103,14 +103,14 @@
 		text += "<br>[mind.get_display_key()] was [mind.name] and"
 		if(mind.current)
 			if(mind.current.stat == DEAD)
-				text += "<span class='bold'>died!</span>"
+				text += SPAN_BOLD("died!")
 			else
-				text += "<span class='bold'>survived!</span>"
+				text += SPAN_BOLD("survived!")
 			if(mind.current.real_name != mind.name)
 				text += "<span class='bold'> as [mind.current.real_name]!</bold>"
 			else
 				text += "!"
 		else
-			text += "<span class='bold'>had their body destroyed!</span>"
+			text += SPAN_BOLD("had their body destroyed!")
 	return text.Join("")
 

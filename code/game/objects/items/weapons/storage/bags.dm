@@ -56,12 +56,12 @@
 
 /obj/item/storage/bag/trash/can_be_inserted(obj/item/I, stop_messages = FALSE)
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
-		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		to_chat(usr, SPAN_WARNING("You can't seem to fit [I] into [src]."))
 		return FALSE
 	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
 		var/mob/living/carbon/human/H = loc
 		if(H.l_store == src || H.r_store == src)
-			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			to_chat(usr, SPAN_WARNING("You can't seem to fit [I] into [src]."))
 			return FALSE
 	. = ..()
 
@@ -74,7 +74,7 @@
 	update_weight()
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
@@ -123,7 +123,7 @@
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))
-		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+		to_chat(M, SPAN_WARNING("You need to empty the bag first!"))
 		return FALSE
 	return ..()
 
@@ -273,11 +273,11 @@
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.</span>"
+		. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.")
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
 	if(!length(contents))
-		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
+		to_chat(user, SPAN_WARNING("[src] has no seeds inside!"))
 		return
 	var/had_anything = FALSE
 	var/seed_amount = 1
@@ -290,9 +290,9 @@
 		had_anything |= seedify(O, seed_amount)
 	hide_from_all()
 	if(had_anything)
-		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+		to_chat(user, SPAN_NOTICE("[src] whirrs a bit as it converts the plants inside to seeds."))
 	else
-		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
+		to_chat(user, SPAN_WARNING("[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside."))
 	playsound(user, "sound/machines/ding.ogg", 25)
 
 /obj/item/storage/bag/plants/portaseeder/CtrlShiftClick(mob/user)
@@ -318,7 +318,7 @@
 /obj/item/storage/bag/plants/seed_sorting_tray/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to sort seeds inside.</span>"
+		. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> to sort seeds inside.")
 
 ////////////////////////////////////////
 // MARK:	Cash bag
@@ -455,9 +455,9 @@
 			INVOKE_ASYNC(src, PROC_REF(do_scatter), I)
 
 	if(found_table)
-		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")
+		user.visible_message(SPAN_NOTICE("[user] unloads [user.p_their()] serving tray."))
 	else
-		user.visible_message("<span class='warning'>[user] upends [user.p_their()] serving tray, sending everything on it crashing down to the floor!</span>")
+		user.visible_message(SPAN_WARNING("[user] upends [user.p_their()] serving tray, sending everything on it crashing down to the floor!"))
 	update_icon(UPDATE_OVERLAYS)
 	return ..()
 

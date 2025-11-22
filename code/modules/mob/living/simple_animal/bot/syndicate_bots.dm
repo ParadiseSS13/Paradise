@@ -51,7 +51,7 @@
 	return GLOB.default_state
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
-	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
+	to_chat(user, SPAN_WARNING("[src] has no accessible control panel!"))
 	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
@@ -70,7 +70,7 @@
 	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
+	to_chat(user, SPAN_WARNING("[src] has no card reader slot!"))
 
 /mob/living/simple_animal/bot/ed209/syndicate/try_chasing_target()
 	. = ..()
@@ -166,7 +166,7 @@
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		GLOB.move_manager.stop_looping(src)
-		visible_message("<span class='userdanger'>[src] blows apart!</span>")
+		visible_message(SPAN_USERDANGER("[src] blows apart!"))
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)

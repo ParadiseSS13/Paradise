@@ -21,19 +21,19 @@
 		return
 
 	if(istype(I, /obj/item/storage/box))
-		to_chat(user, "<span class='notice'>This box is too big to fit in the evidence bag.</span>")
+		to_chat(user, SPAN_NOTICE("This box is too big to fit in the evidence bag."))
 		return
 
 	if(istype(I, /obj/item/evidencebag))
-		to_chat(user, "<span class='notice'>You find putting an evidence bag in another evidence bag to be slightly absurd.</span>")
+		to_chat(user, SPAN_NOTICE("You find putting an evidence bag in another evidence bag to be slightly absurd."))
 		return 1 //now this is podracing
 
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
+		to_chat(user, SPAN_NOTICE("[I] won't fit in [src]."))
 		return
 
 	if(length(contents))
-		to_chat(user, "<span class='notice'>[src] already has something inside it.</span>")
+		to_chat(user, SPAN_NOTICE("[src] already has something inside it."))
 		return
 
 	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
@@ -43,8 +43,8 @@
 		else if(!user.is_holding(I) || !user.unequip(I))					//in a hand
 			return
 
-	user.visible_message("<span class='notice'>[user] puts [I] into [src].</span>", "<span class='notice'>You put [I] inside [src].</span>",\
-	"<span class='notice'>You hear a rustle as someone puts something into a plastic bag.</span>")
+	user.visible_message(SPAN_NOTICE("[user] puts [I] into [src]."), SPAN_NOTICE("You put [I] inside [src]."),\
+	SPAN_NOTICE("You hear a rustle as someone puts something into a plastic bag."))
 
 	icon_state = "evidence"
 
@@ -67,8 +67,8 @@
 /obj/item/evidencebag/attack_self__legacy__attackchain(mob/user)
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>",\
-		"<span class='notice'>You hear someone rustle around in a plastic bag, and remove something.</span>")
+		user.visible_message(SPAN_NOTICE("[user] takes [I] out of [src]."), SPAN_NOTICE("You take [I] out of [src]."),\
+		SPAN_NOTICE("You hear someone rustle around in a plastic bag, and remove something."))
 		overlays.Cut()	//remove the overlays
 		user.put_in_hands(I)
 		I.pickup(user)
@@ -108,7 +108,7 @@
 		return FALSE
 	evidence |= supplied.evidence
 	name = "[initial(name)] (combined)"
-	to_chat(user, "<span class='notice'>You add [supplied] to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You add [supplied] to [src]."))
 	return TRUE
 
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
@@ -120,7 +120,7 @@
 		else
 			evidence[print] = supplied.evidence[print]
 	name = "[initial(name)] (combined)"
-	to_chat(user, "<span class='notice'>You overlay [src] and [supplied], combining the print records.</span>")
+	to_chat(user, SPAN_NOTICE("You overlay [src] and [supplied], combining the print records."))
 	return TRUE
 
 /obj/item/sample/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -153,10 +153,10 @@
 
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
-		to_chat(user, "<span class='warning'>Take [H.gloves] off first.</span>")
+		to_chat(user, SPAN_WARNING("Take [H.gloves] off first."))
 		return FINISH_ATTACK
 
-	to_chat(user, "<span class='notice'>You press your fingertips firmly against the card.</span>")
+	to_chat(user, SPAN_NOTICE("You press your fingertips firmly against the card."))
 	var/fullprint = H.get_full_print()
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
@@ -174,21 +174,21 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(H.gloves)
-			to_chat(user, "<span class='warning'>[H] is wearing gloves.</span>")
+			to_chat(user, SPAN_WARNING("[H] is wearing gloves."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(user != H && H.stat == CONSCIOUS && !H.restrained())
-			user.visible_message("<span class='danger'>[user] tried to fingerprint [H], but he resists.</span>")
+			user.visible_message(SPAN_DANGER("[user] tried to fingerprint [H], but he resists."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/has_hand = (H.has_organ("r_hand") || H.has_organ("l_hand"))
 		if(!has_hand)
-			to_chat(user, "<span class='warning'>[H] has no hands!</span>")
+			to_chat(user, SPAN_WARNING("[H] has no hands!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!do_after(user, 2 SECONDS, target = H))
 			return ITEM_INTERACT_COMPLETE
 
-		user.visible_message("<span class='notice'>[user] makes a copy of [H]'s fingerprints'.</span>")
+		user.visible_message(SPAN_NOTICE("[user] makes a copy of [H]'s fingerprints'."))
 		var/fullprint = H.get_full_print()
 		evidence[fullprint] = fullprint
 		transfer_evidence(src)
@@ -197,7 +197,7 @@
 		update_appearance(UPDATE_ICON_STATE)
 		return ITEM_INTERACT_COMPLETE
 	else
-		to_chat(user, "<span class='warning'>You need to target [H]'s hands to obtain fingerprints!'.</span>")
+		to_chat(user, SPAN_WARNING("You need to target [H]'s hands to obtain fingerprints!'."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/sample/print/transfer_evidence(atom/supplied)
@@ -230,7 +230,7 @@
 /obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
 	var/obj/item/sample/S = new evidence_path(get_turf(user))
 	S.transfer_evidence(supplied)
-	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] into [S].</span>")
+	to_chat(user, SPAN_NOTICE("You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] into [S]."))
 
 /obj/item/forensics/sample_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM)
@@ -239,7 +239,7 @@
 	if(can_take_sample(user, target))
 		take_sample(user, target)
 	else
-		to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [target].</span>")
+		to_chat(user, SPAN_WARNING("You cannot find [evidence_type] on [target]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)

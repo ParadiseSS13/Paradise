@@ -586,7 +586,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
 	if(!lavaland_equipment_pressure_check(get_turf(chassis)))
-		to_chat(chassis.occupant, "<span class='warning'>ERROR, OVER PRESSURE!</span>") // no station terror(yet)
+		to_chat(chassis.occupant, SPAN_WARNING("ERROR, OVER PRESSURE!")) // no station terror(yet)
 		playsound(chassis.occupant, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()

@@ -41,11 +41,11 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
+	. += SPAN_NOTICE("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")
+	. += SPAN_NOTICE("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
+		. += SPAN_NOTICE("The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.")
+		. += SPAN_NOTICE("Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.")
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -131,7 +131,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Open the maintenance panel first."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -157,7 +157,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 	ui_interact(user)
 

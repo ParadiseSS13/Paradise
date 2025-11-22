@@ -129,7 +129,7 @@
 
 // Drones don't have a PDA.
 /mob/living/silicon/robot/drone/open_pda()
-	to_chat(src, "<span class='warning'>This unit does not have PDA functionality!</span>")
+	to_chat(src, SPAN_WARNING("This unit does not have PDA functionality!"))
 	return
 
 /mob/living/silicon/robot/drone/get_default_name()
@@ -151,37 +151,37 @@
 /mob/living/silicon/robot/drone/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>Using an emag on this drone will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+		. += SPAN_WARNING("Using an emag on this drone will slave them to you for 5 minutes... until they explode in a shower of sparks.")
 
 /mob/living/silicon/robot/drone/examine_more(mob/user)//I know examine_more is for lore but the length of this description is too much
 	. = ..()
-	. += "<span class='notice'><i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i></span>"
+	. += SPAN_NOTICE("<i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i>")
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/borg/upgrade))
-		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
+		to_chat(user, SPAN_WARNING("The maintenance drone chassis is not compatible with [I]."))
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
 		// Currently not functional, so commenting out until it's fixed to avoid confusion
 			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
+				to_chat(user, SPAN_WARNING("The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one."))
 				return
 
 			if(!allowed(I))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				to_chat(user, SPAN_WARNING("Access denied."))
 				return
 
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
+				to_chat(usr, SPAN_WARNING("The reboot system is currently offline. Please wait another [cooldown_time] seconds."))
 				return
 
-			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>",
-				"<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
+			user.visible_message(SPAN_WARNING("[user] swipes [user.p_their()] ID card through [src], attempting to reboot it."),
+				SPAN_WARNING("You swipe your ID card through [src], attempting to reboot it."))
 			last_reboot = world.time / 10
 			var/drones = 0
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
@@ -194,15 +194,15 @@
 		else
 			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
 			if(confirm == ("Yes") && (user in range(3, src)))
-				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
-					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
+				user.visible_message(SPAN_WARNING("[user] swipes [user.p_their()] ID card through [src], attempting to shut it down."),
+					SPAN_WARNING("You swipe your ID card through [src], attempting to shut it down."))
 
 				if(emagged)
 					return
 				if(allowed(I))
 					shut_down()
 				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+					to_chat(user, SPAN_WARNING("Access denied."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -210,7 +210,7 @@
 
 /mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
-	to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
+	to_chat(user, SPAN_WARNING("The machine is hermetically sealed. You can't open the case."))
 
 /mob/living/silicon/robot/drone/Destroy()
 	. = ..()
@@ -224,7 +224,7 @@
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
-		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
+		to_chat(user, SPAN_WARNING("There's not much point subverting this heap of junk."))
 		return
 
 	if(!ishuman(user))
@@ -232,16 +232,16 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, "<span class='warning'>[user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.</span>")
-		to_chat(user, "<span class='warning'>You attempt to subvert [src], but the sequencer has no effect.</span>")
+		to_chat(src, SPAN_WARNING("[user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt."))
+		to_chat(user, SPAN_WARNING("You attempt to subvert [src], but the sequencer has no effect."))
 		return
 
-	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
+	to_chat(user, SPAN_WARNING("You swipe the sequencer across [src]'s interface and watch its eyes flicker."))
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
 		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
-	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have <b>five minutes</b> before the drone server detects this and automatically shuts you down.</span>")
+	to_chat(src, SPAN_WARNING("You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have <b>five minutes</b> before the drone server detects this and automatically shuts you down."))
 	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
@@ -264,7 +264,7 @@
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
-	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
+	to_chat(src, SPAN_BOLDWARNING("ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands."))
 	return TRUE
 
 //DRONE LIFE/DEATH
@@ -286,9 +286,9 @@
 /mob/living/silicon/robot/drone/proc/law_resync()
 	if(stat != DEAD)
 		if(emagged)
-			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
+			to_chat(src, SPAN_WARNING("You feel something attempting to modify your programming, but your hacked subroutines are unaffected."))
 		else
-			to_chat(src, "<span class='warning'>A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.</span>")
+			to_chat(src, SPAN_WARNING("A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it."))
 			full_law_reset()
 			show_laws()
 
@@ -297,14 +297,14 @@
 		return
 
 	if(emagged && !force)
-		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
+		to_chat(src, SPAN_WARNING("You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you."))
 		return
 
 	if(!emagged && pathfind_to_dronefab())
-		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator.</span>")
+		to_chat(src, SPAN_WARNING("You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator."))
 		return
 
-	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+	to_chat(src, SPAN_WARNING("You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself."))
 	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
@@ -378,13 +378,13 @@
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
-				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+				to_chat(src, SPAN_WARNING("You are too small to pull that."))
 			return
 		else
 			..()
 	else
 		if(show_message)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			to_chat(src, SPAN_WARNING("You are too small to pull that."))
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	add_verb(src, silicon_subsystems)
@@ -402,13 +402,13 @@
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
-		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
+		to_chat(user, SPAN_WARNING("You begin decompiling the other drone."))
 		if(!do_after(user, 5 SECONDS, target = loc))
-			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+			to_chat(user, SPAN_WARNING("You need to remain still while decompiling such a large object."))
 			return
 		if(QDELETED(src) || QDELETED(user))
 			return ..()
-		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+		to_chat(user, SPAN_WARNING("You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself."))
 		new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15
@@ -471,7 +471,7 @@
 		return FALSE
 	drone_fab.drone_progress = 100 // recycling!
 
-	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
+	visible_message(SPAN_NOTICE("[src] shuts down and enters [drone_fab]."))
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
 	qdel(src)
 	return TRUE

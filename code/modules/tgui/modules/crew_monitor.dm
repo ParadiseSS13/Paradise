@@ -29,7 +29,7 @@
 	if(!is_advanced)
 		var/turf/T = get_turf(ui_host())
 		if(!T || !is_level_reachable(T.z))
-			to_chat(usr, "<span class='warning'><b>Unable to establish a connection</b>: You're too far away from the station!</span>")
+			to_chat(usr, SPAN_WARNING("<b>Unable to establish a connection</b>: You're too far away from the station!"))
 			return FALSE
 
 	. = TRUE

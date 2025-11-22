@@ -40,7 +40,7 @@
 		nadeassembly = A
 		A.master = src
 		assemblyattacher = user.ckey
-		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You add [A] to [src]."))
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon(UPDATE_ICON_STATE)
 		return
@@ -85,14 +85,14 @@
 	if(!flag)
 		return
 	if(ismob(AM) && AM.stat == CONSCIOUS)
-		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]! Perhaps if [AM] was asleep or dead you could attach it?</span>")
+		to_chat(user, SPAN_WARNING("You can't get the [src] to stick to [AM]! Perhaps if [AM] was asleep or dead you could attach it?"))
 		return
 	if(isstorage(AM) || ismodcontrol(AM))
 		return ..() //Let us not have people c4 themselfs. Especially with a now 1.5 second do_after
 	if(isobserver(AM))
-		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
+		to_chat(user, SPAN_WARNING("Your hand just phases through [AM]!"))
 		return
-	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
+	to_chat(user, SPAN_NOTICE("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]"))
 
 	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
 		if(!user.unequip(src))
@@ -126,13 +126,13 @@
 		plastic_overlay_target.add_overlay(plastic_overlay)
 
 		if(!nadeassembly)
-			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
+			to_chat(user, SPAN_NOTICE("You plant the bomb. Timer counting down from [det_time]."))
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time SECONDS)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
 	log_game("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
-	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)

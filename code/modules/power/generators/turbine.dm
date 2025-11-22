@@ -197,9 +197,9 @@
 		inturf = get_step(src, dir)
 		locate_machinery()
 		if(turbine)
-			to_chat(user, "<span class='notice'>Turbine connected.</span>")
+			to_chat(user, SPAN_NOTICE("Turbine connected."))
 		else
-			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
+			to_chat(user, SPAN_ALERT("Turbine not connected."))
 		check_broken()
 
 		return ITEM_INTERACT_COMPLETE
@@ -218,12 +218,12 @@
 	if(panel_open)
 		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 			return FALSE
-		to_chat(user, "<span class='notice'>You fix [src]'s bearings</span>")
+		to_chat(user, SPAN_NOTICE("You fix [src]'s bearings"))
 		bearing_damage = 0
 		check_broken()
 		return TRUE
 	else
-		to_chat(user,"<span class='warning'>You need to open the panel first</span>")
+		to_chat(user,SPAN_WARNING("You need to open the panel first"))
 		return TRUE
 
 /obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
@@ -585,10 +585,10 @@
 		outturf = get_step(src, dir)
 		locate_machinery()
 		if(compressor)
-			to_chat(user, "<span class='notice'>Compressor connected.</span>")
+			to_chat(user, SPAN_NOTICE("Compressor connected."))
 			stat &= ~BROKEN
 		else
-			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
+			to_chat(user, SPAN_ALERT("Compressor not connected."))
 			stat |= BROKEN
 		return ITEM_INTERACT_COMPLETE
 
@@ -662,7 +662,7 @@
 	. = ..()
 	var/obj/item/multitool/M = I
 	compressor = M.buffer
-	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
+	to_chat(user, SPAN_NOTICE("You link [src] to the turbine compressor in [I]'s buffer."))
 
 /obj/machinery/computer/turbine_computer/ui_state(mob/user)
 	return GLOB.default_state

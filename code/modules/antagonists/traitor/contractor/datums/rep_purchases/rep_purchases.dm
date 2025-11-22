@@ -54,7 +54,7 @@
 			eligible = FALSE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>All of your contracts must be completed in the hardest location to be eligible for this item.</span>")
+		to_chat(user, SPAN_WARNING("All of your contracts must be completed in the hardest location to be eligible for this item."))
 		return FALSE
 	return ..()
 
@@ -93,7 +93,7 @@
 /datum/rep_purchase/blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	if(next_blackout > world.time)
 		var/timeleft = (next_blackout - world.time) / 10
-		to_chat(user, "<span class='warning'>Another blackout may not be requested for [seconds_to_clock(timeleft)].</span>")
+		to_chat(user, SPAN_WARNING("Another blackout may not be requested for [seconds_to_clock(timeleft)]."))
 		return FALSE
 	return ..()
 
@@ -114,7 +114,7 @@
 			eligible = TRUE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>There are no inactive contracts that can be rerolled.</span>")
+		to_chat(user, SPAN_WARNING("There are no inactive contracts that can be rerolled."))
 		return FALSE
 	return ..()
 

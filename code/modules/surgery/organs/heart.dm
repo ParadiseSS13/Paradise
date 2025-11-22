@@ -18,7 +18,7 @@
 /obj/item/organ/internal/heart/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(status & ORGAN_DEAD)
-		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
+		to_chat(user, SPAN_WARNING("You can't restart a dead heart."))
 		return
 	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
 	heart.try_restart(8 SECONDS)
@@ -58,7 +58,7 @@
 /obj/item/organ/internal/heart/cursed/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		if(NO_BLOOD in H.dna.species.species_traits)
-			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
+			to_chat(H, SPAN_USERDANGER("[src] is not compatible with your form!"))
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
 		user.drop_item()
@@ -72,7 +72,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
-				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				to_chat(H, SPAN_USERDANGER("You have to keep pumping your blood!"))
 				if(H?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					H.client.color = "red" //bloody screen so real
 		else
@@ -81,7 +81,7 @@
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(owner)
-		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 		in_grace_period = TRUE
@@ -105,13 +105,13 @@
 	if(times_shocked >= max_shocks_allowed)
 		shocker.visible_message(
 			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
-			blind_message = "<span class='danger'>You hear a loud shock.</span>"
+			blind_message = SPAN_DANGER("You hear a loud shock.")
 		)
 		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
 		// NO, YOU!
 		playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
-		defib.audible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Anomalous heart activity detected while administering shock.</span>")
+		defib.audible_message(SPAN_BOLDNOTICE("[defib] buzzes: Resuscitation failed - Anomalous heart activity detected while administering shock."))
 		playsound(defib, "defib_saftyon.ogg", 50, FALSE)
 
 		return COMPONENT_DEFIB_OVERRIDE
@@ -137,14 +137,14 @@
 	in_grace_period = FALSE
 	if(!owner)
 		return
-	to_chat(owner, "<span class='userdanger'>The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!</span>")
+	to_chat(owner, SPAN_USERDANGER("The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!"))
 
 	if(times_shocked < max_shocks_allowed - 1)
-		to_chat(owner, "<span class='warning'>It doesn't feel like your [name] enjoyed that.</span>")
+		to_chat(owner, SPAN_WARNING("It doesn't feel like your [name] enjoyed that."))
 	else if(times_shocked == max_shocks_allowed - 1)
-		to_chat(owner, "<span class='danger'>Your [name] starts to feel heavy in your chest. It doesn't seem like it'll be able to take many more shocks!</span>")
+		to_chat(owner, SPAN_DANGER("Your [name] starts to feel heavy in your chest. It doesn't seem like it'll be able to take many more shocks!"))
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] feels like lead. Something tells you that if you die with it again, you won't get another chance!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] feels like lead. Something tells you that if you die with it again, you won't get another chance!"))
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Pump your heart"
@@ -156,12 +156,12 @@
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay - 10))) //no spam
-			to_chat(owner, "<span class='userdanger'>Too soon!</span>")
+			to_chat(owner, SPAN_USERDANGER("Too soon!"))
 			return
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, "<span class='notice'>Your heart beats.</span>")
+		to_chat(owner, SPAN_NOTICE("Your heart beats."))
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
@@ -232,20 +232,20 @@
 	var/datum/organ/heart/heart_datum = organ_datums[ORGAN_DATUM_HEART]
 
 	if(!heart_datum.beating)
-		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
+		to_chat(owner, SPAN_WARNING("Your [name] detects a cardiac event and attempts to return to its normal rhythm!"))
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE) // Mötley Crüe - Kickstart My Heart
 			owner.adjustOxyLoss(-100)
 			owner.SetLoseBreath(0)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] returns to its normal rhythm!")), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(10))
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE)
 			owner.adjustOxyLoss(-100)
 			owner.SetLoseBreath(0)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] returns to its normal rhythm!")), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
 		else
 			attempted_restart = TRUE
@@ -253,21 +253,21 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] fails to return to its normal rhythm!")), 3 SECONDS)
 
 	if(owner.HasDisease(/datum/disease/critical/heart_failure))
-		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
+		to_chat(owner, SPAN_WARNING("Your [name] detects a cardiac event and attempts to return to its normal rhythm!"))
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] returns to its normal rhythm!")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] returns to its normal rhythm!")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else
 			attempted_restart = TRUE
@@ -275,7 +275,7 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, SPAN_WARNING("Your [name] fails to return to its normal rhythm!")), 30)
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)
@@ -288,11 +288,11 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
+		to_chat(user, SPAN_WARNING("You disable the safeties on [src]"))
 		emagged = TRUE
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
+		to_chat(user, SPAN_WARNING("You re-enable the safeties on [src]"))
 		emagged = FALSE
 
 
@@ -309,31 +309,31 @@
 	var/numLow = round(intensity / 20)
 	if(emagged && !(status & ORGAN_DEAD))
 		if(prob(numHigh))
-			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] spasms violently!"))
 			// invoke asyncs here because this sleeps
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numHigh)
 		if(prob(numHigh))
-			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] shocks you painfully!"))
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numHigh)
 		if(prob(numMid))
-			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] lurches awkwardly!"))
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 		if(prob(numMid))
-			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
+			to_chat(owner, SPAN_DANGER("Your [name] stops beating!"))
 			var/datum/organ/heart/heart_datum = organ_datums[ORGAN_DATUM_HEART]
 			heart_datum.change_beating(FALSE) // Rambunctious Crew - Stop My Fucking Heart
 		if(prob(numLow))
-			to_chat(owner, "<span class='danger'>Your [name] shuts down!</span>")
+			to_chat(owner, SPAN_DANGER("Your [name] shuts down!"))
 			INVOKE_ASYNC(src, PROC_REF(necrotize))
 	else if(!emagged && !(status & ORGAN_DEAD))
 		if(prob(numMid))
-			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] spasms violently!"))
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numMid)
 		if(prob(numMid))
-			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] shocks you painfully!"))
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numMid)
 		if(prob(numLow))
-			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
+			to_chat(owner, SPAN_WARNING("Your [name] lurches awkwardly!"))
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/hardened

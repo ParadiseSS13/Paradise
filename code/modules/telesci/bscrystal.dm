@@ -15,8 +15,8 @@
 
 /obj/item/stack/ore/bluespace_crystal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can crush this to randomly teleport a short distance.</span>"
-	. += "<span class='notice'>If you throw this at someone, they'll be randomly teleported a short distance away.</span>"
+	. += SPAN_NOTICE("You can crush this to randomly teleport a short distance.")
+	. += SPAN_NOTICE("If you throw this at someone, they'll be randomly teleported a short distance away.")
 
 /obj/item/stack/ore/bluespace_crystal/examine_more(mob/user)
 	. = ..()
@@ -34,11 +34,11 @@
 /obj/item/stack/ore/bluespace_crystal/attack_self__legacy__attackchain(mob/user)
 	if(use(1))
 		blink_mob(user)
-		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] crushes a [singular_name]!"))
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
+		src.visible_message(SPAN_WARNING("[src]'s fragments begin rapidly vibrating and blink out of existence."))
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, sound_in = 'sound/effects/phasein.ogg')

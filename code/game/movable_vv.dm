@@ -20,11 +20,11 @@
 
 		if(!GLOB.dsay_enabled)
 			// TODO verify what happens when deadchat is muted
-			to_chat(usr, "<span class='warning'>Deadchat is globally muted, un-mute deadchat before enabling this.</span>")
+			to_chat(usr, SPAN_WARNING("Deadchat is globally muted, un-mute deadchat before enabling this."))
 			return
 
 		if(GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "<span class='warning'>[src] is already under deadchat control!</span>")
+			to_chat(usr, SPAN_WARNING("[src] is already under deadchat control!"))
 			return
 
 		var/control_mode = tgui_input_list(usr, "Please select the control mode", "Deadchat Control", list("Democracy", "Anarchy"))
@@ -42,7 +42,7 @@
 		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
 			return
 		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
-			to_chat(usr, "<span class='warning'>The cooldown for Democracy mode must be greater than zero.</span>")
+			to_chat(usr, SPAN_WARNING("The cooldown for Democracy mode must be greater than zero."))
 			return
 		if(cooldown == -1)
 			cooldown = 0
@@ -57,7 +57,7 @@
 			return
 
 		if(!GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "<span class='warning'>[src] is not currently under deadchat control!</span>")
+			to_chat(usr, SPAN_WARNING("[src] is not currently under deadchat control!"))
 			return
 
 		stop_deadchat_plays()

@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), "<span class='warning'>Radio equipment on [src] has suffered an unidentified malfunction. Please restart the machine.</span>"), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), SPAN_WARNING("Radio equipment on [src] has suffered an unidentified malfunction. Please restart the machine.")), 5)
 	update_icon(UPDATE_ICON_STATE)
 
 

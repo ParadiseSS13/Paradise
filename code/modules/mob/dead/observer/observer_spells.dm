@@ -12,8 +12,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 /datum/spell/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
-	selection_deactivated_message	= "<span class='notice'>Your presence will not be known. For now.</span>"
-	selection_activated_message		= "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
+	selection_deactivated_message	= SPAN_NOTICE("Your presence will not be known. For now.")
+	selection_activated_message		= SPAN_NOTICE("You prepare to reach across the veil. <b>Left-click to influence a target!</b>")
 
 	ghost = TRUE
 
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
 		if(spook_zone.is_haunted)
-			to_chat(usr, "<span class='notice'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
+			to_chat(usr, SPAN_NOTICE("The veil is weak in [spook_zone], it took less effort to influence [target]."))
 			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return
 

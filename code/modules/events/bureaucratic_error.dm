@@ -50,4 +50,4 @@
 		errors++
 	log_and_message_admins(affected_jobs.Join(".\n"))
 	for(var/mob/M as anything in GLOB.dead_mob_list)
-		to_chat(M, "<span class='deadsay'><b>Bureaucratic Error:</b> The following job slots have changed: \n[affected_jobs.Join(",\n ")].</span>")
+		to_chat(M, SPAN_DEADSAY("<b>Bureaucratic Error:</b> The following job slots have changed: \n[affected_jobs.Join(",\n ")]."))

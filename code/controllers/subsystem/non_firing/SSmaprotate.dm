@@ -109,4 +109,4 @@ SUBSYSTEM_DEF(maprotate)
 	var/datum/map/winner = pickweight(pickable_maps) // Even if no one votes, pickweight will pick from them evenly. This means a map with zero votes *can* be chosen
 	to_chat(world, "[returned_text.Join("\n")]")
 	SSmapping.next_map = new winner
-	to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
+	to_chat(world, SPAN_INTERFACE("Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])"))

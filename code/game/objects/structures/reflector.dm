@@ -23,7 +23,7 @@
 	if(new_dir && anchored)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
+		visible_message(SPAN_NOTICE("[src] is hit by [P]!"))
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
@@ -48,7 +48,7 @@
 		var/obj/item/stack/sheet/S = W
 		if(istype(W, /obj/item/stack/sheet/glass))
 			if(S.get_amount() < 5)
-				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
+				to_chat(user, SPAN_WARNING("You need five sheets of glass to create a reflector!"))
 				return
 			else
 				S.use(5)
@@ -56,7 +56,7 @@
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
-				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
+				to_chat(user, SPAN_WARNING("You need ten sheets of reinforced glass to create a double reflector!"))
 				return
 			else
 				S.use(10)
@@ -112,7 +112,7 @@
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='warning'>You cannot rotate [src] right now. It is fastened to the floor!</span>")
+		to_chat(user, SPAN_WARNING("You cannot rotate [src] right now. It is fastened to the floor!"))
 		return
 	dir = turn(dir, 90)
 

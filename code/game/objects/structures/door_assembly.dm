@@ -41,19 +41,19 @@
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 			if(anchored)
-				. += "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>"
+				. += SPAN_NOTICE("The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.")
 			else
-				. += "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>"
+				. += SPAN_NOTICE("The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
+			. += SPAN_NOTICE("The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. += SPAN_NOTICE("The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.")
 			if(glass)
-				. += "<span class='notice'>The assembly has its electrochromic windows <b>[polarized_glass ? "enabled" : "disabled"]</b> and can be <i>configured</i>.</span>"
+				. += SPAN_NOTICE("The assembly has its electrochromic windows <b>[polarized_glass ? "enabled" : "disabled"]</b> and can be <i>configured</i>.")
 	if(!glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.</span>"
+		. += SPAN_NOTICE("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.")
 	else
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
+		. += SPAN_NOTICE("There is a small <i>paper</i> placard on the assembly[doorname].")
 
 /obj/structure/door_assembly/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	. = ITEM_INTERACT_COMPLETE
@@ -68,7 +68,7 @@
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
+			to_chat(user, SPAN_WARNING("You need one length of cable to wire the airlock assembly!"))
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
 		if(do_after(user, 40 * coil.toolspeed, target = src))
@@ -76,7 +76,7 @@
 				return
 			coil.use(1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
-			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
+			to_chat(user, SPAN_NOTICE("You wire the airlock assembly."))
 
 	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && !istype(W, /obj/item/airlock_electronics/destroyed))
 		playsound(loc, W.usesound, 100, 1)
@@ -88,7 +88,7 @@
 				return
 			user.drop_item()
 			new_electronics.forceMove(src)
-			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+			to_chat(user, SPAN_NOTICE("You install the airlock electronics."))
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			electronics = new_electronics
@@ -107,16 +107,16 @@
 								if(S.get_amount() < 1 || glass)
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
-									to_chat(user, "<span class='notice'>You install reinforced glass windows into the airlock assembly.</span>")
+									to_chat(user, SPAN_NOTICE("You install reinforced glass windows into the airlock assembly."))
 									reinforced_glass = TRUE
 								else
-									to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
+									to_chat(user, SPAN_NOTICE("You install regular glass windows into the airlock assembly."))
 								S.use(1)
 								glass = TRUE
 					else
-						to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
+						to_chat(user, SPAN_WARNING("You cannot add [S] to [src]!"))
 				else
-					to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
+					to_chat(user, SPAN_WARNING("You cannot add [S] to [src]!"))
 	else
 		return ..()
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
@@ -130,7 +130,7 @@
 	user.visible_message("[user] is removing the electronics from the airlock assembly...", "You start to remove electronics from the airlock assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
-	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+	to_chat(user, SPAN_NOTICE("You remove the airlock electronics."))
 	state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 	name = "wired airlock assembly"
 	var/obj/item/airlock_electronics/ae
@@ -150,11 +150,11 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is finishing the airlock...", \
-							"<span class='notice'>You start finishing the airlock...</span>")
+							SPAN_NOTICE("You start finishing the airlock..."))
 	. = TRUE
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
-	to_chat(user, "<span class='notice'>You finish the airlock.</span>")
+	to_chat(user, SPAN_NOTICE("You finish the airlock."))
 	var/obj/machinery/door/airlock/door
 	if(glass || reinforced_glass)
 		door = new glass_type(loc)
@@ -187,7 +187,7 @@
 	user.visible_message("[user] is cutting the wires from the airlock assembly...", "You start to cut the wires from airlock assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
-	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
+	to_chat(user, SPAN_NOTICE("You cut the wires from the airlock assembly."))
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_icon(UPDATE_OVERLAYS)
@@ -204,7 +204,7 @@
 		user.visible_message("[user] is securing the airlock assembly to the floor...", "You start to secure the airlock assembly to the floor...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
-	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
+	to_chat(user, SPAN_NOTICE("You [anchored ? "un" : ""]secure the airlock assembly."))
 	anchored = !anchored
 
 /obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
@@ -212,12 +212,12 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(glass)
-		user.visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
-			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
-			"<span class='warning'>You hear welding.</span>")
+		user.visible_message(SPAN_NOTICE("[user] welds the glass panel out of [src]."),\
+			SPAN_NOTICE("You start to weld the glass panel out of the [src]..."),\
+			SPAN_WARNING("You hear welding."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
+		to_chat(user, SPAN_NOTICE("You weld the glass panel out."))
 		if(reinforced_glass)
 			new /obj/item/stack/sheet/rglass(get_turf(src))
 			reinforced_glass = FALSE
@@ -226,12 +226,12 @@
 		glass = FALSE
 		polarized_glass = FALSE
 	else if(!anchored)
-		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-			"<span class='notice'>You start to disassemble [src]...</span>",\
-			"<span class='warning'>You hear welding.</span>")
+		visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+			SPAN_NOTICE("You start to disassemble [src]..."),\
+			SPAN_WARNING("You hear welding."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
+		to_chat(user, SPAN_NOTICE("You disassemble the airlock assembly."))
 		deconstruct(TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -240,10 +240,10 @@
 		return
 	. = TRUE
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-		to_chat(user, "<span class='notice'>The airlock assembly needs its electronics before you can configure the electrochromic windows.</span>")
+		to_chat(user, SPAN_NOTICE("The airlock assembly needs its electronics before you can configure the electrochromic windows."))
 		return
 	if(!glass && !noglass)
-		to_chat(user, "<span class='notice'>The airlock assembly needs glass before you can configure the electrochromic windows.</span>")
+		to_chat(user, SPAN_NOTICE("The airlock assembly needs glass before you can configure the electrochromic windows."))
 		return
 
 	if(!I.tool_use_check(user, 0))
@@ -254,7 +254,7 @@
 
 	polarized_glass = !polarized_glass
 
-	to_chat(user, "<span class='notice'>You [polarized_glass ? "enable" : "disable"] the electrochromic windows in the airlock assembly.</span>")
+	to_chat(user, SPAN_NOTICE("You [polarized_glass ? "enable" : "disable"] the electrochromic windows in the airlock assembly."))
 
 /obj/structure/door_assembly/update_overlays()
 	. = ..()

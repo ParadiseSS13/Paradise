@@ -122,7 +122,7 @@
 		return
 	var/mob/living/silicon/ai/A = ui.user
 	if(A.stat == DEAD)
-		to_chat(A, "<span class='warning'>You are dead!</span>")
+		to_chat(A, SPAN_WARNING("You are dead!"))
 		return
 
 	switch(action)
@@ -130,7 +130,7 @@
 			var/datum/ai_program/program = locateUID(params["uid"])
 			if(!program.installed) // Handle installing any program here.
 				if(program.cost > memory)
-					to_chat(A, "<span class='warning'>You cannot afford this program.</span>")
+					to_chat(A, SPAN_WARNING("You cannot afford this program."))
 					return FALSE
 				memory -= program.cost
 				program.installed = TRUE
@@ -143,16 +143,16 @@
 				for(var/datum/spell/ai_spell/selected_program in A.mob_spell_list)
 					if(new_spell.type == selected_program.type)
 						if(selected_program.spell_level >= selected_program.level_max)
-							to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
+							to_chat(A, SPAN_WARNING("This program cannot be upgraded further."))
 							return FALSE
 						else
 							if(bandwidth < 1)
-								to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
+								to_chat(A, SPAN_WARNING("You cannot afford this upgrade!"))
 								return FALSE
 							selected_program.name = initial(selected_program.name)
 							selected_program.spell_level++
 							if(selected_program.spell_level >= selected_program.level_max)
-								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+								to_chat(A, SPAN_NOTICE("This program cannot be upgraded any further."))
 							selected_program.on_purchase_upgrade()
 							program.upgrade(A)
 							return TRUE
@@ -168,13 +168,13 @@
 
 			// Passive programs
 			if(program.upgrade_level > program.max_level)
-				to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+				to_chat(A, SPAN_NOTICE("This program cannot be upgraded any further."))
 				return FALSE
 			if(!program.upgrade_level)
 				program.upgrade(A, first_install = TRUE)
 			else
 				if(bandwidth < 1)
-					to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
+					to_chat(A, SPAN_WARNING("You cannot afford this upgrade!"))
 					return FALSE
 				program.upgrade(A)
 			to_chat(A, program.unlock_text)
@@ -202,7 +202,7 @@
 	/// Max level for passive upgrades
 	var/max_level = 5
 	/// Text shown when an ability is unlocked
-	var/unlock_text = "<span class='notice'>Hello World!</span>"
+	var/unlock_text = SPAN_NOTICE("Hello World!")
 	/// Sound played when an ability is unlocked
 	var/unlock_sound
 	/// The cooldown when the ability is used
@@ -241,7 +241,7 @@
 	if(!upgrade_level <= 0)
 		uninstall(user)
 		return
-	to_chat(user, "<span class='warning'>Program update data lost: [src.program_name]!</span>")
+	to_chat(user, SPAN_WARNING("Program update data lost: [src.program_name]!"))
 	user.program_picker.bandwidth++
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
@@ -260,7 +260,7 @@
 	user.program_picker.bandwidth += bandwidth_used
 	bandwidth_used = 0
 	user.program_picker.memory += cost
-	to_chat(user, "<span class='userdanger'>Program core data lost: [src.program_name]!</span>")
+	to_chat(user, SPAN_USERDANGER("Program core data lost: [src.program_name]!"))
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
 		for(var/datum/spell/ai_spell/aspell in user.mob_spell_list)
@@ -271,10 +271,10 @@
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
 	if(istype(user.loc, /obj/machinery/power/apc))
-		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
+		to_chat(user, SPAN_WARNING("Error: APCs do not have enough processing power to handle programs!"))
 		return
 	if(istype(user.loc, /obj/item/aicard))
-		to_chat(user, "<span class='warning'>Error: InteliCards do not have enough processing power to handle programs!</span>")
+		to_chat(user, SPAN_WARNING("Error: InteliCards do not have enough processing power to handle programs!"))
 		return
 	user.program_picker.ui_interact(user)
 
@@ -299,12 +299,12 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
-	selection_activated_message = "<span class='notice'>You hook into the station's lighting controller...</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the request from the lighting controller.</span>"
+	selection_activated_message = SPAN_NOTICE("You hook into the station's lighting controller...")
+	selection_deactivated_message = SPAN_NOTICE("You cancel the request from the lighting controller.")
 
 /datum/spell/ai_spell/ranged/rgb_lighting/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/obj/machinery/target = targets[1]
@@ -312,12 +312,12 @@
 		revert_cast()
 		return
 	if(!istype(target, /obj/machinery/light) && !istype(target, /obj/machinery/power/apc))
-		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
+		to_chat(user, SPAN_WARNING("You can only recolor lights!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	// Color selection
@@ -328,7 +328,7 @@
 	var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
-			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
+			to_chat(user, SPAN_WARNING("Your coloring subsystem is not strong enough to target an entire room!"))
 			AI.program_picker.refund_nanites(program.nanite_cost)
 			revert_cast()
 			return
@@ -371,13 +371,13 @@
 	base_cooldown = 120 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
-	selection_activated_message = "<span class='notice'>You tap into the station's powernet...</span>"
-	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
+	selection_activated_message = SPAN_NOTICE("You tap into the station's powernet...")
+	selection_deactivated_message = SPAN_NOTICE("You release your hold on the powernet.")
 	var/power_sent = 2500
 
 /datum/spell/ai_spell/ranged/power_shunt/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -385,21 +385,21 @@
 		revert_cast()
 		return
 	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target))
-		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
+		to_chat(user, SPAN_WARNING("You can only recharge borgs, mechs, and APCs!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(ismachineperson(target)  && !AI.universal_adapter)
-		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
+		to_chat(user, SPAN_WARNING("This software lacks the required upgrade to recharge IPCs!"))
 		revert_cast()
 		return
 	var/area/A = get_area(user)
 	if(A == null)
-		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
+		to_chat(user, SPAN_WARNING("No SMES detected to power from!"))
 		revert_cast()
 		return
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	if(ismecha(target))
@@ -452,12 +452,12 @@
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
-	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to repair...</span>"
-	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to order your nanomachines to repair...")
+	selection_deactivated_message = SPAN_NOTICE("You rescind the order.")
 
 /datum/spell/ai_spell/ranged/repair_nanites/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -465,20 +465,20 @@
 		revert_cast()
 		return
 	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target) && !isbot(target))
-		to_chat(user, "<span class='warning'>You can only repair borgs, mechs, and APCs!</span>")
+		to_chat(user, SPAN_WARNING("You can only repair borgs, mechs, and APCs!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(ismachineperson(target) && !AI.universal_adapter)
-		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
+		to_chat(user, SPAN_WARNING("This software lacks the required upgrade to repair IPCs!"))
 		revert_cast()
 		return
 	if(isbot(target) && spell_level < 2)
-		to_chat(user, "<span class='warning'>This software is not upgraded enough to repair the robot!</span>")
+		to_chat(user, SPAN_WARNING("This software is not upgraded enough to repair the robot!"))
 		revert_cast()
 		return
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	if(ismecha(target)|| isapc(target))
@@ -554,12 +554,12 @@
 	base_cooldown = 60 SECONDS
 	cooldown_min = 60 SECONDS
 	level_max = 5
-	selection_activated_message = "<span class='notice'>You prepare to deploy repairing nanites to a door...</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to deploy repairing nanites to a door...")
+	selection_deactivated_message = SPAN_NOTICE("You cancel the request.")
 
 /datum/spell/ai_spell/ranged/airlock_restoration/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/obj/machinery/door/airlock/target = targets[1]
@@ -567,17 +567,17 @@
 		revert_cast()
 		return
 	if(!istype(target))
-		to_chat(user, "<span class='warning'>You can only repair airlocks!</span>")
+		to_chat(user, SPAN_WARNING("You can only repair airlocks!"))
 		revert_cast()
 		return
 
 	if(target.wires.is_cut(WIRE_AI_CONTROL))
-		to_chat(user, "<span class='warning'>Error: Null Connection to Airlock!</span>")
+		to_chat(user, SPAN_WARNING("Error: Null Connection to Airlock!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	var/turf/T = get_turf(target)
@@ -619,12 +619,12 @@
 	base_cooldown = 60 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 3
-	selection_activated_message = "<span class='notice'>You prepare to synthesize a nanofrost globule...</span>"
-	selection_deactivated_message = "<span class='notice'>You let the nanofrost dissipate.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to synthesize a nanofrost globule...")
+	selection_deactivated_message = SPAN_NOTICE("You let the nanofrost dissipate.")
 
 /datum/spell/ai_spell/ranged/extinguishing_system/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/turf/target = get_turf(targets[1])
@@ -632,12 +632,12 @@
 		revert_cast()
 		return
 	if(!isturf(target))
-		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
+		to_chat(user, SPAN_WARNING("Invalid location for nanofrost deployment!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(target)
@@ -735,12 +735,12 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
-	selection_activated_message = "<span class='notice'>You prepare to synthesize a lightbulb...</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to synthesize a lightbulb...")
+	selection_deactivated_message = SPAN_NOTICE("You cancel the request.")
 
 /datum/spell/ai_spell/ranged/light_repair/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/obj/machinery/light/target = targets[1]
@@ -748,12 +748,12 @@
 		revert_cast()
 		return
 	if(!istype(target))
-		to_chat(user, "<span class='warning'>You can only repair lights!</span>")
+		to_chat(user, SPAN_WARNING("You can only repair lights!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	// Handle repairs here since we're using a spell and not a tool
@@ -792,12 +792,12 @@
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 10
-	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform organic repairs...</span>"
-	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to order your nanomachines to perform organic repairs...")
+	selection_deactivated_message = SPAN_NOTICE("You rescind the order.")
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/mob/living/carbon/human/target = targets[1]
@@ -805,12 +805,12 @@
 		revert_cast()
 		return
 	if(!istype(target) || ismachineperson(target))
-		to_chat(user, "<span class='warning'>You can only heal organic crew!</span>")
+		to_chat(user, SPAN_WARNING("You can only heal organic crew!"))
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
@@ -819,9 +819,9 @@
 	var/allow_moving = FALSE
 	if(spell_level == level_max)
 		allow_moving = TRUE
-		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera.</span>")
+		to_chat(target, SPAN_NOTICE("You feel a flow of healing nanites stream to you from a nearby camera."))
 	else
-		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera. Hold still for them to work!</span>")
+		to_chat(target, SPAN_NOTICE("You feel a flow of healing nanites stream to you from a nearby camera. Hold still for them to work!"))
 	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
 		// Check camera vision again.
 		if(!check_camera_vision(user, target))
@@ -934,12 +934,12 @@
 	base_cooldown = 180 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 5
-	selection_activated_message = "<span class='notice'>You fill a canister with metal foam...</span>"
-	selection_deactivated_message = "<span class='notice'>You dissolve the unused canister.</span>"
+	selection_activated_message = SPAN_NOTICE("You fill a canister with metal foam...")
+	selection_deactivated_message = SPAN_NOTICE("You dissolve the unused canister.")
 
 /datum/spell/ai_spell/ranged/emergency_sealant/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -948,7 +948,7 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
@@ -987,8 +987,8 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 8
-	selection_activated_message = "<span class='notice'>You spool up your projector...</span>"
-	selection_deactivated_message = "<span class='notice'>You stop spooling the projector.</span>"
+	selection_activated_message = SPAN_NOTICE("You spool up your projector...")
+	selection_deactivated_message = SPAN_NOTICE("You stop spooling the projector.")
 	/// Types of holosigns the AI can deploy
 	var/sign_choices = list(
 		"Engineering",
@@ -1000,7 +1000,7 @@
 
 /datum/spell/ai_spell/ranged/holosign_displayer/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -1009,7 +1009,7 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	var/sign_id = tgui_input_list(usr, "Select a holosign!", "AI", sign_choices)
@@ -1056,12 +1056,12 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 10
-	selection_activated_message = "<span class='notice'>You prepare to honk...</span>"
-	selection_deactivated_message = "<span class='notice'>You reduce the amount of humor in your subsystems.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to honk...")
+	selection_deactivated_message = SPAN_NOTICE("You reduce the amount of humor in your subsystems.")
 
 /datum/spell/ai_spell/ranged/honk_subsystem/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -1072,7 +1072,7 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	if(spell_level >= 10)
@@ -1145,7 +1145,7 @@
 		if(get_dist(closest_camera, target) > get_dist(C, target))
 			closest_camera = C
 			continue
-	closest_camera.visible_message("<span class='warning'>A purple light flashes on [closest_camera]!</span>")
+	closest_camera.visible_message(SPAN_WARNING("A purple light flashes on [closest_camera]!"))
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)
@@ -1174,12 +1174,12 @@
 	base_cooldown = 15 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 1
-	selection_activated_message = "<span class='notice'>You prepare to illuminate a hologram...</span>"
-	selection_deactivated_message = "<span class='notice'>You spool down your projector.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to illuminate a hologram...")
+	selection_deactivated_message = SPAN_NOTICE("You spool down your projector.")
 
 /datum/spell/ai_spell/ranged/pointer/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No valid target!</span>")
+		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
 	var/target = targets[1]
@@ -1188,7 +1188,7 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
 	new /obj/effect/temp_visual/ai_pointer(get_turf(target))

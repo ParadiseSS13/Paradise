@@ -7,8 +7,8 @@
 	if(!isliving(target))
 		return
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-	target.visible_message("<span class='warning'>[user] sets [target] on fire with otherwordly powers!</span>", \
-						"<span class='userdanger'>As [user] punches you with a searing fist, these words echo in your mind; \"remember... only YOU can prevent forest fires!\"</span>")
+	target.visible_message(SPAN_WARNING("[user] sets [target] on fire with otherwordly powers!"), \
+						SPAN_USERDANGER("As [user] punches you with a searing fist, these words echo in your mind; \"remember... only YOU can prevent forest fires!\""))
 	target.apply_damage(10, BURN, user.zone_selected)
 	playsound(get_turf(user), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	target.adjust_fire_stacks(1.5)

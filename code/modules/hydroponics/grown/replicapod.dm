@@ -38,12 +38,12 @@
 					blood_type = bloodSample.data["blood_type"]
 					factions = bloodSample.data["factions"]
 					W.reagents.clear_reagents()
-					to_chat(user, "<span class='notice'>You inject the contents of the syringe into the seeds.</span>")
+					to_chat(user, SPAN_NOTICE("You inject the contents of the syringe into the seeds."))
 					contains_sample = 1
 				else
-					to_chat(user, "<span class='warning'>The seeds reject the sample!</span>")
+					to_chat(user, SPAN_WARNING("The seeds reject the sample!"))
 		else
-			to_chat(user, "<span class='warning'>The seeds already contain a genetic sample!</span>")
+			to_chat(user, SPAN_WARNING("The seeds already contain a genetic sample!"))
 	else
 		return ..()
 

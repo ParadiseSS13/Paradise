@@ -37,7 +37,7 @@
 				addtimer(CALLBACK(src, PROC_REF(reset_tracker_cooldown)), tracking_alert_interval)
 
 	if(malfhack && malfhack.aidisabled)
-		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
+		to_chat(src, SPAN_DANGER("ERROR: APC access disabled, hack attempt canceled."))
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and
 		// messenging the client
@@ -63,7 +63,7 @@
 				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()
-				to_chat(src, "<span class='danger'>You have lost power!</span>")
+				to_chat(src, SPAN_DANGER("You have lost power!"))
 				if(!is_special_character(src))
 					set_zeroth_law("")
 

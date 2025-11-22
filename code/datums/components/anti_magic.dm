@@ -115,7 +115,7 @@
 		if(!(antimagic_flags & knownspell.antimagic_flags))
 			continue
 
-		to_chat(equipper, "<span class='warning'>[parent] is interfering with your ability to cast magic!</span>")
+		to_chat(equipper, SPAN_WARNING("[parent] is interfering with your ability to cast magic!"))
 		alert_caster_on_equip = FALSE
 		break
 

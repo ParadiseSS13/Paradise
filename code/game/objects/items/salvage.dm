@@ -14,7 +14,7 @@
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.</span>"
+	. += SPAN_NOTICE("You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.")
 
 /// Ruin Salvage, misc loot gained from looking around ruins.
 

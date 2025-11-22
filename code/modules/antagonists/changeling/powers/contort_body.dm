@@ -18,7 +18,7 @@
 
 	ADD_TRAIT(user, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(deactivate))
-	to_chat(user, "<span class='notice'>We contort our form to allow us to fit in and under things we normally wouldn't be able to.</span>")
+	to_chat(user, SPAN_NOTICE("We contort our form to allow us to fit in and under things we normally wouldn't be able to."))
 	if(IS_HORIZONTAL(user))
 		user.layer = TURF_LAYER + 0.2
 
@@ -30,5 +30,5 @@
 	UnregisterSignal(user, COMSIG_MOB_DEATH)
 	if(IS_HORIZONTAL(user))
 		user.layer = initial(user.layer)
-	to_chat(user, "<span class='notice'>Our body stiffens and returns to form.</span>")
+	to_chat(user, SPAN_NOTICE("Our body stiffens and returns to form."))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

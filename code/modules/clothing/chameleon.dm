@@ -720,7 +720,7 @@
 		var/obj/item/mod/control/C = target
 		C.current_disguise = FALSE
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
@@ -740,7 +740,7 @@
 				toreturn.return_look()
 				return
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 	..()
 

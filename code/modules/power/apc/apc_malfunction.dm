@@ -13,7 +13,7 @@
 		to_chat(malf, "You are already hacking an APC.")
 		return
 	if(constructed)
-		to_chat(malf, "<span class='warning'>This APC was only recently constructed, and is not fully linked to station systems. Hacking it would be pointless.</span>")
+		to_chat(malf, SPAN_WARNING("This APC was only recently constructed, and is not fully linked to station systems. Hacking it would be pointless."))
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you can only hack one APC at a time.")
 	malf.malfhack = src
@@ -26,10 +26,10 @@
 	if(!istype(malf))
 		return
 	if(istype(malf.loc, /obj/machinery/power/apc)) // Already in an APC
-		to_chat(malf, "<span class='warning'>You must evacuate your current APC first!</span>")
+		to_chat(malf, SPAN_WARNING("You must evacuate your current APC first!"))
 		return
 	if(!malf.can_shunt)
-		to_chat(malf, "<span class='warning'>You cannot shunt!</span>")
+		to_chat(malf, SPAN_WARNING("You cannot shunt!"))
 		return
 	if(!is_station_level(z))
 		return
@@ -68,7 +68,7 @@
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
 	else
-		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
+		to_chat(occupier, SPAN_DANGER("Primary core damaged, unable to return core processes."))
 		if(forced)
 			occupier.loc = loc
 			occupier.death()

@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(isliving(entered))
 		if(!damage_mob(entered))
 			return
-		to_chat(entered, "<span class='warning'>[src] burns you!</span>")
+		to_chat(entered, SPAN_WARNING("[src] burns you!"))
 		return
 
 	if(isitem(entered))

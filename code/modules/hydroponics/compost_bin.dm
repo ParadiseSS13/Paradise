@@ -46,7 +46,7 @@
 
 /obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/I)
 	// there are no screws either
-	to_chat(user, "<span class='warning'>[src] has no screws!</span>")
+	to_chat(user, SPAN_WARNING("[src] has no screws!"))
 	return TRUE
 
 /obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/I)
@@ -76,7 +76,7 @@
 
 	if(istype(used, /obj/item/storage/bag/plants))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated with potassium!</span>")
+			to_chat(user, SPAN_WARNING("[src] can't hold any more biomass, and it's contents are saturated with potassium!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/storage/bag/plants/PB = used
@@ -90,14 +90,14 @@
 				break
 
 		if(biomass >= biomass_capacity)
-			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
+			to_chat(user, SPAN_NOTICE("You fill [src] to its capacity."))
 		else
-			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You empty [PB] into [src]."))
 
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, SPAN_NOTICE("You have saturated the contents of [src] with potassium."))
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, SPAN_NOTICE("You have very nearly saturated the contents of [src] with potassium."))
 
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
@@ -105,13 +105,13 @@
 
 	if(istype(used, /obj/item/food/grown))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
+			to_chat(user, SPAN_WARNING("[src] can't hold any more biomass, and its contents are saturated with potassium!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.transfer_item_to(used, src))
 			return ITEM_INTERACT_COMPLETE
 
 		make_biomass(used)
-		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
 		return ITEM_INTERACT_COMPLETE
@@ -119,10 +119,10 @@
 		var/proportion = 0
 		var/obj/item/reagent_containers/B = used
 		if(B.reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>[B] is empty!</span>")
+			to_chat(user, SPAN_WARNING("[B] is empty!"))
 			return ITEM_INTERACT_COMPLETE
 		if(potassium >= potassium_capacity && potash >= potash_capacity)
-			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium and it cannot hold more potash!</span>")
+			to_chat(user, SPAN_WARNING("The contents of [src] are saturated with potassium and it cannot hold more potash!"))
 			return ITEM_INTERACT_COMPLETE
 		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
 		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this), potassium_capacity - potassium) / B.reagents.total_volume
@@ -143,25 +143,25 @@
 			B.reagents.remove_reagent(R.id, R.volume * proportion)
 
 		if(proportion == 1)
-			to_chat(user, "<span class='notice'>You empty [B] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You empty [B] into [src]."))
 		else
-			to_chat(user, "<span class='notice'>You pour some of [B] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You pour some of [B] into [src]."))
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, SPAN_NOTICE("You have saturated the contents of [src] with potassium."))
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, SPAN_NOTICE("You have very nearly saturated the contents of [src] with potassium."))
 
 		if(potash == potash_capacity)
-			to_chat(user, "<span class='notice'>[src] has been filled with potash.</span>")
+			to_chat(user, SPAN_NOTICE("[src] has been filled with potash."))
 		else if(potash >= potash_capacity * 0.95)
-			to_chat(user, "<span class='notice'>[src] has been nearly filled with potash.</span>")
+			to_chat(user, SPAN_NOTICE("[src] has been nearly filled with potash."))
 
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
 
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='warning'>You cannot put this in [src]!</span>")
+	to_chat(user, SPAN_WARNING("You cannot put this in [src]!"))
 	return ITEM_INTERACT_COMPLETE
 
 //Compost compostable material if there is any

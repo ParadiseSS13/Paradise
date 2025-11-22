@@ -20,7 +20,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently [chambered ? "" : "un"]loaded.</span>"
+	. += SPAN_NOTICE("It is currently [chambered ? "" : "un"]loaded.")
 
 /obj/item/gun/rocketlauncher/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/ammo_casing/rocket))
@@ -28,9 +28,9 @@
 	if(!chambered)
 		user.transfer_item_to(I, src)
 		chambered = I
-		to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put the rocket in [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] cannot hold another rocket.</span>")
+		to_chat(user, SPAN_NOTICE("[src] cannot hold another rocket."))
 
 /obj/item/gun/rocketlauncher/process_chamber()
 	QDEL_NULL(chambered)

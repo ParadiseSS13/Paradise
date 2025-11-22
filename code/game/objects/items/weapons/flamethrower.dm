@@ -62,7 +62,7 @@
 
 /obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -77,37 +77,37 @@
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
+		to_chat(user, SPAN_WARNING("You need to ignite [src] before you can use it as a lighter!"))
 		return TRUE
 
 	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
 	if(HAS_TRAIT(user, TRAIT_BADASS) || (user.mind.assigned_role in list("Station Engineer", "Chief Engineer", "Life Support Specialist")) || prob(50))
 		if(user == target)
 			user.visible_message(
-				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [user.p_their()] [cig] to light it, like some kind of psychopath!</span>",
-				"<span class='notice'>You lift up [src] and lightly pull the trigger, lighting [cig].</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_WARNING("[user] confidently lifts up [src] and releases a big puff of flame at [user.p_their()] [cig] to light it, like some kind of psychopath!"),
+				SPAN_NOTICE("You lift up [src] and lightly pull the trigger, lighting [cig]."),
+				SPAN_WARNING("You hear a brief burst of flame!")
 			)
 		else
 			user.visible_message(
-				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [target], lighting [target.p_their()] [cig.name], like some kind of psychopath!</span>",
-				"<span class='notice'>You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [cig.name] with a big puff of flame.</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_WARNING("[user] confidently lifts up [src] and releases a big puff of flame at [target], lighting [target.p_their()] [cig.name], like some kind of psychopath!"),
+				SPAN_NOTICE("You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [cig.name] with a big puff of flame."),
+				SPAN_WARNING("You hear a brief burst of flame!")
 		)
 	else
 		// You set them on fire, but at least the cigarette got lit...
 		if(target == user)
 			user.visible_message(
-				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [user.p_their()] [cig] to light it, accidentally setting [user.p_themselves()] ablaze in the process!</span>",
-				"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [cig]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
-				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+				SPAN_DANGER("[user] carelessly lifts up [src] and releases a large burst of flame at [user.p_their()] [cig] to light it, accidentally setting [user.p_themselves()] ablaze in the process!"),
+				SPAN_USERDANGER("You lift up [src] and squeeze the trigger to light [cig]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!"),
+				SPAN_DANGER("You hear a plume of fire and something igniting!")
 			)
 		else
 			user.visible_message(
-				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [target] to light [target.p_their()] [cig.name], accidentally setting [target.p_them()] ablaze!</span>",
+				SPAN_DANGER("[user] carelessly lifts up [src] and releases a large burst of flame at [target] to light [target.p_their()] [cig.name], accidentally setting [target.p_them()] ablaze!"),
 				"<span class='danger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. \
 				Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
-				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+				SPAN_DANGER("You hear a plume of fire and something igniting!")
 			)
 		target.adjust_fire_stacks(2)
 		target.IgniteMob()
@@ -121,10 +121,10 @@
 	if(!user)
 		return
 	if(user.mind?.martial_art?.no_guns)
-		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
+		to_chat(user, SPAN_WARNING("[user.mind.martial_art.no_guns_message]"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
+		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
 		return
 	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
@@ -153,7 +153,7 @@
 				I.forceMove(src)
 				ptank.forceMove(get_turf(src))
 				ptank = I
-				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
+				to_chat(user, SPAN_NOTICE("You swap the plasma tank in [src]!"))
 			return
 		if(!user.drop_item())
 			return
@@ -191,7 +191,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	status = !status
-	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
+	to_chat(user, SPAN_NOTICE("[igniter] is now [status ? "secured" : "unsecured"]!"))
 	update_icon()
 
 /obj/item/flamethrower/return_analyzable_air()
@@ -206,22 +206,22 @@
 	if(ptank && isliving(user) && user.Adjacent(src))
 		user.put_in_hands(ptank)
 		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You remove the plasma tank from [src]!"))
 		update_icon()
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()
 	if(ptank)
-		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
+		. += SPAN_NOTICE("[src] has \a [ptank] attached. Alt-click to remove it.")
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
-		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
+		to_chat(user, SPAN_NOTICE("Attach a plasma tank first!"))
 		return
 	if(!status)
-		to_chat(user, "<span class='notice'>Secure the igniter first!</span>")
+		to_chat(user, SPAN_NOTICE("Secure the igniter first!"))
 		return
-	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
+	to_chat(user, SPAN_NOTICE("You [lit ? "extinguish" : "ignite"] [src]!"))
 	lit = !lit
 	if(lit)
 		damtype = BURN
@@ -294,7 +294,7 @@
 /obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+		owner.visible_message(SPAN_DANGER("[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!"))
 		var/turf/target_turf = get_turf(owner)
 		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
 		igniter.ignite_turf(src,target_turf, release_amount = 100)

@@ -20,7 +20,7 @@
 	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
-	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
+	to_chat(user, SPAN_NOTICE("We begin to heal rapidly."))
 	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
 
 /datum/spell/flayer/self/rejuv/on_apply()

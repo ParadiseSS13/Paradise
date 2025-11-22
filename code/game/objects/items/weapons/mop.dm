@@ -29,7 +29,7 @@
 
 /obj/item/mop/proc/wet_mop(obj/O, mob/user, robot_mop)
 	if(O.reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>[O] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[O] is empty!"))
 		if(robot_mop)
 			return
 
@@ -48,7 +48,7 @@
 			return
 
 	O.reagents.trans_to(src, 6)
-	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
+	to_chat(user, SPAN_NOTICE("You wet [src] in [O]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 /obj/item/mop/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -63,7 +63,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		to_chat(user, SPAN_WARNING("Your mop is dry!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(world.time > mop_sound_cooldown)
@@ -88,7 +88,7 @@
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
-	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
+	to_chat(user, SPAN_NOTICE("You wet [src] in [source]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return TRUE
 
@@ -122,7 +122,7 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
-	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
+	to_chat(user, SPAN_NOTICE("You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position."))
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
 /obj/item/mop/advanced/process()
@@ -132,7 +132,7 @@
 
 /obj/item/mop/advanced/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>"
+	. += SPAN_NOTICE("The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.")
 
 /obj/item/mop/advanced/Destroy()
 	if(refill_enabled)

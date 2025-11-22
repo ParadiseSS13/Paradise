@@ -40,5 +40,5 @@
 /// Begin the chase to kill the mob in time
 /datum/ai_behavior/burrow_away/proc/burrow(mob/living/pawn)
 	if(pawn.stat == CONSCIOUS)
-		pawn.visible_message("<span class='danger'>[pawn] buries into the ground, vanishing from sight!</span>")
+		pawn.visible_message(SPAN_DANGER("[pawn] buries into the ground, vanishing from sight!"))
 		qdel(pawn)

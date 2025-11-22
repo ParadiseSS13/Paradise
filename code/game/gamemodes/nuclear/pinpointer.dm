@@ -64,7 +64,7 @@
 /obj/item/pinpointer/proc/cycle(mob/user)
 	if(cur_index > length(modes))
 		mode = MODE_OFF
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, SPAN_NOTICE("You deactivate [src]."))
 		STOP_PROCESSING(SSfastprocess, src)
 		icon_state = icon_off
 		cur_index = 1
@@ -73,7 +73,7 @@
 		START_PROCESSING(SSfastprocess, src)
 	mode = modes[cur_index++]
 	activate_mode(mode, user)
-	to_chat(user, "<span class='notice'>[get_mode_text(mode)]</span>")
+	to_chat(user, SPAN_NOTICE("[get_mode_text(mode)]"))
 
 /obj/item/pinpointer/proc/get_mode_text(mode)
 	switch(mode)
@@ -181,7 +181,7 @@
 		return
 
 	if(modelocked)
-		to_chat(user, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(user, SPAN_WARNING("[src] is locked. It can only track one specific target."))
 		return
 
 	target = null
@@ -202,7 +202,7 @@
 
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(user, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
+			to_chat(user, SPAN_NOTICE("You set the pinpointer to locate [locationx],[locationy]"))
 
 			toggle_on()
 
@@ -245,13 +245,13 @@
 					else
 						target = backup
 						if(target)
-							to_chat(user, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
+							to_chat(user, SPAN_NOTICE("Unable to find [targetitem] in this sector, falling back to off-sector tracking."))
 
 					if(!target)
-						to_chat(user, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(user, SPAN_WARNING("Failed to locate [targetitem]!"))
 						return
 
-					to_chat(user, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
+					to_chat(user, SPAN_NOTICE("You set the pinpointer to locate [targetitem]."))
 
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
@@ -313,7 +313,7 @@
 		mode = MODE_DISK
 		modes = list(MODE_DISK, MODE_NUKE)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
+		visible_message(SPAN_NOTICE("Authentication Disk Locator mode actived."))
 		return
 	if(!home)
 		home = SSshuttle.getShuttle("syndicate")
@@ -413,11 +413,11 @@
 	if(!D)
 		return
 	if((D.linked_pinpointer_UID && D.linked_pinpointer_UID != UID()) || linked_gun_UID)
-		visible_message("<span class='notice'>The pinpointer pings to indicate either it or the gun is already linked.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
+		visible_message(SPAN_NOTICE("The pinpointer pings to indicate either it or the gun is already linked."), SPAN_NOTICE("You hear a pinpointer pinging."))
 		return
 	D.link_pinpointer(UID())
 	linked_gun_UID = gun_UID
-	visible_message("<span class='notice'>The pinpointer pings twice to indicate a successful link.</span>", "<span class='notice'>You hear a pinpointer pinging twice.</span>")
+	visible_message(SPAN_NOTICE("The pinpointer pings twice to indicate a successful link."), SPAN_NOTICE("You hear a pinpointer pinging twice."))
 
 /obj/item/pinpointer/crew/proc/start_tracking()
 	if(!linked_gun_UID)
@@ -429,12 +429,12 @@
 	target = locateUID(target_UID)
 	target_set = TRUE
 	mode = PINPOINTER_MODE_DET
-	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
+	visible_message(SPAN_NOTICE("The pinpointer flickers as it begins tracking a target relayed from a detective's revolver."), SPAN_NOTICE("You hear a pinpointer flickering."))
 	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/stop_tracking()
-	visible_message("<span class='notice'>The pinpointer powers down, no longer receiving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	visible_message(SPAN_NOTICE("The pinpointer powers down, no longer receiving signals from a detective's revolver."), SPAN_NOTICE("You hear a pinpointer powering down."))
 	target = null
 	target_set = FALSE
 	mode = MODE_OFF
@@ -489,7 +489,7 @@
 		name_counts[name] = 1
 
 	if(!length(names))
-		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
+		user.visible_message(SPAN_NOTICE("[user]'s pinpointer fails to detect a signal."), SPAN_NOTICE("Your pinpointer fails to detect a signal."))
 		return
 
 	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
@@ -498,7 +498,7 @@
 
 	target = names[A]
 	target_set = TRUE
-	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
+	user.visible_message(SPAN_NOTICE("[user] activates [user.p_their()] pinpointer."), SPAN_NOTICE("You activate your pinpointer."))
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"

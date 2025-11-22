@@ -19,8 +19,8 @@
 	var/mob/living/carbon/M = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message(
-			"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
-			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>"
+			SPAN_DANGER("[user] accidentally hits [user.p_themselves()] with [src]!"),
+			SPAN_USERDANGER("You accidentally hit yourself with [src]!")
 			)
 		deductcharge(hitcost)
 		do_teleport(user, get_turf(user), 50)//honk honk

@@ -100,10 +100,10 @@
 // Greets the player, announces objectives!
 /datum/event/tourist_arrivals/proc/greeting(mob/living/carbon/human/M)
 	var/list/greeting = list()
-	greeting.Add("<span class='boldnotice'><font size=3>You are a tourist!</font></span>")
+	greeting.Add(SPAN_BOLDNOTICE("<font size=3>You are a tourist!</font>"))
 	greeting.Add("<b>You were chosen as a lucky winner of Nanotrasen's exclusive raffle! Winning a visit to a nearby Nanotrasen Research Station!</b>")
 	greeting.Add("<b>Enjoy your exclusive tour and make the most of your time exploring our state-of-the-art facilities!</b>")
-	greeting.Add("<span class='notice'><br>Your current objectives are:</span>")
+	greeting.Add(SPAN_NOTICE("<br>Your current objectives are:"))
 	greeting.Add(M.mind.prepare_announce_objectives(FALSE))
 	to_chat(M, chat_box_green(greeting.Join("<br>")))
 

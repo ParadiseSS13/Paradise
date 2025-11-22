@@ -40,23 +40,23 @@
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
 		if(!A.reagents.total_volume && A.reagents)
-			to_chat(user, "<span class='notice'>[A] is empty.</span>")
+			to_chat(user, SPAN_NOTICE("[A] is empty."))
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
+			to_chat(user, SPAN_NOTICE("[src] is full."))
 			return
 
 		if(!is_open_container())
-			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
+			to_chat(user, SPAN_NOTICE("[src] cannot be refilled."))
 			return
 
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
+		to_chat(user, SPAN_NOTICE("You fill [src] with [trans] units of the contents of [A]."))
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty!"))
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
@@ -101,13 +101,13 @@
 		return FINISH_ATTACK
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (amount_per_transfer_from_this == 10 ? spray_maxrange : spray_minrange)
-	to_chat(user, "<span class='notice'>You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, SPAN_NOTICE("You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to empty it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to empty it.")
 
 /obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -115,7 +115,7 @@
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(user.loc) && loc == user)
-		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src] onto the floor."))
 		reagents.reaction(user.loc)
 		reagents.clear_reagents()
 
@@ -149,9 +149,9 @@
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				to_chat(loc, SPAN_WARNING("[src] identifies and removes a filthy substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				visible_message(SPAN_WARNING("[src] identifies and removes a filthy substance."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	desc = "BLAM!-brand non-foaming space cleaner!"

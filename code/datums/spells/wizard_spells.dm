@@ -87,7 +87,7 @@
 	base_cooldown = 400
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
-	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
+	message = SPAN_NOTICE("You feel strong! You feel a pressure building behind your eyes!")
 	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
@@ -194,7 +194,7 @@
 
 /datum/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
 	if(!(teacher && teacher.current))
-		to_chat(user, "<span class='danger'>The link to your teacher is broken!</span>")
+		to_chat(user, SPAN_DANGER("The link to your teacher is broken!"))
 		return
 	do_teleport(user, teacher.current, 1, sound_in = 'sound/magic/blink.ogg', sound_out = 'sound/magic/blink.ogg', safe_turf_pick = TRUE)
 
@@ -285,7 +285,7 @@
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
+	message = SPAN_NOTICE("Your eyes cry out in pain!")
 	cooldown_min = 2 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
@@ -297,13 +297,13 @@
 
 /datum/spell/blind/cast(list/targets, mob/living/user)
 	if(!length(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, SPAN_NOTICE("No target found in range."))
 		return
 
 	var/mob/living/target = targets[1]
 	if(target.can_block_magic(antimagic_flags))
-		to_chat(target, "<span class='notice'>Your eye itches, but it passes momentarily.</span>")
-		to_chat(user, "<span class='notice'>The spell had no effect!</span>")
+		to_chat(target, SPAN_NOTICE("Your eye itches, but it passes momentarily."))
+		to_chat(user, SPAN_NOTICE("The spell had no effect!"))
 		return FALSE
 	target.EyeBlurry(40 SECONDS)
 	target.EyeBlind(30 SECONDS)
@@ -321,8 +321,8 @@
 	invocation_type = "shout"
 	cooldown_min = 20 //10 deciseconds reduction per rank
 
-	selection_activated_message		= "<span class='notice'>You prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You prepare to cast your fireball spell! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
@@ -367,8 +367,8 @@
 	fireball_type = /obj/projectile/homing/magic/toolbox
 	invocation = "ROBUSTIO!"
 
-	selection_activated_message		= "<span class='notice'>You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You unrobust your toolbox...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You unrobust your toolbox...for now.")
 
 /datum/spell/fireball/homing
 	name = "Greater Homing Fireball"
@@ -376,7 +376,7 @@
 	invocation = "ZI-ONI SOMA"
 	fireball_type = /obj/projectile/homing/magic/homing_fireball
 
-	selection_activated_message = "<span class='notice'>You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B>")
 
 /datum/spell/aoe/repulse
 	name = "Repulse"
@@ -421,13 +421,13 @@
 				var/mob/living/M = AM
 				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
+				to_chat(M, SPAN_USERDANGER("You're slammed into the floor by a mystical force!"))
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(stun_amt)
-				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
+				to_chat(M, SPAN_USERDANGER("You're thrown back by a mystical force!"))
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
@@ -463,8 +463,8 @@
 	base_cooldown = 5 SECONDS
 	invocation = "JAH ITH BER"
 	invocation_type = "whisper"
-	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to detonate a corpse. Click on a target to cast the spell.")
+	selection_deactivated_message = SPAN_NOTICE("You cancel the spell.")
 	action_icon_state = "corpse_explosion"
 
 /datum/spell/corpse_explosion/create_new_targeting()
@@ -489,11 +489,11 @@
 		range = max(1, range)
 		M.apply_damage(100 / range, BRUTE)
 		if(issilicon(M))
-			to_chat(M, "<span class='userdanger'>Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!</span>")
+			to_chat(M, SPAN_USERDANGER("Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!"))
 			M.Weaken(6 SECONDS / range)
 			continue
 
-		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		to_chat(M, SPAN_USERDANGER("You are eviscerated by the violent dark magic!"))
 		if(ishuman(M))
 			if(range < 4)
 				M.KnockDown(4 SECONDS / range)

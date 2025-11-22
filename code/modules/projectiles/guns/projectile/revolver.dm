@@ -16,7 +16,7 @@
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
 	. += "[get_ammo(0, 0)] of those are live rounds."
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's barrel.")
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
@@ -40,7 +40,7 @@
 		return
 	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]."))
 		A.update_icon()
 		update_icon()
 		chamber_round(0)
@@ -58,9 +58,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You unload [num_unloaded] shell\s from [src]."))
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 
 /obj/item/gun/projectile/revolver/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -72,7 +72,7 @@
 	C.spin()
 	chamber_round(0)
 	playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, TRUE)
-	user.visible_message("<span class='warning'>[user] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
+	user.visible_message(SPAN_WARNING("[user] spins [src]'s chamber."), SPAN_NOTICE("You spin [src]'s chamber."))
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)
@@ -90,7 +90,7 @@
 /obj/item/gun/projectile/revolver/fake/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		. += "<span class='sans'>Its mechanism seems to shoot backwards.</span>"
+		. += SPAN_SANS("Its mechanism seems to shoot backwards.")
 
 /obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
 	var/zone = "chest"
@@ -106,8 +106,8 @@
 	process_chamber()
 	update_icon()
 	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
-	user.visible_message("<span class='danger'>[src] goes off!</span>")
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	user.visible_message(SPAN_DANGER("[src] goes off!"))
+	to_chat(user, SPAN_DANGER("[src] did look pretty dodgey!"))
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 	user.bleed(BLOOD_VOLUME_NORMAL)
@@ -155,13 +155,13 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
-	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
+	to_chat(usr, SPAN_WARNING("You are out of ammo! You holster your fingers."))
 	qdel(src)
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(!user.mind.miming)
-		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
+		to_chat(usr, SPAN_WARNING("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	..()
 
@@ -169,7 +169,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self__legacy__attackchain(mob/living/user)
-	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+	to_chat(usr, SPAN_NOTICE("You holster your fingers. Another time."))
 	qdel(src)
 	return
 
@@ -224,7 +224,7 @@
 	name = "\improper .357 revolver"
 
 /obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, "<span class='chaosbad'>[src] vanishes in a puff of smoke!</span>")
+	to_chat(user, SPAN_CHAOSBAD("[src] vanishes in a puff of smoke!"))
 	playsound(src, 'sound/items/bikehorn.ogg')
 	qdel(src)
 
@@ -298,9 +298,9 @@
 		return
 
 	if(num_unloaded)
-		to_chat(user, "<span class='notice'>You break open [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, SPAN_NOTICE("You break open [src] and unload [num_unloaded] shell\s."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty."))
 
 /obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
 	if(!istype(get_area(user), /area/station/service/bar))
@@ -323,7 +323,7 @@
 		loaded_shells++
 
 	if(loaded_shells)
-		to_chat(user, "<span class='notice'>You quickly load [loaded_shells] shell\s from your bandolier into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You quickly load [loaded_shells] shell\s from your bandolier into [src]."))
 	return TRUE
 
 // IMPROVISED SHOTGUN //
@@ -343,14 +343,14 @@
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(sling)
-			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
+			to_chat(user, SPAN_WARNING("The shotgun already has a sling!"))
 		else if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			to_chat(user, SPAN_NOTICE("You tie the lengths of cable to the shotgun, making a sling."))
 			sling = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+			to_chat(user, SPAN_WARNING("You need at least ten lengths of cable if you want to make a sling!"))
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
 	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"

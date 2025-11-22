@@ -163,7 +163,7 @@
 /datum/component/two_handed/proc/on_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ATTACK_HAND if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 	if(require_twohands && user.get_inactive_hand())
-		to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, SPAN_NOTICE("[parent] is too cumbersome to carry in one hand!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
@@ -177,22 +177,22 @@
 		return
 	if(ismonkeybasic(user))
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too heavy and cumbersome for you to carry!</span>")
+			to_chat(user, SPAN_NOTICE("[parent] is too heavy and cumbersome for you to carry!"))
 			user.drop_item_to_ground(parent, force = TRUE)
 		else
-			to_chat(user, "<span class='notice'>[parent] too heavy for you to wield fully.</span>")
+			to_chat(user, SPAN_NOTICE("[parent] too heavy for you to wield fully."))
 		return
 	if(user.get_inactive_hand())
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+			to_chat(user, SPAN_NOTICE("[parent] is too cumbersome to carry in one hand!"))
 			user.drop_item_to_ground(parent, force = TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
+			to_chat(user, SPAN_WARNING("You need your other hand to be empty!"))
 		return
 	if(!user.has_both_hands())
 		if(require_twohands)
 			user.drop_item_to_ground(parent, force = TRUE)
-		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
+		to_chat(user, SPAN_WARNING("You don't have enough intact hands."))
 		return
 
 	// wield update status
@@ -218,9 +218,9 @@
 	parent_item.update_appearance()
 
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [parent].</span>")
+		to_chat(user, SPAN_NOTICE("You dedicate your module to [parent]."))
 	else
-		to_chat(user, "<span class='notice'>You grab [parent] with both hands.</span>")
+		to_chat(user, SPAN_NOTICE("You grab [parent] with both hands."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -293,11 +293,11 @@
 		// Show message if requested
 		if(show_message)
 			if(isrobot(user))
-				to_chat(user, "<span class='notice'>You free up your module.</span>")
+				to_chat(user, SPAN_NOTICE("You free up your module."))
 			else if(require_twohands)
-				to_chat(user, "<span class='notice'>You drop [parent].</span>")
+				to_chat(user, SPAN_NOTICE("You drop [parent]."))
 			else
-				to_chat(user, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
+				to_chat(user, SPAN_NOTICE("You are now carrying [parent] with one hand."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -395,12 +395,12 @@
 		if(require_twohands)
 			INVOKE_ASYNC(src, PROC_REF(try_drop_item), user)
 		else
-			user.visible_message("<span class='notice'>[user] unwields [parent] as the handcuffs make it too hard to hold properly.</span>")
+			user.visible_message(SPAN_NOTICE("[user] unwields [parent] as the handcuffs make it too hard to hold properly."))
 			INVOKE_ASYNC(src, PROC_REF(unwield), user)
 
 /datum/component/two_handed/proc/try_drop_item(mob/user)
 	if(user.drop_item_to_ground(parent))
-		user.visible_message("<span class='notice'>[user] loses [user.p_their()] grip on [parent]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] loses [user.p_their()] grip on [parent]!"))
 
 /**
  * The offhand dummy item for two handed items

@@ -13,7 +13,7 @@
 /datum/action/changeling/mimicvoice/sting_action(mob/user)
 	if(cling.mimicking)
 		cling.mimicking = ""
-		to_chat(user, "<span class='notice'>We return our vocal glands to their original position.</span>")
+		to_chat(user, SPAN_NOTICE("We return our vocal glands to their original position."))
 		return FALSE
 
 	var/mimic_voice = tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN)
@@ -21,8 +21,8 @@
 		return FALSE
 
 	cling.mimicking = mimic_voice
-	to_chat(user, "<span class='notice'>We shape our glands to take the voice of <b>[mimic_voice]</b>.</span>")
-	to_chat(user, "<span class='notice'>Use this power again to return to our original voice.</span>")
+	to_chat(user, SPAN_NOTICE("We shape our glands to take the voice of <b>[mimic_voice]</b>."))
+	to_chat(user, SPAN_NOTICE("Use this power again to return to our original voice."))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

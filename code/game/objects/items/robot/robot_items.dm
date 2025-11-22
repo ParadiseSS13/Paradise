@@ -33,8 +33,8 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	target.Weaken(10 SECONDS)
 	target.apply_effect(STUTTER, 10 SECONDS)
 
-	target.visible_message("<span class='danger'>[user] has prodded [target] with [src]!</span>", \
-					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
+	target.visible_message(SPAN_DANGER("[user] has prodded [target] with [src]!"), \
+					SPAN_USERDANGER("[user] has prodded you with [src]!"))
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, target, "Stunned with [src] ([uppertext(user.a_intent)])")

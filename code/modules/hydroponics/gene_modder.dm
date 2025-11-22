@@ -139,7 +139,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [used] first!</span>")
+		to_chat(user, SPAN_WARNING("You need to sort [used] first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/seeds))
@@ -154,23 +154,23 @@
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
 	if(seed)
-		to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
+		to_chat(user, SPAN_WARNING("A sample is already loaded into the machine!"))
 		return
 	if(!user.drop_item())
 		return
 	insert_seed(new_seed)
-	to_chat(user, "<span class='notice'>You add [new_seed] to the machine.</span>")
+	to_chat(user, SPAN_NOTICE("You add [new_seed] to the machine."))
 	ui_interact(user)
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
 	if(length(contents) - (seed ? 1 : 0) >= disk_capacity)
-		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot hold any more disks!"))
 		return
 	if(istype(new_disk, /obj/item/storage/box))
 		var/has_disks = FALSE
 		for(var/obj/item/disk/plantgene/D in new_disk.contents)
 			if(length(contents)- (seed ? 1 : 0) >= disk_capacity)
-				to_chat(user, "<span class='notice'>You fill [src] with disks.</span>")
+				to_chat(user, SPAN_NOTICE("You fill [src] with disks."))
 				break
 			has_disks = TRUE
 			D.forceMove(src)
@@ -178,9 +178,9 @@
 				disk = D
 		if(has_disks)
 			playsound(loc, 'sound/items/handling/cardboardbox_drop.ogg', 50)
-			to_chat(user, "<span class='notice'>You load [src] from [new_disk].</span>")
+			to_chat(user, SPAN_NOTICE("You load [src] from [new_disk]."))
 		else
-			to_chat(user, "<span class='notice'>[new_disk] contains no disks.</span>")
+			to_chat(user, SPAN_NOTICE("[new_disk] contains no disks."))
 		SStgui.update_uis(src)
 		return
 	if(!user.drop_item())
@@ -188,7 +188,7 @@
 	if(!disk)
 		disk = new_disk
 	new_disk.forceMove(src)
-	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
+	to_chat(user, SPAN_NOTICE("You add [new_disk] to the machine."))
 	ui_interact(user)
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
@@ -426,7 +426,7 @@
 						user.put_in_hands(D)
 					update_genes()
 					return
-			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
+			to_chat(user, SPAN_WARNING("No Empty Disks to Eject!"))
 		if("set_read_only")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			D.read_only = !D.read_only
@@ -657,11 +657,11 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	read_only = !read_only
-	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
+	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
+		to_chat(user, SPAN_WARNING("The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!"))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -677,9 +677,9 @@
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+		. += SPAN_WARNING("... Wait. This isn't the nuclear authentication disk! It's a clever forgery!")
 	else
-		. += "<span class='warning'>You should keep this safe...</span>"
+		. += SPAN_WARNING("You should keep this safe...")
 
 /obj/item/disk/plantgene/examine_more(mob/user)
 	. = ..()
@@ -687,8 +687,8 @@
 		return
 
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
-		. += "<span class='danger'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
-		. += "<span class='userdanger'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
+		. += SPAN_DANGER("Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.")
+		. += SPAN_USERDANGER("Now stop staring at this worthless fake and FIND THE REAL ONE!")
 		return
 
 	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."

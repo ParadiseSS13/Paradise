@@ -34,7 +34,7 @@
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += "<span class='notice'>It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.</span>"
+		desc += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -94,12 +94,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += SPAN_DANGER("This power cell seems to be faulty!")
 	else
-		. += "<span class='notice'>The charge meter reads [round(percent())]%.</span>"
+		. += SPAN_NOTICE("The charge meter reads [round(percent())]%.")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)

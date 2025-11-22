@@ -37,7 +37,7 @@
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -57,15 +57,15 @@
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
-		to_chat(user, "<span class='notice'>You light [src].</span>")
+		to_chat(user, SPAN_NOTICE("You light [src]."))
 	else if(HAS_TRAIT(user, TRAIT_BADASS) || HAS_TRAIT(user, TRAIT_COOL))
-		to_chat(user, "<span class='notice'>[src]'s flames lick your hand as you light it, but you don't flinch.</span>")
+		to_chat(user, SPAN_NOTICE("[src]'s flames lick your hand as you light it, but you don't flinch."))
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
-		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+		to_chat(user,SPAN_NOTICE("You light [src], but you burn your hand in the process."))
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -114,18 +114,18 @@
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
+		to_chat(user, SPAN_WARNING("You need to light [src] before it can be used to light anything!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [cig] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [cig] with [src].</span>,"
+			SPAN_NOTICE("After some fiddling, [user] manages to light [user.p_their()] [cig] with [src]."),
+			"[SPAN_NOTICE("After some fiddling, you manage to light [cig] with [src].")],"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [cig] for [target] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [cig] for [target] with [src].</span>"
+			SPAN_NOTICE("After some fiddling, [user] manages to light [cig] for [target] with [src]."),
+			SPAN_NOTICE("After some fiddling, you manage to light [cig] for [target] with [src].")
 		)
 	cig.light(user, target)
 	return TRUE
@@ -159,14 +159,14 @@
 	. = ..()
 	if(world.time > next_on_message)
 		user.visible_message(
-			"<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>",
-			"<span class='rose'>Without breaking your stride, you flip open and light [src] in one smooth movement.</span>",
-			"<span class='rose'>You hear a zippo being lit.</span>"
+			SPAN_ROSE("Without even breaking stride, [user] flips open and lights [src] in one smooth movement."),
+			SPAN_ROSE("Without breaking your stride, you flip open and light [src] in one smooth movement."),
+			SPAN_ROSE("You hear a zippo being lit.")
 		)
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You light [src].</span>")
+		to_chat(user, SPAN_NOTICE("You light [src]."))
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
@@ -175,14 +175,14 @@
 
 	if(world.time > next_off_message)
 		user.visible_message(
-			"<span class='rose'>You hear a quiet click as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.</span>",
-			"<span class='rose'>You shut off [src] without even looking at what you're doing.</span>",
-			"<span class='rose'>You hear a quiet click as a zippo lighter is shut off. Wow.</span>"
+			SPAN_ROSE("You hear a quiet click as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow."),
+			SPAN_ROSE("You shut off [src] without even looking at what you're doing."),
+			SPAN_ROSE("You hear a quiet click as a zippo lighter is shut off. Wow.")
 		)
 		playsound(loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You shut off [src].</span>")
+		to_chat(user, SPAN_NOTICE("You shut off [src]."))
 
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -190,18 +190,18 @@
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
+		to_chat(user, SPAN_WARNING("You need to light [src] before it can be used to light anything!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [cig.name] with [src]. Damn [user.p_theyre()] cool.</span>",
-			"<span class='rose'>With a single flick of your wrist, you smoothly light [cig] with [src].</span>"
+			SPAN_ROSE("With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [cig.name] with [src]. Damn [user.p_theyre()] cool."),
+			SPAN_ROSE("With a single flick of your wrist, you smoothly light [cig] with [src].")
 		)
 	else
 		user.visible_message(
-			"<span class='rose'>[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [cig] with. Damn [user.p_theyre()] cool.</span>",
-			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.</span>"
+			SPAN_ROSE("[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [cig] with. Damn [user.p_theyre()] cool."),
+			SPAN_ROSE("You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.")
 		)
 	cig.light(user, target)
 	return TRUE
@@ -312,7 +312,7 @@
 
 /obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		to_chat(user, SPAN_WARNING("[S] can't hold [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
 		return FALSE
 	else
 		return TRUE
@@ -338,18 +338,18 @@
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
+		to_chat(user, SPAN_WARNING("You need to light [src] before it can be used to light anything!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] lights [user.p_their()] [cig] with [src].</span>",
-			"<span class='notice'>You light [cig] with [src].</span>"
+			SPAN_NOTICE("[user] lights [user.p_their()] [cig] with [src]."),
+			SPAN_NOTICE("You light [cig] with [src].")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] holds [src] out for [target], and lights [cig].</span>",
-			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [cig].</span>"
+			SPAN_NOTICE("[user] holds [src] out for [target], and lights [cig]."),
+			SPAN_NOTICE("You hold [src] out for [target], and light [user.p_their()] [cig].")
 		)
 	cig.light(user, target)
 	matchburnout()
@@ -391,27 +391,27 @@
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
+		to_chat(user, SPAN_USERDANGER("If you can see this message, please make an issue report to GitHub, something bad has happened."))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='rose'>[user] spits fire at [user.p_their()] [cig.name], igniting it.</span>",
-			"<span class='rose'>You spit fire at [cig], igniting it.</span>",
-			"<span class='warning'>You hear a brief burst of flame!</span>"
+			SPAN_ROSE("[user] spits fire at [user.p_their()] [cig.name], igniting it."),
+			SPAN_ROSE("You spit fire at [cig], igniting it."),
+			SPAN_WARNING("You hear a brief burst of flame!")
 		)
 	else
 		if(prob(50))
 			user.visible_message(
-				"<span class='rose'>[user] spits fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
-				"<span class='rose'>You spit fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_ROSE("[user] spits fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!"),
+				SPAN_ROSE("You spit fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!"),
+				SPAN_WARNING("You hear a brief burst of flame!")
 			)
 		else
 			user.visible_message(
-				"<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [cig] in the process!</span>",
-				"<span class='rose'>You spit fire at [target], burning [target.p_their()] face and lighting [cig] in the process!</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_ROSE("[user] spits fire at [target], burning [target.p_their()] face and lighting [cig] in the process!"),
+				SPAN_ROSE("You spit fire at [target], burning [target.p_their()] face and lighting [cig] in the process!"),
+				SPAN_WARNING("You hear a brief burst of flame!")
 			)
 			var/obj/item/organ/external/head/affecting = target.get_organ("head")
 			affecting.receive_damage(0, 5)

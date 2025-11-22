@@ -29,7 +29,7 @@
 	if(!emagged)
 		emagged = TRUE
 		syndicate = TRUE
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		to_chat(user, SPAN_NOTICE("The This beacon now only be locked on to by emagged teleporters!"))
 		return TRUE
 
 
@@ -58,7 +58,7 @@
 
 /obj/item/beacon/syndicate/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
@@ -104,7 +104,7 @@
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
 	bundle = new bundle(user.loc)
-	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
+	to_chat(user, SPAN_NOTICE("Welcome to [station_name()], [bundle_name]!"))
 	user.drop_item()
 	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
@@ -115,7 +115,7 @@
 
 /obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new /obj/item/powersink(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
@@ -128,7 +128,7 @@
 
 /obj/item/beacon/syndicate/bomb/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new bomb(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()

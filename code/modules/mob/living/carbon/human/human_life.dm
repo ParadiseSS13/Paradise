@@ -116,16 +116,16 @@
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(10, instability * 0.67))
-			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+			to_chat(src, SPAN_DANGER("You feel like your skin is burning and bubbling off!"))
 		if(gene_stability < GENETIC_DAMAGE_STAGE_2  - gene_bonus)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(8, instability * 0.05))
-				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+				to_chat(src, SPAN_DANGER("You feel as if your body is warping."))
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(10, instability * 0.67))
-				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+				to_chat(src, SPAN_DANGER("You feel weak and nauseous."))
 			if(gene_stability < (GENETIC_DAMAGE_STAGE_3  - gene_bonus) && prob(1))
-				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				to_chat(src, SPAN_BIGGERDANGER("You feel incredibly sick... Something isn't right!"))
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
@@ -592,15 +592,15 @@
 			metabolism_efficiency = 1
 		else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
 			if(metabolism_efficiency != 1.25)
-				to_chat(src, "<span class='notice'>You feel vigorous.</span>")
+				to_chat(src, SPAN_NOTICE("You feel vigorous."))
 				metabolism_efficiency = 1.25
 		else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
 			if(metabolism_efficiency != 0.8)
-				to_chat(src, "<span class='notice'>You feel sluggish.</span>")
+				to_chat(src, SPAN_NOTICE("You feel sluggish."))
 			metabolism_efficiency = 0.8
 		else
 			if(metabolism_efficiency == 1.25)
-				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
+				to_chat(src, SPAN_NOTICE("You no longer feel vigorous."))
 			metabolism_efficiency = 1
 
 
@@ -665,7 +665,7 @@
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
-						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						to_chat(src, SPAN_USERDANGER("Your chest hurts..."))
 						Paralyse(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
@@ -678,7 +678,7 @@
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 					if(prob(6))
-						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+						to_chat(src, SPAN_USERDANGER("You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!"))
 						Weaken(6 SECONDS)
 					if(prob(3))
 						Paralyse(4 SECONDS)
@@ -688,7 +688,7 @@
 						var/datum/disease/D = new /datum/disease/critical/shock
 						ForceContractDisease(D)
 					if(prob(5))
-						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+						to_chat(src, SPAN_USERDANGER("You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!"))
 						Weaken(6 SECONDS)
 
 /mob/living/carbon/human/proc/can_metabolize(datum/reagent/reagent)
@@ -810,13 +810,13 @@
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
 				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
+				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] hurts!"))
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+				visible_message(SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),SPAN_USERDANGER("[I] falls out of your [BP.name]!"))
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
@@ -898,9 +898,9 @@
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && HAS_TRAIT(H.mind, TRAIT_CORPSE_RESIST))
-				to_chat(H, "<span class='warning'>You smell something rotting nearby.</span>")
+				to_chat(H, SPAN_WARNING("You smell something rotting nearby."))
 				continue
-			to_chat(H, "<span class='warning'>You smell something foul...</span>")
+			to_chat(H, SPAN_WARNING("You smell something foul..."))
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()

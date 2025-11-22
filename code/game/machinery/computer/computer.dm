@@ -35,7 +35,7 @@
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+	visible_message(SPAN_DANGER("[src] grows dim, its screen barely readable."))
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -157,7 +157,7 @@
 			A.anchored = TRUE
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+					to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 				new /obj/item/shard(drop_location())
@@ -165,7 +165,7 @@
 				A.state = 4
 			else
 				if(user)
-					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+					to_chat(user, SPAN_NOTICE("You disconnect the monitor."))
 				A.state = 5
 			A.update_icon()
 		for(var/obj/C in src)
@@ -203,7 +203,7 @@
 		for(var/datum/objective/download/download_obj in flayer_datum.get_antag_objectives())
 			if(download_obj.target_console == src)
 				var/old_icon_screen = icon_screen
-				to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console and begin the transfer...</span>")
+				to_chat(user, SPAN_BOLDNOTICE("You insert your power cable into the data port on the console and begin the transfer..."))
 				active_download_effect = new /obj/effect/temp_visual/computer_download(get_turf(src), src)
 				if(do_after(user, 18 SECONDS, target = src))
 					download_obj.complete_objective()
@@ -213,7 +213,7 @@
 					icon_screen = old_icon_screen
 					return TRUE
 				else
-					to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+					to_chat(user, SPAN_WARNING("Your power cable is ejected, interrupting the transfer."))
 					if(active_download_effect)
 						qdel(active_download_effect)
 						active_download_effect = null
@@ -221,17 +221,17 @@
 					return TRUE
 
 	// Not a flayer, or wrong download console.
-	to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console, hoping to find something interesting.</span>")
+	to_chat(user, SPAN_BOLDNOTICE("You insert your power cable into the data port on the console, hoping to find something interesting."))
 	if(do_after(user, 18 SECONDS, target = src))
 		show_random_download_message(user)
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+		to_chat(user, SPAN_WARNING("Your power cable is ejected, interrupting the transfer."))
 		return TRUE
 
 /obj/machinery/computer/proc/show_random_download_message(mob/user)
 	var/list/download_messages = list(
-		"<span class='notice'>A message flashes on the screen: \"[user.name] is not in the sudoers file. This incident will be reported.\"</span>"
+		SPAN_NOTICE("A message flashes on the screen: \"[user.name] is not in the sudoers file. This incident will be reported.\"")
 	)
 	var/message = pick(download_messages)
 	to_chat(user, message)

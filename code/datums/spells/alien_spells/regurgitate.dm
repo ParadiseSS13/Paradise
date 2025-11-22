@@ -13,6 +13,6 @@
 			return
 		user.stomach_contents -= M
 		M.forceMove(output_loc)
-		user.visible_message("<span class='alertalien'><b>[user] hurls out the contents of [p_their()] stomach!</b></span>")
+		user.visible_message(SPAN_ALERTALIEN("<b>[user] hurls out the contents of [p_their()] stomach!</b>"))
 		return
-	user.visible_message("<span class='alertalien'><b>[user] dry heaves!</b></span>")
+	user.visible_message(SPAN_ALERTALIEN("<b>[user] dry heaves!</b>"))

@@ -4,7 +4,7 @@
 	no_baton = TRUE
 	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow, /datum/martial_combo/judo/goldenblast)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
-	no_baton_reason = "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>"
+	no_baton_reason = SPAN_WARNING("The baton feels off balance in your hand due to your judo training!")
 	can_horizontally_grab = FALSE
 
 //Corporate Judo Belt
@@ -46,11 +46,11 @@
 	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!</span>")
+			to_chat(H, SPAN_WARNING("The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!"))
 			return
 		style.teach(H, TRUE)
-		to_chat(H, "<span class='userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
-		to_chat(H, "<span class='danger'>See the martial arts tab for an explanation of combos.</span>")
+		to_chat(H, SPAN_USERDANGER("The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!"))
+		to_chat(H, SPAN_DANGER("See the martial arts tab for an explanation of combos."))
 		return
 
 /obj/item/storage/belt/judobelt/dropped(mob/user)
@@ -60,7 +60,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
-		to_chat(user, "<span class='sciradio'>You suddenly forget the arts of Corporate Judo...</span>")
+		to_chat(user, SPAN_SCIRADIO("You suddenly forget the arts of Corporate Judo..."))
 
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -69,8 +69,8 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(7, BRUTE)
 	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(SPAN_DANGER("[A] [picked_hit_type] [D]!"), \
+					SPAN_USERDANGER("[A] [picked_hit_type] you!"))
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
 

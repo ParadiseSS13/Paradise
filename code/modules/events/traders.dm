@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M, datum/traders/T)
 	var/list/messages = list()
-	messages.Add("<span class='boldnotice'>You are a trader!</span> <span class='notice'>You are currently docked at [T.dock_site].<br>You are about to trade with [station_name()].</span><br>")
+	messages.Add("[SPAN_BOLDNOTICE("You are a trader!")] [SPAN_NOTICE("You are currently docked at [T.dock_site].<br>You are about to trade with [station_name()].")]<br>")
 	messages.Add(M.mind.prepare_announce_objectives())
 	to_chat(M, chat_box_green(messages.Join("<br>")))
 	M.create_log(MISC_LOG, "[M] was made into a [T.trader_type] Trader")

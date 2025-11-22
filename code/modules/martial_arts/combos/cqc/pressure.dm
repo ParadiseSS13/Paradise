@@ -4,7 +4,7 @@
 	explaination_text = "Deals stamina damage, and steals your opponent's item out of their active hand."
 
 /datum/martial_combo/cqc/pressure/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] forces their arm on [target]'s neck!</span>")
+	target.visible_message(SPAN_WARNING("[user] forces their arm on [target]'s neck!"))
 	var/obj/item/I = target.get_active_hand()
 	if(I && target.drop_item())
 		user.put_in_hands(I)

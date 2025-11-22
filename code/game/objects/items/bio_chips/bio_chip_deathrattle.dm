@@ -50,7 +50,7 @@
 			continue
 
 		var/mob/living/recipient = other_implant.imp_in
-		to_chat(recipient, "<i>You hear a strange, robotic voice in your head...</i> <span class='robot'>\"<b>[victim_name]</b> has died...\"</span>")
+		to_chat(recipient, "<i>You hear a strange, robotic voice in your head...</i> [SPAN_ROBOT("\"<b>[victim_name]</b> has died...\"")]")
 		recipient.playsound_local(get_turf(recipient), sound, vol = 75, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	qdel(implant)
 

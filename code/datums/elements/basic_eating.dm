@@ -80,19 +80,19 @@
 		var/healed = heal_amt && eater.health < eater.maxHealth
 		eater.heal_overall_damage(heal_amt)
 		eater.visible_message(
-			"<span class='notice'>[eater] [eat_verb]s [target].</span>",
-			"<span class='notice'>You [eat_verb] [target][healed ? ", restoring some health" : ""].</span>")
+			SPAN_NOTICE("[eater] [eat_verb]s [target]."),
+			SPAN_NOTICE("You [eat_verb] [target][healed ? ", restoring some health" : ""]."))
 
 	else if(damage_amount > 0 && damage_type)
 		eater.apply_damage(damage_amount, damage_type)
 		eater.visible_message(
-			"<span class='notice'>[eater] [eat_verb]s [target], and seems to hurt itself.</span>",
-			"<span class='notice'>You [eat_verb] [target], hurting yourself in the process.</span>")
+			SPAN_NOTICE("[eater] [eat_verb]s [target], and seems to hurt itself."),
+			SPAN_NOTICE("You [eat_verb] [target], hurting yourself in the process."))
 
 	else
 		eater.visible_message(
-			"<span class='notice'>[eater] [eat_verb]s [target].</span>",
-			"<span class='notice'>You [eat_verb] [target].</span>")
+			SPAN_NOTICE("[eater] [eat_verb]s [target]."),
+			SPAN_NOTICE("You [eat_verb] [target]."))
 
 	finish_eating(eater, target, feeder)
 	return TRUE

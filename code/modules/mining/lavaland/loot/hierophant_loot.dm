@@ -28,14 +28,14 @@
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
+	. += SPAN_HIEROPHANT_WARNING("The[beacon ? " beacon is not currently":"re is a beacon"] attached.")
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message("<span class='suicide'>[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message("<span class='hierophant_warning'>[user] fades out, leaving [user.p_their()] belongings behind!</span>")
+	user.visible_message(SPAN_HIEROPHANT_WARNING("[user] fades out, leaving [user.p_their()] belongings behind!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.drop_item_to_ground(I)
@@ -53,12 +53,12 @@
 		return
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return
 
 	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
-		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
+		user.visible_message(SPAN_DANGER("[user]'s hierophant club malfunctions!"))
 		do_sparks(5, FALSE, user)
 		return
 
@@ -95,7 +95,7 @@
 				else
 					add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
 		else
-			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
+			to_chat(user, SPAN_WARNING("That target is out of range!") )
 			timer = world.time
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 
@@ -128,20 +128,20 @@
 /obj/item/hierophant_club/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
-		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
+		to_chat(user, SPAN_WARNING("You toggle friendly fire [friendly_fire_check ? "off":"on"]!"))
 		return
 	if(timer > world.time)
 		return
 	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
-		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
+		to_chat(user, SPAN_WARNING("You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!"))
 		return
 	if(is_in_teleport_proof_area(user))
-		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
-			user.visible_message("<span class='hierophant_warning'>[user] starts fiddling with [src]'s pommel...</span>", \
-			"<span class='notice'>You start detaching the hierophant beacon...</span>")
+			user.visible_message(SPAN_HIEROPHANT_WARNING("[user] starts fiddling with [src]'s pommel..."), \
+			SPAN_NOTICE("You start detaching the hierophant beacon..."))
 			timer = world.time + 51
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 			if(do_after(user, 50, target = user) && !beacon)
@@ -150,31 +150,31 @@
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				beacon = new/obj/effect/hierophant(T)
 				user.update_action_buttons_icon()
-				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
-				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any of your allies to it at any time! Beware! The Horrors of Lavaland can still be teleported with you.</span>\n\
-				<span class='notice'>You can remove the beacon to place it again by striking it with the club.</span>")
+				user.visible_message(SPAN_HIEROPHANT_WARNING("[user] places a strange machine beneath [user.p_their()] feet!"), \
+				"[SPAN_HIEROPHANT("You detach the hierophant beacon, allowing you to teleport yourself and any of your allies to it at any time! Beware! The Horrors of Lavaland can still be teleported with you.")]\n\
+				[SPAN_NOTICE("You can remove the beacon to place it again by striking it with the club.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 		else
-			to_chat(user, "<span class='warning'>You need to be on solid ground to detach the beacon!</span>")
+			to_chat(user, SPAN_WARNING("You need to be on solid ground to detach the beacon!"))
 		return
 	if(get_dist(user, beacon) <= 2) //beacon too close abort
-		to_chat(user, "<span class='warning'>You are too close to the beacon to teleport to it!</span>")
+		to_chat(user, SPAN_WARNING("You are too close to the beacon to teleport to it!"))
 		return
 	if(is_in_teleport_proof_area(beacon))
-		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
-		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+		to_chat(user, SPAN_WARNING("The beacon is blocked by something, preventing teleportation!"))
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You don't have enough space to teleport from here!</span>")
+		to_chat(user, SPAN_WARNING("You don't have enough space to teleport from here!"))
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message("<span class='hierophant_warning'>[user] starts to glow faintly...</span>")
+	user.visible_message(SPAN_HIEROPHANT_WARNING("[user] starts to glow faintly..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.icon_state = "hierophant_tele_on"
@@ -185,7 +185,7 @@
 		var/turf/source = get_turf(user)
 		if(T.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+			to_chat(user, SPAN_WARNING("The beacon is blocked by something, preventing teleportation!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -206,7 +206,7 @@
 			return
 		if(T.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+			to_chat(user, SPAN_WARNING("The beacon is blocked by something, preventing teleportation!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -252,7 +252,7 @@
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades out!</span>")
+	M.visible_message(SPAN_HIEROPHANT_WARNING("[M] fades out!"))
 	sleep(2)
 	if(!M)
 		return
@@ -269,7 +269,7 @@
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
+	M.visible_message(SPAN_HIEROPHANT_WARNING("[M] fades in!"))
 	if(user != M)
 		add_attack_logs(user, M, "Teleported from ([source.x],[source.y],[source.z])")
 

@@ -22,7 +22,7 @@
 
 /obj/item/clothing/neck/tie/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to adjust if it is worn under or over your suit.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to adjust if it is worn under or over your suit.")
 
 /obj/item/clothing/neck/tie/AltClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
@@ -31,7 +31,7 @@
 	under_suit = !under_suit
 	if(user.neck == src)
 		user.update_inv_neck()
-	to_chat(user, "<span class='notice'>You adjust [src] to be worn [under_suit ? "under" : "over"] your suit.</span>")
+	to_chat(user, SPAN_NOTICE("You adjust [src] to be worn [under_suit ? "under" : "over"] your suit."))
 
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
@@ -49,13 +49,13 @@
 	var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
 	var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lung_datum || !heart_datum)
-		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		to_chat(user, SPAN_WARNING("You don't hear anything."))
 		return
 
 	var/obj/item/organ/internal/H = heart_datum.linked_organ
 	var/obj/item/organ/internal/L = lung_datum.linked_organ
 	if(!M.pulse || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
-		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		to_chat(user, SPAN_WARNING("You don't hear anything."))
 		return
 
 	var/color = "notice"

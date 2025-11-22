@@ -69,8 +69,8 @@
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
-	. += "<span class='notice'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to eject its occupant.")
+	. += SPAN_NOTICE("You can <b>Click-drag</b> someone to [src] to put them in.")
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
@@ -169,21 +169,21 @@
 	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
+		to_chat(user, SPAN_BOLDNOTICE("[src] is already occupied!"))
 		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
+		to_chat(user, SPAN_DANGER("Subject may not hold anything in their hands."))
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return TRUE
 	if(L == user)
-		visible_message("<span class='notice'>[user] climbs into [src].</span>")
+		visible_message(SPAN_NOTICE("[user] climbs into [src]."))
 	else
-		visible_message("<span class='notice'>[user] puts [L.name] into [src].</span>")
+		visible_message(SPAN_NOTICE("[user] puts [L.name] into [src]."))
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -193,11 +193,11 @@
 /obj/machinery/dna_scannernew/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
@@ -212,19 +212,19 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
+			to_chat(user, SPAN_BOLDNOTICE("The scanner is already occupied!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
+			to_chat(user, SPAN_BOLDNOTICE("Subject may not hold anything in their hands."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, SPAN_WARNING("[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(panel_open)
-			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(usr, SPAN_BOLDNOTICE("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		put_in(G.affecting)
@@ -248,7 +248,7 @@
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
@@ -262,11 +262,11 @@
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
+			to_chat(user, SPAN_WARNING("The scanner is empty!"))
 		return
 	if(locked && !force)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
+			to_chat(user, SPAN_WARNING("The scanner is locked!"))
 		return
 	occupant.forceMove(loc)
 	occupant = null

@@ -181,7 +181,7 @@
 		cold_dir = NORTH
 		hot_dir = SOUTH
 	connect()
-	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
+	to_chat(user, SPAN_NOTICE("You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side."))
 	update_appearance(UPDATE_DESC)
 
 /obj/machinery/power/teg/wrench_act(mob/user, obj/item/I)

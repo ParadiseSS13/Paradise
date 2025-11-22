@@ -27,6 +27,6 @@
 			new /obj/effect/temp_visual/goliath_tentacle(adjacent_target)
 
 	if(isliving(target))
-		owner.visible_message("<span class='warning'>[owner] digs its tentacles under [target]!</span>")
+		owner.visible_message(SPAN_WARNING("[owner] digs its tentacles under [target]!"))
 	StartCooldown()
 	return TRUE

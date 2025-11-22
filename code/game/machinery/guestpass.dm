@@ -22,13 +22,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+		. += SPAN_NOTICE("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
-	. += "<span class='notice'>It grants access to following areas:</span>"
+		. += SPAN_WARNING("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
+	. += SPAN_NOTICE("It grants access to following areas:")
 	for(var/A in temp_access)
-		. += "<span class='notice'>[get_access_desc(A)].</span>"
-	. += "<span class='notice'>Issuing reason: [reason].</span>"
+		. += SPAN_NOTICE("[get_access_desc(A)].")
+	. += SPAN_NOTICE("Issuing reason: [reason].")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -62,7 +62,7 @@
 
 /obj/machinery/computer/guestpass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/card/id/nct_data_chip))
-		to_chat(user, "<span class='warning'>[used] does not seem compatible with this terminal!</span>")
+		to_chat(user, SPAN_WARNING("[used] does not seem compatible with this terminal!"))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id))
 		if(!scan)
@@ -71,7 +71,7 @@
 				scan = used
 				SStgui.update_uis(src)
 		else
-			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+			to_chat(user, SPAN_WARNING("There is already ID card inside."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -168,7 +168,7 @@
 				if(dur > 0 && dur <= 30)
 					duration = dur
 				else
-					to_chat(usr, "<span class='warning'>Invalid duration.</span>")
+					to_chat(usr, SPAN_WARNING("Invalid duration."))
 		if("print")
 			var/dat = "<h3>Activity log of guest pass terminal #[global_terminal_id]</h3><br>"
 			for(var/entry in internal_log)

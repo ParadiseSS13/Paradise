@@ -76,7 +76,7 @@
 
 	if(isnull(possible))
 		if(user)
-			to_chat(user, "<span class='notice'>No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)].</span>")
+			to_chat(user, SPAN_NOTICE("No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)]."))
 		return
 
 	if(length(possible) == 0)

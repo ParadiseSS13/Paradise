@@ -37,7 +37,7 @@
 
 /obj/item/grown/corncob/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.sharp)
-		to_chat(user, "<span class='notice'>You use [used] to fashion a pipe out of the corn cob!</span>")
+		to_chat(user, SPAN_NOTICE("You use [used] to fashion a pipe out of the corn cob!"))
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
@@ -72,7 +72,7 @@
 	if(..())
 		return
 
-	to_chat(user, "<span class='notice'>You pick a snap pop from the cob.</span>")
+	to_chat(user, SPAN_NOTICE("You pick a snap pop from the cob."))
 	var/obj/item/toy/snappop/S = new /obj/item/toy/snappop(user.loc)
 	if(ishuman(user))
 		user.put_in_hands(S)

@@ -42,10 +42,10 @@
 		return
 	. = TRUE
 	if(dont_let_you_come_back)
-		to_chat(user, "<span class='notice'>You disable the retraction blocking systems.</span>")
+		to_chat(user, SPAN_NOTICE("You disable the retraction blocking systems."))
 		dont_let_you_come_back = FALSE
 		return
-	to_chat(user, "<span class='notice'>You enable the retraction blocking systems, which will block people from retracting the modsuit for 10 seconds.</span>")
+	to_chat(user, SPAN_NOTICE("You enable the retraction blocking systems, which will block people from retracting the modsuit for 10 seconds."))
 	dont_let_you_come_back = TRUE
 
 
@@ -53,7 +53,7 @@
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, "<span class='danger'>[src] makes an ominous click sound...</span>")
+	to_chat(mod.wearer, SPAN_DANGER("[src] makes an ominous click sound..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
@@ -63,7 +63,7 @@
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, "<span class='userdanger'>The springlocks aren't responding...?</span>")
+	to_chat(mod.wearer, SPAN_USERDANGER("The springlocks aren't responding...?"))
 	return MOD_CANCEL_ACTIVATE
 
 ///Removes the retraction blocker from the springlock so long as they are not about to be killed
@@ -76,7 +76,7 @@
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
-	mod.wearer.visible_message("<span class='danger'>[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!</span>", "<span class='biggerdanger'><b>*SNAP*</b></span>")
+	mod.wearer.visible_message(SPAN_DANGER("[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!"), SPAN_BIGGERDANGER("<b>*SNAP*</b>"))
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)

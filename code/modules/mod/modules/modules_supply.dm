@@ -74,7 +74,7 @@
 		dropped_crate.forceMove(target_turf)
 		drain_power(use_power_cost)
 	else
-		to_chat(mod.wearer, "<span class='warning'>Invalid target!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Invalid target!"))
 
 /obj/item/mod/module/clamp/on_suit_deactivation(deleting = FALSE)
 	if(deleting)
@@ -85,12 +85,12 @@
 
 /obj/item/mod/module/clamp/proc/check_crate_pickup(atom/movable/target)
 	if(length(stored_crates) >= max_crates)
-		to_chat(mod.wearer, "<span class='warning'>Too many crates!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Too many crates!"))
 		return FALSE
 	for(var/mob/living/mob in target.client_mobs_in_contents)
 		if(mob.mob_size < MOB_SIZE_HUMAN)
 			continue
-		to_chat(mod.wearer, "<span class='warning'>Too heavy!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Too heavy!"))
 		return FALSE
 	return TRUE
 
@@ -223,7 +223,7 @@
 	var/atom/movable/plane_master_controller/pm_controller = mod.wearer.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	for(var/key in pm_controller.controlled_planes)
 		animate(pm_controller.controlled_planes[key], launch_time, transform = matrix(1.25, MATRIX_SCALE))
-	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts whirring!</span>")
+	mod.wearer.visible_message(SPAN_WARNING("[mod.wearer] starts whirring!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	mod.wearer.add_overlay(charge_up_overlay)
 	var/power = launch_time
@@ -268,7 +268,7 @@
 		locker.throw_at(target, range = 7, speed = 4, thrower = mod.wearer)
 		return
 	if(!istype(target, /obj/structure/closet) || !(target in view(mod.wearer)))
-		to_chat(mod.wearer, "<span class='warning'>Invalid target!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Invalid target!"))
 		return
 	var/obj/structure/closet/locker = target
 	if(locker.anchored || locker.move_resist >= MOVE_FORCE_OVERPOWERING)
@@ -379,7 +379,7 @@
 		var/list/parts = mod.mod_parts + mod
 		var/speed_up = FALSE
 		if(traveled_tiles >= max_traveled_tiles)
-			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
+			to_chat(mod.wearer, SPAN_NOTICE("You are fully covered in ash!"))
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
@@ -408,7 +408,7 @@
 			if(speed_up)
 				part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)
-			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("You have ran out of ash!"))
 			mod.wearer.weather_immunities -= "ash"
 
 /obj/effect/temp_visual/light_ash
@@ -434,7 +434,7 @@
 
 /obj/item/mod/module/sphere_transform/on_activation()
 	if(!has_gravity(get_turf(src)))
-		to_chat(mod.wearer, "<span class='warning'>ERROR, NO GRAVITY!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("ERROR, NO GRAVITY!"))
 		return FALSE
 	. = ..()
 	if(!.)
@@ -465,7 +465,7 @@
 
 /obj/item/mod/module/sphere_transform/on_use()
 	if(!lavaland_equipment_pressure_check(get_turf(src)))
-		to_chat(mod.wearer, "<span class='warning'>ERROR, OVER PRESSURE!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("ERROR, OVER PRESSURE!"))
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()
@@ -550,7 +550,7 @@
 	addtimer(CALLBACK(src, PROC_REF(boom), firer), explosion_time)
 
 /obj/structure/mining_bomb/proc/boom(atom/movable/firer)
-	visible_message("<span class='danger'>[src] explodes!</span>")
+	visible_message(SPAN_DANGER("[src] explodes!"))
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
 	for(var/turf/T in circleviewturfs(src, drill_power))
 		if(ismineralturf(T))

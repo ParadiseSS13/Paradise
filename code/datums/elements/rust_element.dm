@@ -34,7 +34,7 @@
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
 
-	examine_list += "<span class='notice'>[source] is very rusty, you could probably <b>burn</b> it off.</span>"
+	examine_list += SPAN_NOTICE("[source] is very rusty, you could probably <b>burn</b> it off.")
 
 /datum/element/rust/proc/apply_rust_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER //COMSIG_ATOM_UPDATE_OVERLAYS
@@ -55,11 +55,11 @@
 		if(TOOL_WELDER)
 			if(!item.tool_start_check(source, user, amount=1))
 				return
-			to_chat(user, "<span class='notice'>You start burning off the rust...</span>")
+			to_chat(user, SPAN_NOTICE("You start burning off the rust..."))
 
 			if(!item.use_tool(source, user, 5 SECONDS, volume = item.tool_volume))
 				return
-			to_chat(user, "<span class='notice'>You burn off the rust!</span>")
+			to_chat(user, SPAN_NOTICE("You burn off the rust!"))
 			Detach(source)
 			return
 
@@ -67,7 +67,7 @@
 /datum/element/rust/proc/on_interaction(datum/source, mob/living/user, obj/item/tool, list/modifiers)
 	SIGNAL_HANDLER // COMSIG_INTERACT_TARGET
 	if(istype(tool, /obj/item/stack/tile) || istype(tool, /obj/item/stack/rods) || istype(tool, /obj/item/rcd))
-		to_chat(user, "<span class='warning'>[source] is too rusted to build on!</span>")
+		to_chat(user, SPAN_WARNING("[source] is too rusted to build on!"))
 		return ITEM_INTERACT_COMPLETE
 
 /// For rust applied by heretics (if that ever happens) / revenants

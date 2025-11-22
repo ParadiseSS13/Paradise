@@ -76,7 +76,7 @@
 	if(!picked || !isturf(picked))
 		return
 
-	visible_message("<span class='warning'>[src] blinks away!</span>", "<span class='danger'>Your instincts kick in, and you blink away!</span>")
+	visible_message(SPAN_WARNING("[src] blinks away!"), SPAN_DANGER("Your instincts kick in, and you blink away!"))
 	INVOKE_ASYNC(src, PROC_REF(after_the_attack), picked)
 
 	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, TRUE)

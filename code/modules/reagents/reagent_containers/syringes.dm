@@ -53,19 +53,19 @@
 	. = FALSE
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty."))
 		return
 
 	if(L.reagents.total_volume >= L.reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[L] is full.</span>")
+		to_chat(user, SPAN_NOTICE("[L] is full."))
 		return
 
 	if(L) //living mob
 		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 			return
 		if(L != user)
-			L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
-									"<span class='userdanger'>[user] is trying to inject you!</span>")
+			L.visible_message(SPAN_DANGER("[user] is trying to inject [L]!"), \
+									SPAN_USERDANGER("[user] is trying to inject you!"))
 			if(!do_mob(user, L))
 				return
 			if(L.reagents.total_volume >= L.reagents.maximum_volume)
@@ -86,8 +86,8 @@
 	. = FALSE
 	var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 	if(L != user)
-		L.visible_message("<span class='danger'>[user] is trying to take a blood sample from [L]!</span>", \
-						"<span class='userdanger'>[user] is trying to take a blood sample from [L]!</span>")
+		L.visible_message(SPAN_DANGER("[user] is trying to take a blood sample from [L]!"), \
+						SPAN_USERDANGER("[user] is trying to take a blood sample from [L]!"))
 		busy = TRUE
 		if(!do_mob(user, L, syringe_draw_time))
 			busy = FALSE
@@ -96,9 +96,9 @@
 			return
 	busy = FALSE
 	if(L.transfer_blood_to(src, drawn_amount))
-		user.visible_message("<span class='notice'>[user] takes a blood sample from [L].</span>")
+		user.visible_message(SPAN_NOTICE("[user] takes a blood sample from [L]."))
 	else
-		to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+		to_chat(user, SPAN_WARNING("You are unable to draw any blood from [L]!"))
 
 	if(reagents.holder_full())
 		mode = !mode
@@ -109,15 +109,15 @@
 /obj/item/reagent_containers/syringe/proc/normal_draw(atom/target, mob/living/user)
 	. = FALSE
 	if(!target.reagents.total_volume)
-		to_chat(user, "<span class='warning'>[target] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[target] is empty!"))
 		return
 
 	if(!target.is_drawable(user))
-		to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot directly remove reagents from [target]!"))
 		return
 
 	var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
-	to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
+	to_chat(user, SPAN_NOTICE("You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units."))
 
 	if(reagents.holder_full())
 		mode = !mode
@@ -129,11 +129,11 @@
 	. = FALSE
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty."))
 		return
 
 	if(!target.is_injectable(user))
-		to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot directly fill [target]!"))
 		return
 
 	if(isfood(target))
@@ -173,7 +173,7 @@
 	switch(mode)
 		if(SYRINGE_DRAW)
 			if(reagents.holder_full())
-				to_chat(user, "<span class='notice'>The syringe is full.</span>")
+				to_chat(user, SPAN_NOTICE("The syringe is full."))
 				return
 
 			// still one check here because we're not sure from the above logic
@@ -192,7 +192,7 @@
 		var/mob/living/carbon/carbon_target = target
 		if(length(carbon_target.viruses))
 			AddComponent(/datum/component/viral_contamination, carbon_target.viruses)
-	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
+	to_chat(user, SPAN_NOTICE("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
 	if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 		mode = SYRINGE_DRAW
 		update_icon()
@@ -242,8 +242,8 @@
 	if(IS_HORIZONTAL(H) && ((H.wear_suit && (H.wear_suit.body_parts_covered & UPPER_TORSO)) || (H.w_uniform && (H.w_uniform.body_parts_covered & UPPER_TORSO))))
 		return
 
-	H.visible_message("<span class='danger'>[H] is injected by [src].</span>", \
-				"<span class='userdanger'>You are injected by [src]!</span>")
+	H.visible_message(SPAN_DANGER("[H] is injected by [src]."), \
+				SPAN_USERDANGER("You are injected by [src]!"))
 
 	if(IS_HORIZONTAL(H))
 		H.apply_damage(5, BRUTE, BODY_ZONE_CHEST)

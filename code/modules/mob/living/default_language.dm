@@ -3,12 +3,12 @@
 	set category = "IC"
 
 	if(!(language in languages) && !isnull(language))
-		to_chat(src, "<span class='warning'>You don't seem to know how to speak [language].</span>")
+		to_chat(src, SPAN_WARNING("You don't seem to know how to speak [language]."))
 		return
 	if(language)
-		to_chat(src, "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>")
+		to_chat(src, SPAN_NOTICE("You will now speak [language] if you do not specify a language when speaking."))
 	else
-		to_chat(src, "<span class='notice'>You will now speak whatever your standard default language is if you do not specify one when speaking.</span>")
+		to_chat(src, SPAN_NOTICE("You will now speak whatever your standard default language is if you do not specify one when speaking."))
 	default_language = language
 
 // Silicons can't neccessarily speak everything in their languages list
@@ -17,10 +17,10 @@
 	set category = "IC"
 
 	if(!(language in speech_synthesizer_langs) && !isnull(language))
-		to_chat(src, "<span class='warning'>You don't seem to know how to speak [language].</span>")
+		to_chat(src, SPAN_WARNING("You don't seem to know how to speak [language]."))
 		return
 	if(language)
-		to_chat(src, "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>")
+		to_chat(src, SPAN_NOTICE("You will now speak [language] if you do not specify a language when speaking."))
 	else
-		to_chat(src, "<span class='notice'>You will now speak whatever your standard default language is if you do not specify one when speaking.</span>")
+		to_chat(src, SPAN_NOTICE("You will now speak whatever your standard default language is if you do not specify one when speaking."))
 	default_language = language

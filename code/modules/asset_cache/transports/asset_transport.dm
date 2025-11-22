@@ -119,7 +119,7 @@
 
 	if(length(unreceived))
 		if(length(unreceived) >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
-			to_chat(client, "<span class='debug'>Sending Resources...</span>")
+			to_chat(client, SPAN_DEBUG("Sending Resources..."))
 
 		for(var/asset_name in unreceived)
 			var/new_asset_name = asset_name

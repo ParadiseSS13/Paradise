@@ -22,7 +22,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a normal pipe with 4 connecting ends.</span>"
+	. += SPAN_NOTICE("This is a normal pipe with 4 connecting ends.")
 
 /obj/machinery/atmospherics/pipe/manifold4w/pipeline_expansion()
 	return list(node1, node2, node3, node4)

@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(events)
 		html += "<div class='block'>"
 		html += "<h2>Available [GLOB.severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
 		html += "<table [table_options]>"
-		html += "<tr [head_options]><td [row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
+		html += "<tr [head_options]><td [row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td>[SPAN_ALERT("CurrWeight ")]</td><td>Remove</td></tr>"
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			if(!EM.skeleton)
 				continue
@@ -125,7 +125,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
-			html += "<td><span class='alert'>[EM.get_weight(total_resources)]</span></td>"
+			html += "<td>[SPAN_ALERT("[EM.get_weight(total_resources)]")]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
 			html += "</tr>"
 		html += "</table>"

@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(hallucinations, alist(
 	// Overriding to not include call to [/proc/bicon] as it lags the client due to invalid image.
 	. = list(
 		"That's \a [name].",
-		"<span class='whisper'>Something seems odd about this...</span>"
+		SPAN_WHISPER("Something seems odd about this...")
 	)
 
 /obj/effect/hallucination/singularity_pull()

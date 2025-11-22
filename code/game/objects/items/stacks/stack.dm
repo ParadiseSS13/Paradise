@@ -113,7 +113,7 @@
 		. += "There are [amount] [singular_name]\s in the stack."
 	else
 		. += "There are [amount] [name]\s in the stack."
-	. +="<span class='notice'>Alt-click to take a custom amount.</span>"
+	. +=SPAN_NOTICE("Alt-click to take a custom amount.")
 
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)
@@ -175,7 +175,7 @@
 
 	var/obj/item/stack/material = thing
 	if(merge(material))
-		to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
+		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s."))
 
 /obj/item/stack/use(used, check = TRUE)
 	if(check && is_zero_amount(TRUE))
@@ -196,7 +196,7 @@
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 
 	if(!in_range(src, user) || !ishuman(usr) || amount < 1 || is_cyborg)
@@ -213,7 +213,7 @@
 		return
 
 	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	to_chat(user, SPAN_NOTICE("You take [stackmaterial] sheets out of the stack."))
 
 /obj/item/stack/ui_state(mob/user)
 	return GLOB.hands_state

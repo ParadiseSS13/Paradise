@@ -37,32 +37,32 @@
 /obj/machinery/smithing/casting_basin/examine(mob/user)
 	. = ..()
 	if(cast)
-		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
-		. += "<span class='notice'>There is a [cast] in the cast slot.</span>"
-		. += "<span class='notice'>Currently set to produce: [cast.selected_product.name]</span>"
+		. += SPAN_NOTICE("You can activate the machine with your hand, or remove the cast by alt-clicking.")
+		. += SPAN_NOTICE("There is a [cast] in the cast slot.")
+		. += SPAN_NOTICE("Currently set to produce: [cast.selected_product.name]")
 		if(istype(cast, /obj/item/smithing_cast/component) && !produced_item)
 			var/obj/item/temp_product = new cast.selected_product(src) // This is necessary due to selected_product being a type
 			var/obj/item/smithing_cast/component/comp_cast = cast
 			var/datum/smith_quality/quality = new comp_cast.quality
-			. += "<span class='notice'>Required Resources:</span>"
+			. += SPAN_NOTICE("Required Resources:")
 			var/MAT
 			// Get the materials the item needs and display
 			for(MAT in temp_product.materials)
-				. += "<span class='notice'> - [MAT]: [ROUND_UP(((temp_product.materials[MAT] * quality.material_mult) * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.</span>"
+				. += SPAN_NOTICE(" - [MAT]: [ROUND_UP(((temp_product.materials[MAT] * quality.material_mult) * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.")
 			// Get rid of the temp product
 			qdel(temp_product)
 		else if(istype(cast, /obj/item/smithing_cast/misc) && !produced_item)
 			var/obj/item/temp_product = new cast.selected_product(src) // This is necessary due to selected_product being a type
-			. += "<span class='notice'>Required Resources:</span>"
+			. += SPAN_NOTICE("Required Resources:")
 			var/MAT
 			// Get the materials the item needs and display
 			for(MAT in temp_product.materials)
-				. += "<span class='notice'> - [MAT]: [ROUND_UP((temp_product.materials[MAT] * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.</span>"
+				. += SPAN_NOTICE(" - [MAT]: [ROUND_UP((temp_product.materials[MAT] * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.")
 			// Get rid of the temp product
 			qdel(temp_product)
 
 	if(produced_item)
-		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
+		. += SPAN_NOTICE("There is a [produced_item] in the machine. You can pick it up with your hand.")
 
 /obj/machinery/smithing/casting_basin/RefreshParts()
 	var/operation_mult = 0
@@ -112,25 +112,25 @@
 	if(panel_open)
 		var/obj/item/multitool/multi = I
 		if(!istype(multi.buffer, /obj/machinery/magma_crucible))
-			to_chat(user, "<span class='notice'>You cannot link [src] to [multi.buffer]!</span>")
+			to_chat(user, SPAN_NOTICE("You cannot link [src] to [multi.buffer]!"))
 			return
 		linked_crucible = multi.buffer
 		linked_crucible.linked_machines |= src
-		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] to [multi.buffer]."))
 
 /obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/smithing_cast))
-		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s cast slot.</span>")
+		to_chat(user, SPAN_WARNING("[used] does not fit in [src]'s cast slot."))
 		return
 
 	if(used.flags & NODROP || !user.transfer_item_to(used, src))
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 	if(cast)
 		user.put_in_active_hand(cast)
-		to_chat(user, "<span class='notice'>You swap [used] with [cast] in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You swap [used] with [cast] in [src]."))
 	else
-		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 	cast = used
 	update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
@@ -139,18 +139,18 @@
 	if(!Adjacent(user))
 		return
 	if(!we_are_open)
-		to_chat(user, "<span class='notice'>You open [src].</span>")
+		to_chat(user, SPAN_NOTICE("You open [src]."))
 		we_are_open = TRUE
 		update_icon(UPDATE_OVERLAYS)
 		return
 	if(produced_item)
-		to_chat(user, "<span class='warning'>Remove the item first!</span>")
+		to_chat(user, SPAN_WARNING("Remove the item first!"))
 		return
 	if(!cast)
-		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
+		to_chat(user, SPAN_WARNING("There is no cast to remove."))
 		return
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently operating!"))
 		return
 	user.put_in_hands(cast)
 	cast = null
@@ -158,7 +158,7 @@
 
 /obj/machinery/smithing/casting_basin/attack_hand(mob/user)
 	if(!we_are_open)
-		to_chat(user, "<span class='notice'>You open [src].</span>")
+		to_chat(user, SPAN_NOTICE("You open [src]."))
 		we_are_open = TRUE
 		update_icon(UPDATE_OVERLAYS)
 		return FINISH_ATTACK
@@ -174,16 +174,16 @@
 		update_icon(UPDATE_OVERLAYS)
 		return FINISH_ATTACK
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return FINISH_ATTACK
 	if(!cast)
-		to_chat(user, "<span class='warning'>There is no cast inserted!</span>")
+		to_chat(user, SPAN_WARNING("There is no cast inserted!"))
 		return FINISH_ATTACK
 	if(!linked_crucible)
-		to_chat(user, "<span class='warning'>There is no linked magma crucible!</span>")
+		to_chat(user, SPAN_WARNING("There is no linked magma crucible!"))
 		return FINISH_ATTACK
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently operating!"))
 		return FINISH_ATTACK
 
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
@@ -192,7 +192,7 @@
 	var/MAT
 
 	if(!istype(temp_product))
-		to_chat(user, "<span class='warning'>The product is not an item! This is a problem you should make an issue report about!</span>")
+		to_chat(user, SPAN_WARNING("The product is not an item! This is a problem you should make an issue report about!"))
 		log_debug("Attempted to make [temp_product] at a casting basin, product is not an item.")
 		return FINISH_ATTACK
 
@@ -206,11 +206,11 @@
 			used_mats[MAT] = (temp_product.materials[MAT] * quality.material_mult) * efficiency
 
 		if(!materials.has_materials(used_mats, 1))
-			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")
+			to_chat(user, SPAN_WARNING("Not enough materials in the crucible to smelt [temp_product.name]!"))
 			qdel(temp_product)
 			return FINISH_ATTACK
 
-		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to pour the liquid minerals into the [src]..."))
 		// Use the materials and create the item.
 		materials.use_amount(used_mats)
 		we_are_open = FALSE
@@ -241,11 +241,11 @@
 			if(istype(cast, /obj/item/smithing_cast/sheet))
 				amount = min(amount, stored, MAX_STACK_SIZE)
 		if(!amount)
-			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt a sheet of [temp_product.name]!</span>")
+			to_chat(user, SPAN_WARNING("Not enough materials in the crucible to smelt a sheet of [temp_product.name]!"))
 			qdel(temp_product)
 			return FINISH_ATTACK
 
-		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to pour the liquid minerals into the [src]..."))
 		playsound(src, 'sound/machines/recycler.ogg', 50, FALSE)
 		// Use the materials and create the item.
 		materials.use_amount(temp_product.materials, amount)
@@ -267,11 +267,11 @@
 			used_mats[MAT] = temp_product.materials[MAT] * efficiency
 
 		if(!materials.has_materials(used_mats, 1))
-			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")
+			to_chat(user, SPAN_WARNING("Not enough materials in the crucible to smelt [temp_product.name]!"))
 			qdel(temp_product)
 			return FINISH_ATTACK
 
-		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to pour the liquid minerals into the [src]..."))
 		// Use the materials and create the item.
 		materials.use_amount(used_mats)
 		linked_crucible.animate_pour(operation_time SECONDS)

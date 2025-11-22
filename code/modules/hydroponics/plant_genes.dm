@@ -244,7 +244,7 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = "<span class='notice'>It has a lot of liquid contents inside.</span>"
+	examine_line = SPAN_NOTICE("It has a lot of liquid contents inside.")
 	origin_tech = list("biotech" = 5)
 	dangerous = TRUE
 
@@ -253,7 +253,7 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 0.1
-	examine_line = "<span class='notice'>It has a very slippery skin.</span>"
+	examine_line = SPAN_NOTICE("It has a very slippery skin.")
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip/on_new(obj/item/food/grown/G)
@@ -306,7 +306,7 @@
 				batteries_recharged = 1
 		if(batteries_recharged)
 			target.reagents.add_reagent("teslium", 2)
-			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
+			to_chat(target, SPAN_NOTICE("Your batteries are recharged!"))
 
 
 
@@ -315,7 +315,7 @@
 	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
 	name = "Bioluminescence"
 	rate = 0.03
-	examine_line = "<span class='notice'>It emits a soft glow.</span>"
+	examine_line = SPAN_NOTICE("It emits a soft glow.")
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
@@ -369,7 +369,7 @@
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
-		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+		to_chat(C, SPAN_WARNING("You slip through spacetime!"))
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
 			C.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
@@ -377,7 +377,7 @@
 			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
 	else
-		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
+		to_chat(C, SPAN_WARNING("[src] sparks, and burns up!"))
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
 
@@ -407,7 +407,7 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
-			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
+			to_chat(user, SPAN_NOTICE("You add some cable to [G] and slide it inside the battery encasing."))
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
 			pocell.maxcharge = max(G.seed.potency * 20, 1)
@@ -425,7 +425,7 @@
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			to_chat(user, SPAN_WARNING("You need five lengths of cable to make a [G] battery!"))
 		return TRUE
 
 
@@ -444,7 +444,7 @@
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
-			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			to_chat(target, SPAN_DANGER("You are pricked by [G]!"))
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"

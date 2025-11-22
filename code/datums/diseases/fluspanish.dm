@@ -24,5 +24,5 @@
 	if(prob(3 * stage_factor))
 		affected_mob.emote("cough")
 	if(prob(2.5 * stage_factor))
-		to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+		to_chat(affected_mob, SPAN_DANGER("You're burning in your own skin!"))
 		affected_mob.adjustFireLoss(5)

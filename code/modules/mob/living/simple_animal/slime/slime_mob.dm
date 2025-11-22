@@ -301,8 +301,8 @@
 			return
 		if(buckled)
 			Feedstop(silent = TRUE)
-			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
-				"<span class='danger'>You pull [src] off!</span>")
+			visible_message(SPAN_DANGER("[M] pulls [src] off!"), \
+				SPAN_DANGER("You pull [src] off!"))
 			return
 		attacked += 5
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
@@ -324,7 +324,7 @@
 /mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			to_chat(user, SPAN_WARNING("You don't want to hurt [src]!"))
 			return FALSE
 		discipline_slime(user)
 		return ..()
@@ -334,26 +334,26 @@
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(buckled == M)
 			if(prob(60))
-				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
+				M.visible_message(SPAN_WARNING("[M] attempts to wrestle \the [name] off!"), \
+					SPAN_DANGER("You attempt to wrestle \the [name] off!"))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 			else
-				M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-					"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+				M.visible_message(SPAN_WARNING("[M] manages to wrestle \the [name] off!"), \
+					SPAN_NOTICE("You manage to wrestle \the [name] off!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 				discipline_slime(M)
 
 		else
 			if(prob(30))
-				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
+				buckled.visible_message(SPAN_WARNING("[M] attempts to wrestle \the [name] off of [buckled]!"), \
+					SPAN_WARNING("[M] attempts to wrestle \the [name] off of you!"))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 			else
-				buckled.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='notice'>[M] manage to wrestle \the [name] off of you!</span>")
+				buckled.visible_message(SPAN_WARNING("[M] manages to wrestle \the [name] off of [buckled]!"), \
+					SPAN_NOTICE("[M] manage to wrestle \the [name] off of you!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 				discipline_slime(M)
@@ -384,30 +384,30 @@
 					return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/xeno_organ) && stat == CONSCIOUS)
 		if(!is_adult)
-			to_chat(user, "<span class='notice'>The slime is not old enough yet to process organs!</span>")
+			to_chat(user, SPAN_NOTICE("The slime is not old enough yet to process organs!"))
 			return ITEM_INTERACT_COMPLETE
 		if(holding_organ)
-			to_chat(user, "<span class='warning'>The slime is already processing an organ!</span>")
+			to_chat(user, SPAN_WARNING("The slime is already processing an organ!"))
 			return ITEM_INTERACT_COMPLETE
 		if(trained)
 			if(src.mind)
-				src.visible_message("<span class='notice'>Sentient slimes are unable to process organs!</span>")
+				src.visible_message(SPAN_NOTICE("Sentient slimes are unable to process organs!"))
 				return ITEM_INTERACT_COMPLETE
 			if(user.transfer_item_to(I, src, force = TRUE))
 				holding_organ = I
-				src.visible_message("<span class='notice'>The slime gently pulls the offered organ into itself.</span>")
+				src.visible_message(SPAN_NOTICE("The slime gently pulls the offered organ into itself."))
 				update_appearance(UPDATE_OVERLAYS)
 				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='notice'>The slime seems puzzled at what you want it to do with the organ! It needs to be trained first.</span>")
+			to_chat(user, SPAN_NOTICE("The slime seems puzzled at what you want it to do with the organ! It needs to be trained first."))
 			return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		if(S.amount < 5)
-			to_chat(user, "<span class='notice'>You need at least five sheets of plasma to feed the slime!</span>")
+			to_chat(user, SPAN_NOTICE("You need at least five sheets of plasma to feed the slime!"))
 			return ITEM_INTERACT_COMPLETE
 		new /obj/effect/temp_visual/heart(loc)
-		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
+		visible_message(SPAN_NOTICE("[user] feeds the slime some plasma. It chirps happily!"), SPAN_NOTICE("[user] feeds you a few sheets of plasma! Yummy!!!"))
 		S.use(5)
 		if(Discipline)
 			if(!trained)
@@ -421,7 +421,7 @@
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
-			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
+			to_chat(user, SPAN_DANGER("[I] passes right through [src]!"))
 			return ITEM_INTERACT_COMPLETE
 		if(Discipline && prob(50) && !trained) // wow, buddy, why am I getting attacked??
 			Discipline = 0
@@ -429,7 +429,7 @@
 		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
 			trained = FALSE
 			name = initial(name)
-			visible_message("<span class='warning'>[src] gets spooked and cowers from [user]!</span>")
+			visible_message(SPAN_WARNING("[src] gets spooked and cowers from [user]!"))
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
 	if(..())
@@ -464,10 +464,10 @@
 	. = ..()
 	. += "<span class='notice'>This is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
-		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
+		. += SPAN_DEADSAY("It is limp and unresponsive.")
 	else
 		if(stat == UNCONSCIOUS) // Slime stasis
-			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
+			. += SPAN_DEADSAY("It appears to be alive but unresponsive.")
 		if(getBruteLoss())
 			. += "<span class='warning'>"
 			if(getBruteLoss() < 40)
@@ -485,10 +485,10 @@
 				. += "It is glowing gently with moderate levels of electrical activity."
 
 			if(6 to 9)
-				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
+				. += SPAN_WARNING("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
-				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
+				. += SPAN_WARNING("<B>It is radiating with massive levels of electrical activity!</B>")
 
 	. += "</span>"
 
@@ -553,7 +553,7 @@
 
 /mob/living/simple_animal/slime/proc/eject_organ()
 	holding_organ.forceMove(loc)
-	visible_message("<span class='notice'>[src] drops \the [holding_organ.name] as it splits!</span>")
+	visible_message(SPAN_NOTICE("[src] drops \the [holding_organ.name] as it splits!"))
 	holding_organ = null
 	update_appearance()
 

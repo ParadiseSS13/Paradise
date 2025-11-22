@@ -39,8 +39,8 @@
 /datum/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
 	if(target.can_block_magic(antimagic_flags))
 		target.visible_message(
-			"<span class='warning'>[target] absorbs the spell, remaining unharmed!</span>",
-			"<span class='danger'>You absorb the spell, remaining unharmed!</span>"
+			SPAN_WARNING("[target] absorbs the spell, remaining unharmed!"),
+			SPAN_DANGER("You absorb the spell, remaining unharmed!")
 		)
 		return
 	if(damaging)

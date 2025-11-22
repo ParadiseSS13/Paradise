@@ -10,11 +10,11 @@
 		return
 
 	if(check_mute(ckey, MUTE_DEADCHAT))
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+		to_chat(src, SPAN_WARNING("You cannot send DSAY messages (muted)."))
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+		to_chat(src, SPAN_WARNING("You have deadchat muted."))
 		return
 
 	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
@@ -43,7 +43,7 @@
 	var/prefix = "[stafftype] ([src.key])"
 	if(holder.fakekey)
 		prefix = "Administrator"
-	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
+	say_dead_direct(SPAN_NAME("[prefix]</span> says, <span class='message'>\"[msg]\""))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

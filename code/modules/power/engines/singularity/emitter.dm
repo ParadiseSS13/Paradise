@@ -69,8 +69,8 @@
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>The maintenance panel is open.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to rotate [src].</span>"
+		. += SPAN_NOTICE("The maintenance panel is open.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate [src].")
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -93,7 +93,7 @@
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, SPAN_NOTICE("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 90)
 
@@ -115,23 +115,23 @@
 		locked = FALSE
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>[user] shorts out the lock on [src].</span>",
-				"<span class='warning'>You short out the lock on [src].</span>")
+			user.visible_message(SPAN_WARNING("[user] shorts out the lock on [src]."),
+				SPAN_WARNING("You short out the lock on [src]."))
 		return TRUE
 
 /obj/machinery/power/emitter/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(state != EMITTER_WELDED)
-		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first.</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be firmly secured to the floor first."))
 		return TRUE
 	if(!powernet)
-		to_chat(user, "<span class='warning'>The emitter isn't connected to a wire.</span>")
+		to_chat(user, SPAN_WARNING("The emitter isn't connected to a wire."))
 		return TRUE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The maintenance panel needs to be closed!</span>")
+		to_chat(user, SPAN_WARNING("The maintenance panel needs to be closed!"))
 		return
 	if(locked)
-		to_chat(user, "<span class='warning'>The controls are locked!</span>")
+		to_chat(user, SPAN_WARNING("The controls are locked!"))
 		return
 
 	var/toggle
@@ -155,7 +155,7 @@
 	if(ismegafauna(M) && anchored)
 		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+		M.visible_message(SPAN_WARNING("[M] rips [src] free from its moorings!"))
 	else
 		..()
 	if(!anchored)
@@ -166,53 +166,53 @@
 		return ..()
 
 	if(emagged)
-		to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
+		to_chat(user, SPAN_WARNING("The lock seems to be broken."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(active)
 		locked = !locked
-		to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
+		to_chat(user, SPAN_NOTICE("The controls are now [locked ? "locked" : "unlocked"]."))
 	else
 		locked = FALSE //just in case it somehow gets locked
-		to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
+		to_chat(user, SPAN_WARNING("The controls can only be locked when [src] is online!"))
 
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>Turn off [src] first!</span>")
+		to_chat(user, SPAN_WARNING("Turn off [src] first!"))
 		return
 	if(state == EMITTER_WELDED)
-		to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be unwelded from the floor!"))
 		return
 
 	if(state == EMITTER_NEEDS_WRENCH)
 		for(var/obj/machinery/power/emitter/E in get_turf(src))
 			if(E.anchored)
-				to_chat(user, "<span class='warning'>There is already an emitter here!</span>")
+				to_chat(user, SPAN_WARNING("There is already an emitter here!"))
 				return
 		state = EMITTER_NEEDS_WELDER
 		anchored = TRUE
-		user.visible_message("<span class='notice'>[user] secures [src] to the floor.</span>",
-			"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>",
-			"<span class='notice'>You hear a ratchet.</span>")
+		user.visible_message(SPAN_NOTICE("[user] secures [src] to the floor."),
+			SPAN_NOTICE("You secure the external reinforcing bolts to the floor."),
+			SPAN_NOTICE("You hear a ratchet."))
 	else
 		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		user.visible_message("<span class='notice'>[user] unsecures [src]'s reinforcing bolts from the floor.</span>",
-			"<span class='notice'>You undo the external reinforcing bolts.</span>",
-			"<span class='notice'>You hear a ratchet.</span>")
+		user.visible_message(SPAN_NOTICE("[user] unsecures [src]'s reinforcing bolts from the floor."),
+			SPAN_NOTICE("You undo the external reinforcing bolts."),
+			SPAN_NOTICE("You hear a ratchet."))
 	playsound(src, I.usesound, I.tool_volume, TRUE)
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>[src] needs to be disabled first!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be disabled first!"))
 		return
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
 
@@ -223,10 +223,10 @@
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='notice'>Turn off [src] first.</span>")
+		to_chat(user, SPAN_NOTICE("Turn off [src] first."))
 		return
 	if(state == EMITTER_NEEDS_WRENCH)
-		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor.</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be wrenched to the floor."))
 		return
 	if(!I.tool_use_check(user, 0))
 		return

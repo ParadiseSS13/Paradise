@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	ToggleBroadcast()
-	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic.</span>")
+	to_chat(user, SPAN_NOTICE("You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic."))
 	add_fingerprint(user)
 
 /obj/item/radio/CtrlShiftClick(mob/user)
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	ToggleReception()
-	to_chat(user, "<span class='notice'>You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker.</span>")
+	to_chat(user, SPAN_NOTICE("You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker."))
 	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
@@ -552,8 +552,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/show_examine_hotkeys()
 	. = list()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to toggle [src]'s hotmic.")
+	. += SPAN_NOTICE("<b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.")
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
@@ -561,13 +561,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
+			. += SPAN_NOTICE("\the [src] can be attached and modified!")
 		else
-			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+			. += SPAN_NOTICE("\the [src] can not be modified or attached!")
 
 /obj/item/radio/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.</span>"
+	. += SPAN_NOTICE("You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -576,9 +576,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	b_stat = !b_stat
 	if(b_stat)
-		user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+		user.show_message(SPAN_NOTICE("The radio can now be attached and modified!"))
 	else
-		user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+		user.show_message(SPAN_NOTICE("The radio can no longer be modified or attached!"))
 
 	updateDialog()
 
@@ -600,7 +600,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
-		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+		visible_message(SPAN_WARNING("[src] buzzes violently!"))
 
 	broadcasting = FALSE
 	listening = FALSE
@@ -818,7 +818,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	else
 		speaker_name = "[subject.client.key] ([subject.mind.name])"
 
-	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
+	to_chat(hearer, SPAN_DEADSAY("<b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]"))
 
 /obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
 	var/message = copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN)

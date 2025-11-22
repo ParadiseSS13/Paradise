@@ -132,7 +132,7 @@
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
 	if(using_irrigation)
-		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		to_chat(user, SPAN_WARNING("Disconnect the hoses first!"))
 		return TRUE
 	if(default_deconstruction_crowbar(user, I, 1))
 		return TRUE
@@ -165,7 +165,7 @@
 		return
 
 	lid_closed = !lid_closed
-	to_chat(user, "<span class='notice'>You [lid_closed ? "close" : "open"] the tray's lid.</span>")
+	to_chat(user, SPAN_NOTICE("You [lid_closed ? "close" : "open"] the tray's lid."))
 	update_state()
 
 
@@ -377,31 +377,31 @@
 	. = ..()
 	if(myseed)
 		if(myseed.variant)
-			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += SPAN_NOTICE("It has the [SPAN_NAME("[myseed.variant]")] variant of [SPAN_NAME("[myseed.plantname]")] planted.")
 		else
-			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += SPAN_NOTICE("It has [SPAN_NAME("[myseed.plantname]")] planted.")
 		if(dead)
-			. += "<span class='warning'>It's dead!</span>"
+			. += SPAN_WARNING("It's dead!")
 		else if(harvest)
-			. += "<span class='notice'>It's ready to harvest.</span>"
+			. += SPAN_NOTICE("It's ready to harvest.")
 		else if(plant_health <= (myseed.endurance / 2))
-			. += "<span class='warning'>It looks unhealthy.</span>"
+			. += SPAN_WARNING("It looks unhealthy.")
 	else
-		. += "<span class='notice'>[src] is empty.</span>"
+		. += SPAN_NOTICE("[src] is empty.")
 
 	if(!self_sustaining)
-		. += "<span class='notice'>Water: [waterlevel]/[maxwater]</span>"
-		. += "<span class='notice'>Nutrient: [nutrilevel]/[maxnutri]</span>"
+		. += SPAN_NOTICE("Water: [waterlevel]/[maxwater]")
+		. += SPAN_NOTICE("Nutrient: [nutrilevel]/[maxnutri]")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='notice'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += SPAN_NOTICE("Treatment for self-sustenance are [percent_progress]% complete.")
 	else
-		. += "<span class='notice'>It doesn't require any water or nutrients.</span>"
+		. += SPAN_NOTICE("It doesn't require any water or nutrients.")
 
 	if(weedlevel >= 5)
-		. += "<span class='warning'>[src] is filled with weeds!</span>"
+		. += SPAN_WARNING("[src] is filled with weeds!")
 	if(pestlevel >= 5)
-		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
+		. += SPAN_WARNING("[src] is filled with tiny worms!")
 	. += "" // Empty line for readability.
 
 
@@ -448,9 +448,9 @@
 	plant_hud_set_health()
 	plant_hud_set_status()
 	if(kudzu)
-		visible_message("<span class='warning'>The [oldPlantName] cross-breeds with weeds and mutates into [myseed.plantname]!</span>")
+		visible_message(SPAN_WARNING("The [oldPlantName] cross-breeds with weeds and mutates into [myseed.plantname]!"))
 	else
-		visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
+		visible_message(SPAN_WARNING("The [oldPlantName] is overtaken by some [myseed.plantname]!"))
 
 /obj/machinery/hydroponics/proc/get_mutation_level()
 	return nutrient.mutation_level + mutagen + (mut_beamed ? 5 : 0)
@@ -477,9 +477,9 @@
 
 		sleep(5) // Wait a while
 		update_state()
-		visible_message("<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>")
+		visible_message(SPAN_WARNING("The mutated weeds in [src] spawn some [myseed.plantname]!"))
 	else
-		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
+		to_chat(usr, SPAN_WARNING("The few weeds in [src] seem to react, but only for a moment..."))
 
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
@@ -498,12 +498,12 @@
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
-		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
+		visible_message(SPAN_WARNING("The pests seem to behave oddly..."))
 		for(var/i in 1 to 3)
 			var/mob/living/basic/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
-		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
+		to_chat(user, SPAN_WARNING("The pests seem to behave oddly, but quickly settle down..."))
 
 /obj/machinery/hydroponics/proc/apply_chemicals(mob/user)
 	if(myseed)
@@ -515,10 +515,10 @@
 			mutagen += reagents.get_reagent_amount("uranium")
 			mutagen += reagents.get_reagent_amount("radium")
 			mutagen += reagents.get_reagent_amount("mutagen")
-			to_chat(user, "<span class='notice'>You think the plants in [src] will mutate more now.</span>")
+			to_chat(user, SPAN_NOTICE("You think the plants in [src] will mutate more now."))
 		mutagen = min(max_mutagen, mutagen)
 		if(mutagen == max_mutagen)
-			to_chat(user, "<span class='notice'>That seems like enough mutating chemicals.</span>")
+			to_chat(user, SPAN_NOTICE("That seems like enough mutating chemicals."))
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(reagents.has_reagent("uranium", 1))
@@ -561,13 +561,13 @@
 		if(self_sufficiency_progress >= self_sufficiency_req)
 			become_self_sufficient()
 		else if(!self_sustaining)
-			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
+			to_chat(user, SPAN_NOTICE("[src] warms as it might on a spring day under a genuine Sun."))
 
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(reagents.has_reagent("charcoal", 1))
 		adjustToxic(-round(reagents.get_reagent_amount("charcoal") * 2))
 		if(doping_chem)
-			to_chat(user, "<span class='notice'>The charcoal soaks up and neutralizes \the [initial(doping_chem.name)].</span>")
+			to_chat(user, SPAN_NOTICE("The charcoal soaks up and neutralizes \the [initial(doping_chem.name)]."))
 			doping_chem = null
 
 	// BRO, YOU JUST WENT ON FULL STUPID.
@@ -735,11 +735,11 @@
 	// Begone, mutagen!
 	if(reagents.has_reagent("potass_iodide", 1))
 		if(mutagen)
-			to_chat(user, "<span class='notice'>The potassium iodide neutralizes the mutating agents in [src].</span>")
+			to_chat(user, SPAN_NOTICE("The potassium iodide neutralizes the mutating agents in [src]."))
 			mutagen = 0
 	if(reagents.has_reagent("pen_acid", 1))
 		if(mutagen)
-			to_chat(user, "<span class='notice'>The pentetic acid neutralizes the mutating agents in [src].</span>")
+			to_chat(user, SPAN_NOTICE("The pentetic acid neutralizes the mutating agents in [src]."))
 			mutagen = 0
 
 	// The best stuff there is. For testing/debugging.
@@ -753,7 +753,7 @@
 
 /obj/machinery/hydroponics/proc/replace_doping(datum/reagent/new_chem, mob/user)
 	if(new_chem == doping_chem)
-		to_chat(user, "<span class='notice'>[src] already contains [initial(new_chem.name)], adding more won't help.</span>")
+		to_chat(user, SPAN_NOTICE("[src] already contains [initial(new_chem.name)], adding more won't help."))
 		return
 	var/list/message = list()
 	message += "<span class='notice'>You add [initial(new_chem.name)] to [src]"
@@ -778,15 +778,15 @@
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != SYRINGE_INJECT)
-				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
+				to_chat(user, SPAN_WARNING("You can't get any extract out of this plant."))		//That. Gives me an idea...
 				return ITEM_INTERACT_COMPLETE
 
 		if(!reagent_source.reagents.total_volume)
-			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
+			to_chat(user, SPAN_NOTICE("[reagent_source] is empty."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
-			to_chat(user, "<span class='warning'>You need to open [used] first!</span>")
+			to_chat(user, SPAN_WARNING("You need to open [used] first!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/visi_msg = ""
@@ -823,7 +823,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [used] first!</span>")
+		to_chat(user, SPAN_WARNING("You need to sort [used] first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/seeds) && !istype(used, /obj/item/seeds/sample))
@@ -831,7 +831,7 @@
 			if(istype(used, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
 			user.unequip(used)
-			to_chat(user, "<span class='notice'>You plant [used].</span>")
+			to_chat(user, SPAN_NOTICE("You plant [used]."))
 			dead = FALSE
 			myseed = used
 			age = 1
@@ -842,7 +842,7 @@
 			used.forceMove(src)
 			update_state()
 		else
-			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
+			to_chat(user, SPAN_WARNING("[src] already has seeds in it!"))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -853,11 +853,11 @@
 
 	else if(istype(used, /obj/item/cultivator))
 		if(weedlevel > 0)
-			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
+			user.visible_message("[user] uproots the weeds.", SPAN_NOTICE("You remove the weeds from [src]."))
 			adjustWeeds(-10)
 			update_state()
 		else
-			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+			to_chat(user, SPAN_WARNING("This plot is completely devoid of weeds! It doesn't need uprooting."))
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/storage/bag/plants))
@@ -871,13 +871,13 @@
 
 	else if(istype(used, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
-			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
+			to_chat(user, SPAN_WARNING("[src] doesn't have any plants or weeds!"))
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts digging out [src]'s plants..."), SPAN_NOTICE("You start digging out [src]'s plants..."))
 		playsound(src, used.usesound, 50, 1)
 		if(!do_after(user, 25 * used.toolspeed, target = src) || (!myseed && !weedlevel))
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
+		user.visible_message(SPAN_NOTICE("[user] digs out the plants in [src]!"), SPAN_NOTICE("You dig out all of [src]'s plants!"))
 		playsound(src, used.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
@@ -905,8 +905,8 @@
 		return
 	else if(wrenchable)
 		using_irrigation = !using_irrigation
-		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
-		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
+		user.visible_message(SPAN_NOTICE("[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses."), \
+		SPAN_NOTICE("You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses."))
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_state()
 
@@ -916,7 +916,7 @@
 		return
 	if(wrenchable)
 		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+			to_chat(user, SPAN_WARNING("Disconnect the hoses first!"))
 			return
 		default_unfasten_wrench(user, I)
 
@@ -924,19 +924,19 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	if(lid_closed)
-		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
+		to_chat(user, SPAN_WARNING("You can't reach the plant through the cover."))
 		return
 	if(harvest)
 		myseed.harvest(user)
 	else if(dead)
 		dead = FALSE
-		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the dead plant from [src]."))
 		QDEL_NULL(myseed)
 		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
 	else if(user.mind && HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
-		user.visible_message("[user] uproots the weeds.", "<span class='notice'>You pluck the weeds from [src] with your hands.</span>")
+		user.visible_message("[user] uproots the weeds.", SPAN_NOTICE("You pluck the weeds from [src] with your hands."))
 		adjustWeeds(-10)
 		update_state()
 	else
@@ -946,11 +946,11 @@
 	harvest = FALSE
 	lastproduce = age
 	if(istype(myseed,/obj/item/seeds/replicapod))
-		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
+		to_chat(user, SPAN_NOTICE("You harvest from the [myseed.plantname]."))
 	else if(harvested <= 0)
-		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
+		to_chat(user, SPAN_WARNING("You fail to harvest anything useful!"))
 	else
-		to_chat(user, "<span class='notice'>You harvest [harvested] items from the [myseed.plantname].</span>")
+		to_chat(user, SPAN_NOTICE("You harvest [harvested] items from the [myseed.plantname]."))
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		QDEL_NULL(myseed)
 		dead = FALSE
@@ -996,7 +996,7 @@
 	C.faction = list("plants")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
-	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
+	visible_message(SPAN_BOLDNOTICE("[src] begins to glow with a beautiful light!"))
 	self_sustaining = TRUE
 	update_state()
 
@@ -1013,12 +1013,12 @@
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_state()
-			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
+			visible_message(SPAN_DANGER("[user] begins rooting through [src], ripping out weeds and eating them noisily."),SPAN_DANGER("You begin rooting through [src], ripping out weeds and eating them noisily."))
 		else if(nutrilevel < 10)
 			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_state()
-			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+			visible_message(SPAN_DANGER("[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray."),SPAN_DANGER("You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray."))
 	else
 		return ..()
 
@@ -1041,7 +1041,7 @@
 
 /obj/machinery/hydroponics/soil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/shovel) && !istype(used, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
-		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You clear up [src]!"))
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -1057,7 +1057,7 @@
 		visi_msg += ", setting off the irrigation system"
 
 	if(visi_msg)
-		visible_message("<span class='notice'>[visi_msg].</span>")
+		visible_message(SPAN_NOTICE("[visi_msg]."))
 
 	var/split = round(transfer_amount / length(trays))
 	for(var/obj/machinery/hydroponics/H as anything in trays)//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
@@ -1075,26 +1075,26 @@
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user, high_details_mode)
 	if(myseed)
 		to_chat(user, "*** <b>[myseed.plantname]</b> ***")
-		to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+		to_chat(user, "- Plant Age: [SPAN_NOTICE("[age]")]")
 		var/next_harvest = (age <= myseed.maturation ? myseed.maturation : lastproduce) + myseed.production
-		to_chat(user, "- Next Harvest At: <span class='notice'>[next_harvest]</span>")
+		to_chat(user, "- Next Harvest At: [SPAN_NOTICE("[next_harvest]")]")
 		var/list/text_string = myseed.get_analyzer_text(TRUE, high_details_mode)
 		if(text_string)
 			to_chat(user, text_string)
 	else
 		to_chat(user, "<b>No plant found.</b>")
 	if(high_details_mode)
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
+		to_chat(user, "- Weed level: [SPAN_NOTICE("[weedlevel] / 10")]")
+		to_chat(user, "- Pest level: [SPAN_NOTICE("[pestlevel] / 10")]")
+		to_chat(user, "- Toxicity level: [SPAN_NOTICE("[toxic] / 100")]")
 
-	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
+	to_chat(user, "- Water level: [SPAN_NOTICE("[waterlevel] / [maxwater]")]")
+	to_chat(user, "- Nutrition level: [SPAN_NOTICE("[nutrilevel] / [maxnutri]")]")
 	if(self_sustaining)
-		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>Earthsblood<br>&nbsp;&nbsp;This [src.name] has been treated with Earthsblood and constantly produces its own fertilizer. Like E-Z-Nutrient, Earthsblood fertilizer has no particular attributes, it just keeps plants fed.</span>")
+		to_chat(user, "&nbsp;&nbsp;Nutrient: [SPAN_NOTICE("Earthsblood<br>&nbsp;&nbsp;This [src.name] has been treated with Earthsblood and constantly produces its own fertilizer. Like E-Z-Nutrient, Earthsblood fertilizer has no particular attributes, it just keeps plants fed.")]")
 	else
-		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
-	to_chat(user, "- [mutagen_tank_name]: <span class='notice'>[mutagen] / [max_mutagen]</span>")
+		to_chat(user, "&nbsp;&nbsp;Nutrient: [SPAN_NOTICE("[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]")]")
+	to_chat(user, "- [mutagen_tank_name]: [SPAN_NOTICE("[mutagen] / [max_mutagen]")]")
 
 	var/can_mutate_species = myseed && length(myseed.mutatelist)
 	var/mutation_level = get_mutation_level()
@@ -1107,11 +1107,11 @@
 		mutation_comment = " (may add traits)"
 	else if(mutation_level > 10 && can_mutate_species)
 		mutation_comment = " (may change species)"
-	to_chat(user, "- Mutation level: <span class='notice'>[get_mutation_level()][mutation_comment]</span>")
+	to_chat(user, "- Mutation level: [SPAN_NOTICE("[get_mutation_level()][mutation_comment]")]")
 
-	to_chat(user, "- Doping chemical: <span class='notice'>[doping_chem ? initial(doping_chem.name) : "None"]</span>")
+	to_chat(user, "- Doping chemical: [SPAN_NOTICE("[doping_chem ? initial(doping_chem.name) : "None"]")]")
 	if(doping_chem)
-		to_chat(user, "&nbsp;&nbsp;<span class='notice'>Causes mutations to be focused on [english_list(doping_effects[doping_chem])].</span>")
+		to_chat(user, "&nbsp;&nbsp;[SPAN_NOTICE("Causes mutations to be focused on [english_list(doping_effects[doping_chem])].")]")
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.

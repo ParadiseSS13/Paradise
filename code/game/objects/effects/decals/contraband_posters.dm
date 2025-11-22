@@ -96,10 +96,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(ruined)
-		to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
+		to_chat(user, SPAN_NOTICE("You remove the remnants of the poster."))
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
+		to_chat(user, SPAN_NOTICE("You carefully remove the poster from the wall."))
 		roll_and_drop(user.loc)
 
 /obj/structure/sign/poster/attack_hand(mob/user)
@@ -132,14 +132,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign/poster))
-			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
+			to_chat(user, SPAN_NOTICE("The wall is far too cluttered to place a poster!"))
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
+			to_chat(user, SPAN_NOTICE("The wall is far too cluttered to place a poster!"))
 			return
 
-		to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>")//Looks like it's uncluttered enough. Place the poster.
+		to_chat(user, SPAN_NOTICE("You start placing the poster on the wall..."))//Looks like it's uncluttered enough. Place the poster.
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
@@ -163,7 +163,7 @@
 			D.pixel_x = -32
 			D.pixel_y = 0
 		else
-			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
+			to_chat(user, SPAN_NOTICE("You cannot reach the wall from here!"))
 			return
 
 	flick("poster_being_set", D)
@@ -176,11 +176,11 @@
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			to_chat(user, "<span class='notice'>You place the poster!</span>")
+			to_chat(user, SPAN_NOTICE("You place the poster!"))
 			playsound(D.loc, 'sound/effects/pageturn3.ogg', 100, 1)
 			return
 
-	to_chat(user, "<span class='notice'>The poster falls down!</span>")
+	to_chat(user, SPAN_NOTICE("The poster falls down!"))
 	D.roll_and_drop(temp_loc)
 
 

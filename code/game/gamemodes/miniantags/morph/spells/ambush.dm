@@ -16,20 +16,20 @@
 		return
 	if(!user.morphed)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only prepare an ambush if you're disguised!</span>")
+			to_chat(user, SPAN_WARNING("You can only prepare an ambush if you're disguised!"))
 		return FALSE
 	if(user.ambush_prepared)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You are already prepared!</span>")
+			to_chat(user, SPAN_WARNING("You are already prepared!"))
 		return FALSE
 
 /datum/spell/morph_spell/ambush/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You start preparing an ambush.</span>")
+	to_chat(user, SPAN_SINISTER("You start preparing an ambush."))
 	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, PROC_REF(prepare_check), user)), FALSE))
 		if(!user.morphed)
-			to_chat(user, "<span class='warning'>You need to stay morphed to prepare the ambush!</span>")
+			to_chat(user, SPAN_WARNING("You need to stay morphed to prepare the ambush!"))
 			return
-		to_chat(user, "<span class='warning'>You need to stay still to prepare the ambush!</span>")
+		to_chat(user, SPAN_WARNING("You need to stay still to prepare the ambush!"))
 		return
 	user.prepare_ambush()
 

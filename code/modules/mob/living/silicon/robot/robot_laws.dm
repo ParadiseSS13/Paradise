@@ -69,7 +69,7 @@
 	if(mmi && mmi.syndiemmi)
 		return FALSE
 	if(tracking_entities)
-		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
+		to_chat(src, SPAN_WARNING("Internal camera is currently being accessed."))
 	..()
 
 /mob/living/silicon/robot/clear_zeroth_law()

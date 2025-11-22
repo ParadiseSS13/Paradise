@@ -36,7 +36,7 @@
 				chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 			return ..()
-	to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
+	to_chat(user, SPAN_WARNING("[tool] cannot be used to augment this limb!"))
 	return SURGERY_BEGINSTEP_ABORT
 
 
@@ -45,8 +45,8 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",
-		"<span class='notice'>You augment [affected] with [tool].</span>",
+		SPAN_NOTICE("[user] has finished augmenting [affected] with [tool]."),
+		SPAN_NOTICE("You augment [affected] with [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 

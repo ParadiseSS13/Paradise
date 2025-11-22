@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	public_mode = !public_mode
-	to_chat(user, "<span class='notice'>You [public_mode ? "enable" : "disable"] the holopad's public mode setting.</span>")
+	to_chat(user, SPAN_NOTICE("You [public_mode ? "enable" : "disable"] the holopad's public mode setting."))
 
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -185,8 +185,8 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
-	. += "<span class='notice'>Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> by using a multitool while the maintenance panel is open.</span>"
+	. += SPAN_NOTICE("Its maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.")
+	. += SPAN_NOTICE("Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> by using a multitool while the maintenance panel is open.")
 
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='notice'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, SPAN_NOTICE("Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			return
 		if(dialling_input)
-			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			to_chat(usr, SPAN_NOTICE("Finish dialling first!"))
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -419,7 +419,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
+			to_chat(user, "[SPAN_DANGER("ERROR:")] Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -452,7 +452,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	to_chat(user, "[SPAN_DANGER("ERROR:")] Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.

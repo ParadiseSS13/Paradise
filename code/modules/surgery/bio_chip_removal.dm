@@ -39,8 +39,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(times_repeated >= max_times_to_check)
 		user.visible_message(
-				"<span class='notice'>[user] seems to have had enough and stops checking inside [target].</span>",
-				"<span class='notice'>There doesn't seem to be anything inside, you've checked enough times.</span>",
+				SPAN_NOTICE("[user] seems to have had enough and stops checking inside [target]."),
+				SPAN_NOTICE("There doesn't seem to be anything inside, you've checked enough times."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 		return SURGERY_BEGINSTEP_SKIP
@@ -59,8 +59,8 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user] grips onto [target]'s [affected.name] by mistake, tearing it!</span>",
-		"<span class='warning'>You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!</span>",
+		SPAN_WARNING("[user] grips onto [target]'s [affected.name] by mistake, tearing it!"),
+		SPAN_WARNING("You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(10)
@@ -71,8 +71,8 @@
 	I = locate(/obj/item/bio_chip) in target
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
-			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",
-			"<span class='notice'>You take \an [I] out of [target]'s [affected.name]s with \the [tool].</span>",
+			SPAN_NOTICE("[user] takes something out of [target]'s [affected.name] with \the [tool]."),
+			SPAN_NOTICE("You take \an [I] out of [target]'s [affected.name]s with \the [tool]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -91,13 +91,13 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_state()
-			user.visible_message("[user] places \the [I] into \the [case]!", "<span class='notice'>You place \the [I] into \the [case].</span>")
+			user.visible_message("[user] places \the [I] into \the [case]!", SPAN_NOTICE("You place \the [I] into \the [case]."))
 		else
 			qdel(I)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
-			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>",
+			SPAN_NOTICE("[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out."),
+			SPAN_NOTICE("You could not find anything inside [target]'s [affected.name]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	return SURGERY_STEP_CONTINUE

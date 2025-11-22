@@ -25,16 +25,16 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to bio-chip [M].</span>")
+			M.visible_message(SPAN_WARNING("[user] is attempting to bio-chip [M]."))
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_after(user, 50 * toolspeed, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
 					if(M == user)
-						to_chat(user, "<span class='notice'>You bio-chip yourself.</span>")
+						to_chat(user, SPAN_NOTICE("You bio-chip yourself."))
 					else
-						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] bio-chips you.</span>")
+						M.visible_message("[user] has implanted [M].", SPAN_NOTICE("[user] bio-chips you."))
 					imp = null
 					update_icon(UPDATE_ICON_STATE)
 

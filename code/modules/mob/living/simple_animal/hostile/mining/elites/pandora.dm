@@ -57,25 +57,25 @@
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"
 	button_icon_state = "singular_shot"
-	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
+	chosen_message = SPAN_BOLDWARNING("You fire a chaser after all mobs in view.")
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Magic Box"
 	button_icon_state = "magic_box"
-	chosen_message = "<span class='boldwarning'>You are now attacking with a box of magic squares.</span>"
+	chosen_message = SPAN_BOLDWARNING("You are now attacking with a box of magic squares.")
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
 	name = "Line Teleport"
 	button_icon_state = "pandora_teleport"
-	chosen_message = "<span class='boldwarning'>You will now teleport to your target.</span>"
+	chosen_message = SPAN_BOLDWARNING("You will now teleport to your target.")
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
 	name = "AOE Blast"
 	button_icon_state = "aoe_squares"
-	chosen_message = "<span class='boldwarning'>Your attacks will spawn an AOE blast at your target location.</span>"
+	chosen_message = SPAN_BOLDWARNING("Your attacks will spawn an AOE blast at your target location.")
 	chosen_attack_num = AOE_SQUARES
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/OpenFire()
@@ -168,7 +168,7 @@
 	for(var/t in RANGE_TURFS(1, source))
 		new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message("<span class='hierophant'>[src] fades out!</span>")
+	visible_message(SPAN_HIEROPHANT("[src] fades out!"))
 	set_density(FALSE)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
@@ -176,7 +176,7 @@
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	set_density(TRUE)
-	visible_message("<span class='hierophant'>[src] fades in!</span>")
+	visible_message(SPAN_HIEROPHANT("[src] fades in!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2

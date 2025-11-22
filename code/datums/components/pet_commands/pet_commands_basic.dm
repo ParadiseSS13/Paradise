@@ -125,7 +125,7 @@
 /datum/pet_command/attack/proc/refuse_target(mob/living/parent, atom/target)
 	var/mob/living/living_parent = parent
 	living_parent.custom_emote(EMOTE_VISIBLE, refuse_reaction)
-	living_parent.visible_message("<span class='notice'>[living_parent] refuses to attack [target].</span>")
+	living_parent.visible_message(SPAN_NOTICE("[living_parent] refuses to attack [target]."))
 
 /datum/pet_command/attack/execute_action(datum/ai_controller/controller)
 	controller.queue_behavior(attack_behaviour, BB_CURRENT_PET_TARGET, targeting_strategy_key)

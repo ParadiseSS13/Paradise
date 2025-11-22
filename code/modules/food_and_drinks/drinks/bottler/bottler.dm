@@ -42,14 +42,14 @@
 
 /obj/machinery/bottler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!user.canUnEquip(used, 0))
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand, you can't seem to put it down!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you can't seem to put it down!"))
 		return ITEM_INTERACT_COMPLETE
 	if(is_type_in_list(used,acceptable_items))
 		if(istype(used, /obj/item/food))
 			var/obj/item/food/S = used
 			user.drop_item_to_ground(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
-				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
+				to_chat(user, SPAN_WARNING("[S] is gone, oh no!"))
 				qdel(S)			//Delete the food object because it is useless even as food due to the lack of reagents
 			else
 				insert_item(S, user)
@@ -58,7 +58,7 @@
 			var/obj/item/reagent_containers/drinks/cans/C = used
 			if(C.reagents)
 				if(C.can_opened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
-					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
+					to_chat(user, SPAN_WARNING("Only unopened cans and bottles can be processed to ensure product integrity."))
 					return ITEM_INTERACT_COMPLETE
 				user.drop_item_to_ground(C)
 				if(!C.reagents.total_volume)		//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
@@ -81,7 +81,7 @@
 		process_sheets(S)
 		return ITEM_INTERACT_COMPLETE
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
-		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
+		to_chat(user, SPAN_WARNING("You aren't sure this is able to be processed by the machine."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
@@ -92,7 +92,7 @@
 	if(!O || !user)
 		return
 	if(slots[1] && slots[2] && slots[3])
-		to_chat(user, "<span class='warning'>[src] is full, please remove or process the contents first.</span>")
+		to_chat(user, SPAN_WARNING("[src] is full, please remove or process the contents first."))
 		return
 	var/slot_inserted = 0
 	for(var/i = 1, i <= length(slots), i++)
@@ -101,10 +101,10 @@
 			slot_inserted = i
 			break
 	if(!slot_inserted)
-		to_chat(user, "<span class='warning'>Something went wrong and the machine spits out [O].</span>")
+		to_chat(user, SPAN_WARNING("Something went wrong and the machine spits out [O]."))
 		O.forceMove(loc)
 	else
-		to_chat(user, "<span class='notice'>You load [O] into the [slot_inserted]\th ingredient tray.</span>")
+		to_chat(user, SPAN_NOTICE("You load [O] into the [slot_inserted]\th ingredient tray."))
 		O.forceMove(src)
 	updateUsrDialog()
 
@@ -116,13 +116,13 @@
 				O = slots[i]
 				O.forceMove(loc)
 				slots[i] = null
-		visible_message("<span class='notice'>[src] beeps as it ejects the contents of all the ingredient trays.</span>")
+		visible_message(SPAN_NOTICE("[src] beeps as it ejects the contents of all the ingredient trays."))
 	else
 		if(slots[slot])		//ensures the tray actually has something to eject so we don't runtime on trying to reference null
 			O = slots[slot]
 			O.forceMove(loc)
 			slots[slot] = null
-			visible_message("<span class='notice'>[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray.</span>")
+			visible_message(SPAN_NOTICE("[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray."))
 	updateUsrDialog()
 
 /obj/machinery/bottler/proc/recycle_container(obj/item/O)
@@ -155,11 +155,11 @@
 	if(con_type)
 		if(containers[con_type] < max_define)
 			containers[con_type]++
-			visible_message("<span class='notice'>[src] whirs briefly as it prepares the container for reuse.</span>")
+			visible_message(SPAN_NOTICE("[src] whirs briefly as it prepares the container for reuse."))
 			qdel(O)
 			updateUsrDialog()
 		else
-			visible_message("<span class='warning'>[src] cannot store any more cans at this time. Please fill some before recycling more.</span>")
+			visible_message(SPAN_WARNING("[src] cannot store any more cans at this time. Please fill some before recycling more."))
 			O.forceMove(loc)
 
 /obj/machinery/bottler/proc/process_sheets(obj/item/stack/sheet/S)
@@ -183,7 +183,7 @@
 		max_define = MAX_METAL
 		mat_ratio = RATIO_METAL
 	else
-		visible_message("<span class='warning'>[src] rejects the unusable materials.</span>")
+		visible_message(SPAN_WARNING("[src] rejects the unusable materials."))
 		return
 	var/missing
 	var/sheets_needed
@@ -195,12 +195,12 @@
 			sheets_needed += 1
 		sheets_to_use = min(sheets_needed, S.amount)
 	if(missing)
-		visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [S.singular_name]\s into new [con_type]s.</span>")
+		visible_message(SPAN_NOTICE("[src] shudders as it converts [sheets_to_use] [S.singular_name]\s into new [con_type]s."))
 		containers[con_type] += sheets_to_use * mat_ratio
 		containers[con_type] = min(containers[con_type], max_define)
 		S.use(sheets_to_use)
 	else
-		visible_message("<span class='warning'>[src] rejects [S] because it already is fully stocked with [con_type]s.</span>")
+		visible_message(SPAN_WARNING("[src] rejects [S] because it already is fully stocked with [con_type]s."))
 
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
@@ -237,7 +237,7 @@
 /obj/machinery/bottler/proc/process_ingredients(container)
 	//stop if we have ZERO ingredients (what would you process?)
 	if(!slots[1] && !slots[2] && !slots[3])
-		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
+		visible_message(SPAN_WARNING("There are no ingredients to process! Please insert some first."))
 		return
 	//prep a container
 	var/obj/item/reagent_containers/drinks/cans/bottler/drink_container
@@ -254,28 +254,28 @@
 			drink_container = /obj/item/reagent_containers/drinks/cans/bottler/metal_can
 
 	if(!con_type)
-		visible_message("<span class='warning'>Error 404: Drink Container Not Found.</span>")
+		visible_message(SPAN_WARNING("Error 404: Drink Container Not Found."))
 		return
 	if(!containers[con_type])
-		visible_message("<span class='warning'>Error 503: Out of [con_type]s.</span>")
+		visible_message(SPAN_WARNING("Error 503: Out of [con_type]s."))
 		return
 	else
 		drink_container = new drink_container()
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
-	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
+	visible_message(SPAN_NOTICE("[src] hums as it processes the ingredients..."))
 	bottling = TRUE
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
 		var/contents = pick("thick goop", "pungent sludge", "unspeakable slurry", "gross-looking concoction", "eldritch abomination of liquids")
-		visible_message("<span class='warning'>The [con_type] fills with \an [contents]...</span>")
+		visible_message(SPAN_WARNING("The [con_type] fills with \an [contents]..."))
 		drink_container.reagents.add_reagent(pick("????", "toxic_slurry", "meatslurry", "glowing_slurry", "fishwater"), pick(30, 50))
 		drink_container.name = "Liquid Mistakes"
 		drink_container.desc = "WARNING: CONTENTS MAY BE AWFUL, DRINK AT OWN RISK."
 	else
 		//good recipe, make it
-		visible_message("<span class='notice'>The [con_type] fills with a delicious-looking beverage!</span>")
+		visible_message(SPAN_NOTICE("The [con_type] fills with a delicious-looking beverage!"))
 		drink_container.reagents.add_reagent(recipe_to_use.result, 50)
 		drink_container.name = "[recipe_to_use.name]"
 		drink_container.desc = "[recipe_to_use.description]"

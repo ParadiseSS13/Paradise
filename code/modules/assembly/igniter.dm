@@ -29,8 +29,8 @@
 	if(location)
 		location.hotspot_expose(1000, 1)
 	visible_message(
-		"<span class='notice'>Sparks shoot out of [src].</span>",
-		"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+		SPAN_NOTICE("Sparks shoot out of [src]."),
+		SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()
 
@@ -68,15 +68,15 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()	// Make sparks fly!
 	cig.light(user, target)

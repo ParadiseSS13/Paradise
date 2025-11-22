@@ -77,7 +77,7 @@
 	if(!user)
 		return
 
-	user.visible_message("<span class='suicide'>[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE, -1)
@@ -85,7 +85,7 @@
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	to_chat(user, "<span class='userdanger'>You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i></span>")
+	to_chat(user, SPAN_USERDANGER("You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i>"))
 	user.emote("scream")
 	animate_fading_leap_up(user)
 
@@ -125,7 +125,7 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -135,7 +135,7 @@
 
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You attach the cutting jaws to [src]."))
 	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
 		bit.on_detached()
 		bit.forceMove(cutjaws)
