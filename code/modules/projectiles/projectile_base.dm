@@ -144,7 +144,6 @@
 	var/antimagic_flags
 	/// determines the drain cost on the antimagic item
 	var/antimagic_charge_cost
-	
 	/// If true, this projectile will never detonate tanks(such as fuel tanks, water tanks, etc.) on impact
 	var/never_detonate_tanks = FALSE
 
