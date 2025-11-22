@@ -427,7 +427,7 @@
 	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 	data["is_admin"] = data["authenticated"] >= COMM_AUTHENTICATION_CENTCOM && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 
-	data["gamma_armory_location"] = GLOB.gamma_ship_location
+	data["gamma_armory_location"] = is_on_level_name(SSshuttle.gamma_armory, CENTCOMM) ? TRUE : FALSE
 	data["ert_allowed"] = !SSticker.mode.ert_disabled
 
 	data["stat_display"] =  list(

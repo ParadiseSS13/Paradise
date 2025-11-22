@@ -47,6 +47,9 @@
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
 
+/obj/structure/weightmachine/attack_tk(mob/user)
+	return
+
 /obj/structure/weightmachine/attack_hand(mob/living/user)
 	. = ..()
 	if(.)

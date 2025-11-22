@@ -62,10 +62,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define EVENT_LEVEL_MUNDANE 1
-#define EVENT_LEVEL_MODERATE 2
-#define EVENT_LEVEL_MAJOR 3
-
 #define JANUARY		1
 #define FEBRUARY	2
 #define MARCH		3
@@ -545,6 +541,7 @@
 #define LINDA_SPAWN_AGENT_B 	(1<<7)
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
+#define LINDA_SPAWN_HYDROGEN	(1<<10)
 
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
