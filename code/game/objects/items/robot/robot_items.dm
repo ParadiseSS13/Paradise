@@ -39,8 +39,6 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, target, "Stunned with [src] ([uppertext(user.a_intent)])")
 
-#define BROOM_PUSH_LIMIT 20
-
 /obj/item/borg/push_broom
 	name = "integrated push broom"
 	desc = "This is my BROOMSTICK! This lightweight broom can be used manually or braced to sweep items as you move."
@@ -108,7 +106,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		if(trashed_into)
 			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [trashed_into].</span>")
 		trash_amount++
-		if(trash_amount > BROOM_PUSH_LIMIT)
+		if(trash_amount > 20)
 			break
 	if(trash_amount > 1)
 		playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
@@ -140,5 +138,3 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	H.apply_damage(20, BRUTE)
 	H.KnockDown(4 SECONDS)
 	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
-
-#undef BROOM_PUSH_LIMIT
