@@ -722,12 +722,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/incriminate
 	name = "Incriminate"
 	martyr_compatible = TRUE
-	delayed_objective_text = "Your objective is to incriminate a crew member for a major level crime without revealing yourself. You will receive further information in a few minutes."
+	delayed_objective_text = "Your objective is to incriminate a crew member for a major-level crime without revealing yourself. You will receive further information in a few minutes."
 	completed = TRUE
 
 /datum/objective/incriminate/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Deceive the station. Incriminate [target.current.real_name], the [target.assigned_role] for a major level crime and ensure that you are not revealed as the perpetrator."
+		explanation_text = "Incriminate [target.current.real_name], the [target.assigned_role], for a major-level crime. Ensure you are not revealed as the perpetrator."
 	else
 		explanation_text = "Free Objective"
 
