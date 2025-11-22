@@ -14,7 +14,7 @@
 		log_debug("No valid event areas could be generated for swarmers.")
 		return
 	var/list/area_turfs = get_area_turfs(impact_area)
-	for(var/i in 0 to length(area_turfs))
+	for(var/i in 1 to length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
 		if(T.is_blocked_turf())
 			shuffle(area_turfs)

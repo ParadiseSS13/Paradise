@@ -135,37 +135,38 @@
 	if(isitem(target))
 		integrate(target)
 		return FALSE
-	if(isliving(target))
-		var/mob/living/L = target
-		if(istype(L, /mob/living/basic/swarmer))
-			to_chat(src, "<span class='warning'>We do not wish to harm one of our own. Aborting.</span>")
-			ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+	if(!isliving(target))
+		return ..()
+	var/mob/living/L = target
+	if(istype(L, /mob/living/basic/swarmer))
+		to_chat(src, "<span class='warning'>We do not wish to harm one of our own. Aborting.</span>")
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+		return FALSE
+	if(L.stat == DEAD)
+		disintegrate_mob(target)
+		return FALSE
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		if((!C.IsWeakened()))
+			L.apply_damage(30, STAMINA)
+			C.Confused(6 SECONDS)
+			C.Jitter(6 SECONDS)
+			return ..()
+		else if(C.canBeHandcuffed() && !C.handcuffed)
+			L.apply_damage(30, STAMINA)
+			var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
+			playsound(loc, cuffs.cuffsound, 15, TRUE, -10)
+			if(do_mob(src, C, 1 SECONDS))
+				cuffs.apply_cuffs(target, src)
 			return FALSE
-		if(L.stat == DEAD)
+		// Make it go away.
+		disintegrate_mob(target)
+		return FALSE
+	if(issilicon(target))
+		var/mob/living/silicon/S = target
+		S.apply_damage(30, STAMINA)
+		if(S.IsWeakened())
 			disintegrate_mob(target)
-			return FALSE
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if((!C.IsWeakened()))
-				L.apply_damage(30, STAMINA)
-				C.Confused(6 SECONDS)
-				C.Jitter(6 SECONDS)
-				return ..()
-			else if(C.canBeHandcuffed() && !C.handcuffed)
-				L.apply_damage(30, STAMINA)
-				var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
-				playsound(loc, cuffs.cuffsound, 15, TRUE, -10)
-				if(do_mob(src, C, 1 SECONDS))
-					cuffs.apply_cuffs(target, src)
-				return FALSE
-			// Make it go away.
-			disintegrate_mob(target)
-			return FALSE
-		if(issilicon(target))
-			var/mob/living/silicon/S = target
-			S.apply_damage(30, STAMINA)
-			if(S.IsWeakened())
-				disintegrate_mob(target)
 
 	return ..()
 
