@@ -69,8 +69,42 @@
 /obj/item/reagent_containers/drinks/drinkingglass/syndicate_bomb
 	list_reagents = list("syndicatebomb" = 50)
 
+/obj/item/reagent_containers/drinks/drinkingglass/pina_colada
+	list_reagents = list("pinacolada" = 50)
+
+// All the species drinks
+/obj/item/reagent_containers/drinks/drinkingglass/acid_dreams
+	list_reagents = list("aciddreams" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/ahdomai_eclipse
+	list_reagents = list("ahdomaieclipse" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/beach_feast
+	list_reagents = list("beachfeast" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/die_seife
+	list_reagents = list("dieseife" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/diona_smash
+	list_reagents = list("dionasmash" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/fyrsskar_tears
+	list_reagents = list("fyrsskartears" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/howler
+	list_reagents = list("howler" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/islay_whiskey
+	list_reagents = list("islaywhiskey" = 50)
+
 /obj/item/reagent_containers/drinks/drinkingglass/jungle_vox
 	list_reagents = list("junglevox" = 50)
 
-/obj/item/reagent_containers/drinks/drinkingglass/pina_colada
-	list_reagents = list("pinacolada" = 50)
+/obj/item/reagent_containers/drinks/drinkingglass/slime_mold
+	list_reagents = list("slimemold" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/sontse
+	list_reagents = list("sontse" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/ultramatter
+	list_reagents = list("ultramatter" = 50)

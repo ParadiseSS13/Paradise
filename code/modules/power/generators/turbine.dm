@@ -351,19 +351,62 @@
 		return
 
 	// By how much we compress the gas going into the turbine
-	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm /(compressor.rpm + COMPRESSION_RPM_CURVE))
+	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm / (compressor.rpm + COMPRESSION_RPM_CURVE))
+
+	// How much of the gas in the input tile we suck in
+	var/input_fraction = compressor.compression_ratio * compressor.throttle / 50
 
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
+
+	// Volume of our input in cubic meteres
+	var/input_volume = 2.5 * input_fraction
+	// Pressure of the turf we suck in gas from in Pa
+	var/pascal_pressure = environment.return_pressure() * 1000
+
+	// Do work to compress the input gas
+	// The equation we use is for the work done by a piston, which should give us the same result as what a turbine would do due to conservation of energy and our gasses being ideal:
+	// W(x) = P1 * V1 * (ln(L1) - ln(L1 - x)) = P1 * V1 * (ln(L1 / (L1 - x))).
+	// Where P1 [Pa] is the starting pressure, V1 [m^3] is the volume of the tile we suck in, L1 [m] is the length of the cylinder and x [m] is the length of the piston's movement. We also have S[m^2], which is cylinder's cross section area
+	// If we instead write L1 as V1 / S and (L1 - x) as V2 / S, V2 being our final volume, we get ln(L1 / (L1 - x)) = ln((V1 / S) /(V2 / S)) = ln(V1 / V2). For a final volume of 0.05 cubic meteres we get ln(V1 * 20).
+	// We also multiply by 1000 since we get pressure in kilopascals rather than pascals.
+	var/compression_energy_cost = 0
+	if(input_volume > 0)
+		compression_energy_cost = max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
+
+	// If we don't have enough energy to draw in as much gas as we should reduce the amount of gas going in
+	// Ideally we would use the inverse of the work function, but I couldn't find an expression for it. Instead we're approximating with binary search.
+	if(compression_energy_cost > compressor.kinetic_energy)
+		// We always take in at least 50 litres of gas since that would mean no compression at all and no work done.
+		var/bottom = 0.02
+		var/top = input_fraction
+		// We should never even come close to this, but better safe than sorry
+		var/iterations = 100
+		// 5% without going over is a good enough approximation
+		while(iterations > 0 && (compression_energy_cost > compressor.kinetic_energy || (compression_energy_cost < compressor.kinetic_energy * 0.95 && compressor.kinetic_energy - compression_energy_cost > 1)))
+			iterations--
+			input_fraction = (top + bottom) / 2
+			input_volume = 2.5 * input_fraction
+			if(input_volume > 0)
+				compression_energy_cost = max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
+			else
+				compression_energy_cost = 0
+			if(compression_energy_cost > compressor.kinetic_energy)
+				top = input_fraction
+			else
+				bottom = input_fraction
+		// We changed how much gas we sucked in so we need to change the compression ratio. this is just the input volume divided by final volume(0.05 m^3)
+		compressor.compression_ratio = input_volume * 20
+
+	// Make the compressor do the work
+	compressor.kinetic_energy -= compression_energy_cost
+
 	// The more we are able to compress the gas the more gas we can shove in the compressor
-	var/transfer_moles = environment.total_moles() * (compressor.compression_ratio / 50) * compressor.throttle
+	var/transfer_moles = environment.total_moles() * input_fraction
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
-	// Record how much gas we took in for the UI
-	compressor.gas_throughput = compressor.gas_contained.total_moles()
-
-	// Lose kinetic energy to compressing the gas.
-	compressor.kinetic_energy -= min(compressor.kinetic_energy, compressor.compression_ratio * (compressor.gas_contained.return_pressure() - environment.return_pressure()))
+	// Record how much gas we took in for the UI. We divided by 2 due to the turbine ticking over once every two seconds
+	compressor.gas_throughput = compressor.gas_contained.total_moles() / 2
 
 	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
 	var/total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)

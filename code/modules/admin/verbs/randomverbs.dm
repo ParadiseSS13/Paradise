@@ -826,6 +826,10 @@ USER_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", \
 USER_VERB(toggle_random_events, R_SERVER|R_EVENT, "Toggle random events on/off", \
 		"Toggles random events such as meteors, black holes, blob (but not space dust) on/off", \
 		VERB_CATEGORY_EVENT)
+
+	if(tgui_alert(client, "[GLOB.configuration.event.enable_random_events ? "Disable" : "Enable"] random events?", "Confirm", list("Yes", "No")) != "Yes")
+		return
+
 	if(!GLOB.configuration.event.enable_random_events)
 		GLOB.configuration.event.enable_random_events = TRUE
 		to_chat(client, "Random events enabled")

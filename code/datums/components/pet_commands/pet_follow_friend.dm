@@ -10,6 +10,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/pet_follow_friend/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

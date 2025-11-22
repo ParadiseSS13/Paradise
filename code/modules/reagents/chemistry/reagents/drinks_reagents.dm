@@ -757,11 +757,11 @@
 /datum/reagent/consumable/drink/fyrsskar_tears
 	name = "Tears of Fyrsskar"
 	id = "fyrsskartears"
-	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	color = "#C300AE" // rgb: 195, 0, 174
 	drink_icon = "fyrsskartears"
 	drink_name = "Tears of Fyrsskar"
-	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
@@ -769,10 +769,16 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
 	if(isskrell(M))
 		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
+	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
 	if(!isskrell(M))
 		return ..()
+
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id, 5)
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
 	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
@@ -781,6 +787,15 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
+	return ..()
+
+/datum/reagent/consumable/drink/fyrsskar_tears/proc/on_species_change(mob/living/M)
+	SIGNAL_HANDLER // COMSIG_AFTER_SPECIES_CHANGE
+	if(!isskrell(M))
+		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	else
+		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
 
 /datum/reagent/consumable/drink/lean
 	name = "Lean"
@@ -981,3 +996,13 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	return ..()
+
+/datum/reagent/consumable/drink/gingerale
+	name = "Ginger Ale"
+	description = "Spicy and fizzy soda."
+	id = "ginger_ale"
+	color = "#996B2B"
+	drink_icon = "ginger_ale_glass"
+	drink_name = "Glass of Ginger Ale"
+	drink_desc = "Spicy and fizzy soda."
+	taste_description = "sweet, carbonated ginger"

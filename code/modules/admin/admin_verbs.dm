@@ -495,7 +495,7 @@ USER_CONTEXT_MENU(man_up, R_ADMIN, "\[Admin\] Man Up", mob/T as mob in GLOB.play
 	message_admins("[key_name_admin(client)] told [key_name(T)] to man up and deal with it.")
 
 USER_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells everyone to man up and deal with it.", VERB_CATEGORY_ADMIN)
-	if(tgui_alert(client, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
+	if(tgui_alert(client, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
@@ -582,7 +582,7 @@ USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Intere
 			return
 
 	var/display_turfs_overlay = FALSE
-	if(tgui_alert(client, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
+	if(tgui_alert(client, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) == "Yes")
 		display_turfs_overlay = TRUE
 
 	message_admins("[key_name_admin(client)] is visualizing interesting atmos turfs. Server may lag.")
