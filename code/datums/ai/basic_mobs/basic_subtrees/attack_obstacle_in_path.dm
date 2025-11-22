@@ -107,8 +107,8 @@
 	can_attack_turfs = TRUE
 
 /datum/ai_planning_subtree/attack_obstacle_in_path/prowl/walls
-  attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches/walls
-  
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches/walls
+
 /datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches
 
