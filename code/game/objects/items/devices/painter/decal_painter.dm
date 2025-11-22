@@ -1,7 +1,5 @@
 /datum/asset/spritesheet/decal_painter
-
-	module_name = "decal painter"
-	module_state = "decal_painter"
+	name = "decal_painter"
 	var/obj/effect/turf_decal/current_typepath
 
 /datum/asset/spritesheet/decal_painter/create_spritesheets()
