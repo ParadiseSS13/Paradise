@@ -863,7 +863,7 @@ GLOBAL_VAR(bomb_set)
 /obj/item/nad_scanner/activate_self(mob/user)
 	if(world.time < 45 MINUTES) // 60 minutes of no nuke
 		to_chat(user, "<span class='warning'>[src] is still calibrating. Please wait another [round((27000 - world.time) / 600)] minutes before trying again.</span>")
-		return
+		return ..()
 	scan_nad(user)
 	return ..()
 
@@ -895,7 +895,7 @@ GLOBAL_VAR(bomb_set)
 		to_chat(user, "<span class='warning'>You are already scanning a disk!</span>")
 		return
 	scanning = TRUE
-	to_chat(user, "<span class='biggerdanger'>You start the decryption process.</span>")
+	to_chat(user, "<span class='warning'>You start the decryption process.</span>")
 	update_icon(UPDATE_ICON_STATE)
 	if(!do_after(user, 10 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, hidden = TRUE))
 		to_chat(user, "<span class='warning'>You stop the decryption process.</span>")
