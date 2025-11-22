@@ -50,6 +50,7 @@
 /mob/living/basic/alien/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/aggro_emote, emote_list = list("hisses"), emote_chance = 20)
+	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/alien/proc/spread_plants()
 	if(!isturf(loc) || isspaceturf(loc))
