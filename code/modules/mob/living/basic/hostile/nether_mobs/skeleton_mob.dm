@@ -179,13 +179,22 @@
 	grant_actions_by_list(reanimator_actions)
 
 /mob/living/basic/skeleton/reanimator/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
-	. = ..()
 	if(!ishuman(target))
-		return
-	new /obj/effect/temp_visual/cult/rune_spawn/rune7(target.loc, 2 SECONDS, "#252525")
-	new /obj/effect/temp_visual/cult/rune_spawn/rune7/inner(target.loc, 2 SECONDS, "#252525")
-	new /obj/effect/temp_visual/cult/rune_spawn/rune7/center(target.loc, 2 SECONDS, "#252525")
-	if(target.stat == DEAD && do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
+		return ..()
+	if(target.stat != DEAD)
+		return ..()
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7(target.loc, 5 SECONDS, "#252525")
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7/inner(target.loc, 5 SECONDS, "#252525")
+	new /obj/effect/temp_visual/cult/rune_spawn/rune7/center(target.loc, 5 SECONDS, "#252525")
+
+	// First, see if we can get the OG player. If not, choose from Dchat
+	var/mob/dead/observer/original_ghost = target.get_ghost()
+	if(original_ghost)
+		to_chat(original_ghost, "<span class='ghostalert'>You are being revived by otherworldly forces! Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+		window_flash(original_ghost.client)
+		SEND_SOUND(original_ghost, sound('sound/effects/genetics.ogg'))
+	if(do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
+		sleep(3 SECONDS) // Locks the revitalizer down for 2 seconds, but gives the player 5 seconds to return
 		reanimate(target)
 
 /mob/living/basic/skeleton/reanimator/proc/reanimate(mob/living/carbon/human/H)
@@ -197,11 +206,18 @@
 	visible_message("<span class='warning'>[blank] staggers to [H.p_their()] feet!</span>")
 	blank.held_body = H
 	H.forceMove(blank)
+	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
+	if(!ghost)
+		H.mind.transfer_to(blank)
+		blank.is_original_mob = TRUE
+		return
+
 	var/mob/dead/observer/chosen_ghost
 	var/list/candidates
 	candidates = SSghost_spawns.poll_candidates("Would you like to play as a Reanimated Blank?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/basic/netherworld/blankbody, role_cleanname = "blank")
-	if(length(candidates) && blank.stat != DEAD)
+	if(length(candidates))
 		chosen_ghost = pick(candidates)
+	if(chosen_ghost && blank.stat != DEAD)
 		blank.key = chosen_ghost.key
 		blank.cancel_camera()
 		dust_if_respawnable(chosen_ghost)
