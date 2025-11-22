@@ -72,6 +72,10 @@
 		return FALSE
 	if(isitem(dinner) && !isturf(dinner.loc))
 		return FALSE
+	if(isobj(dinner))
+		var/obj/obj_dinner = dinner
+		if(obj_dinner.resistance_flags & INDESTRUCTIBLE)
+			return FALSE
 	if(isliving(dinner))
 		var/mob/living/M = dinner
 		if(M.stat == DEAD)

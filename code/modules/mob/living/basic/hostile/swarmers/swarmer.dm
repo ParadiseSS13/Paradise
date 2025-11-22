@@ -122,6 +122,7 @@
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING))
 		to_chat(src, "<span class='warning'>This asset is already being converted into useable resources. Aborting.</span>")
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(iswallturf(target))
 		disintegrate_wall(target)
@@ -193,10 +194,11 @@
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	target.ex_act(EXPLODE_HEAVY)
 
-/mob/living/basic/swarmer/proc/disintegrate_machine(obj/machinery/target)
+/mob/living/basic/swarmer/proc/disintegrate_machine(obj/target)
 	if(spacecheck(target))
 		return
-
+	if(target.resistance_flags & INDESTRUCTIBLE)
+		return
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
