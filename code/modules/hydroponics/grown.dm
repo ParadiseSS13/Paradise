@@ -224,7 +224,7 @@
 	set_light(0)
 
 /obj/item/food/grown/proc/send_plant_details(mob/user)
-	var/msg = "[SPAN_NOTICE("This is \a ")][SPAN_NAME("[src].")]\n"
+	var/msg = "[SPAN_NOTICE("This is")][SPAN_NAME(" \a [src].")]\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	var/reag_txt = ""
