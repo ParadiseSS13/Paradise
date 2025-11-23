@@ -503,6 +503,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 	inhand_icon_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg')
 	attack_verb = list("quacked", "squeaked")
+	throwforce = 0
 
 /obj/item/bikehorn/rubberducky/captainducky
 	name = "captain rubber ducky"
