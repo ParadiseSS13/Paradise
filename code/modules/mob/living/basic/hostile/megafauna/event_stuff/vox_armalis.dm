@@ -97,9 +97,9 @@
 	if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/A = target
 		if(A.density)
-			open()
+			A.open()
 		else
-			close()
+			A.close()
 		return
 	if(iswallturf(target))
 		return // We're not on kill intent. Don't smash.
@@ -136,14 +136,14 @@
 /obj/item/ammo_casing/caseless/heavy_spike
 	name = "heavy alloy spike"
 	desc = "A large broadhead spike made out of a weird silvery metal."
-	projectile_type = /obj/item/projectile/bullet/hspike
+	projectile_type = /obj/projectile/bullet/hspike
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/ammo_casing/caseless/spike_flechettes
 	name = "spike flechettes"
 	desc = "A cluster of loosely-packed alloy spikes."
-	projectile_type = /obj/item/projectile/bullet/fspike
+	projectile_type = /obj/projectile/bullet/fspike
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 	pellets = 5
@@ -152,11 +152,11 @@
 /obj/item/ammo_casing/caseless/spike_penetrator
 	name = "spike penetrator"
 	desc = "A dense alloy spike with a reinforced, sharpened tip."
-	projectile_type = /obj/item/projectile/bullet/pspike
+	projectile_type = /obj/projectile/bullet/pspike
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/projectile/bullet/hspike
+/obj/projectile/bullet/hspike
 	name = "heavy alloy spike"
 	desc = "It's about two feet of weird silvery metal with a wicked point."
 	damage = 35
@@ -164,14 +164,14 @@
 	armor_penetration_flat = 45
 	icon_state = "magspear"
 
-/obj/item/projectile/bullet/hspike/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/hspike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(75)
 		H.Immobilize(1 SECONDS)
 	..()
 
-/obj/item/projectile/bullet/fspike
+/obj/projectile/bullet/fspike
 	name = "alloy spike flechette"
 	desc = "A sharpened dart of silvery metal."
 	damage = 15
@@ -179,13 +179,13 @@
 	armor_penetration_flat = 15
 	icon_state = "magspear"
 
-/obj/item/projectile/bullet/fspike/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/fspike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(25)
 	..()
 
-/obj/item/projectile/bullet/pspike
+/obj/projectile/bullet/pspike
 	name = "alloy spike penetrator"
 	desc = "A 2-foot reinforced spike made of a silvery metal and sharpened to a dangerous point."
 	damage = 60
@@ -194,7 +194,7 @@
 	icon_state = "magspear"
 	forcedodge = 8
 
-/obj/item/projectile/bullet/pspike/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/pspike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(75)

@@ -66,14 +66,14 @@
 		final_burst = TRUE
 
 /// Proc used for various powers and spells
-/mob/living/basic/megafauna/bluespace_horror/proc/shoot_projectile(atom/target_atom, obj/item/projectile/thing_to_shoot, set_angle)
+/mob/living/basic/megafauna/bluespace_horror/proc/shoot_projectile(atom/target_atom, obj/projectile/thing_to_shoot, set_angle)
 	var/turf/startloc = get_turf(src)
 	var/turf/endloc = get_turf(target_atom)
 
 	if(!startloc || !endloc || endloc == loc)
 		return
 
-	var/obj/item/projectile/P = new thing_to_shoot(startloc)
+	var/obj/projectile/P = new thing_to_shoot(startloc)
 	P.preparePixelProjectile(endloc, startloc)
 	P.firer = src
 	P.firer_source_atom = src
@@ -122,7 +122,7 @@
 		// Shazam!
 		if(4)
 			for(var/mob/living/C in oview(get_turf(src), 1))
-				shoot_projectile(C, /obj/item/projectile/magic/lifesteal_bolt)
+				shoot_projectile(C, /obj/projectile/magic/lifesteal_bolt)
 			playsound(src, 'sound/magic/invoke_general.ogg', 200, TRUE, 2)
 		// Kablooey!
 		if(5)
@@ -144,12 +144,12 @@
 
 /obj/item/ammo_casing/caseless/bluespace_shards
 	name = "bluespace shards"
-	projectile_type = /obj/item/projectile/magic/bluespace_shards
+	projectile_type = /obj/projectile/magic/bluespace_shards
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	pellets = 4
 	variance = 90
 
-/obj/item/projectile/magic/bluespace_shards
+/obj/projectile/magic/bluespace_shards
 	name = "bluespace shard"
 	icon_state = "u_laser_alt"
 	damage = 20

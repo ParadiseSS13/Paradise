@@ -46,6 +46,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/horror_blink_dodge/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
+	. = ..()
 	var/datum/action/cooldown/mob_cooldown/bluespace_horror/blink/blink_action = controller.blackboard[action_key]
 	var/result = blink_action.Trigger()
 	if(result)
@@ -69,7 +70,7 @@
 			counter++
 			if(counter > 16)
 				counter = 1
-			var/obj/item/projectile/proj = pick(/obj/item/projectile/magic/lifesteal_bolt, /obj/item/projectile/magic/fireball, /obj/item/projectile/magic/magic_missile/lesser, /obj/item/projectile/magic/bluespace_shards)
+			var/obj/projectile/proj = pick(/obj/projectile/magic/lifesteal_bolt, /obj/projectile/magic/fireball, /obj/projectile/magic/magic_missile/lesser, /obj/projectile/magic/bluespace_shards)
 			user.shoot_projectile(start_turf, proj, counter * 22.5)
 			playsound(get_turf(user), 'sound/magic/staff_chaos.ogg', 50, TRUE)
 			sleep(1)

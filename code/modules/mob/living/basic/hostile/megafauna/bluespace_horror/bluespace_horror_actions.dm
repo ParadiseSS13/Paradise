@@ -103,14 +103,14 @@
 
 	for(var/T in RANGE_TURFS(12, horror.loc) - horror.loc)
 		if(prob(10))
-			horror.shoot_projectile(T, /obj/item/projectile/magic/magic_missile/lesser/horror)
+			horror.shoot_projectile(T, /obj/projectile/magic/magic_missile/lesser/horror)
 			playsound(horror, 'sound/magic/magic_missile.ogg', 40, TRUE)
 			sleep(1)
-	horror.shoot_projectile(target, /obj/item/projectile/magic/magic_missile/lesser/horror)
+	horror.shoot_projectile(target, /obj/projectile/magic/magic_missile/lesser/horror)
 	playsound(horror, 'sound/magic/magic_missile.ogg', 40, TRUE)
 	sleep(1)
 
-/obj/item/projectile/magic/magic_missile/lesser/horror
+/obj/projectile/magic/magic_missile/lesser/horror
 	damage = 15
 	damage_type = BRUTE
 	nodamage = FALSE
@@ -132,7 +132,7 @@
 
 	var/variance = -90
 	for(var/i in 1 to 5)
-		horror.shoot_projectile(target, /obj/item/projectile/magic/fireball, angle_to_target + variance)
+		horror.shoot_projectile(target, /obj/projectile/magic/fireball, angle_to_target + variance)
 		variance += 45
 	playsound(horror, 'sound/magic/fireball.ogg', 200, TRUE, 2)
 	sleep(1)
@@ -152,18 +152,18 @@
 	if(!istype(horror))
 		return
 
-	horror.shoot_projectile(target, /obj/item/projectile/magic/lifesteal_bolt)
+	horror.shoot_projectile(target, /obj/projectile/magic/lifesteal_bolt)
 	playsound(horror, 'sound/magic/invoke_general.ogg', 200, TRUE, 2)
 	sleep(1)
 
-/obj/item/projectile/magic/lifesteal_bolt
+/obj/projectile/magic/lifesteal_bolt
 	name = "lifesteal bolt"
 	icon_state = "arcane_barrage"
 	damage = 25
 	damage_type = BRUTE
 	nodamage = FALSE
 
-/obj/item/projectile/magic/lifesteal_bolt/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/lifesteal_bolt/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(!.)
 		return .

@@ -28,7 +28,7 @@
 	new /obj/effect/temp_visual/decoy/mephedrone_afterimage(old_loc, L, 1.25 SECONDS)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
-/datum/action/cooldown/mob_cooldown/vox_armalis/activate_qani/proc/dodge_bullets(mob/living/basic/megafauna/vox_armalis/armalis, obj/item/projectile/hitting_projectile)
+/datum/action/cooldown/mob_cooldown/vox_armalis/activate_qani/proc/dodge_bullets(mob/living/basic/megafauna/vox_armalis/armalis, obj/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(armalis, TRAIT_IMMOBILIZED))
