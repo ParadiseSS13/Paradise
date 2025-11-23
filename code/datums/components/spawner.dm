@@ -94,5 +94,5 @@
 		if(rallied.ventcrawler == VENTCRAWLER_ALWAYS)
 			return // Don't rally ventcrawlers - they might have to walk the entire station!
 		rallied.ai_controller.cancel_actions()
-		rallied.ai_controller.blackboard.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+		rallied.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 		rallied.ai_controller.queue_behavior(/datum/ai_behavior/return_to_portal, BB_INCURSION_HOME_PORTAL)
