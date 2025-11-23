@@ -80035,9 +80035,6 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "uYv" = (
-/obj/machinery/disposal/delivery_chute{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -80045,6 +80042,9 @@
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced,
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "uYE" = (
