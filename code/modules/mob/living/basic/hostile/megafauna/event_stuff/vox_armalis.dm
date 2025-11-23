@@ -23,7 +23,6 @@
 	casing_type = /obj/item/ammo_casing/caseless/heavy_spike
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
-	ranged_burst_interval = 0.2 SECONDS
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
 	initial_traits = list()
 	crusher_loot = list()
@@ -188,7 +187,6 @@
 /obj/projectile/bullet/pspike
 	name = "alloy spike penetrator"
 	desc = "A 2-foot reinforced spike made of a silvery metal and sharpened to a dangerous point."
-	damage = 60
 	knockdown = 4
 	armor_penetration_flat = 100
 	icon_state = "magspear"
