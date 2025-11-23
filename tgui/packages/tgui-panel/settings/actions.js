@@ -6,7 +6,7 @@
 
 import { createAction } from 'common/redux';
 
-import { createHighlightSetting } from './model';
+import { createBlacklistSetting, createHighlightSetting } from './model';
 
 export const updateSettings = createAction('settings/update');
 export const loadSettings = createAction('settings/load');
@@ -18,3 +18,8 @@ export const addHighlightSetting = createAction('settings/addHighlightSetting', 
 }));
 export const removeHighlightSetting = createAction('settings/removeHighlightSetting');
 export const updateHighlightSetting = createAction('settings/updateHighlightSetting');
+export const addBlacklistSetting = createAction('settings/addBlacklistSetting', () => ({
+  payload: createBlacklistSetting(),
+}));
+export const removeBlacklistSetting = createAction('settings/removeBlacklistSetting');
+export const updateBlacklistSetting = createAction('settings/updateBlacklistSetting');

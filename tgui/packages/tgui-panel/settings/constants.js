@@ -14,6 +14,10 @@ export const SETTINGS_TABS = [
     name: 'Text Highlights',
   },
   {
+    id: 'textBlacklist',
+    name: 'Text Blacklist',
+  },
+  {
     id: 'chatPage',
     name: 'Chat Tabs',
   },

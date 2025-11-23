@@ -491,6 +491,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("shotgun ammo box", /obj/item/storage/fancy/shell/empty, 2),
 	null,
 	new /datum/stack_recipe_list("chess pieces", list(
 		new /datum/stack_recipe("black pawn", /obj/item/chesspiece/bpawn, 1),

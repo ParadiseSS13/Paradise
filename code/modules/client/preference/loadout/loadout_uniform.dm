@@ -276,15 +276,63 @@
 	allowed_roles = list("Chief Engineer")
 
 //Research
+/datum/gear/uniform/sci
+	main_typepath = /datum/gear/uniform/sci
+
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
 	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
-	allowed_roles = list("Research Director","Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
+
+/datum/gear/uniform/sci/sci_alt
+	display_name = "Uniform, scientist corporate"
+	path = /obj/item/clothing/under/rank/rnd/scientist/corporate
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
+
+/datum/gear/uniform/skirt/job/sci_alt
+	display_name = "Skirt, scientist corporate"
+	path = /obj/item/clothing/under/rank/rnd/scientist/skirt/corporate
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/uniform/skirt/job/roboticist
 	display_name = "Skirt, roboticist"
 	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt
-	allowed_roles = list("Research Director","Roboticist")
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/sci/robo_alt
+	display_name = "Jumpsuit, bioengineer"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/corporate
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/skirt/job/robo_alt
+	display_name = "Skirt, bioengineer"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt/corporate
+	allowed_roles = list("Research Director", "Scientist")
+
+/datum/gear/uniform/sci/robo_corp
+	display_name = "Uniform, roboticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/corporate/alt
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/overalls/job/roboticist
+	display_name = "Overalls, roboticist"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/overalls
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/skirt/job/geneticist
+	display_name = "Skirt, geneticist"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/skirt
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/uniform/sci/gen_alt
+	display_name = "Uniform, geneticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/corporate
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/uniform/skirt/job/gen_alt
+	display_name = "Skirt, geneticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/skirt/corporate
+	allowed_roles = list("Research Director", "Geneticist")
 
 /datum/gear/uniform/skirt/job/rd
 	display_name = "Skirt, rd"
@@ -627,6 +675,10 @@
 /datum/gear/uniform/pants/caopants
 	display_name = "Pants, camo"
 	path = /obj/item/clothing/under/pants/camo
+
+/datum/gear/uniform/pants/cargo
+	display_name = "Pants, cargo"
+	path = /obj/item/clothing/under/pants/cargo
 
 /datum/gear/uniform/suit/tacticool
 	display_name = "Tacticool turtleneck"
