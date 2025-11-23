@@ -111,8 +111,7 @@
 			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
 			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
 			T.degenerate = TRUE
-		for(var/thing in GLOB.ts_spiderling_list)
-			var/mob/living/basic/spiderling/terror_spiderling/T = thing
+		for(var/mob/living/basic/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
 			if(T.spider_myqueen && T.spider_myqueen == src)
 				qdel(T)
 	return ..()
