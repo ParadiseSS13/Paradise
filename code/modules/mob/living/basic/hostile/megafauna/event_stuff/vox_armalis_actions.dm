@@ -51,3 +51,74 @@
 	armalis.next_move_modifier += 0.5
 	armalis.speed += 1
 	to_chat(armalis, "<span class='notice'>Your augments return to standard operation speeds as the suppressants wear off.</span>")
+
+/datum/action/cooldown/mob_cooldown/vox_armalis/swap_ammo
+	name = "Switch Ammunition"
+	button_icon = 'icons/obj/guns/energy.dmi'
+	button_icon_state = "noisecannon"
+	desc = "Switches the ammunition that your heavy spikethrower fires between spike, flechette, and AP sabot."
+	click_to_activate = FALSE
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	cooldown_time = 0 SECONDS
+	shared_cooldown = NONE
+	/// The type of ammunition
+	var/ammo_type = 1
+
+/datum/action/cooldown/mob_cooldown/vox_armalis/swap_ammo/Activate(atom/target)
+	var/mob/living/basic/megafauna/vox_armalis/armalis = owner
+	if(!istype(armalis))
+		return
+
+	var/datum/component/ranged_attacks/comp = armalis.GetComponent(/datum/component/ranged_attacks)
+	if(!comp)
+		return
+
+	playsound(src, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
+	switch(ammo_type)
+		if(1)
+			ammo_type++
+			comp.casing_type = /obj/item/ammo_casing/caseless/spike_flechettes
+			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to flechette shot.</span>")
+		if(2)
+			ammo_type++
+			comp.casing_type = /obj/item/ammo_casing/caseless/spike_penetrator
+			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to penetrating shot.</span>")
+		if(3)
+			ammo_type = 1
+			comp.casing_type = /obj/item/ammo_casing/caseless/hspike
+			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to heavy spike shot.</span>")
+	StartCooldown()
+
+/datum/action/cooldown/mob_cooldown/vox_armalis/ignite_claws
+	name = "Ignite Claws"
+	button_icon = 'icons/obj/weapons/energy_melee.dmi'
+	button_icon_state = "pyroclaws"
+	desc = "Switches your plasma claws on or off, increasing your damage but preventing you from knocking targets back."
+	click_to_activate = FALSE
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	cooldown_time = 0 SECONDS
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/vox_armalis/ignite_claws/Activate(atom/target)
+	var/mob/living/basic/megafauna/vox_armalis/armalis = owner
+	if(!istype(armalis))
+		return
+
+	if(armalis.plasma_claws)
+		armalis.plasma_claws = FALSE
+		armalis.melee_damage_lower = initial(armalis.melee_damage_lower)
+		armalis.melee_damage_upper = initial(armalis.melee_damage_upper)
+		armalis.attack_sound = initial(armalis.attack_sound)
+		armalis.attack_verb_simple = initial(armalis.attack_verb_simple)
+		armalis.attack_verb_continuous = initial(armalis.attack_verb_continuous)
+		playsound(src, 'sound/weapons/saberoff.ogg', 80, TRUE)
+	else
+		armalis.plasma_claws = TRUE
+		armalis.melee_damage_lower += 10
+		armalis.melee_damage_upper += 20
+		armalis.attack_sound = 'sound/weapons/blade1.ogg'
+		armalis.attack_verb_simple = "slash"
+		armalis.attack_verb_continuous = "slashes"
+		playsound(src, 'sound/weapons/saberon.ogg', 80, TRUE)
+	armalis.update_icon(UPDATE_OVERLAYS)
+	StartCooldown()

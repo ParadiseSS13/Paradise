@@ -9,10 +9,10 @@
 	speak_emote = list("creels")
 	melee_attack_cooldown_min = 1 SECONDS
 	damage_coeff = list(BRUTE = 0.2, BURN = 0.2, TOX = 0.2, CLONE = 0, STAMINA = 0, OXY = 0)
-	melee_damage_lower = 35
-	melee_damage_upper = 45
-	attack_verb_simple = "slice"
-	attack_verb_continuous = "slices"
+	melee_damage_lower = 25
+	melee_damage_upper = 30
+	attack_verb_simple = "punch"
+	attack_verb_continuous = "punches"
 	attack_sound ='sound/weapons/blade1.ogg'
 	response_help_continuous = "gestures at"
 	response_help_simple = "gesture at"
@@ -21,7 +21,7 @@
 	step_type = FOOTSTEP_MOB_SHOE
 	is_ranged = TRUE
 	casing_type = /obj/item/ammo_casing/caseless/heavy_spike
-	projectile_sound = 'sound/weapons/bladeslice.ogg'
+	projectile_sound = 'sound/weapons/resonator_blast.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.2 SECONDS
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
@@ -29,8 +29,13 @@
 	crusher_loot = list()
 	true_spawn = FALSE
 	innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/vox_armalis/swap_ammo,
 		/datum/action/cooldown/mob_cooldown/vox_armalis/activate_qani,
+		/datum/action/cooldown/mob_cooldown/vox_armalis/ignite_claws,
 	)
+	/// Are the claws on
+	var/plasma_claws = FALSE
+
 /mob/living/basic/megafauna/vox_armalis/Initialize(mapload)
 	. = ..()
 	add_language("Galactic Common")
@@ -45,6 +50,12 @@
 
 /mob/living/basic/megafauna/vox_armalis/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
+
+/mob/living/basic/megafauna/vox_armalis/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(plasma_claws)
+		. += "armalis_plasma_claws"
 
 /mob/living/basic/megafauna/vox_armalis/ex_act(severity)
 	switch(severity)
@@ -74,7 +85,7 @@
 
 /mob/living/basic/megafauna/vox_armalis/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(a_intent == INTENT_HARM)
-		if(ismob(target))
+		if(ismob(target) && !plasma_claws)
 			var/mob/dustlung = target
 			var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 			dustlung.throw_at(throw_target, 15, 9) // Like getting hit with a max-spool powerfist
