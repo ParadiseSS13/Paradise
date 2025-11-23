@@ -83196,6 +83196,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "wgT" = (
@@ -89048,16 +89050,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "yfo" = (
-/obj/structure/sign/deathsposal{
-	pixel_y = 32
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
