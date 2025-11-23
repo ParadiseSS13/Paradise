@@ -104,6 +104,8 @@
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)
 	for(var/mob/living/basic/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
+		if(!istype(T))
+			continue
 		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 

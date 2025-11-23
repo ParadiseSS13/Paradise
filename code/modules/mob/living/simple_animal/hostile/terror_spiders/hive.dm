@@ -57,6 +57,8 @@
 			spider_totals[E.spiderling_type] = E.spiderling_number
 		spider_totals["all"] += E.spiderling_number
 	for(var/thing in GLOB.ts_spiderling_list)
+		if(!istype(thing, /mob/living/basic/spiderling/terror_spiderling))
+			continue
 		var/mob/living/basic/spiderling/terror_spiderling/L = thing
 		if(L.stillborn)
 			continue
