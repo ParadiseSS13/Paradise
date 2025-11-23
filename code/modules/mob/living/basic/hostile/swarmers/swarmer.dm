@@ -304,7 +304,7 @@
 	name = "swarmer ui"
 	desc = null
 	icon = 'icons/mob/swarmer.dmi'
-	icon_state = "ui_light"
+	icon_state = "barricade"
 	layer = MOB_LAYER
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
