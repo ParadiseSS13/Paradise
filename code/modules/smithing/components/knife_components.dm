@@ -33,7 +33,6 @@
 /obj/item/smithed_item/component/knife_handle/utility
 	name = "utility knife handle"
 	desc = "Smithed component part of a utility knife. The handle fits comfortably in your hand."
-	icon_state = "knife_handle"
 	materials = list(MAT_METAL = 6000)
 	finished_product = /obj/item/kitchen/knife/smithed/utility
 

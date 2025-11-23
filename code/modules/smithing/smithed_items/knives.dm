@@ -3,7 +3,6 @@
 	desc = "This is bad. If you see me, notify development."
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
-	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 
 	new_attack_chain = TRUE
