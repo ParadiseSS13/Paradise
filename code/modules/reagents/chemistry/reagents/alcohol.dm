@@ -1240,11 +1240,12 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
-	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
-		if(prob(25))
-			metabolization_rate += 15
-			M.fakevomit()
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
+		return ..()
+	metabolization_rate += 3.6 //gets removed from organics very fast
+	if(prob(25))
+		metabolization_rate += 15
+		M.fakevomit()
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -1422,13 +1423,13 @@
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R == src)
-			M.reagents.remove_reagent(R.id,2)
+			M.reagents.remove_reagent(R.id, 2)
 			continue
 		if(R.id == "ultralube" || R.id == "lube")
 			//Flushes lube and ultra-lube even faster than other chems
-			M.reagents.remove_reagent(R.id,10)
+			M.reagents.remove_reagent(R.id, 10)
 		else
-			M.reagents.remove_reagent(R.id,4)
+			M.reagents.remove_reagent(R.id, 4)
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/overclock_somewhere

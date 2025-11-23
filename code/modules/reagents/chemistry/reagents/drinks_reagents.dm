@@ -1046,7 +1046,6 @@
 	if(drop)
 		if(drop.amount < 5)
 			drop.amount++
-			drop.reagents.add_reagent("zero_day", 1)
 			var/image/I = image(drop.icon, drop.random_icon_states)
 			I.icon += drop.basecolor
 			drop.overlays |= I
@@ -1054,7 +1053,6 @@
 			drop.update_icon()
 	else
 		drop = new drop_type(T, color)
-		drop.reagents.add_reagent("zero_day", 1)
 		drop.desc = "Looks like someone spilled their drink."
 		drop.update_icon()
 	COOLDOWN_START(src, drip_cooldown, 2.6 SECONDS)
@@ -1071,11 +1069,12 @@
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
-	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
-		if(prob(25))
-			metabolization_rate += 15
-			M.fakevomit()
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
+		return ..()
+	metabolization_rate += 3.6 //gets removed from organics very fast
+	if(prob(25))
+		metabolization_rate += 15
+		M.fakevomit()
 	return ..()
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/ginger_beep
@@ -1281,11 +1280,11 @@
 		M.AdjustConfused(-5 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R == src)
-			M.reagents.remove_reagent(R.id,1)
+			M.reagents.remove_reagent(R.id, 1)
 			continue
 		if(R.id == "ultralube" || R.id == "lube")
 			//Flushes lube and ultra-lube even faster than other chems
-			M.reagents.remove_reagent(R.id,5)
+			M.reagents.remove_reagent(R.id, 5)
 		else
-			M.reagents.remove_reagent(R.id,2)
+			M.reagents.remove_reagent(R.id, 2)
 	return ..()
