@@ -134,7 +134,6 @@
 	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/return_to_portal
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/return_to_portal/setup(datum/ai_controller/controller, target_key)
