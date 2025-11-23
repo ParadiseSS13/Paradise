@@ -99,6 +99,7 @@
 	desc = "It's got a bone to pick with you."
 	health = 75
 	maxHealth = 75
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/basic/skeleton/incursion/Initialize(mapload)
 	. = ..()
