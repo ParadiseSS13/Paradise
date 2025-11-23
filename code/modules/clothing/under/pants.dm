@@ -86,6 +86,11 @@
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
 
+/obj/item/clothing/under/pants/cargo
+	name = "cargo pants"
+	desc = "A pair of baggy cargo pants. Not affiliated with the Cargo department."
+	icon_state = "cargopants"
+
 //Shorts ARE pants, right?
 /obj/item/clothing/under/pants/shorts
 	name = "athletic shorts"

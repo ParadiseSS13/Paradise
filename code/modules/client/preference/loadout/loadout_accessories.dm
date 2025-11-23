@@ -131,7 +131,7 @@
 /datum/gear/accessory/armband_job/sci
 	display_name = "Armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list("Research Director","Scientist", "Roboticist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Geneticist", "Xenobiologist")
 
 /datum/gear/accessory/armband_job/procedure
 	display_name = "Armband, procedure"
