@@ -243,6 +243,7 @@
 		product.material = trim.material
 		product.set_stats()
 		product.update_appearance(UPDATE_NAME)
+		product.update_icon(UPDATE_OVERLAYS)
 		finished_product = product
 	qdel(primary)
 	qdel(secondary)

@@ -31,7 +31,6 @@
 /obj/item/kitchen/knife/smithed/Initialize(mapload)
 	. = ..()
 	set_name()
-	set_stats()
 
 /obj/item/kitchen/knife/smithed/proc/set_name()
 	if(!quality)
@@ -70,6 +69,10 @@
 		return
 	. += wrap_type.wrap_overlay
 
+/obj/item/kitchen/knife/smithed/update_name()
+	. = ..()
+	set_name()
+
 /obj/item/kitchen/knife/smithed/proc/attach_wrapping(datum/handle_wrapping/wrap)
 	force += wrap.force_increase
 	throwforce += wrap.throw_force_increase
@@ -85,7 +88,7 @@
 	toolspeed -= wrap_type.speed_mod
 	bit_productivity_mod -= wrap_type.productivity_mod
 	embed_chance -= wrap_type.embed_chance_increase
-	QDEL_NULL(wrap_type)
+	wrap_type = null
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/kitchen/knife/smithed/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -97,23 +100,22 @@
 		to_chat(user, "<span class='warning'>There is already a wrap on [src]!</span>")
 		return ITEM_INTERACT_COMPLETE
 	var/wrap_to_attach
-	switch(stacked_item.type)
-		if(/obj/item/stack/cable_coil)
-			wrap_to_attach = /datum/handle_wrapping/cable
-		if(/obj/item/stack/sheet/cloth)
-			wrap_to_attach = /datum/handle_wrapping/cloth
-		if(/obj/item/stack/sheet/durathread)
-			wrap_to_attach = /datum/handle_wrapping/durathread
-		if(/obj/item/stack/sheet/leather)
-			wrap_to_attach = /datum/handle_wrapping/leather
-		if(/obj/item/stack/sheet/animalhide/goliath_hide)
-			wrap_to_attach = /datum/handle_wrapping/goliath_hide
-		if(/obj/item/stack/sheet/mothsilk)
-			wrap_to_attach = /datum/handle_wrapping/mothsilk
-		else
-			to_chat(user, "<span class='warning'>You cannot wrap [stacked_item] around [src]!</span>")
-			return ITEM_INTERACT_COMPLETE
-	if(do_after_once(user, 10 SECONDS, target = src))
+	if(istype(stacked_item, /obj/item/stack/cable_coil))
+		wrap_to_attach = /datum/handle_wrapping/cable
+	if(istype(stacked_item, /obj/item/stack/sheet/cloth))
+		wrap_to_attach = /datum/handle_wrapping/cloth
+	if(istype(stacked_item, /obj/item/stack/sheet/durathread))
+		wrap_to_attach = /datum/handle_wrapping/durathread
+	if(istype(stacked_item, /obj/item/stack/sheet/leather))
+		wrap_to_attach = /datum/handle_wrapping/leather
+	if(istype(stacked_item, /obj/item/stack/sheet/animalhide/goliath_hide))
+		wrap_to_attach = /datum/handle_wrapping/goliath_hide
+	if(istype(stacked_item, /obj/item/stack/sheet/mothsilk))
+		wrap_to_attach = /datum/handle_wrapping/mothsilk
+	if(!wrap_to_attach)
+		to_chat(user, "<span class='warning'>You cannot wrap [stacked_item] around [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(do_after_once(user, 5 SECONDS, target = src))
 		if(stacked_item.use(5))
 			attach_wrapping(wrap_to_attach)
 			return ITEM_INTERACT_COMPLETE
