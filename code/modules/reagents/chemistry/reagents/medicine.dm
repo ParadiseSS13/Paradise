@@ -1462,7 +1462,7 @@
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
+				// Flushes lube and ultra-lube even faster than other chems
 				M.reagents.remove_reagent(R.id, 5)
 			else
 				M.reagents.remove_reagent(R.id, 1)

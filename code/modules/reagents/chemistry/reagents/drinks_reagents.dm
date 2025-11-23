@@ -1071,7 +1071,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return ..()
-	metabolization_rate += 3.6 //gets removed from organics very fast
+	metabolization_rate += 3.6 // gets removed from organics very fast
 	if(prob(25))
 		metabolization_rate += 15
 		M.fakevomit()
@@ -1114,7 +1114,7 @@
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		return ..()
 	var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
-	if(!istype(microbattery)) //if there's no microbattery don't bother
+	if(!istype(microbattery)) // if there's no microbattery don't bother
 		return ..()
 	if(M.nutrition > NUTRITION_LEVEL_FULL && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
 		do_sparks(2, FALSE, M)
@@ -1123,12 +1123,12 @@
 			"<span class='notice'>You feel a little <i>too</i> charged up.</span>",
 			"<span class='notice'>Something fizzles nearby.</span>"
 		)
-		microbattery.receive_damage(2, TRUE) //this drink is not great for you when you're already charged
+		microbattery.receive_damage(2, TRUE) // this drink is not great for you when you're already charged
 		COOLDOWN_START(src, drink_overcharge_cooldown, 30 SECONDS)
 	if(M.nutrition < NUTRITION_LEVEL_WELL_FED)
 		M.nutrition += 1
 	if(M.nutrition < NUTRITION_LEVEL_HUNGRY)
-		metabolization_rate += 0.8 //charging triple means burning through triple
+		metabolization_rate += 0.8 // charging triple means burning through triple
 		M.nutrition += 2
 		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
 			to_chat(M, "<span class='notice'>You feel relief surging through your wires!</span>")
@@ -1169,7 +1169,7 @@
 /datum/reagent/consumable/drink/bubbly_beep/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 3.6 // gets removed from organics very fast
 		if(prob(50))
 			metabolization_rate += 30
 			M.fakevomit()
@@ -1196,7 +1196,7 @@
 /datum/reagent/consumable/drink/tin_and_tonic/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 3.6 // gets removed from organics very fast
 		return ..()
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBrainLoss(-0.5, FALSE)
@@ -1216,7 +1216,7 @@
 /datum/reagent/consumable/drink/salt_and_battery/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 3.6 // gets removed from organics very fast
 		if(prob(15))
 			metabolization_rate += 15
 			M.fakevomit()
@@ -1256,7 +1256,7 @@
 
 /datum/reagent/consumable/drink/soft_reset/on_mob_life(mob/living/M)
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 3.6 // gets removed from organics very fast
 		if(prob(50))
 			metabolization_rate += 30
 			M.fakevomit()
@@ -1274,7 +1274,7 @@
 		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
 		M.Paralyse(3 SECONDS)
 		M.Drowsy(10 SECONDS)
-		metabolization_rate += 2.6 //get rid of it faster after rebooting
+		metabolization_rate += 2.6 // get rid of it faster after rebooting
 		COOLDOWN_START(src, reboot_cooldown, 10 MINUTES)
 	if(prob(50))
 		M.AdjustConfused(-5 SECONDS)
@@ -1283,7 +1283,7 @@
 			M.reagents.remove_reagent(R.id, 1)
 			continue
 		if(R.id == "ultralube" || R.id == "lube")
-			//Flushes lube and ultra-lube even faster than other chems
+			// Flushes lube and ultra-lube even faster than other chems
 			M.reagents.remove_reagent(R.id, 5)
 		else
 			M.reagents.remove_reagent(R.id, 2)

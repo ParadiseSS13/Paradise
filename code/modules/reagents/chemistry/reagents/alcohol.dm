@@ -1242,7 +1242,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return ..()
-	metabolization_rate += 3.6 //gets removed from organics very fast
+	metabolization_rate += 3.6 // gets removed from organics very fast
 	if(prob(25))
 		metabolization_rate += 15
 		M.fakevomit()
@@ -1417,7 +1417,7 @@
 		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
 		M.Paralyse(5 SECONDS)
 		M.Drowsy(20 SECONDS)
-		metabolization_rate += 4.6 //get rid of it faster after rebooting
+		metabolization_rate += 4.6 // get rid of it faster after rebooting
 		COOLDOWN_START(src, reboot_cooldown, 5 MINUTES)
 	if(prob(50))
 		M.AdjustConfused(-10 SECONDS)
@@ -1426,7 +1426,7 @@
 			M.reagents.remove_reagent(R.id, 2)
 			continue
 		if(R.id == "ultralube" || R.id == "lube")
-			//Flushes lube and ultra-lube even faster than other chems
+			// Flushes lube and ultra-lube even faster than other chems
 			M.reagents.remove_reagent(R.id, 10)
 		else
 			M.reagents.remove_reagent(R.id, 4)
