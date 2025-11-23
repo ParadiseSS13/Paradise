@@ -26494,7 +26494,7 @@
 	name = "Containment Control"
 	},
 /obj/item/storage/bag/bio,
-/obj/item/slime_extract,
+/obj/item/slime_extract/grey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -39337,7 +39337,7 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
 "gxn" = (
-/obj/item/slime_extract,
+/obj/item/slime_extract/grey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
