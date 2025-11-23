@@ -52561,6 +52561,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "lcc" = (
