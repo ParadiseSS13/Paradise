@@ -1,7 +1,7 @@
 GENERAL_PROTECT_DATUM(/datum/user_verb)
 
 /**
- * This is the admin verb datum. It is used to store the verb's information and handle the verb's functionality.
+ * This is the user verb datum. It is used to store the verb's information and handle the verb's functionality.
  * All of this is setup for you, and you should not be defining this manually.
  * That means you reader.
  */
@@ -18,10 +18,10 @@ GENERAL_PROTECT_DATUM(/datum/user_verb)
 		return QDEL_HINT_LETMELIVE
 	return ..()
 
-/// Assigns the verb to the admin.
-/datum/user_verb/proc/assign_to_client(client/admin)
-	add_verb(admin, verb_path)
+/// Assigns the verb to the user.
+/datum/user_verb/proc/assign_to_client(client/user)
+	add_verb(user, verb_path)
 
-/// Unassigns the verb from the admin.
-/datum/user_verb/proc/unassign_from_client(client/admin)
-	remove_verb(admin, verb_path)
+/// Unassigns the verb from the user.
+/datum/user_verb/proc/unassign_from_client(client/user)
+	remove_verb(user, verb_path)

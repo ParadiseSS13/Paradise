@@ -1,8 +1,8 @@
 /client/proc/add_user_verbs()
-	SSuser_verbs.associate_admin(src)
+	SSuser_verbs.associate(src)
 
 /client/proc/remove_user_verbs()
-	SSuser_verbs.deassociate_admin(src)
+	SSuser_verbs.deassociate(src)
 
 USER_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin verbs.", VERB_CATEGORY_ADMIN)
 	client.remove_user_verbs()
