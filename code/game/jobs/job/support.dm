@@ -466,6 +466,11 @@
 		H.dna.SetSEState(GLOB.comicblock, TRUE)
 		singlemutcheck(H, GLOB.comicblock, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(GLOB.comicblock)
+
+	H.dna.species.exotic_blood = "banana"
+	H.dna.species.blood_color = "#F6F834"
+	H.dna.blood_type = "Banana juice"
+
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
 	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
