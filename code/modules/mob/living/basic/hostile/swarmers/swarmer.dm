@@ -357,7 +357,6 @@
 /obj/structure/swarmer/barricade
 	name = "swarmer barricade"
 	desc = "A quickly assembled energy barricade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
-	icon_state = "barricade"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
