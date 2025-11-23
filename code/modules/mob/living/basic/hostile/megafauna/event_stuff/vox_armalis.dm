@@ -13,7 +13,7 @@
 	melee_damage_upper = 30
 	attack_verb_simple = "punch"
 	attack_verb_continuous = "punches"
-	attack_sound ='sound/weapons/blade1.ogg'
+	attack_sound = 'sound/weapons/resonator_blast.ogg'
 	response_help_continuous = "gestures at"
 	response_help_simple = "gesture at"
 	move_force = MOVE_FORCE_NORMAL
@@ -21,7 +21,7 @@
 	step_type = FOOTSTEP_MOB_SHOE
 	is_ranged = TRUE
 	casing_type = /obj/item/ammo_casing/caseless/heavy_spike
-	projectile_sound = 'sound/weapons/resonator_blast.ogg'
+	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.2 SECONDS
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
@@ -94,6 +94,13 @@
 		var/obj/machinery/door/airlock/A = target
 		try_open_airlock(A)
 		return
+	if(istype(target, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/A = target
+		if(A.density)
+			open()
+		else
+			close()
+		return
 	if(iswallturf(target))
 		return // We're not on kill intent. Don't smash.
 	if(ismachinery(target)) // We can interface with machines!
@@ -162,7 +169,6 @@
 		var/mob/living/carbon/human/H = target
 		H.bleed(75)
 		H.Immobilize(1 SECONDS)
-		to_chat("<span class='userdanger'>[src] pins you to the floor!</span>")
 	..()
 
 /obj/item/projectile/bullet/fspike

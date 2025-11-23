@@ -73,27 +73,33 @@
 	if(!comp)
 		return
 
-	playsound(src, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
+	playsound(armalis, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	switch(ammo_type)
 		if(1)
 			ammo_type++
 			comp.casing_type = /obj/item/ammo_casing/caseless/spike_flechettes
+			comp.burst_shots = 1
+			comp.cooldown_time = 0.5 SECONDS
 			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to flechette shot.</span>")
 		if(2)
 			ammo_type++
 			comp.casing_type = /obj/item/ammo_casing/caseless/spike_penetrator
+			comp.burst_shots = 1
+			comp.cooldown_time = 1 SECONDS
 			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to penetrating shot.</span>")
 		if(3)
 			ammo_type = 1
-			comp.casing_type = /obj/item/ammo_casing/caseless/hspike
+			comp.casing_type = /obj/item/ammo_casing/caseless/heavy_spike
+			comp.burst_shots = 2
+			comp.cooldown_time = 0.5 SECONDS
 			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to heavy spike shot.</span>")
 	StartCooldown()
 
 /datum/action/cooldown/mob_cooldown/vox_armalis/ignite_claws
-	name = "Ignite Claws"
+	name = "Toggle Plasma Talons"
 	button_icon = 'icons/obj/weapons/energy_melee.dmi'
-	button_icon_state = "pyroclaws"
-	desc = "Switches your plasma claws on or off, increasing your damage but preventing you from knocking targets back."
+	button_icon_state = "pyro_claws"
+	desc = "Switches your plasma talons on or off, increasing your damage but preventing you from knocking targets back."
 	click_to_activate = FALSE
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
 	cooldown_time = 0 SECONDS
@@ -111,7 +117,8 @@
 		armalis.attack_sound = initial(armalis.attack_sound)
 		armalis.attack_verb_simple = initial(armalis.attack_verb_simple)
 		armalis.attack_verb_continuous = initial(armalis.attack_verb_continuous)
-		playsound(src, 'sound/weapons/saberoff.ogg', 80, TRUE)
+		playsound(armalis, 'sound/weapons/saberoff.ogg', 80, TRUE)
+		to_chat(armalis, "<span class='notice'>You switch off your plasma talons.</span>")
 	else
 		armalis.plasma_claws = TRUE
 		armalis.melee_damage_lower += 10
@@ -119,6 +126,7 @@
 		armalis.attack_sound = 'sound/weapons/blade1.ogg'
 		armalis.attack_verb_simple = "slash"
 		armalis.attack_verb_continuous = "slashes"
-		playsound(src, 'sound/weapons/saberon.ogg', 80, TRUE)
+		playsound(armalis, 'sound/weapons/saberon.ogg', 80, TRUE)
+		to_chat(armalis, "<span class='warning'>You switch on your plasma talons.</span>")
 	armalis.update_icon(UPDATE_OVERLAYS)
 	StartCooldown()
