@@ -95,6 +95,8 @@
 	/// Same as tail but wing
 	var/wing
 
+	var/tail_wagging = FALSE
+
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
 
