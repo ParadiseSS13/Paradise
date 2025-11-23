@@ -11,9 +11,9 @@
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
 	if(!torn)
-		. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
+		. += SPAN_NOTICE("<b>Use this item in hand</b> to create an inflatable wall.")
 	else
-		. += "<span class='warning'>[src] is torn and cannot hold air anymore. It's completely useless now.</span>"
+		. += SPAN_WARNING("[src] is torn and cannot hold air anymore. It's completely useless now.")
 
 
 /obj/item/inflatable/activate_self(mob/user)
@@ -22,15 +22,15 @@
 
 	if(torn)
 		add_fingerprint(user)
-		to_chat(user, "<span class='warning'>[src] cannot be inflated anymore!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be inflated anymore!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(locate(/obj/structure/inflatable) in get_turf(user))
-		to_chat(user, "<span class='warning'>There's already an inflatable structure here!</span>")
+		to_chat(user, SPAN_WARNING("There's already an inflatable structure here!"))
 		return ITEM_INTERACT_COMPLETE
 
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, SPAN_NOTICE("You inflate [src]."))
 	var/obj/structure/inflatable/R = new structure_type(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -56,7 +56,7 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to deflate [src].")
 
 /obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
@@ -210,7 +210,7 @@
 
 /obj/item/inflatable/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you will synthesise these directly from your cell's energy reserves.</span>"
+	. += SPAN_NOTICE("As a synthetic, you will synthesise these directly from your cell's energy reserves.")
 
 /obj/item/inflatable/cyborg/activate_self(mob/user)
 	if(!do_after(user, delay, FALSE, user))
@@ -227,7 +227,7 @@
 
 	var/mob/living/silicon/robot/R = user
 	if(R.cell.charge < power_cost)
-		to_chat(user, "<span class='warning'>Not enough power!</span>")
+		to_chat(user, SPAN_WARNING("Not enough power!"))
 		return FALSE
 
 	return R.cell.use(power_cost)

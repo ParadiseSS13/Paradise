@@ -89,14 +89,14 @@
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
+			to_chat(user, SPAN_NOTICE("You [ locked ? "lock" : "unlock"] \the [src] behaviour controls."))
 		else
 			if(emagged)
-				to_chat(user, "<span class='warning'>ERROR</span>")
+				to_chat(user, SPAN_WARNING("ERROR"))
 			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
+				to_chat(user, SPAN_WARNING("Please close the access panel before locking it."))
 			else
-				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
+				to_chat(user, SPAN_NOTICE("\The [src] doesn't seem to respect your authority."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -106,7 +106,7 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, SPAN_DANGER("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	if(!(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood)))
@@ -132,7 +132,7 @@
 				T.MakeSlippery()
 
 			if(prob(5)) //Spawns foam!
-				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
+				visible_message(SPAN_DANGER("[src] whirs and bubbles violently, before releasing a plume of froth!"))
 				new /obj/effect/particle_effect/foam(loc)
 
 	else if(prob(5))
@@ -185,7 +185,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
+	visible_message(SPAN_NOTICE("[src] begins to clean up [target]"))
 	set_mode(BOT_CLEANING)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
@@ -200,7 +200,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -233,7 +233,7 @@
 	if(..())
 		return
 	if(action != "area" && topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE

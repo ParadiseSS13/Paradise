@@ -54,7 +54,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		// absolutely not
 		if(findtextEx(trim(lowertext(procname)), "rustg"))
-			message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs. Inform the host <u>at once</u>.</span>")
+			message_admins(SPAN_USERDANGER("[key_name_admin(src)] attempted to proc call rust-g procs. Inform the host <u>at once</u>."))
 			log_admin("[key_name(src)] attempted to proc call rust-g procs. Inform the host at once.")
 			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call rustg things. Inform the host at once.")
 			return
@@ -121,10 +121,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
 	if(current_caller && current_caller != ckey)
 		if(!GLOB.AdminProcCallSpamPrevention[ckey])
-			to_chat(usr, "<span class='userdanger'>Another set of admin called procs are still running, your proc will be run after theirs finish.</span>")
+			to_chat(usr, SPAN_USERDANGER("Another set of admin called procs are still running, your proc will be run after theirs finish."))
 			GLOB.AdminProcCallSpamPrevention[ckey] = TRUE
 			UNTIL(!GLOB.AdminProcCaller)
-			to_chat(usr, "<span class='userdanger'>Running your proc</span>")
+			to_chat(usr, SPAN_USERDANGER("Running your proc"))
 			GLOB.AdminProcCallSpamPrevention -= ckey
 		else
 			UNTIL(!GLOB.AdminProcCaller)
@@ -136,7 +136,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	try
 		. = world.WrapAdminProcCall(target, procname, arguments)
 	catch(var/exception/e)
-		to_chat(usr, "<span class='userdanger'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you. Runtime Info: [e.file]:[e.line]: [e.name]</span>")
+		to_chat(usr, SPAN_USERDANGER("Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you. Runtime Info: [e.file]:[e.line]: [e.name]"))
 
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null
@@ -148,7 +148,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		to_chat(usr, "<span class='boldannounceooc'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Call to world/proc/[procname] blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
@@ -166,7 +166,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
-		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		message_admins(SPAN_USERDANGER("[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>."))
 		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
 		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
 		return
@@ -176,7 +176,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
+		to_chat(usr, SPAN_WARNING("Error: callproc_datum(): target has no such call [procname]."))
 		return
 
 	var/list/lst = get_callproc_args()
@@ -184,14 +184,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!A || !IsValidSrc(A))
-		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
+		to_chat(src, SPAN_WARNING("Error: callproc_datum(): owner of proc no longer exists."))
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
+		to_chat(src, SPAN_NOTICE("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -335,7 +335,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			M:Alienize()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into an alien.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] made [key_name(M)] into an alien."), 1)
 	else
 		alert("Invalid mob")
 
@@ -355,7 +355,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			M:slimeize()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into a slime.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a slime.</span>", 1)
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] made [key_name(M)] into a slime."), 1)
 	else
 		alert("Invalid mob")
 
@@ -375,7 +375,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(S)
 			S.create(M)
 		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a Superhero.</span>", 1)
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] made [key_name(M)] into a Superhero."), 1)
 	else
 		alert("Invalid mob")
 
@@ -444,7 +444,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		alert("Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(src)] has granted [M.key] full access.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has granted [M.key] full access."), 1)
 
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = "Admin"
@@ -460,7 +460,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
 			ghost.ckey = M.ckey
-	message_admins("<span class='notice'>[key_name_admin(usr)] assumed direct control of [M].</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] assumed direct control of [M]."), 1)
 	log_admin("[key_name(usr)] assumed direct control of [M].")
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
@@ -619,7 +619,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
-	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode]."), 1)
 
 /client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
@@ -897,10 +897,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(byond_version < 516)
-		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
+		to_chat(src, SPAN_WARNING("You can only use this on 516!"))
 		return
 
-	to_chat(src, "<span class='notice'>You can now right click to use inspect on browsers.</span>")
+	to_chat(src, SPAN_NOTICE("You can now right click to use inspect on browsers."))
 	winset(src, "", "browser-options=byondstorage,find,devtools")
 
 /client/proc/cmd_clean_radiation()
@@ -931,7 +931,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
 		return
 	if(!length(GLOB.bug_reports))
-		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
+		to_chat(usr, SPAN_WARNING("There are no bug reports to view"))
 		return
 	var/list/bug_report_selection = list()
 	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)

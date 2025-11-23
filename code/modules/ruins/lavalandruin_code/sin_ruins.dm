@@ -41,8 +41,8 @@
 		return
 
 	user.visible_message(
-		"<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>",
-		"<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
+		SPAN_WARNING("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"),
+		SPAN_WARNING("You feel a draining as you pull the lever, but you know it'll be worth it."))
 
 	icon_screen = "slots_screen_working"
 	update_appearance()
@@ -58,13 +58,13 @@
 /// Validates that the user can use the cursed slot machine. User is the person using the slot machine. Returns TRUE if we can, FALSE otherwise.
 /obj/structure/cursed_slot_machine/proc/check_and_set_usage(mob/living/carbon/human/user)
 	if(in_active_use)
-		to_chat(user, "<span class='warning'>The machine is already spinning!</span>")
+		to_chat(user, SPAN_WARNING("The machine is already spinning!"))
 		return FALSE
 
 	var/signal_value = SEND_SIGNAL(user, COMSIG_CURSED_SLOT_MACHINE_USE, max_curse_amount)
 
 	if(!COOLDOWN_FINISHED(src, spin_cooldown) || (signal_value & SLOT_MACHINE_USE_POSTPONE))
-		to_chat(user, "<span class='danger'>The machine doesn't engage. You get the compulsion to try again in a few seconds.</span>")
+		to_chat(user, SPAN_DANGER("The machine doesn't engage. You get the compulsion to try again in a few seconds."))
 		return FALSE
 
 	if(signal_value & SLOT_MACHINE_USE_CANCEL) // failsafe in case we don't want to let the machine be used for some reason (like if we're maxed out on curses but not getting gibbed)
@@ -92,7 +92,7 @@
 	playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, FALSE)
 	new prize(get_turf(src))
 	if(user)
-		to_chat(user, "<span class='boldwarning'>You've hit the jackpot!!! Laughter echoes around you as your reward appears in the machine's place.</span>")
+		to_chat(user, SPAN_BOLDWARNING("You've hit the jackpot!!! Laughter echoes around you as your reward appears in the machine's place."))
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CURSED_SLOT_MACHINE_WON)
 	qdel(src)
@@ -120,7 +120,7 @@
 
 	user.visible_message("<span class='warning'>[user] opens the bag and \
 		and removes a die. The bag then vanishes.</span>",
-		"<span class='boldwarning'>You open the bag...!</span>\n\
+		"[SPAN_BOLDWARNING("You open the bag...!")]\n\
 		<span class='danger'>And see a bag full of dice. Confused, \
 		you take one... and the bag vanishes.</span>")
 	var/turf/T = get_turf(user)
@@ -142,10 +142,10 @@
 	if(ishuman(mover))
 		var/mob/living/carbon/human/H = mover
 		if(H.nutrition >= NUTRITION_LEVEL_FAT || HAS_TRAIT(H, TRAIT_FAT))
-			H.visible_message("<span class='warning'>[H] pushes through [src]!</span>", "<span class='notice'>You've seen and eaten worse than this.</span>")
+			H.visible_message(SPAN_WARNING("[H] pushes through [src]!"), SPAN_NOTICE("You've seen and eaten worse than this."))
 			return TRUE
 		else
-			to_chat(H, "<span class='warning'>You're repulsed by even looking at [src]. Only a pig could force themselves to go through it.</span>")
+			to_chat(H, SPAN_WARNING("You're repulsed by even looking at [src]. Only a pig could force themselves to go through it."))
 	if(ismorph(mover))
 		return TRUE
 	else
@@ -158,15 +158,15 @@
 	desc = "Pride cometh before the..."
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><b>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</b></span>", \
-	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
+	user.visible_message(SPAN_DANGER("<b>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</b>"), \
+	SPAN_NOTICE("Perfect. Much better! Now <i>nobody</i> will be able to resist yo-"))
 
 	var/turf/T = get_turf(user)
 	if(!user.Adjacent(src)) // Trying to escape?
 		var/turf/return_turf = locate(x, y - 1, z) // To the south one to account for the fact the mirror is on a wall
 		var/mob/living/carbon/human/fool = user
 		if(return_turf && fool)
-			to_chat(fool, "<span class='colossus'><b>You dare try to play me for a fool?</b></span>")
+			to_chat(fool, SPAN_COLOSSUS("<b>You dare try to play me for a fool?</b>"))
 			fool.monkeyize()
 			fool.forceMove(return_turf)
 			return
@@ -197,8 +197,8 @@
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
-			user.visible_message("<span class='warning'>[user]'s appearance shifts into [H]'s!</span>", \
-			"<span class='boldannounceic'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>")
+			user.visible_message(SPAN_WARNING("[user]'s appearance shifts into [H]'s!"), \
+			SPAN_BOLDANNOUNCEIC("[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't."))
 
 // Sloth
 /obj/item/paper/fluff/stations/lavaland/sloth/note

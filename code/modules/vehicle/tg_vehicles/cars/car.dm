@@ -31,7 +31,7 @@
 		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(user) && M != user)
 		var/mob/living/kidnapped = M
-		kidnapped.visible_message("<span class='warning'>[user] starts forcing [kidnapped] into [src]!</span>")
+		kidnapped.visible_message(SPAN_WARNING("[user] starts forcing [kidnapped] into [src]!"))
 		mob_try_forced_enter(user, kidnapped)
 	return ..()
 
@@ -40,10 +40,10 @@
 		mob_exit(future_pedestrian, silent)
 		return TRUE
 	if(escape_time > 0)
-		to_chat(user, "<span class='notice'>You push against the back of \the [src]'s trunk to try and get out.</span>")
+		to_chat(user, SPAN_NOTICE("You push against the back of \the [src]'s trunk to try and get out."))
 		if(!do_after(user, escape_time, target = src))
 			return FALSE
-	to_chat(user, "<span class='danger'>[user] gets out of [src].</span>")
+	to_chat(user, SPAN_DANGER("[user] gets out of [src]."))
 	mob_exit(future_pedestrian, silent)
 	return TRUE
 
@@ -51,14 +51,14 @@
 	. = ..()
 	if(!(car_traits & CAN_KIDNAP))
 		return
-	to_chat(user, "<span class='notice'>You start opening [src]'s trunk.</span>")
+	to_chat(user, SPAN_NOTICE("You start opening [src]'s trunk."))
 	if(!do_after(user, 30, target = src))
 		return
 	if(return_amount_of_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
-		to_chat(user, "<span class='notice'>The people stuck in [src]'s trunk all come tumbling out.</span>?")
+		to_chat(user, "[SPAN_NOTICE("The people stuck in [src]'s trunk all come tumbling out.")]?")
 		dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 		return
-	to_chat(user, "<span class='notice'>It seems [src]'s trunk was empty.</span>")
+	to_chat(user, SPAN_NOTICE("It seems [src]'s trunk was empty."))
 
 /// Attempts to force a mob into the car
 /obj/tgvehicle/sealed/car/proc/mob_try_forced_enter(mob/forcer, mob/kidnapped, silent = FALSE)
@@ -78,7 +78,7 @@
 /// Proc called when someone is forcefully stuffedd into a car
 /obj/tgvehicle/sealed/car/proc/mob_forced_enter(mob/kidnapped, silent = FALSE)
 	if(!silent)
-		kidnapped.visible_message("<span class='warning'>[kidnapped] is forced into \the [src]!</span>")
+		kidnapped.visible_message(SPAN_WARNING("[kidnapped] is forced into \the [src]!"))
 		if(forced_enter_sound)
 			playsound(src, forced_enter_sound, 70, TRUE)
 	kidnapped.forceMove(src)

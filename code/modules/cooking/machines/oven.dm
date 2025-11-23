@@ -36,7 +36,7 @@
 
 /obj/machinery/cooking/oven/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer, temperature, and toggle it on or off.</span>"
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> to set its timer, temperature, and toggle it on or off.")
 
 /obj/machinery/cooking/oven/RefreshParts()
 	..()

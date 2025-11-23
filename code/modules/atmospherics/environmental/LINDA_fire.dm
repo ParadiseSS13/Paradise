@@ -259,6 +259,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				T.visible_message("<span class='warning'>[T] melts!</span>")
+				T.visible_message(SPAN_WARNING("[T] melts!"))
 				T.burn_down()
 	return affected

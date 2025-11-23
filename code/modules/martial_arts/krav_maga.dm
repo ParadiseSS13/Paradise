@@ -21,7 +21,7 @@
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
 		return
 	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] relaxes [owner.p_their()] stance.</span>")
+	owner.visible_message(SPAN_DANGER("[owner] relaxes [owner.p_their()] stance."))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -32,13 +32,13 @@
 /datum/action/neck_chop/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		to_chat(owner, SPAN_WARNING("You don't know how to do that right now."))
 		return
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		to_chat(owner, SPAN_WARNING("You can't use Krav Maga while you're incapacitated."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] assumes the Neck Chop stance!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] assumes the Neck Chop stance!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -50,19 +50,19 @@
 /datum/action/leg_sweep/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		to_chat(owner, SPAN_WARNING("You don't know how to do that right now."))
 		return
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		to_chat(owner, SPAN_WARNING("You can't use Krav Maga while you're incapacitated."))
 		return
 	if(!owner.get_num_legs())
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
+		to_chat(owner, SPAN_WARNING("You can't leg sweep someone if you have no legs."))
 		return
 	if(HAS_TRAIT(owner, TRAIT_PARAPLEGIC))
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone without working legs.</span>")
+		to_chat(owner, SPAN_WARNING("You can't leg sweep someone without working legs."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] assumes the Leg Sweep stance!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -75,13 +75,13 @@
 /datum/action/lung_punch/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		to_chat(owner, SPAN_WARNING("You don't know how to do that right now."))
 		return
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		to_chat(owner, SPAN_WARNING("You can't use Krav Maga while you're incapacitated."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] assumes the Lung Punch stance!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] assumes the Lung Punch stance!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
@@ -90,7 +90,7 @@
 /datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
-		to_chat(H, "<span class='warning'>The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!</span>")
+		to_chat(H, SPAN_WARNING("The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!"))
 		return
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
@@ -121,8 +121,8 @@
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(SPAN_DANGER("[A] [picked_hit_type] [D]!"), \
+					SPAN_USERDANGER("[A] [picked_hit_type] you!"))
 	D.apply_damage(bonus_damage, BRUTE)
 	return TRUE
 
@@ -133,12 +133,12 @@
 	if(prob(60) && D.drop_item_to_ground(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
 			A.put_in_hands(I)
-		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
-							"<span class='userdanger'>[A] has disarmed [D]!</span>")
+		D.visible_message(SPAN_DANGER("[A] has disarmed [D]!"), \
+							SPAN_USERDANGER("[A] has disarmed [D]!"))
 		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
-							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message(SPAN_DANGER("[A] attempted to disarm [D]!"), \
+							SPAN_USERDANGER("[A] attempted to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 

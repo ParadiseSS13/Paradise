@@ -153,7 +153,7 @@
 	if(!..())
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
+		to_chat(user, SPAN_WARNING("You need to open [I] before inserting it."))
 		return FALSE
 	return TRUE
 

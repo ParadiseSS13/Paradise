@@ -32,16 +32,16 @@
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_LIGHT)
 			our_prefs.light ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)

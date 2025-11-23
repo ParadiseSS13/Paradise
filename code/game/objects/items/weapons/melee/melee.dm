@@ -26,7 +26,7 @@
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The blade looks very well-suited for piercing armour.</span>"
+	. += SPAN_NOTICE("The blade looks very well-suited for piercing armour.")
 
 /obj/item/melee/saber/examine_more(mob/user)
 	. = ..()
@@ -49,12 +49,12 @@
 		return
 	var/mob/living/carbon/human/H = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
-							"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] accidentally slaps [user.p_themselves()] with [src]!"), \
+							SPAN_USERDANGER("You accidentally slap yourself with [src]!"))
 		slap(user, user)
 	else
-		user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+		user.visible_message(SPAN_DANGER("[user] slaps [H] with the flat of the blade!"), \
+							SPAN_USERDANGER("You slap [H] with the flat of the blade!"))
 		slap(target, user)
 
 /obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
@@ -66,8 +66,8 @@
 	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
 /obj/item/melee/saber/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	user.visible_message(pick(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
+						SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS
 
 
@@ -137,11 +137,11 @@
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
 	if(!cell)
-		. += "<span class='notice'>The powercell has been removed!</span>"
+		. += SPAN_NOTICE("The powercell has been removed!")
 		return
-	. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
+	. += SPAN_NOTICE("It is [round(cell.percent())]% charged.")
 	if(round(cell.percent() < 100))
-		. += "<span class='notice'>Can be recharged with a recharger.</span>"
+		. += SPAN_NOTICE("Can be recharged with a recharger.")
 
 /obj/item/melee/secsword/examine_more(mob/user)
 	. = ..()
@@ -182,28 +182,28 @@
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/stock_parts/cell/C = used
 	if(cell)
-		to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
 		return ITEM_INTERACT_COMPLETE
 	if(C.maxcharge < stam_hitcost)
-		to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
+		to_chat(user, SPAN_WARNING("[src] requires a higher capacity cell!"))
 		return ITEM_INTERACT_COMPLETE
 	if(!user.unequip(used))
 		return ITEM_INTERACT_COMPLETE
 	used.forceMove(src)
 	cell = used
-	to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
 	update_icon()
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, SPAN_WARNING("There's no cell installed!"))
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
 	user.put_in_hands(cell)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [cell] from [src]."))
 	cell.update_icon()
 	clear_cell()
 
@@ -211,28 +211,28 @@
 	if(..())
 		return FINISH_ATTACK
 	if(!cell)
-		to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+		to_chat(user, SPAN_WARNING("[src] does not have a power source!"))
 		return FINISH_ATTACK
 
 	add_fingerprint(user)
 	if(cell.charge < stam_hitcost || (SECSWORD_STUN && cell.charge < burn_hitcost))
 		state = SECSWORD_OFF
 		armor_penetration_percentage = 0
-		to_chat(user, "<span class='notice'>[src] does not have enough charge!</span>")
+		to_chat(user, SPAN_NOTICE("[src] does not have enough charge!"))
 		return FINISH_ATTACK
 	switch(state)
 		if(SECSWORD_OFF)
 			state = SECSWORD_STUN
 			armor_penetration_percentage = 30
-			to_chat(user, "<span class='warning'>[src]'s edge is now set to stun.</span>")
+			to_chat(user, SPAN_WARNING("[src]'s edge is now set to stun."))
 		if(SECSWORD_STUN)
 			state = SECSWORD_BURN
 			armor_penetration_percentage = 60
-			to_chat(user, "<span class='warning'>[src]'s edge is now set to burn.</span>")
+			to_chat(user, SPAN_WARNING("[src]'s edge is now set to burn."))
 		if(SECSWORD_BURN)
 			state = SECSWORD_OFF
 			armor_penetration_percentage = 0
-			to_chat(user, "<span class='notice'>[src]'s edge is now turned off.</span>")
+			to_chat(user, SPAN_NOTICE("[src]'s edge is now turned off."))
 	update_icon()
 	playsound(src, "sparks", 60, TRUE, -1)
 	return FINISH_ATTACK
@@ -240,11 +240,11 @@
 /obj/item/melee/secsword/attack(mob/living/M, mob/living/user, params)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(state == SECSWORD_STUN && sword_stun(user, user, skip_cooldown = TRUE))
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
-							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
+			user.visible_message(SPAN_DANGER("[user] accidentally hits [user.p_themselves()] with [src]!"),
+							SPAN_USERDANGER("You accidentally hit yourself with [src]!"))
 		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) // Just like the baton, no sword + judo.
-		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
+		to_chat(user, SPAN_WARNING("The sword feels off-balance in your hand due to your specific martial training!"))
 		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	// Off
@@ -255,8 +255,8 @@
 			if(issilicon(M)) // Can't slap borgs and AIs
 				user.do_attack_animation(M)
 				M.visible_message(
-					"<span class='warning'>[user] has slapped [M] harmlessly with [src].</span>",
-					"<span class='danger'>[user] has slapped you harmlessly with [src].</span>"
+					SPAN_WARNING("[user] has slapped [M] harmlessly with [src]."),
+					SPAN_DANGER("[user] has slapped you harmlessly with [src].")
 				)
 				return
 			slap(M, user) // Just a little slap. No harm
@@ -270,8 +270,8 @@
 		else if(issilicon(M))
 			user.do_attack_animation(M)
 			M.visible_message(
-				"<span class='warning'>[user] has slapped [M] harmlessly with [src].</span>",
-				"<span class='danger'>[user] has slapped you harmlessly with [src].</span>"
+				SPAN_WARNING("[user] has slapped [M] harmlessly with [src]."),
+				SPAN_DANGER("[user] has slapped you harmlessly with [src].")
 			)
 			return
 		if(sword_stun(M, user))
@@ -424,7 +424,7 @@
 	icon_state = "[base_icon_state]0"
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
-	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	to_chat(user, SPAN_NOTICE("You heave [src] up in both hands."))
 	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -444,7 +444,7 @@
 	var/mob/living/carbon/human/H = user
 	H.changeNext_move(CLICK_CD_MELEE)
 	H.do_attack_animation(O)
-	H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+	H.visible_message(SPAN_DANGER("[H] has hit [O] with [src]!"), SPAN_DANGER("You hit [O] with [src]!"))
 	var/damage = force_wield
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
@@ -458,9 +458,9 @@
 
 	switch(user.a_intent)
 		if(INTENT_HELP) // Stamina damage
-			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
-							"<span class='italics'>You hear a thud.</span>")
+			H.visible_message(SPAN_DANGER("[user] slams [H] with the flat of the blade!"), \
+							SPAN_USERDANGER("[user] slams you with the flat of the blade!"), \
+							SPAN_ITALICS("You hear a thud."))
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
@@ -471,9 +471,9 @@
 			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 				return ..()
 
-			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
-							"<span class='userdanger'>[user] smashes you with the blade's tip!</span>", \
-							"<span class='italics'>You hear crushing.</span>")
+			H.visible_message(SPAN_DANGER("[user] smashes [H] with the blade's tip!"), \
+							SPAN_USERDANGER("[user] smashes you with the blade's tip!"), \
+							SPAN_ITALICS("You hear crushing."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
@@ -483,9 +483,9 @@
 			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
 		if(INTENT_GRAB) // Knocks down
-			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
-							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
-							"<span class='italics'>You hear a chopping noise.</span>")
+			H.visible_message(SPAN_DANGER("[user] cleaves [H] with an overhead strike!"), \
+							SPAN_USERDANGER("[user] cleaves you with an overhead strike!"), \
+							SPAN_ITALICS("You hear a chopping noise."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
@@ -583,13 +583,13 @@
 // MARK: SLAYER CHAINSAW
 /obj/item/chainsaw/doomslayer
 	name = "OOOH BABY"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
+	desc = SPAN_WARNING("VRRRRRRR!!!")
 	armor_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(SPAN_DANGER("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE

@@ -141,7 +141,7 @@
 	if(..())
 		return
 	if(shuttle_and_preview_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		to_chat(usr, SPAN_WARNING("Please wait until the desired shuttle has finished being loaded."))
 		return
 	. = TRUE
 

@@ -43,7 +43,7 @@
 
 	if(!length(jbh.job_bans))
 		if(!from_client_connection)
-			to_chat(src, chat_box_red("<span class='warning'>You have no active jobbans!</span>"))
+			to_chat(src, chat_box_red(SPAN_WARNING("You have no active jobbans!")))
 		return
 
 	var/list/messages = list()
@@ -52,12 +52,12 @@
 		var/datum/job_ban/JB = jbh.job_bans[ban] // Remember. Its assoc.
 		switch(JB.bantype)
 			if("JOB_PERMABAN")
-				messages.Add("<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]</span>")
+				messages.Add(SPAN_WARNING("[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]"))
 			if("JOB_TEMPBAN")
-				messages.Add("<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]</span>")
+				messages.Add(SPAN_WARNING("[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]"))
 
 	if(GLOB.configuration.url.banappeals_url)
-		messages.Add("<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
+		messages.Add(SPAN_WARNING("You can appeal the bans at: [GLOB.configuration.url.banappeals_url]"))
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 

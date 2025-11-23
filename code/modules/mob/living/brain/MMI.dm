@@ -39,20 +39,20 @@
 
 /obj/item/mmi/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/golem))
-		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
+		to_chat(user, SPAN_WARNING("You can't find a way to plug [O] into [src]."))
 		return
 	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
 		var/obj/item/organ/internal/brain/B = O
 		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
+			to_chat(user, SPAN_WARNING("You aren't sure where this brain came from, but you're pretty sure it's a useless brain."))
 			return
 		if(held_brain)
-			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
+			to_chat(user, SPAN_USERDANGER("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
 			CRASH("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
 			if(!syndiemmi)
-				visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+				visible_message(SPAN_NOTICE("[user] sticks \a [O] into \the [src]."))
 			brainmob = B.brainmob
 			B.brainmob = null
 			brainmob.container = src
@@ -82,26 +82,26 @@
 				radio_action.build_all_button_icons()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
-			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
+			to_chat(user, SPAN_WARNING("You can't drop [B]!"))
 
 		return
 
 	if(istype(O, /obj/item/mmi_radio_upgrade))
 		if(radio)
-			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
+			to_chat(user, SPAN_WARNING("[src] already has a radio installed."))
 		else
-			user.visible_message("<span class='notice'>[user] begins to install [O] into [src]...</span>", \
-				"<span class='notice'>You start to install [O] into [src]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] begins to install [O] into [src]..."), \
+				SPAN_NOTICE("You start to install [O] into [src]..."))
 			if(do_after(user, 20, target=src))
 				if(user.drop_item())
-					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
-						"<span class='notice'>You install [O] in [src].</span>")
+					user.visible_message(SPAN_NOTICE("[user] installs [O] in [src]."), \
+						SPAN_NOTICE("You install [O] in [src]."))
 					if(brainmob)
-						to_chat(brainmob, "<span class='notice'>MMI radio capability installed.</span>")
+						to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
 					install_radio()
 					qdel(O)
 				else
-					to_chat(user, "<span class='warning'>You can't drop [O]!</span>")
+					to_chat(user, SPAN_WARNING("You can't drop [O]!"))
 		return
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
@@ -113,23 +113,23 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
-		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is no radio in [src]!"))
 		return
-	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
+	user.visible_message(SPAN_WARNING("[user] begins to uninstall the radio from [src]..."), \
+							SPAN_NOTICE("You start to uninstall the radio from [src]..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
-	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						"<span class='notice'>You uninstall the radio from [src].</span>")
+	user.visible_message(SPAN_WARNING("[user] uninstalls the radio from [src]."), \
+						SPAN_NOTICE("You uninstall the radio from [src]."))
 
 
 /obj/item/mmi/attack_self__legacy__attackchain(mob/user as mob)
 	if(!brainmob)
-		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
+		to_chat(user, SPAN_WARNING("You upend the MMI, but there's nothing in it."))
 	else
-		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
@@ -160,7 +160,7 @@
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		stack_trace("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
-		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
+		to_chat(brainmob, SPAN_USERDANGER("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -183,7 +183,7 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		. += "<span class='notice'>A radio is installed on [src].</span>"
+		. += SPAN_NOTICE("A radio is installed on [src].")
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
@@ -312,7 +312,7 @@
 
 /obj/item/mmi/syndie/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
-		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		to_chat(user, SPAN_NOTICE("You press your thumb on [src] and imprint your user information."))
 		master_uid = user.mind.UID()
 		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
 			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
@@ -326,16 +326,16 @@
 		var/datum/mind/master = locateUID(master_uid)
 
 		if(master)
-			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+			to_chat(brainmob, SPAN_USERDANGER("You feel the MMI overriding your free will!"))
 			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master))
 			return
 
 	//Edgecase handling, shouldn't get here
-	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+	to_chat(brainmob, SPAN_USERDANGER("You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities."))
 	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
 
 /obj/item/mmi/syndie/dropbrain(turf/dropspot)
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
 	master_uid = null
-	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
+	to_chat(brainmob, SPAN_USERDANGER("You are no longer a mindslave: You have complete and free control of your own faculties once more!"))
 	..()

@@ -45,8 +45,8 @@
 
 /obj/item/fluff/tattoo_gun/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		user.visible_message(SPAN_WARNING("[user] stabs [M] with [src]!"), SPAN_WARNING("You stab [M] with [src]!"))
+		to_chat(M, SPAN_USERDANGER("[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!"))
 		return
 
 	if(used)
@@ -76,10 +76,10 @@
 		to_chat(user, "<span class= 'notice'>You use [src] to apply a [tattoo_name] to yourself!</span>")
 
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with [src].</span>", "<span class='notice'>You begin to tattoo [target] with [src]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] begins to apply a [tattoo_name] [target] with [src]."), SPAN_NOTICE("You begin to tattoo [target] with [src]!"))
 		if(!do_after(user, 30 * toolspeed, target = M))
 			return
-		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+		user.visible_message(SPAN_NOTICE("[user] finishes the [tattoo_name] on [target]."), SPAN_NOTICE("You finish the [tattoo_name]."))
 
 	if(!used) // No exploiting do_after to tattoo multiple folks.
 		target.change_markings(tattoo_icon, "body")
@@ -116,12 +116,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on [src].</span>")
+			to_chat(user, SPAN_NOTICE("You change the color setting on [src]."))
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is out of ink!"))
 
 /// BirdtTalon: Kahkiri
 /obj/item/fluff/bird_painter
@@ -170,7 +170,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
+	user.visible_message(SPAN_SUICIDE("[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame."))
 	return BRUTELOSS
 
 /// Zomgponies: Griffin Rowley
@@ -215,7 +215,7 @@
 		return
 
 	if(istype(target, /obj/structure/chair/wheelchair))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 		var/obj/structure/chair/wheelchair/chair = target
 		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
@@ -225,7 +225,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 // Custom zippo lighters
 /obj/item/lighter/zippo/fluff
@@ -271,7 +271,7 @@
 	force = 2
 
 /obj/item/fluff/dogwhistle/attack_self__legacy__attackchain(mob/user)
-	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	user.visible_message(SPAN_NOTICE("[user] blows on the whistle, but no sound comes out."),  SPAN_NOTICE("You blow on the whistle, but don't hear anything."))
 	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
@@ -281,8 +281,8 @@
 	var/obj/item/clothing/head/det_hat/D = new
 	D.set_nodrop(TRUE, loc)
 	C.place_on_head(D)
-	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
-	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
+	C.visible_message(SPAN_NOTICE("[C] suddenly winks into existence at [user]'s feet!"))
+	to_chat(user, SPAN_DANGER("[src] crumbles to dust in your hands!"))
 	user.drop_item()
 	qdel(src)
 
@@ -321,7 +321,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
+		to_chat(target, SPAN_NOTICE("You comb your tail with [src]."))
 		used = TRUE
 
 /// DesolateG: Micheal Smith
@@ -336,10 +336,10 @@
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 	var/obj/item/clothing/suit/armor/jacket = target
 	jacket.icon_state = "desolate_coat_open"
 	jacket.icon = 'icons/obj/custom_items.dmi'
@@ -368,7 +368,7 @@
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
@@ -381,7 +381,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 /// DesolateG: Micheal Smith
 /obj/item/fluff/desolate_baton_kit
@@ -396,7 +396,7 @@
 		return
 
 	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 		var/obj/item/melee/baton/the_baton = target
 		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.base_icon = "desolate_baton"
@@ -407,7 +407,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 /// captain cardgage: Richard Ulery
 /obj/item/fluff/cardgage_helmet_kit
@@ -421,14 +421,14 @@
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
 		target.transfer_fingerprints_to(P)
 		qdel(target)
 		qdel(src)
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 /// Travelling Merchant: Trav Noble. This is what they spawn in with
 /obj/item/fluff/merchant_sallet_modkit
@@ -465,12 +465,12 @@
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
 		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You modify [target] with [src]."))
 		H.update_inv_head()
 		qdel(target)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 /// IK3I: Yakikatachi
 /obj/item/fluff/k3_webbing_modkit
@@ -488,12 +488,12 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You modify [S] with [src]."))
 		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 // These two fluff items are commented out due to the transfer to MODsuits breaking these. Sprites are still in custom_items.dmi , but they need a resprite to work with MODsuits.
 /// DarkLordpyro: Valthorne Haliber
@@ -510,9 +510,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, SPAN_NOTICE("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -530,9 +530,9 @@
 		return
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, SPAN_NOTICE("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -547,7 +547,7 @@
 		if(P == H.wear_suit)
 			H.update_inv_wear_suit()
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 */
 
 /// Decemviri: Sylus Cain
@@ -564,9 +564,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, SPAN_NOTICE("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -587,9 +587,9 @@
 
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, SPAN_NOTICE("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -607,7 +607,7 @@
 			qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 */
 //////////////////////////////////
@@ -1056,7 +1056,7 @@
 		return
 
 	if(target.change_hair("Sasook Hair", 1))
-		to_chat(target, "<span class='notice'>You dump some of [src] on your head and style it around.</span>")
+		to_chat(target, SPAN_NOTICE("You dump some of [src] on your head and style it around."))
 
 /// MrSynnester : Shesi Skaklas
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi
@@ -1469,7 +1469,7 @@
 		return
 
 	if(target.change_hair("Zekes Tentacles", 1))
-		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
+		to_chat(target, SPAN_NOTICE("You take time to admire yourself in [src], brushing your tendrils down and revealing their true length."))
 
 /// Fethas: Sefra'neem
 /obj/item/clothing/accessory/locket/fluff/fethasnecklace
@@ -1517,12 +1517,12 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
+			to_chat(H, SPAN_WARNING("The kit's helmet modifier has already been used!"))
 			return
 
 		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
 		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [P]."))
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
@@ -1533,12 +1533,12 @@
 
 	else if(istype(target, /obj/item/clothing/under/plasmaman))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
+			to_chat(user, SPAN_WARNING("The kit's suit modifier has already been used!"))
 			return
 
 		var/obj/item/clothing/under/plasmaman/P = target
 		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		to_chat(H, SPAN_NOTICE("You modify the appearance of [P]."))
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		P.icon_state = "ikelos_envirosuit"
 		P.icon = 'icons/obj/custom_items.dmi'
@@ -1547,7 +1547,7 @@
 			H.update_inv_w_uniform()
 
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
 
 /// LightFire53: Ikelos
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff

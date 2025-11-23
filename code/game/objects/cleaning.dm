@@ -19,7 +19,7 @@
 	var/is_cmagged = FALSE
 
 	if(user.client && (src in user.client.screen)) //You can't clean items you're wearing for technical reasons
-		to_chat(user, "<span class='notice'>You need to take that [text_targetname] off before cleaning it.</span>")
+		to_chat(user, SPAN_NOTICE("You need to take that [text_targetname] off before cleaning it."))
 		return FALSE
 
 	var/is_dirty = FALSE
@@ -44,7 +44,7 @@
 		return T.cleaning_act(user, cleaner, cleanspeed, text_verb, " under [src][text_description].", skip_do_after=skip_do_after)
 
 	if(!skip_do_after)
-		user.visible_message("<span class='warning'>[user] begins to [text_verb] \the [text_targetname][text_description]</span>", "<span class='warning'>You begin to [text_verb] \the [text_targetname][text_description]</span>")
+		user.visible_message(SPAN_WARNING("[user] begins to [text_verb] \the [text_targetname][text_description]"), SPAN_WARNING("You begin to [text_verb] \the [text_targetname][text_description]"))
 		if(!do_after(user, cleanspeed, target = src))
 			return FALSE
 
@@ -55,7 +55,7 @@
 	cleaner.post_clean(src, user)
 
 	if(!skip_do_after)
-		to_chat(user, "<span class='notice'>You [text_verb] \the [text_targetname][text_description]</span>")
+		to_chat(user, SPAN_NOTICE("You [text_verb] \the [text_targetname][text_description]"))
 
 	if(is_cmagged) //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

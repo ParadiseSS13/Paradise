@@ -68,12 +68,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 					new stack_type(container, 1)
 					return list(message = "You add one of \the [stack.name] to \the [container].", stack_added = stack_type)
 				else
-					to_chat(user, "<span class='notice'>You can't remove one of \the [stack.name] from the stack!</span>")
+					to_chat(user, SPAN_NOTICE("You can't remove one of \the [stack.name] from the stack!"))
 					return list()
 			if(user.unequip(used_item))
 				used_item.forceMove(container)
 			else
-				to_chat(user, "<span class='notice'>You can't remove [used_item] from your hands!</span>")
+				to_chat(user, SPAN_NOTICE("You can't remove [used_item] from your hands!"))
 				return list()
 		else
 			used_item.forceMove(container)

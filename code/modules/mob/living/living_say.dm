@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(message, verb = null, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE, bigvoice = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			to_chat(src, SPAN_DANGER("You cannot speak in IC (Muted)."))
 			return FALSE
 
 	if(sanitize)
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	message = trim_left(message)
 
 	if(big_voice)
-		message = "<span class='reallybig'>[message]</span>"
+		message = SPAN_REALLYBIG("[message]")
 
 	//parse the language code and consume it
 	var/list/message_pieces = list()
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			to_chat(src, SPAN_DANGER("You're muzzled and cannot speak!"))
 			return
 		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			muffledspeech_all(message_pieces)
@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		var/msg
 		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
-			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
+			msg = SPAN_NOTICE("[src] talks into [used_radios[1]]")
 			var/static/list/special_radio_channels = list("Syndicate", "SyndTeam", "Security", "Procedure", "Command", "Response Team", "Special Ops")
 			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			to_chat(src, SPAN_DANGER("You cannot speak in IC (Muted)."))
 			return
 
 	if(stat)
@@ -348,13 +348,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(is_muzzled())
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
-			to_chat(src, "<span class='danger'>Your mouth is taped and you cannot speak!</span>")
+			to_chat(src, SPAN_DANGER("Your mouth is taped and you cannot speak!"))
 		else
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			to_chat(src, SPAN_DANGER("You're muzzled and cannot speak!"))
 		return
 
 	if(is_facehugged())
-		to_chat(src, "<span class='danger'>You can't get a word out with this horrible creature on your face!</span>")
+		to_chat(src, SPAN_DANGER("You can't get a word out with this horrible creature on your face!"))
 		return
 
 	var/message = multilingual_to_message(message_pieces)
@@ -460,7 +460,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	if(length(watching))
-		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
+		var/rendered = "<span class='game say'>[SPAN_NAME("[name]")] [not_heard].</span>"
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 

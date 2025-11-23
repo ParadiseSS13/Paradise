@@ -11,7 +11,7 @@
 			var/output = "[GLOB.configuration.url.wiki_url]/index.php?title=Special%3ASearch&profile=default&search=[query]"
 			src << link(output)
 	else
-		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The wiki URL is not set in the server configuration."))
 	return
 
 /client/verb/forum()
@@ -25,7 +25,7 @@
 			link_forum_account()
 		src << link(GLOB.configuration.url.forum_url)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The forum URL is not set in the server configuration."))
 
 /client/verb/rules()
 	set name = "Rules"
@@ -36,7 +36,7 @@
 			return
 		src << link(GLOB.configuration.url.rules_url)
 	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The rules URL is not set in the server configuration."))
 
 /client/verb/github()
 	set name = "GitHub"
@@ -47,7 +47,7 @@
 			return
 		src << link(GLOB.configuration.url.github_url)
 	else
-		to_chat(src, "<span class='danger'>The GitHub URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The GitHub URL is not set in the server configuration."))
 
 /client/verb/discord()
 	set name = "Discord"
@@ -64,7 +64,7 @@
 		durl = GLOB.configuration.url.discord_forum_url
 
 	if(!durl)
-		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The Discord URL is not set in the server configuration."))
 		return
 	if(tgui_alert(src, "This will invite you to our Discord server. Are you sure?", "Discord", list("Yes", "No")) != "Yes")
 		return
@@ -79,4 +79,4 @@
 			return
 		src << link(GLOB.configuration.url.donations_url)
 	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, SPAN_DANGER("The rules URL is not set in the server configuration."))

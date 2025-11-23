@@ -43,13 +43,13 @@
 	if(cell)
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
-		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
+		. += SPAN_NOTICE("It has an empty mount for a battery cell.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] to adjust it's tension.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
-		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
+		visible_message(SPAN_DANGER("[R] plinks and crackles as it begins to glow red-hot."))
 		R.throwforce = 15
 		R.superheated = 1
 		cell.use(500)
@@ -69,14 +69,14 @@
 /obj/item/gun/throw/crossbow/attack_self__legacy__attackchain(mob/living/user)
 	if(tension)
 		if(to_launch)
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
+			user.visible_message(SPAN_NOTICE("[user] relaxes the tension on [src]'s string and removes [to_launch]."),SPAN_NOTICE("You relax the tension on [src]'s string and remove [to_launch]."))
 			to_launch.forceMove(get_turf(src))
 			var/obj/item/arrow/A = to_launch
 			to_launch = null
 			A.removed()
 			process_chamber()
 		else
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string.</span>","<span class='notice'>You relax the tension on [src]'s string.</span>")
+			user.visible_message(SPAN_NOTICE("[user] relaxes the tension on [src]'s string."),SPAN_NOTICE("You relax the tension on [src]'s string."))
 		tension = 0
 		update_icon(UPDATE_ICON_STATE)
 	else
@@ -86,7 +86,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		to_chat(user, "<span class='warning'>You can't draw [src] without a bolt nocked.</span>")
+		to_chat(user, SPAN_WARNING("You can't draw [src] without a bolt nocked."))
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
@@ -100,29 +100,29 @@
 		return ..()
 
 	if(cell)
-		to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] already has a cell installed."))
 		return
 
 	user.drop_item()
 	I.forceMove(src)
 	cell = I
-	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
+	to_chat(user, SPAN_NOTICE("You jam [cell] into [src] and wire it to the firing coil."))
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] doesn't have a cell installed."))
 		return
 
 	cell.forceMove(get_turf(src))
-	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
+	to_chat(user, SPAN_NOTICE("You jimmy [cell] out of [src] with [I]."))
 	cell = null
 
 /obj/item/gun/throw/crossbow/notify_ammo_count()
 	if(get_ammocount() >= 1)
-		return "<span class='notice'>[src] is loaded.</span>"
-	return "<span class='notice'>[src] is not loaded.</span>"
+		return SPAN_NOTICE("[src] is loaded.")
+	return SPAN_NOTICE("[src] is not loaded.")
 
 /obj/item/gun/throw/crossbow/Destroy()
 	. = ..()

@@ -17,10 +17,10 @@
 
 	if(prob(5))
 		G.receive_damage(10 + tumor_damage_modifier, 0, FALSE)
-		to_chat(owner, "<span class='danger'>Something sharp is moving around in your lower body!</span>")
+		to_chat(owner, SPAN_DANGER("Something sharp is moving around in your lower body!"))
 
 	if(prob(1))
-		to_chat(owner, "<span class='userdanger'>Something just tore in your lower body!</span>")
+		to_chat(owner, SPAN_USERDANGER("Something just tore in your lower body!"))
 
 		var/list/other_groin_organs = G.internal_organs
 		other_groin_organs -= src

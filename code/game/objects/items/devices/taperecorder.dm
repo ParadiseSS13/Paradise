@@ -28,17 +28,17 @@
 	. = ..()
 	if(in_range(user, src) && mytape)
 		if(mytape.ruined)
-			. += "<span class='notice'>[mytape]'s internals are unwound.'.</span>"
+			. += SPAN_NOTICE("[mytape]'s internals are unwound.'.")
 		if(mytape.max_capacity <= mytape.used_capacity)
-			. += "<span class='notice'>[mytape] is full.</span>"
+			. += SPAN_NOTICE("[mytape] is full.")
 		else if((mytape.remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>[mytape] has [mytape.remaining_capacity / 60] minutes remaining.</span>"
+			. += SPAN_NOTICE("[mytape] has [mytape.remaining_capacity / 60] minutes remaining.")
 		else
 			if(mytape.used_capacity >= mytape.max_capacity - 60)
-				. += "<span class='notice'>[mytape] has [mytape.remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
+				. += SPAN_NOTICE("[mytape] has [mytape.remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
-				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.</span>"
-		. += "<span class='notice'>Alt-Click to access the tape.</span>"
+				. += SPAN_NOTICE("[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.")
+		. += SPAN_NOTICE("Alt-Click to access the tape.")
 
 /obj/item/taperecorder/New()
 	..()
@@ -63,7 +63,7 @@
 		if(user.drop_item())
 			I.forceMove(src)
 			mytape = I
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 			update_icon(UPDATE_ICON_STATE)
 
@@ -222,7 +222,7 @@
 	if(!mytape)
 		return
 	if(world.time < cooldown)
-		to_chat(user, "<span class='notice'>The recorder can't print that fast!</span>")
+		to_chat(user, SPAN_NOTICE("The recorder can't print that fast!"))
 		return
 	if(recording || playing)
 		return
@@ -243,7 +243,7 @@
 		return
 	if(mytape)
 		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
-		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [mytape] from [src]."))
 		stop()
 		user.put_in_hands(mytape)
 		mytape = null
@@ -285,16 +285,16 @@
 	. = ..()
 	if(in_range(user, src))
 		if(ruined)
-			. += "<span class='notice'>It's tape is all pulled out, it looks it could be <b>screwed</b> back into place.</span>"
+			. += SPAN_NOTICE("It's tape is all pulled out, it looks it could be <b>screwed</b> back into place.")
 		else if(max_capacity <= used_capacity)
-			. += "<span class='notice'>It is full.</span>"
+			. += SPAN_NOTICE("It is full.")
 		else if((remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>It has [remaining_capacity / 60] minutes remaining.</span>"
+			. += SPAN_NOTICE("It has [remaining_capacity / 60] minutes remaining.")
 		else
 			if(used_capacity >= (max_capacity - 60))
-				. += "<span class='notice'>It has [remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
+				. += SPAN_NOTICE("It has [remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
-				. += "<span class='notice'>It has [seconds_to_time(remaining_capacity)] remaining.</span>"
+				. += SPAN_NOTICE("It has [seconds_to_time(remaining_capacity)] remaining.")
 		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to wipe the current tape."
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -309,12 +309,12 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(ruined)
-		to_chat(user, "<span class='notice'>This tape is already ruined!</span>")
+		to_chat(user, SPAN_NOTICE("This tape is already ruined!"))
 		return
 	if(!do_after(user, 3 SECONDS, target = src))
 		return
 
-	to_chat(user, "<span class='notice'>You erase the data from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You erase the data from [src]."))
 	used_capacity = 0
 	remaining_capacity = max_capacity
 	storedinfo.Cut()
@@ -327,10 +327,10 @@
 
 /obj/item/tape/proc/ruin(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>You start pulling the tape out.</span>")
+		to_chat(user, SPAN_NOTICE("You start pulling the tape out."))
 		if(!do_after(user, 1 SECONDS, target = src))
 			return
-		to_chat(user, "<span class='notice'>You pull the tape out of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You pull the tape out of [src]."))
 	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
@@ -343,9 +343,9 @@
 	if(ruined)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
+		to_chat(user, SPAN_NOTICE("You start winding the tape back in."))
 		if(do_after(user, 120 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You wind the tape back in!</span>")
+			to_chat(user, SPAN_NOTICE("You wind the tape back in!"))
 			ruined = FALSE
 			update_icon(UPDATE_OVERLAYS)
 

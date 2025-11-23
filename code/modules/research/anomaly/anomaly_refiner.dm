@@ -41,13 +41,13 @@
 	if(!istype(used, /obj/item/raw_anomaly_core))
 		return ..()
 	if(refined_core)
-		to_chat(user, "<span class='warning'>There is already a core in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is already a core in [src]!"))
 		return ITEM_INTERACT_COMPLETE
 	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 	inserted_core = used
-	to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 	atom_say("Analyzing... [inserted_core]'s causality point corresponds to an explosive of size [inserted_core.target_explosion_size].")
 	return ITEM_INTERACT_COMPLETE
 
@@ -83,11 +83,11 @@
 	if(panel_open)
 		var/obj/item/multitool/multi = I
 		if(!istype(multi.buffer, /obj/machinery/doppler_array))
-			to_chat(user, "<span class='notice'>You cannot link [multi.buffer] to [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You cannot link [multi.buffer] to [src]!"))
 			return
 		linked_doppler = multi.buffer
 		linked_doppler.linked_machines |= src
-		to_chat(user, "<span class='notice'>You link [multi.buffer] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You link [multi.buffer] to [src]."))
 
 /obj/machinery/anomaly_refinery/proc/refine_core(explosion_size)
 	if(!inserted_core)

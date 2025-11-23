@@ -178,7 +178,7 @@
 	var/smoke_type = /datum/effect_system/smoke_spread
 
 	if(boil_overflow > 0)
-		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils out and burns violently!</span>")
+		holder.my_atom.visible_message(SPAN_BOLDWARNING("The oil boils out and burns violently!"))
 		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
@@ -186,7 +186,7 @@
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
-		holder.my_atom.visible_message("<span class='notice'>The oil sizzles and burns down into residue.</span>")
+		holder.my_atom.visible_message(SPAN_NOTICE("The oil sizzles and burns down into residue."))
 		var/datum/reagents/old_holder = holder // We might not have space if we add first, so cache this and add after deleting
 		holder.del_reagent(id)
 		old_holder.add_reagent(reagent_after_burning, volume * 0.6)
@@ -420,7 +420,7 @@
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
-		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+		to_chat(M, SPAN_NOTICE("You feel [lovely_phrase]."))
 
 	else if(!M.restrained())
 		for(var/mob/living/carbon/C in orange(1, M))
@@ -428,7 +428,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					M.visible_message(SPAN_NOTICE("[M] gives [C] a [pick("hug","warm embrace")]."))
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 					break
 	return ..()
@@ -438,7 +438,7 @@
 	..()
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	to_chat(M, "<span class='notice'>You feel loved!</span>")
+	to_chat(M, SPAN_NOTICE("You feel loved!"))
 
 /// Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 /datum/reagent/jestosterone
@@ -456,14 +456,14 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Clown")
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, SPAN_NOTICE("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, SPAN_WARNING("You feel nauseous."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 			C.AddElement(/datum/element/waddling)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, SPAN_WARNING("Something doesn't feel right..."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 			C.AddElement(/datum/element/waddling)
@@ -494,7 +494,7 @@
 			"Sinister laughter echoes in your ears.",
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
-			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+			to_chat(M, SPAN_WARNING("[pick(clown_message)]"))
 		if(M.mind.assigned_role == "Mime")
 			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
@@ -525,14 +525,14 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, SPAN_NOTICE("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Clown")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, SPAN_WARNING("You feel nauseous."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			C.mind.miming = TRUE
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, SPAN_WARNING("Something doesn't feel right..."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			C.mind.miming = TRUE // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing, minus Mimestrogen.
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
@@ -564,7 +564,7 @@
 				"Silence permeates your ears.",
 				"...",
 				"You feel like miming a performance.")
-			to_chat(M, "<span class='warning'>[pick(mime_message)]</span>")
+			to_chat(M, SPAN_WARNING("[pick(mime_message)]"))
 		if(M.mind.assigned_role == "Clown")
 			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
@@ -767,7 +767,7 @@
 
 		if(method == REAGENT_INGEST)
 			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+				to_chat(M, SPAN_NOTICE("That tasted horrible."))
 	..()
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)
@@ -871,7 +871,7 @@
 	if(sheets > 0)
 		new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
 
-	holder.my_atom.visible_message("<span class='notice'>The molten plastic solidifies.</span>")
+	holder.my_atom.visible_message(SPAN_NOTICE("The molten plastic solidifies."))
 	holder.del_reagent(id)
 	holder.add_reagent("plastic_dust", original_volume - sheets * 5, reagtemp = T0C + 119)
 

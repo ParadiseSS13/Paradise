@@ -87,9 +87,9 @@
 /obj/item/storage/examine(mob/user)
 	. = ..()
 	if(allow_quick_empty)
-		. += "<span class='notice'>You can use [src] in hand to empty it's entire contents.</span>"
+		. += SPAN_NOTICE("You can use [src] in hand to empty it's entire contents.")
 	if(allow_quick_gather)
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to switch it's gathering method.</span>"
+		. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> [src] to switch it's gathering method.")
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
@@ -152,8 +152,8 @@
 				return // Something happened while the player was thinking
 		hide_from(M)
 		M.face_atom(over_object)
-		M.visible_message("<span class='notice'>[M] empties [src] onto [over_object].</span>",
-			"<span class='notice'>You empty [src] onto [over_object].</span>")
+		M.visible_message(SPAN_NOTICE("[M] empties [src] onto [over_object]."),
+			SPAN_NOTICE("You empty [src] onto [over_object]."))
 		var/list/params_list = params2list(params)
 		var/x_offset = text2num(params_list["icon-x"]) - 16
 		var/y_offset = text2num(params_list["icon-y"]) - 16
@@ -398,18 +398,18 @@
 
 	if(length(contents) >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[I] won't fit in [src], make some space!</span>")
+			to_chat(usr, SPAN_WARNING("[I] won't fit in [src], make some space!"))
 		return FALSE //Storage item is full
 
 	if(length(can_hold))
 		if(!is_type_in_typecache(I, can_hold))
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+				to_chat(usr, SPAN_WARNING("[src] cannot hold [I]."))
 			return FALSE
 
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+			to_chat(usr, SPAN_WARNING("[src] cannot hold [I]."))
 		return FALSE
 
 	if(length(cant_hold) && isstorage(I)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
@@ -417,7 +417,7 @@
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
 				if(!stop_messages)
-					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+					to_chat(usr, SPAN_WARNING("[src] rejects [I] because of its contents."))
 				return FALSE
 
 	if(I.w_class > max_w_class)
@@ -426,11 +426,11 @@
 				return TRUE
 			else
 				if(!stop_messages)
-					to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+					to_chat(usr, SPAN_WARNING("[I] is too big for [src]."))
 				return FALSE
 		else
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+				to_chat(usr, SPAN_WARNING("[I] is too big for [src]."))
 			return FALSE
 
 	var/sum_w_class = I.w_class
@@ -439,17 +439,17 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] is full, make some space.</span>")
+			to_chat(usr, SPAN_WARNING("[src] is full, make some space."))
 		return FALSE
 
 	if(I.w_class >= w_class && isstorage(I))
 		if(!allow_same_size)	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] cannot hold [I] as it's a storage item of the same size.</span>")
+				to_chat(usr, SPAN_WARNING("[src] cannot hold [I] as it's a storage item of the same size."))
 			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(I.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='warning'>[I] is stuck to your hand, you can't put it in [src]</span>")
+		to_chat(usr, SPAN_WARNING("[I] is stuck to your hand, you can't put it in [src]"))
 		return FALSE
 
 	return TRUE
@@ -498,17 +498,17 @@
 
 	if(!prevent_warning)
 		// the item's user will always get a notification
-		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [I] into [src]."))
 
 		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
 		if(I.w_class < WEIGHT_CLASS_NORMAL)
 			for(var/mob/M in orange(1, user))
 				if(in_range(M, user))
-					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+					M.show_message(SPAN_NOTICE("[user] puts [I] into [src]."))
 		else
 			// restrict player list to include only those in view
 			for(var/mob/M in oviewers(7, user))
-				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+				M.show_message(SPAN_NOTICE("[user] puts [I] into [src]."))
 	orient2hud(user)
 	if(user)
 		if(user.s_active)
@@ -675,7 +675,7 @@
 
 /obj/item/storage/proc/fold(mob/user)
 	if(length(contents))
-		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		to_chat(user, SPAN_WARNING("You can't fold this [name] with items still inside!"))
 		return
 	if(!ispath(foldable))
 		return
@@ -689,7 +689,7 @@
 	if(!found)	// User is too far away
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, SPAN_NOTICE("You fold [src] flat."))
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)

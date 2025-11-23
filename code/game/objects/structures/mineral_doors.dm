@@ -119,9 +119,9 @@
 /obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
-		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You start digging \the [src]."))
 		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
-			to_chat(user, "<span class='notice'>You finished digging.</span>")
+			to_chat(user, SPAN_NOTICE("You finished digging."))
 			deconstruct(TRUE)
 		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)

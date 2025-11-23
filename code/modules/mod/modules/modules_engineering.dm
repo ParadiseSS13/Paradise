@@ -107,7 +107,7 @@
 
 /obj/item/mod/module/tether/on_use()
 	if(has_gravity(get_turf(src)))
-		to_chat(mod.wearer, "<span class='warning'>Too much gravity to use the tether!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Too much gravity to use the tether!"))
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()

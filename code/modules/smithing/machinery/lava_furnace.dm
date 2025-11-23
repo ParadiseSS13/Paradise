@@ -47,10 +47,10 @@
 
 /obj/machinery/smithing/lava_furnace/operate(loops, mob/living/user)
 	if(working_component.heat > 10)
-		to_chat(user, "<span class='notice'>[working_component] is already well heated.</span>")
+		to_chat(user, SPAN_NOTICE("[working_component] is already well heated."))
 		return
 	if(working_component.hammer_time <= 0)
-		to_chat(user, "<span class='notice'>[working_component] is already fully shaped.</span>")
+		to_chat(user, SPAN_NOTICE("[working_component] is already fully shaped."))
 		return
 	..()
 	working_component.heat_up(heat_amount)
@@ -58,13 +58,13 @@
 /obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
 	. = ..()
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return FINISH_ATTACK
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently operating!"))
 		return
 	if(!working_component)
-		to_chat(user, "<span class='warning'>There is nothing in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is nothing in [src]!"))
 		return
 
 	operate(operation_time, user)
@@ -73,10 +73,10 @@
 /obj/machinery/smithing/lava_furnace/special_attack(mob/user, mob/living/target)
 	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 	if(!istype(head))
-		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		to_chat(user, SPAN_WARNING("This person doesn't have a head!"))
 		return FALSE
-	target.visible_message("<span class='danger'>[user] pushes [target]'s head into [src]!</span>", \
-					"<span class='userdanger'>[user] pushes your head into [src]! The heat is agonizing!</span>")
+	target.visible_message(SPAN_DANGER("[user] pushes [target]'s head into [src]!"), \
+					SPAN_USERDANGER("[user] pushes your head into [src]! The heat is agonizing!"))
 	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, armor_type = MELEE, armor_penetration_percentage = 50)
 	target.apply_damage(40, BURN, BODY_ZONE_HEAD, armor)
 	target.adjust_fire_stacks(5)

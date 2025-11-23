@@ -189,7 +189,7 @@
 			return
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
-			to_chat(user, "<span class='warning'>You will have to put on [src] before you can do that.</span>")
+			to_chat(user, SPAN_WARNING("You will have to put on [src] before you can do that."))
 			return
 		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")

@@ -31,7 +31,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A pipe with three ends to connect to.</span>"
+	. += SPAN_NOTICE("A pipe with three ends to connect to.")
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()

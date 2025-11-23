@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 			. = TRUE // Hit a mob.
 
 			var/mob/living/living_thing = thing
-			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!</span>")
+			living_thing.visible_message(SPAN_WARNING("[src] slams into [living_thing]."), SPAN_USERDANGER("[src] slams into you!"))
 			thing.ex_act(explosion_strength)
 
 		if(!isobj(thing))

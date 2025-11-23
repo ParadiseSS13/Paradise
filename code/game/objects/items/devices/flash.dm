@@ -36,7 +36,7 @@
 		return
 
 	if(battery_panel && !overcharged)
-		to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You jam [I] into the battery compartment on [src]."))
 		qdel(I)
 		overcharged = TRUE
 		update_icon(UPDATE_OVERLAYS)
@@ -51,23 +51,23 @@
 		return
 
 	if(battery_panel)
-		to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You close the battery compartment on [src]."))
 	else
-		to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You open the battery compartment on [src]."))
 	battery_panel = !battery_panel
 	return TRUE
 
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	icon_state = "[initial(icon_state)]burnt"
-	visible_message("<span class='notice'>[src] burns out!</span>")
+	visible_message(SPAN_NOTICE("[src] burns out!"))
 
 /obj/item/flash/proc/try_use_flash(mob/user)
 	if(broken)
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(src, flash_cooldown) && user)
-		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
+		to_chat(user, SPAN_WARNING("Your [name] is still too hot to use again!"))
 		return FALSE
 
 	. = TRUE
@@ -87,7 +87,7 @@
 
 	times_used++
 	if(times_used == (max_uses - 1))
-		to_chat(user, "<span class='warning'>[src] is getting dangerously hot! Don't use it for a few seconds or it will burn out!</span>")
+		to_chat(user, SPAN_WARNING("[src] is getting dangerously hot! Don't use it for a few seconds or it will burn out!"))
 	else if(times_used == max_uses)
 		burn_out()
 
@@ -112,13 +112,13 @@
 				if(!M.absorb_stun(0))
 					M.drop_l_hand()
 					M.drop_r_hand()
-				visible_message("<span class='disarm'>[user] blinds [M] with [src]!</span>")
-				to_chat(user, "<span class='danger'>You blind [M] with [src]!</span>")
-				to_chat(M, "<span class='userdanger'>[user] blinds you with [src]!</span>")
+				visible_message(SPAN_DISARM("[user] blinds [M] with [src]!"))
+				to_chat(user, SPAN_DANGER("You blind [M] with [src]!"))
+				to_chat(M, SPAN_USERDANGER("[user] blinds you with [src]!"))
 			else
-				visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>")
-				to_chat(user, "<span class='warning'>You fail to blind [M] with [src]!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to blind you with [src]!</span>")
+				visible_message(SPAN_DISARM("[user] fails to blind [M] with [src]!"))
+				to_chat(user, SPAN_WARNING("You fail to blind [M] with [src]!"))
+				to_chat(M, SPAN_DANGER("[user] fails to blind you with [src]!"))
 			return
 
 	if(M.flash_eyes())
@@ -137,9 +137,9 @@
 	else if(issilicon(M))
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
-			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", "<span class='danger'>You overload [M]'s sensors with [src]!</span>")
+			user.visible_message(SPAN_DISARM("[user] overloads [M]'s sensors with [src]!"), SPAN_DANGER("You overload [M]'s sensors with [src]!"))
 		return TRUE
-	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")
+	user.visible_message(SPAN_DISARM("[user] fails to blind [M] with [src]!"), SPAN_WARNING("You fail to blind [M] with [src]!"))
 
 /obj/item/flash/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
@@ -150,7 +150,7 @@
 		return
 	var/obj/machinery/camera/C = target
 	C.emp_act(EMP_HEAVY)
-	to_chat(user,"<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
+	to_chat(user,SPAN_NOTICE("You hit the lens of [C] with [src], temporarily disabling the camera!"))
 	log_admin("[key_name(user)] EMPd a camera with a flash")
 	user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
 	add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
@@ -158,7 +158,7 @@
 /obj/item/flash/attack_self__legacy__attackchain(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return FALSE
-	user.visible_message("<span class='disarm'>[user]'s [name] emits a blinding light!</span>", "<span class='danger'>Your [name] emits a blinding light!</span>")
+	user.visible_message(SPAN_DISARM("[user]'s [name] emits a blinding light!"), SPAN_DANGER("Your [name] emits a blinding light!"))
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 	for(var/obj/machinery/camera/C in view(3, user))
@@ -179,11 +179,11 @@
 	if(!ishuman(M) || !user.mind?.has_antag_datum(/datum/antagonist/rev/head))
 		return
 	if(M.stat != CONSCIOUS)
-		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
+		to_chat(user, SPAN_WARNING("They must be conscious before you can convert [M.p_them()]!"))
 	else if(add_revolutionary(M.mind))
 		times_used-- //Flashes less likely to burn out for headrevs when used for conversion
 	else
-		to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
+		to_chat(user, SPAN_WARNING("This mind seems resistant to [src]!"))
 
 /obj/item/flash/proc/add_revolutionary(datum/mind/converting_mind)
 	var/mob/living/carbon/human/conversion_target = converting_mind.current
@@ -255,7 +255,7 @@
 
 /obj/item/flash/cameraflash/try_use_flash(mob/user = null)
 	if(!flash_cur_charges)
-		to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs time to recharge!"))
 		return FALSE
 	. = ..()
 	if(.)
@@ -278,7 +278,7 @@
 
 /obj/item/flash/armimplant/burn_out()
 	if(implant?.owner)
-		to_chat(implant.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
+		to_chat(implant.owner, SPAN_WARNING("Your [name] implant overheats and deactivates!"))
 		implant.Retract()
 
 /obj/item/flash/armimplant/Destroy()

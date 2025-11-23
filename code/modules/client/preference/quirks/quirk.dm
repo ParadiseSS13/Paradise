@@ -104,16 +104,16 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	if(!active_character)
 		return FALSE
 	if((to_add.species_flags & QUIRK_MACHINE_INCOMPATIBLE) && (active_character.species == "Machine"))
-		to_chat(src.client, "<span class='warning'>You can't put that quirk on a robotic character.</span>")
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a robotic character."))
 		return FALSE
 	if((to_add.species_flags & QUIRK_ORGANIC_INCOMPATIBLE) && (active_character.species != "Machine"))
-		to_chat(src.client, "<span class='warning'>You can't put that quirk on an organic character.</span>")
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on an organic character."))
 		return FALSE
 	if((to_add.species_flags & QUIRK_SLIME_INCOMPATIBLE) && (active_character.species == "Slime People")) //Since they don't have eyes
-		to_chat(src.client, "<span class='warning'>You can't put that quirk on a slime character, you have no eyes!</span>")
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a slime character, you have no eyes!"))
 		return FALSE
 	if((to_add.species_flags & QUIRK_PLASMAMAN_INCOMPATIBLE) && (active_character.species == "Plasmaman")) //If someone can figure out how to only let plasmaman with a secondary language take this feel free to do that
-		to_chat(src.client, "<span class='warning'>You can't put that quirk on a plasmaman, you have no species language!</span>")
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a plasmaman, you have no species language!"))
 		return FALSE
 	active_character.quirks += to_add
 	return TRUE

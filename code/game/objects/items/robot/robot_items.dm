@@ -33,8 +33,8 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	target.Weaken(10 SECONDS)
 	target.apply_effect(STUTTER, 10 SECONDS)
 
-	target.visible_message("<span class='danger'>[user] has prodded [target] with [src]!</span>", \
-					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
+	target.visible_message(SPAN_DANGER("[user] has prodded [target] with [src]!"), \
+					SPAN_USERDANGER("[user] has prodded you with [src]!"))
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, target, "Stunned with [src] ([uppertext(user.a_intent)])")
@@ -55,11 +55,11 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		return
 
 	if(!braced)
-		to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
+		to_chat(user, SPAN_NOTICE("You brace [src] against the ground in a firm sweeping stance."))
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 		RegisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED, PROC_REF(stow_broom))
 	else
-		to_chat(user, "<span class='notice'>You unbrace [src] from the ground and enter a neutral stance.</span>")
+		to_chat(user, SPAN_NOTICE("You unbrace [src] from the ground and enter a neutral stance."))
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 	braced = !braced
@@ -76,7 +76,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 /obj/item/borg/push_broom/proc/stow_broom(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_DEACTIVATED
 	braced = FALSE
-	to_chat(user, "<span class='notice'>You unbrace [src] and stow it away.</span>")
+	to_chat(user, SPAN_NOTICE("You unbrace [src] and stow it away."))
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 
@@ -104,7 +104,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		else
 			garbage.Move(new_item_loc, user.dir)
 		if(trashed_into)
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [trashed_into].</span>")
+			to_chat(user, SPAN_NOTICE("You sweep the pile of garbage into [trashed_into]."))
 		trash_amount++
 		if(trash_amount > 20)
 			break
@@ -130,9 +130,9 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		return ..()
 
 	H.visible_message(
-		"<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>",
-		"<span class='userdanger'>[user] sweeps your legs out from under you!</span>",
-		"<span class='italics'>You hear sweeping.</span>"
+		SPAN_DANGER("[user] sweeps [H]'s legs out from under [H.p_them()]!"),
+		SPAN_USERDANGER("[user] sweeps your legs out from under you!"),
+		SPAN_ITALICS("You hear sweeping.")
 	)
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	H.apply_damage(20, BRUTE)

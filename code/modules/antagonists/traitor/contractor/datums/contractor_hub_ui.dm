@@ -16,7 +16,7 @@
 			if("extract")
 				var/error_message = current_contract?.start_extraction_process(ui_host(), usr)
 				if(length(error_message))
-					to_chat(usr, "<span class='warning'>[error_message]</span>")
+					to_chat(usr, SPAN_WARNING("[error_message]"))
 			if("claim")
 				claim_tc(usr)
 			if("activate")

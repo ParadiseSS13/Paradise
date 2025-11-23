@@ -308,7 +308,7 @@
 	if(emagged)
 		return
 	if(user)
-		to_chat(user, "<span class='notice'>You override the menu and revert the game to its previous version.</span>")
+		to_chat(user, SPAN_NOTICE("You override the menu and revert the game to its previous version."))
 		add_hiddenprint(user)
 	game_status = RECRUITER_STATUS_START
 	name = "\improper NT Recruiter Simulator HARDCORE EDITION"

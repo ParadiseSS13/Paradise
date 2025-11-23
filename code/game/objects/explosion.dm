@@ -16,7 +16,7 @@
 	// If we are in end round, make explosions gib the user
 	// Why? Its funny
 	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
-		to_chat(usr, "<span class='userdanger'>Your explosive backfires!</span>")
+		to_chat(usr, SPAN_USERDANGER("Your explosive backfires!"))
 		var/mob/living/carbon/human/H = usr
 		H.gib() // lol
 		return

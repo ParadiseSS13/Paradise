@@ -193,11 +193,11 @@
 
 /obj/item/mod/core/standard/proc/mod_uninstall_cell(mob/living/user)
 	if(!cell)
-		to_chat(user, "<span class='warning'>No cell installed!</span>")
+		to_chat(user, SPAN_WARNING("No cell installed!"))
 		return
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
-	to_chat(user, "<span class='notice'>You remove the cell.</span>")
+	to_chat(user, SPAN_NOTICE("You remove the cell."))
 	playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	var/obj/item/cell_to_move = cell
 	cell_to_move.forceMove(drop_location())
@@ -207,16 +207,16 @@
 /obj/item/mod/core/standard/on_attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!mod.open)
-			to_chat(user, "<span class='warning'>Open the cover first!</span>")
+			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return NONE
 		if(cell)
-			to_chat(user, "<span class='warning'>Cell already installed!</span>")
+			to_chat(user, SPAN_WARNING("Cell already installed!"))
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return COMPONENT_SKIP_AFTERATTACK
 		user.drop_item()
 		install_cell(attacking_item)
-		to_chat(user, "<span class='notice'>You install the cell.</span>")
+		to_chat(user, SPAN_NOTICE("You install the cell."))
 		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		mod.update_charge_alert()
 		return COMPONENT_SKIP_AFTERATTACK
@@ -299,12 +299,12 @@
 	if(!charge_given)
 		return FALSE
 	if(charge_amount() == max_charge_amount())
-		to_chat(user, "<span class='notice'>[src] is already fully charged!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already fully charged!"))
 		// We didn't succeed but we don't want to treat it as an attackby
 		return TRUE
 	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / 2000))
 	if(!plasma.use(uses_needed))
 		return FALSE
 	add_charge(uses_needed * 2000)
-	to_chat(user, "<span class='notice'>You insert [plasma] in [src], recharging it.</span>")
+	to_chat(user, SPAN_NOTICE("You insert [plasma] in [src], recharging it."))
 	return TRUE

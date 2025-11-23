@@ -35,11 +35,11 @@
 	. = TRUE
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		if(!A.reagents.total_volume && A.reagents)
-			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")
+			to_chat(user, SPAN_NOTICE("\The [A] is empty."))
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
+			to_chat(user, SPAN_NOTICE("\The [src] is full."))
 			return
 	reagents.remove_reagent(25,"water")
 	var/datum/effect_system/smoke_spread/bad/smoke = new

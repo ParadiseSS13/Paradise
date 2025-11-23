@@ -27,17 +27,17 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")
 		if(!C)
-			to_chat(user, "<span class='warning'>[M] doesn't have a head!</span>")
+			to_chat(user, SPAN_WARNING("[M] doesn't have a head!"))
 			return
 		//facial hair
 		var/f_new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", H.generate_valid_facial_hairstyles())
 		//handle normal hair
 		var/h_new_style = tgui_input_list(user, "Select a hair style", "Grooming", H.generate_valid_hairstyles())
-		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
+		user.visible_message(SPAN_NOTICE("[user] starts cutting [M]'s hair!"), SPAN_NOTICE("You start cutting [M]'s hair!")) //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
 		if(do_after(user, 50 * toolspeed, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
-				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")
+				user.visible_message(SPAN_NOTICE("[user] stops cutting [M]'s hair."), SPAN_NOTICE("You stop cutting [M]'s hair."))
 				return
 			if(f_new_style)
 				C.f_style = f_new_style
@@ -46,4 +46,4 @@
 
 		H.update_hair()
 		H.update_fhair()
-		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
+		user.visible_message(SPAN_NOTICE("[user] finishes cutting [M]'s hair!"))

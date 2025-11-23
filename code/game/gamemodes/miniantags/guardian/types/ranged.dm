@@ -38,7 +38,7 @@
 			range = 13
 			incorporeal_move = NO_INCORPOREAL_MOVE
 			ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
-			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+			to_chat(src, SPAN_DANGER("You switch to combat mode."))
 			toggle = FALSE
 		else
 			ranged = FALSE
@@ -50,10 +50,10 @@
 			range = 255
 			incorporeal_move = INCORPOREAL_MOVE_NORMAL
 			REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC) //spiritual pickpocketting is forbidden
-			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
+			to_chat(src, SPAN_DANGER("You switch to scout mode."))
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
+		to_chat(src, SPAN_DANGER("You have to be recalled to toggle modes!"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
 	var/msg
@@ -73,7 +73,7 @@
 
 	update_sight()
 
-	to_chat(src, "<span class='notice'>[msg]</span>")
+	to_chat(src, SPAN_NOTICE("[msg]"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/blob_act(obj/structure/blob/B)
 	if(toggle)
@@ -103,8 +103,8 @@
 	if(isliving(entered))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
-			to_chat(spawner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+			to_chat(spawner, SPAN_DANGER("[entered] has crossed your surveillance trap at [get_area(snare_loc)]."))
 			if(isguardian(spawner))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+					to_chat(G.summoner, SPAN_DANGER("[entered] has crossed your surveillance trap at [get_area(snare_loc)]."))

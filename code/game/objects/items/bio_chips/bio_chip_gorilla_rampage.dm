@@ -13,7 +13,7 @@
 		return
 
 	var/mob/living/carbon/target = imp_in
-	target.visible_message("<span class='userdanger'>[target] swells and their hair grows rapidly. Uh oh!.</span>","<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
+	target.visible_message(SPAN_USERDANGER("[target] swells and their hair grows rapidly. Uh oh!."),SPAN_USERDANGER("You feel your muscles swell and your hair grow as you return to monke."), SPAN_USERDANGER("You hear angry gorilla noises."))
 	target.gorillize(TRUE)
 
 /obj/item/bio_chip_implanter/gorilla_rampage

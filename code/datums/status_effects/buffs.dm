@@ -75,7 +75,7 @@
 	icon_state = "shadow_mend"
 
 /datum/status_effect/shadow_mend/on_apply()
-	owner.visible_message("<span class='notice'>Violet light wraps around [owner]'s body!</span>", "<span class='notice'>Violet light wraps around your body!</span>")
+	owner.visible_message(SPAN_NOTICE("Violet light wraps around [owner]'s body!"), SPAN_NOTICE("Violet light wraps around your body!"))
 	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
 	return ..()
 
@@ -85,7 +85,7 @@
 
 /datum/status_effect/shadow_mend/on_remove()
 	if(!devil)
-		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		owner.visible_message(SPAN_WARNING("The violet light around [owner] glows black!"), SPAN_WARNING("The tendrils around you cinch tightly and reap their toll..."))
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 		return
@@ -96,14 +96,14 @@
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
 		if(L.can_block_magic(MAGIC_RESISTANCE))
-			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
+			to_chat(L, SPAN_WARNING("You shake off the tendrils that try to wrap around you!"))
 			continue
 		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
-		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+		owner.visible_message(SPAN_WARNING("The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!"), SPAN_WARNING("The tendrils around you cinch tightly... but then unwravel and fly at others!"))
 	else
-		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		owner.visible_message(SPAN_WARNING("The violet light around [owner] glows black!"), SPAN_WARNING("The tendrils around you cinch tightly and reap their toll..."))
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
@@ -325,7 +325,7 @@
 /datum/status_effect/hippocratic_oath
 	id = "Hippocratic Oath"
 	tick_interval = 25
-	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
+	examine_text = SPAN_NOTICE("They seem to have an aura of healing and helpfulness about them.")
 	alert_type = null
 	var/deathTick = 0
 	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
@@ -354,7 +354,7 @@
 			deathTick++
 			return
 
-		owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
+		owner.visible_message(SPAN_NOTICE("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
 		var/mob/living/basic/snake/healSnake = new(owner.loc)
 		var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
 		healSnake.poison_type = pick(chems)
@@ -473,7 +473,7 @@
 					E.fix_burn_wound()
 					E.mend_fracture()
 			else
-				to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
+				to_chat(owner, SPAN_WARNING("...But the core was weakened, it is not close enough to the rest of the legions of the necropolis."))
 			return TRUE
 		if(regen_type_applied == "Hivelord")
 			var/area/A = get_area(H)
@@ -483,7 +483,7 @@
 					E.fix_burn_wound()
 					E.mend_fracture()
 			else
-				to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the stars to absorb solar radiation...</span>")
+				to_chat(owner, SPAN_WARNING("...But the core was weakened, it is not close enough to the stars to absorb solar radiation..."))
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
@@ -553,27 +553,27 @@
 
 /datum/status_effect/speedlegs/tick()
 	if(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)
-		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
+		to_chat(owner, SPAN_DANGER("Our muscles relax without the energy to strengthen them."))
 		owner.Weaken(6 SECONDS)
 		qdel(src)
 	else
 		stacks++
 		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 		if(stacks == 7) //Warning message that the stacks are getting too high
-			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
+			to_chat(owner, SPAN_WARNING("Our legs are really starting to hurt..."))
 
 /datum/status_effect/speedlegs/before_remove()
 	if(stacks < 3 && !(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
-		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
+		to_chat(owner, SPAN_NOTICE("Our muscles just tensed up, they will not relax so fast."))
 		return FALSE
 	return TRUE
 
 /datum/status_effect/speedlegs/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	if(!owner.IsWeakened())
-		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
+		to_chat(owner, SPAN_NOTICE("Our muscles relax."))
 		if(stacks >= 7)
-			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
+			to_chat(owner, SPAN_DANGER("We collapse in exhaustion."))
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
 	cling = null
@@ -603,7 +603,7 @@
 
 /atom/movable/screen/alert/status_effect/chainsaw
 	name = "Revved up!"
-	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
+	desc = SPAN_DANGER("... guts, huge guts! Kill them... must kill them all!")
 	icon_state = "chainsaw"
 
 /datum/status_effect/chainsaw_slaying/on_apply()
@@ -637,7 +637,7 @@
 
 /atom/movable/screen/alert/status_effect/breaching_and_cleaving
 	name = "Breaching and Cleaving!"
-	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</span>"
+	desc = SPAN_DANGER("Doors, people, machines... nothing will stand before your martial prowess!")
 	icon_state = "breachcleaver"
 
 /datum/status_effect/breaching_and_cleaving/on_apply()
@@ -705,9 +705,9 @@
 							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
 							"You hear people making fun of you for getting robusted.")
 	if(prob(99))
-		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+		to_chat(owner, SPAN_NOTICE("[pick(hope_messages)]"))
 	else
-		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
+		to_chat(owner, SPAN_CULTITALIC("[pick(un_hopeful_messages)]"))
 
 /datum/status_effect/drill_payback
 	id = "drill_payback"
@@ -731,7 +731,7 @@
 
 /datum/status_effect/drill_payback/tick() // They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) // We don't want someone drilling the safe at arrivals then raiding bridge with the buff
-		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
+		to_chat(owner, SPAN_USERDANGER("Get back to the safe, they are going to get the drill!"))
 		times_warned++
 		if(times_warned >= 6)
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
@@ -822,7 +822,7 @@
 		qdel(src)
 		return
 	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
-		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
+		to_chat(attacker, SPAN_BIGGERDANGER("[owner] was just deconverted! You don't feel like harming them!"))
 		attacker.changeNext_move(CLICK_CD_MELEE)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -843,7 +843,7 @@
 
 /atom/movable/screen/alert/status_effect/bearserker_rage
 	name = "Bearserker Rage"
-	desc = "<span class='danger'>Blood flows between your fingers, and Foh'Sie roars; \"MORE BLOOD!\"</span>"
+	desc = SPAN_DANGER("Blood flows between your fingers, and Foh'Sie roars; \"MORE BLOOD!\"")
 	icon_state = "bearserker"
 
 /datum/status_effect/bearserker_rage/on_apply()
@@ -1070,11 +1070,11 @@
 	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
 		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
-		to_chat(owner, "<span class='userdanger'>Your components can't handle the heat and combust!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your components can't handle the heat and combust!"))
 		qdel(src)
 	stacks += 1
 	if(stacks == danger_stack_amount)
-		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your components are being dangerously overworked!"))
 
 /atom/movable/screen/alert/status_effect/overclock
 	name = "Overclocked"

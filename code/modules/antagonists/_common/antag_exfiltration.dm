@@ -104,9 +104,9 @@
 /obj/item/wormhole_jaunter/extraction/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>The target extraction locations are:</span>"
+		. += SPAN_WARNING("The target extraction locations are:")
 		for(var/area/A in extractable_areas)
-			. += "<span class='warning'> - [A.name]</span>"
+			. += SPAN_WARNING(" - [A.name]")
 
 /obj/item/wormhole_jaunter/extraction/activate(mob/user)
 	if(!turf_check(user))
@@ -114,7 +114,7 @@
 
 	// Delay extractions
 	if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
-		to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		to_chat(user, SPAN_WARNING("The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again."))
 		return
 
 	// Objective checks
@@ -140,7 +140,7 @@
 			has_target_objective = TRUE
 
 	if(denied && is_target)
-		to_chat(user, "<span class='warning'>Someone or something has jammed your extraction beacon, forcing it to disintegrate early!</span>")
+		to_chat(user, SPAN_WARNING("Someone or something has jammed your extraction beacon, forcing it to disintegrate early!"))
 		if(!has_target_objective)
 			user.mind.add_mind_objective(/datum/objective/potentially_backstabbed, "Someone or something has jammed your extraction! Survive!")
 			var/list/messages = user.mind.prepare_announce_objectives(FALSE)
@@ -149,7 +149,7 @@
 		qdel(src)
 		return
 	else if(denied)
-		to_chat(user, "<span class='warning'>Your objectives are too delicate for an early extraction.</span>")
+		to_chat(user, SPAN_WARNING("Your objectives are too delicate for an early extraction."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 		return
@@ -177,7 +177,7 @@
 			break
 
 	if(!device_turf || invalid_area)
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
+		to_chat(user, SPAN_NOTICE("You're having difficulties getting the [name] to work."))
 		return FALSE
 	return TRUE
 
@@ -188,14 +188,14 @@
 	qdel(src)
 
 /obj/item/wormhole_jaunter/extraction/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>Emagging [src] has no effect.</span>")
+	to_chat(user, SPAN_WARNING("Emagging [src] has no effect."))
 
 /obj/item/wormhole_jaunter/extraction/chasm_react(mob/user)
 	return // This is not an instant getaway portal like the jaunter
 
 /obj/item/wormhole_jaunter/extraction/proc/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",
-					"<span class='notice'>You light an extraction flare, initiating the extraction process.</span>")
+	user.visible_message(SPAN_NOTICE("[user] pulls out a black and gold flare and lights it."),
+					SPAN_NOTICE("You light an extraction flare, initiating the extraction process."))
 
 /obj/item/wormhole_jaunter/extraction/vampire
 	name = "blood chalice"
@@ -205,8 +205,8 @@
 	setup_type = /obj/effect/temp_visual/exfiltration/vampire
 
 /obj/item/wormhole_jaunter/extraction/vampire/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a blood-filled chalice on the ground. It begins to bubble ominously...</span>",
-					"<span class='notice'>You set a blood-filled chalice on the ground. It begins to bubble ominously...</span>")
+	user.visible_message(SPAN_NOTICE("[user] sets a blood-filled chalice on the ground. It begins to bubble ominously..."),
+					SPAN_NOTICE("You set a blood-filled chalice on the ground. It begins to bubble ominously..."))
 
 /obj/item/wormhole_jaunter/extraction/changeling
 	name = "writhing mass"
@@ -216,8 +216,8 @@
 	setup_type = /obj/effect/temp_visual/exfiltration/changeling
 
 /obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a grotesque fleshy mass on the floor.</span>",
-					"<span class='notice'>You set a pulsing piece of yourself on the floor.</span>")
+	user.visible_message(SPAN_NOTICE("[user] sets a grotesque fleshy mass on the floor."),
+					SPAN_NOTICE("You set a pulsing piece of yourself on the floor."))
 
 /obj/item/wormhole_jaunter/extraction/mindflayer
 	name = "nanite telepad"
@@ -226,8 +226,8 @@
 	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
 
 /obj/item/wormhole_jaunter/extraction/mindflayer/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
-					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
+	user.visible_message(SPAN_NOTICE("[user] sets a strange telepad on the floor. It begins to unfold."),
+					SPAN_NOTICE("You push a button on [src], and watch as it begins to unfold."))
 
 /obj/item/wormhole_jaunter/extraction/admin
 	name = "advanced extraction flare"
@@ -479,10 +479,10 @@
 		return FALSE
 	var/datum/mind/user_mind = user.mind
 	if(user_mind != antag_mind)
-		to_chat(user, "<span class='warning'>You jump through the portal! Right before you see the other side, you feel an immense, sharp pain in your head!</span>")
+		to_chat(user, SPAN_WARNING("You jump through the portal! Right before you see the other side, you feel an immense, sharp pain in your head!"))
 		var/list/L = get_destinations()
 		if(!length(L))
-			to_chat(user, "<span class='warning'>[src] found no beacons in the sector to target.</span>")
+			to_chat(user, SPAN_WARNING("[src] found no beacons in the sector to target."))
 			return
 		var/random_destination = pick(L)
 		if(!do_teleport(victim, random_destination, 2, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting))
@@ -511,7 +511,7 @@
 	return destinations
 
 /obj/effect/portal/advanced/exfiltration/proc/fail_extraction(mob/living/schmuck)
-	to_chat(schmuck, "<span class='warning'>You feel immense pain!</span>")
+	to_chat(schmuck, SPAN_WARNING("You feel immense pain!"))
 	log_and_message_admins("[schmuck] went through an exfiltration portal they didn't control.")
 	schmuck.Paralyse(30 SECONDS)
 	schmuck.EyeBlind(35 SECONDS)
@@ -526,13 +526,13 @@
 		schmuck.adjustBruteLoss(40)
 		schmuck.adjustBrainLoss(25)
 		injury_target.droplimb()
-		to_chat(schmuck, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god, something's missing!</span>")
+		to_chat(schmuck, SPAN_WARNING("You were interrogated by your captors before being sent back! Oh god, something's missing!"))
 		return
 	// Species specific punishments first
 	if(ismachineperson(schmuck))
 		schmuck.emp_act(EMP_HEAVY)
 		schmuck.adjustBrainLoss(30)
-		to_chat(schmuck, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+		to_chat(schmuck, SPAN_WARNING("You were interrogated by your captors before being sent back! You feel like some of your components are loose!"))
 		return
 	schmuck.adjustBruteLoss(40)
 	schmuck.adjustBrainLoss(25)
@@ -543,7 +543,7 @@
 		injury_target.cause_internal_bleeding()
 		injury_target = schmuck.get_organ(BODY_ZONE_CHEST)
 		injury_target.cause_internal_bleeding()
-		to_chat(schmuck, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+		to_chat(schmuck, SPAN_WARNING("You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!"))
 		return
 	if(prob(25))
 		injury_target = schmuck.get_organ(BODY_ZONE_CHEST)

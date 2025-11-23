@@ -60,10 +60,10 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			if(H.wear_suit != src)
-				to_chat(H,"<span class='warning'>You must be wearing [src] to put up the hood!</span>")
+				to_chat(H,SPAN_WARNING("You must be wearing [src] to put up the hood!"))
 				return
 			if(H.head)
-				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
+				to_chat(H,SPAN_WARNING("You're already wearing something on your head!"))
 				return
 			else if(H.equip_to_slot_if_possible(hood, ITEM_SLOT_HEAD, FALSE, FALSE))
 				suit_adjusted = 1
@@ -74,7 +74,7 @@
 		if((hood?.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
-				to_chat(H, "<span class='warning'>[hood] is stuck to your head!</span>")
+				to_chat(H, SPAN_WARNING("[hood] is stuck to your head!"))
 			return
 		RemoveHood()
 

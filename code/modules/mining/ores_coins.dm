@@ -27,12 +27,12 @@
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
-		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		to_chat(user, SPAN_NOTICE("You can't smelt [src] into anything useful!"))
 		return
 	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
 		return
 	new refined_type(drop_location(), amount)
-	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	to_chat(user, SPAN_NOTICE("You smelt [src] into its refined form!"))
 	qdel(src)
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -59,7 +59,7 @@
 
 /obj/item/stack/ore/glass/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can throw this into people's eyes!</span>"
+	. += SPAN_NOTICE("You can throw this into people's eyes!")
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
 		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),
@@ -75,18 +75,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.head && C.head.flags_cover & HEADCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s headgear blocks the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s headgear blocks the sand!"))
 		return
 	if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s mask blocks the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s mask blocks the sand!"))
 		return
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s glasses block the sand!"))
 		return
 	C.EyeBlurry(12 SECONDS)
 	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
-	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, SPAN_USERDANGER("[src] gets into your eyes! The pain, it burns!"))
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity)
@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could add some to a girder to make a false rock wall.</span>"
+	. += SPAN_NOTICE("You could add some to a girder to make a false rock wall.")
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
@@ -262,8 +262,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/gibtonite/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can use a mining scanner to stop an activated gibtonite crystal from detonating.</span>"
-	. += "<span class='notice'>In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!</span>"
+	. += SPAN_NOTICE("You can use a mining scanner to stop an activated gibtonite crystal from detonating.")
+	. += SPAN_NOTICE("In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!")
 
 /obj/item/gibtonite/Initialize(mapload)
 	. = ..()
@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
-		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
+		user.visible_message("[user] attaches [I] to [src].", SPAN_NOTICE("You attach [I] to [src]."))
 		wires = new(src)
 		attacher = key_name(user)
 		qdel(I)
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(primed)
 		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
 			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
+			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", SPAN_NOTICE("You stopped the chain reaction. ...The ore's quality looks diminished."))
 			icon_state = "Gibtonite ore"
 			quality = GIBTONITE_QUALITY_LOW
 			return
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else if(triggered_by == 2)
 			log_game("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
-			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
+			user.visible_message(SPAN_WARNING("[user] strikes \the [src], causing a chain reaction!"), SPAN_DANGER("You strike \the [src], causing a chain reaction."))
 			log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(bombturf)])")
 		spawn(det_time)
 		if(primed)
@@ -500,15 +500,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
+			to_chat(user, SPAN_NOTICE("There already is a string attached to this coin."))
 			return
 
 		if(CC.use(1))
 			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
 			string_attached = 1
-			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
+			to_chat(user, SPAN_NOTICE("You attach a string to the coin."))
 		else
-			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
+			to_chat(user, SPAN_WARNING("You need one length of cable to attach a string to the coin."))
 			return
 
 	else if(istype(W,/obj/item/wirecutters))
@@ -521,7 +521,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
+		to_chat(user, SPAN_NOTICE("You detach the string from the coin."))
 	else ..()
 
 /obj/item/coin/wirecutter_act(mob/user, obj/item/I)
@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You carefully cut a hole into [src] turning it into a ring.</span>")
+		to_chat(user, SPAN_NOTICE("You carefully cut a hole into [src] turning it into a ring."))
 		var/obj/item/clothing/gloves/ring/ring = new typekey()
 		qdel(src)
 		user.put_in_hands(ring)
@@ -552,10 +552,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		var/blind_sound
 		if(cmineral != "tranquillite")
 			playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
-			blind_sound = "<span class='notice'>You hear the clattering of loose change.</span>"
+			blind_sound = SPAN_NOTICE("You hear the clattering of loose change.")
 		if(do_after(user, 15, target = src))
-			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
+			user.visible_message(SPAN_NOTICE("[user] has flipped [src]. It lands on [coinflip]."), \
+								SPAN_NOTICE("You flip [src]. It lands on [coinflip]."), \
 								blind_sound)
 
 #undef GIBTONITE_QUALITY_LOW

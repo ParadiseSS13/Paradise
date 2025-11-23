@@ -197,8 +197,8 @@
 
 	var/area/A = get_area(user)
 	user.visible_message(
-		"<span class='warning'>[user] plucks the stem from [src]!</span>",
-		"<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>"
+		SPAN_WARNING("[user] plucks the stem from [src]!"),
+		SPAN_USERDANGER("You pluck the stem from [src], which begins to hiss loudly!")
 	)
 	message_admins("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x], [user.y], [user.z]) <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>(JMP)</a>")
 	log_game("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x],[user.y],[user.z]).")

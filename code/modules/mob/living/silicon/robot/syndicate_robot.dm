@@ -114,7 +114,7 @@
 		for(var/obj/item/borg_chameleon/C in module.contents)
 			cham_proj = C
 		if(!cham_proj)
-			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			to_chat(src, SPAN_WARNING("Error : No chameleon projector system found."))
 			return
 	cham_proj.attack_self__legacy__attackchain(src)
 

@@ -86,7 +86,7 @@
 	if(severity == 1)
 		if(!is_robot)
 			if(effect <= 1)
-				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 				M.fakevomit(no_text = TRUE)
 			else if(effect <= 3)
 				M.emote(pick("groan", "moan"))
@@ -94,37 +94,37 @@
 				update_flags |= M.adjustToxLoss(1, FALSE)
 		else
 			if(effect <= 1)
-				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.visible_message(SPAN_WARNING("[M] suddenly jitters for a moment."))
 				M.AdjustJitter(2 SECONDS)
 			else if(effect <= 3)
 				M.emote("shudder")
 			if(effect <= 8)
 				update_flags |= M.adjustFireLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+				to_chat(M, SPAN_WARNING("Your internals start to overheat!"))
 		return list(effect, update_flags)
 
 	if(severity == 2)
 		if(!is_robot)
 			if(effect <= 2)
-				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 				M.fakevomit(no_text = TRUE)
 			else if(effect <= 5)
-				M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
+				M.visible_message(SPAN_WARNING("[M] staggers and drools, [M.p_their()] eyes bloodshot!"))
 				M.Dizzy(16 SECONDS)
 				M.Weaken(8 SECONDS)
 			if(effect <= 15)
 				update_flags |= M.adjustToxLoss(1, FALSE)
 		else
 			if(effect <= 2)
-				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.visible_message(SPAN_WARNING("[M] suddenly jitters for a moment."))
 				M.AdjustJitter(2 SECONDS)
 			else if(effect <= 5)
-				M.visible_message("<span class='warning'>[M] staggers and seizes up!</span>")
+				M.visible_message(SPAN_WARNING("[M] staggers and seizes up!"))
 				M.Dizzy(16 SECONDS)
 				M.Weaken(8 SECONDS)
 			if(effect <= 15)
 				update_flags |= M.adjustFireLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+				to_chat(M, SPAN_WARNING("Your internals start to overheat!"))
 	return list(effect, update_flags)
 
 /datum/reagent/medicine/synaptizine/recal
@@ -179,7 +179,7 @@
 		data["method"] = method
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
 			if(show_message)
-				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
+				to_chat(M, SPAN_WARNING("[src] freezes solid as it enters your body!")) //Burn damage already happens on ingesting
 	..()
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
@@ -192,7 +192,7 @@
 		update_flags |= M.adjustFireLoss(-12, FALSE)
 		M.Stun(4 SECONDS) //You freeze up, but get good healing. Stops use as a combat drug, or for meming on blobs in space.
 		if(M.stat == CONSCIOUS && prob(25)) //So people know what is going on outside cryo tubes, in the event someone weaponises this.
-			to_chat(M, "<span class='warning'>Your veins and muscles are freezing!</span>")
+			to_chat(M, SPAN_WARNING("Your veins and muscles are freezing!"))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -354,10 +354,10 @@
 	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT)
 		H.cure_husk(BURN)
 		// Could be a skeleton or a golem or sth, avoid phrases like "burnt flesh" and "burnt skin"
-		H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!</span>")
+		H.visible_message(SPAN_NICEGREEN("The squishy liquid coats [H]'s burns. [H] looks a lot healthier!"))
 
 	if(show_message)
-		to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+		to_chat(M, SPAN_NOTICE("The synthetic flesh integrates itself into your wounds, healing you."))
 
 	return ..()
 
@@ -398,13 +398,13 @@
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	if(show_message)
-		to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
+		to_chat(M, SPAN_NOTICE("The styptic powder stings like hell as it closes some of your wounds!"))
 		M.emote("scream")
 
 	if(method == REAGENT_INGEST)
 		M.adjustToxLoss(0.5 * volume)
 		if(show_message)
-			to_chat(M, "<span class='warning'>You feel gross!</span>")
+			to_chat(M, SPAN_WARNING("You feel gross!"))
 
 	return ..()
 
@@ -433,12 +433,12 @@
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	if(show_message)
-		to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
+		to_chat(M, SPAN_NOTICE("The silver sulfadiazine soothes your burns."))
 
 	if(method == REAGENT_INGEST)
 		M.adjustToxLoss(0.5 * volume)
 		if(show_message)
-			to_chat(M, "<span class='warning'>You feel sick...</span>")
+			to_chat(M, SPAN_WARNING("You feel sick..."))
 
 	return ..()
 
@@ -494,30 +494,30 @@
 	if(severity == 1) //lesser
 		M.AdjustStuttering(2 SECONDS)
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly clutches [M.p_their()] gut!"))
 			M.emote("scream")
 			M.Weaken(8 SECONDS)
 		else if(effect <= 3)
-			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
+			M.visible_message(SPAN_WARNING("[M] completely spaces out for a moment."))
 			M.AdjustConfused(30 SECONDS)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.visible_message(SPAN_WARNING("[M] stumbles and staggers."))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 		else if(effect <= 7)
-			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
+			M.visible_message(SPAN_WARNING("[M] shakes uncontrollably."))
 			M.Jitter(60 SECONDS)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly clutches [M.p_their()] gut!"))
 			M.emote("scream")
 			M.Weaken(14 SECONDS)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
+			M.visible_message(SPAN_WARNING("[M] jerks bolt upright, then collapses!"))
 			M.Paralyse(10 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 8)
-			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.visible_message(SPAN_WARNING("[M] stumbles and staggers."))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
@@ -714,7 +714,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -722,10 +722,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M.name] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
+			M.visible_message(SPAN_WARNING("[M.name] staggers and drools, [M.p_their()] eyes bloodshot!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -755,7 +755,7 @@
 	if(prob(3))
 
 		M.AdjustDrowsy(2 SECONDS)
-		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
+		M.visible_message(SPAN_NOTICE("[M] looks a bit dazed."))
 	return ..()
 
 /datum/reagent/medicine/diphenhydramine/overdose_process(mob/living/M, severity)
@@ -764,12 +764,12 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			to_chat(M, "<span class='warning'>You feel parched.</span>")
+			to_chat(M, SPAN_WARNING("You feel parched."))
 		else if(effect <= 3)
-			to_chat(M, "<span class='warning'>You feel a little off.</span>")
+			to_chat(M, SPAN_WARNING("You feel a little off."))
 			M.Dizzy(10 SECONDS)
 		else if(effect <= 5)
-			to_chat(M, "<span class='warning'>You feel a sudden head rush.</span>")
+			to_chat(M, SPAN_WARNING("You feel a sudden head rush."))
 			M.emote("faint")
 		else if(effect <= 8)
 			M.Druggy(30 SECONDS)
@@ -778,21 +778,21 @@
 		if(effect <= 15)
 			M.AdjustHallucinate(30 SECONDS)
 		if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				H.vomit(20)
 		else if(effect <= 10)
 			M.visible_message(
-				"<span class='warning'>[M] seems to be itching themselves incessantly!</span>",
-				"<span class='danger'>You feel bugs crawling under your skin!</span>"
+				SPAN_WARNING("[M] seems to be itching themselves incessantly!"),
+				SPAN_DANGER("You feel bugs crawling under your skin!")
 			)
 			M.emote("scream")
 		else if(effect <= 15)
-			to_chat(M, "<span class='warning'>You feel a wave of drowsiness wash over you.</span>")
+			to_chat(M, SPAN_WARNING("You feel a wave of drowsiness wash over you."))
 			M.SetSleeping(5 SECONDS)
 		else if(effect <= 20)
-			to_chat(M, "<span class='warning'>Something doesn't feel quite right!</span>")
+			to_chat(M, SPAN_WARNING("Something doesn't feel quite right!"))
 			M.Druggy(30 SECONDS)
 	return list(effect, update_flags)
 
@@ -919,7 +919,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -927,10 +927,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.visible_message(SPAN_WARNING("[M] suddenly and violently vomits!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
+			M.visible_message(SPAN_WARNING("[M] staggers and drools, [M.p_their()] eyes bloodshot!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -967,7 +967,7 @@
 		if(SM.stat == DEAD)
 			SM.revive()
 			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
-			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
+			SM.visible_message(SPAN_WARNING("[SM] seems to rise from the dead!"))
 
 	if(isbasicmob(M) && method == REAGENT_TOUCH)
 		var/mob/living/basic/BM = M
@@ -976,28 +976,28 @@
 		if(BM.stat == DEAD)
 			BM.revive()
 			BM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
-			BM.visible_message("<span class='warning'>[BM] seems to rise from the dead!</span>")
+			BM.visible_message(SPAN_WARNING("[BM] seems to rise from the dead!"))
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.suiciding) // Feedback if the player suicided.
-					M.visible_message("<span class='warning'>[M] twitches slightly, but appears to have no will to live!</span>")
+					M.visible_message(SPAN_WARNING("[M] twitches slightly, but appears to have no will to live!"))
 					return
 				if(HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA)) // Feedback if the body is husked or has bad DNA.
-					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					M.visible_message(SPAN_WARNING("[M] twitches slightly, but is otherwise unresponsive!"))
 					return
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS) || !M.ghost_can_reenter())
-						M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
+						M.visible_message(SPAN_WARNING("[M] twitches slightly, but nothing happens."))
 						return
 					M.delayed_gib(TRUE)
 					return
-				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
+				M.visible_message(SPAN_NOTICE("[M]'s body begins to twitch as the Lazarus Reagent takes effect!"))
 				M.do_jitter_animation(300) // Visual feedback of lazarus working.
 				var/mob/dead/observer/G = M.get_ghost()
 				if(G)
-					to_chat(G, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(G, "[SPAN_GHOSTALERT("Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!")] (Verbs -> Ghost -> Re-enter corpse)")
 					window_flash(G.client)
 					SEND_SOUND(G, sound('sound/effects/genetics.ogg'))
 				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, lazrevival), M), 5 SECONDS) // same time as the defib to keep things consistant.
@@ -1041,19 +1041,19 @@
 	var/mob/living/carbon/human/H = M
 	if(volume < 20)
 		if(prob(10))
-			to_chat(H, "<span class='warning'>You cough up some congealed blood.</span>")
+			to_chat(H, SPAN_WARNING("You cough up some congealed blood."))
 			H.vomit(blood = TRUE, should_confuse = FALSE) //mostly visual
 		else if(prob(10))
 			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
-			to_chat(H, "<span class='warning'>[overdose_message]</span>")
+			to_chat(H, SPAN_WARNING("[overdose_message]"))
 	else
 		if(prob(10))
-			to_chat(H, "<span class='danger'>You choke on congealed blood!</span>")
+			to_chat(H, SPAN_DANGER("You choke on congealed blood!"))
 			H.AdjustLoseBreath(2 SECONDS)
 			H.vomit(blood = TRUE, should_confuse = FALSE)
 		else if(prob(10))
 			var/overdose_message = pick("You're seeing red!", "Your heartbeat thunders in your ears!", "Your veins writhe under your skin!")
-			to_chat(H, "<span class='danger'>[overdose_message]</span>")
+			to_chat(H, SPAN_DANGER("[overdose_message]"))
 			H.adjustBruteLoss(6)
 			if(H.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 				H.client.color = "red"
@@ -1155,7 +1155,7 @@
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#a12c3c"
 	harmless = FALSE
-	taste_description = "<span class='userdanger'>an unstoppable force</span>"
+	taste_description = SPAN_USERDANGER("an unstoppable force")
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1179,7 +1179,7 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			to_chat(M, "<span class='userdanger'>It feels like every single one of your muscles is cramping at once!</span>")
+			to_chat(M, SPAN_USERDANGER("It feels like every single one of your muscles is cramping at once!"))
 			M.emote("scream")
 			M.Weaken(6 SECONDS)
 
@@ -1252,14 +1252,14 @@
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like the world is moving in slow motion.")
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!" // "GOTTAGOFAST" in binary.
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, SPAN_NOTICE("[high_message]"))
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/surge_plus/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
 		M.Stuttering(5 SECONDS)
-		to_chat(M, pick("<span class='warning'>Your circuits overheat!</span>", "<span class='warning'>Electrical arcs discharge inside you!</span>"))
+		to_chat(M, pick(SPAN_WARNING("Your circuits overheat!"), SPAN_WARNING("Electrical arcs discharge inside you!")))
 		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 5 to compensate for no breathloss. Not like anyone will ever OD on this anyway.
 	return list(0, update_flags)
@@ -1303,7 +1303,7 @@
 			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] is bleeding from [M.p_their()] very pores!</span>")
+			M.visible_message(SPAN_WARNING("[M] is bleeding from [M.p_their()] very pores!"))
 			M.bleed(rand(10, 20))
 		else if(effect <= 4)
 			M.vomit(0, TRUE, FALSE)
@@ -1613,7 +1613,7 @@
 		if(1 to 19)
 			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
-				to_chat(M, "<span class='warning'>You feel great pain from the nanomachines inside you!</span>")
+				to_chat(M, SPAN_WARNING("You feel great pain from the nanomachines inside you!"))
 				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			for(var/datum/reagent/R in M.reagents.reagent_list)
 				if(stimulant_list.Find(R.id))
@@ -1628,7 +1628,7 @@
 				else
 					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
 		if(44)
-			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
+			to_chat(M, SPAN_WARNING("Your body goes rigid, you cannot move at all!"))
 			M.AdjustWeakened(15 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant)
@@ -1636,7 +1636,7 @@
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
 					if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
-						to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+						to_chat(M, SPAN_NOTICE("You feel a burning sensation in your [E.name] as it straightens involuntarily!"))
 						E.rejuvenate() //Repair it completely.
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
@@ -1661,7 +1661,7 @@
 					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = TRUE)
 				else
 					if(prob(25))
-						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						to_chat(M, SPAN_WARNING("Your skin feels like it is ripping apart and your veins are on fire!")) //It is experimental and does cause scars, after all.
 						update_flags |= M.adjustBruteLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 						update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags

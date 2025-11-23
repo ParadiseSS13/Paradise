@@ -214,14 +214,14 @@
 		return
 
 	if(active)
-		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
-			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
+		user.visible_message(SPAN_NOTICE("[bicon(src)] [user] deactivated the shield generator."), \
+			SPAN_NOTICE("[bicon(src)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
-			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
-				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
+			user.visible_message(SPAN_NOTICE("[bicon(src)] [user] activated the shield generator."), \
+				SPAN_NOTICE("[bicon(src)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -235,7 +235,7 @@
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = used
-		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
+		to_chat(user, SPAN_NOTICE("You begin to replace the wires."))
 		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil)
 				return ITEM_INTERACT_COMPLETE
@@ -243,7 +243,7 @@
 			health = max_health
 			malfunction = FALSE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You repair [src]!"))
 			update_icon(UPDATE_ICON_STATE)
 
 		return ITEM_INTERACT_COMPLETE
@@ -252,7 +252,7 @@
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Access denied."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -278,7 +278,7 @@
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		if(active)
-			visible_message("<span class='warning'>[src] shuts off!</span>")
+			visible_message(SPAN_WARNING("[src] shuts off!"))
 			shields_down()
 	else
 		if(isspaceturf(get_turf(src)))
@@ -350,14 +350,14 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(!anchored)
-		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
+		to_chat(user, SPAN_WARNING("The shield generator needs to be firmly secured to the floor first."))
 		return TRUE
 	if(locked && !issilicon(user))
-		to_chat(user, "<span class='warning'>The controls are locked!</span>")
+		to_chat(user, SPAN_WARNING("The controls are locked!"))
 		return TRUE
 	var/turf/T = loc
 	if(!T.get_cable_node())
-		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
+		to_chat(user, SPAN_WARNING("The shield generator needs to be powered by wire underneath."))
 		return TRUE
 
 	if(!activated)
@@ -365,8 +365,8 @@
 	else
 		deactivate()
 
-	user.visible_message("<span class='notice'>[user] turned the shield generator [activated ? "on" : "off"].</span>", \
-		"<span class='notice'>You turn [activated ? "on" : "off"] the shield generator.</span>", \
+	user.visible_message(SPAN_NOTICE("[user] turned the shield generator [activated ? "on" : "off"]."), \
+		SPAN_NOTICE("You turn [activated ? "on" : "off"] the shield generator."), \
 		"You hear heavy droning [activated ? "" : "fade out"].")
 
 	update_icon(UPDATE_ICON_STATE)
@@ -374,7 +374,7 @@
 
 /obj/machinery/shieldwallgen/process()
 	if(!try_charge_shields_power())
-		visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
+		visible_message(SPAN_WARNING("[name] shuts down due to lack of power!"), \
 				"You hear heavy droning fade out")
 		deactivate()
 		update_icon(UPDATE_ICON_STATE)
@@ -433,7 +433,7 @@
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Access denied."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -443,7 +443,7 @@
 /obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(activated)
-		to_chat(user, "<span class='warning'>Turn off the field generator first.</span>")
+		to_chat(user, SPAN_WARNING("Turn off the field generator first."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

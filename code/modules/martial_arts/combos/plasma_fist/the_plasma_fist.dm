@@ -7,7 +7,7 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	playsound(target.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 	user.say("PLASMA FIST!")
-	target.visible_message("<span class='danger'>[user] has hit [target] with THE PLASMA FIST TECHNIQUE!</span>", \
-								"<span class='userdanger'>[user] has hit [target] with THE PLASMA FIST TECHNIQUE!</span>")
+	target.visible_message(SPAN_DANGER("[user] has hit [target] with THE PLASMA FIST TECHNIQUE!"), \
+								SPAN_USERDANGER("[user] has hit [target] with THE PLASMA FIST TECHNIQUE!"))
 	target.gib()
 	return MARTIAL_COMBO_DONE

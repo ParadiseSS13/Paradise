@@ -10,7 +10,7 @@
 //Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
 
-	to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
+	to_chat(user, SPAN_NOTICE("We begin our stasis, preparing energy to arise once more."))
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
@@ -27,12 +27,12 @@
 	if(!HAS_TRAIT_FROM(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT))
 		return
 	if(!QDELETED(user) && user.mind && cling?.acquired_powers)
-		to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
+		to_chat(user, SPAN_NOTICE("We are ready to regenerate."))
 		cling.give_power(new /datum/action/changeling/revive)
 
 /datum/action/changeling/fakedeath/can_sting(mob/user)
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
+		to_chat(user, SPAN_WARNING("We are already regenerating."))
 		return FALSE
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
 		var/death_confirmation = tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No"))
@@ -42,6 +42,6 @@
 		if(cling.owner != user.mind)
 			return FALSE
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-			to_chat(user, "<span class='warning'>We are already regenerating.</span>")
+			to_chat(user, SPAN_WARNING("We are already regenerating."))
 			return FALSE
 	return ..()

@@ -62,7 +62,7 @@
 	spider_lastspawn = world.time
 
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
+		to_chat(src, SPAN_DANGER("You cannot generate eggs while hiding in [loc]."))
 		return
 
 	var/list/spider_array = CountSpidersDetailed(TRUE)
@@ -89,12 +89,12 @@
 		return
 	canlay++
 	if(canlay == 1)
-		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		to_chat(src, SPAN_NOTICE("You have an egg available to lay."))
 	else
-		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+		to_chat(src, SPAN_NOTICE("You have [canlay] eggs available to lay."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/show_egg_timer()
-	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [spider_spawnfrequency / 10] seconds.</span>")
+	to_chat(src, SPAN_DANGER("Too soon to attempt that again. You generate a new egg every [spider_spawnfrequency / 10] seconds."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()
 	// Princesses don't nest. However, we still need to override this in case an AI princess calls it.

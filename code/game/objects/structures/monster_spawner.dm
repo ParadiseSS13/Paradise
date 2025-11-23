@@ -141,7 +141,7 @@
 
 /obj/structure/spawner/sentient/proteon_spawner/examine_status(mob/user)
 	if(IS_CULTIST(user) || !isliving(user))
-		return "<span class='cult'>It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return SPAN_CULT("It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.")
 	return ..()
 
 /obj/structure/spawner/sentient/proteon_spawner/examine(mob/user)
@@ -149,14 +149,14 @@
 	if(!IS_CULTIST(user) && isliving(user))
 		var/mob/living/living_user = user
 		living_user.adjustBrainLoss(5)
-		. += "<span class='userdanger'>The voices of the damned echo relentlessly in your mind, continously rebounding on the walls of your self the more you focus on [src]. Your head pounds, better keep away...</span>"
+		. += SPAN_USERDANGER("The voices of the damned echo relentlessly in your mind, continously rebounding on the walls of your self the more you focus on [src]. Your head pounds, better keep away...")
 	else
-		. += "<span class='cult'>The gateway will create one weak proteon construct every [spawn_time * 0.1] seconds, up to a total of [max_mobs], that may be controlled by the spirits of the dead.</span>"
+		. += SPAN_CULT("The gateway will create one weak proteon construct every [spawn_time * 0.1] seconds, up to a total of [max_mobs], that may be controlled by the spirits of the dead.")
 
 /obj/structure/spawner/sentient/proteon_spawner/became_player_controlled(mob/living/simple_animal/hostile/construct/proteon/hostile/proteon)
 	proteon.mind.add_antag_datum(/datum/antagonist/cultist)
 	proteon.add_filter("awoken_proteon", 3, list("type" = "outline", "color" = LIGHT_COLOR_RED, "size" = 2))
-	visible_message("<span class='cult'>[proteon] awakens, glowing an eerie red as it stirs from its stupor!</span>")
+	visible_message(SPAN_CULT("[proteon] awakens, glowing an eerie red as it stirs from its stupor!"))
 	addtimer(CALLBACK(src, PROC_REF(remove_wake_outline), proteon), 8 SECONDS)
 
 /obj/structure/spawner/sentient/proteon_spawner/proc/remove_wake_outline(mob/proteon)
@@ -165,7 +165,7 @@
 
 /obj/structure/spawner/sentient/proteon_spawner/obj_destruction(damage_flag)
 	playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 75)
-	visible_message("<span class='cult'><b>[src] completely falls apart, the screams of the damned reaching a feverous pitch before slowly fading away into nothing.</b></span>")
+	visible_message(SPAN_CULT("<b>[src] completely falls apart, the screams of the damned reaching a feverous pitch before slowly fading away into nothing.</b>"))
 	return ..()
 
 /obj/item/gps/internal/proteon

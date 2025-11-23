@@ -6,8 +6,8 @@
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-	target.visible_message("<span class='warning'>[user] pounds [target] on the chest!</span>", \
-					"<span class='userdanger'>[user] slams your chest! You can't breathe!</span>")
+	target.visible_message(SPAN_WARNING("[user] pounds [target] on the chest!"), \
+					SPAN_USERDANGER("[user] slams your chest! You can't breathe!"))
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.AdjustLoseBreath(10 SECONDS)
 	target.apply_damage(30, STAMINA)

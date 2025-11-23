@@ -29,7 +29,7 @@
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
 			H.physiology.burn_mod /= 1.1
 	update_spell_name(user)
-	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
+	to_chat(user, SPAN_NOTICE("You will now be [V.iscloaking ? "hidden" : "seen"] in darkness."))
 
 /mob/living/proc/update_vampire_cloak()
 	SIGNAL_HANDLER
@@ -85,16 +85,16 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
+		to_chat(user, SPAN_USERDANGER("The snare sends a psychic backlash!"))
 		C.EyeBlind(20 SECONDS)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
-	user.visible_message("<span class='danger'>[user] points [I] at [src]!</span>",
-	"<span class='danger'>You point [I] at [src]!</span>")
-	visible_message("<span class='notice'>[src] withers away.</span>")
+	user.visible_message(SPAN_DANGER("[user] points [I] at [src]!"),
+	SPAN_DANGER("You point [I] at [src]!"))
+	visible_message(SPAN_NOTICE("[src] withers away."))
 	qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
@@ -104,7 +104,7 @@
 		obj_integrity -= 50
 
 	if(obj_integrity <= 0)
-		visible_message("<span class='notice'>[src] withers away.</span>")
+		visible_message(SPAN_NOTICE("[src] withers away."))
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
@@ -137,7 +137,7 @@
 
 /datum/spell/vampire/soul_anchor/cast(list/targets, mob/user)
 	if(making_anchor) // second cast, but we are impatient
-		to_chat(user, "<span class='notice'>Your anchor isn't ready yet!</span>")
+		to_chat(user, SPAN_NOTICE("Your anchor isn't ready yet!"))
 		return
 
 	if(!making_anchor && !anchor) // first cast, setup the anchor

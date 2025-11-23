@@ -90,33 +90,33 @@
 	if(shock(user, 100))
 		return
 	if(invulnerable)
-		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
+		to_chat(user, SPAN_WARNING("This fence is too strong to cut through!"))
 		return
 	if(!cuttable)
-		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
-		"<span class='warning'>You start dismantling [src] with [W].</span>")
+		user.visible_message(SPAN_WARNING("[user] starts dismantling [src] with [W]."),\
+		SPAN_WARNING("You start dismantling [src] with [W]."))
 		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
-			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
-			"<span class='notice'>You completely dismantle [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] completely dismantles [src]."),\
+			SPAN_NOTICE("You completely dismantle [src]."))
 			qdel(src)
 		return
 	var/current_stage = hole_size
-	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
-	"<span class='warning'>You start cutting through [src] with [W].</span>")
+	user.visible_message(SPAN_WARNING("[user] starts cutting through [src] with [W]."),\
+	SPAN_WARNING("You start cutting through [src] with [W]."))
 	if(W.use_tool(src, user, CUT_TIME * W.toolspeed, volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
-					user.visible_message("<span class='notice'>[user] cuts into [src] some more.</span>",\
-					"<span class='notice'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
+					user.visible_message(SPAN_NOTICE("[user] cuts into [src] some more."),\
+					SPAN_NOTICE("You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger."))
 					hole_size = MEDIUM_HOLE
 				if(MEDIUM_HOLE)
-					user.visible_message("<span class='notice'>[user] completely cuts through [src].</span>",\
-					"<span class='notice'>The hole in [src] is now big enough to walk through.</span>")
+					user.visible_message(SPAN_NOTICE("[user] completely cuts through [src]."),\
+					SPAN_NOTICE("The hole in [src] is now big enough to walk through."))
 					hole_size = LARGE_HOLE
 				if(LARGE_HOLE)
-					user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
-					"<span class='notice'>You completely take apart [src].</span>")
+					user.visible_message(SPAN_NOTICE("[user] completely dismantles [src]."),\
+					SPAN_NOTICE("You completely take apart [src]."))
 					qdel(src)
 					return
 			update_cut_status()
@@ -129,14 +129,14 @@
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < HOLE_REPAIR)
-			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
+			to_chat(user, SPAN_WARNING("You need [HOLE_REPAIR] rods to fix this fence!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
+		to_chat(user, SPAN_NOTICE("You begin repairing the fence..."))
 		if(do_after(user, 3 SECONDS * C.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE
 			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair the fence.</span>")
+			to_chat(user, SPAN_NOTICE("You repair the fence."))
 			update_cut_status()
 		return ITEM_INTERACT_COMPLETE
 
@@ -199,7 +199,7 @@
 
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
-	visible_message("<span class='notice'>\The [user] [open ? "opens" : "closes"] \the [src].</span>")
+	visible_message(SPAN_NOTICE("\The [user] [open ? "opens" : "closes"] \the [src]."))
 	update_door_status()
 	playsound(src, 'sound/machines/door_open.ogg', 20, TRUE)
 

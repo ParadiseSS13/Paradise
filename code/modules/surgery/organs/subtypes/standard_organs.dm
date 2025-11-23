@@ -26,7 +26,7 @@
 			owner?.apply_damage(20, STAMINA)
 		if(2)
 			owner?.apply_damage(10, STAMINA)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
+	to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, causing fatigue!"))
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -59,7 +59,7 @@
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
 		owner.drop_item_to_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/arm/right
@@ -89,10 +89,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.AmountWeakened())
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, preventing you from getting back up!"))
 		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping you to the ground!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
@@ -129,10 +129,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.AmountWeakened())
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, preventing you from getting back up!"))
 		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping you to the ground!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
@@ -175,7 +175,7 @@
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
 		owner.drop_item_to_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
@@ -256,7 +256,7 @@
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
 	if(!length(contents))
-		. += "<span class='warning'>There is nothing left inside!</span>"
+		. += SPAN_WARNING("There is nothing left inside!")
 
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
@@ -325,4 +325,4 @@
 			owner?.AdjustConfused(60 SECONDS)
 		if(2)
 			owner?.AdjustConfused(40 SECONDS)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")
+	to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, overloading your motor control!"))

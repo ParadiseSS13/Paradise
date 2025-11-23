@@ -22,7 +22,7 @@
 		if(IS_CHANGELING(src))
 			// the alternative is to allow clings to commit suicide, but then you'd probably have them
 			// killing themselves as soon as they're in cuffs
-			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
+			to_chat(src, SPAN_WARNING("We refuse to take the coward's way out."))
 			return
 		confirm = tgui_alert(src, "Are you sure you want to commit suicide?", "Confirm Suicide", list("Yes", "No"))
 
@@ -53,11 +53,11 @@
 	setOxyLoss((health * 1.5), TRUE)
 
 /mob/living/basic/mouse/do_suicide()
-	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_DANGER("[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide!"))
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 
 /mob/living/silicon/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(src), SPAN_DANGER("[src] is powering down. It looks like [p_theyre()] trying to commit suicide!"))
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -67,7 +67,7 @@
 	card.removePersonality()
 	var/turf/T = get_turf(card.loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+		M.show_message(SPAN_NOTICE("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), 3, SPAN_NOTICE("[src] bleeps electronically."), 2)
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
 /mob/living/carbon/do_suicide()
@@ -75,7 +75,7 @@
 	suiciding = FALSE
 
 /mob/living/carbon/alien/humanoid/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(src), SPAN_DANGER("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide!"))
 	//put em at -175
 	adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -107,7 +107,7 @@
 			human_suicide(damagetype, O)
 			return
 
-	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(src), SPAN_DANGER("[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide!"))
 	human_suicide(0)
 
 /mob/living/carbon/human/proc/human_suicide(damagetype, byitem)
@@ -160,5 +160,5 @@
 	updatehealth()
 
 /mob/living/brain/do_suicide()
-	visible_message("<span class='danger'>[src] is thinking about thinking about thinking about thinking about.... It looks like [p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_DANGER("[src] is thinking about thinking about thinking about thinking about.... It looks like [p_theyre()] trying to commit suicide!"))
 	death()

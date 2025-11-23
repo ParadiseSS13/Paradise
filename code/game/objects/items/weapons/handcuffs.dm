@@ -9,12 +9,12 @@
 /obj/item/restraints/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
 	if(effective_breakout_time)
 		if(!silent)
-			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
-		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+			user.visible_message(SPAN_WARNING("[user] attempts to [break_cuffs ? "break" : "remove"] [src]!"), SPAN_NOTICE("You attempt to [break_cuffs ? "break" : "remove"] [src]..."))
+		to_chat(user, SPAN_NOTICE("(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)"))
 
 	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
+		to_chat(user, SPAN_WARNING("You fail to [break_cuffs ? "break" : "remove"] [src]!"))
 		return
 
 	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
@@ -25,7 +25,7 @@
 
 /obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	if(!silent)
-		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
+		user.visible_message(SPAN_DANGER("[user] manages to [break_cuffs ? "break" : "remove"] [src]!"), SPAN_NOTICE("You successfully [break_cuffs ? "break" : "remove"] [src]."))
 	user.unequip(src)
 
 	if(break_cuffs)
@@ -61,18 +61,18 @@
 
 /obj/item/restraints/handcuffs/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
 
 	if(!istype(C))
 		return
 
 	if(flags & NODROP)
-		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[src] is stuck to your hand!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
-		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
+		to_chat(user, SPAN_WARNING("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
 		return
 
@@ -85,24 +85,24 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!(H.has_left_hand() || H.has_right_hand()))
-			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+			to_chat(user, SPAN_WARNING("How do you suggest handcuffing someone with no hands?"))
 			return FALSE
 
 	if(!C.handcuffed)
-		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
-							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
+		C.visible_message(SPAN_DANGER("[user] is trying to put [src.name] on [C]!"), \
+							SPAN_USERDANGER("[user] is trying to put [src.name] on [C]!"))
 
 		playsound(loc, cuffsound, 15, TRUE, -10)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
-			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+			to_chat(user, SPAN_NOTICE("You handcuff [C]."))
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 			if(breakouttime != 0)
 				add_attack_logs(user, C, "Handcuffed ([src])")
 			else
 				add_attack_logs(user, C, "Handcuffed (Fake/Breakable!) ([src])")
 		else
-			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			to_chat(user, SPAN_WARNING("You fail to handcuff [C]."))
 			return FALSE
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
@@ -247,7 +247,7 @@
 			break_cuffs = TRUE
 			return ..()
 
-	visible_message("<span class='danger'>[user] manages to eat through [src]!</span>", "<span class='notice'>You successfully eat through [src].</span>")
+	visible_message(SPAN_DANGER("[user] manages to eat through [src]!"), SPAN_NOTICE("You successfully eat through [src]."))
 
 	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
 	if(reagents && length(reagents.reagent_list))
@@ -268,29 +268,29 @@
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(!R.use(1))
-			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
+			to_chat(user, SPAN_WARNING("[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!"))
 			return
 		if(!user.unequip(src))
 			return
 		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
 		if(!remove_item_from_storage(user))
 			user.put_in_hands(W)
-		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
+		to_chat(user, SPAN_NOTICE("You wrap the cable restraint around the top of the rod."))
 		qdel(src)
 		return
 
 	if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
 		if(M.amount < 6)
-			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
+			to_chat(user, SPAN_WARNING("You need at least six metal sheets to make good enough weights!"))
 			return
 
-		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to apply [I] to [src]..."))
 		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
 			if(!M.use(6) || !user.unequip(src))
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
-			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
+			to_chat(user, SPAN_NOTICE("You make some weights out of [I] and tie them to [src]."))
 			if(!remove_item_from_storage(user))
 				user.put_in_hands(S)
 			qdel(src)

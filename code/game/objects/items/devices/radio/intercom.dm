@@ -141,11 +141,11 @@
 	. = ..()
 	switch(buildstage)
 		if(0)
-			. += "<span class='notice'>The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.</span>"
+			. += SPAN_NOTICE("The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.")
 		if(1)
-			. += "<span class='notice'>The speaker needs to be <i>wired</i>, though the board could be <b>pried</b> out.</span>"
+			. += SPAN_NOTICE("The speaker needs to be <i>wired</i>, though the board could be <b>pried</b> out.")
 		if(2)
-			. += "<span class='notice'>The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.</span>"
+			. += SPAN_NOTICE("The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.")
 
 /obj/item/radio/intercom/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
@@ -153,18 +153,18 @@
 	else if(iscoil(W) && buildstage == 1)
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 5)
-			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+			to_chat(user, SPAN_WARNING("You need more cable for this!"))
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
 			coil.use(5)
-			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You wire \the [src]!"))
 			buildstage = 2
 		return 1
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
 			qdel(W)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You insert \the [W] into \the [src]!"))
 			buildstage = 1
 		return 1
 	else
@@ -181,11 +181,11 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
+	to_chat(user, SPAN_NOTICE("You begin removing the electronics..."))
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
 		return
 	new /obj/item/intercom_electronics(get_turf(src))
-	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
+	to_chat(user, SPAN_NOTICE("The circuit board pops out!"))
 	buildstage = 0
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
@@ -200,7 +200,7 @@
 	on = TRUE
 	b_stat = FALSE
 	buildstage = 3
-	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
+	to_chat(user, SPAN_NOTICE("You secure the electronics!"))
 	update_icon(UPDATE_ICON_STATE)
 	update_operating_status()
 	for(var/i, i<= 5, i++)
@@ -226,9 +226,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
 		return
-	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
+	to_chat(user, SPAN_NOTICE("You start slicing [src] from the wall..."))
 	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
+		to_chat(user, SPAN_NOTICE("You cut [src] free from the wall!"))
 		new /obj/item/mounted/frame/intercom(get_turf(src))
 		qdel(src)
 

@@ -63,27 +63,27 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] is carrying [length(contents)] spiderlings.</span>"
+	. += SPAN_NOTICE("[p_they(TRUE)] is carrying [length(contents)] spiderlings.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/DoCreateJelly()
 	// Mothers create jellies, which other terrors eat to get regeneration points, just like they get from wrapping corpses.
 	// Jellies are essentially health packs that provide healing over time.
 	if(regen_points < jelly_cost)
-		to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
+		to_chat(src, SPAN_DANGER("You only have [regen_points] of the [jelly_cost] regeneration points you need to do this."))
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>You can only secrete jelly while standing on a floor.</span>")
+		to_chat(src, SPAN_DANGER("You can only secrete jelly while standing on a floor."))
 		return
 	var/turf/mylocation = get_turf(src)
 	if(isspaceturf(mylocation))
-		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
+		to_chat(src, SPAN_DANGER("Cannot secrete jelly in space."))
 		return
-	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to secrete royal jelly."))
 	if(do_after_once(src, 100, target = loc, attempt_cancel_message = "You stop producing jelly."))
 		if(loc != mylocation)
 			return
 		if(regen_points < jelly_cost)
-			to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
+			to_chat(src, SPAN_DANGER("You only have [regen_points] of the [jelly_cost] regeneration points you need to do this."))
 			return
 		new /obj/structure/spider/royaljelly(loc)
 		regen_points -= jelly_cost
@@ -91,7 +91,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	// Jellies give more regeneration points to the spider who eats them than they cost the mother to create.
 	// This makes them cost-efficient. But it also means we can't let mothers eat jellies, or they could keep cycling them for infinite points.
-	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")
+	to_chat(src, SPAN_WARNING("Mothers cannot consume royal jelly."))
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/PickupSpiderlings()
@@ -117,7 +117,7 @@
 	// Mothers can spend regen points to make existing eggs mature faster.
 	// This lets mothers save the spiderlings from eggs that would otherwise be lost when a nest is about to get wiped out.
 	if(regen_points < 50)
-		to_chat(src, "<span class='danger'>You only have [regen_points] of the 50 regeneration points required to do this.</span>")
+		to_chat(src, SPAN_DANGER("You only have [regen_points] of the 50 regeneration points required to do this."))
 		return
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/C in orange(0, src))
 		var/turf/T = get_turf(C)

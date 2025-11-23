@@ -34,14 +34,14 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1, 2)
-			to_chat(M, "<span class='warning'>[pick("You feel weak.", "You feel lazy.")]</span>")
+			to_chat(M, SPAN_WARNING("[pick("You feel weak.", "You feel lazy.")]"))
 		if(3, 4)
-			to_chat(M, "<span class='warning'><b>[pick("You feel very frail.", "You think you might faint.")]</span>")
+			to_chat(M, SPAN_WARNING("<b>[pick("You feel very frail.", "You think you might faint.")]"))
 			M.adjustStaminaLoss(15 * unmitigated)
 		else
-			to_chat(M, "<span class='userdanger'>[pick("You feel tremendously weak!", "Your body trembles as exhaustion creeps over you.")]</span>")
+			to_chat(M, SPAN_USERDANGER("[pick("You feel tremendously weak!", "Your body trembles as exhaustion creeps over you.")]"))
 			M.adjustStaminaLoss(30 * unmitigated)
 			if(M.getStaminaLoss() > 60 && !M.stat)
-				M.visible_message("<span class='warning'>[M] faints!</span>", "<span class='userdanger'>You swoon and faint...</span>")
+				M.visible_message(SPAN_WARNING("[M] faints!"), SPAN_USERDANGER("You swoon and faint..."))
 				M.AdjustSleeping(10 SECONDS * unmitigated)
 	return

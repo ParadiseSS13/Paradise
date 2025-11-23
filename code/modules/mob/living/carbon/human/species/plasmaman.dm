@@ -179,7 +179,7 @@
 					if(environment.oxygen() && environment.oxygen() >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 						H.adjust_fire_stacks(0.5)
 						if(!H.on_fire && H.fire_stacks > 0)
-							H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+							H.visible_message(SPAN_DANGER("[H]'s body reacts with the atmosphere and bursts into flames!"),SPAN_USERDANGER("Your body reacts with the atmosphere and bursts into flame!"))
 						H.IgniteMob()
 	else if(H.fire_stacks)
 		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
@@ -212,8 +212,8 @@
 	if(!H.equip_to_appropriate_slot(internal_tank) && !H.put_in_any_hand_if_possible(internal_tank))
 		H.drop_item_to_ground(H.l_hand)
 		H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
-		to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug.</span>")
+		to_chat(H, SPAN_BOLDANNOUNCEOOC("Could not find an empty slot for internals! Please report this as a bug."))
 		stack_trace("Failed to equip plasmaman with a tank, with the job [J.type]")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only.</span>")
+	to_chat(H, SPAN_NOTICE("You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only."))
 	H.update_action_buttons_icon()

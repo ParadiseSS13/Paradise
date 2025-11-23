@@ -7,7 +7,7 @@
 		return
 
 	if(!SSmapping || !SSmapping.initialized)
-		to_chat(usr, "<span class='notice'>SSmapping has not initialized yet, Z-Level Manager is not available yet.</span>")
+		to_chat(usr, SPAN_NOTICE("SSmapping has not initialized yet, Z-Level Manager is not available yet."))
 		return
 
 	message_admins("[key_name_admin(usr)] is using the Z-Level Manager")

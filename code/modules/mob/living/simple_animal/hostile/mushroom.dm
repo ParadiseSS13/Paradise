@@ -35,9 +35,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='notice'>It looks healthy.</span>"
+		. += SPAN_NOTICE("It looks healthy.")
 	else
-		. += "<span class='notice'>It looks like it's been roughed up.</span>"
+		. += SPAN_NOTICE("It looks like it's been roughed up.")
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
@@ -93,7 +93,7 @@
 			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
 			return TRUE
-		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
+		M.visible_message(SPAN_WARNING("[M] devours [src]!"))
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
@@ -124,7 +124,7 @@
 		overlays += cap_living
 
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
-	visible_message("<span class='notice'>[src] slowly begins to recover.</span>")
+	visible_message(SPAN_NOTICE("[src] slowly begins to recover."))
 	faint_ticker = 0
 	revive()
 	UpdateMushroomCap()
@@ -144,7 +144,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && stat == CONSCIOUS)
-		src.visible_message("<span class='notice'>[src] was bruised!</span>")
+		src.visible_message(SPAN_NOTICE("[src] was bruised!"))
 		bruised = 1
 
 /mob/living/simple_animal/hostile/mushroom/item_interaction(mob/living/user, obj/item/I, list/modifiers)
@@ -153,7 +153,7 @@
 			Recover()
 			qdel(I)
 		else
-			to_chat(user, "<span class='notice'>[src] won't eat it!</span>")
+			to_chat(user, SPAN_NOTICE("[src] won't eat it!"))
 		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/hostile/mushroom/attacked_by(obj/item/attacker, mob/living/user)

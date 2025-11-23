@@ -84,7 +84,7 @@
 		return
 	var/mob/user = ui.user
 	if(topic_denied(user))
-		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(user)
 	. = TRUE
@@ -126,9 +126,9 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
+			to_chat(user, SPAN_WARNING("You short out [src]'s target assessment circuits. It gives out an evil laugh!!"))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
+		audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
@@ -136,7 +136,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	if(locked || !open)
-		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
+		to_chat(user, SPAN_WARNING("Unlock and open it with a screwdriver first!"))
 		return FALSE
 
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -146,7 +146,7 @@
 	bot_reset()
 	turn_on()
 	if(user)
-		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
+		to_chat(user, SPAN_NOTICE("You smear bananium ooze all over [src]'s circuitry!"))
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
 	return TRUE
@@ -154,7 +154,7 @@
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += "<span class='warning'>Yellow ooze seems to be seeping from the case...</span>"
+		. += SPAN_WARNING("Yellow ooze seems to be seeping from the case...")
 
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
 	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
@@ -210,8 +210,8 @@
 	set_mode(BOT_ARREST)
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(SPAN_DANGER("[src] is trying to put zipties on [C]!"),
+						SPAN_USERDANGER("[src] is trying to put zipties on you!"))
 	if(!do_after(src, 6 SECONDS, target = C) || !on)
 		set_mode(BOT_IDLE)
 		return
@@ -253,8 +253,8 @@
 		threatlevel = 6 // will never let you go
 	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	add_attack_logs(src, C, "honked by [src]")
-	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",
-			"<span class='userdanger'>[src] has honked you!</span>")
+	C.visible_message(SPAN_DANGER("[src] has honked [C]!"),
+			SPAN_USERDANGER("[src] has honked you!"))
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
@@ -357,7 +357,7 @@
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
+	visible_message(SPAN_BOLDANNOUNCEIC("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)

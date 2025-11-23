@@ -39,7 +39,7 @@
 	random_color = FALSE
 
 /obj/item/screwdriver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/New(loc, param_color = null)
@@ -84,13 +84,13 @@
 
 	if(!user)
 		return
-	user.visible_message("<span class='suicide'>[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	user.Immobilize(10 SECONDS)
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	user.visible_message("<span class='warn'>[src] retaliates viciously!</span>", "<span class='userdanger'>[src] retaliates viciously!</span>")
+	user.visible_message(SPAN_WARN("[src] retaliates viciously!"), SPAN_USERDANGER("[src] retaliates viciously!"))
 	playsound(loc, hitsound, 50, TRUE, -1)
 
 	return BRUTELOSS
@@ -119,7 +119,7 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/power/activate_self(mob/user)
@@ -128,7 +128,7 @@
 
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
-	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You attach the bolt driver bit to [src]."))
 	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
 		bit.on_detached()
 		bit.forceMove(b_drill)

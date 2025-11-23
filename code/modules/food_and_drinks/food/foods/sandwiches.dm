@@ -496,9 +496,9 @@
 	..()
 	if(!HAS_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE))
 		M.visible_message(
-			"<span class='danger'>[M] lifts [src] up to [M.p_their()] mouth and bites down, inducing a resonance... [M.p_their(TRUE)] body starts to glow and burst into flames before flashing into dust!</span>",
-			"<span class='userdanger'>You bite down on [src].<br><br> Everything starts burning and all you can hear is ringing. Your final thought is: \"OH FU-\"</span>",
-			"<span class='danger'>A deafening resonance fills the air, followed by silence...</span>"
+			SPAN_DANGER("[M] lifts [src] up to [M.p_their()] mouth and bites down, inducing a resonance... [M.p_their(TRUE)] body starts to glow and burst into flames before flashing into dust!"),
+			SPAN_USERDANGER("You bite down on [src].<br><br> Everything starts burning and all you can hear is ringing. Your final thought is: \"OH FU-\""),
+			SPAN_DANGER("A deafening resonance fills the air, followed by silence...")
 		)
 		radiation_pulse(src, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)

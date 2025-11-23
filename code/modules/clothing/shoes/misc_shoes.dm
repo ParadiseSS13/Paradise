@@ -117,10 +117,10 @@
 
 /obj/item/clothing/shoes/clown_shoes/proc/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
@@ -161,7 +161,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, SPAN_WARNING("The boot's internal propulsion needs to recharge still!"))
 		return
 	var/prev_dir = user.dir
 	var/old_pass = user.pass_flags
@@ -175,11 +175,11 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 		slowdown = SHOES_SLOWDOWN + 1
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
+		to_chat(user, SPAN_NOTICE("You switch on the waddle dampeners, [src] no longer slow you down!"))
 		enabled_waddle = FALSE
 		slowdown = SHOES_SLOWDOWN
 
@@ -441,18 +441,18 @@
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, SPAN_WARNING("The boot's internal propulsion needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 	ADD_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "bhop_shoes")))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(SPAN_WARNING("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
 		REMOVE_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, SPAN_WARNING("Something prevents you from dashing forward!"))
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"

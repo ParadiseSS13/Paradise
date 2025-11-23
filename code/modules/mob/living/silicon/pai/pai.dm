@@ -188,7 +188,7 @@
 	if(prob(20))
 		var/turf/T = get_turf(loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
+			M.show_message(SPAN_WARNING("A shower of sparks spray from [src]'s inner workings."), 3, SPAN_WARNING("You hear and smell the ozone hiss of electrical sparks being expelled violently."), 2)
 		return death(0)
 
 	switch(pick(1, 2, 3))
@@ -258,7 +258,7 @@
 		return TRUE
 	pai_user.force_fold_out()
 
-	pai_user.visible_message("<span class='notice'>[pai_user] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	pai_user.visible_message(SPAN_NOTICE("[pai_user] folds outwards, expanding into a mobile form."), SPAN_NOTICE("You fold outwards, expanding into a mobile form."))
 	return TRUE
 
 /mob/living/silicon/pai/proc/force_fold_out()
@@ -284,7 +284,7 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+	to_chat(src, SPAN_NOTICE("You are now [resting ? "resting" : "getting up"]"))
 
 	update_icons()
 
@@ -293,14 +293,14 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
+			to_chat(user, SPAN_DANGER("\The [src] is beyond help, at this point."))
 		else if(getBruteLoss() || getFireLoss())
 			heal_overall_damage(15, 15)
 			N.use(1)
-			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
+			user.visible_message(SPAN_NOTICE("[user.name] applied some [W] at [src]'s damaged areas."),\
+				SPAN_NOTICE("You apply some [W] at [name]'s damaged areas."))
 		else
-			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
+			to_chat(user, SPAN_NOTICE("All [name]'s systems are nominal."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -309,10 +309,10 @@
 		return FINISH_ATTACK
 
 	if(W.force)
-		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
+		visible_message(SPAN_DANGER("[user.name] attacks [src] with [W]!"))
 		adjustBruteLoss(W.force)
 	else
-		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
+		visible_message(SPAN_WARNING("[user.name] bonks [src] harmlessly with [W]."))
 	spawn(1)
 		if(stat != 2)
 			close_up()
@@ -324,10 +324,10 @@
 	if(stat == DEAD)
 		return
 	if(user.a_intent == INTENT_HELP)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] pets [src]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
-		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		visible_message(SPAN_DANGER("[user.name] boops [src] on the head."))
 		spawn(1)
 			close_up()
 
@@ -337,7 +337,7 @@
 	if(loc == card)
 		return
 
-	visible_message("<span class='notice'>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class='notice'>You neatly fold inwards, compacting down to a rectangular card.</span>")
+	visible_message(SPAN_NOTICE("[src] neatly folds inwards, compacting down to a rectangular card."), SPAN_NOTICE("You neatly fold inwards, compacting down to a rectangular card."))
 
 	stop_pulling()
 	reset_perspective(card)
@@ -378,9 +378,9 @@
 			if(!client)
 				msg += "\nIt appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)
-			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+			msg += "\n[SPAN_WARNING("It doesn't seem to be responding.")]"
 		if(DEAD)
-			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+			msg += "\n[SPAN_DEADSAY("It looks completely unsalvageable.")]"
 
 	if(print_flavor_text())
 		msg += "\n[print_flavor_text()]"
@@ -445,9 +445,9 @@
 				if(Adjacent(H))
 					get_scooped(H)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, SPAN_WARNING("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+				to_chat(src, SPAN_WARNING("[H] decided not to pick you up."))
 	else if(Adjacent(H))
 		get_scooped(H)
 	else

@@ -16,7 +16,7 @@
 	new_attack_chain = TRUE
 
 /obj/item/banhammer/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
+	visible_message(SPAN_SUICIDE("[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life."))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/banhammer/pre_attack(atom/target, mob/living/user, params)
@@ -44,8 +44,8 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_themselves()] with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
-	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is trying to impale [user.p_themselves()] with [src]! It might be a suicide attempt if it weren't so shitty."), \
+	SPAN_SUICIDE("You try to impale yourself with [src], but it's USELESS..."))
 	return SHAME
 
 /obj/item/claymore
@@ -70,7 +70,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/claymore/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/claymore/ceremonial
@@ -103,7 +103,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
 	return BRUTELOSS
 
 /obj/item/harpoon
@@ -141,7 +141,7 @@
 		user.unequip(I)
 
 		user.put_in_hands(S)
-		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
+		to_chat(user, SPAN_NOTICE("You fasten the glass shard to the top of the rod with the cable."))
 		qdel(I)
 		qdel(src)
 
@@ -153,7 +153,7 @@
 		user.unequip(I)
 
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
+		to_chat(user, SPAN_NOTICE("You fasten [I] to the top of the rod with the cable."))
 		qdel(I)
 		qdel(src)
 
@@ -215,7 +215,7 @@
 		if(!deflectmode)
 			return
 		if(prob(10))
-			visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect [I] directly back at the thrower! It's a home run!</span>")
+			visible_message(SPAN_BOLDWARNING("[owner] Deflects [I] directly back at the thrower! It's a home run!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower! It's a home run!"))
 			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 			do_attack_animation(I, ATTACK_EFFECT_DISARM)
 			I.throw_at(locateUID(I.thrownby), 20, 20, owner)
@@ -224,7 +224,7 @@
 				COOLDOWN_START(src, last_deflect, deflect_cooldown)
 			return TRUE
 		else if(prob(30))
-			visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+			visible_message(SPAN_WARNING("[owner] swings! And [p_they()] miss[p_es()]! How embarassing."), SPAN_WARNING("You swing! You miss! Oh no!"))
 			playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 			deflectmode = FALSE
@@ -232,7 +232,7 @@
 				COOLDOWN_START(src, last_deflect, deflect_cooldown)
 			return FALSE
 		else
-			visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
+			visible_message(SPAN_WARNING("[owner] swings and deflects [I]!"), SPAN_WARNING("You swing and deflect [I]!"))
 			playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
 			do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
@@ -246,21 +246,21 @@
 		return
 	if(!homerun_able)
 		if(!deflectmode && COOLDOWN_FINISHED(src, last_deflect))
-			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
+			to_chat(user, SPAN_NOTICE("You prepare to deflect objects thrown at you. You cannot attack during this time."))
 			deflectmode = TRUE
 		else if(deflectmode && COOLDOWN_FINISHED(src, last_deflect))
-			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
+			to_chat(user, SPAN_NOTICE("You no longer deflect objects thrown at you. You can attack during this time"))
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [round(COOLDOWN_TIMELEFT(src, last_deflect) / 600)] minute\s.</span>")
+			to_chat(user, SPAN_WARNING("You need to wait until you can deflect again. The ability will be ready in [round(COOLDOWN_TIMELEFT(src, last_deflect) / 600)] minute\s."))
 		return ..()
 	if(homerun_ready)
-		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
+		to_chat(user, SPAN_NOTICE("You're already ready to do a home run!"))
 		return ..()
-	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
+	to_chat(user, SPAN_WARNING("You begin gathering strength..."))
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, TRUE)
 	if(do_after(user, 9 SECONDS, target = user, hidden = TRUE))
-		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
+		to_chat(user, SPAN_USERDANGER("You gather power! Time for a home run!"))
 		homerun_ready = TRUE
 
 /obj/item/melee/baseball_bat/pre_attack(mob/living/target, mob/living/user, params)
@@ -268,7 +268,7 @@
 		return FINISH_ATTACK
 
 	if(deflectmode)
-		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
+		to_chat(user, SPAN_USERDANGER("You cannot attack in deflect mode!"))
 		return FINISH_ATTACK
 
 	if(!COOLDOWN_FINISHED(src, next_throw_time)) // Limit the rate of throwing, so you can't spam it.
@@ -288,7 +288,7 @@
 		return FINISH_ATTACK
 	if(homerun_ready)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
-		user.visible_message("<span class='userdanger'>It's a home run!</span>")
+		user.visible_message(SPAN_USERDANGER("It's a home run!"))
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(EXPLODE_HEAVY)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, TRUE)

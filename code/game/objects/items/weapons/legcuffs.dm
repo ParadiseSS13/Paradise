@@ -40,7 +40,7 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -53,39 +53,39 @@
 	if(do_after(user, 2 SECONDS, target = user))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now [armed ? "armed" : "disarmed"]"))
 
 /obj/item/restraints/legcuffs/beartrap/attackby__legacy__attackchain(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
+			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
+			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
 			return
 		user.drop_item()
 		I.forceMove(src)
 		IED = I
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
-		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
+		to_chat(user, SPAN_NOTICE("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
+		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is an IED hooked up to it.")]"
 	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
+			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
+			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='warning'>The signaler is secured.</span>")
+			to_chat(user, SPAN_WARNING("The signaler is secured."))
 			sig = null
 			return
 		user.drop_item()
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
+		to_chat(user, SPAN_NOTICE("You sneak [sig] underneath the pressure plate and connect the trigger wire."))
+		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is a remote signaler hooked up to it.")]"
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
@@ -95,11 +95,11 @@
 	if(IED)
 		IED.forceMove(get_turf(src))
 		IED = null
-		to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the IED from [src]."))
 	if(sig)
 		sig.forceMove(get_turf(src))
 		sig = null
-		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the signaler from [src]."))
 	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_atom_entered(datum/source, mob/living/entered)
@@ -141,7 +141,7 @@
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
-		user.visible_message("<span class='danger'>[user] triggers [src].</span>", "<span class='userdanger'>You trigger [src].</span>")
+		user.visible_message(SPAN_DANGER("[user] triggers [src]."), SPAN_USERDANGER("You trigger [src]."))
 
 	if(sig)
 		sig.signal()
@@ -262,12 +262,12 @@
 		return//abort
 	var/mob/living/carbon/C = hit_atom
 	if(!C.legcuffed && C.get_num_legs() >= 2 && !IS_HORIZONTAL(C))
-		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
+		visible_message(SPAN_DANGER("[src] ensnares [C]!"))
 		C.legcuffed = src
 		forceMove(C)
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
+		to_chat(C, SPAN_USERDANGER("[src] ensnares you!"))
 		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
 		if(!reuseable)

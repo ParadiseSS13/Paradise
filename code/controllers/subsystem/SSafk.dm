@@ -43,14 +43,14 @@ SUBSYSTEM_DEF(afk)
 
 		if(!afk_players[H.ckey])
 			afk_players[H.ckey] = AFK_WARNED
-			warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes. You will be cryod after [GLOB.configuration.afk.auto_cryo_minutes] total minutes and fully despawned after [GLOB.configuration.afk.auto_despawn_minutes] total minutes. Please move or click in game if you want to avoid being despawned.</span>")
+			warn(H, SPAN_DANGER("You are AFK for [mins_afk] minutes. You will be cryod after [GLOB.configuration.afk.auto_cryo_minutes] total minutes and fully despawned after [GLOB.configuration.afk.auto_despawn_minutes] total minutes. Please move or click in game if you want to avoid being despawned."))
 		else
 			var/area/A = T.loc // Turfs loc is the area
 			if(afk_players[H.ckey] == AFK_WARNED)
 				if(mins_afk >= GLOB.configuration.afk.auto_cryo_minutes && A.can_get_auto_cryod)
 					if(A.fast_despawn)
 						toRemove += H.ckey
-						warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
+						warn(H, SPAN_DANGER("You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area."))
 						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
 						force_cryo_human(H)
 					else
@@ -69,7 +69,7 @@ SUBSYSTEM_DEF(afk)
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= GLOB.configuration.afk.auto_despawn_minutes)
 				log_afk_action(H, mins_afk, T, "despawned")
-				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
+				warn(H, SPAN_DANGER("You have been despawned after being AFK for [mins_afk] minutes."))
 				toRemove += H.ckey
 				force_cryo_human(H)
 

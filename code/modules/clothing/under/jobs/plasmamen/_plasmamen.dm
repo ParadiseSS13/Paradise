@@ -19,7 +19,7 @@
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [extinguishes_left] extinguisher charges left in this suit.</span>"
+	. += SPAN_NOTICE("There are [extinguishes_left] extinguisher charges left in this suit.")
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -31,9 +31,9 @@
 				return
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
-			H.visible_message("<span class='warning'>[H]'s suit automatically extinguishes [H.p_them()]!</span>","<span class='warning'>Your suit automatically extinguishes you.</span>")
+			H.visible_message(SPAN_WARNING("[H]'s suit automatically extinguishes [H.p_them()]!"),SPAN_WARNING("Your suit automatically extinguishes you."))
 			if(!extinguishes_left)
-				to_chat(H, "<span class='warning'>Onboard auto-extinguisher depleted, refill with a cartridge.</span>")
+				to_chat(H, SPAN_WARNING("Onboard auto-extinguisher depleted, refill with a cartridge."))
 			playsound(H.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
@@ -42,11 +42,11 @@
 /obj/item/clothing/under/plasmaman/attackby__legacy__attackchain(obj/item/E, mob/user, params)
 	if(istype(E, /obj/item/extinguisher_refill))
 		if(extinguishes_left == 5)
-			to_chat(user, "<span class='notice'>The inbuilt extinguisher is full.</span>")
+			to_chat(user, SPAN_NOTICE("The inbuilt extinguisher is full."))
 			return
 		else
 			extinguishes_left = 5
-			to_chat(user, "<span class='notice'>You refill the suit's built-in extinguisher, using up the cartridge.</span>")
+			to_chat(user, SPAN_NOTICE("You refill the suit's built-in extinguisher, using up the cartridge."))
 			qdel(E)
 	else
 		return ..()

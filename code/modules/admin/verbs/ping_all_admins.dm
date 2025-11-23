@@ -26,7 +26,7 @@
 			admins_to_ping += C
 
 	if(length(admins_to_ping) < 2) // All by yourself?
-		to_chat(usr, "<span class='boldannounceooc'>No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!"))
 		return
 
 	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
@@ -35,5 +35,5 @@
 
 	for(var/client/C in admins_to_ping)
 		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
-		to_chat(C, "<span class='all_admin_ping'>ALL ADMIN PING: <span class='name'>[key_name(usr, TRUE)]</span> ([admin_jump_link(mob)]): <span class='emoji_enabled'>[msg]</span></span>")
+		to_chat(C, SPAN_ALL_ADMIN_PING("ALL ADMIN PING: [SPAN_NAME("[key_name(usr, TRUE)]")] ([admin_jump_link(mob)]): [SPAN_EMOJI_ENABLED("[msg]")]"))
 	to_chat(usr, "[length(admins_to_ping)] clients pinged.")

@@ -78,7 +78,7 @@
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
 			C.Weaken(4 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.visible_message(SPAN_DANGER("\The [src] knocks down \the [C]!"), SPAN_USERDANGER("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Weaken(4 SECONDS)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.visible_message(SPAN_DANGER("\The [src] knocks down \the [C]!"), SPAN_USERDANGER("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
 	..()
@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
 	. = ..()
 	if(. && target && Adjacent(target))
-		visible_message("<span class='danger'>[src] throws itself on top of [target], crushing [target.p_them()]!</span>")
+		visible_message(SPAN_DANGER("[src] throws itself on top of [target], crushing [target.p_them()]!"))
 		orig_vendor.forceMove(get_turf(target))  // just to be sure it'll tilt onto them
 		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
 		orig_vendor = null
@@ -318,7 +318,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				Pewgun.chambered.update_icon()
 				..()
 			else
-				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
+				visible_message(SPAN_DANGER("The <b>[src]</b> clears a jam!"))
 			Pewgun.chambered.loc = loc //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
 			if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo))
@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		else if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo)) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.loc = Pewgun
-			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
+			visible_message(SPAN_DANGER("The <b>[src]</b> cocks itself!"))
 	else
 		ranged = FALSE //BANZAIIII
 		retreat_distance = 0
