@@ -1,7 +1,7 @@
 /obj/effect/temp_visual/swarmer // temporary swarmer visual feedback objects
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "disintegrate"
-	layer = BELOW_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/temp_visual/swarmer/Initialize(mapload)
 	. = ..()

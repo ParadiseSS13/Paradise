@@ -6,7 +6,7 @@
 	)
 	ai_movement = /datum/ai_movement/jps
 	idle_behavior = /datum/idle_behavior/idle_random_walk
-
+	movement_delay = 0.2 SECONDS
 	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
 
 	planning_subtrees = list(
@@ -63,7 +63,15 @@
 	always_reset_target = TRUE
 	hunt_cooldown = 0 SECONDS
 
+/datum/ai_behavior/hunt_target/interact_with_target/swarmer/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
+	. = ..()
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED // Eat faster!
+
 /datum/ai_behavior/find_hunt_target/swarmer_objects
+
+/datum/ai_behavior/find_hunt_target/swarmer_objects/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, types_to_hunt, hunt_range)
+	. = ..()
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED // Eat faster!
 
 /datum/ai_behavior/find_hunt_target/swarmer_objects/valid_dinner(mob/living/source, atom/dinner, radius)
 	if(is_type_in_list(dinner, GLOB.swarmer_blacklist))
@@ -143,7 +151,8 @@
 
 /// Find a nearby clear turf and store it
 /datum/ai_behavior/swarmer_find_construction_target
-	action_cooldown = 5 SECONDS
+	action_cooldown = 10 SECONDS
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	/// Where do we store the target data
 	var/target_key = BB_SWARMER_CONSTRUCT_TARGET
 	/// How far do we look for valid turfs?
@@ -155,13 +164,13 @@
 	var/atom/current_target = controller.blackboard[target_key]
 	if(current_target && !(locate(/obj/structure/swarmer) in current_target))
 		// Already got a target
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.clear_blackboard_key(target_key)
 	var/turf/our_turf = get_turf(swarmer)
 	if(is_valid_construction_turf(our_turf, swarmer))
 		controller.set_blackboard_key(target_key, our_turf)
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
 
 	var/list/turfs_by_range = list()
 	for(var/i in 1 to scan_range)
@@ -177,10 +186,10 @@
 			final_turfs = turfs_by_range[turf_list]
 			break
 	if(!length(final_turfs))
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(target_key, pick(final_turfs))
-	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/swarmer_find_construction_target/proc/is_valid_construction_turf(turf/target_turf, mob/living/swarmer)
 	for(var/turf/turf_in_view in view(1, target_turf))
@@ -224,9 +233,9 @@
 	var/turf/target_turf = controller.blackboard[target_key]
 	var/mob/living/basic/swarmer/user = controller.pawn
 	if(!istype(user))
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 	if(!trap_action || !target_turf || user.resources < 25)
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	set_movement_target(controller, target_turf)
 	return ..()
@@ -269,9 +278,9 @@
 	var/turf/target_turf = controller.blackboard[target_key]
 	var/mob/living/basic/swarmer/user = controller.pawn
 	if(!istype(user))
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 	if(!barrier_action || !target_turf || user.resources < 25)
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	set_movement_target(controller, target_turf)
 	return ..()
@@ -280,8 +289,8 @@
 	. = ..()
 	var/datum/action/cooldown/mob_cooldown/swarmer_barrier/barrier_action = controller.blackboard[action_key]
 	if(barrier_action?.Trigger())
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
-	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/swarmer_create_barricade/finish_action(datum/ai_controller/controller, succeeded, action_key, target_key)
 	controller.clear_blackboard_key(target_key)

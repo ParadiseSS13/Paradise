@@ -36,6 +36,7 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	death_message = "explodes with a sharp pop!"
 	basic_mob_flags = DEL_ON_DEATH
+	initial_traits = list(TRAIT_FLYING)
 	sentience_type = SENTIENCE_OTHER // No, you cannot sentience or mind-transfer into them
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW
@@ -183,7 +184,7 @@
 	if(spacecheck(target))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
-	new /obj/effect/temp_visual/swarmer(target.loc)
+	new /obj/effect/temp_visual/swarmer(target)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
