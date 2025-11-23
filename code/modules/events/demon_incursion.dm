@@ -232,6 +232,8 @@
 		return
 	if(created_mob.type in no_special_variants)
 		return
+	if(!(new_mob.basic_mob_flags & DEL_ON_DEATH))
+		new_mob.AddComponent(/datum/component/incursion_mob_death)
 	if(!prob(special_chance))
 		return
 	var/special_type = pick("grappler", "enflamed", "hastened", "electrified", "juggernaut")
@@ -269,9 +271,6 @@
 			new_mob.environment_smash = ENVIRONMENT_SMASH_WALLS // Puny wall.
 			new_mob.update_appearance(UPDATE_NAME)
 			new_mob.color = "#292827"
-	if(new_mob.basic_mob_flags & DEL_ON_DEATH)
-		return
-	new_mob.AddComponent(/datum/component/incursion_mob_death)
 
 /obj/structure/spawner/nether/demon_incursion/attacked_by(obj/item/attacker, mob/living/user)
 	. = ..()
