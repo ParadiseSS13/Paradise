@@ -112,6 +112,7 @@
 	drink_name = "Doctor's Delight"
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 	taste_description = "healthy dietary choices"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -295,6 +296,7 @@
 	drink_name = "Chocolate milk"
 	drink_desc = "Smells like childhood. What would they need to add to make it taste like childhood too?"
 	taste_description = "chocolate milk"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
@@ -363,6 +365,7 @@
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
 	taste_description = "milkish coffee"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -408,6 +411,7 @@
 	drink_name = "Pumpkin Latte"
 	drink_desc = "A mix of coffee and pumpkin juice."
 	taste_description = "overpriced hipster spices"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
@@ -474,6 +478,7 @@
 	drink_name = "Silencer"
 	drink_desc = "A drink from mime Heaven."
 	taste_description = "mphhhh"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -492,6 +497,7 @@
 	drink_name = "Chocolate Pudding"
 	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/vanillapudding
 	name = "Vanilla Pudding"
@@ -503,6 +509,7 @@
 	drink_name = "Vanilla Pudding"
 	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/cherryshake
 	name = "Cherry Shake"
@@ -514,6 +521,7 @@
 	drink_name = "Cherry Shake"
 	drink_desc = "A cherry flavored milkshake."
 	taste_description = "cherry milkshake"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/bluecherryshake
 	name = "Blue Cherry Shake"
@@ -525,6 +533,7 @@
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
 	taste_description = "blues"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/gibbfloats
 	name = "Gibb Floats"
@@ -536,6 +545,7 @@
 	drink_name = "Gibbfloat"
 	drink_desc = "Dr. Gibb with ice cream on top."
 	taste_description = "taste revolution"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/pumpkinjuice
 	name = "Pumpkin Juice"
@@ -573,6 +583,7 @@
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/tonic
 	name = "Tonic Water"
@@ -636,6 +647,7 @@
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland."
 	harmless = FALSE
 	taste_description = "radioactive cola"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -699,6 +711,7 @@
 	drink_name = "Lemonade"
 	drink_desc = "Oh the nostalgia..."
 	taste_description = "lemonade"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/kiraspecial
 	name = "Kira Special"
@@ -709,6 +722,7 @@
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	taste_description = "citrus soda"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/brownstar
 	name = "Brown Star"
@@ -719,6 +733,7 @@
 	drink_name = "Brown Star"
 	drink_desc = "Its not what it sounds like..."
 	taste_description = "orange soda"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/milkshake
 	name = "Milkshake"
@@ -739,6 +754,7 @@
 	drink_name = "Rewriter"
 	drink_desc = "The secret of the sanctuary of the Librarian..."
 	taste_description = "coffee...soda?"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(10 SECONDS)
@@ -753,6 +769,7 @@
 	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
 	taste_description = "sweet and fizzy"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/fyrsskar_tears
 	name = "Tears of Fyrsskar"
@@ -765,6 +782,7 @@
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
 	if(isskrell(M))
@@ -806,6 +824,7 @@
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
 	taste_description = "sweet druggy soda"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/melonade
 	name = "Melonade"
@@ -816,6 +835,7 @@
 	drink_name = "Tall Glass of Melonade"
 	drink_desc = "This would go great with 147 fluffity puffity marshalays."
 	taste_description = "summer fruit"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/melonade/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
@@ -831,6 +851,7 @@
 	drink_name = "Roy Rogers"
 	drink_desc = "The rootinest, tootinest drink you can get at the bar without any alcohol."
 	taste_description = "berries and cola"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/shirleytemple
 	name = "Shirley Temple"
@@ -841,6 +862,7 @@
 	drink_name = "Shirley Temple"
 	drink_desc = "A soft drink classic with a cherry on top."
 	taste_description = "berries and carbonation"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/partypunch
 	name = "Party Punch"
@@ -851,6 +873,7 @@
 	drink_name = "Glass of Party Punch"
 	drink_desc = "A vibrant mix of fruit juices. A real punch of flavor."
 	taste_description = "a punch of fruit"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/coffee/eggcoffee
 	name = "Egg Coffee"
@@ -861,6 +884,7 @@
 	drink_name = "Glass Mug of Egg Coffee"
 	drink_desc = "Rich coffee with custard foam."
 	taste_description = "rich foam"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/coffee/eggcoffee/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -876,6 +900,7 @@
 	drink_name = "Glass of Horchata"
 	drink_desc = "Sweetened rice milk topped with cinnamon."
 	taste_description = "cinnamony rice milk"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/monstermix
 	name = "Monster Mix"
@@ -886,6 +911,7 @@
 	drink_name = "Glass of Monster Mix"
 	drink_desc = "A mix of every soda in the dispenser. You monster."
 	taste_description = "an unholy amalgam"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/spessamatosmash
 	name = "Spessamato Smash"
@@ -896,6 +922,7 @@
 	drink_name = "Glass of Spessamato Smash"
 	drink_desc = "Fruity yet salty."
 	taste_description = "sparkling tomato"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/eggcream
 	name = "Egg Cream"
@@ -906,6 +933,7 @@
 	drink_name = "Glass of Egg Cream"
 	drink_desc = "You now have a glass of custard."
 	taste_description = "sweet egg"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/eggcream/on_mob_life(mob/living/M)
 	if(prob(2))
@@ -921,6 +949,7 @@
 	drink_name = "Glass of Beet Shrub"
 	drink_desc = "The vinegar gives this far more bite than any ordinary person would drink straight."
 	taste_description = "vinegar"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/berrybeetrefresher
 	name = "Berry Beet Refresher"
@@ -931,6 +960,7 @@
 	drink_name = "Glass of Berry Beet Refresher"
 	drink_desc = "Tangy, sweet, with just a bit of bite."
 	taste_description = "tangy, bubbly fruit"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/smoothie
 	name = "Empty Smoothie"
@@ -956,6 +986,7 @@
 	drink_name = "Glass of PB Banana Smoothie"
 	drink_desc = "So smooth and fluffy."
 	taste_description = "nutty banana"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/smoothie/veryberry
 	name = "Very Berry Smoothie"
@@ -966,6 +997,7 @@
 	drink_name = "Glass of Very Berry Smoothie"
 	drink_desc = "Berries give this creamy beverage its speckled appearance."
 	taste_description = "berries and cream"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/vegetablemix
 	name = "Vegetable Juice Mix"
@@ -976,6 +1008,7 @@
 	drink_name = "Glass of Vegetable Juice"
 	drink_desc = "Mellow and creamy vegetable juice."
 	taste_description = "so many vitamins"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/vegetablemix/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
