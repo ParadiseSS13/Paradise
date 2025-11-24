@@ -48,21 +48,27 @@
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
-	var/datum/spell/S = target
-	if(!istype(S))
-		return ..()
+	var/datum/spell/spell = target
+	if(!istype(spell))
+		return
 
-	unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', icon_state = "template")
-	unavailable_effect.appearance_flags = RESET_COLOR | RESET_ALPHA
-	unavailable_effect.color = "#000000"
-	unavailable_effect.plane = FLOAT_PLANE + 1
-	unavailable_effect.alpha = S.cooldown_handler.get_cooldown_alpha()
+	var/text = spell.cooldown_handler.cooldown_info()
 
-	// Make a holder for the charge text
+	button.cut_overlay(button.unavailable_image)
+	var/mutable_appearance/ma = mutable_appearance(
+		icon = 'icons/mob/screen_white.dmi',
+		icon_state = "template",
+		plane = FLOAT_PLANE + 1,
+		alpha = spell.cooldown_handler.get_cooldown_alpha(),
+		appearance_flags = RESET_COLOR | RESET_ALPHA,
+		color = "#000000"
+	)
+	button.unavailable_image = new
+	button.unavailable_image.appearance = ma
+
+	// Make a holder for the charge text, and yes this needs to be a separate overlay on our overlay
 	var/image/count_down_holder = mutable_appearance('icons/effects/effects.dmi', icon_state = "nothing", appearance_flags = RESET_COLOR | RESET_ALPHA)
-	var/text = S.cooldown_handler.cooldown_info()
-	count_down_holder.maptext_y = 4
+	count_down_holder.maptext_y = 4 // bump up off the bottom border
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	unavailable_effect.add_overlay(count_down_holder)
-
-	button.overlays |= unavailable_effect
+	button.unavailable_image.overlays += count_down_holder
+	button.add_overlay(button.unavailable_image)

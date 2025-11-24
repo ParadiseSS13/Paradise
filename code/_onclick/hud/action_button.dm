@@ -27,6 +27,8 @@
 	var/shown_to_observers = FALSE
 	/// Whether or not this button is locked, preventing it from being dragged.
 	var/locked = TRUE
+	/// Overlay for displaying the availability of the button
+	var/image/unavailable_image
 
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
