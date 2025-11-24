@@ -27,14 +27,24 @@ import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import {
+  addBlacklistSetting,
   addHighlightSetting,
   changeSettingsTab,
+  removeBlacklistSetting,
   removeHighlightSetting,
+  updateBlacklistSetting,
   updateHighlightSetting,
   updateSettings,
 } from './actions';
 import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
-import { selectActiveTab, selectHighlightSettingById, selectHighlightSettings, selectSettings } from './selectors';
+import {
+  selectActiveTab,
+  selectBlacklistSettingById,
+  selectBlacklistSettings,
+  selectHighlightSettingById,
+  selectHighlightSettings,
+  selectSettings,
+} from './selectors';
 import { SettingsStatPanel } from './SettingsStatPanel';
 
 export const SettingsPanel = (props) => {
@@ -67,6 +77,7 @@ export const SettingsPanel = (props) => {
         {activeTab === 'general' && <SettingsGeneral />}
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
+        {activeTab === 'textBlacklist' && <TextBlacklistSettings />}
         {activeTab === 'statPanel' && <SettingsStatPanel />}
       </Stack.Item>
     </Stack>
@@ -380,6 +391,136 @@ const TextHighlightSetting = (props) => {
             updateHighlightSetting({
               id: id,
               highlightText: value,
+            })
+          )
+        }
+      />
+    </Stack.Item>
+  );
+};
+
+const TextBlacklistSettings = (props) => {
+  const blacklistSettings = useSelector(selectBlacklistSettings) || [];
+  const dispatch = useDispatch();
+  return (
+    <Section fill scrollable height="230px">
+      <Section>
+        <Stack vertical>
+          {blacklistSettings.map((id, i) => (
+            <TextBlacklistSetting key={i} id={id} mb={i + 1 === blacklistSettings.length ? 0 : '10px'} />
+          ))}
+          {blacklistSettings.length < MAX_HIGHLIGHT_SETTINGS && (
+            <Stack.Item>
+              <Button
+                color="transparent"
+                icon="plus"
+                onClick={() => {
+                  dispatch(addBlacklistSetting());
+                }}
+              >
+                Add Blacklist Setting
+              </Button>
+            </Stack.Item>
+          )}
+        </Stack>
+      </Section>
+      <Stack.Divider />
+      <Box>
+        <Button icon="check" onClick={() => dispatch(rebuildChat())}>
+          Apply now
+        </Button>
+        <Box inline fontSize="0.9em" ml={1} color="label">
+          Can freeze the chat for a while.
+        </Box>
+      </Box>
+    </Section>
+  );
+};
+
+const TextBlacklistSetting = (props) => {
+  const { id, ...rest } = props;
+  const blacklistSettingById = useSelector(selectBlacklistSettingById) || {};
+  const dispatch = useDispatch();
+  const { blacklistText = '', censor = false, matchWord = false, matchCase = false } = blacklistSettingById[id] || {};
+  return (
+    <Stack.Item {...rest}>
+      <Stack mb={1} color="label" align="baseline">
+        <Stack.Item grow>
+          <Button
+            color="transparent"
+            icon="times"
+            onClick={() =>
+              dispatch(
+                removeBlacklistSetting({
+                  id: id,
+                })
+              )
+            }
+          >
+            Delete
+          </Button>
+        </Stack.Item>
+        <Stack.Item>
+          <Button.Checkbox
+            checked={censor}
+            tooltipPosition="bottom-start"
+            tooltip="If this option is selected, the phrase will be censored instead of removing the whole message."
+            onClick={() =>
+              dispatch(
+                updateBlacklistSetting({
+                  id: id,
+                  censor: !censor,
+                })
+              )
+            }
+          >
+            Censor
+          </Button.Checkbox>
+        </Stack.Item>
+        <Stack.Item>
+          <Button.Checkbox
+            checked={matchWord}
+            tooltipPosition="bottom-start"
+            tooltip="If this option is selected, only exact matches (no extra letters before or after) will trigger. Not compatible with punctuation. Overriden if regex is used."
+            onClick={() =>
+              dispatch(
+                updateBlacklistSetting({
+                  id: id,
+                  matchWord: !matchWord,
+                })
+              )
+            }
+          >
+            Exact
+          </Button.Checkbox>
+        </Stack.Item>
+        <Stack.Item>
+          <Button.Checkbox
+            tooltip="If this option is selected, the blacklist will be case-sensitive."
+            checked={matchCase}
+            onClick={() =>
+              dispatch(
+                updateBlacklistSetting({
+                  id: id,
+                  matchCase: !matchCase,
+                })
+              )
+            }
+          >
+            Case
+          </Button.Checkbox>
+        </Stack.Item>
+      </Stack>
+      <TextArea
+        fluid
+        height="3em"
+        value={blacklistText}
+        placeholder="Put terms to blacklist here. Separate terms with commas or vertical bars, i.e. (term1 | term2) or (term1, term2). Regex syntax is /[regex]/"
+        onChange={(value) =>
+          dispatch(
+            updateBlacklistSetting({
+              id: id,
+              blacklistText: value,
             })
           )
         }
