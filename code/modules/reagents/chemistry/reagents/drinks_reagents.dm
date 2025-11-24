@@ -964,7 +964,6 @@
 
 /datum/reagent/consumable/drink/smoothie
 	name = "Empty Smoothie"
-	description = ABSTRACT_TYPE_DESC
 	id = "smoothie"
 	color = "#9933FF"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
