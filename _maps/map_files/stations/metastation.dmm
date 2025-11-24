@@ -26494,7 +26494,7 @@
 	name = "Containment Control"
 	},
 /obj/item/storage/bag/bio,
-/obj/item/slime_extract,
+/obj/item/slime_extract/grey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -39337,7 +39337,7 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
 "gxn" = (
-/obj/item/slime_extract,
+/obj/item/slime_extract/grey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -52560,6 +52560,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
+	},
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -80032,9 +80035,6 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "uYv" = (
-/obj/machinery/disposal/delivery_chute{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -80042,6 +80042,9 @@
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced,
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "uYE" = (
@@ -83193,6 +83196,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "wgT" = (
@@ -89045,16 +89050,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "yfo" = (
-/obj/structure/sign/deathsposal{
-	pixel_y = 32
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
