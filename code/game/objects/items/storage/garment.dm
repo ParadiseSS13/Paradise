@@ -116,6 +116,8 @@
 	new /obj/item/clothing/under/rank/rnd/rd(src)
 	new /obj/item/clothing/under/rank/rnd/rd/skirt(src)
 	new /obj/item/clothing/under/rank/rnd/rd/turtleneck(src)
+	new /obj/item/clothing/under/rank/rnd/rd/whimsy(src)
+	new /obj/item/clothing/under/rank/rnd/rd/skirt/whimsy(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/neck/cloak/rd_mantle(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)

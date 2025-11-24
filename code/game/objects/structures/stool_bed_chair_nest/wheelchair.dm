@@ -17,6 +17,10 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(dir)
 
+/obj/structure/chair/wheelchair/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(do_after(user, 2 SECONDS, target = buckled_mob))
+		return ..()
+
 /obj/structure/chair/wheelchair/post_buckle_mob(mob/living/M)
 	. = ..()
 	handle_layer()

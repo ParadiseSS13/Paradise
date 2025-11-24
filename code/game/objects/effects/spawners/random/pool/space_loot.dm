@@ -391,7 +391,7 @@
 	loot = list(
 		/obj/item/storage/fancy/shell/confetti,
 		/obj/item/storage/fancy/shell/ion,
-		/obj/item/storage/fancy/shell/incindiary,
+		/obj/item/storage/fancy/shell/incendiary,
 		/obj/item/storage/fancy/shell/dragonsbreath,
 		/obj/item/storage/fancy/shell/rubbershot,
 	)

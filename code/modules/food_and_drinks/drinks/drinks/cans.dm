@@ -219,6 +219,12 @@
 	icon_state = "purple_can"
 	list_reagents = list("grapejuice" = 30)
 
+/obj/item/reagent_containers/drinks/cans/electrolytes
+	name = "Electrolytez"
+	desc = "The fastest way to rehydration. Now with a giant Z on the can. Or is it a lightning bolt?"
+	icon_state = "electrolytes_can"
+	list_reagents = list("electrolytes" = 30)
+
 /obj/item/reagent_containers/drinks/cans/tonic
 	name = "T-Borg's Tonic Water"
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
@@ -230,6 +236,12 @@
 	desc = "A can of soda water. Still water's more refreshing cousin."
 	icon_state = "sodawater"
 	list_reagents = list("sodawater" = 50)
+
+/obj/item/reagent_containers/drinks/cans/ginger_ale
+	name = "Zingiber Gold"
+	desc = "A can of ginger ale. Second-best thing for a tummy ache."
+	icon_state = "ginger_ale_can"
+	list_reagents = list("ginger_ale" = 50)
 
 /obj/item/reagent_containers/drinks/cans/synthanol
 	name = "Beep's Classic Synthanol"

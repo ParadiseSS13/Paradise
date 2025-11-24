@@ -197,8 +197,7 @@
 	var/turf/source = target
 	var/turf/dest = get_turf(TP)
 
-	var/list/log_msg = list()
-	log_msg += "[key_name(user)] has teleported "
+	var/log_msg = "[key_name(user)] has teleported "
 
 	if(sending)
 		source = dest
@@ -260,7 +259,7 @@
 
 	var/area/A = get_area(target)
 	log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [target_z] ([A ? A.name : "null area"])"
-	investigate_log(log_msg.Join(""), "telesci")
+	investigate_log(log_msg, "telesci")
 	SStgui.update_uis(src)
 
 

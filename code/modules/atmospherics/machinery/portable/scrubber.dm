@@ -90,6 +90,9 @@
 		filtered_out.set_agent_b(removed.agent_b())
 		removed.set_agent_b(0)
 
+		filtered_out.set_hydrogen(removed.hydrogen())
+		removed.set_hydrogen(0)
+
 		//Remix the resulting gases
 		air_contents.merge(filtered_out)
 

@@ -53,7 +53,7 @@
 
 /obj/item/mop/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	// Use the mop as a weapon.
-	if(user.a_intent != INTENT_HELP)
+	if(!isturf(target) && !isitem(target) && user.a_intent == INTENT_HARM)
 		return ..()
 
 	if(istype(target, /obj/item/reagent_containers/glass/bucket/))

@@ -14,14 +14,15 @@
 /obj/structure/grave/Initialize(mapload)
 	. = ..()
 	var/turf/item_turf = get_turf(src)
-	if(!ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid))
-		var/obj/item/stack/ore/glass/sand_pile = new /obj/item/stack/ore/glass(get_turf(src))
-		sand_pile.amount = 5
-		visible_message("<span class='danger'>With nowhere to dig, [src] falls apart.</span>")
-		// In case somehow something is buried here already
-		dig_up()
-		return INITIALIZE_HINT_QDEL
-	update_icon(UPDATE_ICON_STATE)
+	if(ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid) || ispath(item_turf.baseturf, /turf/simulated/floor/lava/mapping_lava))
+		update_icon(UPDATE_ICON_STATE)
+		return
+	var/obj/item/stack/ore/glass/sand_pile = new /obj/item/stack/ore/glass(get_turf(src))
+	sand_pile.amount = 5
+	visible_message("<span class='danger'>With nowhere to dig, [src] falls apart.</span>")
+	// In case somehow something is buried here already
+	dig_up()
+	return INITIALIZE_HINT_QDEL
 
 /obj/structure/grave/examine(mob/user)
 	. = ..()
@@ -36,7 +37,7 @@
 /obj/structure/grave/update_icon_state()
 	. = ..()
 	var/turf/item_turf = get_turf(src)
-	if(ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid/basalt))
+	if(ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid/basalt) || ispath(item_turf.baseturf, /turf/simulated/floor/lava/mapping_lava))
 		icon_state = "grave_basalt"
 	else
 		icon_state = "grave_sand"

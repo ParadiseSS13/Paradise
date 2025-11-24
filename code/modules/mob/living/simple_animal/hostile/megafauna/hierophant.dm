@@ -549,7 +549,7 @@ Difficulty: Hard
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
@@ -608,7 +608,7 @@ Difficulty: Hard
 	if(mover == caster.pulledby)
 		return TRUE
 	if(isprojectile(mover))
-		var/obj/item/projectile/P = mover
+		var/obj/projectile/P = mover
 		if(P.firer == caster)
 			return TRUE
 	if(mover == caster)
@@ -772,7 +772,7 @@ Difficulty: Hard
 					H.FindTarget(list(caster), 1)
 				else
 					H.Goto(get_turf(caster), H.move_to_delay, 3)
-	if(monster_damage_boost && (ismegafauna(target) || istype(target, /mob/living/simple_animal/hostile/asteroid)))
+	if(monster_damage_boost && (ismegafauna(target) || istype(target, /mob/living/basic/mining)))
 		target.adjustBruteLoss(damage)
 	if(caster)
 		add_attack_logs(caster, target, "Struck with a [name]")

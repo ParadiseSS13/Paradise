@@ -7,6 +7,7 @@
 	action_cooldown = 2 SECONDS
 
 /datum/ai_behavior/find_and_set/perform(seconds_per_tick, datum/ai_controller/controller, set_key, locate_path, search_range)
+	. = ..()
 	if(controller.blackboard_key_exists(set_key))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	if(QDELETED(controller.pawn))

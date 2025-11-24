@@ -20,12 +20,12 @@
 /obj/item/gun/projectile/c_foam_launcher/update_icon_state()
 	icon_state = "c_foam_launcher[magazine ? "_loaded" : ""]"
 
-/obj/item/projectile/c_foam
+/obj/projectile/c_foam
 	name = "blob of foam"
 	icon_state = "foam_blob"
 	damage = 0
 
-/obj/item/projectile/c_foam/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/c_foam/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(isairlock(target))
 		var/obj/machinery/door/airlock = target
