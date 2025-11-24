@@ -89,7 +89,7 @@
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
 /obj/machinery/door/window/proc/check_close()
-	for(var/mob/living/blocker in get_turf(get_step(src, dir)))
+	for(var/mob/living/blocker in get_step(src, dir))
 		if(blocker && !blocker.stat && allowed(blocker))
 			return delay_close()
 	for(var/mob/living/blocker in get_turf(src))
@@ -100,7 +100,6 @@
 
 /obj/machinery/door/window/proc/delay_close()
 	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
-	return
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
 	if(operating || !density)
