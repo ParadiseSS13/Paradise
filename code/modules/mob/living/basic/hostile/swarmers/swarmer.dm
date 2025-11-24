@@ -306,7 +306,6 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "barricade"
 	layer = MOB_LAYER
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	max_integrity = 30
