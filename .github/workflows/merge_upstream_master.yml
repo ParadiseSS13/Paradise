@@ -47,7 +47,7 @@ jobs:
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}

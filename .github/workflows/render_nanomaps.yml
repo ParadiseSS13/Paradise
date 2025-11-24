@@ -23,7 +23,7 @@ jobs:
       - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
 
       - name: 'Update Branch'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.create_token.outputs.token }}
 
