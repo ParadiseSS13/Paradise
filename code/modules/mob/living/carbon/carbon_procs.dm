@@ -289,18 +289,18 @@
 
 	switch(M.zone_selected)
 		if("head")
-			M.visible_message(\
-			"<span class='notice'>[M] pats [src] on the head.</span>",\
-			"<span class='notice'>You pat [src] on the head.</span>",\
+			M.visible_message(
+				"<span class='notice'>[M] pats [src] on the head.</span>",
+				"<span class='notice'>You pat [src] on the head.</span>",
 			)
 			return
 		if("l_hand", "r_hand")
-			usr.emote("handshake")
+			M.emote("handshake")
 			return
 
-	M.visible_message(\
-	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-	"<span class='notice'>You hug [src].</span>",\
+	M.visible_message(
+		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",
+		"<span class='notice'>You hug [src].</span>",
 	)
 
 
