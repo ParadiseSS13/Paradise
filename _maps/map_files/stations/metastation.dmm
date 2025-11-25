@@ -1426,10 +1426,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "apq" = (
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "apz" = (
@@ -21769,6 +21769,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cnF" = (
@@ -23679,14 +23680,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/circuitboard/aicore,
-/obj/item/paicard,
-/obj/item/aicard,
-/obj/item/taperecorder{
-	pixel_x = 4
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "cwX" = (
@@ -42892,7 +42887,6 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "hLP" = (
-/obj/structure/table,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -42904,6 +42898,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "hLX" = (
@@ -52192,9 +52187,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "kVR" = (
-/obj/machinery/computer/scan_consolenew{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
@@ -63465,6 +63457,13 @@
 /obj/machinery/power/transmission_laser/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/transmission_laser)
+"oVX" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/genetics)
 "oVY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -76499,11 +76498,14 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "tHP" = (
-/obj/structure/table,
-/obj/item/ashtray/bronze{
-	pixel_y = 11
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/item/circuitboard/aicore,
+/obj/item/paicard,
+/obj/item/aicard,
+/obj/item/taperecorder{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "tHZ" = (
@@ -118242,7 +118244,7 @@ iFm
 gkF
 gAB
 aSx
-cnw
+oVX
 des
 bQf
 ily
