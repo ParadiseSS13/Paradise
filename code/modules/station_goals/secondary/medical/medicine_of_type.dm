@@ -7,8 +7,8 @@
 	var/generic_name_plural = "medicines"
 	var/reward
 	var/specific_type = "burn"
-	var/list/preferred_meds = list()
-	var/list/adequate_meds = list()
+	var/list/datum/reagent/preferred_meds = list()
+	var/list/datum/reagent/adequate_meds = list()
 	var/amount_needed = 300
 	var/alist/med_lookup = alist(
 	"burn" = alist("preferred" = list(/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine, /datum/reagent/medicine/heal_on_apply/synthflesh),
@@ -43,7 +43,7 @@
 	..()
 	admin_desc = "[amount_needed] units of [specific_type] [generic_name_plural]"
 
-/datum/station_goal/secondary/medicine_of_type/proc/list_med_names(list/coder_list)
+/datum/station_goal/secondary/medicine_of_type/proc/list_med_names(list/datum/reagent/coder_list)
 	var/list/name_list = list()
 	for(var/i = 1, i <= coder_list.len, i++)
 		name_list.Add(coder_list[i].name)
@@ -65,8 +65,8 @@
 	var/list/reagents_sent = list()
 	var/department
 	var/specific_type
-	var/list/preferred_meds = list()
-	var/list/adequate_meds = list()
+	var/list/datum/reagent/preferred_meds = list()
+	var/list/datum/reagent/adequate_meds = list()
 	var/amount_needed
 	var/department_account
 	var/reward
