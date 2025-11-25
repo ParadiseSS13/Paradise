@@ -93704,6 +93704,11 @@
 /obj/effect/turf_decal/tiles/department/security,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"sPL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/syndicatebomb/training,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/range)
 "sPM" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -163766,7 +163771,7 @@ sIm
 arJ
 mWx
 arJ
-arJ
+sPL
 sIm
 tYT
 oYI
