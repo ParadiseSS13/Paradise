@@ -350,7 +350,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
+/obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
