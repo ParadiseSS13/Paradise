@@ -9,7 +9,6 @@
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "saber"
-	inhand_icon_state = "rapier"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
