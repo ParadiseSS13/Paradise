@@ -51,7 +51,7 @@
 	product_type = /obj/item/food/soup/chicken_noodle_soup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/chicken),
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_REAGENT("water", 10),
