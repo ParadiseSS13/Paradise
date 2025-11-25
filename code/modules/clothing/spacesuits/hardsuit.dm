@@ -182,11 +182,10 @@
 		if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
-
-		I.forceMove(src)
-		jetpack = I
-		to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
-		return
+		if(user.transfer_item_to(I, src))
+			jetpack = I
+			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			return
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/screwdriver_act(mob/user, obj/item/I)
