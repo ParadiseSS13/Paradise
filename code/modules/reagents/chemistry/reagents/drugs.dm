@@ -46,7 +46,7 @@
 	metabolization_rate = 0.2
 	addiction_chance = 15
 	addiction_threshold = 10
-	heart_rate_change = 10
+	heart_rate_change = -10
 	taste_description = "a synthetic high"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY

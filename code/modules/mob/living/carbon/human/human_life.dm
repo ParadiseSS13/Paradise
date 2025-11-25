@@ -714,7 +714,7 @@
 
 /mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
 	var/shock_reduction = 0
-	shock_reduction += false_pain
+	shock_reduction -= false_pain
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
