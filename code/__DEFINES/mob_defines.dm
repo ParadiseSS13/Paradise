@@ -80,7 +80,7 @@
 #define HEARTBEAT_2FAST		190
 
 // Quick pulse check define
-#define HEARTBEAT_IS_NORMAL(x) (HEARTBEAT_SLOW < x && x < HEARTBEAT_NORMAL)
+#define HEARTBEAT_IS_NORMAL(x) ((HEARTBEAT_SLOW < x) && (x < HEARTBEAT_NORMAL))
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"

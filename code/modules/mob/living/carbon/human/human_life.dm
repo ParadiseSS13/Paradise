@@ -905,7 +905,7 @@
 				bleed(10)
 
 	// Some randomness to make it a bit nicer looking, doesn't affect the above drawbacks
-	blood_pressure += max(temp_bp + pick(1, 2, 3, 4, -1, -2, -3, -4), 0)
+	blood_pressure = round(temp_bp, 0.1)
 
 /mob/living/carbon/human/proc/handle_heartbeat()
 	var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
