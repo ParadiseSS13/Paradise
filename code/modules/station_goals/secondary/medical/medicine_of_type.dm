@@ -43,16 +43,22 @@
 	..()
 	admin_desc = "[amount_needed] units of [specific_type] [generic_name_plural]"
 
+/datum/station_goal/secondary/medicine_of_type/proc/list_med_names(list/coder_list)
+	var/list/name_list = list()
+	for(var/i = 1, i <= coder_list.len, i++)
+		name_list.Add(coder_list[i].name)
+	return name_list
+
 /datum/station_goal/secondary/medicine_of_type/randomize_params()
 	department_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
 	specific_type = pick("burn", "brute", "antitoxin", "respiratory", "cloning", "neurological", "cardiac", "pain management", "cellular", "temperature-stabilizing", "blood loss", "specific purgative", "antibiotic")
 	preferred_meds = med_lookup[specific_type]["preferred"]
 	adequate_meds = med_lookup[specific_type]["adequate"]
-	var/preferred_meds_string = english_list(preferred_meds, "nothing", " and/or ")
-	var/adequate_meds_string = english_list(adequate_meds, "nothing", " and/or ")
-	report_message = "One of our outposts is in desperate need of more [specific_type] [generic_name_plural]. Please provide [amount_needed]u in whatever form you can. "
+	var/preferred_meds_string = english_list(list_med_names(preferred_meds), "nothing", " and/or ")
+	var/adequate_meds_string = english_list(list_med_names(adequate_meds), "nothing", " and/or ")
+	report_message = "One of our outposts is in desperate need of more [specific_type] [generic_name_plural]. Please provide at least [amount_needed]u, in whatever form you can, in any combination of medicines. "
 	report_message += "Preferably, send [preferred_meds_string]. "
-	report_message += "They will also take [adequate_meds_string], but they may need twice as much."
+	report_message += "They will also take [adequate_meds_string], but they will need twice as much."
 	return ..()
 
 /datum/secondary_goal_progress/medicine_of_type
@@ -83,6 +89,8 @@
 	copy.department = department
 	copy.amount_needed = amount_needed
 	copy.specific_type = specific_type
+	copy.preferred_meds = preferred_meds
+	copy.adequate_meds = adequate_meds
 	// These ones aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
 	copy.department_account = department_account
@@ -100,7 +108,6 @@
 		return
 
 	var/datum/reagent/reagent = AM.reagents.get_master_reagent()
-	message_admins("Reagent.id is [reagent.id].")
 
 	// Make sure it's for our department.
 	if(!reagent || reagent.goal_department != department)
@@ -123,8 +130,12 @@
 	var/is_needed = FALSE
 	for(var/reagent_type in preferred_meds)
 		is_needed = (istype(reagent, reagent_type) ? TRUE : is_needed)
+		if(is_needed)
+			break
 	for(var/reagent_type in adequate_meds)
 		is_needed = (istype(reagent, reagent_type) ? TRUE : is_needed)
+		if(is_needed)
+			break
 
 	if(!is_needed)
 		if(!manifest)
@@ -159,7 +170,14 @@
 	var/single_reagent
 	var/reagents_tally = 0
 	for(single_reagent in reagents_sent)
-		reagents_tally += (single_reagent in preferred_meds ? reagents_sent[single_reagent] : reagents_sent[single_reagent] / 2)
+		var/is_preferred = FALSE
+		var/i
+		for(i = 1, i <= preferred_meds.len, i++)
+			if(single_reagent == preferred_meds[i].id)
+				reagents_tally += reagents_sent[single_reagent]
+				is_preferred = TRUE
+				continue
+		reagents_tally += is_preferred ? 0 : (reagents_sent[single_reagent] / 2)
 	if(reagents_tally < amount_needed)
 		return
 
