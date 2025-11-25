@@ -114,7 +114,6 @@
 	if(!length(step_attempts))
 		return PCWJ_NO_STEPS
 
-	recipes_last_completed_step.Cut()
 	for(var/datum/cooking/step_attempt/step_attempt in step_attempts)
 		// For each valid step type we only call follow_step() once since it's
 		// pointless to e.g. add an item to the container more than once.
@@ -134,6 +133,7 @@
 				step_datas[step_attempt.recipe_step.type] = step_data
 				step_reaction_message = step_datas[step_attempt.recipe_step.type]["message"]
 
+		var/previous_step = recipes_last_completed_step[step_attempt.recipe]
 		if(step_attempt.recipe_step.is_complete(used, src, step_datas[step_attempt.recipe_step.type]))
 			recipes_last_completed_step[step_attempt.recipe] = step_attempt.current_step_index
 			completed_steps++
@@ -141,7 +141,7 @@
 			if(step_attempt.recipe_step == step_attempt.recipe.steps[length(step_attempt.recipe.steps)])
 				completed_recipes += step_attempt.recipe
 		else
-			recipes_last_completed_step[step_attempt.recipe] = step_attempt.current_step_index - 1
+			recipes_last_completed_step[step_attempt.recipe] = previous_step
 
 	if(length(step_datas) > 1)
 		var/list/types = list()
