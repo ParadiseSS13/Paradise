@@ -32,7 +32,7 @@
 /obj/machinery/chem_heater/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
 		return
-	eject_beaker()
+	eject_beaker(user)
 
 /obj/machinery/chem_heater/process()
 	..()

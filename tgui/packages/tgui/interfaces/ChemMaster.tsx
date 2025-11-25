@@ -188,7 +188,7 @@ const ChemMasterBeaker = (props: {}) => {
                   content="Custom.."
                   mb="0"
                   onClick={() =>
-                    modalOpen('addcustom', {
+                    act('addcustom', {
                       id: chemical.id,
                     })
                   }
@@ -268,7 +268,7 @@ const ChemMasterBuffer = (props: {}) => {
                   content="Custom.."
                   mb="0"
                   onClick={() =>
-                    modalOpen('removecustom', {
+                    act('removecustom', {
                       id: chemical.id,
                     })
                   }

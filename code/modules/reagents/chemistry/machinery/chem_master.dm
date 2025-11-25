@@ -10,6 +10,10 @@
 #define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
 #define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
 
+#define DEFAULT_CUSTOM_TRANSFER_AMOUNT 30
+#define MINIMUM_CUSTOM_TRANSFER_AMOUNT 1
+#define MAXIMUM_CUSTOM_TRANSFER_AMOUNT 200
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -24,9 +28,9 @@
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
-	var/useramount = 30 // Last used amount
 	var/production_mode = null
 	var/printing = FALSE
+	var/production_amount_limit = null
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
@@ -52,7 +56,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	RefreshParts()
 	update_icon()
 	if(condi)
 		var/datum/chemical_production_mode/new_mode = new /datum/chemical_production_mode/condiment_packs()
@@ -71,6 +74,8 @@
 			production_mode = key
 			break
 
+	RefreshParts()
+
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)
 	QDEL_NULL(loaded_pill_bottle)
@@ -80,6 +85,10 @@
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		reagents.maximum_volume += 2 * B.reagents.maximum_volume
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		production_amount_limit = 30 * M.rating
+	for(var/key in production_modes)
+		production_modes[key].max_items_amount = production_amount_limit
 
 /obj/machinery/chem_master/AltClick(mob/user, modifiers)
 	if(!beaker)
@@ -323,6 +332,27 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+			update_icon()
+		if("addcustom")
+			if(!beaker || !beaker.reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			R.trans_id_to(src, id, amount)
+		if("removecustom")
+			if(!reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			if(mode)
+				reagents.trans_id_to(beaker, id, amount)
+			else
+				reagents.remove_reagent(id, amount)
+			update_icon()
 		if("eject")
 			if(!beaker)
 				return
@@ -405,7 +435,7 @@
 	data["mode"] = mode
 	data["printing"] = printing
 
-	// Transfer modal information if there is one
+	// Transfer modal information if there is onedw
 	data["modal"] = ui_modal_data(src)
 
 	data["production_mode"] = production_mode
@@ -478,45 +508,10 @@
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
-				if("addcustom")
-					if(!beaker || !beaker.reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to buffer:", null, arguments, useramount)
-				if("removecustom")
-					if(!reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", null, arguments, useramount)
-				else
-					return FALSE
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("addcustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)
-				if("removecustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("remove", list("id" = arguments["id"], "amount" = amount), ui, state)
 				else
 					return FALSE
 		else
 			return FALSE
-
-/obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
-		if(num > 200)
-			num = 200
-		else if(num < 0)
-			num = 1
-		else
-			num = round(num)
-		return num
-	else
-		return FALSE
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
@@ -579,6 +574,10 @@
 	if(!isnull(medicine_name) && length(medicine_name) <= 0)
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
+	if(amount_per_item < 0.1)
+		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
+		return
+	
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
@@ -586,7 +585,6 @@
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
-		to_chat(user, "<span class='warning'>Making new item at [location]!</span>")
 		if(!isnull(medicine_name))
 			P.name = "[medicine_name][name_suffix]"
 		P.scatter_atom()
@@ -602,7 +600,6 @@
 	production_name = "Pills"
 	production_icon = "pills"
 	item_type = /obj/item/reagent_containers/pill
-	max_items_amount = 20
 	max_units_per_item = 100
 	name_suffix = " pill"
 
@@ -617,7 +614,6 @@
 	production_name = "Patches"
 	production_icon = "plus-square"
 	item_type = /obj/item/reagent_containers/patch
-	max_items_amount = 20
 	max_units_per_item = 30
 	name_suffix = " patch"
 
@@ -657,7 +653,6 @@
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
 	sprites = list("bottle", "reagent_bottle")
-	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
 
@@ -697,3 +692,7 @@
 
 #undef SAFE_MIN_TEMPERATURE
 #undef SAFE_MAX_TEMPERATURE
+
+#undef DEFAULT_CUSTOM_TRANSFER_AMOUNT
+#undef MINIMUM_CUSTOM_TRANSFER_AMOUNT
+#undef MAXIMUM_CUSTOM_TRANSFER_AMOUNT
