@@ -3188,6 +3188,7 @@
 #include "code\modules\station_goals\secondary\kitchen\random_bulk_condiment.dm"
 #include "code\modules\station_goals\secondary\kitchen\random_bulk_food.dm"
 #include "code\modules\station_goals\secondary\kitchen\variety_food.dm"
+#include "code\modules\station_goals\secondary\medical\medicine_of_type.dm"
 #include "code\modules\station_goals\secondary\medical\random_bulk_medicine.dm"
 #include "code\modules\station_goals\secondary\medical\variety_medicine.dm"
 #include "code\modules\station_goals\secondary\science\random_bulk_chemical.dm"
