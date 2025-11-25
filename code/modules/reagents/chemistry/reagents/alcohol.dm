@@ -262,7 +262,7 @@
 	color = "#102000" // rgb: 16, 32, 0
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
-	heart_rate_increase = 1
+	heart_rate_change = 10
 	drink_icon = "thirteen_loko_glass"
 	drink_name = "Glass of Thirteen Loko"
 	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
@@ -936,7 +936,7 @@
 	color = "#2E2E61" // rgb: 46, 46, 97
 	dizzy_adj = 12 SECONDS
 	alcohol_perc = 0.7
-	heart_rate_decrease = 1
+	heart_rate_change = -10
 	drink_icon = "neurotoxinglass"
 	drink_name = "Neurotoxin"
 	drink_desc = "A drink that is guaranteed to knock you silly."

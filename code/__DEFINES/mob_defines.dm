@@ -62,15 +62,25 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+// Bloodpressure levels
+#define BLOODPRESSURE_NONE		10
+#define BLOODPRESSURE_DANGER	40
+#define BLOODPRESSURE_LOW		70
+#define BLOODPRESSURE_NORMAL	120
+#define BLOODPRESSURE_V_HIGH	150
 
-//Pulse levels, very simplified
-#define PULSE_NONE		0	//so !M.pulse checks would be possible
-#define PULSE_SLOW		1	//<60 bpm
-#define PULSE_NORM		2	//60-90 bpm
-#define PULSE_FAST		3	//90-120 bpm
-#define PULSE_2FAST		4	//>120 bpm
-#define PULSE_THREADY	5	//occurs during hypovolemic shock
-//feel free to add shit to lists below
+// Quick bp check define
+#define BLOODPRESSURE_IS_NORMAL(x) (BLOODPRESSURE_LOW < x && x < BLOODPRESSURE_NORMAL)
+
+// Heartbeat levels
+#define HEARTBEAT_NONE		20	// Very low. You're (almost) dead here
+#define HEARTBEAT_SLOW		60
+#define HEARTBEAT_NORMAL	100
+#define HEARTBEAT_FAST		140
+#define HEARTBEAT_2FAST		190
+
+// Quick pulse check define
+#define HEARTBEAT_IS_NORMAL(x) (HEARTBEAT_SLOW < x && x < HEARTBEAT_NORMAL)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"

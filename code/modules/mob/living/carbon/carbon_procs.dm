@@ -857,27 +857,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	return ..()
 
-//generates realistic-ish pulse output based on preset levels
-/mob/living/carbon/proc/get_pulse()
-	var/temp = 0
-	switch(pulse)
-		if(PULSE_NONE)
-			return "0"
-		if(PULSE_SLOW)
-			temp = rand(40, 60)
-			return num2text(temp)
-		if(PULSE_NORM)
-			temp = rand(60, 90)
-			return num2text(temp)
-		if(PULSE_FAST)
-			temp = rand(90, 120)
-			return num2text(temp)
-		if(PULSE_2FAST)
-			temp = rand(120, 160)
-			return num2text(temp)
-		if(PULSE_THREADY)
-			return ">250"
-
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 

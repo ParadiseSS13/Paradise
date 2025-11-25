@@ -12,9 +12,12 @@
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
 	var/view_true_health = FALSE // Determines if a painkiller messes with someone seeing their actual health on the health doll or not
-	var/heart_rate_increase = 0
-	var/heart_rate_decrease = 0
-	var/heart_rate_stop = 0
+
+	/// Will our heartrate change from having this chem in us? The value is how many bpm it gets increased by
+	var/heart_rate_change = 0
+	/// Does this stop our heart from beating
+	var/heart_rate_stop = FALSE
+
 	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
@@ -316,6 +319,3 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
-
-/datum/reagent/proc/has_heart_rate_increase()
-	return heart_rate_increase

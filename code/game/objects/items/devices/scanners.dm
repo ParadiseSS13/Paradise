@@ -380,8 +380,8 @@ SLIME SCANNER
 		else
 			msgs += "<span class='notice'>Blood level [blood_percent] %, [blood_volume] cl, type: [blood_type]</span>"
 
-	msgs += "<span class='notice'>Body Temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
-	msgs += "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse()] bpm.</font></span>"
+	msgs += "<span class='notice'>Body Temperature: [round(H.bodytemperature - T0C, 0.01)]&deg;C ([round(H.bodytemperature * 1.8 - 459.67, 0.01)]&deg;F)</span>"
+	msgs += "<span class='notice'>Subject's pulse: <font color='[HEARTBEAT_IS_NORMAL(H.heartbeat) ? "blue" : "red"]'>[H.heartbeat] bpm.</font></span>"
 
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)

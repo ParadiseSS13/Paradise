@@ -308,7 +308,7 @@
 			bloodData["hasBlood"] = TRUE
 			bloodData["volume"] = occupant.blood_volume
 			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))
-			bloodData["pulse"] = occupant.get_pulse()
+			bloodData["pulse"] = occupant.heartbeat
 			bloodData["bloodLevel"] = occupant.blood_volume
 			bloodData["bloodMax"] = occupant.max_blood
 		occupantData["blood"] = bloodData

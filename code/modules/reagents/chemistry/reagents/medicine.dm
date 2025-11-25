@@ -169,7 +169,7 @@
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
-	heart_rate_decrease = 1
+	heart_rate_change = -10
 	taste_description = "a safe refuge"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	data = list()

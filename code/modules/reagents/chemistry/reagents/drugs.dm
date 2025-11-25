@@ -46,7 +46,7 @@
 	metabolization_rate = 0.2
 	addiction_chance = 15
 	addiction_threshold = 10
-	heart_rate_decrease = 1
+	heart_rate_change = 10
 	taste_description = "a synthetic high"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -106,7 +106,7 @@
 	addiction_chance = 15
 	addiction_threshold = 10
 	minor_addiction = TRUE
-	heart_rate_increase = 1
+	heart_rate_change = 10
 	taste_description = "calm"
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
@@ -195,7 +195,7 @@
 	description = "Reduces stun times and improves stamina regeneration. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	heart_rate_increase = TRUE
+	heart_rate_change = 10
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
@@ -406,7 +406,7 @@
 	addiction_threshold = 5
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
-	heart_rate_increase = 1
+	heart_rate_change = 10
 	taste_description = "speed"
 	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug
@@ -704,10 +704,6 @@
 	to_chat(M, "<span class='[class]'><font size='[rand(3,6)]'>[message][pick("!", "!!", "!!!")]</font></span>")
 	return list(effect, update_flags)
 
-/datum/reagent/happiness/has_heart_rate_increase()
-	return overdosed
-
-
 /datum/reagent/thc
 	name = "Tetrahydrocannabinol"
 	id = "thc"
@@ -885,6 +881,7 @@
 	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
 	allowed_overdose_process = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	heart_rate_change = 50
 	/// Keeps track of how many chemicals we are delaying the changeling by.
 	var/changeling_chemical_tracker = 0
 	goal_department = "Science"
