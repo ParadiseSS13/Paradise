@@ -30,10 +30,14 @@
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
-	/// list of what this box can change into when colored, probably don't want to manually edit these
+	/// list containing a list of what this box can change into when colored, probably don't want to manually edit this, use `add_to_colorable_lists()`
 	var/colorable_to
+
+	/// list containing a list of what this box can change into when colored, used in the radial menu popup. Probably don't want to manually edit this, use `add_to_colorable_lists()`
 	var/colorable_to_radial
-	var/color_state //determines what this can be colored to
+
+	/// state that determines what this can be colored to
+	var/color_state
 
 /obj/item/storage/box/red_trim
 	icon_state = "sec_box"
@@ -240,7 +244,7 @@
 		..()
 		return
 
-	if(!in_range(user, src))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(user.incapacitated())
@@ -258,14 +262,14 @@
 	// some inventories might be of different sizes or accept different items,
 	// for consistency, we dissalow painting with items inside
 	if(length(contents))
-		to_chat(usr, "<span class='warning'>The [src] is too unstable to be painted, empty it first.</span>")
+		to_chat(usr, "<span class='warning'>\The [src] is too unstable to be painted, empty it first.</span>")
 		return
 
 	if(crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
 		to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
 		new_box = make_new_box(/obj/item/storage/box)
 	else
-		var/selected_icon = show_radial_menu(usr,usr, color_list)
+		var/selected_icon = show_radial_menu(user, user, color_list)
 
 		if(selected_icon == null)
 			return
@@ -303,10 +307,6 @@
 			user.s_active.show_to(user)
 
 		// if we don't place it in hand or in a bag, leave the box on the ground
-		return
-
-
-
 
 /obj/item/storage/box/proc/make_new_box(type)
 	var/turf = get_turf(src)
@@ -347,7 +347,10 @@
 	if(color_state != null || icon_state == "box")
 		. += "<span class='notice'><b>Alt-Click</b> [src] with an appropriate crayon in hand to color it.</span>"
 
-
+/// helper function to add to the colors a box can turn into
+/// * name - the name of the new box in the radial menu
+/// * color - what color of crayon caused the box to change
+/// * object - the new item to create when you recolor a box
 /obj/item/storage/box/proc/add_to_colorable_lists(name, color, object)
 	if(colorable_to == null)
 		colorable_to = list()
