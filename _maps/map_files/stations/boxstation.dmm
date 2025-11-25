@@ -33495,11 +33495,18 @@
 /area/station/science/genetics)
 "cyC" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 14
+/obj/item/storage/box/disks{
+	pixel_x = -6;
+	pixel_y = 9
 	},
-/obj/item/storage/box/disks,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/paper_bin{
+	pixel_x = 8;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cyD" = (
@@ -34102,11 +34109,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cAD" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
 /obj/machinery/newscaster/directional/south,
-/obj/item/book/manual/wiki/sop_science,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cAG" = (
@@ -34710,8 +34715,10 @@
 /area/station/science/misc_lab)
 "cDv" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/storage/box/beakers{
+	pixel_x = -7;
+	pixel_y = 10
+	},
 /obj/machinery/camera{
 	c_tag = "Research Genetics";
 	dir = 1;
@@ -34719,6 +34726,13 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/item/storage/box/syringes{
+	pixel_x = -7
+	},
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = 7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cDw" = (
@@ -54789,10 +54803,15 @@
 /area/station/medical/surgery/observation)
 "ind" = (
 /obj/structure/table/glass,
-/obj/item/hand_labeler,
-/obj/item/roller,
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/item/roller{
+	pixel_y = 9
+	},
+/obj/item/hand_labeler{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "ini" = (
