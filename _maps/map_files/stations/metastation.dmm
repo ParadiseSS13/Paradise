@@ -13808,9 +13808,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "byZ" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the special containment chamber.";
 	layer = 4;
@@ -33738,9 +33735,6 @@
 /area/station/maintenance/port)
 "eyN" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/box,
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -39870,10 +39864,6 @@
 "gGV" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/window/classic/normal{
-	name = "Maximum Security Test Chamber";
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
 	dir = 8
 	},
@@ -39882,6 +39872,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Maximum Security Test Chamber";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -41320,12 +41314,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
-"hfR" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/xenobiology)
 "hfX" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -46786,7 +46774,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/light,
 /obj/effect/turf_decal/box,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
@@ -61906,6 +61893,13 @@
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"otK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/xenobiology)
 "otS" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -62082,6 +62076,16 @@
 "oxF" = (
 /turf/simulated/wall/r_wall,
 /area/station/public/construction)
+"oxI" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/xenobiology)
 "oxT" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock,
@@ -136098,11 +136102,11 @@ eUC
 mdi
 ivR
 mdi
-jFi
+hEv
 rZt
 fhR
 nQM
-jFi
+hEv
 mdi
 cIP
 mdi
@@ -136355,11 +136359,11 @@ eUC
 mdi
 gxC
 mdi
-hEv
-rZt
+cZr
+oxI
 gSu
-nQM
-hEv
+otK
+cZr
 mdi
 gxC
 mdi
@@ -136613,7 +136617,7 @@ eUC
 eUC
 eUC
 ncp
-hfR
+kHi
 gSu
 byZ
 cZr
