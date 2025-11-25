@@ -139,7 +139,7 @@
 	if(replaced) //Lets not destroy someones brain fully by putting someone elses brain in that slot.
 		if(advanced)
 			// Protects us from killing IPCs by removing their microbattery.
-			replaced.remove(C, special = 1)
+			replaced.remove(C, TRUE)
 		else
 			replaced.remove(C)
 		replaced.forceMove(get_turf(src))
