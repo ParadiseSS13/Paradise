@@ -1,11 +1,8 @@
 1-Rover-1
 7-Zark-7
 790
-AM
 AMEE
 ASTAR
-Adaptive Manipulator
-Allied Mastercomputer
 Alpha 5
 Alpha 6
 Alpha 7
@@ -139,8 +136,6 @@ Z-3
 Zed
 Zord
 Mugsy3000
-Terminus
-Decimus
 Robot Devil
 Soundwave
 Ironhide
