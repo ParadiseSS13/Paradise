@@ -78,8 +78,8 @@
 	// recipe with only one item
 	for(var/datum/cooking/recipe/recipe in GLOB.pcwj_recipe_dictionary[/obj/item/reagent_containers/cooking/deep_basket])
 		if(length(recipe.steps) == 2) // One add step and one deep fry step
-			var/datum/cooking/recipe_step/add_item/add_item_step = recipe.steps[1]
-			if(istype(add_item_step) && (src != add_item_step) && add_item_step.check_conditions_met(added_item, tracker) == PCWJ_CHECK_VALID)
+			var/datum/cooking/recipe_step/add_step = recipe.steps[1]
+			if((src != add_step) && add_step.check_conditions_met(added_item, tracker) == PCWJ_CHECK_VALID)
 				return PCWJ_CHECK_INVALID
 
 	return PCWJ_CHECK_VALID
