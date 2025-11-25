@@ -1,6 +1,15 @@
 /datum/event/spawn_slaughter
+	name = "Slaughter Demon"
+	noAutoEnd = TRUE
 	var/key_of_slaughter
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
+	nominal_severity = EVENT_LEVEL_MAJOR
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_JANITOR = 5, ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_CREW = 0.7)
+	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_JANITOR = 1, ASSIGNMENT_MEDICAL = 2, ASSIGNMENT_CREW = 25)
+
+/datum/event/spawn_slaughter/tick()
+	if(!demon || demon.stat == DEAD)
+		kill()
 
 /datum/event/spawn_slaughter/proc/get_slaughter()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [initial(demon.name)]?", ROLE_DEMON, TRUE, source = demon)
@@ -44,10 +53,15 @@
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
+	name = "Greater Slaughter Demon"
 	demon = /mob/living/simple_animal/demon/slaughter
 
 /datum/event/spawn_slaughter/shadow
+	name = "Shadow Demon"
 	demon = /mob/living/simple_animal/demon/shadow
+	// Same as slaughter but without Jani
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_CREW = 0.7)
+	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_MEDICAL = 2, ASSIGNMENT_CREW = 25)
 
 /datum/event/spawn_slaughter/shadow/get_spawn_loc()
 	var/turf/spawn_center = ..()

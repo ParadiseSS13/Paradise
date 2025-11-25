@@ -4,6 +4,7 @@
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "vampire_claws"
 
 /datum/spell/vampire/self/vamp_claws/cast(mob/user)
@@ -133,6 +134,7 @@
 	required_blood = 10
 
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -178,6 +180,7 @@
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_barrier"
 
 	var/max_walls = 3
@@ -270,7 +273,7 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	action_background_icon_state = "bg_vampire"
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
 	jaunt_water_effect = FALSE
@@ -288,6 +291,7 @@
 	name = "Predator Senses"
 	desc = "Hunt down your prey, there's nowhere to hide..."
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
 	create_attack_logs = FALSE
@@ -327,6 +331,7 @@
 	gain_desc = "You have gained the ability to weaponize pools of blood to damage those stood on them."
 	required_blood = 100
 	base_cooldown = 200 SECONDS
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_spikes"
 
 /datum/spell/vampire/blood_eruption/create_new_targeting()
@@ -362,6 +367,7 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

@@ -255,7 +255,7 @@
 #define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
-#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider) || istype((A), /mob/living/basic/spiderling/terror_spiderling))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))

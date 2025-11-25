@@ -829,10 +829,10 @@
 
 /mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/ion))
+	if(istype(mover, /obj/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/projectile/proj)
 	if(proj.damage_type == BURN)
 		regen_lock = max(regen_lock, 1)
 		return ..()

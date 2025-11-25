@@ -48,7 +48,7 @@
 	for(var/obj/item/stack/ore/ore in src)
 		ore.forceMove(loc)
 
-/mob/living/basic/mining/goldgrub/bullet_act(obj/item/projectile/P)
+/mob/living/basic/mining/goldgrub/bullet_act(obj/projectile/P)
 	if(P.armor_penetration_flat + P.armor_penetration_percentage >= 100)
 		return ..()
 	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")

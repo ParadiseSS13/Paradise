@@ -109,6 +109,10 @@
 	display_name = "Large necklace"
 	path = /obj/item/clothing/neck/necklace/long
 
+/datum/gear/neck/necklace/ntcharm
+	display_name = "Nanotrasen charm necklace"
+	path = /obj/item/clothing/neck/necklace/ntcharm
+
 //Cloaks and mantles
 
 /datum/gear/neck/cloak
@@ -209,3 +213,23 @@
 	display_name = "Chaplain, tallit"
 	path = /obj/item/clothing/neck/cloak/tallit
 	allowed_roles = list("Chaplain")
+
+/datum/gear/neck/neckerchief
+	main_typepath = /datum/gear/neck/neckerchief
+	allowed_roles = list("Bartender", "Chef")
+
+/datum/gear/neck/neckerchief/white
+	display_name = "Neckerchief, white"
+	path = /obj/item/clothing/neck/neckerchief
+
+/datum/gear/neck/neckerchief/black
+	display_name = "Neckerchief, black"
+	path = /obj/item/clothing/neck/neckerchief/black
+
+/datum/gear/neck/neckerchief/red
+	display_name = "Neckerchief, red"
+	path = /obj/item/clothing/neck/neckerchief/red
+
+/datum/gear/neck/neckerchief/green
+	display_name = "Neckerchief, green"
+	path = /obj/item/clothing/neck/neckerchief/green

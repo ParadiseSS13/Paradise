@@ -464,7 +464,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	var/obj/projectile/temp/basilisk/O = new /obj/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	if(drops_core)
 		O.stun = 0.5 SECONDS

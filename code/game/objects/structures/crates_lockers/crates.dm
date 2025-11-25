@@ -47,7 +47,8 @@
 			if(L.electrocute_act(17, src))
 				do_sparks(5, 1, src)
 				return 2
-
+	if(climbable)
+		structure_shaken()
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
 		O.forceMove(loc)
@@ -55,9 +56,6 @@
 		M.forceMove(loc)
 	icon_state = icon_opened
 	opened = TRUE
-
-	if(climbable)
-		structure_shaken()
 
 	return TRUE
 
@@ -74,9 +72,9 @@
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
 			continue
-		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
+		if(ismob(O) && !(HAS_TRAIT(O, TRAIT_CONTORTED_BODY) || HAS_TRAIT(O, TRAIT_SKITTISH)))
 			continue
-		if(O.has_buckled_mobs()) // You can't put mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+		if(O.has_buckled_mobs()) // You can't put (most) mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
 			continue
 		O.forceMove(src)
 		itemcount++
@@ -215,6 +213,9 @@
 		return FALSE
 	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
+		return FALSE
+	if(user.loc == src)
+		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
 		return FALSE
 	if(allowed(user))
 		locked = !locked

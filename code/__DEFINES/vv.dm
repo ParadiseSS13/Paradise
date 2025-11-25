@@ -77,6 +77,8 @@
 #define VV_HK_ADDVERB "addverb"
 #define VV_HK_REMVERB "remverb"
 #define VV_HK_GIB "gib"
+#define VV_HK_ADDQUIRK "addquirk"
+#define VV_HK_REMQUIRK "remquirk"
 
 #define GET_VV_TARGET locateUID(href_list[VV_HK_TARGET])
 

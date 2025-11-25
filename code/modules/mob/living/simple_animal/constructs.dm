@@ -138,7 +138,7 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		if(P.damage_type == BRUTE || P.damage_type == BURN)
 			adjustBruteLoss(P.damage * 0.8) // 16 hit with security laser gun

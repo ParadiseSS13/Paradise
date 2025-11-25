@@ -27,6 +27,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/enter_exit_hive/perform(seconds_per_tick, datum/ai_controller/controller, target_key, attack_key)
+	. = ..()
 	var/obj/structure/beebox/current_home = controller.blackboard[target_key]
 	var/atom/attack_target = controller.blackboard[attack_key]
 
@@ -47,6 +48,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/inhabit_hive/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/obj/structure/beebox/potential_home = controller.blackboard[target_key]
 	var/mob/living/bee_pawn = controller.pawn
 

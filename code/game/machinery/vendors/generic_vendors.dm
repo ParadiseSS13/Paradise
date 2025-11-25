@@ -62,6 +62,7 @@
 					/obj/item/reagent_containers/drinks/cans/cola = 8,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 4,
 					/obj/item/reagent_containers/drinks/cans/sodawater = 15,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 8,
 					/obj/item/reagent_containers/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/drinks/ice = 9)
@@ -423,6 +424,7 @@
 					/obj/item/clothing/under/pants/black = 3,
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
+					/obj/item/clothing/under/pants/cargo = 3,
 					/obj/item/clothing/under/pants/track = 3,
 					/obj/item/clothing/suit/tracksuit = 3,
 					/obj/item/clothing/suit/tracksuit/green = 3,
@@ -515,6 +517,7 @@
 				/obj/item/clothing/under/pants/black = 75,
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
+				/obj/item/clothing/under/pants/cargo = 75,
 				/obj/item/clothing/under/pants/track = 75,
 				/obj/item/clothing/suit/tracksuit = 75,
 				/obj/item/clothing/suit/tracksuit/green = 75,
@@ -759,7 +762,23 @@
 					/obj/item/clothing/shoes/roman = 1,
 					/obj/item/shield/riot/roman/fake = 1,
 					/obj/item/clothing/under/costume/cuban_suit = 1,
-					/obj/item/clothing/head/cuban_hat = 1)
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/head/turban_orange = 1,
+					/obj/item/clothing/head/turban_green = 1,
+					/obj/item/clothing/head/eboshi = 1,
+					/obj/item/clothing/head/kippah = 1,
+					/obj/item/clothing/head/shtreimel = 1,
+					/obj/item/clothing/head/hijab = 1,
+					/obj/item/clothing/suit/hooded/costume/cassock = 1,
+					/obj/item/clothing/suit/hooded/costume/nun = 1,
+					/obj/item/clothing/suit/costume/bana = 1,
+					/obj/item/clothing/suit/costume/joue = 1,
+					/obj/item/clothing/suit/costume/miko = 1,
+					/obj/item/clothing/suit/costume/hasidic_coat = 1,
+					/obj/item/clothing/under/costume/kasaya = 1,
+					/obj/item/clothing/under/costume/modestgreen = 1,
+					/obj/item/clothing/under/costume/thobe = 1,
+					/obj/item/clothing/neck/cloak/tallit = 1)
 
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
@@ -879,7 +898,23 @@
 				/obj/item/clothing/shoes/roman = 40,
 				/obj/item/shield/riot/roman/fake = 75,
 				/obj/item/clothing/under/costume/cuban_suit = 125,
-				/obj/item/clothing/head/cuban_hat = 75)
+				/obj/item/clothing/head/cuban_hat = 75,
+				/obj/item/clothing/head/turban_orange = 50,
+				/obj/item/clothing/head/turban_green = 50,
+				/obj/item/clothing/head/eboshi = 50,
+				/obj/item/clothing/head/kippah = 50,
+				/obj/item/clothing/head/shtreimel = 75,
+				/obj/item/clothing/head/hijab = 50,
+				/obj/item/clothing/suit/hooded/costume/cassock = 100,
+				/obj/item/clothing/suit/hooded/costume/nun = 100,
+				/obj/item/clothing/suit/costume/bana = 100,
+				/obj/item/clothing/suit/costume/joue = 100,
+				/obj/item/clothing/suit/costume/miko = 100,
+				/obj/item/clothing/suit/costume/hasidic_coat = 100,
+				/obj/item/clothing/under/costume/kasaya = 100,
+				/obj/item/clothing/under/costume/modestgreen = 100,
+				/obj/item/clothing/under/costume/thobe = 100,
+				/obj/item/clothing/neck/cloak/tallit = 75)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 
@@ -1049,6 +1084,7 @@
 					/obj/item/reagent_containers/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/drinks/cans/space_up = 10,
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 
@@ -1060,6 +1096,7 @@
 				/obj/item/reagent_containers/drinks/cans/starkist = 50,
 				/obj/item/reagent_containers/drinks/cans/space_up = 50,
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
+				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
 				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
 				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 

@@ -115,7 +115,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access(name), name, "tsf")
 	H.sec_hud_set_ID()
 
 /datum/outfit/job/ntspecops/solgovspecops/on_mind_initialize(mob/living/carbon/human/H)

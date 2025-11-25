@@ -14,6 +14,8 @@
 	anchored = TRUE
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null
+	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
+	var/obj/effect/occupant_overlay = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
@@ -355,6 +357,7 @@
 			M.forceMove(src)
 			occupant = M
 			update_icon(UPDATE_ICON_STATE)
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 			add_fingerprint(user)
 			qdel(G)
@@ -548,6 +551,36 @@
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
+
+
+/obj/machinery/sleeper/update_overlays()
+	. = ..()
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+	if(!occupant)
+		return
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.dir = dir
+	occupant_overlay.layer = layer + 0.01
+	var/matrix/MA = matrix(transform)
+	if(dir == 1)
+		MA.TurnTo(0, 180)
+		occupant_overlay.dir = 2 // trust me
+	if(dir == 4)
+		MA.TurnTo(0, 270)
+		occupant_overlay.pixel_y = -8
+	if(dir == 8)
+		MA.TurnTo(0 , 90)
+		occupant_overlay.pixel_y = -8
+	MA.Scale(0.66, 0.66)
+	occupant_overlay.transform = MA
+	var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "[base_icon]_first_overlay", layer = occupant_overlay.layer + 0.01)
+	var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "[base_icon]-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+	. += rim
+	. += lid
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

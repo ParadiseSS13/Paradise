@@ -1,7 +1,12 @@
 #define TS_HIGHPOP_TRIGGER 80
 
 /datum/event/spider_terror
+	name = "terror spiders"
 	announceWhen = 240
+	noAutoEnd = TRUE
+	nominal_severity = EVENT_LEVEL_DISASTER
+	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.8, ASSIGNMENT_MEDICAL = 2.5)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 45, ASSIGNMENT_MEDICAL = 4)
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
@@ -18,6 +23,16 @@
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
+
+/// Terror spider costs are calculated independently from the event itself
+/datum/event/spider_terror/event_resource_cost()
+	return list()
+
+/datum/event/spider_terror/process()
+	// End the event once all spiders, eggs and spiderlings are gone from the station Z level.
+	if(!length(event_category_cost(EVENT_TERROR_SPIDERS)) && successSpawn)
+		kill()
+	. = ..()
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
@@ -66,6 +81,8 @@
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
+	if(!successSpawn)
+		kill()
 	SSticker.record_biohazard_start(infestation_type)
 	SSevents.biohazards_this_round += infestation_type
 

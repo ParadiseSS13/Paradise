@@ -151,7 +151,7 @@
 /datum/status_effect/saw_bleed/bloodletting
 	id = "bloodletting"
 	bleed_cap = 7
-	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_damage = 50
 	bleed_amount = 6
 
 /datum/status_effect/stacking/ground_pound
@@ -444,7 +444,9 @@
 	var/actual_strength = strength
 	var/datum/mind/M = owner.mind
 	var/is_robot = ismachineperson(owner) || issilicon(owner)
-
+	if(ishuman(owner))
+		var/mob/living/carbon/human/drunkard = owner
+		actual_strength *= drunkard.physiology.alcohol_mod
 	if(HAS_TRAIT(owner, TRAIT_ALCOHOL_TOLERANCE))
 		alcohol_resistance = 2
 
