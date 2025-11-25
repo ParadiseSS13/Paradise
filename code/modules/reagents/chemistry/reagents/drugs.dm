@@ -657,6 +657,7 @@
 	addiction_chance = 2 // fairly rare, but funny
 	addiction_chance_additional = 20
 	addiction_threshold = 20
+	heart_rate_change = 10
 	minor_addiction = TRUE
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_NORMAL
