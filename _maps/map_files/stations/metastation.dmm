@@ -15582,6 +15582,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
 "bHW" = (
