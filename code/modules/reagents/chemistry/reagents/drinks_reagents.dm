@@ -1064,6 +1064,7 @@
 	drink_name = "Glass of Top-Up"
 	drink_desc = "A sports drink for the busy spessman."
 	taste_description = "lemony lectrolytes"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/zero_day
 	name = "Zero Day"
@@ -1075,6 +1076,7 @@
 	drink_desc = "A data breach in a glass."
 	taste_description = "half-emptiness"
 	COOLDOWN_DECLARE(drip_cooldown)
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/zero_day/on_new(data)
 	..()
@@ -1114,6 +1116,7 @@
 	drink_name = "Glass of TCP Sip"
 	drink_desc = "A non-synthanolic refreshment for synthetics."
 	taste_description = "half-emptiness"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
@@ -1134,6 +1137,7 @@
 	drink_name = "Glass of Ginger Beep"
 	drink_desc = "A gingery refreshment for synthetics. Fizzy, too."
 	taste_description = "static and spice"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/cog_a_cola
 	name = "Cog-a-Cola"
@@ -1144,6 +1148,7 @@
 	drink_name = "Glass of Cog-a-Cola"
 	drink_desc = "A non-synthanolic soda for synthetics."
 	taste_description = "sugary bubbles with a hint of oil"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/electrocharge
 	name = "Electrocharge"
@@ -1154,6 +1159,7 @@
 	drink_name = "Glass of Electrocharge"
 	drink_desc = "A real charge-up for synthetics."
 	taste_description = "a full battery"
+	goal_difficulty = REAGENT_GOAL_HARD
 	COOLDOWN_DECLARE(drink_message_cooldown)
 	COOLDOWN_DECLARE(drink_overcharge_cooldown)
 
@@ -1192,6 +1198,7 @@
 	drink_name = "Glass of Battery Acid"
 	drink_desc = "So acidic, it forms an acid like its namesake on the rim of the glass."
 	taste_description = "fried wires"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/processor_punch
 	name = "Processor Punch"
@@ -1202,6 +1209,7 @@
 	drink_name = "Glass of Processor Punch"
 	drink_desc = "A sweetened, non-synthanolic, synthetic sip."
 	taste_description = "a punch to the processors"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/bubbly_beep
 	name = "Bubbly Beep"
@@ -1212,6 +1220,7 @@
 	drink_name = "Glass of Bubbly Beep"
 	drink_desc = "The cleanest, bubbliest drink on the station."
 	taste_description = "decontamination"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
 
 /datum/reagent/consumable/drink/bubbly_beep/on_mob_life(mob/living/M)
@@ -1239,6 +1248,7 @@
 	drink_name = "Glass of Tin and Tonic"
 	drink_desc = "A good sip for a synthetic curious about quinine."
 	taste_description = "smoothly-running processors"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
 
 /datum/reagent/consumable/drink/tin_and_tonic/on_mob_life(mob/living/M)
@@ -1259,6 +1269,7 @@
 	drink_name = "Glass of Salt and Battery"
 	drink_desc = "Looks like it'll charge you up, but really it'll beat you down."
 	taste_description = "assault to the batteries"
+	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 
 /datum/reagent/consumable/drink/salt_and_battery/on_mob_life(mob/living/M)
@@ -1299,6 +1310,7 @@
 	drink_name = "Glass of Soft Reset"
 	drink_desc = "Have you tried turning it off and back on again?"
 	taste_description = "a little reboot"
+	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 	COOLDOWN_DECLARE(reboot_cooldown)
 
