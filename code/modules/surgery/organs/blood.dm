@@ -71,20 +71,23 @@
 			if(BP.status & ORGAN_INT_BLEEDING)
 				internal_bleeding_rate += 0.5
 
+		var/total_mod = 1
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
 		if(!BLOODPRESSURE_IS_NORMAL(blood_pressure))
 			var/base = blood_pressure > BLOODPRESSURE_NORMAL ? -BLOODPRESSURE_NORMAL : -BLOODPRESSURE_LOW
 			base += blood_pressure
 			var/modifier = 1 + (150 - blood_pressure) / 100
 			bleed_rate = round(bleed_rate * modifier, 0.1)
-			internal_bleeding_rate = round(bleed_rate * modifier, 0.1)
+			internal_bleeding_rate = round(internal_bleeding_rate * modifier, 0.1)
+			total_mod *= modifier
 
 		if(!HEARTBEAT_IS_NORMAL(heartbeat))
 			var/base = (heartbeat > HEARTBEAT_NORMAL ? -HEARTBEAT_NORMAL : -HEARTBEAT_SLOW)
 			base += heartbeat
 			var/modifier = 1 + base / 100
 			bleed_rate = round(bleed_rate * modifier, 0.1)
-			internal_bleeding_rate = round(bleed_rate * modifier, 0.1)
+			internal_bleeding_rate = round(internal_bleeding_rate * modifier, 0.1)
+			total_mod *= modifier
 
 		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
@@ -93,6 +96,9 @@
 
 		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
+
+		bleed_rate = round(bleed_rate / modifier, 0.1)
+		internal_bleeding_rate = round(internal_bleeding_rate / modifier, 0.1)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
