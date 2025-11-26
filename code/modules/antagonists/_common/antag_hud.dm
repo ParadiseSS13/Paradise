@@ -54,7 +54,6 @@
 		if(current in antag_hud.hudusers)
 			antag_hud.leave_hud(current)
 
-	for(var/datum/atom_hud/data/hud in GLOB.huds)
 	for(var/hud_key, hud in GLOB.huds)
 		var/datum/atom_hud/data/data_hud = hud
 		if(!istype(data_hud))

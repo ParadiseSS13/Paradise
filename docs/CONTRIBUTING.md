@@ -227,6 +227,7 @@ affect mergeability status. People included in this role are:
 - [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
+- [JimKil3](https://github.com/JimKil3)
 - [lewcc](https://github.com/lewcc)
 - [PollardTheDragon](https://github.com/PollardTheDragon)
 - [S34N](https://github.com/S34NW)

@@ -94,6 +94,12 @@
 	exp_flash = 4
 	exp_fire= 5
 
+/obj/projectile/magic/fireball/small
+	name = "firebolt"
+	exp_heavy = -1
+	exp_light = 1
+	exp_fire = 3
+
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
