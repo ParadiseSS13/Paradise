@@ -192,24 +192,31 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "bI" = (
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/structure/rack{
-	dir = 8
-	},
-/obj/item/stack/sheet/glass/fifty,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/stack/sheet/glass/fifty{
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/obj/structure/shelf/security,
+/obj/item/vending_refill/hydroseeds{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/vending_refill/hydroseeds{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/vending_refill/hydronutrients,
+/obj/item/vending_refill/hydronutrients,
+/obj/item/vending_refill/dinnerware{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 4
+/obj/item/vending_refill/dinnerware{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -3148,6 +3155,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
+"uh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -28;
+	pixel_y = 2
+	},
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -26;
+	pixel_y = 5
+	},
+/obj/item/chemical_flamethrower/extended{
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/syndicate_space_base/storage)
 "ui" = (
 /obj/structure/cable/green{
 	icon_state = "2-8"
@@ -3189,11 +3213,44 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "us" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plasma/fifty,
-/obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
+	},
+/obj/item/chemical_canister{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/chemical_canister{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/chemical_canister{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/chemical_canister/extended{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/chemical_canister/extended{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/chemical_canister/extended{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/chemical_canister/pyrotechnics{
+	pixel_x = -3;
+	pixel_y = -7
+	},
+/obj/item/chemical_canister/pyrotechnics{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/chemical_canister/pyrotechnics{
+	pixel_x = -7;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -4762,20 +4819,33 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "EF" = (
-/obj/structure/rack{
-	dir = 8
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/obj/structure/shelf/security,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 0;
+	pixel_y = 7
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = 7;
+	pixel_y = -5
 	},
 /obj/item/stack/sheet/metal/fifty{
 	pixel_x = -5;
 	pixel_y = -5
 	},
-/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 4
+	pixel_x = 1;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -6859,27 +6929,21 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/virology)
 "SM" = (
-/obj/structure/table/reinforced,
-/obj/item/vending_refill/dinnerware{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/vending_refill/dinnerware{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/vending_refill/hydronutrients,
-/obj/item/vending_refill/hydronutrients,
-/obj/item/vending_refill/hydroseeds{
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/item/vending_refill/hydroseeds{
-	pixel_x = -5;
-	pixel_y = -5
-	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/chemical_flamethrower{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/chemical_flamethrower{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/item/chemical_flamethrower{
+	pixel_x = 1;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -11422,7 +11486,7 @@ xo
 xo
 xo
 US
-xo
+uh
 xo
 xo
 mQ

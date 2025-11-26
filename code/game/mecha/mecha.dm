@@ -609,8 +609,8 @@
 		var/play_soundeffect = TRUE
 		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
 		if(user.obj_damage)
-			animal_damage = max(animal_damage, user.obj_damage)
-		animal_damage = max(animal_damage, min(20 * user.environment_smash, 40))
+			animal_damage = min(animal_damage * 2, user.obj_damage * 2)
+		animal_damage = max(animal_damage, min(10 * user.environment_smash, 40))
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		if(user.environment_smash)
@@ -618,6 +618,27 @@
 			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
+
+/obj/mecha/handle_basic_attack(mob/living/basic/attacker, list/modifiers)
+	log_message("Attack by basic mob. Attacker - [attacker].")
+	if(!attacker.melee_damage_upper && !attacker.obj_damage)
+		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
+		return FALSE
+	var/play_soundeffect = TRUE
+	var/animal_damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+	if(attacker.obj_damage)
+		animal_damage = min(animal_damage * 2, attacker.obj_damage * 2)
+	animal_damage = max(animal_damage, min(10 * attacker.environment_smash, 40))
+	if(animal_damage)
+		add_attack_logs(attacker, OCCUPANT_LOGGING, "Basic mob attacked mech [src]")
+	if(attacker.environment_smash)
+		play_soundeffect = FALSE
+		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+	attack_generic(attacker, animal_damage, attacker.melee_damage_type, MELEE, play_soundeffect)
+	if(!attacker.client)
+		var/melee_attack_cooldown = rand(attacker.melee_attack_cooldown_min, attacker.melee_attack_cooldown_max)
+		attacker.changeNext_move(melee_attack_cooldown)
+	return TRUE
 
 /obj/mecha/hulk_damage()
 	return 15

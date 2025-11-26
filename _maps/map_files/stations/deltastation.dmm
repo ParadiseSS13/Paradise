@@ -9883,13 +9883,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "aOn" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "port bay 4 at NSS Kerberos";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Kerberos";
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -17424,10 +17420,6 @@
 /obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
-"bsF" = (
-/obj/machinery/door/poddoor/impassable/gamma,
-/turf/simulated/floor/plating,
-/area/station/security/armory/secure)
 "bsG" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
@@ -52264,8 +52256,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "fhF" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 4;
+	name = "NSS Kerberos Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "fhG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -60758,7 +60754,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -75115,7 +75111,7 @@
 "pjO" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -86937,6 +86933,11 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"uaa" = (
+/obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/security/armory/secure)
 "uad" = (
 /obj/effect/spawner/airlock/e_to_w/long,
 /turf/simulated/wall,
@@ -94623,15 +94624,6 @@
 	width = 5
 	},
 /turf/space,
-/area/space)
-"xgx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
 /area/space)
 "xgy" = (
 /obj/machinery/light/small{
@@ -131347,7 +131339,7 @@ ueF
 qGl
 mFy
 qtk
-xgx
+qtk
 qtk
 acF
 acF
@@ -154545,8 +154537,8 @@ esj
 bhi
 boZ
 eXP
-wRa
 bnp
+wRa
 qcb
 taj
 aMq
@@ -154802,8 +154794,8 @@ esj
 ngg
 ngg
 ngg
+uaa
 ngg
-bsF
 ngg
 ngg
 ngg
@@ -155056,13 +155048,13 @@ kkK
 agt
 tOM
 bNE
+aaa
+aaa
+aaa
 fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
 gLn
 aaa
 aaa
@@ -155313,13 +155305,13 @@ upp
 xmZ
 stH
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -155570,13 +155562,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -155827,13 +155819,13 @@ abj
 abj
 abj
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -156084,13 +156076,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa
@@ -156341,13 +156333,13 @@ aaa
 aaa
 aaa
 abj
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
-fhF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 abj
 aaa
 aaa

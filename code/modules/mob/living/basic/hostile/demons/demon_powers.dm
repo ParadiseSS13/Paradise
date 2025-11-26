@@ -1,3 +1,149 @@
+//////////////////////////////
+// MARK: DEMONIC WHISPER
+//////////////////////////////
+/datum/action/innate/demon_whisper
+	name = "Demonic Whisper"
+	button_icon_state = "demon_comms"
+	background_icon_state = "bg_demon"
+
+/datum/action/innate/demon_whisper/proc/choose_targets(mob/user = usr)
+	var/list/validtargets = list()
+	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
+		if(M && M.mind && M.stat != DEAD)
+			if(M == user)
+				continue
+
+			validtargets += M
+
+	if(!length(validtargets))
+		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		return
+
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
+	return target
+
+/datum/action/innate/demon_whisper/Activate()
+	var/mob/living/choice = choose_targets()
+	if(!choice)
+		return
+
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
+	if(!msg)
+		return
+	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
+	to_chat(usr, "<span class='notice'><b>You whisper to [choice]: </b>[msg]</span>")
+	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></i>")
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
+
+//////////////////////////////
+// MARK: CULT DEMON
+//////////////////////////////
+/datum/spell/sense_victims
+	name = "Sense Victims"
+	desc = "Sense the location of heretics."
+	base_cooldown = 0
+	clothes_req = FALSE
+	overlay = null
+	action_icon_state = "bloodcrawl"
+	action_background_icon_state = "bg_cult"
+
+/datum/spell/sense_victims/create_new_targeting()
+	return new /datum/spell_targeting/alive_mob_list
+
+/datum/spell/sense_victims/valid_target(mob/living/target, user)
+	return target.stat == CONSCIOUS && target.key && !IS_CULTIST(target) // Only conscious, non cultist players
+
+/datum/spell/sense_victims/cast(list/targets, mob/user)
+	var/mob/living/victim = targets[1]
+	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	victim.Stun(6 SECONDS) //HUE
+	var/area/A = get_area(victim)
+	if(!A)
+		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		return 0
+	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+
+//////////////////////////////
+// MARK: SHADOW DEMON
+//////////////////////////////
+/datum/spell/fireball/shadow_grapple
+	name = "Shadow Grapple"
+	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
+	base_cooldown = 10 SECONDS
+	fireball_type = /obj/projectile/magic/shadow_hand
+
+	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
+	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
+
+	action_background_icon_state = "shadow_demon_bg"
+	action_icon_state = "shadow_grapple"
+	sound = null
+	invocation_type = "none"
+	invocation = null
+
+/datum/spell/fireball/shadow_grapple/update_spell_icon()
+	return
+
+/obj/projectile/magic/shadow_hand
+	name = "shadow hand"
+	icon_state = "shadow_hand"
+	plane = FLOOR_PLANE
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
+	var/hit = FALSE
+
+/obj/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
+	. = ..()
+	var/obj/machinery/light/floor/floor_light = locate(/obj/machinery/light/floor) in get_turf(src)
+	if(floor_light)
+		Bump(floor_light)
+
+/obj/projectile/magic/shadow_hand/fire(setAngle)
+	if(firer)
+		var/mob/living/basic/demon/shadow/current_demon = firer
+		if(istype(current_demon))
+			current_demon.block_shadow_crawl()
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
+	return ..()
+
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+	if(hit)
+		return
+	hit = TRUE // to prevent double hits from the pull
+	. = ..()
+	for(var/atom/extinguish_target in range(2, src))
+		extinguish_target.extinguish_light(TRUE)
+	if(!isliving(target))
+		if(isshadowdemon(firer))
+			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10, callback = CALLBACK(firer, TYPE_PROC_REF(/mob/living/basic/demon/shadow, unblock_shadow_crawl)))
+		else
+			firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+	else
+		unblock_shadowdemon_crawl()
+	if(!.)
+		return
+	else
+		var/mob/living/L = target
+		L.Immobilize(2 SECONDS)
+		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+
+/obj/projectile/magic/shadow_hand/Destroy()
+	if(!hit)
+		unblock_shadowdemon_crawl()
+	return ..()
+
+/obj/projectile/magic/shadow_hand/proc/unblock_shadowdemon_crawl()
+	var/mob/living/basic/demon/shadow/current_demon = firer
+	if(istype(current_demon))
+		current_demon.unblock_shadow_crawl()
+
+/obj/effect/ebeam/floor
+	plane = FLOOR_PLANE
+
+//////////////////////////////
+// MARK: PULSE DEMON
+//////////////////////////////
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
 #define PD_UPGRADE_HIJACK_SPEED "Speed"
@@ -36,7 +182,7 @@
 	action.desc = desc
 	action.build_all_button_icons()
 
-/datum/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
+/datum/spell/pulse_demon/can_cast(mob/living/basic/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
 		return FALSE
 	if(!istype(user))
@@ -57,7 +203,7 @@
 		return FALSE
 	return TRUE
 
-/datum/spell/pulse_demon/cast(list/targets, mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/cast(list/targets, mob/living/basic/demon/pulse_demon/user)
 	if(!istype(user) || locked || user.charge < cast_cost || !length(targets))
 		return FALSE
 	if(requires_area && !user.controlling_area)
@@ -77,7 +223,7 @@
 /datum/spell/pulse_demon/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/datum/spell/pulse_demon/proc/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/proc/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	return FALSE
 
 /datum/spell/pulse_demon/proc/reveal_demon(mob/user, reveal_time)
@@ -87,7 +233,7 @@
 	user.layer = ABOVE_PLATING_LAYER
 
 // handles purchasing and upgrading abilities
-/datum/spell/pulse_demon/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/AltClick(mob/living/basic/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -122,7 +268,7 @@
 		else
 			to_chat(user, "<span class='warning'>You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade.</span>")
 
-/datum/spell/pulse_demon/proc/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/proc/do_upgrade(mob/living/basic/demon/pulse_demon/user)
 	cooldown_handler.recharge_duration = round(base_cooldown / (1.5 ** spell_level))
 	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], it now takes [cooldown_handler.recharge_duration / 10] seconds to recharge.</span>")
 
@@ -136,7 +282,7 @@
 	revealing = TRUE
 	reveal_time = 5 SECONDS
 
-/datum/spell/pulse_demon/cablehop/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/cablehop/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/turf/O = get_turf(user)
 	var/turf/T = get_turf(target)
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in T
@@ -167,7 +313,7 @@
 	requires_area = TRUE
 	revealing = TRUE
 
-/datum/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/emagtamper/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
 	target.emag_act(user)
 	return TRUE
@@ -182,7 +328,7 @@
 	requires_area = TRUE
 	revealing = TRUE
 
-/datum/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/emp/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
 	empulse(get_turf(target), 1, 1)
 	return TRUE
@@ -199,7 +345,7 @@
 	base_cooldown = 60 SECONDS
 	reveal_time = 20 SECONDS
 
-/datum/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/overload/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/M = target
 	if(!istype(M))
 		to_chat(user, "<span class='warning'>That is not a machine.</span>")
@@ -211,7 +357,7 @@
 	addtimer(CALLBACK(src, PROC_REF(detonate), user, M), 5 SECONDS)
 	return TRUE
 
-/datum/spell/pulse_demon/overload/proc/detonate(mob/living/simple_animal/demon/pulse_demon/user, obj/machinery/target)
+/datum/spell/pulse_demon/overload/proc/detonate(mob/living/basic/demon/pulse_demon/user, obj/machinery/target)
 	if(!QDELETED(target))
 		if(spell_level == level_max)
 			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
@@ -229,7 +375,7 @@
 	level_max = 0
 	base_cooldown = 3 SECONDS // you have to wait for the regular hijack time anyway
 
-/datum/spell/pulse_demon/remotehijack/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/remotehijack/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/power/apc/A = target
 	if(!istype(A))
 		to_chat(user, "<span class='warning'>That is not an APC.</span>")
@@ -246,7 +392,7 @@
 	cast_cost = 50 KJ
 	upgrade_cost = 2
 
-/datum/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/remotedrain/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	if(isapc(target))
 		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		if(drained == PULSEDEMON_SOURCE_DRAIN_INVALID)
@@ -290,11 +436,11 @@
 	locked = FALSE
 	level_max = 0
 
-/datum/spell/pulse_demon/toggle/do_drain/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/toggle/do_drain/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	user.do_drain = do_toggle(!user.do_drain, user)
 	return TRUE
 
-/datum/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/basic/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -317,14 +463,14 @@
 	level_max = 3
 	locked = FALSE
 
-/datum/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	if(user.can_exit_cable && !(user.current_cable || user.current_power))
 		to_chat(user, "<span class='warning'>Enter a cable or power source first!</span>")
 		return FALSE
 	user.can_exit_cable = do_toggle(!user.can_exit_cable, user)
 	return TRUE
 
-/datum/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/basic/demon/pulse_demon/user)
 	user.outside_cable_speed = max(initial(user.outside_cable_speed) - spell_level, 1)
 	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], you will now move faster outside of cables.</span>")
 
@@ -343,7 +489,7 @@
 /datum/spell/pulse_demon/cycle_camera/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/cycle_camera/AltClick(mob/living/basic/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 	current_camera = 0
@@ -354,7 +500,7 @@
 		return
 	user.forceMove(user.current_power)
 
-/datum/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	if(!length(user.controlling_area.cameras))
 		return FALSE
 
@@ -383,7 +529,7 @@
 /datum/spell/pulse_demon/toggle/penetrating_shock/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/pulse_demon/toggle/penetrating_shock/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/toggle/penetrating_shock/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	user.strong_shocks = do_toggle(!user.strong_shocks, user)
 
 /datum/spell/pulse_demon/open_upgrades
@@ -417,7 +563,7 @@
 /datum/spell/pulse_demon/open_upgrades/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/pulse_demon/open_upgrades/proc/calc_cost(mob/living/simple_animal/demon/pulse_demon/user, upgrade)
+/datum/spell/pulse_demon/open_upgrades/proc/calc_cost(mob/living/basic/demon/pulse_demon/user, upgrade)
 	var/cost
 	switch(upgrade)
 		if(PD_UPGRADE_HIJACK_SPEED)
@@ -459,7 +605,7 @@
 			return -1
 	return cost
 
-/datum/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/basic/demon/pulse_demon/user)
 	var/upgrades = list()
 	for(var/upgrade in upgrade_icons)
 		var/cost = calc_cost(user, upgrade)
@@ -468,7 +614,7 @@
 		upgrades["[upgrade] ([format_si_suffix(cost)] APC\s)"] = upgrade_icons[upgrade]
 	return upgrades
 
-/datum/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/datum/spell/pulse_demon/open_upgrades/AltClick(mob/living/basic/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -477,7 +623,7 @@
 		var/cost = calc_cost(user, upgrade)
 		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]J"]) - [upgrade_descs[upgrade]]")
 
-/datum/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+/datum/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/upgrades = get_upgrades(user)
 	if(!length(upgrades))
 		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
