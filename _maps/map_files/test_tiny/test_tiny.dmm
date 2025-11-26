@@ -11,10 +11,6 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"k" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
@@ -35,10 +31,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"M" = (
-/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "U" = (
@@ -33068,17 +33060,17 @@ a
 a
 a
 u
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
+p
+x
+x
+x
+x
+x
+x
+x
+x
+x
+F
 u
 a
 a
@@ -33328,11 +33320,11 @@ u
 x
 x
 x
-M
 x
 x
 x
-M
+x
+x
 x
 x
 x
@@ -33583,15 +33575,15 @@ a
 a
 u
 x
-k
 x
-M
 x
-k
 x
-M
 x
-k
+x
+x
+x
+x
+x
 x
 u
 a
@@ -33840,15 +33832,15 @@ a
 a
 u
 x
-U
 x
-M
 x
 U
 x
-M
+x
 x
 U
+x
+x
 x
 u
 a
