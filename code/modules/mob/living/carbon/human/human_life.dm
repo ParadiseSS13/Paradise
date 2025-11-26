@@ -970,7 +970,7 @@
 
 	switch(health)
 		// Small amounts of damage are ignored
-		if(50 to 90) // It doesn't want a variable in this place so 90 it is
+		if(50 to 90)
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
