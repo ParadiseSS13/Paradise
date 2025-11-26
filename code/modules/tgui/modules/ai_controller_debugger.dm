@@ -14,7 +14,7 @@
 	controller = controller_
 
 /datum/ui_module/ai_controller_debugger/ui_state(mob/user)
-	return GLOB.default_state
+	return GLOB.always_state
 
 /datum/ui_module/ai_controller_debugger/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
