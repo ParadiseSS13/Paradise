@@ -327,6 +327,7 @@
 	addiction_threshold = 10
 	minor_addiction = TRUE
 	heart_rate_change = 10
+	blood_pressure_change = 5
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."

@@ -17,6 +17,8 @@
 	var/heart_rate_change = 0
 	/// Does this stop our heart from beating
 	var/heart_rate_stop = FALSE
+	/// Will our blood pressure change from having this chem in us? The value is how much it gets increased by
+	var/blood_pressure_change = 0
 
 	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
 	//Processing flags, defines the type of mobs the reagent will affect

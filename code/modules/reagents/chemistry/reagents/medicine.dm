@@ -806,6 +806,7 @@
 	addiction_chance = 10
 	addiction_threshold = 15
 	metabolization_rate = 0.25 //Lasts for 120 seconds
+	heart_rate_change = -10
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
@@ -862,6 +863,8 @@
 	reagent_state = LIQUID
 	metabolization_rate = 0.2
 	overdose_threshold = 25
+	heart_rate_change = -20
+	blood_pressure_change = -20
 	harmless = FALSE
 	taste_description = "a moment of respite"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -892,6 +895,8 @@
 	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 20
+	heart_rate_change = 10
+	blood_pressure_change = 10
 	harmless = FALSE
 	taste_description = "borrowed time"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -1371,6 +1376,7 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
+	heart_rate_change = -10
 	harmless = FALSE
 	taste_description = "sleepiness"
 	goal_difficulty = REAGENT_GOAL_EASY

@@ -875,15 +875,18 @@
 		return
 
 	var/chem_volume = reagents.total_volume
-	var/temp_bp = blood_volume * 0.144 // Baseline. At 560u of blood you have a bp of 80
+	var/temp_bp = (blood_volume * 0.016) ** 2 // Baseline. At 560u of blood you have a bp of 80
 	if(chem_volume)
-		temp_bp += round(chem_volume * rand(0.9, 1.1) * 0.5, 1)
+		temp_bp += round(chem_volume * 0.5, 1)
 
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
 			temp_bp += 15
 		else if(age > 45) // Getting old
 			temp_bp += 10
+
+	for(var/datum/reagent/chem in reagents.reagent_list)
+		temp_bp += chem.blood_pressure_change
 
 	switch(temp_bp)
 		if(0 to 40)
@@ -1023,7 +1026,7 @@
 
 /// Sets the heartbeat to a number very close to the given number
 /mob/living/carbon/human/proc/random_beat_number(beats)
-	heartbeat = max(beats + pick(1, 2, 3, 4, -1, -2, -3, -4), 0)
+	heartbeat = max(beats + pick(1, 2, 3, 4, 0, -1, -2, -3, -4), 0)
 
 /*
 	Called by life(), instead of having the individual hud items update icons each tick and check for status changes
