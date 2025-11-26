@@ -119,16 +119,16 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/projectile/tether = new /obj/item/projectile/tether(get_turf(mod.wearer))
+	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
 	tether.preparePixelProjectile(target, mod.wearer)
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
-	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
+	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile/tether, make_chain))
 	drain_power(use_power_cost)
 
-/obj/item/projectile/tether
+/obj/projectile/tether
 	name = "tether"
 	icon_state = "tether_projectile"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
@@ -141,18 +141,18 @@
 	///How fast the tether will throw the user at the target
 	var/yank_speed = 1
 
-/obj/item/projectile/tether/proc/make_chain()
+/obj/projectile/tether/proc/make_chain()
 	if(firer)
 		chain = Beam(firer, chain_icon_state, icon, time = 10 SECONDS, maxdistance = range)
 
-/obj/item/projectile/tether/on_hit(atom/target)
+/obj/projectile/tether/on_hit(atom/target)
 	. = ..()
 	if(firer && isliving(firer))
 		var/mob/living/L = firer
 		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
 		L.throw_at(target, 15, yank_speed, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
 
-/obj/item/projectile/tether/Destroy()
+/obj/projectile/tether/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 

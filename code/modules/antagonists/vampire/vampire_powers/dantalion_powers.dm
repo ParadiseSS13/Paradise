@@ -13,6 +13,7 @@
 	name = "Enthrall (150)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the ability to thrall people to your will."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "vampire_enthrall"
 	required_blood = 150
 	deduct_blood_on_cast = FALSE
@@ -78,6 +79,7 @@
 	name = "Commune"
 	desc = "Talk to your thralls telepathically."
 	gain_desc = "You have gained the ability to commune with your thralls."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "vamp_communication"
 	base_cooldown = 2 SECONDS
 
@@ -127,6 +129,7 @@
 	name = "Pacify (10)"
 	desc = "Pacify a target temporarily, making them unable to cause harm."
 	gain_desc = "You have gained the ability to pacify someone's harmful tendencies, preventing them from doing any physical harm to anyone."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "pacify"
 	base_cooldown = 30 SECONDS
 	required_blood = 10
@@ -147,6 +150,7 @@
 	desc = "Switch positions with a target."
 	gain_desc = "You have gained the ability to switch positions with a targeted mob."
 	centcom_cancast = FALSE
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "subspace_swap"
 	base_cooldown = 30 SECONDS
 	required_blood = 30
@@ -176,6 +180,7 @@
 	name = "Deploy Decoy (30)"
 	desc = "Briefly turn invisible and deploy a decoy illusion to fool your prey."
 	gain_desc = "You have gained the ability to turn invisible and create decoy illusions."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "decoy"
 	required_blood = 30
 	base_cooldown = 40 SECONDS
@@ -192,6 +197,7 @@
 	name = "Rally Thralls (100)"
 	desc = "Removes all incapacitating effects from your nearby thralls."
 	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "thralls_up"
 	required_blood = 100
 	base_cooldown = 100 SECONDS
@@ -219,6 +225,7 @@
 	name = "Blood Bond"
 	desc = "Creates a net between you and your nearby thralls that evenly shares all damage received."
 	gain_desc = "You have gained the ability to share damage between you and your thralls."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "blood_bond"
 	required_blood = 5
 
@@ -233,6 +240,7 @@
 	name = "Mass Hysteria (70)"
 	desc = "Casts a powerful illusion to make everyone nearby perceive others to looks like random animals after briefly blinding them."
 	gain_desc = "You have gained the ability to make everyone nearby perceive others to looks like random animals after briefly blinding them."
+	action_background_icon_state = "bg_dant"
 	action_icon_state = "hysteria"
 	required_blood = 70
 	base_cooldown = 180 SECONDS

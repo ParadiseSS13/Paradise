@@ -2,6 +2,7 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	but_wait_theres_more = TRUE
+	required_players = 30 //Same as nukies
 	var/max_mages = 0
 	var/making_mage = FALSE
 	var/mages_made = 1
@@ -15,6 +16,10 @@
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
+
+/datum/game_mode/wizard/raginmages/post_setup()
+	..()
+	addtimer(CALLBACK(src, PROC_REF(announce_wizards)), rand(1 MINUTES, 2 MINUTES))
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
@@ -153,3 +158,11 @@
 		magic.build_inventory(magic.products, magic.product_records)
 
 	have_we_populated_magivends = TRUE
+
+#define RAGIN_ANNOUNCEMENT_MESSAGE "Don't fuck with the Space Wizard Federation! ROLL INITIATIVE!"
+
+/datum/game_mode/wizard/raginmages/proc/announce_wizards()
+	GLOB.major_announcement.Announce(RAGIN_ANNOUNCEMENT_MESSAGE, "Declaration of War", 'sound/items/airhorn.ogg')
+	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
+
+#undef RAGIN_ANNOUNCEMENT_MESSAGE

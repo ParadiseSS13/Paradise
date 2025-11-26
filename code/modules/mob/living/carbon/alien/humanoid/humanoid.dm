@@ -32,6 +32,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	AddSpell(new /datum/spell/alien_spell/regurgitate)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
 
 /mob/living/carbon/alien/humanoid/get_strippable_items(datum/source, list/items)
 	items |= GLOB.strippable_alien_humanoid_items

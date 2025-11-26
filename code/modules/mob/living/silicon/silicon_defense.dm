@@ -56,6 +56,14 @@
 	return FALSE
 
 /mob/living/silicon/attack_hand(mob/living/carbon/human/M)
+	if(istype(M))
+		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
+		if(M.hand)
+			temp = M.bodyparts_by_name["l_hand"]
+		if(!temp || !temp.is_usable())
+			to_chat(M, "<span class='warning'>You can't use your hand!</span>")
+			return
+
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \

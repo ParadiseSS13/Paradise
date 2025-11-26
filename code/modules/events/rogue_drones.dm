@@ -1,6 +1,10 @@
 /datum/event/rogue_drone
+	name = "Rogue Drones"
+	role_weights = list(ASSIGNMENT_SECURITY = 2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 1)
 	startWhen = 10
 	endWhen = 1000
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/list/drones_list = list()
 
 /datum/event/rogue_drone/start()

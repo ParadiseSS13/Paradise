@@ -147,19 +147,73 @@
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
-	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
+	desc = "A purple beret with a lavender science insignia emblazoned on it. It has that authentic smell of burning plasma."
 	icon_state = "beret_science"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/sci_alt
+	name = "corporate science beret"
+	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
+	icon_state = "beret_science_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
 /obj/item/clothing/head/beret/robowhite
-	name = "robotics beret"
+	name = "bioengineer beret"
 	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticswhite"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
 /obj/item/clothing/head/beret/roboblack
-	name = "bioengineer beret"
+	name = "robotics beret"
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
+/obj/item/clothing/head/beret/gene
+	name = "genetics beret"
+	desc = "A purple beret with a wine colored science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/gene_alt
+	name = "corporate genetics beret"
+	desc = "A white beret with a wine colored science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/gene_wine
+	name = "wine genetics beret"
+	desc = "A wine colored beret with a white science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics_wine"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 //Service
 /obj/item/clothing/head/beret/hop
 	name = "head of personnel's beret"

@@ -1,4 +1,5 @@
 /datum/event/anomalous_particulate_event
+	name = "Anomalous Particulate Activation"
 
 /datum/event/anomalous_particulate_event/start()
 	var/particulate_to_activate = 2

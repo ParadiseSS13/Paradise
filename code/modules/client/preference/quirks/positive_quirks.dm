@@ -41,7 +41,7 @@
 	var/list/entree_options = list(
 		/obj/item/food/sandwich,
 		/obj/item/food/toastedsandwich,
-		/obj/item/food/jellysandwich,
+		/obj/item/food/jellysandwich/cherry,
 		/obj/item/food/grilledcheese,
 		/obj/item/food/burger/cheese,
 		/obj/item/food/blt,
@@ -134,3 +134,10 @@
 	desc = "You can land every flip. You're so cool."
 	cost = 1
 	trait_to_apply = TRAIT_COOL
+
+/datum/quirk/breathing_tube
+	name = "Breathing Tube"
+	desc  = "You have been outfitted with a breathing tube."
+	cost = 2
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE
+	organ_to_give = /obj/item/organ/internal/cyberimp/mouth/breathing_tube

@@ -50,7 +50,7 @@
 	igniting = FALSE
 	return ITEM_INTERACT_COMPLETE
 
-/obj/structure/closet/coffin/vampire/bullet_act(obj/item/projectile/P)
+/obj/structure/closet/coffin/vampire/bullet_act(obj/projectile/P)
 	if(!P.immolate)
 		return ..()
 	fire_act()

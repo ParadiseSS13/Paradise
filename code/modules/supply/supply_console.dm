@@ -301,6 +301,10 @@
 
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
+			if(!selected_account)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
+				to_chat(user, "<span class='warning'>You must select an account to pay for the order.</span>")
+				return
 			var/successes = 0
 			for(var/i in 1 to amount)
 				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, reason)

@@ -988,6 +988,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
+	if(tgui_alert(usr, "[GLOB.configuration.event.enable_random_events ? "Disable" : "Enable"] random events?", "Confirm", list("Yes", "No")) != "Yes")
+		return
+
 	if(!GLOB.configuration.event.enable_random_events)
 		GLOB.configuration.event.enable_random_events = TRUE
 		to_chat(usr, "Random events enabled")

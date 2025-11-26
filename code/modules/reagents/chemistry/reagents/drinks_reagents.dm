@@ -23,6 +23,12 @@
 	drink_desc = "Are you sure this is tomato juice?"
 	taste_description = "tomato juice"
 
+/datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/drink/pineapplejuice
 	name = "Pineapple Juice"
 	id = "pineapplejuice"
@@ -32,12 +38,6 @@
 	drink_name = "Glass of pineapple juice"
 	drink_desc = "A bright drink, sweet and sugary."
 	taste_description = "pineapple juice"
-
-/datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
-		update_flags |= M.adjustFireLoss(-1, FALSE)
-	return ..() | update_flags
 
 /datum/reagent/consumable/drink/limejuice
 	name = "Lime Juice"
@@ -64,6 +64,14 @@
 	drink_name = "Glass of carrot juice"
 	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
+
+/datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustEyeBlurry(-2 SECONDS)
+	M.AdjustEyeBlind(-2 SECONDS)
+	if(current_cycle > 20 && prob(current_cycle - 10))
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/beetjuice
 	name = "Beet juice"
@@ -94,14 +102,6 @@
 	drink_name = "Glass of lettuce juice"
 	drink_desc = "They say you should eat your greens, but drinking them is just as good."
 	taste_description = "lettuce juice"
-
-/datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustEyeBlurry(-2 SECONDS)
-	M.AdjustEyeBlind(-2 SECONDS)
-	if(current_cycle > 20 && prob(current_cycle - 10))
-		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
-	return ..() | update_flags
 
 /datum/reagent/consumable/drink/doctor_delight
 	name = "The Doctor's Delight"
@@ -862,6 +862,11 @@
 	drink_desc = "Rich coffee with custard foam."
 	taste_description = "rich foam"
 
+/datum/reagent/consumable/drink/coffee/eggcoffee/on_mob_life(mob/living/M)
+	if(prob(3))
+		M.reagents.add_reagent("cholesterol", rand(1, 2))
+	return ..()
+
 /datum/reagent/consumable/drink/horchata
 	name = "Horchata"
 	description = "Sweetened rice milk topped with cinnamon."
@@ -901,6 +906,11 @@
 	drink_name = "Glass of Egg Cream"
 	drink_desc = "You now have a glass of custard."
 	taste_description = "sweet egg"
+
+/datum/reagent/consumable/drink/eggcream/on_mob_life(mob/living/M)
+	if(prob(2))
+		M.reagents.add_reagent("cholesterol", rand(1, 2))
+	return ..()
 
 /datum/reagent/consumable/drink/beetshrub
 	name = "Beet Shrub"
@@ -969,10 +979,16 @@
 
 /datum/reagent/consumable/drink/vegetablemix/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustEyeBlurry(-0.5 SECONDS)
+	M.AdjustEyeBlind(-0.5 SECONDS)
 	if(M.satiety < 600)
 		M.satiety += 5
 	if(prob(10))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
+	if(current_cycle > 20 && prob(2))
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
+	if(prob(5))
+		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/electrolytes
@@ -996,3 +1012,13 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	return ..()
+
+/datum/reagent/consumable/drink/gingerale
+	name = "Ginger Ale"
+	description = "Spicy and fizzy soda."
+	id = "ginger_ale"
+	color = "#996B2B"
+	drink_icon = "ginger_ale_glass"
+	drink_name = "Glass of Ginger Ale"
+	drink_desc = "Spicy and fizzy soda."
+	taste_description = "sweet, carbonated ginger"
