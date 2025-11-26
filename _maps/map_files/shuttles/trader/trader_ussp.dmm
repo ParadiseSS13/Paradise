@@ -24,6 +24,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
+"eJ" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/trade/sol)
 "fg" = (
 /obj/machinery/flasher_button{
 	id = "trader_flash";
@@ -271,11 +277,11 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "vU" = (
-/obj/effect/spawner/random/traders/donksoft,
 /obj/structure/closet,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
+/obj/effect/spawner/random/traders/donksoft,
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "wu" = (
@@ -364,12 +370,12 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Cr" = (
-/obj/item/stack/tile/disco_light/thirty,
-/obj/effect/spawner/random/traders/service,
 /obj/structure/closet,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/item/stack/tile/disco_light/thirty,
+/obj/effect/spawner/random/traders/service,
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Dj" = (
@@ -386,7 +392,6 @@
 /area/shuttle/trade/sol)
 "DW" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_carp,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/lighter/random{
 	pixel_x = 9;
@@ -395,6 +400,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 6
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand,
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Ek" = (
@@ -598,9 +604,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
-"Wq" = (
-/turf/open/floor/plating,
-/area/shuttle/trade/sol)
 "Xl" = (
 /obj/structure/chair/sofa/bench/left,
 /obj/machinery/light/spot{
@@ -717,7 +720,7 @@ RE
 ah
 ah
 uM
-SC
+eJ
 nI
 Mv
 oM
@@ -739,7 +742,7 @@ Tv
 xe
 Tv
 gK
-Wq
+KF
 Mv
 oM
 "}
