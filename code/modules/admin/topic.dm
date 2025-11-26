@@ -1660,8 +1660,7 @@
 		ai_character.moveToAILandmark()
 
 	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
@@ -1669,11 +1668,10 @@
 		if(alert(usr, "Confirm make alien?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_alienize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_alienize, H)
 
 	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
@@ -1681,11 +1679,10 @@
 		if(alert(usr, "Confirm make slime?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_slimeize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_slimezie, H)
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
@@ -1694,11 +1691,10 @@
 		if(alert(usr, "Confirm make superhero?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_super(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_super, H)
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
@@ -1706,12 +1702,10 @@
 		if(alert(usr, "Confirm make robot?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_robotize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_robotize, H)
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))
-			return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/M = locateUID(href_list["makeanimal"])
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
@@ -1719,7 +1713,7 @@
 		if(tgui_alert(usr, "Confirm make animal?", "Confirm Choice", list("Yes", "No")) != "Yes")
 			return
 
-		usr.client.cmd_admin_animalize(M)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_animalize, M)
 
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))

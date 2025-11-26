@@ -216,76 +216,56 @@ USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local ai
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Robot"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_robotize, R_SPAWN, "Make Robot", "Turn the target into a borg.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		log_admin("[key_name(src)] has robotized [M.key].")
+		log_admin("[key_name(client)] has robotized [M.key].")
 		spawn(10)
 			M:Robotize()
 
 	else
-		alert("Invalid mob")
+		alert(client, "Invalid mob")
 
-/client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Simple Animal"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_animalize, R_SPAWN, "Make Simple Animal", "Turn the target into a simple animal.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 
 	if(!M)
-		alert("That mob doesn't seem to exist, close the panel and try again.")
+		alert(client, "That mob doesn't seem to exist, close the panel and try again.")
 		return
 
 	if(isnewplayer(M))
-		alert("The mob must not be a new_player.")
+		alert(client, "The mob must not be a new_player.")
 		return
 
-	log_admin("[key_name(src)] has animalized [M.key].")
+	log_admin("[key_name(client)] has animalized [M.key].")
 	spawn(10)
 		M.Animalize()
 
-
-/client/proc/makepAI(turf/T in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make pAI"
-	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_make_pai, R_SPAWN, "Make pAI", "Specify a location to spawn a pAI device, then specify a key to play that pAI", VERB_CATEGORY_EVENT, turf/T in GLOB.mob_list)
 	var/list/available = list()
 	for(var/mob/C in GLOB.mob_list)
 		if(C.key)
 			available.Add(C)
-	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in available
+	var/mob/choice = input(client, "Choose a player to play the pAI", "Spawn pAI") in available
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
-		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
+		var/confirm = input(client, "[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	var/raw_name = clean_input("Enter your pAI name:", "pAI Name", "Personal AI", choice)
+	var/raw_name = clean_input(client, "Enter your pAI name:", "pAI Name", "Personal AI", choice)
 	var/new_name = reject_bad_name(raw_name, 1)
 	if(new_name)
 		pai.name = new_name
 		pai.real_name = new_name
 	else
-		to_chat(usr, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
+		to_chat(client, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)
@@ -294,65 +274,47 @@ USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local ai
 			GLOB.paiController.pai_candidates.Remove(candidate)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Alien"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_alienize, R_SPAWN, "Make Alien", "Turn the target mob into an alien.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		log_admin("[key_name(src)] has alienized [M.key].")
+		log_admin("[key_name(client)] has alienized [M.key].")
 		spawn(10)
 			M:Alienize()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] made [key_name(M)] into an alien.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
+		log_admin("[key_name(client)] made [key_name(M)] into an alien.")
+		message_admins("<span class='notice'>[key_name_admin(client)] made [key_name(M)] into an alien.</span>", 1)
 	else
-		alert("Invalid mob")
+		alert(client, "Invalid mob")
 
-/client/proc/cmd_admin_slimeize(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make slime"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_slimezie, R_SPAWN, "Make slime", "Turn the target mob into a slime.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		log_admin("[key_name(src)] has slimeized [M.key].")
+		log_admin("[key_name(client)] has slimeized [M.key].")
 		spawn(10)
 			M:slimeize()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] made [key_name(M)] into a slime.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a slime.</span>", 1)
+		log_admin("[key_name(client)] made [key_name(M)] into a slime.")
+		message_admins("<span class='notice'>[key_name_admin(client)] made [key_name(M)] into a slime.</span>", 1)
 	else
-		alert("Invalid mob")
+		alert(client, "Invalid mob")
 
-/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Superhero"
-
-	if(!check_rights(R_SPAWN))
-		return
-
+USER_VERB(admin_super, R_SPAWN, "Make Superhero", "Turn the target mob into a superhero.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert("Wait until the game starts")
+		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		var/type = input("Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
+		var/type = input(client, "Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
 		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)
-		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a Superhero.</span>", 1)
+		log_admin("[key_name(client)] has turned [M.key] into a Superhero.")
+		message_admins("<span class='notice'>[key_name_admin(client)] made [key_name(M)] into a Superhero.</span>", 1)
 	else
-		alert("Invalid mob")
+		alert(client, "Invalid mob")
 
 USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularities and tesla balls.", VERB_CATEGORY_DEBUG)
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all

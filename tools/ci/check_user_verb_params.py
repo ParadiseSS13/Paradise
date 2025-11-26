@@ -125,5 +125,5 @@ if __name__ == "__main__":
         print(error)
 
     end = time.time()
-    print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")
+    print(f"check_user_verb_params tests completed in {end - start:.2f}s\n")
     sys.exit(exit_code)
