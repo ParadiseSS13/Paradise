@@ -724,18 +724,18 @@
 				</head>
 				<body>
 				<h1>Table of Contents</h1>
-				<h2>The Bar and Bartender</h2>
+				<h2><a href='byond://?src=[UID()];seek_page=2'>The Bar and Bartender</a></h2>
 				<h2>Alcoholic Drinks</h2>
-				<h3>Trivial Alcoholic Drinks</h3>
-				<h3>Easy Alcoholic Drinks</h3>
-				<h3>Intermediate Alcoholic Drinks</h3>
-				<h3>Hard Alcoholic Drinks</h3>
+				<h3><a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=6'>Hard Alcoholic Drinks</a></h3>
 				<h2>Soft Drinks</h2>
-				<h3>Trivial Soft Drinks</h3>
-				<h3>Easy Soft Drinks</h3>
-				<h3>Intermediate Soft Drinks</h3>
-				<h3>Hard Soft Drinks</h3>
-				<h3>Bottler Recipes</h3>
+				<h3><a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=9'>Intermediate Soft Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a></h3>
+				<h3><a href='byond://?src=[UID()];seek_page=11'>Bottler Recipes</a></h3>
 				</body>
 				</html>
 			"}, {"<html><meta charset='utf-8'>
@@ -760,6 +760,7 @@
 				This machine can dispense empty bottles and cans for your drinks, and it can also mix several unique drinks.
 				<h2>Other supplies</h2>
 				You are also supplied with a shaker for mixing drinks, a cabinet for booze, weapons for self-defense, a lighter to heat up drinks that require it, and materials for your bottler, among other niceties. Take good care of them.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -786,6 +787,7 @@
 				Mix 10 parts tequila to one part silver.
 				<h2>Synthignon:</h2>
 				Mix one part synthanol to one part wine.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -807,7 +809,7 @@
 				<h2>Anti-Freeze:</h2>
 				Mix two parts vodka to one part each cream and ice.
 				<h2>B-52:</h2>
-				Mix one part each of Irish Cream, kahlua, and cognac.
+				Mix one part each of Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), kahlua, and cognac.
 				<h2>Bahama Mama:</h2>
 				Mix two parts each rum and orange juice to one part each lime juice and ice.
 				<h2>Barefoot:</h2>
@@ -821,7 +823,7 @@
 				<h2>Bloody Mary:</h2>
 				Mix two parts tomato juice to one part each of vodka and lime juice.
 				<h2>Bluescreen: §</h2>
-				Mix one part each of synthanol, welding fuel, Goldschlager, tonic, and water. You might find a fuel tank in the maintenance tunnels.
+				Mix one part each of synthanol, welding fuel, Goldschlager (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), tonic, and water. You might find a fuel tank in the maintenance tunnels.
 				<h2>Booger:</h2>
 				Mix one part each of cream, banana juice, rum, and watermelon juice.
 				<h2>Changeling Sting:</h2>
@@ -855,9 +857,9 @@
 				<h2>Howler: (a Vulpkanin favorite!)</h2>
 				Mix two parts tequila to one part each of lime juice, lemon-lime, and orange juice.
 				<h2>Dublin Drop:</h2>
-				Mix one part each of Irish Cream, stout, and whiskey.
+				Mix one part each of Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), stout, and whiskey.
 				<h2>Irish Coffee:</h2>
-				Mix two parts Irish Cream to two parts coffee.
+				Mix two parts Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>) to two parts coffee.
 				<h2>Long Island Iced Tea:</h2>
 				Mix one part each of Cuba Libre, vodka, gin, and tequila.
 				<h2>Margarita:</h2>
@@ -904,6 +906,7 @@
 				Mix two parts whiskey to one part soda water.
 				<h2>White Russian:</h2>
 				Mix three parts Black Russian to two parts cream.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -917,11 +920,11 @@
 				<h1>Intermediate Alcoholic Drinks</h1>
 				Most of these drinks require many steps or collaboration with other departments. Drinks marked with a § are for synthetic customers.
 				<h2>Acid Dreams: (a Grey favorite!)</h2>
-				Mix one part each of Pan-Galactic Gargle Blaster, sulphuric acid, and sugar. Chemistry can help.
+				Mix one part each of Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>), sulphuric acid, and sugar. Chemistry can help.
 				<h2>Acid Spit:</h2>
 				Mix five parts wine to one part sulphuric acid. Chemistry can help.
 				<h2>Ahdomai Eclipse: (a Tajaran favorite!)</h2>
-				Mix five parts ice to one part Anti-Freeze. Cool below 273K. Chemistry can help.
+				Mix five parts ice to one part Anti-Freeze (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Cool below 273K. Chemistry can help.
 				<h2>Amasec:</h2>
 				Mix five parts each of wine and vodka to one part iron. Chemistry or Cargo can help.
 				<h2>Applejack:</h2>
@@ -931,11 +934,11 @@
 				<h2>Burnout: §</h2>
 				Mix one part synthanol to one part acetone. Heat to 375K. Chemistry can help.
 				<h2>Die Seife: (a Drask favorite!)</h2>
-				Mix one part each of lye, whiskey, and Iced Beer. Chemistry can help.
+				Mix one part each of lye, whiskey, and Iced Beer (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>). Chemistry can help.
 				<h2>Diona Smash: (a Kidan favorite!)</h2>
 				Mix four parts nutriment to two parts each of sugar and gin. The Kitchen or Botany can help.
 				<h2>Drunken Blumpkin:</h2>
-				Mix one part each of blumpkin juice, Irish Cream, and ice. Botany can help.
+				Mix one part each of blumpkin juice, Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), and ice. Botany can help.
 				<h2>Dryer Martini: §</h2>
 				Mix two parts synthanol to one part drying agent. Chemistry can help.
 				<h2>Feast by the Beach: (an Unathi favorite!)</h2>
@@ -953,17 +956,18 @@
 				<h2>Moonshine:</h2>
 				Mix 10 parts nutriment to five parts universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Neuro-toxin:</h2>
-				Mix one part ether to one part Pan-Galactic Gargle Blaster. Chemistry can help.
+				Mix one part ether to one part Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Chemistry can help.
 				<h2>Sbiten:</h2>
 				Mix 10 parts vodka to one part capsaicin. The Xenobiologist can help.
 				<h2>Singulo:</h2>
 				Mix five parts each of vodka and wine to one part radium. Chemistry can help.
 				<h2>Stack Trace: §</h2>
-				Mix one part Rewriter to one part Runtime.
+				Mix one part Rewriter (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Runtime (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>).
 				<h2>Suicider:</h2>
 				Mix one part each of cider, vodka, welding fuel, and epinephrine. Chemistry or Medical can help.
 				<h2>Toxins Special:</h2>
 				Mix two parts each of rum and plasma to one part vermouth. Chemistry or Cargo can help.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -977,39 +981,40 @@
 				<h1>Hard Alcoholic Drinks</h1>
 				These drinks require a significant amount of cross-department collaboration, many steps, or rare ingredients. Drinks marked with a § are for synthetic customers.
 				<h2>Adminfreeze:</h2>
-				Mix one part each of Neuro-toxin, Toxins Special, fernet, Moonshine, and morphine. Heat to 374K. Medical or Cargo can help.
+				Mix one part each of Neuro-toxin (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>), Toxins Special (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>), fernet, Moonshine (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>), and morphine. Heat to 374K. Medical or Cargo can help.
 				<h2>Atomic Bomb:</h2>
-				Mix 10 parts B-52 to one part uranium. Cargo can help.
+				Mix 10 parts B-52 (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>) to one part uranium. Cargo can help.
 				<h2>Bacchus' Blessing: (Procurement won't accept this!)</h2>
-				Mix one part each of Hooch, absinthe, The Manly Dorf, and Syndicate Bomb.
+				Mix one part each of Hooch (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>), absinthe, The Manly Dorf (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>), and Syndicate Bomb (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>).
 				<h2>Eggnog:</h2>
 				Mix five parts each of cream, egg, and rum. The Kitchen or Botany can help.
 				<h2>Gear Grinder: §</h2>
-				Mix one part Beet Shrub to one part Robot Tears.
+				Mix one part Beet Shrub (<a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a>) to one part Robot Tears (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>).
 				<h2>GFS:</h2>
-				Mix one part each of gin, fernet, and Beet Shrub.
+				Mix one part each of gin, fernet, and Beet Shrub (<a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a>).
 				<h2>Gin and Sonic:</h2>
-				Mix one part Gin and Tonic to one part methamphetamine. Chemistry can help.
+				Mix one part Gin and Tonic (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>) to one part methamphetamine. Chemistry can help.
 				<h2>Hard Reset: §</h2>
-				Mix one part Soft Reset to one part Bluescreen.
+				Mix one part Soft Reset (<a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a>) to one part Bluescreen (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>).
 				<h2>Hippie's Delight:</h2>
-				Mix one part each of psilocybin and Pan-Galactic Gargle Blaster. Botany can help.
+				Mix one part each of psilocybin and Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Botany can help.
 				<h2>It's Overclock Somewhere: §</h2>
 				Mix one part each of ultra lube, oil, and synthanol. Chemistry can help.
 				<h2>Manhattan Project:</h2>
-				Mix 10 parts Manhattan to one part uranium. Cargo can help.
+				Mix 10 parts Manhattan (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>) to one part uranium. Cargo can help.
 				<h2>Red Mead:</h2>
 				Mix one part mead to one part blood. Medical or Botany can help.
 				<h2>Shrub Julep:</h2>
-				Mix two parts whiskey to one part each of mint, Beet Shrub, and ice. Botany or the Kitchen can help.
+				Mix two parts whiskey to one part each of mint, Beet Shrub (<a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a>), and ice. Botany or the Kitchen can help.
 				<h2>Slime Mold: (a Slime People favorite!)</h2>
-				Mix two parts each of Booger and slime jelly to one part egg. Medical, Xenobiology, or the Kitchen can help.
+				Mix two parts each of Booger (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>) and slime jelly to one part egg. Medical, Xenobiology, or the Kitchen can help.
 				<h2>Sontse: (a Nian favorite!)</h2>
-				Mix two parts Tequila Sunrise to one part Flaming Moe.
+				Mix two parts Tequila Sunrise (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>) to one part Flaming Moe (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>).
 				<h2>Ultramatter: (a Plasmaman favorite!)</h2>
-				Mix five parts Singulo to one part plasma dust. Cargo or Chemistry can help.
+				Mix five parts Singulo (<a href='byond://?src=[UID()];seek_page=5'>Intermediate Alcoholic Drinks</a>) to one part plasma dust. Cargo or Chemistry can help.
 				<h2>Whiskey Sour:</h2>
 				Mix 1 part each of egg, whiskey, lemon juice, and sugar. The Kitchen or Botany can help.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1038,6 +1043,7 @@
 				Mix two parts each of milk and ice to one part cream.
 				<h2>Triple Citrus:</h2>
 				Mix one part each of lemon juice, lime juice, and orange juice.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1069,7 +1075,7 @@
 				<h2>Monster Mix:</h2>
 				Mix one part each of soda water, Dr. Gibb, space mountain wind soda, space-up, cola, and ice.
 				<h2>Party Punch:</h2>
-				Mix two parts soda water to one part each of Triple Citrus, banana juice, berry juice, pineapple juice, watermelon juice, and grape juice.
+				Mix two parts soda water to one part each of Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>), banana juice, berry juice, pineapple juice, watermelon juice, and grape juice.
 				<h2>Processor Punch: §</h2>
 				Mix one part each of TCP Sip, Dr. Gibb, and iced tea.
 				<h2>Rewriter:</h2>
@@ -1092,6 +1098,7 @@
 				Mix one part electrolytes to one part space-up.
 				<h2>Zero Day: †</h2>
 				Mix one part electrolytes to one part nothing.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1105,9 +1112,9 @@
 				<h1>Intermediate Soft Drinks</h1>
 				Most of these drinks require many steps or collaboration with other departments. Procurement doesn't currently accept soft drinks, so this list is only for your reference. Drinks marked with § are for synthetic customers only.
 				<h2>Arnold Palmer:</h2>
-				Mix one part Lemonade to one part Iced Tea.
+				Mix one part Lemonade (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Iced Tea (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Battery Acid: §</h2>
-				Mix one part TCP Sip to one part Triple Citrus.
+				Mix one part TCP Sip (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Bubbly Beep: §</h2>
 				Mix one part space cleaner to one part soda water. Custodial or Chemistry can help.
 				<h2>Cherry Shake:</h2>
@@ -1127,13 +1134,14 @@
 				<h2>Pumpkin Space Latte:</h2>
 				Mix five parts each of coffee, cream, and pumpkin juice. Botany can help.
 				<h2>Tears of Fyrsskar:</h2>
-				Mix one part each of plasma, oxygen, and Triple Citrus. Chemistry can help.
+				Mix one part each of plasma, oxygen, and Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>). Chemistry can help.
 				<h2>Tin and Tonic: §</h2>
 				Mix one part liquid solder to one part tonic water. Chemistry can help.
 				<h2>Vanilla Pudding:</h2>
 				Mix five parts each of egg, coffee, and vanilla powder. Botany or the Kitchen can help.
 				<h2>Very Berry Smoothie:</h2>
 				Mix one part each of cream, berry juice, plum juice, and ice. Botany can help.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1153,7 +1161,7 @@
 				<h2>Blue Cherry Shake:</h2>
 				Mix one part each of blue cherry jelly, cream, and ice. Botany can help.
 				<h2>Electrocharge: §</h2>
-				Mix three parts TCP Sip to one part each of copper and silver. Chemistry or Cargo can help.
+				Mix three parts TCP Sip (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part each of copper and silver. Chemistry or Cargo can help.
 				<h2>Lean:</h2>
 				Mix one part each of space drugs, soda water, and grape juice. Chemistry can help.
 				<h2>Nuka Cola:</h2>
@@ -1164,6 +1172,7 @@
 				Mix one part each of degreaser, sterilizine, drying agent, and space cleaner. Chemistry, Custodial, or Virology can help.
 				<h2>Vegetable Juice Mix:</h2>
 				Mix one part each of tomato juice, carrot juice, beet juice, and lettuce juice. Botany can help.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"},{"<html><meta charset='utf-8'>
@@ -1188,6 +1197,7 @@
 				Unrefined Ore, Wheat, Unrefined Ore.
 				<h2>Paradise Punch:</h2>
 				Grapes, Banana, Cherries.
+				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
 			"})
