@@ -165,7 +165,7 @@
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	standard_paycheck = CREW_PAY_LOW
-	difficulty = MEDIUM_DIFFICULTY
+	difficulty = HARD_DIFFICULTY
 	description = "Shaft Miners have the responsibility of mining ores on Lavaland.\n\n\
 					Difficulties: Mining, combat"
 
