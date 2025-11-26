@@ -877,7 +877,7 @@
 	var/chem_volume = reagents.total_volume
 	var/temp_bp = blood_volume * 0.144 // Baseline. At 560u of blood you have a bp of 80
 	if(chem_volume)
-		temp_bp += round(chem_volume * rand(0.9, 1.1), 1)
+		temp_bp += round(chem_volume * rand(0.9, 1.1) * 0.5, 1)
 
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
@@ -933,22 +933,22 @@
 	switch(health)
 		// Small amounts of damage are ignored
 		if(HEALTH_THRESHOLD_CRIT to 90) // It doesn't want a variable to be in here for (maxHealth - 10)
-			if(oxyloss > (bruteloss + fireloss))
+			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
 				beats += (10 + round((maxHealth - health) / 10, 1))
 		if(HEALTH_THRESHOLD_SUCCUMB to HEALTH_THRESHOLD_CRIT)
-			if(oxyloss > (bruteloss + fireloss))
+			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 30
 			else
 				beats += 30
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_SUCCUMB)
-			if(oxyloss > (bruteloss + fireloss))
+			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 60
 			else
 				beats += 60
 		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
-			if(oxyloss > (bruteloss + fireloss))
+			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 100
 			else
 				beats += 100
