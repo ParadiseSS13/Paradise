@@ -2503,7 +2503,6 @@
 #include "code\modules\mob\living\basic\hostile\jungle_animals.dm"
 #include "code\modules\mob\living\basic\hostile\killertomato.dm"
 #include "code\modules\mob\living\basic\hostile\pirate.dm"
-#include "code\modules\mob\living\basic\hostile\skeleton_mob.dm"
 #include "code\modules\mob\living\basic\hostile\soviet.dm"
 #include "code\modules\mob\living\basic\hostile\spiderlings.dm"
 #include "code\modules\mob\living\basic\hostile\tree.dm"
