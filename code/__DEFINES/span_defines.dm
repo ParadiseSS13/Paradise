@@ -1,3 +1,5 @@
+// Yes the pluses look bad but the compiler fully folds these down so there isn't a single operation overhead
+// Please maintain this format
 // Sorted alphabetically
 #define SPAN_ABDUCTOR(str) ("<span class='abductor'>" + str + "</span>")
 #define SPAN_ADMIN_CHANNEL(str) ("<span class='admin_channel'>" + str + "</span>")
