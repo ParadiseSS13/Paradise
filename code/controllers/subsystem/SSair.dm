@@ -456,10 +456,10 @@ SUBSYSTEM_DEF(air)
 						S.active_hotspot.temperature = temperature
 						S.active_hotspot.volume = CELL_VOLUME
 
-				T.temperature_expose(exposed_temperature = temperature)
+				T.temperature_expose(temperature)
 				for(var/atom/movable/item in T)
 					if(item.cares_about_temperature || !isnull(item.reagents))
-						item.temperature_expose(exposed_temperature = temperature, exposed_volume = CELL_VOLUME)
+						item.temperature_expose(temperature, CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
 			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]

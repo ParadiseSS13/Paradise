@@ -166,7 +166,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	else if(current_pressure_appearance == EXTREME_PRESSURE)
 		. += "can-o3"
 
-/obj/machinery/atmospherics/portable/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/atmospherics/portable/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)

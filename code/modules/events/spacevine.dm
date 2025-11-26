@@ -701,7 +701,7 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spacevine/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)

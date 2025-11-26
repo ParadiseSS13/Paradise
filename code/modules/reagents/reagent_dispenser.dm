@@ -49,7 +49,7 @@
 	if(can_be_unwrenched)
 		. += "<span class='notice'>The wheels look like they can be <b>[anchored ? "unlocked" : "locked in place"]</b> with a <b>wrench</b>."
 
-/obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/reagent_dispensers/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(reagents)
 		for(var/i in 1 to 8)

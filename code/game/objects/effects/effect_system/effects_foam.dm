@@ -120,7 +120,7 @@
 /obj/effect/particle_effect/foam/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE) //Don't heat the reagents inside
 	return
 
-/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume) // overriden to prevent weird behaviors with heating reagents inside
+/obj/effect/particle_effect/foam/temperature_expose(exposed_temperature, exposed_volume) // overriden to prevent weird behaviors with heating reagents inside
 	if(prob(max(0, exposed_temperature - 475)))
 		flick("[icon_state]-disolve", src)
 		QDEL_IN(src, 0.5 SECONDS)
@@ -154,7 +154,7 @@
 	M.metal = metal_kind
 	M.update_state()
 
-/obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/particle_effect/foam/metal/temperature_expose(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/particle_effect/foam/metal/on_atom_entered(datum/source, atom/movable/entered)

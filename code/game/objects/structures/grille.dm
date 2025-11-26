@@ -242,7 +242,7 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)

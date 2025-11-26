@@ -54,7 +54,7 @@
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/latexballon/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C+100)
 		burst()

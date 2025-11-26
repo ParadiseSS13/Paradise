@@ -490,7 +490,7 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
@@ -696,7 +696,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_conversion_amount = 2.25
 
-/obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/full
@@ -758,7 +758,7 @@
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 2.2
 
-/obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/full/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/full/reinforced

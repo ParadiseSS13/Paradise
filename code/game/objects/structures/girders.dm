@@ -41,7 +41,7 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
-/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/girder/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
