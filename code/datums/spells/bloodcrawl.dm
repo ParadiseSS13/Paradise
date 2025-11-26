@@ -81,7 +81,7 @@
 	GM.set_nitrogen(MOLES_N2STANDARD)
 	GM.set_temperature(T20C)
 	return GM
-		
+
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
 		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
@@ -141,7 +141,7 @@
 	)
 	var/sound
 	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/SD = L
+		var/mob/living/basic/demon/slaughter/SD = L
 		sound = SD.feast_sound
 	else
 		sound = 'sound/misc/demon_consume.ogg'
@@ -171,7 +171,7 @@
 			L.adjustFireLoss(-25)
 
 	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/demon = L
+		var/mob/living/basic/demon/slaughter/demon = L
 		demon.devoured++
 		to_chat(victim, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
 		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
@@ -236,7 +236,7 @@
 
 /datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/S = L
+		var/mob/living/basic/demon/slaughter/S = L
 		S.speed = 0
 		S.boost = world.time + 6 SECONDS
 	var/old_color = L.color
@@ -275,7 +275,7 @@
 	action_icon_state = "shadow_crawl"
 
 /datum/spell/bloodcrawl/shadow_crawl/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/simple_animal/demon/shadow/current_demon = user
+	var/mob/living/basic/demon/shadow/current_demon = user
 	if(!istype(current_demon))
 		return ..()
 
@@ -303,10 +303,10 @@
 
 /datum/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	..()
-	if(!istype(L, /mob/living/simple_animal/demon/shadow))
+	if(!istype(L, /mob/living/basic/demon/shadow))
 		return
-	var/mob/living/simple_animal/demon/shadow/S = L
-	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+	var/mob/living/basic/demon/shadow/S = L
+	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/basic/demon/shadow, check_darkness))
 
 #undef BLOODCRAWL
 #undef BLOODCRAWL_EAT
