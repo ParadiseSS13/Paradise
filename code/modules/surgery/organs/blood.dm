@@ -97,8 +97,8 @@
 		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
 
-		bleed_rate = round(bleed_rate / modifier, 0.1)
-		internal_bleeding_rate = round(internal_bleeding_rate / modifier, 0.1)
+		bleed_rate = round(bleed_rate / total_mod, 0.1)
+		internal_bleeding_rate = round(internal_bleeding_rate / total_mod, 0.1)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
