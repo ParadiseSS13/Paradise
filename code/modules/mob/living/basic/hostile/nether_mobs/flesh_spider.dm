@@ -19,6 +19,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/incursion/flesh_spider
 	venom_per_bite = 10
 	innate_actions = list()
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/basic/giant_spider/flesh_spider/Initialize(mapload)
 	. = ..()
