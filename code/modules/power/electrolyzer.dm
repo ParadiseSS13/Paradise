@@ -1,6 +1,6 @@
 /obj/machinery/power/electrolyzer
 	name = "gas electrolyzer"
-	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions."
+	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions. It seems it needs around 250 kW of power to funtion properly."
 	anchored = FALSE
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
