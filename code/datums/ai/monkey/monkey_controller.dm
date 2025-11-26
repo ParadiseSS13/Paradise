@@ -81,7 +81,7 @@ have ways of interacting with a specific mob and control it.
 	RegisterSignal(new_pawn, COMSIG_ATOM_PULLED, PROC_REF(on_startpulling))
 	RegisterSignals(new_pawn, list(COMSIG_LIVING_TRY_SYRINGE_INJECT, COMSIG_LIVING_TRY_SYRINGE_WITHDRAW), PROC_REF(on_try_syringe))
 	RegisterSignal(new_pawn, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
-	RegisterSignal(new_pawn, COMSIG_LIVING_MOB_BUMP, PROC_REF(on_mob_bump))d
+	RegisterSignal(new_pawn, COMSIG_LIVING_MOB_BUMP, PROC_REF(on_mob_bump))
 	return ..() // Run parent at end
 
 /datum/ai_controller/monkey/unpossess_pawn(destroy)
