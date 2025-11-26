@@ -42,7 +42,7 @@
 	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Lime",
 		2 = "Plum",
 		3 = "Brown",

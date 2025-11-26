@@ -417,7 +417,10 @@
 	. = ..()
 	GLOB.anomaly_smash_track.smashes += src
 	prepare_huds()
-	for(var/datum/atom_hud/data/anomalous/a_hud in GLOB.huds)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/anomalous/a_hud = hud
+		if(!istype(a_hud))
+			continue
 		a_hud.add_to_hud(src)
 	do_hud_stuff()
 
@@ -481,5 +484,3 @@
 	qdel(src)
 
 #undef NUM_ANOM_PER_OBJ
-
-
