@@ -83,7 +83,7 @@
 
 	/// Current false pain. Only used for the heart
 	var/false_pain = 0
-	/// The heartbeat. Base is 80
+	/// The heartbeats per minute. Base is 80 BPM
 	var/heartbeat = 80
 	/// Blood pressure. Baseline is between 70 and 100
 	var/blood_pressure = 80
