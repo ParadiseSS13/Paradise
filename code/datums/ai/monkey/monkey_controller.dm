@@ -81,12 +81,10 @@ have ways of interacting with a specific mob and control it.
 	RegisterSignal(new_pawn, COMSIG_ATOM_PULLED, PROC_REF(on_startpulling))
 	RegisterSignals(new_pawn, list(COMSIG_LIVING_TRY_SYRINGE_INJECT, COMSIG_LIVING_TRY_SYRINGE_WITHDRAW), PROC_REF(on_try_syringe))
 	RegisterSignal(new_pawn, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
-	RegisterSignal(new_pawn, COMSIG_LIVING_MOB_BUMP, PROC_REF(on_mob_bump))
-
+	RegisterSignal(new_pawn, COMSIG_LIVING_MOB_BUMP, PROC_REF(on_mob_bump))d
 	return ..() // Run parent at end
 
 /datum/ai_controller/monkey/unpossess_pawn(destroy)
-
 	UnregisterSignal(pawn, list(
 		COMSIG_ATOM_WAS_ATTACKED,
 		COMSIG_ATOM_PULLED,
@@ -130,9 +128,11 @@ have ways of interacting with a specific mob and control it.
 	var/obj/item/weapon
 	var/list/nearby_items = list()
 	for(var/obj/item/item in oview(2, living_pawn))
+		if(item.force < 2)
+			continue
 		nearby_items += item
 
-	for(var/obj/item/item in living_pawn.held_items()) // If we've got some garbage in out hands that's going to stop us from effectively attacking, we should get rid of it.
+	for(var/obj/item/item in living_pawn.held_items()) // If we've got some garbage in our hands that's going to stop us from effectively attacking, we should get rid of it.
 		if(item.force < 2)
 			living_pawn.drop_item_to_ground(item)
 

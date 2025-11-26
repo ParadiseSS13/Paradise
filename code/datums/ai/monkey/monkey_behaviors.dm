@@ -14,7 +14,7 @@
 /datum/ai_behavior/monkey_equip/finish_action(datum/ai_controller/controller, success, target_key)
 	. = ..()
 
-	if(!success) //Don't try again on this item if we failed
+	if(!success) // Don't try again on this item if we failed
 		controller.set_blackboard_key_assoc(BB_MONKEY_BLACKLISTITEMS, controller.blackboard[target_key], TRUE)
 
 	controller.clear_blackboard_key(BB_MONKEY_PICKUPTARGET)
@@ -32,7 +32,7 @@
 	if(!target)
 		return FALSE
 
-	if(target.anchored) //Can't pick it up, so stop trying.
+	if(target.anchored) // Can't pick it up, so stop trying.
 		return FALSE
 
 	// Strong weapon
@@ -239,7 +239,7 @@
 
 	if(target.pulledby != living_pawn && !HAS_AI_CONTROLLER_TYPE(target.pulledby, /datum/ai_controller/monkey)) // Dont steal from my fellow monkeys.
 		if(living_pawn.Adjacent(target) && isturf(target.loc))
-			target.grabbedby(living_pawn)
+			living_pawn.start_pulling(target)
 		return AI_BEHAVIOR_DELAY // Do the rest next turn
 
 	var/obj/machinery/disposal/disposal = controller.blackboard[disposal_target_key]
@@ -264,7 +264,6 @@
 	if(target && disposal?.stuff_mob_in(target, living_pawn))
 		disposal.flush()
 	finish_action(controller, TRUE, attack_target_key, disposal_target_key)
-
 
 /datum/ai_behavior/recruit_monkeys/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
