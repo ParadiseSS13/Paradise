@@ -13,6 +13,9 @@ have ways of interacting with a specific mob and control it.
 		/datum/ai_planning_subtree/generic_hunger,
 		/datum/ai_planning_subtree/monkey_shenanigans,
 	)
+
+	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
+
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/monkey,
 		BB_MONKEY_AGGRESSIVE = FALSE,
