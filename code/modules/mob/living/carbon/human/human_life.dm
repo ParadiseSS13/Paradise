@@ -968,25 +968,30 @@
 		heartbeat_drawbacks()
 		return beats
 
+	var/brute_dmg = getBruteLoss()
+	var/burn_dmg = getFireLoss()
+	var/tox_dmg = getToxLoss()
+	var/oxy_dmg = getOxyLoss()
+
 	switch(health)
 		// Small amounts of damage are ignored
 		if(50 to 90)
-			if((oxyloss + toxloss) > (bruteloss + fireloss))
+			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
 				beats += (10 + round((maxHealth - health) / 10, 1))
 		if(HEALTH_THRESHOLD_CRIT to 50)
-			if((oxyloss + toxloss) > (bruteloss + fireloss))
+			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 30
 			else
 				beats += 30
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
-			if((oxyloss + toxloss) > (bruteloss + fireloss))
+			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 60
 			else
 				beats += 60
 		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
-			if((oxyloss + toxloss) > (bruteloss + fireloss))
+			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 100
 			else
 				beats += 100
@@ -1025,7 +1030,7 @@
 		return
 
 	if(heartbeat <= HEARTBEAT_NONE)
-		adjustOxyLoss(10)
+		adjustOxyLoss(5)
 		if(prob(10))
 			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
 		else if(prob(10))
