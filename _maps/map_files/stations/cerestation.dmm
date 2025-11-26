@@ -19988,7 +19988,7 @@
 /area/station/public/sleep)
 "dgs" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -98892,13 +98892,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "uBa" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "port bay 4 at NSS Farragus";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Farragus";
+	dir = 2
 	},
 /turf/space,
 /area/space)

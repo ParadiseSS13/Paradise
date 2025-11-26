@@ -2349,6 +2349,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"if" = (
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
 "ig" = (
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -5633,6 +5643,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"sJ" = (
+/obj/docking_port/stationary/trader/centcom,
+/turf/space,
+/area/space/centcomm)
 "sK" = (
 /turf/simulated/floor/plasteel/stairs/left,
 /area/syndicate_mothership)
@@ -5849,7 +5863,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tB" = (
@@ -5962,24 +5976,11 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"tY" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 11;
-	height = 30;
-	id = "trader_base";
-	name = "docking bay at Trading Satellite";
-	width = 22
-	},
-/turf/space,
-/area/space/centcomm)
 "tZ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trader_base";
-	name = "Docking Port"
-	},
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trader_away"
+	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "ua" = (
@@ -6348,6 +6349,7 @@
 /area/trader_station/sol)
 "vs" = (
 /obj/structure/railing,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "vt" = (
@@ -6690,13 +6692,6 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wB" = (
-/turf/simulated/floor/plasteel/freezer,
-/area/trader_station/sol)
-"wD" = (
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "wE" = (
@@ -43442,6 +43437,18 @@ aN
 aN
 aN
 aN
+Db
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
 aN
 aN
 aN
@@ -43454,19 +43461,7 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -47554,6 +47549,7 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
@@ -47577,8 +47573,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -51163,8 +51158,8 @@ aN
 aN
 aN
 aN
+sJ
 aN
-tY
 aN
 aN
 aN
@@ -51409,8 +51404,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -51434,6 +51428,7 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
@@ -51675,7 +51670,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 sv
 tF
@@ -51685,6 +51679,7 @@ wc
 wB
 wB
 vG
+aN
 aN
 aN
 aN
@@ -51932,16 +51927,16 @@ aN
 aN
 aN
 aN
-aN
 vG
 tl
 tF
 tF
 vG
-wd
 wB
+wd
 xa
 vG
+aN
 aN
 aN
 aN
@@ -52189,16 +52184,16 @@ aN
 aN
 aN
 aN
-aN
 vG
 tt
 tF
 tF
 vr
 wf
-wD
+if
 vG
 vG
+aN
 aN
 aN
 aN
@@ -52446,7 +52441,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tA
 tF
@@ -52455,7 +52449,8 @@ vG
 vG
 vG
 vG
-vG
+aN
+aN
 aN
 aN
 aN
@@ -52703,7 +52698,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tB
 tF
@@ -52711,6 +52705,7 @@ tF
 vs
 wg
 po
+aN
 aN
 aN
 aN
@@ -52960,7 +52955,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tD
 tF
@@ -52968,6 +52962,7 @@ tF
 vu
 wi
 po
+aN
 aN
 aN
 aN
@@ -53217,7 +53212,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 tE
 tF
@@ -53225,6 +53219,7 @@ vf
 vx
 wj
 po
+aN
 aN
 aN
 aN
@@ -53473,7 +53468,6 @@ aN
 aN
 aN
 aN
-aN
 vG
 vG
 Ai
@@ -53482,6 +53476,7 @@ vf
 vA
 wl
 po
+aN
 aN
 aN
 aN
@@ -53730,7 +53725,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -53739,6 +53733,7 @@ vf
 vB
 wn
 po
+aN
 aN
 aN
 aN
@@ -53987,7 +53982,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -53996,6 +53990,7 @@ tF
 vD
 wp
 po
+aN
 aN
 aN
 aN
@@ -54244,7 +54239,6 @@ aN
 aN
 aN
 aN
-aN
 po
 qB
 tF
@@ -54253,6 +54247,7 @@ tF
 Ec
 ws
 vG
+aN
 aN
 aN
 aN
@@ -54501,15 +54496,15 @@ aN
 aN
 aN
 aN
+vG
+vG
+tH
+Tu
+Tu
+tH
+vG
+vG
 aN
-vG
-vG
-tH
-Tu
-Tu
-tH
-vG
-vG
 aN
 aN
 aN
@@ -54759,13 +54754,13 @@ aN
 aN
 aN
 aN
-aN
 vG
 ig
 ig
 ig
 oQ
 vG
+aN
 aN
 aN
 aN
@@ -55016,12 +55011,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+vG
+vG
+vG
+vG
+vG
+vG
 aN
 aN
 aN

@@ -300,13 +300,43 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
-	if(isliving(target))
-		var/turf/source_turf = get_turf(firer)
-		do_teleport(target, source_turf)
-	else
-		var/turf/miss_turf = get_step(target, get_dir(target, firer))
-		do_teleport(firer, miss_turf)
+	var/turf/miss_turf = get_step(target, get_dir(target, firer))
+	do_teleport(firer, miss_turf)
 	return ..()
+
+/obj/projectile/energy/demonic_shocker
+	name = "demonic shocker"
+	icon_state = "electrode"
+	nodamage = 1
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	hitsound = 'sound/magic/lightningbolt.ogg'
+	/// Maximum amount of bounces
+	var/bounce_count = 3
+
+/obj/projectile/energy/demonic_shocker/on_hit(atom/target, blocked = 0)
+	if(!isliving(target))
+		return ..()
+	chain(target, firer)
+	return ..()
+
+/obj/projectile/energy/demonic_shocker/proc/chain(mob/living/target, mob/source)
+	var/mob/living/L = target
+	L.electrocute_act(20, firer, flags = SHOCK_NOGLOVES)
+	if(bounce_count <= 0)
+		return
+
+	var/list/possible_targets = list()
+	for(var/mob/living/M in oview(3, target))
+		if(firer == M || M.faction_check_mob(firer))
+			continue
+		possible_targets += M
+	if(!length(possible_targets))
+		return
+
+	var/next_victim = pick(possible_targets)
+	bounce_count -= 1
+	playsound(get_turf(target), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
+	chain(next_victim, target)
 
 /obj/projectile/snowball
 	name = "snowball"
