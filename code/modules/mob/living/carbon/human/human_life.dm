@@ -910,10 +910,8 @@
 			adjustOxyLoss(max(round(7 - temp_bp / 10, 1), 1))
 		if(100 to 130)
 			if(prob(5))
-				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
-			else if(prob(10))
-				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
-				bleed(10)
+				to_chat(src, "<span class='warning'>You feel a bit weak.</span>")
+
 		if(130 to 150)
 			false_pain += rand(1, 10)
 			if(prob(10))
