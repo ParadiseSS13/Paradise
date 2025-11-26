@@ -58,35 +58,34 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 
 	SSuser_verbs.invoke_verb(client, /datum/user_verb/play_local_sound, melody)
 
-/client/proc/play_intercomm_sound()
-	set category = "Event"
-	set name = "Play Sound via Intercomms"
-	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
-	if(!check_rights(R_SOUNDS))	return
+USER_VERB(play_intercomm_sound, \
+	R_SOUNDS, "Play Sound via Intercomms", \
+	"Plays a sound at every intercomm on the station z level. Works best with small sounds.", \
+	VERB_CATEGORY_EVENT)
 
-	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	var/A = alert(client, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	var/cvol = 35
-	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	var/inputvol = input(client, "How loud would you like this to be? (1-70)", "Volume", "35") as num | null
 	if(!inputvol)	return
 	if(inputvol && inputvol >= 1 && inputvol <= 70)
 		cvol = inputvol
 
 	//Allows for override to utilize intercomms on all z-levels
-	var/B = alert("Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
+	var/B = alert(client, "Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
 	var/ignore_z = 0
 	if(B == "All")
 		ignore_z = 1
 
 	//Allows for override to utilize incomplete and unpowered intercomms
-	var/C = alert("Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
+	var/C = alert(client, "Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
 	var/ignore_power = 0
 	if(C == "Yep")
 		ignore_power = 1
@@ -99,27 +98,16 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 			continue
 		playsound(I, melody, cvol)
 
-/client/proc/stop_sounds_global()
-	set category = "Debug"
-	set name = "Stop Sounds Global"
-	set desc = "Stop all playing sounds globally."
-	if(!check_rights(R_SOUNDS))
-		return
-
-	log_admin("[key_name(src)] stopped all currently playing sounds.")
-	message_admins("[key_name_admin(src)] stopped all currently playing sounds.")
+USER_VERB(stop_sounds_global, R_SOUNDS, "Stop Sounds Global", "Stop all playing sounds globally.", VERB_CATEGORY_DEBUG)
+	log_admin("[key_name(client)] stopped all currently playing sounds.")
+	message_admins("[key_name_admin(client)] stopped all currently playing sounds.")
 	for(var/mob/M in GLOB.player_list)
 		SEND_SOUND(M, sound(null))
 		var/client/C = M.client
 		C?.tgui_panel?.stop_music()
 
-/client/proc/play_sound_tgchat()
-	set category = "Event"
-	set name = "Play Global Sound"
-	if(!check_rights(R_SOUNDS))
-		return
-
-	var/sound_mode = tgui_alert(src, "Play a sound from which source?", "Select Source", list("Web", "Upload MP3"))
+USER_VERB(play_sound_tgchat, R_SOUNDS, "Play Global Sound", "Play a sound to be heard by all players.", VERB_CATEGORY_EVENT)
+	var/sound_mode = tgui_alert(client, "Play a sound from which source?", "Select Source", list("Web", "Upload MP3"))
 	if(!sound_mode)
 		return
 
@@ -132,18 +120,18 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 
 	if(sound_mode == "Web")
 		if(!GLOB.configuration.system.ytdlp_url)
-			to_chat(src, "<span class='boldwarning'>yt-dlp was not configured, action unavailable</span>") //Check config
+			to_chat(client, "<span class='boldwarning'>yt-dlp was not configured, action unavailable</span>") //Check config
 			return
 
-		web_sound_input = tgui_input_text(src, "Enter content URL", "Play Internet Sound", null)
+		web_sound_input = tgui_input_text(client, "Enter content URL", "Play Internet Sound", null)
 		if(!length(web_sound_input))
 			return
 
 		web_sound_input = trim(web_sound_input)
 
 		if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-			to_chat(src, "<span class='boldwarning'>Non-http(s) URIs are not allowed.</span>")
-			to_chat(src, "<span class='warning'>For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website.</span>")
+			to_chat(client, "<span class='boldwarning'>Non-http(s) URIs are not allowed.</span>")
+			to_chat(client, "<span class='warning'>For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website.</span>")
 			return
 
 		// Prepare the body
@@ -161,35 +149,35 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 			try
 				data = json_decode(media_poll_response.body)
 			catch(var/exception/e)
-				to_chat(src, "<span class='boldwarning'>yt-dlp JSON parsing FAILED:</span>")
-				to_chat(src, "<span class='warning'>[e]: [media_poll_response.body]</span>")
+				to_chat(client, "<span class='boldwarning'>yt-dlp JSON parsing FAILED:</span>")
+				to_chat(client, "<span class='warning'>[e]: [media_poll_response.body]</span>")
 				return
 		else
-			to_chat(src, "<span class='boldwarning'>yt-dlp URL retrieval FAILED:</span>")
-			to_chat(src, "<span class='warning'>[media_poll_response.body]</span>")
+			to_chat(client, "<span class='boldwarning'>yt-dlp URL retrieval FAILED:</span>")
+			to_chat(client, "<span class='warning'>[media_poll_response.body]</span>")
 			return
 
 	else if(sound_mode == "Upload MP3")
 		if(GLOB.configuration.asset_cache.asset_transport == "simple")
-			if(tgui_alert(src, "WARNING: Your server is using simple asset transport. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
+			if(tgui_alert(client, "WARNING: Your server is using simple asset transport. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
 				return
 			must_send_assets = TRUE
 
-		var/soundfile = input(src, "Choose an MP3 file to play", "Upload Sound") as null|file
+		var/soundfile = input(client, "Choose an MP3 file to play", "Upload Sound") as null|file
 		if(!soundfile)
 			return
 
 		var/static/regex/only_extension = regex(@{"^.*\.([a-z0-9]{1,5})$"}, "gi")
 		var/extension = only_extension.Replace("[soundfile]", "$1")
 		if(!length(extension) || extension != "mp3")
-			to_chat(src, "<span class='boldwarning'>Invalid filename extension.</span>")
+			to_chat(client, "<span class='boldwarning'>Invalid filename extension.</span>")
 			return
 
 		var/static/playsound_notch = 1
 		asset_name = "admin_sound_[playsound_notch++].[extension]"
 		SSassets.transport.register_asset(asset_name, soundfile)
-		log_admin("[key_name_admin(src)] uploaded admin sound '[soundfile]' to asset transport.")
-		message_admins("[key_name_admin(src)] uploaded admin sound '[soundfile]' to asset transport.")
+		log_admin("[key_name_admin(client)] uploaded admin sound '[soundfile]' to asset transport.")
+		message_admins("[key_name_admin(client)] uploaded admin sound '[soundfile]' to asset transport.")
 
 		var/static/regex/remove_extension = regex(@{"\.[a-z0-9]+$"}, "gi")
 		data["title"] = remove_extension.Replace("[soundfile]", "")
@@ -207,26 +195,26 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 		music_extra_data["link"] = data["webpage_url"]
 		music_extra_data["title"] = data["title"]
 
-		var/res = tgui_alert(src, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No"))
+		var/res = tgui_alert(client, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No"))
 		if(!res)
 			return
 		if(res == "Yes")
-			log_admin("[key_name(src)] played sound: [web_sound_input]")
-			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played: [webpage_url]</span>")
+			log_admin("[key_name(client)] played sound: [web_sound_input]")
+			message_admins("[key_name(client)] played sound: [web_sound_input]")
+			to_chat(world, "<span class='boldannounceooc'>[client.ckey] played: [webpage_url]</span>")
 		else if(res == "No")
 			music_extra_data["link"] = "Song Link Hidden"
 			music_extra_data["title"] = "Song Title Hidden"
 			music_extra_data["artist"] = "Song Artist Hidden"
-			log_admin("[key_name(src)] played sound: [web_sound_input]")
-			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played a sound</span>")
+			log_admin("[key_name(client)] played sound: [web_sound_input]")
+			message_admins("[key_name(client)] played sound: [web_sound_input]")
+			to_chat(world, "<span class='boldannounceooc'>[client.ckey] played a sound</span>")
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound TGchat")
 
 	if(!must_send_assets && web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
-		to_chat(src, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>", confidential = TRUE)
-		to_chat(src, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>", confidential = TRUE)
+		to_chat(client, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>", confidential = TRUE)
+		to_chat(client, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>", confidential = TRUE)
 		return
 
 	if(web_sound_url)
@@ -234,14 +222,14 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 			var/client/C = M.client
 			var/player_uid = M.client.UID()
 			if(C.prefs.sound & SOUND_MIDI)
-				if(ckey in M.client.prefs.admin_sound_ckey_ignore)
-					to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
+				if(client.ckey in M.client.prefs.admin_sound_ckey_ignore)
+					to_chat(C, "<span class='warning'>But [client.ckey] is muted locally in preferences!</span>")
 					continue
 				else
 					if(must_send_assets)
 						SSassets.transport.send_assets(C, asset_name)
 					C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-					to_chat(C, "<span class='warning'>(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+					to_chat(C, "<span class='warning'>(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[client.ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 			else
 				to_chat(C, "<span class='warning'>But Admin MIDIs are disabled in preferences!</span>")
 	return
