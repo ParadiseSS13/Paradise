@@ -108,13 +108,13 @@ USER_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Ran
 
 USER_VERB_VISIBILITY(debug_object_count_zlevel, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count Objects On Level", VERB_CATEGORY_MAPPING)
-	var/level = clean_input(client, "Which z-level?","Level?")
+	var/level = clean_input("Which z-level?","Level?", user = client)
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = clean_input(client, "Which type path?","Path?")
+	var/type_text = clean_input("Which type path?","Path?", user = client)
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -141,7 +141,7 @@ USER_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count O
 
 USER_VERB_VISIBILITY(debug_object_count_world, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Objects All", VERB_CATEGORY_MAPPING)
-	var/type_text = clean_input(client, "Which type path?","")
+	var/type_text = clean_input("Which type path?","", user = client)
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return

@@ -124,8 +124,8 @@
 
 USER_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", "Test nature map generator", VERB_CATEGORY_DEBUG)
 	var/datum/map_generator/nature/N = new()
-	var/startInput = clean_input(client, "Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
-	var/endInput = clean_input(client, "End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[client.mob ? client.mob.z : 1]")
+	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1", user = client)
+	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[client.mob ? client.mob.z : 1]", user = client)
 	//maxx maxy and current z so that if you fuck up, you only fuck up one entire z level instead of the entire universe
 	if(!startInput || !endInput)
 		to_chat(client, "Missing Input")

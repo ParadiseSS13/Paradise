@@ -111,7 +111,7 @@ USER_VERB(reload_admins, R_SERVER, "Reload Admins", "Perform a forced refresh of
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists", VERB_CATEGORY_DEBUG)
-	var/refstring = clean_input(client, "Which reference?","Ref")
+	var/refstring = clean_input("Which reference?","Ref", user = client)
 	if(!refstring)
 		return
 

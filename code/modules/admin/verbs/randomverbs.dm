@@ -43,7 +43,7 @@ USER_CONTEXT_MENU(subtle_message, R_EVENT, "\[Admin\] Subtle Message", mob/M as 
 	if(!ismob(M))
 		return
 
-	var/msg = clean_input(client, "Message:", "Subtle PM to [M.key]")
+	var/msg = clean_input("Message:", "Subtle PM to [M.key]", user = client)
 
 	if(!msg)
 		return
@@ -101,7 +101,7 @@ USER_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perfo
 		to_chat(client, "No matches for that age range found.")
 
 USER_VERB(global_narrate, R_SERVER|R_EVENT, "Global Narrate", "Narrate text to the whole game world.", VERB_CATEGORY_EVENT)
-	var/msg = clean_input(client, "Message:", "Enter the text you wish to appear to everyone:")
+	var/msg = clean_input("Message:", "Enter the text you wish to appear to everyone:", user = client)
 
 	if(!msg)
 		return
@@ -118,7 +118,7 @@ USER_CONTEXT_MENU(direct_narrate, R_SERVER|R_EVENT, "\[Admin\] Direct Narrate", 
 	if(!M)
 		return
 
-	var/msg = clean_input(client, "Message:", "Enter the text you wish to appear to your target:")
+	var/msg = clean_input("Message:", "Enter the text you wish to appear to your target:", user = client)
 
 	if(!msg)
 		return
@@ -514,7 +514,7 @@ USER_VERB(respawn_character, R_SPAWN, "Respawn Character", \
 		return mobs
 
 USER_VERB(add_freeform_ai_law, R_EVENT, "Add Custom AI law", "Add custom AI law.", VERB_CATEGORY_EVENT)
-	var/input = clean_input(client, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "")
+	var/input = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "", user = client)
 	if(!input)
 		return
 
@@ -553,7 +553,7 @@ USER_VERB(create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report
 	var/type = input(client, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
 	if(type == "Custom")
-		type = clean_input(client, "What would you like the report type to be?", "Report Type", "Encrypted Transmission")
+		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission", user = client)
 
 	var/subtitle = input(client, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!subtitle)

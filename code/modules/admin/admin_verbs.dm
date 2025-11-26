@@ -240,7 +240,7 @@ USER_VERB(stealth_mode, R_ADMIN, "Stealth Mode", "Enables stealth mode.", VERB_C
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
-			var/new_key = ckeyEx(clean_input(client, "Enter your desired display name.", "Fake Key", client.key))
+			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", client.key, user = client))
 			if(!new_key)	return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
@@ -257,7 +257,7 @@ USER_VERB(big_brother, R_PERMISSIONS, "Big Brother Mode", "Enables Big Brother m
 			holder.fakekey = null
 			holder.big_brother = 0
 		else
-			var/new_key = ckeyEx(clean_input(client, "Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", client.key))
+			var/new_key = ckeyEx(clean_input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", client.key, user = client))
 			if(!new_key)
 				return
 			if(length(new_key) >= 26)
@@ -368,7 +368,7 @@ USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and 
 
 USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
 	if(O)
-		var/message = clean_input(client, "What do you want the message to be?", "Make Sound")
+		var/message = clean_input("What do you want the message to be?", "Make Sound", user = client)
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))

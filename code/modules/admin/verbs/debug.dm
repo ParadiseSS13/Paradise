@@ -34,7 +34,7 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 				target = null
 				targetselected = 0
 
-		var/procname = clean_input(client, "Proc path, eg: /proc/fake_blood","Path:", null)
+		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null, user = client)
 		if(!procname)	return
 
 		// absolutely not
@@ -151,7 +151,7 @@ USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/
 		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call on a logging object. Inform the host at once.")
 		return
 
-	var/procname = clean_input(client, "Proc name, eg: fake_blood","Proc:", null)
+	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null, user = client)
 	if(!procname)
 		return
 
@@ -259,7 +259,7 @@ USER_VERB(admin_make_pai, R_SPAWN, "Make pAI", "Specify a location to spawn a pA
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	var/raw_name = clean_input(client, "Enter your pAI name:", "pAI Name", "Personal AI", choice)
+	var/raw_name = clean_input("Enter your pAI name:", "pAI Name", "Personal AI", choice, user = client)
 	var/new_name = reject_bad_name(raw_name, 1)
 	if(new_name)
 		pai.name = new_name

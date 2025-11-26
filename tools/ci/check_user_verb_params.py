@@ -23,7 +23,6 @@ def make_error(source_loc: SourceLoc, msg) -> str:
 
 PROCS_NEED_CLIENT = (
     "alert",
-    "clean_input",
     "tgui_input_list",
     "tgui_input_number",
     "to_chat",
@@ -40,6 +39,7 @@ class Walker:
         self.bad_names = []
         self.bad_inputs = []
         self.bad_calls = []
+        self.bad_clean_inputs = []
 
     def visit_Identifier(self, node, source_info):
         if node.name in BAD_VARS:
@@ -57,6 +57,14 @@ class Walker:
             and node.args[0].kind == NodeKind.CONSTANT
         ):
             self.bad_calls.append((node, source_info))
+
+        if str(node.name) == "clean_input":
+            last_arg = node.args[-1]
+            if last_arg.kind == NodeKind.ASSIGN_OP:
+                if str(last_arg.lhs) != "user" or str(last_arg.rhs) != "client":
+                    self.bad_clean_inputs.append((node, source_info))
+            else:
+                self.bad_clean_inputs.append((node, source_info))
 
         for arg in node.args:
             if arg.kind == NodeKind.IDENTIFIER:
@@ -118,6 +126,16 @@ if __name__ == "__main__":
                     make_error(
                         source_loc,
                         f"call {node.name}() in {td.path} missing explicit recipient",
+                    )
+                )
+
+        if walker.bad_clean_inputs:
+            exit_code = 1
+            for node, source_loc in walker.bad_clean_inputs:
+                errors.append(
+                    make_error(
+                        source_loc,
+                        f"call {node.name}() in {td.path} must have `user = client` as its last arg",
                     )
                 )
 
