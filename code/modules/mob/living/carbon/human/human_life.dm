@@ -12,6 +12,11 @@
 
 	voice = GetVoice()
 
+	// We clear this before we add extra in heartbeats and blood pressure
+	false_pain = 0
+	handle_heartbeat()
+	handle_blood_pressure()
+
 	if(.) //not dead
 
 		if(check_mutations)
@@ -19,10 +24,6 @@
 			update_mutations()
 			check_mutations = FALSE
 
-		// We clear this before we add extra in heartbeats and blood pressure
-		false_pain = 0
-		handle_heartbeat()
-		handle_blood_pressure()
 		handle_pain()
 
 		dna.species.handle_life(src)
@@ -890,22 +891,56 @@
 
 	switch(temp_bp)
 		if(0 to 40)
-			Dizzy(3 SECONDS)							// Bro you're almost dead
-			adjustOxyLoss(round(5 - temp_bp / 10, 1)) 	// Seriously man go to medbay
+			Dizzy(3 SECONDS)
+			adjustOxyLoss(5)
+			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
+			if(H)
+				H.linked_organ.damage = max(H.linked_organ.damage - 1, 10)
+			var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+			if(L)
+				L.linked_organ.damage = max(L.linked_organ.damage - 1, 10)
+
 			if(prob(10))
 				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
+
 		if(40 to 70)
 			if(prob(5))
 				Dizzy(5 SECONDS)
-		if(150 to INFINITY)
-			false_pain += rand(1, 10)
-			if(prob(50) && staminaloss < 70)
-				adjustStaminaLoss(10)
+			// Oxyloss under 60 BP
+			adjustOxyLoss(max(round(7 - temp_bp / 10, 1), 1))
+		if(100 to 130)
 			if(prob(5))
 				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
 			else if(prob(10))
 				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
 				bleed(10)
+		if(130 to 150)
+			false_pain += rand(1, 10)
+			if(prob(10))
+				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
+				bleed(10)
+			if(prob(5))
+				SetEyeBlind(5 SECONDS)
+			else if(prob(5))
+				Dizzy(5 SECONDS)
+
+		if(150 to INFINITY)
+			false_pain += rand(5, 15)
+			if(prob(50) && staminaloss < 70)
+				adjustStaminaLoss(10)
+			if(prob(5))
+				for(var/obj/item/organ/external/limb in shuffle(bodyparts))
+					if(limb.status & ORGAN_INT_BLEEDING)
+						continue
+					limb.cause_internal_bleeding()
+			// Same as the previous tier of drawbacks but higher chances and amounts
+			if(prob(15))
+				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
+				bleed(15)
+			if(prob(5))
+				SetEyeBlind(5 SECONDS)
+			else if(prob(10))
+				Dizzy(5 SECONDS)
 
 	// Some randomness to make it a bit nicer looking, doesn't affect the above drawbacks
 	blood_pressure = round(temp_bp, 0.1)
@@ -935,17 +970,17 @@
 
 	switch(health)
 		// Small amounts of damage are ignored
-		if(HEALTH_THRESHOLD_CRIT to 90) // It doesn't want a variable in this place so 90 it is
+		if(50 to 90) // It doesn't want a variable in this place so 90 it is
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
 				beats += (10 + round((maxHealth - health) / 10, 1))
-		if(HEALTH_THRESHOLD_SUCCUMB to 50)
+		if(HEALTH_THRESHOLD_CRIT to 50)
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 30
 			else
 				beats += 30
-		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_SUCCUMB)
+		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 60
 			else
@@ -988,7 +1023,15 @@
 /mob/living/carbon/human/proc/heartbeat_drawbacks()
 	if(HEARTBEAT_IS_NORMAL(heartbeat))
 		return
-	if(heartbeat <= HEARTBEAT_SLOW)
+
+	if(heartbeat <= HEARTBEAT_NONE)
+		adjustOxyLoss(10)
+		if(prob(10))
+			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
+		else if(prob(10))
+			to_chat(src, "<span class='warning'>Something is very wrong.</span>")
+
+	else if(heartbeat <= HEARTBEAT_SLOW)
 		if(prob(5))
 			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
 		else if(prob(5))
@@ -996,6 +1039,13 @@
 		var/damage = round(heartbeat / 10, 1)
 		// No oxydamage when above 50 bpm
 		adjustOxyLoss(max(5 - damage, 0))
+
+	else if(heartbeat >= HEARTBEAT_2FAST)
+		var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
+		// No need to nullcheck, we have a heartbeat
+		H.linked_organ.damage = max(H.linked_organ.damage - 1, 10)
+		if(prob(10) && !undergoing_cardiac_arrest())
+			set_heartattack(TRUE) // Not having a good time
 
 	else if(heartbeat >= HEARTBEAT_FAST)
 		false_pain += rand(5, 15)
@@ -1007,6 +1057,7 @@
 			to_chat(src, "<span class='warning'>Something is very wrong.</span>")
 		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
 			send_heart_sound()
+
 
 	else if(heartbeat >= HEARTBEAT_NORMAL)
 		if(prob(5))

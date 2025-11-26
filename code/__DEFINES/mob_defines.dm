@@ -77,7 +77,7 @@
 #define HEARTBEAT_SLOW		60
 #define HEARTBEAT_NORMAL	100
 #define HEARTBEAT_FAST		140
-#define HEARTBEAT_2FAST		190
+#define HEARTBEAT_2FAST		200
 
 // Quick pulse check define
 #define HEARTBEAT_IS_NORMAL(x) ((HEARTBEAT_SLOW < x) && (x < HEARTBEAT_NORMAL))
