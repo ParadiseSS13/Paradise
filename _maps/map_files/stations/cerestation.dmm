@@ -1308,18 +1308,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
-"aja" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "aje" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -136289,7 +136277,7 @@ aTz
 lEq
 epR
 epr
-aja
+cRx
 rHj
 vdq
 afd
