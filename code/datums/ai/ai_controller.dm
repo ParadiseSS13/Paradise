@@ -413,9 +413,10 @@ RESTRICT_TYPE(/datum/ai_controller)
 			process_behavior(action_seconds_per_tick, current_behavior)
 			return
 
-		if(!current_movement_target)
-			stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
-			return //This can cause issues, so don't let these slide.
+		if(isnull(current_movement_target))
+			fail_behavior(current_behavior)
+			return
+
 		///Stops pawns from performing such actions that should require the target to be adjacent.
 		var/atom/movable/moving_pawn = pawn
 		var/can_reach = !(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_REACH) || moving_pawn.can_reach(current_movement_target)
