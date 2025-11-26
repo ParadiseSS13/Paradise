@@ -785,5 +785,5 @@ USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", 
 	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(client, "Select a report to view:", "Bug Reports", bug_report_selection)]
 	if(!form?.assign_approver(client))
 		return
-	form.ui_interact(client)
+	form.ui_interact(client.mob)
 

@@ -26,7 +26,7 @@ USER_VERB(make_turf_space_map, R_ADMIN|R_DEBUG, "Make Space Map", "Create a map 
 
 	message_admins("[key_name_admin(client)] made a space map")
 
-	GLOB.space_manager.map_as_turfs(get_turf(client), sectortype)
+	GLOB.space_manager.map_as_turfs(get_turf(client.mob), sectortype)
 	log_admin("[key_name(client)] made a space map")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Space Map") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

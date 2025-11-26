@@ -78,7 +78,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 USER_VERB(deserialize_json, R_SPAWN, "Deserialize JSON datum", "Creates an object from a JSON string", VERB_CATEGORY_DEBUG)
 	var/json_text = input(client, "Enter the JSON code:","Text") as message|null
 	if(json_text)
-		json_to_object(json_text, get_turf(client))
+		json_to_object(json_text, get_turf(client.mob))
 		message_admins("[key_name_admin(client)] spawned an atom from a custom JSON object.")
 		log_admin("[key_name(client)] spawned an atom from a custom JSON object, JSON Text: [json_text]")
 

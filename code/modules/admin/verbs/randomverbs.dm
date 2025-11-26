@@ -1067,7 +1067,7 @@ USER_VERB(create_crate, R_SPAWN, "Create Crate", \
 		return
 	var/datum/supply_packs/the_pack = new chosen()
 
-	var/spawn_location = get_turf(client)
+	var/spawn_location = get_turf(client.mob)
 	if(!spawn_location)
 		return
 	var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)

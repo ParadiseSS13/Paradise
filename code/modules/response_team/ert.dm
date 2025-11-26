@@ -23,7 +23,7 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
-	E.ui_interact(client)
+	E.ui_interact(client.mob)
 
 
 /mob/proc/JoinResponseTeam()
