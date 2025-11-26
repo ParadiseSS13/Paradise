@@ -935,7 +935,7 @@
 
 	switch(health)
 		// Small amounts of damage are ignored
-		if(HEALTH_THRESHOLD_CRIT to 90) // It doesn't want a variable to be in here for (maxHealth - 10)
+		if(HEALTH_THRESHOLD_CRIT to 90) // It doesn't want a variable in this place so 90 it is
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
