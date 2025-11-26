@@ -975,19 +975,19 @@
 		// Small amounts of damage are ignored
 		if(50 to 90)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
-				beats -= (10 + round((maxHealth - health) / 10, 1))
+				beats -= (20 + round((maxHealth - health) / 10, 1))
 			else
-				beats += (10 + round((maxHealth - health) / 10, 1))
+				beats += (20 + round((maxHealth - health) / 10, 1))
 		if(HEALTH_THRESHOLD_CRIT to 50)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
-				beats -= 30
+				beats -= 70
 			else
-				beats += 30
+				beats += 70
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
-				beats -= 60
+				beats -= 80
 			else
-				beats += 60
+				beats += 80
 		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 100
