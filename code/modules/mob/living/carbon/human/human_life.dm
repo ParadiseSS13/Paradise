@@ -940,7 +940,7 @@
 				beats -= (10 + round((maxHealth - health) / 10, 1))
 			else
 				beats += (10 + round((maxHealth - health) / 10, 1))
-		if(HEALTH_THRESHOLD_SUCCUMB to HEALTH_THRESHOLD_CRIT)
+		if(HEALTH_THRESHOLD_SUCCUMB to 50)
 			if((oxyloss + toxloss) > (bruteloss + fireloss))
 				beats -= 30
 			else
