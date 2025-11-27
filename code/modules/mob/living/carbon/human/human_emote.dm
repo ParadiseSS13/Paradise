@@ -671,12 +671,14 @@
 	. = ..()
 	if(!..())
 		return FALSE
+	if(!ishuman(user))
+		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat("<span class='warning'>Your wings are burnt off!</span>")
+		to_chat(H, "<span class='warning'>Your wings are burnt off!</span>")
 		return FALSE
 	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
-		to_chat("<span class='warning'>You don't have wings!</span>")
+		to_chat(H, "<span class='warning'>You don't have wings!</span>")
 		return FALSE
 	return TRUE
 

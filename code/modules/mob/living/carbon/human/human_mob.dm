@@ -2293,7 +2293,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /// Used to toggle whether wings are open or not
 /mob/living/carbon/human/proc/Togglewings()
 	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat("<span class='warning'>Your wings are burnt off!</span>")
+		to_chat(src, "<span class='warning'>Your wings are burnt off!</span>")
 		return
 
 	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
