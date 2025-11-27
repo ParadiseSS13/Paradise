@@ -75,7 +75,7 @@
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 
-		//get structures on turf
+		//get structures on turf, then delete large rocks and plants
 		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
 		for (var/turf in affected_turfs)
 			var/obj/structure/flora/ash/rock/flora = locate(/obj/structure/flora/ash/, turf)
