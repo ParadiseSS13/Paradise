@@ -201,6 +201,7 @@ const MiningVendorItemsCategory = (properties) => {
             imageSize={32}
             dmIcon={item.icon}
             dmIconState={item.icon_state}
+            tooltip={item.desc}
             buttons={
               <Button
                 width={3.75}
