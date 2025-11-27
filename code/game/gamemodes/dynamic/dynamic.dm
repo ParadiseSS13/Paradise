@@ -37,11 +37,11 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		if(5 to 20)
 			// +0.5 budget each for players 5-20
 			// Cumulative total at 20 players: 15
-			return 7 + 0.5 * (players - 4)
+			return 7 + ceil(0.5 * (players - 4))
 		if(21 to 30)
 			// +1.5 budget each for players 21 to 30
 			// Cumulative total at 30 players: 30
-			return 15 + 1.5 * (players - 20)
+			return 15 + ceil(1.5 * (players - 20))
 		else
 			// +1 budget each for players 31+, so just player count.
 			return players
