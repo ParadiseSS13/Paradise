@@ -886,6 +886,9 @@
 		else if(age > 45) // Getting old
 			temp_bp += 10
 
+	if(HAS_TRAIT(src, TRAIT_FAT))
+		temp_bp += 10
+
 	for(var/datum/reagent/chem in reagents.reagent_list)
 		temp_bp += chem.blood_pressure_change
 
@@ -894,11 +897,9 @@
 			Dizzy(3 SECONDS)
 			adjustOxyLoss(5)
 			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
-			if(H)
-				H.linked_organ.damage = max(H.linked_organ.damage - 1, 10)
+			H.linked_organ.receive_damage(1, TRUE)
 			var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-			if(L)
-				L.linked_organ.damage = max(L.linked_organ.damage - 1, 10)
+			L?.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
 				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
@@ -966,6 +967,9 @@
 	if(H.linked_organ.is_robotic())
 		heartbeat_drawbacks()
 		return beats
+
+	if(HAS_TRAIT(src, TRAIT_FAT))
+		beats += 10
 
 	var/brute_dmg = getBruteLoss()
 	var/burn_dmg = getFireLoss()
@@ -1047,7 +1051,7 @@
 	else if(heartbeat >= HEARTBEAT_2FAST)
 		var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
 		// No need to nullcheck, we have a heartbeat
-		H.linked_organ.damage = max(H.linked_organ.damage - 1, 10)
+		H.linked_organ.receive_damage(1, TRUE)
 		if(prob(10) && !undergoing_cardiac_arrest())
 			set_heartattack(TRUE) // Not having a good time
 
