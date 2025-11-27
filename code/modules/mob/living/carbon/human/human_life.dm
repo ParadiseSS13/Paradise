@@ -981,12 +981,12 @@
 				beats += (20 + round((maxHealth - health) / 10, 1))
 		if(HEALTH_THRESHOLD_CRIT to 50)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
-				beats -= 70
+				beats -= 50
 			else
 				beats += 70
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
-				beats -= 80
+				beats -= 70
 			else
 				beats += 80
 		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
