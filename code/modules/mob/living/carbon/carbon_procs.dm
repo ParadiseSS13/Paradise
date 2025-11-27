@@ -1049,7 +1049,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
 		return
 	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
-		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
+		severity = clamp(severity, EMP_RESIST_ORGAN, EMP_WEAKENED)
 	for(var/X in internal_organs)
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
