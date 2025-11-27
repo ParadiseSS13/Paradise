@@ -1137,7 +1137,6 @@
 	drink_name = "Glass of Ginger Beep"
 	drink_desc = "A gingery refreshment for synthetics. Fizzy, too."
 	taste_description = "static and spice"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/cog_a_cola
 	name = "Cog-a-Cola"
@@ -1148,7 +1147,6 @@
 	drink_name = "Glass of Cog-a-Cola"
 	drink_desc = "A non-synthanolic soda for synthetics."
 	taste_description = "sugary bubbles with a hint of oil"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/electrocharge
 	name = "Electrocharge"
@@ -1209,7 +1207,6 @@
 	drink_name = "Glass of Processor Punch"
 	drink_desc = "A sweetened, non-synthanolic, synthetic sip."
 	taste_description = "a punch to the processors"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/bubbly_beep
 	name = "Bubbly Beep"
