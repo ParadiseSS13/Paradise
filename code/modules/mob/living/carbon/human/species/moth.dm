@@ -118,14 +118,26 @@
 	if(isobj(H.loc))
 		// Can't fly if you're in a box/mech/whatever.
 		return FALSE
+	// Open your wings to fly
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
 	var/turf/T = get_turf(H)
 	var/datum/gas_mixture/current = T.get_readonly_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
-	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		return TRUE
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return FALSE
+
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
+
+	return TRUE
 
 /datum/species/moth/spec_movement_delay()
 	return FALSE
