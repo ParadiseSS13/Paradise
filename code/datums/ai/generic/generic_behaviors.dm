@@ -32,7 +32,7 @@
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	living_pawn.ai_controller.set_blackboard_key(BB_RESISTING, TRUE)
-	living_pawn.resist()
+	living_pawn.run_resist()
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/battle_screech
@@ -42,6 +42,7 @@
 /datum/ai_behavior/battle_screech/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
+	controller.set_blackboard_key(BB_BATTLE_CRY_COOLDOWN, world.time + MONKEY_BATTLE_CRY_COOLDOWN)
 	INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick(screeches))
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 

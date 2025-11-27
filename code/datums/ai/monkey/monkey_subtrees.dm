@@ -1,4 +1,7 @@
 /datum/ai_planning_subtree/monkey_shenanigans/select_behaviors(datum/ai_controller/monkey/controller, seconds_per_tick)
+	var/mob/living/living_pawn = controller.pawn
+	if(living_pawn.incapacitated()) // We're restrained or stunned - what are we gonna do?
+		return SUBTREE_RETURN_FINISH_PLANNING
 
 	if(prob(5))
 		controller.queue_behavior(/datum/ai_behavior/use_in_hand)
@@ -28,6 +31,9 @@
 	var/mob/living/living_pawn = controller.pawn
 	var/list/enemies = controller.blackboard[BB_MONKEY_ENEMIES]
 
+	if(living_pawn.incapacitated()) // We're restrained or stunned - what are we gonna do?
+		return SUBTREE_RETURN_FINISH_PLANNING
+
 	if((HAS_TRAIT(controller.pawn, TRAIT_PACIFISM)) || (!length(enemies) && !controller.blackboard[BB_MONKEY_AGGRESSIVE])) // Pacifist, or we have no enemies and we're not pissed
 		living_pawn.a_intent = INTENT_HELP
 		return
@@ -56,7 +62,8 @@
 			controller.queue_behavior(/datum/ai_behavior/recruit_monkeys, BB_MONKEY_CURRENT_ATTACK_TARGET)
 			return
 
-		controller.queue_behavior(/datum/ai_behavior/battle_screech/monkey)
+		if(controller.blackboard[BB_BATTLE_CRY_COOLDOWN] < world.time)
+			controller.queue_behavior(/datum/ai_behavior/battle_screech/monkey)
 		controller.queue_behavior(/datum/ai_behavior/monkey_attack_mob, BB_MONKEY_CURRENT_ATTACK_TARGET)
 		return SUBTREE_RETURN_FINISH_PLANNING
 

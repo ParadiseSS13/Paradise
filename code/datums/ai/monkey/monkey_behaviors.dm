@@ -1,5 +1,5 @@
 /datum/ai_behavior/battle_screech/monkey
-	screeches = list("roar","screech")
+	screeches = list("scream")
 
 /datum/ai_behavior/monkey_equip
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH

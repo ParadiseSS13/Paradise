@@ -14,4 +14,5 @@
 #define BB_MONKEY_TARGET_MONKEYS "BB_monkey_target_monkeys"
 #define BB_MONKEY_DISPOSING "BB_monkey_disposing"
 #define BB_MONKEY_RECRUIT_COOLDOWN "BB_monkey_recruit_cooldown"
+#define BB_BATTLE_CRY_COOLDOWN "BB_battle_cry_cooldown"
 #define BB_RESISTING "BB_resisting"

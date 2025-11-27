@@ -1,4 +1,4 @@
-//Monkey defines, placed here so they can be read by other things!
+// Monkey defines, placed here so they can be read by other things!
 
 /// below this health value the monkey starts to flee from enemies
 #define MONKEY_FLEE_HEALTH 40
@@ -33,5 +33,8 @@
 /// probability of reducing aggro by one when the monkey attacks
 #define MONKEY_HATRED_REDUCTION_PROB 20
 
-///Monkey recruit cooldown
+/// Monkey recruit cooldown
 #define MONKEY_RECRUIT_COOLDOWN (1 MINUTES)
+
+/// Cooldown on screeching
+#define MONKEY_BATTLE_CRY_COOLDOWN (15 SECONDS)

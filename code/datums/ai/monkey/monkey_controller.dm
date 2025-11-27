@@ -2,7 +2,7 @@
 AI controllers are a datumized form of AI that simulates the input a player would otherwise give to a mob. What this means is that these datums
 have ways of interacting with a specific mob and control it.
 */
-///OOK OOK OOK
+/// OOK OOK OOK
 
 /datum/ai_controller/monkey
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -39,13 +39,17 @@ have ways of interacting with a specific mob and control it.
 	return ..()
 
 /datum/ai_controller/monkey/process(seconds_per_tick)
-
 	var/mob/living/living_pawn = src.pawn
+	movement_delay = living_pawn.movement_delay() // Circumstances change. Update speed frequently.
 
 	if(!length(living_pawn.do_afters) && living_pawn.ai_controller.blackboard[BB_RESISTING])
 		living_pawn.ai_controller.set_blackboard_key(BB_RESISTING, FALSE)
 
 	if(living_pawn.ai_controller.blackboard[BB_RESISTING])
+		return
+
+	if(living_pawn.IsWeakened() || living_pawn.IsStunned()) // We're stunned - what are we gonna do?
+		cancel_actions()
 		return
 
 	. = ..()
