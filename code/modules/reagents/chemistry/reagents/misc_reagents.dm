@@ -888,3 +888,25 @@
 	var/original_volume = volume
 	holder.del_reagent(id)
 	holder.add_reagent("molten_plastic", original_volume, reagtemp = T0C + 120)
+/datum/reagent/bluespace
+	name = "Bluespace Dust"
+	id = "bluespace_dust"
+	description = "A dust composed of microscopic bluespace crystals, with minor space-warping properties."
+	color = "#0000CC"
+	taste_description = "fizzling blue"
+
+/datum/reagent/bluespace/reaction_mob(mob/living/M, method, volume, show_message) //Qwertodo after heretic: I wanted to do more with this
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		do_teleport(M, get_turf(M), (volume / 5), sound_in = 'sound/effects/phasein.ogg') //4 tiles per crystal
+
+/datum/reagent/bluespace/on_mob_life(mob/living/M)
+	if(current_cycle > 10 && prob(10))
+		to_chat(M, "<span class='warning'>You feel unstable...</span>")
+		M.Jitter(2 SECONDS)
+		current_cycle = 1
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 3 SECONDS)
+	return ..()
+
+/mob/living/proc/bluespace_shuffle()
+	do_teleport(src, get_turf(src), 5, sound_in = 'sound/effects/phasein.ogg')

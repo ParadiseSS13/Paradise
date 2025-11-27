@@ -13420,6 +13420,7 @@
 /area/station/hallway/secondary/garden)
 "aXI" = (
 /obj/structure/table/glass,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aXJ" = (
@@ -64745,6 +64746,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"neT" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/poppy,
+/turf/simulated/floor/grass,
+/area/station/maintenance/asmaint2)
 "nfe" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -131893,7 +131899,7 @@ lqd
 clX
 clX
 nbx
-nbx
+neT
 cuQ
 gRe
 gRe
