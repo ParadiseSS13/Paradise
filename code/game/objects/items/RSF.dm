@@ -85,8 +85,8 @@
 	if(!currently_dispensing)
 		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(target, /obj/structure/table) && !isfloorturf(target))
-		to_chat(user, "<span class='warning'>The RSF can only create service items on tables or floors!</span>")
+	if(!istype(target, /obj/structure/table) && !isfloorturf(target) && !ishuman(target))
+		to_chat(user, "<span class='warning'>The RSF can only create service items on tables, floors, or people's hands!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	if(isrobot(user))
@@ -97,8 +97,25 @@
 			return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = get_turf(target)
-	new currently_dispensing(T)
-	playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+	if(!ishuman(target))
+		new currently_dispensing(T)
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	if(do_after_once(user, DEFAULT_ITEM_PUTON_DELAY, target = target))
+		var/mob/living/carbon/human/esteemed_individual = target
+		var/dispensed_item = new currently_dispensing(T)
+		if(esteemed_individual.put_in_hands(dispensed_item))
+			target.visible_message(
+				"<span class='notice'>[user] hands [target] \a [dispensed_item].</span>",
+				"<span class='notice'>[user] hands you \a [dispensed_item].</span>"
+			)
+		else
+			target.visible_message(
+				"<span class='warning'>[user] tries to hand [target] \a [dispensed_item], but it tumbles down onto the floor!</span>",
+				"<span class='warning'>[user] tries to hand you \a [dispensed_item], but it tumbles down onto the floor!</span>"
+			)
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rsf/proc/get_radial_contents()
