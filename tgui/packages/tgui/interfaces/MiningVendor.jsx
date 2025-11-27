@@ -182,7 +182,7 @@ const MiningVendorItemsCategory = (properties) => {
             dmIcon={item.icon}
             dmIconState={item.icon_state}
             disabled={!data.has_id || data.id.points < item.price}
-            tooltip={item.name}
+            tooltip={`${item.name} - ${item.desc}`}
             tooltipPosition="top"
             onClick={() =>
               act('purchase', {
