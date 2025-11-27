@@ -126,7 +126,7 @@
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
 		if(instant || do_after(user, 50 * toolspeed, target = target))
-			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,crayon_color,drawtype,temp)
+			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, crayon_color, drawtype, temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='notice'>You finish drawing [temp].</span>")
 
