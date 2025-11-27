@@ -878,7 +878,7 @@
 	var/chem_volume = reagents.total_volume
 	var/temp_bp = (blood_volume * 0.016) ** 2 // Baseline. At 560u of blood you have a bp of 80
 	if(chem_volume)
-		temp_bp += round(chem_volume * 0.5, 1)
+		temp_bp += round(chem_volume * 0.25, 1)
 
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
@@ -924,13 +924,14 @@
 
 		if(150 to INFINITY)
 			false_pain += rand(5, 15)
-			if(prob(50) && staminaloss < 70)
-				adjustStaminaLoss(10)
+
 			if(prob(5))
 				for(var/obj/item/organ/external/limb in shuffle(bodyparts))
 					if(limb.status & ORGAN_INT_BLEEDING)
 						continue
 					limb.cause_internal_bleeding()
+					break
+
 			// Same as the previous tier of drawbacks but higher chances and amounts
 			if(prob(15))
 				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
