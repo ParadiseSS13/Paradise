@@ -42,5 +42,12 @@
 		controller.queue_behavior(/datum/ai_behavior/drop_item)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
+	if(istype(food_target, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/container = food_target
+		if(!container.reagents.total_volume) // This thing empty.
+			controller.queue_behavior(/datum/ai_behavior/drop_item)
+			controller.clear_blackboard_key(BB_FOOD_TARGET)
+			return SUBTREE_RETURN_FINISH_PLANNING
+
 	controller.queue_behavior(/datum/ai_behavior/consume, BB_FOOD_TARGET, BB_NEXT_HUNGRY)
 	return SUBTREE_RETURN_FINISH_PLANNING
