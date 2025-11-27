@@ -115,7 +115,8 @@
 			var/plasma_level = environment.toxins() / total_moles
 			var/n2o_level = environment.sleeping_agent() / total_moles
 			var/h2_level = environment.hydrogen() / total_moles
-			var/unknown_level = 1 - (o2_level + n2_level + co2_level + plasma_level + n2o_level + h2_level)
+			var/h2o_level = environment.water_vapor() / total_moles
+			var/unknown_level = 1 - (o2_level + n2_level + co2_level + plasma_level + n2o_level + h2_level + h2o_level)
 			results = list(
 				list("entry" = "Pressure", "units" = "kPa", "val" = "[round(pressure,0.1)]", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80),
 				list("entry" = "Temperature", "units" = "C", "val" = "[round(environment.temperature()-T0C,0.1)]", "bad_high" = 35, "poor_high" = 25, "poor_low" = 15, "bad_low" = 5),
@@ -125,6 +126,7 @@
 				list("entry" = "Plasma", "units" = "%", "val" = "[round(plasma_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
 				list("entry" = "Nitrous Oxide", "units" = "%", "val" = "[round(n2o_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
 				list("entry" = "Hydrogen", "units" = "%", "val" = "[round(h2_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
+				list("entry" = "Water Vapor", "units" = "%", "val" = "[round(h2o_level*100,0.1)]", "bad_high" = 100, "poor_high" = 80, "poor_low" = 0, "bad_low" = 0),
 				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level*100,0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
 			)
 
