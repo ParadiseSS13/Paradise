@@ -1063,3 +1063,285 @@
 	drink_name = "Glass of Ginger Ale"
 	drink_desc = "Spicy and fizzy soda."
 	taste_description = "sweet, carbonated ginger"
+
+/datum/reagent/consumable/drink/electrolytes/top_up
+	name = "Top-Up"
+	description = "A sports drink for the busy spessman."
+	id = "top_up"
+	color = "#3c5e8b"
+	drink_icon = "top_up_glass"
+	drink_name = "Glass of Top-Up"
+	drink_desc = "A sports drink for the busy spessman."
+	taste_description = "lemony lectrolytes"
+
+/datum/reagent/consumable/drink/electrolytes/zero_day
+	name = "Zero Day"
+	description = "This beverage keeps leaking and leaking."
+	id = "zero_day"
+	color = "#9dafad"
+	drink_icon = "zero_day_glass"
+	drink_name = "Glass of Zero Day"
+	drink_desc = "A data breach in a glass."
+	taste_description = "half-emptiness"
+	COOLDOWN_DECLARE(drip_cooldown)
+
+/datum/reagent/consumable/drink/electrolytes/zero_day/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/consumable/drink/electrolytes/zero_day/process()
+	if(!..())
+		return
+	if(!istype(holder.my_atom, /obj/item/reagent_containers/iv_bag) && !istype(holder.my_atom, /obj/item/reagent_containers/drinks))
+		return
+	if(!COOLDOWN_FINISHED(src, drip_cooldown))
+		return
+	holder.remove_reagent("zero_day", 1)
+	var/turf/T = get_turf(holder.my_atom)
+	var/drop_type = /obj/effect/decal/cleanable/reagent/drip
+	var/obj/effect/decal/cleanable/reagent/drip/drop = locate() in T
+	if(drop)
+		if(drop.amount < 5)
+			drop.amount++
+			var/image/I = image(drop.icon, drop.random_icon_states)
+			I.icon += drop.basecolor
+			drop.overlays |= I
+			drop.basecolor = color
+			drop.update_icon()
+	else
+		drop = new drop_type(T, color)
+		drop.desc = "Looks like someone spilled their drink."
+		drop.update_icon()
+	COOLDOWN_START(src, drip_cooldown, 2.6 SECONDS)
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip
+	name = "TCP Sip"
+	description = "A non-synthanolic refreshment for synthetics."
+	id = "tcp_sip"
+	color = "#467ae6"
+	drink_icon = "tcp_sip_glass"
+	drink_name = "Glass of TCP Sip"
+	drink_desc = "A non-synthanolic refreshment for synthetics."
+	taste_description = "half-emptiness"
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
+		return ..()
+	metabolization_rate += 3.6 // gets removed from organics very fast
+	if(prob(25))
+		metabolization_rate += 15
+		M.fakevomit()
+	return ..()
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/ginger_beep
+	name = "ginger_beep"
+	description = "A gingery refreshment for synthetics."
+	id = "ginger_beep"
+	color = "#bd994d"
+	drink_icon = "ginger_beep_glass"
+	drink_name = "Glass of Ginger Beep"
+	drink_desc = "A gingery refreshment for synthetics. Fizzy, too."
+	taste_description = "static and spice"
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/cog_a_cola
+	name = "Cog-a-Cola"
+	description = "A non-synthanolic soda for synthetics."
+	id = "cog_a_cola"
+	color = "#7f300b"
+	drink_icon = "cog_a_cola_glass"
+	drink_name = "Glass of Cog-a-Cola"
+	drink_desc = "A non-synthanolic soda for synthetics."
+	taste_description = "sugary bubbles with a hint of oil"
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/electrocharge
+	name = "Electrocharge"
+	description = "A non-synthanolic beverage to keep a synthetic's battery high."
+	id = "electrocharge"
+	color = "#9090a8"
+	drink_icon = "electrocharge_glass"
+	drink_name = "Glass of Electrocharge"
+	drink_desc = "A real charge-up for synthetics."
+	taste_description = "a full battery"
+	COOLDOWN_DECLARE(drink_message_cooldown)
+	COOLDOWN_DECLARE(drink_overcharge_cooldown)
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/electrocharge/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
+	if(!istype(microbattery)) // if there's no microbattery don't bother
+		return ..()
+	if(M.nutrition > NUTRITION_LEVEL_FULL && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
+		do_sparks(2, FALSE, M)
+		M.visible_message(
+			"<span class='notice'>[M] lets off a few sparks.</span>",
+			"<span class='notice'>You feel a little <i>too</i> charged up.</span>",
+			"<span class='notice'>Something fizzles nearby.</span>"
+		)
+		microbattery.receive_damage(2, TRUE) // this drink is not great for you when you're already charged
+		COOLDOWN_START(src, drink_overcharge_cooldown, 30 SECONDS)
+	if(M.nutrition < NUTRITION_LEVEL_WELL_FED)
+		M.nutrition += 1
+	if(M.nutrition < NUTRITION_LEVEL_HUNGRY)
+		metabolization_rate += 0.8 // charging triple means burning through triple
+		M.nutrition += 2
+		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+			to_chat(M, "<span class='notice'>You feel relief surging through your wires!</span>")
+			COOLDOWN_START(src, drink_message_cooldown, 10 MINUTES)
+	return ..()
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/battery_acid
+	name = "Battery Acid"
+	description = "An acidic beverage for synthetics."
+	id = "battery_acid"
+	color = "#d0e7ea"
+	drink_icon = "battery_acid_glass"
+	drink_name = "Glass of Battery Acid"
+	drink_desc = "So acidic, it forms an acid like its namesake on the rim of the glass."
+	taste_description = "fried wires"
+
+/datum/reagent/consumable/drink/electrolytes/tcp_sip/processor_punch
+	name = "Processor Punch"
+	description = "A sweetened, non-synthanolic, synthetic sip."
+	id = "processor_punch"
+	color = "#88242d"
+	drink_icon = "processor_punch_glass"
+	drink_name = "Glass of Processor Punch"
+	drink_desc = "A sweetened, non-synthanolic, synthetic sip."
+	taste_description = "a punch to the processors"
+
+/datum/reagent/consumable/drink/bubbly_beep
+	name = "Bubbly Beep"
+	description = "A squeaky-clean, foamy, synthetic beverage."
+	id = "bubbly_beep"
+	color = "#2984d1"
+	drink_icon = "bubbly_beep_glass"
+	drink_name = "Glass of Bubbly Beep"
+	drink_desc = "The cleanest, bubbliest drink on the station."
+	taste_description = "decontamination"
+	process_flags = SYNTHETIC | ORGANIC
+
+/datum/reagent/consumable/drink/bubbly_beep/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		metabolization_rate += 3.6 // gets removed from organics very fast
+		if(prob(50))
+			metabolization_rate += 30
+			M.fakevomit()
+		return ..()
+	if(/obj/effect/decal/cleanable in M)
+		qdel(pick(/obj/effect/decal/cleanable/ in M))
+	else
+		M.clean_blood()
+		to_chat(M, "<span class='notice'>The foam cleans you as it bubbles through your components.</span>")
+	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
+	return ..()
+
+/datum/reagent/consumable/drink/tin_and_tonic
+	name = "Tin and Tonic"
+	description = "A good sip for a synthetic curious about quinine."
+	id = "tin_and_tonic"
+	color = "#61a6a8"
+	drink_icon = "tin_and_tonic_glass"
+	drink_name = "Glass of Tin and Tonic"
+	drink_desc = "A good sip for a synthetic curious about quinine."
+	taste_description = "smoothly-running processors"
+	process_flags = SYNTHETIC | ORGANIC
+
+/datum/reagent/consumable/drink/tin_and_tonic/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		metabolization_rate += 3.6 // gets removed from organics very fast
+		return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBrainLoss(-0.5, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/salt_and_battery
+	name = "Salt and Battery"
+	description = "A particularly offensive beverage for synthetics."
+	id = "salt_and_battery"
+	color = "#959595"
+	drink_icon = "salt_and_battery_glass"
+	drink_name = "Glass of Salt and Battery"
+	drink_desc = "Looks like it'll charge you up, but really it'll beat you down."
+	taste_description = "assault to the batteries"
+	process_flags = SYNTHETIC | ORGANIC
+
+/datum/reagent/consumable/drink/salt_and_battery/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		metabolization_rate += 3.6 // gets removed from organics very fast
+		if(prob(15))
+			metabolization_rate += 15
+			M.fakevomit()
+		return ..()
+	var/datum/antagonist/mindflayer/flayer = M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer && (flayer.total_swarms_gathered > 0)) // Inherited from conductive lube
+		M.Jitter(15 SECONDS_TO_JITTER)
+		if(prob(10))
+			do_sparks(2, FALSE, M)
+	M.bodytemperature += 5
+	if(prob(20))
+		metabolization_rate += 1.6 // if it kicks your butt, make it kick some of the drink out too.
+		M.adjustBruteLoss(2, FALSE)
+		playsound(get_turf(M), 'sound/effects/hit_punch.ogg', 60, TRUE)
+		var/beat_verbs = pick("assaults","batters")
+		M.Jitter(0.5 SECONDS)
+		M.visible_message(
+			"<span class='notice'>[M] is battered by an unseen assailant!</span>",
+			"<span class='notice'>The beverage [beat_verbs] you!</span>",
+			"<span class='warning'>You hear empty punches against metal!</span>"
+		)
+		if(prob(25))
+			M.KnockDown(2 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/drink/soft_reset
+	name = "Soft Reset"
+	description = "Maybe your systems could use this once in a while."
+	id = "soft_reset"
+	color = "#1f3a46"
+	drink_icon = "soft_reset_glass"
+	drink_name = "Glass of Soft Reset"
+	drink_desc = "Have you tried turning it off and back on again?"
+	taste_description = "a little reboot"
+	process_flags = SYNTHETIC | ORGANIC
+	COOLDOWN_DECLARE(reboot_cooldown)
+
+/datum/reagent/consumable/drink/soft_reset/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		metabolization_rate += 3.6 // gets removed from organics very fast
+		if(prob(50))
+			metabolization_rate += 30
+			M.fakevomit()
+		return ..()
+	if(prob(10))
+		for(var/obj/effect/decal/cleanable/C in M)
+			qdel(C)
+		M.clean_blood()
+		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
+	var/mob/living/carbon/Mc = M
+	if(istype(Mc))
+		Mc.wetlevel -= 2
+	M.germ_level -= min(volume*20, M.germ_level)
+	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
+		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		M.Paralyse(3 SECONDS)
+		M.Drowsy(10 SECONDS)
+		metabolization_rate += 2.6 // get rid of it faster after rebooting
+		COOLDOWN_START(src, reboot_cooldown, 10 MINUTES)
+	if(prob(50))
+		M.AdjustConfused(-5 SECONDS)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R == src)
+			M.reagents.remove_reagent(R.id, 1)
+			continue
+		if(R.id == "ultralube" || R.id == "lube")
+			// Flushes lube and ultra-lube even faster than other chems
+			M.reagents.remove_reagent(R.id, 5)
+		else
+			M.reagents.remove_reagent(R.id, 2)
+	return ..()
