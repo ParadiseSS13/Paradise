@@ -282,6 +282,11 @@
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
 
+/datum/ruleset/implied/roundstart_pre_setup()
+	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		banned_jobs += protected_jobs	
+
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
 	antagonist_type = /datum/antagonist/mindflayer
