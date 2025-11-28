@@ -14,7 +14,6 @@
 	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
-	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	bodyflags = BALD | SHAVED
 	reagent_tag = PROCESS_ORG
@@ -36,6 +35,8 @@
 		"realizes the existential problem of being made out of plasma!",
 		"shows their true colors, which happens to be the color of plasma!")
 
+	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/plasmaman,
 		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,

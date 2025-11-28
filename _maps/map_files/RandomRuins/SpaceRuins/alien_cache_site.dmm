@@ -6,61 +6,61 @@
 /obj/item/clothing/under/rank/cargo/expedition/skirt,
 /obj/item/clothing/under/rank/cargo/expedition/skirt,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "dV" = (
 /obj/structure/lightable/bonfire,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "ec" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "en" = (
 /obj/structure/table/abductor,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "et" = (
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site/cache_room)
+/area/ruin/space/powered/alien_cache_site/cache_room)
 "eF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/pickaxe,
 /obj/item/weldingtool/largetank,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "fA" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/airlock/abductor/secure,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "gf" = (
 /obj/effect/spawner/random/glowstick,
 /obj/structure/table/abductor,
 /obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "hj" = (
 /obj/effect/spawner/random/snacks,
 /obj/effect/spawner/random/snacks,
 /obj/effect/spawner/random/snacks,
 /obj/structure/table/wood,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "jZ" = (
 /obj/item/reagent_containers/glass/bottle/nutrient/empty,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "kY" = (
 /obj/effect/simon_says,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "ml" = (
 /obj/structure/table/abductor,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "mQ" = (
 /turf/space,
 /area/space)
@@ -69,19 +69,19 @@
 /obj/effect/spawner/random/food_or_drink,
 /obj/structure/table/wood,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "pX" = (
 /obj/item/assembly/igniter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "uD" = (
 /obj/structure/bed/abductor,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "wy" = (
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "zB" = (
 /obj/structure/closet,
 /obj/item/clothing/under/rank/cargo/expedition,
@@ -95,49 +95,49 @@
 	tracking = 1
 	},
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "Bl" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "CK" = (
 /turf/simulated/wall/indestructible/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "Do" = (
 /obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "Ey" = (
 /obj/machinery/alien_cache,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site/cache_room)
+/area/ruin/space/powered/alien_cache_site/cache_room)
 "Ha" = (
 /turf/simulated/wall/indestructible/abductor,
-/area/ruin/powered/alien_cache_site/cache_room)
+/area/ruin/space/powered/alien_cache_site/cache_room)
 "JC" = (
 /obj/structure/curtain/open,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "LK" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/abductor{
 	desc = "Effectively impervious to conventional methods of destruction. It looks like someone tried to break it, but failed"
 	},
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "TW" = (
 /turf/simulated/wall/mineral/wood,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "Yg" = (
 /obj/machinery/door/airlock/abductor,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 "YA" = (
 /obj/effect/spawner/random/engineering/toolbox,
 /obj/structure/table/abductor,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
+/area/ruin/space/powered/alien_cache_site)
 
 (1,1,1) = {"
 mQ

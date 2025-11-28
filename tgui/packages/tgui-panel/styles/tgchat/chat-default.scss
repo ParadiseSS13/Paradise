@@ -514,7 +514,7 @@ h2.alert {
 
 .mind_control {
   color: #a00d6f;
-  font-size: 3;
+  font-size: 120%;
   font-weight: bold;
   font-style: italic;
 }
@@ -745,6 +745,10 @@ span.body .coderesponses {
 
 .agent_b {
   color: teal;
+}
+
+.hydrogen {
+  color: #997379;
 }
 
 // MARK: Boxed messages

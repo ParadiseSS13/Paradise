@@ -21,6 +21,14 @@
 	. = ..()
 	flick(icon_state + "_anim", src)
 
+/atom/movable/screen/ghost/respawn_char
+	name = "Respawn as new character"
+	icon_state = "respawn"
+
+/atom/movable/screen/ghost/respawn_char/Click()
+	var/mob/dead/observer/G = usr
+	G.respawn_character()
+
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"
 	icon_state = "teleport"
@@ -81,6 +89,10 @@
 /datum/hud/ghost/New(mob/owner)
 	..()
 	var/atom/movable/screen/using
+
+	using = new /atom/movable/screen/ghost/respawn_char()
+	using.screen_loc = UI_GHOST_RESPAWN_CHAR
+	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/orbit()
 	using.screen_loc = UI_GHOST_ORBIT

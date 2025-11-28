@@ -62,10 +62,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define EVENT_LEVEL_MUNDANE 1
-#define EVENT_LEVEL_MODERATE 2
-#define EVENT_LEVEL_MAJOR 3
-
 #define JANUARY		1
 #define FEBRUARY	2
 #define MARCH		3
@@ -191,24 +187,25 @@
 #define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		50
-#define MISC_LAYER				49 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
-#define WING_LAYER				48
-#define WING_UNDERLIMBS_LAYER	47
-#define MUTANTRACE_LAYER		46
-#define TAIL_UNDERLIMBS_LAYER	45	//Tail split-rendering.
-#define LIMBS_LAYER				44
-#define MARKINGS_LAYER			43
-#define INTORGAN_LAYER			42
-#define UNDERWEAR_LAYER			41
-#define MUTATIONS_LAYER			40
-#define H_DAMAGE_LAYER			39
-#define UNIFORM_LAYER			38
-#define ID_LAYER				37
-#define HANDS_LAYER				36	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				35
-#define L_FOOT_BLOOD_LAYER		34	// Blood overlay separation Left-Foot
-#define R_FOOT_BLOOD_LAYER		33	// Blood overlay separation Right-Foot
+#define EYES_OVERLAY_LAYER		51
+#define MISC_LAYER				50 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
+#define WING_LAYER				49
+#define WING_UNDERLIMBS_LAYER	48
+#define MUTANTRACE_LAYER		47
+#define TAIL_UNDERLIMBS_LAYER	46	//Tail split-rendering.
+#define LIMBS_LAYER				45
+#define MARKINGS_LAYER			44
+#define INTORGAN_LAYER			43
+#define UNDERWEAR_LAYER			42
+#define MUTATIONS_LAYER			41
+#define H_DAMAGE_LAYER			40
+#define UNIFORM_LAYER			39
+#define ID_LAYER				38
+#define HANDS_LAYER				37	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				36
+#define L_FOOT_BLOOD_LAYER		35	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		34	// Blood overlay separation Right-Foot
+#define HAND_INTORGAN_LAYER		33
 #define GLOVES_LAYER			32
 #define L_HAND_BLOOD_LAYER		31	// Blood overlay separation Left-Hand
 #define R_HAND_BLOOD_LAYER		30	// Blood overlay separation Right-Hand
@@ -241,7 +238,7 @@
 #define HALO_LAYER				3	//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				2	//If you're on fire
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			50
+#define TOTAL_LAYERS			51
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -439,7 +436,7 @@
 #define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 70
+#define SQL_VERSION 71
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -544,6 +541,7 @@
 #define LINDA_SPAWN_AGENT_B 	(1<<7)
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
+#define LINDA_SPAWN_HYDROGEN	(1<<10)
 
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
@@ -634,7 +632,6 @@
 // These used to be integer values but they were never used numerically or even
 // stored in SSblackbox using their numeric values, and constantly converting
 // them to the actual terror name was redundant and annoying
-#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
 #define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
 #define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
 #define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
@@ -785,3 +782,7 @@ do { \
 #define DECAL_PAINTER_CATEGORY_THICK "Thick Lines"
 #define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
 #define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"
+
+#define ABSTRACT_TYPE_DESC "If you see this, something broke. Please contact a coder or write a bug report on the Github."
+
+#define DECAL_PAINTER_CATEGORY_TILES "Tiles"

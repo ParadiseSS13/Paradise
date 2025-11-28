@@ -647,11 +647,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/mob_spawner/goliath
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mobtype = /mob/living/basic/mining/goliath
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	if(prob(1))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
+		mobtype = /mob/living/basic/mining/goliath/ancient
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion

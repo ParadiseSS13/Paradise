@@ -65,6 +65,17 @@
 /obj/item/shield/riot/buckler/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (10 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
+/obj/item/shield/riot/bone
+	name = "bone shield"
+	desc = "A primitive yet durable shield made from bone."
+	icon_state = "bone_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=4"
+	resistance_flags = FLAMMABLE
+
+/obj/item/shield/riot/bone/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 3, _stamina_coefficient = 0.6, _parryable_attack_types = ALL_ATTACK_TYPES)
+
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
@@ -83,7 +94,7 @@
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
 			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")

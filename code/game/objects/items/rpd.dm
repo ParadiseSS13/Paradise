@@ -22,16 +22,26 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
+	new_attack_chain = TRUE
 	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
-	var/iconrotation = 0 //Used to orient icons and pipes
-	var/mode = RPD_ATMOS_MODE //Disposals, atmospherics, etc.
-	var/pipe_category = RPD_ATMOS_PIPING //For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
-	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
-	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
+	/// Used to orient icons and pipes.
+	var/iconrotation = 0
+	/// Disposals, atmospherics, etc.
+	var/mode = RPD_ATMOS_MODE
+	/// For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices.
+	var/pipe_category = RPD_ATMOS_PIPING
+	/// What kind of atmos pipe are we trying to lay?
+	var/whatpipe = PIPE_SIMPLE_STRAIGHT
+	/// What kind of disposals pipe are we trying to lay?
+	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT
+	/// What kind of transit tube are we trying to lay?
 	var/whatttube = PIPE_TRANSIT_TUBE
+	/// Cooldown on RPD use.
 	var/spawndelay = RPD_COOLDOWN_TIME
+	/// Time taken to drill a borehole before the pipe can be laid.
 	var/walldelay = RPD_WALLBUILD_TIME
+	/// Can this RPD lay pipe on non-adjacent turfs?
 	var/ranged = FALSE
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
@@ -209,7 +219,9 @@
 		return
 // TGUI stuff
 
-/obj/item/rpd/attack_self__legacy__attackchain(mob/user)
+/obj/item/rpd/activate_self(mob/user)
+	if(..())
+		return
 	ui_interact(user)
 
 /obj/item/rpd/ui_state(mob/user)
@@ -304,67 +316,71 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
-/obj/item/rpd/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	..()
-	if(isstorage(target))
-		var/obj/item/storage/S = target
-		if(!S.can_be_inserted(src, stop_messages = TRUE))
-			return
-	if(loc != user)
-		return
-	if(!proximity && !ranged)
-		return
+/obj/item/rpd/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ranged)
+		return NONE
+
+	if(handle_atom_interaction(target, user, ranged))
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
+
+/obj/item/rpd/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(handle_atom_interaction(target, user, ranged))
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
+
+/obj/item/rpd/proc/handle_atom_interaction(atom/target, mob/living/user, ranged)
+	if(isstorage(target) || ismodcontrol(target))
+		return NONE
+
+	if(ismob(target))
+		return NONE
+
 	if(world.time < lastused + spawndelay)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = get_turf(target)
-
 	if(!T)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(target != T)
+		if(target.loc != T) // Avoids placing pipes when clicking onto something that's inside something. Like clicking on your PDA on UI.
+			return ITEM_INTERACT_COMPLETE
+
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
 		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
 			if(ranged)
-				user.Beam(T, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-			return
+				user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
+			return ITEM_INTERACT_COMPLETE
 
 	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
-
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage())
 			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
-	if(ranged) //woosh beam if bluespaced at a distance
+	if(ranged) //woosh beam!
 		if(get_dist(src, T) >= (user.client.maxview() / 2))
-			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
+			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console (attempted range exploit).")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
-			return
+			to_chat(user, "<span class='warning'>ERROR: \The [T] is out of [src]'s range!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 		if(!(user in hearers(12, T))) // Checks if user can hear the target turf, cause viewers doesnt work for it.
 			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	T.rpd_act(user, src)
-
-/obj/item/rpd/attack_obj__legacy__attackchain(obj/O, mob/living/user)
-	if(user.a_intent != INTENT_HARM)
-		if(istype(O, /obj/machinery/atmospherics/pipe))
-			return
-		else if(istype(O, /obj/structure/disposalconstruct))
-			return
-		else if(istype(O, /obj/structure/transit_tube_construction))
-			return
-
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME

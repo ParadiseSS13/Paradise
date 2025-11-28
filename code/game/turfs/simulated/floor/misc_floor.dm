@@ -156,7 +156,7 @@
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
-	icon_state = "floor"
+	icon_state = "tile_standard"
 
 /turf/simulated/floor/lubed/Initialize(mapload)
 	. = ..()

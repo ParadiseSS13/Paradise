@@ -1,4 +1,4 @@
-//Hoods for winter coats and chaplain hoodie etc
+//Hoods for winter coats and dark robes etc
 
 /obj/item/clothing/suit/hooded
 	actions_types = list(/datum/action/item_action/toggle)

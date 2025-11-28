@@ -6,22 +6,19 @@
 	if(hide_examine)
 		ADD_TRAIT(src, TRAIT_HIDE_EXAMINE, INNATE_TRAIT)
 
-/obj/item/clothing/glasses/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/item/clothing/glasses/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
-	var/mob/living/carbon/human/H = user
 
-	// Adding prescription glasses
-	if(istype(I, /obj/item/clothing/glasses/regular))
+	if(istype(used, /obj/item/clothing/glasses/regular))
 		if(prescription)
-			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
-			return
-		H.drop_item_to_ground(I)
-		upgrade_prescription(I)
-		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
-
-	// Removing prescription glasses
-	H.update_nearsighted_effects()
+			to_chat(user, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+		user.drop_item_to_ground(used)
+		upgrade_prescription(used)
+		to_chat(user, "<span class='notice'>You fit [src] with lenses from [used].</span>")
+		user.update_nearsighted_effects()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/glasses/proc/upgrade_prescription(obj/item/I)
 	if(!I)
@@ -145,7 +142,7 @@
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
-	icon_state = "purple"
+	icon_state = "science"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
@@ -161,14 +158,14 @@
 /obj/item/clothing/glasses/science/night
 	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
-	icon_state = "nvpurple"
+	icon_state = "nvscience"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
-	icon_state = "purple"
+	icon_state = "janihudgoggles"
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/night
@@ -303,7 +300,9 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/glasses/sunglasses/noir/activate_self(mob/user)
+	if(..())
+		return
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
@@ -320,7 +319,9 @@
 	var/punused = FALSE
 	actions_types = list(/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/glasses/sunglasses/yeah/activate_self(mob/user)
+	if(..())
+		return
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
@@ -376,7 +377,9 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
-/obj/item/clothing/glasses/welding/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/glasses/welding/activate_self(mob/user)
+	if(..())
+		return
 	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/welding/superior

@@ -5,7 +5,6 @@
 	icon_state = "solgov"
 	worn_icon = 'icons/mob/clothing/under/solgov.dmi'
 	inhand_icon_state = "ro_suit"
-	item_color = "solgov"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/under/solgov.dmi')
@@ -14,25 +13,21 @@
 	name = "\improper MARSOC uniform"
 	desc = "A comfortable and durable combat uniform worn by marines of the Trans-Solar Federation's Marine Special Operations Command."
 	icon_state = "solgovelite"
-	item_color = "solgovelite"
 
 /obj/item/clothing/under/solgov/command
 	name = "\improper TSF officer's uniform"
 	desc = "A comfortable and durable combat uniform worn by junior officers of the Trans-Solar Marine Corps."
 	icon_state = "solgovc"
-	item_color = "solgovc"
 
 /obj/item/clothing/under/solgov/command/elite
 	name = "\improper MARSOC officer's uniform"
 	desc = "A comfortable and durable combat uniform worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. This one has additional insignia on its shoulders and cuffs."
 	icon_state = "solgovcelite"
-	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/rep
 	name = "\improper TSF representative's uniform"
 	desc = "A formal uniform worn by the diplomatic representatives of the Trans-Solar Federation."
 	icon_state = "solgovr"
-	item_color = "solgovr"
 
 /obj/item/clothing/under/solgov/viper
 	name = "\improper Federation infiltrator uniform"

@@ -13,7 +13,8 @@
 	access = list(
 		ACCESS_ATMOSPHERICS,
 		ACCESS_CE,
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP,
 		ACCESS_ENGINE,
 		ACCESS_EVA,
@@ -50,6 +51,7 @@
 	l_ear = /obj/item/radio/headset/heads/ce
 	id = /obj/item/card/id/ce
 	l_pocket = /obj/item/t_scanner
+	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -75,7 +77,8 @@
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP,
 		ACCESS_ENGINE,
 		ACCESS_EVA,
@@ -101,6 +104,7 @@
 	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
+	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/engineering
 
 	backpack = /obj/item/storage/backpack/industrial
@@ -124,7 +128,8 @@
 	selection_color = "#fff5cc"
 	access = list(
 		ACCESS_ATMOSPHERICS,
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_ENGINE,
 		ACCESS_EVA,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAINT_TUNNELS,
@@ -142,6 +147,7 @@
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
+	r_pocket = /obj/item/storage/bag/construction
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng

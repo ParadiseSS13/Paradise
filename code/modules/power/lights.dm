@@ -613,7 +613,7 @@
 		if(spraycan.capped)
 			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
 			return ITEM_INTERACT_COMPLETE
-		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.colour, 2, 4)), hex2num(copytext(spraycan.colour, 4, 6)), hex2num(copytext(spraycan.colour, 6, 8)))
+		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.crayon_color, 2, 4)), hex2num(copytext(spraycan.crayon_color, 4, 6)), hex2num(copytext(spraycan.crayon_color, 6, 8)))
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
 		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
@@ -998,6 +998,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update()
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
@@ -1063,12 +1064,6 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			desc = "A broken [name]."
-
-
-/obj/item/light/New()
-	..()
-	update()
-
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.

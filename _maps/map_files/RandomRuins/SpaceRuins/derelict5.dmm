@@ -24,6 +24,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"dm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "dz" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/ore,
@@ -1644,7 +1650,7 @@ sd
 xQ
 Zv
 rc
-vE
+dm
 Se
 Qx
 Dt

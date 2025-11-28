@@ -3,7 +3,7 @@
 	name = "emergency response team helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility."
 	icon_state = "hardsuit0-ert_commander"
-	item_color = "ert_commander"
+	base_icon_state = "ert_commander"
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/portable/camera
@@ -87,7 +87,7 @@
 	name = "emergency response team security helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has red Security stripes."
 	icon_state = "hardsuit0-ert_security"
-	item_color = "ert_security"
+	base_icon_state = "ert_security"
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
@@ -107,7 +107,7 @@
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has orange Engineering stripes, and additional lead plating for improved radiation protection."
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	icon_state = "hardsuit0-ert_engineer"
-	item_color = "ert_engineer"
+	base_icon_state = "ert_engineer"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
@@ -115,7 +115,7 @@
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-gammaengineer"
-	item_color = "gammaengineer"
+	base_icon_state = "gammaengineer"
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
@@ -138,7 +138,7 @@
 	name = "emergency response team medical helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one's got white Medical stripes."
 	icon_state = "hardsuit0-ert_medical"
-	item_color = "ert_medical"
+	base_icon_state = "ert_medical"
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
@@ -156,7 +156,7 @@
 	name = "emergency response team janitor helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has purple Janitorial stripes."
 	icon_state = "hardsuit0-ert_janitor"
-	item_color = "ert_janitor"
+	base_icon_state = "ert_janitor"
 
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
@@ -169,7 +169,7 @@
 	name = "paranormal response unit helmet"
 	desc = "An environmentally-sealed combat helmet covered in runes and warding sigils. The internal HUD is fairly outdated, and has Latin as a selectable language."
 	icon_state = "hardsuit0-ert_paranormal"
-	item_color = "ert_paranormal"
+	base_icon_state = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -204,7 +204,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	desc = "A helmet worn by marines of the Trans-Solar Federation's Marine Special Operations Command. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovmarine"
-	item_color = "solgovmarine"
+	base_icon_state = "solgovmarine"
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
@@ -219,7 +219,7 @@
 	name = "\improper MARSOC officer's helmet"
 	desc = "A helmet worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovcommand"
-	item_color = "solgovcommand"
+	base_icon_state = "solgovcommand"
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	name = "\improper MARSOC officer's hardsuit"

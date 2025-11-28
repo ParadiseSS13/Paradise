@@ -207,7 +207,6 @@
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
-	item_color = "hope"
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 

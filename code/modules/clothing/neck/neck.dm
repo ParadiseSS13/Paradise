@@ -6,23 +6,19 @@
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
 	icon_state = "bluetie"
-	item_color = "bluetie"
 
 /obj/item/clothing/neck/tie/red
 	name = "red tie"
 	icon_state = "redtie"
-	item_color = "redtie"
 
 /obj/item/clothing/neck/tie/black
 	name = "black tie"
 	icon_state = "blacktie"
-	item_color = "blacktie"
 
 /obj/item/clothing/neck/tie/horrible
 	name = "horrible tie"
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
-	item_color = "horribletie"
 
 /obj/item/clothing/neck/tie/examine(mob/user)
 	. = ..()
@@ -41,7 +37,6 @@
 	name = "stethoscope"
 	desc = "An outdated medical apparatus, used to get a rough idea of the condition of the heart and lungs. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
-	item_color = "stethoscope"
 
 /obj/item/clothing/neck/stethoscope/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!ishuman(M) || !isliving(user))
@@ -93,3 +88,25 @@
 				lung_sound = "gurgling"
 				color = "warning"
 		to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+
+/obj/item/clothing/neck/neckerchief
+	name = "white neckerchief"
+	desc = "A neatly tied neckerchief for the service professional."
+	icon_state = "neckerchief_white"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi'
+	)
+
+/obj/item/clothing/neck/neckerchief/black
+	name = "black neckerchief"
+	icon_state = "neckerchief_black"
+
+/obj/item/clothing/neck/neckerchief/green
+	name = "green neckerchief"
+	icon_state = "neckerchief_green"
+
+/obj/item/clothing/neck/neckerchief/red
+	name = "red neckerchief"
+	icon_state = "neckerchief_red"

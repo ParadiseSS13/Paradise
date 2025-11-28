@@ -79,6 +79,11 @@
 	pixel_x = -224
 	pixel_y = -224
 
+/obj/effect/temp_visual/mining_overlay/Destroy()
+	for(var/turf/location in vis_locs)
+		location.vis_contents -= src // safety
+	return ..()
+
 /obj/effect/temp_visual/mining_overlay/Initialize(mapload)
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)

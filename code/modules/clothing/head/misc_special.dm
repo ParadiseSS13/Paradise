@@ -25,6 +25,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	resistance_flags = FIRE_PROOF
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -138,7 +139,8 @@
 	name = "carved pumpkin"
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
-	item_color = "pumpkin"
+	hat_color = "pumpkin"
+	icon_monitor = null
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -151,16 +153,17 @@
 	name = "carved blumpkin"
 	desc = "A very blue jack o' lantern! Believed to ward off vengeful chemists."
 	icon_state = "hardhat0_blumpkin"
-	item_color = "blumpkin"
+	hat_color = "blumpkin"
 	light_color = "#76ff8e"
 
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"
 	desc = "Some fake antlers and a very fake red nose."
 	icon_state = "hardhat0_reindeer"
-	item_color = "reindeer"
+	hat_color = "reindeer"
 	armor = null
 	brightness_on = 1 //luminosity when on
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
 /*
@@ -171,6 +174,7 @@
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
 	var/icon/mob
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)

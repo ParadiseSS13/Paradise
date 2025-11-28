@@ -84,9 +84,10 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
+	var/spray_divisor = 1 / clamp(round(get_dist_euclidian(get_turf(A), get_turf(src))), 1, spray_currentrange)
 	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
 	chem_puff.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
+	reagents.trans_to(chem_puff, amount_per_transfer_from_this, spray_divisor)
 	chem_puff.icon += mix_color_from_reagents(chem_puff.reagents.reagent_list)
 
 	var/datum/move_loop/our_loop = GLOB.move_manager.move_towards_legacy(chem_puff, A, 3 DECISECONDS, timeout = spray_currentrange * 3 DECISECONDS, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)

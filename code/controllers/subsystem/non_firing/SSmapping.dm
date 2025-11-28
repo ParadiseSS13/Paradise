@@ -8,12 +8,18 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// What map was used last round?
 	var/datum/map/last_map
+	/// The trader shuttle to load at Centcom in late_mapping.
+	var/datum/map_template/shuttle/trader_shuttle_id = /datum/map_template/shuttle/trader/synthetic
+	/// The Gamma Armory shuttle to load at Centcom in late_mapping.
+	var/gamma_armory_shuttle_id = "gamma_armory_base"
 	/// List of all areas that can be accessed via IC means
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
+	/// Types of areas that exist on the station this shift
+	var/list/existing_station_areas_types
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
@@ -155,6 +161,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
+	existing_station_areas_types = list()
 	for(var/area/AR as anything in all_areas)
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
@@ -163,6 +170,7 @@ SUBSYSTEM_DEF(mapping)
 		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
+			existing_station_areas_types += AR.type
 		CHECK_TICK
 
 	// World name

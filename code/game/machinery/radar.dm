@@ -112,8 +112,8 @@
 	if(dont_announce)
 		return
 
-	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["3"]
-	var/next_hit = SSweather.next_hit_by_zlevel["3"]
+	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["[z]"]
+	var/next_hit = SSweather.next_hit_by_zlevel["[z]"]
 	var/next_difference = next_hit - world.time
 	var/difference_rounded = DisplayTimeText(max(1, next_difference))
 
@@ -121,16 +121,16 @@
 		return
 	if(accuracy_coeff >= 4) //perfect accuracy
 		if(next_difference <= (3 MINUTES))
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 	else if(prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
 		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm.</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = FALSE
 		else
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 

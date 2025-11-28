@@ -81,16 +81,16 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "am" = (
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "an" = (
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "ao" = (
@@ -120,7 +120,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/structure/flora/ausbushes/leafybush,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "av" = (
@@ -140,9 +140,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "ay" = (
 /turf/simulated/floor/plasteel,
@@ -157,9 +155,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aA" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -167,7 +163,7 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "aC" = (
@@ -182,9 +178,7 @@
 	name = "Bio Containment"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aE" = (
 /obj/machinery/shieldwallgen{
@@ -217,9 +211,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/pool/spaceloot/zoo,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aH" = (
 /obj/structure/cable{
@@ -233,9 +225,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aJ" = (
 /obj/machinery/shieldwallgen{
@@ -260,9 +250,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "aL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aM" = (
 /obj/structure/cable{
@@ -273,9 +261,7 @@
 "aN" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aO" = (
 /obj/structure/chair/office{
@@ -287,9 +273,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 /obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aQ" = (
 /obj/structure/window/reinforced{
@@ -301,9 +285,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aS" = (
 /obj/machinery/power/apc/worn_out/directional/west,
@@ -313,9 +295,7 @@
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aT" = (
 /obj/structure/cable{
@@ -327,9 +307,7 @@
 /obj/structure/rack,
 /obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aU" = (
 /obj/structure/rack,
@@ -338,21 +316,15 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aV" = (
 /obj/machinery/smartfridge/secure/chemistry,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aW" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aX" = (
 /obj/structure/table/reinforced,
@@ -370,32 +342,24 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aY" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/pool/spaceloot/zoo,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aZ" = (
 /obj/structure/table/reinforced,
 /obj/item/cultivator,
 /obj/item/shovel,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "ba" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bb" = (
 /obj/machinery/door/airlock/hatch{
@@ -418,9 +382,7 @@
 /area/ruin/space/unpowered)
 "be" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bf" = (
 /obj/machinery/power/smes/magical{
@@ -431,31 +393,23 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bg" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bh" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bi" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack,
 /obj/item/reagent_containers/glass/bottle/mutagen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bj" = (
 /obj/structure/table/reinforced,
@@ -467,35 +421,25 @@
 /obj/item/cautery,
 /obj/item/circular_saw,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bk" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bl" = (
 /obj/machinery/computer/operating,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bm" = (
 /obj/structure/closet/wardrobe/toxins_white,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
 /obj/item/food/carrotfries,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bo" = (
 /obj/machinery/shieldwallgen{
@@ -518,9 +462,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/green,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bq" = (
 /obj/item/stack/cable_coil/cut,
@@ -537,9 +479,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bs" = (
 /obj/structure/cable{
@@ -593,16 +533,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bC" = (
 /obj/structure/alien/weeds/node,

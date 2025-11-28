@@ -15,10 +15,13 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ei" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "eI" = (
 /obj/effect/turf_decal/delivery/white/partial,
@@ -45,10 +48,13 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "hM" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -79,18 +85,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "kK" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "ls" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "lw" = (
 /obj/structure/table,
@@ -146,10 +154,10 @@
 /obj/item/reagent_containers/glass/bottle/oculine{
 	pixel_x = -9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "nq" = (
 /obj/structure/closet/crate,
@@ -158,29 +166,29 @@
 /area/ruin/space/powered)
 "nD" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "ov" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "oy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding"
-	},
+/obj/effect/turf_decal/yellow_siding,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "rK" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "rV" = (
 /obj/effect/spawner/random/loot_crate,
@@ -198,9 +206,7 @@
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "sB" = (
 /obj/machinery/cooking/oven,
@@ -208,9 +214,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "sZ" = (
 /obj/structure/table,
@@ -256,10 +261,14 @@
 /obj/item/id_decal/gold,
 /obj/item/stack/spacecash/c200,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "wu" = (
 /obj/effect/turf_decal/delivery/white/partial{
@@ -272,10 +281,14 @@
 	dir = 1
 	},
 /obj/item/flag/species/nian,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "xB" = (
 /obj/machinery/light/small{
@@ -289,9 +302,8 @@
 	},
 /area/ruin/space/powered)
 "xJ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "zd" = (
 /obj/structure/chair/office/dark{
@@ -311,10 +323,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "zV" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "Aa" = (
 /obj/structure/rack,
@@ -341,9 +353,7 @@
 /area/ruin/space/powered)
 "Br" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "BE" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -357,10 +367,13 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Cj" = (
 /obj/effect/turf_decal/delivery/white/partial{
@@ -376,9 +389,7 @@
 	dir = 1
 	},
 /obj/structure/railing/cap,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "EW" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -386,18 +397,23 @@
 /area/ruin/space/powered)
 "EZ" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Fl" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "Fm" = (
 /obj/structure/table/reinforced,
@@ -407,9 +423,7 @@
 	},
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "Fw" = (
 /obj/machinery/door_control{
@@ -427,9 +441,11 @@
 /obj/machinery/computer/library{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "HX" = (
 /obj/item/reagent_containers/drinks/bottle/vodka,
@@ -441,9 +457,8 @@
 	pixel_y = 7
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "Ij" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -459,9 +474,7 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "Jw" = (
 /obj/structure/rack,
@@ -502,9 +515,8 @@
 /obj/machinery/kitchen_machine/microwave{
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered)
 "Kv" = (
 /obj/structure/shuttle/engine/heater{
@@ -523,9 +535,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered)
 "La" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "LW" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -534,10 +544,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Md" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
+/obj/effect/turf_decal/yellow_siding{
 	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Mm" = (
 /obj/structure/railing{
@@ -556,10 +566,10 @@
 	dir = 4;
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "MY" = (
 /obj/effect/turf_decal/delivery/white/partial{
@@ -581,9 +591,7 @@
 /obj/structure/railing/cap{
 	pixel_x = -21
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "Oc" = (
 /obj/machinery/light/small{
@@ -616,9 +624,7 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "Pn" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -627,10 +633,14 @@
 /area/ruin/space/powered)
 "PE" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Qe" = (
 /obj/effect/turf_decal/delivery/white/partial{
@@ -644,10 +654,14 @@
 "QM" = (
 /obj/structure/railing,
 /obj/item/flag/ussp,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "caution"
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Sp" = (
 /obj/structure/largecrate,
@@ -682,9 +696,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/blood/maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "XB" = (
 /obj/structure/table,
@@ -701,10 +713,10 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 
 (1,1,1) = {"

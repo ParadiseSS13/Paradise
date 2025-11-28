@@ -487,7 +487,7 @@
 		to_chat(user, "You need at least one hand in good working order to snap your fingers.")
 		return TRUE
 
-	if(prob(5))
+	if(prob(5) && !HAS_TRAIT(user, TRAIT_COOL))
 		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE

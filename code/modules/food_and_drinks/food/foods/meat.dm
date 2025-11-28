@@ -37,6 +37,12 @@
 	name = "-meat"
 	tastes = list("salty meat" = 1)
 
+/obj/item/food/meat/human/robot // Does it make sense? No. Is it funny? Very!
+	desc = "A slab of robotic meat."
+	icon_state = "robot_meat"
+	list_reagents = list("iron" = 3, "oil" = 3)
+	tastes = list("oily meat" = 1)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
@@ -497,6 +503,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	var/fertile = FALSE
 
 /obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()
@@ -518,40 +525,31 @@
 
 	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
 	icon_state = "egg-[clr]"
-	item_color = clr
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
-	item_color = "blue"
 
 /obj/item/food/egg/green
 	icon_state = "egg-green"
-	item_color = "green"
 
 /obj/item/food/egg/mime
 	icon_state = "egg-mime"
-	item_color = "mime"
 
 /obj/item/food/egg/orange
 	icon_state = "egg-orange"
-	item_color = "orange"
 
 /obj/item/food/egg/purple
 	icon_state = "egg-purple"
-	item_color = "purple"
 
 /obj/item/food/egg/rainbow
 	icon_state = "egg-rainbow"
-	item_color = "rainbow"
 
 /obj/item/food/egg/red
 	icon_state = "egg-red"
-	item_color = "red"
 
 /obj/item/food/egg/yellow
 	icon_state = "egg-yellow"
-	item_color = "yellow"
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."

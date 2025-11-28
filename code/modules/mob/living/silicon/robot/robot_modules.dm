@@ -421,7 +421,7 @@
 	if(!current_syringes || chambered?.BB)
 		return
 
-	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
+	chambered.BB = new /obj/projectile/bullet/dart/syringe/heavyduty(src)
 	chambered.BB.reagents.add_reagent_list(list("toxin" = 2))
 	chambered.BB.name = "heavy duty syringe"
 	current_syringes--
@@ -539,11 +539,12 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
+		/obj/item/borg/push_broom,
+		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini/cyborg,
-		/obj/item/melee/flyswatter
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
+	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/borg/push_broom/combat)
 	malf_modules = list(/obj/item/stack/caution/proximity_sign/malf)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
@@ -593,30 +594,6 @@
 				continue
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-
-
-/obj/item/malfbroom
-	name = "cyborg combat broom"
-	desc = "A steel-core push broom for the hostile cyborg. The firm bristles make it more suitable for fighting than cleaning."
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "broom0"
-	base_icon_state = "broom"
-	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
-	force = 20
-
-/obj/item/malfbroom/attack__legacy__attackchain(mob/target, mob/user)
-	if(!ishuman(target))
-		return ..()
-	var/mob/living/carbon/human/H = target
-	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
-		return ..()
-	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
-						"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
-						"<span class='italics'>You hear sweeping.</span>")
-	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
-	H.apply_damage(20, BRUTE)
-	H.KnockDown(4 SECONDS)
-	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
 
 // Service
 /obj/item/robot_module/butler

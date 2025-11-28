@@ -207,7 +207,7 @@
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
 	id = "condensedcapsaicin"
-	description = "This shit goes in pepperspray."
+	description = "This shit goes in pepper spray."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_description = "<span class='userdanger'>PURE FIRE</span>"
@@ -236,7 +236,7 @@
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
 	id = "frostoil"
-	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
+	description = "A special oil that noticeably chills the body. Extracted from chilly peppers."
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
@@ -286,6 +286,22 @@
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(70))
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/potass_chloride
+	name = "Potassium Salt"
+	id = "potass_chloride"
+	description = "Potassium chloride, for folks who need to watch their sodium intake."
+	color = "#B1B0B0"
+	harmless = FALSE
+	overdose_threshold = 100
+	taste_mult = 2
+	taste_description = "salt"
+
+/datum/reagent/consumable/potass_chloride/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 

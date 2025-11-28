@@ -8,6 +8,7 @@
 	worn_icon = 'icons/mob/clothing/species/plasmaman/helmet.dmi'
 	worn_icon_state = null
 	inhand_icon_state = "plasmaman_helmet"
+	icon_monitor = null
 	strip_delay = 80
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 150)
@@ -186,9 +187,18 @@
 	icon_state = "smith_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
-	name = "chaplain's plasma envirosuit helmet"
+	name = "chaplain's black plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen."
-	icon_state = "chap_envirohelm"
+	icon_state = "chapbw_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/green
+	name = "chaplain's white plasma envirosuit helmet"
+	icon_state = "chapwg_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange
+	name = "chaplain's orange plasma envirosuit helmet"
+	desc = "An envirohelmet specially designed for only the most pious of plasmamen, molded like a turban."
+	icon_state = "chapco_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/white
 	name = "white plasma envirosuit helmet"
@@ -199,6 +209,9 @@
 	name = "chef plasma envirosuit helmet"
 	desc = "An envirohelm designed for plasmamen chefs."
 	icon_state = "chef_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chef/bw
+	icon_state = "chef_envirohelm_bw"
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
 	name = "librarian plasma envirosuit helmet"
@@ -282,9 +295,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to reskin it when held.</span>"
 
-/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/CtrlShiftClick(mob/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
@@ -305,17 +318,20 @@
 			name = initial(name)
 			desc = initial(desc)
 			base_icon_state = initial(base_icon_state)
+			icon_state = initial(icon_state)
 			light_icon = initial(light_icon)
 		if("Knight")
 			name = "knight envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
 			base_icon_state = "knight_envirohelm"
+			icon_state = "knight_envirohelm"
 			visor_icon = "knight_envisor"
 			light_icon = "knight_enlight"
 		if("Skull")
 			name = "skull envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a skull."
 			base_icon_state = "skull_envirohelm"
+			icon_state = "skull_envirohelm"
 			visor_icon = "skull_envisor"
 			light_icon = "skull_enlight"
 	update_icon()

@@ -129,3 +129,15 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table_frame/cult
+	name = "runed metal table frame"
+	desc = "Four pieces of runed metal arranged in a square. It's cold to the touch."
+	icon_state = "cult_frame"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	density = TRUE
+	anchored = TRUE
+	framestack = /obj/item/stack/sheet/runed_metal
+	framestackamount = 1
+	construction_time = 2 SECONDS
+	restrict_table_types = list(/obj/item/stack/sheet/runed_metal = /obj/item/stack/sheet/runed_metal::table_type)

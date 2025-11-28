@@ -100,7 +100,7 @@
 
 /obj/item/food/sliced/hawaiian_pizza
 	name = "hawaiian pizza slice"
-	desc = "A slice of polarising pizza."
+	desc = "A slice of polarizing pizza."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"

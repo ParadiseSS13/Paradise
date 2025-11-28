@@ -130,7 +130,7 @@
 	origin_tech = "biotech=2"
 	merge_type = /obj/item/stack/medical/bruise_pack
 	max_amount = 12
-	heal_brute = 10
+	heal_brute = 5
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
 
@@ -209,7 +209,7 @@
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
-	heal_burn = 10
+	heal_burn = 5
 	dynamic_icon_state = TRUE
 	merge_type = /obj/item/stack/medical/ointment
 
@@ -378,6 +378,8 @@
 	var/healverb_past = "sutured"
 	var/self_delay = 3 SECONDS
 	var/mob/current_target
+	/// The type of the item we create when depleted
+	var/depleted_type = /obj/item/suture_needle
 
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
 	. = TRUE
@@ -433,7 +435,13 @@
 					break
 		if(!apply_to(target, user, current_limb, !cut_open))
 			break
-		if(is_zero_amount(TRUE))
+		if(is_zero_amount(FALSE))
+			if(depleted_type)
+				var/needle = new depleted_type(src.loc)
+				if(ishuman(user))
+					var/mob/living/carbon/human/human_user = user
+					human_user.put_in_active_hand(needle)
+			qdel(src)
 			break
 		if(!target.get_damage_amount(heal_type))
 			user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
@@ -545,6 +553,7 @@
 	healverb_past = "grafted"
 	heal_brute = 0
 	heal_burn = 10
+	depleted_type = null
 	/// This var determines if the sterile packaging of the mesh has been opened.
 	var/is_open = TRUE
 
@@ -579,3 +588,29 @@
 	icon_state = "advanced_mesh"
 	merge_type = /obj/item/stack/medical/suture/regen_mesh/advanced
 	heal_burn = 15
+
+/obj/item/suture_needle
+	name = "suture needle"
+	desc = "A curved needle used for suturing wounds. It doesn't seem to have any thread attached."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "suture_needle"
+	force = 1
+	attack_verb = list("poked", "pricked", "stabbed")
+	hitsound = null
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/suture_needle/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can add thread with the <i>crafting menu</i>.</span>"
+
+/obj/item/biomesh
+	name = "biomesh"
+	desc = "A lattice of easily-dissolved plastics used to hold gels in place over open wounds."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "biomesh"
+	hitsound = null
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/biomesh/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It can be made into both normal and advanced regenerative mesh with the <i>crafting menu</i>.</span>"

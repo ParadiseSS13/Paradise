@@ -63,6 +63,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/delayed_objectives = FALSE
 	/// The title of the players "boss", used for exfil strings
 	var/boss_title = "Operations"
+	/// If the antagonist has been chosen for either side on an exchange objective
+	var/in_exchange = FALSE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -407,14 +409,17 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Create and assign a full set of randomized, basic human traitor objectives.
  * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
-/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE)
+/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		if(prob(50)) // 50% chance you have to detonate the nuke instead
+			add_antag_objective(/datum/objective/nuke)
+			return
 		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
+	for(var/i in 1 to number_of_objectives)
 		forge_single_human_objective()
 
 	var/can_succeed_if_dead = TRUE
@@ -427,38 +432,92 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
+#define KILL_OBJECTIVE "KILL"
+#define THEFT_OBJECTIVE "STEAL"
+#define PROTECT_OBJECTIVE "PROTECT"
+#define INCRIMINATE_OBJECTIVE "INCRIMINATE"
+
+#define DESTROY_OBJECTIVE "DESTROY"
+#define DEBRAIN_OBJECTIVE "DEBRAIN"
+#define MAROON_OBJECTIVE "MAROON"
+#define ASS_ONCE_OBJECTIVE "ASS_ONCE"
+#define ASS_OBJECTIVE "ASS"
+
+#define INFIL_SEC_OBJECTIVE "INFILTRATE_SEC"
 
 /**
  * Create and assign a single randomized human traitor objective.
+ * Step one: Seperate your objectives into objectives that lead to people dying, and objectives that do not.
+ * Objectives that lead to people dying should take up HALF of the pick weight, and non lethal should be the OTHER half.
+ * After that, add it to the switch list.
+ * The kill objective pool weight has been done by putting the old code through a million or so runs to figure out averages, to keep it consistant.
  */
-/datum/antagonist/proc/forge_single_human_objective()
+/datum/antagonist/proc/roll_single_human_objective()
 	var/datum/objective/objective_to_add
+	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 45, MAROON_OBJECTIVE = 235, ASS_ONCE_OBJECTIVE = 160, ASS_OBJECTIVE = 340, INFIL_SEC_OBJECTIVE = 220)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
-		if(prob(50))
-			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-				objective_to_add = /datum/objective/destroy
+		var/objective_to_decide_further = pickweight(the_objective_list)
+		switch(objective_to_decide_further)
+			if(KILL_OBJECTIVE)
+				if(length(active_ais()))
+					the_nonstatic_kill_list += list(DESTROY_OBJECTIVE = round((100 / length(GLOB.player_list)) * 10))
+				var/the_kill_objective = pickweight(the_nonstatic_kill_list)
+				switch(the_kill_objective)
+					if(DESTROY_OBJECTIVE)
+						objective_to_add = /datum/objective/destroy
 
-			else if(prob(5))
-				objective_to_add = /datum/objective/debrain
+					if(DEBRAIN_OBJECTIVE)
+						objective_to_add = /datum/objective/debrain
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/maroon
+					if(MAROON_OBJECTIVE)
+						objective_to_add = /datum/objective/maroon
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/assassinateonce
+					if(ASS_ONCE_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinateonce
 
-			else
-				objective_to_add = /datum/objective/assassinate
-		else
-			objective_to_add = /datum/objective/steal
+					if(ASS_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinate
+
+					if(INFIL_SEC_OBJECTIVE)
+						// Prevent duplicate infiltrate objectives
+						if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						else
+							objective_to_add = /datum/objective/infiltrate_sec
+
+			if(THEFT_OBJECTIVE)
+				objective_to_add = /datum/objective/steal
+			if(INCRIMINATE_OBJECTIVE)
+				objective_to_add = /datum/objective/incriminate
+
+			if(PROTECT_OBJECTIVE)
+				objective_to_add = /datum/objective/protect
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
-	add_antag_objective(objective_to_add)
+
+	return objective_to_add
+
+/datum/antagonist/proc/forge_single_human_objective()
+	add_antag_objective(roll_single_human_objective())
+
+#undef KILL_OBJECTIVE
+#undef THEFT_OBJECTIVE
+#undef PROTECT_OBJECTIVE
+#undef INCRIMINATE_OBJECTIVE
+
+#undef DESTROY_OBJECTIVE
+#undef DEBRAIN_OBJECTIVE
+#undef MAROON_OBJECTIVE
+#undef ASS_ONCE_OBJECTIVE
+#undef ASS_OBJECTIVE
+
+#undef INFIL_SEC_OBJECTIVE
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
@@ -519,5 +578,41 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return
 	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
 	L.put_in_active_hand(extractor)
+
+/datum/antagonist/proc/start_exchange()
+	if(in_exchange)
+		return
+	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
+	possible_opponents -= owner
+	if(!length(possible_opponents))
+		log_debug("[owner] was picked to start a document exchange but there were no other antagonists.")
+		return
+	var/datum/mind/opponent = pick(possible_opponents)
+	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
+	if(other_antag)
+		assign_exchange_objective(other_antag)
+
+/datum/antagonist/proc/assign_exchange_objective(datum/antagonist/other_team)
+	if(!owner.current)
+		return
+	if(other_team == src)
+		return
+	in_exchange = TRUE
+	other_team.in_exchange = TRUE
+	var/list/teams_list = list(EXCHANGE_TEAM_RED, EXCHANGE_TEAM_BLUE)
+	var/our_team = pick_n_take(teams_list)
+	var/datum/objective/steal/exchange/red/red_team = new()
+	var/datum/objective/steal/exchange/blue/blue_team = new()
+	switch(our_team)
+		if(EXCHANGE_TEAM_RED)
+			add_antag_objective(red_team)
+			other_team.add_antag_objective(blue_team)
+		if(EXCHANGE_TEAM_BLUE)
+			add_antag_objective(blue_team)
+			other_team.add_antag_objective(red_team)
+	red_team.pair_up(blue_team, TRUE)
+
+/datum/antagonist/proc/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1)
 
 #undef SUCCESSFUL_DETACH

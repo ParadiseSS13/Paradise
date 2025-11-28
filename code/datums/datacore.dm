@@ -377,7 +377,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(H.undershirt && H.dna.species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[H.undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[H.undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (H.dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[H.dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)

@@ -2,7 +2,6 @@
 	name = "shoulder holster"
 	desc = "A handgun holster."
 	icon_state = "holster"
-	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/list/holster_allow = list(/obj/item/gun)
 	var/obj/item/gun/holstered = null
@@ -115,4 +114,5 @@
 
 /obj/item/clothing/accessory/holster/waist
 	desc = "A handgun holster. Made of expensive leather."
-	item_color = "holster_low"
+	worn_icon_state = "holster_low"
+	attached_icon_state = "holster_low"

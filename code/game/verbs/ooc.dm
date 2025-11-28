@@ -1,4 +1,5 @@
 #define DEFAULT_PLAYER_OOC_COLOUR "#075FE5" // Can't initial() a global so we store the default in a macro instead
+#define BUG_REPORT_CD (5 MINUTES)
 GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR)
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
@@ -330,4 +331,25 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	popup.set_content(output.Join(""))
 	popup.open()
 
+/client/verb/submitbug()
+	set name = "Report a Bug"
+	set desc = "Submit a bug report."
+	set category = "OOC"
+	set hidden = TRUE
+	if(!usr?.client)
+		return
+
+	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.client] + BUG_REPORT_CD))
+		var/cd_total_time = GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD - world.time
+		var/cd_minutes = round(cd_total_time / (1 MINUTES))
+		var/cd_seconds = round((cd_total_time - cd_minutes MINUTES) / (1 SECONDS))
+		tgui_alert(usr, "You must wait another [cd_minutes]:[cd_seconds < 10 ? "0" : ""][cd_seconds] minute[cd_minutes < 2 ? "" : "s"] before submitting another bug report", "Bug Report Rate Limit")
+		return
+
+	var/datum/tgui_bug_report_form/report = new(usr)
+
+	report.ui_interact(usr)
+	return
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
+#undef BUG_REPORT_CD

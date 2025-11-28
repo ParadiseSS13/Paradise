@@ -89,7 +89,7 @@
 
 /obj/item/food/sashimi
 	name = "carp sashimi"
-	desc = "Celebrate surviving attack from hostile alien lifeforms by hospitalising yourself."
+	desc = "Celebrate surviving attack from hostile alien lifeforms by hospitalizing yourself."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sashimi"
 	bitesize = 3

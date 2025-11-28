@@ -128,7 +128,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot, is_trishot)
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
-		var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
+		var/obj/projectile/H = new /obj/projectile/herald(startloc)
 		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
@@ -139,7 +139,7 @@
 			shoot_projectile(marker, set_angle + 15, FALSE, FALSE)
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
-		var/obj/item/projectile/H = new /obj/item/projectile/herald/teleshot(startloc)
+		var/obj/projectile/H = new /obj/projectile/herald/teleshot(startloc)
 		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
@@ -222,19 +222,19 @@
 	my_master = null
 	. = ..()
 
-/obj/item/projectile/herald
+/obj/projectile/herald
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
 	armor_penetration_percentage = 50
 	speed = 2
 
-/obj/item/projectile/herald/teleshot
+/obj/projectile/herald/teleshot
 	name = "golden bolt"
 	damage = 0
 	color = rgb(255,255,102)
 
-/obj/item/projectile/herald/prehit(atom/target)
+/obj/projectile/herald/prehit(atom/target)
 	if(ismob(target) && ismob(firer))
 		var/mob/living/mob_target = target
 		if(mob_target.faction_check_mob(firer))
@@ -244,13 +244,13 @@
 		if(mob_target.buckled && mob_target.stat == DEAD)
 			mob_target.dust() //no body cheese
 
-/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.gets_drilled()
 
-/obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
 		firer.forceMove(get_turf(src))
@@ -263,7 +263,6 @@
 	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
-	item_color = "herald_cloak"
 	actions_types = list(/datum/action/item_action/herald)
 
 /obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)

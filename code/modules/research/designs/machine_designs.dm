@@ -311,6 +311,16 @@
 	build_path = /obj/item/circuitboard/cyborgrecharger
 	category = list("Research Machinery")
 
+/datum/design/anomaly_refinery
+	name = "Machine Board (Anomaly Refinery)"
+	desc = "The circuit board for an Anomaly Refinery."
+	id = "anomalyrefinery"
+	req_tech = list("powerstorage" = 5, "engineering" = 5, "toxins" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/anomaly_refinery
+	category = list("Research Machinery")
+
 /datum/design/scientific_analyzer
 	name = "Machine Board (Scientific Analyzer)"
 	desc = "The circuit board for a Scientific Analyzer."
