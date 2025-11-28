@@ -199,7 +199,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 
 /turf/simulated/wall/indestructible/fakeglass/brass
 	icon = 'icons/obj/smooth_structures/windows/32x40clockwork_window.dmi'
-	icon_state = "clockwork_window-0"
+	icon_state = "fake_window"
 	base_icon_state = "clockwork_window"
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
@@ -208,7 +208,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 /turf/simulated/wall/indestructible/fakeglass/plastitanium
 	name = "plastitanium window"
 	icon = 'icons/obj/smooth_structures/windows/32x40plastitanium_window.dmi'
-	icon_state = "plastitanium_window-0"
+	icon_state = "fake_window"
 	base_icon_state = "plastitanium_window"
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
