@@ -10,6 +10,7 @@
 /obj/machinery/power/apc
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
+	icon = 'icons/obj/wallbumps/apc.dmi'
 	icon_state = "apc0"
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
