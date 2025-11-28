@@ -43,9 +43,9 @@
 
 #define isslime(A) (istype((A), /mob/living/simple_animal/slime))
 
-#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+#define ispulsedemon(A) (istype(A, /mob/living/basic/demon/pulse_demon))
 
-#define isshadowdemon(A) (istype(A, /mob/living/simple_animal/demon/shadow))
+#define isshadowdemon(A) (istype(A, /mob/living/basic/demon/shadow))
 
 // Basic mobs
 
