@@ -56,10 +56,10 @@
 	tastes = list("squid" = 1, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/calamari/Initialize(mapload, icon_state, possible_iconstates)
-	. = ..()
+/obj/item/food/calamari/Initialize(mapload)
 	icon_state = pick(possible_iconstates)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
+	. = ..()
 
 /obj/item/food/frankfurrter
 	name = "Frankfurrter"
@@ -163,10 +163,10 @@
 	tastes = list("long pork" = 1, "salty" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/pork_rind/Initialize(mapload, icon_state, possible_iconstates)
-	. = ..()
+/obj/item/food/pork_rind/Initialize(mapload)
 	icon_state = pick(possible_iconstates)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
+	. = ..()
 
 /obj/item/food/tree_salad
 	name = "Tree Salad"
