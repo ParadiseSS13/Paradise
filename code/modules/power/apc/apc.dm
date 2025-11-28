@@ -10,7 +10,6 @@
 /obj/machinery/power/apc
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
-	icon = 'icons/obj/wallbumps/apc.dmi'
 	icon_state = "apc0"
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
@@ -133,29 +132,6 @@
 	var/global/list/status_overlays_environ
 	var/keep_preset_name = FALSE
 
-/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
-	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
-	..()
-	GLOB.apcs += src
-
-	wires = new(src)
-
-	if(building)
-		// Offset 32 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
-		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
-		set_pixel_offsets_from_dir(32, -32, 32, -32)
-
-		apc_area = get_area(src)
-		apc_area.apc += src
-		opened = APC_OPENED
-		operating = FALSE
-		name = "[apc_area.name] APC"
-		stat |= MAINT
-		constructed = TRUE
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(update)), 5)
-
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
@@ -174,11 +150,13 @@
 	apc_area.apc -= src
 	return ..()
 
-
-
-/obj/machinery/power/apc/Initialize(mapload)
+/obj/machinery/power/apc/Initialize(mapload, direction, building = FALSE)
 	. = ..()
+	if(!armor)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 
+	GLOB.apcs += src
+	wires = new(src)
 	var/area/A = get_area(src)
 
 	if(A.powernet && !A.powernet.powernet_apc)
@@ -186,16 +164,7 @@
 
 	if(!mapload)
 		GLOB.apcs = sortAtom(GLOB.apcs)
-		return
 
-	electronics_state = APC_ELECTRONICS_INSTALLED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
-	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
 			apc_area = A
@@ -205,14 +174,29 @@
 		name = "\improper [apc_area.name] APC"
 	else
 		name = "\improper [get_area_name(apc_area, TRUE)] APC"
+
+	if(building)
+		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
+		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
+
+		opened = APC_OPENED
+		operating = FALSE
+		stat |= MAINT
+		constructed = TRUE
+	else
+		electronics_state = APC_ELECTRONICS_INSTALLED
+		// is starting with a power cell installed, create it and set its charge level
+		if(cell_type)
+			cell = new /obj/item/stock_parts/cell(src)
+			cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+			cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		make_terminal()
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+	//if area isn't specified use current
 	apc_area.apc |= src
-
 	update_icon()
-
-	make_terminal()
-
-	set_light(1, LIGHTING_MINIMUM_POWER)
-
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
@@ -269,7 +253,7 @@
 			"<span class='notice'>[user] inserts [used] into [src].</span>",
 			"<span class='notice'>You insert [used] into [src].</span>"
 		)
-		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+		for(var/mob/living/basic/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
 			if(!being_hijacked) // First come, first serve!
@@ -1172,18 +1156,24 @@
 /obj/machinery/power/apc/reinforced/critical
 	cell_type = 25000
 
+/obj/machinery/power/apc/unbuilt
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/important, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 32, 32)
+/obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
+	. = ..(building = TRUE)
+
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/unbuilt, 24, 24)
 
 
 /obj/item/apc_electronics
