@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	for(var/i in 1 to length(tracker.recipes_applied_step_data))
 		var/list/applied_step_data = tracker.recipes_applied_step_data[i]
 
-		if(("reagent_id" in applied_step_data))
+		if("reagent_id" in applied_step_data)
 			var/amount_to_remove = applied_step_data["amount"] * (1 - applied_step_data["reagent_remain_percent"])
 			if(!amount_to_remove)
 				continue
