@@ -129,7 +129,6 @@
 	description = "A heavy metal that causes brain damage and kidney failure, used by some ancient civilisations as a sweetener."
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
-	process_flags = ORGANIC
 	taste_description = "sweet"
 
 /datum/reagent/lead/on_mob_life(mob/living/M)

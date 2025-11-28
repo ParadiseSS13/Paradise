@@ -124,7 +124,6 @@
 	icon = 'icons/obj/food/cannibalism.dmi'
 	icon_state = "plasmabone_broth"
 	trash = /obj/item/trash/snack_bowl
-	resistance_flags = FLAMMABLE
 	list_reagents = list("nutriment" = 3, "protein" = 5, "plasma" = 3)
 	tastes = list("bitter" = 1, "corporate assets going to waste" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
