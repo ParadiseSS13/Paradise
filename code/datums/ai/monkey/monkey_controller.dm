@@ -59,7 +59,6 @@ have ways of interacting with a specific mob and control it.
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/monkey_combat,
-		/datum/ai_planning_subtree/generic_hunger,
 		/datum/ai_planning_subtree/punpun_shenanigans,
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey/pun_pun
