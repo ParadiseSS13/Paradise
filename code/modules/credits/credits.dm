@@ -12,17 +12,17 @@ GLOBAL_LIST(end_titles)
 	if(!GLOB.end_titles)
 		GLOB.end_titles = generate_titles()
 
-	for(var/client/C in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		if(!C)
 			continue
 		if(!length(C.credits))
-			C.RollCredits()
+			C.roll_credits()
 
-/client/proc/RollCredits()
+/client/proc/roll_credits()
 	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
-	verbs += /client/proc/ClearCredits
+	verbs += /client/proc/clear_credits
 	for(var/I in GLOB.end_titles)
 		if(!credits)
 			return
@@ -30,15 +30,16 @@ GLOBAL_LIST(end_titles)
 		credits += T
 		T.rollem()
 		sleep(CREDIT_SPAWN_SPEED)
-	sleep(CREDIT_ROLL_SPEED - CREDIT_SPAWN_SPEED)
+	addtimer(CALLBACK(src, PROC_REF(end_credits)), CREDIT_ROLL_SPEED - CREDIT_SPAWN_SPEED)
 
-	ClearCredits()
-	verbs -= /client/proc/ClearCredits
+/client/proc/end_credits()
+	clear_credits()
+	verbs -= /client/proc/clear_credits
 
-/client/proc/ClearCredits()
+/client/proc/clear_credits()
 	set name = "Stop End Titles"
 	set category = "OOC"
-	verbs -= /client/proc/ClearCredits
+	verbs -= /client/proc/clear_credits
 	QDEL_LIST_CONTENTS(credits)
 
 /atom/movable/screen/credit
@@ -50,9 +51,9 @@ GLOBAL_LIST(end_titles)
 	var/client/parent
 	var/matrix/target
 
-/atom/movable/screen/credit/Initialize(mapload, datum/hud/hud_owner, credited, client/P)
+/atom/movable/screen/credit/Initialize(mapload, datum/hud/hud_owner, credited, client/attached_client)
 	. = ..()
-	parent = P
+	parent = attached_client
 	maptext = {"<div style="font:'Small Fonts'">[credited]</div>"}
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 14
@@ -66,8 +67,7 @@ GLOBAL_LIST(end_titles)
 	parent?.screen += src
 
 /atom/movable/screen/credit/proc/fadeout(matrix/direction)
-	sleep(CREDIT_EASE_DURATION)
-	qdel(src)
+	QDEL_IN(src, CREDIT_EASE_DURATION)
 
 /atom/movable/screen/credit/Destroy()
 	var/client/P = parent
@@ -95,9 +95,9 @@ GLOBAL_LIST(end_titles)
 		possible_titles += "[pick("GUNS, GUNS EVERYWHERE", "THE LITTLEST PRIMALIS", "WHAT HAPPENS WHEN YOU MIX MAINTENANCE DRONES AND COMMERCIAL-GRADE PACKING FOAM", "ATTACK! ATTACK! ATTACK!", "HOLY SHIT A BOMB", "THE LEGEND OF THE ALIEN ARTIFACT: PART [pick("I","II","III","IV","V","VI","VII","VIII","IX", "X", "C","M","L")]")]"
 		possible_titles += "[pick("SPACE", "TERRIFYING", "DRAGON", "WARLOCK", "LAUNDRY", "GUN", "ADVERTISING", "DOG", "CARBON MONOXIDE", "NINJA", "WIZARD", "SOCRATIC", "JUVENILE DELIQUENCY", "POLITICALLY MOTIVATED", "RADTACULAR SICKNASTY")] [pick("QUEST", "FORCE", "ADVENTURE")]"
 		possible_titles += "[pick("THE DAY [pick("NANOTRASEN", "THE SYNDICATE", "ARMADYNE CORPORATION", "THE CLOWN",)] STOOD STILL", "HUNT FOR THE GREEN WEENIE", "ALIEN VS VENDOMAT", "SPACE TRACK")]"
-		titles += "<center><h1>EPISODE [rand(1,1000)]<br>[pick(possible_titles)]<h1></h1></h1></center>"
+		titles += "<center><h1>EPISODE [rand(1, 1000)]<br>[pick(possible_titles)]<h1></h1></h1></center>"
 	else
-		titles += "<center><h1>EPISODE [rand(1,1000)]<br>[GLOB.end_credits_title]<h1></h1></h1></center>"
+		titles += "<center><h1>EPISODE [rand(1, 1000)]<br>[GLOB.end_credits_title]<h1></h1></h1></center>"
 
 	// The Living
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
