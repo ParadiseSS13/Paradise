@@ -239,6 +239,7 @@
 	var/fail_tick = 0
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/eshotgun, /obj/item/ammo_casing/energy/laser/eshotgun)
+	lens_damage_cap = 1.5 // Caps at 90 stamina damage, to prevent one shot stamina crits.
 	var/pump_time = 1 SECONDS
 	COOLDOWN_DECLARE(pump_cooldown)
 

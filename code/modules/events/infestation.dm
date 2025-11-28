@@ -3,6 +3,9 @@
 #define VERM_SPIDERS 2
 
 /datum/event/infestation
+	name = "Vermin Infestation"
+	role_weights = 	list(ASSIGNMENT_JANITOR = 0.5)
+	role_requirements = list(ASSIGNMENT_JANITOR = 1)
 	announceWhen = 10
 	endWhen = 11
 	/// Which kind of vermin we'll be spawning (one of the three defines)
@@ -61,7 +64,7 @@
 			max_number = 6
 			vermstring = "lizards"
 		if(VERM_SPIDERS)
-			spawn_types = list(/obj/structure/spider/spiderling)
+			spawn_types = list(/mob/living/basic/spiderling)
 			max_number = 3
 			vermstring = "spiders"
 	var/amount_to_spawn = rand(2, max_number)
@@ -70,7 +73,7 @@
 		amount_to_spawn--
 
 		if(vermin == VERM_SPIDERS)
-			var/obj/structure/spider/spiderling/S = new(T)
+			var/mob/living/basic/spiderling/S = new(T)
 			S.amount_grown = -1
 		else
 			var/spawn_type = pick(spawn_types)

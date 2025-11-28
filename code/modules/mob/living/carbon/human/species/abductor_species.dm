@@ -5,6 +5,7 @@
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"liver" =    /obj/item/organ/internal/liver,

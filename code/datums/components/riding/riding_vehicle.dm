@@ -148,7 +148,7 @@
 	if(rider.m_intent == MOVE_INTENT_WALK)
 		vehicle_move_delay += 0.6
 
-/datum/component/riding/vehicle/scooter/skateboard/proc/check_knockoff(datum/source, obj/item/projectile)
+/datum/component/riding/vehicle/scooter/skateboard/proc/check_knockoff(datum/source, obj/projectile)
 	SIGNAL_HANDLER // COMSIG_ATOM_BULLET_ACT
 	if(!istype(parent, /obj/tgvehicle/scooter/skateboard))
 		return

@@ -7,7 +7,7 @@
  * Circumvents the message queue and sends the message to the recipient (target) as soon as possible.
  * trailing_newline, confidential, and handle_whitespace currently have no effect, please fix this in the future or remove the arguments to lower cache!
  */
-/proc/to_chat_immediate(target, html, type, text, avoid_highlighting = FALSE, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
+/proc/to_chat_immediate(target, html, type, text, avoid_highlighting = FALSE, avoid_blacklisting = FALSE, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
 	// Useful where the integer 0 is the entire message. Use case is enabling to_chat(target, some_boolean) while preventing to_chat(target, "")
 	html = "[html]"
 	text = "[text]"
@@ -29,6 +29,8 @@
 		message["html"] = html
 	if(avoid_highlighting)
 		message["avoidHighlighting"] = avoid_highlighting
+	if(avoid_blacklisting)
+		message["avoidBlacklisting"] = avoid_blacklisting
 	if(ticket_id != -1)
 		message["ticket_id"] = ticket_id
 
@@ -53,7 +55,7 @@
  *
  * `trailing_newline`, `confidential`, and `handle_whitespace` currently have no effect, please fix this in the future or remove the arguments to lower cache!
  */
-/proc/to_chat(target, html, type, text, avoid_highlighting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
+/proc/to_chat(target, html, type, text, avoid_highlighting, avoid_blacklisting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
 	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
 		to_chat_immediate(target, html, type, text)
 		return
@@ -79,6 +81,8 @@
 		message["html"] = html
 	if(avoid_highlighting)
 		message["avoidHighlighting"] = avoid_highlighting
+	if(avoid_blacklisting)
+		message["avoidBlacklisting"] = avoid_blacklisting
 	if(ticket_id != -1)
 		message["ticket_id"] = ticket_id
 	SSchat.queue(target, message)

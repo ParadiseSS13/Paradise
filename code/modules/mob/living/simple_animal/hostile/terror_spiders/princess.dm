@@ -123,3 +123,6 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 15, ASSIGNMENT_MEDICAL = 2)

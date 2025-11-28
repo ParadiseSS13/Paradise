@@ -7,7 +7,6 @@
 	health = 25
 	maxHealth = 25
 	radio_channel = "Service" //Service
-	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
 	bot_purpose = "seek out messes and clean them"

@@ -199,6 +199,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.quirks = list() //Reset their quirks
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
@@ -613,6 +614,9 @@
 						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+					for(var/config in GLOB.configuration.custom_sprites.fluff_undershirts)
+						if(user.ckey in config["ckeys"])
+							valid_undershirts[config["name"]] = GLOB.undershirt_full_list[config["name"]]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt", "Character Preference", valid_undershirts)
 					ShowChoices(user)
@@ -677,6 +681,11 @@
 				if("loadout")
 					var/datum/ui_module/loadout/loadout = new()
 					loadout.ui_interact(user)
+					return FALSE
+
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
 					return FALSE
 
 				if("nt_relation")

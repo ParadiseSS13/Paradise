@@ -82,7 +82,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
-	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
+	var/capture_type = SENTIENCE_ORGANIC // So you can't capture boss monsters or robots with it
+
+	new_attack_chain = TRUE
 
 /obj/item/mobcapsule/Destroy()
 	if(captured)
@@ -90,29 +92,36 @@
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/mobcapsule/attack__legacy__attackchain(mob/living/simple_animal/S, mob/user, prox_flag)
-	if(istype(S) && S.sentience_type == capture_type)
-		capture(S, user)
-		return TRUE
+/obj/item/mobcapsule/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isanimal(target)) // We need to check both individually as mob/living does not have a sentience type parameter.
+		var/mob/living/simple_animal/S = target
+		if(S.sentience_type == capture_type)
+			capture(target, user)
+			return ITEM_INTERACT_COMPLETE
+	if(isbasicmob(target))
+		var/mob/living/basic/B = target
+		if(B.sentience_type == capture_type)
+			capture(target, user)
+			return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
+/obj/item/mobcapsule/proc/capture(mob/living/animal, mob/living/user)
 	if(captured)
-		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(user, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
 	else
-		if("neutral" in S.faction)
-			S.forceMove(src)
-			var/obj/item/petcollar/collar = S.get_item_by_slot(ITEM_SLOT_COLLAR)
+		if("neutral" in animal.faction)
+			animal.forceMove(src)
+			var/obj/item/petcollar/collar = animal.get_item_by_slot(ITEM_SLOT_COLLAR)
 			if(collar)
-				name = "Lazarus Capsule: [S.name]"
+				name = "Lazarus Capsule: [animal.name]"
 			else
-				S.name = "[M.name]'s [initial(S.name)]"
-				name = "Lazarus Capsule: [initial(S.name)]"
-			S.cancel_camera()
-			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
-			captured = S
+				animal.name = "[user.name]'s [initial(animal.name)]"
+				name = "Lazarus Capsule: [initial(animal.name)]"
+			animal.cancel_camera()
+			to_chat(user, "<span class='notice'>You placed a [animal.name] inside the Lazarus Capsule!</span>")
+			captured = animal
 		else
-			to_chat(M, "You can't capture that mob!")
+			to_chat(user, "You can't capture that mob!")
 
 /obj/item/mobcapsule/throw_impact(atom/A, mob/user)
 	..()
@@ -124,7 +133,8 @@
 		captured.forceMove(get_turf(src))
 		captured = null
 
-/obj/item/mobcapsule/attack_self__legacy__attackchain(mob/user)
+/obj/item/mobcapsule/activate_self(mob/user)
+	..()
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0

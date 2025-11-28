@@ -111,6 +111,15 @@
 /datum/engi_event/supermatter_event/charlie_tier/heat_penalty_threshold/on_start()
 	supermatter.heat_penalty_threshold -= 173
 
+// hydrogen
+/datum/engi_event/supermatter_event/charlie_tier/hydrogen
+	name = "C-4"
+
+/datum/engi_event/supermatter_event/charlie_tier/hydrogen/on_start()
+	var/datum/gas_mixture/air = new()
+	air.set_hydrogen(2000)
+	supermatter_turf.blind_release_air(air)
+
 //Class B events
 /datum/engi_event/supermatter_event/bravo_tier
 	threat_level = SM_EVENT_THREAT_B

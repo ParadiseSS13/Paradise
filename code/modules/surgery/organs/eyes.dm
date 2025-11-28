@@ -249,6 +249,10 @@
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	flash_intensity = 3
 
+/obj/item/organ/internal/eyes/cybernetic/shield/hardened
+	name = "hardened shielded robotic eyes"
+	emp_proof = TRUE
+
 #define INTACT 0
 #define ONE_SHATTERED 1
 #define BOTH_SHATTERED 2

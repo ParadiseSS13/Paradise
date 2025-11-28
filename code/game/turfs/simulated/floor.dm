@@ -12,9 +12,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor
 	name = "floor"
-	icon_state = "dont_use_this_floor"
 	plane = FLOOR_PLANE
-	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
+	var/icon_regular_floor = "tile_standard" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.020
 	heat_capacity = 100000
@@ -32,7 +31,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
-		icon_regular_floor = "floor"
+		icon_regular_floor = "tile_standard"
 	else
 		icon_regular_floor = icon_state
 

@@ -373,7 +373,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 	var/num_books = clamp(amount, 1, 50) //you don't need more than 50 random books <3
-	var/list/sql_params = list("amount" = num_books )
+	var/list/sql_params = list("amount" = num_books)
 	var/sql = "SELECT id, author, title, content, summary, rating, primary_category, secondary_category, tertiary_category, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
 	if(!query.warn_execute())

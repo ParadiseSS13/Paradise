@@ -31,7 +31,7 @@ jobs:
           python-version: '3.13'
           cache: 'pip'
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: 'yarn'
@@ -114,12 +114,6 @@ jobs:
         uses: ./.github/actions/restore_or_install_byond
         with:
           release: ${{ matrix.byondtype }}
-      - name: Install RUST_G Deps
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install zlib1g-dev:i386
-          tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
@@ -147,12 +141,6 @@ jobs:
           sudo systemctl start mysql
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
-      - name: Install RUST_G Deps
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install zlib1g-dev:i386
-          tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
@@ -161,14 +149,3 @@ jobs:
           mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
-
-  windows_dll_tests:
-    name: Windows RUSTG Validation
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.8.2' # Script was made for 3.8.2
-          architecture: 'x86' # This MUST be x86
-      - run: python tools/ci/validate_rustg_windows.py

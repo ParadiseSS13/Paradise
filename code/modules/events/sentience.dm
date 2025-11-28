@@ -1,4 +1,5 @@
 /datum/event/sentience
+	name = "Sentience"
 
 /datum/event/sentience/start()
 	INVOKE_ASYNC(src, PROC_REF(make_sentient_mob))

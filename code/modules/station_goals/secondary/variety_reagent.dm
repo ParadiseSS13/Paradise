@@ -84,33 +84,20 @@
 		item.requests_console_department = department
 		manifest.line_items += item
 		return COMSIG_CARGO_SELL_WRONG
-		
-	// Make sure there's enough.
-	if(reagent.volume < amount_per - REAGENT_GOAL_FORGIVENESS)
-		if(!manifest)
-			return COMSIG_CARGO_SELL_WRONG
-		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "insufficient quantity of reagents"))
-		var/datum/economy/line_item/item = new
-		item.account = department_account
-		item.credits = 0
-		item.reason = "That batch of [reagent.name] was too small; send at least [amount_per] units."
-		item.requests_console_department = department
-		manifest.line_items += item
-		return COMSIG_CARGO_SELL_WRONG
 
-	if(reagents_sent[reagent.id])
+	if(reagents_sent[reagent.id] >= amount_per)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "repeat reagents"))
 		var/datum/economy/line_item/item = new
 		item.account = department_account
 		item.credits = 0
-		item.reason = "You already sent us [reagent.name]."
+		item.reason = "You already sent us enough [reagent.name]."
 		item.requests_console_department = department
 		manifest.line_items += item
 		return COMSIG_CARGO_SELL_WRONG
 
-	reagents_sent[reagent.id] = TRUE
+	reagents_sent[reagent.id] = (reagents_sent[reagent.id] ? reagents_sent[reagent.id] + reagent.volume : reagent.volume)
 
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
@@ -119,7 +106,7 @@
 	var/datum/economy/line_item/item = new
 	item.account = department_account
 	item.credits = 0
-	item.reason = "Received [initial(reagent.name)]."
+	item.reason = "Received [reagent.volume]u of [initial(reagent.name)]."
 	item.requests_console_department = department
 	item.zero_is_good = TRUE
 	manifest.line_items += item
@@ -127,6 +114,12 @@
 
 /datum/secondary_goal_progress/variety_reagent/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	if(length(reagents_sent) < needed)
+		return
+	var/single_reagent
+	var/reagents_tally = 0
+	for(single_reagent in reagents_sent)
+		reagents_tally += (reagents_sent[single_reagent] >= amount_per ? 1 : 0)
+	if(reagents_tally < needed)
 		return
 
 	three_way_reward(manifest, department, department_account, reward, "Secondary goal complete: [needed] different [generic_name_plural].")

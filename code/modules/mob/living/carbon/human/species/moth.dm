@@ -32,13 +32,14 @@
 	Unlike most species in the galactic fold, Nian do not recognize the authority of the Trans-Solar Federation: \
 	having instead established close diplomatic relationships with their splinter faction, the USSP."
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Biege",
 		2 = "Lighter",
 		3 = "Darker",
 		4 = "Purple"
 	)
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/nian,
 		"lungs" =    /obj/item/organ/internal/lungs/nian,

@@ -19,18 +19,14 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/tar/Destroy()
-	if(target)
-		target.slowdown -= 10
-	return ..()
-
 /obj/effect/decal/cleanable/tar/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
 	target.slowdown -= 10
-	target = loc
-	target.slowdown += 10
-	if(!issimulatedturf(target))  // We remove slowdown in Destroy(), so we run this check after adding the slowdown.
-		qdel(src)
+
+	// Check tar hasn't been destroyed and that loc is a simulated turf. Qdel calls move moveToNullspace(), which in turn calls Moved()
+	if(!isnull(loc) && issimulatedturf(loc))
+		target = loc
+		target.slowdown += 10
 
 /obj/effect/decal/cleanable/tar/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isliving(entered))

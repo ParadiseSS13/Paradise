@@ -584,8 +584,8 @@
 	var/seeds_scanned = 0
 	var/seeds_needed = 5
 
-/obj/item/disk/plantgene/New()
-	..()
+/obj/item/disk/plantgene/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/disk/plantgene/Destroy()

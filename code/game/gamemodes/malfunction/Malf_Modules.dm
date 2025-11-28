@@ -359,7 +359,7 @@
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
-			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	AI.turrets_upgraded = TRUE
 
@@ -691,7 +691,7 @@
 	//If turrets are already upgraded, beef it up
 	if(user.turrets_upgraded)
 		turret.health += 30
-		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Big gun
+		turret.eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser //Big gun
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
 	if(do_after_once(user, 5 SECONDS, target = T, allow_moving = TRUE)) //Once this is done, turret is armed and dangerous

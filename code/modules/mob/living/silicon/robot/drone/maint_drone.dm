@@ -396,7 +396,7 @@
 	..()
 	update_headlamp(TRUE, 0, FALSE)
 
-/mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
+/mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 

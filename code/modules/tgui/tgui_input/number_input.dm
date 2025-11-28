@@ -153,11 +153,7 @@
 		if("submit")
 			if(!isnum(params["entry"]))
 				CRASH("A non number was input into TGUI Input Number by [usr]")
-			var/choice = round_value ? round(params["entry"]) : params["entry"]
-			if(choice > max_value)
-				CRASH("A number greater than the max value was input into TGUI Input Number by [usr]")
-			if(choice < min_value)
-				CRASH("A number less than the min value was input into TGUI Input Number by [usr]")
+			var/choice = clamp(round_value ? round(params["entry"]) : params["entry"], min_value, max_value)
 			set_entry(choice)
 			closed = TRUE
 			SStgui.close_uis(src)

@@ -4,7 +4,6 @@
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	language = "Siik'tajr"
 	tail = "tajtail"
-	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
@@ -33,6 +32,8 @@
 	base_color = "#424242"
 	butt_sprite = "tajaran"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/fur
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/tajaran,
 		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
@@ -49,7 +50,7 @@
 		/mob/living/basic/chick,
 		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/hostile/poison/bees,
+		/mob/living/basic/bee,
 	)
 
 	suicide_messages = list(

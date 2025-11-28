@@ -49,3 +49,6 @@
 	messages.Add("<span class='userdanger'>You are a scientist of [our_team.name]!</span>")
 	messages.Add("<span class='boldnotice'>With the help of your teammate, kidnap and experiment on station crew members! Use your tool and ship consoles to support the agent and retrieve humanoid specimens.</span>")
 	return messages
+
+/datum/antagonist/abductor/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1.5)

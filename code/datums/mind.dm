@@ -680,7 +680,8 @@
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
-			"nuclear", "absorb", "destroy", "maroon", "identity theft", "custom")
+			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
+
 		if(!new_obj_type)
 			return
 
@@ -745,13 +746,16 @@
 			if("hijack")
 				new_objective = /datum/objective/hijack
 
+			if("nuke")
+				new_objective = /datum/objective/nuke
+
 			if("escape")
 				new_objective = /datum/objective/escape
 
 			if("survive")
 				new_objective = /datum/objective/survive
 
-			if("nuclear")
+			if("nuclear operations")
 				new_objective = /datum/objective/nuclear
 
 			if("steal")
@@ -798,6 +802,16 @@
 				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
+
+			if("download")
+				new_objective = /datum/objective/download
+
+			if("incriminate")
+				new_objective = /datum/objective/incriminate
+
+			if("infiltrate security")
+				new_objective = /datum/objective/infiltrate_sec
+
 			if("custom")
 				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!expl)

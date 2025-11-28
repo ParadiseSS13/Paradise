@@ -16,7 +16,7 @@
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = GET_CULT_DATA(cult_wall_icon_state, initial(icon_state))
 
-/turf/simulated/wall/cult/bullet_act(obj/item/projectile/Proj)
+/turf/simulated/wall/cult/bullet_act(obj/projectile/Proj)
 	. = ..()
 	new /obj/effect/temp_visual/cult/turf(src)
 
@@ -57,7 +57,7 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/beam(src)
 
-/turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
+/turf/simulated/wall/clockwork/bullet_act(obj/projectile/Proj)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
 

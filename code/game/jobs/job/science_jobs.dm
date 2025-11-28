@@ -154,11 +154,12 @@
 	jobtype = /datum/job/xenobiologist
 
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	glasses = /obj/item/clothing/glasses/science
-	l_ear = /obj/item/radio/headset/headset_sci
+	l_ear = /obj/item/radio/headset/headset_xenobio
 	id = /obj/item/card/id/xenobiology
 	pda = /obj/item/pda/toxins
 

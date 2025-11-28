@@ -159,6 +159,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. = ..()
 	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
+/obj/structure/marker_beacon/dock_marker/update_icon_state()
+	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
+
 /obj/structure/marker_beacon/dock_marker/attack_hand()
 	return
 

@@ -383,7 +383,7 @@
 	return FALSE
 
 /obj/item/melee/baton/flayerprod
-	name = "stunprod"
+	name = "swarmprod"
 	desc = "A mechanical mass which you can use to incapacitate someone with."
 	icon_state = "swarmprod"
 	base_icon = "swarmprod"
