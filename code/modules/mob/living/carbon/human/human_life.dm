@@ -897,9 +897,11 @@
 			Dizzy(3 SECONDS)
 			adjustOxyLoss(5)
 			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
-			H.linked_organ.receive_damage(1, TRUE)
+			if(!H.linked_organ.is_robotic())
+				H.linked_organ.receive_damage(1, TRUE)
 			var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-			L?.linked_organ.receive_damage(1, TRUE)
+			if(L && !L.linked_organ.is_robotic())
+				L.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
 				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
