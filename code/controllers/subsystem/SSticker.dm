@@ -848,7 +848,7 @@ SUBSYSTEM_DEF(ticker)
 /// admin-spawned and which ones weren't.
 /datum/controller/subsystem/ticker/proc/any_admin_spawned_mobs(biohazard)
 	switch(biohazard)
-		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER)
+		if(TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER)
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.admin_spawned)
 					return TRUE
@@ -867,7 +867,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
-		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+		if(TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 			var/spiders = 0
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
@@ -890,7 +890,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
 	var/count = biohazard_count(biohazard)
 	switch(biohazard)
-		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+		if(TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 			return count >= 5
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			return count > 0
