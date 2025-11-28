@@ -81,11 +81,11 @@
 
 	var/check_mutations = 0 // Check mutations on next life tick
 
-	/// Current false pain. Only used for the heart
+	/// Current false pain. Increases perceived damage
 	var/false_pain = 0
 	/// The heartbeats per minute. Base is 80 BPM
 	var/heartbeat = 80
-	/// Blood pressure. Baseline is between 70 and 100
+	/// Blood pressure. Baseline is 80 mm/Hg
 	var/blood_pressure = 80
 	/// Heartbeat sound current ticks
 
