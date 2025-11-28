@@ -51,6 +51,10 @@
 				LoseTarget()
 				GLOB.move_manager.move_away(src,L,2,1)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/white/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 5, ASSIGNMENT_MEDICAL = 2)
+
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 		return 1
@@ -59,6 +63,12 @@
 /obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
 	. = ..()
 	GLOB.ts_infected_list += src
+	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
+
+/obj/item/organ/internal/body_egg/terror_eggs/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && owner)
+		return list(ASSIGNMENT_MEDICAL = 1)
 
 /obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
 	. = ..()

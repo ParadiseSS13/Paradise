@@ -71,3 +71,6 @@
 /obj/item/storage/box/disks/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/data(src)
+
+/obj/item/storage/box/disks/empty/populate_contents()
+	return

@@ -680,7 +680,7 @@
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
-			"nuclear", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
+			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
 
 		if(!new_obj_type)
 			return
@@ -746,13 +746,16 @@
 			if("hijack")
 				new_objective = /datum/objective/hijack
 
+			if("nuke")
+				new_objective = /datum/objective/nuke
+
 			if("escape")
 				new_objective = /datum/objective/escape
 
 			if("survive")
 				new_objective = /datum/objective/survive
 
-			if("nuclear")
+			if("nuclear operations")
 				new_objective = /datum/objective/nuclear
 
 			if("steal")

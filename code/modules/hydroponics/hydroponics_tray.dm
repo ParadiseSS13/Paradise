@@ -169,13 +169,13 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj ,/obj/item/projectile/energy/floramut))
+	if(istype(Proj ,/obj/projectile/energy/floramut))
 		mut_beamed = TRUE
 		return ..()
-	else if(istype(Proj ,/obj/item/projectile/energy/florayield))
+	else if(istype(Proj ,/obj/projectile/energy/florayield))
 		yield_beamed = TRUE
 		return ..()
 	else
@@ -500,7 +500,7 @@
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
-			var/obj/structure/spider/spiderling/S = new(get_turf(src))
+			var/mob/living/basic/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
@@ -847,7 +847,8 @@
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/plant_analyzer))
-		send_plant_details(user)
+		var/obj/item/plant_analyzer/p = used
+		send_plant_details(user, p.high_details_mode)
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/cultivator))
@@ -1071,20 +1072,22 @@
 		reagent_source.update_icon()
 
 
-/obj/machinery/hydroponics/proc/send_plant_details(mob/user)
+/obj/machinery/hydroponics/proc/send_plant_details(mob/user, high_details_mode)
 	if(myseed)
 		to_chat(user, "*** <b>[myseed.plantname]</b> ***")
 		to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
 		var/next_harvest = (age <= myseed.maturation ? myseed.maturation : lastproduce) + myseed.production
 		to_chat(user, "- Next Harvest At: <span class='notice'>[next_harvest]</span>")
-		var/list/text_string = myseed.get_analyzer_text()
+		var/list/text_string = myseed.get_analyzer_text(TRUE, high_details_mode)
 		if(text_string)
 			to_chat(user, text_string)
 	else
 		to_chat(user, "<b>No plant found.</b>")
-	to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-	to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-	to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
+	if(high_details_mode)
+		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
+		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
+		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
+
 	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
 	if(self_sustaining)
@@ -1114,7 +1117,7 @@
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
 	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
-		send_plant_details(user)
+		send_plant_details(user, TRUE)
 
 /obj/machinery/hydroponics/rad_act(atom/source, amount, emission_type)
 	if(!myseed)

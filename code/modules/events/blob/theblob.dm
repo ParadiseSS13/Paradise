@@ -35,6 +35,12 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
+
+/obj/structure/blob/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_CREW = 0.07)
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -69,8 +75,8 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/blob/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/kinetic))
+/obj/structure/blob/bullet_act(obj/projectile/P)
+	if(istype(P, /obj/projectile/kinetic))
 		P.damage /= 2
 	return ..()
 

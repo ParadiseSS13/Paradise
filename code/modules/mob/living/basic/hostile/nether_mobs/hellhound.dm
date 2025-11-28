@@ -45,6 +45,13 @@
 /mob/living/basic/hellhound/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/event_tracker)
+
+/mob/living/basic/hellhound/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 0.5)
+
 
 /mob/living/basic/hellhound/examine(mob/user)
 	. = ..()
@@ -150,3 +157,8 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 50
 	gold_core_spawnable = NO_SPAWN
+
+/mob/living/basic/hellhound/whelp
+	name = "hellhound whelp"
+	maxHealth = 150
+	health = 150

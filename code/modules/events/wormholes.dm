@@ -1,4 +1,6 @@
 /datum/event/wormholes
+	name =  "Wormholes"
+	role_weights = "Vent Clog"
 	announceWhen 			= 10
 	endWhen 				= 60
 

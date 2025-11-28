@@ -62,10 +62,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define EVENT_LEVEL_MUNDANE 1
-#define EVENT_LEVEL_MODERATE 2
-#define EVENT_LEVEL_MAJOR 3
-
 #define JANUARY		1
 #define FEBRUARY	2
 #define MARCH		3
@@ -636,7 +632,6 @@
 // These used to be integer values but they were never used numerically or even
 // stored in SSblackbox using their numeric values, and constantly converting
 // them to the actual terror name was redundant and annoying
-#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
 #define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
 #define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
 #define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
