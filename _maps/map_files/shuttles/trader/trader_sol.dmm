@@ -226,7 +226,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Fb" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/trade/sol)
 "Fe" = (
 /obj/structure/bed,

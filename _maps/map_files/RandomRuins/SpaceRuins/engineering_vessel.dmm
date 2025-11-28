@@ -162,7 +162,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "F" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plasteel/dark,
@@ -177,7 +177,7 @@
 /area/ruin/space/unpowered)
 "J" = (
 /obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "K" = (
 /obj/structure/shuttle/engine/heater{
