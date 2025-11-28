@@ -61,7 +61,7 @@
 /// Wrapper function for analyzing process_item internally.
 /datum/cooking/recipe_tracker/proc/process_item_wrap(mob/user, obj/used)
 	#ifdef PCWJ_DEBUG
-	log_debug("/datum/cooking/recipe_tracker/proc/process_item_wrap called!")
+	log_debug("/datum/cooking/recipe_tracker/proc/process_item_wrap([user], [used])")
 	#endif
 
 	var/response = process_item(user, used)
@@ -136,6 +136,7 @@
 		var/previous_step = recipes_last_completed_step[step_attempt.recipe]
 		if(step_attempt.recipe_step.is_complete(used, src, step_datas[step_attempt.recipe_step.type]))
 			recipes_last_completed_step[step_attempt.recipe] = step_attempt.current_step_index
+			LAZYOR(recipes_all_applied_steps[step_attempt.recipe], step_attempt.current_step_index)
 			completed_steps++
 
 			if(step_attempt.recipe_step == step_attempt.recipe.steps[length(step_attempt.recipe.steps)])
@@ -189,5 +190,12 @@
 				log_debug("failure to create result for recipe tracker")
 
 		return PCWJ_COMPLETE
+
+	// any recipes that have fewer completed steps than the number
+	// of steps we've actually accomplished shouldn't be considered
+	var/completed_step_count = length(recipes_applied_step_data)
+	for(var/recipe in recipes_last_completed_step)
+		if(!(recipe in recipes_all_applied_steps) || length(recipes_all_applied_steps[recipe]) < completed_step_count)
+			recipes_last_completed_step.Remove(recipe)
 
 	return PCWJ_SUCCESS
