@@ -965,8 +965,9 @@
 
 	// Robotic hearts don't really care about anything else
 	if(H.linked_organ.is_robotic())
+		heartbeat = beats
 		heartbeat_drawbacks()
-		return beats
+		return
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		beats += 10
