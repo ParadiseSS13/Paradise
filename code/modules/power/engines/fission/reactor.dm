@@ -70,14 +70,9 @@
 // Monitor the sounds and adjust as needed
 // Gasses now affect event chance, overheat thresholds, and reactivity.
 
-// ========= TO DO ==========
-
-// look into terminal not linking roundstart
-// sprites
-// burza's tgui
+// Todo: sprites, tgui
 
 /// MARK: Fission Reactor
-
 /obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
 	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b9bfdbef-54ee-40e2-9755-18fc18dfa4fb" name="Changes" comment="feex">
+      <change beforePath="$PROJECT_DIR$/code/modules/power/engines/fission/reactor.dm" beforeDir="false" afterPath="$PROJECT_DIR$/code/modules/power/engines/fission/reactor.dm" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;searchQuery&quot;: &quot;ngcr&quot;,
+      &quot;state&quot;: &quot;OPEN&quot;
+    },
+    {
+      &quot;searchQuery&quot;: &quot;quirk&quot;
+    },
+    {
+      &quot;searchQuery&quot;: &quot;heretic&quot;
+    },
+    {
+      &quot;searchQuery&quot;: &quot;quirks&quot;
+    },
+    {
+      &quot;searchQuery&quot;: &quot;nuclear&quot;
+    },
+    {
+      &quot;searchQuery&quot;: &quot;ngrc&quot;
+    },
+    {
+      &quot;state&quot;: &quot;OPEN&quot;
+    },
+    {
+      &quot;author&quot;: &quot;EmeraldCandy&quot;
+    }
+  ],
+  &quot;lastFilter&quot;: {
+    &quot;author&quot;: &quot;EmeraldCandy&quot;
+  }
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOJCSaRM6g2ISi&quot;,
+        &quot;number&quot;: 6
+      },
+      &quot;lastSeen&quot;: 1760888034787
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOAaBbtM6uybFI&quot;,
+        &quot;number&quot;: 30738
+      },
+      &quot;lastSeen&quot;: 1761904607030
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOAaBbtM6LM_SY&quot;,
+        &quot;number&quot;: 28388
+      },
+      &quot;lastSeen&quot;: 1742931506000
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOAaBbtM6pbJlo&quot;,
+        &quot;number&quot;: 30493
+      },
+      &quot;lastSeen&quot;: 1764435798053
+    }
+  ]
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:ParadiseSS13/Paradise.git&quot;,
+    &quot;accountId&quot;: &quot;5f1e9e80-9c08-465a-b065-d8a4224b629b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="32SMSiU44g5AlMXNRKYIoVzkbeT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#30493 on fork/EmeraldCandy/fission-reactor&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mason/Documents/repositories/tgui/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/mason/.local/share/JetBrains/Toolbox/apps/webstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tgui/public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tgui/packages/tgui/interfaces" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.26830.93" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9bfdbef-54ee-40e2-9755-18fc18dfa4fb" name="Changes" comment="" />
+      <created>1757409522102</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757409522102</updated>
+      <workItem from="1757409523350" duration="554000" />
+      <workItem from="1757412256054" duration="4166000" />
+      <workItem from="1758290918103" duration="8949000" />
+      <workItem from="1758414229391" duration="224000" />
+      <workItem from="1758577505962" duration="17491000" />
+      <workItem from="1758666009849" duration="278000" />
+      <workItem from="1759370214238" duration="19000" />
+      <workItem from="1759370234039" duration="7481000" />
+      <workItem from="1759397109040" duration="14003000" />
+      <workItem from="1759421385951" duration="10201000" />
+      <workItem from="1759491080280" duration="6847000" />
+      <workItem from="1759779662627" duration="2309000" />
+      <workItem from="1760289824035" duration="144000" />
+      <workItem from="1760290051963" duration="1240000" />
+      <workItem from="1760723043619" duration="2845000" />
+      <workItem from="1760886281110" duration="7419000" />
+      <workItem from="1760903657796" duration="12028000" />
+      <workItem from="1761165069297" duration="1184000" />
+      <workItem from="1761246141019" duration="6608000" />
+      <workItem from="1761311534892" duration="7902000" />
+      <workItem from="1761344971755" duration="1768000" />
+      <workItem from="1761379873284" duration="2001000" />
+      <workItem from="1761419280809" duration="2295000" />
+      <workItem from="1761593200893" duration="1163000" />
+      <workItem from="1761680344844" duration="10084000" />
+      <workItem from="1761903528163" duration="14140000" />
+      <workItem from="1761943141241" duration="168000" />
+      <workItem from="1762181548386" duration="854000" />
+      <workItem from="1762203110305" duration="1561000" />
+      <workItem from="1762397568942" duration="4010000" />
+      <workItem from="1764329825256" duration="370000" />
+      <workItem from="1764430929381" duration="6586000" />
+    </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1757414777491</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757414777491</updated>
+    </task>
+    <task id="LOCAL-00002" summary="rod fabricator initial">
+      <option name="closed" value="true" />
+      <created>1759780524869</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759780524869</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update and comments">
+      <option name="closed" value="true" />
+      <created>1760291051862</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1760291051862</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Forgive me, I will probably have to revert">
+      <option name="closed" value="true" />
+      <created>1760891623744</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1760891623744</updated>
+    </task>
+    <task id="LOCAL-00005" summary="behold, my monster">
+      <option name="closed" value="true" />
+      <created>1760913682818</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1760913682818</updated>
+    </task>
+    <task id="LOCAL-00006" summary="rebuild and merge master">
+      <option name="closed" value="true" />
+      <created>1760915370277</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760915370277</updated>
+    </task>
+    <task id="LOCAL-00007" summary="tgui fix">
+      <option name="closed" value="true" />
+      <created>1761693724921</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1761693724921</updated>
+    </task>
+    <task id="LOCAL-00008" summary="bundle rebuild probably">
+      <option name="closed" value="true" />
+      <created>1761695427390</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1761695427390</updated>
+    </task>
+    <task id="LOCAL-00009" summary="prettier">
+      <option name="closed" value="true" />
+      <created>1761695764156</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1761695764156</updated>
+    </task>
+    <task id="LOCAL-00010" summary="prettier">
+      <option name="closed" value="true" />
+      <created>1761697065588</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1761697065588</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed some dumb stuff">
+      <option name="closed" value="true" />
+      <created>1761920738317</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1761920738317</updated>
+    </task>
+    <task id="LOCAL-00012" summary="silly stuff">
+      <option name="closed" value="true" />
+      <created>1761920908632</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1761920908632</updated>
+    </task>
+    <task id="LOCAL-00013" summary="silly stuff">
+      <option name="closed" value="true" />
+      <created>1762182277757</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1762182277758</updated>
+    </task>
+    <task id="LOCAL-00014" summary="temporary for testing">
+      <option name="closed" value="true" />
+      <created>1762400205959</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1762400205960</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fixed removing blind">
+      <option name="closed" value="true" />
+      <created>1762407743536</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1762407743536</updated>
+    </task>
+    <task id="LOCAL-00016" summary="bundle rebuild">
+      <option name="closed" value="true" />
+      <created>1764437113798</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764437113798</updated>
+    </task>
+    <task id="LOCAL-00017" summary="prettier">
+      <option name="closed" value="true" />
+      <created>1764437311393</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764437311393</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feex">
+      <option name="closed" value="true" />
+      <created>1764437899229</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1764437899229</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="rod fabricator initial" />
+    <MESSAGE value="update and comments" />
+    <MESSAGE value="Forgive me, I will probably have to revert" />
+    <MESSAGE value="behold, my monster" />
+    <MESSAGE value="rebuild and merge master" />
+    <MESSAGE value="tgui fix" />
+    <MESSAGE value="bundle rebuild probably" />
+    <MESSAGE value="fixed some dumb stuff" />
+    <MESSAGE value="silly stuff" />
+    <MESSAGE value="temporary for testing" />
+    <MESSAGE value="fixed removing blind" />
+    <MESSAGE value="bundle rebuild" />
+    <MESSAGE value="prettier" />
+    <MESSAGE value="feex" />
+    <option name="LAST_COMMIT_MESSAGE" value="feex" />
+  </component>
+</project>
