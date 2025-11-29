@@ -76,6 +76,11 @@
 		ACCESS_MORGUE,
 		ACCESS_SURGERY
 	)
+	extra_access = list(
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY
+	)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -117,6 +122,12 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MORGUE
+	)
+	extra_access = list(
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY,
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -187,6 +198,11 @@
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM
 	)
+	extra_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_VIROLOGY
+	)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -229,6 +245,12 @@
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
+	)
+	extra_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM
 	)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -276,6 +298,13 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_PSYCHIATRIST
+	)
+	extra_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY
 	)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
@@ -327,6 +356,12 @@
 		ACCESS_MORGUE,
 		ACCESS_PARAMEDIC,
 		ACCESS_TELEPORTER
+	)
+	extra_access = list(
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)

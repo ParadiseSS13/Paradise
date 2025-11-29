@@ -6,6 +6,8 @@
 	/// Job access. A list of constants from access_defines.dm.
 	var/list/access = list()
 
+	var/list/extra_access = list()
+
 	///Job Bitflag, used for Database entries - DO NOT JUST EDIT THESE
 	var/flag = 0
 	///Department(s) Bitflag, used for Databse entries - DO NOT JUST EDIT THESE

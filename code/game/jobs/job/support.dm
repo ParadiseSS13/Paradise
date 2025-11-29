@@ -77,6 +77,11 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SUPPLY_SHUTTLE,
 	)
+	extra_access = list(
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH
+	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
@@ -111,10 +116,12 @@
 		ACCESS_CARGO,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 		ACCESS_SMITH
+	)
+	extra_access = list(
+		ACCESS_SUPPLY_SHUTTLE
 	)
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
@@ -152,6 +159,9 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
+	)
+	extra_access = list(
+		ACCESS_SUPPLY_SHUTTLE
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -280,7 +290,15 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_BAR, 
+		ACCESS_MAINT_TUNNELS, 
+		ACCESS_WEAPONS, 
+		ACCESS_MINERAL_STOREROOM
+	)
+	extra_access = list(
+		ACCESS_KITCHEN
+	)
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
 
@@ -328,6 +346,11 @@
 		ACCESS_KITCHEN,
 		ACCESS_MAINT_TUNNELS
 	)
+	extra_access = list(
+		ACCESS_BAR,
+		ACCESS_HYDROPONICS,
+		ACCESS_MINERAL_STOREROOM
+	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
@@ -369,6 +392,9 @@
 		ACCESS_HYDROPONICS,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MORGUE
+	)
+	extra_access = list(
+		ACCESS_KITCHEN
 	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
