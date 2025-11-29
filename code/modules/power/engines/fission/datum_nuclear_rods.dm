@@ -3,7 +3,7 @@
 	var/category = "Unknown"
 	var/list/metadata
 
-/datum/nuclear_rod_design/proc/build_metadata_list(var/path)
+/datum/nuclear_rod_design/proc/build_metadata_list(path)
 	metadata = list()
 	type_path = path
 

@@ -170,7 +170,7 @@
 
 /obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
-	if((stat & BROKEN))
+	if(stat & BROKEN)
 		. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
 		return
 	if(venting)
