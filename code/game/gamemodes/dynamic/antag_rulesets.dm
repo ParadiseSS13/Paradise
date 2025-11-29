@@ -219,22 +219,6 @@
 		antag.add_antag_datum(traitor_datum)
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
-// /datum/ruleset/traitor/autotraitor
-// 	name = "Autotraitor"
-// 	ruleset_weight = 2
-// 	antag_cost = 10
-// 	banned_mutual_rulesets = list(
-// 		/datum/ruleset/traitor,
-// 		/datum/ruleset/vampire,
-// 		/datum/ruleset/changeling,
-// 		/datum/ruleset/team/cult
-// 	)
-
-// /datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
-// 	. = ..()
-// 	latespawn_time = 0
-// 	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
-
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
@@ -338,7 +322,6 @@
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
-		// /datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)
