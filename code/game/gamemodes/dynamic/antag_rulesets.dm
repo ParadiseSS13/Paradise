@@ -49,7 +49,6 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
-		// /datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
