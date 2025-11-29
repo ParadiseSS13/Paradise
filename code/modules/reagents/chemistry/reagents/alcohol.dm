@@ -322,7 +322,7 @@
 	description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
-	drink_icon = "ginvodkaglass"
+	drink_icon = "goldschlagerglass"
 	drink_name = "Glass of goldschlager"
 	drink_desc = "100 proof that teen girls will drink anything with gold in it."
 	taste_description = "a deep, spicy warmth"
@@ -1199,6 +1199,30 @@
 			return
 	return ..() | update_flags
 
+/datum/reagent/consumable/ethanol/gfs
+	name = "GFS"
+	id = "gfs"
+	description = "Gin, fernet, shrub. Simple, sour, and sweet."
+	color = "#7e0243"
+	alcohol_perc = 0.25
+	drink_icon = "gfs_glass"
+	drink_name = "Glass of GFS"
+	drink_desc = "Gin, fernet, shrub. Simple, sour, and sweet."
+	taste_description = "sweetness tempered by earthy beets"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/shrub_julep
+	name = "Shrub Julep"
+	id = "shrub_julep"
+	description = "A bit spicy. Incredibly refreshing."
+	color = "#7e0243"
+	alcohol_perc = 0.15
+	drink_icon = "shrub_julep_glass"
+	drink_name = "Glass of Shrub Julep"
+	drink_desc = "A bit spicy. Incredibly refreshing."
+	taste_description = "chilly mint and earthy beets"
+	goal_difficulty = REAGENT_GOAL_HARD
+
 // ROBOT ALCOHOL PAST THIS POINT
 // WOOO!
 
@@ -1216,11 +1240,12 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
-	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
-		if(prob(25))
-			metabolization_rate += 15
-			M.fakevomit()
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
+		return ..()
+	metabolization_rate += 3.6 // gets removed from organics very fast
+	if(prob(25))
+		metabolization_rate += 15
+		M.fakevomit()
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -1239,6 +1264,7 @@
 	drink_name = "Glass of Robot Tears"
 	drink_desc = "No robots were hurt in the making of this drink."
 	taste_description = "existential angst"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/synthanol/trinary
 	name = "Trinary"
@@ -1298,6 +1324,214 @@
 	drink_name = "Glass of Synthignon"
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
 	taste_description = "fancy motor oil"
+
+/datum/reagent/consumable/ethanol/synthanol/gear_grinder
+	name = "Gear Grinder"
+	id = "gear_grinder"
+	description = "A gritty mixture that looks even worse for organics than it is for robots."
+	color = "#524745"
+	alcohol_perc = 0.25
+	drink_icon = "gear_grinder_glass"
+	drink_name = "Glass of Gear Grinder"
+	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+	taste_description = "vingear and regret"
+	COOLDOWN_DECLARE(drink_message_cooldown)
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/synthanol/gear_grinder/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	M.SetSlowed(8, 2)
+	if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+		to_chat(M, "Your joints struggle to move.")
+		COOLDOWN_START(src, drink_message_cooldown, 10 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/ethanol/synthanol/runtime
+	name = "Runtime"
+	id = "runtime"
+	description = "That color doesn't look right..."
+	color = "#ac0649"
+	alcohol_perc = 0.3
+	dizzy_adj = 10 SECONDS
+	drink_icon = "runtime_glass"
+	drink_name = "Glass of Runtime"
+	drink_desc = "Looks like there was some kind of error while mixing this drink."
+	taste_description = "something only half-describable"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/synthanol/runtime/on_mob_life(mob/living/M)
+	if((M.dna.species.reagent_tag & PROCESS_SYN) && prob(20))
+		M.Hallucinate(10 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/ethanol/synthanol/stack_trace
+	name = "Stack Trace"
+	id = "stack_trace"
+	description = "A glistering green beverage."
+	color = "#2ed92e"
+	alcohol_perc = 0.2
+	drink_icon = "stack_trace_glass"
+	drink_name = "Glass of Stack Trace"
+	drink_desc = "A glistering green beverage, best of both its components."
+	taste_description = "sweet, sweet progress"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/synthanol/csv
+	name = "CSV"
+	id = "csv"
+	description = "Cognac, synthanol, vodka."
+	color = "#f5303c"
+	alcohol_perc = 0.3
+	drink_icon = "csv_glass"
+	drink_name = "Glass of CSV"
+	drink_desc = "Cognac, synthanol, vodka. Sadly, the comma can't separate the literal fluids."
+	taste_description = "late-night spreadsheets"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/synthanol/hard_reset
+	name = "Hard Reset"
+	id = "hard_reset"
+	description = "This looks like it'll set your systems right."
+	color = "#1b1c20"
+	dizzy_adj = 2 SECONDS
+	drink_icon = "hard_reset_glass"
+	drink_name = "Glass of Hard Reset"
+	drink_desc = "Have you tried unplugging it and plugging it back in?"
+	taste_description = "a full stop"
+	COOLDOWN_DECLARE(reboot_cooldown)
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/synthanol/hard_reset/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	for(var/obj/effect/decal/cleanable/C in M)
+		qdel(C)
+	M.clean_blood()
+	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
+	var/mob/living/carbon/Mc = M
+	if(istype(Mc))
+		Mc.wetlevel = 0
+	M.germ_level -= min(volume * 30, M.germ_level)
+	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
+		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		M.Paralyse(5 SECONDS)
+		M.Drowsy(20 SECONDS)
+		metabolization_rate += 4.6 // get rid of it faster after rebooting
+		COOLDOWN_START(src, reboot_cooldown, 5 MINUTES)
+	if(prob(50))
+		M.AdjustConfused(-10 SECONDS)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R == src)
+			M.reagents.remove_reagent(R.id, 2)
+			continue
+		if(R.id == "ultralube" || R.id == "lube")
+			// Flushes lube and ultra-lube even faster than other chems
+			M.reagents.remove_reagent(R.id, 10)
+		else
+			M.reagents.remove_reagent(R.id, 4)
+	return ..()
+
+/datum/reagent/consumable/ethanol/synthanol/overclock_somewhere
+	name = "It's Overclock Somewhere"
+	id = "overclock_somewhere"
+	description = "A premium mix of premium lubricants for robots."
+	color = "#107bd6"
+	shock_reduction = 20
+	dizzy_adj = 30 SECONDS
+	drink_icon = "overclock_somewhere_glass"
+	drink_name = "Glass of It's Overclock Somewhere"
+	drink_desc = "Break things fast."
+	taste_description = "greased lightning"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/synthanol/overclock_somewhere/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	M.reagents.add_reagent("ultralube", 0.2)
+	M.Confused(2 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/ethanol/synthanol/bluescreen
+	name = "Bluescreen"
+	id = "bluescreen"
+	description = "A great way to give any robot synthanol poisoning."
+	color = "#0000ff"
+	alcohol_perc = 0.7
+	dizzy_adj = 20 SECONDS
+	drink_icon = "bluescreen_glass"
+	drink_name = "Glass of Bluescreen"
+	drink_desc = "You can't tell whether the scrolling messages are a good thing or a bad thing."
+	taste_description = "segmentation fault"
+	COOLDOWN_DECLARE(monitor_change_cooldown)
+	COOLDOWN_DECLARE(drink_drowsiness_cooldown)
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/synthanol/bluescreen/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	if(prob(20) && COOLDOWN_FINISHED(src, monitor_change_cooldown))
+		COOLDOWN_START(src, monitor_change_cooldown, 1 MINUTES)
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+		var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
+		if(head_organ && robohead.is_monitor)
+			H.change_hair("Blue IPC Screen", 1)
+			var/bluescreen_message = pick("Stack underflow.", "Null pointer exception.", "Syntax error.", "500 Internal Server Error.", "Segmentation fault.", "Runtime exception.", "418 I'm a teapot.", "Could not open [M]: No such file or directory.", "fatal: not a git repository (or any of the parent directories): .git", "Display error: No signal.")
+			to_chat(M, "<span class='warning'>[bluescreen_message]</span>")
+		if(prob(50) && COOLDOWN_FINISHED(src, drink_drowsiness_cooldown))
+			M.EyeBlurry(10 SECONDS)
+			M.Drowsy(5 SECONDS)
+			COOLDOWN_START(src, drink_drowsiness_cooldown, 1 MINUTES)
+	return ..()
+
+/datum/reagent/consumable/ethanol/synthanol/burnout
+	name = "Burnout"
+	id = "burnout"
+	description = "A fiery mixture for robots' enjoyment."
+	color = "#1bb1ff"
+	alcohol_perc = 0.3
+	drink_icon = "burnout_glass"
+	drink_name = "Glass of Burnout"
+	drink_desc = "Perfect, if you want a drink that really burns."
+	taste_description = "white-hot metal"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/synthanol/burnout/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	M.bodytemperature += 8
+	if(prob(5))
+		update_flags |= M.adjustFireLoss(5, FALSE)
+		var/burn_message = pick("Your wires singe!", "Your fans are working overtime!", "It burns...!")
+		to_chat(M, "<span class='userdanger'>[burn_message]</span>")
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/synthanol/dryer_martini
+	name = "Dryer Martini"
+	id = "dryer_martini"
+	description = "In general, you want the martini to taste dry, not dry up."
+	color = "#d004e7"
+	dizzy_adj = 14 SECONDS
+	drink_icon = "dryer_martini_glass"
+	drink_name = "Glass of Dryer Martini"
+	drink_desc = "No matter how much you fill it, only a short paste remains in the bottom of the glass."
+	taste_description = "synthanolic paste"
+	COOLDOWN_DECLARE(drink_message_cooldown)
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/synthanol/dryer_martini/on_mob_life(mob/living/M)
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+		return ..()
+	if(prob(30))
+		var/mob/living/carbon/Mc = M
+		if(istype(Mc) && Mc.wetlevel > 0)
+			Mc.wetlevel -= 1
+			if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+				to_chat(M, "The martini dries your peripherals somewhat.")
+				COOLDOWN_START(src, drink_message_cooldown, 5 SECONDS)
+	return ..()
 
 /datum/reagent/consumable/ethanol/fruit_wine
 	name = "Fruit Wine"
