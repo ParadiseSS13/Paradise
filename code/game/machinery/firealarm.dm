@@ -342,7 +342,7 @@ FIRE ALARM
 	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 32, 32)
 
 /*
 FIRE ALARM CIRCUIT
