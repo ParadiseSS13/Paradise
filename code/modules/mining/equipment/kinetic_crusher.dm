@@ -32,6 +32,10 @@
 	/// Tracker for the current amount of force used when the item is wielded.
 	/// Note that this isn't wired to anything, and must be updated with AddComponent to have value.
 	var/force_wielded = 20
+	/// The file in which our projectile icon resides
+	var/projectile_icon = 'icons/obj/projectiles.dmi'
+	/// Used by retool kits when changing the crusher's projectile sprite
+	var/projectile_icon_state = "pulse1"
 
 /obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
@@ -119,6 +123,8 @@
 		if(!isturf(proj_turf))
 			return
 		var/obj/projectile/destabilizer/D = new /obj/projectile/destabilizer(proj_turf)
+		D.icon = projectile_icon
+		D.icon_state = projectile_icon_state
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
@@ -186,7 +192,7 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/kinetic_crusher/update_icon_state()
-	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	inhand_icon_state = "[icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/kinetic_crusher/update_overlays()
 	. = ..()

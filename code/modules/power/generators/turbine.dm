@@ -370,7 +370,9 @@
 	// Where P1 [Pa] is the starting pressure, V1 [m^3] is the volume of the tile we suck in, L1 [m] is the length of the cylinder and x [m] is the length of the piston's movement. We also have S[m^2], which is cylinder's cross section area
 	// If we instead write L1 as V1 / S and (L1 - x) as V2 / S, V2 being our final volume, we get ln(L1 / (L1 - x)) = ln((V1 / S) /(V2 / S)) = ln(V1 / V2). For a final volume of 0.05 cubic meteres we get ln(V1 * 20).
 	// We also multiply by 1000 since we get pressure in kilopascals rather than pascals.
-	var/compression_energy_cost = max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
+	var/compression_energy_cost = 0
+	if(input_volume > 0)
+		compression_energy_cost = max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
 
 	// If we don't have enough energy to draw in as much gas as we should reduce the amount of gas going in
 	// Ideally we would use the inverse of the work function, but I couldn't find an expression for it. Instead we're approximating with binary search.
@@ -385,7 +387,10 @@
 			iterations--
 			input_fraction = (top + bottom) / 2
 			input_volume = 2.5 * input_fraction
-			compression_energy_cost =  max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
+			if(input_volume > 0)
+				compression_energy_cost = max(0, pascal_pressure * input_volume * (log(input_volume * 20)))
+			else
+				compression_energy_cost = 0
 			if(compression_energy_cost > compressor.kinetic_energy)
 				top = input_fraction
 			else
@@ -400,8 +405,8 @@
 	var/transfer_moles = environment.total_moles() * input_fraction
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
-	// Record how much gas we took in for the UI
-	compressor.gas_throughput = compressor.gas_contained.total_moles()
+	// Record how much gas we took in for the UI. We divided by 2 due to the turbine ticking over once every two seconds
+	compressor.gas_throughput = compressor.gas_contained.total_moles() / 2
 
 	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
 	var/total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)

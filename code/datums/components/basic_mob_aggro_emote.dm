@@ -16,6 +16,8 @@
 	var/aggro_sound
 	/// Volume for the sound
 	var/aggro_volume
+	/// List of possible things to say
+	var/list/say_list
 
 /datum/component/aggro_emote/Initialize(
 	target_key = BB_BASIC_MOB_CURRENT_TARGET,
@@ -26,6 +28,7 @@
 	emote_chance = 30,
 	minimum_chance = 2,
 	subtract_chance = 7,
+	list/say_list,
 )
 	. = ..()
 	if(!isatom(parent))
@@ -40,6 +43,7 @@
 	src.emote_chance = emote_chance
 	src.minimum_chance = minimum_chance
 	src.subtract_chance = subtract_chance
+	src.say_list = say_list
 
 /datum/component/aggro_emote/RegisterWithParent()
 	. = ..()
@@ -65,3 +69,5 @@
 		mob_parent.emote("me", EMOTE_VISIBLE, "[pick(emote_list)] at [new_target].")
 	if(aggro_sound)
 		playsound(mob_parent.loc, aggro_sound, aggro_volume, TRUE)
+	if(say_list)
+		mob_parent.say(pick(say_list))

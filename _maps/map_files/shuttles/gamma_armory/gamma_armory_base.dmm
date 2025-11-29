@@ -1,0 +1,199 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"b" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"f" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"h" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/suit_storage_unit/gamma/secure,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"i" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/structure/sign/vacuum/external{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"j" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+"t" = (
+/obj/machinery/mech_bay_recharge_port/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"u" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"w" = (
+/obj/mecha/combat/marauder/ares/loaded,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/shuttle/gamma)
+"z" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"B" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"C" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"F" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"J" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+"K" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
+/obj/item/gun/medbeam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"L" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"M" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
+/obj/docking_port/mobile/gamma_armory{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"O" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+"T" = (
+/obj/structure/table/reinforced,
+/obj/item/grenade/clusterbuster,
+/obj/item/grenade/chem_grenade/incendiary{
+	name = "Incendiary Grenade"
+	},
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+"W" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma)
+
+(1,1,1) = {"
+O
+O
+O
+O
+b
+O
+J
+"}
+(2,1,1) = {"
+O
+W
+C
+i
+u
+h
+O
+"}
+(3,1,1) = {"
+O
+L
+a
+T
+a
+t
+O
+"}
+(4,1,1) = {"
+O
+B
+a
+K
+a
+w
+O
+"}
+(5,1,1) = {"
+O
+f
+z
+a
+a
+F
+O
+"}
+(6,1,1) = {"
+O
+O
+O
+M
+j
+O
+J
+"}
