@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			if(ruleset.antag_cost > max_cost)
 				max_cost = ruleset.antag_cost
 		min_latespawn_budget = max_cost
-	log_debug("Latespawn budget threshold set to [min_latespawn_budget] from [length(rulesets)] ruleset(s).")
+	log_dynamic("Latespawn budget threshold set to [min_latespawn_budget] from [length(rulesets)] ruleset(s).")
 
 /datum/game_mode/dynamic/pre_setup()
 	var/watch = start_watch()
