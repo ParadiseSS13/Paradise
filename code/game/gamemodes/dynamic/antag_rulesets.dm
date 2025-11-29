@@ -58,7 +58,7 @@
 	var/antag_amount = 0
 	/// All of the minds that we will make into our antagonist type
 	var/list/datum/mind/pre_antags = list()
-	/// If non-zero, how long from the start of the game should a latespawn for this role occur?
+	/// If non-zero, how long from the start of the game should this role enable latespawns?
 	var/latespawn_time = 0
 	/// Should this ruleset roll latespawns?
 	var/latespawns_enabled = TRUE
@@ -174,7 +174,6 @@
 /datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
 	var/list/mob/living/carbon/human/possible_antags = get_latejoin_players()
 
-	//CHUGAFIX I think this case is possible when it's lowpop and nobody has antag on. This needs testing.
 	if(length(possible_antags) < antag_amount)
 		var/wasted_budget = (antag_amount - length(possible_antags)) * antag_cost
 		log_dynamic("Tried to roll [antag_amount] [name], but there were only [length(possible_antags)] candidates! Wasting [wasted_budget] budget.")

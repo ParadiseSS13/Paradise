@@ -14,8 +14,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	/// Log for what happens in a dynamic round
 	var/list/dynamic_log = list()
 
-	/// Minimum amount of budget required to start considering latespawns
-	var/min_latespawn_budget = 15
+	/// Minimum amount of budget required to start considering latespawn antags. 0 disables latespawn antags.
+	var/min_latespawn_budget = 0
 
 /datum/game_mode/dynamic/announce()
 	to_chat(world, "<b>The current game mode is - Dynamic</b>")
@@ -145,10 +145,33 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	log_dynamic("No more antagonist budget remaining. Antagonists rolled: [antags_rolled]")
 	return antags_rolled
 
+/datum/game_mode/dynamic/proc/set_latespawn_budget()
+	// Disable latespawns if there's no rulesets to roll from
+	if(length(rulesets) <= 0)
+		log_dynamic("Found zero rulesets. Disabling latespawns.")
+		return
+	if(length(rulesets) == 1)
+		var/datum/ruleset/ruleset = rulesets[1]
+		if(!ruleset.latespawns_enabled)
+			min_latespawn_budget = 0
+			log_dynamic("The only ruleset, [ruleset.name], does not support latespawns. Disabling latespawns.")
+			return
+		min_latespawn_budget = ruleset.antag_cost
+	else
+		var/max_cost = 0
+		for(var/datum/ruleset/ruleset as anything in rulesets)
+			if(!ruleset.latespawns_enabled)
+				continue
+			if(ruleset.antag_cost > max_cost)
+				max_cost = ruleset.antag_cost
+		min_latespawn_budget = max_cost
+	log_debug("Latespawn budget threshold set to [min_latespawn_budget] from [length(rulesets)] ruleset(s).")
+
 /datum/game_mode/dynamic/pre_setup()
 	var/watch = start_watch()
 	log_dynamic("Starting dynamic setup.")
 	allocate_ruleset_budget()
+	set_latespawn_budget()
 	log_dynamic("-=-=-=-=-=-=-=-=-=-=-=-=-")
 	allocate_antagonist_budget()
 	log_dynamic("=-=-=-=-=-=-=-=-=-=-=-=-=")
@@ -156,7 +179,9 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets)) // rulesets first, then implied rulesets
 		log_dynamic("Applying [ruleset.antag_amount] [ruleset.name]\s.")
 		antag_budget += ruleset.roundstart_pre_setup()
-
+	if(antag_budget < 0)
+		antag_budget = 0
+	
 	log_dynamic("Budget overflow: [antag_budget].")
 	// for the future, maybe try readding antagonists with apply_antag_budget(antag_budget)
 	log_dynamic("Finished dynamic setup in [stop_watch(watch)]s.")
@@ -176,7 +201,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
 	antag_budget += 1
-	if(antag_budget >= min_latespawn_budget)
+	if(min_latespawn_budget > 0 && antag_budget >= min_latespawn_budget)
 		log_dynamic("Antagonist budget at [min_latespawn_budget] threshold. Attempting to roll latespawns...")
 		if(apply_antag_budget(TRUE))
 			for(var/datum/ruleset/ruleset as anything in (rulesets + implied_rulesets))
