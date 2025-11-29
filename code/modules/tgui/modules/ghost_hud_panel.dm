@@ -84,14 +84,20 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				add_verb(ghost, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 
 			ghost.antagHUD = TRUE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.add_hud_to(ghost)
+			for(var/hud_key, hud in GLOB.huds)
+				var/datum/atom_hud/antag/chosen_hud = hud
+				if(!istype(chosen_hud))
+					continue
+				chosen_hud.add_hud_to(ghost)
 			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
 			H.add_hud_to(ghost)
 
 		if("ahud_off")
 			ghost.antagHUD = FALSE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.remove_hud_from(ghost)
+			for(var/hud_key, hud in GLOB.huds)
+				var/datum/atom_hud/antag/chosen_hud = hud
+				if(!istype(chosen_hud))
+					continue
+				chosen_hud.remove_hud_from(ghost)
 			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
 			H.remove_hud_from(ghost)

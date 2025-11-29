@@ -977,7 +977,7 @@
 	new /obj/effect/temp_visual/decoy/mephedrone_afterimage(old_loc, L, overdosed ? 1.25 SECONDS : 0.75 SECONDS)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
-/datum/reagent/mephedrone/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
+/datum/reagent/mephedrone/proc/dodge_bullets(mob/living/carbon/human/source, obj/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))

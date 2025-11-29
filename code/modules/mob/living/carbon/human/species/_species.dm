@@ -1071,7 +1071,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	M.adjust_bodytemperature(clamp((temperature + M.bodytemperature) * 0.5 - M.bodytemperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) // Approximation for gradual heating or cooling.
 
-/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+/datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)

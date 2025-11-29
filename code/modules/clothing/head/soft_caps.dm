@@ -144,6 +144,11 @@
 	icon_state = "paramedic"
 	dog_fashion = /datum/dog_fashion/head/paramedic
 
+/obj/item/clothing/head/soft/robotics
+	name = "robotics cap"
+	desc = "It's a black baseball hat with a red research shield."
+	icon_state = "robo"
+
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
 	desc = "It's baseball hat in tasteful red colour."
