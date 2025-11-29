@@ -117,6 +117,7 @@
 	name = "Pacifist"
 	desc = "You can't bring yourself to hurt others, and cannot take a command or security position."
 	cost = -3
+	blacklisted = TRUE
 	trait_to_apply = TRAIT_PACIFISM
 
 /datum/quirk/hungry

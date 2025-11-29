@@ -783,8 +783,8 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "tf" = (
-/obj/item/mounted/frame/apc_frame,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/unbuilt/directional/east,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -934,12 +934,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wO" = (
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "wW" = (
@@ -1519,10 +1516,9 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "LF" = (
-/obj/structure/sign/poster/official/space_cops/directional/north,
 /obj/structure/table,
-/obj/item/mounted/frame/apc_frame,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1733,13 +1729,10 @@
 	dir = 4;
 	invisibility = 101
 	},
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Rh" = (
@@ -1972,6 +1965,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random/loot,
+/obj/structure/sign/poster/official/space_cops/directional/north,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0

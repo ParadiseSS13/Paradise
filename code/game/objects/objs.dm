@@ -60,8 +60,6 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(sharp)
-		AddComponent(/datum/component/surgery_initiator)
 
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
@@ -296,7 +294,7 @@
 			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-/obj/handle_ricochet(obj/item/projectile/P)
+/obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && receive_ricochet_damage_coeff)
 		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet

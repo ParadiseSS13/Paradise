@@ -6,13 +6,20 @@
 /obj/machinery/floodlight{
 	anchored = 1
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"ai" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/environmental_storytelling_holopad/control_room,
+/turf/simulated/floor/plasteel/full,
+/area/ruin/space/telecomms/computer)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -61,17 +68,30 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "bJ" = (
 /obj/effect/abstract/loot_trap,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "bO" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "bP" = (
 /obj/machinery/ai_slipper,
@@ -184,7 +204,7 @@
 	emp_proof = 1;
 	hacked_by_ruin_AI = 1
 	},
-/obj/structure/environmental_storytelling_holopad/control_room,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "eb" = (
@@ -229,6 +249,9 @@
 	name = "LETHAL TURRETS";
 	pixel_x = -32
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "eR" = (
@@ -244,7 +267,12 @@
 /area/space/no_teleport)
 "fc" = (
 /obj/structure/machine_frame,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "fq" = (
 /obj/machinery/light_switch{
@@ -321,6 +349,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
@@ -379,7 +410,12 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation/no_teleport)
 "il" = (
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "iy" = (
 /obj/machinery/firealarm/directional/east,
@@ -409,8 +445,23 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
+"jp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
 "kj" = (
 /obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms)
+"kk" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "kl" = (
@@ -453,6 +504,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /obj/effect/abstract/cheese_trap,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
 "kT" = (
@@ -529,8 +581,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "lH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
@@ -560,12 +612,13 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
 	ailock = 1;
 	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/trimline/department/security,
+/turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms/tele)
 "mh" = (
 /obj/structure/cable{
@@ -616,6 +669,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
@@ -639,7 +695,12 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "nL" = (
 /obj/structure/window/reinforced{
@@ -753,7 +814,12 @@
 /area/space/nearstation/no_teleport)
 "pa" = (
 /obj/machinery/computer/borgupload,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "ph" = (
 /obj/structure/cable{
@@ -763,7 +829,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms/foyer)
 "pE" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
@@ -809,6 +875,7 @@
 	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
 "qo" = (
@@ -819,6 +886,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
+"qu" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
+	name = "LETHAL TURRETS";
+	pixel_x = 32
+	},
+/obj/machinery/alarm/server/directional/north,
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/full,
+/area/ruin/space/telecomms/foyer)
 "qD" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
@@ -828,7 +907,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms)
 "qF" = (
 /obj/item/storage/toolbox/mechanical,
@@ -852,7 +931,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/environmental_storytelling_holopad/teleporter_room,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms/tele)
 "qP" = (
 /obj/structure/cable{
@@ -993,6 +1072,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /obj/effect/abstract/cheese_trap,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
 "tx" = (
@@ -1002,6 +1082,9 @@
 	},
 /obj/machinery/bluespace_beacon,
 /obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1014,6 +1097,7 @@
 	malfhack = 1;
 	hacked_by_ruin_AI = 1
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "tD" = (
@@ -1082,7 +1166,12 @@
 /area/ruin/space/telecomms/computer)
 "um" = (
 /obj/structure/dispenser,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "ux" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -1099,6 +1188,15 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/telecomms/powercontrol)
+"uU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
 "vd" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1135,11 +1233,32 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"vD" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "vJ" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -1268,6 +1387,9 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "xF" = (
@@ -1359,7 +1481,7 @@
 	name = "Telecoms East Wing"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "yG" = (
 /obj/effect/spawner/random/fungus/maybe,
@@ -1368,6 +1490,9 @@
 "yJ" = (
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -1519,11 +1644,41 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"AZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Bb" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "Bf" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
 	name = "LETHAL TURRETS";
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
@@ -1531,6 +1686,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/machinery/alarm/server/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Bq" = (
@@ -1571,6 +1727,9 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Cq" = (
@@ -1583,13 +1742,21 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "CC" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/trimline/organization/syndicate/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "CD" = (
@@ -1606,7 +1773,9 @@
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
 "CG" = (
-/obj/machinery/power/grounding_rod,
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
@@ -1660,6 +1829,9 @@
 	name = "Telecoms Power Monitoring"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Dr" = (
@@ -1673,7 +1845,7 @@
 	dir = 6
 	},
 /obj/machinery/camera/tracking_head/dvorak,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms/foyer)
 "Dy" = (
 /obj/structure/lattice,
@@ -1695,6 +1867,7 @@
 /area/ruin/space/telecomms)
 "DV" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Ed" = (
@@ -1803,14 +1976,9 @@
 "FG" = (
 /obj/structure/telecomms_shield_cover,
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
-"FN" = (
-/obj/machinery/computer/nonfunctional{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/telecomms/chamber)
 "Ga" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1915,6 +2083,9 @@
 /area/space/nearstation/no_teleport)
 "Hu" = (
 /obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "Hw" = (
@@ -1929,6 +2100,17 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
+"Hy" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "HK" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1959,6 +2141,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "HV" = (
@@ -1972,7 +2157,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/closet,
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "Ig" = (
@@ -1997,7 +2184,7 @@
 	name = "Telecoms West Wing"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "IU" = (
 /obj/structure/cable{
@@ -2015,7 +2202,12 @@
 /obj/machinery/computer/sm_monitor{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "Jz" = (
 /obj/structure/closet/malf_suits,
@@ -2131,11 +2323,11 @@
 	icon_state = "1-2"
 	},
 /mob/living/silicon/decoy/telecomms,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 400;
+/turf/simulated/floor/mech_bay_recharge_floor{
+	temperature = 80;
 	oxygen = 0;
-	temperature = 80
+	nitrogen = 400;
+	name = "ai connection port"
 	},
 /area/ruin/space/telecomms/chamber)
 "LK" = (
@@ -2212,8 +2404,11 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
 	temperature = 80
@@ -2229,8 +2424,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
 	temperature = 80
@@ -2280,7 +2476,12 @@
 	},
 /obj/effect/turf_decal/box/white,
 /obj/structure/telecomms_doomsday_device,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/trimline/department/security,
+/turf/simulated/floor/plasteel/dark/full{
+	oxygen = 0;
+	nitrogen = 400;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "Pl" = (
 /turf/simulated/floor/plasteel,
@@ -2340,6 +2541,9 @@
 "Qg" = (
 /obj/structure/table,
 /obj/effect/spawner/random/bluespace_tap/cultural_rare,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "Qx" = (
@@ -2400,9 +2604,16 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation/no_teleport)
+"Rg" = (
+/obj/machinery/alarm/server/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
 "Rh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
@@ -2415,13 +2626,21 @@
 	on = 1
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Rv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "Rw" = (
 /obj/structure/window/reinforced,
@@ -2468,6 +2687,9 @@
 	dir = 8;
 	initialize_directions = 11
 	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Sr" = (
@@ -2479,6 +2701,17 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"St" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
+	name = "LETHAL TURRETS";
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/trimline/organization/syndicate/filled/warning{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/full,
+/area/ruin/space/telecomms/foyer)
 "Sv" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -2554,6 +2787,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/obj/machinery/alarm/server/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "TY" = (
@@ -2641,6 +2875,17 @@
 /obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
+"Vz" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark{
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "VO" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2683,6 +2928,7 @@
 	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
 "WO" = (
@@ -2720,7 +2966,11 @@
 /area/space/nearstation/no_teleport)
 "XB" = (
 /obj/structure/environmental_storytelling_holopad/core_room,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full{
+	oxygen = 0;
+	nitrogen = 400;
+	temperature = 80
+	},
 /area/ruin/space/telecomms/chamber)
 "XJ" = (
 /obj/effect/spawner/random/fungus/maybe,
@@ -2729,10 +2979,20 @@
 "XP" = (
 /turf/template_noop,
 /area/template_noop)
+"Yj" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
 "Yr" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/tele)
+"Yt" = (
+/obj/machinery/alarm/server/directional/south,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
 "Yw" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2766,6 +3026,9 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
+"YG" = (
+/turf/simulated/floor/plasteel/full,
+/area/ruin/space/telecomms/computer)
 "YN" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2794,6 +3057,12 @@
 	},
 /turf/template_noop,
 /area/space/nearstation/no_teleport)
+"YV" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
 "YW" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -5685,8 +5954,8 @@ il
 il
 EM
 Zu
-eJ
-nD
+St
+uU
 eJ
 eA
 DV
@@ -5695,8 +5964,8 @@ PQ
 PQ
 XJ
 PQ
-iE
-LK
+YV
+AZ
 vJ
 PQ
 PQ
@@ -5760,7 +6029,7 @@ qe
 il
 il
 Ct
-EM
+il
 bO
 il
 il
@@ -5840,8 +6109,8 @@ Zu
 Ew
 il
 fc
-nh
-EM
+Bb
+Hy
 nh
 um
 il
@@ -5996,14 +6265,14 @@ ux
 Zd
 Ta
 rd
-np
-Pl
+ai
+Yt
 Zu
 EM
 il
 Jm
-gG
-EM
+vD
+Vz
 gG
 pa
 il
@@ -6078,14 +6347,14 @@ wW
 pV
 Pl
 dR
-Pl
+Yj
 Zu
 EM
 il
 il
 nI
-EM
-FN
+il
+dn
 il
 il
 qe
@@ -6171,11 +6440,11 @@ il
 il
 qe
 Zu
-Bf
-nD
+qu
+jp
 Bf
 eA
-iE
+Rg
 AY
 PQ
 ik
@@ -6480,7 +6749,7 @@ ik
 ux
 Pl
 Pl
-Pl
+YG
 qo
 Pl
 si
@@ -6895,7 +7164,7 @@ yh
 RW
 Qg
 Rh
-JC
+kk
 mD
 yh
 On

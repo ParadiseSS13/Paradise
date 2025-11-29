@@ -179,6 +179,12 @@
 	var/mob/living/carbon/human/user = AM
 	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
 		return
+	if(QDELETED(src))
+		return
+	if(!user.can_use_hands())
+		return
+	if(user.stat != CONSCIOUS)
+		return
 	if(user.m_intent != MOVE_INTENT_RUN)
 		return
 	if(!COOLDOWN_FINISHED(user, skittish_cooldown))
@@ -188,7 +194,7 @@
 		return
 	locked = FALSE
 	if(opened || open())
-		user.forceMove(src)
+		user.forceMove(loc)
 		close()
 		COOLDOWN_START(user, skittish_cooldown, 2 SECONDS)
 

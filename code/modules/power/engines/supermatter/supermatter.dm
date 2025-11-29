@@ -692,11 +692,11 @@
 			countdown()
 	return 1
 
-/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/proj)
+/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/projectile/proj)
 	var/turf/L = loc
 	if(!istype(L))
 		return FALSE
-	if(!istype(proj, /obj/item/projectile/beam/emitter/hitscan) && power_changes)
+	if(!istype(proj, /obj/projectile/beam/emitter/hitscan) && power_changes)
 		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", INVESTIGATE_SUPERMATTER)
 	if(proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear

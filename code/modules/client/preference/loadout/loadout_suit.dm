@@ -74,7 +74,7 @@
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Research Director", "Geneticist")
+	allowed_roles = list("Scientist", "Research Director", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
@@ -187,7 +187,7 @@
 /datum/gear/suit/bomber/job/science
 	display_name = "Bomber jacket, science"
 	path = /obj/item/clothing/suit/jacket/bomber/sci
-	allowed_roles = list("Research Director", "Scientist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/bomber/job/robotics
 	display_name = "Bomber jacket, robotics"
