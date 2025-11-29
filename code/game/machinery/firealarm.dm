@@ -10,7 +10,7 @@ FIRE ALARM
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/wallbumps/firealarm.dmi'
-	icon_state = "firealarm_on"
+	icon_state = "firealarm_off"
 	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE
 	var/working = TRUE
@@ -74,16 +74,11 @@ FIRE ALARM
 	if(stat & NOPOWER)
 		icon_state = "firealarm_off"
 		return
-
-	var/area/area = get_area(src)
-	if(area.fire)
-		icon_state = "firealarm_alarming"
-		return
 	if(!detecting)
 		icon_state = "firealarm_detect"
 		return
 	else
-		icon_state = "firealarm_on"
+		icon_state = "firealarm_off"
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
@@ -97,7 +92,12 @@ FIRE ALARM
 		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
 
 	if(!wiresexposed)
-		underlays += emissive_appearance(icon, "firealarm_lightmask")
+		underlays += emissive_appearance(icon, "firealarm_detect")
+
+	var/area/area = get_area(src)
+	if(area.fire)
+		. += "firealarm_alarming"
+		return
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)

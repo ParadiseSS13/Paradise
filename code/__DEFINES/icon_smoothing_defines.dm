@@ -111,7 +111,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_LATTICE  S_OBJ(30)					///obj/structure/lattice
 
-#define SMOOTH_GROUP_AIRLOCK S_OBJ(40)					///obj/machinery/door/airlock
+#define SMOOTH_GROUP_AIRLOCK S_OBJ(40)					///obj/machinery/door/airlock, /obj/machinery/door/poddoor, /obj/machinery/door/poddoor/shutters, /obj/machinery/door/firedoor
 
 #define SMOOTH_GROUP_TABLES S_OBJ(50)					///obj/structure/table
 #define SMOOTH_GROUP_WOOD_TABLES S_OBJ(51)				///obj/structure/table/wood

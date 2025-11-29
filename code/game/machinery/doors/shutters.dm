@@ -6,6 +6,7 @@
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
+	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 	dir = EAST
 
 /obj/machinery/door/poddoor/shutters/preopen

@@ -24,6 +24,7 @@
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
+	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
