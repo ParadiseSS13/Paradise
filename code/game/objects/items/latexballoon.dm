@@ -54,9 +54,9 @@
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(temperature, volume)
+/obj/item/latexballon/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C+100)
+	if(exposed_temperature > T0C+100)
 		burst()
 
 /obj/item/latexballon/attackby__legacy__attackchain(obj/item/W, mob/user, params)

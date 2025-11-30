@@ -108,9 +108,9 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/firealarm/temperature_expose(temperature, volume)
+/obj/machinery/firealarm/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(!emagged && detecting && temperature > T0C + 200)
+	if(!emagged && detecting && exposed_temperature > T0C + 200)
 		alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user)
