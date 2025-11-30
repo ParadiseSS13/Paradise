@@ -17729,7 +17729,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -53286,12 +53286,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"kLJ" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "kLL" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -59421,12 +59415,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"mac" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "maf" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -61082,7 +61070,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -78881,7 +78868,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 1;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -80274,7 +80261,7 @@
 /obj/machinery/computer/general_air_control{
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
@@ -82487,7 +82474,6 @@
 	},
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -87844,12 +87830,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
-"rIB" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "rIC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -90490,7 +90470,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -98495,8 +98474,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine{
 	icon_state = "rampbottom";
-	name = "reinforced stairs";
-	dir = 1
+	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
 "tMb" = (
@@ -103154,7 +103132,6 @@
 "uHU" = (
 /obj/structure/sign/poster/official/religious/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -146567,11 +146544,11 @@ xwu
 sht
 qFW
 bNd
-mac
-rIB
+lIs
+lIs
 uJr
-mac
-rIB
+lIs
+lIs
 uJr
 tyb
 hkp
@@ -146821,13 +146798,13 @@ tyb
 nqj
 uJr
 uJr
-kLJ
+lIs
 lIs
 bNd
-kLJ
+lIs
 lIs
 uJr
-kLJ
+lIs
 lIs
 vZK
 tyb
@@ -147075,8 +147052,8 @@ bvh
 nmP
 mUY
 tyb
-mac
-rIB
+lIs
+lIs
 xaT
 xaT
 xaT
@@ -148360,8 +148337,8 @@ bvh
 nmP
 rux
 tyb
-mac
-rIB
+lIs
+lIs
 fOH
 fOH
 xaT
@@ -148877,14 +148854,14 @@ tyb
 cfy
 uJr
 uJr
-mac
-rIB
+lIs
+lIs
 iPA
-mac
-rIB
+lIs
+lIs
 uJr
-mac
-rIB
+lIs
+lIs
 uJr
 tyb
 vzw
@@ -149137,10 +149114,10 @@ xbo
 iiU
 lIs
 iPA
-kLJ
+lIs
 lIs
 wFI
-kLJ
+lIs
 vuS
 lcf
 tyb
