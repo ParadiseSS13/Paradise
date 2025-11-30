@@ -125,8 +125,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 1 SECONDS),
 		)),
-	)),
-	null,
 ))
 
 /obj/item/stack/sheet/metal
