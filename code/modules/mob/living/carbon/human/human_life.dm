@@ -870,8 +870,8 @@
 
 /mob/living/carbon/human/proc/handle_blood_pressure()
 	var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
-
-	if(!H || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
+	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(!H || !L || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
 		blood_pressure = 0
 		return
 
@@ -889,24 +889,35 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		temp_bp += 10
 
+	temp_bp += L.linked_organ.damage
+	temp_bp += 5 * get_infected_limbs()
+
+	var/found_alcohol = FALSE
 	for(var/datum/reagent/chem in reagents.reagent_list)
+		if(istype(chem, /datum/reagent/consumable/ethanol))
+			if(found_alcohol)
+				continue
+			found_alcohol = TRUE
+
 		temp_bp += chem.blood_pressure_change
 
+	temp_bp += 5 * length(reagents.addiction_list)
+
 	switch(temp_bp)
-		if(0 to 40)
+		if(0 to BLOODPRESSURE_DANGER)
 			Dizzy(3 SECONDS)
 			adjustOxyLoss(5)
 			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
 			if(!H.linked_organ.is_robotic())
 				H.linked_organ.receive_damage(1, TRUE)
-			var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-			if(L && !L.linked_organ.is_robotic())
+
+			if(!L.linked_organ.is_robotic())
 				L.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
 				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
 
-		if(40 to 70)
+		if(BLOODPRESSURE_DANGER to BLOODPRESSURE_LOW)
 			if(prob(5))
 				Dizzy(5 SECONDS)
 			// Oxyloss under 60 BP
@@ -915,7 +926,7 @@
 			if(prob(5))
 				to_chat(src, "<span class='warning'>You feel a bit weak.</span>")
 
-		if(130 to 150)
+		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_V_HIGH)
 			false_pain += rand(1, 10)
 			if(prob(10))
 				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
@@ -925,7 +936,7 @@
 			else if(prob(5))
 				Dizzy(5 SECONDS)
 
-		if(150 to INFINITY)
+		if(BLOODPRESSURE_V_HIGH to INFINITY)
 			false_pain += rand(5, 15)
 
 			if(prob(5))

@@ -342,3 +342,10 @@ This function restores all organs.
 
 /mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
 	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon, spread_damage)
+
+/mob/living/carbon/human/proc/get_infected_limbs()
+	var/germed_limbs = 0
+	for(var/obj/item/organ/external/O in bodyparts)
+		if(O.germ_level >= INFECTION_LEVEL_ONE)
+			germed_limbs++
+	return germed_limbs
