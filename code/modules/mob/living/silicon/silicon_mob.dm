@@ -569,9 +569,34 @@
 		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
 	)
 	silicon_hat = item_to_add
+	var/datum/action/A = new /datum/action/innate/drop_silicon_hat(src)
+	A.Grant(src)
 	update_icons()
 
 	return TRUE
+
+/datum/action/innate/drop_silicon_hat
+	name = "Drop hat"
+	desc = "Discard your hat onto the ground."
+
+/datum/action/innate/drop_silicon_hat/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	var/mob/living/silicon/S = owner
+	button_icon = S.silicon_hat.icon
+	button_icon_state = S.silicon_hat.icon_state
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
+
+/datum/action/innate/drop_silicon_hat/Activate()
+	var/mob/living/silicon/S = owner
+	if(is_ai(S))
+		to_chat(S, "<span class='notice'>You eject [S.silicon_hat] from your hat storage area.</span>")
+	else
+		to_chat(S, "<span class='notice'>You shake [S.silicon_hat] off your head.</span>")
+	S.drop_hat()
+	Remove(owner)
 
 /**
   * Attempts to remove any hats a silicon is wearing.
