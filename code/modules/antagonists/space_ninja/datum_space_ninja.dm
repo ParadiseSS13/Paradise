@@ -31,6 +31,16 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 	radio.autosay("<b>--ZZZT!- Domo Ar!g@to, [extractor.real_name]. Your training paid -^%&!-ZZT!-</b>", "Spider Clan HQ", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Space Ninja")
 
+/datum/antagonist/space_ninja/finalize_antag()
+	. = ..()
+	equip_ninja()
+
+/datum/antagonist/space_ninja/proc/equip_ninja()
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/new_ninja = owner.current
+	new_ninja.equipOutfit(/datum/outfit/space_ninja)
+
 /datum/antagonist/space_ninja/proc/forge_objectives()
 	var/iteration = 1
 

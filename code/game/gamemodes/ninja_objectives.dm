@@ -19,7 +19,7 @@
 		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/space_ninja/N = M.has_antag_datum(/datum/antagonist/space_ninja)
-		for(var/datum/objective/ninja/ninja_objective in N.objective_holder)
+		for(var/datum/objective/ninja/ninja_objective in N.objective_holder.get_objectives())
 			if(!ninja_objective.completed)
 				return FALSE
 		return TRUE
