@@ -108,7 +108,7 @@
 	// Color of our blade
 	var/sword_color
 	// Colors for our blade
-	var/list/static/colormap = list(
+	var/alist/static/colormap = alist(
 		1 = LIGHT_COLOR_GREEN,
 		2 = LIGHT_COLOR_RED,
 		3 = LIGHT_COLOR_LIGHTBLUE,
@@ -511,7 +511,7 @@
 
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	if(((melee_type == MELEE_WEAPON_DSWORD || syndie_flags & ESHIELD) || (melee_type == MELEE_WEAPON_ESWORD && prob(reflect_chance))) && Proj.is_reflectable(REFLECTABILITY_ENERGY))

@@ -95,7 +95,7 @@
 	var/last_hit = 0
 	var/timer_id = TIMER_ID_NULL
 
-/mob/living/carbon/human/dummy/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/dummy/bullet_act(obj/projectile/P, def_zone)
 	if(!first_hit)
 		first_hit = world.time
 		visible_message("Started tracking hit at time [first_hit]!")

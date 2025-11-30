@@ -169,13 +169,13 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj ,/obj/item/projectile/energy/floramut))
+	if(istype(Proj ,/obj/projectile/energy/floramut))
 		mut_beamed = TRUE
 		return ..()
-	else if(istype(Proj ,/obj/item/projectile/energy/florayield))
+	else if(istype(Proj ,/obj/projectile/energy/florayield))
 		yield_beamed = TRUE
 		return ..()
 	else
@@ -500,7 +500,7 @@
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
-			var/obj/structure/spider/spiderling/S = new(get_turf(src))
+			var/mob/living/basic/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")

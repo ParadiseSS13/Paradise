@@ -19,7 +19,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "drills into"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
-	projectiletype = /obj/item/projectile/kinetic
+	projectiletype = /obj/projectile/kinetic
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	speak_emote = list("states")
 	throw_message = "does not go through the armor of"
@@ -70,9 +70,9 @@
 	. += "<span class='notice'><b>[rand(-30, 110)]%</b> mod capacity remaining.\nThere is a module installed, using <b>[rand(-5, 35)]%</b> capacity.\n...or at least you think so.</span>"
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/CanPass(atom/movable/O)
-	if(!istype(O, /obj/item/projectile/kinetic))
+	if(!istype(O, /obj/projectile/kinetic))
 		return ..()
-	var/obj/item/projectile/kinetic/K = O
+	var/obj/projectile/kinetic/K = O
 	if(K.kinetic_gun)
 		for(var/A in K.kinetic_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A

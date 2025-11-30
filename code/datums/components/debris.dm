@@ -26,11 +26,11 @@
 	if(parent)
 		UnregisterSignal(parent, COMSIG_ATOM_BULLET_ACT)
 
-/datum/component/debris/proc/register_for_impact(datum/source, obj/item/projectile/proj)
+/datum/component/debris/proc/register_for_impact(datum/source, obj/projectile/proj)
 	SIGNAL_HANDLER // COMSIG_ATOM_BULLET_ACT
 	INVOKE_ASYNC(src, PROC_REF(on_impact), proj)
 
-/datum/component/debris/proc/on_impact(obj/item/projectile/P)
+/datum/component/debris/proc/on_impact(obj/projectile/P)
 	var/angle = !isnull(P.Angle) ? P.Angle : round(get_angle(P.starting, parent), 1)
 	var/x_component = sin(angle) * debris_velocity
 	var/y_component = cos(angle) * debris_velocity
