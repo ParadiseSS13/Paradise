@@ -18,11 +18,11 @@
 	/// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
 	var/went_boom = FALSE
 
-/obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/reagent_dispensers/bullet_act(obj/projectile/P)
+	if(should_explode(P))
+		boom(FALSE, TRUE)
+		return
 	. = ..()
-	if(. && obj_integrity > 0)
-		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
-			boom(FALSE, TRUE)
 
 /obj/structure/reagent_dispensers/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(I.is_refillable())
@@ -55,6 +55,13 @@
 		for(var/i in 1 to 8)
 			if(reagents)
 				reagents.temperature_reagents(exposed_temperature)
+
+/obj/structure/reagent_dispensers/proc/should_explode(obj/projectile/Projectile)
+	var/enough_volume = tank_volume > 0
+	var/projectile_has_correct_flag = Projectile.flag == BULLET || Projectile.flag == LASER
+	var/projectile_deals_enough_damage = Projectile.damage > 0 && !Projectile.never_detonate_tanks
+	var/projectile_deals_correct_damage_type = Projectile.damage_type == BURN || Projectile.damage_type == BRUTE
+	return enough_volume && projectile_has_correct_flag && projectile_deals_enough_damage && projectile_deals_correct_damage_type
 
 /obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
 	if(went_boom)
@@ -127,9 +134,7 @@
 	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)
-	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
-
-	if(will_explode) // Log here while you have the information needed
+	if(should_explode()) // Log here while you have the information needed
 		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
 		log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
 		investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
