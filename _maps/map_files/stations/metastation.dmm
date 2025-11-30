@@ -69113,7 +69113,7 @@
 /area/station/public/dorms)
 "qTT" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "qTX" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
@@ -74341,7 +74341,7 @@
 /area/station/hallway/primary/starboard)
 "sOi" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "sOy" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -75744,7 +75744,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "tnO" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "toc" = (
 /obj/structure/sign/electricshock,

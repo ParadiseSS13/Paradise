@@ -31580,9 +31580,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"cqY" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "cra" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -67234,7 +67231,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "oqF" = (
 /obj/machinery/door/firedoor,
@@ -94845,11 +94842,11 @@ aab
 aaa
 aaa
 aaa
-cqY
+aVV
 pDb
 jyO
 vig
-cqY
+aVV
 aaa
 aaa
 aaa
@@ -95102,11 +95099,11 @@ aab
 aaa
 aaa
 aVV
-cqY
+aVV
 wIc
 jyO
 qrc
-cqY
+aVV
 aVV
 aaa
 aaa
@@ -95358,13 +95355,13 @@ fay
 aab
 aaa
 aVV
-cqY
+aVV
 oqj
-cqY
+aVV
 jMw
-cqY
+aVV
 oqj
-cqY
+aVV
 aVV
 aaa
 aab
@@ -95614,7 +95611,7 @@ vKU
 fay
 aab
 aaa
-cqY
+aVV
 aXu
 aXx
 pYy
@@ -95622,7 +95619,7 @@ jyO
 uWH
 aXv
 hWF
-cqY
+aVV
 aaa
 aab
 apx
@@ -95871,7 +95868,7 @@ kES
 hVy
 hVy
 hVy
-cqY
+aVV
 aXr
 aXs
 aXs
@@ -95879,7 +95876,7 @@ pCA
 aXs
 aXs
 gdQ
-cqY
+aVV
 aLd
 aLd
 aLd
@@ -96385,7 +96382,7 @@ mKX
 hVy
 hVy
 hVy
-cqY
+aVV
 wRK
 jyO
 hqB
@@ -96393,7 +96390,7 @@ hqB
 hqB
 jyO
 vig
-cqY
+aVV
 aLd
 aLd
 aLd
@@ -97670,7 +97667,7 @@ aRa
 hVy
 hVy
 hVy
-cqY
+aVV
 wRK
 jyO
 hqB
@@ -97678,7 +97675,7 @@ hqB
 hqB
 jyO
 vig
-cqY
+aVV
 aLd
 aLd
 aLd
@@ -98184,7 +98181,7 @@ aPQ
 hVy
 hVy
 hVy
-cqY
+aVV
 oga
 aXs
 aYZ
@@ -98192,7 +98189,7 @@ aYZ
 aYZ
 aXs
 mvP
-cqY
+aVV
 aLd
 aLd
 aLd
@@ -98441,7 +98438,7 @@ vKU
 aRd
 aab
 aaa
-cqY
+aVV
 mOC
 bex
 qqY
@@ -98449,7 +98446,7 @@ kRu
 qqY
 bex
 dtK
-cqY
+aVV
 aaa
 aab
 brc
@@ -98698,15 +98695,15 @@ vKU
 hVy
 aab
 aaa
-cqY
+aVV
 aYV
 aYV
 aYV
-cqY
+aVV
 aYV
 aYV
 aYV
-cqY
+aVV
 aaa
 aab
 aLd
@@ -98955,15 +98952,15 @@ vKU
 hVy
 aab
 aaa
-cqY
+aVV
 aYT
 aYT
 aYT
-cqY
+aVV
 aYT
 aYT
 aYT
-cqY
+aVV
 aaa
 aab
 aLd

@@ -90,9 +90,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
-"li" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/trade/sol)
 "nQ" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass/jungle/no_creep,
@@ -450,8 +447,8 @@ rF
 rF
 rF
 rF
-li
-li
+xx
+xx
 xx
 Ln
 Ln
@@ -475,11 +472,11 @@ Tm
 Kd
 Tm
 GY
-li
+xx
 rF
 rF
 rF
-li
+xx
 sV
 Ot
 Ln
@@ -542,9 +539,9 @@ hI
 rF
 rF
 rF
-li
-li
-li
+xx
+xx
+xx
 ki
 Os
 Os
@@ -565,18 +562,18 @@ rF
 rF
 Ln
 Ln
-li
+xx
 Hh
 wf
 Os
 Os
 vQ
-li
-li
-li
+xx
+xx
+xx
 Tx
-li
-li
+xx
+xx
 xx
 "}
 (7,1,1) = {"
@@ -588,19 +585,19 @@ rF
 Ln
 Ln
 xx
-li
+xx
 Dr
 Os
 Os
 Os
 Os
 vR
-li
+xx
 Km
 Os
 KT
 se
-li
+xx
 "}
 (8,1,1) = {"
 Ln
@@ -623,7 +620,7 @@ Wa
 Os
 Os
 Wa
-li
+xx
 "}
 (9,1,1) = {"
 Ln
@@ -692,7 +689,7 @@ Wa
 Os
 Os
 Wa
-li
+xx
 "}
 (12,1,1) = {"
 rF
@@ -703,19 +700,19 @@ rF
 Ln
 Ln
 xx
-li
+xx
 Vm
 Os
 Os
 Os
 Os
 cc
-li
+xx
 XG
 Os
 DG
 se
-li
+xx
 "}
 (13,1,1) = {"
 rF
@@ -726,18 +723,18 @@ rF
 rF
 Ln
 Ln
-li
+xx
 VR
 YQ
 Os
 Os
 vQ
-li
-li
-li
+xx
+xx
+xx
 wg
-li
-li
+xx
+xx
 xx
 "}
 (14,1,1) = {"
@@ -749,9 +746,9 @@ Kd
 rF
 rF
 rF
-li
-li
-li
+xx
+xx
+xx
 FL
 Os
 Os
@@ -820,11 +817,11 @@ xA
 JD
 Kd
 Tm
-li
+xx
 rF
 rF
 rF
-li
+xx
 Ue
 Ot
 Ln
@@ -841,8 +838,8 @@ rF
 rF
 rF
 rF
-li
-li
+xx
+xx
 xx
 Ln
 Ln
