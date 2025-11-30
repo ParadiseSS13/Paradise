@@ -785,8 +785,6 @@
 				Mix two parts whiskey to one part vermouth.
 				<h2>Patron:</h2>
 				Mix 10 parts tequila to one part silver.
-				<h2>Robot Tears: §</h2>
-				Mix one part each of synthanol, soda water, and oil. Chemistry can help.
 				<h2>Synthignon:</h2>
 				Mix one part synthanol to one part wine.
 				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
