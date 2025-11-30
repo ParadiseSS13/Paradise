@@ -2748,7 +2748,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "auR" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "auS" = (
@@ -4489,20 +4489,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"aLQ" = (
-/obj/machinery/door/airlock/command{
-	name = "Captain's Quarters"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/captain)
 "aLU" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -18384,6 +18370,15 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/maintenance/disposal/external/southeast)
+"cSI" = (
+/obj/structure/bed,
+/obj/item/bedsheet/captain,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/captain)
 "cSJ" = (
 /obj/structure/closet/secure_closet/magistrate,
 /obj/item/megaphone,
@@ -23414,12 +23409,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
-"dPP" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
 "dPY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -54573,6 +54562,9 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"kHX" = (
+/turf/simulated/floor/wood,
+/area/station/command/office/captain)
 "kHZ" = (
 /obj/structure/table,
 /obj/item/dest_tagger,
@@ -63257,6 +63249,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
+"mEo" = (
+/obj/machinery/computer/arcade{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "mEq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
@@ -75191,9 +75189,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
-"poW" = (
-/turf/simulated/floor/wood,
-/area/station/command/office/captain)
 "poY" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/freezer,
@@ -104095,15 +104090,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
-"vGs" = (
-/obj/structure/bed,
-/obj/item/bedsheet/captain,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/captain)
 "vGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -112514,6 +112500,20 @@
 	icon_regular_floor = "yellowsiding"
 	},
 /area/station/service/theatre)
+"xxS" = (
+/obj/machinery/door/airlock/command{
+	name = "Captain's Quarters"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/captain)
 "xxU" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -147861,8 +147861,8 @@ abW
 dxS
 auU
 ikc
-vGs
-poW
+cSI
+kHX
 wPw
 uXj
 aCb
@@ -148120,7 +148120,7 @@ eTm
 awk
 eTm
 eTm
-aLQ
+xxS
 uXj
 uXj
 uXj
@@ -148379,7 +148379,7 @@ eTm
 uBe
 vUn
 aVo
-dPP
+mEo
 qEF
 uaz
 eTm

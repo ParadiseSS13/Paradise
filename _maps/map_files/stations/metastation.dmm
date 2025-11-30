@@ -11039,7 +11039,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "bnE" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /obj/structure/sign/bobross{
 	pixel_y = 32
 	},

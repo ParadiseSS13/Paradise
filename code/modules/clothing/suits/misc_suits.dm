@@ -520,6 +520,7 @@
 	icon_state = "winterhood_captain"
 
 /obj/item/clothing/suit/hooded/wintercoat/captain/white
+	name = "captain's white winter coat"
 	icon_state = "wintercoat_captainw"
 	inhand_icon_state = "coatcaptainw"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain/white
