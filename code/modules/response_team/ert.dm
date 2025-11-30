@@ -11,24 +11,19 @@ GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
-/client/proc/response_team()
-	set name = "Dispatch CentComm Response Team"
-	set category = "Event"
-	set desc = "Send an CentComm response team to the station."
-
-	if(!check_rights(R_EVENT))
-		return
-
+USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
+		"Send an CentComm response team to the station.", \
+		VERB_CATEGORY_EVENT)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(client, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(client, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
-	E.ui_interact(usr)
+	E.ui_interact(client.mob)
 
 
 /mob/proc/JoinResponseTeam()
