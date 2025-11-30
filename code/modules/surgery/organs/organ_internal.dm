@@ -178,6 +178,8 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			receive_damage(20, 1)
+		if(EMP_RESIST_ORGAN)
+			receive_damage(12, 1)
 		if(EMP_LIGHT)
 			receive_damage(7, 1)
 		if(EMP_WEAKENED)

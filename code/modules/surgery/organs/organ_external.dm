@@ -376,6 +376,9 @@
 			if(EMP_LIGHT)
 				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
+			if(EMP_RESIST_BODY)
+				// 1.9 burn damage, 20.9 damage with 11 limbs.
+				receive_damage(0, 1.9)
 			if(EMP_WEAKENED)
 				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
 				receive_damage(0, 2)
