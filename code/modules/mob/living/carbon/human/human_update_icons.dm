@@ -422,7 +422,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	var/species_name = ""
-	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
+	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan", "Skkulakin"))
 		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
 
 	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
@@ -1212,6 +1212,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 // Warning to all that come here: This proc is also used to properly render nian wings and skulk spines. Also it sucks. Have fun!
 /mob/living/carbon/human/proc/update_tail_layer()
+	// If the tail is currently wagging, don't stop wagging.
+	if(tail_wagging)
+		start_tail_wagging()
+		return
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1302,6 +1306,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/start_tail_wagging()
+	tail_wagging = TRUE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1381,6 +1386,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/stop_tail_wagging()
+	tail_wagging = FALSE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER)
 	remove_overlay(TAIL_LAYER)
 	update_tail_layer() //just trigger a full update for normal stationary sprites
