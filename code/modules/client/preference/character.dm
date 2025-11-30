@@ -2172,7 +2172,7 @@
 					continue
 
 			index += 1
-			//when max jobs are listed, or the name of a "header" job is listed, make a new column
+			// when max jobs are listed, or the name of a "header" job is listed, make a new column
 			if((index >= limit) || (job.title in splitJobs))
 				if((index < limit) && (lastJob != null))
 					// Dynamic window width
@@ -2258,10 +2258,6 @@
 			html += "<a class='white' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 	//			HTML += "<a href='byond://?_src_=prefs;preference=job;task=input;text=[rank]'>"
-			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"))
-			//var/a = bicon(icon("icons/obj/hhmirror.dmi", "hhmirror"), 0)
-
-
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
@@ -2283,7 +2279,7 @@
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
-			//determines the width of the jobs priority column
+			// determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 			html += "</td><td style='width:30%; margin:5px;'><span class='dark'>[difficultyMeter]</span>"
 			html += "</td></tr>"
