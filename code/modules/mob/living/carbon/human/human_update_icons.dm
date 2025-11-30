@@ -422,7 +422,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	var/species_name = ""
-	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
+	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan", "Skkulakin"))
 		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
 
 	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all

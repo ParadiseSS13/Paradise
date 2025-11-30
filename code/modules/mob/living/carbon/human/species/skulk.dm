@@ -38,7 +38,6 @@
 
 	eyes = "skulk_eyes_s"
 
-
 	optional_body_accessory = FALSE
 
 	reagent_tag = PROCESS_ORG
