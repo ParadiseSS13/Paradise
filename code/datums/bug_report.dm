@@ -23,8 +23,11 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	/// for garbage collection purposes.
 	var/selected_confirm = FALSE
 
-	/// UID for DB stuff
-	var/db_uid
+	/// time the report was filed
+	var/file_time
+
+	/// Index of the report in the db
+	var/row_index
 
 /datum/tgui_bug_report_form/New(mob/user)
 	if(user)
@@ -64,16 +67,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/ui_close(mob/user)
 	. = ..()
-	var/client/initial_user = locateUID(initial_user_uid)
-	if(!approving_user && user.client == initial_user && !selected_confirm) // user closes the ui without selecting confirm or approve.
-		qdel(src)
-		return
-	approving_user = null
-	selected_confirm = FALSE
-
-/datum/tgui_bug_report_form/Destroy()
-	GLOB.bug_reports -= src
-	return ..()
+	// The reports shouldn't persist unless being made or reviewed.
+	qdel(src)
 
 /datum/tgui_bug_report_form/proc/sanitize_payload(list/params)
 	for(var/param in params)
@@ -93,7 +88,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 			to_chat(user, "<span class='warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
 		return FALSE
 	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
-		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [SQLtime()].")
 		return FALSE
 
 	approving_user = user.client
@@ -142,7 +137,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	if(token == null)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
 		external_link_prompt(user)
-		qdel(src)
 		return
 
 	var/url = "https://api.github.com/repos/[org]/[repo_name]/issues"
@@ -161,18 +155,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	request.prepare(RUSTLIBS_HTTP_METHOD_POST, url, json_encode(payload), headers)
 	request.begin_async()
 
-	// Report has been handled so we can remove it from the DB.
-	// If the request fails the user is prompted to open an issue on Github, so we consider it handled as well.
-	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
-			"DELETE FROM bug_reports WHERE (db_uid=:db_uid AND author_ckey=:author_ckey)",
-			list(
-				"db_uid" = db_uid,
-				"author_ckey" = initial_key,
-				)
-		)
-	query_delete_bug_report.warn_execute()
-	qdel(query_delete_bug_report)
-
 	var/start_time = world.time
 	UNTIL(request.is_complete() || (world.time > start_time + 5 SECONDS))
 	if(!request.is_complete() && world.time > start_time + 5 SECONDS)
@@ -184,22 +166,23 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		external_link_prompt(user)
 	else
 		var/client/initial_user = locateUID(initial_user_uid)
-		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
+		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		if(initial_user)
 			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
-	// approved and submitted, we no longer need the datum.
-	qdel(src)
+		// Update bug report status on the DB
+		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
+		if(!query_update_submission.warn_execute())
+			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [SQLtime()]. DB request failed")
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
 	var/client/initial_user = locateUID(initial_user_uid)
+	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
+	file_time = SQLtime()
+	if(!save_to_db())
+		external_link_prompt(initial_user)
 	if(initial_user)
 		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
-	if(!db_uid)
-		db_uid = world.realtime
-	GLOB.bug_reports += src
-
-	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
 	message_admins(general_message)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
@@ -215,18 +198,18 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 			bug_report_data = sanitize_payload(params)
 			add_metadata(user)
 			selected_confirm = TRUE
-			// bug report request is now waiting for admin approval
+			// Bug report request is being submitted for approval
 			if(!awaiting_approval)
 				bug_report_request()
 				GLOB.bug_report_time[user.ckey] = world.time
 				awaiting_approval = TRUE
-			else // otherwise it's been approved
+			// Otherwise it's being approved
+			else
 				var/payload_body = create_form()
 				send_request(payload_body, user.client)
 		if("cancel")
 			if(awaiting_approval) // admin has chosen to reject the bug report
 				reject(user.client)
-			qdel(src)
 	ui.close()
 	. = TRUE
 
@@ -236,19 +219,85 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
-	message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-	var/client/initial_user = locateUID(initial_user_uid)
-	if(initial_user)
-		to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
-	// Report has been handled so we can remove it from the DB
-	var/datum/db_query/query_delete_bug_report = SSdbcore.NewQuery(
-			"DELETE FROM bug_reports WHERE (db_uid=:db_uid AND author_ckey=:author_ckey)",
-			list(
-				"db_uid" = db_uid,
-				"author_ckey" = initial_key,
+	var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=2 WHERE id=:index", list("index" = row_index))
+	if(!query_update_submission.warn_execute())
+		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()]. DB request failed")
+	else
+		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
+		var/client/initial_user = locateUID(initial_user_uid)
+		if(initial_user)
+			to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	qdel(query_update_submission)
+
+/// Populates a list using the bug reports db table and returns it
+/proc/read_bug_report_table()
+	var/list/bug_reports = list()
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE submitted=0")
+	if(!query_bug_reports.warn_execute())
+		log_debug("Failed to load stored bug reports from DB")
+		qdel(query_bug_reports)
+		return list()
+	while(query_bug_reports.NextRow())
+		var/datum/tgui_bug_report_form/bug_report = new()
+		bug_reports += bug_report
+		bug_report.row_index = query_bug_reports.item[1]
+		bug_report.file_time = query_bug_reports.item[2]
+		bug_report.initial_key = query_bug_reports.item[3]
+		bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
+		bug_report.awaiting_approval = TRUE
+	qdel(query_bug_reports)
+
+	return bug_reports
+
+/// Create a list of ids, authors and titles of bug reports awaiting approval
+/proc/read_bug_report_titles()
+	var/list/bug_reports = list()
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, author_ckey, contents_json FROM bug_reports WHERE submitted=0")
+	if(!query_bug_reports.warn_execute())
+		log_debug("Failed to load stored bug reports from DB")
+		qdel(query_bug_reports)
+		return list()
+	while(query_bug_reports.NextRow())
+		var/list/report_data = json_decode(query_bug_reports.item[3])
+		bug_reports["[query_bug_reports.item[2]] - [report_data["title"]]"] = query_bug_reports.item[1]
+	qdel(query_bug_reports)
+
+	return bug_reports
+
+/proc/read_bug_report(index)
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE id=:index", list("index" = index))
+	if(!query_bug_reports.warn_execute())
+		log_debug("Failed to load bug report from DB")
+		qdel(query_bug_reports)
+		return
+	if(!query_bug_reports.NextRow())
+		log_debug("Attempted to load bug report from DB with invalid index")
+		qdel(query_bug_reports)
+		return
+	var/datum/tgui_bug_report_form/bug_report = new()
+	bug_report.row_index = query_bug_reports.item[1]
+	bug_report.file_time = query_bug_reports.item[2]
+	bug_report.initial_key = query_bug_reports.item[3]
+	bug_report.bug_report_data = json_decode(query_bug_reports.item[4])
+	bug_report.awaiting_approval = TRUE
+	qdel(query_bug_reports)
+	return bug_report
+
+/datum/tgui_bug_report_form/proc/save_to_db()
+	. = TRUE
+	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
+				INSERT INTO bug_reports (filetime, author_ckey, title, round_id, contents_json) VALUES (:filetime, :author_ckey, :title, :round_id, :contents_json)
+				"},
+				list(
+					"filetime" = file_time,
+					"author_ckey" = initial_key,
+					"title" = bug_report_data["title"],
+					"round_id" = bug_report_data["round_id"],
+					"contents_json" = json_encode(bug_report_data),
 				)
-		)
-	query_delete_bug_report.warn_execute()
-	qdel(query_delete_bug_report)
+			)
+	if(!bug_query.warn_execute())
+		. = FALSE
+	qdel(bug_query)
 
 #undef STATUS_SUCCESS
