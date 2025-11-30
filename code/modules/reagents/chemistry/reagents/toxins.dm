@@ -1147,7 +1147,7 @@
 	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
-	heart_rate_stop = 1
+	heart_rate_stop = TRUE
 	taste_description = "sweetness"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
@@ -1178,7 +1178,7 @@
 	description = "A rare and expensive drug that will silence the user and let him appear dead as long as it's in the body. Rest to play dead, stand up to wake up."
 	reagent_state = LIQUID
 	color = "#60A584"
-	heart_rate_stop = 1
+	heart_rate_stop = TRUE
 	taste_description = "sweetness"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)

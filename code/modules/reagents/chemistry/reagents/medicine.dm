@@ -169,7 +169,7 @@
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
-	heart_rate_decrease = 1
+	heart_rate_change = -10
 	taste_description = "a safe refuge"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	data = list()
@@ -806,6 +806,7 @@
 	addiction_chance = 10
 	addiction_threshold = 15
 	metabolization_rate = 0.25 //Lasts for 120 seconds
+	heart_rate_change = -10
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
@@ -862,6 +863,8 @@
 	reagent_state = LIQUID
 	metabolization_rate = 0.2
 	overdose_threshold = 25
+	heart_rate_change = -20
+	blood_pressure_change = -20
 	harmless = FALSE
 	taste_description = "a moment of respite"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -892,6 +895,8 @@
 	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 20
+	heart_rate_change = 10
+	blood_pressure_change = 10
 	harmless = FALSE
 	taste_description = "borrowed time"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -905,6 +910,12 @@
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits))
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.4
+
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
@@ -1371,6 +1382,7 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
+	heart_rate_change = -10
 	harmless = FALSE
 	taste_description = "sleepiness"
 	goal_difficulty = REAGENT_GOAL_EASY

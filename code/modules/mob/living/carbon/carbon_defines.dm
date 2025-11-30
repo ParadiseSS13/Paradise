@@ -29,9 +29,6 @@
 	/// Active emote/pose. Similar to flavor text
 	var/pose = null
 
-	/// Current pulse of this mob. Updated by handle_pulse on life
-	var/pulse = PULSE_NORM
-
 	/// Tracks how wet the mob is. Only used for examining the mob
 	var/wetlevel = 0
 

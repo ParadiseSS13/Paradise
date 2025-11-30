@@ -79,9 +79,15 @@
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
 
-	var/check_mutations=0 // Check mutations on next life tick
+	var/check_mutations = 0 // Check mutations on next life tick
 
-	var/heartbeat = 0
+	/// Current false pain. Increases perceived damage
+	var/false_pain = 0
+	/// The heartbeats per minute. Base is 80 BPM
+	var/heartbeat = 80
+	/// Blood pressure. Baseline is 80 mm/Hg
+	var/blood_pressure = 80
+	/// Heartbeat sound current ticks
 
 	/// UID of the person who is giving this mob CPR.
 	var/receiving_cpr_from
