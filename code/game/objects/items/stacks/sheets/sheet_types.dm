@@ -112,6 +112,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("metal door", /obj/structure/mineral_door, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("gym equipment", list(
 		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -124,6 +125,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 1 SECONDS),
 		)),
+	)),
+	null,
 ))
 
 /obj/item/stack/sheet/metal

@@ -1115,6 +1115,7 @@
 /area/station/security/brig)
 "agt" = (
 /obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "agu" = (
@@ -1395,8 +1396,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "ahF" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 8;
+	name = "NSS Cyberiad Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "ahG" = (
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
@@ -45234,7 +45239,7 @@
 /area/station/security/brig)
 "dGd" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Port Bay 4 Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -70171,12 +70176,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "pNm" = (
-/obj/docking_port/stationary{
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "Port Bay 4 at NSS Cyberiad";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Cyberiad"
 	},
 /turf/space,
 /area/space)
@@ -72722,13 +72723,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"qTO" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall,
-/area/space/nearstation)
 "qUj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -114079,11 +114073,11 @@ aaa
 aaa
 aaa
 abY
-afO
 aab
-afO
-qTO
-aMr
+aab
+aab
+abY
+aab
 aab
 aab
 abY
@@ -114336,13 +114330,13 @@ aaa
 aaa
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 akZ
 vDY
@@ -114593,13 +114587,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aqv
@@ -114850,13 +114844,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aey
@@ -115107,13 +115101,13 @@ afX
 afX
 aaa
 abY
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 lkO
 amB
@@ -115364,13 +115358,13 @@ afX
 afX
 afX
 aYm
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 vom
 amz
@@ -115621,13 +115615,13 @@ afX
 afO
 afX
 afX
+aaa
+aaa
+aaa
 ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
 aaa
 afm
 jVf

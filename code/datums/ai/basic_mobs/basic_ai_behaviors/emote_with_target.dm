@@ -9,6 +9,7 @@
 	set_movement_target(controller, hunt_target)
 
 /datum/ai_behavior/emote_on_target/perform(seconds_per_tick, datum/ai_controller/controller, target_key, list/emote_list)
+	. = ..()
 	var/atom/target = controller.blackboard[target_key]
 	if(!length(emote_list) || isnull(target))
 		return AI_BEHAVIOR_FAILED | AI_BEHAVIOR_DELAY
