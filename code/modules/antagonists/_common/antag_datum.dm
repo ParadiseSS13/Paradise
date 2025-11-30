@@ -487,6 +487,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 						// Prevent duplicate infiltrate objectives
 						if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
 							objective_to_add = roll_single_human_objective()
+						// Mutual exclusivity with protecting someone
+						else if(locate(/datum/objective/protect) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
 						else
 							objective_to_add = /datum/objective/infiltrate_sec
 
@@ -496,7 +499,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 				objective_to_add = /datum/objective/incriminate
 
 			if(PROTECT_OBJECTIVE)
-				objective_to_add = /datum/objective/protect
+				// Mutual exclusivity with infiltrating Sec
+				if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+					objective_to_add = roll_single_human_objective()
+				else
+					objective_to_add = /datum/objective/protect
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
