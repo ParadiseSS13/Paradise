@@ -49,8 +49,7 @@
 	cost = -4
 	trait_to_apply = TRAIT_BLIND
 	blacklisted = TRUE
-	item_to_give = /obj/item/clothing/glasses/sunglasses/blindfold
-	item_slot = ITEM_SLOT_EYES
+	item_to_give = /obj/item/blindcane
 
 /datum/quirk/mute
 	name = "Mute"
