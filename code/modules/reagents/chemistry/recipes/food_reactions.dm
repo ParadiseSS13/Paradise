@@ -258,3 +258,16 @@
 	result = "vinegar"
 	required_reagents = list("acetic_acid" = 1, "water" = 9)
 	result_amount = 10
+
+/datum/chemical_reaction/tapiocadough
+	name = "Tapioca dough"
+	id = "tapiocadough"
+	result = null
+	required_reagents = list("water" = 10, "tapioca" = 15)
+	result_amount = 1
+	mix_message = "The ingredients form a flat dough."
+
+/datum/chemical_reaction/tapiocadough/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/tapiocadough(location)

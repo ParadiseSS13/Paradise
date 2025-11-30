@@ -1158,6 +1158,41 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+
+/datum/chemical_reaction/tapioca_pearls
+	name = "Tapioca Pearls"
+	id = "tapiocapearls"
+	result = "tapiocapearls"
+	required_reagents = list("drytapioca" = 1, "water" = 1)
+	result_amount = 2
+	min_temp = T0C + 100
+	mix_message = "The pearls turn plump and translucent as they cook through."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bubbletea
+	name = "Bubble Tea"
+	id = "bubbletea"
+	result = "bubbletea"
+	required_reagents = list("tea" = 2, "sugar" = 1, "tapiocapearls" = 1)
+	result_amount = 4
+	mix_message = "The pearls fall to the bottom of the glass as the tea mixes with the sugar."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/milktea
+	name = "Milk Tea"
+	id = "milktea"
+	result = "milktea"
+	required_reagents = list("tea" = 1, "sugar" = 1, "milk" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bubblemilktea
+	name = "Bubble Milk Tea"
+	id = "bubblemilktea"
+	result = "bubblemilktea"
+	required_reagents = list("milktea" = 3, "tapiocapearls" = 1)
+	result_amount = 4
+
 /datum/chemical_reaction/royrogers
 	name = "Roy Rogers"
 	id = "royrogers"
