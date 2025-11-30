@@ -1333,6 +1333,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
+"ajg" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/white,
+/area/station/command/office/rd)
 "ajh" = (
 /obj/structure/machine_frame,
 /turf/simulated/floor/plasteel/dark,
@@ -73176,6 +73181,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "oQc" = (
@@ -78865,8 +78871,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "qhi" = (
-/obj/item/kirbyplants/large/plant4,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "qhm" = (
@@ -134133,7 +134139,7 @@ ntP
 kxo
 dba
 sJX
-hDv
+ajg
 wOi
 hDv
 jyg
