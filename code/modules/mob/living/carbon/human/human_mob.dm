@@ -215,21 +215,27 @@
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/wolpin/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/vulpkanin)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/neara/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/skrell)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/nian_worme/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/nian_worme)
+	ai_controller = new /datum/ai_controller/monkey(src)
 
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
