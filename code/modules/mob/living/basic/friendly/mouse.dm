@@ -267,6 +267,7 @@
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["metal"] += 2
 		C.stored_comms["glass"] += 1
+		playsound(src, 'sound/misc/demon_consume.ogg', 10, TRUE, SOUND_RANGE_SET(4))
 		qdel(src)
 		return TRUE
 	return ..()
