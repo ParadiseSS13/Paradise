@@ -210,6 +210,9 @@
 	desc = "An envirohelm designed for plasmamen chefs."
 	icon_state = "chef_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/chef/bw
+	icon_state = "chef_envirohelm_bw"
+
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
 	name = "librarian plasma envirosuit helmet"
 	desc = "A slight modification on a traditional voidsuit helmet, this helmet was Nanotrasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
@@ -315,17 +318,20 @@
 			name = initial(name)
 			desc = initial(desc)
 			base_icon_state = initial(base_icon_state)
+			icon_state = initial(icon_state)
 			light_icon = initial(light_icon)
 		if("Knight")
 			name = "knight envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
 			base_icon_state = "knight_envirohelm"
+			icon_state = "knight_envirohelm"
 			visor_icon = "knight_envisor"
 			light_icon = "knight_enlight"
 		if("Skull")
 			name = "skull envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a skull."
 			base_icon_state = "skull_envirohelm"
+			icon_state = "skull_envirohelm"
 			visor_icon = "skull_envisor"
 			light_icon = "skull_enlight"
 	update_icon()

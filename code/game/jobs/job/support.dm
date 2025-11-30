@@ -212,6 +212,12 @@
 		/obj/item/stack/marker_beacon/ten=1
 	)
 
+/datum/outfit/job/mining/equipped/less
+	backpack_contents = list(
+		/obj/item/flashlight/seclite=1,\
+		/obj/item/stack/marker_beacon/ten=1
+	)
+
 /datum/outfit/job/mining/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -356,6 +362,7 @@
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
+	neck = /obj/item/clothing/neck/neckerchief/red
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(

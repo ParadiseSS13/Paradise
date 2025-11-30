@@ -9,6 +9,21 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+	new_attack_chain = TRUE
+
+	/// Shows plant stats when true, shows only basic info when set to false
+	var/high_details_mode = TRUE
+
+/obj/item/plant_analyzer/activate_self(mob/user)
+	if(..())
+		return
+
+	if(high_details_mode)
+		high_details_mode = FALSE
+		to_chat(user, "<span class='notice'>You switch [src] into low detail mode.</span>")
+	else
+		high_details_mode = TRUE
+		to_chat(user, "<span class='notice'>You switch [src] into high detail mode.</span>")
 
 /obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
 	if(!istype(target, /obj/item))

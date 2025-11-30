@@ -199,6 +199,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.quirks = list() //Reset their quirks
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
@@ -682,6 +683,11 @@
 					loadout.ui_interact(user)
 					return FALSE
 
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
+					return FALSE
+
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)
@@ -1058,6 +1064,9 @@
 					if(length(parent?.screen))
 						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/cogbar) in parent.screen
 						PM.backdrop(parent.mob)
+
+				if("dark_flash")
+					toggles3 ^= PREFTOGGLE_3_DARK_FLASH
 
 				if("be_special")
 					var/r = href_list["role"]

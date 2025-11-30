@@ -749,6 +749,7 @@ SLIME SCANNER
 	var/carbon_dioxide = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
+	var/hydrogen = 0
 
 	if(detailed)// Present all mixtures one by one
 		for(var/datum/gas_mixture/air as anything in airs)
@@ -771,6 +772,8 @@ SLIME SCANNER
 					message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
 				if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
 					message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
+				if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
+					message += "  <span class='plasma'>Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)</span>"
 				message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
 				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
@@ -794,6 +797,7 @@ SLIME SCANNER
 			carbon_dioxide += air.carbon_dioxide()
 			sleeping_agent += air.sleeping_agent()
 			agent_b += air.agent_b()
+			hydrogen += air.hydrogen()
 
 		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
 		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
@@ -812,6 +816,8 @@ SLIME SCANNER
 				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(sleeping_agent, 0.01)] moles ([round(sleeping_agent / total_moles * 100, 0.01)] %)</span>"
 			if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
 				message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
+			if(hydrogen && (milla_turf_details || hydrogen / total_moles > 0.01))
+				message += "  <span class='hydrogen'>Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
 			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"

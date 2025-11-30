@@ -7,6 +7,7 @@
 		list("name" = "\[O2\]", "icon" = "blue"),
 		list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
 		list("name" = "\[CO2\]", "icon" = "black"),
+		list("name" = "\[H2\]", "icon" = "white"),
 		list("name" = "\[Air\]", "icon" = "grey"),
 		list("name" = "\[CAUTION\]", "icon" = "yellow"),
 		list("name" = "\[SPECIAL\]", "icon" = "whiters")
@@ -114,7 +115,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the caniser, increase the \
+	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the canister, increase the \
 			release pressure, and open the valve. Alt-click to eject the tank, or use another to hot-swap. A gas analyzer can be used to check \
 			the contents of the canister.</span>"
 	if(isAntag(user))
@@ -373,6 +374,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
 
+					if(air_contents.hydrogen() > 0)
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains Hydrogen in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(ui.user)] opened a canister that contains Hydrogen at [get_area(src)]: [x], [y], [z]")
+						ui.user.create_log(MISC_LOG, "has opened a canister of Hydrogen")
+
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(ui.user)], stopping the transfer into the [holding_tank || "air"].<br>"
 
@@ -435,6 +441,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[CO2\]"
 	icon_state = "black" //See Initialize()
 	can_label = FALSE
+/obj/machinery/atmospherics/portable/canister/hydrogen
+	name = "Canister \[H2\]"
+	icon_state = "white" //See Initialize()
+	can_label = FALSE
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
@@ -483,6 +493,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	canister_color["prim"] = "black"
 	air_contents.set_carbon_dioxide((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/hydrogen/Initialize(mapload)
+	. = ..()
+
+	canister_color["prim"] = "white"
+	air_contents.set_hydrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 

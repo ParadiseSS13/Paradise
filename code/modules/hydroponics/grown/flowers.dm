@@ -162,9 +162,12 @@
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/attack__legacy__attackchain(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</b></font><font color='yellow'><b>FLOWER POWER</b></font>")
-	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
+/obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	to_chat(target, "<font color='green'><b>[user] smacks you with a sunflower!</b></font><font color='yellow'><b>FLOWER POWER</b></font>")
+	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [target]</font>")
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -219,18 +222,21 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
-		M.adjust_fire_stacks(seed.potency / 20)
-		if(M.IgniteMob())
-			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-			log_game("[key_name(user)] set [key_name(M)] on fire")
+/obj/item/grown/novaflower/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
-/obj/item/grown/novaflower/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user,proximity)
-	if(!proximity)
+	if(isliving(target))
+		to_chat(target, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
+		target.adjust_fire_stacks(seed.potency / 20)
+		if(target.IgniteMob())
+			message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+			log_game("[key_name(user)] set [key_name(target)] on fire")
+
+/obj/item/grown/novaflower/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..() || !proximity_flag)
 		return
+
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else

@@ -11,7 +11,7 @@
 	bot_type = FLOOR_BOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
-	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_GENERAL, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	/// Determines what to do when process_scan() receives a target. See process_scan() for details.

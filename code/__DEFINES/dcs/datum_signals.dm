@@ -43,7 +43,8 @@
 #define COMSIG_SPECIES_LOSS "species_loss"
 ///from /datum/species/proc/spec_hitby()
 #define COMSIG_SPECIES_HITBY "species_hitby"
-
+/// Fires after a carbon's species changes.
+#define COMSIG_AFTER_SPECIES_CHANGE "after_species_change"
 
 // /datum/song
 

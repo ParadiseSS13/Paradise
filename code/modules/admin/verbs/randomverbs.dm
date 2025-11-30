@@ -653,12 +653,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	switch(alert("Should this be announced to the general population?", null,"Yes","No", "Cancel"))
 		if("Yes")
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
-
+			var/should_translate = alert(usr, "Should it be auto-translated for all human mobs?", "Translation", "Yes", "No")
+			if(should_translate != "Yes")
+				should_translate = null // We can just do it like this since force_translation just needs any value to not be false/null
 			GLOB.major_announcement.Announce(
 				message,
 				new_title = type,
 				new_subtitle = subtitle,
-				new_sound = MsgSound[beepsound]
+				new_sound = MsgSound[beepsound],
+				force_translation = should_translate
 			)
 			print_command_report(message, subtitle)
 		if("No")
@@ -983,6 +986,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
 	if(!check_rights(R_SERVER|R_EVENT))
+		return
+
+	if(tgui_alert(usr, "[GLOB.configuration.event.enable_random_events ? "Disable" : "Enable"] random events?", "Confirm", list("Yes", "No")) != "Yes")
 		return
 
 	if(!GLOB.configuration.event.enable_random_events)

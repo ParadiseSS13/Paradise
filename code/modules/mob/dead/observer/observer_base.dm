@@ -298,6 +298,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
+	mind.current.update_stat()
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
 	return TRUE
@@ -421,8 +422,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	antagHUD = TRUE
 	GLOB.antag_hud_users |= user.ckey
-	for(var/datum/atom_hud/antag/hud in GLOB.huds)
-		hud.add_hud_to(src)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/antag/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.add_hud_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -433,8 +437,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	remove_the_hud(DATA_HUD_MALF_AI)
 	antagHUD = FALSE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.remove_hud_from(src)
+
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/antag/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.remove_hud_from(src)
 
 /mob/dead/observer/proc/toggle_rad_view()
 	ghost_flags ^= GHOST_SEE_RADS

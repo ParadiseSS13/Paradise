@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
-/obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
+/obj/structure/spawner/lavaland/bullet_act(obj/projectile/P)
 	. = ..()
 	if(P.firer)
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)

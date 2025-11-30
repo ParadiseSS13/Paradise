@@ -30,6 +30,7 @@
 	var/look_range = 7
 
 /datum/ai_behavior/find_mom/perform(seconds_per_tick, datum/ai_controller/controller, mom_key, ignore_mom_key, found_mom)
+	. = ..()
 	var/mob/living_pawn = controller.pawn
 	var/list/mom_types = controller.blackboard[mom_key]
 	var/list/all_moms = list()

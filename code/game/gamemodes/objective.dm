@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/objective_holder/holder
 
 	/// What is the text we show when our objective is delayed?
-	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	var/delayed_objective_text = "Someone forgot to set a delayed objective text! Report it on the github and ask an admin what type of objective this is!"
 	/// If the objective needs another person with a paired objective
 	var/needs_pair = FALSE
 
@@ -294,6 +294,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return
 	return ..()
 
+/datum/objective/infiltrate_sec
+	name = "Infiltrate Security"
+	explanation_text = "Infiltrate the ranks of the Security department undetected, either by being lawfully hired into it or by replacing one of its members."
+	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes"
+	needs_target = FALSE
+	completed = TRUE
+
+/datum/objective/infiltrate_sec/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/mutiny
 	name = "Mutiny"
 	martyr_compatible = TRUE
@@ -524,6 +534,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 						return TRUE
 	return FALSE
 
+/datum/objective/nuke
+	name = "Detonate the Station"
+	explanation_text = "Detonate the station's nuclear device. You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \
+	The Nuclear Authentication Disk can be found in the Captain's Office, or carried by the Captain."
+	martyr_compatible = TRUE
+	needs_target = FALSE
+
+/datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+			code = bombue.r_code
+			break
+	if(code)
+		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+
+/datum/objective/nuke/check_completion()
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
+
+/datum/objective/nuke/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/block
 	name = "Silicon hijack"
 	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
@@ -571,7 +605,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in owners)
 		var/turf/location = get_turf(M.current)
 		if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
-			return FALSE
+			if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+				var/mob/living/A = owner.current
+				var/mob/living/carbon/carbon_A = A
+				if(!(carbon_A.handcuffed))
+					return TRUE
+			else
+				return FALSE
 		if(!location.onCentcom() && !location.onSyndieBase())
 			return FALSE
 
@@ -681,12 +721,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/incriminate
 	name = "Incriminate"
 	martyr_compatible = TRUE
-	delayed_objective_text = "Your objective is to incriminate a crew member for a major level crime without revealing yourself. You will receive further information in a few minutes."
+	delayed_objective_text = "Your objective is to incriminate a crew member for a major-level crime without revealing yourself. You will receive further information in a few minutes."
 	completed = TRUE
 
 /datum/objective/incriminate/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Deceive the station. Incriminate [target.current.real_name], the [target.assigned_role] for a major level crime and ensure that you are not revealed as the perpetrator."
+		explanation_text = "Incriminate [target.current.real_name], the [target.assigned_role], for a major-level crime. Ensure you are not revealed as the perpetrator."
 	else
 		explanation_text = "Free Objective"
 
@@ -874,7 +914,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = TRUE
-	delayed_objective_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
+	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes"
 
 /datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
@@ -990,6 +1030,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+/datum/objective/specialization
+	name = "Vampire subclass objective"
+	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
+	needs_target = FALSE
+
+/datum/objective/specialization/update_explanation_text()
+	var/datum/antagonist/vampire/V = owner?.has_antag_datum(/datum/antagonist/vampire)
+
+	if(V?.subclass)
+		var/departments = list("security", "service", "research", "medical", "engineering", "supply")
+		explanation_text = replacetext(pick(V.subclass.unique_objectives), "%DEPARTMENT", pick(departments))
+
+// Flayers
+
 #define SWARM_GOAL_LOWER_BOUND	130
 #define SWARM_GOAL_UPPER_BOUND	400
 
@@ -1018,6 +1072,195 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 #undef SWARM_GOAL_LOWER_BOUND
 #undef SWARM_GOAL_UPPER_BOUND
+
+/datum/objective/download
+	name = "Download Files"
+	needs_target = FALSE
+	var/obj/machinery/computer/target_console = null
+	var/target_console_room = null
+
+/datum/objective/download/New()
+	find_target()
+	update_explanation_text()
+	establish_signals()
+	return ..()
+
+/datum/objective/download/Destroy()
+	if(target_console)
+		UnregisterSignal(target_console, COMSIG_PARENT_QDELETING)
+	return ..()
+
+/datum/objective/download/establish_signals()
+	if(target_console)
+		RegisterSignal(target_console, COMSIG_PARENT_QDELETING, PROC_REF(on_console_destroyed), override = TRUE)
+
+/datum/objective/download/proc/on_console_destroyed()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+
+	var/list/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		to_chat(M.current, "<BR><span class='userdanger'>We sense the target console has been compromised. New vulnerability located.</span>")
+		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+
+	target_console = null
+	find_target()
+	if(!target_console)
+		holder.remove_objective(src)
+
+	// Update explanation text with new target
+	update_explanation_text()
+
+	// Announce the updated objective with new target
+	for(var/datum/mind/M in owners)
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/download/find_target()
+	if(target_console)
+		return
+
+	var/list/possible_computers = list()
+	var/list/computer_areas = list()
+
+	var/list/restricted_area_computer_types = list(
+		// ID management computers
+		/obj/machinery/computer/card,                    // Main HOP ID computer
+		/obj/machinery/computer/card/minor/hos,          // Security ID computer
+		/obj/machinery/computer/card/minor/cmo,          // Medical ID computer
+		/obj/machinery/computer/card/minor/qm,           // Supply ID computer
+		/obj/machinery/computer/card/minor/rd,           // Science ID computer
+		/obj/machinery/computer/card/minor/ce,           // Engineering ID computer
+
+		// Security
+		/obj/machinery/computer/prisoner,                // Prisoner management
+		/obj/machinery/computer/brigcells,               // Brig cell management
+
+		// Command
+		/obj/machinery/computer/communications,          // Command comms console
+		/obj/machinery/computer/teleporter,              // Teleporter control
+
+		// Science
+		/obj/machinery/computer/message_monitor,         // Message monitor
+	)
+
+	// Get all computers of the specified types
+	for(var/computer_type in restricted_area_computer_types)
+		var/list/computers_of_type = SSmachines.get_by_type(computer_type, subtypes = FALSE)
+		for(var/obj/machinery/computer/comp in computers_of_type)
+			// Skip deleted/invalid computers
+			if(QDELETED(comp))
+				continue
+			var/turf/comp_turf = get_turf(comp)
+			if(!comp_turf || !is_station_level(comp_turf.z))
+				continue
+			var/area/comp_area = get_area(comp)
+			possible_computers += comp
+			computer_areas[comp] = comp_area ? comp_area.name : "(Unknown Location - Please create an issue on GitHub!)"
+
+	if(length(possible_computers))
+		target_console = pick(possible_computers)
+		target_console_room = computer_areas[target_console]
+		establish_signals()
+	else
+		// Fallback if no computers found
+		target_console = null
+		target_console_room = "(Unknown Location - Please create an issue on GitHub!)"
+
+/datum/objective/download/found_target()
+	return target_console
+
+// Formats as title case except for "the".
+// E.g. "the Communications Console"
+/datum/objective/download/proc/get_formatted_console_name()
+	if(!target_console)
+		return "an unknown console"
+
+	var/console_name = target_console.name
+
+	var/list/words = splittext(console_name, " ")
+	var/formatted_name = ""
+	var/first_word = TRUE
+
+	for(var/word in words)
+		if(first_word && lowertext(word) == "the")
+			first_word = FALSE
+			continue
+
+		if(!first_word)
+			formatted_name += " "
+
+		// Capitalize first letter of each word
+		formatted_name += uppertext(copytext(word, 1, 2)) + lowertext(copytext(word, 2))
+		first_word = FALSE
+
+	return "the " + formatted_name
+
+/datum/objective/download/update_explanation_text()
+	explanation_text = "Use your charging implant on [get_formatted_console_name()] in the [target_console_room] to download your next objective."
+
+// We already check that the player is an IPC when assigning this objective,
+// but this protects us from cases like cybernetic revolution where the implant could be lost.
+/datum/objective/download/proc/enforce_charging_implant()
+	for(var/datum/mind/M in get_owners())
+		var/mob/living/carbon/human/H = M.current
+		if(!H)
+			continue
+
+		var/obj/item/organ/internal/left_arm_implant = H.get_organ_slot("l_arm_device")
+		var/obj/item/organ/internal/right_arm_implant = H.get_organ_slot("r_arm_device")
+
+		// Already have a charger, do nothing
+		if(istype(left_arm_implant, /obj/item/organ/internal/cyberimp/arm/power_cord) || istype(right_arm_implant, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
+
+		var/obj/item/organ/internal/cyberimp/arm/power_cord/implant = new /obj/item/organ/internal/cyberimp/arm/power_cord()
+
+		// Try to install in the first available slot
+		if(!left_arm_implant)
+			implant.slot = "l_arm_device"
+			implant.parent_organ = "l_arm"
+			implant.insert(H)
+		else if(!right_arm_implant)
+			implant.slot = "r_arm_device"
+			implant.parent_organ = "r_arm"
+			implant.insert(H)
+		else
+			// Both slots occupied, remove left arm implant and replace with charging implant
+			left_arm_implant.remove(H)
+			qdel(left_arm_implant)
+			implant.slot = "l_arm_device"
+			implant.parent_organ = "l_arm"
+			implant.insert(H)
+
+// This is called from computer.dm when the do_after of downloading is completed
+/datum/objective/download/proc/complete_objective()
+	for(var/datum/mind/M in get_owners())
+		to_chat(M.current, "<BR><span class='warning'>*gzzt* Authentication success! Welcome, [M.current.name]. Thank you for- for- for-...</span>")
+
+		var/datum/antagonist/mindflayer/flayer_datum = M.has_antag_datum(/datum/antagonist/mindflayer)
+
+		holder.replace_objective(src, flayer_datum.roll_single_human_objective())
+
+		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/download/check_completion()
+	return TRUE
+
+/datum/objective/lair
+	name = "Build a lair"
+	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area. This requires at least 150 total units of blood."
+	needs_target = FALSE
+
+/datum/objective/lair/check_completion()
+	if(..())
+		return TRUE
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/vampire/V = M.has_antag_datum(/datum/antagonist/vampire)
+		if(V.has_lair)
+			return TRUE
+		return FALSE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.

@@ -116,16 +116,13 @@
 		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return
 	var/power_boosted = FALSE
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if((target_turf.z in W.impacted_z_levels) && is_type_in_list(target_area, W.area_types))
-			power_boosted = TRUE
-			break
+	if(iswizard(user) || is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
+		power_boosted = TRUE
 	playsound(src, 'sound/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	targeted_turfs += target_turf
 	to_chat(user, "<span class='warning'>You aim at [target_turf]!</span>")
 	new /obj/effect/temp_visual/thunderbolt_targeting(target_turf)
-	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted, user), 1.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted, user), 1 SECONDS)
 	thunder_charges--
 	addtimer(CALLBACK(src, PROC_REF(recharge)), thunder_charge_time)
 
@@ -147,7 +144,7 @@
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, "<span class='userdanger'>You've been struck by lightning!</span>")
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
+			hit_mob.electrocute_act(15 * (isanimal_or_basicmob(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
 			if(ishostile(hit_mob))
 				var/mob/living/simple_animal/hostile/H = hit_mob //mobs find and damage you...
 				if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
