@@ -175,7 +175,8 @@
 
 	if(length(possible_antags) < antag_amount)
 		var/wasted_budget = (antag_amount - length(possible_antags)) * antag_cost
-		log_dynamic("Tried to roll [antag_amount] [name], but there were only [length(possible_antags)] candidates! Wasting [wasted_budget] budget.")
+		dynamic.antag_budget += wasted_budget
+		log_dynamic("Tried to roll [antag_amount] [name], but there were only [length(possible_antags)] candidates! Refunding [wasted_budget] budget.", TRUE)
 		antag_amount = length(possible_antags)
 
 	var/antags_rolled = 0
@@ -191,7 +192,7 @@
 		antags_rolled += 1
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
-	log_dynamic("Latespawned [antags_rolled] [name]\s.")
+	log_dynamic("Latespawned [antags_rolled] [name]\s from [length(possible_antags)] candidates.", TRUE)
 	message_admins("Dynamic latespawned [antags_rolled] [name]\s.")
 
 /datum/ruleset/proc/automatic_deduct(budget)

@@ -116,13 +116,13 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	if(!length(rulesets))
 		log_dynamic("No rulesets in play.")
 		return
-	log_dynamic("Allocated antagonist budget: [antag_budget].")
+	log_dynamic("Allocated antagonist budget: [antag_budget].", TRUE)
 
 	for(var/datum/ruleset/ruleset in rulesets)
 		ruleset.antag_amount = 1
 		antag_budget -= ruleset.automatic_deduct(antag_budget)
 
-	log_dynamic("Rulesets in play: [english_list((rulesets + implied_rulesets))]")
+	log_dynamic("Rulesets in play: [english_list((rulesets + implied_rulesets))]", TRUE)
 
 	apply_antag_budget()
 
@@ -148,13 +148,13 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 /datum/game_mode/dynamic/proc/set_latespawn_budget()
 	// Disable latespawns if there's no rulesets to roll from
 	if(length(rulesets) <= 0)
-		log_dynamic("Found zero rulesets. Disabling latespawns.")
+		log_dynamic("Found zero rulesets. Disabling latespawns.", TRUE)
 		return
 	if(length(rulesets) == 1)
 		var/datum/ruleset/ruleset = rulesets[1]
 		if(!ruleset.latespawns_enabled)
 			min_latespawn_budget = 0
-			log_dynamic("The only ruleset, [ruleset.name], does not support latespawns. Disabling latespawns.")
+			log_dynamic("The only ruleset, [ruleset.name], does not support latespawns. Disabling latespawns.", TRUE)
 			return
 		min_latespawn_budget = ruleset.antag_cost
 	else
@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			if(ruleset.antag_cost > max_cost)
 				max_cost = ruleset.antag_cost
 		min_latespawn_budget = max_cost
-	log_dynamic("Latespawn budget threshold set to [min_latespawn_budget] from [length(rulesets)] ruleset(s).")
+	log_dynamic("Latespawn budget threshold set to [min_latespawn_budget] from [length(rulesets)] ruleset(s).", TRUE)
 
 /datum/game_mode/dynamic/pre_setup()
 	var/watch = start_watch()
@@ -195,14 +195,15 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		if(ruleset.latespawn_time)
 			ruleset.latespawns_enabled = FALSE
 			addtimer(CALLBACK(ruleset, TYPE_PROC_REF(/datum/ruleset, enable_latespawns)), ruleset.latespawn_time)
-			log_dynamic("[ruleset]s will latespawn at [ruleset.latespawn_time / 600].")
+			log_dynamic("[ruleset]s will latespawn at [ruleset.latespawn_time / 600].", TRUE)
 	..()
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
 	antag_budget += 1
+	log_dynamic("Crew latejoin. Antagonist budget: [antag_budget]. [min_latespawn_budget - antag_budget] points until latespawn.", TRUE)
 	if(min_latespawn_budget > 0 && antag_budget >= min_latespawn_budget)
-		log_dynamic("Antagonist budget at [min_latespawn_budget] threshold. Attempting to roll latespawns...")
+		log_dynamic("Budget at latespawn threshold ([min_latespawn_budget]), rolling latespawns.", TRUE)
 		if(apply_antag_budget(TRUE))
 			for(var/datum/ruleset/ruleset as anything in (rulesets + implied_rulesets))
 				if(ruleset.antag_amount <= 0)
@@ -215,12 +216,13 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		return
 	antag_budget -= 1
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
+		log_dynamic("Crew cryo. Budget is now: [antag_budget]")
 		return
 	for(var/datum/antagonist/antag in sleepy_mob.mind.antag_datums)
 		for(var/datum/ruleset/possible_ruleset as anything in subtypesof(/datum/ruleset))
 			if(istype(antag, possible_ruleset.antagonist_type))
-				antag_budget += possible_ruleset.antag_cost
-				log_dynamic("[possible_ruleset] cryo. +[possible_ruleset.antag_cost] budget.")
+				antag_budget += possible_ruleset.antag_cost + 1
+				log_dynamic("[possible_ruleset] cryo, refunded [possible_ruleset.antag_cost] budget. Budget is now: [antag_budget]", TRUE)
 
 /datum/game_mode/dynamic/get_webhook_name()
 	var/list/implied_and_used = list()
@@ -234,9 +236,3 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		ruleset.declare_completion()
 	. = ..()
 
-/proc/log_dynamic(text)
-	log_game("Dynamic: [text]")
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	if(!istype(dynamic))
-		return
-	dynamic.dynamic_log += text
