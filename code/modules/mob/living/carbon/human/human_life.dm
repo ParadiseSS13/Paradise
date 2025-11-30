@@ -1046,6 +1046,9 @@
 	if(HEARTBEAT_IS_NORMAL(heartbeat))
 		return
 
+	if(undergoing_cardiac_arrest())
+		return // We let this be handled by cardiac arrest
+
 	if(heartbeat <= HEARTBEAT_NONE)
 		adjustOxyLoss(5)
 		if(prob(10))
