@@ -36,7 +36,7 @@
 	step_type = FOOTSTEP_MOB_SHOE
 
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/plasma/adv
+	projectile_type = /obj/projectile/plasma/adv
 	projectile_sound = 'sound/weapons/laser.ogg'
 	ranged_cooldown = 1.75 SECONDS
 
@@ -73,7 +73,7 @@
 	icon_state = "vox_foreman"
 	icon_living = "vox_foreman"
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_foreman
-	projectile_type = /obj/item/projectile/bullet/spike
+	projectile_type = /obj/projectile/bullet/spike
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS

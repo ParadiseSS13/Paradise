@@ -19,7 +19,7 @@
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
-		var/obj/structure/spider/spiderling/S = new(vent.loc)
+		var/mob/living/basic/spiderling/S = new(vent.loc)
 		if(prob(66))
 			S.grow_as = /mob/living/basic/giant_spider/nurse
 		spawncount--

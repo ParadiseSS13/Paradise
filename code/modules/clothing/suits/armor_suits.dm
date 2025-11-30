@@ -454,8 +454,8 @@
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
-			if(istype(P, /obj/item/projectile/ion))
+			var/obj/projectile/P = hitby
+			if(istype(P, /obj/projectile/ion))
 				return FALSE
 			if(!P.nodamage || P.stun || P.weaken)
 				return TRUE
@@ -550,7 +550,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	var/obj/projectile/temp/basilisk/O = new /obj/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	O.current = T
 	O.yo = U.y - T.y

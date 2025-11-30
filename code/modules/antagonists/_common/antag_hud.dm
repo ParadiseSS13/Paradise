@@ -47,13 +47,19 @@
 		newhud.join_hud(current)
 
 /datum/mind/proc/leave_all_huds()
-	for(var/datum/atom_hud/antag/hud in GLOB.huds)
-		if(current in hud.hudusers)
-			hud.leave_hud(current)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/antag/antag_hud = hud
+		if(!istype(antag_hud))
+			continue
+		if(current in antag_hud.hudusers)
+			antag_hud.leave_hud(current)
 
-	for(var/datum/atom_hud/data/hud in GLOB.huds)
-		if(current in hud.hudusers)
-			hud.remove_hud_from(current)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/data_hud = hud
+		if(!istype(data_hud))
+			continue
+		if(current in data_hud.hudusers)
+			data_hud.remove_hud_from(current)
 
 
 ///Master Servent Datum Sytems,Based on TG Gang system//

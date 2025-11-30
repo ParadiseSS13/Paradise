@@ -62,6 +62,7 @@
 					/obj/item/reagent_containers/drinks/cans/cola = 8,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 4,
 					/obj/item/reagent_containers/drinks/cans/sodawater = 15,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 8,
 					/obj/item/reagent_containers/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/drinks/ice = 9)
@@ -423,6 +424,7 @@
 					/obj/item/clothing/under/pants/black = 3,
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
+					/obj/item/clothing/under/pants/cargo = 3,
 					/obj/item/clothing/under/pants/track = 3,
 					/obj/item/clothing/suit/tracksuit = 3,
 					/obj/item/clothing/suit/tracksuit/green = 3,
@@ -515,6 +517,7 @@
 				/obj/item/clothing/under/pants/black = 75,
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
+				/obj/item/clothing/under/pants/cargo = 75,
 				/obj/item/clothing/under/pants/track = 75,
 				/obj/item/clothing/suit/tracksuit = 75,
 				/obj/item/clothing/suit/tracksuit/green = 75,
@@ -1081,6 +1084,7 @@
 					/obj/item/reagent_containers/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/drinks/cans/space_up = 10,
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 
@@ -1092,6 +1096,7 @@
 				/obj/item/reagent_containers/drinks/cans/starkist = 50,
 				/obj/item/reagent_containers/drinks/cans/space_up = 50,
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
+				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
 				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
 				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 

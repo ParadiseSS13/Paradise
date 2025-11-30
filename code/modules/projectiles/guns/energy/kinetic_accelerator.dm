@@ -71,7 +71,7 @@
 	for(var/A in modkits)
 		. += A
 
-/obj/item/gun/energy/kinetic_accelerator/proc/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/gun/energy/kinetic_accelerator/proc/modify_projectile(obj/projectile/kinetic/K)
 	K.kinetic_gun = src //do something special on-hit, easy!
 	for(var/A in get_modkits())
 		var/obj/item/borg/upgrade/modkit/M = A
@@ -181,13 +181,112 @@
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
+/obj/item/gun/energy/kinetic_accelerator/railgun
+	name = "proto-kinetic railgun"
+	desc = "A heavy-duty proto-kinetic accelerator that uses highly overclocked coils to fire a kinetic projectile at staggering speeds."
+	icon_state = "kineticrailgun"
+	base_icon_state = "kineticrailgun"
+	w_class = WEIGHT_CLASS_HUGE
+	overheat_time = 3 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 15 // A crumb of mod capacity as a treat
+	recoil = 3 // railgun go brrrrr
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/examine_more(mob/user)
+	. = ..()
+	. += "Before the nice streamlined and modern day Proto-Kinetic Accelerator was created, multiple designs were drafted by the Mining Research and Development \
+	team. Many were failures, including this one, which came out too bulky and too ineffective. Recently the MR&D Team got drunk and said 'fuck it we ball' and \
+	went back to this bulky design, overclocked it, and made it functional; turning it into what is essentially a literal man portable particle accelerator. \
+	The design results in a massive hard to control blast of kinetic energy, with the power to punch right through creatures and cause massive damage. The \
+	only problem with the design is that it is so bulky you need to carry it with two hands, and the technology has been outfitted with a special firing pin \
+	that denies use near or on the station, due to its destructive nature."
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if(is_station_level(loc.z))
+		to_chat(user, "<span class='warning'>[src] clicks. Its internal safety prevents it from firing near the station.</span>")
+		return
+	return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/repeater
+	name = "proto-kinetic repeater"
+	desc = "A proto-kinetic accelerator boasting deeper capacitors for prolonged firing solutions."
+	icon_state = "kineticrepeater"
+	base_icon_state = "kineticrepeater"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/repeater/examine_more(mob/user)
+	. = ..()
+	. += "During the pizza party celebrating the release of the new crusher designs, the Mining Research and Development team members were only allowed one slice. \
+	One member exclaimed 'I wish we could have more than one slice' and another replied 'I wish we could shoot the accelerator more than once' and thus, the repeater \
+	was born. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
+	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you can't carry as many mods compared to a regular accelerator."
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun
+	name = "proto-kinetic shotgun"
+	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple kinetic blasts to be released simultaneously."
+	icon_state = "kineticshotgun"
+	base_icon_state = "kineticshotgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun/examine_more(mob/user)
+	. = ..()
+	. += "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
+	other research members with one blast. The MR&D Director immediately thought of a genius idea, creating the proto-kinetic shotgun moments later, which he \
+	immediately used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
+	of firing three shots at once with reduced range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
+	Looks like you need both hands to use it effectively."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave
+	name = "proto-kinetic shockwave"
+	desc = "A short-range portable cannon that fires a kinetic slug into the ground, allowing it to split and strike in all directions."
+	icon_state = "kineticshockwave"
+	base_icon_state = "kineticshockwave"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/examine_more(mob/user)
+	. = ..()
+	. += "Quite frankly, we have no idea how the Mining Research and Development team came up with this one, all we know is that alot of \
+	beer was involved. This proto-kinetic design will slam the ground, creating a shockwave around the user, with the same power as the base PKA.\
+	The only downside is the lowered mod capacity, the lack of range it offers, and the higher cooldown, but it's pretty good for clearing rocks."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	target = get_edge_target_turf(user, user.dir)
+	return ..()
+
 //Casing
 /obj/item/ammo_casing/energy/kinetic
-	projectile_type = /obj/item/projectile/kinetic
+	projectile_type = /obj/projectile/kinetic
 	muzzle_flash_color = null
 	select_name = "kinetic"
 	e_cost = 500
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
+
+/obj/item/ammo_casing/energy/kinetic/railgun
+	projectile_type = /obj/projectile/kinetic/railgun
+	fire_sound = 'sound/weapons/beam_sniper.ogg'
+
+/obj/item/ammo_casing/energy/kinetic/repeater
+	projectile_type = /obj/projectile/kinetic/repeater
+	e_cost = 150 // Three shots
+
+/obj/item/ammo_casing/energy/kinetic/shotgun
+	projectile_type = /obj/projectile/kinetic/shotgun
+	pellets = 6
+	variance = 50
+
+/obj/item/ammo_casing/energy/kinetic/shockwave
+	projectile_type = /obj/projectile/kinetic/shockwave
+	pellets = 8
+	variance = 360
+	fire_sound = 'sound/weapons/cannon.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -197,10 +296,10 @@
 
 //Malf casing
 /obj/item/ammo_casing/energy/kinetic/malf
-	projectile_type = /obj/item/projectile/kinetic/malf
+	projectile_type = /obj/projectile/kinetic/malf
 
 //Projectiles
-/obj/item/projectile/kinetic
+/obj/projectile/kinetic
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
@@ -211,23 +310,43 @@
 	var/pressure_decrease = 0.25
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
-/obj/item/projectile/kinetic/malf
+/obj/projectile/kinetic/malf
 	pressure_decrease = 1
 	color = "#FFFFFF"
 	icon_state = "ka_tracer"
 
-/obj/item/projectile/kinetic/pod
+/obj/projectile/kinetic/pod
 	range = 4
 
-/obj/item/projectile/kinetic/pod/regular
+/obj/projectile/kinetic/pod/regular
 	damage = 50
 	pressure_decrease = 0.5
 
-/obj/item/projectile/kinetic/Destroy()
+/obj/projectile/kinetic/railgun
+	name = "hyper kinetic force"
+	damage = 75
+	range = 6
+	pressure_decrease = 0.10 // Pressured environments are a no go for the railgun
+	pass_flags = PASSMOB
+
+/obj/projectile/kinetic/repeater
+	name = "rapid kinetic force"
+	damage = 20
+	range = 4
+
+/obj/projectile/kinetic/shotgun
+	name = "split kinetic force"
+	damage = 10
+
+/obj/projectile/kinetic/shockwave
+	name = "concussive kinetic force"
+	range = 1
+
+/obj/projectile/kinetic/Destroy()
 	kinetic_gun = null
 	return ..()
 
-/obj/item/projectile/kinetic/prehit(atom/target)
+/obj/projectile/kinetic/prehit(atom/target)
 	. = ..()
 	if(.)
 		if(kinetic_gun)
@@ -240,15 +359,15 @@
 			pressure_decrease_active = TRUE
 
 
-/obj/item/projectile/kinetic/on_range()
+/obj/projectile/kinetic/on_range()
 	strike_thing()
 	..()
 
-/obj/item/projectile/kinetic/on_hit(atom/target)
+/obj/projectile/kinetic/on_hit(atom/target)
 	strike_thing(target)
 	. = ..()
 
-/obj/item/projectile/kinetic/proc/strike_thing(atom/target)
+/obj/projectile/kinetic/proc/strike_thing(atom/target)
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		target_turf = get_turf(src)
@@ -362,19 +481,19 @@
 		accelerator.modkits -= src
 	return ..()
 
-/obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/projectile/kinetic/K)
 	return
 
 //use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
-/obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	return
 
 //use this one for effects you want to trigger before mods that do damage
-/obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	return
 
 //and this one for things that don't need to trigger before other damage-dealing mods
-/obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	return
 
 //Range
@@ -383,7 +502,7 @@
 	desc = "Increases the range of a kinetic accelerator when installed."
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
-/obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/borg/upgrade/modkit/range/modify_projectile(obj/projectile/kinetic/K)
 	K.range += modifier
 
 
@@ -393,7 +512,7 @@
 	desc = "Increases the damage of kinetic accelerator when installed."
 	modifier = 10
 
-/obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
 	K.damage += modifier
 
 
@@ -448,7 +567,7 @@
 	turf_aoe = initial(turf_aoe)
 	stats_stolen = FALSE
 
-/obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
 	new /obj/effect/temp_visual/pka_explosion(target_turf)
@@ -494,7 +613,7 @@
 	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
 	cost = 50
 
-/obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	var/valid_repeat = FALSE
 	if(isliving(target))
 		var/mob/living/L = target
@@ -514,7 +633,7 @@
 	cost = 20
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
-/obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target) && isliving(K.firer))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
@@ -528,7 +647,7 @@
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
-/obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(target_turf && !ismineralturf(target_turf)) //Don't make fields on mineral turfs.
 		var/obj/effect/temp_visual/resonance/R = locate(/obj/effect/temp_visual/resonance) in target_turf
 		if(R)
@@ -545,7 +664,7 @@
 	var/maximum_bounty = 25
 	var/list/bounties_reaped = list()
 
-/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target))
 		var/mob/living/L = target
 		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
@@ -556,7 +675,7 @@
 				qdel(SM)
 		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
 
-/obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(bounties_reaped[L.type])
@@ -584,7 +703,7 @@
 	maximum_of_type = 2
 	cost = 35
 
-/obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/projectile/kinetic/K)
 	K.pressure_decrease *= modifier
 
 
@@ -648,7 +767,7 @@
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	var/bolt_color = "#FFFFFF"
 
-/obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/item/projectile/kinetic/K)
+/obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/projectile/kinetic/K)
 	K.icon_state = "ka_tracer"
 	K.color = bolt_color
 

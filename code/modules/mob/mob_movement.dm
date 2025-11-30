@@ -20,7 +20,7 @@
 			return TRUE
 	return (!mover.density || !density || horizontal)
 
-/mob/proc/projectile_hit_check(obj/item/projectile/P)
+/mob/proc/projectile_hit_check(obj/projectile/P)
 	return !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) && !density
 
 /client/verb/toggle_throw_mode()
