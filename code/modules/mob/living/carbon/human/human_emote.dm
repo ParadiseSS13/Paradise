@@ -643,17 +643,20 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings."
+	sound = 'sound/effects/mob_effects/flap.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
+	sound = 'sound/effects/mob_effects/angryflap.ogg'
 	message = "flaps their wings ANGRILY!"
 
 /datum/emote/living/carbon/human/flutter
 	key = "flutter"
 	key_third_person = "flutters"
 	message = "flutters their wings."
+	sound = 'sound/effects/mob_effects/flutter.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/quill
