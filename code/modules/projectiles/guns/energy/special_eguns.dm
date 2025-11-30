@@ -345,7 +345,7 @@
 		if(blue)
 			blue.target = null
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/W)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
 	P.failchance = 0
@@ -1084,12 +1084,12 @@
 /obj/item/ammo_casing/energy/spike
 	name = "alloy spike"
 	desc = "A broadhead spike made out of a weird silvery metal."
-	projectile_type = /obj/item/projectile/bullet/spike
+	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/projectile/bullet/spike
+/obj/projectile/bullet/spike
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
@@ -1097,7 +1097,7 @@
 	armor_penetration_flat = 30
 	icon_state = "magspear"
 
-/obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(50)
@@ -1120,7 +1120,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/ammo_casing/energy/vortex_blast
-	projectile_type = /obj/item/projectile/energy/vortex_blast
+	projectile_type = /obj/projectile/energy/vortex_blast
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
 	variance = 70
 	pellets = 8
@@ -1128,7 +1128,7 @@
 	select_name = "vortex blast"
 	fire_sound = 'sound/weapons/wave.ogg'
 
-/obj/item/projectile/energy/vortex_blast
+/obj/projectile/energy/vortex_blast
 	name = "vortex blast"
 	hitscan = TRUE
 	damage = 2
@@ -1138,7 +1138,7 @@
 	hitsound_wall = null
 	suppressed = TRUE
 
-/obj/item/projectile/energy/vortex_blast/prehit(atom/target)
+/obj/projectile/energy/vortex_blast/prehit(atom/target)
 	. = ..()
 	if(ishuman(target))
 		return
@@ -1147,7 +1147,7 @@
 		return
 	damage *= 6 //objects tend to fall apart as atoms are ripped up
 
-/obj/item/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
 	if(blocked >= 100)
 		return ..()
 	if(ishuman(target))

@@ -7,7 +7,7 @@
 
 /obj/item/food/burger
 	name = "burger"
-	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
 
@@ -305,7 +305,7 @@
 
 /obj/item/food/burger/mcrib
 	name = "mcRib"
-	desc = "An elusive rib shaped burger with limited availablity across the galaxy. Not as good as you remember it."
+	desc = "An elusive rib-shaped burger with limited availability across the galaxy. Not as good as you remember it."
 	icon_state = "mcrib"
 	bitesize = 3
 	filling_color = "#F2B6EA"
@@ -394,7 +394,7 @@
 
 /obj/item/food/notasandwich
 	name = "not-a-sandwich"
-	desc = "Something seems to be wrong with this, you can't quite figure what. Maybe it's his moustache."
+	desc = "Something seems to be wrong with this, but you can't quite figure out what. Maybe it's his moustache."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)

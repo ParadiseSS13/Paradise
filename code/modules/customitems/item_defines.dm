@@ -1425,6 +1425,7 @@
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_monitor = null
 	icon_state = "classic_witch"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self__legacy__attackchain(mob/user)
@@ -1740,6 +1741,15 @@
 	name = "Spriting Contribution Pin"
 	desc = "A commemorative pin to reward contributions of spriting."
 	icon_state = "pin_spriting"
+
+/obj/item/clothing/neck/necklace/reward/ptbf25
+	name = "suspicious amulet"
+	desc = "A suspicious red and black amulet attached to a golden chain. It has 'Paratoberfest 25' engraved on the back."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "necklace_ptbf25"
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

@@ -201,7 +201,7 @@
 	open = !open
 	visible_message("<span class='notice'>\The [user] [open ? "opens" : "closes"] \the [src].</span>")
 	update_door_status()
-	playsound(src, 'sound/machines/door_open.ogg', 100, TRUE)
+	playsound(src, 'sound/machines/door_open.ogg', 20, TRUE)
 
 /obj/structure/fence/door/proc/update_door_status()
 	set_density(!open)

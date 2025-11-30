@@ -50,11 +50,11 @@
 /obj/item/melee/flyswatter/Initialize(mapload)
 	. = ..()
 	strong_against = typecacheof(list(
-					/mob/living/simple_animal/hostile/poison/bees/,
+					/mob/living/basic/bee/,
 					/mob/living/basic/butterfly,
 					/mob/living/basic/cockroach,
 					/obj/item/queen_bee))
-	strong_against -= /mob/living/simple_animal/hostile/poison/bees/syndi // Syndi-bees have special anti-flyswatter tech installed
+	strong_against -= /mob/living/basic/bee/syndi // Syndi-bees have special anti-flyswatter tech installed
 
 /obj/item/melee/flyswatter/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	. = ..()

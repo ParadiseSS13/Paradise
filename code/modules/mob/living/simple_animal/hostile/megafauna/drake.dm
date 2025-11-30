@@ -630,7 +630,7 @@ Difficulty: Medium
 	move_to_delay = 3
 	rapid = 2
 	crusher_loot = list()
-	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/gun/energy/kinetic_accelerator/experimental, /obj/effect/temp_visual/cult/portal)
+	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/effect/temp_visual/cult/portal)
 	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
 	move_resist = MOVE_FORCE_NORMAL

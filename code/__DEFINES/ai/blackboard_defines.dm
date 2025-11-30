@@ -233,6 +233,12 @@
 /// Are we active?
 #define BB_MALF_DRONE_PASSIVE "BB_MALF_DRONE_PASSIVE"
 
+// bee keys
+/// the bee hive we live inside
+#define BB_CURRENT_HOME "BB_current_home"
+/// the hydro we will pollinate
+#define BB_TARGET_HYDRO "BB_target_hydro"
+
 // Goliath AI keys
 /// Key where we store the tentacleing ability
 #define BB_GOLIATH_TENTACLES "BB_GOLIATH_TENTACLES"

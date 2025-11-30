@@ -799,6 +799,9 @@
 		icon_state = "[base_icon_state]-sword"
 	else
 		icon_state = base_icon_state
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
 
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
@@ -1047,7 +1050,7 @@
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"
 	desc = "An apron with various pockets for holding all your cooking tools and equipment."
-	icon_state = "chefbelt"
+	icon_state = "apron_white"
 	storage_slots = 10
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 25
@@ -1070,6 +1073,21 @@
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)
 	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/belt.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/belt.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
 	)
+
+/obj/item/storage/belt/chef/black
+	icon_state = "apron_black"
+
+/obj/item/storage/belt/chef/red
+	icon_state = "chefbelt"
+	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
+	)
+
+/obj/item/storage/belt/chef/green
+	icon_state = "apron_green"

@@ -69,7 +69,7 @@
 		var/mob/living/carbon/C = A
 		sword_attack(C)
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")

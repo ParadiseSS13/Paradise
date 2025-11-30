@@ -76,6 +76,8 @@
 	var/enable_night_shifts = TRUE
 	/// Cap for monkey cube monkey spawns
 	var/monkey_cube_cap = 32
+	/// Cap for chickens
+	var/chicken_hatched_cap = 50
 	/// Enable to make explosions react to obstacles instead of ignoring them
 	var/reactionary_explosions = TRUE
 	/// Bomb cap (Devastation) Other values will be calculated around this

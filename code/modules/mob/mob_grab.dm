@@ -97,6 +97,11 @@
 		qdel(src)
 		return
 
+	if(istype(assailant.buckled, /obj/tgvehicle/scooter/skateboard))
+		qdel(src)
+		to_chat(assailant, "<span class='warning'>You can't pull things along while skateboarding!</span>")
+		return
+
 	if(get_turf(affecting) != old_turf)
 		var/possible_dest = list()
 		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
@@ -469,9 +474,9 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
+			if(istype(affecting, /mob/living/basic/bee)) //Eating a bee will end up damaging you
 				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
-				var/mob/living/simple_animal/hostile/poison/bees/B = affecting
+				var/mob/living/basic/bee/B = affecting
 				mouth.receive_damage(1)
 				if(B.beegent)
 					B.beegent.reaction_mob(assailant, REAGENT_INGEST)

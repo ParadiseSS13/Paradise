@@ -465,7 +465,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
 	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
-		to_chat(user, "<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>")
 		return FALSE
 
 	if(!holy_area_cancast && user.holy_check())

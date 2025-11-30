@@ -11,6 +11,8 @@
 #define FILTER_CO2 3
 /// Nitrous oxide only.
 #define FILTER_N2O 4
+/// Hydrogen only.
+#define FILTER_H2  5
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -28,7 +30,8 @@
 		"O2" = FILTER_OXYGEN,
 		"N2" = FILTER_NITROGEN,
 		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"N2O" = FILTER_N2O,
+		"H2"  = FILTER_H2,
 	)
 
 // So we can CtrlClick without triggering the anchored message.
@@ -144,6 +147,10 @@
 			if(FILTER_N2O)
 				filtered_out.set_sleeping_agent(removed.sleeping_agent())
 				removed.set_sleeping_agent(0)
+
+			if(FILTER_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
 			else
 				filtered_out = null
 
@@ -240,3 +247,4 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+#undef FILTER_H2

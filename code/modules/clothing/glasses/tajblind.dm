@@ -165,6 +165,42 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
+/obj/item/clothing/glasses/hud/tajblind/skill
+	name = "\improper Tajaran skills veil"
+	icon_state = "tajblind_skill"
+	hud_types = DATA_HUD_SECURITY_BASIC
+
+/obj/item/clothing/glasses/hud/tajblind/skill/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a skill HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/jani
+	name = "\improper Tajaran janitorial veil"
+	icon_state = "tajblind_jani"
+	hud_types = DATA_HUD_JANITOR
+
+/obj/item/clothing/glasses/hud/tajblind/jani/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a janitorial HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/diag
+	name = "\improper Tajaran diagnostics veil"
+	icon_state = "tajblind_diag"
+	hud_types = DATA_HUD_DIAGNOSTIC_BASIC
+
+/obj/item/clothing/glasses/hud/tajblind/diag/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a diagnostics HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/hydro
+	name = "\improper Tajaran hydroponics veil"
+	icon_state = "tajblind_hydro"
+	hud_types = DATA_HUD_HYDROPONIC
+
+/obj/item/clothing/glasses/hud/tajblind/hydro/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a hydroponics HUD integrated into it.</span>"
+
 /obj/item/clothing/glasses/hud/tajblind/shaded
 	name = "shaded Tajaran veil"
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -252,6 +288,33 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/skill
+	name = "shaded Tajaran skills veil"
+	icon_state = "tajblind_skill"
+	hud_types = DATA_HUD_SECURITY_BASIC
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/skill/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a skill HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/jani
+	name = "shaded Tajaran janitorial veil"
+	icon_state = "tajblind_jani"
+	hud_types = DATA_HUD_JANITOR
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/jani/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a janitorial HUD integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/diag
+	name = "shaded Tajaran diagnostics veil"
+	icon_state = "tajblind_diag"
+	hud_types = DATA_HUD_DIAGNOSTIC_BASIC
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/diag/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a diagnostics HUD integrated into it.</span>"
 
 #undef MODE_OFF
 #undef MODE_NATURAL

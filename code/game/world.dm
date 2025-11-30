@@ -12,16 +12,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
-	// Do sanity checks to ensure RUST actually exists
-	if((!fexists(RUST_G)) && world.system_type == MS_WINDOWS)
-		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
-		del(world)
-
-	var/rustg_version = rustg_get_version()
-	if(rustg_version != RUST_G_VERSION)
-		DIRECT_OUTPUT(world.log, "ERROR: RUSTG version mismatch. Library is [rustg_version], code wants [RUST_G_VERSION]. Server will now exit.")
-		del(world)
-
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	GLOB.configuration.load_configuration() // Load up the base config.toml

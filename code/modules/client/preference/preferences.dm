@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
 				active_character.randomise()
-
+			active_character.rebuild_quirks()
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
@@ -397,6 +397,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=quirks;task=input'>Open Quirk Menu</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -486,6 +487,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Dark flash:</b> <a href='byond://?_src_=prefs;preference=dark_flash'>[(toggles3 & PREFTOGGLE_3_DARK_FLASH) ? "Yes" : "No"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_ANTAG) // Antagonist's Preferences (and maps)

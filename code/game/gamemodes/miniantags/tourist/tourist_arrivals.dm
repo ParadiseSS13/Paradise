@@ -1,5 +1,8 @@
 /datum/event/tourist_arrivals
-
+	name = "Tourist Arrivals"
+	role_weights = list(ASSIGNMENT_SECURITY = 5)
+	role_requirements = list(ASSIGNMENT_SECURITY = 2)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	/// Maximum number of spawns.
 	var/max_spawn = 10
 	/// If the event ran successfully

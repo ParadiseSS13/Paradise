@@ -172,6 +172,8 @@
 	. = ..()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	switch(organ_quality)
 		if(ORGAN_DAMAGED)
 			owner.adjustToxLoss(-1)
@@ -819,6 +821,8 @@
 
 /obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
 	. = ..()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.get_temperature() < owner.dna.species.cold_level_1 + 40)
 		switch(organ_quality)
 			if(ORGAN_DAMAGED)
@@ -837,6 +841,8 @@
 
 /obj/item/organ/internal/kidneys/xenobiology/sweating/on_life()
 	. = ..()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.get_temperature() > owner.dna?.species.heat_level_1 - 40)
 		switch(organ_quality)
 			if(ORGAN_DAMAGED)
@@ -1023,6 +1029,8 @@
 
 /obj/item/organ/internal/appendix/xenobiology/noisemaker/on_life()
 	. = ..()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(organ_quality == ORGAN_BROKEN && prob(1))
 		owner.custom_emote("honks") // you just cant help it
 		playsound(owner.loc, 'sound/items/bikehorn.ogg', 50, FALSE)
@@ -1443,6 +1451,8 @@
 
 /obj/item/organ/internal/ears/xenobiology/colorful/on_life()
 	. = ..()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, hair_change))
 		return
 	COOLDOWN_START(src, hair_change, 1 MINUTES)

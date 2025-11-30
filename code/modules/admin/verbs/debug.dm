@@ -937,7 +937,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
 		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
 	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
-	if(!form.assign_approver(usr))
+	if(!form?.assign_approver(usr))
 		return
 	form.ui_interact(usr)
 	return

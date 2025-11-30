@@ -468,9 +468,6 @@
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-
-////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
-
 /datum/chemical_reaction/sbiten
 	name = "Sbiten"
 	id = "sbiten"
@@ -786,6 +783,79 @@
 	result_amount = 2
 	mix_message = "The chemicals mix to create a fine, red substance."
 
+/datum/chemical_reaction/synthanol/gear_grinder
+	name = "Gear Grinder"
+	id = "gear_grinder"
+	result = "gear_grinder"
+	required_reagents = list("beetshrub" = 1, "robottears" = 1)
+	result_amount = 2
+	mix_message = "The goos solidify into a gritty sludge."
+
+/datum/chemical_reaction/synthanol/runtime
+	name = "Runtime"
+	id = "runtime"
+	result = "runtime"
+	required_reagents = list("synthanol" = 2, "screwdrivercocktail" = 3)
+	result_amount = 5
+	mix_message = "The colors in the drink separate in an odd way..."
+	mix_sound = 'sound/effects/glassbang.ogg'
+
+/datum/chemical_reaction/synthanol/stack_trace
+	name = "Stack Trace"
+	id = "stack_trace"
+	result = "stack_trace"
+	required_reagents = list("runtime" = 1, "rewriter" = 1)
+	result_amount = 2
+	mix_message = "You tame the runtime mixture with rewriter."
+
+/datum/chemical_reaction/synthanol/csv
+	name = "CSV"
+	id = "csv"
+	result = "csv"
+	required_reagents = list("cognac" = 1, "synthanol" = 1, "vodka" = 1)
+	mix_message = "The mixture turns bright red as you garnish it with a comma."
+
+/datum/chemical_reaction/synthanol/hard_reset
+	name = "Hard Reset"
+	id = "hard_reset"
+	result = "hard_reset"
+	required_reagents = list("soft_reset" = 1, "bluescreen" = 1)
+	result_amount = 2
+	mix_message = "The swirling portion of the mixture sinks deeper into the drink."
+
+/datum/chemical_reaction/synthanol/overclock_somewhere
+	name = "It's Overclock Somewhere"
+	id = "overclock_somewhere"
+	result = "overclock_somewhere"
+	required_reagents = list("synthanol" = 1, "ultralube" = 1, "oil" = 1)
+	mix_message = "The oils rise to form a shimmering layer on the top."
+
+/datum/chemical_reaction/synthanol/bluescreen
+	name = "Bluescreen"
+	id = "bluescreen"
+	result = "bluescreen"
+	required_reagents = list("synthanol" = 1, "fuel" = 1, "goldschlager" = 1, "tonic" = 1, "water" = 1)
+	result_amount = 5
+	mix_message = "As soon as you fill the glass, it turns bright blue."
+	mix_sound = 'sound/effects/glassbang.ogg'
+
+/datum/chemical_reaction/synthanol/burnout
+	name = "Burnout"
+	id = "burnout"
+	result = "burnout"
+	required_reagents = list("synthanol" = 1, "acetone" = 1)
+	result_amount = 2
+	mix_message = "The flammable liquids catch fire!"
+	mix_sound = 'sound/effects/fire_sizzle.ogg'
+	min_temp = T0C + 100
+
+/datum/chemical_reaction/synthanol/dryer_martini
+	name = "Dryer Martini"
+	id = "dryer_martini"
+	result = "dryer_martini"
+	required_reagents = list("synthanol" = 2, "drying_agent" = 1)
+	mix_message = "Most of the fluid in the glass dries up, leaving a thick paste behind."
+
 /datum/chemical_reaction/triple_citrus
 	name = "triple_citrus"
 	id = "triple_citrus"
@@ -1062,6 +1132,24 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/gfs
+	name = "GFS"
+	id = "gfs"
+	result = "gfs"
+	required_reagents = list("gin" = 1, "fernet" = 1, "beetshrub" = 1)
+	result_amount = 3
+	mix_message = "The mixture settles into a soothing purple color."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/shrub_julep
+	name = "Shrub Julep"
+	id = "shrub_julep"
+	result = "shrub_julep"
+	required_reagents = list("mint" = 1, "whiskey" = 2, "beetshrub" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "The liquid pools dark underneath the ice."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/melonade
 	name = "Melonade"
 	id = "melonade"
@@ -1069,3 +1157,233 @@
 	required_reagents = list("watermelonjuice" = 2, "lemonade" = 2, "ice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/royrogers
+	name = "Roy Rogers"
+	id = "royrogers"
+	result = "royrogers"
+	required_reagents = list("berryjuice" = 1, "cola" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/shirleytemple
+	name = "Shirley Temple"
+	id = "shirleytemple"
+	result = "shirleytemple"
+	required_reagents = list("berryjuice" = 1, "space_up" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/partypunch
+	name = "Party Punch"
+	id = "partypunch"
+	result = "partypunch"
+	required_reagents = list("sodawater" = 2, "banana" = 1, "berryjuice" = 1, "triple_citrus" = 1, "pineapplejuice" = 1, "watermelonjuice" = 1, "grapejuice" = 1)
+	result_amount = 8
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/eggcoffee
+	name = "Egg Coffee"
+	id = "eggcoffee"
+	result = "eggcoffee"
+	required_reagents = list("eggcream" = 2, "coffee" = 3)
+	result_amount = 5
+	mix_message = "The egg cream forms a rich foam atop the coffee."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/eggcream
+	name = "Whipped Egg Cream"
+	id = "eggcream"
+	result = "eggcream"
+	required_reagents = list("egg" = 5, "milk" = 5, "sugar" = 10)
+	max_temp = 290
+	min_temp = 275
+	result_amount = 20
+	mix_message = "The egg and milk whip nicely together."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/horchata
+	name = "Horchata"
+	id = "horchata"
+	result = "horchata"
+	required_reagents = list("rice" = 2, "water" = 4, "sugar" = 1, "vanilla" = 1)
+	result_amount = 8
+	mix_message = "Blending rice with water forms a milky beverage."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/monstermix
+	name = "Monster Mix"
+	id = "monstermix"
+	result = "monstermix"
+	required_reagents = list("sodawater" = 1, "dr_gibb" = 1, "spacemountainwind" = 1, "space_up" = 1, "cola" = 1, "ice" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/tomato_spaceup
+	name = "Spessamato Smash"
+	id = "tomato_spaceup"
+	result = "tomato_spaceup"
+	required_reagents = list("tomatojuice" = 1, "space_up" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/beetshrub
+	name = "Beet Shrub"
+	id = "beetshrub"
+	result = "beetshrub"
+	required_reagents = list("beetjuice" = 2, "vinegar" = 1, "corn_syrup" = 1)
+	min_temp = 373
+	max_temp = 390
+	result_amount = 3
+	mix_message = "You get a strong whiff of vinegar as the boiling settles."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/berrybeetrefresher
+	name = "Berry Beet Refresher"
+	id = "berrybeetrefresher"
+	result = "berrybeetrefresher"
+	required_reagents = list("beetshrub" = 1, "sodawater" = 4, "berryjuice" = 1, "limejuice" = 1, "ice" = 3)
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/smoothie/pbnbanana
+	name = "Peanut Butter Banana Smoothie"
+	id = "smoothie_pbnbanana"
+	result = "smoothie_pbnbanana"
+	required_reagents = list("soymilk" = 1, "banana" = 1, "peanutbutter" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "The peanut butter streaks inside the glass as it mixes."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/smoothie/veryberry
+	name = "Very Berry Smoothie"
+	id = "smoothie_veryberry"
+	result = "smoothie_veryberry"
+	required_reagents = list("cream" = 1, "berryjuice" = 1, "plumjuice" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "The ice and cream thicken to create a fluffy texture."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vegetablemix
+	name = "Vegetable Juice Mix"
+	id = "vegjuice"
+	result = "vegjuice"
+	required_reagents = list("tomatojuice" = 1, "carrotjuice" = 1, "beetjuice" = 1, "lettucejuice" = 1)
+	result_amount = 4
+	mix_message = "The blended vegetables form a creamy mix."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/electrolytes
+	name = "Electrolytes"
+	id = "electrolytes"
+	result = "electrolytes"
+	required_reagents = list("sodiumchloride" = 1, "potass_chloride" = 1, "water" = 3)
+	result_amount = 5
+	mix_message = "The salts dissolve in the water."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/tcp_sip
+	name = "TCP Sip"
+	id = "tcp_sip"
+	result = "tcp_sip"
+	required_reagents = list("electrolytes" = 1, "fuel" = 1)
+	result_amount = 2
+	mix_message = "The fuel darkens the beverage."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/ginger_beep
+	name = "Ginger Beep"
+	id = "ginger_beep"
+	result = "ginger_beep"
+	required_reagents = list("tcp_sip" = 1, "ginger_ale" = 1)
+	result_amount = 2
+	mix_message = "The fizzy ginger ale takes on a metallic appearance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bubbly_beep
+	name = "Bubbly Beep"
+	id = "bubbly_beep"
+	result = "bubbly_beep"
+	required_reagents = list("cleaner" = 1, "sodawater" = 1)
+	result_amount = 4
+	mix_message = "Bubbles overflow from the container!"
+
+/datum/chemical_reaction/top_up
+	name = "Top-Up"
+	id = "top_up"
+	result = "top_up"
+	required_reagents = list("electrolytes" = 1, "space_up" = 1)
+	result_amount = 2
+	mix_message = "The salts and soda swirl together."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cog_a_cola
+	name = "Cog-A-Cola"
+	id = "cog_a_cola"
+	result = "cog_a_cola"
+	required_reagents = list("tcp_sip" = 1, "cola" = 1)
+	result_amount = 2
+	mix_message = "The cola takes on a metallic tinge."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/electrocharge
+	name = "Electrocharge"
+	id = "electrocharge"
+	result = "electrocharge"
+	required_reagents = list("tcp_sip" = 3, "copper" = 1, "silver" = 1)
+	result_amount = 5
+	mix_message = "The container fizzes in your hand."
+	mix_sound = 'sound/effects/sparks4.ogg'
+
+/datum/chemical_reaction/tin_and_tonic
+	name = "Tin and Tonic"
+	id = "tin_and_tonic"
+	result = "tin_and_tonic"
+	required_reagents = list("liquid_solder" = 1, "tonic" = 1)
+	result_amount = 2
+	mix_message = "The solder disperses throughout the tonic."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/salt_and_battery
+	name = "Salt and Battery"
+	id = "salt_and_battery"
+	result = "salt_and_battery"
+	required_reagents = list("electrolytes" = 1, "conductivelube" = 1)
+	result_amount = 2
+	mix_message = "The solution sparks a little less than the lube used to make it...a little."
+	mix_sound = 'sound/effects/sparks4.ogg'
+
+/datum/chemical_reaction/zero_day
+	name = "Zero Day"
+	id = "zero_day"
+	result = "zero_day"
+	required_reagents = list("electrolytes" = 1, "nothing" = 1)
+	result_amount = 1
+	mix_message = "Much of the solution spills out of the glass."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/battery_acid
+	name = "Battery Acid"
+	id = "battery_acid"
+	result = "battery_acid"
+	required_reagents = list("tcp_sip" = 1, "triple_citrus" = 1)
+	result_amount = 2
+	mix_message = "The mixture forms an acidic fuzz on the rim of the container."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/processor_punch
+	name = "Processor Punch"
+	id = "processor_punch"
+	result = "processor_punch"
+	required_reagents = list("tcp_sip" = 1, "dr_gibb" = 1, "icetea" = 1)
+	result_amount = 3
+	mix_message = "The liquids combine into a cherry-brown mixture."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/soft_reset
+	name = "Soft Reset"
+	id = "soft_reset"
+	result = "soft_reset"
+	required_reagents = list("degreaser" = 1, "sterilizine" = 1, "drying_agent" = 1, "cleaner" = 1)
+	result_amount = 4
+	mix_message = "The solution swirls together in the container and doesn't stop swirling."

@@ -142,7 +142,7 @@
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
-	icon_state = "purple"
+	icon_state = "science"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
@@ -158,14 +158,14 @@
 /obj/item/clothing/glasses/science/night
 	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
-	icon_state = "nvpurple"
+	icon_state = "nvscience"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
-	icon_state = "purple"
+	icon_state = "janihudgoggles"
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/night

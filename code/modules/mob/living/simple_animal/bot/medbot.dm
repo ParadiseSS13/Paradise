@@ -14,7 +14,6 @@
 	radio_channel = "Medical"
 
 	bot_type = MED_BOT
-	bot_filter = RADIO_MEDBOT
 	model = "Medibot"
 	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
@@ -121,7 +120,6 @@
 	treatment_fire = "kelotane"
 	syndicate_aligned = TRUE
 	req_access = list(ACCESS_SYNDICATE)
-	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 

@@ -19,6 +19,8 @@
 	var/force_no_power_icon_state = FALSE
 	/// Cached list of colors associated with overlays
 	var/list/cached_emissive_color = list()
+	/// Reference to active download animation effect
+	var/obj/effect/temp_visual/computer_download/active_download_effect
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()
@@ -133,8 +135,18 @@
 			if(prob(10))
 				obj_break(ENERGY)
 
+/obj/machinery/computer/Destroy()
+	if(active_download_effect)
+		qdel(active_download_effect)
+		active_download_effect = null
+	return ..()
+
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
+	// Destroy flayer download effect if present
+	if(active_download_effect)
+		qdel(active_download_effect)
+		active_download_effect = null
 	if(!(flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
@@ -179,6 +191,51 @@
 		return FALSE
 	return ..()
 
+/obj/machinery/computer/attack_by(obj/item/I, mob/user, params)
+	// Check if someone is trying to Download using a power cable
+	if(!istype(I, /obj/item/apc_powercord) || !ishuman(user))
+		return ..()
+
+	var/mob/living/carbon/human/H = user
+	var/datum/antagonist/mindflayer/flayer_datum = H.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+
+	if(flayer_datum)
+		for(var/datum/objective/download/download_obj in flayer_datum.get_antag_objectives())
+			if(download_obj.target_console == src)
+				var/old_icon_screen = icon_screen
+				to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console and begin the transfer...</span>")
+				active_download_effect = new /obj/effect/temp_visual/computer_download(get_turf(src), src)
+				if(do_after(user, 18 SECONDS, target = src))
+					download_obj.complete_objective()
+					if(active_download_effect)
+						qdel(active_download_effect)
+						active_download_effect = null
+					icon_screen = old_icon_screen
+					return TRUE
+				else
+					to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+					if(active_download_effect)
+						qdel(active_download_effect)
+						active_download_effect = null
+					icon_screen = old_icon_screen
+					return TRUE
+
+	// Not a flayer, or wrong download console.
+	to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console, hoping to find something interesting.</span>")
+	if(do_after(user, 18 SECONDS, target = src))
+		show_random_download_message(user)
+		return TRUE
+	else
+		to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
+		return TRUE
+
+/obj/machinery/computer/proc/show_random_download_message(mob/user)
+	var/list/download_messages = list(
+		"<span class='notice'>A message flashes on the screen: \"[user.name] is not in the sudoers file. This incident will be reported.\"</span>"
+	)
+	var/message = pick(download_messages)
+	to_chat(user, message)
+
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -199,3 +256,26 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. \
 		It is spitting out error messages."
 	circuit = /obj/item/circuitboard/nonfunctional
+
+// Temp effect for download objective
+/obj/effect/temp_visual/computer_download
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "flayer_downloading_transparent"
+	duration = 180
+	layer = OBJ_LAYER - 0.1
+	randomdir = FALSE
+	var/obj/machinery/computer/target_computer
+
+/obj/effect/temp_visual/computer_download/Initialize(mapload, obj/machinery/computer/computer)
+	if(computer)
+		target_computer = computer
+		setDir(target_computer.dir)
+		pixel_x = target_computer.pixel_x
+		pixel_y = target_computer.pixel_y
+	. = ..()
+
+/obj/effect/temp_visual/computer_download/Destroy()
+	if(target_computer)
+		target_computer.active_download_effect = null
+		target_computer = null
+	return ..()

@@ -7,6 +7,7 @@
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
+	new_attack_chain = TRUE
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
@@ -28,12 +29,12 @@
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
-							"Cigarette" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cig_on"),
+							"Cigarette" = image(icon = 'icons/obj/clothing/smoking.dmi', icon_state = "cig_on"),
 							"Newdles" = image(icon = 'icons/obj/food/food.dmi', icon_state = "chinese3"),
 							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
 							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
-							"Cigar" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigar_off"),
+							"Cigar" = image(icon = 'icons/obj/clothing/smoking.dmi', icon_state = "cigar"),
 							"Smoked Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-smoked"),
 							"Edam Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-edam"),
 							"Blue Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blue"),
@@ -60,7 +61,10 @@
 							"Caviar" = POWER_HIGH
 							)
 
-/obj/item/rsf/attack_self__legacy__attackchain(mob/user)
+/obj/item/rsf/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(!currently_dispensing)
 		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
@@ -69,35 +73,53 @@
 
 	var/rsf_radial_choice = show_radial_menu(user, src, get_radial_contents())
 	if(user.stat || !in_range(user, src))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	currently_dispensing = rsf_items[rsf_radial_choice]
 	power_mode = power_costs[rsf_radial_choice]
 	if(currently_dispensing)
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/rsf/proc/get_radial_contents()
-	return rsf_icons & rsf_items
-
-/obj/item/rsf/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
+/obj/item/rsf/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!currently_dispensing)
-		return
-	if(!proximity)
-		return
-	if(!istype(A, /obj/structure/table) && !isfloorturf(A))
-		return
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(target, /obj/structure/table) && !isfloorturf(target) && !ishuman(target))
+		to_chat(user, "<span class='warning'>The RSF can only create service items on tables, floors, or people's hands!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(isrobot(user))
 		var/mob/living/silicon/robot/energy_check = user
 		if(!energy_check.cell.use(power_mode))
 			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
 			flick("[icon_state]_empty", src)
-			return
-	var/turf/T = get_turf(A)
-	if(!istype(T) || T.density)
-		to_chat(user, "The RSF can only create service items on tables, or floors.")
-		return
-	playsound(loc, 'sound/machines/click.ogg', 10, 1)
-	new currently_dispensing(T)
+			return ITEM_INTERACT_COMPLETE
+
+	var/turf/T = get_turf(target)
+	if(!ishuman(target))
+		new currently_dispensing(T)
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	if(do_after_once(user, DEFAULT_ITEM_PUTON_DELAY, target = target))
+		var/mob/living/carbon/human/esteemed_individual = target
+		var/dispensed_item = new currently_dispensing(T)
+		if(esteemed_individual.put_in_hands(dispensed_item))
+			target.visible_message(
+				"<span class='notice'>[user] hands [target] \a [dispensed_item].</span>",
+				"<span class='notice'>[user] hands you \a [dispensed_item].</span>"
+			)
+		else
+			target.visible_message(
+				"<span class='warning'>[user] tries to hand [target] \a [dispensed_item], but it tumbles down onto the floor!</span>",
+				"<span class='warning'>[user] tries to hand you \a [dispensed_item], but it tumbles down onto the floor!</span>"
+			)
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/rsf/proc/get_radial_contents()
+	return rsf_icons & rsf_items
 
 /obj/item/rsf/executive
 	name = "\improper Executive-Service-Fabricator"

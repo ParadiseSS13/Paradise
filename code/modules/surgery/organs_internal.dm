@@ -228,7 +228,7 @@
 					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.damage = 0
+				I.rejuvenate()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

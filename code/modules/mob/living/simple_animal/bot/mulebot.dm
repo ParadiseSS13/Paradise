@@ -21,7 +21,6 @@
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
-	bot_filter = RADIO_MULEBOT
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
@@ -224,7 +223,7 @@
 			wires.cut_random()
 	return
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	if(..())
 		if(prob(50) && !isnull(load))
 			unload(0)

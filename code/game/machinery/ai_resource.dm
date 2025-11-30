@@ -258,7 +258,6 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	component_parts += new /obj/item/stack/sheet/mineral/gold(null)
 	component_parts += new /obj/item/stack/sheet/mineral/silver(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
-	component_parts += new /obj/item/stack/sheet/mineral/diamond(null)
 	RefreshParts()
 
 /obj/machinery/computer/ai_resource
