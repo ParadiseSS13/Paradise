@@ -170,7 +170,7 @@
 		if("Body")
 			if(organ_warn)
 				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Skkulakin")
 			if(actually_magical)
 				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan", "Slime People")
 

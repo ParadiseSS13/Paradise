@@ -19,7 +19,10 @@
 	allowed = list (/obj/item/gun/energy/laser/tag/blue)
 	resistance_flags = NONE
 	insert_max = 0
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
@@ -30,7 +33,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/gun/energy/laser/tag/red)
 	resistance_flags = NONE
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /*
  * Costume
@@ -40,14 +46,20 @@
 	desc = "Yarr."
 	icon_state = "pirate_old"
 	insert_max = 0
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/pirate_black
 	name = "black pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	insert_max = 0
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/hgpirate
 	name = "pirate captain coat"
@@ -96,7 +108,8 @@
 	insert_max = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/apron/overalls
@@ -118,7 +131,9 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/hastur
 	name = "Hastur's robes"
@@ -216,7 +231,10 @@
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."
 	icon_state = "classicponcho"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/poncho/green
 	name = "green poncho"
@@ -322,7 +340,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 	insert_max = 0
 
 /obj/item/clothing/head/hooded/bee_hood
@@ -448,7 +469,8 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suits/coat.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/coat.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/coat.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suits/coat.dmi'
 	)
 
 /obj/item/clothing/head/hooded/winterhood
@@ -481,7 +503,8 @@
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
 /obj/item/clothing/suit/pimpcoat/white
@@ -711,8 +734,11 @@
 	hoodtype = /obj/item/clothing/head/hooded/ablative
 	strip_delay = 3 SECONDS
 	put_on_delay = 4 SECONDS
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+	sprite_sheets = list(
+						"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+						"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
+						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+						)
 	var/last_reflect_time
 	var/reflect_cooldown = 4 SECONDS
 
@@ -741,7 +767,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/hood
 	name = "black hood"
@@ -817,7 +846,10 @@
 	name = "worn shirt"
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 //coats
 
@@ -835,7 +867,10 @@
 	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
@@ -845,7 +880,10 @@
 	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 //trackjackets
 
@@ -858,7 +896,10 @@
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"
@@ -880,7 +921,10 @@
 	actions_types = list()
 	adjust_flavour = null
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy,/obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/energy/detective)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -946,6 +990,7 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -967,6 +1012,7 @@
 	icon_state = "varsity_classic"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 	)
 
@@ -976,6 +1022,7 @@
 	icon_state = "varsity_sport"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 	)
 
@@ -985,6 +1032,7 @@
 	icon_state = "varsity_blood"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 	)
 
@@ -994,6 +1042,7 @@
 	icon_state = "driver_jacket"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 	)
 
@@ -1006,7 +1055,8 @@
 	adjust_flavour = null
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
 /obj/item/clothing/suit/jacket/motojacket
@@ -1017,6 +1067,7 @@
 	actions_types = list(/datum/action/item_action/zipper)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -1028,7 +1079,8 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
 //Bomber jackets
@@ -1044,6 +1096,7 @@
 	actions_types = list(/datum/action/item_action/zipper)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/coat.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/coat.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/coat.dmi'
@@ -1169,7 +1222,10 @@
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/sovietcoat
 	name = "\improper Soviet greatcoat"
@@ -1386,6 +1442,7 @@
 
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
 	"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 	"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 	"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
@@ -1465,4 +1522,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/dark_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
