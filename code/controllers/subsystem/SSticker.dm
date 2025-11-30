@@ -693,6 +693,9 @@ SUBSYSTEM_DEF(ticker)
 			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
 			to_chat(M, "<span class='green big'>You received <b>[length(kudos)]</b> kudos from other players this round! [kudos_message]</span>")
 
+	// Roll credits!
+	generate_credits()
+
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
 	SSdbcore.SetRoundEnd()
