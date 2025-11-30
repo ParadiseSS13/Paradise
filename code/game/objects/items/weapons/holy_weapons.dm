@@ -415,6 +415,10 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
+/obj/item/nullrod/fedora/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/nullrod/armblade
 	name = "dark blessing"
 	desc = "Particularly twisted deities grant gifts of dubious value."
