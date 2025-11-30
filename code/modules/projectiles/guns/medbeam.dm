@@ -5,6 +5,7 @@
 	icon_state = "chronogun"
 	worn_icon_state = null
 	inhand_icon_state = null
+	needs_permit = FALSE
 	var/mob/living/current_target
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
