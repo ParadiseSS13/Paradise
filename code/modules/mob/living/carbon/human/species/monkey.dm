@@ -53,6 +53,7 @@
 	H.real_name = get_random_name()
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/food/meat/monkey = 5)
+	H.ai_controller = new /datum/ai_controller/monkey(H)
 	H.dna.blood_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
