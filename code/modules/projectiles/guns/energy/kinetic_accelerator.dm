@@ -514,10 +514,10 @@
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
 	if(istype(K, /obj/projectile/kinetic/shotgun)) // 6 Projectiles, so 1/6 the damage boost per shot
-		K.damage += modifier / 6
+		K.damage = round(K.damage + modifier / 6)
 		return
 	if(istype(K, /obj/projectile/kinetic/repeater)) // 3 shots, 1/3 the effect per shot
-		K.damage += modifier / 3
+		K.damage = round(K.damage + modifier / 3)
 		return
 	K.damage += modifier
 
