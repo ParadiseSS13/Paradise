@@ -7,7 +7,6 @@
 	visible_transfer_rate = FALSE
 	volume = 10
 
-
 /obj/item/reagent_containers/food/activate_self(mob/user)
 	if(..())
 		return FINISH_ATTACK
@@ -41,7 +40,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You [!target.reagents.total_volume ? "pour" : "dump"] [src] in [target].</span>")
-	for(var/mob/O in oviewers(2, user))
+	for(var/mob/O as anything in oviewers(2, user))
 		O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
 	reagents.trans_to(target, reagents.total_volume)
 	qdel(src)
