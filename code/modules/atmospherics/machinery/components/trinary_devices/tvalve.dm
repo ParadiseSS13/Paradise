@@ -129,8 +129,11 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
+	var/flipstate = ""
+	if(flipped)
+		flipstate = "m"
 	if(!has_power())
-		icon_state = "tvalvenopower"
+		icon_state = "tvalve[flipstate]nopower"
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user)
 	return attack_hand(user)
