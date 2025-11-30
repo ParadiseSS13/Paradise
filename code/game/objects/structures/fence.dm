@@ -152,7 +152,7 @@
 	if(!prob(shock_chance))
 		return FALSE
 
-	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
+	if(!in_range(src, user)) // To prevent TK and mech users from getting shocked
 		return FALSE
 
 	var/turf/T = get_turf(src)
