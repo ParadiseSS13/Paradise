@@ -24,7 +24,7 @@ GLOBAL_LIST(end_titles)
 
 	verbs += /client/proc/clear_credits
 	for(var/I in GLOB.end_titles)
-		if(!credits)
+		if(!length(credits))
 			return
 		var/atom/movable/screen/credit/T = new(null, null, I, src)
 		credits += T
@@ -73,7 +73,7 @@ GLOBAL_LIST(end_titles)
 	var/client/P = parent
 	if(parent)
 		P.screen -= src
-	P?.credits -= src
+		P.credits -= src
 	parent = null
 	return ..()
 
