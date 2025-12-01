@@ -1072,6 +1072,8 @@
 				Mix one part each of lemon juice, sugar, and water.
 				<h2>Melonade:</h2>
 				Mix two parts each of lemonade and watermelon juice to one part ice.
+				<h2>Milk Tea:</h2>
+				Mix one part each of tea, sugar, and milk.
 				<h2>Monster Mix:</h2>
 				Mix one part each of soda water, Dr. Gibb, space mountain wind soda, space-up, cola, and ice.
 				<h2>Party Punch:</h2>
@@ -1117,6 +1119,10 @@
 				Mix one part TCP Sip (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Bubbly Beep: §</h2>
 				Mix one part space cleaner to one part soda water. Custodial or Chemistry can help.
+				<h2>Bubble Milk Tea</h2>
+				Mix three parts Milk Tea (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part cooked tapioca pearls. The Kitchen and Botany can help.
+				<h2>Bubble Tea</h2>
+				Mix two parts tea to one part each of sugar and cooked tapioca pearls. The Kitchen and Botany can help.
 				<h2>Cherry Shake:</h2>
 				Mix one part each of cherry jelly, cream, and ice. Botany or the Kitchen can help.
 				<h2>Chocolate Milk:</h2>

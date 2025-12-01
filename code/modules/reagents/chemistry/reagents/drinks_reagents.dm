@@ -842,6 +842,50 @@
 		M.satiety += 5
 	return ..()
 
+
+/datum/reagent/consumable/drink/tapioca_pearls
+	name = "Tapioca Pearls"
+	description = "Tapioca pearls made from starch ground by cassava root. Tastes pretty good in tea."
+	id = "tapiocapearls"
+	color = "#222222"
+	drink_icon = "tapiocapearl"
+	drink_name = "Tapioca Pearls"
+	drink_desc = "This would go great with sugar, milk, and tea."
+	taste_description = "chewy starch"
+
+/datum/reagent/consumable/drink/bubbletea
+	name = "Bubble Tea"
+	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
+	id = "bubbletea"
+	color = "#c79a47"
+	drink_icon = "bubbletea"
+	drink_name = "Bubble Tea"
+	drink_desc = "You feel trendy for drinking this."
+	taste_description = "sweet tea with chewy pearls"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/milktea
+	name = "Milk Tea"
+	description = "Tea and milk mixed together. Both sweet and creamy."
+	id = "milktea"
+	color = "#bfa46f"
+	drink_icon = "milktea"
+	drink_name = "Milk Tea"
+	drink_desc = "A refreshing and sweet beverage."
+	taste_description = "sweet milky tea"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/drink/bubblemilktea
+	name = "Bubble Milk Tea"
+	description = "A tea-based drink made with milk and tapioca pearls. Known by some as boba milk tea."
+	id = "bubblemilktea"
+	color = "#d4b483"
+	drink_icon = "bubblemilktea"
+	drink_name = "Bubble Milk Tea"
+	drink_desc = "You feel extra trendy for drinking this."
+	taste_description = "sweet milky tea with chewy pearls"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
 /datum/reagent/consumable/drink/royrogers
 	name = "Roy Rogers"
 	description = "A cola classic from the days of Earth."
