@@ -200,10 +200,12 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
+	if(min_latespawn_budget <= 0)
+		return
 	antag_budget += 1
-	log_dynamic("Crew latejoin. Antagonist budget: [antag_budget]. [min_latespawn_budget - antag_budget] points until latespawn.", TRUE)
-	if(min_latespawn_budget > 0 && antag_budget >= min_latespawn_budget)
-		log_dynamic("Budget at latespawn threshold ([min_latespawn_budget]), rolling latespawns.", TRUE)
+	log_dynamic("Crew joined. New budget: [antag_budget] (latespawn in [min_latespawn_budget - antag_budget])", TRUE)
+	if(antag_budget >= min_latespawn_budget)
+		log_dynamic("Budget at latespawn threshold ([min_latespawn_budget]), buying antagonists.", TRUE)
 		if(apply_antag_budget(TRUE))
 			for(var/datum/ruleset/ruleset as anything in (rulesets + implied_rulesets))
 				if(ruleset.antag_amount <= 0)
@@ -211,18 +213,20 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 				ruleset.latespawn(src)
 
 /datum/game_mode/dynamic/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	if(min_latespawn_budget <= 0)
+		return
 	var/turf/T = get_turf(cryopod)
 	if(!T || is_admin_level(T.z))
 		return
 	antag_budget -= 1
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
-		log_dynamic("Crew cryo. Budget is now: [antag_budget]")
+		log_dynamic("Crew cryo. New budget: [antag_budget]", TRUE)
 		return
 	for(var/datum/antagonist/antag in sleepy_mob.mind.antag_datums)
 		for(var/datum/ruleset/possible_ruleset as anything in subtypesof(/datum/ruleset))
 			if(istype(antag, possible_ruleset.antagonist_type))
 				antag_budget += possible_ruleset.antag_cost + 1
-				log_dynamic("[possible_ruleset] cryo, refunded [possible_ruleset.antag_cost] budget. Budget is now: [antag_budget]", TRUE)
+				log_dynamic("[possible_ruleset] cryo, refunded [possible_ruleset.antag_cost] budget. New budget: [antag_budget]", TRUE)
 
 /datum/game_mode/dynamic/get_webhook_name()
 	var/list/implied_and_used = list()
