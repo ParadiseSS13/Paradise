@@ -51,7 +51,7 @@
 	product_type = /obj/item/food/soup/chicken_noodle_soup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/chicken),
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_REAGENT("water", 10),
@@ -809,4 +809,15 @@
 		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
 		PCWJ_ADD_ITEM(/obj/item/food/choc_pile),
 		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/tapioca_pudding
+	container_type =/obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/tapioca_pudding
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_REAGENT("tapioca", 5),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
