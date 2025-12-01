@@ -1177,7 +1177,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_tail_layer()
 	// If the tail is currently wagging, don't stop wagging.
 	if(tail_wagging)
-		start_tail_wagging()
+		if(wear_suit?.flags_inv & HIDETAIL)
+			stop_tail_wagging()
+		else
+			start_tail_wagging()
 		return
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
