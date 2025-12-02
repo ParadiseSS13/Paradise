@@ -1034,3 +1034,17 @@
 	color = "#ffffff"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/tapioca_powder
+	name = "Tapioca Powder"
+	id = "tapioca"
+	description = "A starchy powder made by grinding up cassava. Would be good mixed with water."
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "starchy powder"
+
+/datum/reagent/consumable/drytapioca_pearls
+	name = "Dry Tapioca Pearls"
+	id = "drytapioca"
+	description = "Small, hard balls of dried tapioca powder."
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "dry starchy pearls"
