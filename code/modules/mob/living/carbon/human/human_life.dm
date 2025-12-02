@@ -715,7 +715,7 @@
 
 /mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
 	var/shock_reduction = 0
-	shock_reduction -= false_pain
+	shock_reduction -= false_pain // Sometimes having bad medical stats means we feel pain but aren't physically hurt
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
@@ -880,6 +880,9 @@
 	if(chem_volume)
 		temp_bp += round(chem_volume * 0.25, 1)
 
+	var/obj/item/organ/internal/heart/heart = H.linked_organ
+	temp_bp += heart.blood_pressure_change
+
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
 			temp_bp += 15
@@ -928,7 +931,7 @@
 
 		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_V_HIGH)
 			false_pain += rand(1, 10)
-			if(prob(10))
+			if(prob(5))
 				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
 				bleed(10)
 			if(prob(5))
@@ -985,6 +988,9 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		beats += 10
 
+	var/obj/item/organ/internal/heart/heart = H.linked_organ
+	beats += heart.heart_rate_change
+
 	var/brute_dmg = getBruteLoss()
 	var/burn_dmg = getFireLoss()
 	var/tox_dmg = getToxLoss()
@@ -1001,7 +1007,7 @@
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 50
 			else
-				beats += 70
+				beats += 60
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
 			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
 				beats -= 70
@@ -1083,9 +1089,8 @@
 		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
 			send_heart_sound()
 
-
 	else if(heartbeat >= HEARTBEAT_NORMAL)
-		if(prob(5))
+		if(prob(2))
 			to_chat(src, "<span class='warning'>Your heart is beating faster than normal.</span>")
 
 /// Proc to play the heartbeat sound

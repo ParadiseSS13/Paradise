@@ -120,6 +120,7 @@
 	uses = -1
 	icon_state = "slime"
 	mind_control_duration = 2400
+	heart_rate_change = -10 // Heart is made of slime and beats slower idk
 
 /obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -178,6 +179,8 @@
 	uses = 1
 	icon_state = "vent"
 	mind_control_uses = 4
+	heart_rate_change = 10
+	blood_pressure_change = -10
 
 /obj/item/organ/internal/heart/gland/ventcrawling/trigger()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
@@ -191,6 +194,7 @@
 	cooldown_high = 2400
 	uses = 1
 	icon_state = "viral"
+	blood_pressure_change = 10
 
 /obj/item/organ/internal/heart/gland/viral/trigger()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
@@ -227,6 +231,7 @@
 	uses = -1
 	icon_state = "teleporting"
 	mind_control_uses = 3
+	heart_rate_change = 15
 
 /obj/item/organ/internal/heart/gland/teleport/trigger()
 	if(!is_teleport_allowed(owner.z)) // check if we can actually teleport on this z level before sending scary messages
@@ -317,6 +322,7 @@
 	cooldown_low = 200
 	cooldown_high = 400
 	uses = -1
+	blood_pressure_change = 30
 
 /obj/item/organ/internal/heart/gland/bloody/trigger()
 	owner.blood_volume = max(owner.blood_volume - 20, 0)
@@ -335,6 +341,7 @@
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
 	mind_control_duration = 800
+	heart_rate_change = 10
 
 /obj/item/organ/internal/heart/gland/plasma/trigger()
 	spawn(0)
