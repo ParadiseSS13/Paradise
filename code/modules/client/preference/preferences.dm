@@ -495,9 +495,9 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>Antagonist Role Settings</h2>"
-			dat += get_job_settings(user, GLOB.special_roles_antags)
+			dat += get_role_settings(user, GLOB.special_roles_antags)
 			dat += "<h2>Neutral Role Settings</h2>"
-			dat += get_job_settings(user, GLOB.special_roles_neutral)
+			dat += get_role_settings(user, GLOB.special_roles_neutral)
 
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
@@ -623,7 +623,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
-/datum/preferences/proc/get_job_settings(mob/user, list/global_role_list)
+/datum/preferences/proc/get_role_settings(mob/user, list/global_role_list)
 	var/html
 	if(jobban_isbanned(user, ROLE_SYNDICATE))
 		html += "<b>You are banned from special roles.</b>"
