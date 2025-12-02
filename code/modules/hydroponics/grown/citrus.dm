@@ -26,6 +26,7 @@
 
 /obj/item/food/grown/citrus/lime
 	name = "lime"
+	desc = "It's so sour, your face will twist."
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
