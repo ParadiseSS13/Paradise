@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Random")))
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin", "Random")))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/eye_c = pick("#000000", "#8B4513", "#1E90FF", "#8c00ff", "#a80c0c", "#2fdb63") // Black, brown, blue, purple, red, green
 
 	switch(new_species) //Diona not included as they don't use the hair colours, kidan use accessory, drask are skin tone Grey not included as they are BALD
-		if("Human", "Tajaran", "Vulpkanin", "Nian")
+		if("Human", "Tajaran", "Vulpkanin", "Nian","Skkulakin")
 			var/hair_c_htvn = pick("#8B4513", "#000000", "#FF4500", "#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
 			head_organ.facial_colour = hair_c_htvn
 			head_organ.sec_facial_colour = hair_c_htvn
