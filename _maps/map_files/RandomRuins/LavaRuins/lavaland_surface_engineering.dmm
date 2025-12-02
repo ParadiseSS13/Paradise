@@ -13,6 +13,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
+"aB" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/airlock)
 "aL" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -28,6 +34,9 @@
 	},
 /obj/item/storage/belt/utility,
 /obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80,6 +89,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "bH" = (
@@ -109,6 +119,7 @@
 	layer = 2.9
 	},
 /obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "dd" = (
@@ -165,6 +176,9 @@
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
@@ -243,6 +257,9 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "gO" = (
@@ -273,6 +290,12 @@
 "hg" = (
 /turf/simulated/wall/r_wall,
 /area/engi_outpost/vacant_room)
+"hi" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/airlock)
 "hM" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/lattice/catwalk/mining,
@@ -305,6 +328,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "ic" = (
@@ -401,6 +427,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "kP" = (
@@ -437,6 +466,9 @@
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
@@ -496,6 +528,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
+"mz" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/vacant_room)
 "mI" = (
 /obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -511,6 +549,9 @@
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
@@ -600,8 +641,37 @@
 /area/engi_outpost/airlock)
 "qc" = (
 /obj/structure/table,
+/obj/item/rpd{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/rpd{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
+"qe" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/breakroom)
+"qf" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/vacant_room)
 "ql" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -620,6 +690,9 @@
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
@@ -713,6 +786,7 @@
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "sy" = (
@@ -758,6 +832,12 @@
 /obj/machinery/computer/shuttle/engineering{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "tL" = (
@@ -772,6 +852,9 @@
 /area/engi_outpost/airlock)
 "tZ" = (
 /obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -816,10 +899,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "va" = (
 /obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -845,6 +932,15 @@
 /obj/machinery/access_button/offset/east,
 /turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
+"vR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/vacant_room)
 "vU" = (
 /obj/effect/baseturf_helper/lava_land,
 /obj/machinery/light/floor,
@@ -869,6 +965,19 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
+"wC" = (
+/obj/structure/table,
+/obj/item/pickaxe{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/pickaxe,
+/obj/item/pickaxe{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/airlock)
 "wG" = (
 /obj/structure/railing{
 	dir = 9
@@ -901,6 +1010,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
@@ -954,6 +1066,12 @@
 "yP" = (
 /turf/simulated/wall/r_wall,
 /area/engi_outpost/electrical)
+"yZ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
 "zm" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/plasmareinforced{
@@ -975,6 +1093,7 @@
 	name = "Loading Doors";
 	pixel_y = -24
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "zL" = (
@@ -1036,6 +1155,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "DY" = (
@@ -1055,6 +1177,9 @@
 /area/engi_outpost/breakroom)
 "Ep" = (
 /obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Eq" = (
@@ -1077,6 +1202,9 @@
 /area/engi_outpost/airlock)
 "Fk" = (
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Fn" = (
@@ -1168,8 +1296,15 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
+"HT" = (
+/obj/structure/fence/door/opened,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "HW" = (
 /obj/structure/shelf/engineering,
 /obj/item/clothing/glasses/meson{
@@ -1179,6 +1314,9 @@
 	pixel_y = 5
 	},
 /obj/item/storage/belt/utility,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "HZ" = (
@@ -1197,12 +1335,19 @@
 	pixel_y = -30;
 	pixel_x = 5
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
+"Js" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/breakroom)
 "Jz" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/plasteel/dark,
@@ -1243,6 +1388,12 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
+"KY" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/airlock)
 "La" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner{
@@ -1267,6 +1418,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Ma" = (
@@ -1283,6 +1437,12 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
+/area/engi_outpost/shuttle_landing_post)
+"Mo" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Mr" = (
 /obj/machinery/firealarm/directional/north,
@@ -1334,6 +1494,10 @@
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
+"Or" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
 "Ox" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/titanium,
@@ -1522,6 +1686,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "Si" = (
@@ -1540,12 +1707,18 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Sy" = (
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
@@ -1554,6 +1727,9 @@
 /area/shuttle/engineering)
 "Tq" = (
 /obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1601,11 +1777,30 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "UY" = (
 /turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
+"Vk" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
+"Vs" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/electrical)
 "Vu" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -1613,6 +1808,12 @@
 	},
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
+"Vx" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
 "VI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -1628,6 +1829,19 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
+"Wi" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/meson{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/airlock)
 "Wr" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -1689,6 +1903,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
+"Yw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
 "YJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1730,6 +1950,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Zp" = (
@@ -1744,6 +1967,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/engi_outpost/breakroom)
+"Zu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/engi_outpost/shuttle_landing_post)
 "Zz" = (
 /obj/structure/toilet/directional/west,
 /obj/machinery/light,
@@ -2270,7 +2500,7 @@ uu
 oM
 oM
 oM
-oM
+Or
 MX
 bP
 Ui
@@ -2305,13 +2535,13 @@ Ui
 dn
 Ds
 Mj
-oM
+Yw
 oM
 XF
 oM
 oM
 oM
-oM
+Or
 Mj
 bP
 Ui
@@ -2393,7 +2623,7 @@ iT
 oM
 oM
 oM
-oM
+yZ
 Lx
 Lx
 Lx
@@ -2402,7 +2632,7 @@ uu
 uu
 uu
 Pu
-PC
+Js
 sd
 IK
 IK
@@ -2436,12 +2666,12 @@ HC
 Pz
 Pz
 Pz
-Pz
+Zu
 Sj
+Vk
 Pz
 Pz
-Pz
-Pz
+Zu
 gO
 wR
 qV
@@ -2594,8 +2824,8 @@ UR
 va
 va
 tZ
-oM
-oM
+Vx
+Mo
 iy
 TN
 TN
@@ -2649,7 +2879,7 @@ gP
 gP
 gP
 oD
-jI
+qe
 Tq
 oD
 oD
@@ -3137,11 +3367,11 @@ bb
 Nz
 cJ
 jM
-HZ
+qf
 HZ
 lZ
 Se
-HZ
+mz
 hg
 Ui
 Ui
@@ -3157,8 +3387,8 @@ gP
 gP
 gP
 gP
-KE
-gP
+Ui
+Ui
 Ui
 Ui
 Hx
@@ -3176,9 +3406,9 @@ Sx
 Kh
 DD
 DD
-DD
+Vs
 ql
-Qg
+vR
 Qg
 Qg
 wI
@@ -3198,7 +3428,7 @@ gP
 gP
 gP
 gP
-KE
+Ui
 Ui
 Ui
 Ui
@@ -3238,8 +3468,8 @@ KE
 (36,1,1) = {"
 gP
 gP
-KE
-KE
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3247,9 +3477,9 @@ Hx
 EE
 qt
 gm
-UH
-UH
-UH
+aB
+aB
+KY
 ur
 qc
 tt
@@ -3277,10 +3507,10 @@ gP
 KE
 "}
 (37,1,1) = {"
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3292,7 +3522,7 @@ tt
 tt
 Sy
 ur
-qc
+Wi
 tt
 Mr
 iq
@@ -3318,11 +3548,11 @@ gP
 KE
 "}
 (38,1,1) = {"
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 RP
@@ -3331,9 +3561,9 @@ rb
 gg
 vB
 tt
-UH
+hi
 oL
-qc
+wC
 EE
 Bp
 bA
@@ -3359,10 +3589,10 @@ gP
 gP
 "}
 (39,1,1) = {"
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3372,7 +3602,7 @@ xu
 vZ
 Rp
 tt
-UH
+hi
 UH
 JI
 EE
@@ -3400,9 +3630,9 @@ gP
 gP
 "}
 (40,1,1) = {"
-KE
-KE
-KE
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3441,9 +3671,9 @@ Ui
 gP
 "}
 (41,1,1) = {"
-KE
-KE
-KE
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3482,10 +3712,10 @@ gP
 gP
 "}
 (42,1,1) = {"
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3498,7 +3728,7 @@ ZJ
 Ui
 Ui
 Ui
-Wx
+HT
 Ui
 Ui
 Ui
@@ -3523,11 +3753,11 @@ gP
 gP
 "}
 (43,1,1) = {"
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 Ui
@@ -3564,12 +3794,12 @@ gP
 gP
 "}
 (44,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 Ui
 Ui
 Ye
@@ -3589,7 +3819,7 @@ gP
 gP
 gP
 gP
-KE
+Ui
 Ui
 Ui
 Ui
@@ -3605,13 +3835,13 @@ gP
 gP
 "}
 (45,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 Ui
 Wx
 Ui
@@ -3630,13 +3860,13 @@ gP
 gP
 gP
 gP
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 KE
 KE
 gP
@@ -3646,13 +3876,13 @@ gP
 gP
 "}
 (46,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 Ui
 Wx
 Ui
@@ -3670,14 +3900,14 @@ gP
 gP
 gP
 gP
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 KE
 KE
 gP
@@ -3687,14 +3917,14 @@ gP
 KE
 "}
 (47,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 sA
 OA
 OA
@@ -3711,9 +3941,9 @@ gP
 gP
 gP
 gP
-KE
-KE
-KE
+Ui
+Ui
+Ui
 KE
 KE
 KE
@@ -3728,23 +3958,23 @@ gP
 KE
 "}
 (48,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 gP
 gP
 gP
@@ -3769,23 +3999,23 @@ gP
 KE
 "}
 (49,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 gP
 gP
 gP
@@ -3810,24 +4040,24 @@ gP
 KE
 "}
 (50,1,1) = {"
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 gP
 gP
 gP
