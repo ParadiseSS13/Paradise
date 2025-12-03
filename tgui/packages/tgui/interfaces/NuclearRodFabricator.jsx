@@ -1,138 +1,150 @@
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  NoticeBox,
+  Section,
+  Stack,
+  Table,
+  Tooltip,
+} from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Section, Stack, NoticeBox, Button, Tooltip, Divider } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-const RodDisplay = ({ rods, title }) => {
-  const { act } = useBackend();
-
-  if (!rods || rods.length === 0) {
-    return (
-      <Section title={title}>
-        <NoticeBox type="info">No **{title.toLowerCase()}** designs found.</NoticeBox>
-      </Section>
-    );
-  }
-
-  return (
-    <Section title={`${title} (${rods.length} found)`} level={2}>
-      {rods.map((rod, i) => {
-        return (
-          <Box
-            key={i}
-            p={1}
-            mb={0.5}
-            style={{
-              borderBottom: '1px solid var(--tgui-color-dark-gray)',
-              backgroundColor: 'rgba(255,255,255,0.02)',
-            }}
-          >
-            <Stack align="center">
-              <Stack.Item grow>
-                <Stack vertical>
-                  <Stack.Item>
-                    <Box bold fontSize="1.1em">
-                      {rod.name || (
-                        <Box inline color="bad">
-                          [Unnamed Design]
-                        </Box>
-                      )}
-                    </Box>
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <Box fontSize="0.9em" color="label" mb={0.5}>
-                      {rod.desc || (
-                        <Box inline color="average">
-                          [No description available]
-                        </Box>
-                      )}
-                    </Box>
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <Box fontSize="0.85em">
-                      <Box inline color="label">
-                        Heat Mod:
-                      </Box>{' '}
-                      <Box inline bold color={rod.heat_amp_mod ? 'good' : 'bad'}>
-                        {rod.heat_amp_mod ?? 'N/A'}
-                      </Box>
-                      {' | '}
-                      <Box inline color="label">
-                        Power Mod:
-                      </Box>{' '}
-                      <Box inline bold color={rod.power_amp_mod ? 'good' : 'bad'}>
-                        {rod.power_amp_mod ?? 'N/A'}
-                      </Box>
-                    </Box>
-                  </Stack.Item>
-
-                  {/* NOTE: Removed the [Debug: craftable = ...] line */}
-                </Stack>
-              </Stack.Item>
-
-              <Stack.Item align="right">
-                <Stack vertical>
-                  <Stack.Item>
-                    <Button
-                      icon="wrench"
-                      content="Fabricate"
-                      tooltip="Fabrication not yet implemented"
-                      disabled
-                      // act="fabricate_rod" - add this when implementation is ready
-                    />
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <Tooltip
-                      content={
-                        <Box p={1} style={{ whiteSpace: 'pre-wrap', maxWidth: '400px' }}>
-                          <Box bold mb={0.5}>
-                            Full Object Data:
-                          </Box>
-                          {JSON.stringify(rod, null, 2)}
-                        </Box>
-                      }
-                      position="left"
-                    >
-                      <Button icon="info-circle">Details</Button>
-                    </Tooltip>
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
-            </Stack>
-          </Box>
-        );
-      })}
-    </Section>
-  );
-};
-
 export const NuclearRodFabricator = (props) => {
-  const { data } = useBackend(props);
+  const { data, act } = useBackend(props);
+
+  const categories = [
+    { key: 'fuel_rods', title: 'Fuel Rods' },
+    { key: 'moderator_rods', title: 'Moderator Rods' },
+    { key: 'coolant_rods', title: 'Coolant Rods' },
+  ];
+
+  const [selectedRod, setSelectedRod] = useState(null);
 
   const totalRods =
-    (Array.isArray(data.fuel_rods) ? data.fuel_rods.length : 0) +
-    (Array.isArray(data.moderator_rods) ? data.moderator_rods.length : 0) +
-    (Array.isArray(data.coolant_rods) ? data.coolant_rods.length : 0);
+    (data.fuel_rods?.length || 0) +
+    (data.moderator_rods?.length || 0) +
+    (data.coolant_rods?.length || 0);
 
   return (
-    <Window width={600} height={800}>
-      <Window.Content scrollable>
-        <Stack vertical fill>
-          <Section title="Nuclear Rod Fabricator">
-            <Box bold fontSize="1.1em">
-              Total Craftable Designs: **{totalRods}**
-            </Box>
-          </Section>
+    <Window width={850} height={600}>
+      <Window.Content>
+        <Stack fill stretch>
 
-          <Divider />
+          {/* Left Side Start*/}
+          <Stack.Item width="50%">
+            <Section
+              title={`Available Designs (${totalRods})`}
+              fill
+              scrollable
+            >
+              {categories.map((cat) => {
+                const list = data[cat.key] || [];
+                return (
+                  <Section key={cat.key} title={cat.title} level={2}>
+                    {list.length === 0 && (
+                      <Box color="average">
+                        No {cat.title.toLowerCase()} available.
+                      </Box>
+                    )}
 
-          <RodDisplay rods={data.fuel_rods} title="Fuel Rod Designs" />
+                    {list.map((rod, i) => (
+                      <Box
+                        key={i}
+                        p={1}
+                        mb={0.5}
+                        style={{
+                          cursor: 'pointer',
+                          backgroundColor:
+                            selectedRod === rod
+                              ? 'rgba(80, 140, 255, 0.25)'
+                              : 'rgba(255,255,255,0.03)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                        }}
+                        onClick={() => setSelectedRod(rod)}
+                      >
+                        <Box bold>{rod.name}</Box>
+                        <Box fontSize="0.85em" color="label">
+                          {rod.desc}
+                        </Box>
+                      </Box>
+                    ))}
+                  </Section>
+                );
+              })}
+            </Section>
+          </Stack.Item>
 
-          <RodDisplay rods={data.moderator_rods} title="Moderator Rod Designs" />
+          {/* Right Side Start*/}
+          <Stack.Item grow>
+            <Section title="Manufacturing Console" fill>
+              {!selectedRod && (
+                <NoticeBox>Please select a rod design from the left.</NoticeBox>
+              )}
 
-          <RodDisplay rods={data.coolant_rods} title="Coolant Rod Designs" />
+              {selectedRod && (
+                <Stack vertical fill>
+                  <Box bold fontSize="1.2em">
+                    {selectedRod.name}
+                  </Box>
+                  <Box mb={1} color="label">
+                    {selectedRod.desc}
+                  </Box>
+
+                  <Divider />
+
+                  {/* Required materials*/}
+                  <Section title="Required Materials">
+                    {!selectedRod.materials ||
+                    Object.keys(selectedRod.materials).length === 0 ? (
+                      <Box color="average">No materials required.</Box>
+                    ) : (
+                      <Table>
+                        {Object.entries(selectedRod.materials).map(
+                          ([matName, matAmt], i) => (
+                            <Table.Row key={i}>
+                              <Table.Cell bold>{matName}</Table.Cell>
+                              <Table.Cell>{matAmt}</Table.Cell>
+                            </Table.Row>
+                          )
+                        )}
+                      </Table>
+                    )}
+                  </Section>
+
+                  <Divider />
+
+                  {/* Fabrication button*/}
+                  <Button
+                    icon="wrench"
+                    content={`Fabricate ${selectedRod.name}`}
+                    color="good"
+                    onClick={() =>
+                      act('fabricate_rod', { type_path: selectedRod.type_path })
+                    }
+                  />
+
+                  {/* Debug TODO: remove later*/}
+                  <Tooltip
+                    content={
+                      <Box p={1} style={{ whiteSpace: 'pre-wrap' }}>
+                        {JSON.stringify(selectedRod, null, 2)}
+                      </Box>
+                    }
+                    position="left"
+                  >
+                    <Button icon="info-circle" mt={1}>
+                      Raw Metadata
+                    </Button>
+                  </Tooltip>
+                </Stack>
+              )}
+            </Section>
+          </Stack.Item>
+
         </Stack>
       </Window.Content>
     </Window>
