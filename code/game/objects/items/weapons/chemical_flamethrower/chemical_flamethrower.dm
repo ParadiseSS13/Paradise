@@ -271,7 +271,7 @@
 	reagents.isolate_reagent(current_reagent_id)
 	var/has_enough_reagents = reagents.total_volume >= required_volume
 
-	if(old_chem_id == reagents.get_master_reagent_id() )
+	if(old_chem_id == reagents.get_master_reagent_id())
 		audible_message("<span class='notice'>[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started.</span>")
 		if(has_enough_reagents)
 			ammo = initial(ammo)
