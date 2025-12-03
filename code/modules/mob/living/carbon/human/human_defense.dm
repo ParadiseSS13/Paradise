@@ -511,9 +511,7 @@ emp_act
 							SSticker.mode.remove_revolutionary(mind, activate_protection = TRUE)
 
 					if(bloody)//Apply blood
-						if(wear_mask)
-							wear_mask.add_mob_blood(src)
-							update_inv_wear_mask()
+						wear_mask?.add_mob_blood(src)
 						head?.add_mob_blood(src)
 						if(glasses && prob(33))
 							glasses.add_mob_blood(src)
