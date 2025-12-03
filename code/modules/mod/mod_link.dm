@@ -289,7 +289,6 @@
 	return istype(user) && cell?.charge && user.stat < DEAD
 
 /obj/item/clothing/neck/link_scryer/proc/make_link_visual()
-	var/mob/living/user = mod_link.get_user_callback.Invoke()
 	update_mob_overlay()
 	return make_link_visual_generic(mod_link, PROC_REF(on_overlay_change))
 

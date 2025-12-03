@@ -382,6 +382,8 @@
 	return null
 
 /mob/proc/get_slot_by_item(obj/item/looking_for)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(looking_for == wear_mask)
 		return ITEM_SLOT_MASK
 	if(looking_for == back)

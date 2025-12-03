@@ -130,6 +130,10 @@
 			W.activate_self(src)
 		else
 			W.attack_self__legacy__attackchain(src)
+		if(hand)
+			update_inv_l_hand()
+		else
+			update_inv_r_hand()
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
