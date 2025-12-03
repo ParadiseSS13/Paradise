@@ -2,7 +2,7 @@
 	name = "Slaughter Demon"
 	noAutoEnd = TRUE
 	var/key_of_slaughter
-	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
+	var/mob/living/basic/demon/demon = /mob/living/basic/demon/slaughter/lesser
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_JANITOR = 5, ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_CREW = 0.7)
 	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_JANITOR = 1, ASSIGNMENT_MEDICAL = 2, ASSIGNMENT_CREW = 25)
@@ -29,7 +29,7 @@
 	dust_if_respawnable(C)
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(spawn_loc)
-	var/mob/living/simple_animal/demon/S = new demon(holder)
+	var/mob/living/basic/demon/S = new demon(holder)
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Demon"
 	player_mind.special_role = SPECIAL_ROLE_DEMON
@@ -54,11 +54,11 @@
 
 /datum/event/spawn_slaughter/greater
 	name = "Greater Slaughter Demon"
-	demon = /mob/living/simple_animal/demon/slaughter
+	demon = /mob/living/basic/demon/slaughter
 
 /datum/event/spawn_slaughter/shadow
 	name = "Shadow Demon"
-	demon = /mob/living/simple_animal/demon/shadow
+	demon = /mob/living/basic/demon/shadow
 	// Same as slaughter but without Jani
 	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_CREW = 0.7)
 	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_MEDICAL = 2, ASSIGNMENT_CREW = 25)

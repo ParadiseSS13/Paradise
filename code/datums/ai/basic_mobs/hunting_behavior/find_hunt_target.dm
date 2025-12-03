@@ -4,6 +4,7 @@
 	var/search_turf_types = FALSE
 
 /datum/ai_behavior/find_hunt_target/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, types_to_hunt, hunt_range)
+	. = ..()
 	var/mob/living/living_mob = controller.pawn
 	var/list/interesting_objects = search_turf_types ? RANGE_TURFS(hunt_range, living_mob) : oview(hunt_range, living_mob)
 	for(var/atom/possible_dinner as anything in typecache_filter_list(interesting_objects, types_to_hunt))

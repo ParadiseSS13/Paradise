@@ -61,7 +61,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/template_noop)
 "hB" = (
-/obj/structure/mineral_door/iron,
+/obj/structure/mineral_door,
 /turf/simulated/floor/carpet/black,
 /area/template_noop)
 "hK" = (
@@ -146,7 +146,7 @@
 /turf/space,
 /area/template_noop)
 "nJ" = (
-/obj/structure/mineral_door/iron,
+/obj/structure/mineral_door,
 /turf/simulated/floor/vault,
 /area/template_noop)
 "oF" = (
