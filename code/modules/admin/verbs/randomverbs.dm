@@ -620,54 +620,42 @@ USER_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jo
 		to_chat(client, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
-	set category = "Event"
-	set name = "Explosion"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
-		return
-
-	var/devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
+USER_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", "Create a custom explosion.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())
+	var/devastation = input(client, "Range of total devastation. -1 to none", "Input")  as num|null
 	if(devastation == null) return
-	var/heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
+	var/heavy = input(client, "Range of heavy impact. -1 to none", "Input")  as num|null
 	if(heavy == null) return
-	var/light = input("Range of light impact. -1 to none", "Input")  as num|null
+	var/light = input(client, "Range of light impact. -1 to none", "Input")  as num|null
 	if(light == null) return
-	var/flash = input("Range of flash. -1 to none", "Input")  as num|null
+	var/flash = input(client, "Range of flash. -1 to none", "Input")  as num|null
 	if(flash == null) return
-	var/flames = input("Range of flames. -1 to none", "Input")  as num|null
+	var/flames = input(client, "Range of flames. -1 to none", "Input")  as num|null
 	if(flames == null) return
 
 	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
 		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
+			if(alert(client, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
-		explosion(O, devastation, heavy, light, flash, null, null,flames, cause = "[ckey]: Explosion command")
-		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
+		explosion(O, devastation, heavy, light, flash, null, null,flames, cause = "[client.ckey]: Explosion command")
+		log_admin("[key_name(client)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
+		message_admins("[key_name_admin(client)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return
 	else
 		return
 
-/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
-	set category = "Event"
-	set name = "EM Pulse"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
-		return
-
-	var/heavy = input("Range of heavy pulse.", "Input")  as num|null
+USER_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pulse.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())
+	var/heavy = input(client, "Range of heavy pulse.", "Input")  as num|null
 	if(heavy == null) return
-	var/light = input("Range of light pulse.", "Input")  as num|null
+	var/light = input(client, "Range of light pulse.", "Input")  as num|null
 	if(light == null) return
 
 	if(heavy || light)
 
 		empulse(O, heavy, light)
-		log_admin("[key_name(usr)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])", 1)
+		log_admin("[key_name(client)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])")
+		message_admins("[key_name_admin(client)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])", 1)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 		return

@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(user_verbs)
 		CRASH("Tried to get valid verbs for client without permissions")
 
 	var/list/has_permission = list()
-	for(var/permission_flag in GLOB.bitflags)
+	for(var/permission_flag in GLOB.more_bitflags)
 		if(check_rights_client(permission_flag, FALSE, admin))
 			has_permission["[permission_flag]"] = TRUE
 

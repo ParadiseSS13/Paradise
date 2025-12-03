@@ -544,7 +544,7 @@ USER_VERB(send_alert_message, R_ADMIN, "Send Alert Message", "Sends a large noti
 USER_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel", VERB_CATEGORY_DEBUG)
 	client.stat_panel.send_message("create_debug")
 
-USER_VERB(profile_code, R_DEBUG, "Profile Code", "View code profiler", VERB_CATEGORY_DEBUG)
+USER_VERB(profile_code, R_DEBUG|R_VIEWRUNTIMES, "Profile Code", "View code profiler", VERB_CATEGORY_DEBUG)
 	winset(client, null, "command=.profile")
 
 USER_VERB(export_character, R_ADMIN, "Export Character DMI/JSON", "Saves character DMI and JSON to data directory.", VERB_CATEGORY_ADMIN)
