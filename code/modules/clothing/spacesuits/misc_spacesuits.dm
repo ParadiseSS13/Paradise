@@ -104,7 +104,7 @@
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
-	desc = "Ho ho ho. Merrry X-mas!"
+	desc = "Ho ho ho. Merrry X-mas! This one is spaceworthy.\n<span class='notice'>Use in hand to toggle the hat's beard.</span>"
 	icon_state = "santahat"
 	inhand_icon_state = null
 	sprite_sheets = list(
@@ -112,7 +112,7 @@
 		"Drask" = 'icons/mob/clothing/species/Drask/helmet.dmi'
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
-	flags_cover = HEADCOVERSEYES
+	flags_cover = FALSE
 	dog_fashion = /datum/dog_fashion/head/santa
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
@@ -125,7 +125,7 @@
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
-	desc = "Festive!"
+	desc = "Festive! This one is spaceworthy."
 	icon_state = "santa"
 	inhand_icon_state = null
 	slowdown = 0
