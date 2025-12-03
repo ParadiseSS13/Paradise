@@ -49,9 +49,12 @@
 	origin_test.Fail("could not spawn obj [obj_type] near [src]")
 
 /datum/test_puppeteer/proc/spawn_fast_tool(item_type)
-	var/obj/item/fast_tool = spawn_obj_in_hand(item_type)
+	var/obj/item/fast_tool = origin_test.allocate(item_type, null)
 	fast_tool.toolspeed = 0
-	return fast_tool
+	if(puppet.put_in_hands(fast_tool))
+		return fast_tool
+
+	origin_test.Fail("could not spawn fast tool [item_type] in hand of [puppet]")
 
 /datum/test_puppeteer/proc/use_item_in_hand()
 	var/obj/item/item = puppet.get_active_hand()
