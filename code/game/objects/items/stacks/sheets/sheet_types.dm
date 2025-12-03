@@ -128,6 +128,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
+	null,
+	new /datum/stack_recipe("metal door", /obj/structure/mineral_door, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/metal
