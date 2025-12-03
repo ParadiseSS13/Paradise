@@ -137,7 +137,11 @@
 		C.apply_damage(10, BRUTE, drilled_organ)
 	var/obj/item/organ/internal/replaced = C.get_organ_slot(storedorgan.slot)
 	if(replaced) //Lets not destroy someones brain fully by putting someone elses brain in that slot.
-		replaced.remove(C)
+		if(advanced)
+			// Protects us from killing IPCs by removing their microbattery.
+			replaced.remove(C, TRUE)
+		else
+			replaced.remove(C)
 		replaced.forceMove(get_turf(src))
 		if(istype(storedorgan, /obj/item/organ/internal/heart) && ((/obj/item/organ/internal/cyberimp/brain/sensory_enhancer in C.internal_organs) || C.reagents.addiction_threshold_accumulated[/datum/reagent/mephedrone]))
 			storedorgan.damage = 40 // Damage the heart so you can't endlessly OD for cheap easily.

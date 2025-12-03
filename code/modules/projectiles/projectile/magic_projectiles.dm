@@ -150,8 +150,8 @@
 
 /obj/projectile/magic/door
 	name = "bolt of door creation"
-	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
-		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
+	var/list/door_types = list(/obj/structure/mineral_door/wood, /obj/structure/mineral_door, /obj/structure/mineral_door/silver, \
+		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium, /obj/structure/mineral_door/sandstone, /obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
 /obj/projectile/magic/door/on_hit(atom/target)
