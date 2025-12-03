@@ -102,7 +102,7 @@
 					return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You can't drop [used]!</span>")
-	if(istype(used, /obj/item/stack/nanopaste)) //MMIs can get EMP damaged too so this isn't just for robobrains
+	if(istype(used, /obj/item/stack/nanopaste)) // MMIs can get EMP damaged too so this isn't just for robobrains
 		if(!brainmob)
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/nanopaste/nano = used
