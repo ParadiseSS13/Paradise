@@ -1341,3 +1341,15 @@
 
 #undef DONUT_NORMAL
 #undef DONUT_FROSTED
+
+/obj/item/food/tapiocaflatbread
+	name = "tapioca flatbread"
+	desc = "A delicious flatbread made from tapioca."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "tapioca_flatbread"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("tapioca" = 0.5, "flat" = 0.25, "bread" = 0.25)
+	goal_difficulty = FOOD_GOAL_HARD
+
