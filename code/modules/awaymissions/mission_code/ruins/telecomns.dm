@@ -328,51 +328,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
 
-/mob/living/basic/hivebot/strong/malfborg
-	name = "Security cyborg"
-	desc = "Oh god they still have access to these!"
-	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-SEC"
-	health = 200
-	maxHealth = 200
-	faction = list("malf_drone")
-	speed = 0.5
-	projectile_type = /obj/projectile/beam/disabler/weak
-	projectile_sound = 'sound/weapons/taser2.ogg'
-	ranged_burst_count = 2
-	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
-	a_intent = INTENT_HARM
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
-
-/mob/living/basic/hivebot/strong/malfborg/Initialize(mapload)
-	. = ..()
-	baton = new(src)
-
-/mob/living/basic/hivebot/strong/malfborg/Destroy()
-	QDEL_NULL(baton)
-	return ..()
-
-/mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
-	if(!early_melee_attack(target, modifiers, ignore_cooldown))
-		return FALSE
-	if(QDELETED(target))
-		return FALSE
-	face_atom(target)
-	baton.melee_attack_chain(src, target)
-	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, TRUE)
-	return TRUE
-
-/mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!used_item && !isturf(A))
-		used_item = baton
-	..()
-
-/mob/living/basic/hivebot/strong/malfborg/emp_act(severity)
-	. = ..()
-	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-	adjustBruteLoss(50)
-
 /obj/structure/displaycase/dvoraks_treat
 	alert = TRUE // Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
 	force_alarm = TRUE
