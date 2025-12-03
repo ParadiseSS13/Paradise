@@ -39,7 +39,7 @@
 	. += extended_desc
 
 /obj/item/mmi/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
+	if(istype(used, /obj/item/organ/internal/brain) && !brainmob) // Time to stick a brain in it --NEO
 		if(istype(used, /obj/item/organ/internal/brain/golem))
 			to_chat(user, "<span class='warning'>You can't find a way to plug [used] into [src].</span>")
 			return ITEM_INTERACT_COMPLETE
