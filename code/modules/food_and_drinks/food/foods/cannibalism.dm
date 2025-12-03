@@ -137,7 +137,7 @@
 	if(!used.get_heat())
 		return ..()
 	log_and_set_aflame(user, used)
-		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/plasmabone_broth/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
