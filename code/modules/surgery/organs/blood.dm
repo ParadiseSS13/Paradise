@@ -214,7 +214,11 @@
 		blood_data["species"] = dna.species.name
 		blood_data["species_only"] = dna.species.own_species_blood
 		return blood_data
-	if(blood_id == "slimejelly")
+	else if(blood_id == "slimejelly")
+		var/blood_data = list()
+		blood_data["blood_color"] = dna.species.blood_color
+		return blood_data
+	else if(blood_id == "banana")
 		var/blood_data = list()
 		blood_data["blood_color"] = dna.species.blood_color
 		return blood_data
@@ -259,8 +263,8 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly") && (get_blood_id() != "tomatojuice"))//is it blood or welding fuel?
-		return
+	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly") && (get_blood_id() != "tomatojuice") && (get_blood_id() != "banana")) // Is it blood or welding fuel?
+		return // We should really get a better way to check this
 	if(!T)
 		T = get_turf(src)
 

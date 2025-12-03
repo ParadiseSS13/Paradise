@@ -222,8 +222,6 @@
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
-		if(M.mind?.assigned_role == "Clown")
-			M.blood_volume = min(M.blood_volume + metabolization_rate, BLOOD_VOLUME_NORMAL)
 
 	return ..() | update_flags
 
