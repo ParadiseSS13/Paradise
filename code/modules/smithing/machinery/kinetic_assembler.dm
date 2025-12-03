@@ -237,7 +237,7 @@
 		product.set_stats()
 		product.update_appearance(UPDATE_NAME)
 		finished_product = product
-	if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
+	else if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
 		var/obj/item/kitchen/knife/smithed/product = finished_product
 		product.quality = lowest
 		product.material = trim.material
@@ -275,7 +275,7 @@
 			extra_product.material = current_product.material
 			extra_product.set_stats()
 			product = extra_product
-		if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
+		else if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
 			var/obj/item/kitchen/knife/smithed/current_product = finished_product
 			var/obj/item/kitchen/knife/smithed/extra_product = new finished_product.type(src.loc)
 			extra_product.quality = current_product.quality
