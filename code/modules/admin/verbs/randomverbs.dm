@@ -527,7 +527,6 @@ USER_VERB(add_freeform_ai_law, R_EVENT, "Add Custom AI law", "Add custom AI law.
 	new /datum/event/ion_storm(botEmagChance = 0, announceEvent = announce_ion_laws, ionMessage = input)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-USER_VERB_VISIBILITY(admin_rejuvenate, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "\[Admin\] Rejuvenate", mob/living/M as mob in GLOB.mob_list)
 	if(!istype(M))
 		alert(client, "Cannot revive a ghost")

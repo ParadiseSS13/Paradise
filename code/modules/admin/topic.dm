@@ -918,7 +918,7 @@
 	else if(href_list["open_logging_view"])
 		var/mob/M = locateUID(href_list["open_logging_view"])
 		if(ismob(M))
-			SSuser_verbs.invoke_verb(usr, /datum/user_verb/logging_view, list(M), TRUE)
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/logging_view, M, TRUE)
 
 	//Player Notes
 	else if(href_list["addnote"])
