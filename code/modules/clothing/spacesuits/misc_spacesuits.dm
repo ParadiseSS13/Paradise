@@ -112,7 +112,8 @@
 		"Drask" = 'icons/mob/clothing/species/Drask/helmet.dmi'
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
-	flags_cover = FALSE
+	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEARS
 	dog_fashion = /datum/dog_fashion/head/santa
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
