@@ -2063,6 +2063,7 @@
 #include "code\modules\crafting\guncrafting.dm"
 #include "code\modules\crafting\recipes.dm"
 #include "code\modules\crafting\tailoring.dm"
+#include "code\modules\credits\credits.dm"
 #include "code\modules\customitems\item_defines.dm"
 #include "code\modules\detective_work\detective_work.dm"
 #include "code\modules\detective_work\evidence.dm"
