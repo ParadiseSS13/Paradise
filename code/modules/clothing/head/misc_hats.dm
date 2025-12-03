@@ -482,6 +482,10 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
+/obj/item/clothing/head/flower_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/sunflower_crown
 	name = "sunflower crown"
 	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
@@ -491,6 +495,10 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
+/obj/item/clothing/head/sunflower_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/poppy_crown
 	name = "poppy crown"
@@ -502,10 +510,15 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
+/obj/item/clothing/head/poppy_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/lily_crown
 	name = "lily crown"
 	desc = "A leafy flower crown with a cluster of large white lilies at the front."
 	icon_state = "lily_crown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -522,11 +535,16 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
+/obj/item/clothing/head/geranium_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/cool_bandana
 	name = "badass bandana"
 	desc = "You know what time it is."
 	icon_state = "tmc_hat"
 	inhand_icon_state = "armor"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
