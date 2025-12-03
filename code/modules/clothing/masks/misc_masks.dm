@@ -324,7 +324,6 @@
 	name = "fake beard"
 	desc = "A fake beard. Great for making you look wise, festive, or senile."
 	icon_state = "fake_beard"
-	flags_cover = FALSE
 
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"
