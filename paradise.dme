@@ -2540,6 +2540,7 @@
 #include "code\modules\mob\living\basic\hostile\megafauna\event_stuff\vox_armalis_actions.dm"
 #include "code\modules\mob\living\basic\hostile\revenant\revenant.dm"
 #include "code\modules\mob\living\basic\hostile\revenant\revenant_abilities.dm"
+#include "code\modules\mob\living\basic\hostile\silicon\evil-cyborgs.dm"
 #include "code\modules\mob\living\basic\lavaland\goliath\goliath.dm"
 #include "code\modules\mob\living\basic\lavaland\goliath\goliath_actions.dm"
 #include "code\modules\mob\living\basic\lavaland\goliath\goliath_ai.dm"
