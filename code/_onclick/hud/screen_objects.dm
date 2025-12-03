@@ -427,13 +427,14 @@
 	return ..()
 
 /atom/movable/screen/inventory/Click(location, control, params)
+	var/mob/user = usr
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
+	if(world.time <= user.next_move)
 		return 1
-	if(usr.incapacitated())
+	if(user.incapacitated())
 		return 1
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
+	if(is_mecha_occupant(user)) // stops inventory actions in a mech
 		return 1
 
 	if(hud?.mymob && slot_id)
@@ -441,9 +442,7 @@
 		if(inv_item)
 			return inv_item.Click(location, control, params)
 
-	if(usr.attack_ui(slot_id))
-		usr.update_inv_l_hand()
-		usr.update_inv_r_hand()
+	user.attack_ui(slot_id)
 	return TRUE
 
 /atom/movable/screen/inventory/hand

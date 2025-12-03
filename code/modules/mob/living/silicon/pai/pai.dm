@@ -430,8 +430,7 @@
 		H.icon_state = "pai-[icon_state]"
 		H.inhand_icon_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	H.update_mob_overlay()
 
 	return H
 

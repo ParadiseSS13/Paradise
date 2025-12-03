@@ -373,6 +373,7 @@
 
 /obj/item/holo/esword/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? sword_color : ""]"
+	update_mob_overlay()
 
 /obj/item/holo/esword/green
 	sword_color = "green"
@@ -399,10 +400,6 @@
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 

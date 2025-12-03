@@ -22,8 +22,7 @@
 	inhand_icon_state = "latexballon"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	user.update_inv_r_hand()
-	user.update_inv_l_hand()
+	update_mob_overlay()
 	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
 	air_contents = tank.remove_air_volume(3)
 
@@ -33,10 +32,7 @@
 	playsound(src, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 	icon_state = "latexballon_bursted"
 	inhand_icon_state = null
-	if(isliving(loc))
-		var/mob/living/user = loc
-		user.update_inv_r_hand()
-		user.update_inv_l_hand()
+	update_mob_overlay()
 	var/turf/T = get_turf(src)
 	T.blind_release_air(air_contents)
 

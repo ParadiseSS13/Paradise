@@ -42,11 +42,11 @@
 	if(isnull(hood))
 		return
 	icon_state = "[initial(icon_state)]"
+	update_mob_overlay()
 	suit_adjusted = 0
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
 		H.transfer_item_to(hood, src, force = TRUE)
-		H.update_inv_wear_suit()
 	else
 		hood.forceMove(src)
 	update_action_buttons()
@@ -68,7 +68,7 @@
 			else if(H.equip_to_slot_if_possible(hood, ITEM_SLOT_HEAD, FALSE, FALSE))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
-				H.update_inv_wear_suit()
+				update_mob_overlay()
 				update_action_buttons()
 	else
 		if((hood?.flags & NODROP) && respects_nodrop)

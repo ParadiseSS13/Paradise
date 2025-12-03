@@ -294,9 +294,6 @@ emp_act
 		if(head_clothes)
 			if(!(head_clothes.resistance_flags & UNACIDABLE))
 				head_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_glasses()
-				update_inv_wear_mask()
-				update_inv_head()
 			else
 				to_chat(src, "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>")
 		else
@@ -318,8 +315,6 @@ emp_act
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & UNACIDABLE))
 				chest_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_w_uniform()
-				update_inv_wear_suit()
 			else
 				to_chat(src, "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>")
 		else
@@ -351,9 +346,6 @@ emp_act
 		if(arm_clothes)
 			if(!(arm_clothes.resistance_flags & UNACIDABLE))
 				arm_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_gloves()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
 			else
 				to_chat(src, "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>")
 		else
@@ -377,9 +369,6 @@ emp_act
 		if(leg_clothes)
 			if(!(leg_clothes.resistance_flags & UNACIDABLE))
 				leg_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_shoes()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
 			else
 				to_chat(src, "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>")
 		else
@@ -525,12 +514,9 @@ emp_act
 						if(wear_mask)
 							wear_mask.add_mob_blood(src)
 							update_inv_wear_mask()
-						if(head)
-							head.add_mob_blood(src)
-							update_inv_head()
+						head?.add_mob_blood(src)
 						if(glasses && prob(33))
 							glasses.add_mob_blood(src)
-							update_inv_glasses()
 
 
 				if("chest")//Easier to score a stun but lasts less time
@@ -540,12 +526,8 @@ emp_act
 						KnockDown(8 SECONDS)
 
 					if(bloody)
-						if(wear_suit)
-							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit()
-						if(w_uniform)
-							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform()
+						wear_suit?.add_mob_blood(src)
+						w_uniform?.add_mob_blood(src)
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
@@ -622,11 +604,9 @@ emp_act
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform()
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)

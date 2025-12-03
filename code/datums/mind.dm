@@ -1821,7 +1821,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform()
+			jumpsuit.update_mob_overlay()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
@@ -1836,9 +1836,7 @@
 
 	if(jumpsuit)
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
-		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
-			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform()
+		jumpsuit.update_mob_overlay()
 
 	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
 	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")

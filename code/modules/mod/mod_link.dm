@@ -290,7 +290,7 @@
 
 /obj/item/clothing/neck/link_scryer/proc/make_link_visual()
 	var/mob/living/user = mod_link.get_user_callback.Invoke()
-	user.update_inv_neck()
+	update_mob_overlay()
 	return make_link_visual_generic(mod_link, PROC_REF(on_overlay_change))
 
 /obj/item/clothing/neck/link_scryer/proc/get_link_visual(atom/movable/visuals)
@@ -299,7 +299,7 @@
 /obj/item/clothing/neck/link_scryer/proc/delete_link_visual()
 	var/mob/living/user = mod_link.get_user_callback.Invoke()
 	if(!QDELETED(user))
-		user.update_inv_neck()
+		update_mob_overlay()
 	return delete_link_visual_generic(mod_link)
 
 /obj/item/clothing/neck/link_scryer/hear_talk(mob/living/M, list/message_pieces)

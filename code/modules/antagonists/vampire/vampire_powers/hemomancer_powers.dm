@@ -101,8 +101,7 @@
 				damtype = BURN
 				hitsound = 'sound/weapons/sear.ogg'
 				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
-				user.update_inv_r_hand()
-				user.update_inv_l_hand()
+				update_mob_overlay()
 	if(C.ckey && C.stat != DEAD && C.affects_vampire(user))
 		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)

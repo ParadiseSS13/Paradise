@@ -47,10 +47,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
 	on = !on
 	icon_state = "[basestate][on]-[base_icon_state]"
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_head()
+	update_mob_overlay()
 
 	if(on)
 		set_light(brightness_on)
@@ -279,9 +276,9 @@
 		flags_inv &= ~visor_flags_inv
 		cold_protection &= ~HEAD
 	update_icon()
+	update_mob_overlay()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
-	user.update_inv_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
@@ -305,8 +302,7 @@
 			linkedsuit.on = FALSE
 
 		linkedsuit.update_icon()
-		user.update_inv_wear_suit()
-		user.update_inv_w_uniform()
+		linkedsuit.update_mob_overlay()
 
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"

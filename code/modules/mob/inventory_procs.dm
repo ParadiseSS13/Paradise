@@ -384,17 +384,12 @@
 /mob/proc/get_slot_by_item(obj/item/looking_for)
 	if(looking_for == wear_mask)
 		return ITEM_SLOT_MASK
-
 	if(looking_for == back)
 		return ITEM_SLOT_BACK
-
 	if(looking_for == l_hand)
 		return ITEM_SLOT_LEFT_HAND
-
 	if(looking_for == r_hand)
 		return ITEM_SLOT_RIGHT_HAND
-
-	return null
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it.
 /mob/proc/find_item(path)
@@ -403,3 +398,46 @@
 	for(var/obj/B in L)
 		if(B.type == path)
 			return B
+
+/// Updates worn mob overlays based on specified item slots
+/mob/proc/update_worn_overlays(slots_to_update)
+	if(!slots_to_update)
+		return
+
+	if(slots_to_update & ITEM_SLOT_BACK)
+		update_inv_back()
+	if(slots_to_update & ITEM_SLOT_MASK)
+		update_inv_wear_mask()
+	if(slots_to_update & ITEM_SLOT_HANDCUFFED)
+		update_inv_handcuffed()
+	if(slots_to_update & ITEM_SLOT_BOTH_HANDS)
+		update_inv_r_hand()
+		update_inv_l_hand()
+	if(slots_to_update & ITEM_SLOT_BELT)
+		update_inv_belt()
+	if(slots_to_update & ITEM_SLOT_ID)
+		update_inv_wear_id()
+	if(slots_to_update & ITEM_SLOT_BOTH_EARS)
+		update_inv_ears()
+	if(slots_to_update & ITEM_SLOT_EYES)
+		update_inv_glasses()
+	if(slots_to_update & ITEM_SLOT_GLOVES)
+		update_inv_gloves()
+	if(slots_to_update & ITEM_SLOT_HEAD)
+		update_inv_head()
+	if(slots_to_update & ITEM_SLOT_SHOES)
+		update_inv_shoes()
+	if(slots_to_update & ITEM_SLOT_OUTER_SUIT)
+		update_inv_wear_suit()
+	if(slots_to_update & ITEM_SLOT_JUMPSUIT)
+		update_inv_w_uniform()
+	if(slots_to_update & ITEM_SLOT_BOTH_POCKETS)
+		update_inv_pockets()
+	if(slots_to_update & ITEM_SLOT_SUIT_STORE)
+		update_inv_s_store()
+	if(slots_to_update & ITEM_SLOT_LEGCUFFED)
+		update_inv_legcuffed()
+	if(slots_to_update & ITEM_SLOT_PDA)
+		update_inv_wear_pda()
+	if(slots_to_update & ITEM_SLOT_NECK)
+		update_inv_neck()

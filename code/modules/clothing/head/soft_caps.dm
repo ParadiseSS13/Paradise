@@ -19,12 +19,13 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/soft/dropped()
+	. = ..()
 	flipped = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	return ..()
 
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = "[initial(icon_state)][flipped ? "_flipped" : ""]"
+	update_mob_overlay()
 
 /obj/item/clothing/head/soft/attack_self__legacy__attackchain(mob/user)
 	flip(user)
@@ -36,7 +37,6 @@
 	else
 		to_chat(user, "You flip the hat back in normal position.")
 	update_icon(UPDATE_ICON_STATE)
-	user.update_inv_head()	//so our mob-overlays update
 	update_action_buttons()
 
 /obj/item/clothing/head/soft/red

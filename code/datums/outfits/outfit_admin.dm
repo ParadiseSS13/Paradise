@@ -1607,7 +1607,7 @@
 	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
 		var/obj/item/clothing/glasses/glassass = H.glasses
 		glassass.over_mask = TRUE
-		H.update_inv_glasses()
+		glassass.update_mob_overlay()
 	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

@@ -118,7 +118,7 @@
 			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 				H.legcuffed = src
 				forceMove(H)
-				H.update_inv_legcuffed()
+				update_mob_overlay()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
 			if(istype(entered, /mob/living/basic/bear))
@@ -217,8 +217,7 @@
 	var/speed_increment = round(max_speed / max_spins)
 	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
 	inhand_icon_state = "[initial(icon_state)]_spin"
-	L.update_inv_r_hand()
-	L.update_inv_l_hand()
+	update_mob_overlay()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
 		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L)), hidden = TRUE))
@@ -239,9 +238,7 @@
 	throw_speed = initial(throw_speed)
 	inhand_icon_state = initial(inhand_icon_state)
 	spinning = FALSE
-	if(user)
-		user.update_inv_r_hand()
-		user.update_inv_l_hand()
+	update_mob_overlay()
 
 /// if it returns TRUE, it breaks the loop, returning FALSE, continues the loop
 /obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
@@ -265,7 +262,7 @@
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)
-		C.update_inv_legcuffed()
+		update_mob_overlay()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.KnockDown(knockdown_duration)

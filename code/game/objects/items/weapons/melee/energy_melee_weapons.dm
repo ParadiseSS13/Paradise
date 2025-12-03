@@ -151,10 +151,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_mob_overlay()
 	add_fingerprint(user)
 	return
 
@@ -293,12 +290,7 @@
 
 			if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 				icon_state = "swordrainbow"
-				// Updating overlays, copied from welder code.
-				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
-				if(user.r_hand == src)
-					user.update_inv_r_hand()
-				else if(user.l_hand == src)
-					user.update_inv_l_hand()
+				update_mob_overlay()
 
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
@@ -471,11 +463,7 @@
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-
+	update_mob_overlay()
 	add_fingerprint(user)
 
 /obj/item/melee/energy/cleaving_saw/examine(mob/user)

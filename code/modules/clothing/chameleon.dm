@@ -177,7 +177,7 @@
 
 		update_item(picked_item)
 		var/obj/item/thing = target
-		thing.update_slot_icon()
+		thing.update_mob_overlay()
 		SStgui.update_uis(src)
 	build_all_button_icons()
 

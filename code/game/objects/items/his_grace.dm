@@ -53,6 +53,7 @@
 /obj/item/his_grace/update_icon_state()
 	icon_state = ascended ? "gold" : "green"
 	inhand_icon_state = ascended ? "toolbox_gold" : "artistic_toolbox"
+	update_mob_overlay()
 
 /obj/item/his_grace/update_overlays()
 	. = ..()
@@ -305,5 +306,3 @@
 	if(istype(master))
 		master.visible_message("<span class='his_grace big bold'>Gods will be watching.</span>")
 		name = "[master]'s mythical toolbox of three powers"
-		master.update_inv_l_hand()
-		master.update_inv_r_hand()

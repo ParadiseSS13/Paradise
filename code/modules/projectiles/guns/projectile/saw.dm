@@ -53,10 +53,7 @@
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
 		update_icon()
-		if(user.hand)
-			user.update_inv_r_hand()
-		else
-			user.update_inv_l_hand()
+		update_mob_overlay()
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
 
 /obj/item/gun/projectile/automatic/l6_saw/attackby__legacy__attackchain(obj/item/A, mob/user, params)
