@@ -133,11 +133,11 @@
 		log_and_set_aflame(user, I)
 	return TRUE
 
-/obj/item/food/plasmabone_broth/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(I.get_heat())
-		log_and_set_aflame(user, I)
-	else
+/obj/item/food/plasmabone_broth/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.get_heat())
 		return ..()
+	log_and_set_aflame(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/plasmabone_broth/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
