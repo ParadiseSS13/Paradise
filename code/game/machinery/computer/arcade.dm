@@ -54,7 +54,7 @@
 	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villain"
-	var/previous_event = "Winners Don't Use Spacedrugs" //previous_eventorary message, for attack messages, etc
+	var/previous_event = "Winners Don't Use Spacedrugs" //event message for attack messages, etc
 	var/player_hp = 30 //Player health/attack points
 	var/player_max_hp = 0
 	var/player_mp = 10
