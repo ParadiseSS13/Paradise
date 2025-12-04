@@ -1020,7 +1020,7 @@
 	name = "Syndicate Bomb"
 	id = "syndicatebomb"
 	description = "A Syndicate bomb"
-	color = "#b4202a"
+	color = "#9c892a"
 	alcohol_perc = 0.2
 	drink_icon = "syndicatebomb"
 	drink_name = "Syndicate Bomb"
