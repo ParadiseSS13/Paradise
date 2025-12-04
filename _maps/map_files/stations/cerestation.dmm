@@ -1333,6 +1333,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
+"ajg" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/white,
+/area/station/command/office/rd)
 "ajh" = (
 /obj/structure/machine_frame,
 /turf/simulated/floor/plasteel/dark,
@@ -19982,7 +19987,7 @@
 /area/station/public/sleep)
 "dgs" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -73176,6 +73181,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "oQc" = (
@@ -78865,8 +78871,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "qhi" = (
-/obj/item/kirbyplants/large/plant4,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "qhm" = (
@@ -98885,13 +98891,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "uBa" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "port bay 4 at NSS Farragus";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Farragus";
+	dir = 2
 	},
 /turf/space,
 /area/space)
@@ -134137,7 +134139,7 @@ ntP
 kxo
 dba
 sJX
-hDv
+ajg
 wOi
 hDv
 jyg
