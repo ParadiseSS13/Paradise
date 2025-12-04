@@ -90,7 +90,7 @@
 		"<span class='notice'>You start cutting through [src] with [I].</span>"
 	)
 	if(!can_have_holes)
-		if(I.use_tool(src, user, FULL_CUT_TIME, volume = I.tool_volume))
+		if(I.use_tool(src, user, FULL_CUT_TIME, volume = I.tool_volume, do_after_once = TRUE))
 			user.visible_message(
 				"<span class='warning'>[user] completely dismantles [src].</span>",
 				"<span class='notice'>You completely dismantle [src].</span>"
@@ -99,32 +99,30 @@
 		return
 
 	// Required to avoid tool spam from stacking and instantly cutting multiple stages at once.
-	var/current_stage = hole_size
-	if(!I.use_tool(src, user, CUT_TIME * I.toolspeed, volume = I.tool_volume))
+	if(!I.use_tool(src, user, CUT_TIME * I.toolspeed, volume = I.tool_volume, do_after_once = TRUE))
 		return
 	
-	if(current_stage == hole_size)
-		switch(hole_size)
-			if(NO_HOLE)
-				user.visible_message(
-					"<span class='warning'>[user] cuts a hole into [src].</span>",
-					"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
-				)
-			if(SMALL_HOLE)
-				user.visible_message(
-					"<span class='warning'>[user] completely cuts through [src].</span>",
-					"<span class='notice'>The hole in [src] is now big enough to walk through.</span>"
-				)
-			if(LARGE_HOLE)
-				user.visible_message(
-					"<span class='warning'>[user] completely dismantles [src].</span>",
-					"<span class='notice'>You completely dismantle [src].</span>"
-				)
-				deconstruct()
-				return
+	switch(hole_size)
+		if(NO_HOLE)
+			user.visible_message(
+				"<span class='warning'>[user] cuts a hole into [src].</span>",
+				"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
+			)
+		if(SMALL_HOLE)
+			user.visible_message(
+				"<span class='warning'>[user] completely cuts through [src].</span>",
+				"<span class='notice'>The hole in [src] is now big enough to walk through.</span>"
+			)
+		if(LARGE_HOLE)
+			user.visible_message(
+				"<span class='warning'>[user] completely dismantles [src].</span>",
+				"<span class='notice'>You completely dismantle [src].</span>"
+			)
+			deconstruct()
+			return
 
-		hole_size = hole_size + 1
-		update_cut_status()
+	hole_size = hole_size + 1
+	update_cut_status()
 
 /obj/structure/fence/deconstruct(disassembled)
 	. = ..()
@@ -145,7 +143,7 @@
 	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /*
-	Shock `user` with probability `shock_chance` (if all connections & power are working).
+	Shock `user` with probability `shock_chance` (if there's a powered wire node under the fence section).
 	Returns `TRUE` if shocked, `FALSE` otherwise.
 */
 /obj/structure/fence/proc/shock(mob/user, shock_chance)
