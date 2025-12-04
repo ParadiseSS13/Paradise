@@ -5,7 +5,6 @@
 	icon_state = "skin_applicator"
 	// lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	// righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=5;materials=3;engineering=4"
 
 	/// Current amount of metal stored in the applicator

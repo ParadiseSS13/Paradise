@@ -2,13 +2,10 @@
 	name = "\improper Skinmonger"
 	desc = "A chest-mounted implant that continuously produces and replaces synthetic skin to cover an IPC's chassis. \
 			Will not apply skin to a monitor-shaped head."
-	icon_state = "chest_implant"
-	implant_overlay = "chest_implant_overlay"
 	implant_color = "#FFDDAA"
 	slot = "chest_synthetic_skin"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=6;biotech=7;syndicate=4"
-	emp_proof = FALSE
 	augment_icon = "nutripump"
 	var/regeneration_active = TRUE  // Whether regeneration is allowed. This is disabled temporarily by an EMP
 	var/regen_cooldown = 30 SECONDS  // How long to wait after finding a target body part to replace skin on
