@@ -44,7 +44,7 @@
 
 	regenerating = TRUE
 	// Wait before we trigger the first regen.
-	addtimer(CALLBACK(src, .proc/regenerate_next_part), regen_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(regenerate_next_part)), regen_cooldown)
 
 /obj/item/organ/internal/cyberimp/chest/skinmonger/proc/regenerate_next_part()
 	if(!owner || !regeneration_active || !regenerating)
@@ -90,7 +90,7 @@
 
 	// Schedule next regeneration if more parts need skin. Otherwise, we're done
 	if(length(unskinned_parts) > 1)
-		addtimer(CALLBACK(src, .proc/regenerate_next_part), regen_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(regenerate_next_part)), regen_cooldown)
 	else
 		regenerating = FALSE
 
@@ -150,7 +150,7 @@
 	regeneration_active = FALSE
 	remove_all_synthetic_skin(owner)
 
-	addtimer(CALLBACK(src, .proc/restart_regeneration), regen_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(restart_regeneration)), regen_cooldown)
 
 /obj/item/organ/internal/cyberimp/chest/skinmonger/proc/restart_regeneration()
 	if(owner)
