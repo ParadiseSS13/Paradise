@@ -65,6 +65,10 @@
 	var/fragile = FALSE
 	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
 	var/augmented_skin_cover_level = 0
+	/// Whether this robotic limb has synthetic skin applied
+	var/has_synthetic_skin = FALSE
+	/// Stored facial identity for synthetic skin (head only)
+	var/synthetic_skin_identity = null
 
 // When the limb is not on a person, make sure it faces south so it's always visible.
 /obj/item/organ/external/setDir()
@@ -220,7 +224,7 @@
 			DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, damage_flag = null)
 	var/max_limb_damage = max_damage
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
@@ -318,6 +322,10 @@
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
+
+	// Check if synthetic skin should be removed from damage
+	check_synthetic_skin_damage()
+
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
@@ -572,7 +580,67 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if((brute_dam >= max_damage * (augmented_skin_cover_level / 3) && brute) || (burn_dam >= max_damage * (augmented_skin_cover_level / 3) && burn)) // 66% for level 2, 100% for level 3
 		break_augmented_skin()
 
-// new damage icon system
+/obj/item/organ/external/proc/check_synthetic_skin_damage()
+	if(!has_synthetic_skin || !is_robotic())
+		return
+
+	var/damage_percentage = (brute_dam + burn_dam) / max_damage
+	if(damage_percentage >= 1.0)
+		remove_synthetic_skin()
+
+	// Upper body and lower body are tied together
+	check_connected_limb_skin_damage()
+
+/obj/item/organ/external/proc/check_connected_limb_skin_damage()
+	if(!owner || !has_synthetic_skin)
+		return
+
+	if(limb_name == "chest")
+		var/damage_percentage = (brute_dam + burn_dam) / max_damage
+		if(damage_percentage >= 1.0)
+			var/obj/item/organ/external/groin_limb = owner.bodyparts_by_name["groin"]
+			if(groin_limb && groin_limb.has_synthetic_skin)
+				groin_limb.remove_synthetic_skin()
+
+	if(limb_name == "groin")
+		var/damage_percentage = (brute_dam + burn_dam) / max_damage
+		if(damage_percentage >= 1.0)
+			var/obj/item/organ/external/chest_limb = owner.bodyparts_by_name["chest"]
+			if(chest_limb && chest_limb.has_synthetic_skin)
+				chest_limb.remove_synthetic_skin()
+
+/obj/item/organ/external/proc/remove_synthetic_skin(silent = FALSE)
+	if(!has_synthetic_skin)
+		return
+
+	has_synthetic_skin = FALSE
+
+	// Restore original identity if this is a head
+	if(limb_name == "head" && owner && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		synthetic_skin_identity = null
+		H.real_name = H.dna.real_name
+
+	// Restore original robotic appearance
+	if(model)
+		var/datum/robolimb/R = GLOB.all_robolimbs[model]
+		if(R)
+			force_icon = R.icon
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		if(!silent)
+			to_chat(H, "<span class='warning'>The synthetic skin on your [name] is destroyed!</span>")
+		// Force the sprite to update
+		mob_icon = null
+		compile_icon()
+		H.update_body(rebuild_base = TRUE)
+		H.UpdateDamageIcon()
+
+		var/obj/item/organ/internal/cyberimp/chest/skinmonger/regen = H.get_int_organ(/obj/item/organ/internal/cyberimp/chest/skinmonger)
+		if(regen)
+			regen.start_regeneration()
+
 // returns just the brute/burn damage code
 /obj/item/organ/external/proc/damage_state_text()
 	var/tburn = 0
@@ -620,6 +688,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
+
+	// Loose limbs should not have any synthetic skin
+	if(has_synthetic_skin)
+		remove_synthetic_skin()
+	if(children)
+		for(var/obj/item/organ/external/child in children)
+			if(child.has_synthetic_skin)
+				child.remove_synthetic_skin()
 
 	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
 		fracture()

@@ -787,11 +787,21 @@
 
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
-	target.real_name = new_name
+	var/identity_type = "core identity parameters" // Default value
+
+	// Prioritize replacing a synthetic skin identity over the IPC's actual identity
+	var/obj/item/organ/external/head = target.bodyparts_by_name["head"]
+	if(head && head.has_synthetic_skin)
+		head.synthetic_skin_identity = new_name
+		target.real_name = new_name
+		identity_type = "synthetic facial identity"
+	else
+		target.real_name = new_name
+
 	target.gender = new_gender
 	user.visible_message(
-		"<span class='notice'>[user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
-		"<span class='notice'>You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
+		"<span class='notice'>[user] edits [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
+		"<span class='notice'>You alter [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 

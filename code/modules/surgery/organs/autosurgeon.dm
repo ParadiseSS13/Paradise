@@ -190,4 +190,7 @@
 /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
 
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	starting_organ = /obj/item/organ/internal/cyberimp/chest/skinmonger
+
 #undef INFINITE

@@ -169,8 +169,10 @@
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
-		else if(is_robotic())
+		else if(is_robotic() && !has_synthetic_skin)
 			icon_file = 'icons/mob/human_races/robotic.dmi'
+		else if(has_synthetic_skin && dna.species && istype(dna.species, /datum/species/machine))
+			icon_file = 'icons/mob/human_races/r_human.dmi'
 		else
 			// Congratulations, you are normal
 			icon_file = icobase

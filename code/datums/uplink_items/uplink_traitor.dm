@@ -653,6 +653,17 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
+/datum/uplink_item/species_restricted/skinmonger
+	name = "Skinmonger Autoimplanter"
+	desc = "An implant that continuously fabricates synthetic epidermis to cover prosthetic parts. \
+	The synthetic skin is visually identical to human skin and allows IPCs to pass as human. \
+	When implanted, the Skinmonger will bond to its host, covering every limb in synthetic skin simultaneously. \
+	The regenerator will then periodically restore damaged or missing synthetic skin."
+	reference = "SKINMON"
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	cost = 10
+	species = list("Machine")
+
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
