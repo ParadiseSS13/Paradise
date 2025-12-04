@@ -172,7 +172,7 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += "<span class='warning'>The paint selector is covered in yellow sludge!</span>"
-	else if(!istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+	else if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
 		. += "<span class='warning'>A magazine of pepperballs is loaded!</span>"
 	else
 		. += "<span class='notice'>It is configured to fire [paintball_color] paintballs.</span>"
