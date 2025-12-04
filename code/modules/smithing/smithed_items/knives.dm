@@ -1,6 +1,6 @@
 /obj/item/kitchen/knife/smithed
 	name = "debug smithed knife"
-	desc = "This is bad. If you see me, notify development."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
 	slot_flags = ITEM_SLOT_BELT
