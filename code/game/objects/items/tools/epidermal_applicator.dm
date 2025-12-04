@@ -6,6 +6,7 @@
 	// lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	// righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	origin_tech = "biotech=5;materials=3;engineering=4"
+	new_attack_chain = TRUE
 
 	/// Current amount of metal stored in the applicator
 	var/metal_stored = 0
@@ -35,75 +36,71 @@
 	return TRUE
 
 /obj/item/epidermal_applicator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	return NONE
-
-/obj/item/epidermal_applicator/attackby__legacy__attackchain(obj/item/used, mob/user, params)
 	if(istype(used, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = used
 		var/space_left = max_metal_stored - metal_stored
 		if(space_left <= 0)
 			to_chat(user, "<span class='warning'>[src] is already full!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/to_load = min(space_left, M.amount)
 		M.use(to_load)
 		metal_stored += to_load
 
 		to_chat(user, "<span class='notice'>You load [to_load] sheet[to_load > 1 ? "s" : ""] of metal into [src].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	return ..()
+	return NONE
 
-/obj/item/epidermal_applicator/attack_self__legacy__attackchain(mob/user)
+/obj/item/epidermal_applicator/activate_self(mob/user)
 	// Allow easier self-application
 	var/zone = user.zone_selected
 	if(!zone)
 		to_chat(user, "<span class='warning'>You need to select a body part first!</span>")
 		return
 
-	attack__legacy__attackchain(user, user, zone)
+	attack(user, user, null)
 
-/obj/item/epidermal_applicator/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+/obj/item/epidermal_applicator/attack(mob/living/M, mob/living/user, params)
 	if(!ishuman(M))
 		return
 
-	// Ensure we have a valid def_zone
-	if(!def_zone)
-		def_zone = user.zone_selected
+	var/def_zone = user.zone_selected
 	if(!def_zone)
 		to_chat(user, "<span class='warning'>You need to select a body part first!</span>")
-		return
+		return TRUE
 
 	var/mob/living/carbon/human/target = M
 	var/obj/item/organ/external/affected = target.get_organ(def_zone)
 
 	if(!affected)
 		to_chat(user, "<span class='warning'>[target] doesn't have a [parse_zone(def_zone)]!</span>")
-		return
+		return TRUE
 
 	// Show these identically so it can't be used to test whether a limb is synthetic or not.
 	if(!affected.is_robotic() || affected.has_synthetic_skin)
 		to_chat(user, "<span class='warning'>The [affected.name] doesn't need skin.</span>")
-		return
+		return TRUE
 
 	// Do not put skin on a monitor. No.
 	if(ismachineperson(target) && def_zone == BODY_ZONE_HEAD && affected.model)
 		var/datum/robolimb/R = GLOB.all_robolimbs[affected.model]
 		if(R && R.is_monitor)
 			to_chat(user, "<span class='warning'>The applicator fails to find purchase on your big cube head. Probably for the best.</span>")
-			return
+			return TRUE
 
 	// Check if we have enough metal
 	if(metal_stored < metal_per_use)
 		to_chat(user, "<span class='warning'>[src] needs [metal_per_use] metal to function.</span>")
-		return
+		return TRUE
 
 	if(applying)
 		to_chat(user, "<span class='warning'>[src] is already in use!</span>")
-		return
+		return TRUE
 
 	// Start application process
 	apply_synthetic_skin(target, affected, user, def_zone)
+	return TRUE
 
 /obj/item/epidermal_applicator/proc/apply_synthetic_skin(mob/living/carbon/human/target, obj/item/organ/external/affected, mob/living/user, def_zone)
 	applying = TRUE
