@@ -118,27 +118,27 @@
 
 /obj/projectile/paintball
 	name = "paintball"
-	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "paintball"
 	damage = 1
-	damage_type = BRUTE
 
-/obj/projectile/paintball/Bump(atom/A as mob|obj|turf|area)
-	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(loc)
+/obj/projectile/paintball/on_hit(atom/target, blocked, hit_zone)
+	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(get_turf(target))
 	splat.color = color
 	return ..()
 
-/obj/projectile/paintball/pepperball
+/obj/projectile/pepperball
 	name = "pepperball"
+	icon_state = "paintball"
+	damage = 1
 
-/obj/projectile/paintball/pepperball/Initialize(mapload)
+/obj/projectile/pepperball/Initialize(mapload)
 	. = ..()
 	create_reagents(5)
 	reagents.set_reacting(FALSE)
 	reagents.add_reagent("condensedcapsaicin", 5)
 
-/obj/projectile/pepperball/Bump(atom/A)
-	var/turf/our_turf = get_turf(A)
+/obj/projectile/pepperball/on_hit(atom/target, blocked, hit_zone)
+	var/turf/our_turf = get_turf(target)
 	reagents.reaction(our_turf)
 	for(var/atom/T in our_turf)
 		reagents.reaction(T)

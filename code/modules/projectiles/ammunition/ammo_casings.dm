@@ -422,7 +422,7 @@
 /obj/item/ammo_casing/caseless/pepperball
 	name = "pepperball"
 	desc = "Aim at the eyes for maximum effect."
-	projectile_type = /obj/projectile/paintball/pepperball
+	projectile_type = /obj/projectile/pepperball
 	muzzle_flash_effect = null
 	caliber = "pepperball"
 	icon = 'icons/obj/projectiles.dmi'

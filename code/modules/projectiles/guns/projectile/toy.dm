@@ -160,8 +160,6 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "paintgun"
 	inhand_icon_state = "paintgun"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/paintball
