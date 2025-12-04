@@ -43,6 +43,14 @@
 	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 	adjustBruteLoss(50)
 
+/mob/living/basic/malfborg/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+	do_sparks(3, 1, src)
+	new /obj/effect/gibspawner/robot(get_turf(src))
+
 /mob/living/basic/malfborg/sec
 	name = "security cyborg"
 	desc = "Oh god they still have access to these!"

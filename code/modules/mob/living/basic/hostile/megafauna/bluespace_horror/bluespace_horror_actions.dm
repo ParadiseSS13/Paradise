@@ -42,6 +42,7 @@
 		T = get_step(T, dir_to_target)
 	owner.visible_message("<span class='danger'>[owner] prepares to charge!</span>")
 	addtimer(CALLBACK(src, PROC_REF(charge_to), dir_to_target, 0), 4)
+	StartCooldown()
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/charge/proc/charge_to(move_dir, times_ran, list/hit_targets = list())
 	var/mob/living/basic/horror = owner
@@ -108,7 +109,7 @@
 			sleep(1)
 	horror.shoot_projectile(target, /obj/projectile/magic/magic_missile/lesser/horror)
 	playsound(horror, 'sound/magic/magic_missile.ogg', 40, TRUE)
-	sleep(1)
+	StartCooldown()
 
 /obj/projectile/magic/magic_missile/lesser/horror
 	damage = 15
@@ -135,7 +136,7 @@
 		horror.shoot_projectile(target, /obj/projectile/magic/fireball, angle_to_target + variance)
 		variance += 45
 	playsound(horror, 'sound/magic/fireball.ogg', 200, TRUE, 2)
-	sleep(1)
+	StartCooldown()
 
 /datum/action/cooldown/mob_cooldown/bluespace_horror/lifesteal_bolt
 	name = "Lifesteal Bolt"
@@ -154,7 +155,7 @@
 
 	horror.shoot_projectile(target, /obj/projectile/magic/lifesteal_bolt)
 	playsound(horror, 'sound/magic/invoke_general.ogg', 200, TRUE, 2)
-	sleep(1)
+	StartCooldown()
 
 /obj/projectile/magic/lifesteal_bolt
 	name = "lifesteal bolt"
@@ -200,4 +201,4 @@
 	smoke.start()
 	owner.forceMove(picked)
 	playsound(owner, 'sound/magic/blink.ogg', 150, TRUE, 2)
-	sleep(1)
+	StartCooldown()
