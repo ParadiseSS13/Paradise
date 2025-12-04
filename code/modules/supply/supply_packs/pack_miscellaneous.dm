@@ -24,6 +24,15 @@
 	containertype = /obj/structure/largecrate
 	containername = "high-capacity water tank crate"
 
+/datum/supply_packs/misc/paintball_gun
+	name = "Paintball Crate"
+	contains = list(/obj/item/gun/projectile/automatic/paintball_gun,
+	/obj/item/gun/projectile/automatic/paintball_gun,
+	/obj/item/ammo_box/magazine/paintball,
+	/obj/item/ammo_box/magazine/paintball)
+	cost = 300
+	containername = "paintball crate"
+
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
 	contains = list(/obj/item/beach_ball/dodgeball,

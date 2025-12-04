@@ -253,6 +253,13 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
 
+/obj/effect/decal/cleanable/paint_splat
+	name = "paint splat"
+	layer = TURF_LAYER
+	icon = 'icons/effects/splatters.dmi'
+	icon_state = "splatter-1"
+	random_icon_states = list("splatter-1, splatter-2, splatter-3")
+
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."

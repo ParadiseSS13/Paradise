@@ -116,6 +116,34 @@
 			shake_camera(M, 3, 1)
 	qdel(src)
 
+/obj/projectile/paintball
+	name = "paintball"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "paintball"
+	damage = 1
+	damage_type = BRUTE
+
+/obj/projectile/paintball/Bump(atom/A as mob|obj|turf|area)
+	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(loc)
+	splat.color = color
+	return ..()
+
+/obj/projectile/paintball/pepperball
+	name = "pepperball"
+
+/obj/projectile/paintball/pepperball/Initialize(mapload)
+	. = ..()
+	create_reagents(5)
+	reagents.set_reacting(FALSE)
+	reagents.add_reagent("condensedcapsaicin", 5)
+
+/obj/projectile/pepperball/Bump(atom/A)
+	var/turf/our_turf = get_turf(A)
+	reagents.reaction(our_turf)
+	for(var/atom/T in our_turf)
+		reagents.reaction(T)
+	return ..()
+
 /obj/projectile/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
