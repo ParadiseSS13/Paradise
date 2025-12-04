@@ -258,7 +258,6 @@
 
 	if(has_filled_reagent && (reagents.get_master_reagent_id() != current_reagent_id))
 		audible_message("<span class='notice'>[src]'s speaker beeps: chemical override started!</span>")
-		sleep(1 SECONDS)
 
 	if(!(reagents.get_master_reagent_id() in accepted_chemicals))
 		reagents.clear_reagents()
