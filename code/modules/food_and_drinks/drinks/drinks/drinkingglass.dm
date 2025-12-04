@@ -59,6 +59,8 @@
 		attack_verb = (istype(R, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
 		if(R.drink_icon)
 			icon_state = R.drink_icon
+			if((istype(R, /datum/reagent/consumable/drink/tea/bubbletea) || istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea)) && length(reagents.reagent_list) > 1)
+				customize_bubble_tea()
 		else
 			var/image/I = image(icon, "glassoverlay")
 			I.color = mix_color_from_reagents(reagents.reagent_list)
@@ -69,6 +71,28 @@
 		icon_state = "glass_empty"
 		name = initial(name)
 		desc = initial(desc)
+
+/obj/item/reagent_containers/drinks/drinkingglass/proc/customize_bubble_tea()
+	if(length(reagents.reagent_list) < 2)
+		return
+	var/datum/reagent/R = reagents.get_master_reagent()
+	if(!(istype(R, /datum/reagent/consumable/drink/tea/bubbletea) || istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea)))
+		return
+	var/datum/reagent/S //sub-master reagent, second by volume
+	var/max_volume = 0
+	for(var/datum/reagent/A in reagents.reagent_list)
+		if(A.volume > max_volume && A != R)
+			max_volume = A.volume
+			S = A
+	var/image/I = image(icon, (istype(R, /datum/reagent/consumable/drink/tea/bubbletea) ? "bubbletea_overlay" : "bubblemilktea_overlay"))
+	I.color = S.color
+	if(istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea))
+		var/milky_color = match_hue("#F7E0C5", S.color)
+		if(rgb2num(milky_color, COLORSPACE_HSL)[2] > rgb2num(S.color, COLORSPACE_HSL)[2]) //if the color is less saturated, use that color's saturation. So we don't end up with pink milk and sugar.
+			milky_color = match_saturation(milky_color, S.color)
+		I.color = milky_color
+	overlays += I
+	name = istype(S, /datum/reagent/consumable) ? "Glass of [S.name] [R.name]" : "Glass of Surprise [R.name]"
 
 // for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/drinks/drinkingglass/soda
