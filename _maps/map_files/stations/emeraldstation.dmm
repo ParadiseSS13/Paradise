@@ -305,11 +305,11 @@
 /area/station/maintenance/apmaint2)
 "aeP" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/item/roller,
+/obj/item/roller{
+	pixel_x = -2;
+	pixel_y = 10
 	},
-/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "aeT" = (
@@ -8717,6 +8717,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
+"bLL" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/storage/box/disks{
+	pixel_x = 6;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/genetics)
 "bLQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -35984,20 +36000,20 @@
 /area/station/maintenance/security/aft_starboard)
 "hmb" = (
 /obj/structure/table/glass,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
 /obj/item/paper_bin{
-	pixel_x = 3;
-	pixel_y = 7
+	pixel_x = -8;
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/storage/box/syringes{
-	pixel_y = -12
-	},
-/obj/effect/turf_decal/tiles/department/science/corner{
-	dir = 1
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
@@ -36286,8 +36302,15 @@
 /area/station/engineering/atmos/storage)
 "hoL" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/disks,
-/obj/item/book/manual/wiki/sop_science,
+/obj/item/storage/box/syringes{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/storage/box/disks{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "hoM" = (
@@ -50364,13 +50387,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/computer)
 "keA" = (
-/obj/machinery/suit_storage_unit/rd/secure,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 15
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "keH" = (
@@ -75800,15 +75820,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "pkp" = (
-/obj/structure/table/glass,
-/obj/item/roller,
-/obj/item/roller{
-	pixel_x = -2;
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "pkA" = (
@@ -90757,8 +90772,10 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/transit)
 "sjK" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
+/obj/machinery/suit_storage_unit/rd/secure,
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 15
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "sjM" = (
@@ -93704,6 +93721,11 @@
 /obj/effect/turf_decal/tiles/department/security,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"sPL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/syndicatebomb/training,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/range)
 "sPM" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -109925,6 +109947,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "waH" = (
@@ -163762,7 +163785,7 @@ sIm
 arJ
 mWx
 arJ
-arJ
+sPL
 sIm
 tYT
 oYI
@@ -165909,7 +165932,7 @@ iBG
 xhg
 ePX
 aKP
-hoL
+bLL
 aeP
 hoL
 jKU

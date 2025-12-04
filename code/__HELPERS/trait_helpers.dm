@@ -565,6 +565,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// A web is being spun on this turf presently
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
+/// A swarmer construct is being built here
+#define TRAIT_SWARMER_CONSTRUCTION "swarmer_construction_turf"
+/// A swarmer is deconstructing this already
+#define TRAIT_SWARMER_DISINTEGRATING "swarmer_disintegrating"
+
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
