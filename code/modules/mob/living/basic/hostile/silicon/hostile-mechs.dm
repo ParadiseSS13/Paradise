@@ -7,7 +7,7 @@
 	maxHealth = 300
 	faction = list("malf_drone")
 	mob_biotypes = MOB_ROBOTIC
-	sentience_type = SENTIENCE_BOSS
+	sentience_type = SENTIENCE_ARTIFICIAL
 	density = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
