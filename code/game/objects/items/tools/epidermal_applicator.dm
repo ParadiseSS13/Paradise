@@ -53,6 +53,7 @@
 	return NONE
 
 /obj/item/epidermal_applicator/activate_self(mob/user)
+	. = ..()
 	// Allow easier self-application
 	var/zone = user.zone_selected
 	if(!zone)
@@ -62,6 +63,10 @@
 	attack(user, user, null)
 
 /obj/item/epidermal_applicator/attack(mob/living/M, mob/living/user, params)
+	. = ..(M, user, params)
+	if(.)
+		return .
+	
 	if(!ishuman(M))
 		return
 
