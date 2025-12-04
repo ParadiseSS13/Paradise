@@ -182,7 +182,7 @@
 			if(dangerous)
 				O.fire_act(1000, 500)
 			else
-				O.temperature_expose(exposed_temperature = 400)
+				O.temperature_expose(400)
 		else if(isliving(A))
 			var/mob/living/L = A
 			if(dangerous)
