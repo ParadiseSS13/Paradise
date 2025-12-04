@@ -6,17 +6,17 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/structure/dresser/attack_hand(mob/user as mob)
+/obj/structure/dresser/attack_hand(mob/user)
 	change_undergarments(user)
 
-/obj/structure/dresser/proc/change_undergarments(mob/user as mob)
+/obj/structure/dresser/proc/change_undergarments(mob/user)
 	if(!Adjacent(user))//no tele-grooming
 		return
 	if(!(ishuman(user) && anchored))
 		return
 	var/mob/living/carbon/human/H = user
 
-	var/choice = tgui_input_list(user, "Underwear, Undershirt, or Socks?", "Changing", list("Underwear","Undershirt","Socks"))
+	var/choice = tgui_input_list(user, "Underwear, Undershirt, or Socks?", "Changing", list("Underwear", "Undershirt", "Socks"))
 
 	if(!Adjacent(user))
 		return
@@ -86,9 +86,9 @@
 	desc = "A good place to store all your clothes."
 	icon_state = "wardrobe"
 	var/locked_overlay = "wardrobe_locked"
-		/// List of objects which this item can store (if set, it can't store anything else)
+	/// List of objects which this item can store (if set, it can't store anything else)
 	var/list/can_hold = list(/obj/item/clothing)
-		/// List of objects which this item can't store (can make exceptions to can_hold)
+	/// List of objects which this item can't store (can make exceptions to can_hold)
 	var/list/cant_hold = list(
 		/obj/item/storage,
 		/obj/item/clothing/suit/space,
@@ -115,19 +115,19 @@
 	. = ..()
 	. += "<span class='notice'>It's currently [locked ? null : "un"]locked.</span>"
 
-/obj/structure/dresser/wardrobe/AltShiftClick(mob/user as mob)
+/obj/structure/dresser/wardrobe/AltShiftClick(mob/user)
 	change_undergarments(user)
 
-/obj/structure/dresser/wardrobe/AltClick(mob/user as mob)
+/obj/structure/dresser/wardrobe/AltClick(mob/user)
 	toggle_lock(user)
 
-/obj/structure/dresser/wardrobe/attack_hand(mob/user as mob)
+/obj/structure/dresser/wardrobe/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM)
 		return CONTINUE_ATTACK
 	if(locked)
 		toggle_lock(user)
 		return
-	if(!contents || !contents.len)
+	if(!length(contents))
 		return ..()
 	if(!Adjacent(user))
 		return ..()
@@ -162,15 +162,15 @@
 	to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
 	return ITEM_INTERACT_COMPLETE
 
-/obj/structure/dresser/wardrobe/proc/toggle_lock(mob/user as mob)
-	if(allowed(user))
-		locked = !locked
-		visible_message("<span class='notice'>[user] [locked ? null : "un"]lock[user.p_s()] [src].</span>")
-		var/mob/living/carbon/human/H = user
-		add_fingerprint(H)
-		update_appearance(UPDATE_OVERLAYS)
-	else
+/obj/structure/dresser/wardrobe/proc/toggle_lock(mob/user)
+	if(!allowed(user))
 		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		return
+	locked = !locked
+	visible_message("<span class='notice'>[user] [locked ? null : "un"]lock[user.p_s()] [src].</span>")
+	var/mob/living/carbon/human/H = user
+	add_fingerprint(H)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/dresser/wardrobe/captain
 	name = "Captain's Wardrobe"
