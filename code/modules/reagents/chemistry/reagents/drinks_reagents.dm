@@ -107,7 +107,7 @@
 	name = "The Doctor's Delight"
 	id = "doctorsdelight"
 	description = "A gulp a day keeps the MediBot away. That's probably for the best."
-	color = "#FF8CFF" // rgb: 255, 140, 255
+	color = "#754389"
 	drink_icon = "doctorsdelightglass"
 	drink_name = "Doctor's Delight"
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
@@ -183,7 +183,7 @@
 	name = "Watermelon Juice"
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
-	color = "#863333" // rgb: 134, 51, 51
+	color = "#ae2631"
 	drink_name = "Watermelon Juice"
 	drink_desc = "Almost water."
 	taste_description = "watermelon juice"
@@ -417,7 +417,7 @@
 	name = "Tea"
 	id = "tea"
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
-	color = "#101000" // rgb: 16, 16, 0
+	color = "#5d2409"
 	nutriment_factor = 0
 	adj_dizzy = -4 SECONDS
 	adj_drowsy = -2 SECONDS
@@ -444,7 +444,7 @@
 	name = "Iced Tea"
 	id = "icetea"
 	description = "No relation to a certain rap artist/ actor."
-	color = "#104038" // rgb: 16, 64, 56
+	color = "#73280d"
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
@@ -454,7 +454,7 @@
 	name = "Banana Honk"
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#d4c540"
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
@@ -472,7 +472,7 @@
 	name = "Silencer"
 	id = "silencer"
 	description = "A drink from Mime Heaven."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#7c8287"
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "silencerglass"
 	drink_name = "Silencer"
@@ -491,7 +491,7 @@
 	name = "Chocolate Pudding"
 	id = "chocolatepudding"
 	description = "A great dessert for chocolate lovers."
-	color = "#800000"
+	color = "#63230d"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
@@ -503,7 +503,7 @@
 	name = "Vanilla Pudding"
 	id = "vanillapudding"
 	description = "A great dessert for vanilla lovers."
-	color = "#FAFAD2"
+	color = "#cbbe8a"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
@@ -515,7 +515,7 @@
 	name = "Cherry Shake"
 	id = "cherryshake"
 	description = "A cherry flavored milkshake."
-	color = "#FFB6C1"
+	color = "#ff7970"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "cherryshake"
 	drink_name = "Cherry Shake"
@@ -569,7 +569,7 @@
 	name = "Grape soda"
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
-	color = "#E6CDFF"
+	color = "#b570ff"
 	drink_name = "Grape Soda"
 	drink_desc = "Made with real grapes! Shocking!"
 	taste_description = "grape soda"
@@ -578,7 +578,7 @@
 	name = "Iced Cocoa"
 	id = "icecoco"
 	description = "Hot cocoa and ice, refreshing and cool."
-	color = "#102838" // rgb: 16, 40, 56
+	color = "#5d2c28"
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
@@ -589,7 +589,7 @@
 	name = "Tonic Water"
 	id = "tonic"
 	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#5999c4"
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS
@@ -602,7 +602,7 @@
 	name = "Soda Water"
 	id = "sodawater"
 	description = "A can of club soda. Why not make a scotch and soda?"
-	color = "#619494" // rgb: 97, 148, 148
+	color = "#619494"
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	drink_icon = "glass_clear"
@@ -629,7 +629,7 @@
 	name = "Cola"
 	id = "cola"
 	description = "A refreshing beverage."
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#401a08"
 	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Space Cola"
@@ -640,7 +640,7 @@
 	name = "Nuka Cola"
 	id = "nuka_cola"
 	description = "Cola, cola never changes."
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#0e0502"
 	adj_sleepy = -4 SECONDS
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
@@ -666,7 +666,7 @@
 	name = "Space Mountain Wind"
 	id = "spacemountainwind"
 	description = "Blows right through you like a space wind."
-	color = "#102000" // rgb: 16, 32, 0
+	color = "#58d92e"
 	adj_drowsy = -14 SECONDS
 	adj_sleepy = -2 SECONDS
 	drink_icon = "Space_mountain_wind_glass"
@@ -678,7 +678,7 @@
 	name = "Dr. Gibb"
 	id = "dr_gibb"
 	description = "A delicious blend of 42 different flavours"
-	color = "#102000" // rgb: 16, 32, 0
+	color = "#bf0d16"
 	adj_drowsy = -12 SECONDS
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of Dr. Gibb"
@@ -689,7 +689,7 @@
 	name = "Space-Up"
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
-	color = "#C7DF67"
+	color = "#446693"
 	drink_icon = "space-up_glass"
 	drink_name = "Glass of Space-up"
 	drink_desc = "Space-up. It helps keep your cool."
@@ -717,7 +717,7 @@
 	name = "Kira Special"
 	description = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	id = "kiraspecial"
-	color = "#CCCC99" // rgb: 204, 204, 153
+	color = "#c97b0d"
 	drink_icon = "kiraspecial"
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
@@ -739,7 +739,7 @@
 	name = "Milkshake"
 	description = "Glorious brainfreezing mixture."
 	id = "milkshake"
-	color = "#AEE5E4" // rgb" 174, 229, 228
+	color = "#ddcaa6"
 	drink_icon = "milkshake"
 	drink_name = "Milkshake"
 	drink_desc = "Glorious brainfreezing mixture."
@@ -749,7 +749,7 @@
 	name = "Rewriter"
 	description = "The secret of the sanctuary of the Librarian..."
 	id = "rewriter"
-	color = "#485000" // rgb:72, 080, 0
+	color = "#1f6f3a"
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
 	drink_desc = "The secret of the sanctuary of the Librarian..."
@@ -764,7 +764,7 @@
 	name = "Arnold Palmer"
 	id = "arnold_palmer"
 	description = "A wholesome mixture of lemonade and iced tea."
-	color = "#8B5427" // rgb: 139, 84, 39
+	color = "#af934c"
 	drink_icon = "arnoldpalmer"
 	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
@@ -819,7 +819,7 @@
 	name = "Lean"
 	id = "lean"
 	description = "Also known as Purple Drank."
-	color = "#f249d6"
+	color = "#8b3cd9"
 	drink_icon = "lean"
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
@@ -856,7 +856,7 @@
 	name = "Bubble Tea"
 	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
 	id = "bubbletea"
-	color = "#c79a47"
+	color = "#5d2409"
 	drink_icon = "bubbletea"
 	drink_name = "Bubble Tea"
 	drink_desc = "You feel trendy for drinking this."
@@ -1172,7 +1172,7 @@
 	return ..()
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/ginger_beep
-	name = "ginger_beep"
+	name = "Ginger Beep"
 	description = "A gingery refreshment for synthetics."
 	id = "ginger_beep"
 	color = "#bd994d"
