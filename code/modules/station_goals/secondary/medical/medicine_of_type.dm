@@ -45,7 +45,7 @@
 
 /datum/station_goal/secondary/medicine_of_type/proc/list_med_names(list/datum/reagent/coder_list)
 	var/list/name_list = list()
-	for(var/i = 1, i <= coder_list.len, i++)
+	for(var/i in 1 to length(coder_list))
 		name_list.Add(coder_list[i].name)
 	return name_list
 
@@ -129,13 +129,13 @@
 	// Must be reagents of the type we requested.
 	var/is_needed = FALSE
 	for(var/reagent_type in preferred_meds)
-		is_needed = (istype(reagent, reagent_type) ? TRUE : is_needed)
+		is_needed = istype(reagent, reagent_type)
 		if(is_needed)
 			break
 	for(var/reagent_type in adequate_meds)
-		is_needed = (istype(reagent, reagent_type) ? TRUE : is_needed)
 		if(is_needed)
 			break
+		is_needed = istype(reagent, reagent_type)
 
 	if(!is_needed)
 		if(!manifest)
@@ -165,14 +165,13 @@
 	return COMSIG_CARGO_SELL_PRIORITY
 
 /datum/secondary_goal_progress/medicine_of_type/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
-	if(length(reagents_sent) < 1)
+	if(!length(reagents_sent))
 		return
 	var/single_reagent
 	var/reagents_tally = 0
 	for(single_reagent in reagents_sent)
 		var/is_preferred = FALSE
-		var/i
-		for(i = 1, i <= preferred_meds.len, i++)
+		for(var/i in 1 to length(preferred_meds))
 			if(single_reagent == preferred_meds[i].id)
 				reagents_tally += reagents_sent[single_reagent]
 				is_preferred = TRUE
