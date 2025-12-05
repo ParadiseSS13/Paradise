@@ -26,7 +26,8 @@
 	/// How big is the hole in this fence, if present?
 	var/hole_size = NO_HOLE
 	/// Cooldown on the fence applying shocks.
-	var/shock_cooldown = FALSE
+	var/shock_cooldown_duration = 1 SECONDS
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/fence/Initialize(mapload)
 	. = ..()
@@ -129,18 +130,38 @@
 	if(!(flags & NODECONSTRUCT))
 		qdel(src)
 
+/obj/structure/fence/proc/update_cut_status()
+	if(!can_have_holes)
+		return
+
+	var/new_density = TRUE
+	switch(hole_size)
+		if(NO_HOLE)
+			icon_state = initial(icon_state)
+			climbable = FALSE
+		if(SMALL_HOLE)
+			icon_state = "straight_cut2"
+			climbable = TRUE
+		if(LARGE_HOLE)
+			icon_state = "straight_cut3"
+			new_density = FALSE
+			climbable = FALSE
+	set_density(new_density)
+
+/obj/structure/fence/Bumped(atom/user)
+	if(!ismob(user) || !COOLDOWN_FINISHED(src, shock_cooldown))
+		return
+
+	shock(user, 70)
+	COOLDOWN_START(src, shock_cooldown, shock_cooldown_duration)
+
+/obj/structure/fence/attack_hand(mob/user, list/modifiers)
+	shock(user, 70)
+
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()
 	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
-
-/obj/structure/fence/Bumped(atom/user)
-	if(!ismob(user) || shock_cooldown)
-		return
-
-	shock(user, 70)
-	shock_cooldown = TRUE // We do not want bump shock spam!
-	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /*
 	Shock `user` with probability `shock_chance` (if there's a powered wire node under the fence section).
@@ -159,28 +180,8 @@
 		if(electrocute_mob(user, C, src, 1, TRUE))
 			do_sparks(3, 1, src)
 			return TRUE
+
 	return FALSE
-
-/obj/structure/fence/proc/shock_cooldown()
-	shock_cooldown = FALSE
-
-/obj/structure/fence/proc/update_cut_status()
-	if(!can_have_holes)
-		return
-
-	var/new_density = TRUE
-	switch(hole_size)
-		if(NO_HOLE)
-			icon_state = initial(icon_state)
-			climbable = FALSE
-		if(SMALL_HOLE)
-			icon_state = "straight_cut2"
-			climbable = TRUE
-		if(LARGE_HOLE)
-			icon_state = "straight_cut3"
-			new_density = FALSE
-			climbable = FALSE
-	set_density(new_density)
 
 /obj/structure/fence/cut/medium
 	icon_state = "straight_cut2"
@@ -215,9 +216,8 @@
 	update_door_status()
 
 /obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
-	shock(user, 70)
+	..()
 	toggle(user)
-	return TRUE
 
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
