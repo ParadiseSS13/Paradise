@@ -63,6 +63,8 @@
 
 		if(ismachineperson(target) || limb.is_robotic())
 			limb.has_synthetic_skin = TRUE
+			// Apply owner's skin color to synthetic skin
+			limb.synthetic_skin_colour = target.skin_colour
 			// Set real identity for head
 			if(part_name == "head")
 				limb.synthetic_skin_identity = target.dna.real_name

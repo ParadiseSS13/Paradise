@@ -66,7 +66,7 @@
 	. = ..(M, user, params)
 	if(.)
 		return .
-	
+
 	if(!ishuman(M))
 		return
 
@@ -166,46 +166,58 @@
 		// Apply synthetic skin
 		affected.has_synthetic_skin = TRUE
 
+		// Apply owner skin color to synthetic skin
+		if(ishuman(target))
+			affected.synthetic_skin_colour = target.skin_colour
+
 		// Set identity if applying to head (we already got the choice above)
 		if(def_zone == BODY_ZONE_HEAD)
 			affected.synthetic_skin_identity = chosen_identity
 			if(ishuman(target))
 				target.real_name = chosen_identity
 
-	// Clear force_icon so it uses the masquerade logic instead of hardcoded robotic sprites
-	affected.force_icon = null
+		// Clear force_icon so it unsticks from the robotic sprites
+		affected.force_icon = null
 
-	// Apply to connected torso parts as well
-	if(def_zone == BODY_ZONE_CHEST)
-		var/obj/item/organ/external/groin_limb = target.bodyparts_by_name["groin"]
-		if(groin_limb && groin_limb.is_robotic() && !groin_limb.has_synthetic_skin)
-			groin_limb.has_synthetic_skin = TRUE
-			groin_limb.force_icon = null
-			groin_limb.mob_icon = null
-			groin_limb.compile_icon()
+		// Apply to connected torso parts as well
+		if(def_zone == BODY_ZONE_CHEST)
+			var/obj/item/organ/external/groin_limb = target.bodyparts_by_name["groin"]
+			if(groin_limb && groin_limb.is_robotic() && !groin_limb.has_synthetic_skin)
+				groin_limb.has_synthetic_skin = TRUE
+				groin_limb.synthetic_skin_colour = target.skin_colour
+				groin_limb.force_icon = null
+				groin_limb.mob_icon = null
+				groin_limb.compile_icon()
 
-	if(def_zone == BODY_ZONE_PRECISE_GROIN)
-		var/obj/item/organ/external/chest_limb = target.bodyparts_by_name["chest"]
-		if(chest_limb && chest_limb.is_robotic() && !chest_limb.has_synthetic_skin)
-			chest_limb.has_synthetic_skin = TRUE
-			chest_limb.force_icon = null
-			chest_limb.mob_icon = null
-			chest_limb.compile_icon()
+		if(def_zone == BODY_ZONE_PRECISE_GROIN)
+			var/obj/item/organ/external/chest_limb = target.bodyparts_by_name["chest"]
+			if(chest_limb && chest_limb.is_robotic() && !chest_limb.has_synthetic_skin)
+				chest_limb.has_synthetic_skin = TRUE
+				chest_limb.synthetic_skin_colour = target.skin_colour
+				chest_limb.force_icon = null
+				chest_limb.mob_icon = null
+				chest_limb.compile_icon()
 
-	// Force the organ to completely regenerate its mob_icon
-	affected.mob_icon = null  // Clear the cached icon
-	affected.compile_icon()   // Force regeneration
+		// Force the organ to completely regenerate its mob_icon
+		affected.mob_icon = null  // Clear the cached icon
+		affected.compile_icon()   // Force regeneration
 
-	// Force complete body rebuild to bypass icon cache
-	target.update_body(rebuild_base = TRUE)
-	target.UpdateDamageIcon()
+		// Force complete body rebuild to bypass icon cache
+		target.update_body(rebuild_base = TRUE)
+		target.UpdateDamageIcon()
 
-	user.visible_message(
-		"<span class='notice'>[user] successfully applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
-		"<span class='notice'>You successfully apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
-	)
+		user.visible_message(
+			"<span class='notice'>[user] successfully applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
+			"<span class='notice'>You successfully apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
+		)
 
-	if(target != user)
-		to_chat(target, "<span class='notice'>You feel a thin layer of synthetic skin form over your [affected.name].</span>")
+		if(target != user)
+			to_chat(target, "<span class='notice'>You feel a thin layer of synthetic skin form over your [affected.name].</span>")
+	else
+		// Do-after was interrupted
+		user.visible_message(
+			"<span class='warning'>[user] stops applying synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
+			"<span class='warning'>You stop applying synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
+		)
 
 	applying = FALSE

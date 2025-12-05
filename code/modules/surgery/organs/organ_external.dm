@@ -69,6 +69,8 @@
 	var/has_synthetic_skin = FALSE
 	/// Stored facial identity for synthetic skin (head only)
 	var/synthetic_skin_identity = null
+	/// Stored skin color for synthetic skin
+	var/synthetic_skin_colour = null
 
 // When the limb is not on a person, make sure it faces south so it's always visible.
 /obj/item/organ/external/setDir()

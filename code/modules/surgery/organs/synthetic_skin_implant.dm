@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp/chest/skinmonger
 	name = "\improper Skinmonger"
-	desc = "A chest-mounted implant that continuously produces and replaces synthetic skin to cover an IPC's chassis. \
+	desc = "A chest-mounted implant that continuously produces and replaces synthetic skin. \
 			Will not apply skin to a monitor-shaped head."
 	implant_color = "#FFDDAA"
 	slot = "chest_synthetic_skin"
@@ -18,7 +18,7 @@
 
 	if(!initial_surge_used)
 		apply_full_synthetic_skin(M)
-		to_chat(M, "<span class='warning'>In an instant, a surge of skin wraps around you and binds itself to your chassis!</span>")
+		to_chat(M, "<span class='warning'>In an instant, a surge of skin wraps around you and binds itself to your body!</span>")
 		playsound(M, 'sound/surgery/organ2.ogg', 70, 1, frequency = 0.8)
 		initial_surge_used = TRUE
 
@@ -26,7 +26,6 @@
 	. = ..()
 	regenerating = FALSE
 	remove_all_synthetic_skin(M)
-	to_chat(M, "<span class='warning'>You feel your synthetic skin melt away.</span>")
 
 // Called when synthetic skin is removed from any part - starts regeneration cycle
 /obj/item/organ/internal/cyberimp/chest/skinmonger/proc/start_regeneration()
@@ -65,6 +64,9 @@
 	// Pick a random part and apply skin
 	var/obj/item/organ/external/chosen_part = pick(unskinned_parts)
 	chosen_part.has_synthetic_skin = TRUE
+	// Apply owner's skin color to synthetic skin
+	if(ishuman(H))
+		chosen_part.synthetic_skin_colour = H.skin_colour
 	// Set identity for head regeneration
 	if(chosen_part.limb_name == "head")
 		var/identity_to_use = configured_identity
@@ -103,6 +105,8 @@
 				continue
 
 		E.has_synthetic_skin = TRUE
+		// Apply owner's skin color to synthetic skin
+		E.synthetic_skin_colour = H.skin_colour
 		// Set configured identity for head
 		if(E.limb_name == "head")
 			E.synthetic_skin_identity = configured_identity
@@ -128,7 +132,7 @@
 		if(E.is_robotic() && E.has_synthetic_skin)
 			E.remove_synthetic_skin(silent = TRUE) // silent because it spams the user otherwise
 
-	to_chat(H, "<span class='warning'>All synthetic skin across your body dissolves away!</span>")
+	to_chat(H, "<span class='warning'>You feel your synthetic skin melt away.</span>")
 	H.update_body(rebuild_base = TRUE)
 
 // EMP wipes all synthetic skin and puts the implant on cooldown

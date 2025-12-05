@@ -23,6 +23,10 @@
 
 /obj/item/organ/external/proc/sync_colour_to_human(mob/living/carbon/human/H)
 	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
+		// For robotic parts with synthetic skin, use stored synthetic skin color
+		if(has_synthetic_skin && synthetic_skin_colour)
+			s_col = synthetic_skin_colour
+			s_tone = null
 		return
 	if(dna.species && H.dna.species && dna.species.name != H.dna.species.name)
 		return
@@ -67,7 +71,7 @@
 		var/icon_file = new_icons[1]
 		var/new_icon_state = new_icons[2]
 		mob_icon = new /icon(icon_file, new_icon_state)
-		if(!skeletal && !is_robotic())
+		if(!skeletal && (!is_robotic() || (is_robotic() && has_synthetic_skin)))
 			if(status & ORGAN_DEAD)
 				mob_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 				mob_icon.SetIntensity(0.7)
