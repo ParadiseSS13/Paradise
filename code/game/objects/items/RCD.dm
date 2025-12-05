@@ -154,7 +154,7 @@
 /datum/rcd_act/remove_wall
 	mode = MODE_DECON
 	cost = 5
-	start_message = "Deonstructing wall..."
+	start_message = "Deconstructing wall..."
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
