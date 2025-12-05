@@ -3,8 +3,6 @@
 	desc = "A pen-shaped device developed by Zeng-Hu, used to apply synthetic skin to prosthetic limbs."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "skin_applicator"
-	// lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
-	// righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	origin_tech = "biotech=5;materials=3;engineering=4"
 	new_attack_chain = TRUE
 
@@ -112,7 +110,7 @@
 
 	var/chosen_identity = "Unknown" // Default identity
 
-	// Ask for identity choice if applying to head BEFORE the do_after
+	// Ask for identity choice if applying to head
 	if(def_zone == BODY_ZONE_HEAD)
 		var/list/identity_choices = list("Unknown")
 		var/list/choice_map = list("Unknown" = "Unknown")
@@ -207,8 +205,8 @@
 		target.UpdateDamageIcon()
 
 		user.visible_message(
-			"<span class='notice'>[user] successfully applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
-			"<span class='notice'>You successfully apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
+			"<span class='notice'>[user] applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
+			"<span class='notice'>You apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
 		)
 
 		if(target != user)

@@ -3268,7 +3268,6 @@
 #include "code\modules\surgery\organs\parasites.dm"
 #include "code\modules\surgery\organs\robolimbs.dm"
 #include "code\modules\surgery\organs\skeleton_organs.dm"
-#include "code\modules\surgery\organs\synthetic_skin_implant.dm"
 #include "code\modules\surgery\organs\vocal_cords.dm"
 #include "code\modules\surgery\organs\organ_datums\battery_datum.dm"
 #include "code\modules\surgery\organs\organ_datums\heart_datum.dm"

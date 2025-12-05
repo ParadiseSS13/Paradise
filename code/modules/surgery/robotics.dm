@@ -787,7 +787,7 @@
 
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
-	var/identity_type = "core identity parameters" // Default value
+	var/identity_type = "core identity parameters"
 
 	// Prioritize replacing a synthetic skin identity over the IPC's actual identity
 	var/obj/item/organ/external/head = target.bodyparts_by_name["head"]

@@ -63,7 +63,7 @@
 
 /datum/design/epidermal_applicator
 	name = "Epidermal Applicator"
-	desc = "A pen-shaped tool used to apply synthetic skin to prosthetic limbs, making them appear lifelike."
+	desc = "A pen-shaped device developed by Zeng-Hu, used to apply synthetic skin to prosthetic limbs."
 	id = "epidermal_applicator"
 	req_tech = list("biotech" = 5, "materials" = 6, "engineering" = 4)
 	build_type = PROTOLATHE

@@ -226,7 +226,7 @@
 			DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, damage_flag = null)
+/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	var/max_limb_damage = max_damage
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
@@ -587,26 +587,27 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	var/damage_percentage = (brute_dam + burn_dam) / max_damage
-	if(damage_percentage >= 1.0)
+	if(damage_percentage >= 0.8)
 		remove_synthetic_skin()
 
 	// Upper body and lower body are tied together
 	check_connected_limb_skin_damage()
 
+// Chest and lower body are tied together with synthetic skin.
 /obj/item/organ/external/proc/check_connected_limb_skin_damage()
 	if(!owner || !has_synthetic_skin)
 		return
 
 	if(limb_name == "chest")
 		var/damage_percentage = (brute_dam + burn_dam) / max_damage
-		if(damage_percentage >= 1.0)
+		if(damage_percentage >= 0.8)
 			var/obj/item/organ/external/groin_limb = owner.bodyparts_by_name["groin"]
 			if(groin_limb && groin_limb.has_synthetic_skin)
 				groin_limb.remove_synthetic_skin()
 
 	if(limb_name == "groin")
 		var/damage_percentage = (brute_dam + burn_dam) / max_damage
-		if(damage_percentage >= 1.0)
+		if(damage_percentage >= 0.8)
 			var/obj/item/organ/external/chest_limb = owner.bodyparts_by_name["chest"]
 			if(chest_limb && chest_limb.has_synthetic_skin)
 				chest_limb.remove_synthetic_skin()

@@ -39,7 +39,8 @@
 /datum/quirk/lifelike
 	name = "Lifelike"
 	desc = "Your prosthetic limbs have been fitted with a synthetic epidermis, making them appear natural. \
-			For IPCs, this covers all body parts (but not monitor heads). For others, it covers prosthetic limbs."
+			For IPCs, this covers all body parts, making them look human (except monitor-shaped heads). \
+			For all others, it covers prosthetic limbs."
 	cost = 4
 
 /datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, character)

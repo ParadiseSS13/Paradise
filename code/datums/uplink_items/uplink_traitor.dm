@@ -655,10 +655,9 @@
 
 /datum/uplink_item/species_restricted/skinmonger
 	name = "Skinmonger Autoimplanter"
-	desc = "An implant that continuously fabricates synthetic epidermis to cover prosthetic parts. \
-	The synthetic skin is visually identical to human skin and allows IPCs to pass as human. \
-	When implanted, the Skinmonger will bond to its host, covering every limb in synthetic skin simultaneously. \
-	The regenerator will then periodically restore damaged or missing synthetic skin."
+	desc = "A strange implant that continuously fabricates synthetic epidermis, covering up prosthetics. \
+	When implanted, the Skinmonger will bond to its host, first covering every limb in synthetic skin, then replacing destroyed skin periodically. \
+	IPCs can use this implant to disguise themselves as human. However, it will not cover monitor-shaped heads."
 	reference = "SKINMON"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
 	cost = 10
