@@ -73,13 +73,33 @@
 		chosen_part.synthetic_skin_identity = identity_to_use
 		if(ishuman(H))
 			H.real_name = identity_to_use
+
+	// Chest and lower body tied together for regeneration
+	if(chosen_part.limb_name == "chest")
+		var/obj/item/organ/external/groin_limb = H.bodyparts_by_name["groin"]
+		if(groin_limb && groin_limb.is_robotic() && !groin_limb.has_synthetic_skin)
+			groin_limb.has_synthetic_skin = TRUE
+			groin_limb.synthetic_skin_colour = H.skin_colour
+			groin_limb.force_icon = null
+			groin_limb.mob_icon = null
+			groin_limb.compile_icon()
+
+	if(chosen_part.limb_name == "groin")
+		var/obj/item/organ/external/chest_limb = H.bodyparts_by_name["chest"]
+		if(chest_limb && chest_limb.is_robotic() && !chest_limb.has_synthetic_skin)
+			chest_limb.has_synthetic_skin = TRUE
+			chest_limb.synthetic_skin_colour = H.skin_colour
+			chest_limb.force_icon = null
+			chest_limb.mob_icon = null
+			chest_limb.compile_icon()
+
 	// Refresh sprite
 	chosen_part.force_icon = null
 	chosen_part.mob_icon = null
 	chosen_part.compile_icon()
 	H.update_body(rebuild_base = TRUE)
 
-	to_chat(H, "<span class='notice'>You feel a wave of synthetic skin gush forth from your chassis and bind to your [chosen_part.name].</span>")
+	to_chat(H, "<span class='notice'>You feel a wave of synthetic skin gush forth and bind to your [chosen_part.name].</span>")
 
 	// Schedule next regeneration if more parts need skin. Otherwise, we're done
 	if(length(unskinned_parts) > 1)
@@ -138,8 +158,6 @@
 // EMP wipes all synthetic skin and puts the implant on cooldown
 /obj/item/organ/internal/cyberimp/chest/skinmonger/emp_act(severity)
 	. = ..()
-	if(!.)
-		return
 
 	regenerating = FALSE
 	regeneration_active = FALSE

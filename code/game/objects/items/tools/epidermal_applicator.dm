@@ -199,8 +199,8 @@
 				chest_limb.compile_icon()
 
 		// Force the organ to completely regenerate its mob_icon
-		affected.mob_icon = null  // Clear the cached icon
-		affected.compile_icon()   // Force regeneration
+		affected.mob_icon = null
+		affected.compile_icon()
 
 		// Force complete body rebuild to bypass icon cache
 		target.update_body(rebuild_base = TRUE)
@@ -213,11 +213,5 @@
 
 		if(target != user)
 			to_chat(target, "<span class='notice'>You feel a thin layer of synthetic skin form over your [affected.name].</span>")
-	else
-		// Do-after was interrupted
-		user.visible_message(
-			"<span class='warning'>[user] stops applying synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
-			"<span class='warning'>You stop applying synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
-		)
 
 	applying = FALSE
