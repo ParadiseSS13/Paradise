@@ -409,6 +409,11 @@ emp_act
 					update_hair()
 					update_fhair()
 
+		if(affecting.has_synthetic_skin)
+			visible_message("<span class='warning'>The synthetic skin on [src]'s [affecting.name] bubbles and melts away.</span>", \
+							"<span class='warning'>The synthetic skin on your [affecting.name] bubbles and melts away.</span>")
+			affecting.remove_synthetic_skin(TRUE)
+
 		UpdateDamageIcon()
 
 	//MELTING INVENTORY ITEMS//
