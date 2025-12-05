@@ -54,28 +54,13 @@
 				displayed_species = C.species_disguise
 				break
 
+	// Cache masquerade status to avoid recalculating it later
+	ipc_masquerade_status = calculate_ipc_masquerade_status()
+
 	// If an IPC's covered in synthetic skin, they can appear human.
-	if(ismachineperson(src))
-		var/all_visible_parts_have_skin = TRUE
-
-		for(var/part_name in list("chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot", "head"))
-			var/obj/item/organ/external/limb = bodyparts_by_name[part_name]
-			if(!limb || !limb.is_robotic())
-				continue
-
-			// If it's covered by clothing then it doesn't need to have skin for the masquerade
-			if(is_bodypart_covered_by_clothing(part_name))
-				continue
-
-			if(!limb.has_synthetic_skin)
-				all_visible_parts_have_skin = FALSE
-				break
-
-		if(all_visible_parts_have_skin)
-			// The masquerade is successful. Nice.
-			// We might also be totally obscured, but that'll be handled next
-			displayed_species = "Human"
-			examine_color = "#d1aa2e"
+	if(ipc_masquerade_status)
+		displayed_species = "Human"
+		examine_color = "#d1aa2e"
 
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
@@ -280,8 +265,32 @@
 
 	return msg
 
+/mob/living/carbon/human/proc/calculate_ipc_masquerade_status()
+	if(!ismachineperson(src))
+		return FALSE
+
+	var/all_visible_parts_have_skin = TRUE
+
+	for(var/part_name in list("chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot", "head"))
+		var/obj/item/organ/external/limb = bodyparts_by_name[part_name]
+		if(!limb || !limb.is_robotic())
+			continue
+
+		// If it's covered by clothing then it doesn't need to have skin for the masquerade
+		if(is_bodypart_covered_by_clothing(part_name))
+			continue
+
+		if(!limb.has_synthetic_skin)
+			all_visible_parts_have_skin = FALSE
+			break
+
+	return all_visible_parts_have_skin
+
 /mob/living/carbon/human/examine_get_brute_message()
-	return !ismachineperson(src) ? "bruising" : "denting"
+	if(!ismachineperson(src) || ipc_masquerade_status)
+		return "bruising"
+
+	return "denting"
 
 /// Checks if a body part is covered by clothing
 /mob/living/carbon/human/proc/is_bodypart_covered_by_clothing(part_name)
