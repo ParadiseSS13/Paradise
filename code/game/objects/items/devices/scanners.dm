@@ -916,7 +916,7 @@ SLIME SCANNER
 		return
 
 	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	sleep(5 SECONDS)
 
 	var/obj/item/paper/P = new(get_turf(src))
