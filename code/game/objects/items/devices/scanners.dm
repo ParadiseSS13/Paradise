@@ -909,7 +909,6 @@ SLIME SCANNER
 
 /obj/item/reagent_scanner/proc/print_report(mob/user)
 	if(!istype(user))
-		message_admins("What")
 		return
 
 	if(scanning)
