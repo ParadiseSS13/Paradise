@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Click this to toggle the mode. The direction with the green light is where the gas will flow.</span>"
+	. += "<span class='notice'>Click this to toggle the mode. The direction with the dot is where the gas will flow to. The gas flows from the opposite side or the one with the uninterrupted line.</span>"
 
 /obj/machinery/atmospherics/trinary/tvalve/bypass
 	icon_state = "map_tvalve1"
