@@ -27,6 +27,7 @@
 	var/hole_size = NO_HOLE
 	/// Cooldown on the fence applying shocks.
 	var/shock_cooldown_duration = 1 SECONDS
+	// Cooldown exists to stop shock spam on bumping.
 	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/fence/Initialize(mapload)
