@@ -16,12 +16,6 @@
 /obj/item/organ/internal/cyberimp/chest/skinmonger/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 
-	if(ismachineperson(M))
-		// Ask for desired identity
-		var/new_identity = input(M, "The Skinmonger generously offers to turn you into someone else.", "Skinmonger Identity", "Unknown") as text|null
-		if(new_identity)
-			configured_identity = new_identity
-
 	if(!initial_surge_used)
 		apply_full_synthetic_skin(M)
 		to_chat(M, "<span class='warning'>In an instant, a surge of skin wraps around you and binds itself to your chassis!</span>")

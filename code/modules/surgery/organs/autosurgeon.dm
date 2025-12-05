@@ -193,4 +193,27 @@
 /obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
 	starting_organ = /obj/item/organ/internal/cyberimp/chest/skinmonger
 
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger/attack_self__legacy__attackchain(mob/user)
+	if(!storedorgan)
+		return ..()
+
+	// Configure identity before implantation...
+	var/obj/item/organ/internal/cyberimp/chest/skinmonger/implant = storedorgan
+	if(!implant.configured_identity || implant.configured_identity == "Unknown")
+		var/chosen_name = tgui_input_text(user, "The Skinmonger generously offers to turn you into someone else. But who?", default = "Unknown", max_length = MAX_NAME_LEN)
+		if(!chosen_name)
+			return
+
+		// Allow to appear as "Unknown" (default value)
+		if(chosen_name != "Unknown")
+			chosen_name = reject_bad_name(chosen_name, max_length = MAX_NAME_LEN)
+			if(!chosen_name)
+				to_chat(user, "<span class='warning'>The implanter quietly hisses, rejecting your choice.</span>")
+				return
+
+		implant.configured_identity = chosen_name
+
+	// ... then implant
+	return ..()
+
 #undef INFINITE

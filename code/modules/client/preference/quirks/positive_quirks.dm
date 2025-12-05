@@ -42,7 +42,8 @@
 			For IPCs, this covers all body parts (but not monitor heads). For others, it covers prosthetic limbs."
 	cost = 4
 
-/datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, datum/client_character_save/character)
+/datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, character)
+	. = ..(target, character)
 	// Apply synthetic skin after robotic limbs are applied or the quirk doesn't work very well
 	RegisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED, PROC_REF(apply_synthetic_skin_on_signal))
 
