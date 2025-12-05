@@ -34,7 +34,7 @@ export const NuclearRodFabricator = (props) => {
       <Window.Content>
         <Stack fill stretch>
 
-          {/* Left Side Start*/}
+          {/* Left Side */}
           <Stack.Item width="50%">
             <Section
               title={`Available Designs (${totalRods})`}
@@ -78,7 +78,7 @@ export const NuclearRodFabricator = (props) => {
             </Section>
           </Stack.Item>
 
-          {/* Right Side Start*/}
+          {/* Right Side */}
           <Stack.Item grow>
             <Section title="Manufacturing Console" fill>
               {!selectedRod && (
@@ -87,16 +87,18 @@ export const NuclearRodFabricator = (props) => {
 
               {selectedRod && (
                 <Stack vertical fill>
+
                   <Box bold fontSize="1.2em">
                     {selectedRod.name}
                   </Box>
+
                   <Box mb={1} color="label">
                     {selectedRod.desc}
                   </Box>
 
                   <Divider />
 
-                  {/* Required materials*/}
+                  {/* Required Materials */}
                   <Section title="Required Materials">
                     {!selectedRod.materials ||
                     Object.keys(selectedRod.materials).length === 0 ? (
@@ -117,7 +119,28 @@ export const NuclearRodFabricator = (props) => {
 
                   <Divider />
 
-                  {/* Fabrication button*/}
+                  {/* Resources */}
+                  <Section title="Resources">
+                    {!data.resources ||
+                    Object.keys(data.resources).length === 0 ? (
+                      <Box color="average">No resources available.</Box>
+                    ) : (
+                      <Table>
+                        {Object.entries(data.resources).map(
+                          ([resName, resAmt], i) => (
+                            <Table.Row key={i}>
+                              <Table.Cell bold>{resName}</Table.Cell>
+                              <Table.Cell>{resAmt}</Table.Cell>
+                            </Table.Row>
+                          )
+                        )}
+                      </Table>
+                    )}
+                  </Section>
+
+                  <Divider />
+
+                  {/* Fabricate Button */}
                   <Button
                     icon="wrench"
                     content={`Fabricate ${selectedRod.name}`}
@@ -140,6 +163,7 @@ export const NuclearRodFabricator = (props) => {
                       Raw Metadata
                     </Button>
                   </Tooltip>
+
                 </Stack>
               )}
             </Section>
