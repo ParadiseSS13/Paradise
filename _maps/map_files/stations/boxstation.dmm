@@ -26548,9 +26548,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
+/mob/living/basic/gorilla/cargo_domestic/forklift,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bVK" = (
