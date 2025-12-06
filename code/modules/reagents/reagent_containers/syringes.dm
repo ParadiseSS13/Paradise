@@ -66,6 +66,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 									"<span class='userdanger'>[user] is trying to inject you!</span>")
+			SEND_SIGNAL(L, COMSIG_LIVING_TRY_SYRINGE_INJECT, user)
 			if(!do_mob(user, L))
 				return
 			if(L.reagents.total_volume >= L.reagents.maximum_volume)
@@ -88,6 +89,7 @@
 	if(L != user)
 		L.visible_message("<span class='danger'>[user] is trying to take a blood sample from [L]!</span>", \
 						"<span class='userdanger'>[user] is trying to take a blood sample from [L]!</span>")
+		SEND_SIGNAL(L, COMSIG_LIVING_TRY_SYRINGE_WITHDRAW, user)
 		busy = TRUE
 		if(!do_mob(user, L, syringe_draw_time))
 			busy = FALSE

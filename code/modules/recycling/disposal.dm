@@ -174,25 +174,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/GM = G.affecting
-		user.visible_message(
-			"<span class='warning'>[user] starts stuffing [GM] into the disposal unit!</span>",
-			"<span class='warning'>You start stuffing [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
-		)
-
-		// Abort if the target manages to scurry away.
-		if(!do_after(user, 2 SECONDS, target = GM))
-			return ITEM_INTERACT_COMPLETE
-
-		GM.forceMove(src)
-		user.visible_message(
-			"<span class='warning'>[GM] has been stuffed into the disposal unit by [user]!</span>",
-			"<span class='warning'>You stuff [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>"
-		)
-		qdel(G)
-		update()
-		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
+		stuff_mob_in(GM, user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item() || QDELETED(used))
@@ -208,6 +190,32 @@
 	update()
 
 	return ITEM_INTERACT_COMPLETE
+
+/// Handles stuffing a grabbed mob into the disposal
+/obj/machinery/disposal/proc/stuff_mob_in(mob/living/target, mob/living/user)
+	// If there's not actually a mob in the grab, stop it. Get some help.
+	if(!istype(target))
+		return FALSE
+
+	user.visible_message(
+		"<span class='warning'>[user] starts stuffing [target] into the disposal unit!</span>",
+		"<span class='warning'>You start stuffing [target] into the disposal unit.</span>",
+		"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
+	)
+
+	// Abort if the target manages to scurry away.
+	if(!do_after(user, 2 SECONDS, target = target))
+		return FALSE
+
+	target.forceMove(src)
+	user.visible_message(
+		"<span class='warning'>[target] has been stuffed into the disposal unit by [user]!</span>",
+		"<span class='warning'>You stuff [target] into the disposal unit.</span>",
+		"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>"
+	)
+	update()
+	add_attack_logs(user, target, "Disposal'ed", !target.ckey ? null : ATKLOG_ALL)
+	return TRUE
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode != DISPOSALS_OFF) // It's on
