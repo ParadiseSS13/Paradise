@@ -12805,6 +12805,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"bvj" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "bvk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -107037,7 +107041,7 @@ qpk
 oXH
 kdx
 aRo
-aRo
+bvj
 cKf
 aVk
 nxW
