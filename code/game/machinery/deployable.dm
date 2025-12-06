@@ -152,9 +152,9 @@
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!(istype(I, /obj/item/stack/sheet/wood/)))
-		return CONTINUE_ATTACK
+		return NONE
 	if(!(user.a_intent == INTENT_HELP))
-		return CONTINUE_ATTACK
+		return NONE
 	var/obj/item/stack/sheet/wood/S = I
 	if(obj_integrity >= max_integrity)
 		to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
