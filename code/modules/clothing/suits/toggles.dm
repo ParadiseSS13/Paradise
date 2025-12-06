@@ -14,7 +14,6 @@
 		if(helmet.on)
 			helmet.attack_self__legacy__attackchain(H)
 		H.transfer_item_to(helmet, src, force = TRUE)
-		H.update_inv_wear_suit()
 		to_chat(H, "<span class='notice'>The helmet on the hardsuit disengages.</span>")
 		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	else
@@ -37,7 +36,6 @@
 			else if(H.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD, FALSE, FALSE))
 				to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
 				suit_toggled = TRUE
-				H.update_inv_wear_suit()
 				playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	else
 		RemoveHelmet()

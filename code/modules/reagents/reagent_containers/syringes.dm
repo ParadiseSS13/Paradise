@@ -205,6 +205,7 @@
 		rounded_vol = 0
 	icon_state = "[rounded_vol]"
 	inhand_icon_state = "syringe_[rounded_vol]"
+	update_mob_overlay()
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
@@ -215,7 +216,6 @@
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
 	if(ismob(loc))
-		var/mob/M = loc
 		var/injoverlay
 		switch(mode)
 			if(SYRINGE_DRAW)
@@ -223,8 +223,6 @@
 			if(SYRINGE_INJECT)
 				injoverlay = "inject"
 		. += injoverlay
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
 
 /obj/item/reagent_containers/syringe/proc/on_atom_entered(datum/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED

@@ -64,7 +64,7 @@
 	. = ..()
 	if(. && user)
 		user.update_sight()
-		user.update_inv_glasses()
+		update_mob_overlay()
 
 //called when thermal glasses are emped.
 /obj/item/clothing/glasses/proc/thermal_overload()

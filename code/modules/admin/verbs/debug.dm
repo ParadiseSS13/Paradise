@@ -439,7 +439,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
-			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

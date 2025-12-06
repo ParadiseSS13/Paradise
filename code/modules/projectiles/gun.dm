@@ -323,11 +323,7 @@
 		spawn(fire_delay)
 			semicd = 0
 
-	if(user)
-		if(user.hand)
-			user.update_inv_l_hand()
-		else
-			user.update_inv_r_hand()
+	update_mob_overlay()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
@@ -465,8 +461,7 @@
 		current_skin = options[choice]
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		update_mob_overlay()
 
 /obj/item/gun/proc/reskin_radial_check(mob/user)
 	if(!ishuman(user))

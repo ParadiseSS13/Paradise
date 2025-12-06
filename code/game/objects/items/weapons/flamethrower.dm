@@ -46,10 +46,7 @@
 
 /obj/item/flamethrower/update_icon_state()
 	inhand_icon_state = "flamethrower_[lit]"
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
+	update_mob_overlay()
 
 /obj/item/flamethrower/update_overlays()
 	. = ..()

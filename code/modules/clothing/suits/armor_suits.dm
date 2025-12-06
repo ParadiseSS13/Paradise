@@ -52,7 +52,7 @@
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
 			icon_state = "armorsec"
-			user.update_inv_wear_suit()
+			update_mob_overlay()
 			desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
 			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
 		return
@@ -66,7 +66,7 @@
 		QDEL_LIST_CONTENTS(actions)
 
 		icon_state = "armor"
-		user.update_inv_wear_suit()
+		update_mob_overlay()
 		desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
 		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
 		attached_badge = null
@@ -412,7 +412,7 @@
 		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
 		icon_state = "reactiveoff"
 		add_fingerprint(user)
-	user.update_inv_wear_suit()
+	update_mob_overlay()
 	update_action_buttons()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
@@ -439,17 +439,13 @@
 	disabled = TRUE
 	icon_state = "reactiveoff"
 	addtimer(CALLBACK(src, PROC_REF(reboot)), disable_time SECONDS)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/C = loc
-		C.update_inv_wear_suit()
+	update_mob_overlay()
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	disabled = FALSE
 	active = TRUE
 	icon_state = "reactive"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/C = loc
-		C.update_inv_wear_suit()
+	update_mob_overlay()
 
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))

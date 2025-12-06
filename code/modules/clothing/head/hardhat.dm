@@ -31,9 +31,7 @@
 
 /obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[hat_color]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
+	update_mob_overlay()
 	update_action_buttons()
 
 /obj/item/clothing/head/hardhat/proc/turn_on(mob/user)

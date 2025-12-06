@@ -75,9 +75,7 @@
 	desc = selected_module.module_desc
 	icon_state = selected_module.module_state
 	inhand_icon_state = selected_module.module_state
-	if(user)
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
+	update_mob_overlay()
 
 /**
   * Calls `pick_color()` on the `selected_module`.

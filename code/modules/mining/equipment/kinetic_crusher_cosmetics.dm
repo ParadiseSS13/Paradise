@@ -42,7 +42,7 @@
 	if(active_skin.retool_inhand_y)
 		pkc.inhand_y_dimension = active_skin.retool_inhand_y
 	pkc.update_appearance()
-	pkc.update_slot_icon()
+	pkc.update_mob_overlay()
 
 /obj/item/crusher_trophy/retool_kit/remove_from(obj/item/kinetic_crusher/pkc)
 	var/skin_type = active_skin.type
@@ -60,7 +60,7 @@
 	pkc.inhand_x_dimension = initial(pkc.inhand_x_dimension)
 	pkc.inhand_y_dimension = initial(pkc.inhand_y_dimension)
 	pkc.update_appearance()
-	pkc.update_slot_icon()
+	pkc.update_mob_overlay()
 	return ..()
 
 /obj/item/crusher_trophy/retool_kit/sword

@@ -233,10 +233,6 @@
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
 	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 	add_fingerprint(user)
 
 /obj/item/scythe/tele/update_icon_state()
@@ -246,6 +242,7 @@
 	else
 		icon_state = "tscythe0"
 		inhand_icon_state = null	//no sprite for folded version, like a tele-baton
+	update_mob_overlay()
 
 // *************************************
 // Nutrient defines for hydroponics

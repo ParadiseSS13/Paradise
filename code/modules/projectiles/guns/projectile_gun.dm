@@ -88,14 +88,7 @@
 	chamber_round()
 	AM.update_icon()
 	update_icon()
-	if(!user)
-		return
-	// Update the hand opposite of the one holding ammo (the current one)
-	if(user.hand)
-		user.update_inv_r_hand()
-	else
-		user.update_inv_l_hand()
-	return
+	update_mob_overlay()
 
 /obj/item/gun/projectile/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))

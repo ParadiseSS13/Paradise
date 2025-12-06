@@ -29,8 +29,6 @@
 
 /obj/item/staff/broom/proc/wield(obj/item/source, mob/user)
 	attack_verb = list("rammed into", "charged at")
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
 	if(iswizard(user))
 		ADD_TRAIT(user, TRAIT_FLYING, "broomstick")
 		user.say("QUID 'ITCH")
@@ -39,8 +37,6 @@
 
 /obj/item/staff/broom/proc/unwield(obj/item/source, mob/user)
 	attack_verb = list("bludgeoned", "whacked", "cleaned")
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
 	if(iswizard(user))
 		REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")
 		animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
