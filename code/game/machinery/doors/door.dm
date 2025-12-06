@@ -281,25 +281,25 @@
 	var/obj/item/stack/sheet/wood/S = Q
 	if(!density)
 		to_chat(user, "<span class='warning'>[src] must be closed before you can barricade it!</span>")
-		return FINISH_ATTACK
+		return NONE
 	if(S.get_amount() < 2)
 		to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
-		return FINISH_ATTACK
+		return NONE
 	if(barricaded)
 		to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
-		return FINISH_ATTACK
+		return NONE
 	var/turf/buildloc = get_turf(src)
 	for(var/atom/blocker in buildloc.contents)
 		if(blocker != src)
 			if(blocker.density)
 				to_chat(user, "<span class='warning'>There's something in the way of [src]!</span>")
-				return FINISH_ATTACK
+				return NONE
 	to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 	if(!(do_after_once(user, 4 SECONDS, target = src)))
-		return FINISH_ATTACK
+		return NONE
 	if(!S.use(2))
 		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
-		return FINISH_ATTACK
+		return NONE
 	if(!barricaded) //one last check in case someone pre-barricades it
 		close()
 		user.visible_message(
