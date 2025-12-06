@@ -60,6 +60,15 @@
 		J.vehicle_move_delay -= J.buffer_delay
 	to_chat(usr, "<span class='notice'>The floor buffer is now [J.floorbuffer ? "active" : "deactivated"].</span>")
 
+/obj/vehicle/janicart/user_buckle_mob(mob/living/M, mob/user)
+	var/mob/living/carbon/human/driver = M
+	var/obj/item/organ/external/l_leg = driver.get_organ("l_leg")
+	var/obj/item/organ/external/r_leg = driver.get_organ("r_leg")
+	if (!l_leg && !r_leg)
+		to_chat(user, "<span class='warning'>[src] requires legs to ride!</span>")
+		return
+	. = ..()
+
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()
 	if(!buffer_installed)
