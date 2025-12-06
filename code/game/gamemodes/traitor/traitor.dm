@@ -25,6 +25,13 @@
 		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING || candidate.special_role == SPECIAL_ROLE_MIND_FLAYER) // no traitor vampires, changelings, or mindflayers
 			possible_traitors.Remove(candidate)
 
+	// Filter out AI if population is too low for malf
+	var/ready_players = num_players()
+	if(ready_players < GLOB.configuration.gamemode.min_players_malf_ai)
+		for(var/datum/mind/candidate in possible_traitors)
+			if(is_ai(candidate.current))
+				possible_traitors.Remove(candidate)
+
 	// stop setup if no possible traitors
 	if(!length(possible_traitors))
 		return FALSE
