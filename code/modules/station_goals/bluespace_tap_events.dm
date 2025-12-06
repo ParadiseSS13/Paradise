@@ -87,7 +87,7 @@
 	tap.radio.autosay("Bluespace harvester has released a spike of radiation!", tap, "Engineering")
 
 /datum/engi_event/bluespace_tap_event/radiation/on_start()
-	radiation_pulse(tap, 12000, BETA_RAD)
+	tap.AddComponent(/datum/component/radioactive, 12000, tap, BETA_RAD, 30) // strong rads for a little over two minutes, becomes harmless after that, still visually glows but that goes away after another minute or so
 
 // electrical arc
 /datum/engi_event/bluespace_tap_event/electric_arc
