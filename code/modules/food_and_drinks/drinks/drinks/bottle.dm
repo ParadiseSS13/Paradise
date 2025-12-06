@@ -208,7 +208,7 @@
 	name = "Jolly Jug"
 	desc = "A jug filled with banana juice."
 	icon_state = "bottleofjolly"
-	list_reagents = list("banana" = 100)
+	list_reagents = list("bananahonk" = 100)
 
 /obj/item/reagent_containers/drinks/bottle/patron
 	name = "Wrapp Artiste Patron"

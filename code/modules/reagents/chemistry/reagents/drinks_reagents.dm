@@ -223,6 +223,7 @@
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
+
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/nothing
