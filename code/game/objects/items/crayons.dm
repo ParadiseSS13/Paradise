@@ -7,13 +7,13 @@
  */
 /obj/item/toy/crayon
 	name = "crayon"
-	desc = "A colourful crayon. Looks tasty. Mmmm..."
+	desc = "A colorful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	attack_verb = list("attacked", "coloured")
-	var/colour = COLOR_RED
+	attack_verb = list("attacked", "colored")
+	var/crayon_color = COLOR_RED
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
@@ -126,7 +126,7 @@
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
 		if(instant || do_after(user, 50 * toolspeed, target = target))
-			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
+			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, crayon_color, drawtype, temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='notice'>You finish drawing [temp].</span>")
 
@@ -176,31 +176,31 @@
 /obj/item/toy/crayon/orange
 	name = "orange crayon"
 	icon_state = "crayonorange"
-	colour = COLOR_ORANGE
+	crayon_color = COLOR_ORANGE
 	dye_color = DYE_ORANGE
 
 /obj/item/toy/crayon/yellow
 	name = "yellow crayon"
 	icon_state = "crayonyellow"
-	colour = COLOR_YELLOW
+	crayon_color = COLOR_YELLOW
 	dye_color = DYE_YELLOW
 
 /obj/item/toy/crayon/green
 	name = "green crayon"
 	icon_state = "crayongreen"
-	colour = COLOR_GREEN
+	crayon_color = COLOR_GREEN
 	dye_color = DYE_GREEN
 
 /obj/item/toy/crayon/blue
 	name = "blue crayon"
 	icon_state = "crayonblue"
-	colour = COLOR_BLUE
+	crayon_color = COLOR_BLUE
 	dye_color = DYE_BLUE
 
 /obj/item/toy/crayon/purple
 	name = "purple crayon"
 	icon_state = "crayonpurple"
-	colour = COLOR_PURPLE
+	crayon_color = COLOR_PURPLE
 	dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/random/Initialize(mapload)
@@ -209,39 +209,39 @@
 	switch(icon_state)
 		if("crayonred")
 			name = "red crayon"
-			colour = COLOR_RED
+			crayon_color = COLOR_RED
 			dye_color = DYE_RED
 		if("crayonorange")
 			name = "orange crayon"
-			colour = COLOR_ORANGE
+			crayon_color = COLOR_ORANGE
 			dye_color = DYE_ORANGE
 		if("crayonyellow")
 			name = "yellow crayon"
-			colour = COLOR_YELLOW
+			crayon_color = COLOR_YELLOW
 			dye_color = DYE_YELLOW
 		if("crayongreen")
 			name = "green crayon"
-			colour = COLOR_GREEN
+			crayon_color = COLOR_GREEN
 			dye_color = DYE_GREEN
 		if("crayonblue")
 			name = "blue crayon"
-			colour = COLOR_BLUE
+			crayon_color = COLOR_BLUE
 			dye_color = DYE_BLUE
 		if("crayonpurple")
 			name = "purple crayon"
-			colour = COLOR_PURPLE
+			crayon_color = COLOR_PURPLE
 			dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
 	icon_state = "crayonblack"
-	colour = "#000000"
+	crayon_color = "#000000"
 	dye_color = DYE_BLACK
 
 /obj/item/toy/crayon/white
 	name = "white crayon"
 	icon_state = "crayonwhite"
-	colour = "#FFFFFF"
+	crayon_color = "#FFFFFF"
 	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/white/chalk
@@ -254,22 +254,22 @@
 	name = "mime crayon"
 	desc = "A very sad-looking crayon."
 	icon_state = "crayonmime"
-	colour = "#FFFFFF"
+	crayon_color = "#FFFFFF"
 	dye_color = DYE_MIME
 	uses = 0
 
-/obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
+/obj/item/toy/crayon/mime/update_window(mob/living/user)
+	dat += "<center><span style='border:1px solid #161616; background-color: [crayon_color];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		if(colour != COLOR_WHITE)
-			colour = COLOR_WHITE
+		if(crayon_color != COLOR_WHITE)
+			crayon_color = COLOR_WHITE
 		else
-			colour = COLOR_BLACK
+			crayon_color = COLOR_BLACK
 		update_window(usr)
 	else
 		..()
@@ -277,12 +277,12 @@
 /obj/item/toy/crayon/rainbow
 	name = "rainbow crayon"
 	icon_state = "crayonrainbow"
-	colour = "#FFF000"
+	crayon_color = "#FFF000"
 	dye_color = DYE_RAINBOW
 	uses = 0
 
-/obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
+/obj/item/toy/crayon/rainbow/update_window(mob/living/user)
+	dat += "<center><span style='border:1px solid #161616; background-color: [crayon_color];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
@@ -292,7 +292,7 @@
 		var/temp = tgui_input_color(usr, "Please select crayon color.", "Crayon color")
 		if(isnull(temp))
 			return
-		colour = temp
+		crayon_color = temp
 		update_window(usr)
 	else
 		..()
@@ -328,8 +328,8 @@
 		if("Change Drawing")
 			update_window(user)
 		if("Change Color")
-			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
-			if(isnull(colour))
+			crayon_color = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
+			if(isnull(crayon_color))
 				return
 			update_icon()
 
@@ -358,7 +358,7 @@
 	attackee.EyeBlind(2 SECONDS)
 
 	attackee.lip_style = "spray_face"
-	attackee.lip_color = colour
+	attackee.lip_color = crayon_color
 	attackee.update_body()
 
 	play_spray_sound(user)
@@ -372,7 +372,7 @@
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
-	I.color = colour
+	I.color = crayon_color
 	. += I
 
 /obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target, mob/user)

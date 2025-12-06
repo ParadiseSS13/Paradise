@@ -53,6 +53,13 @@
 
 	return possible_areas
 
+/proc/findMaintananceEventArea() // For maintanance events ONLY
+	var/list/maintanance_area = typecacheof(list(/area/station/maintenance))
+
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, maintanance_area)
+
+	return pick(possible_areas)
+
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
 // Note that this isn't sorted just by department, because e.g. having a roboticist shouldn't make meteors spawn.
