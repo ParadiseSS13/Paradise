@@ -328,13 +328,13 @@
 
 // Bandanas
 /obj/item/clothing/mask/bandana
-	name = "bandana"
+	name = "white bandana"
 	desc = "A colorful bandana."
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
 	adjusted_flags = ITEM_SLOT_HEAD
-	icon_state = "bandbotany"
+	icon_state = "bandana" // Default white bandana
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
@@ -418,47 +418,50 @@
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
-	icon_state = "bandred"
 	desc = "It's a red bandana."
+	color = "#c43638" // Red
 
 /obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
-	icon_state = "bandblue"
 	desc = "It's a blue bandana."
+	color = "#537bc6" // Blue
 
 /obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
-	icon_state = "bandgold"
 	desc = "It's a gold bandana."
+	color = "#fcba22" // Yellow
 
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
-	icon_state = "bandgreen"
 	desc = "It's a green bandana."
+	color = "#5dca3f" // Green
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
-	icon_state = "bandorange"
 	desc = "It's an orange bandana."
+	color = "#fc8422" // Orange
 
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
-	icon_state = "bandpurple"
 	desc = "It's a purple bandana."
+	color = "#ab73ce" // Purple
+
+/obj/item/clothing/mask/bandana/black
+	name = "black bandana"
+	desc = "It's a black bandana."
+	color = "#4A4A4B" // Black
+
+// These bandanas use unique sprites
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
+	icon_state = "bandbotany"
 	desc = "It's a green bandana with some fine nanotech lining."
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
 	desc = "It's a black bandana with a skull pattern."
 	icon_state = "bandskull"
-
-/obj/item/clothing/mask/bandana/black
-	name = "black bandana"
-	icon_state = "bandblack"
-	desc = "It's a black bandana."
 
 /obj/item/clothing/mask/bandana/durathread
 	name = "durathread bandana"

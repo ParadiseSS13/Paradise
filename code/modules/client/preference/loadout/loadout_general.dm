@@ -157,6 +157,10 @@
 	display_name = "Fannypack"
 	path = /obj/item/storage/belt/fannypack
 
+/datum/gear/whitebandana
+	display_name = "Bandana, white"
+	path = /obj/item/clothing/mask/bandana
+
 /datum/gear/blackbandana
 	display_name = "Bandana, black"
 	path = /obj/item/clothing/mask/bandana/black
