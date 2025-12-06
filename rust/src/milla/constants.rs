@@ -32,6 +32,9 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 /// How many moles are needed to make sleeping gas visible.
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
+/// How many moles are needed to make water vapor visible.
+pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 2.0;
+
 /// How much stuff needs to react before we think hotspots and BYOND care.
 pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;
 
@@ -40,6 +43,9 @@ pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
 
 /// How hot does it need to be for sleeping gass to break down?
 pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
+
+/// How much water vapor is produced per plasma burnt.
+pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 6.0;
 
 /// Index for oxygen in gas list.
 pub(crate) const GAS_OXYGEN: usize = 0;
@@ -62,8 +68,11 @@ pub(crate) const GAS_AGENT_B: usize = 5;
 /// Index for hydrogen in gas list.
 pub(crate) const GAS_HYDROGEN: usize = 6;
 
+/// Index for water vapor in gas list.
+pub(crate) const GAS_WATER_VAPOR: usize = 7;
+
 /// How many gases are there?
-pub(crate) const GAS_COUNT: usize = GAS_HYDROGEN + 1; // should contain the gas right above it
+pub(crate) const GAS_COUNT: usize = GAS_WATER_VAPOR + 1; // should contain the gas right above it
 
 /// The two axes, Y and X. The order is arbitrary, but may break things if changed.
 pub(crate) const AXES: [(i32, i32); 2] = [(1, 0), (0, 1)];
@@ -109,6 +118,9 @@ pub(crate) const SPECIFIC_HEAT_AGENT_B: f32 = 300.0;
 // The specific heat of hydrogen, in joules per kelvin-mole.
 pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 15.0;
 
+// The specific heat of water vapor, in joules per kelvin-mole.
+pub(crate) const SPECIFIC_HEAT_WATER_VAPOR: f32 = 33.0;
+
 // Convenience array, so we can add loop through gases and calculate heat capacity.
 pub(crate) const SPECIFIC_HEATS: [f32; GAS_COUNT] = [
     SPECIFIC_HEAT_OXYGEN,
@@ -118,6 +130,7 @@ pub(crate) const SPECIFIC_HEATS: [f32; GAS_COUNT] = [
     SPECIFIC_HEAT_SLEEPING_AGENT,
     SPECIFIC_HEAT_AGENT_B,
     SPECIFIC_HEAT_HYDROGEN,
+    SPECIFIC_HEAT_WATER_VAPOR,
 ];
 
 /// How hot does it need to be for a plasma fire to start?
@@ -155,6 +168,9 @@ pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 
 /// How much thermal energy is produced, in joules per mole of sleeping agent.
 pub(crate) const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
+
+// How much thermal energy is produced, in joules per mole of water vapor.
+pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 
 /// How much thermal energy is produced, in joules per mole of sleeping toxins.
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;

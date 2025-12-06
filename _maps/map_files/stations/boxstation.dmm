@@ -50848,6 +50848,10 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
+"gkH" = (
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "gkP" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
@@ -119845,7 +119849,7 @@ cPU
 cQM
 cSb
 cTh
-cSd
+gkH
 cOF
 deJ
 dfF

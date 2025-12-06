@@ -75,6 +75,13 @@ impl GasSet {
         self.values[GAS_HYDROGEN] = value;
         self.dirty.store(true, Relaxed);
     }
+    pub(crate) fn water_vapor(&self) -> f32 {
+        self.values[GAS_WATER_VAPOR]
+    }
+    pub(crate) fn set_water_vapor(&mut self, value: f32) {
+        self.values[GAS_WATER_VAPOR] = value;
+        self.dirty.store(true, Relaxed);
+    }
     pub(crate) fn set_dirty(&mut self) {
         self.dirty.store(true, Relaxed);
     }
@@ -341,6 +348,7 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.gases.sleeping_agent()),
             ByondValue::from(value.gases.agent_b()),
             ByondValue::from(value.gases.hydrogen()),
+            ByondValue::from(value.gases.water_vapor()),
             ByondValue::from(value.mode),
             ByondValue::from(environment_id as f32),
             ByondValue::from(value.superconductivity.north),
