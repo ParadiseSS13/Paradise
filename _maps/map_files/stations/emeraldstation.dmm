@@ -67453,7 +67453,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_maint)
 "nGM" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "nGR" = (
