@@ -212,6 +212,12 @@
 	flags_inv = HIDEJUMPSUIT
 	insert_max = 0
 
+/obj/item/clothing/suit/santa
+	name = "\improper Santa suit"
+	desc = "A festive red suit. Ho ho ho!"
+	icon_state = "santa"
+	insert_max = 0
+
 /obj/item/clothing/suit/poncho
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."
