@@ -230,14 +230,14 @@
 	var/fire_applications = 1
 	/// The currently stored reagent ID
 	var/current_reagent_id
+	/// What chemical do we have? This will be the chemical ID, so a string
+	var/current_reagent_name
 	/// How many units of the reagent do we need to have it's effects kick in?
 	var/required_volume = 10
 	/// Do we have a locked in reagent type?
 	var/has_filled_reagent = FALSE
 	/// Are we silent on the first change of reagents?
 	var/first_time_silent = FALSE // The reason for this is so we can have canisters that spawn with reagents but don't announce it on `Initialize()`
-	/// What chemical do we have? This will be the chemical ID, so a string
-	var/stored_chemical
 	/// What color will our fire burn
 	var/chem_color
 
@@ -248,27 +248,35 @@
 /obj/item/chemical_canister/examine(mob/user)
 	. = ..()
 	. += "[src] has [ammo] out of [initial(ammo)] units left!"
-	if(stored_chemical && ammo != 0)
-		. += "[src] is currently filled with [stored_chemical]"
+	if(current_reagent_name && ammo != 0)
+		. += "[src] is currently filled with [current_reagent_name]"
 
 /obj/item/chemical_canister/on_reagent_change()
 	if(!length(reagents.reagent_list))
 		// Nothing to check. Has to be here because we call `clear_reagents` at the end of this proc.
 		return
 
-	if(has_filled_reagent && ammo != 0)
-		audible_message("<span class='notice'>[src]'s speaker beeps: no new chemicals are accepted!</span>")
-		return
+	if(has_filled_reagent && (reagents.get_master_reagent_id() != current_reagent_id))
+		audible_message("<span class='notice'>[src]'s speaker beeps: chemical override started!</span>")
 
-	if(!reagents.get_master_reagent_id() || !(reagents.get_master_reagent_id() in accepted_chemicals))
+	if(!(reagents.get_master_reagent_id() in accepted_chemicals))
 		reagents.clear_reagents()
 		audible_message("<span class='notice'>[src]'s speaker beeps: the most present chemical isn't accepted!</span>")
 		return
 
+	var/old_chem_id = current_reagent_id
 	current_reagent_id = reagents.get_master_reagent_id()
-	stored_chemical = current_reagent_id
+	current_reagent_name = reagents.get_master_reagent_name()
 	reagents.isolate_reagent(current_reagent_id)
 	var/has_enough_reagents = reagents.total_volume >= required_volume
+
+	if(old_chem_id == reagents.get_master_reagent_id())
+		audible_message("<span class='notice'>[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started.</span>")
+		if(has_enough_reagents)
+			ammo = initial(ammo)
+			reagents.clear_reagents()
+			has_filled_reagent = TRUE
+		return
 
 	if(!first_time_silent)
 		audible_message("<span class='notice'>[src]'s speaker beeps: \
@@ -306,7 +314,7 @@
 	reagents.add_reagent("napalm", 30) // Overload it with napalm!
 
 /obj/item/chemical_canister/pyrotechnics
-	name = "extended capacity chemical canister"
+	name = "pyrotechnical chemical canister"
 	desc = "A specialized canister designed to accept certain pyrotechnics."
 	icon_state = "pyro"
 	ammo = 150
