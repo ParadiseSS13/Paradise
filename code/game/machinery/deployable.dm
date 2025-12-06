@@ -160,15 +160,16 @@
 		to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 		return FINISH_ATTACK
 	to_chat(user, "<span class='notice'> You start replacing the broken boards of [src]...</span>")
-	if(do_after_once(user, 2 SECONDS, target = src))
-		if(!S.use(1))
-			to_chat(user, "<span class='warning'>You've run out of planks!</span>")
-			return FINISH_ATTACK
-		else
-			to_chat(user, "<span class='notice'> You repair [src].</span>")
-			user.visible_message("<span class='notice'> [user] repairs [src].</span>")
-			obj_integrity = max_integrity
-			add_fingerprint(user)
+	if(!do_after_once(user, 2 SECONDS, target = src))
+		return	FINISH_ATTACK
+	if(!S.use(1))
+		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+		return FINISH_ATTACK
+	else
+		to_chat(user, "<span class='notice'> You repair [src].</span>")
+		user.visible_message("<span class='notice'> [user] repairs [src].</span>")
+		obj_integrity = max_integrity
+		add_fingerprint(user)
 	return FINISH_ATTACK
 
 /obj/structure/barricade/wooden/crude/snow
