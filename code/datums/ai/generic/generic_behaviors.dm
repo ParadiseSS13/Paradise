@@ -179,8 +179,22 @@
 	perform_flags |= try_to_give_item(controller, living_target, held_item, actually_give = TRUE)
 	return AI_BEHAVIOR_DELAY | perform_flags
 
-/datum/ai_behavior/give/proc/try_to_give_item(datum/ai_controller/controller, mob/living/target, obj/item/held_item, actually_give)
+/datum/ai_behavior/give/proc/try_to_give_item(datum/ai_controller/controller, mob/living/carbon/target, obj/item/held_item, actually_give)
 	if(QDELETED(held_item) || QDELETED(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	if(!iscarbon(controller.pawn))
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	if(!iscarbon(target))
+		controller.clear_blackboard_key(BB_MONKEY_CURRENT_GIVE_TARGET)
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	if(HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.r_hand && target.l_hand)
+		controller.clear_blackboard_key(BB_MONKEY_CURRENT_GIVE_TARGET)
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	var/mob/living/carbon/C = controller.pawn
+	C.drop_item_to_ground(held_item)
 	target.put_in_hands(held_item)
+	held_item.add_fingerprint(target)
+	held_item.on_give(C, target)
+	held_item.pickup(target)
+	controller.clear_blackboard_key(BB_MONKEY_CURRENT_GIVE_TARGET)
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
