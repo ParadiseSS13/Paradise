@@ -334,7 +334,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
 	adjusted_flags = ITEM_SLOT_HEAD
-	icon_state = "bandana" //Default white bandana
+	icon_state = "bandana" // Default white bandana
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
