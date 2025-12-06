@@ -17,7 +17,7 @@
 			LAZYOR(structure_instances_by_type[structure.type], structure)
 
 /datum/game_test/room_test/attack_chain_structures/Run()
-	var/datum/test_puppeteer/player = new(src)
+	var/datum/test_puppeteer/player = make_puppet()
 	player.puppet.name = "Player"
 
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
