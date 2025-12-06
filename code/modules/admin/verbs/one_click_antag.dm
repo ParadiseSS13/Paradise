@@ -1,14 +1,6 @@
-/client/proc/one_click_antag()
-	set name = "Create Antagonist"
-	set desc = "Auto-create an antagonist of your choice"
-	set category = "Event"
-
-	if(!check_rights(R_SERVER|R_EVENT))	return
-
-	if(holder)
-		holder.one_click_antag()
-	return
-
+USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
+	if(client.holder)
+		client.holder.one_click_antag()
 
 /datum/admins/proc/one_click_antag()
 

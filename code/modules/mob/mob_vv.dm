@@ -42,34 +42,19 @@
 		rename_character(real_name, new_name)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_MOB_PLAYER_PANEL])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-
-		usr.client.holder.show_player_panel(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIVE_SPELL])
-		if(!check_rights(R_SERVER|R_EVENT))
-			return
-
-		usr.client.give_spell(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/give_spell, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIVE_DISEASE])
-		if(!check_rights(R_SERVER|R_EVENT))
-			return
-
-		usr.client.give_disease(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/give_disease, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GODMODE])
-		if(!check_rights(R_EVENT))
-			return
-
-		usr.client.cmd_admin_godmode(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/godmode, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIB])
-		if(!check_rights(R_ADMIN|R_EVENT))
-			return
-
-		usr.client.cmd_admin_gib(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/gib_mob, src)
 	if(href_list[VV_HK_BUILD_MODE])
 		if(!check_rights(R_BUILDMODE))
 			return
@@ -83,11 +68,7 @@
 		if(usr.client)
 			usr.client.cmd_admin_drop_everything(src)
 	if(href_list[VV_HK_DIRECT_CONTROL])
-		if(!check_rights(R_DEBUG|R_ADMIN))
-			return
-
-		if(usr.client)
-			usr.client.cmd_assume_direct_control(src)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/assume_direct_control, src)
 	if(href_list[VV_HK_OFFER_CONTROL])
 		if(!check_rights(R_ADMIN))
 			return

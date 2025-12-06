@@ -89,7 +89,7 @@ GLOBAL_PROTECT(href_token)
 		return
 
 	owner.holder = src
-	owner.add_admin_verbs()
+	owner.add_user_verbs()
 	if(isobserver(owner.mob))
 		var/mob/dead/observer/ghost = owner.mob
 		ghost.update_admin_actions()
@@ -133,7 +133,7 @@ GLOBAL_PROTECT(href_token)
 
 	if(owner)
 		GLOB.admins -= owner
-		owner.hide_verbs()
+		owner.remove_user_verbs()
 		owner.holder = null
 		owner.init_verbs()
 		if(isobserver(owner.mob))

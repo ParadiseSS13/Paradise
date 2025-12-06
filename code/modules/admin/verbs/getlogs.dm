@@ -1,24 +1,11 @@
-/// This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/getserverlogs()
-	set name = "Get Server Logs"
-	set desc = "View/retrieve logfiles."
-	set category = "Admin"
+/// Allows download of past server logs saved within the data/logs/ folder.
+USER_VERB(get_server_logs, R_ADMIN|R_VIEWLOGS, "Get Server Logs", "View/retrieve logfiles.", VERB_CATEGORY_ADMIN)
+	access_file_by_browsing_path(client.mob, "data/logs/")
 
-	if(!check_rights(R_ADMIN|R_VIEWLOGS))
-		return
-
-	access_file_by_browsing_path(usr, "data/logs/")
-
-/// This proc allows download of past server logs saved within the data/logs/ folder by specifying a specific round ID.
-/client/proc/get_server_logs_by_round_id()
-	set name = "Get Round Logs"
-	set desc = "View/retrieve logfiles for a given round."
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN|R_VIEWLOGS))
-		return
-
-	var/round_id = input(usr, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
+/// Allows download of past server logs saved within the data/logs/ folder by specifying a specific round ID.
+USER_VERB(get_server_logs_by_round_id, R_ADMIN|R_VIEWLOGS, "Get Round Logs", \
+		"View/retrieve logfiles for a given round.", VERB_CATEGORY_ADMIN)
+	var/round_id = input(client, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
 	if(isnull(round_id))
 		return
 
@@ -30,12 +17,12 @@
 		)
 		if(!query.warn_execute())
 			qdel(query)
-			to_chat(usr, "Could not check database for round [round_id].")
+			to_chat(client, "Could not check database for round [round_id].")
 			return
 
 		if(!query.NextRow())
 			qdel(query)
-			to_chat(usr, "Could not find round [round_id] in database.")
+			to_chat(client, "Could not find round [round_id] in database.")
 			return
 
 		// convert unix timestamp in seconds to byond timestamp in deciseconds
@@ -45,7 +32,7 @@
 
 	if(!fexists(round_path))
 		log_debug("Logs for round `[round_id]` not found in path `[round_path]`.")
-	access_file_by_browsing_path(usr, round_path)
+	access_file_by_browsing_path(client.mob, round_path)
 
 /proc/access_file_by_browsing_path(mob/user, path)
 	if(!user.client)

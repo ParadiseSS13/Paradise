@@ -1,12 +1,7 @@
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
-/client/proc/outfit_manager()
-	set category = "Event"
-	set name = "Outfit Manager"
-
-	if(!check_rights(R_EVENT))
-		return
-	holder.outfit_manager(usr)
+USER_VERB(outfit_manager, R_EVENT, "Outfit Manager", "Opens the outfit manager.", VERB_CATEGORY_EVENT)
+	client.holder.outfit_manager(client.mob)
 
 /datum/admins/proc/outfit_manager(mob/admin)
 	var/list/dat = list("<!DOCTYPE html><ul>")
