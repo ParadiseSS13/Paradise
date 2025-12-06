@@ -80,6 +80,7 @@
 			. = 0
 
 		else
+			handle_layer()
 			. = 1
 
 /obj/structure/chair/wheelchair/Bump(atom/A)
