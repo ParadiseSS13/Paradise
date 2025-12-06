@@ -22,6 +22,10 @@
 	var/enable_gamemode_player_limit = TRUE
 	/// Should we generate random station traits at game start?
 	var/add_random_station_traits = TRUE
+	/// Minimum number of players readied up (for roundstart) or crew (for midround) required for hijack / nuclear hijack objective to be assigned
+	var/min_players_hijack = 0
+	/// Minimum number of players readied up (for roundstart) or crew (for midround) required for malf AI to be assigned
+	var/min_players_malf_ai = 0
 
 // Dynamically setup a list of all gamemodes
 /datum/configuration_section/gamemode_configuration/New()
@@ -56,6 +60,8 @@
 	CONFIG_LOAD_BOOL(add_random_station_traits, data["add_random_station_traits"])
 
 	CONFIG_LOAD_NUM(traitor_objectives_amount, data["traitor_objective_amount"])
+	CONFIG_LOAD_NUM(min_players_hijack, data["min_players_hijack"])
+	CONFIG_LOAD_NUM(min_players_malf_ai, data["min_players_malf_ai"])
 
 	// Load gamemode probabilities
 	if(islist(data["gamemode_probabilities"]))
