@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Random")))
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Machine", "Random")))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Machine")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -201,7 +201,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(M.gender != FEMALE) // no beard for women pls
 		head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
-	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
+	var/last_name
+	if(new_species == "Machine")
+		last_name = pick(GLOB.ai_names)
+	else
+		last_name = pick(GLOB.last_names)
+
+	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [last_name]")
 	M.age = rand(23,35)
 	M.update_dna()
 	M.regenerate_icons()
@@ -220,6 +226,11 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	SSjobs.CreateMoneyAccount(M, role, null)
 
 	GLOB.active_team.equip_officer(role, M)
+
+	// IPC ERT get a defensive implant to make them a bit sturdier.
+	if(ismachineperson(M))
+		var/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/defensive_implant = new
+		defensive_implant.insert(M)
 
 	return M
 
