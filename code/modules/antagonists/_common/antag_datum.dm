@@ -412,11 +412,30 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		if(prob(50)) // 50% chance you have to detonate the nuke instead
-			add_antag_objective(/datum/objective/nuke)
-			return
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
+		// Check if we have enough players for hijack/nuclear objective
+		var/player_count = 0
+
+		// Roundstart: count readied players
+		if(SSticker.current_state < GAME_STATE_PLAYING)
+			for(var/mob/new_player/P in GLOB.player_list)
+				if(P.client && P.ready)
+					player_count++
+		else
+			// Midround: count actual living players
+			for(var/mob/living/player in GLOB.mob_list)
+				if(player.client && player.stat != DEAD)
+					if(!player.mind)
+						continue
+					if(player.mind.offstation_role) //Don't count as crew.
+						continue
+					player_count++
+
+		if(player_count >= GLOB.configuration.gamemode.min_players_hijack)
+			if(prob(50)) // 50% chance you have to detonate the nuke instead
+				add_antag_objective(/datum/objective/nuke)
+				return
+			add_antag_objective(/datum/objective/hijack)
+			return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
 	for(var/i in 1 to number_of_objectives)

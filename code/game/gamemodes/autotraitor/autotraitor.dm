@@ -71,8 +71,16 @@
 			player_count += 1
 			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
 				traitor_count += 1
+
+	for(var/mob/living/player in GLOB.mob_list)
+		if(player.client && player.stat != DEAD)
+			if(!player.mind)
 				continue
-			if(ishuman(player) || is_ai(player))
+			if(player.mind.offstation_role) //Don't count as crew.
+				continue
+			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
+				continue
+			if(ishuman(player) || (is_ai(player) && player_count >= GLOB.configuration.gamemode.min_players_malf_ai))
 				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.persistent.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 					possible_traitors += player.mind
 	for(var/datum/mind/player in possible_traitors)
