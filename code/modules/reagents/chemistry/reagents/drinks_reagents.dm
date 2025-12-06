@@ -856,7 +856,6 @@
 	name = "Bubble Tea"
 	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
 	id = "bubbletea"
-	color = "#c79a47"
 	drink_icon = "bubbletea"
 	drink_name = "Bubble Tea"
 	drink_desc = "You feel trendy for drinking this."
