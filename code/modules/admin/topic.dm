@@ -219,6 +219,7 @@
 							jobs_to_ban += temp.title
 					if("nonhumandept")
 						jobs_to_ban += "pAI"
+						jobs_to_ban += "golem"
 						for(var/jobPos in GLOB.nonhuman_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -715,6 +716,12 @@
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>pAI</a></td>"
 
+		//golem
+		if(jobban_isbanned(M, "golem"))
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=golem;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>golem</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=golem;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>golem</a></td>"
+
 		jobs += "</tr></table>"
 
 	//Antagonist (Orange)
@@ -824,6 +831,7 @@
 					joblist += temp.title
 			if("nonhumandept")
 				joblist += "pAI"
+				joblist += "golem"
 				for(var/jobPos in GLOB.nonhuman_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
