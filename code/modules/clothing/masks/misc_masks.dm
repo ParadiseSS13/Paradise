@@ -434,7 +434,7 @@
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	desc = "It's a green bandana."
-	color = "#5dca3f" //Green
+	color = "#5dca3f" // Green
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
