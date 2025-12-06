@@ -22,6 +22,7 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
+	. = ..()
 	if(!iscarbon(user))
 		return
 
