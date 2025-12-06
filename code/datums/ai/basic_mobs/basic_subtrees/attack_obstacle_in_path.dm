@@ -27,6 +27,7 @@
 	var/can_attack_dense_objects = TRUE
 
 /datum/ai_behavior/attack_obstructions/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/basic/basic_mob = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 
@@ -98,3 +99,21 @@
 /datum/ai_planning_subtree/attack_obstacle_in_path/prowl
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches
 	target_key = BB_PROWL_TARGET
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/walls
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/walls
+
+/datum/ai_behavior/attack_obstructions/walls
+	can_attack_turfs = TRUE
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/prowl/walls
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches/walls
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches/walls
+
+/datum/ai_behavior/attack_obstructions/avoid_breaches/walls
+	can_attack_turfs = TRUE

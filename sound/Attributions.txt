@@ -19,3 +19,9 @@ Moo 3 - Moo Moo the Cow by manofham (sound/creatures/cow.ogg)-- https://freesoun
 effects/voxfcaw.ogg and effects/voxrcaw.ogg are processed versions of https://opengameart.org/content/crow-caw from zeroisnotnull under CC0 1.0
 
 starline_pickup was spliced from Phone Receiver.mp3 at https://freesound.org/people/Percy%20Duke/sounds/23535/ under Attributions CC 3.0
+
+voice/scream_kidan.ogg is a modification of voice/scream_moth.ogg introduced from PR# 17000 https://github.com/ParadiseSS13/Paradise/pull/17000 — CC BY-SA 3.0 modified by iramoye(GitHub)
+
+effects/mob_effects/flap.ogg and effects/mob_effects/angryflap.ogg were taken from https://freesound.org/people/Elfman-Rox/sounds/238555/ under CC0
+
+effects/mob_effects/flutter.ogg was taken from https://freesound.org/people/Godowan/sounds/240476/ under CC0

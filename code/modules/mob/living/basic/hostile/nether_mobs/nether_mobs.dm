@@ -8,11 +8,11 @@
 	maxHealth = 80
 	obj_damage = 100
 	melee_damage_lower = 25
-	melee_damage_upper = 50
+	melee_damage_upper = 30
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/prowler
+	ai_controller = /datum/ai_controller/basic_controller/incursion
 	attack_verb_simple = "chomp"
 	attack_verb_continuous = "chomps"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -24,17 +24,9 @@
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/sweating
 	step_type = FOOTSTEP_MOB_SHOE
-	/// The chance of it being a grappler variant
-	var/grappler_chance = 20
 
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
-	if(prob(grappler_chance))
-		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
-		name = "grappling " + name
-		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/prowler(src)
-		update_appearance(UPDATE_NAME)
-		color = "#5494DA"
 	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/event_tracker, EVENT_DEMONIC)
 
