@@ -29,7 +29,7 @@
 			break
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
-	var/list/limbs = zomboid.get_damaged_organs(1,1)
+	var/list/limbs = zomboid.get_damaged_organs(TRUE,TRUE)
 	var/robotlimbbrute = 0
 	var/robotlimbburn = 0
 	for(var/obj/item/organ/external/limb in limbs)
