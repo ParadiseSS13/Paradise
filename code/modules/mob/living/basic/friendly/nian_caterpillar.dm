@@ -49,6 +49,7 @@
 
 	var/list/innate_actions = list(
 		/datum/action/innate/nian_caterpillar_emerge,
+		/datum/action/cooldown/mob_cooldown/spin_mothsilk = BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION,
 	)
 
 	/// List of stuff that we want to eat
@@ -177,6 +178,28 @@
 		user.evolve(C, H)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 
+/// Place some grappling tentacles underfoot
+/datum/action/cooldown/mob_cooldown/spin_mothsilk
+	name = "Spin Mothsilk"
+	desc = "Spin some mothsilk, consuming nutrition."
+	button_icon = 'icons/obj/stacks/organic.dmi'
+	button_icon_state = "stack-mothsilk-2"
+	cooldown_time = 20 SECONDS
+	click_to_activate = FALSE
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/spin_mothsilk/Activate(atom/target)
+	if(owner.nutrition < 425)
+		to_chat(owner, "<span class='warning'>You don't have enough nutrition to spin silk!</span>")
+		return FALSE
+	if(!do_after(owner, 3 SECONDS))
+		return FALSE
+	new /obj/item/stack/sheet/mothsilk(get_turf(owner))
+	owner.nutrition -= 15
+	owner.visible_message("<span class='notice'>[owner] spins some mothsilk!</span>")
+	StartCooldown()
+	return TRUE
+
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
@@ -190,6 +213,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/moth_caterpillar,
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
+		/datum/ai_planning_subtree/spin_mothsilk,
 		/datum/ai_planning_subtree/flee_target,
 		/datum/ai_planning_subtree/find_food/nian_caterpillar,
 	)
@@ -209,3 +233,22 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "chitters.", "chatters.")
 	emote_see = list("flutters.", "chitters.", "chatters.")
+
+/datum/ai_planning_subtree/spin_mothsilk
+	/// Key storing the mothsilk spin action
+	var/action_key = BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION
+
+/datum/ai_planning_subtree/spin_mothsilk/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/nian_caterpillar/caterpillar = controller.pawn
+	var/datum/action/cooldown/mob_cooldown/spin_mothsilk/silk_action = controller.blackboard[action_key]
+	if(caterpillar.nutrition >= 425 && silk_action.IsAvailable())
+		controller.queue_behavior(/datum/ai_behavior/spin_mothsilk, action_key)
+		return SUBTREE_RETURN_FINISH_PLANNING
+
+/datum/ai_behavior/spin_mothsilk/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
+	. = ..()
+	var/datum/action/cooldown/mob_cooldown/spin_mothsilk/silk_action = controller.blackboard[action_key]
+	var/result = silk_action.Trigger()
+	if(result)
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED

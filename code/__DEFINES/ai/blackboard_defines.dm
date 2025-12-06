@@ -244,3 +244,7 @@
 #define BB_GOLIATH_TENTACLES "BB_GOLIATH_TENTACLES"
 /// Key where goliath stores a hole it wants to get into
 #define BB_GOLIATH_HOLE_TARGET "BB_GOLIATH_HOLE"
+
+// Nian Caterpillar Keys
+/// Key that stores the silk spin ability
+#define BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION "BB_nian_caterpillar_spin_mothsilk_action"

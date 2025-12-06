@@ -166,6 +166,20 @@
 	product_type = /obj/item/smithed_item/component/lens_focus
 	basin_state = "cast_focus"
 
+/obj/item/smithing_cast/component/knife_blade
+	name = "knife blade cast"
+	desc = "A cast for creating knife blades."
+	icon_state = "knife_blade_cast"
+	product_type = /obj/item/smithed_item/component/knife_blade
+	basin_state = "cast_knife_blade"
+
+/obj/item/smithing_cast/component/knife_handle
+	name = "knife handle cast"
+	desc = "A cast for creating knife handles."
+	icon_state = "knife_handle_cast"
+	product_type = /obj/item/smithed_item/component/knife_handle
+	basin_state = "cast_knife_handle"
+
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"
 	icon_state = "trim_cast"
