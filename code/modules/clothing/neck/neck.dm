@@ -54,7 +54,7 @@
 
 	var/obj/item/organ/internal/H = heart_datum.linked_organ
 	var/obj/item/organ/internal/L = lung_datum.linked_organ
-	if(!M.pulse || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
+	if(M.heartbeat < HEARTBEAT_NONE || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
 		return
 

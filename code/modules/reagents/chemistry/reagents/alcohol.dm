@@ -6,6 +6,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	blood_pressure_change = 10
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
@@ -262,7 +263,7 @@
 	color = "#922d01"
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
-	heart_rate_increase = 1
+	heart_rate_change = 10
 	drink_icon = "thirteen_loko_glass"
 	drink_name = "Glass of Thirteen Loko"
 	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
@@ -936,7 +937,7 @@
 	color = "#185b81"
 	dizzy_adj = 12 SECONDS
 	alcohol_perc = 0.7
-	heart_rate_decrease = 1
+	heart_rate_change = -10
 	drink_icon = "neurotoxinglass"
 	drink_name = "Neurotoxin"
 	drink_desc = "A drink that is guaranteed to knock you silly."
