@@ -52,19 +52,19 @@
 /obj/item/reagent_containers/drinks/drinkingglass/on_reagent_change()
 	overlays.Cut()
 	if(length(reagents.reagent_list))
-		var/datum/reagent/R = reagents.get_master_reagent()
-		name = R.drink_name
-		desc = R.drink_desc
-		force = (istype(R, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? 10 : initial(force)
-		attack_verb = (istype(R, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
-		if(R.drink_icon)
-			icon_state = R.drink_icon
-			if((istype(R, /datum/reagent/consumable/drink/tea/bubbletea) || istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea)) && length(reagents.reagent_list) > 1)
+		var/datum/reagent/main_reagent = reagents.get_master_reagent()
+		name = main_reagent.drink_name
+		desc = main_reagent.drink_desc
+		force = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? 10 : initial(force)
+		attack_verb = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
+		if(main_reagent.drink_icon)
+			icon_state = main_reagent.drink_icon
+			if((main_reagent.id == "bubbletea" || main_reagent.id == "bubblemilktea") && length(reagents.reagent_list) > 1)
 				customize_bubble_tea()
 		else
-			var/image/I = image(icon, "glassoverlay")
-			I.color = mix_color_from_reagents(reagents.reagent_list)
-			overlays += I
+			var/image/drink_image = image(icon, "glassoverlay")
+			drink_image.color = mix_color_from_reagents(reagents.reagent_list)
+			overlays += drink_image
 	else
 		force = initial(force)
 		attack_verb = initial(attack_verb)
@@ -75,29 +75,32 @@
 /obj/item/reagent_containers/drinks/drinkingglass/proc/customize_bubble_tea()
 	if(length(reagents.reagent_list) < 2)
 		return
-	var/datum/reagent/R = reagents.get_master_reagent()
-	if(!(istype(R, /datum/reagent/consumable/drink/tea/bubbletea) || istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea)))
+	var/datum/reagent/main_reagent = reagents.get_master_reagent()
+	if(!(main_reagent.id == "bubbletea" || main_reagent.id == "bubblemilktea"))
 		return
-	var/datum/reagent/S //sub-master reagent, second by volume
+
+	var/datum/reagent/coloring_reagent //sub-master reagent, second by volume
 	var/max_volume = 0
-	for(var/datum/reagent/A in reagents.reagent_list)
-		if(A.volume > max_volume && A != R)
-			max_volume = A.volume
-			S = A
-	var/image/I = image(icon, (istype(R, /datum/reagent/consumable/drink/tea/bubbletea) ? "bubbletea_overlay" : "bubblemilktea_overlay"))
-	I.color = S.color
-	if(istype(R, /datum/reagent/consumable/drink/tea/bubblemilktea))
-		var/milky_color = match_hue("#F7E0C5", S.color)
-		if(rgb2num(milky_color, COLORSPACE_HSL)[2] > rgb2num(S.color, COLORSPACE_HSL)[2]) //if the color is less saturated, use that color's saturation. So we don't end up with pink milk and sugar.
-			milky_color = match_saturation(milky_color, S.color)
-		I.color = milky_color
-	overlays += I
-	name = istype(S, /datum/reagent/consumable) ? "Glass of [S.name] [R.name]" : "Glass of Surprise [R.name]"
+	for(var/datum/reagent/one_reagent in reagents.reagent_list)
+		if(one_reagent.volume > max_volume && one_reagent != main_reagent)
+			max_volume = one_reagent.volume
+			coloring_reagent = one_reagent
+
+	var/image/drink_overlay = image(icon, (main_reagent.id == "bubbletea" ? "bubbletea_overlay" : "bubblemilktea_overlay"))
+	if(main_reagent.id == "bubblemilktea")
+		var/milky_color = match_hue("#F7E0C5", coloring_reagent.color)
+		if(rgb2num(milky_color, COLORSPACE_HSL)[2] > rgb2num(coloring_reagent.color, COLORSPACE_HSL)[2]) //if the color is less saturated, use that color's saturation. So we don't end up with pink milk and sugar.
+			milky_color = match_saturation(milky_color, coloring_reagent.color)
+		drink_overlay.color = milky_color
+	else
+		drink_overlay.color = coloring_reagent.color
+
+	overlays += drink_overlay
+	name = istype(coloring_reagent, /datum/reagent/consumable) ? "Glass of [coloring_reagent.name] [main_reagent.name]" : "Glass of Surprise [main_reagent.name]"
 
 // for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
-
 
 /obj/item/reagent_containers/drinks/drinkingglass/cola
 	list_reagents = list("cola" = 50)
