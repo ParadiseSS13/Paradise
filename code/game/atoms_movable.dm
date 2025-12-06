@@ -341,6 +341,12 @@
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
 		return FALSE
 
+	for(var/mob/buckled_mob as anything in buckled_mobs) // added because set_glide_size() on this atom won't update buckled mobs if this atom's glide size hasn't changed
+		if(glide_size_override && buckled_mob.glide_size != glide_size_override)
+			buckled_mob.set_glide_size(glide_size_override)
+		else if(buckled_mob.glide_size != glide_size)
+			buckled_mob.set_glide_size(glide_size)
+
 	if(glide_size_override && glide_size != glide_size_override)
 		set_glide_size(glide_size_override)
 
