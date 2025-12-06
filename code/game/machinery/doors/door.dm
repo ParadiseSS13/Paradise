@@ -313,9 +313,11 @@
 /obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-	else if(istype(used, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+	if(istype(used, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		construct_barricade(used, user)
-	else if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return ITEM_INTERACT_COMPLETE
 
