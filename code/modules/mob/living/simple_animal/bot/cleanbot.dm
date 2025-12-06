@@ -40,7 +40,8 @@
 		/obj/effect/decal/cleanable/ash,
 		/obj/effect/decal/cleanable/greenglow,
 		/obj/effect/decal/cleanable/dirt,
-		/obj/effect/decal/cleanable/glass
+		/obj/effect/decal/cleanable/glass,
+		/obj/effect/decal/cleanable/paint_splat
 	)
 	var/static/list/clean_blood = list(
 		/obj/effect/decal/cleanable/blood,
