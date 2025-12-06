@@ -1964,6 +1964,9 @@
 				if(status == "cybernetic")
 					I.robotize()
 
+	// Send signal that robotic limbs have been applied
+	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+
 	character.dna.blood_type = b_type
 
 	// Wheelchair necessary?
