@@ -26,7 +26,7 @@
 		if(tgui_alert(usr, "Are you really sure you want to delete all objects of type [type]?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
-		if(tgui_alert("Second confirmation required. Delete?", "Confirm", list("Yes", "No")) != "Yes")
+		if(tgui_alert(usr, "Second confirmation required. Delete?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 		var/O_type = type
