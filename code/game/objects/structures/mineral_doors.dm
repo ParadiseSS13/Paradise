@@ -135,7 +135,7 @@
 	if(!(do_after_once(user, 4 SECONDS, target = src)))
 		return FINISH_ATTACK
 	if(!S.use(2))
-		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+		to_chat(user, "<span class='warning'>You ran out of planks!</span>")
 		return FINISH_ATTACK
 	if(!barricaded) //one last check in case someone pre-barricades it
 		if(!density)

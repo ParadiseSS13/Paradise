@@ -168,7 +168,7 @@
 			to_chat(user, "<span class='notice'> You repair [src].</span>")
 			user.visible_message("<span class='notice'> [user] repairs [src].</span>")
 			obj_integrity = max_integrity
-			src.add_fingerprint(user)
+			add_fingerprint(user)
 	return FINISH_ATTACK
 
 /obj/structure/barricade/wooden/crude/snow
