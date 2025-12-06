@@ -3452,7 +3452,7 @@
 /area/space/nearstation)
 "aBe" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "aBj" = (
 /obj/machinery/newscaster/security_unit/directional/east,
@@ -16831,9 +16831,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"cFY" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "cFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -59500,7 +59497,7 @@
 /area/station/service/clown/secret)
 "lHH" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/structure/sign/directions/medical{
@@ -157779,20 +157776,20 @@ cVL
 bhO
 bhO
 uSP
-cFY
-cFY
+uSP
+uSP
 ghi
-cFY
+uSP
 pkt
 pkt
 pkt
 pkt
-cFY
+uSP
 ghi
-cFY
-cFY
-cFY
-cFY
+uSP
+uSP
+uSP
+uSP
 rNK
 rNK
 rNK
@@ -158035,7 +158032,7 @@ bhO
 bhO
 bhO
 uSP
-cFY
+uSP
 uOy
 nKF
 mvN
@@ -158290,8 +158287,8 @@ vjb
 xvu
 bhO
 uSP
-cFY
-cFY
+uSP
+uSP
 lHH
 nAT
 xbJ
@@ -158549,7 +158546,7 @@ bhO
 pkt
 gVJ
 cpG
-cFY
+uSP
 qRY
 xbJ
 mvN
@@ -158819,8 +158816,8 @@ fCN
 qBa
 sPt
 omE
-cFY
-cFY
+uSP
+uSP
 rNK
 rNK
 rNK
@@ -159063,7 +159060,7 @@ bhO
 pkt
 cIb
 uzF
-cFY
+uSP
 nWk
 xbJ
 mvN
@@ -159318,8 +159315,8 @@ vjb
 xvu
 bhO
 uSP
-cFY
-cFY
+uSP
+uSP
 aBe
 kic
 xbJ
@@ -159577,7 +159574,7 @@ bhO
 bhO
 bhO
 uSP
-cFY
+uSP
 rrx
 hay
 mvN
@@ -159835,20 +159832,20 @@ cVL
 bhO
 bhO
 uSP
-cFY
-cFY
+uSP
+uSP
 pdu
-cFY
+uSP
 pkt
 pkt
 pkt
 pkt
-cFY
+uSP
 pdu
-cFY
-cFY
-cFY
-cFY
+uSP
+uSP
+uSP
+uSP
 rNK
 rNK
 rNK

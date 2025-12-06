@@ -12,6 +12,7 @@
 	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, RAD = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
+	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 	var/id_tag = 1.0
 	var/protected = 1
 
