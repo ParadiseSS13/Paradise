@@ -15,8 +15,8 @@
 	var/datum/fluid_pipe/fluid_datum
 	/// Is this fluid machinery or just a pipe
 	var/just_a_pipe = TRUE
-	/// How many neighbours do we have? `DO NOT VAREDIT THIS`
-	var/neighbours = 0
+	/// How many neighbors do we have? `DO NOT VAREDIT THIS`
+	var/neighbors = 0
 	/// How much fluid units can we fit in this pipe?
 	var/capacity = 50
 	/// What directions do we look for connecting? Cardinals by default
@@ -78,8 +78,8 @@
 	is_connected = TRUE
 	pipe_to_connect_to.is_connected = TRUE
 
-	update_neighbours()
-	pipe_to_connect_to.update_neighbours()
+	update_neighbors()
+	pipe_to_connect_to.update_neighbors()
 
 	update_icon()
 	pipe_to_connect_to.update_icon()
@@ -101,16 +101,16 @@
 			if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
 				pipe.fluid_datum.add_pipe(src)
 
-			update_neighbours()
-			pipe.update_neighbours()
+			update_neighbors()
+			pipe.update_neighbors()
 			continue
 
 		if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
 			fluid_datum = new(src)
 
 		fluid_datum.add_pipe(pipe)
-		update_neighbours()
-		pipe.update_neighbours()
+		update_neighbors()
+		pipe.update_neighbors()
 		pipe.is_connected = TRUE
 		is_connected = TRUE
 		// Normally you'd update icons here, however we do that at the end otherwise lag may happen
@@ -118,7 +118,7 @@
 
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
 	is_connected = FALSE
-	if(neighbours <= 1) // Sad and alone
+	if(neighbors <= 1) // Sad and alone
 		fluid_datum = null
 		return
 
@@ -136,8 +136,8 @@
 
 	update_icon()
 
-/obj/machinery/fluid_pipe/proc/update_neighbours()
-	neighbours = length(get_adjacent_pipes())
+/obj/machinery/fluid_pipe/proc/update_neighbors()
+	neighbors = length(get_adjacent_pipes())
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
 	if(..())

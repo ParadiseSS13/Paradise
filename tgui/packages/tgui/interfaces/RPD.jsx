@@ -488,7 +488,7 @@ const TransitTubeContent = (props) => {
 
 const FluidPipeContent = (props) => {
   const { act, data } = useBackend();
-  const { pipe_category, pipelist, whatttube, iconrotation } = data;
+  const { pipe_category, pipelist, what_f_pipe, iconrotation } = data;
   let fluid_pipe_type = 4;
 
   return (
@@ -506,8 +506,8 @@ const FluidPipeContent = (props) => {
                         fluid
                         content={p.pipe_name}
                         icon="cog"
-                        selected={p.pipe_id === whatttube}
-                        onClick={() => act('whatttube', { whatttube: p.pipe_id })}
+                        selected={p.pipe_id === what_f_pipe}
+                        onClick={() => act('what_f_pipe', { what_f_pipe: p.pipe_id })}
                         style={{ marginBottom: '2px' }}
                       />
                     </Box>
@@ -522,7 +522,7 @@ const FluidPipeContent = (props) => {
               <Grid.Column>
                 <ActionButtons />
                 {pipelist
-                  .filter((p) => p.pipe_type === fluid_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
+                  .filter((p) => p.pipe_type === fluid_pipe_type && p.pipe_id === what_f_pipe && p.orientations !== 1)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
                       <Grid>

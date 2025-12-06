@@ -29,13 +29,13 @@ GLOBAL_LIST_EMPTY(fluid_name_to_path)
 	var/list/current_run = currentrun
 
 	while(length(current_run))
-		var/datum/thing = current_run[length(current_run)]
+		var/datum/pipe = current_run[length(current_run)]
 		current_run.len--
-		if(QDELETED(thing))
-			processing -= thing
-		else if(thing.process(wait) == PROCESS_KILL)
+		if(QDELETED(pipe))
+			processing -= pipe
+		else if(pipe.process(wait) == PROCESS_KILL)
 			// fully stop so that a future START_PROCESSING will work
-			STOP_PROCESSING(src, thing)
+			STOP_PROCESSING(src, pipe)
 		if(MC_TICK_CHECK)
 			return
 
@@ -43,8 +43,8 @@ GLOBAL_LIST_EMPTY(fluid_name_to_path)
 		return
 	for(var/rebuild_list as anything in datums_to_rebuild)
 		var/datum/fluid_pipe/pipe = rebuild_list[1]
-		var/list/neighbours = rebuild_list[2]
+		var/list/neighbors = rebuild_list[2]
 
-		pipe.rebuild_pipenet(neighbours)
+		pipe.rebuild_pipenet(neighbors)
 
 	datums_to_rebuild = list()

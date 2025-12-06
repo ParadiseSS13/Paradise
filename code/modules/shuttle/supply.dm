@@ -90,21 +90,21 @@
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
 
-	var/timeLeft = timeLeft(1)
+	var/time_left = timeLeft(1 DECISECONDS)
 
-	if(timeLeft <= 0)
+	if(time_left <= 0)
 		switch(mode)
 			if(SHUTTLE_CALL)
 				if(dock(destination))
-					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					setTimer(2 SECONDS)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_RECALL)
 				if(dock(previous))
-					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					setTimer(2 SECONDS)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
 				if(!check_transit_zone())
-					setTimer(20)
+					setTimer(2 SECONDS)
 					return
 				mode = SHUTTLE_CALL
 

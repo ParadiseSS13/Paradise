@@ -38,7 +38,7 @@
 	/// What kind of transit tube are we trying to lay?
 	var/whatttube = PIPE_TRANSIT_TUBE
 	/// What kind of fluid pipe are we trying to lay?
-	var/whatfpipe = PIPE_FLUID
+	var/what_f_pipe = PIPE_FLUID
 	/// Cooldown on RPD use.
 	var/spawndelay = RPD_COOLDOWN_TIME
 	/// Time taken to drill a borehole before the pipe can be laid.
@@ -158,11 +158,11 @@
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_fluid_pipe(mob/user, turf/dest)
-	if(!can_dispense_pipe(whatttube, PIPETYPE_FLUID))
-		CRASH("Failed to spawn [get_pipe_name(whatttube, PIPETYPE_FLUID)] - possible tampering detected")
+	if(!can_dispense_pipe(what_f_pipe, PIPETYPE_FLUID))
+		CRASH("Failed to spawn [get_pipe_name(what_f_pipe, PIPETYPE_FLUID)] - possible tampering detected")
 
 	for(var/datum/pipes/fluid/T in GLOB.construction_pipe_list)
-		if(T.pipe_id == whatttube)
+		if(T.pipe_id == what_f_pipe)
 			var/obj/machinery/fluid_pipe/pipe = new T.construction_type(dest, iconrotation ? iconrotation : EAST) // I have no idea what I'm doing
 			pipe.dir = iconrotation ? iconrotation : EAST
 			activate_rpd(TRUE)
@@ -265,6 +265,7 @@
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
 	data["whatttube"] = whatttube
+	data["what_f_pipe"] = what_f_pipe
 	data["auto_wrench_toggle"] = auto_wrench_toggle
 	return data
 
@@ -283,6 +284,8 @@
 			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatttube")
 			whatttube = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("what_f_pipe")
+			what_f_pipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
 			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")

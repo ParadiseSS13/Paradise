@@ -73,7 +73,7 @@
 	// As much as it pains me, we have to do this first so we start with a clean slate and can make new pipenets
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
 		pipe.fluid_datum = null
-		pipe.neighbours = 0
+		pipe.neighbors = 0
 
 	// This has to go after the previous loop because otherwise some datums aren't nulled
 	for(var/obj/machinery/fluid_pipe/pipe as anything in broken_neighbours)
@@ -247,8 +247,8 @@
 /datum/fluid_pipe/proc/fluid_explosion(obj/machinery/fluid_pipe/pipe, severity)
 	var/explode_fluid_amount = 0
 	var/explode_fluid_severity = 0
-	// What amount do we need to remove from each liquid // This is weird wording and not entirely correct
-	// To make the explosions stop a bit earlier, we double the amount used up
+	// How much fluid is in this pipe?
+	// This is the ratio of fluids that we remove from the total amounts so we simulate "realistical" thermodynamics
 	var/ratio_removal = 1 - ((pipe.capacity / total_capacity) * 2)
 
 	for(var/datum/fluid/liquid in fluids)
