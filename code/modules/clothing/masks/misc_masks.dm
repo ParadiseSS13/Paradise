@@ -444,14 +444,14 @@
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	desc = "It's a purple bandana."
-	color = "#ab73ce" //Purple
+	color = "#ab73ce" // Purple
 
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	desc = "It's a black bandana."
-	color = "#4A4A4B" //Black
+	color = "#4A4A4B" // Black
 
-//These bandanas use unique sprites
+// These bandanas use unique sprites
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
