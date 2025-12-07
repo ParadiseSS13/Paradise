@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
 		new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
-		new /datum/stack_recipe("imrovised drapes", /obj/item/surgical_drapes/improvised, 1),
+		new /datum/stack_recipe("improvised drapes", /obj/item/surgical_drapes/improvised, 1),
 		)),
 	null,
 ))
@@ -576,9 +576,9 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 		new /datum/stack_recipe/cult("runed metal table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+		new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		)),
 	new /datum/stack_recipe_list("workstations", list(
-		new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -727,7 +727,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("machine repair kit", /obj/item/storage/firstaid/machine, 4),
 		new /datum/stack_recipe("aquatic starter kit", /obj/item/storage/firstaid/aquatic_kit, 4),
 		)),
-	new /datum/stack_recipe_list("liquids", list(
+	new /datum/stack_recipe_list("fluid containers", list(
 		new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
 		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
 		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
