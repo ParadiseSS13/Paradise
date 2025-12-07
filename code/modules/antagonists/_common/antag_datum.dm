@@ -406,6 +406,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return
 
 /**
+ * Check if this antag can be assigned hijack.
+ */
+/datum/antagonist/proc/can_assign_hijack_objective()
+	return FALSE
+
+/**
  * Create and assign a full set of randomized, basic human traitor objectives.
  * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
@@ -413,10 +419,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		// Check if hijack is allowed based on player count and number of sec
-		var/hijack_allowed = FALSE
-		if(istype(src, /datum/antagonist/traitor))
-			var/datum/antagonist/traitor/traitor_datum = src
-			hijack_allowed = traitor_datum.can_assign_hijack_objective()
+		var/hijack_allowed = can_assign_hijack_objective()
 
 		if(hijack_allowed)
 			if(prob(50)) // 50% chance you have to detonate the nuke instead
