@@ -221,7 +221,7 @@
 	)
 
 /obj/item/clothing/under/skulk/skulkcasual
-	name = "Collective Jumpsuit"
+	name = "collective jumpsuit"
 	desc = "A grey, insulated jumpsuit made from a hardweave composite. Despite their cheap, mass-produced nature, this suit is seen on every caste from the lowliest Agrolyte to the Prodigium themselves."
 	icon_state = "skulkcasual"
 	worn_icon_state = "skulkcasual"

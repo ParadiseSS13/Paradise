@@ -1664,3 +1664,38 @@
 		P.owner = H.real_name
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
+
+/datum/outfit/admin/collective/supreme
+	name = "Supreme-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/supremeinquis
+	r_ear = /obj/item/radio/headset/alt
+	head = /obj/item/clothing/head/supremeinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	l_pocket = /obj/item/melee/energy/sword/saber/purple
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/collective/low
+	name = "Low-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/hooded/lowinquis
+	r_ear = /obj/item/radio/headset/alt
+	mask = /obj/item/clothing/mask/lowinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/storage/box/survival = 1,
+		/obj/item/shield/energy = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)

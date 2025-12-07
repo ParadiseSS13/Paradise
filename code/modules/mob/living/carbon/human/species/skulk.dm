@@ -137,7 +137,7 @@
 	if(user.get_active_hand() && user.get_inactive_hand())
 		to_chat(H, "<span class='warning'>You don't have any free hands!</span>")
 		return
-	H.visible_message("<span class='notice'>[H] You begin spinning a small amount of silk...</span>", "<span class='notice'>Placeholder... (This will take [5] seconds, and you must hold still.)</span>")
+	H.visible_message("<span class='notice'>[H] You begin spinning a small amount of silk...</span>", "<span class='notice'>You begin spinning a small amount of silk... (This will take [5] seconds, and you must hold still.)</span>")
 	if(!do_after_once(H, 5 SECONDS, TRUE, H, attempt_cancel_message = "You stop spinning silk."))
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot spin silk in your current state!</span>")

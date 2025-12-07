@@ -1530,7 +1530,7 @@
 // For Skulk Clothing
 
 /obj/item/clothing/suit/hooded/lowinquis
-	name = "Low-Inquisitor Robes"
+	name = "low-inquisitor robes"
 	desc = "A set of red and silver Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
 	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
@@ -1545,7 +1545,7 @@
 	species_restricted = list("Skkulakin")
 
 /obj/item/clothing/head/hooded/lowinquis
-	name = "Low-Inquisitor Hood"
+	name = "low-inquisitor hood"
 	desc = "A hood attached to inquisitorial robes."
 	icon = 'icons/obj/clothing/species/skkulakin/hats.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/head.dmi'
@@ -1557,7 +1557,7 @@
 	species_restricted = list("Skkulakin")
 
 /obj/item/clothing/mask/lowinquis
-	name = "Low-Inquisitor Mask"
+	name = "low-inquisitor mask"
 	desc = "A silver mask affixed to a balaclava designed to easily fit the face of a Skkulakin. Despite its retinal scanners being disabled, it still protects the user from bright flashes."
 	icon = 'icons/obj/clothing/species/skkulakin/masks.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/mask.dmi'
@@ -1570,7 +1570,7 @@
 	species_restricted = list("Skkulakin")
 
 /obj/item/clothing/suit/supremeinquis
-	name = "Supreme-Inquisitor Robes"
+	name = "supreme-inquisitor robe"
 	desc = "Beautiful, gilded robes adorned with runes, symbols, and Collective imagery."
 	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
@@ -1578,10 +1578,13 @@
 	armor = list(MELEE = 15, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 0, ACID = 50)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	insert_max = 3
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	species_restricted = list("Skkulakin")
 
 /obj/item/clothing/head/supremeinquis
-	name = "Supreme-Inquisitor Helmet"
+	name = "supreme-inquisitor helmet"
 	desc = "An electrum-alloy helmet designed to fit the head of a Skkulakin. Offering protection from threats both physical and paranormal."
 	icon = 'icons/obj/clothing/species/skkulakin/hats.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/head.dmi'
