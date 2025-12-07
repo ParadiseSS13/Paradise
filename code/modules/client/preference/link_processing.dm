@@ -1068,6 +1068,9 @@
 				if("dark_flash")
 					toggles3 ^= PREFTOGGLE_3_DARK_FLASH
 
+				if("toggle_post_credits")
+					toggles3 ^= PREFTOGGLE_3_POSTCREDS
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
