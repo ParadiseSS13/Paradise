@@ -335,6 +335,7 @@
 /mob/living/simple_animal/pet/dog/corgi/ian/Initialize(mapload)
 	. = ..()
 	SSpersistent_data.register(src)
+	GLOB.station_pets += src
 
 /mob/living/simple_animal/pet/dog/corgi/ian/Destroy()
 	SSpersistent_data.registered_atoms -= src

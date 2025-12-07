@@ -286,16 +286,24 @@
 		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	if(M.zone_selected == "head")
-		M.visible_message(\
-		"<span class='notice'>[M] pats [src] on the head.</span>",\
-		"<span class='notice'>You pat [src] on the head.</span>",\
-		)
-		return
-	M.visible_message(\
-	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-	"<span class='notice'>You hug [src].</span>",\
+
+	switch(M.zone_selected)
+		if("head")
+			M.visible_message(
+				"<span class='notice'>[M] pats [src] on the head.</span>",
+				"<span class='notice'>You pat [src] on the head.</span>",
+			)
+			return
+		if("l_hand", "r_hand")
+			M.emote("handshake")
+			return
+
+	M.visible_message(
+		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",
+		"<span class='notice'>You hug [src].</span>",
 	)
+
+
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.wear_suit)
@@ -402,7 +410,7 @@
 	if((E?.status & ORGAN_DEAD) || E?.is_broken() || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -1049,7 +1057,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
 		return
 	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
-		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
+		severity = clamp(severity, EMP_RESIST_ORGAN, EMP_WEAKENED)
 	for(var/X in internal_organs)
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)

@@ -1156,6 +1156,11 @@
 /obj/machinery/power/apc/reinforced/critical
 	cell_type = 25000
 
+/obj/machinery/power/apc/unbuilt
+
+/obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
+	. = ..(building = TRUE)
+
 /obj/machinery/power/apc/rust_heretic_act()
 	obj_integrity -= 35
 	return
@@ -1171,6 +1176,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/important, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/unbuilt, 24, 24)
 
 
 /obj/item/apc_electronics
