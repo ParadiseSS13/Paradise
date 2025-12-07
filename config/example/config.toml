@@ -694,6 +694,8 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_skullakin.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/alien_cache_site.dmm",
 
+  "_maps/map_files/RandomRuins/SpaceRuins/AZERTY.dmm",
+
   ### The following ruins are based from past pre-spawned Zlevel content ###
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
