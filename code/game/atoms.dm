@@ -1096,7 +1096,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			clean_feet = FALSE
 	if(!(wear_suit?.flags_inv & HIDESUITSTORAGE))
 		s_store?.clean_blood(radiation_clean)
-	if(!(head && head.flags_inv & HIDEMASK))
+	if(!(head?.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(!(wear_mask?.flags_inv & HIDEEYES))
