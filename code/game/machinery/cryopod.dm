@@ -713,10 +713,11 @@
 
 	return ..()
 
-
+/// Teleport an SSD human inside a cryopod, or a robot to a robot storage unit, but do not despawn them.
 /proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return FALSE
+
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
@@ -735,11 +736,14 @@
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return TRUE
+			
 	return FALSE
 
-/proc/force_cryo_human(mob/living/carbon/person_to_cryo)
-	if(!istype(person_to_cryo))
+/// Immeditely teleport a human or robot to cryo and then despawn them.
+/proc/force_cryo(mob/living/person_to_cryo)
+	if(!ishuman(person_to_cryo) && !isrobot(person_to_cryo))
 		return
+
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		cryo_ssd(person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
