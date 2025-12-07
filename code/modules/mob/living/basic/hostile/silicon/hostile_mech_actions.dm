@@ -26,6 +26,11 @@
 	desc = "Fire a light missile at the target."
 	projectile = /obj/projectile/missile/light
 
+/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/medium_missile
+	name = "Medium Missile Launcher"
+	desc = "Fire a moderately-sized missile at the target."
+	projectile = /obj/projectile/missile/medium
+
 /datum/action/cooldown/mob_cooldown/hostile_mech/launcher/malf_grenade
 	name = "Malfunctioning Grenade Launcher"
 	desc = "Fire a grenade at the target."
@@ -69,4 +74,26 @@
 		mech.shoot_projectile(target, /obj/projectile/bullet/midbullet2, angle_to_target + variance)
 		variance += 10
 	playsound(get_turf(mech), 'sound/weapons/gunshots/gunshot_shotgun.ogg', 100, TRUE, 2)
+	StartCooldown()
+
+/datum/action/cooldown/mob_cooldown/hostile_mech/lasershot
+	name = "Lasershot"
+	button_icon_state = "mecha_laser_shotgun"
+	desc = "Fire a heavy laser shotgun at a target."
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	cooldown_time = 6 SECONDS
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/hostile_mech/lasershot/Activate(atom/target)
+	. = ..()
+	var/mob/living/basic/hostile_mech/mech = owner
+	if(!istype(mech))
+		return
+	var/angle_to_target = get_angle(mech, target)
+
+	var/variance = -20
+	for(var/i in 1 to 15)
+		mech.shoot_projectile(target, /obj/projectile/beam/scatter/eshotgun, angle_to_target + variance)
+		variance += 2.6
+	playsound(get_turf(mech), 'sound/weapons/lasercannonfire.ogg', 100, TRUE, 2)
 	StartCooldown()

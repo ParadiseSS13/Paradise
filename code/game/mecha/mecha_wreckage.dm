@@ -224,3 +224,7 @@
 			/obj/item/mecha_parts/part/nkarrdem_left_leg,
 			/obj/item/mecha_parts/part/nkarrdem_right_leg
 	)
+
+/obj/structure/mecha_wreckage/archange
+	name = "\improper Archange wreckage"
+	icon_state = "archange-broken"
