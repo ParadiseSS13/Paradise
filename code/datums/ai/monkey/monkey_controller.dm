@@ -103,14 +103,13 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	set_trip_mode(mode = TRUE)
 
-/datum/ai_controller/monkey/on_stat_changed(mob/living/source, new_stat)
-	. = ..()
-	update_able_to_run()
-
 /datum/ai_controller/monkey/get_able_to_run()
 	var/mob/living/living_pawn = pawn
 
 	if(living_pawn.stat || living_pawn.incapacitated())
+		return AI_UNABLE_TO_RUN
+
+	if(living_pawn.ckey || living_pawn.client)
 		return AI_UNABLE_TO_RUN
 	return ..()
 
