@@ -37,6 +37,51 @@
 /obj/item/cane/get_crutch_efficiency()
 	return 2
 
+/obj/item/blindcane
+	name = "white cane"
+	desc = "A white cane for the visually impaired to feel their way around, though not sturdy enough to lean on. It easily folds up into a bag or pocket."
+	icon = 'icons/obj/weapons/melee.dmi' // Smack!
+	icon_state = "blindcane"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	flags = CONDUCT
+	force = 5
+	throwforce = 7
+	w_class = WEIGHT_CLASS_SMALL // Canes can fold up to fit in bags or pockets
+	materials = list(MAT_METAL = 50)
+	attack_verb = list("smacked", "whacked", "bumped", "struck")
+	new_attack_chain = TRUE
+
+/obj/item/blindcane/pre_attack(atom/target, mob/living/user, params)
+	. = ..()
+	if(!(ismob(target) || istype(target, /obj/structure) || istype(target, /obj/machinery)))
+		return
+
+	if(user.a_intent == INTENT_HELP)
+		user.do_attack_animation(target)
+		user.visible_message(
+			"<span class='notice'>[user] has prodded [target] with [src].</span>",
+			"<span class='notice'>You prod [target] with [src].</span>"
+		)
+		if(HAS_TRAIT(user, TRAIT_BLIND))
+			to_chat(user, "<span class='notice'>You feel [target] with [src].</span>")
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+
+	else if(user.a_intent == INTENT_DISARM && ismob(target)) //Harmless smack
+		user.visible_message(
+			"<span class='notice'>[user] harmlessly slaps [target] with the end of the white cane.</span>",
+			"<span class='notice'>You harmlessly slap [target] with the end of the white cane.</span>"
+		)
+		if(HAS_TRAIT(user, TRAIT_BLIND))
+			to_chat(user, "<span class='notice'>You harmlessly slap [target] with the end of the white cane.</span>")
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+
+	else // If the user is not on help or disarm intent
+		return // Harmful smack
+
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
+
 /obj/item/crutches
 	name = "crutches"
 	desc = "A medical device to help those who have injured or missing legs to walk."
