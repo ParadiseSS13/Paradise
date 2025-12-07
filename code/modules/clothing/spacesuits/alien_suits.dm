@@ -210,18 +210,19 @@
 	if(magpulse)
 		. += "It would be hard to take these off without relaxing your grip first."//theoretically this message should only be seen by the wearer when the claws are equipped.
 
-// Skkulakin Clothing
+// Skkulakin Uniform
 
 /obj/item/clothing/under/skulk
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	worn_icon = 'icons/mob/clothing/species/vox/under/misc.dmi'
-	species_restricted = list("Skkulakin")
+	icon = 'icons/obj/clothing/species/skkulakin/uniforms.dmi'
+	worn_icon = 'icons/mob/clothing/species/skkulakin/under/misc.dmi' //Placeholder, change if you want to add more stuff
+	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
-		"Skkulakin" = 'icons/mob/clothing/species/vox/under/misc.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
 	)
 
-/obj/item/clothing/under/skulk/skulk_casual
+/obj/item/clothing/under/skulk/skulkcasual
 	name = "Collective Jumpsuit"
 	desc = "A grey, insulated jumpsuit made from a hardweave composite. Despite their cheap, mass-produced nature, this suit is seen on every caste from the lowliest Agrolyte to the Prodigium themselves."
-	icon_state = "skulk-casual-1"
-	worn_icon_state = "skulk-jumpsuit"
+	icon_state = "skulkcasual"
+	worn_icon_state = "skulkcasual"
+	species_restricted = list("Skkulakin")

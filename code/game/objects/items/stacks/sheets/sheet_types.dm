@@ -794,7 +794,7 @@ GLOBAL_LIST_INIT(silk_recipes, list(
 
 /obj/item/stack/sheet/silk
 	name = "silk spool"
-	desc = "placeholder"
+	desc = "A well-woven sheet of skkulakin silk. Looks like it can be used for crafting."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-silk"
 	singular_name = "silk spool"

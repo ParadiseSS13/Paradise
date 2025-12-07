@@ -424,8 +424,8 @@
 	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ","ᖋリᒣ|:॥.","ᒣ⍑ᒷ ▭","⍊ᒷ∷","ᒷ⎓","╎リ┤ ▭ ⍑╎ᒲ")
 
 /datum/language/skulk/get_random_name()
-	var/new_name = "[pick("Akki","Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv","Llav","Vykke","Hakki","Askki","Tavv")]"
-	new_name += "-[pick("Akki","Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv", "Llav","Vykke","Hakki","Askki","Tavv")]"
+	var/new_name = "[pick("Akki","Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv","Llav","Vykke","Hakki","Askki","Tavv","Maskii","Tokko","Kkavik","Morkk","Savv")]"
+	new_name += "-[pick("Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv", "Llav","Vykke","Hakki","Askki","Tavv","Maskii","Tokko","Kkavik","Morkk","Savv")]"
 	return new_name
 
 /datum/language/common
