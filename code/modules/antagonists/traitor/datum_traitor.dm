@@ -354,7 +354,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /// Helper functions for hijack pop checks
 
-/datum/antagonist/traitor/proc/can_assign_hijack_objective()
+/datum/antagonist/traitor/can_assign_hijack_objective()
 	var/total_players
 	if(is_roundstart)
 		total_players = GLOB.roundstart_ready_players
