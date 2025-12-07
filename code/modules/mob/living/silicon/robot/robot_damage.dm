@@ -47,6 +47,10 @@
 			setStaminaLoss(0, FALSE)
 			update_stamina_hud()
 
+	// Keep SSD robots eepy.
+	if(player_logged)
+		Sleeping(4 SECONDS)
+
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
 	for(var/V in components)
