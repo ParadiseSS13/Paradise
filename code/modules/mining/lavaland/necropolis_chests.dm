@@ -92,7 +92,7 @@
 	icon_state = "datadisk1"
 	var/modkit_design
 
-/obj/item/disk/design_disk/modkit_disk/New()
+/obj/item/disk/design_disk/modkit_disk/Initialize(mapload)
 	. = ..()
 	if(modkit_design)
 		blueprint = new modkit_design

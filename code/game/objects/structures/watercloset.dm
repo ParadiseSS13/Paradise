@@ -720,8 +720,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 	result = /obj/structure/sink
 	result_name = "sink"
 
-/obj/item/bathroom_parts/New()
-	..()
+/obj/item/bathroom_parts/Initialize(mapload)
+	. = ..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
 /obj/item/bathroom_parts/activate_self(mob/user)

@@ -199,18 +199,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	scatter_distance = 5
 
-/obj/item/New()
-	..()
-
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
-	LAZYINITLIST(attack_verb)
-	if(!move_resist)
-		determine_move_resist()
-
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
@@ -219,6 +207,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+	LAZYINITLIST(attack_verb)
+	if(!move_resist)
+		determine_move_resist()
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)

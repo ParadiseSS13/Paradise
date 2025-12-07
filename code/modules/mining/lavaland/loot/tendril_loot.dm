@@ -30,8 +30,8 @@
 
 /obj/item/shared_storage/red
 
-/obj/item/shared_storage/red/New()
-	..()
+/obj/item/shared_storage/red/Initialize(mapload)
+	. = ..()
 	if(!bag)
 		var/obj/item/storage/backpack/shared/S = new(src)
 		var/obj/item/shared_storage/blue = new(loc)
@@ -323,8 +323,8 @@
 	desc = "A mysterious red cube."
 	icon_state = "red_cube"
 
-/obj/item/warp_cube/red/New()
-	..()
+/obj/item/warp_cube/red/Initialize(mapload)
+	. = ..()
 	if(!linked)
 		var/obj/item/warp_cube/blue = new(src.loc)
 		linked = blue

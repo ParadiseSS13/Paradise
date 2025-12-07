@@ -18,8 +18,8 @@
 	/// The cooldown between each mopping sound effect
 	var/mop_sound_cooldown
 
-/obj/item/mop/New()
-	..()
+/obj/item/mop/Initialize(mapload)
+	. = ..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
 
@@ -109,8 +109,8 @@
 	/// Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 	var/refill_reagent = "water"
 
-/obj/item/mop/advanced/New()
-	..()
+/obj/item/mop/advanced/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mop/advanced/activate_self(mob/user)

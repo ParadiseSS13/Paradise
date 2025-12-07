@@ -334,11 +334,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/random
 
-/obj/item/clothing/mask/cigarette/random/New()
+/obj/item/clothing/mask/cigarette/random/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, pick("fuel", "saltpetre", "synaptizine", "green_vomit", "potass_iodide", "msg", "lexorin", "mannitol", \
 	"spaceacillin" ,"cryoxadone" ,"holywater", "tea" ,"egg" ,"haloperidol" ,"mutagen" ,"omnizine", "carpet", "aranesp", "cryostylane", "chocolate", \
 	"bilk", "cheese", "rum", "blood", "charcoal", "coffee", "ectoplasm", "space_drugs", "milk", "mutadone", "antihol", "teporone", "insulin", "salbutamol", "toxin") = 20)
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/cigarette/candy
 	name = "candy cigarette"
@@ -428,9 +428,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
 
-/obj/item/clothing/mask/cigarette/carcinoma/New()
+/obj/item/clothing/mask/cigarette/carcinoma/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
-	..()
+	. = ..()
 
 /obj/item/cigbutt
 	name = "cigarette butt"

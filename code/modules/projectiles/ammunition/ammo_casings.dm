@@ -299,8 +299,8 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/shotgun/dart/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
+	. = ..()
 	create_reagents(30)
 
 /obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
@@ -309,8 +309,8 @@
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
-/obj/item/ammo_casing/shotgun/dart/bioterror/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("neurotoxin", 6)
 	reagents.add_reagent("spore", 6)
 	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
