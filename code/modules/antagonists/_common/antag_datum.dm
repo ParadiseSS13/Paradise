@@ -412,11 +412,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		if(prob(50)) // 50% chance you have to detonate the nuke instead
-			add_antag_objective(/datum/objective/nuke)
-			return
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
+		// Check if hijack is allowed based on player count and number of sec
+		var/hijack_allowed = FALSE
+		if(istype(src, /datum/antagonist/traitor))
+			var/datum/antagonist/traitor/traitor_datum = src
+			hijack_allowed = traitor_datum.can_assign_hijack_objective()
+
+		if(hijack_allowed)
+			if(prob(50)) // 50% chance you have to detonate the nuke instead
+				add_antag_objective(/datum/objective/nuke)
+				return
+			add_antag_objective(/datum/objective/hijack)
+			return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
 	for(var/i in 1 to number_of_objectives)
