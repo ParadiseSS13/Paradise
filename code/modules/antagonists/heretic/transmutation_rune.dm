@@ -211,8 +211,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "transmutation_rune"
 	pixel_x = -30
-	pixel_y = 18
-	pixel_z = -48
+	pixel_y = -30
 
 /obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()

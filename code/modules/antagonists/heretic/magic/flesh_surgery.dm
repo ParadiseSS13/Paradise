@@ -2,7 +2,7 @@
 	name = "Knit Flesh"
 	desc = "A touch spell that allows you to either harvest or restore flesh of target. \
 		Left-clicking will extract the organs of a victim without needing to complete surgery or disembowel. \
-		Right-clicking, if done on summons or minions, will restore health. Can also be used to heal damaged organs."
+		If cast on summons or minions, will restore health. Can also be used to heal damaged organs."
 
 
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
