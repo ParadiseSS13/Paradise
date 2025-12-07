@@ -225,3 +225,27 @@
 	mech_punch = TRUE
 	deflect_chance = 20
 	loot = list(/obj/structure/mecha_wreckage/durand)
+
+/mob/living/basic/hostile_mech/archange
+	name = "archange"
+	desc = "It was pride that changed angels into devils."
+	icon_state = "archange"
+	health = 500
+	maxHealth = 500
+	melee_damage_lower = 50
+	melee_damage_upper = 55
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
+	is_ranged = TRUE
+	projectile_type = /obj/projectile/beam/pulse/hitscan/heavy
+	ranged_burst_count = 1
+	ranged_burst_interval = 1 SECONDS
+	ranged_cooldown = 1.5 SECONDS
+	projectile_sound = 'sound/weapons/marauder.ogg'
+	innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/medium_missile = BB_HOSTILE_MECH_SECONDARY_WEAPON,
+		/datum/action/cooldown/mob_cooldown/hostile_mech/lasershot = BB_HOSTILE_MECH_TERTIARY_WEAPON
+	)
+	step_in = 0.3 SECONDS
+	mech_punch = TRUE
+	deflect_chance = 35
+	loot = list(/obj/structure/mecha_wreckage/archange)
