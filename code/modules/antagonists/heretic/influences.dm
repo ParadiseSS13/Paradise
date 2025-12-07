@@ -179,8 +179,8 @@
 	GLOB.reality_smash_track.smashes += src
 	generate_name()
 	prepare_huds()
-	for(var/datum/atom_hud/data/heretic/h_hud in GLOB.huds)
-		h_hud.add_to_hud(src)
+	var/datum/atom_hud/data/heretic/h_hud = GLOB.huds[DATA_HUD_HERETIC]
+	h_hud.add_to_hud(src)
 	do_hud_stuff()
 
 
