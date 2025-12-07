@@ -1333,6 +1333,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
+"ajg" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/white,
+/area/station/command/office/rd)
 "ajh" = (
 /obj/structure/machine_frame,
 /turf/simulated/floor/plasteel/dark,
@@ -52573,13 +52578,6 @@
 /obj/machinery/microscope,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
-"kmw" = (
-/obj/machinery/alarm/directional/north,
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/cmo)
 "kmy" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -53834,10 +53832,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
-"kzP" = (
-/mob/living/basic/gorilla/cargo_domestic,
-/turf/simulated/floor/plasteel/dark,
-/area/station/supply/office)
 "kzU" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -65016,6 +65010,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
+"mZp" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel/dark,
+/area/station/supply/office)
 "mZA" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 1;
@@ -69264,6 +69262,14 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
+"nZV" = (
+/obj/machinery/alarm/directional/north,
+/mob/living/basic/kangaroo/darwin,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/cmo)
 "nZX" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -73176,6 +73182,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "oQc" = (
@@ -78865,8 +78872,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "qhi" = (
-/obj/item/kirbyplants/large/plant4,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "qhm" = (
@@ -79287,6 +79294,17 @@
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
+"qmS" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/cmo)
 "qmT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -111032,20 +111050,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
-"xfB" = (
-/mob/living/basic/kangaroo{
-	name = "Darwin"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/cmo)
 "xfG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -134133,7 +134137,7 @@ ntP
 kxo
 dba
 sJX
-hDv
+ajg
 wOi
 hDv
 jyg
@@ -166430,7 +166434,7 @@ gFg
 gFg
 pTq
 idF
-kmw
+nZV
 duz
 noD
 rIh
@@ -166689,7 +166693,7 @@ swf
 idF
 wWt
 gEG
-xfB
+qmS
 oKR
 hLn
 iNy
@@ -168467,7 +168471,7 @@ uhG
 nyh
 dKv
 clE
-kzP
+mZp
 ntW
 ntW
 oFW
