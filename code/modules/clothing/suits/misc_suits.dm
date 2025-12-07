@@ -1531,7 +1531,7 @@
 
 /obj/item/clothing/suit/hooded/lowinquis
 	name = "Low-Inquisitor Robes"
-	desc = "A set of Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
+	desc = "A set of red and silver Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
 	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	icon_state = "lowinquis"
@@ -1558,7 +1558,7 @@
 
 /obj/item/clothing/mask/lowinquis
 	name = "Low-Inquisitor Mask"
-	desc = "A silver mask designed to easily fit the face of a Skkulakin. Despite its retinal scanners being disabled, it still protects the user from bright flashes."
+	desc = "A silver mask affixed to a balaclava designed to easily fit the face of a Skkulakin. Despite its retinal scanners being disabled, it still protects the user from bright flashes."
 	icon = 'icons/obj/clothing/species/skkulakin/masks.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/mask.dmi'
 	icon_state = "inquismask"
