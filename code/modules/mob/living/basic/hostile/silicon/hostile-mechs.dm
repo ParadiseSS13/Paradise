@@ -55,7 +55,7 @@
 
 /mob/living/basic/hostile_mech/emp_act(severity)
 	. = ..()
-	adjustBruteLoss(50)
+	adjustBruteLoss(30 / severity)
 	if(prob(25))
 		apply_effect(3 SECONDS, STUN, 0)
 		playsound(get_turf(src), 'sound/mecha/internaldmgalarm.ogg', 100, FALSE)
