@@ -253,7 +253,7 @@
 			"<span class='notice'>[user] inserts [used] into [src].</span>",
 			"<span class='notice'>You insert [used] into [src].</span>"
 		)
-		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+		for(var/mob/living/basic/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
 			if(!being_hijacked) // First come, first serve!
@@ -1156,6 +1156,11 @@
 /obj/machinery/power/apc/reinforced/critical
 	cell_type = 25000
 
+/obj/machinery/power/apc/unbuilt
+
+/obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
+	. = ..(building = TRUE)
+
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
@@ -1168,6 +1173,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/important, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/unbuilt, 24, 24)
 
 
 /obj/item/apc_electronics

@@ -189,6 +189,47 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	update_explanation_text()
 	return target
 
+/datum/objective/proc/give_kit(obj/item/item_path)
+	var/list/datum/mind/objective_owners = get_owners()
+	if(!length(objective_owners))
+		return
+
+	var/obj/item/item_to_give = new item_path
+	var/static/list/slots = list(
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+		"left hand" = ITEM_SLOT_LEFT_HAND,
+		"right hand" = ITEM_SLOT_RIGHT_HAND,
+	)
+
+	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
+		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
+		if(!kit_receiver)
+			continue
+		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
+		if(!where)
+			continue
+
+		to_chat(kit_receiver, "<br><br><span class='notice'>In your [where] is a box containing <b>items and instructions</b> to help you with your objective.</span><br>")
+		for(var/datum/mind/objective_owner as anything in objective_owners)
+			if(kit_receiver_mind == objective_owner || !objective_owner.current)
+				continue
+
+			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received a box containing <b>items and instructions</b> to help you with your objective.</span><br>")
+
+		return
+
+	qdel(item_to_give)
+
+	for(var/datum/mind/objective_owner as anything in objective_owners)
+		var/mob/living/carbon/human/failed_receiver = objective_owner.current
+		if(!failed_receiver)
+			continue
+
+		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get an objective kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] objective kit.")
+
 /**
   * Called when the objective's target goes to cryo.
   */
@@ -296,7 +337,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/infiltrate_sec
 	name = "Infiltrate Security"
-	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of its members."
+	explanation_text = "Infiltrate the ranks of the Security department undetected, either by being lawfully hired into it or by replacing one of its members."
 	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes"
 	needs_target = FALSE
 	completed = TRUE
@@ -830,7 +871,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				return TRUE
 	return FALSE
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
+/datum/objective/steal/give_kit(obj/item/item_path)
 	var/list/datum/mind/objective_owners = get_owners()
 	if(!length(objective_owners))
 		return
@@ -1002,6 +1043,33 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else if(is_type_in_typecache(I, wanted_items))
 			stolen_count++
 	return stolen_count >= 5
+
+/datum/objective/kill_pet
+	name = "Kill Pet"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to kill a station pet and humiliate Nanotrasen. You will receive further information in a few minutes."
+	completed = TRUE
+
+/datum/objective/kill_pet/update_explanation_text()
+	if(target)
+		explanation_text = "Destroy Nanotrasen's morale by detonating [target] with C4, and optionally take a picture of [target] before the C4 detonates."
+	else
+		explanation_text = "Free Objective."
+
+/datum/objective/kill_pet/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+	var/list/possible_targets = GLOB.station_pets - target_blacklist
+	if(length(possible_targets) > 0)
+		target = pick(possible_targets)
+
+	addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+	update_explanation_text()
+	return target
+
+/datum/objective/kill_pet/proc/hand_out_equipment()
+	give_kit(/obj/item/storage/box/syndie_kit/pet_assassination_kit)
 
 /datum/objective/blood
 	name = "Drink blood"

@@ -192,6 +192,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HYPOSPRAY_IMMUNE	"hypospray_immune" // For making crew-accessable hyposprays not pierce your clothing
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 #define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
+#define TRAIT_BRITTLE_BONES		"brittle_bones"
 
 /// trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
@@ -564,6 +565,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// A web is being spun on this turf presently
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
+
+/// A swarmer construct is being built here
+#define TRAIT_SWARMER_CONSTRUCTION "swarmer_construction_turf"
+/// A swarmer is deconstructing this already
+#define TRAIT_SWARMER_DISINTEGRATING "swarmer_disintegrating"
 
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.

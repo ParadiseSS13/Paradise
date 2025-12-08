@@ -13,6 +13,7 @@
  * Bones
  * Plastic
  * Saltpetre Crystal
+ * Silk
  */
 
 //////////////////////////////
@@ -128,6 +129,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
+	null,
+	new /datum/stack_recipe("metal door", /obj/structure/mineral_door, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/metal
@@ -784,3 +787,42 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	icon_state = "sheet-saltpetre"
 	singular_name = "saltpetre crystal"
 	origin_tech = "materials=1;biotech=1"
+
+//////////////////////////////
+// MARK: Silk
+//////////////////////////////
+GLOBAL_LIST_INIT(silk_recipes, list(
+	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6)))
+
+/obj/item/stack/sheet/silk
+	name = "silk spool"
+	desc = "A well-woven sheet of skkulakin silk. Looks like it can be used for crafting."
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-silk"
+	singular_name = "silk spool"
+	force = 0
+	throwforce = 0
+	origin_tech = "materials=1;biotech=1"
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/silk
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+
+/obj/item/stack/sheet/silk/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.silk_recipes
+
+/obj/item/stack/sheet/silk/two
+	amount = 2
+
+/obj/item/stack/sheet/silk/three
+	amount = 3
+
+/obj/item/stack/sheet/silk/update_icon_state()
+	if(amount == 1)
+		icon_state = "sheet-silk"
+	else if(amount == 2)
+		icon_state = "sheet-silk_2"
+	else
+		icon_state = "sheet-silk_3"
+

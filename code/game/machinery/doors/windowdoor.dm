@@ -85,20 +85,21 @@
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
-
+	delay_close()
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
 /obj/machinery/door/window/proc/check_close()
-	var/mob/living/blocker = locate(/mob/living) in get_turf(get_step(src, dir))  // check the facing turf
-	if(!blocker || blocker.stat || !allowed(blocker))
-		blocker = locate(/mob/living) in get_turf(src)
-	if(blocker && !blocker.stat && allowed(blocker))
-		// kick the can down the road, someone's holding the door.
-		addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
-		return
+	for(var/mob/living/blocker in get_step(src, dir))
+		if(blocker && !blocker.stat && allowed(blocker))
+			return delay_close()
+	for(var/mob/living/blocker in get_turf(src))
+		if(blocker && !blocker.stat && allowed(blocker))
+			return delay_close()
 
 	close()
+
+/obj/machinery/door/window/proc/delay_close()
+	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
 	if(operating || !density)
@@ -523,4 +524,3 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-

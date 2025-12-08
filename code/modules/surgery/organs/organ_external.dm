@@ -376,6 +376,9 @@
 			if(EMP_LIGHT)
 				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
+			if(EMP_RESIST_BODY)
+				// 1.9 burn damage, 20.9 damage with 11 limbs.
+				receive_damage(0, 1.9)
 			if(EMP_WEAKENED)
 				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
 				receive_damage(0, 2)
@@ -532,11 +535,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
 	var/frail_multiplier = 1
+	var/brittle_bones_multiplier = 1
 	if(owner)
 		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+		brittle_bones_multiplier = HAS_TRAIT(owner, TRAIT_BRITTLE_BONES) ? 1.2 : 1
 	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	if(GLOB.configuration.general.breakable_bones && brute_dam > adjusted_broken_damage && !is_robotic())
-		if(prob(damage_inflicted * frail_multiplier))
+		if(prob(damage_inflicted * (frail_multiplier + brittle_bones_multiplier)))
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)

@@ -245,6 +245,7 @@
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+#define isskulk(A) (is_species(A, /datum/species/skulk))
 
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
@@ -256,8 +257,8 @@
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider) || istype((A), /mob/living/basic/spiderling/terror_spiderling))
-#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isslaughterdemon(A) (istype((A), /mob/living/basic/demon/slaughter))
+#define isdemon(A) 			(istype((A), /mob/living/basic/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
 #define isgorilla(A) 		(istype((A), /mob/living/basic/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))

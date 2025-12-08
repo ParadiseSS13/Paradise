@@ -97,7 +97,10 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"

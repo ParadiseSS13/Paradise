@@ -3,6 +3,7 @@
 	worn_icon = 'icons/mob/clothing/under/costumes.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
 	)
@@ -113,6 +114,7 @@
 	//it is what it is
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
 	)
