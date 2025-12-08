@@ -21,15 +21,15 @@
 
 /obj/machinery/fluid_pipe/abstract/pump
 
-/obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, _parent, direction)
+/obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, direction, _parent)
 	connect_dirs = list(REVERSE_DIR(direction))
 	return ..()
 
 // End abstract pump
 
-/obj/machinery/fluid_pipe/pump/Initialize(mapload)
+/obj/machinery/fluid_pipe/pump/Initialize(mapload, direction)
 	connect_dirs = list(dir)
-	incoming = new(get_turf(src), src, dir)
+	incoming = new(get_turf(src), dir, src)
 	update_icon()
 	return ..()
 

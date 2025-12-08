@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 /obj/machinery/fluid_pipe/abstract/refinery_intake
 
-/obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, _parent, direction)
+/obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, direction, _parent)
 	connect_dirs = GLOB.cardinal.Copy()
 	connect_dirs -= direction
 	return ..()
@@ -41,6 +41,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 			dir = WEST
 			pixel_x = 0
 			connect_dirs = list(WEST, SOUTH)
+		// Default direction is east so no need to change this
 
 	connect_dirs = GLOB.cardinal.Copy()
 	connect_dirs -= REVERSE_DIR(dir)
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 				list(MACH_CENTER, 1)
 			))
 
-	intake = new(get_step(src, REVERSE_DIR(dir)), src, dir)
+	intake = new(get_step(src, REVERSE_DIR(dir)), dir, src)
 
 /obj/machinery/fluid_pipe/refinery/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

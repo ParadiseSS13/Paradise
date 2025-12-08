@@ -15,7 +15,6 @@
  * machine: any fluid pipe machinery that aren't normal pipes
  * A /machinery/fluid_pipeline should **never** be in both lists
  */
-// DGTODO UNFUCK WITH SSFLUID
 /datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe, new_capacity)
 	. = ..()
 	START_PROCESSING(SSfluid, src)

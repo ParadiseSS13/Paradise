@@ -241,36 +241,6 @@
 			return
 		fluid_datum.remove_fluid(fluids_to_pick_from[fluid_name])
 
-// DGTODO remove this
-// Almost ready to remove yeah, just some rpd kinks left in the cable
-/obj/item/pipe_creator
-	name = "pipe creator"
-	desc = "Makes pipes. Debug item."
-	icon = 'icons/obj/assemblies/new_assemblies.dmi'
-	icon_state = "signaler"
-	new_attack_chain = TRUE
-	/// Selected pipe item
-	var/pipe_path
-
-/obj/item/pipe_creator/activate_self(mob/user)
-	if(..())
-		return
-	var/temp = tgui_input_list(user, "What pipe do you want to make?", "Pipe creator", typesof(/obj/machinery/fluid_pipe))
-	if(!temp)
-		return
-	pipe_path = temp
-
-/obj/item/pipe_creator/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	var/turf/target_turf = get_turf(target)
-	for(var/obj/machinery/fluid_pipe/pipe in target_turf)
-		qdel(pipe)
-		return ITEM_INTERACT_COMPLETE
-
-	if(!pipe_path)
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-	new pipe_path(target_turf)
-	return ITEM_INTERACT_COMPLETE
-
 // Abstract fluid pipes, useful for machinery that can have multiple intake slots
 /obj/machinery/fluid_pipe/abstract
 	name = "You should not see this"
@@ -283,7 +253,7 @@
 	/// Ref to our parent
 	var/obj/machinery/fluid_pipe/parent
 
-/obj/machinery/fluid_pipe/abstract/Initialize(mapload, _parent)
+/obj/machinery/fluid_pipe/abstract/Initialize(mapload, direction, _parent)
 	. = ..()
 	parent = _parent
 
