@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/infiltrate_sec
 	name = "Infiltrate Security"
-	explanation_text = "Your objective is to infiltrate the ranks of the Security department undetected, be it by being lawfully hired into it or by replacing one of its members."
+	explanation_text = "Infiltrate the ranks of the Security department undetected, either by being lawfully hired into it or by replacing one of its members."
 	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes"
 	needs_target = FALSE
 	completed = TRUE

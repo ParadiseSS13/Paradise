@@ -856,10 +856,13 @@
 	return TRUE
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash)
 	SIGNAL_HANDLER
 	if(can_be_flashed(intensity, override_blindness_check))
-		overlay_fullscreen("flash", type)
+		var/atom/movable/screen/fullscreen/stretch/flash/flash = flash_type
+		if(client && client.prefs.toggles3 & PREFTOGGLE_3_DARK_FLASH)
+			flash_type = flash.dark_type
+		overlay_fullscreen("flash", flash_type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return 1
 

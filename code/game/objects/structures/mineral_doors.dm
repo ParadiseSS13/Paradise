@@ -1,13 +1,13 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
+	desc = "An old-fashioned door built from two slabs of steel. Somehow completely airtight, and doesn't require any electricity to work."
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
-	max_integrity = 200
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_BETA_BLOCKER
@@ -19,12 +19,17 @@
 
 	var/hardness = 1
 	var/sheetType = /obj/item/stack/sheet/metal
-	var/sheetAmount = 7
+	var/sheetAmount = 10
 	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
+
+/obj/structure/mineral_door/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is held inside its frame by <b>screws</b>.</span>"
+	. += "<span class='notice'>It could be <b>smashed</b> or <b>drilled</b> with a digging tool.</span>"
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
@@ -116,11 +121,25 @@
 	else
 		icon_state = initial_state
 
+/obj/structure/mineral_door/screwdriver_act(mob/living/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		return TRUE
+
+	if(!I.use_tool(src, user, 4 SECONDS * I.toolspeed * hardness, volume = I.tool_volume))
+		return TRUE
+
+	deconstruct(TRUE)
+	return TRUE
+
 /obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/pickaxe))
+		if(flags & NODECONSTRUCT)
+			to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+			return
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
+		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 		return ITEM_INTERACT_COMPLETE
@@ -131,38 +150,39 @@
 		return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
-	var/turf/T = get_turf(src)
-	if(sheetType)
-		if(disassembled)
-			new sheetType(T, sheetAmount)
-		else
-			new sheetType(T, max(sheetAmount - 2, 1))
+	if(!(flags & NODECONSTRUCT))
+		var/turf/T = get_turf(src)
+		if(sheetType)
+			if(disassembled)
+				new sheetType(T, sheetAmount)
+			else
+				new sheetType(T, max(sheetAmount - 2, 1))
 	qdel(src)
-
-/obj/structure/mineral_door/iron
-	max_integrity = 300
 
 /obj/structure/mineral_door/silver
 	name = "silver door"
+	desc = "An old-fashioned door built from two slabs of silver. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
-	max_integrity = 300
 
 /obj/structure/mineral_door/gold
 	name = "gold door"
+	desc = "An old-fashioned door built from two slabs of gold. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
 	rad_insulation_gamma = RAD_MEDIUM_INSULATION
+	max_integrity = 200
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
+	desc = "An old-fashioned door built from two slabs of uranium. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "uranium"
 	sheetType = /obj/item/stack/sheet/mineral/uranium
-	max_integrity = 300
 	light_range = 2
 
 /obj/structure/mineral_door/sandstone
 	name = "sandstone door"
+	desc = "An old-fashioned door built from two slabs of sandstone. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "sandstone"
 	sheetType = /obj/item/stack/sheet/mineral/sandstone
 	max_integrity = 100
@@ -180,9 +200,11 @@
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"
+	desc = "An old-fashioned door built from two slabs of plasma. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 	cares_about_temperature = TRUE
+	max_integrity = 200
 
 /obj/structure/mineral_door/transparent/plasma/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(W.get_heat())
@@ -205,18 +227,21 @@
 
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"
+	desc = "An old-fashioned door built from two slabs of diamond. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
 
 /obj/structure/mineral_door/wood
 	name = "wood door"
+	desc = "An old-fashioned door built from two slabs of wood. Somehow completely airtight, and doesn't require any electricity to work."
 	icon_state = "wood"
 	open_sound = 'sound/effects/doorcreaky.ogg'
 	close_sound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
+	max_integrity = 200
 
 /obj/structure/mineral_door/wood/Initialize(mapload)
 	. = ..()

@@ -402,7 +402,7 @@
 	if((E?.status & ORGAN_DEAD) || E?.is_broken() || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
