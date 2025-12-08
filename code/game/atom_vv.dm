@@ -69,7 +69,7 @@
 
 		var/chosen_id
 		var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-		var/response = tgui_input_list(usr, "Choose a method.", list("Enter ID", "Choose ID"))
+		var/response = tgui_input_list(usr, "Choose a method.", "Add reagents", list("Enter ID", "Choose ID"))
 		switch(response)
 			if("Enter ID")
 				var/valid_id = FALSE
