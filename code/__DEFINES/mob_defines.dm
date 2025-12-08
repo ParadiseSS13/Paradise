@@ -406,10 +406,11 @@
 #define GHOST_CAN_REENTER 			(1 << 1) // Ghost can reenter its corpse
 #define GHOST_RESPAWNABLE			(1 << 2) // Ghost can respawn. Note that checking respawnability is better via GLOB.non_respawnable_keys and TRAIT_RESPAWNABLE
 #define GHOST_VISION				(1 << 3) // Ghost can see invisible things (like other ghosts)
-#define GHOST_HEALTH_SCAN			(1 << 4) // Ghost uses health scanner on click
-#define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
-#define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
-#define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+#define GHOST_NO_VISION				(1 << 4) // Ghost cannot see any ghosts at all
+#define GHOST_HEALTH_SCAN			(1 << 5) // Ghost uses health scanner on click
+#define GHOST_SEE_RADS				(1 << 6) // Ghost can see radiation
+#define GHOST_GAS_SCAN				(1 << 7) // Ghost uses gas analyzer on click
+#define GHOST_PLANT_ANALYZER		(1 << 8) // Ghost uses plant analyzer on click
 
 #define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
 #define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)
