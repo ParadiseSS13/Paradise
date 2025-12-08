@@ -359,16 +359,6 @@
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
-"lW" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = null
-	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = null
-	},
-/obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/powered)
 "ms" = (
 /mob/living/basic/hostile_mech/gygax,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -1992,8 +1982,8 @@ If
 xT
 LS
 fY
-lW
-oe
+nK
+nK
 nK
 Os
 Yk
@@ -2153,7 +2143,7 @@ Hh
 Hh
 Hh
 Hh
-mE
+Hh
 GQ
 GQ
 An
