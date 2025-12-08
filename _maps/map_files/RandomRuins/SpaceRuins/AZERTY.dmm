@@ -1,0 +1,2366 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"al" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"ao" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"aP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/atmos,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"bb" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"bv" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"ce" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/toy/plushie/borgplushie/random,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"ck" = (
+/obj/structure/statue/gold/ce,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"cG" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"dy" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"dD" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"dH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"dQ" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"dV" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"dX" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ex" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ey" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"eW" = (
+/obj/structure/shelf/engineering,
+/obj/item/stock_parts/cell/bluespace/trapped,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/borg/upgrade/syndicate,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"ff" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"fn" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ft" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"fF" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"fG" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"fY" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"gb" = (
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/malfborg/sec,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"gG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"gU" = (
+/obj/machinery/camera/tracking_head{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"hx" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"hF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"hZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/fakestairs/left,
+/area/ruin/space/powered)
+"ie" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
+/obj/effect/turf_decal/trimline/department/engineering/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"ih" = (
+/mob/living/basic/malfborg/mining,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"iO" = (
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 1
+	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"iV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"jb" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 8;
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"jd" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"je" = (
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"jF" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/critical/directional/north,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"jJ" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"jU" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ka" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/power/apc/critical/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"kc" = (
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ke" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/robot_parts/robot_component/actuator{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/robot_parts/robot_component/actuator{
+	pixel_x = 10;
+	pixel_y = -12
+	},
+/obj/item/robot_parts/robot_component/actuator{
+	pixel_x = -12;
+	pixel_y = -10
+	},
+/obj/item/robot_parts/robot_component/camera{
+	pixel_x = -10;
+	pixel_y = 9
+	},
+/obj/effect/spawner/random/pool/spaceloot/dvorak_core_table,
+/obj/item/robot_parts/robot_component/camera{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"kh" = (
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/malfborg/sec,
+/obj/effect/turf_decal/trimline/department/security/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"kj" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"kq" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"kx" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/department/security/line,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"lH" = (
+/obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"lS" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"lW" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = null
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = null
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"ms" = (
+/mob/living/basic/hostile_mech/gygax,
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"mD" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"mE" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ruin/space/powered)
+"nk" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = -10;
+	pixel_y = 12
+	},
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"nG" = (
+/obj/item/bedsheet/black,
+/obj/structure/bed,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"nK" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = null
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"nS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"ob" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/mob/living/basic/malfborg/sec/engi,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"od" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"oe" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = null
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"om" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"oy" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"oH" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"oT" = (
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/malfborg/sec/engi,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"oZ" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"qs" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 8;
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"qX" = (
+/obj/structure/table/wood,
+/obj/item/newspaper{
+	pixel_x = -7;
+	pixel_y = 11
+	},
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"qZ" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"re" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"rR" = (
+/turf/template_noop,
+/area/space/nearstation/no_teleport)
+"sd" = (
+/obj/machinery/power/port_gen/pacman/mrs,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 6
+	},
+/obj/item/stack/sheet/mineral/diamond/ten,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"sj" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"sM" = (
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"sZ" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"td" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"ti" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"tm" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"tF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"tM" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"tX" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"ub" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/department/engineering/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"uf" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"ux" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"uB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"uT" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"uV" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"vc" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"vi" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"vq" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"vD" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"vM" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"vN" = (
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 8
+	},
+/obj/machinery/camera/tracking_head{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"wf" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"wk" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wH" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wI" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"wK" = (
+/obj/structure/table/wood,
+/obj/item/candle/lit,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"wP" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 4
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"xn" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/obj/machinery/camera/tracking_head{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"xD" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"xJ" = (
+/obj/structure/filingcabinet/chestdrawer/autopsy,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"xT" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered)
+"ys" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 1
+	},
+/obj/machinery/camera/tracking_head,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"yI" = (
+/mob/living/basic/malf_drone,
+/turf/template_noop,
+/area/template_noop)
+"zC" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"zF" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"zT" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Ad" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"An" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Aq" = (
+/obj/machinery/camera/tracking_head{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Av" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/powered)
+"Aw" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"AF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"AQ" = (
+/obj/machinery/blackbox_recorder,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Bc" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Bh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Bj" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Bu" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/critical/directional/west,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"BC" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"BP" = (
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"BX" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"CE" = (
+/turf/template_noop,
+/area/template_noop)
+"CN" = (
+/obj/machinery/recharge_station/upgraded,
+/mob/living/basic/malfborg/sec,
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Dz" = (
+/obj/machinery/atmospherics/binary/pump,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"DT" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"EA" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/critical/directional/south,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/mob/living/basic/malfborg/mining,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"EH" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"EU" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Fl" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Fw" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Gv" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"GB" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"GP" = (
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/trimline/department/engineering/line,
+/obj/machinery/power/smes/magical,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"GQ" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Hf" = (
+/obj/machinery/economy/vending/tool/free,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Hh" = (
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ruin/space/powered)
+"Hq" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"HF" = (
+/mob/living/silicon/decoy{
+	faction = list("malf_drone");
+	name = "D.V.O.R.A.K";
+	icon_state = "ai-triumvirate-malf"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"HP" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Ia" = (
+/obj/structure/dresser,
+/obj/machinery/camera/tracking_head,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"If" = (
+/obj/structure/grille,
+/turf/space,
+/area/space/nearstation/no_teleport)
+"Ix" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Iz" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"IK" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"IP" = (
+/obj/machinery/power/apc/critical/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"IR" = (
+/obj/effect/spawner/random/pool/spaceloot/dvorak_displaycase,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"IU" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"IV" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"IY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"IZ" = (
+/obj/machinery/computer/message_monitor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Ja" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Jz" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"JB" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Ki" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"KH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"KI" = (
+/obj/machinery/economy/slot_machine,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"KL" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"KM" = (
+/obj/machinery/power/apc/critical/directional/south,
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/department/security/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"KV" = (
+/obj/machinery/camera/tracking_head{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Le" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Lu" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"LG" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
+"LL" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"LM" = (
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"LP" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/powered)
+"LS" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Mc" = (
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Mk" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Ml" = (
+/obj/effect/spawner/random/telecomms_weldertank_maybe{
+	spawn_loot_chance = 100
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Mt" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Mv" = (
+/obj/structure/girder,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"MD" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"MF" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell/infinite{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"MK" = (
+/obj/machinery/blackbox_recorder,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"Ng" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"Nw" = (
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"NN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Os" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"OI" = (
+/obj/machinery/economy/vending/tool/free,
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"OM" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Pc" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Pk" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"Pn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"Pp" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/structure/cable/yellow,
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"PY" = (
+/obj/structure/table/reinforced,
+/obj/item/ashtray/bronze{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/storage/fancy/cigars{
+	pixel_x = 11;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Qb" = (
+/obj/machinery/photocopier,
+/obj/machinery/camera/tracking_head{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Qo" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Rk" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Rm" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"RC" = (
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"RV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"RZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Sb" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"Sq" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"SG" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Tl" = (
+/obj/machinery/atmospherics/unary/tank/toxins,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"TS" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plushie/borgplushie/random,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Ua" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/flora/tree/pine/xmas,
+/turf/simulated/floor/transparent/glass/titanium/plasma,
+/area/ruin/space/powered)
+"Uv" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Vm" = (
+/obj/machinery/door/airlock/atmos,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Vq" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/obj/structure/table/wood,
+/obj/item/book/random/triple,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"VF" = (
+/mob/living/basic/malfborg/service,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Wv" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"WS" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"WV" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Xr" = (
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Xt" = (
+/turf/simulated/floor/plasteel/fakestairs/right,
+/area/ruin/space/powered)
+"XF" = (
+/obj/effect/turf_decal/trimline/department/security/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"XP" = (
+/obj/item/bedsheet/black,
+/obj/structure/bed,
+/obj/item/toy/plushie/borgplushie/random,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Yk" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"YE" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"YJ" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered)
+"Zq" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/trimline/department/engineering/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Zr" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/rag{
+	pixel_x = 5;
+	pixel_y = 14
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"Zx" = (
+/obj/effect/turf_decal/trimline/department/security/line,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+
+(1,1,1) = {"
+CE
+CE
+CE
+CE
+CE
+rR
+Hh
+dD
+dD
+dD
+dD
+Hh
+hx
+rR
+rR
+rR
+rR
+rR
+hx
+Hh
+dD
+dD
+dD
+dD
+Hh
+rR
+CE
+"}
+(2,1,1) = {"
+CE
+CE
+CE
+CE
+CE
+rR
+Hh
+wf
+wf
+wf
+wf
+Hh
+bb
+tM
+tM
+ao
+LG
+LG
+tm
+Hh
+wf
+wf
+wf
+wf
+Hh
+rR
+CE
+"}
+(3,1,1) = {"
+CE
+CE
+yI
+rR
+rR
+rR
+Hh
+tF
+dX
+BX
+hF
+Hh
+od
+tM
+Av
+LP
+Av
+LG
+bv
+Hh
+Ki
+Qo
+Qo
+ob
+Hh
+rR
+rR
+"}
+(4,1,1) = {"
+CE
+CE
+CE
+rR
+Hh
+Hh
+Hh
+Hh
+Hh
+Vm
+Hh
+Hh
+Hh
+Hh
+An
+fF
+An
+Hh
+Hh
+Hh
+Tl
+Dz
+wH
+hF
+Hh
+Hh
+Hh
+"}
+(5,1,1) = {"
+CE
+CE
+CE
+rR
+Hh
+nG
+Ja
+Ix
+Hh
+Bh
+ti
+Hh
+CN
+YJ
+Pn
+uV
+Pn
+vM
+kh
+Hh
+Hh
+Hh
+aP
+Hh
+Hh
+ck
+Hh
+"}
+(6,1,1) = {"
+CE
+CE
+CE
+rR
+Hh
+XP
+Ja
+kc
+fn
+Bh
+vi
+Hh
+IV
+jJ
+EH
+Pk
+Pp
+nS
+Zx
+Hh
+Hf
+vN
+RC
+ka
+uB
+al
+Hh
+"}
+(7,1,1) = {"
+CE
+CE
+CE
+If
+Hh
+nG
+Ja
+Ja
+Hh
+Ad
+oH
+EU
+ux
+GB
+KH
+Ua
+Jz
+Ng
+kx
+Ml
+wI
+Mt
+SG
+vD
+vq
+GP
+Hh
+"}
+(8,1,1) = {"
+CE
+CE
+CE
+If
+Hh
+Ia
+Ja
+Hh
+Hh
+vi
+Le
+Hh
+IV
+uf
+EH
+dV
+Pp
+nS
+Zx
+Hh
+eW
+vi
+TS
+Le
+YE
+ie
+Hh
+"}
+(9,1,1) = {"
+CE
+CE
+CE
+If
+Hh
+Hh
+Hh
+Hh
+je
+vi
+IP
+Hh
+IV
+RV
+ff
+ff
+ff
+iV
+Zx
+Hh
+iO
+vi
+Xr
+Hq
+Rk
+ub
+Hh
+"}
+(10,1,1) = {"
+CE
+If
+If
+If
+If
+Hh
+cG
+vc
+vi
+vi
+KV
+Hh
+ys
+Hq
+ey
+ey
+ey
+ey
+KM
+Hh
+sM
+ey
+IU
+RZ
+om
+sd
+Hh
+"}
+(11,1,1) = {"
+If
+If
+xT
+xT
+xT
+Hh
+zT
+fG
+vi
+vi
+LL
+Hh
+xD
+NN
+re
+wP
+re
+re
+XF
+Hh
+oT
+Mc
+Zq
+OI
+Hh
+Hh
+Hh
+"}
+(12,1,1) = {"
+If
+If
+xT
+dQ
+zC
+Hh
+Hh
+Hh
+Iz
+Hh
+Hh
+Hh
+Hh
+Rm
+Hh
+Hh
+Hh
+LM
+Hh
+Hh
+Hh
+Hh
+dH
+Hh
+Hh
+rR
+rR
+"}
+(13,1,1) = {"
+If
+xT
+xT
+gb
+dQ
+Fw
+dQ
+jd
+dQ
+MF
+ke
+Hh
+KI
+jU
+sZ
+Hh
+Uv
+Mk
+Fl
+mD
+kq
+Fl
+gG
+Mk
+Hh
+rR
+yI
+"}
+(14,1,1) = {"
+If
+xT
+Aq
+dQ
+dQ
+jd
+dQ
+dQ
+dQ
+dQ
+ft
+Hh
+jF
+IK
+ex
+hZ
+ey
+ey
+ey
+ey
+ey
+ey
+qZ
+EA
+Hh
+rR
+CE
+"}
+(15,1,1) = {"
+If
+xT
+dQ
+dQ
+LS
+sj
+Yk
+dQ
+jd
+dQ
+nk
+Hh
+HP
+Ja
+Ja
+Xt
+vi
+vi
+vi
+vi
+vi
+vi
+Le
+Lu
+Hh
+rR
+CE
+"}
+(16,1,1) = {"
+If
+xT
+dQ
+zF
+fY
+nK
+Os
+Yk
+jd
+dQ
+Hh
+Hh
+wK
+Ja
+JB
+Hh
+MD
+Lu
+xn
+Vq
+kj
+Lu
+IY
+MD
+Hh
+rR
+rR
+"}
+(17,1,1) = {"
+If
+xT
+LS
+fY
+lW
+oe
+nK
+Os
+Yk
+WS
+Hh
+Aw
+Ja
+Ja
+WV
+Hh
+Hh
+Hh
+Hh
+Hh
+Hh
+Hh
+wk
+Hh
+Hh
+Hh
+rR
+"}
+(18,1,1) = {"
+If
+xT
+Bj
+nK
+oe
+HF
+oe
+nK
+oy
+dQ
+Mv
+Sq
+Ja
+Ja
+Ja
+lS
+PY
+vi
+Gv
+Hh
+IZ
+BP
+Bc
+Bu
+ti
+Hh
+rR
+"}
+(19,1,1) = {"
+If
+xT
+Wv
+Pc
+nK
+oe
+nK
+DT
+oZ
+dQ
+jd
+Ja
+Nw
+Sq
+Ja
+lS
+Zr
+vi
+VF
+Hh
+qX
+vi
+vi
+vi
+Qb
+Hh
+rR
+"}
+(20,1,1) = {"
+If
+xT
+uT
+Wv
+Pc
+nK
+DT
+oZ
+jd
+gU
+Hh
+Hh
+Hh
+Ja
+Ja
+lS
+KL
+vi
+vi
+Hh
+AQ
+ih
+vi
+vi
+xJ
+Hh
+rR
+"}
+(21,1,1) = {"
+If
+xT
+jd
+dQ
+Wv
+OM
+oZ
+dQ
+dQ
+xT
+xT
+If
+Hh
+An
+An
+Hh
+qs
+jb
+AF
+Hh
+lH
+vi
+ce
+vi
+Hh
+Hh
+rR
+"}
+(22,1,1) = {"
+If
+xT
+MK
+BC
+Sb
+BC
+BC
+dy
+xT
+xT
+If
+If
+rR
+rR
+rR
+Hh
+Hh
+Hh
+Hh
+Hh
+mE
+GQ
+GQ
+An
+Hh
+rR
+rR
+"}
+(23,1,1) = {"
+If
+xT
+MK
+BC
+BC
+BC
+BC
+BC
+xT
+If
+If
+CE
+CE
+CE
+rR
+rR
+rR
+rR
+rR
+rR
+mE
+An
+An
+An
+rR
+rR
+CE
+"}
+(24,1,1) = {"
+If
+xT
+xT
+MK
+BC
+BC
+BC
+IR
+xT
+If
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+rR
+rR
+rR
+rR
+rR
+rR
+CE
+CE
+"}
+(25,1,1) = {"
+If
+If
+xT
+xT
+td
+ms
+tX
+xT
+xT
+If
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+"}
+(26,1,1) = {"
+CE
+If
+If
+xT
+xT
+xT
+xT
+xT
+If
+If
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+"}
+(27,1,1) = {"
+CE
+CE
+If
+If
+If
+If
+If
+If
+If
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+"}
+(28,1,1) = {"
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+"}
+(29,1,1) = {"
+CE
+yI
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+CE
+"}
