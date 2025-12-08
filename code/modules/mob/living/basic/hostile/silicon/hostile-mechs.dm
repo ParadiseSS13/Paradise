@@ -1,6 +1,6 @@
 /mob/living/basic/hostile_mech
 	name = "hostile mech"
-	desc = ABSTRACT_TYPE_DESC
+	desc = "I'm a base type and someone was bad and spawned me."
 	icon = 'icons/mecha/mecha.dmi'
 	icon_state = "ripley"
 	health = 300

@@ -7,6 +7,7 @@
 /obj/effect/turf_decal/trimline/department/engineering/line{
 	dir = 10
 	},
+/mob/living/basic/hostile_mech/ripley,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
 "ao" = (
@@ -376,10 +377,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/powered)
-"mE" = (
-/obj/effect/spawner/window/plastitanium,
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ruin/space/powered)
 "nk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -2172,7 +2169,7 @@ rR
 rR
 rR
 rR
-mE
+Hh
 An
 An
 An
