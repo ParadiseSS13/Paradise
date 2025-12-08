@@ -129,6 +129,10 @@
 	display_name = "Walking cane"
 	path = /obj/item/cane
 
+/datum/gear/blindcane
+	display_name = "Blind cane"
+	path = /obj/item/blindcane
+
 /datum/gear/cards
 	display_name = "Deck of standard cards"
 	path = /obj/item/deck/cards

@@ -156,7 +156,7 @@
 
 /obj/docking_port/proc/register()
 	return 0
-
+// MARK: Stationary port
 /obj/docking_port/stationary
 	name = "dock"
 
@@ -169,12 +169,6 @@
 	. = ..()
 	if(!mapload)
 		register()
-
-// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
-/obj/docking_port/stationary/whiteship
-	dwidth = 6
-	height = 19
-	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -215,7 +209,7 @@
 
 	SSshuttle.transit_docking_ports += src
 	return 1
-
+// MARK: Mobile port
 /obj/docking_port/mobile
 	name = "shuttle"
 	icon_state = "pinonclose"
@@ -829,7 +823,7 @@
 	SSshuttle.request_transit_dock(src)
 	return FALSE
 
-
+// MARK: Shuttle Ports
 /obj/docking_port/mobile/labour
 	dir = 8
 	dwidth = 2
@@ -901,6 +895,33 @@
 	timid = TRUE
 	width = 18
 
+/obj/docking_port/stationary/gamma_armory
+	id = "gamma_home"
+	name = "Station Gamma Armory Shuttle Dock"
+	width = 7
+	dwidth = 3
+	height = 6
+
+/obj/docking_port/stationary/gamma_armory/centcomm
+	id = "gamma_away"
+	name = "Central Command Gamma Armory Shuttle Dock"
+
+/obj/docking_port/mobile/gamma_armory
+	id = "gamma_armory"
+	name = "Gamma Armory shuttle"
+	width = 7
+	dwidth = 3
+	height = 6
+	port_direction = EAST
+	timid = TRUE
+
+/obj/docking_port/mobile/gamma_armory/register()
+	if(!..())
+		return FALSE
+
+	SSshuttle.gamma_armory = src
+	return TRUE
+
 /obj/docking_port/mobile/ferry
 	dir = 8
 	dwidth = 2
@@ -910,12 +931,24 @@
 	width = 5
 	preferred_direction = EAST
 
+/obj/docking_port/stationary/trader
+	id = "trader_home"
+	name = "Docking bay 4 at station"
+	width = 22
+	dwidth = 11
+	height = 30
+
+/obj/docking_port/stationary/trader/centcom
+	id = "trader_away"
+	name = "Docking bay at trade hub"
+	dir = 8
+
 /obj/docking_port/mobile/trader
 	dir = 8
 	dwidth = 11
 	height = 30
 	id = "trader"
-	name = "sol trade shuttle"
+	name = "trade shuttle"
 	width = 22
 	preferred_direction = EAST
 	timid = TRUE
@@ -929,6 +962,11 @@
 	name = "syndicate infiltrator"
 	width = 18
 
+/obj/docking_port/stationary/whiteship
+	dwidth = 6
+	height = 19
+	width = 12
+
 /obj/docking_port/mobile/whiteship
 	dir = 8
 	id = "whiteship"
@@ -939,6 +977,7 @@
 	preferred_direction = WEST
 	port_direction = SOUTH
 
+// MARK: Shuttle Comp
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
@@ -1095,7 +1134,6 @@
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
-
 /obj/machinery/computer/shuttle/white_ship
 	name = "Navigation console"
 	desc = "Used to control the NEV Limulus expeditionary vessel."
@@ -1126,7 +1164,7 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trader_base;trade_dock"
+	possible_destinations = "trader_away;trader_home"
 	shuttleId = "trader"
 
 //#undef DOCKING_PORT_HIGHLIGHT

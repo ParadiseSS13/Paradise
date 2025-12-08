@@ -305,11 +305,11 @@
 /area/station/maintenance/apmaint2)
 "aeP" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/item/roller,
+/obj/item/roller{
+	pixel_x = -2;
+	pixel_y = 10
 	},
-/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "aeT" = (
@@ -7153,7 +7153,7 @@
 /area/station/supply/qm)
 "bxY" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Docking Port 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -8669,6 +8669,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
+"bLL" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/storage/box/disks{
+	pixel_x = 6;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/genetics)
 "bLQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -35924,20 +35940,20 @@
 /area/station/maintenance/security/aft_starboard)
 "hmb" = (
 /obj/structure/table/glass,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
 /obj/item/paper_bin{
-	pixel_x = 3;
-	pixel_y = 7
+	pixel_x = -8;
+	pixel_y = 8
 	},
 /obj/item/pen{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/storage/box/syringes{
-	pixel_y = -12
-	},
-/obj/effect/turf_decal/tiles/department/science/corner{
-	dir = 1
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
@@ -36226,8 +36242,15 @@
 /area/station/engineering/atmos/storage)
 "hoL" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/disks,
-/obj/item/book/manual/wiki/sop_science,
+/obj/item/storage/box/syringes{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/storage/box/disks{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "hoM" = (
@@ -36792,10 +36815,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"hvp" = (
-/obj/machinery/door/poddoor/impassable/gamma,
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/armory/secure)
 "hvq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -50300,13 +50319,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/computer)
 "keA" = (
-/obj/machinery/suit_storage_unit/rd/secure,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 15
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "keH" = (
@@ -50785,12 +50801,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
-"kjD" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/armory/secure)
 "kjE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -55997,8 +56007,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/break_room)
 "lpP" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 4;
+	name = "NSS Diagoras Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "lpW" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
@@ -75751,15 +75765,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "pkp" = (
-/obj/structure/table/glass,
-/obj/item/roller,
-/obj/item/roller{
-	pixel_x = -2;
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "pkA" = (
@@ -90716,8 +90725,10 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/transit)
 "sjK" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
+/obj/machinery/suit_storage_unit/rd/secure,
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 15
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "sjM" = (
@@ -93673,6 +93684,11 @@
 /obj/effect/turf_decal/tiles/department/security,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"sPL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/syndicatebomb/training,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/range)
 "sPM" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -100139,6 +100155,9 @@
 /area/station/medical/sleeper)
 "ucJ" = (
 /obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ucL" = (
@@ -107218,6 +107237,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"vAi" = (
+/obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/armory/secure)
 "vAu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109934,6 +109958,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "waH" = (
@@ -115647,6 +115672,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"xmC" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "xmH" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
@@ -118189,13 +118218,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "xNo" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "port bay 4 at NSS Diagoras";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Diagoras";
+	dir = 2
 	},
 /turf/space,
 /area/space)
@@ -120483,18 +120508,6 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
-"ylD" = (
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ylG" = (
@@ -139453,7 +139466,7 @@ wdE
 wsR
 iws
 ave
-ave
+xmC
 ave
 giX
 nfe
@@ -139966,7 +139979,7 @@ ifs
 mLY
 ave
 cTI
-ylD
+jON
 jON
 jON
 jON
@@ -163791,7 +163804,7 @@ sIm
 arJ
 mWx
 arJ
-arJ
+sPL
 sIm
 tYT
 oYI
@@ -165938,7 +165951,7 @@ iBG
 xhg
 ePX
 aKP
-hoL
+bLL
 aeP
 hoL
 jKU
@@ -174058,12 +174071,12 @@ aZS
 jnP
 fiv
 ucJ
-kjD
+trj
 trj
 bAr
 kvO
-cmF
 rFY
+cmF
 ihH
 gDH
 fOE
@@ -174315,8 +174328,8 @@ aZS
 aZS
 fiv
 fiv
+vAi
 fiv
-hvp
 fiv
 fiv
 fiv
@@ -174569,13 +174582,13 @@ jnP
 jnP
 jnP
 uXb
+jnP
+jnP
+jnP
 lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
 uXb
 jnP
 jnP
@@ -174826,13 +174839,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 jnP
 qKm
@@ -175083,13 +175096,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 jnP
 qKm
@@ -175340,13 +175353,13 @@ aZS
 aZS
 aZS
 uXb
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 qKm
 qKm
@@ -175597,13 +175610,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 uCB
 jFd
@@ -175854,13 +175867,13 @@ jnP
 jnP
 jnP
 aZS
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
-lpP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 aZS
 uCB
 lDA

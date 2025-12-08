@@ -1115,6 +1115,7 @@
 /area/station/security/brig)
 "agt" = (
 /obj/machinery/door/poddoor/impassable/gamma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "agu" = (
@@ -1395,8 +1396,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "ahF" = (
+/obj/docking_port/stationary/gamma_armory{
+	dir = 8;
+	name = "NSS Cyberiad Gamma Armory Shuttle Dock"
+	},
 /turf/space,
-/area/shuttle/gamma/station)
+/area/space)
 "ahG" = (
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
@@ -8119,7 +8124,6 @@
 "aEG" = (
 /obj/structure/safe/floor,
 /obj/item/clothing/suit/storage/det_suit/forensics,
-/obj/item/detective_scanner,
 /obj/item/gun/projectile/revolver/capgun,
 /obj/item/ammo_box/caps,
 /obj/item/ammo_box/caps,
@@ -22546,21 +22550,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "bEM" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 4
-	},
-/obj/item/mmi/robotic_brain{
-	pixel_x = 3
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "bEO" = (
@@ -22994,17 +22987,24 @@
 /area/station/science/lobby)
 "bGE" = (
 /obj/structure/table,
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
 /obj/machinery/button/windowtint{
 	id = "robo";
 	pixel_x = -24;
 	dir = 4
 	},
-/obj/item/stack/cable_coil,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/mmi/robotic_brain{
+	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
@@ -24537,27 +24537,16 @@
 /area/station/science/robotics)
 "bNk" = (
 /obj/structure/table,
-/obj/item/robotanalyzer,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "bNl" = (
@@ -26552,9 +26541,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
+/mob/living/basic/gorilla/cargo_domestic/forklift,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bVK" = (
@@ -29957,16 +29944,21 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "cjO" = (
-/obj/structure/rack,
 /obj/item/taperecorder{
 	pixel_x = -3
-	},
-/obj/item/paicard{
-	pixel_x = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/item/circuitboard/aicore{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/paicard{
+	pixel_x = 4
+	},
+/obj/item/aicard,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "cjR" = (
@@ -33494,11 +33486,18 @@
 /area/station/science/genetics)
 "cyC" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 14
+/obj/item/storage/box/disks{
+	pixel_x = -6;
+	pixel_y = 9
 	},
-/obj/item/storage/box/disks,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/paper_bin{
+	pixel_x = 8;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cyD" = (
@@ -34101,11 +34100,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cAD" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
 /obj/machinery/newscaster/directional/south,
-/obj/item/book/manual/wiki/sop_science,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cAG" = (
@@ -34709,8 +34706,10 @@
 /area/station/science/misc_lab)
 "cDv" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/storage/box/beakers{
+	pixel_x = -7;
+	pixel_y = 10
+	},
 /obj/machinery/camera{
 	c_tag = "Research Genetics";
 	dir = 1;
@@ -34718,6 +34717,13 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/item/storage/box/syringes{
+	pixel_x = -7
+	},
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = 7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cDw" = (
@@ -45228,7 +45234,7 @@
 /area/station/security/brig)
 "dGd" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "trade_dock";
+	id_tag = "trader_home";
 	name = "Port Bay 4 Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -54794,10 +54800,15 @@
 /area/station/medical/surgery/observation)
 "ind" = (
 /obj/structure/table/glass,
-/obj/item/hand_labeler,
-/obj/item/roller,
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/item/roller{
+	pixel_y = 9
+	},
+/obj/item/hand_labeler{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "ini" = (
@@ -70181,12 +70192,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "pNm" = (
-/obj/docking_port/stationary{
-	dwidth = 11;
-	height = 23;
-	id = "trade_dock";
-	name = "Port Bay 4 at NSS Cyberiad";
-	width = 23
+/obj/docking_port/stationary/trader{
+	name = "Docking bay 4 at NSS Cyberiad"
 	},
 /turf/space,
 /area/space)
@@ -72732,13 +72739,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"qTO" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall,
-/area/space/nearstation)
 "qUj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -77635,24 +77635,27 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/robotanalyzer,
-/obj/item/stack/sheet/metal{
-	amount = 50
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = -3;
+	pixel_y = 6
 	},
 /obj/item/stack/sheet/glass{
 	amount = 10;
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
+/obj/item/robotanalyzer,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "tvG" = (
@@ -77815,10 +77818,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/cable/yellow{
+/obj/machinery/door/firedoor,
+/obj/structure/cable/extra_insulated/pre_connect{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "tAE" = (
@@ -83408,16 +83411,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/rack,
-/obj/item/aicard,
-/obj/item/circuitboard/aicore{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "wqU" = (
@@ -114120,11 +114118,11 @@ aaa
 aaa
 aaa
 abY
-afO
 aab
-afO
-qTO
-aMr
+aab
+aab
+abY
+aab
 aab
 aab
 abY
@@ -114377,13 +114375,13 @@ aaa
 aaa
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 akZ
 vDY
@@ -114634,13 +114632,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aqv
@@ -114891,13 +114889,13 @@ afO
 afO
 afO
 aab
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 afm
 aey
@@ -115148,13 +115146,13 @@ afX
 afX
 aaa
 abY
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 lkO
 amB
@@ -115405,13 +115403,13 @@ afX
 afX
 afX
 aYm
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 vom
 amz
@@ -115662,13 +115660,13 @@ afX
 afO
 afX
 afX
+aaa
+aaa
+aaa
 ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+aaa
+aaa
+aaa
 aaa
 afm
 jVf
