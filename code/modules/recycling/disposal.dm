@@ -60,10 +60,15 @@
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
 /obj/machinery/disposal/Moved(atom/OldLoc, Dir)
+	if(OldLoc == null)
+		return
+
 	. = ..()
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/delivery_chute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
 	var/turf/T = OldLoc
+
+
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
@@ -71,6 +76,7 @@
 			"<span class='warning'>The floortile is ripped from the floor!</span>",
 			"<span class='warning'>You hear a loud bang!</span>"
 		)
+
 	if(trunk)
 		trunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
