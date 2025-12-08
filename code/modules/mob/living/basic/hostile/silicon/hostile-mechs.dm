@@ -268,6 +268,6 @@
 
 /mob/living/basic/hostile_mech/archange/proc/bootup()
 	ai_controller.set_ai_status(AI_STATUS_ON)
-	damage_coeff = initial(damage_coeff)
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
 	booting = FALSE
 	update_icon(UPDATE_OVERLAYS)
