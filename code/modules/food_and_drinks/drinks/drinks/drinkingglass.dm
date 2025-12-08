@@ -51,26 +51,27 @@
 
 /obj/item/reagent_containers/drinks/drinkingglass/on_reagent_change()
 	overlays.Cut()
-	if(length(reagents.reagent_list))
-		var/datum/reagent/main_reagent = reagents.get_master_reagent()
-		name = main_reagent.drink_name
-		desc = main_reagent.drink_desc
-		force = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? 10 : initial(force)
-		attack_verb = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
-		if(main_reagent.drink_icon)
-			icon_state = main_reagent.drink_icon
-			if((main_reagent.id == "bubbletea" || main_reagent.id == "bubblemilktea") && length(reagents.reagent_list) > 1)
-				customize_bubble_tea()
-		else
-			var/image/drink_image = image(icon, "glassoverlay")
-			drink_image.color = mix_color_from_reagents(reagents.reagent_list)
-			overlays += drink_image
-	else
+	if(!length(reagents.reagent_list))
 		force = initial(force)
 		attack_verb = initial(attack_verb)
 		icon_state = "glass_empty"
 		name = initial(name)
 		desc = initial(desc)
+		return
+
+	var/datum/reagent/main_reagent = reagents.get_master_reagent()
+	name = main_reagent.drink_name
+	desc = main_reagent.drink_desc
+	force = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? 10 : initial(force)
+	attack_verb = (istype(main_reagent, /datum/reagent/consumable/drink/salt_and_battery) && reagents.total_volume) ? list("assaulted", "battered") : initial(attack_verb)
+	if(main_reagent.drink_icon)
+		icon_state = main_reagent.drink_icon
+		if((main_reagent.id == "bubbletea" || main_reagent.id == "bubblemilktea") && length(reagents.reagent_list) > 1)
+			customize_bubble_tea()
+	else
+		var/image/drink_image = image(icon, "glassoverlay")
+		drink_image.color = mix_color_from_reagents(reagents.reagent_list)
+		overlays += drink_image
 
 /obj/item/reagent_containers/drinks/drinkingglass/proc/customize_bubble_tea()
 	if(length(reagents.reagent_list) < 2)
