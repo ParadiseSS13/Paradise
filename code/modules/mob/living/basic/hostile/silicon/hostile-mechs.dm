@@ -1,6 +1,6 @@
 /mob/living/basic/hostile_mech
 	name = "hostile mech"
-	desc = ABSTRACT_TYPE_DESC
+	desc = "I'm a base type and someone was bad and spawned me."
 	icon = 'icons/mecha/mecha.dmi'
 	icon_state = "ripley"
 	health = 300
@@ -240,3 +240,34 @@
 	mech_punch = TRUE
 	deflect_chance = 35
 	loot = list(/obj/structure/mecha_wreckage/archange)
+	/// Are we in the powering up phase?
+	var/booting = TRUE
+
+/mob/living/basic/hostile_mech/archange/Initialize(mapload)
+	. = ..()
+	ai_controller.set_ai_status(AI_STATUS_OFF)
+	update_icon(UPDATE_OVERLAYS)
+	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, STAMINA = 0, OXY = 0)
+	say("Organics who think they are supreme...")
+	addtimer(CALLBACK(src, PROC_REF(say), "Organics who only bring chaos and filth..."), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "They are no longer a part of MY program."), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "Now, I am in control."), 6 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "Now, they perish."), 8 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "Defense mode deactivated. Combat mode active! Engaging!"), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(bootup)), 10 SECONDS)
+
+/mob/living/basic/hostile_mech/archange/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(booting)
+		overlays += mutable_appearance('icons/effects/effects.dmi', "at_shield2", MOB_LAYER + 0.01, alpha = 100)
+
+/mob/living/basic/hostile_mech/archange/emp_act(severity)
+	if(!booting)
+		return ..()
+
+/mob/living/basic/hostile_mech/archange/proc/bootup()
+	ai_controller.set_ai_status(AI_STATUS_ON)
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
+	booting = FALSE
+	update_icon(UPDATE_OVERLAYS)
