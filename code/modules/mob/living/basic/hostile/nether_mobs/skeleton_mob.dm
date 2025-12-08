@@ -159,7 +159,7 @@
 /obj/projectile/bullet/skeleton_smg
 	damage = 5
 
-/mob/living/basic/skeleton/reanimator
+/mob/living/basic/skeleton/incursion/reanimator
 	name = "skeletal reanimator"
 	desc = "A dark necromancer from the depths of an unknowable darkness."
 	icon_state = "skeleton_reanimator"
@@ -175,11 +175,11 @@
 		/datum/action/cooldown/mob_cooldown/summon_skulls = BB_REANIMATOR_SKULL_ACTION,
 	)
 
-/mob/living/basic/skeleton/reanimator/Initialize(mapload)
+/mob/living/basic/skeleton/incursion/reanimator/Initialize(mapload)
 	. = ..()
 	grant_actions_by_list(reanimator_actions)
 
-/mob/living/basic/skeleton/reanimator/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/skeleton/incursion/reanimator/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
 	if(!ishuman(target))
 		return ..()
 	if(target.stat != DEAD)
@@ -198,7 +198,7 @@
 		sleep(3 SECONDS) // Locks the revitalizer down for 2 seconds, but gives the player 5 seconds to return
 		reanimate(target)
 
-/mob/living/basic/skeleton/reanimator/proc/reanimate(mob/living/carbon/human/H)
+/mob/living/basic/skeleton/incursion/reanimator/proc/reanimate(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] releases dark tendrils into the flesh of [H], morphing their corpse into a grotesque creature!</span>")
 	var/mob/living/basic/netherworld/blankbody/blank = new(H.loc)
 	blank.name = "[H]"
