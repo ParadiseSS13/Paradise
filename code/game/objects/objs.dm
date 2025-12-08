@@ -29,7 +29,7 @@
 	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
 	/// How much acid is on this object?
-	var/acid_level = 0 
+	var/acid_level = 0
 	/// Can this object be attacked in melee?
 	var/can_be_hit = TRUE
 	/// Is this object currently being zapped by lightning?
@@ -37,7 +37,7 @@
 	/// Should this object speed process? Greatly increases the frequency of process events (5 times more frequent).
 	var/speed_process = FALSE
 	/// Are we visible on the station blueprints at roundstart?
-	var/on_blueprints = FALSE 
+	var/on_blueprints = FALSE
 	/// Forces the object to be on the blueprints, regardless of when it was created.
 	var/force_blueprints = FALSE
 	/// Does this object require you to hold it to commit suicide with it?
@@ -265,7 +265,7 @@
 		return
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
-	if(!sharp && new_sharp_val)
+	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
 
 /// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
