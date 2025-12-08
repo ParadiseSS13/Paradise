@@ -142,7 +142,6 @@
 	damage = 30
 	devastation = -1
 	heavy_damage = 1
-	light_damage = 3
 
 /obj/projectile/energy/floramut
 	name = "alpha somatoray"

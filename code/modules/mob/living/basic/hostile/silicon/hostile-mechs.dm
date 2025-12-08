@@ -8,7 +8,6 @@
 	faction = list("malf_drone")
 	mob_biotypes = MOB_ROBOTIC
 	sentience_type = SENTIENCE_ARTIFICIAL
-	density = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
@@ -30,7 +29,6 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/laser
 	projectile_sound = 'sound/weapons/laser.ogg'
-	ranged_burst_count = 1
 	death_message = "breaks apart!"
 	bubble_icon = "machine"
 	basic_mob_flags = DEL_ON_DEATH
@@ -168,9 +166,7 @@
 	melee_attack_cooldown_min = 0.5 SECONDS
 	melee_attack_cooldown_min = 1.5 SECONDS
 	attack_sound = 'sound/weapons/drill.ogg'
-	is_ranged = TRUE
 	projectile_type = /obj/projectile/plasma/adv/mech/evil
-	projectile_sound = 'sound/weapons/laser.ogg'
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/malf_grenade = BB_HOSTILE_MECH_SECONDARY_WEAPON,
 	)
@@ -190,7 +186,6 @@
 	damage_coeff = list(BRUTE = 0.8, BURN = 0.75, TOX = 0, STAMINA = 0, OXY = 0)
 	projectile_type = /obj/projectile/bullet/weakbullet3
 	ranged_burst_count = 3
-	ranged_burst_interval = 0.2 SECONDS
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	innate_actions = list(
@@ -211,9 +206,7 @@
 	melee_damage_lower = 35
 	melee_damage_upper = 45
 	damage_coeff = list(BRUTE = 0.6, BURN = 0.85, TOX = 0, STAMINA = 0, OXY = 0)
-	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/laser/heavylaser
-	ranged_burst_count = 1
 	ranged_burst_interval = 1 SECONDS
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/lasercannonfire.ogg'
@@ -235,9 +228,7 @@
 	melee_damage_lower = 50
 	melee_damage_upper = 55
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
-	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/pulse/hitscan/heavy
-	ranged_burst_count = 1
 	ranged_burst_interval = 1 SECONDS
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/marauder.ogg'

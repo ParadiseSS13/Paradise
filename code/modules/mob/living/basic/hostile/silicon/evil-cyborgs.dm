@@ -59,7 +59,6 @@
 	attack_verb_continuous = "batons"
 	projectile_type = /obj/projectile/beam/disabler/weak
 	projectile_sound = 'sound/weapons/taser2.ogg'
-	ranged_burst_count = 2
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 
 /mob/living/basic/malfborg/sec/Initialize(mapload)
@@ -104,7 +103,6 @@
 	attack_verb_continuous = "slams"
 	attack_sound = 'sound/weapons/guitarslam.ogg'
 	projectile_type = null
-	projectile_sound = 'sound/weapons/laser.ogg'
 	casing_type = /obj/item/ammo_casing/caseless/eshotgun
 	ranged_burst_count = 1
 	ranged_cooldown = 1.5 SECONDS
@@ -127,7 +125,6 @@
 	projectile_type = /obj/projectile/kinetic/malf
 	projectile_sound = 'sound/weapons/kenetic_accel.ogg'
 	ranged_burst_count = 1
-	ranged_cooldown = 2 SECONDS
 
 /datum/ai_controller/basic_controller/malfborg
 	blackboard = list(
