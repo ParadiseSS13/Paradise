@@ -881,7 +881,8 @@
 		temp_bp += round(chem_volume * 0.25, 1)
 
 	var/obj/item/organ/internal/heart/heart = H.linked_organ
-	temp_bp += heart.blood_pressure_change
+	if(istype(heart))
+		temp_bp += heart.blood_pressure_change
 
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
@@ -989,7 +990,8 @@
 		beats += 10
 
 	var/obj/item/organ/internal/heart/heart = H.linked_organ
-	beats += heart.heart_rate_change
+	if(istype(heart))
+		beats += heart.heart_rate_change
 
 	var/brute_dmg = getBruteLoss()
 	var/burn_dmg = getFireLoss()
