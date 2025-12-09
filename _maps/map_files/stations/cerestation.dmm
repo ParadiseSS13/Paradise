@@ -2753,7 +2753,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "auR" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "auS" = (

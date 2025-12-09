@@ -44944,13 +44944,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1;
 	name = "Turbine Interior Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "dxU" = (
@@ -49105,13 +49105,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_ext";
-	locked = 1;
 	name = "Turbine Exterior Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "ftm" = (
@@ -67159,11 +67159,11 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/dresser,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "ooI" = (

@@ -11039,7 +11039,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "bnE" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /obj/structure/sign/bobross{
 	pixel_y = 32
 	},
@@ -30352,6 +30352,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "dmi" = (
@@ -52615,13 +52616,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1;
 	name = "Incinerator Exterior Airlock"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "len" = (
