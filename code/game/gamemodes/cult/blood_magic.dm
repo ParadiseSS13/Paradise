@@ -376,8 +376,6 @@
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
 	inhand_icon_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0

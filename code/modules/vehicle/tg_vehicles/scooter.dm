@@ -349,8 +349,6 @@
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = "skateboard_held"
 	inhand_icon_state = "skateboard"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
