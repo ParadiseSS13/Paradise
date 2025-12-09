@@ -75,12 +75,12 @@
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 
-		//get structures on turf, then delete large rocks and plants
+		// get structures on turf, then delete large rocks and plants
 		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
-		for(var/turf in affected_turfs)
-			var/obj/structure/flora/ash/rock/flora = locate(/obj/structure/flora/ash/, turf)
-			if(flora != null)
-				qdel(flora)
+		for(var/turf/selected_turf in affected_turfs)
+			var/obj/structure/flora/ash/found_flora = locate(/obj/structure/flora/ash/, selected_turf)
+			if(found_flora != null)
+				qdel(found_flora)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
