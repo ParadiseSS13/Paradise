@@ -112,7 +112,7 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// An outfit for ghosts to spawn with
 	var/datum/outfit/selected_outfit
 
