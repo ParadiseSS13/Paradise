@@ -2170,7 +2170,7 @@
 				</div>
 				<table width='100%' cellpadding='1' cellspacing='0'>
 					<tr>
-					<td width='20%'>"} // Table within a table for alignment, also allows you to easily add more colomns.
+					<td width='20%'>"}; // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
 
@@ -2304,7 +2304,7 @@
 				html += "</td>"
 				// sets the size of the job preference column, but only for assistant.
 				// It will pick the bigger number of this and the rest of the column
-				html += "<td style='margin:5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
+				html += "<td style='margin: 5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2318,7 +2318,7 @@
 				*/
 			// determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width:30%; margin:5px;'><span class='dark'>[difficultyMeter]</span>"
+			html += "</td><td style='width: 30%; margin: 5px;'><span class='dark'>[difficultyMeter]</span>"
 			html += "</td></tr>"
 
 		index += 1
