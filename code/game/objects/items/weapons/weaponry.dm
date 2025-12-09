@@ -146,7 +146,7 @@
 		qdel(src)
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/baton/cattleprod/P = new /obj/item/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
 			user.unequip(src)
@@ -182,15 +182,19 @@
 	icon_state = "kidanspear"
 	throwforce = 15
 
-/obj/item/melee/baseball_bat
+/obj/item/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "baseball_bat"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags_2 = RANDOM_BLOCKER_2
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	needs_permit = TRUE
 	COOLDOWN_DECLARE(last_deflect)
 	var/deflect_cooldown = 5 MINUTES
 	COOLDOWN_DECLARE(next_throw_time)
@@ -201,12 +205,12 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/melee/baseball_bat/homerun
+/obj/item/baseball_bat/homerun
 	name = "home run bat"
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = TRUE
 
-/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
 	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE
@@ -241,7 +245,7 @@
 				COOLDOWN_START(src, last_deflect, deflect_cooldown)
 			return TRUE
 
-/obj/item/melee/baseball_bat/activate_self(mob/user)
+/obj/item/baseball_bat/activate_self(mob/user)
 	if(..())
 		return
 	if(!homerun_able)
@@ -263,7 +267,7 @@
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = TRUE
 
-/obj/item/melee/baseball_bat/pre_attack(mob/living/target, mob/living/user, params)
+/obj/item/baseball_bat/pre_attack(mob/living/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -283,7 +287,7 @@
 	target.throw_at(throw_target, rand(1, 2), 7, user)
 	COOLDOWN_START(src, next_throw_time, throw_cooldown)
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+/obj/item/baseball_bat/attack(mob/living/target, mob/living/user)
 	if(..())
 		return FINISH_ATTACK
 	if(homerun_ready)
@@ -295,19 +299,19 @@
 		homerun_ready = FALSE
 		return FINISH_ATTACK
 
-/obj/item/melee/baseball_bat/dropped(mob/user, silent)
+/obj/item/baseball_bat/dropped(mob/user, silent)
 	. = ..()
 	deflectmode = FALSE
 	homerun_ready = FALSE
 
-/obj/item/melee/baseball_bat/ablative
+/obj/item/baseball_bat/ablative
 	name = "metal baseball bat"
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	force = 12
 	throwforce = 15
 
-/obj/item/melee/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
+/obj/item/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
 	var/picksound = rand(1,2)
 	var/turf = get_turf(src)
 	if(picksound == 1)

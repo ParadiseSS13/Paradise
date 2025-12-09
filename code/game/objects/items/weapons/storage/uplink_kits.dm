@@ -149,8 +149,8 @@
 	name = "Dark Lord Bundle"
 	desc = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT."
 	items = list(
-		/obj/item/melee/energy/sword/saber/red, // 40TC
-		/obj/item/melee/energy/sword/saber/red, // 40TC
+		/obj/item/energy/sword/saber/red, // 40TC
+		/obj/item/energy/sword/saber/red, // 40TC
 		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
 		/obj/item/clothing/suit/hooded/chaplain_cassock, // 0TC
@@ -235,7 +235,7 @@
 		/obj/item/mod/control/pre_equipped/traitor, // 30TC
 		/obj/item/card/id/syndi_scan_only, // ~2TC?
 		/obj/item/encryptionkey/syndicate, // 10tc
-		/obj/item/melee/energy/sword/saber/red, // 40TC
+		/obj/item/energy/sword/saber/red, // 40TC
 		/obj/item/shield/energy, // 40TC
 		/obj/item/pinpointer/advpinpointer, // 10TC, get dat fuckin disk
 		/obj/item/storage/belt/military, // 10TC
@@ -289,7 +289,7 @@
 		/obj/item/storage/secure/briefcase/syndie, // 5TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
 		/obj/item/clothing/suit/jacket/bomber/syndicate, // 3TC
-		/obj/item/melee/knuckleduster/syndie, // 10TC
+		/obj/item/knuckleduster/syndie, // 10TC
 	)
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()

@@ -1,0 +1,106 @@
+[
+    {
+        "original": "/obj/item/melee/arm_blade",
+        "replace": "/obj/item/arm_blade"
+    },
+    {
+        "original": "/obj/item/melee/baseball_bat",
+        "replace": "/obj/item/baseball_bat"
+    },
+    {
+        "original": "/obj/item/melee/baton",
+        "replace": "/obj/item/baton"
+    },
+    {
+        "original": "/obj/item/melee/blood_magic",
+        "replace": "/obj/item/blood_magic"
+    },
+    {
+        "original": "/obj/item/melee/bone_sword",
+        "replace": "/obj/item/bone_sword"
+    },
+    {
+        "original": "/obj/item/melee/breach_cleaver",
+        "replace": "/obj/item/breach_cleaver"
+    },
+    {
+        "original": "/obj/item/melee/candy_sword",
+        "replace": "/obj/item/candy_sword"
+    },
+    {
+        "original": "/obj/item/melee/chainofcommand",
+        "replace": "/obj/item/chainofcommand"
+    },
+    {
+        "original": "/obj/item/melee/changeling_corrosive_acid",
+        "replace": "/obj/item/changeling_corrosive_acid"
+    },
+    {
+        "original": "/obj/item/melee/classic_baton",
+        "replace": "/obj/item/classic_baton"
+    },
+    {
+        "original": "/obj/item/melee/cultblade",
+        "replace": "/obj/item/cultblade"
+    },
+    {
+        "original": "/obj/item/melee/energy",
+        "replace": "/obj/item/energy"
+    },
+    {
+        "original": "/obj/item/melee/flyswatter",
+        "replace": "/obj/item/flyswatter"
+    },
+    {
+        "original": "/obj/item/melee/ghost_sword",
+        "replace": "/obj/item/ghost_sword"
+    },
+    {
+        "original": "/obj/item/melee/icepick",
+        "replace": "/obj/item/icepick"
+    },
+    {
+        "original": "/obj/item/melee/knuckleduster",
+        "replace": "/obj/item/knuckleduster"
+    },
+    {
+        "original": "/obj/item/melee/mantis_blade",
+        "replace": "/obj/item/mantis_blade"
+    },
+    {
+        "original": "/obj/item/melee/powerfist",
+        "replace": "/obj/item/powerfist"
+    },
+    {
+        "original": "/obj/item/melee/razorwire",
+        "replace": "/obj/item/razorwire"
+    },
+    {
+        "original": "/obj/item/melee/saber",
+        "replace": "/obj/item/saber"
+    },
+    {
+        "original": "/obj/item/melee/secsword",
+        "replace": "/obj/item/secsword"
+    },
+    {
+        "original": "/obj/item/melee/skateboard",
+        "replace": "/obj/item/skateboard"
+    },
+    {
+        "original": "/obj/item/melee/snakesfang",
+        "replace": "/obj/item/snakesfang"
+    },
+    {
+        "original": "/obj/item/melee/spellblade",
+        "replace": "/obj/item/spellblade"
+    },
+    {
+        "original": "/obj/item/melee/swarm_hand",
+        "replace": "/obj/item/swarm_hand"
+    },
+    {
+        "original": "/obj/item/melee/touch_attack",
+        "replace": "/obj/item/touch_attack"
+    }
+]

@@ -111,7 +111,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)
 	new /obj/item/storage/bag/mail(src)
-	new /obj/item/melee/knuckleduster/nanotrasen(src)
+	new /obj/item/knuckleduster/nanotrasen(src)
 	new /obj/item/gun/energy/gun/mini(src)
 
 /// used in mining outpost

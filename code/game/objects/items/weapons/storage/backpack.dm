@@ -602,7 +602,7 @@
 	//Melee Weapon
 	switch(rand(1, 8))
 		if(1)
-			new /obj/item/melee/spellblade(src)
+			new /obj/item/spellblade(src)
 			value += 2
 		if(2)
 			new /obj/item/organ/internal/cyberimp/arm/katana(src)

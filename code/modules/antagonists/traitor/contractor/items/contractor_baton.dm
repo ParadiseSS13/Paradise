@@ -1,4 +1,4 @@
-/obj/item/melee/classic_baton/telescopic/contractor
+/obj/item/classic_baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	icon_state = "contractor_baton_0" // For telling what it is when mapping
@@ -22,7 +22,7 @@
 	/// Stutter to deal on stun.
 	var/stutter_amount = 10 SECONDS
 
-/obj/item/melee/classic_baton/telescopic/contractor/baton_knockdown(mob/living/target, mob/living/user)
+/obj/item/classic_baton/telescopic/contractor/baton_knockdown(mob/living/target, mob/living/user)
 	. = ..()
 	target.Jitter(jitter_amount)
 	target.AdjustStuttering(stutter_amount)

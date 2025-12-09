@@ -52,7 +52,7 @@
 	l_pocket = /obj/item/mail_scanner
 	pda = /obj/item/pda/heads/qm
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 
 /datum/outfit/job/qm/on_mind_initialize(mob/living/carbon/human/H)

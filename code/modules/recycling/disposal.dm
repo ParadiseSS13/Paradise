@@ -144,7 +144,7 @@
 
 	src.add_fingerprint(user)
 
-	if(istype(used, /obj/item/melee/energy/blade))
+	if(istype(used, /obj/item/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return ITEM_INTERACT_COMPLETE
 

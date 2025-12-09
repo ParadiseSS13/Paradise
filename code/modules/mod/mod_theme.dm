@@ -242,7 +242,7 @@
 		/obj/item/analyzer,
 		/obj/item/rcd,
 		/obj/item/fireaxe,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/classic_baton/telescopic,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
@@ -525,7 +525,7 @@
 		/obj/item/storage/pill_bottle,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/classic_baton/telescopic,
 	)
 	skins = list(
 		"rescue" = list(
@@ -581,7 +581,7 @@
 		/obj/item/dnainjector,
 		/obj/item/hand_tele,
 		/obj/item/storage/bag/bio,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/classic_baton/telescopic,
 		/obj/item/gun
 	)
 	skins = list(
@@ -635,7 +635,7 @@
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
+		/obj/item/baton,
 		/obj/item/gun,
 	)
 	skins = list(
@@ -692,7 +692,7 @@
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
+		/obj/item/baton,
 		/obj/item/gun,
 	)
 	skins = list(
@@ -744,10 +744,10 @@
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
-		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee,
 		/obj/item/gun,
+		/obj/item/restraints/handcuffs,
+		/obj/item/saber,
 	)
 	skins = list(
 		"magnate" = list(
@@ -801,10 +801,10 @@
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
-		/obj/item/melee/baton,
+		/obj/item/baton,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flashlight,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/classic_baton/telescopic,
 		/obj/item/kitchen/knife/combat
 	)
 	skins = list(
@@ -911,8 +911,8 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
-		/obj/item/melee/energy/sword,
+		/obj/item/baton,
+		/obj/item/energy/sword,
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
@@ -999,8 +999,8 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
-		/obj/item/melee/energy/sword,
+		/obj/item/baton,
+		/obj/item/energy/sword,
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
@@ -1118,7 +1118,7 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
+		/obj/item/baton,
 		/obj/item/gun,
 	)
 	skins = list(
@@ -1200,8 +1200,8 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
-		/obj/item/melee/energy/sword,
+		/obj/item/baton,
+		/obj/item/energy/sword,
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
@@ -1257,7 +1257,7 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
+		/obj/item/baton,
 		/obj/item/gun,
 	)
 	skins = list(

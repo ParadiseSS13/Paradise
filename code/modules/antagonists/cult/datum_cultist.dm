@@ -119,7 +119,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 /datum/antagonist/cultist/proc/equip_roundstart_cultist()
 	if(!ishuman(owner.current))
 		return FALSE
-	. |= cult_give_item(/obj/item/melee/cultblade/dagger)
+	. |= cult_give_item(/obj/item/cultblade/dagger)
 	. |= cult_give_item(/obj/item/stack/sheet/runed_metal/ten)
 	to_chat(owner.current, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 

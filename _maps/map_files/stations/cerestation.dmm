@@ -1712,7 +1712,7 @@
 /obj/structure/closet{
 	name = "Bee-keeping suits"
 	},
-/obj/item/melee/flyswatter,
+/obj/item/flyswatter,
 /obj/item/clothing/suit/beekeeper_suit,
 /obj/item/clothing/head/beekeeper_head,
 /obj/effect/turf_decal/tiles/department/virology,
@@ -5506,7 +5506,7 @@
 /area/station/command/meeting_room)
 "aVg" = (
 /obj/structure/table/wood,
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /obj/machinery/phone{
 	pixel_y = 2
 	},
@@ -45919,7 +45919,7 @@
 /obj/item/clothing/shoes/white,
 /obj/item/clothing/under/color/white,
 /obj/item/beach_ball/baseball,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -101630,7 +101630,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/command/starboard)
 "vfV" = (
-/obj/item/melee/flyswatter,
+/obj/item/flyswatter,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/service/aft_starboard)
 "vgs" = (

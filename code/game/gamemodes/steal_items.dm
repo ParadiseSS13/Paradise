@@ -54,7 +54,7 @@
 
 /datum/theft_objective/captains_saber
 	name = "the captain's saber"
-	typepath = /obj/item/melee/saber
+	typepath = /obj/item/saber
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
@@ -180,7 +180,7 @@
 
 /datum/theft_objective/engraved_dusters
 	name = "the quartermaster's engraved knuckledusters"
-	typepath = /obj/item/melee/knuckleduster/nanotrasen
+	typepath = /obj/item/knuckleduster/nanotrasen
 	protected_jobs = list("Quartermaster")
 	location_override = "the Quartermaster's Cargo Office"
 

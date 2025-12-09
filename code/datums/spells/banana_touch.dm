@@ -3,13 +3,13 @@
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
 		Warning : Effects are permanent on non-wizards."
-	hand_path = /obj/item/melee/touch_attack/banana
+	hand_path = /obj/item/touch_attack/banana
 
 	base_cooldown = 30 SECONDS
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
-/obj/item/melee/touch_attack/banana
+/obj/item/touch_attack/banana
 	name = "banana touch"
 	desc = "It's time to start clowning around."
 	catchphrase = "NWOLC YRGNA"
@@ -18,12 +18,12 @@
 	var/is_apprentice_spell = FALSE
 
 /datum/spell/touch/banana/apprentice
-	hand_path = /obj/item/melee/touch_attack/banana/apprentice
+	hand_path = /obj/item/touch_attack/banana/apprentice
 
-/obj/item/melee/touch_attack/banana/apprentice
+/obj/item/touch_attack/banana/apprentice
 	is_apprentice_spell = TRUE
 
-/obj/item/melee/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(is_apprentice_spell && iswizard(target) && target != user)

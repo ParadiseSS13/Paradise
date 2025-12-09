@@ -53,7 +53,7 @@
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+	if(istype(I, /obj/item/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
 			return ITEM_INTERACT_COMPLETE
 		anchored = !anchored

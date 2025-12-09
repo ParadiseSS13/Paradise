@@ -187,5 +187,5 @@
 	)
 
 /datum/species/monkey/nian_worme/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	if(istype(I, /obj/item/melee/flyswatter) && I.force)
+	if(istype(I, /obj/item/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) // making flyswatters do 15x damage to moff

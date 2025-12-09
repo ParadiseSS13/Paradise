@@ -41,7 +41,7 @@
 	var/projectile = /obj/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	var/obj/item/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)

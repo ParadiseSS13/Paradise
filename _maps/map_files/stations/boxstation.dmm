@@ -4520,7 +4520,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "asu" = (
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -8870,7 +8870,7 @@
 /area/station/legal/courtroom)
 "aHr" = (
 /obj/structure/table,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aHt" = (
@@ -52586,7 +52586,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /obj/item/card/id/captains_spare,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
@@ -65783,7 +65783,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "nJD" = (
-/obj/item/melee/baton/cattleprod,
+/obj/item/baton/cattleprod,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -71633,7 +71633,7 @@
 /area/station/maintenance/asmaint)
 "qvf" = (
 /obj/structure/table,
-/obj/item/melee/baton/cattleprod,
+/obj/item/baton/cattleprod,
 /obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/asmaint)

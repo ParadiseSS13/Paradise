@@ -51,7 +51,7 @@
 	///Stores the time of the last crash plus a short cooldown, affects availability and outcome of certain actions
 	COOLDOWN_DECLARE(next_crash)
 	///The handheld item counterpart for the board
-	var/board_item_type = /obj/item/melee/skateboard
+	var/board_item_type = /obj/item/skateboard
 	///Stamina drain multiplier
 	var/instability = 10
 	///If true, riding the skateboard with walk intent on will prevent crashing.
@@ -220,7 +220,7 @@
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. Looks a lot more stable than the average board."
 	icon_state = "skateboardpro"
-	board_item_type = /obj/item/melee/skateboard/pro
+	board_item_type = /obj/item/skateboard/pro
 	instability = 6
 
 /obj/tgvehicle/scooter/skateboard/pro/make_ridable()
@@ -229,7 +229,7 @@
 /obj/tgvehicle/scooter/skateboard/hoverboard
 	name = "hoverboard"
 	desc = "A blast from the past, so retro!"
-	board_item_type = /obj/item/melee/skateboard/hoverboard
+	board_item_type = /obj/item/skateboard/hoverboard
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -266,14 +266,14 @@
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"
 	desc = "The engineering complexity of a spaceship concentrated inside of a board. Just as expensive, too."
-	board_item_type = /obj/item/melee/skateboard/hoverboard/admin
+	board_item_type = /obj/item/skateboard/hoverboard/admin
 	instability = 0
 	icon_state = "hoverboard_nt"
 
 /obj/tgvehicle/scooter/skateboard/improvised
 	name = "improvised skateboard"
 	desc = "An unfinished scooter which can only barely be called a skateboard. It's still rideable, but probably unsafe. Looks like you'll need to add a few rods to make handlebars."
-	board_item_type = /obj/item/melee/skateboard/improvised
+	board_item_type = /obj/item/skateboard/improvised
 	instability = 12
 
 //CONSTRUCTION
@@ -343,7 +343,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/melee/skateboard
+/obj/item/skateboard
 	name = "skateboard"
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
 	icon = 'icons/obj/tgvehicles.dmi'
@@ -356,27 +356,28 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
+	needs_permit = TRUE
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
-/obj/item/melee/skateboard/attack_self__legacy__attackchain(mob/user)
+/obj/item/skateboard/attack_self__legacy__attackchain(mob/user)
 	var/obj/tgvehicle/scooter/skateboard/S = new board_item_type(get_turf(user))//this probably has fucky interactions with telekinesis but for the record it wasn't my fault
 	S.buckle_mob(user)
 	qdel(src)
 
-/obj/item/melee/skateboard/improvised
+/obj/item/skateboard/improvised
 	name = "improvised skateboard"
 	desc = "A jury-rigged skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
 	board_item_type = /obj/tgvehicle/scooter/skateboard/improvised
 
-/obj/item/melee/skateboard/pro
+/obj/item/skateboard/pro
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
 	icon_state = "skateboardpro_held"
 	inhand_icon_state = "skateboardpro"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/pro
 
-/obj/item/melee/skateboard/hoverboard
+/obj/item/skateboard/hoverboard
 	name = "hoverboard"
 	desc = "A blast from the past, so retro!"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -384,7 +385,7 @@
 	inhand_icon_state = "hoverboard_red"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard
 
-/obj/item/melee/skateboard/hoverboard/admin
+/obj/item/skateboard/hoverboard/admin
 	name = "Board Of Directors"
 	desc = "The engineering complexity of a spaceship concentrated inside of a board. Just as expensive, too."
 	icon_state = "hoverboard_nt_held"

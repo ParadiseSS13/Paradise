@@ -63887,7 +63887,7 @@
 	dir = 8
 	},
 /obj/item/coin/plasma,
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/power/apc/important/directional/west,

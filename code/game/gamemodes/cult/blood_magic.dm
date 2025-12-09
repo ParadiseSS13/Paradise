@@ -79,7 +79,7 @@
 	default_button_position = SCRN_OBJ_CULT_LIST
 	var/charges = 1
 	var/magic_path = null
-	var/obj/item/melee/blood_magic/hand_magic
+	var/obj/item/blood_magic/hand_magic
 	var/datum/action/innate/cult/blood_magic/all_magic
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
@@ -156,14 +156,14 @@
 	name = "Stun"
 	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
 	button_icon_state = "stun"
-	magic_path = /obj/item/melee/blood_magic/stun
+	magic_path = /obj/item/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
 	button_icon_state = "teleport"
-	magic_path = /obj/item/melee/blood_magic/teleport
+	magic_path = /obj/item/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
@@ -207,13 +207,13 @@
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
 	button_icon_state = "shackles"
 	charges = 4
-	magic_path = /obj/item/melee/blood_magic/shackles
+	magic_path = /obj/item/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
-	magic_path = "/obj/item/melee/blood_magic/construction"
+	magic_path = "/obj/item/blood_magic/construction"
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/dagger
@@ -229,7 +229,7 @@
 	var/turf/T = get_turf(owner)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
 						"<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
-	var/obj/item/melee/cultblade/dagger/O = new(T)
+	var/obj/item/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
 		to_chat(owner, "<span class='warning'>A [O.name] appears in your hand!</span>")
 	else
@@ -246,7 +246,7 @@
 	name = "Summon Equipment"
 	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor into open slots, a cult bola, and a cult sword."
 	button_icon_state = "equip"
-	magic_path = /obj/item/melee/blood_magic/armor
+	magic_path = /obj/item/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
@@ -364,13 +364,13 @@
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
-	magic_path = /obj/item/melee/blood_magic/manipulator
+	magic_path = /obj/item/blood_magic/manipulator
 
 /datum/action/innate/cult/blood_spell/manipulation/get_panel_text()
 	return hand_magic ? "[hand_magic.uses]" : "[charges]"
 
 // The "magic hand" items
-/obj/item/melee/blood_magic
+/obj/item/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
@@ -382,6 +382,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0
+	needs_permit = TRUE
 	/// Does it have a source, AKA bloody empowerment.
 	var/has_source = TRUE
 	var/invocation
@@ -390,14 +391,14 @@
 	var/datum/action/innate/cult/blood_spell/source
 	var/antimagic_flags = MAGIC_RESISTANCE_HOLY
 
-/obj/item/melee/blood_magic/Initialize(mapload, spell)
+/obj/item/blood_magic/Initialize(mapload, spell)
 	. = ..()
 	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
 
-/obj/item/melee/blood_magic/Destroy()
+/obj/item/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
 		if(uses <= 0)
 			source.hand_magic = null
@@ -411,13 +412,13 @@
 			source.build_all_button_icons()
 	return ..()
 
-/obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
+/obj/item/blood_magic/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.</span>"
 
-/obj/item/melee/blood_magic/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/blood_magic/attack_self__legacy__attackchain(mob/living/user)
 	attackby__legacy__attackchain(user, user, TRUE)
 
-/obj/item/melee/blood_magic/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
+/obj/item/blood_magic/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
 	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
@@ -430,7 +431,7 @@
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
 	M.store_last_attacker(user)
 
-/obj/item/melee/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -446,13 +447,13 @@
 //The spell effects
 
 //stun
-/obj/item/melee/blood_magic/stun
+/obj/item/blood_magic/stun
 	name = "Stunning Aura"
 	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
-/obj/item/melee/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
@@ -492,13 +493,13 @@
 
 
 //Teleportation
-/obj/item/melee/blood_magic/teleport
+/obj/item/blood_magic/teleport
 	name = "Teleporting Aura"
 	color = RUNE_COLOR_TELEPORT
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
-/obj/item/melee/blood_magic/teleport/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/blood_magic/teleport/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	var/list/potential_runes = list()
@@ -566,13 +567,13 @@
 	return ..()
 
 //Shackles
-/obj/item/melee/blood_magic/shackles
+/obj/item/blood_magic/shackles
 	name = "Shackling Aura"
 	desc = "Will start handcuffing a victim on contact, and mute them for a short duration if successful."
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/blood_magic/shackles/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	if(iscarbon(target) && proximity)
@@ -584,7 +585,7 @@
 		source.build_all_button_icons()
 		..()
 
-/obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
+/obj/item/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, SOUND_RANGE_SET(7))
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
@@ -621,21 +622,21 @@
 	. = ..()
 
 //Construction: Converts 50 metal to a construct shell, plasteel to runed metal, or an airlock to brittle runed airlock
-/obj/item/melee/blood_magic/construction
+/obj/item/blood_magic/construction
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
 	invocation = "Ethra p'ni dedol!"
 	color = "#000000" // black
 	var/channeling = FALSE
 
-/obj/item/melee/blood_magic/construction/examine(mob/user)
+/obj/item/blood_magic/construction/examine(mob/user)
 	. = ..()
 	. += {"<u>A sinister spell used to convert:</u>\n
 	Plasteel into runed metal\n
 	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
-/obj/item/melee/blood_magic/construction/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/blood_magic/construction/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(user.holy_check())
 		return
 	if(proximity_flag)
@@ -686,12 +687,12 @@
 		..()
 
 //Armor: Gives the target a basic cultist combat loadout
-/obj/item/melee/blood_magic/armor
+/obj/item/blood_magic/armor
 	name = "Arming Aura"
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/blood_magic/armor/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	if(iscarbon(target) && proximity)
@@ -704,19 +705,19 @@
 
 		if(C == user)
 			qdel(src) //Clears the hands
-		C.put_in_hands(new /obj/item/melee/cultblade(user))
+		C.put_in_hands(new /obj/item/cultblade(user))
 		C.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
 		C.visible_message("<span class='warning'>Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!</span>")
 		..()
 //Used by blood rite, to recharge things like viel shifter or the cultest shielded robes
-/obj/item/melee/blood_magic/empower
+/obj/item/blood_magic/empower
 	name = "Blood Recharge"
 	desc = "Can be used on some cult items, to restore them to their previous state."
 	invocation = "Ditans Gut'ura Inpulsa!"
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
-/obj/item/melee/blood_magic/empower/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/blood_magic/empower/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(user.holy_check())
 		return
 	if(proximity_flag)
@@ -750,18 +751,18 @@
 		return ..()
 
 //Blood Rite: Absorb blood to heal cult members or summon weapons
-/obj/item/melee/blood_magic/manipulator
+/obj/item/blood_magic/manipulator
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
 
-/obj/item/melee/blood_magic/manipulator/examine(mob/user)
+/obj/item/blood_magic/manipulator/examine(mob/user)
 	. = ..()
 	. += "Blood spear and blood barrage cost [BLOOD_SPEAR_COST] and [BLOOD_BARRAGE_COST] charges respectively."
 	. += "Blood orb and blood empower cost [BLOOD_ORB_COST] and [BLOOD_RECHARGE_COST] charges respectively."
 	. += "<span class='cultitalic'>You have collected [uses] charge\s of blood.</span>"
 
-/obj/item/melee/blood_magic/manipulator/proc/restore_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
+/obj/item/blood_magic/manipulator/proc/restore_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(uses == 0)
 		return
 	if(!H.dna || (NO_BLOOD in H.dna.species.species_traits) || !isnull(H.dna.species.exotic_blood))
@@ -778,7 +779,7 @@
 		uses -= round(restore_blood / 2)
 		to_chat(user, "<span class='cult'>Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!</span>")
 
-/obj/item/melee/blood_magic/manipulator/proc/heal_human_damage(mob/living/carbon/human/user, mob/living/carbon/human/H)
+/obj/item/blood_magic/manipulator/proc/heal_human_damage(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(uses == 0)
 		return
 	var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
@@ -810,7 +811,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 	user.Beam(H, icon_state="sendbeam", time = 15)
 
-/obj/item/melee/blood_magic/manipulator/proc/heal_cultist(mob/living/carbon/human/user, mob/living/carbon/human/H)
+/obj/item/blood_magic/manipulator/proc/heal_cultist(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>Only a revive rune can bring back the dead!</span>")
 		return
@@ -823,7 +824,7 @@
 	else
 		to_chat(user, "<span class='cultitalic'>You use [charge_loss] charge\s, and have [uses] remaining.</span>")
 
-/obj/item/melee/blood_magic/manipulator/proc/heal_construct(mob/living/carbon/human/user, mob/living/simple_animal/M)
+/obj/item/blood_magic/manipulator/proc/heal_construct(mob/living/carbon/human/user, mob/living/simple_animal/M)
 	if(uses == 0)
 		return
 	var/missing = M.maxHealth - M.health
@@ -843,7 +844,7 @@
 	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25, extrarange = SOUND_RANGE_SET(7))
 	user.Beam(M, icon_state = "sendbeam", time = 10)
 
-/obj/item/melee/blood_magic/manipulator/proc/steal_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
+/obj/item/blood_magic/manipulator/proc/steal_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 		return
@@ -866,7 +867,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/blood_magic/manipulator/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, proximity)
 	if(user.holy_check())
 		return
 	if(!proximity)
@@ -897,7 +898,7 @@
 	blood_draw(target, user)
 	source.build_all_button_icons()
 
-/obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
+/obj/item/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
 	var/turf/T = get_turf(target)
 	if(!T)
@@ -921,7 +922,7 @@
 		to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
 		uses += max(1, temp)
 
-/obj/item/melee/blood_magic/manipulator/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/blood_magic/manipulator/attack_self__legacy__attackchain(mob/living/user)
 	if(user.holy_check())
 		return
 	var/list/options = list("Blood Orb (50)" = image(icon = 'icons/obj/cult.dmi', icon_state = "summoning_orb"),
@@ -957,7 +958,7 @@
 			if(uses < BLOOD_RECHARGE_COST)
 				to_chat(user, "<span class='cultitalic'>You need [BLOOD_RECHARGE_COST] charges to perform this rite.</span>")
 			else
-				var/obj/rite = new /obj/item/melee/blood_magic/empower()
+				var/obj/rite = new /obj/item/blood_magic/empower()
 				uses -= BLOOD_RECHARGE_COST
 				qdel(src)
 				if(user.put_in_hands(rite))

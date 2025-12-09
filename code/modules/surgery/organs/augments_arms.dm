@@ -299,7 +299,7 @@
 	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
 	icon_state = "toolkit_janitor"
 	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=2"
-	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
+	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
 	augment_icon = "toolkit_jani"
 	do_extra_render = TRUE
@@ -323,7 +323,7 @@
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
-	contents = newlist(/obj/item/melee/energy/blade/hardlight)
+	contents = newlist(/obj/item/energy/blade/hardlight)
 	origin_tech = "materials=4;combat=5;biotech=3;powerstorage=2;syndicate=5"
 
 /datum/action/item_action/organ_action/toggle/medibeam
@@ -370,7 +370,7 @@
 /obj/item/organ/internal/cyberimp/arm/combat
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
-	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
+	contents = newlist(/obj/item/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
@@ -383,7 +383,7 @@
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by NT special forces."
-	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/bio_chip_implanter/mindshield, /obj/item/flash/armimplant)
+	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/bio_chip_implanter/mindshield, /obj/item/flash/armimplant)
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
@@ -414,7 +414,7 @@
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_janitor"
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/janibelt)
 	augment_icon = "toolkit_jani"
@@ -428,7 +428,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	name = "advanced janitorial toolset implant"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
 	origin_tech = "materials=5;engineering=6;biotech=5"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/janibelt)
 	emp_proof = TRUE
@@ -557,7 +557,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
-	contents = newlist(/obj/item/melee/classic_baton)
+	contents = newlist(/obj/item/classic_baton)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/telebaton)
 	augment_icon = "toolkit"
 	do_extra_render = TRUE
@@ -598,7 +598,7 @@
 
 // Razorwire implant, long reach whip made of extremely thin wire, ouch!
 
-/obj/item/melee/razorwire
+/obj/item/razorwire
 	name = "implanted razorwire"
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
@@ -614,10 +614,11 @@
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
+	needs_permit = TRUE
 	///List of skins for the razorwire.
 	var/list/razorwire_skin_options = list()
 
-/obj/item/melee/razorwire/Initialize(mapload)
+/obj/item/razorwire/Initialize(mapload)
 	. = ..()
 	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
 	icon_state = random_colour
@@ -628,11 +629,11 @@
 	razorwire_skin_options["Plasma Purple"] = "razorwire_purple"
 	razorwire_skin_options["Great Green"] = "razorwire_green"
 
-/obj/item/melee/razorwire/examine(mob/user)
+/obj/item/razorwire/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
-/obj/item/melee/razorwire/examine_more(mob/user)
+/obj/item/razorwire/examine_more(mob/user)
 	. = ..()
 	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
 	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
@@ -645,7 +646,7 @@
 	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
 	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
 
-/obj/item/melee/razorwire/AltClick(mob/user)
+/obj/item/razorwire/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
@@ -653,7 +654,7 @@
 	if(loc == user)
 		reskin(user)
 
-/obj/item/melee/razorwire/proc/reskin(mob/M)
+/obj/item/razorwire/proc/reskin(mob/M)
 	var/list/skins = list()
 	for(var/I in razorwire_skin_options)
 		skins[I] = image(icon, icon_state = razorwire_skin_options[I])
@@ -665,7 +666,7 @@
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
 
-/obj/item/melee/razorwire/proc/reskin_radial_check(mob/user)
+/obj/item/razorwire/proc/reskin_radial_check(mob/user)
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
@@ -681,7 +682,7 @@
 	name = "razorwire spool implant"
 	desc = "An integrated spool of razorwire, capable of being used as a weapon when whipped at your foes. \
 		Built into the back of your hand, try your best to not get it tangled."
-	contents = newlist(/obj/item/melee/razorwire)
+	contents = newlist(/obj/item/razorwire)
 	icon_state = "razorwire"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/razorwire)
 	origin_tech = "combat=5;biotech=5;syndicate=2"
@@ -969,13 +970,15 @@
 
 // Mantis blades
 
-/obj/item/melee/mantis_blade
+/obj/item/mantis_blade
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action. \
 	When both blades are equipped, they enable the user to perform double attacks."
+	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	var/double_attack = TRUE
 	var/double_attack_cd = 1.5 // seconds, so every second attack
@@ -983,7 +986,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "lacerated", "ripped", "diced", "cut")
 
-/obj/item/melee/mantis_blade/equipped(mob/user, slot, initial)
+/obj/item/mantis_blade/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_LEFT_HAND)
 		transform = matrix(-1, 0, 0, 0, 1, 0)
@@ -991,48 +994,48 @@
 		transform = null
 
 // make double attack if blades in both hands and not on CD
-/obj/item/melee/mantis_blade/attack(mob/living/target, mob/living/user, params)
-	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
-	if(!istype(secondblade, /obj/item/melee/mantis_blade) || !double_attack)
+/obj/item/mantis_blade/attack(mob/living/target, mob/living/user, params)
+	var/obj/item/mantis_blade/secondblade = user.get_inactive_hand()
+	if(!istype(secondblade, /obj/item/mantis_blade) || !double_attack)
 		return ..()
 
 	double_attack(target, user, params, secondblade)
 	return FINISH_ATTACK
 
-/obj/item/melee/mantis_blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
+/obj/item/mantis_blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/mantis_blade/secondblade)
 	// first attack
 	single_attack(target, user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	// second attack
 	addtimer(CALLBACK(secondblade, PROC_REF(single_attack), target, user, params), 0.2 SECONDS) // not instant second attack
 
-/obj/item/melee/mantis_blade/proc/single_attack(mob/living/target, mob/living/user, params)
+/obj/item/mantis_blade/proc/single_attack(mob/living/target, mob/living/user, params)
 	if(QDELETED(src))
 		return
 	double_attack = FALSE
 	attack(target, user, params)
 	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
 
-/obj/item/melee/mantis_blade/Initialize(mapload)
+/obj/item/mantis_blade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/forces_doors_open/mantis)
 
-/obj/item/melee/mantis_blade/syndicate
+/obj/item/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
 	force = 15
 	armor_penetration_percentage = 30
 
-/obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
+/obj/item/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, non projectile
 
-/obj/item/melee/mantis_blade/nt
+/obj/item/mantis_blade/nt
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
 	force = 12
 
-/obj/item/melee/mantis_blade/nt/Initialize(mapload)
+/obj/item/mantis_blade/nt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime, non projectile
 
@@ -1041,7 +1044,7 @@
 	name = "'Naginata' mantis blade implants"
 	desc = "A powerful and concealable mantis blade with a monomolecular edge, produced by Cybersun Industries. Cuts through flesh and armor alike with ease."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
-	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
+	contents = newlist(/obj/item/mantis_blade/syndicate)
 	icon_state = "syndie_mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 	augment_icon = "razor"
@@ -1054,7 +1057,7 @@
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade design produced by Nanotrasen. While still quite deadly, the loss of the monomolecular blade has drastically reduced its armor penetration capability."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
-	contents = newlist(/obj/item/melee/mantis_blade/nt)
+	contents = newlist(/obj/item/mantis_blade/nt)
 	icon_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 	augment_icon = "razor"

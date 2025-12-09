@@ -9,9 +9,9 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/defence
 	/// Type of acid hand we give to person
-	var/hand = /obj/item/melee/changeling_corrosive_acid
+	var/hand = /obj/item/changeling_corrosive_acid
 	/// Current hand given to human, null is we did not give hand, object if hand is given
-	var/obj/item/melee/changeling_corrosive_acid/current_hand
+	var/obj/item/changeling_corrosive_acid/current_hand
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
@@ -119,7 +119,7 @@
 	qdel(current_hand)
 	return TRUE
 
-/obj/item/melee/changeling_corrosive_acid
+/obj/item/changeling_corrosive_acid
 	name = "Corrosive acid"
 	desc = "A fistfull of death."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
@@ -128,19 +128,20 @@
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0
+	needs_permit = TRUE
 	var/datum/action/changeling/biodegrade/parent_action
 
-/obj/item/melee/changeling_corrosive_acid/New(datum/action/changeling/biodegrade/new_parent)
+/obj/item/changeling_corrosive_acid/New(datum/action/changeling/biodegrade/new_parent)
 	. = ..()
 	parent_action = new_parent
 
-/obj/item/melee/changeling_corrosive_acid/Destroy()
+/obj/item/changeling_corrosive_acid/Destroy()
 	if(parent_action)
 		parent_action.current_hand = null
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/changeling_corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
+/obj/item/changeling_corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
 		parent_action.remove_hand_spell(user)

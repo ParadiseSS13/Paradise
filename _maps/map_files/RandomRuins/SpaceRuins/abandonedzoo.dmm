@@ -293,7 +293,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
+/obj/item/baton/cattleprod,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)

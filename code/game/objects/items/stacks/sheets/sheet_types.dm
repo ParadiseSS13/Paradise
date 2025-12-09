@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 //////////////////////////////
 GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
-	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
+	new /datum/stack_recipe("baseball bat", /obj/item/baseball_bat, 5, time = 1.5 SECONDS),
 	new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 	new /datum/stack_recipe("rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),

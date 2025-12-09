@@ -23789,7 +23789,7 @@
 	dir = 1
 	},
 /obj/item/paper_bin/nanotrasen,
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /obj/item/pen/multi,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -65320,7 +65320,7 @@
 /area/station/maintenance/apmaint)
 "kUZ" = (
 /obj/structure/table/wood/poker,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/effect/spawner/random/maintenance,
 /obj/item/restraints/handcuffs/cable,
 /turf/simulated/floor/plating,

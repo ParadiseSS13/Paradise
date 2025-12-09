@@ -464,7 +464,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "DO" = (
-/obj/item/melee/cultblade/dagger,
+/obj/item/cultblade/dagger,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "Fa" = (

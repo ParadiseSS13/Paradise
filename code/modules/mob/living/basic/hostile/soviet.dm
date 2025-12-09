@@ -64,7 +64,7 @@
 	minimum_survivable_temperature = 0
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/soviet_nian,
-		/obj/item/melee/energy/sword/pirate,
+		/obj/item/energy/sword/pirate,
 		/obj/item/salvage/loot/soviet
 	)
 

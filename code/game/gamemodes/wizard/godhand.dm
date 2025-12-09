@@ -1,4 +1,4 @@
-/obj/item/melee/touch_attack
+/obj/item/touch_attack
 	name = "outstretched hand"
 	desc = "High Five?"
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	/// Has it been blocked by antimagic? If so, abort.
 	var/blocked_by_antimagic = FALSE
@@ -16,27 +17,27 @@
 	var/on_use_sound = null
 	var/datum/spell/touch/attached_spell
 
-/obj/item/melee/touch_attack/New(spell)
+/obj/item/touch_attack/New(spell)
 	attached_spell = spell
 	..()
 
-/obj/item/melee/touch_attack/Destroy()
+/obj/item/touch_attack/Destroy()
 	if(attached_spell)
 		attached_spell.attached_hand = null
 		attached_spell.UnregisterSignal(attached_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
+/obj/item/touch_attack/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 
-/obj/item/melee/touch_attack/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/touch_attack/attack(mob/living/target, mob/living/carbon/human/user)
 	if(..() || !iscarbon(user)) //Look ma, no hands
 		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return FINISH_ATTACK
 
-/obj/item/melee/touch_attack/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	var/mob/mob_victim = target
 	if(istype(mob_victim) && mob_victim.can_block_magic(attached_spell.antimagic_flags))
@@ -47,7 +48,7 @@
 		qdel(src)
 		return
 
-/obj/item/melee/touch_attack/proc/handle_delete(mob/user)
+/obj/item/touch_attack/proc/handle_delete(mob/user)
 	if(catchphrase)
 		user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound, 50, 1)
@@ -55,13 +56,13 @@
 		attached_spell.perform(list())
 	qdel(src)
 
-/obj/item/melee/touch_attack/disintegrate
+/obj/item/touch_attack/disintegrate
 	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
 
-/obj/item/melee/touch_attack/disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
 		return
@@ -70,14 +71,14 @@
 	M.gib()
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/fleshtostone
+/obj/item/touch_attack/fleshtostone
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
 	icon_state = "fleshtostone"
 	catchphrase = "STAUN EI!!"
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
 
-/obj/item/melee/touch_attack/fleshtostone/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/fleshtostone/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(!proximity_flag || target == user || blocked_by_antimagic || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
@@ -87,14 +88,14 @@
 	new /obj/structure/closet/statue(L.loc, L)
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/plushify
+/obj/item/touch_attack/plushify
 	name = "fabric touch"
 	desc = "The power to sew your foes into a doom cut from the fabric of fate."
 	catchphrase = "MAHR-XET 'ABL"
 	on_use_sound = 'sound/magic/smoke.ogg'
 	color = COLOR_PURPLE
 
-/obj/item/melee/touch_attack/plushify/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/plushify/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(!proximity_flag || target == user || blocked_by_antimagic || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
@@ -103,14 +104,14 @@
 	L.plushify()
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/fake_disintegrate
+/obj/item/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
 	needs_permit = FALSE
 
-/obj/item/melee/touch_attack/fake_disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/fake_disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
@@ -119,14 +120,14 @@
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/cluwne
+/obj/item/touch_attack/cluwne
 	name = "cluwne touch"
 	desc = "It's time to start clowning around."
 	icon_state = "cluwnecurse"
 	catchphrase = "NWOLC EGNEVER"
 	on_use_sound = 'sound/misc/sadtrombone.ogg'
 
-/obj/item/melee/touch_attack/cluwne/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/cluwne/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //clowning around after touching yourself would unsurprisingly, be bad

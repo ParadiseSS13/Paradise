@@ -50,7 +50,7 @@
 
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
-	result = list(/obj/item/melee/baton/cattleprod)
+	result = list(/obj/item/baton/cattleprod)
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
 				/obj/item/assembly/igniter = 1)
@@ -330,7 +330,7 @@
 	result = list(/mob/living/simple_animal/bot/secbot)
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
-				/obj/item/melee/baton = 1,
+				/obj/item/baton = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(TOOL_WELDER)
@@ -342,7 +342,7 @@
 	result = list(/mob/living/simple_animal/bot/secbot/griefsky)
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
-				/obj/item/melee/energy/sword = 4,
+				/obj/item/energy/sword = 4,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 2,
 				/obj/item/robot_parts/l_arm = 2)
@@ -836,7 +836,7 @@
 
 /datum/crafting_recipe/bonesword
 	name = "Bone Sword"
-	result = list(/obj/item/melee/bone_sword)
+	result = list(/obj/item/bone_sword)
 	time = 45
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				/obj/item/stack/sheet/sinew = 1)

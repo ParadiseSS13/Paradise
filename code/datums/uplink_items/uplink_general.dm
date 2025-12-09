@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Energy Sword"
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
-	item = /obj/item/melee/energy/sword/saber
+	item = /obj/item/energy/sword/saber
 	cost = 40
 
 /datum/uplink_item/dangerous/dsword
@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	reference = "PF"
-	item = /obj/item/melee/powerfist
+	item = /obj/item/powerfist
 	cost = 50
 
 /datum/uplink_item/dangerous/chainsaw
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Knuckleduster"
 	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
 	reference = "SKD"
-	item = /obj/item/melee/knuckleduster/syndie
+	item = /obj/item/knuckleduster/syndie
 	cost = 10
 
 ////////////////////////////////////////

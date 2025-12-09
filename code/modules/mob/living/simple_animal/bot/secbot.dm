@@ -36,7 +36,7 @@
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
 	allow_pai = FALSE
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	var/obj/item/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
 	var/played_sound_this_hunt = FALSE // used to make beepsky beep when it lost its target
 
@@ -445,7 +445,7 @@
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	new /obj/item/baton(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)

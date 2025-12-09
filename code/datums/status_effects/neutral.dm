@@ -133,7 +133,7 @@
 	success = "dap each other up!"
 	request = "requests someone to dap them up!"
 	sound_effect = 'sound/effects/snap.ogg'
-	item_path = /obj/item/melee/touch_attack/fake_disintegrate  // EI-NATH!
+	item_path = /obj/item/touch_attack/fake_disintegrate  // EI-NATH!
 
 /datum/status_effect/high_five/dap/get_missed_message()
 	return "sadly can't find anybody to give daps to, and daps [owner.p_themselves()]. Shameful."

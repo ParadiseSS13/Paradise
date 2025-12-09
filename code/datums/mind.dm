@@ -975,7 +975,7 @@
 					log_and_message_admins("has culted [key_name(current)]")
 			if("dagger")
 				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
-				if(!cultist.cult_give_item(/obj/item/melee/cultblade/dagger))
+				if(!cultist.cult_give_item(/obj/item/cultblade/dagger))
 					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
 				log_and_message_admins("has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")

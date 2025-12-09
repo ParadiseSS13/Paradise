@@ -55,16 +55,16 @@
 	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
 	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 
-/obj/item/melee/razorwire/harbinger
+/obj/item/razorwire/harbinger
 	force = 15
 
-/obj/item/melee/razorwire/harbinger/Initialize(mapload)
+/obj/item/razorwire/harbinger/Initialize(mapload)
 	. = ..()
 	icon_state = "razorwire"
 	update_icon()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/harbinger
-	contents = newlist(/obj/item/melee/razorwire/harbinger)
+	contents = newlist(/obj/item/razorwire/harbinger)
 
 /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 	icon = 'icons/mob/simple_human.dmi'
@@ -94,7 +94,7 @@
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/Initialize(mapload)
 	. = ..()
 	qdel(miner_saw)
-	miner_saw = new/obj/item/melee/razorwire/harbinger(src)
+	miner_saw = new/obj/item/razorwire/harbinger(src)
 
 	set_light(2, 2, COLOR_RED)
 
