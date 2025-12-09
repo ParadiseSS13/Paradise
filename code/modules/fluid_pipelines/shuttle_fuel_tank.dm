@@ -18,7 +18,7 @@
 	/// Ref to the internal storage tank
 	var/datum/fluid_pipe/tank
 	/// What fuel do we have in the tank?
-	var/datum/fluid/current_fuel = /datum/fluid/fuel/turbo // DGTODO temp
+	var/datum/fluid/current_fuel
 	/// Units moved per 0.5 seconds. Base is 100/s
 	var/amount_moved = 50
 
@@ -93,26 +93,6 @@
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/wrench_act(mob/living/user, obj/item/I)
 	return // No picking it up aswell
-
-/*
-/obj/structure/shuttle_plasma_tank/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/analyzer) && full_percent > 0)
-		to_chat(user, "<span class='notice'>[bicon(src)] [src]'s purity reads at [purity]%.</span>")
-		return
-	return ..()
-
-// DGTODO make it explode bigger
-/obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/kaboom()
-	var/explosion_score = clamp(full_percent * purity, 0, 10000)
-	if(explosion_score <= 0)
-		return
-	var/destroy = explosion_score / 3000
-	var/heavy = explosion_score / 2500
-	var/light = explosion_score / 2000
-	var/flash = explosion_score / 1000
-
-	explosion(get_turf(src), destroy, heavy, light, flash)
-*/
 
 #undef STATE_IDLE
 #undef STATE_INTAKE

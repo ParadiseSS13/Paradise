@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 /obj/machinery/fluid_pipe/bluespace
 	name = "bluespace fluid transporter"
 	desc = "Can be used to transport fluids over large distances."
-	// DGOTOD I need to make the sprites animate nicely so iconless for now
+	// DGTODO I need to make the sprites animate nicely so iconless for now
 	// Also hi reviewers, this thing is quite untested
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	/// Are we the transporter that sets us up?
@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 
 /obj/machinery/fluid_pipe/bluespace/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Warning: Explosions will also be transferred"
+	. += "<span class='notice'>Warning: Explosions will also be transferred."
 
 /obj/machinery/fluid_pipe/bluespace/Initialize(mapload, direction)
 	. = ..()

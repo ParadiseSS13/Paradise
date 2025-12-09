@@ -1,6 +1,4 @@
 /datum/fluid_pipe
-	/// The fluid container datum reference
-//	var/datum/fluid_container/fluid_container DGTODO remove this
 	/// All the connected pipes in this pipeline
 	var/list/connected_pipes = list()
 	/// All connected machinery in this pipeline
@@ -22,7 +20,9 @@
 	if(new_capacity)
 		total_capacity = new_capacity
 	if(istype(pipe, /obj/structure/barrel))
-		return // DGTODO
+		// Barrels don't need the other stuff
+		return
+
 	if(pipe.just_a_pipe)
 		connected_pipes += pipe
 	else
@@ -91,10 +91,10 @@
 /datum/fluid_pipe/proc/spread_fluids(list/new_pipelines = list())
 	for(var/datum/thing as anything in new_pipelines)
 		if(QDELETED(thing))
+			// Was one of these already deleted in the meantime?
 			new_pipelines -= thing
 
 	var/pipelines_to_spread_to = length(new_pipelines)
-	message_admins("Length of new pipelines list: [pipelines_to_spread_to]") // DGTODO
 
 	if(pipelines_to_spread_to == 0)
 		stack_trace("spread_fluids was called with no pipelines to spread over!")

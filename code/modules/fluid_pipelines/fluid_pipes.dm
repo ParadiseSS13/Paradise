@@ -34,7 +34,7 @@
 
 /obj/machinery/fluid_pipe/LateInitialize()
 	. = ..()
-	if(!fluid_datum) // DGTODO check if this isn't fucking things up
+	if(!fluid_datum)
 		blind_connect()
 	START_PROCESSING(SSfluid, src)
 
@@ -122,8 +122,6 @@
 		fluid_datum = null
 		return
 
-	// DGTODO
-	message_admins("WE ARE HERE AAAAA")
 	SSfluid.datums_to_rebuild += list(list(fluid_datum, get_adjacent_pipes()))
 	fluid_datum.remove_pipe(src)
 	fluid_datum = null
@@ -150,14 +148,13 @@
 	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
-		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
 	if(!anchored)
 		anchored = TRUE
 		blind_connect()
 	else
-		// DGTODO: add item pipe here and make a new one // Maybe just keep an unwrenched version?
+		disconnect_pipe()
 		anchored = FALSE
 
 /obj/machinery/fluid_pipe/update_overlays()
@@ -265,3 +262,7 @@
 	if(QDELETED(parent))
 		return
 	parent.update_icon()
+
+// Something to note here is that you have to also overwrite this proc on the parent machinery
+/obj/machinery/fluid_pipe/abstract/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe.fluid_datum == parent.fluid_datum)

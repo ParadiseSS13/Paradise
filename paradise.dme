@@ -1062,7 +1062,6 @@
 #include "code\game\machinery\computer\buildandrepair.dm"
 #include "code\game\machinery\computer\camera_advanced.dm"
 #include "code\game\machinery\computer\camera_console.dm"
-#include "code\game\machinery\computer\cargo_shuttle.dm"
 #include "code\game\machinery\computer\cloning.dm"
 #include "code\game\machinery\computer\communications.dm"
 #include "code\game\machinery\computer\computer.dm"

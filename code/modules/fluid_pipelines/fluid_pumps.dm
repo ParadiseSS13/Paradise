@@ -49,17 +49,13 @@
 		fluid_datum = pipe_to_connect_to.fluid_datum
 		fluid_datum.add_pipe(src)
 
-/obj/machinery/fluid_pipe/abstract/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
-	return (pipe.fluid_datum == parent.fluid_datum) ^ parent.fluid_datum  // DGTODO Move this to abstract pipes?
-
 /obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
-	return (pipe.fluid_datum == incoming.fluid_datum) ^ incoming.fluid_datum
+	return (pipe.fluid_datum == incoming.fluid_datum)
 
 /obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS, TRUE, src))
-		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
 	if(!anchored)

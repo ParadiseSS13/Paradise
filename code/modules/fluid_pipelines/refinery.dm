@@ -97,7 +97,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	. = TRUE
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
-		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
 	if(!anchored)
