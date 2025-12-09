@@ -33,6 +33,7 @@
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_GOLEM				"golem"
 #define ROLE_ROBOT_BRAIN		"robot brain"
+#define ROLE_ASH_WALKER			"ash walker"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
@@ -78,12 +79,13 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 ))
 
 GLOBAL_LIST_INIT(special_roles_neutral, list(
+	ROLE_ASH_WALKER,
 	ROLE_GOLEM,
-	ROLE_PAI, 											// PAI
+	ROLE_PAI, // PAI
 	ROLE_ROBOT_BRAIN,
-	ROLE_SENTIENT, 										// Sentient animal
-	ROLE_TOURIST,										// Tourist
-	ROLE_TRADER, 										// Trader
+	ROLE_SENTIENT, // Sentient animal
+	ROLE_TOURIST, // Tourist
+	ROLE_TRADER, // Trader
 ))
 
 
