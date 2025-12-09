@@ -1459,10 +1459,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "apq" = (
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "apz" = (
@@ -11039,7 +11039,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "bnE" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /obj/structure/sign/bobross{
 	pixel_y = 32
 	},
@@ -12805,6 +12805,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"bvj" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "bvk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -15640,6 +15644,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
 "bHW" = (
@@ -21793,6 +21798,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cnF" = (
@@ -23717,14 +23723,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/circuitboard/aicore,
-/obj/item/paicard,
-/obj/item/aicard,
-/obj/item/taperecorder{
-	pixel_x = 4
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "cwX" = (
@@ -37707,6 +37707,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
+"fQu" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "fQE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -42888,7 +42895,6 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "hLP" = (
-/obj/structure/table,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -42900,6 +42906,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "hLX" = (
@@ -52135,9 +52142,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "kVR" = (
-/obj/machinery/computer/scan_consolenew{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
@@ -63522,6 +63526,13 @@
 /obj/machinery/power/transmission_laser/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/transmission_laser)
+"oVX" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/genetics)
 "oVY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -67354,7 +67365,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "qoL" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -67362,6 +67372,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "qpk" = (
@@ -76808,11 +76819,14 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "tHP" = (
-/obj/structure/table,
-/obj/item/ashtray/bronze{
-	pixel_y = 11
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/item/circuitboard/aicore,
+/obj/item/paicard,
+/obj/item/aicard,
+/obj/item/taperecorder{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "tHZ" = (
@@ -107026,7 +107040,7 @@ qpk
 oXH
 kdx
 aRo
-aRo
+bvj
 cKf
 aVk
 nxW
@@ -109317,7 +109331,7 @@ pVY
 eTU
 tti
 iAF
-hBu
+fQu
 xyq
 uZZ
 eEh
@@ -118604,7 +118618,7 @@ iFm
 gkF
 gAB
 aSx
-cnw
+oVX
 des
 bQf
 ily
