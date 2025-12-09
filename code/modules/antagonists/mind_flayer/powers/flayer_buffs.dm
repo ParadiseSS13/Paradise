@@ -1,36 +1,35 @@
 // This is a file with all the powers that buff or heal a mindflayer in some way
 
 /datum/spell/flayer/self/rejuv
-    name = "Quick Reboot"
-    desc = "Heal and remove any incapacitating effects from yourself."
-    power_type = FLAYER_INNATE_POWER
-    checks_nullification = FALSE
-    action_icon = 'icons/mob/actions/flayer_actions.dmi'
-    action_icon_state = "quick_reboot"
-    upgrade_info = "Increase the amount you heal."
-    max_level = 4
-    base_cooldown = 20 SECONDS
-    stat_allowed = UNCONSCIOUS
-    base_cost = 50
-    current_cost = 50 // Innate abilities HAVE to set `current_cost`
-    static_upgrade_increase = 25
-
-    /// Any extra healing per second we get from upgrading this spell
-    var/extra_healing = 0
+	name = "Quick Reboot"
+	desc = "Heal and remove any incapacitating effects from yourself."
+	power_type = FLAYER_INNATE_POWER
+	checks_nullification = FALSE
+	action_icon = 'icons/mob/actions/flayer_actions.dmi'
+	action_icon_state = "quick_reboot"
+	upgrade_info = "Increase the amount you heal."
+	max_level = 4
+	base_cooldown = 20 SECONDS
+	stat_allowed = UNCONSCIOUS
+	base_cost = 50
+	current_cost = 50 // Innate abilities HAVE to set `current_cost`
+	static_upgrade_increase = 25
+	/// Any extra healing per second we get from upgrading this spell
+	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
-    to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
-    user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_healing)
+	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
+	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_healing)
 
 /datum/spell/flayer/self/rejuv/on_apply()
-    ..()
-    switch(level)
-        if(FLAYER_POWER_LEVEL_TWO)
-            extra_healing = 3
-        if(FLAYER_POWER_LEVEL_THREE)
-            extra_healing = 6
-        if(FLAYER_POWER_LEVEL_FOUR)
-            extra_healing = 8
+	..()
+	switch(level)
+		if(FLAYER_POWER_LEVEL_TWO)
+			extra_healing = 3
+		if(FLAYER_POWER_LEVEL_THREE)
+			extra_healing = 6
+		if(FLAYER_POWER_LEVEL_FOUR)
+			extra_healing = 8
 
 
 /datum/spell/flayer/self/quicksilver_form
