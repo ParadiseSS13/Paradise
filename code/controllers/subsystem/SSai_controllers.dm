@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(ai_controllers)
 			continue
 		ai_controller.select_behaviors(wait * 0.1)
 
-		if(!length(ai_controller.current_behaviors)) //Still no plan
+		if(!length(ai_controller.current_behaviors)) // Still no plan
 			ai_controller.planning_failed()
 
 		if(MC_TICK_CHECK)

@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(unplanned_controllers)
 	priority = FIRE_PRIORITY_UNPLANNED_NPC
 	wait = 0.25 SECONDS
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	///what ai status are we interested in
+	/// What ai status are we interested in
 	var/target_status = AI_STATUS_ON
 	var/list/current_run = list()
 
