@@ -2089,9 +2089,9 @@
 	var/width = widthPerColumn
 
 	// these are used to show the mechanical difficulty to the player
-	var/filledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
-	var/unfilledDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
-	var/halfDifficulty = "<img style='width:16px; heigh:16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_half")) + "'>"
+	var/filledDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
+	var/unfilledDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
+	var/halfDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_half")) + "'>"
 	var/all_difficulty
 	for(var/i in 1 to MAX_DIFFICULTY / 2)
 		all_difficulty += filledDifficulty
@@ -2101,9 +2101,9 @@
 	<head>
 		<style>
 		.info-div-wrapper {
-			display:flex;
-			flex-direction:row;
-			width:100%;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
 			margin-bottom: 5px;'
 		}
 
@@ -2111,10 +2111,10 @@
 			line-height: 1;
 			display: flex;
 			flex-direction: column;
-			width:50%;
+			width: 50%;
 			padding: 10px;
-			text-align:left;
-			border:1px solid white;
+			text-align: left;
+			border: 1px solid white;
 		}
 
 		.left-side {
@@ -2186,11 +2186,11 @@
 
 			var/difficultyMeter = ""
 			if(job.difficulty)
-				for(var/i in 1 to ceil(MAX_DIFFICULTY/2))
-					if(job.difficulty >= (2*i))
+				for(var/i in 1 to ceil(MAX_DIFFICULTY / 2))
+					if(job.difficulty >= (2 * i))
 						difficultyMeter += filledDifficulty
 						continue
-					if(job.difficulty > (2*(i-1)))
+					if(job.difficulty > (2 * (i - 1)))
 						difficultyMeter += halfDifficulty
 						continue
 					difficultyMeter += unfilledDifficulty
