@@ -850,18 +850,17 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/nad_scanner/update_icon_state(updates)
 	icon_state = "nadscanner"
-	if(decrypted && disky)
+	if(!disky)
+		return
+	if(decrypted)
 		icon_state += "_decrypted"
-		return
-	if(scanning && disky)
+	else if(scanning)
 		icon_state += "_decrypting"
-		return
-	if(disky)
+	else if(disky)
 		icon_state += "_insert"
-		return
 
 /obj/item/nad_scanner/activate_self(mob/user)
-	if(world.time < 45 MINUTES) // 60 minutes of no nuke
+	if(world.time < 45 MINUTES) // 45 minutes of no nuke
 		to_chat(user, "<span class='warning'>[src] is still calibrating. Please wait another [round((27000 - world.time) / 600)] minutes before trying again.</span>")
 		return ..()
 	scan_nad(user)
