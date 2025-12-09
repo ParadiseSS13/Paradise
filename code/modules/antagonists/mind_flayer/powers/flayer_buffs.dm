@@ -27,9 +27,9 @@
 		if(FLAYER_POWER_LEVEL_TWO)
 			extra_healing = 3
 		if(FLAYER_POWER_LEVEL_THREE)
-			extra_healing = 6
-		if(FLAYER_POWER_LEVEL_FOUR)
 			extra_healing = 8
+		if(FLAYER_POWER_LEVEL_FOUR)
+			extra_healing = 11
 
 
 /datum/spell/flayer/self/quicksilver_form
