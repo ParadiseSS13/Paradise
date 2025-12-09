@@ -59,15 +59,14 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
-	if(OldLoc == null)
+/obj/machinery/disposal/Moved(atom/old_loc, Dir)
+	if(old_loc == null)
 		return
 
 	. = ..()
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/delivery_chute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
-	var/turf/T = OldLoc
-
+	var/turf/T = old_loc
 
 	if(T.intact)
 		var/turf/simulated/floor/F = T
