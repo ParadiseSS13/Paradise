@@ -2143,7 +2143,7 @@
 			if(BE_ASSISTANT)
 				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Be an assistant</a></u>"
 			if(RETURN_TO_LOBBY)
-				unavailable_job= "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Return to lobby</a></u>"
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Return to lobby</a></u>"
 
 		html += {"
 		<tt>
