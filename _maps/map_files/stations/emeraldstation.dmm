@@ -41187,10 +41187,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "ioL" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/item/stack/sheet/glass{
 	amount = 20;
 	pixel_x = -3;
@@ -41212,6 +41208,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "ioO" = (
