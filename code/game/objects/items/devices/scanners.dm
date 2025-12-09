@@ -923,7 +923,7 @@ SLIME SCANNER
 			datatoprint = ""
 			scanning = TRUE
 	else
-		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
+		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
 
 /obj/item/reagent_scanner/ui_action_click()
 	print_report()
