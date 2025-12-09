@@ -539,7 +539,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	else
 		behavior_args -= behavior_type
 
-	if(!(behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) //this one blocks planning!
+	if(!(behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) // this one blocks planning!
 		able_to_plan = FALSE
 
 	if(should_exit_unplanned)
