@@ -67,7 +67,7 @@
 	if(!l_leg && !r_leg)
 		to_chat(user, "<span class='warning'>[src] requires legs to ride!</span>")
 		return
-	. = ..()
+	return ..()
 
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()

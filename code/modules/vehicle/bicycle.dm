@@ -17,7 +17,7 @@
 	var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
 	var/obj/item/organ/external/l_leg = driver.get_organ("l_leg")
 	var/obj/item/organ/external/r_leg = driver.get_organ("r_leg")
-	if(!l_hand && !r_hand && !l_leg && !r_leg) //if you don't have limbs then fall off the bike
+	if(!l_hand && !r_hand && !l_leg && !r_leg) // if you don't have limbs then fall off the bike
 		unbuckle_mob(driver)
 		driver.emote("collapse")
 		return
@@ -31,7 +31,7 @@
 			vehicle_move_delay += 0.5
 		else if(E.status & ORGAN_BROKEN)
 			vehicle_move_delay += 1.5
-	. = ..()
+	return ..()
 
 /obj/vehicle/bike/post_buckle_mob(mob/living/M)
 	. = ..()
