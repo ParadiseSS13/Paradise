@@ -85,7 +85,6 @@
 	pixel_x = 0
 	pixel_y = 0
 
-
 /obj/machinery/power/electrolyzer/Destroy()
 	if(powernet)
 		UnregisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE)
@@ -98,7 +97,7 @@
 		milla.invoke_async(src)
 
 // Turns the electrolyzer on and off
-/obj/machinery/power/electrolyzer/attack_hand(mob/user as mob)
+/obj/machinery/power/electrolyzer/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
 	if(!anchored)

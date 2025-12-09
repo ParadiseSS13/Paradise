@@ -511,8 +511,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
 	. = ..()
+	
 	canister_color["prim"] = "lightgrey"
 	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	
+	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)
 	. = ..()
