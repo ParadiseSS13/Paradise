@@ -181,6 +181,90 @@
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
+/obj/item/gun/energy/kinetic_accelerator/railgun
+	name = "proto-kinetic railgun"
+	desc = "A heavy-duty proto-kinetic accelerator that uses highly overclocked coils to fire a kinetic projectile at staggering speeds."
+	icon_state = "kineticrailgun"
+	base_icon_state = "kineticrailgun"
+	inhand_icon_state = "kineticgun"
+	w_class = WEIGHT_CLASS_HUGE
+	overheat_time = 3 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 15 // A crumb of mod capacity as a treat
+	recoil = 3 // railgun go brrrrr
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/examine_more(mob/user)
+	. = ..()
+	. += "Before the nice streamlined and modern day Proto-Kinetic Accelerator was created, multiple designs were drafted by the Mining Research and Development \
+	team. Many were failures, including this one, which came out too bulky and too ineffective. Recently the MR&D Team got drunk and said 'fuck it we ball' and \
+	went back to this bulky design, overclocked it, and made it functional; turning it into what is essentially a literal man portable particle accelerator. \
+	The design results in a massive hard to control blast of kinetic energy, with the power to punch right through creatures and cause massive damage. The \
+	only problem with the design is that it is so bulky you need to carry it with two hands, and the technology has been outfitted with a special firing pin \
+	that denies use near or on the station, due to its destructive nature."
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if(is_station_level(loc.z))
+		to_chat(user, "<span class='warning'>[src] clicks. Its internal safety prevents it from firing near the station.</span>")
+		return
+	return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/repeater
+	name = "proto-kinetic repeater"
+	desc = "A proto-kinetic accelerator boasting deeper capacitors for prolonged firing solutions."
+	icon_state = "kineticrepeater"
+	base_icon_state = "kineticrepeater"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/repeater/examine_more(mob/user)
+	. = ..()
+	. += "During the pizza party celebrating the release of the new crusher designs, the Mining Research and Development team members were only allowed one slice. \
+	One member exclaimed 'I wish we could have more than one slice' and another replied 'I wish we could shoot the accelerator more than once' and thus, the repeater \
+	was born. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
+	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you can't carry as many mods compared to a regular accelerator."
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun
+	name = "proto-kinetic shotgun"
+	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple kinetic blasts to be released simultaneously."
+	icon_state = "kineticshotgun"
+	base_icon_state = "kineticshotgun"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun/examine_more(mob/user)
+	. = ..()
+	. += "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
+	other research members with one blast. The MR&D Director immediately thought of a genius idea, creating the proto-kinetic shotgun moments later, which he \
+	immediately used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
+	of firing three shots at once with reduced range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
+	Looks like you need both hands to use it effectively."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave
+	name = "proto-kinetic shockwave"
+	desc = "A short-range portable cannon that fires a kinetic slug into the ground, allowing it to split and strike in all directions."
+	icon_state = "kineticshockwave"
+	base_icon_state = "kineticshockwave"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/examine_more(mob/user)
+	. = ..()
+	. += "Quite frankly, we have no idea how the Mining Research and Development team came up with this one, all we know is that alot of \
+	beer was involved. This proto-kinetic design will slam the ground, creating a shockwave around the user, with the same power as the base PKA.\
+	The only downside is the lowered mod capacity, the lack of range it offers, and the higher cooldown, but it's pretty good for clearing rocks."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	target = get_edge_target_turf(user, user.dir)
+	return ..()
+
 //Casing
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/projectile/kinetic
@@ -188,6 +272,25 @@
 	select_name = "kinetic"
 	e_cost = 500
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
+
+/obj/item/ammo_casing/energy/kinetic/railgun
+	projectile_type = /obj/projectile/kinetic/railgun
+	fire_sound = 'sound/weapons/beam_sniper.ogg'
+
+/obj/item/ammo_casing/energy/kinetic/repeater
+	projectile_type = /obj/projectile/kinetic/repeater
+	e_cost = 150 // Three shots
+
+/obj/item/ammo_casing/energy/kinetic/shotgun
+	projectile_type = /obj/projectile/kinetic/shotgun
+	pellets = 6
+	variance = 50
+
+/obj/item/ammo_casing/energy/kinetic/shockwave
+	projectile_type = /obj/projectile/kinetic/shockwave
+	pellets = 8
+	variance = 360
+	fire_sound = 'sound/weapons/cannon.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -222,6 +325,26 @@
 /obj/projectile/kinetic/pod/regular
 	damage = 50
 	pressure_decrease = 0.5
+
+/obj/projectile/kinetic/railgun
+	name = "hyper kinetic force"
+	damage = 75
+	range = 6
+	pressure_decrease = 0.10 // Pressured environments are a no go for the railgun
+	pass_flags = PASSMOB
+
+/obj/projectile/kinetic/repeater
+	name = "rapid kinetic force"
+	damage = 20
+	range = 4
+
+/obj/projectile/kinetic/shotgun
+	name = "split kinetic force"
+	damage = 10
+
+/obj/projectile/kinetic/shockwave
+	name = "concussive kinetic force"
+	range = 1
 
 /obj/projectile/kinetic/Destroy()
 	kinetic_gun = null
@@ -394,8 +517,13 @@
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
+	if(istype(K, /obj/projectile/kinetic/shotgun)) // 6 Projectiles, so 1/6 the damage boost per shot
+		K.damage = round(K.damage + modifier / 6)
+		return
+	if(istype(K, /obj/projectile/kinetic/repeater)) // 3 shots, 1/3 the effect per shot
+		K.damage = round(K.damage + modifier / 3)
+		return
 	K.damage += modifier
-
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
