@@ -417,23 +417,23 @@ RESTRICT_TYPE(/datum/ai_controller)
 			fail_behavior(current_behavior)
 			return
 
-		///Stops pawns from performing such actions that should require the target to be adjacent.
+		/// Stops pawns from performing such actions that should require the target to be adjacent.
 		var/atom/movable/moving_pawn = pawn
 		var/can_reach = !(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_REACH) || moving_pawn.can_reach(current_movement_target)
-		if(can_reach && current_behavior.required_distance >= get_dist(moving_pawn, current_movement_target)) ///Are we close enough to engage?
-			if(ai_movement.moving_controllers[src] == current_movement_target) //We are close enough, if we're moving stop.
+		if(can_reach && current_behavior.required_distance >= get_dist(moving_pawn, current_movement_target)) // Are we close enough to engage?
+			if(ai_movement.moving_controllers[src] == current_movement_target) // We are close enough, if we're moving stop.
 				ai_movement.stop_moving_towards(src)
 
-			if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
+			if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
 				continue
 			process_behavior(action_seconds_per_tick, current_behavior)
 			return
 
-		if(ai_movement.moving_controllers[src] != current_movement_target) //We're too far, if we're not already moving start doing it.
-			ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) //Then start moving
+		if(ai_movement.moving_controllers[src] != current_movement_target) // We're too far, if we're not already moving start doing it.
+			ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) // Then start moving
 
-		if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) //If we can move and perform then do so.
-			if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
+		if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) // If we can move and perform then do so.
+			if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
 				continue
 			process_behavior(action_seconds_per_tick, current_behavior)
 			return
