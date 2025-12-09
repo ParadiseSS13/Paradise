@@ -629,21 +629,21 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		html += "<b>You are banned from special roles.</b>"
 		be_special = list()
 	else
-		for(var/i in global_role_list)
-			if(jobban_isbanned(user, i))
-				html += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-			else if(!player_old_enough_antag(user.client, i))
-				var/available_in_days_antag = available_in_days_antag(user.client, i)
-				var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
+		for(var/role in global_role_list)
+			if(jobban_isbanned(user, role))
+				html += "<b>Be [capitalize(role)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
+			else if(!player_old_enough_antag(user.client, role))
+				var/available_in_days_antag = available_in_days_antag(user.client, role)
+				var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, role))
 				if(available_in_days_antag)
-					html += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+					html += "<b>Be [capitalize(role)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
 				else if(role_available_in_playtime)
-					html += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
+					html += "<b>Be [capitalize(role)]:</b> <font color=red><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
 				else
-					html += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
+					html += "<b>Be [capitalize(role)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 			else
-				var/is_special = (i in src.be_special)
-				html += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+				var/is_special = (role in src.be_special)
+				html += "<b>Be [capitalize(role)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[role]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
 	return html
 
 /datum/preferences/proc/open_load_dialog(mob/user)
