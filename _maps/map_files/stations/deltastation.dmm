@@ -8478,7 +8478,7 @@
 "pcr" = (/obj/effect/spawner/window/grilled,/turf/simulated/floor/plating,/area/station/medical/storage/secondary)
 "pcJ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 8},/obj/structure/cable{icon_state = "4-8"},/turf/simulated/floor/plasteel/white,/area/station/medical/virology)
 "pcS" = (/obj/effect/turf_decal/tiles/department/virology/side{dir = 4},/turf/simulated/floor/plasteel/white,/area/station/medical/medbay)
-"pcT" = (/obj/structure/chair{dir = 1},/obj/effect/turf_decal/tiles/neutral/side{dir = 1},/obj/machinery/light/floor,/turf/simulated/floor/plasteel,/area/station/public/fitness)
+"pcT" = (/obj/effect/turf_decal/tiles/neutral/side{dir = 1},/obj/machinery/light/floor,/turf/simulated/floor/plasteel,/area/station/public/fitness)
 "pcX" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor/plasteel/dark,/area/station/security/armory/secure)
 "pcY" = (/obj/effect/spawner/window/reinforced/grilled,/turf/simulated/floor/plating,/area/station/hallway/primary/central/ne)
 "pde" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/cable{icon_state = "4-8"},/obj/machinery/newscaster/directional/north,/obj/effect/turf_decal/tiles/department/virology/corner{dir = 1},/turf/simulated/floor/plasteel,/area/station/hallway/primary/central/north)
