@@ -67155,11 +67155,11 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/dresser,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "ooI" = (
