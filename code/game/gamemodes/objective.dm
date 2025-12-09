@@ -585,31 +585,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
 	// We have to do it with a callback because mind/Topic creates the objective without an owner
-	addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
-
-/datum/objective/nuke/proc/hand_out_equipment()
-	var/list/datum/mind/objective_owners = get_owners()
-	if(!length(objective_owners))
-		return
-	var/obj/item/item_to_give = new /obj/item/nad_scanner
-	var/static/list/slots = list(
-		"backpack" = ITEM_SLOT_IN_BACKPACK,
-		"left pocket" = ITEM_SLOT_LEFT_POCKET,
-		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
-		"left hand" = ITEM_SLOT_LEFT_HAND,
-		"right hand" = ITEM_SLOT_RIGHT_HAND,
-	)
-	for(var/datum/mind/owner as anything in shuffle(objective_owners))
-		var/mob/living/carbon/human/scanner_receiver = owner.current
-		if(!scanner_receiver)
-			continue
-		var/where = scanner_receiver.equip_in_one_of_slots(item_to_give, slots)
-		if(!where)
-			continue
-
-		to_chat(scanner_receiver, "<br><br><span class='notice'>In your [where] is [item_to_give], which you can use to decrypt the Nuclear Authentication Disk.</span><br>")
-		return
-	qdel(item_to_give)
+	addtimer(CALLBACK(src, PROC_REF(give_kit), /obj/item/nad_scanner), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/objective/nuke/check_completion()
 	if(SSticker.mode.station_was_nuked)

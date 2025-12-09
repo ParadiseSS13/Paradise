@@ -901,6 +901,8 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(istype(disky, /obj/item/disk/nuclear/training))
 		atom_say("Incompatible disk detected!")
+		scanning = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		return
 	var/complete_message = "We have intercepted a syndicate communication inbound to your station. The message reads: \n\"We have decrypted the codes from the nuclear authentication disk."
 	var/code
