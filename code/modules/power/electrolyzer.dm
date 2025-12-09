@@ -1,11 +1,11 @@
 /obj/machinery/power/electrolyzer
 	name = "gas electrolyzer"
-	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions. It seems it needs around 250 kW of power to funtion properly."
+	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions. It seems it needs around 350 kW of power to funtion properly."
 	anchored = FALSE
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
-	active_power_consumption = 240000
+	active_power_consumption = 350000
 	/// whether or not we're actively using power/seeking water vapor in the air
 	var/on = FALSE
 	var/datum/gas_mixture/gas
@@ -15,12 +15,12 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/electrolyzer(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/stock_parts/capacitor(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	if(!powernet)
 		connect_to_network()
 
@@ -90,6 +90,8 @@
 		UnregisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE)
 	return ..()
 
+/datum/milla_safe/electrolyzer_process
+
 /obj/machinery/power/electrolyzer/process()
 	if(on && get_surplus() >= active_power_consumption)
 		consume_direct_power(active_power_consumption)
@@ -121,7 +123,7 @@
 		icon_state = "electrolyzer_on"
 	add_fingerprint(usr)
 
-/datum/milla_safe/electrolyzer_process
+
 
 /obj/machinery/power/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
 	var/datum/gas_mixture/removed = new()
