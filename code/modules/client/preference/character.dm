@@ -2255,7 +2255,7 @@
 			// Disable choice if the player has assitant selected (and this job isn't assistant)
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
 				// this determines the job preference column when assistant is enabled, since the other choices will be hidden
-				html += "<font color=orange>[rank]</font></td><td style='width:20%;'></td><td>[difficultyMeter]</td></tr>"
+				html += "<font color='orange'>[rank]</font></td><td style='width:20%;'></td><td>[difficultyMeter]</td></tr>"
 				continue
 
 			// Bold head jobs
@@ -2298,9 +2298,9 @@
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
-					html += " <font color=green>Yes</font></a>"
+					html += " <font color='green'>Yes</font></a>"
 				else
-					html += " <font color=red>No</font></a>"
+					html += " <font color='red'>No</font></a>"
 				html += "</td>"
 				// sets the size of the job preference column, but only for assistant.
 				// It will pick the bigger number of this and the rest of the column
