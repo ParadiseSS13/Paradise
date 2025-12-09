@@ -186,7 +186,7 @@
 		// This check needs to be here so that we can signal the implied ruleset. Yes, this is jank.
 		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
 			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
-			continue
+			break
 		player.mind.add_antag_datum(antagonist_type)
 		antag_amount -= 1
 		antags_rolled += 1

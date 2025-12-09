@@ -205,12 +205,14 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	antag_budget += 1
 	log_dynamic("Crew joined. New budget: [antag_budget] (latespawn in [min_latespawn_budget - antag_budget])", TRUE)
 	if(antag_budget >= min_latespawn_budget)
-		log_dynamic("Budget at latespawn threshold ([min_latespawn_budget]), buying antagonists.", TRUE)
+		log_dynamic("Budget at latespawn threshold ([min_latespawn_budget]), attempting to buy antagonists.", TRUE)
 		if(apply_antag_budget(TRUE))
 			for(var/datum/ruleset/ruleset as anything in (rulesets + implied_rulesets))
 				if(ruleset.antag_amount <= 0)
 					continue
 				ruleset.latespawn(src)
+		else
+			log_dynamic("No antagonists were rolled.", TRUE)
 
 /datum/game_mode/dynamic/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
 	if(min_latespawn_budget <= 0)
