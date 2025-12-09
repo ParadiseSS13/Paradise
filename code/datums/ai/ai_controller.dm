@@ -549,7 +549,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 /datum/ai_controller/proc/check_able_to_plan()
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) //We have a behavior that blocks planning
+		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) // We have a behavior that blocks planning
 			return FALSE
 	return TRUE
 
