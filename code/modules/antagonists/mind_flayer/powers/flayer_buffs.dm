@@ -32,15 +32,6 @@
         if(FLAYER_POWER_LEVEL_FOUR)
             extra_healing = 8
 
-/datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
-	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
-	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
-
-/datum/spell/flayer/self/rejuv/on_apply()
-	..()
-	cooldown_handler.recharge_duration -= 5 SECONDS
-	extra_duration += 2 SECONDS
-	extra_healing += 2
 
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"
