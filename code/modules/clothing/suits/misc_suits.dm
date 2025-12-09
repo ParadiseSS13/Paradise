@@ -927,6 +927,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Basic jacket and subtypes
 /obj/item/clothing/suit/sec_greatcoat
