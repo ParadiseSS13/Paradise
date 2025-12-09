@@ -928,10 +928,10 @@
 				P.damage *= 0.85
 
 /datum/status_effect/flayer_rejuv
-    id = "Rejuvenation"
-    duration = 5 SECONDS
-    alert_type = /atom/movable/screen/alert/status_effect/flayer_rejuv
-    var/heal_amount = 5 // 25 total healing of both brute and burn at base
+	id = "Rejuvenation"
+	duration = 5 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/flayer_rejuv
+	var/heal_amount = 5 // 25 total healing of both brute and burn at base
 
 /atom/movable/screen/alert/status_effect/flayer_rejuv
 	name = "Regenerating"
