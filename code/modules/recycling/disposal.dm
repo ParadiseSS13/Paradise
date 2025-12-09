@@ -60,7 +60,7 @@
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
 /obj/machinery/disposal/Moved(atom/old_loc, Dir)
-	if(old_loc == null)
+	if(isnull(old_loc))
 		return
 
 	. = ..()
