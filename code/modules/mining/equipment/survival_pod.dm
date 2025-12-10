@@ -39,7 +39,9 @@
 	. += template.description
 
 /obj/item/survivalcapsule/activate_self(mob/user)
-	. = ..()
+	if(..())
+		return
+
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -77,9 +79,8 @@
 
 		// get structures on turf, then delete large rocks and plants
 		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
-		for(var/turf/selected_turf in affected_turfs)
-			var/obj/structure/flora/ash/found_flora = locate(/obj/structure/flora/ash/, selected_turf)
-			if(found_flora != null)
+		for(var/turf/selected_turf as anything in affected_turfs)
+			for(var/obj/structure/flora/ash/found_flora in selected_turf)
 				qdel(found_flora)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
