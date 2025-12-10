@@ -792,7 +792,9 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 // MARK: Silk
 //////////////////////////////
 GLOBAL_LIST_INIT(silk_recipes, list(
-	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6)))
+	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6),
+	new /datum/stack_recipe("collective jumpsuit", /obj/item/clothing/under/skulk/skulkcasual, 3, on_floor = TRUE)
+	))
 
 /obj/item/stack/sheet/silk
 	name = "silk spool"

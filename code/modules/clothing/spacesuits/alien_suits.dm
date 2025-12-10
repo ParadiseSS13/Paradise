@@ -226,3 +226,16 @@
 	icon_state = "skulkcasual"
 	worn_icon_state = "skulkcasual"
 	species_restricted = list("Skkulakin")
+
+/obj/item/clothing/suit/collectiverobe
+	name = "collective robe"
+	desc = "A set of comfortable purple robes made from silk and faux gold, offers substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
+	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
+	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	icon_state = "collectiverobe"
+	inhand_icon_state = "coatwinter"
+	species_restricted = list("Skkulakin")
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)

@@ -1546,15 +1546,48 @@
 
 /obj/item/clothing/head/hooded/lowinquis
 	name = "low-inquisitor hood"
-	desc = "A hood attached to inquisitorial robes."
+	desc = "An armored hood attached to inquisitorial robes."
 	icon = 'icons/obj/clothing/species/skkulakin/hats.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/head.dmi'
 	icon_state = "lowinquis"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 	species_restricted = list("Skkulakin")
+
+/obj/item/clothing/suit/hooded/highinquis
+	name = "high-inquisitor robes"
+	desc = "A set of black and gold Collective robes with reinforced armor plates sewn within the hardweave composite cloth. These are commonly worn by commanders within the Collective Inquisition."
+	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
+	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	icon_state = "highinquis"
+	hoodtype = /obj/item/clothing/head/hooded/highinquis
+	inhand_icon_state = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 115, ACID = 450)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
+	strip_delay = 80
+	insert_max = 2
+	species_restricted = list("Skkulakin")
+
+/obj/item/clothing/head/hooded/highinquis
+	name = "high-inquisitor hood"
+	desc = "An armored hood attached to inquisitorial robes."
+	icon = 'icons/obj/clothing/species/skkulakin/hats.dmi'
+	worn_icon = 'icons/mob/clothing/species/skkulakin/head.dmi'
+	icon_state = "highinquis"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS
+	species_restricted = list("Skkulakin")
+
+
 
 /obj/item/clothing/mask/lowinquis
 	name = "low-inquisitor mask"
@@ -1562,7 +1595,20 @@
 	icon = 'icons/obj/clothing/species/skkulakin/masks.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/mask.dmi'
 	icon_state = "inquismask"
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | AIRTIGHT
+	flash_protect = FLASH_PROTECTION_FLASH
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	flags_inv = HIDEFACE
+	w_class = WEIGHT_CLASS_NORMAL
+	species_restricted = list("Skkulakin")
+
+/obj/item/clothing/mask/highinquis
+	name = "high-inquisitor mask"
+	desc = "A golden mask affixed to a balaclava designed to easily fit the face of a Skkulakin. Despite its retinal scanners being disabled, it still protects the user from bright flashes and looks incredibly snazzy while doing so."
+	icon = 'icons/obj/clothing/species/skkulakin/masks.dmi'
+	worn_icon = 'icons/mob/clothing/species/skkulakin/mask.dmi'
+	icon_state = "highinquismask"
+	flags = BLOCKHAIR | AIRTIGHT
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	flags_inv = HIDEFACE
