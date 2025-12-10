@@ -4,6 +4,7 @@
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
 	slot_flags = ITEM_SLOT_BELT
+	embedded_ignore_throwspeed_threshold = TRUE
 
 	new_attack_chain = TRUE
 	/// The quality of the item
@@ -136,6 +137,7 @@
 	name = "throwing knife"
 	desc = "A lightweight, balanced throwing knife. The sharp blade enhances the chance to embed."
 	icon_state = "throwing_knife"
+	throw_speed = 4
 	base_speed_mod = -0.25
 	base_productivity_mod = -0.25
 	throw_force_increase = 6 // 16 throw force at standard, 22 throw force at masterwork
