@@ -1261,6 +1261,7 @@
 	taste_description = "decontamination"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
+	COOLDOWN_DECLARE(drink_message_cooldown)
 
 /datum/reagent/consumable/drink/bubbly_beep/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
@@ -1274,7 +1275,9 @@
 		qdel(pick(/obj/effect/decal/cleanable/ in M))
 	else
 		M.clean_blood()
-		to_chat(M, "<span class='notice'>The foam cleans you as it bubbles through your components.</span>")
+		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+			to_chat(M, "<span class='notice'>The foam cleans you as it bubbles through your components.</span>")
+			COOLDOWN_START(src, drink_message_cooldown, 2 MINUTES)
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 	return ..()
 
