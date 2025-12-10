@@ -19,7 +19,7 @@ GLOBAL_LIST(end_titles)
 			C.roll_credits()
 
 /client/proc/roll_credits()
-	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
+	if(!mob || !mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
 	verbs += /client/proc/clear_credits
@@ -106,7 +106,7 @@ GLOBAL_LIST(end_titles)
 		if(!length(cast) && !chunksize)
 			chunk += "CREW:"
 		var/jobtitle = H.mind?.assigned_role || "No title"
-		var/used_name = H.mind?.current?.name
+		var/used_name = H.mind?.current?.name || H.mind?.name || "Unknown"
 		var/antag_string
 		for(var/datum/antagonist/antagonist as anything in H.mind?.antag_datums)
 			antag_string ? (antag_string += ", ") : (antag_string += "...")
