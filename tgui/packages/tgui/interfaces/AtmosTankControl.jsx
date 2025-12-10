@@ -235,6 +235,16 @@ const TankControlScrubbersView = (props) => {
               })
             }
           />
+          <Button
+            content="Water Vapor"
+            selected={s.filter_h2o}
+            onClick={() =>
+              act('command', {
+                cmd: 'h2o_scrub',
+                id_tag: s.id_tag,
+              })
+            }
+          />
         </LabeledList.Item>
       </LabeledList>
     </Section>

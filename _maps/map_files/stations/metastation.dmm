@@ -20949,6 +20949,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "ciM" = (
@@ -30380,8 +30381,8 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "dmN" = (
-/obj/item/clothing/head/cone,
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "dmO" = (
