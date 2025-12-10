@@ -29,13 +29,6 @@
 
 	RefreshParts()
 
-// /obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
-// 	if(on)
-// 		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
-// 		return FALSE
-// 	. = TRUE
-// 	default_unfasten_wrench(user, I, 4 SECONDS)
-
 /obj/machinery/power/electrolyzer/wrench_act(mob/living/user, obj/item/I)
 	if(on)
 		return
