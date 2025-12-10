@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(bone_rod_recipes, list (
 
 /obj/item/stack/bone_rods
 	name = "bone rod"
-	desc = "Some bone rods. Can be used for cooking, or something."
+	desc = "Some bone rods. Can be used for cooking."
 	singular_name = "bone rod"
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bone_rods-5"
