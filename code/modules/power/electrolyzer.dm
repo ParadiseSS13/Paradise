@@ -14,7 +14,7 @@
 /obj/machinery/power/electrolyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/electrolyzer(null)
+	component_parts += new /obj/item/circuitboard/electrolyzer(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -115,8 +115,6 @@
 		to_chat(user, "<span class='notice'>[src] begins to hum quietly.</span>")
 		icon_state = "electrolyzer_on"
 	add_fingerprint(usr)
-
-
 
 /obj/machinery/power/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
 	var/datum/gas_mixture/removed = new()
