@@ -60,7 +60,7 @@ def main():
     log(f"Connected to {args.database}")
 
     renames = sorted(
-        json.load(open(Path(__file__).parent / "xx_melee_repath_map.json")),
+        json.load(open(Path(__file__).parent / "melee_repath_map.json")),
         key=lambda x: len(x["original"]),
         reverse=True,
     )
