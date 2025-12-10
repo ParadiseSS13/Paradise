@@ -75,7 +75,7 @@
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe/mw
+/datum/cooking/recipe/moffolo_wings
 	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_nian
 	steps = list(
@@ -84,7 +84,7 @@
 	)
 	appear_in_default_catalog = FALSE
 
-/datum/cooking/recipe/mww
+/datum/cooking/recipe/moffolo_wild_wings
 	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_nian_bbq
 	steps = list(
