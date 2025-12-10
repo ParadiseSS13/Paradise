@@ -137,7 +137,7 @@
 			C-2: 2000 moles of plasma are released by the crystal</br>
 			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.
 			C-4: 2000 moles of hydrogen are released by the crystal.
-			C-5: 2000 moles of water vapor are released by the crytsal.</br></br></br>
+			C-5: 2000 moles of water vapor are released by the crystal.</br></br></br>
 
 			B Class: Events with significant effects to standard setups. Action may need to be taken to prevent a delamination event.</br></br>
 			B-1: The amount of plasma and O2 released by the engine is doubled for a few minutes.</br>

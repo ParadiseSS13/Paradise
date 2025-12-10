@@ -450,6 +450,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[H2O\]"
 	icon_state = "lightgrey" //See Initialize()
 	can_label = FALSE
+	
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
