@@ -428,7 +428,9 @@
 	contains = list(/obj/item/clothing/suit/hooded/lowinquis,
 					/obj/item/clothing/suit/hooded/lowinquis,
 					/obj/item/clothing/mask/lowinquis,
-					/obj/item/clothing/mask/lowinquis)
+					/obj/item/clothing/mask/lowinquis,
+					/obj/item/clothing/suit/hooded/highinquis,
+					/obj/item/clothing/mask/highinquis)
 	cost = 300
 	containername = "low-inquisitorial equipment crate"
 

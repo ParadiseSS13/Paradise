@@ -1587,8 +1587,6 @@
 	flags_inv = HIDEEARS
 	species_restricted = list("Skkulakin")
 
-
-
 /obj/item/clothing/mask/lowinquis
 	name = "low-inquisitor mask"
 	desc = "A silver mask affixed to a balaclava designed to easily fit the face of a Skkulakin. Despite its retinal scanners being disabled, it still protects the user from bright flashes."
