@@ -15,13 +15,13 @@ GLOBAL_LIST(end_titles)
 		if(!C)
 			continue
 		if(!length(C.credits))
-			C.addtimer(CALLBACK(C, TYPE_PROC_REF(/client/, roll_credits)), 1 SECONDS)
+			INVOKE_ASYNC(C, TYPE_PROC_REF(/client/, roll_credits))
 
 /client/proc/roll_credits()
 	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
-	verbs += /client/proc/clear_credits
+	add_verb(src, /client/proc/clear_credits)
 	for(var/I in GLOB.end_titles)
 		if(!credits)
 			return
@@ -33,12 +33,12 @@ GLOBAL_LIST(end_titles)
 
 /client/proc/end_credits()
 	clear_credits()
-	verbs -= /client/proc/clear_credits
+	remove_verb(src, /client/proc/clear_credits)
 
 /client/proc/clear_credits()
 	set name = "Stop End Titles"
 	set category = "OOC"
-	verbs -= /client/proc/clear_credits
+	remove_verb(src, /client/proc/clear_credits)
 	QDEL_LIST_CONTENTS(credits)
 
 /atom/movable/screen/credit
