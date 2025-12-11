@@ -91,9 +91,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/kitchen/knife/smithed/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	. = ..()
 	if(!isstack(used))
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 	var/obj/item/stack/stacked_item = used
 	if(wrap_type)
 		to_chat(user, "<span class='warning'>There is already a wrap on [src]!</span>")
@@ -113,7 +112,7 @@
 		wrap_to_attach = /datum/handle_wrapping/mothsilk
 	if(!wrap_to_attach)
 		to_chat(user, "<span class='warning'>You cannot wrap [stacked_item] around [src]!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 	if(do_after_once(user, 5 SECONDS, target = src))
 		if(stacked_item.use(5))
 			attach_wrapping(wrap_to_attach)
