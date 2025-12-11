@@ -119,7 +119,7 @@
 					/mob/living/basic/hellhound/whelp = 5, // Specialized mobs - tank
 					/mob/living/basic/skeleton/incursion/security = 5, // Specialized mobs - ranged
 					/mob/living/basic/giant_spider/flesh_spider = 5, // Specialized mobs - poison/harasser
-					/mob/living/basic/skeleton/reanimator = 4, // Specialized mobs - Summoner
+					/mob/living/basic/skeleton/incursion/reanimator = 4, // Specialized mobs - Summoner
 					/mob/living/basic/skeleton/incursion/mobster = 1,) // Specialized mobs - ranged
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
@@ -133,7 +133,7 @@
 		/mob/living/basic/giant_spider/flesh_spider,
 		/mob/living/basic/skeleton/incursion/security,
 		/mob/living/basic/skeleton/incursion/mobster,
-		/mob/living/basic/skeleton/reanimator)
+		/mob/living/basic/skeleton/incursion/reanimator)
 	/// Chance that a mob type is special
 	var/special_chance = 15
 	/// The event that spawned this portal
