@@ -229,6 +229,10 @@
 	cost = 500
 	category = MERCH_CAT_DECORATION
 
+/datum/merch_item/flag_skulk
+	name = "Nian Flag"
+	desc = "The foreboding flag of the Silver Collective. Blessed by Skkula-Kkavan priests."
+
 /datum/merch_item/flag_ian
 	name = "Ian Flag"
 	desc = "The banner of Ian, because SQUEEEEE."
