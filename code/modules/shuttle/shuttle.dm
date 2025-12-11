@@ -616,11 +616,6 @@
 	else
 		. = null
 
-/obj/effect/landmark/shuttle_import
-	name = "Shuttle Import"
-
-
-
 //shuttle-door closing is handled in the dock() proc whilst looping through turfs
 //this one closes the door where we are docked at, if there is one there.
 /obj/docking_port/mobile/proc/closePortDoors(obj/docking_port/stationary/S0)
