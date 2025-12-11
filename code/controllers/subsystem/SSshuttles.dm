@@ -92,9 +92,12 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		var/obj/docking_port/mobile/port = thing
 		port.check()
-	for(var/obj/docking_port/stationary/transit/T as anything in transit_docking_ports)
-		if(!T.owner)
-			qdel(T, force=TRUE)
+	for(var/T as anything in transit_docking_ports)
+		var/obj/docking_port/stationary/transit/transit_port = T
+		if(!istype(transit_port))
+			continue
+		if(!transit_port.owner)
+			qdel(transit_port, force=TRUE)
 		// This next one removes transit docks/zones that aren't
 		// immediately being used. This will mean that the zone creation
 		// code will be running a lot.
@@ -103,13 +106,13 @@ SUBSYSTEM_DEF(shuttle)
 		// We're better off holding onto it for now
 		if(transit_utilized < SOFT_TRANSIT_RESERVATION_THRESHOLD)
 			continue
-		var/obj/docking_port/mobile/owner = T.owner
+		var/obj/docking_port/mobile/owner = transit_port.owner
 		if(owner)
 			var/idle = owner.mode == SHUTTLE_IDLE
 			// var/not_centcom_evac = owner.launch_status == NOLAUNCH
-			var/not_in_use = (!T.get_docked())
+			var/not_in_use = (!transit_port.get_docked())
 			if(idle && not_in_use)
-				qdel(T, force=TRUE)
+				qdel(transit_port, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
 		while(transit_requesters.len)
