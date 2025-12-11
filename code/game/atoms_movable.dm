@@ -149,6 +149,9 @@
 
 	moveToNullspace()
 
+	if(spatial_grid_key)
+		SSspatial_grid.force_remove_from_grid(src)
+
 	// This absolutely must be after moveToNullspace()
 	// We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
 	// If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
@@ -340,6 +343,12 @@
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
 		return FALSE
+
+	for(var/mob/buckled_mob as anything in buckled_mobs) // added because set_glide_size() on this atom won't update buckled mobs if this atom's glide size hasn't changed
+		if(glide_size_override && buckled_mob.glide_size != glide_size_override)
+			buckled_mob.set_glide_size(glide_size_override)
+		else if(buckled_mob.glide_size != glide_size)
+			buckled_mob.set_glide_size(glide_size)
 
 	if(glide_size_override && glide_size != glide_size_override)
 		set_glide_size(glide_size_override)

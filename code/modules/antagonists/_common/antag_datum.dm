@@ -442,6 +442,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #define MAROON_OBJECTIVE "MAROON"
 #define ASS_ONCE_OBJECTIVE "ASS_ONCE"
 #define ASS_OBJECTIVE "ASS"
+#define ASS_PET "ASS_PET"
 
 #define INFIL_SEC_OBJECTIVE "INFILTRATE_SEC"
 
@@ -454,8 +455,9 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/roll_single_human_objective()
 	var/datum/objective/objective_to_add
+
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
-	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 45, MAROON_OBJECTIVE = 235, ASS_ONCE_OBJECTIVE = 160, ASS_OBJECTIVE = 340, INFIL_SEC_OBJECTIVE = 220)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 39, MAROON_OBJECTIVE = 202, ASS_ONCE_OBJECTIVE = 138, ASS_OBJECTIVE = 293, ASS_PET = 138, INFIL_SEC_OBJECTIVE = 190)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
@@ -480,12 +482,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 					if(ASS_ONCE_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinateonce
 
+					if(ASS_PET)
+						objective_to_add = /datum/objective/kill_pet
+
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
 
 					if(INFIL_SEC_OBJECTIVE)
 						// Prevent duplicate infiltrate objectives
 						if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						// Mutual exclusivity with protecting someone
+						else if(locate(/datum/objective/protect) in owner.get_all_objectives())
 							objective_to_add = roll_single_human_objective()
 						else
 							objective_to_add = /datum/objective/infiltrate_sec
@@ -496,7 +504,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 				objective_to_add = /datum/objective/incriminate
 
 			if(PROTECT_OBJECTIVE)
-				objective_to_add = /datum/objective/protect
+				// Mutual exclusivity with infiltrating Sec
+				if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+					objective_to_add = roll_single_human_objective()
+				else
+					objective_to_add = /datum/objective/protect
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
@@ -516,6 +528,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #undef MAROON_OBJECTIVE
 #undef ASS_ONCE_OBJECTIVE
 #undef ASS_OBJECTIVE
+#undef ASS_PET
 
 #undef INFIL_SEC_OBJECTIVE
 

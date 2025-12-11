@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
+import { Box, Button, DmIcon, Input, Section, Stack } from 'tgui-core/components';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../../backend';
@@ -41,12 +41,23 @@ export const pda_cookbook = (props) => {
               .map((recipe, i) => (
                 <Stack.Item key={i}>
                   <Section title={decodeHtmlEntities(recipe.name)}>
-                    {recipe.container}:
-                    <ol>
-                      {recipe.instructions.map((instruction, j) => (
-                        <li key={`${i}-${j}`}>{instruction}</li>
-                      ))}
-                    </ol>
+                    <Stack>
+                      <Stack.Item>
+                        <DmIcon
+                          icon={recipe.icon}
+                          icon_state={recipe.icon_state}
+                          style={{ width: '64px', height: '64px' }}
+                        />
+                      </Stack.Item>
+                      <Stack.Item>
+                        {recipe.container}:
+                        <ol>
+                          {recipe.instructions.map((instruction, j) => (
+                            <li key={`${i}-${j}`}>{instruction}</li>
+                          ))}
+                        </ol>
+                      </Stack.Item>
+                    </Stack>
                   </Section>
                 </Stack.Item>
               ))}

@@ -1467,6 +1467,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
 	category = list("IPC Upgrades")
 
+/datum/design/mistral_implant
+	name = "Electromagnetic Shielding Implant"
+	desc = "This implant improves the conductivity of the IPC frame, providing partial protection against EMPs."
+	id = "ci-mistral_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "engineering" = 5, "combat" = 5)
+	build_type = MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield
+	category = list("IPC Upgrades")
+
 /datum/design/flayer_pacification
 	name = "Mindflayer Pacification Implant"
 	desc = "This implant acts on mindflayer swarms like smoke to bees, making them much more docile."
