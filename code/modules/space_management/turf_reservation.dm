@@ -171,7 +171,7 @@
 	//   template, because that causes unintended behaviour.
 	var/mobile_docking_ports = 0
 	var/obj/docking_port/mobile/port
-	for(var/T in reserved_turfs)
+	for(var/T as anything in reserved_turfs)
 		for(var/obj/docking_port/P in T)
 			if(istype(P, /obj/docking_port/mobile))
 				port = P
@@ -190,4 +190,14 @@
 			if(istype(P, /obj/docking_port/stationary))
 				log_world("shuttle template has a stationary docking port")
 
+	if(!port)
+		log_world("could not find shuttle template mobile docking port")
+		return
+
+	RegisterSignal(port, COMSIG_MOBILE_PORT_DOCKED, PROC_REF(cleanup))
 	return port
+
+/datum/turf_reservation/shuttle/proc/cleanup(datum/source, obj/docking_port/stationary/dest)
+	SIGNAL_HANDLER // COMSIG_MOBILE_PORT_DOCKED
+	UnregisterSignal(source, COMSIG_MOBILE_PORT_DOCKED)
+	qdel(src)
