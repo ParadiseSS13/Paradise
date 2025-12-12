@@ -2850,7 +2850,7 @@
 		var/tmp_dir = href_list["object_dir"]
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
-			obj_dir = 2
+			obj_dir = SOUTH
 		var/obj_name = sanitize(href_list["object_name"])
 
 

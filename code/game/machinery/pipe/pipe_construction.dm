@@ -229,10 +229,10 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir == 2)
-			dir = 1
+			dir = NORTH
 
 		else if(dir == 8)
-			dir = 4
+			dir = EAST
 
 // returns all pipe's endpoints
 
@@ -289,13 +289,13 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 /obj/item/pipe/proc/fixdir()
 	if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir == 2)
-			dir = 1
+			dir = NORTH
 
 		else if(dir == 8)
-			dir = 4
+			dir = EAST
 
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
-		dir = 2
+		dir = SOUTH
 
 /obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()

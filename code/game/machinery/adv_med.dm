@@ -244,7 +244,7 @@
 	var/matrix/MA = matrix(transform)
 	if(dir == 1)
 		MA.TurnTo(0, 180)
-		occupant_overlay.dir = 2 // trust me
+		occupant_overlay.dir = SOUTH // trust me
 	if(dir == 4)
 		MA.TurnTo(0, 270)
 		occupant_overlay.pixel_y = -8

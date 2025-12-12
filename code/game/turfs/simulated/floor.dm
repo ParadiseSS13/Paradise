@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				else if(user.dir == 2)
 					P.dir = 9
 				else if(user.dir == 4)
-					P.dir = 10
+					P.dir = NORTH0
 			else
 				P.setDir(user.dir)
 
