@@ -161,12 +161,6 @@
 
 	user.SpinAnimation(5, 1)
 
-	if(isrobot(user))
-		var/mob/living/silicon/robot/borg = user
-		if(borg.drop_hat())
-			borg.visible_message(SPAN_WARNING("[SPAN_NAME("[user]")] drops their hat!"),
-							SPAN_WARNING("As you flip your hat falls off!"))
-
 	if(prob(5) && ishuman(user) && !HAS_TRAIT(user, TRAIT_COOL))
 		var/turf = get_turf(L)
 		message = "attempts a flip and [isspaceturf(turf) ? "loses balance" : "crashes to the floor"]!"
