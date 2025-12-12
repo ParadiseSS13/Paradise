@@ -119,6 +119,7 @@
 /// REPLICATE
 /datum/ai_behavior/swarmer_replicate
 	required_distance = 0
+	action_cooldown = 5 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/swarmer_replicate/setup(datum/ai_controller/controller, action_key)
