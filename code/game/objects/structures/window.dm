@@ -253,7 +253,7 @@
 					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
-	else if(istype(I,/obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+	else if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/S = I
 		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
@@ -267,7 +267,7 @@
 		if(!S.use(2))
 			to_chat(user, "<span class='warning'>You've run out of planks!</span>")
 			return
-		if(locate(/obj/structure/barricade/wooden) in get_turf(src))  //one last check in case someone pre-barricades it
+		if(locate(/obj/structure/barricade/wooden) in get_turf(src)) // one last check in case someone pre-barricades it
 			return
 		to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
 		user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")

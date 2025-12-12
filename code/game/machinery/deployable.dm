@@ -110,7 +110,7 @@
 			return ITEM_INTERACT_COMPLETE
 	return ..()
 
-//This is for when barricades are initialized on windows or doors to prevent stacking
+// This is for when barricades are initialized on windows or doors to prevent stacking
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
 	for(var/atom/potential_door as anything in get_turf(src))
@@ -151,17 +151,17 @@
 
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(!(istype(I, /obj/item/stack/sheet/wood/)))
+	if(!istype(I, /obj/item/stack/sheet/wood))
 		return NONE
-	if(!(user.a_intent == INTENT_HELP))
+	if(user.a_intent != INTENT_HELP)
 		return NONE
 	var/obj/item/stack/sheet/wood/S = I
 	if(obj_integrity >= max_integrity)
-		to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
+		to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
 		return NONE
 	to_chat(user, "<span class='notice'> You start replacing the broken boards of [src]...</span>")
 	if(!do_after_once(user, 2 SECONDS, target = src))
-		return	NONE
+		return NONE
 	if(!S.use(1))
 		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
 		return NONE

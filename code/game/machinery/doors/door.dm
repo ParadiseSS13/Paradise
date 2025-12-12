@@ -53,7 +53,6 @@
 
 	/// Is this door barricaded?
 	var/barricaded = FALSE
-
 	/// How much this door reduces superconductivity to when closed.
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
 	/// So explosion doesn't deal extra damage for multitile airlocks
