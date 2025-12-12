@@ -15,7 +15,7 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen()] T:[GM.toxins()] N:[GM.nitrogen()] C:[GM.carbon_dioxide()] N2O: [GM.sleeping_agent()] Agent B: [GM.agent_b()] Hydrogen: [GM.hydrogen()] Water Vapor: [GM.water_vapor()] w [GM.temperature()] Kelvin, [GM.return_pressure()] kPa [(burning)?SPAN_WARNING("BURNING"):(null)]</span>")
+	to_chat(usr, SPAN_NOTICE("@[target.x],[target.y]: O:[GM.oxygen()] T:[GM.toxins()] N:[GM.nitrogen()] C:[GM.carbon_dioxide()] N2O: [GM.sleeping_agent()] Agent B: [GM.agent_b()] Hydrogen: [GM.hydrogen()] Water Vapor: [GM.water_vapor()] w [GM.temperature()] Kelvin, [GM.return_pressure()] kPa [(burning)?SPAN_WARNING("BURNING"):(null)]"))
 
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")
@@ -117,7 +117,7 @@ USER_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and you
 
 	var/datum/D = locate(refstring)
 	if(!D)
-		to_chat(client, "<span class='warning'>That ref string does not correspond to any datum.</span>")
+		to_chat(client, SPAN_WARNING("That ref string does not correspond to any datum."))
 		return
 
 	SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, D)

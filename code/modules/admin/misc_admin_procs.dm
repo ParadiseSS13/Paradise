@@ -394,7 +394,7 @@ USER_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world", V
 		if(!check_rights_client(R_SERVER, 0, client))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, chat_box_notice("<span class='notice'><b>[client.holder.fakekey ? "Administrator" : client.key] Announces:</b><br><br><p>[message]</p></span>"))
+		to_chat(world, chat_box_notice(SPAN_NOTICE("<b>[client.holder.fakekey ? "Administrator" : client.key] Announces:</b><br><br><p>[message]</p>")))
 		log_admin("Announce: [key_name(client)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
@@ -458,7 +458,7 @@ USER_VERB(start_server_now, R_SERVER, "Start Now", "Start the round RIGHT NOW", 
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[client.key] has started the game.[msg]</span>")
+		message_admins(SPAN_DARKMBLUE("[client.key] has started the game.[msg]"))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
@@ -685,7 +685,7 @@ USER_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Guests can't enter", VERB_C
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
 	log_admin("[key_name(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed."), 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()

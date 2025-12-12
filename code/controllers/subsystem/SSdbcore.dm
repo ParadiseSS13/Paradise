@@ -483,12 +483,12 @@ SUBSYSTEM_DEF(dbcore)
 // Verb that lets admins force reconnect the DB
 USER_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)
 	if(!GLOB.configuration.database.enabled)
-		to_chat(client, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
+		to_chat(client, SPAN_WARNING("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
 		if(!check_rights_client(R_DEBUG, FALSE, client))
-			to_chat(client, "<span class='warning'>The database is already connected! (Only those with +DEBUG can force a reconnection)</span>")
+			to_chat(client, SPAN_WARNING("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
 		var/reconnect = alert(client, "The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")

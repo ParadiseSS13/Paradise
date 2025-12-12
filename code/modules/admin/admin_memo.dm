@@ -1,6 +1,6 @@
 USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_CATEGORY_SERVER)
 	if(!SSdbcore.IsConnected())
-		to_chat(client, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(client, SPAN_DANGER("Failed to establish database connection."))
 		return
 	var/memotask = input(client, "Choose task.", "Memo") in list("Show", "Write", "Edit", "Remove")
 	if(!memotask)

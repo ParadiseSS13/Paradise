@@ -15,11 +15,11 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 		"Send an CentComm response team to the station.", \
 		VERB_CATEGORY_EVENT)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(client, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(client, SPAN_WARNING("The game hasn't started yet!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(client, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(client, SPAN_WARNING("The round hasn't started yet!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()

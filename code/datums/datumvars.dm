@@ -731,13 +731,13 @@ USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variable
 		if("vars")
 			return FALSE
 	if(!(var_search in GLOB.vars))
-		to_chat(client, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		to_chat(client, SPAN_DEBUG("GLOB.[var_search] does not exist."))
 		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
-		to_chat(client, "<span class='debug'>Now showing GLOB.[var_search].</span>")
+		to_chat(client, SPAN_DEBUG("Now showing GLOB.[var_search]."))
 		return client.debug_variables(result)
-	to_chat(client, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+	to_chat(client, SPAN_DEBUG("GLOB.[var_search] returned [result]."))
 
 #undef VV_HTML_ENCODE
