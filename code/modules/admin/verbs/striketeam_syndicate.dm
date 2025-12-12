@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	else
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), ITEM_SLOT_IN_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/card/emag(src), ITEM_SLOT_RIGHT_POCKET)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), ITEM_SLOT_LEFT_POCKET)
+	equip_to_slot_or_del(new /obj/item/energy/sword/saber/red(src), ITEM_SLOT_LEFT_POCKET)
 
 	if(full_gear)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), ITEM_SLOT_MASK)

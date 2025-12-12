@@ -3,20 +3,20 @@
 	desc = "A spell popular with theater nerd wizards and contrarian pranksters. This spell will put on a mime costume on the target, \
 		stun them so that they may contemplate Art, and silence them. \
 		Warning : Effects are permanent on non-wizards."
-	hand_path = /obj/item/melee/touch_attack/mime_malaise
+	hand_path = /obj/item/touch_attack/mime_malaise
 
 	base_cooldown = 300
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime_curse"
 
-/obj/item/melee/touch_attack/mime_malaise
+/obj/item/touch_attack/mime_malaise
 	name = "mime hand"
 	desc = "..."
 	catchphrase = null
 	on_use_sound = null
 	icon_state = "fleshtostone"
 
-/obj/item/melee/touch_attack/mime_malaise/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/mime_malaise/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

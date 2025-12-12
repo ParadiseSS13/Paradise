@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	ranged_burst_count = 2
 	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
 	a_intent = INTENT_HARM
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	var/obj/item/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
 
 /mob/living/basic/hivebot/strong/malfborg/Initialize(mapload)
@@ -473,7 +473,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/spawner/random/telecomms_teleprod_maybe
 	name = "teleprod maybe"
-	loot = list(/obj/item/melee/baton/cattleprod/teleprod = 1)
+	loot = list(/obj/item/baton/cattleprod/teleprod = 1)
 	spawn_loot_chance = 20
 
 /obj/effect/spawner/random/telecomms_weldertank_maybe

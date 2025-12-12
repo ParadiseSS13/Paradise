@@ -32,7 +32,7 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
-	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
+	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/energy/blade)) && !broken))
 		emag_act(user)
 		return TRUE
 	if(!locked)

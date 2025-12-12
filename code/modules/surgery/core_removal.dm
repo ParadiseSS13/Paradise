@@ -15,7 +15,7 @@
 /datum/surgery_step/slime/cut_flesh
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
-		/obj/item/melee/energy/sword = 75,
+		/obj/item/energy/sword = 75,
 		/obj/item/kitchen/knife = 65,
 		/obj/item/shard = 45
 	)

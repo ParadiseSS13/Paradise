@@ -283,7 +283,7 @@
 	loot = list(
 			/obj/item/storage/box/syndie_kit/chameleon,
 			/obj/item/clothing/suit/pimpcoat,
-			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/skateboard/hoverboard,
 			/obj/item/clothing/glasses/sunglasses/yeah
 	)
 

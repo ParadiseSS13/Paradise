@@ -435,7 +435,7 @@
 					/obj/item/queen_bee/bought,
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit,
-					/obj/item/melee/flyswatter)
+					/obj/item/flyswatter)
 	cost = 150
 	containername = "beekeeping starter kit"
 
@@ -454,4 +454,4 @@
 	cost = 150
 	containertype = /obj/structure/largecrate
 	containername = "Bottler Unit Crate"
-	
+

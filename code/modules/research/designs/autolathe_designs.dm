@@ -1101,7 +1101,7 @@
 	id = "knuckleduster"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/melee/knuckleduster
+	build_path = /obj/item/knuckleduster
 	category = list("hacked", "Security")
 
 /datum/design/sample_kit

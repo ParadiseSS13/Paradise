@@ -70,9 +70,9 @@
 
 /datum/supply_packs/security/baton
 	name = "Stun Batons Crate"
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/baton/loaded,
+					/obj/item/baton/loaded,
+					/obj/item/baton/loaded)
 	cost = 400
 	containername = "stun baton crate"
 
@@ -436,7 +436,7 @@
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
 				/obj/item/clothing/head/helmet,
-				/obj/item/melee/baton/loaded,
+				/obj/item/baton/loaded,
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"

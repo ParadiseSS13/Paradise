@@ -839,7 +839,7 @@
 		if(istype(I, /obj/item/clothing/suit/armor))
 			new /obj/item/stack/spacecash/c100(get_turf(I))
 			qdel(I)
-		if(istype(I, /obj/item/melee/baton))
+		if(istype(I, /obj/item/baton))
 			new /obj/item/stack/spacecash/c100(get_turf(I))
 			qdel(I)
 

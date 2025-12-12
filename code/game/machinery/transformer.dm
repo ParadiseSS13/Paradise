@@ -223,6 +223,8 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(obj/item/I)
+	if(I.needs_permit)
+		return TRUE
 	if(isgun(I))
 		return TRUE
 	if(istype(I, /obj/item/transfer_valve))
@@ -230,8 +232,6 @@
 	if(istype(I, /obj/item/kitchen/knife))
 		return TRUE
 	if(istype(I, /obj/item/grenade/plastic/c4))
-		return TRUE
-	if(istype(I, /obj/item/melee))
 		return TRUE
 	for(var/obj/item/C in I.contents)
 		if(scan_rec(C))

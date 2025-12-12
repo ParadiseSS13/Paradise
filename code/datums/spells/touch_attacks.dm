@@ -1,6 +1,6 @@
 /datum/spell/touch
-	var/hand_path = /obj/item/melee/touch_attack
-	var/obj/item/melee/touch_attack/attached_hand = null
+	var/hand_path = /obj/item/touch_attack
+	var/obj/item/touch_attack/attached_hand = null
 	var/on_remove_message = TRUE
 
 /datum/spell/touch/create_new_targeting()
@@ -50,7 +50,7 @@
 /datum/spell/touch/disintegrate
 	name = "Disintegrate"
 	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
-	hand_path = /obj/item/melee/touch_attack/disintegrate
+	hand_path = /obj/item/touch_attack/disintegrate
 
 	base_cooldown = 600
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -60,7 +60,7 @@
 /datum/spell/touch/flesh_to_stone
 	name = "Flesh to Stone"
 	desc = "This spell charges your hand with the power to turn victims into inert statues for a long period of time."
-	hand_path = /obj/item/melee/touch_attack/fleshtostone
+	hand_path = /obj/item/touch_attack/fleshtostone
 
 	base_cooldown = 600
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -70,7 +70,7 @@
 /datum/spell/touch/plushify
 	name = "Plushify"
 	desc = "This spell charges your hand with the power to turn your victims into marketable plushies!"
-	hand_path = /obj/item/melee/touch_attack/plushify
+	hand_path = /obj/item/touch_attack/plushify
 
 	base_cooldown = 600
 	cooldown_min = 200 //100 deciseconds reduction per rank

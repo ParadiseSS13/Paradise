@@ -17,7 +17,7 @@
 		TOOL_WIRECUTTER = 35,
 		/obj/item/scissors = 12,
 		/obj/item/claymore = 6,
-		/obj/item/melee/energy = 6,
+		/obj/item/energy = 6,
 		/obj/item/pen/edagger = 6,
 		/obj/item/chainsaw = 1,
 	)
@@ -326,15 +326,15 @@
 		TOOL_SAW = 100,
 		/obj/item/chainsaw = 100,	// It's pretty good at doing this outside of surgery tbh...
 		/obj/item/hatchet = 90,
-		/obj/item/melee/arm_blade = 75,
+		/obj/item/arm_blade = 75,
 		/obj/item/claymore = 75,
-		/obj/item/melee/energy = 75
+		/obj/item/energy = 75
 	)
 
 	preop_sound = list(
 		TOOL_SAW = 'sound/surgery/saw.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
-		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg'
+		/obj/item/arm_blade = 'sound/surgery/scalpel1.ogg'
 	)
 
 	success_sound = 'sound/surgery/organ2.ogg'

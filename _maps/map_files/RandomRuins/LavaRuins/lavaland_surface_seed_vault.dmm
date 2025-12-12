@@ -67,7 +67,7 @@
 "ga" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/structure/beebox,
-/obj/item/melee/flyswatter,
+/obj/item/flyswatter,
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/honey_frame,
@@ -121,7 +121,7 @@
 "iV" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/structure/beebox,
-/obj/item/melee/flyswatter,
+/obj/item/flyswatter,
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/honey_frame,

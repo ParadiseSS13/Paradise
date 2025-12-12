@@ -54,7 +54,7 @@
 	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 
 	backpack = /obj/item/storage/backpack/industrial

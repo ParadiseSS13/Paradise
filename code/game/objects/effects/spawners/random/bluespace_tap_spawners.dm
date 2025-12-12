@@ -145,7 +145,7 @@
 		/obj/item/bedsheet/centcom,
 		/obj/item/tarot_card_pack,
 		/obj/item/clothing/mask/holo_cigar,
-		/obj/item/melee/baseball_bat/homerun,
+		/obj/item/baseball_bat/homerun,
 		/obj/item/mod/module/dispenser,
 		/obj/item/storage/box/enforcer_rubber,
 		/obj/item/storage/belt/utility/brass

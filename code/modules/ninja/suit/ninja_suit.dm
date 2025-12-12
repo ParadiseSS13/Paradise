@@ -12,7 +12,7 @@ Contents:
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
 	inhand_icon_state = "s-ninja_suit"
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 0
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)

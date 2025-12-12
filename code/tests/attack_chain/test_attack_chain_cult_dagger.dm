@@ -3,7 +3,7 @@
 	var/datum/test_puppeteer/target = cultist.spawn_puppet_nearby()
 
 	cultist.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
-	cultist.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
+	cultist.spawn_obj_in_hand(/obj/item/cultblade/dagger)
 	cultist.set_intent("harm")
 	cultist.click_on(target)
 

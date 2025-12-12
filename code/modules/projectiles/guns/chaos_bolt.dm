@@ -359,7 +359,7 @@
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)
 		if("esword")
-			item_to_summon = /obj/item/melee/energy/sword/saber/blue
+			item_to_summon = /obj/item/energy/sword/saber/blue
 		if("emag")
 			item_to_summon = /obj/item/card/emag
 		if("chaos wand")

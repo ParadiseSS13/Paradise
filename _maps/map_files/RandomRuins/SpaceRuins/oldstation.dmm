@@ -3583,7 +3583,7 @@
 "kI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/melee/baton,
+/obj/item/baton,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 5
 	},

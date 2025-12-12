@@ -268,8 +268,8 @@
 		chamber_round()
 	if(!can_sawoff)
 		return ..()
-	if(istype(A, /obj/item/melee/energy))
-		var/obj/item/melee/energy/W = A
+	if(istype(A, /obj/item/energy))
+		var/obj/item/energy/W = A
 		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))

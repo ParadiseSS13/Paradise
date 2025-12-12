@@ -34,7 +34,7 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_ITEM(/obj/item/melee/baseball_bat),
+		PCWJ_ADD_ITEM(/obj/item/baseball_bat),
 	)
 
 /datum/cooking/recipe/bearger

@@ -75,14 +75,14 @@
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`
 	upgrade_info = "Upgrading it recharges the internal power cell faster."
 	power_type = FLAYER_INNATE_POWER
-	weapon_type = /obj/item/melee/baton/flayerprod
+	weapon_type = /obj/item/baton/flayerprod
 
 /datum/spell/flayer/self/weapon/swarmprod/on_apply()
 	..()
 	if(!weapon_ref)
 		create_new_weapon()
 
-	var/obj/item/melee/baton/flayerprod/prod = weapon_ref
+	var/obj/item/baton/flayerprod/prod = weapon_ref
 	var/obj/item/stock_parts/cell/flayerprod/cell = prod.cell
 	cell.chargerate = initial(cell.chargerate) + 200 * level // Innate abilities are wack
 

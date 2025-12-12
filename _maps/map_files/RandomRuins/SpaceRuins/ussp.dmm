@@ -597,7 +597,7 @@
 /area/ruin/space/derelict/arrival)
 "bG" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton{
+/obj/item/classic_baton{
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,

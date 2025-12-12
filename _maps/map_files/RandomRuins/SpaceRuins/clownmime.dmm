@@ -581,7 +581,7 @@
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/under/color/white,
 /obj/item/clothing/head/soft/white,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/machinery/light{
 	dir = 1
 	},

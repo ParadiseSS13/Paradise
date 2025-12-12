@@ -148,7 +148,7 @@
 /mob/living/basic/nian_caterpillar/attacked_by(obj/item/I, mob/living/user)
 	if(..())
 		return FINISH_ATTACK
-	if(istype(I, /obj/item/melee/flyswatter) && I.force)
+	if(istype(I, /obj/item/flyswatter) && I.force)
 		gib() // Commit die.
 
 /mob/living/basic/nian_caterpillar/melee_attack(atom/target, list/modifiers, ignore_cooldown)

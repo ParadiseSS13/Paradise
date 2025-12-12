@@ -474,7 +474,7 @@
 		robot_arm = I.type
 		qdel(I)
 
-	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
+	else if((istype(I, /obj/item/baton)) && (build_step >= 3))
 		if(!user.unequip(I))
 			return
 		build_step++
@@ -555,14 +555,14 @@
 
 /obj/item/griefsky_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
+	if((istype(I, /obj/item/energy/sword)) && (build_step < 3))
 		if(!user.unequip(I))
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add an energy sword to [src]!.</span>")
 		qdel(I)
 
-	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step == 3))
+	else if((istype(I, /obj/item/energy/sword)) && (build_step == 3))
 		if(!user.unequip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
@@ -590,7 +590,7 @@
 		return
 
 	if(build_step)
-		new /obj/item/melee/energy/sword(get_turf(src))
+		new /obj/item/energy/sword(get_turf(src))
 		to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
 		build_step--
 	else if(toy_step)

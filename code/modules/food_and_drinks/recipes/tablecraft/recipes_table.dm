@@ -52,7 +52,7 @@
 /datum/crafting_recipe/baseballburger
 	name = "Home run baseball burger"
 	reqs = list(
-		/obj/item/melee/baseball_bat = 1,
+		/obj/item/baseball_bat = 1,
 		/obj/item/food/bun = 1,
 	)
 	result = list(/obj/item/food/burger/baseball)

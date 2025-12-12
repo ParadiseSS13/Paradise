@@ -1540,7 +1540,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
 			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
 			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
-			/obj/item/melee = "MELEE",
 			/obj/item/mmi = "MMI",
 			/obj/item/nullrod = "NULLROD",
 			/obj/item/organ/external = "EXT_ORG",

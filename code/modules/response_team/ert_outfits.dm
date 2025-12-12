@@ -40,7 +40,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	id = /obj/item/card/id/ert/commander
 	l_pocket = /obj/item/pinpointer/crew
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 
 /datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -228,7 +228,7 @@
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/gun/energy/gun/mini
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/t_scanner = 1,
@@ -252,7 +252,7 @@
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/rcd/preloaded = 1,
@@ -281,7 +281,7 @@
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/rcd/combat = 1,
@@ -325,7 +325,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 	belt = /obj/item/storage/belt/medical/surgery/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 	l_hand = /obj/item/defibrillator/loaded
 
 	backpack_contents = list(
@@ -346,7 +346,7 @@
 	suit_store = /obj/item/gun/energy/gun
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
@@ -502,13 +502,13 @@
 	shoes = /obj/item/clothing/shoes/galoshes/dry
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/push_broom = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/melee/flyswatter = 1
+		/obj/item/flyswatter = 1
 	)
 
 /datum/outfit/job/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

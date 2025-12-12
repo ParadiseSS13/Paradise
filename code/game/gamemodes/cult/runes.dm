@@ -75,11 +75,11 @@ To draw a rune, use a ritual dagger.
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
 /obj/effect/rune/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+	if(istype(used, /obj/item/cultblade/dagger) && IS_CULTIST(user))
 		if(!can_dagger_erase_rune(user))
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/melee/cultblade/dagger/dagger = used
+		var/obj/item/cultblade/dagger/dagger = used
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [dagger].</span>")
 		if(do_after(user, initial(scribe_delay) * dagger.scribe_multiplier, target = src))
 			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
@@ -354,7 +354,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(H.reagents?.has_reagent("holywater"))
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting
 
-		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
+		var/obj/item/cultblade/dagger/D = new(get_turf(src))
 		if(H.equip_to_slot_if_possible(D, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE))
 			to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
 		else
@@ -657,7 +657,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(!mob_to_revive.get_ghost() && (!mob_to_revive.client || mob_to_revive.client.is_afk()))
 		set waitfor = FALSE
 		to_chat(user, "<span class='cult'>[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it.</span>")
-		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
+		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/cultblade/dagger)
 		if(length(candidates) && !QDELETED(mob_to_revive))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
@@ -1096,7 +1096,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
-	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
+	if((istype(used, /obj/item/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 	if(istype(used, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.

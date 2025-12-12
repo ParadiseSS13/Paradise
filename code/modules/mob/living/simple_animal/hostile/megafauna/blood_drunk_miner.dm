@@ -38,13 +38,13 @@ Difficulty: Medium
 	ranged_cooldown_time = 16
 	pixel_x = -7
 	crusher_loot = list(/obj/item/crusher_trophy/miner_eye)
-	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
+	loot = list(/obj/item/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
 	internal_gps = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
-	var/obj/item/melee/energy/cleaving_saw/miner_saw
+	var/obj/item/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE
 	var/dash_cooldown = 0
@@ -69,7 +69,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
-	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	miner_saw = new /obj/item/energy/cleaving_saw/miner(src)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
@@ -111,11 +111,11 @@ Difficulty: Medium
 	transform_weapon()
 
 /// nerfed saw because it is very murdery
-/obj/item/melee/energy/cleaving_saw/miner
+/obj/item/energy/cleaving_saw/miner
 	force = 6
 	force_on = 10
 
-/obj/item/melee/energy/cleaving_saw/miner/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/energy/cleaving_saw/miner/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
 	..()
 	target.remove_stun_absorption("miner")
@@ -198,7 +198,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/enrage()
 	. = ..()
-	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
+	miner_saw = new /obj/item/energy/cleaving_saw(src) //Real saw for real men.
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
 	projectiletype = /obj/projectile/kinetic/miner/enraged
@@ -207,7 +207,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/unrage()
 	. = ..()
-	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	miner_saw = new /obj/item/energy/cleaving_saw/miner(src)
 	dash_cooldown_to_use = initial(dash_cooldown_to_use)
 	ranged_cooldown_time = initial(ranged_cooldown_time)
 	projectiletype = initial(projectiletype)

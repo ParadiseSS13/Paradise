@@ -1,10 +1,12 @@
 // Spectral Blade
 
-/obj/item/melee/ghost_sword
+/obj/item/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -13,6 +15,7 @@
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	flags_2 = RANDOM_BLOCKER_2
+	needs_permit = TRUE
 	var/summon_cooldown = 0
 	/// List of wisps we have active, for cleanup purposes in case a ghost gets randomly deleted.
 	var/list/obj/effect/wisp/ghost/orbs
@@ -20,7 +23,7 @@
 	var/list/mob/dead/observer/ghosts
 	var/datum/component/parry/parry_comp
 
-/obj/item/melee/ghost_sword/Initialize(mapload)
+/obj/item/ghost_sword/Initialize(mapload)
 	. = ..()
 	ghosts = list()
 	orbs = list()
@@ -29,14 +32,14 @@
 	GLOB.poi_list |= src
 	parry_comp = AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
 
-/obj/item/melee/ghost_sword/proc/update_parry(orbs)
+/obj/item/ghost_sword/proc/update_parry(orbs)
 	var/counter = length(orbs)
 	// scaling stamina coeff. 0 ghosts being 1, 20 being 0.5
 	parry_comp.stamina_coefficient = 1 - clamp(counter * 0.025, 0, 0.5)
 	// scaling uptime. 0 ghosts being 30%, 20 ghosts being 70%
 	parry_comp.parry_cooldown = ((10 / 3) - clamp(counter * 0.095, 0, 1.9)) SECONDS
 
-/obj/item/melee/ghost_sword/Destroy()
+/obj/item/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in ghosts)
 		remove_ghost(G)
 	// if there are any orbs left (possibly detached from ghosts) ensure they don't stick around
@@ -47,14 +50,14 @@
 	GLOB.poi_list -= src
 	. = ..()
 
-/obj/item/melee/ghost_sword/examine()
+/obj/item/ghost_sword/examine()
 	. = ..()
 	if(length(orbs))
 		. += "It appears to pulse with the power of [length(orbs)] vengeful spirit\s!"
 	else
 		. += "It glows weakly."
 
-/obj/item/melee/ghost_sword/attack_self__legacy__attackchain(mob/user)
+/obj/item/ghost_sword/attack_self__legacy__attackchain(mob/user)
 	if(summon_cooldown > world.time)
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
@@ -64,13 +67,13 @@
 
 	summon_cooldown = world.time + 600
 
-/obj/item/melee/ghost_sword/Topic(href, href_list)
+/obj/item/ghost_sword/Topic(href, href_list)
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.manual_follow(src)
 
-/obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
+/obj/item/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
 	var/mob/dead/observer/ghost = orbiter
 	if(!istype(ghost) || !isobserver(orbiter) || (ghost in ghosts))
@@ -96,7 +99,7 @@
 	// which then passes the torch to us to clean ourselves up
 	RegisterSignal(orb, COMSIG_PARENT_QDELETING, PROC_REF(on_orb_qdel))
 
-/obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
+/obj/item/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
 
 	var/mob/dead/observer/ghost = orbiter
@@ -111,18 +114,18 @@
 	qdel(attached_orb)
 	ghosts -= ghost
 
-/obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
+/obj/item/ghost_sword/proc/remove_signals(atom/A)
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
 
-/obj/item/melee/ghost_sword/proc/register_signals(atom/A)
+/obj/item/ghost_sword/proc/register_signals(atom/A)
 	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(add_ghost), override = TRUE)
 	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_ghost), override = TRUE)
 
 /**
  *  When moving into something's contents
  */
-/obj/item/melee/ghost_sword/proc/on_move(atom/movable/this, atom/old_loc, direction)
+/obj/item/ghost_sword/proc/on_move(atom/movable/this, atom/old_loc, direction)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	// We should only really care about the wielder of the sword and the sword itself when checking ghosts
 
@@ -138,7 +141,7 @@
 			add_ghost(src, orbiter)
 
 // clean up wisps
-/obj/item/melee/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
+/obj/item/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	orbs -= orb
 	update_parry(orbs)
@@ -148,7 +151,7 @@
 			break
 
 
-/obj/item/melee/ghost_sword/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/ghost_sword/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	force = 0
 	var/ghost_counter = length(orbs)
 

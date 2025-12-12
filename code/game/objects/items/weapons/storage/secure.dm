@@ -38,7 +38,7 @@
 
 /obj/item/storage/secure/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
-		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
+		if((istype(W, /obj/item/energy/blade)) && (!emagged))
 			emag_act(user, W)
 
 		//At this point you have exhausted all the special things to do when locked
@@ -74,7 +74,7 @@
 		flick_overlay_view(image(icon, src, icon_sparking), src, 0.9 SECONDS)
 		locked = FALSE
 		update_icon(UPDATE_OVERLAYS)
-		if(istype(weapon, /obj/item/melee/energy/blade))
+		if(istype(weapon, /obj/item/energy/blade))
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
 			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

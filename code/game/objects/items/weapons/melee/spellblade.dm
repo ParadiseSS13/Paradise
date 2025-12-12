@@ -1,37 +1,40 @@
 // MARK: SPELLBLADE
-/obj/item/melee/spellblade
+/obj/item/spellblade
 	name = "spellblade"
 	desc = "An enchanted blade with a series of runes along the side."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "spellblade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	armor_penetration_flat = 50
 	sharp = TRUE
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
 	var/power = 1
 
-/obj/item/melee/spellblade/Initialize(mapload)
+/obj/item/spellblade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-/obj/item/melee/spellblade/Destroy()
+/obj/item/spellblade/Destroy()
 	QDEL_NULL(enchant)
 	return ..()
 
-/obj/item/melee/spellblade/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/spellblade/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	enchant?.pre_hit(target, user, src)
 
-/obj/item/melee/spellblade/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/spellblade/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	enchant?.on_hit(target, user, src)
 
-/obj/item/melee/spellblade/activate_self(mob/user)
+/obj/item/spellblade/activate_self(mob/user)
 	if(..())
 		return
 	if(enchant)
@@ -57,7 +60,7 @@
 		return
 	add_enchantment(options_to_type[choice], user)
 
-/obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
+/obj/item/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
 	var/datum/enchantment/E = new new_enchant
 	enchant = E
 	E.on_gain(src, user)
@@ -66,7 +69,7 @@
 	if(intentional)
 		SSblackbox.record_feedback("nested tally", "spellblade_enchants", 1, list("[E.name]"))
 
-/obj/item/melee/spellblade/examine(mob/user)
+/obj/item/spellblade/examine(mob/user)
 	. = ..()
 	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
@@ -86,23 +89,23 @@
 	var/applied_traits = FALSE
 	COOLDOWN_DECLARE(enchant_cooldown)
 
-/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	if(!COOLDOWN_FINISHED(src, enchant_cooldown) || !istype(target) || target.stat == DEAD)
 		return FALSE
 	return TRUE
 
-/datum/enchantment/proc/pre_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/proc/pre_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	if(!ranged || !COOLDOWN_FINISHED(src, enchant_cooldown) || !istype(target) || target.stat == DEAD)
 		return FALSE
 	return TRUE
 
-/datum/enchantment/proc/on_gain(obj/item/melee/spellblade/S, mob/living/user)
+/datum/enchantment/proc/on_gain(obj/item/spellblade/S, mob/living/user)
 	return
 
 /datum/enchantment/proc/toggle_traits(obj/item/I, mob/living/user)
 	return
 
-/datum/enchantment/proc/on_apply_to_blade(obj/item/melee/spellblade/S)
+/datum/enchantment/proc/on_apply_to_blade(obj/item/spellblade/S)
 	return
 
 /datum/enchantment/lightning
@@ -112,13 +115,13 @@
 	power = 20
 	cooldown = 3 SECONDS
 
-/datum/enchantment/lightning/on_gain(obj/item/melee/spellblade/S, mob/living/user)
+/datum/enchantment/lightning/on_gain(obj/item/spellblade/S, mob/living/user)
 	..()
 	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), PROC_REF(toggle_traits))
 	if(user)
 		toggle_traits(S, user)
 
-/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	. = ..()
 	if(.)
 		zap(target, user, list(user), power)
@@ -155,7 +158,7 @@
 	desc = "this blade ignites on striking a foe, releasing a ball of fire. It also makes the wielder immune to fire"
 	cooldown = 8 SECONDS
 
-/datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
+/datum/enchantment/fire/on_gain(obj/item/spellblade/S, mob/living/user)
 	..()
 	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), PROC_REF(toggle_traits))
 	if(user)
@@ -172,7 +175,7 @@
 		ADD_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
 		applied_traits = TRUE
 
-/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	. = ..()
 	if(.)
 		fireflash_s(target, 4, 8000 * power, 500)
@@ -185,10 +188,10 @@
 	// multiplier for how much the cooldown is reduced by. A miner spellblade can only buff every 4 seconds, making it more vunerable, the wizard one is much more consistant.
 	power = 2
 
-/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade/S)
+/datum/enchantment/forcewall/on_apply_to_blade(obj/item/spellblade/S)
 	cooldown /= power
 
-/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	. = ..()
 	if(.)
 		user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
@@ -202,7 +205,7 @@
 	// the number of deciseconds of stun applied by the teleport strike
 	power = 5
 
-/datum/enchantment/bluespace/pre_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/bluespace/pre_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	. = ..()
 	if(.)
 		var/turf/user_turf = get_turf(user)
@@ -223,7 +226,7 @@
 		target.Weaken(power)
 		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
-/datum/enchantment/bluespace/on_apply_to_blade(obj/item/melee/spellblade/S)
+/datum/enchantment/bluespace/on_apply_to_blade(obj/item/spellblade/S)
 	cooldown /= S.power
 
 /datum/enchantment/time_slash
@@ -231,10 +234,10 @@
 	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
 	power = 20 // This should come out to 32.5 damage per hit. However, delayed.
 
-/datum/enchantment/time_slash/on_apply_to_blade(obj/item/melee/spellblade/S)
+/datum/enchantment/time_slash/on_apply_to_blade(obj/item/spellblade/S)
 	S.force /= 2
 
-/datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+/datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, obj/item/spellblade/S)
 	user.changeNext_move(CLICK_CD_MELEE * 0.5)
 	. = ..()
 	if(.)
@@ -269,10 +272,10 @@
 	color = funky_color_matrix
 	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
 
-/obj/item/melee/spellblade/random
+/obj/item/spellblade/random
 	power = 0.5
 
-/obj/item/melee/spellblade/random/Initialize(mapload)
+/obj/item/spellblade/random/Initialize(mapload)
 	. = ..()
 	var/list/options = list(
 		/datum/enchantment/lightning,

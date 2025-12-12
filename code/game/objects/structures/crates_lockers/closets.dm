@@ -338,7 +338,7 @@
 		if(W)
 			W.forceMove(loc)
 			return ITEM_INTERACT_COMPLETE
-	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
+	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/energy/blade) && !broken))
 		emag_act(user)
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/stack/package_wrap))

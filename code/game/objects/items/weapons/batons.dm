@@ -1,19 +1,22 @@
 /**
   * # Police Baton
   *
-  * Knocks down the hit mob when not on harm intent and when [/obj/item/melee/classic_baton/var/on] is `TRUE`.
+  * Knocks down the hit mob when not on harm intent and when [/obj/item/classic_baton/var/on] is `TRUE`.
   *
   * A non-lethal attack has a cooldown to avoid spamming
   */
-/obj/item/melee/classic_baton
+/obj/item/classic_baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
 	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "baton"
 	worn_icon_state = "classic_baton"
 	inhand_icon_state = "classic_baton"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
+	needs_permit = TRUE
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
@@ -35,7 +38,7 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
-/obj/item/melee/classic_baton/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/classic_baton/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
@@ -66,7 +69,7 @@
   * * target - The mob about to be hit
   * * user - The attacking user
   */
-/obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
+/obj/item/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return
@@ -111,7 +114,7 @@
   * * target - The hit mob
   * * user - The attacking user
   */
-/obj/item/melee/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
+/obj/item/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
 	target.flash_eyes(affect_silicon = TRUE)
 	target.Weaken(stun_time_silicon)
 
@@ -122,7 +125,7 @@
   * * target - The hit mob
   * * user - The attacking user
   */
-/obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
+/obj/item/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
 	var/armour = target.run_armor_check(BODY_ZONE_CHEST, armor_penetration_percentage = stamina_armor_pen) // returns their chest melee armour
 	var/percentage_reduction = 0
 	if(ishuman(target))
@@ -131,26 +134,26 @@
 		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
 	target.apply_damage(stamina_damage * percentage_reduction, STAMINA)
 
-/obj/item/melee/classic_baton/proc/baton_delay(mob/living/target, user_UID)
+/obj/item/classic_baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /**
   * # Fancy Cane
   */
-/obj/item/melee/classic_baton/ntcane
+/obj/item/classic_baton/ntcane
 	name = "fancy cane"
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
 	worn_icon_state = null
 	inhand_icon_state = null
 
-/obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
+/obj/item/classic_baton/ntcane/get_crutch_efficiency()
 	return 2
 
 /**
   * # Telescopic Baton
   */
-/obj/item/melee/classic_baton/telescopic
+/obj/item/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0" // For telling what it is when mapping
@@ -177,7 +180,7 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/static/list/attack_verb_on
 
-/obj/item/melee/classic_baton/telescopic/Initialize(mapload)
+/obj/item/classic_baton/telescopic/Initialize(mapload)
 	. = ..()
 	if(!attack_verb_off)
 		attack_verb_off = list("hit", "poked")
@@ -186,7 +189,7 @@
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
-/obj/item/melee/classic_baton/telescopic/attack_self__legacy__attackchain(mob/user)
+/obj/item/classic_baton/telescopic/attack_self__legacy__attackchain(mob/user)
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)

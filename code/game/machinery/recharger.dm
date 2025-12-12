@@ -8,7 +8,7 @@
 	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver, /obj/item/clothing/neck/link_scryer, /obj/item/melee/secsword)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver, /obj/item/clothing/neck/link_scryer, /obj/item/secsword)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
@@ -155,8 +155,8 @@
 		if(E.cell)
 			E.cell.emp_act(severity)
 
-	else if(istype(charging, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = charging
+	else if(istype(charging, /obj/item/baton))
+		var/obj/item/baton/B = charging
 		if(B.cell)
 			B.cell.charge = 0
 	..(severity)
@@ -199,8 +199,8 @@
 		var/obj/item/gun/energy/E = I
 		return E.cell
 
-	if(istype(I, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = I
+	if(istype(I, /obj/item/baton))
+		var/obj/item/baton/B = I
 		return B.cell
 
 	if(istype(I, /obj/item/rcs))
@@ -222,8 +222,8 @@
 		var/obj/item/clothing/neck/link_scryer/LS = I
 		return LS.cell
 
-	if(istype(I, /obj/item/melee/secsword))
-		var/obj/item/melee/secsword/secsword = I
+	if(istype(I, /obj/item/secsword))
+		var/obj/item/secsword/secsword = I
 		return secsword.cell
 
 	return null

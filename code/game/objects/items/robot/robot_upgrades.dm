@@ -524,7 +524,7 @@
 		/obj/item/mop/advanced/cyborg = /obj/item/mop/advanced/abductor,
 		/obj/item/soap = /obj/item/soap/syndie/abductor,
 		/obj/item/lightreplacer/cyborg = /obj/item/lightreplacer/bluespace/abductor,
-		/obj/item/melee/flyswatter = /obj/item/melee/flyswatter/abductor
+		/obj/item/flyswatter = /obj/item/flyswatter/abductor
 	)
 	items_to_add = list(
 		/obj/item/reagent_containers/spray/cleaner/safety/abductor

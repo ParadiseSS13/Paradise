@@ -527,7 +527,7 @@
 /datum/spellbook_entry/item/spell_blade
 	name = "Spellblade"
 	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half. Spacetime: will slice faster but weaker and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
-	item_path = /obj/item/melee/spellblade
+	item_path = /obj/item/spellblade
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/meat_hook

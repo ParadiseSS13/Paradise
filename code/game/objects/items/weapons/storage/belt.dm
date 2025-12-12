@@ -308,12 +308,12 @@
 		/obj/item/ammo_box,
 		/obj/item/food/donut,
 		/obj/item/kitchen/knife/combat,
-		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
+		/obj/item/baton,
+		/obj/item/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/holosign_creator/detective,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
 		/obj/item/detective_scanner,
@@ -327,19 +327,19 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/baton/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/baton/loaded(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/classic_baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team_gamma/populate_contents()
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/baton/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -374,8 +374,8 @@
 		/obj/item/rcd,
 		/obj/item/rcd_ammo,
 		/obj/item/ammo_box,
-		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
+		/obj/item/baton,
+		/obj/item/classic_baton,
 		/obj/item/kitchen/knife
 	)
 
@@ -499,8 +499,8 @@
 		/obj/item/wrench,
 		/obj/item/multitool,
 		/obj/item/ammo_box,
-		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
+		/obj/item/baton,
+		/obj/item/classic_baton,
 		/obj/item/detective_scanner
 	)
 
@@ -568,7 +568,7 @@
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/melee/flyswatter,
+		/obj/item/flyswatter,
 		/obj/item/storage/bag/trash,
 		/obj/item/push_broom,
 		/obj/item/door_remote/janikeyring
@@ -759,7 +759,7 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/saber)
+	can_hold = list(/obj/item/saber)
 	layer_over_suit = TRUE
 	large = TRUE
 
@@ -807,53 +807,53 @@
 	name = "saber sheath"
 	desc = "Can hold sabers."
 	base_icon_state = "sheath"
-	can_hold = list(/obj/item/melee/saber)
+	can_hold = list(/obj/item/saber)
 
 /obj/item/storage/belt/sheath/saber/populate_contents()
-	new /obj/item/melee/saber(src)
+	new /obj/item/saber(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/bone_sword
 	name = "bone sword sheath"
 	desc = "Can hold bone swords."
 	base_icon_state = "bonesword_sheath"
-	can_hold = list(/obj/item/melee/bone_sword)
+	can_hold = list(/obj/item/bone_sword)
 
 /obj/item/storage/belt/sheath/bone_sword/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/bone_sword/prefilled/populate_contents()
-	new /obj/item/melee/bone_sword(src)
+	new /obj/item/bone_sword(src)
 
 /obj/item/storage/belt/sheath/secsword
 	name = "securiblade scabbard"
 	desc = "Can hold securiblades."
 	base_icon_state = "secsheath"
-	can_hold = list(/obj/item/melee/secsword)
+	can_hold = list(/obj/item/secsword)
 
 /obj/item/storage/belt/sheath/secsword/populate_contents()
-	new /obj/item/melee/secsword(src)
+	new /obj/item/secsword(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
 	desc = "Can hold scimitars."
 	base_icon_state = "snakesfangsheath"
-	can_hold = list(/obj/item/melee/snakesfang)
+	can_hold = list(/obj/item/snakesfang)
 
 /obj/item/storage/belt/sheath/snakesfang/populate_contents()
-	new /obj/item/melee/snakesfang(src)
+	new /obj/item/snakesfang(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/breach_cleaver
 	name = "breach cleaver scabbard"
 	desc = "Can hold massive cleavers."
 	base_icon_state = "breachcleaversheath"
-	can_hold = list(/obj/item/melee/breach_cleaver)
+	can_hold = list(/obj/item/breach_cleaver)
 
 /obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
-	new /obj/item/melee/breach_cleaver(src)
+	new /obj/item/breach_cleaver(src)
 	update_icon()
 
 // -------------------------------------

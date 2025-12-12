@@ -6,7 +6,7 @@
 	description = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets. Never know when you will get disarmed."
 	cost = 2
 	stock = 2
-	item_type = /obj/item/melee/classic_baton/telescopic/contractor
+	item_type = /obj/item/classic_baton/telescopic/contractor
 
 /datum/rep_purchase/item/fulton
 	name = "Fulton Extraction Kit"

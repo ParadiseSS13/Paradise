@@ -25,7 +25,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/simple/pirate
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speak_emote = list("yarrs")
-	loot = list(/obj/item/melee/energy/sword/pirate,
+	loot = list(/obj/item/energy/sword/pirate,
 			/obj/item/clothing/head/helmet/space/pirate,
 			/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/effect/decal/cleanable/blood/innards,
