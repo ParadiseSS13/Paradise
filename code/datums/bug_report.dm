@@ -177,13 +177,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
 	var/client/initial_user = locateUID(initial_user_uid)
-	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
 	file_time = SQLtime()
 	if(!save_to_db())
 		external_link_prompt(initial_user)
 	if(initial_user)
 		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
-	message_admins(general_message)
+	message_roles(chat_box_green("[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab"), R_DEBUG|R_VIEWRUNTIMES|R_ADMIN)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -226,7 +225,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		var/client/initial_user = locateUID(initial_user_uid)
 		if(initial_user)
-			to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+			to_chat(initial_user, "<span class='warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 	qdel(query_update_submission)
 
 /// Populates a list using the bug reports db table and returns it
