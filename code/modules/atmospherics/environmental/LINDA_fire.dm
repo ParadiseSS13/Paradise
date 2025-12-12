@@ -1,9 +1,9 @@
 
-/atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/atom/proc/temperature_expose(exposed_temperature, exposed_volume)
 	if(!isnull(reagents))
 		reagents.temperature_reagents(exposed_temperature)
 
-/turf/simulated/temperature_expose(exposed_temperature)
+/turf/simulated/temperature_expose(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 

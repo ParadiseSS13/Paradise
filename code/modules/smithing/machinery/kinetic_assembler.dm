@@ -16,7 +16,7 @@
 	/// Trim component
 	var/obj/item/smithed_item/component/trim
 	/// Finished product
-	var/obj/item/smithed_item/finished_product
+	var/obj/item/finished_product
 	/// Products that are produced in batches
 	var/list/batched_item_types = list(
 		/obj/item/smithed_item/lens,
@@ -230,10 +230,21 @@
 	for(var/datum/smith_quality/quality in quality_list)
 		if(quality.stat_mult < lowest.stat_mult)
 			lowest = quality
-	finished_product.quality = lowest
-	finished_product.material = trim.material
-	finished_product.set_stats()
-	finished_product.update_appearance(UPDATE_NAME)
+	if(istype(finished_product, /obj/item/smithed_item))
+		var/obj/item/smithed_item/product = finished_product
+		product.quality = lowest
+		product.material = trim.material
+		product.set_stats()
+		product.update_appearance(UPDATE_NAME)
+		finished_product = product
+	else if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
+		var/obj/item/kitchen/knife/smithed/product = finished_product
+		product.quality = lowest
+		product.material = trim.material
+		product.set_stats()
+		product.update_appearance(UPDATE_NAME)
+		product.update_icon(UPDATE_OVERLAYS)
+		finished_product = product
 	qdel(primary)
 	qdel(secondary)
 	qdel(trim)
@@ -256,12 +267,23 @@
 	if(is_type_in_typecache(finished_product, batched_item_types))
 		total_extras += clamp(round(batch_extras * i.bit_productivity_mod / 2), 1, 4)
 	for(var/iterator in 1 to total_extras)
-		var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
-		extra_product.quality = finished_product.quality
-		extra_product.material = finished_product.material
-		extra_product.set_stats()
-		extra_product.update_appearance(UPDATE_NAME)
-		extra_product.scatter_atom()
+		var/obj/item/product
+		if(istype(finished_product, /obj/item/smithed_item))
+			var/obj/item/smithed_item/current_product = finished_product
+			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
+			extra_product.quality = current_product.quality
+			extra_product.material = current_product.material
+			extra_product.set_stats()
+			product = extra_product
+		else if(istype(finished_product, /obj/item/kitchen/knife/smithed)) // We need to separate these because of their different paths
+			var/obj/item/kitchen/knife/smithed/current_product = finished_product
+			var/obj/item/kitchen/knife/smithed/extra_product = new finished_product.type(src.loc)
+			extra_product.quality = current_product.quality
+			extra_product.material = current_product.material
+			extra_product.set_stats()
+			product = extra_product
+		product.update_appearance(UPDATE_NAME)
+		product.scatter_atom()
 
 	finished_product = null
 

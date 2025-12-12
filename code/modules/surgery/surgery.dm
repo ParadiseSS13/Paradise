@@ -44,8 +44,6 @@
 	var/abstract = FALSE
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
-	/// Whether the surgery was started with drapes.
-	var/started_with_drapes = FALSE
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 

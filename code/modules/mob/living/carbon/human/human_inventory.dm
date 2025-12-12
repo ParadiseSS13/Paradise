@@ -87,12 +87,14 @@
 	else if(target == w_uniform)
 		//Again, makes sense for pockets to drop.
 		if(drop_inventory)
-			if(r_store)
-				drop_item_to_ground(r_store, force = TRUE)
-			if(l_store)
-				drop_item_to_ground(l_store, force = TRUE)
-			if(wear_id)
-				drop_item_to_ground(wear_id, force = TRUE)
+			// IPCs have pockets on their bodies, let's assume they stored their stuff there.
+			if(!ismachineperson(src))
+				if(r_store)
+					drop_item_to_ground(r_store, force = TRUE)
+				if(l_store)
+					drop_item_to_ground(l_store, force = TRUE)
+				if(wear_id)
+					drop_item_to_ground(wear_id, force = TRUE)
 			if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 				drop_item_to_ground(belt, force = TRUE)
 		w_uniform = null

@@ -186,6 +186,7 @@
 	desc = "A heavy-duty proto-kinetic accelerator that uses highly overclocked coils to fire a kinetic projectile at staggering speeds."
 	icon_state = "kineticrailgun"
 	base_icon_state = "kineticrailgun"
+	inhand_icon_state = "kineticgun"
 	w_class = WEIGHT_CLASS_HUGE
 	overheat_time = 3 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)
@@ -213,6 +214,7 @@
 	desc = "A proto-kinetic accelerator boasting deeper capacitors for prolonged firing solutions."
 	icon_state = "kineticrepeater"
 	base_icon_state = "kineticrepeater"
+	inhand_icon_state = "kineticgun"
 	overheat_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
 	max_mod_capacity = 75
@@ -229,6 +231,7 @@
 	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple kinetic blasts to be released simultaneously."
 	icon_state = "kineticshotgun"
 	base_icon_state = "kineticshotgun"
+	inhand_icon_state = "kineticgun"
 	overheat_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
 	weapon_weight = WEAPON_HEAVY
@@ -247,6 +250,7 @@
 	desc = "A short-range portable cannon that fires a kinetic slug into the ground, allowing it to split and strike in all directions."
 	icon_state = "kineticshockwave"
 	base_icon_state = "kineticshockwave"
+	inhand_icon_state = "kineticgun"
 	overheat_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
 	max_mod_capacity = 75
@@ -513,8 +517,13 @@
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
+	if(istype(K, /obj/projectile/kinetic/shotgun)) // 6 Projectiles, so 1/6 the damage boost per shot
+		K.damage = round(K.damage + modifier / 6)
+		return
+	if(istype(K, /obj/projectile/kinetic/repeater)) // 3 shots, 1/3 the effect per shot
+		K.damage = round(K.damage + modifier / 3)
+		return
 	K.damage += modifier
-
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown

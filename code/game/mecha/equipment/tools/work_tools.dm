@@ -501,7 +501,10 @@
 	chassis.occupant.changeNext_click(equip_cooldown)
 	var/proximate = chassis.Adjacent(target)
 	if(proximate)
-		target.attackby__legacy__attackchain(internal_crusher, chassis.occupant)
+		if(target.new_attack_chain)
+			target.attack_by(internal_crusher, chassis.occupant)
+		else
+			target.attackby__legacy__attackchain(internal_crusher, chassis.occupant)
 	internal_crusher.afterattack__legacy__attackchain(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT

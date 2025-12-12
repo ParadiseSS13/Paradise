@@ -42,7 +42,7 @@
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
 	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
+	if(istype(buckled, /obj/structure/chair) || istype(buckled, /obj/vehicle/bike) || !isturf(loc))
 		return
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))

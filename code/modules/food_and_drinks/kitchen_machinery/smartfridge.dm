@@ -513,6 +513,7 @@
 		/obj/item/food/grown/mushroom/fungus,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/ash_flora,
+		/obj/item/food/grown/citrus
 	)
 	var/list/output = list()
 	for(var/I in 1 to 3)

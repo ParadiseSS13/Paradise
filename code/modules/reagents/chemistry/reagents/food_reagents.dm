@@ -289,6 +289,22 @@
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/potass_chloride
+	name = "Potassium Salt"
+	id = "potass_chloride"
+	description = "Potassium chloride, for folks who need to watch their sodium intake."
+	color = "#B1B0B0"
+	harmless = FALSE
+	overdose_threshold = 100
+	taste_mult = 2
+	taste_description = "salt"
+
+/datum/reagent/consumable/potass_chloride/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
 	id = "blackpepper"
@@ -1018,3 +1034,17 @@
 	color = "#ffffff"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/tapioca_powder
+	name = "Tapioca Powder"
+	id = "tapioca"
+	description = "A starchy powder made by grinding up cassava. Would be good mixed with water."
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "starchy powder"
+
+/datum/reagent/consumable/drytapioca_pearls
+	name = "Dry Tapioca Pearls"
+	id = "drytapioca"
+	description = "Small, hard balls of dried tapioca powder."
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "dry starchy pearls"

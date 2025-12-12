@@ -114,7 +114,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
-	if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+	else if(locate(/datum/objective/nuke) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudnukecontractor" : "hudnuke"
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"

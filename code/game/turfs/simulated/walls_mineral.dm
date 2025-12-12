@@ -115,11 +115,6 @@
 	ChangeTurf(/turf/simulated/floor)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 
-/turf/simulated/wall/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
 /turf/simulated/wall/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)

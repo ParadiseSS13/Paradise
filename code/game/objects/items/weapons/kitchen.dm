@@ -16,9 +16,6 @@
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
 
-
-
-
 /*
  * Utensils
  */
@@ -72,6 +69,7 @@
 	name = "plastic fork"
 	desc = "Yay, no washing up to do."
 	icon_state = "pfork"
+	flags = NONE
 
 /obj/item/kitchen/utensil/spoon
 	name = "spoon"
@@ -84,6 +82,7 @@
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
 	attack_verb = list("attacked", "poked")
+	flags = NONE
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
@@ -96,6 +95,7 @@
 	desc = "It's a plastic spork. It's the fork side of the spoon!"
 	icon_state = "pspork"
 	attack_verb = list("attacked", "sporked")
+	flags = NONE
 
 /*
  * Knives
@@ -136,6 +136,7 @@
 	desc = "The bluntest of blades."
 	icon_state = "pknife"
 	sharp = FALSE
+	flags = NONE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -149,6 +150,7 @@
 	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "glass_shiv"
+	flags = NONE
 
 /obj/item/kitchen/knife/shiv/carrot
 	name = "carrot shiv"
@@ -207,6 +209,7 @@
 	icon_state = "bone_dagger"
 	inhand_icon_state = "bone_dagger"
 	materials = list()
+	flags = NONE
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"

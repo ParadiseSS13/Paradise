@@ -10,6 +10,10 @@
 #define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
 #define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
 
+#define DEFAULT_CUSTOM_TRANSFER_AMOUNT 30
+#define MINIMUM_CUSTOM_TRANSFER_AMOUNT 1
+#define MAXIMUM_CUSTOM_TRANSFER_AMOUNT 200
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -24,7 +28,6 @@
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
-	var/useramount = 30 // Last used amount
 	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
@@ -309,6 +312,25 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+		if("addcustom")
+			if(!beaker || !beaker.reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			R.trans_id_to(src, id, amount)
+		if("removecustom")
+			if(!reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			if(mode)
+				reagents.trans_id_to(beaker, id, amount)
+			else
+				reagents.remove_reagent(id, amount)
 		if("eject")
 			if(!beaker)
 				return
@@ -467,45 +489,10 @@
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
-				if("addcustom")
-					if(!beaker || !beaker.reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to buffer:", null, arguments, useramount)
-				if("removecustom")
-					if(!reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", null, arguments, useramount)
-				else
-					return FALSE
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("addcustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)
-				if("removecustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("remove", list("id" = arguments["id"], "amount" = amount), ui, state)
 				else
 					return FALSE
 		else
 			return FALSE
-
-/obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
-		if(num > 200)
-			num = 200
-		else if(num < 0)
-			num = 1
-		else
-			num = round(num)
-		return num
-	else
-		return FALSE
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
@@ -684,3 +671,7 @@
 
 #undef SAFE_MIN_TEMPERATURE
 #undef SAFE_MAX_TEMPERATURE
+
+#undef DEFAULT_CUSTOM_TRANSFER_AMOUNT
+#undef MINIMUM_CUSTOM_TRANSFER_AMOUNT
+#undef MAXIMUM_CUSTOM_TRANSFER_AMOUNT

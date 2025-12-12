@@ -2,7 +2,7 @@
 /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
-	desc = "It's so sour, your face will twist."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "lime"
 	bitesize_mod = 2
 	wine_power = 0.3
@@ -26,6 +26,7 @@
 
 /obj/item/food/grown/citrus/lime
 	name = "lime"
+	desc = "It's so sour, your face will twist."
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 

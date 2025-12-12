@@ -303,4 +303,28 @@
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
 
+/obj/effect/decal/cleanable/reagent
+	name = "fluid"
+	desc = "Some kind of fluid?"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	var/basecolor = "#909090"
+	var/amount = 10
+
+/obj/effect/decal/cleanable/reagent/Initialize(mapload, decal_color)
+	. = ..()
+	color = basecolor
+	if(decal_color)
+		color = decal_color
+	base_icon_state = icon_state
+
+	update_icon()
+
+/obj/effect/decal/cleanable/reagent/drip
+	icon = 'icons/effects/drip.dmi'
+	icon_state = "1"
+	random_icon_states = list("1", "2", "3", "4", "5")
+	amount = 1
+
 #undef ALWAYS_IN_GRAVITY

@@ -273,7 +273,7 @@ emp_act
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
 		return
 	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
-		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
+		severity = clamp(severity, EMP_RESIST_BODY, EMP_WEAKENED)
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/L = X
 		L.emp_act(severity)

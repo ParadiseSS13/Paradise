@@ -12,6 +12,8 @@
 	var/datum/tgui_window/window
 	var/broken = FALSE
 	var/initialized_at
+	/// Each client notifies on protected playback, so this prevents spamming admins.
+	var/static/admins_warned = FALSE
 
 /datum/tgui_panel/New(client/client, id)
 	if(!id)
@@ -94,6 +96,12 @@
 		return TRUE
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
+		return TRUE
+	if(type == "audio/protected")
+		if(!admins_warned)
+			message_admins("<span class='notice'>Audio returned a protected playback error, likely due to being copyrighted.</span>")
+			admins_warned = TRUE
+			addtimer(VARSET_CALLBACK(src, admins_warned, FALSE), 10 SECONDS)
 		return TRUE
 	if(type == "telemetry")
 		analyze_telemetry(payload)

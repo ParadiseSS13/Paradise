@@ -20,23 +20,44 @@
 	if(..())
 		return
 
+	inflate(user, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/inflatable/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	inflate(user, target)
+	return ITEM_INTERACT_COMPLETE
+	
+/obj/item/inflatable/proc/inflate(mob/user, atom/target)
 	if(torn)
 		add_fingerprint(user)
-		to_chat(user, SPAN_WARNING("[src] cannot be inflated anymore!"))
-		return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='warning'>[src] is torn and cannot be inflated anymore!</span>")
+		return
 
-	if(locate(/obj/structure/inflatable) in get_turf(user))
-		to_chat(user, SPAN_WARNING("There's already an inflatable structure here!"))
-		return ITEM_INTERACT_COMPLETE
+	var/turf/T = get_turf(target)
+	if(iswallturf(T))
+		return
+
+	if((locate(/obj/structure/inflatable) in T) || (locate(/obj/structure/window/full) in T))
+		to_chat(user, "<span class='warning'>There's no room to deploy [src] here!</span>")
+		return
+
+	var/obj/machinery/door/airlock = locate(/obj/machinery/door) in T
+	var/obj/structure/mineral_door/mineral_door = locate(/obj/structure/mineral_door) in T
+	if(mineral_door && mineral_door.density)
+		to_chat(user, "<span class='warning'>You need to open [mineral_door] before you can deploy [src] there!</span>")
+		return
+
+	if(airlock && airlock.density && !istype(airlock, /obj/machinery/door/window))
+		to_chat(user, "<span class='warning'>You need to open [airlock] before you can deploy [src] there!</span>")
+		return
 
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, SPAN_NOTICE("You inflate [src]."))
-	var/obj/structure/inflatable/R = new structure_type(user.loc)
+	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	var/obj/structure/inflatable/R = new structure_type(T)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
 	if(!isrobot(loc))
 		qdel(src)
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
@@ -221,6 +242,15 @@
 
 	return ..()
 
+/obj/item/inflatable/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!do_after(user, delay, FALSE, user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!useResource(user))
+		return ITEM_INTERACT_COMPLETE	
+
+	return ..()
+
 /obj/item/inflatable/cyborg/proc/useResource(mob/user)
 	if(!isrobot(user))
 		return FALSE
@@ -240,6 +270,7 @@
 	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/inflatable)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
 
 /obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)

@@ -8,6 +8,7 @@
 		list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
 		list("name" = "\[CO2\]", "icon" = "black"),
 		list("name" = "\[H2\]", "icon" = "white"),
+		list("name" = "\[H2O\]", "icon" = "lightgrey"),
 		list("name" = "\[Air\]", "icon" = "grey"),
 		list("name" = "\[CAUTION\]", "icon" = "yellow"),
 		list("name" = "\[SPECIAL\]", "icon" = "whiters")
@@ -445,6 +446,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[H2\]"
 	icon_state = "white" //See Initialize()
 	can_label = FALSE
+/obj/machinery/atmospherics/portable/canister/water_vapor
+	name = "Canister \[H2O\]"
+	icon_state = "lightgrey" //See Initialize()
+	can_label = FALSE
+	
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
@@ -502,6 +508,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	canister_color["prim"] = "white"
 	air_contents.set_hydrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
+	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
+	. = ..()
+	
+	canister_color["prim"] = "lightgrey"
+	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	
 	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)

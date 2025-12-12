@@ -642,3 +642,10 @@
 			return TRUE
 	return FALSE
 
+/datum/chemical_reaction/potass_chloride
+	name = "Potassium Chloride"
+	id = "potass_chloride"
+	result = "potass_chloride"
+	required_reagents = list("potassium" = 1, "chlorine" = 1)
+	result_amount = 2
+	mix_message = "The solution crystallizes with a brief flare of light."

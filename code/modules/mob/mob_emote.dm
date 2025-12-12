@@ -145,7 +145,8 @@
 			var/obj/item/grab/G = H.get_active_hand()
 			if(G && G.affecting)
 				if(H.buckled || G.affecting.buckled)
-					to_chat(user, SPAN_WARNING("[G.affecting] is buckled, you can't flip around [G.affecting.p_them()]!"))
+					var/who_is = H.buckled ? "You are" : "[G.affecting] is"
+					to_chat(user, "<span class='warning'>[who_is] buckled, you can't flip around [G.affecting.p_them()]!</span>")
 					return TRUE
 				var/turf/oldloc = user.loc
 				var/turf/newloc = G.affecting.loc

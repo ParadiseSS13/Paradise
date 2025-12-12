@@ -16,10 +16,12 @@
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
 #define HYDROGEN_HEAT_PENALTY 20
+#define H2O_HEAT_PENALTY 5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
 #define HYDROGEN_TRANSMIT_MODIFIER 3
+#define H2O_TRANSMIT_MODIFIER -10
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
@@ -33,6 +35,7 @@
 #define N2O_CRUNCH 0.55
 #define PLASMA_CRUNCH 4
 #define HYDROGEN_CRUNCH 2
+#define H2O_CRUNCH 0.75
 
 #define MOLE_CRUNCH_THRESHOLD 1700           //Above this value we can get lord singulo and
 #define MOLE_PENALTY_THRESHOLD 1800           //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
@@ -156,6 +159,7 @@
 	var/co2comp = 0
 	var/n2ocomp = 0
 	var/h2comp = 0
+	var/h2ocomp = 0
 
 	///The last air sample's total molar count, will always be above or equal to 0
 	var/combined_gas = 0
@@ -522,13 +526,14 @@
 		n2ocomp = max(removed.sleeping_agent() / combined_gas, 0)
 		n2comp = max(removed.nitrogen() / combined_gas, 0)
 		h2comp = max(removed.hydrogen() / combined_gas, 0)
+		h2ocomp = max(removed.water_vapor() / combined_gas, 0)
 
-		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp - n2comp, 0), 1)
+		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp + h2ocomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY) + (h2comp * HYDROGEN_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY) + (h2comp * HYDROGEN_HEAT_PENALTY) + (h2ocomp * H2O_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
 
-		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER) + (h2comp * HYDROGEN_TRANSMIT_MODIFIER) + (h2ocomp * H2O_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
@@ -568,7 +573,7 @@
 
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
-		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH + h2comp * HYDROGEN_CRUNCH)
+		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH + h2comp * HYDROGEN_CRUNCH + h2ocomp * H2O_CRUNCH)
 
 		radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
 
@@ -1282,9 +1287,11 @@
 #undef CO2_HEAT_PENALTY
 #undef NITROGEN_HEAT_PENALTY
 #undef HYDROGEN_HEAT_PENALTY
+#undef H2O_HEAT_PENALTY
 #undef OXYGEN_TRANSMIT_MODIFIER
 #undef PLASMA_TRANSMIT_MODIFIER
 #undef HYDROGEN_TRANSMIT_MODIFIER
+#undef H2O_TRANSMIT_MODIFIER
 #undef N2O_HEAT_RESISTANCE
 #undef POWERLOSS_INHIBITION_GAS_THRESHOLD
 #undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
@@ -1328,3 +1335,4 @@
 #undef N2O_CRUNCH
 #undef PLASMA_CRUNCH
 #undef HYDROGEN_CRUNCH
+#undef H2O_CRUNCH

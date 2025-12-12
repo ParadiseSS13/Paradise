@@ -182,9 +182,7 @@
 		if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, SPAN_WARNING("You cannot install the upgrade to [src] while wearing it."))
 			return
-
-		if(user.temperature_expose(I))
-			I.forceMove(src)
+		if(user.transfer_item_to(I, src))
 			jetpack = I
 			to_chat(user, SPAN_NOTICE("You successfully install the jetpack into [src]."))
 			return

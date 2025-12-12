@@ -66,7 +66,6 @@
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	///Additional armour value for the species.
 	var/armor = 0
-	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -502,6 +501,9 @@
 			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
+				// IPCs spark when taking brute
+				if(ismachineperson(H) && prob(10))
+					do_sparks(1, 0, H)
 
 			if(organ)
 				if(organ.receive_damage(damage_amount, 0, sharp, used_weapon))
@@ -609,7 +611,12 @@
 	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-	playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
+	// IPCs make clang sound like borgs when punched
+	var/punch_sound = attack.attack_sound
+	if(ismachineperson(target))
+		punch_sound = 'sound/effects/bang.ogg'
+
+	playsound(target.loc, punch_sound, 25, TRUE, -1)
 
 	target.visible_message(SPAN_DANGER("[user] [pick(attack.attack_verb)]ed [target]!"))
 	target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
