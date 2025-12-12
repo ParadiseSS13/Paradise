@@ -142,8 +142,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	if(!length(all_liquids))
 		return
 	if(length(selected_recipe.input) > length(all_liquids))
-		// DEBUG DGTODO
-		message_admins("List of inputs is: [json_encode(all_liquids)]")
 		return
 
 	var/inputs_satisfied = list()
