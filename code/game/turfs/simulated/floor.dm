@@ -172,13 +172,13 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			user.drop_item()
 
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
-				P.dir = 5
-				if(user.dir == 1)
-					P.dir = 6
-				else if(user.dir == 2)
-					P.dir = 9
-				else if(user.dir == 4)
-					P.dir = NORTH
+				P.dir = NORTHEAST
+				if(user.dir == NORTH)
+					P.dir = SOUTHEAST
+				else if(user.dir == SOUTH)
+					P.dir = NORTHWEST
+				else if(user.dir == EAST)
+					P.dir = SOUTHWEST
 			else
 				P.setDir(user.dir)
 

@@ -228,10 +228,10 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		dir = dir | turn(dir, 90)
 
 	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
-		if(dir == 2)
+		if(dir == SOUTH)
 			dir = NORTH
 
-		else if(dir == 8)
+		else if(dir == WEST)
 			dir = EAST
 
 // returns all pipe's endpoints
@@ -288,10 +288,10 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 //Helper to clean up dir
 /obj/item/pipe/proc/fixdir()
 	if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
-		if(dir == 2)
+		if(dir == SOUTH)
 			dir = NORTH
 
-		else if(dir == 8)
+		else if(dir == WEST)
 			dir = EAST
 
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))

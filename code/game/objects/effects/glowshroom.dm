@@ -96,7 +96,7 @@
 		var/newDir = pick(dirList)
 		if(newDir == 16)
 			floor = 1
-			newDir = SOUTHWEST
+			newDir = NORTH
 		return newDir
 
 	floor = 1
