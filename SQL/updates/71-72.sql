@@ -10,6 +10,7 @@ CREATE TABLE `bug_reports` (
     `round_id` INT(11) NULL DEFAULT NULL,
     `contents_json` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
     `submitted` BIT(2) NOT NULL DEFAULT 0,
+	`approver_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
     PRIMARY KEY (`id`),
     INDEX `submitted` (`submitted`)
 )

@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/initial_key = null // just incase they leave after creating the bug report
 
 	/// client of the admin/dev who is accessing the report, we don't want multiple people unknowingly making changes at the same time.
-	var/client/approving_user = null
+	var/approving_user = null
 
 	/// value to determine if the bug report is submitted and awaiting admin/dev approval, used for state purposes in tgui.
 	var/awaiting_approval = FALSE
@@ -28,6 +28,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	/// Index of the report in the db
 	var/row_index
+
+	/// Whether the report has been handled
+	var/handled = FALSE
 
 /datum/tgui_bug_report_form/New(mob/user)
 	if(user)
@@ -67,6 +70,11 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/ui_close(mob/user)
 	. = ..()
+	// handled reports can no longer be modified.
+	if(!handled)
+		var/datum/db_query/query_set_closed = SSdbcore.NewQuery("UPDATE bug_reports SET approver_ckey=\"\" WHERE id=:index", list("index" = row_index))
+		if(!query_set_closed.warn_execute())
+			to_chat(usr,chat_box_red("The bug report's state in row [row_index] could not be set to unopened"))
 	// The reports shouldn't persist unless being made or reviewed.
 	qdel(src)
 
@@ -78,20 +86,26 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 // whether or not an admin/dev can access the record at a given time.
 /datum/tgui_bug_report_form/proc/assign_approver(mob/user)
-	if(!initial_key)
-		to_chat(user, "<span class='warning'>Unable to identify the author of the bug report.</span>")
-		return FALSE
-	if(approving_user)
-		if(user.client == approving_user)
-			to_chat(user, "<span class='warning'>This bug report review is already opened and accessed by you.</span>")
-		else
-			to_chat(user, "<span class='warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
-		return FALSE
 	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
 		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [SQLtime()].")
 		return FALSE
 
-	approving_user = user.client
+	if(!initial_key)
+		to_chat(user, "<span class='warning'>Unable to identify the author of the bug report.</span>")
+		return FALSE
+
+	if(approving_user)
+		if(user.ckey == approving_user)
+			to_chat(user, "<span class='warning'>This bug report review is already opened and accessed by you.</span>")
+			return FALSE
+		else
+			to_chat(user, "<span class='warning'>[approving_user] is currently accessing this report, it will open in read only mode.</span>")
+			return TRUE
+
+	approving_user = user.ckey
+	var/datum/db_query/query_update_approver = SSdbcore.NewQuery("UPDATE bug_reports SET approver_ckey=:approver WHERE id=:index", list("approver" = user.ckey, "index" = row_index))
+	if(!query_update_approver.warn_execute())
+		to_chat(user, "<span class='warning'> Failed to set bug report approver in row [row_index] in the database")
 	return TRUE
 
 // returns the body payload
@@ -173,6 +187,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 		if(!query_update_submission.warn_execute())
 			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [SQLtime()]. DB request failed")
+		handled = TRUE
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
@@ -187,6 +202,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
+		return
+	if(handled)
+		to_chat(ui.user, "<span class='warning'>The report has already been handled. Changes cannot be made.")
+		return
+	if(approving_user && approving_user != ui.user.ckey)
+		to_chat(ui.user, "<span class='warning'>The report is in use by someone else and has been opened in read only mode. Changes cannot be made.")
 		return
 	var/mob/user = ui.user
 	switch(action)
@@ -214,6 +235,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/ui_data(mob/user)
 	. = list()
+	.["read_only"] = approving_user ? approving_user != user.ckey : FALSE
 	.["report_details"] = bug_report_data // only filled out once the user as submitted the form
 	.["awaiting_approval"] = awaiting_approval
 
@@ -222,6 +244,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	if(!query_update_submission.warn_execute())
 		message_admins("Failed to reject bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()]. DB request failed")
 	else
+		handled = TRUE
 		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		var/client/initial_user = locateUID(initial_user_uid)
 		if(initial_user)
@@ -231,7 +254,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /// Populates a list using the bug reports db table and returns it
 /proc/read_bug_report_table()
 	var/list/bug_reports = list()
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE submitted=0")
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json, approver_ckey, submitted FROM bug_reports WHERE submitted=0")
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load stored bug reports from DB")
 		qdel(query_bug_reports)
@@ -242,8 +265,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		bug_report.row_index = query_bug_reports.item[1]
 		bug_report.file_time = query_bug_reports.item[2]
 		bug_report.initial_key = query_bug_reports.item[3]
-		bug_report.bug_report_data = json_decode(query_bug_reports.item[6])
+		bug_report.bug_report_data = json_decode(query_bug_reports.item[4])
+		bug_report.approving_user = query_bug_reports.item[5] == "" ? null : query_bug_reports.item[5]
 		bug_report.awaiting_approval = TRUE
+		bug_report.handled = !!query_bug_reports.item[6]
 	qdel(query_bug_reports)
 
 	return bug_reports
@@ -264,7 +289,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	return bug_reports
 
 /proc/read_bug_report(index)
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json FROM bug_reports WHERE id=:index", list("index" = index))
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json, approver_ckey, submitted FROM bug_reports WHERE id=:index", list("index" = index))
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load bug report from DB")
 		qdel(query_bug_reports)
@@ -278,14 +303,16 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	bug_report.file_time = query_bug_reports.item[2]
 	bug_report.initial_key = query_bug_reports.item[3]
 	bug_report.bug_report_data = json_decode(query_bug_reports.item[4])
+	bug_report.approving_user = query_bug_reports.item[5] == "" ? null : query_bug_reports.item[5]
 	bug_report.awaiting_approval = TRUE
+	bug_report.handled = !!query_bug_reports.item[6]
 	qdel(query_bug_reports)
 	return bug_report
 
 /datum/tgui_bug_report_form/proc/save_to_db()
 	. = TRUE
 	var/datum/db_query/bug_query = SSdbcore.NewQuery({"
-				INSERT INTO bug_reports (filetime, author_ckey, title, round_id, contents_json) VALUES (:filetime, :author_ckey, :title, :round_id, :contents_json)
+				INSERT INTO bug_reports (filetime, author_ckey, title, round_id, contents_json, approver_ckey) VALUES (:filetime, :author_ckey, :title, :round_id, :contents_json, :approver_ckey)
 				"},
 				list(
 					"filetime" = file_time,
@@ -293,6 +320,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 					"title" = bug_report_data["title"],
 					"round_id" = bug_report_data["round_id"],
 					"contents_json" = json_encode(bug_report_data),
+					"approver_ckey" = approving_user ? approving_user : ""
 				)
 			)
 	if(!bug_query.warn_execute())
