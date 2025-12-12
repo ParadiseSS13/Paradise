@@ -542,6 +542,7 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 #define LINDA_SPAWN_HYDROGEN	(1<<10)
+#define LINDA_SPAWN_WATER_VAPOR	(1<<11)
 
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
@@ -632,7 +633,6 @@
 // These used to be integer values but they were never used numerically or even
 // stored in SSblackbox using their numeric values, and constantly converting
 // them to the actual terror name was redundant and annoying
-#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
 #define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
 #define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
 #define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"

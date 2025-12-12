@@ -1019,6 +1019,36 @@
 	owner.physiology.stamina_mod /= 1.15
 	return ..()
 
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield
+	name = "Electromagnetic Shielding Implant"
+	desc = "This implant improves the conductivity of the IPC frame, providing partial protection against EMPs."
+	implant_color = "#301beeff"
+	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_EMP_RESIST, "ipc[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp
+	name = "Experimental Defensive Implant"
+	desc = "This implant deploys experimental nanobots into the IPC chassis to harden joints and provide partial protection against EMPs."
+	implant_color = "#065513ff"
+	origin_tech = "materials=5;programming=5;biotech=5;engineering=5;combat=5;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc_joint[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	REMOVE_TRAIT(M, TRAIT_EMP_RESIST, "ipc_joint[UID()]")
+	return ..()
+
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
 	name = "\improper Nanite pacifier"
 	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
@@ -1068,3 +1098,6 @@
 	while(length(contents) <= amount)
 		implant = pick(boxed)
 		new implant(src)
+
+/obj/item/storage/box/cyber_implants/empty/populate_contents()
+	return

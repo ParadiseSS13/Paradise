@@ -145,7 +145,8 @@
 			var/obj/item/grab/G = H.get_active_hand()
 			if(G && G.affecting)
 				if(H.buckled || G.affecting.buckled)
-					to_chat(user, "<span class='warning'>[G.affecting] is buckled, you can't flip around [G.affecting.p_them()]!</span>")
+					var/who_is = H.buckled ? "You are" : "[G.affecting] is"
+					to_chat(user, "<span class='warning'>[who_is] buckled, you can't flip around [G.affecting.p_them()]!</span>")
 					return TRUE
 				var/turf/oldloc = user.loc
 				var/turf/newloc = G.affecting.loc
@@ -159,12 +160,6 @@
 					return ..()
 
 	user.SpinAnimation(5, 1)
-
-	if(isrobot(user))
-		var/mob/living/silicon/robot/borg = user
-		if(borg.drop_hat())
-			borg.visible_message("<span class='warning'><span class='name'>[user]</span> drops their hat!</span>",
-							"<span class='warning'>As you flip your hat falls off!</span>")
 
 	if(prob(5) && ishuman(user) && !HAS_TRAIT(user, TRAIT_COOL))
 		var/turf = get_turf(L)

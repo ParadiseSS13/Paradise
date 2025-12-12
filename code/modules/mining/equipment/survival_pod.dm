@@ -15,6 +15,7 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/survivalcapsule/emag_act()
 	if(!emagged)
@@ -37,7 +38,10 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self__legacy__attackchain()
+/obj/item/survivalcapsule/activate_self(mob/user)
+	if(..())
+		return
+
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -72,6 +76,13 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+
+		// get structures on turf, then delete large rocks and plants
+		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
+		for(var/turf/selected_turf as anything in affected_turfs)
+			for(var/obj/structure/flora/ash/found_flora in selected_turf)
+				qdel(found_flora)
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 

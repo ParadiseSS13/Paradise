@@ -24,6 +24,7 @@
 	var/scrub_Toxins = FALSE
 	var/scrub_N2O = FALSE
 	var/scrub_H2 = FALSE
+	var/scrub_H2O = FALSE
 
 	var/volume_rate = 200
 	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
@@ -168,6 +169,8 @@
 		return TRUE
 	if(environment.hydrogen() > 0.001)
 		return TRUE
+	if(environment.water_vapor() > 0.001)
+		return TRUE
 
 	return FALSE
 
@@ -215,6 +218,10 @@
 			if(scrubber.scrub_H2)
 				filtered_out.set_hydrogen(removed.hydrogen())
 				removed.set_hydrogen(0)
+
+			if(scrubber.scrub_H2O)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
 
 			//Remix the resulting gases
 			scrubber.air_contents.merge(filtered_out)
