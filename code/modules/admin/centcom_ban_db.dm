@@ -105,13 +105,7 @@
 	popup.set_content(popup_data.Join())
 	popup.open(FALSE)
 
-// Just a simple verb so admins can do manual lookups
-/client/proc/ccbdb_lookup_ckey()
-	set name = "Global Ban DB Lookup"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/input_ckey = input(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup")
-	holder.create_ccbdb_lookup(input_ckey)
+/// Just a simple verb so admins can do manual lookups
+USER_VERB(ccbdb_lookup_ckey, R_ADMIN, "Global Ban DB Lookup", "Lookup global bans by ckey.", VERB_CATEGORY_ADMIN)
+	var/input_ckey = input(client, "Please enter a ckey to lookup", "Global Ban DB Lookup")
+	client.holder.create_ccbdb_lookup(input_ckey)

@@ -140,7 +140,7 @@
 
 /obj/docking_port/mobile/free_golem
 	name = "Free Golem Ship"
-	dir = 8
+	dir = WEST
 	id = "freegolem"
 	dwidth = FREE_GOLEM_SHIP_WIDTH / 2
 	height = FREE_GOLEM_SHIP_HEIGHT
@@ -149,7 +149,7 @@
 	port_direction = SOUTH
 
 /obj/docking_port/stationary/golem
-	dir = 8
+	dir = WEST
 	height = FREE_GOLEM_SHIP_HEIGHT
 	width = FREE_GOLEM_SHIP_WIDTH
 	dwidth = FREE_GOLEM_SHIP_WIDTH / 2

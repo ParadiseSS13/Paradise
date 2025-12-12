@@ -892,7 +892,7 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
-	var/turn_dir = 1
+	var/turn_dir = NORTH
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)

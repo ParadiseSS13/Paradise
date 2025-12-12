@@ -13,7 +13,7 @@
 	icon_state = "control_box"
 	reference = "control_box"
 	idle_power_consumption = 500
-	dir = 1
+	dir = NORTH
 	var/strength_upper_limit = 2
 	var/interface_control = 1
 	var/list/obj/structure/particle_accelerator/connected_parts

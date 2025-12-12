@@ -1215,7 +1215,7 @@
 		unbuckle_mob(M, force = TRUE)
 	M.move_resist = INFINITY
 	M.Stun(10 SECONDS)
-	M.dir = 2
+	M.dir = SOUTH
 	animate(M, pixel_y = 64, time = 2 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(finalize_death), M), 2 SECONDS)
 	to_chat(owner, SPAN_USERDANGER("THE JOY! THE POWER! YOU CAN FEEL THE HONKMOTHERS SMILE! YOU CAN FEEL- oh no"))

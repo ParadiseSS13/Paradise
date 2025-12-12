@@ -825,7 +825,7 @@
 
 // MARK: Shuttle Ports
 /obj/docking_port/mobile/labour
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 5
 	id = "laborcamp"
@@ -836,7 +836,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/mining
-	dir = 8
+	dir = WEST
 	dwidth = 3
 	height = 5
 	id = "mining"
@@ -847,7 +847,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/specops
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 11
 	id = "specops"
@@ -856,7 +856,7 @@
 	preferred_direction = EAST
 
 /obj/docking_port/mobile/sit
-	dir = 8
+	dir = WEST
 	dwidth = 3
 	height = 5
 	id = "sit"
@@ -866,7 +866,7 @@
 	port_direction = WEST
 
 /obj/docking_port/mobile/sst
-	dir = 4
+	dir = EAST
 	dwidth = 7
 	height = 5
 	id = "sst"
@@ -876,7 +876,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/admin
-	dir = 2
+	dir = SOUTH
 	dwidth = 8
 	height = 15
 	id = "admin"
@@ -912,7 +912,7 @@
 	return TRUE
 
 /obj/docking_port/mobile/ferry
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 12
 	id = "ferry"
@@ -930,10 +930,10 @@
 /obj/docking_port/stationary/trader/centcom
 	id = "trader_away"
 	name = "Docking bay at trade hub"
-	dir = 8
+	dir = WEST
 
 /obj/docking_port/mobile/trader
-	dir = 8
+	dir = WEST
 	dwidth = 11
 	height = 30
 	id = "trader"
@@ -944,7 +944,7 @@
 
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
-	dir = 2
+	dir = SOUTH
 	dwidth = 5
 	height = 22
 	id = "syndicate"
@@ -957,7 +957,7 @@
 	width = 12
 
 /obj/docking_port/mobile/whiteship
-	dir = 8
+	dir = WEST
 	id = "whiteship"
 	name = "NEV Cherub"
 	dwidth = 6

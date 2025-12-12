@@ -918,7 +918,7 @@
 	else if(href_list["open_logging_view"])
 		var/mob/M = locateUID(href_list["open_logging_view"])
 		if(ismob(M))
-			usr.client.open_logging_view(list(M), TRUE)
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/logging_view, M, TRUE)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1404,29 +1404,13 @@
 		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["asays"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		usr.client.view_asays()
-
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_asays)
 	else if(href_list["msays"])
-		if(!check_rights(R_ADMIN | R_MENTOR))
-			return
-
-		usr.client.view_msays()
-
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_msays)
 	else if(href_list["devsays"])
-		if(!check_rights(R_ADMIN | R_DEV_TEAM))
-			return
-
-		usr.client.view_devsays()
-
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_devsays)
 	else if(href_list["staffsays"])
-		if(!check_rights(R_ADMIN | R_DEV_TEAM))
-			return
-
-		usr.client.view_staffsays()
-
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_staffsays)
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1676,8 +1660,7 @@
 		ai_character.moveToAILandmark()
 
 	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
@@ -1685,11 +1668,10 @@
 		if(alert(usr, "Confirm make alien?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_alienize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_alienize, H)
 
 	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
@@ -1697,11 +1679,10 @@
 		if(alert(usr, "Confirm make slime?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_slimeize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_slimezie, H)
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
@@ -1710,11 +1691,10 @@
 		if(alert(usr, "Confirm make superhero?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_super(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_super, H)
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
@@ -1722,12 +1702,10 @@
 		if(alert(usr, "Confirm make robot?", null, "Yes", "No") != "Yes")
 			return
 
-		usr.client.cmd_admin_robotize(H)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_robotize, H)
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))
-			return
-
+		// TODO: move these checks into the user verb proper probably
 		var/mob/M = locateUID(href_list["makeanimal"])
 		if(isnewplayer(M))
 			to_chat(usr, SPAN_WARNING("This cannot be used on instances of type /mob/new_player"))
@@ -1735,7 +1713,7 @@
 		if(tgui_alert(usr, "Confirm make animal?", "Confirm Choice", list("Yes", "No")) != "Yes")
 			return
 
-		usr.client.cmd_admin_animalize(M)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_animalize, M)
 
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
@@ -1780,7 +1758,7 @@
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
-		show_player_panel(H)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, H)
 		//H.regenerate_icons()
 
 	else if(href_list["adminobserve"])
@@ -1792,7 +1770,7 @@
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		C.admin_observe_target(M)
+		SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_observe_target, M)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
@@ -1801,7 +1779,7 @@
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
 
-		show_player_panel(M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, M)
 
 	else if(href_list["adminplayerobservefollow"])
 		if(isnewplayer(usr))
@@ -1813,7 +1791,7 @@
 			if(!check_rights(R_ADMIN|R_MOD, show_msg=FALSE)) // Need to be mod or admin to aghost
 				to_chat(usr, SPAN_WARNING("You must be an observer to follow someone!"))
 				return
-			C.admin_ghost()
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_ghost)
 
 		var/mob/target = locateUID(href_list["adminplayerobservefollow"])
 		if(!ismob(target))
@@ -1886,7 +1864,7 @@
 			if("remove_member")
 				team.admin_remove_member(usr, member)
 			if("view_member")
-				show_player_panel(member.current)
+				SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, member.current)
 			if("add_objective")
 				team.admin_add_objective(usr)
 			if("announce_objectives")
@@ -1936,7 +1914,7 @@
 		if(!isobserver(usr))
 			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
 				return
-			C.admin_ghost()
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_ghost)
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
@@ -2549,7 +2527,7 @@
 			to_chat(owner, SPAN_NOTICE("You sent [reason] to [H] via a secure channel."))
 			to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from Central Command. Message as follows,</span>[SPAN_SPECIALNOTICE(" Your ERT request has been denied for the following reasons: [reason].")]")
 		else
-			owner.response_team()
+			SSuser_verbs.invoke_verb(owner, /datum/user_verb/dispatch_ert)
 
 
 	else if(href_list["AdminFaxView"])
@@ -2778,14 +2756,12 @@
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
-		if(!check_rights(R_ADMIN))	return
-
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		usr.client.Getmob(M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/teleport_mob, M)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))	return
@@ -2794,30 +2770,23 @@
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		usr.client.sendmob(M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/send_mob, M)
 
 	else if(href_list["narrateto"])
-		if(!check_rights(R_ADMIN))	return
-
 		var/mob/M = locateUID(href_list["narrateto"])
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		usr.client.cmd_admin_direct_narrate(M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/direct_narrate, M)
 
 	else if(href_list["subtlemessage"])
-		if(!check_rights(R_EVENT))
-			return
-
 		var/mob/M = locateUID(href_list["subtlemessage"])
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		usr.client.cmd_admin_subtle_message(M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/subtle_message, M)
 
 	else if(href_list["traitor"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
-
 		if(SSticker.current_state < GAME_STATE_PLAYING)
 			alert("The game hasn't started yet!")
 			return
@@ -2826,7 +2795,8 @@
 		if(!ismob(M))
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
-		show_traitor_panel(M)
+
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_traitor_panel, M)
 
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return
@@ -2880,7 +2850,7 @@
 		var/tmp_dir = href_list["object_dir"]
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
-			obj_dir = 2
+			obj_dir = SOUTH
 		var/obj_name = sanitize(href_list["object_name"])
 
 
@@ -3492,7 +3462,7 @@
 		switch(href_list["secretsmenu"])
 			if("tab")
 				current_tab = text2num(href_list["tab"])
-				Secrets(usr)
+				SSuser_verbs.invoke_verb(usr, /datum/user_verb/secrets_panel)
 				return 1
 
 	else if(href_list["viewruntime"])
@@ -3627,7 +3597,7 @@
 			return
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/send_alert_message, about_to_be_banned)
 
 	else if(href_list["clientmodcheck"])
 		if(!check_rights(R_ADMIN))
@@ -3724,7 +3694,7 @@
 			return
 
 		qdel(dbq2)
-		owner.json_spawn_menu() // Refresh their menu
+		SSuser_verbs.invoke_verb(owner, /datum/user_verb/spawn_json)
 		to_chat(usr, "Slot <code>[slot_name]</code> deleted.")
 
 

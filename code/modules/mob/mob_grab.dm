@@ -287,7 +287,7 @@
 			affecting.forceMove(assailant.loc)
 		if(GRAB_KILL)
 			shift = 0
-			adir = 1
+			adir = NORTH
 			affecting.setDir(SOUTH)//face up
 			affecting.forceMove(assailant.loc)
 

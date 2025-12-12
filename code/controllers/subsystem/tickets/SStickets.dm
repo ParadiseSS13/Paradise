@@ -305,7 +305,7 @@ SUBSYSTEM_DEF(tickets)
 			if(!closeTicket(N))
 				to_chat(C, "Unable to close ticket")
 		if("Man Up")
-			C.man_up(returnClient(N))
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/man_up, returnClient(N))
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[SPAN_ADMINTICKETALT(" [message_key]")]")
@@ -747,9 +747,9 @@ UI STUFF
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == "Mentor Tickets")
-			usr.client.resolveAllMentorTickets()
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/resolve_all_mentor_tickets)
 		else
-			usr.client.resolveAllAdminTickets()
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/resolve_all_admin_tickets)
 
 	if(href_list["close"])
 		onCloseDetailUI(usr)

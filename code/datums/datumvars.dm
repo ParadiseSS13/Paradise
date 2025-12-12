@@ -137,14 +137,11 @@
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=src)
 		CMT.ui_interact(usr)
 
+USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
+	client.debug_variables(thing)
+
 /client/proc/debug_variables(datum/D in world)
-	set name = "\[Admin\] View Variables"
-
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
-
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, SPAN_WARNING("You need to be an administrator to access this."))
-		return
 
 	if(!D)
 		return
@@ -724,14 +721,7 @@
 		debug_variables(locate(href_list["listrefresh"]))
 		return TRUE
 
-/client/proc/debug_global_variables(var_search as text)
-	set category = "Debug"
-	set name = "Debug Global Variables"
-
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, SPAN_WARNING("You need to be an administrator to access this."))
-		return
-
+USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variables", "Debug Global Variables", VERB_CATEGORY_DEBUG, var_search as text)
 	var_search = trim(var_search)
 	if(!var_search)
 		return
@@ -741,13 +731,13 @@
 		if("vars")
 			return FALSE
 	if(!(var_search in GLOB.vars))
-		to_chat(src, SPAN_DEBUG("GLOB.[var_search] does not exist."))
+		to_chat(client, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
 		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
-		to_chat(src, SPAN_DEBUG("Now showing GLOB.[var_search]."))
-		return debug_variables(result)
-	to_chat(src, SPAN_DEBUG("GLOB.[var_search] returned [result]."))
+		to_chat(client, "<span class='debug'>Now showing GLOB.[var_search].</span>")
+		return client.debug_variables(result)
+	to_chat(client, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
 
 #undef VV_HTML_ENCODE

@@ -3,12 +3,9 @@
 /// from [/datum/proc/vv_do_topic] for that reason.
 /client/proc/vv_core_topics(datum/target, href_list)
 	if(href_list[VV_HK_JUMP_TO])
-		if(!check_rights(R_ADMIN))
-			return
-
 		var/turf/T = get_turf(target)
 		if(T)
-			jumptoturf(T)
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/jump_to_turf, T)
 		href_list["datumrefresh"] = target.UID()
 	if(href_list["varnameedit"] && href_list["datumedit"])
 		if(!check_rights(R_ADMIN | R_VAREDIT))	return
@@ -59,7 +56,8 @@
 			return
 
 		if(target)
-			callproc_datum(target)
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/call_proc_datum, target)
+
 	if(href_list[VV_HK_ADDCOMPONENT])
 		if(!check_rights(NONE))
 			return

@@ -265,7 +265,7 @@
 		return
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
-	if(!sharp && new_sharp_val)
+	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
 
 /// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

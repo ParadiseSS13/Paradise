@@ -154,11 +154,11 @@
 	/*var/carpet_dir
 	switch(choice)
 		if("Bible")
-			carpet_dir = 2
+			carpet_dir = SOUTH
 		if("Koran")
-			carpet_dir = 4
+			carpet_dir = EAST
 		if("Scientology")
-			carpet_dir = 8
+			carpet_dir = WEST
 	if(carpet_dir)
 		for(var/area/station/service/chapel/main/A in world)
 			for(var/turf/T in A.contents)
