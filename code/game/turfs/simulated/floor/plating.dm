@@ -315,6 +315,13 @@
 	oxygen = 0
 	nitrogen = 0
 
+/turf/simulated/floor/engine/water_vapor
+	name = "\improper H2O floor"
+	water_vapor = 10000
+	oxygen = 0
+	nitrogen = 0
+	temperature = 716
+
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
 	temperature = 80

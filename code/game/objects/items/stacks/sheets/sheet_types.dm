@@ -475,6 +475,17 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
 
+/obj/item/stack/sheet/mothsilk
+	name = "mothsilk spool"
+	desc = "A spool of fresh mothsilk. Fine and light as air."
+	singular_name = "strand"
+	icon_state = "sheet-mothsilk"
+	icon = 'icons/obj/stacks/organic.dmi'
+	resistance_flags = FLAMMABLE
+	force = 0
+	throwforce = 0
+	merge_type = /obj/item/stack/sheet/mothsilk
+
 //////////////////////////////
 // MARK: CARDBOARD
 //////////////////////////////

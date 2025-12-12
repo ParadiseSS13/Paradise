@@ -2773,7 +2773,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "auR" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "auS" = (
@@ -10152,6 +10152,10 @@
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = 7;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
@@ -41169,10 +41173,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/clothing/head/cone,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "hQm" = (
@@ -55206,6 +55210,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"kNO" = (
+/obj/machinery/power/electrolyzer,
+/turf/space,
+/area/space)
 "kNV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -118277,7 +118285,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+kNO
 rNK
 rNK
 rNK
