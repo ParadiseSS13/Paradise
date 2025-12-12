@@ -830,20 +830,20 @@ GLOBAL_VAR(bomb_set)
 /obj/item/nad_scanner/examine(mob/user)
 	. = ..()
 	if(decrypted)
-		. += "<span class='warning'>It's burnt out!</span>"
+		. += SPAN_WARNING("It's burnt out!")
 
 /obj/item/nad_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/disk/nuclear))
 		return ..()
 	if(disky)
-		to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is already something in [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.flags & NODROP || !user.transfer_item_to(used, src))
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 	disky = used
 	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	update_icon(UPDATE_ICON_STATE)
@@ -861,14 +861,14 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/nad_scanner/activate_self(mob/user)
 	if(world.time < 45 MINUTES) // 45 minutes of no nuke
-		to_chat(user, "<span class='warning'>[src] is still calibrating. Please wait another [round((27000 - world.time) / 600)] minutes before trying again.</span>")
+		to_chat(user, SPAN_WARNING("[src] is still calibrating. Please wait another [round((27000 - world.time) / 600)] minutes before trying again."))
 		return ..()
 	scan_nad(user)
 	return ..()
 
 /obj/item/nad_scanner/AltClick(mob/user, modifiers)
 	if(scanning)
-		to_chat(user, "<span class='warning'>The disk is currently being scanned!</span>")
+		to_chat(user, SPAN_WARNING("The disk is currently being scanned!"))
 		return ..()
 	eject_nad(user)
 	return ..()
@@ -878,26 +878,26 @@ GLOBAL_VAR(bomb_set)
 		return
 	var/mob/M = user
 	M.put_in_hands(disky)
-	to_chat(user, "<span class='notice'>You remove [disky] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [disky] from [src]."))
 	disky = null
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /obj/item/nad_scanner/proc/scan_nad(mob/user)
 	if(!disky)
-		to_chat(user, "<span class='warning'>There is no disk inserted!</span>")
+		to_chat(user, SPAN_WARNING("There is no disk inserted!"))
 		return
 	if(decrypted)
-		to_chat(user, "<span class='warning'>This device is burnt out!</span>")
+		to_chat(user, SPAN_WARNING("This device is burnt out!"))
 		return
 	if(scanning)
-		to_chat(user, "<span class='warning'>You are already scanning a disk!</span>")
+		to_chat(user, SPAN_WARNING("You are already scanning a disk!"))
 		return
 	scanning = TRUE
-	to_chat(user, "<span class='warning'>You start the decryption process.</span>")
+	to_chat(user, SPAN_WARNING("You start the decryption process."))
 	update_icon(UPDATE_ICON_STATE)
 	if(!do_after(user, 10 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, hidden = TRUE))
-		to_chat(user, "<span class='warning'>You stop the decryption process.</span>")
+		to_chat(user, SPAN_WARNING("You stop the decryption process."))
 		return
 	if(istype(disky, /obj/item/disk/nuclear/training))
 		atom_say("Incompatible disk detected!")

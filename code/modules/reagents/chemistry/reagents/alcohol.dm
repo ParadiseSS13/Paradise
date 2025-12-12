@@ -1414,7 +1414,7 @@
 		Mc.wetlevel = 0
 	M.germ_level -= min(volume * 30, M.germ_level)
 	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
-		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		to_chat(M, SPAN_NOTICE("Your systems prepare for a reboot."))
 		M.Paralyse(5 SECONDS)
 		M.Drowsy(20 SECONDS)
 		metabolization_rate += 4.6 // get rid of it faster after rebooting
@@ -1478,7 +1478,7 @@
 		if(head_organ && robohead.is_monitor)
 			H.change_hair("Blue IPC Screen", 1)
 			var/bluescreen_message = pick("Stack underflow.", "Null pointer exception.", "Syntax error.", "500 Internal Server Error.", "Segmentation fault.", "Runtime exception.", "418 I'm a teapot.", "Could not open [M]: No such file or directory.", "fatal: not a git repository (or any of the parent directories): .git", "Display error: No signal.")
-			to_chat(M, "<span class='warning'>[bluescreen_message]</span>")
+			to_chat(M, SPAN_WARNING("[bluescreen_message]"))
 		if(prob(50) && COOLDOWN_FINISHED(src, drink_drowsiness_cooldown))
 			M.EyeBlurry(10 SECONDS)
 			M.Drowsy(5 SECONDS)
@@ -1505,7 +1505,7 @@
 	if(prob(5))
 		update_flags |= M.adjustFireLoss(5, FALSE)
 		var/burn_message = pick("Your wires singe!", "Your fans are working overtime!", "It burns...!")
-		to_chat(M, "<span class='userdanger'>[burn_message]</span>")
+		to_chat(M, SPAN_USERDANGER("[burn_message]"))
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/synthanol/dryer_martini

@@ -178,7 +178,7 @@
 	to_chat(src, SPAN_WARNING("Failed to hijack [src]."))
 
 /mob/living/basic/demon/pulse_demon/proc/do_hijack_robot(mob/living/silicon/robot/R)
-	to_chat(src, "<span class='notice'>You are now inside [R]. Click on a hijacked APC to return.</span>")
+	to_chat(src, SPAN_NOTICE("You are now inside [R]. Click on a hijacked APC to return."))
 	forceMove(R)
 	current_robot = R
 	if(!(R in hijacked_robots))

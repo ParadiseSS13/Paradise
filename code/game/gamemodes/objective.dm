@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!where)
 			continue
 
-		to_chat(kit_receiver, "<br><br><span class='notice'>In your [where] is a box containing <b>items and instructions</b> to help you with your objective.</span><br>")
+		to_chat(kit_receiver, "<br><br>[SPAN_NOTICE("In your [where] is a box containing <b>items and instructions</b> to help you with your objective.")]<br>")
 		for(var/datum/mind/objective_owner as anything in objective_owners)
 			if(kit_receiver_mind == objective_owner || !objective_owner.current)
 				continue
@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!failed_receiver)
 			continue
 
-		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get an objective kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		to_chat(failed_receiver, SPAN_USERDANGER("Unfortunately, you weren't able to get an objective kit. This is very bad and you should adminhelp immediately (press F1)."))
 		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] objective kit.")
 
 /**

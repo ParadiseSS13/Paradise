@@ -110,8 +110,8 @@
 /obj/structure/shadowcocoon/examine(mob/user)
 	. = ..()
 	if(istype(user, /mob/living/basic/demon/shadow))
-		. += silent ? "<span class='notice'>The tendrils are idle and will not produce noise.</span>" : "<span class='notice'>The tendrils are agitated <b>and will occasionally produce noise to lure in more prey.</b></span>"
-		. += "<span class='notice'>Alt+Click to toggle whether [src] should produce noise to lure in victims.</span>"
+		. += silent ? SPAN_NOTICE("The tendrils are idle and will not produce noise.") : SPAN_NOTICE("The tendrils are agitated <b>and will occasionally produce noise to lure in more prey.</b>")
+		. += SPAN_NOTICE("Alt+Click to toggle whether [src] should produce noise to lure in victims.")
 
 /obj/structure/shadowcocoon/process()
 	time_since_last_hallucination++

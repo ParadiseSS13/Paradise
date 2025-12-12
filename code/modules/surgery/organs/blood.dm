@@ -33,7 +33,7 @@
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel [word]."))
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))

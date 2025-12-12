@@ -282,7 +282,7 @@
 		to_chat(user, SPAN_NOTICE("We have exhausted our ability to curse the shuttle."))
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/basic/demon/slaughter/cult) in GLOB.mob_list)
-		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, SPAN_DANGER("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)

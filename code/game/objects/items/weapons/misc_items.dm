@@ -60,20 +60,20 @@
 	if(user.a_intent == INTENT_HELP)
 		user.do_attack_animation(target)
 		user.visible_message(
-			"<span class='notice'>[user] has prodded [target] with [src].</span>",
-			"<span class='notice'>You prod [target] with [src].</span>"
+			SPAN_NOTICE("[user] has prodded [target] with [src]."),
+			SPAN_NOTICE("You prod [target] with [src].")
 		)
 		if(HAS_TRAIT(user, TRAIT_BLIND))
-			to_chat(user, "<span class='notice'>You feel [target] with [src].</span>")
+			to_chat(user, SPAN_NOTICE("You feel [target] with [src]."))
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 
 	else if(user.a_intent == INTENT_DISARM && ismob(target)) //Harmless smack
 		user.visible_message(
-			"<span class='notice'>[user] harmlessly slaps [target] with the end of the white cane.</span>",
-			"<span class='notice'>You harmlessly slap [target] with the end of the white cane.</span>"
+			SPAN_NOTICE("[user] harmlessly slaps [target] with the end of the white cane."),
+			SPAN_NOTICE("You harmlessly slap [target] with the end of the white cane.")
 		)
 		if(HAS_TRAIT(user, TRAIT_BLIND))
-			to_chat(user, "<span class='notice'>You harmlessly slap [target] with the end of the white cane.</span>")
+			to_chat(user, SPAN_NOTICE("You harmlessly slap [target] with the end of the white cane."))
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 

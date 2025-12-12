@@ -290,8 +290,8 @@
 	switch(M.zone_selected)
 		if("head")
 			M.visible_message(
-				"<span class='notice'>[M] pats [src] on the head.</span>",
-				"<span class='notice'>You pat [src] on the head.</span>",
+				SPAN_NOTICE("[M] pats [src] on the head."),
+				SPAN_NOTICE("You pat [src] on the head."),
 			)
 			return
 		if("l_hand", "r_hand")
@@ -299,8 +299,8 @@
 			return
 
 	M.visible_message(
-		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",
-		"<span class='notice'>You hug [src].</span>",
+		SPAN_NOTICE("[M] gives [src] a [pick("hug","warm embrace")]."),
+		SPAN_NOTICE("You hug [src]."),
 	)
 
 

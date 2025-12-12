@@ -99,7 +99,7 @@
 		return TRUE
 	if(type == "audio/protected")
 		if(!admins_warned)
-			message_admins("<span class='notice'>Audio returned a protected playback error, likely due to being copyrighted.</span>")
+			message_admins(SPAN_NOTICE("Audio returned a protected playback error, likely due to being copyrighted."))
 			admins_warned = TRUE
 			addtimer(VARSET_CALLBACK(src, admins_warned, FALSE), 10 SECONDS)
 		return TRUE

@@ -257,7 +257,7 @@
 		return
 
 	if(has_filled_reagent && (reagents.get_master_reagent_id() != current_reagent_id))
-		audible_message("<span class='notice'>[src]'s speaker beeps: chemical override started!</span>")
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: chemical override started!"))
 
 	if(!(reagents.get_master_reagent_id() in accepted_chemicals))
 		reagents.clear_reagents()
@@ -271,7 +271,7 @@
 	var/has_enough_reagents = reagents.total_volume >= required_volume
 
 	if(old_chem_id == reagents.get_master_reagent_id())
-		audible_message("<span class='notice'>[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started.</span>")
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started."))
 		if(has_enough_reagents)
 			ammo = initial(ammo)
 			reagents.clear_reagents()

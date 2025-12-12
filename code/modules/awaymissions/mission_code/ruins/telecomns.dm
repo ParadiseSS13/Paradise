@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	if(disguise_broken == FALSE)
 		default_deconstruction_screwdriver(user, "rechargeropen", initial(icon_state), I)

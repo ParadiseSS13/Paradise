@@ -15,7 +15,7 @@
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
-	. += "<span class='notice'>Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.</span>"
+	. += SPAN_NOTICE("Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.")
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = TRUE

@@ -110,7 +110,7 @@ SLIME SCANNER
 			msgs += SPAN_BOLDNOTICE("Subject contains the following reagents:")
 			for(var/i in 1 to rand(1, 2))
 				var/reagent_name = pick(GLOB.chemical_reagents_list)
-				msgs += "<span class='notice'>[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+				msgs += "<span class='notice'>[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - [SPAN_BOLDANNOUNCEIC("OVERDOSING")]" : ".</span>"]"
 
 	if(!has_real_or_fake_reagents)
 		msgs += SPAN_NOTICE("Subject contains no reagents.")
@@ -774,14 +774,14 @@ SLIME SCANNER
 				if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
 					message += "  [SPAN_AGENT_B("Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")]"
 				if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
-					message += "  <span class='hydrogen'>Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)</span>"
+					message += "  [SPAN_HYDROGEN("Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")]"
 				if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
-					message += "  <span class='water_vapor'>Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)</span>"
-				message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-				message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-				message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+					message += "  [SPAN_WATER_VAPOR("Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")]"
+				message += SPAN_NOTICE("Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)")
+				message += SPAN_NOTICE("Volume: [round(volume)] Liters")
+				message += SPAN_NOTICE("Pressure: [round(pressure, 0.1)] kPa")
+				message += SPAN_NOTICE("Heat Capacity: [DisplayJoules(heat_capacity)] / K")
+				message += SPAN_NOTICE("Thermal Energy: [DisplayJoules(thermal_energy)]")
 			else
 				message += SPAN_NOTICE("[target] is empty!")
 				message += SPAN_NOTICE("Volume: [round(volume)] Liters") // don't want to change the order volume appears in, suck it
@@ -821,14 +821,14 @@ SLIME SCANNER
 			if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
 				message += "  [SPAN_AGENT_B("Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)")]"
 			if(hydrogen && (milla_turf_details || hydrogen / total_moles > 0.01))
-				message += "  <span class='hydrogen'>Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)</span>"
+				message += "  [SPAN_HYDROGEN("Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)")]"
 			if(water_vapor && (milla_turf_details || (water_vapor / total_moles > 0.01)))
-				message += "  <span class='water_vapor'>Water Vapor: [round(water_vapor, 0.01)] moles ([round(water_vapor / total_moles * 100, 0.01)] %)</span>"
-			message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+				message += "  [SPAN_WATER_VAPOR("Water Vapor: [round(water_vapor, 0.01)] moles ([round(water_vapor / total_moles * 100, 0.01)] %)")]"
+			message += SPAN_NOTICE("Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)")
+			message += SPAN_NOTICE("Volume: [round(volume)] Liters")
+			message += SPAN_NOTICE("Pressure: [round(pressure, 0.1)] kPa")
+			message += SPAN_NOTICE("Heat Capacity: [DisplayJoules(heat_capacity)] / K")
+			message += SPAN_NOTICE("Thermal Energy: [DisplayJoules(thermal_energy)]")
 		else
 			message += SPAN_NOTICE("[target] is empty!")
 			message += SPAN_NOTICE("Volume: [round(volume)] Liters") // don't want to change the order volume appears in, suck it
@@ -929,7 +929,7 @@ SLIME SCANNER
 			datatoprint = ""
 			scanning = TRUE
 	else
-		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
+		to_chat(usr, SPAN_NOTICE("[src] has no logs or is already in use."))
 
 /obj/item/reagent_scanner/ui_action_click()
 	print_report()

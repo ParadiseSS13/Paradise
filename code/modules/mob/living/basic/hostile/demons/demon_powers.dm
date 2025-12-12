@@ -16,7 +16,7 @@
 			validtargets += M
 
 	if(!length(validtargets))
-		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		to_chat(usr, SPAN_WARNING("There are no valid targets!"))
 		return
 
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
@@ -31,8 +31,8 @@
 	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
-	to_chat(usr, "<span class='notice'><b>You whisper to [choice]: </b>[msg]</span>")
-	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></i>")
+	to_chat(usr, SPAN_NOTICE("<b>You whisper to [choice]: </b>[msg]"))
+	to_chat(choice, "[SPAN_DEADSAY("<b>Suddenly a strange, demonic voice resonates in your head... </b>")]<i>[SPAN_DANGER(" [msg]")]</i>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
@@ -56,13 +56,13 @@
 
 /datum/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	to_chat(victim, SPAN_USERDANGER("You feel an awful sense of being watched..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, SPAN_WARNING("You could not locate any sapient heretics for the Slaughter."))
 		return 0
-	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, SPAN_DANGER("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
 
 //////////////////////////////
 // MARK: SHADOW DEMON
@@ -73,8 +73,8 @@
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/projectile/magic/shadow_hand
 
-	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
-	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
+	selection_activated_message = SPAN_NOTICE("You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b>")
+	selection_deactivated_message = SPAN_NOTICE("You re-absorb the energy...for now.")
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
@@ -314,7 +314,7 @@
 	revealing = TRUE
 
 /datum/spell/pulse_demon/emagtamper/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
-	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
+	to_chat(user, SPAN_WARNING("You attempt to tamper with [target]!"))
 	target.emag_act(user)
 	return TRUE
 
@@ -329,7 +329,7 @@
 	revealing = TRUE
 
 /datum/spell/pulse_demon/emp/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
-	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
+	to_chat(user, SPAN_WARNING("You attempt to EMP [target]!"))
 	empulse(get_turf(target), 1, 1)
 	return TRUE
 

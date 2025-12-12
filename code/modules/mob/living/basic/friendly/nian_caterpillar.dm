@@ -190,13 +190,13 @@
 
 /datum/action/cooldown/mob_cooldown/spin_mothsilk/Activate(atom/target)
 	if(owner.nutrition < 425)
-		to_chat(owner, "<span class='warning'>You don't have enough nutrition to spin silk!</span>")
+		to_chat(owner, SPAN_WARNING("You don't have enough nutrition to spin silk!"))
 		return FALSE
 	if(!do_after(owner, 3 SECONDS))
 		return FALSE
 	new /obj/item/stack/sheet/mothsilk(get_turf(owner))
 	owner.nutrition -= 15
-	owner.visible_message("<span class='notice'>[owner] spins some mothsilk!</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] spins some mothsilk!"))
 	StartCooldown()
 	return TRUE
 

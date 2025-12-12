@@ -798,11 +798,11 @@
 		return
 	switch(M.intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>")
+			visible_message(SPAN_NOTICE("[M] [response_help_continuous] [src]."))
 		if(INTENT_DISARM, INTENT_GRAB)
-			visible_message("<span class='notice'>[M] [response_disarm_continuous] [src].</span>")
+			visible_message(SPAN_NOTICE("[M] [response_disarm_continuous] [src]."))
 		if(INTENT_HELP)
-			visible_message("<span class='warning'>[M] [response_harm_continuous] [src].</span>")
+			visible_message(SPAN_WARNING("[M] [response_harm_continuous] [src]."))
 	try_attack_mob(M)
 
 /mob/living/basic/demon/pulse_demon/attack_by(obj/item/O, mob/living/user, params)

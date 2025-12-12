@@ -262,11 +262,11 @@
 	// some inventories might be of different sizes or accept different items,
 	// for consistency, we dissalow painting with items inside
 	if(length(contents))
-		to_chat(usr, "<span class='warning'>\The [src] is too unstable to be painted, empty it first.</span>")
+		to_chat(usr, SPAN_WARNING("\The [src] is too unstable to be painted, empty it first."))
 		return
 
 	if(crayon.crayon_color == COLOR_WHITE) //if the box can be recolored, also allow clearing of color
-		to_chat(usr, "<span class='notice'>You clear [src] of its color.</span>")
+		to_chat(usr, SPAN_NOTICE("You clear [src] of its color."))
 		new_box = make_new_box(/obj/item/storage/box)
 	else
 		var/selected_icon = show_radial_menu(user, user, color_list)
@@ -345,7 +345,7 @@
 /obj/item/storage/box/examine(mob/user)
 	. = ..()
 	if(color_state != null || icon_state == "box")
-		. += "<span class='notice'><b>Alt-Click</b> [src] with an appropriate crayon in hand to color it.</span>"
+		. += SPAN_NOTICE("<b>Alt-Click</b> [src] with an appropriate crayon in hand to color it.")
 
 /// helper function to add to the colors a box can turn into
 /// * name - the name of the new box in the radial menu

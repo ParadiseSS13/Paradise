@@ -125,6 +125,7 @@
 #define SPAN_VALUE(str) ("<span class='value'>" + str + "</span>")
 #define SPAN_WARN(str) ("<span class='warn'>" + str + "</span>")
 #define SPAN_WARNING(str) ("<span class='warning'>" + str + "</span>")
+#define SPAN_WATER_VAPOR(str) ("<span class='water_vapor'>" + str + "</span>")
 #define SPAN_WHISPER(str) ("<span class='whisper'>" + str + "</span>")
 #define SPAN_ZOMBIE(str) ("<span class='zombie'>" + str + "</span>")
 #define SPAN_ZOMBIELARGE(str) ("<span class='zombielarge'>" + str + "</span>")
