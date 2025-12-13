@@ -746,7 +746,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = sprite_image.icon
 	icon_state = sprite_image.icon_state
 	custom_panel = trim(names[1])
-	visible_message("<span class = 'userdanger'>custom_panel = [custom_panel].</span>")
 	update_module_icon()
 	robot_module_hat_offset(base_icon_state)
 	update_icons()
