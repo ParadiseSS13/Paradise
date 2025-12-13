@@ -622,11 +622,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_offset_y = 2
 		if("Droid_Combat")
 			can_be_hatted = TRUE
+			hat_alpha = 255
 			hat_offset_y = 2
 		if("Droid_Combat_Roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
-			hat_offset_y = 2
 		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
