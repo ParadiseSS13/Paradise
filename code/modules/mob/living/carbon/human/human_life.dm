@@ -13,7 +13,7 @@
 	voice = GetVoice()
 
 	// We clear this before we add extra in heartbeats and blood pressure
-	false_pain = 0
+	false_cardiac_pain = 0
 	handle_heartbeat()
 	handle_blood_pressure()
 
@@ -715,7 +715,7 @@
 
 /mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
 	var/shock_reduction = 0
-	shock_reduction -= false_pain // Sometimes having bad medical stats means we feel pain but aren't physically hurt
+	shock_reduction -= false_cardiac_pain // Sometimes having bad medical stats means we feel pain but aren't physically hurt
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
@@ -869,9 +869,9 @@
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_blood_pressure()
-	var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
-	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-	if(!H || !L || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(!heart || !lung || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
 		blood_pressure = 0
 		return
 
@@ -880,7 +880,7 @@
 	if(chem_volume)
 		temp_bp += round(chem_volume * 0.25, 1)
 
-	var/obj/item/organ/internal/heart/heart = H.linked_organ
+	var/obj/item/organ/internal/heart/heart = heart.linked_organ
 	if(istype(heart))
 		temp_bp += heart.blood_pressure_change
 
@@ -893,7 +893,7 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		temp_bp += 10
 
-	temp_bp += L.linked_organ.damage
+	temp_bp += lung.linked_organ.damage
 	temp_bp += 5 * get_infected_limbs()
 
 	var/found_alcohol = FALSE
@@ -912,14 +912,14 @@
 			Dizzy(3 SECONDS)
 			adjustOxyLoss(5)
 			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
-			if(!H.linked_organ.is_robotic())
-				H.linked_organ.receive_damage(1, TRUE)
+			if(!heart.linked_organ.is_robotic())
+				heart.linked_organ.receive_damage(1, TRUE)
 
 			if(!L.linked_organ.is_robotic())
 				L.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
-				to_chat(src, "<span class='warning'>You feel incredibly weak.</span>")
+				to_chat(src, "<span class='danger'>You feel incredibly weak.</span>")
 
 		if(BLOODPRESSURE_DANGER to BLOODPRESSURE_LOW)
 			if(prob(5))
@@ -931,7 +931,7 @@
 				to_chat(src, "<span class='warning'>You feel a bit weak.</span>")
 
 		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_V_HIGH)
-			false_pain += rand(1, 10)
+			false_cardiac_pain += rand(1, 10)
 			if(prob(5))
 				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
 				bleed(10)
@@ -941,13 +941,14 @@
 				Dizzy(5 SECONDS)
 
 		if(BLOODPRESSURE_V_HIGH to INFINITY)
-			false_pain += rand(5, 15)
+			false_cardiac_pain += rand(5, 15)
 
 			if(prob(5))
 				for(var/obj/item/organ/external/limb in shuffle(bodyparts))
 					if(limb.status & ORGAN_INT_BLEEDING)
 						continue
-					limb.cause_internal_bleeding()
+					limb.cause_internal_bleeding(FALSE)
+					to_chat(src, "<span class='danger'>You feel like something just popped in your [limb.name]!</span>")
 					break
 
 			// Same as the previous tier of drawbacks but higher chances and amounts
@@ -963,9 +964,9 @@
 	blood_pressure = round(temp_bp, 0.1)
 
 /mob/living/carbon/human/proc/handle_heartbeat()
-	var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 
-	if(!H || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
+	if(!heart || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
 		heartbeat = 0
 		return
 
@@ -978,10 +979,10 @@
 	var/beats = initial(heartbeat)
 
 	// Subtract the amount of damage the heart has
-	beats -= H.linked_organ.damage
+	beats -= heart.linked_organ.damage
 
 	// Robotic hearts don't really care about anything else
-	if(H.linked_organ.is_robotic())
+	if(heart.linked_organ.is_robotic())
 		heartbeat = beats
 		heartbeat_drawbacks()
 		return
@@ -989,7 +990,7 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		beats += 10
 
-	var/obj/item/organ/internal/heart/heart = H.linked_organ
+	var/obj/item/organ/internal/heart/heart = heart.linked_organ
 	if(istype(heart))
 		beats += heart.heart_rate_change
 
@@ -1062,26 +1063,26 @@
 		if(prob(10))
 			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
 		else if(prob(10))
-			to_chat(src, "<span class='warning'>Something is very wrong.</span>")
+			to_chat(src, "<span class='userdanger'>Something is very wrong.</span>")
 
 	else if(heartbeat <= HEARTBEAT_SLOW)
 		if(prob(5))
 			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
 		else if(prob(5))
-			to_chat(src, "<span class='warning'>Something is very wrong.</span>")
+			to_chat(src, "<span class='danger'>Something is very wrong.</span>")
 		var/damage = round(heartbeat / 10, 1)
 		// No oxydamage when above 50 bpm
 		adjustOxyLoss(max(5 - damage, 0))
 
 	else if(heartbeat >= HEARTBEAT_2FAST)
-		var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
+		var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 		// No need to nullcheck, we have a heartbeat
-		H.linked_organ.receive_damage(1, TRUE)
+		heart.linked_organ.receive_damage(1, TRUE)
 		if(prob(10) && !undergoing_cardiac_arrest())
 			set_heartattack(TRUE) // Not having a good time
 
 	else if(heartbeat >= HEARTBEAT_FAST)
-		false_pain += rand(5, 15)
+		false_cardiac_pain += rand(5, 15)
 		if(prob(30))
 			Dizzy(5 SECONDS)
 		if(prob(5))
@@ -1093,7 +1094,7 @@
 
 	else if(heartbeat >= HEARTBEAT_NORMAL)
 		if(prob(2))
-			to_chat(src, "<span class='warning'>Your heart is beating faster than normal.</span>")
+			to_chat(src, "<span class='warning'>You notice your heart is beating a little faster than normal.</span>")
 
 /// Proc to play the heartbeat sound
 /mob/living/carbon/human/proc/send_heart_sound()

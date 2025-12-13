@@ -815,7 +815,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.handle_splints()
 	return TRUE
 
-/obj/item/organ/external/proc/cause_internal_bleeding()
+/obj/item/organ/external/proc/cause_internal_bleeding(message = TRUE)
 	if(is_robotic())
 		return
 	if(NO_BLOOD in owner.dna.species.species_traits)
@@ -823,7 +823,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_INT_BLEED)
 		return
 	status |= ORGAN_INT_BLEEDING
-	custom_pain("You feel something rip in your [name]!")
+	if(message)
+		custom_pain("You feel something rip in your [name]!")
 	playsound(owner, 'sound/effects/blood1.ogg', 170, TRUE)
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
