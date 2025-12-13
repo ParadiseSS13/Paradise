@@ -52,16 +52,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// Is the robot's maintenance panel open?
 	var/opened = FALSE
-	/// Does the robot have a non-default sprite for an open service panel?
-	var/custom_panel = null
 	/// Robot icons that have multiple subvarants.
 	var/list/sprites_with_variants = list("Bloodhound", "Landmate", "Standard")
 	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket", "Rover")
 	/// Robot skins with different sprites for open panels for each module.
 	var/list/variable_custom_panels = list("Rover-Serv", "Rover-Medi")
-	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
-	var/list/custom_eye_names = list("Cricket", "Standard")
+	/// Robot skins with recoloured variants available on multiple modules. They all reuse a single eye sprite.
+	var/list/grouped_eye_names = list("Cricket", "Standard")
 	/// Has the robot been emagged?
 	var/emagged = FALSE
 	/// Can the robot be emagged?
@@ -226,7 +224,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	RegisterSignal(src, COMSIG_ENTERED_BORGCHARGER, PROC_REF(gain_external_power))
 	RegisterSignal(src, COMSIG_EXITED_BORGCHARGER, PROC_REF(lose_external_power))
-	robot_module_hat_offset(base_icon_state)
 
 /mob/living/silicon/robot/get_radio()
 	return radio
@@ -597,7 +594,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   * Arguments:
   * * base_icon_state - The base `icon_state` group for which the offset needs to be calculated.
   */
-/mob/living/silicon/robot/proc/robot_module_hat_offset(base_icon_state)
+/mob/living/silicon/robot/proc/robot_module_hat_offset()
 	switch(base_icon_state)
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
@@ -625,6 +622,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_offset_y = 2
 		if("Droid_Combat")
 			can_be_hatted = TRUE
+			hat_offset_y = 2
+		if("Droid_Combat_Roll")
+			can_be_hatted = TRUE
+			hat_alpha = 0
 			hat_offset_y = 2
 		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
@@ -742,12 +743,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/initialize_sprites(selected_sprite, list/module_sprites)
 	var/image/sprite_image = module_sprites[selected_sprite]
-	var/list/names = splittext(selected_sprite, "-")
 	icon = sprite_image.icon
 	icon_state = sprite_image.icon_state
-	custom_panel = trim(names[1])
 	update_module_icon()
-	robot_module_hat_offset(base_icon_state)
 	update_icons()
 
 /// Take the borg's upgrades and spill them on the floor
@@ -775,9 +773,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	languages = list()
 	speech_synthesizer_langs = list()
 	radio.recalculateChannels()
-	custom_panel = null
 
-	robot_module_hat_offset(base_icon_state)
 	update_icons()
 	update_headlamp()
 
@@ -1312,34 +1308,35 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
+	update_rolling_icon()
 
-	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
-		if((custom_panel in custom_eye_names) || (base_icon_state in sprites_with_variants))
-			overlays += "eyes-[base_icon_state]"
-		else
-			overlays += "eyes-[icon_state]"
-	else
+	// Dead or incapacitated.
+	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode))
 		overlays -= "eyes"
+	else if((base_icon_state in grouped_eye_names) || (base_icon_state in sprites_with_variants))
+		overlays += "eyes-[base_icon_state]"
+	else
+		overlays += "eyes-[icon_state]"
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
 		if(icon_state in variable_custom_panels) //For individual borg modules with different panels
 			panelprefix = icon_state
-		else if(custom_panel in custom_panel_names) //For default borgs with different panels
-			panelprefix = custom_panel
+		else if(base_icon_state in custom_panel_names) //For default borgs with different panels
+			panelprefix = base_icon_state
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
-	borg_icons()
-	robot_module_hat_offset(base_icon_state)
+	robot_module_hat_offset()
 	update_hat_icons()
 	update_fire()
 
-/mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
+// Exists so that robot/destroyer can override it.
+/mob/living/silicon/robot/proc/update_rolling_icon()
 	return
 
 /mob/living/silicon/robot/Topic(href, href_list)
@@ -1824,14 +1821,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/destroyer/borg_icons()
-	if(base_icon_state == "")
-		base_icon_state = icon_state
+/// Handles transitioning between standing normally, and being a roly-poly.
+/mob/living/silicon/robot/destroyer/update_rolling_icon()
+	base_icon_state = initial(base_icon_state)
 	if(selected_item && istype(selected_item, /obj/item/borg/destroyer/mobility))
-		icon_state = "[base_icon_state]_Roll"
+		base_icon_state = "[base_icon_state]_Roll"
 	else
-		icon_state = "[base_icon_state]"
 		overlays += "[base_icon_state]-shield"
+	icon_state = base_icon_state
 
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)

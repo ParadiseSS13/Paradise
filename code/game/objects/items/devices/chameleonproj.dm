@@ -266,8 +266,7 @@
 		return
 	disguise = module_sprites[selected_sprite]
 	var/list/name_check = splittext(selected_sprite, "-")
-	user.custom_panel = trim(name_check[1])
-	user.base_icon_state = custom_panel
+	user.base_icon_state = trim(name_check[1])
 	START_PROCESSING(SSobj, src)
 	S = user
 	user.icon = disguise.icon
@@ -288,7 +287,6 @@
 	user.base_icon_state = initial(user.base_icon_state)
 	user.module.name = initial(user.module.name)
 	user.bubble_icon = "syndibot"
-	user.custom_panel = null
 	active = FALSE
 	user.update_icons()
 
