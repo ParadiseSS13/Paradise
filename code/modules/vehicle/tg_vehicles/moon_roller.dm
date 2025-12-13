@@ -152,7 +152,7 @@
 			SpinAnimation(speed = 9999, loops = -1, clockwise = new_rotation, parallel = FALSE)
 
 /datum/component/riding/vehicle/moon
-	vehicle_move_delay = 2
+	vehicle_move_delay = 1.8
 	override_allow_spacemove = TRUE
 	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER
 
