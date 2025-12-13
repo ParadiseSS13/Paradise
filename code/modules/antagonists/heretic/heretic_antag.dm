@@ -791,7 +791,7 @@
 	var/datum/heretic_knowledge/initialized_knowledge = new knowledge_type()
 	researched_knowledge[knowledge_type] = initialized_knowledge
 	initialized_knowledge.on_research(owner.current, src)
-	update_static_data(owner.current)
+	SStgui.update_uis(src)
 	return TRUE
 
 /**
