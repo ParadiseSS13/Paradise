@@ -403,6 +403,16 @@
 	if(!sac_target.heal_and_revive(60, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
 		disembowel_target(sac_target)
 		return
+	else // lets give them a little help
+		for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))
+			var/obj/item/organ/external/E = sac_target.get_organ(organ_name)
+			if(!E)
+				sac_target.regrow_external_limb_if_missing(organ_name)
+			else if(E.status |= ORGAN_BROKEN)
+				E.status &= ~ORGAN_BROKEN
+		sac_target.adjustBruteLoss(-20)
+		sac_target.adjustFireLoss(-20)
+		sac_target.update_body() // Update the limb sprites
 
 	to_chat(sac_target, "<span class='hierophant_warning'>Unnatural forces begin to claw at your every being from beyond the veil.</span>")
 
@@ -453,7 +463,7 @@
 	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
 	var/helgrasp_time = 1 MINUTES
 
-	sac_target.reagents?.add_reagent("mansusgrasp", helgrasp_time / 20)
+	sac_target.reagents?.add_reagent("mansusgrasp", helgrasp_time / 40)
 	sac_target.apply_status_effect(/datum/status_effect/necropolis_curse)
 
 	sac_target.EyeBlurry(30 SECONDS)

@@ -53,6 +53,11 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	pockets = /obj/item/storage/internal/void_cloak
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter, /obj/item/melee/cultblade/haunted)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 	/// Are we invisible?
 	var/cloak_invisible = FALSE
 

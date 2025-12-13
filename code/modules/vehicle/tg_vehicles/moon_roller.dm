@@ -11,7 +11,7 @@
 	move_force = MOVE_FORCE_OVERPOWERING
 	layer = ABOVE_ALL_MOB_LAYER
 	max_integrity = 5000
-	armor = list(MELEE = -100, BULLET = 0, LASER = 80, ENERGY = 80, BOMB = 20, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // weak to physical. Resistant to energy.
+	armor = list(MELEE = -100, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 20, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // weak to physical. Resistant to energy.
 	pixel_x = -16
 	pixel_y = 6
 	pass_flags = null

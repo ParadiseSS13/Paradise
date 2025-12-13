@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	var/list/milla_data = null
 
-	///This turf's resistance to getting rusted QWERTODO: check fucking every floortile
+	///This turf's resistance to getting rusted
 	var/rust_resistance = RUST_RESISTANCE_ORGANIC
 
 	new_attack_chain = TRUE

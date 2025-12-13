@@ -4,6 +4,11 @@
 	icon_state = "eldritch_necklace"
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/drask/neck.dmi',
+	)
 
 /obj/item/clothing/neck/heretic_focus/Initialize(mapload)
 	. = ..()

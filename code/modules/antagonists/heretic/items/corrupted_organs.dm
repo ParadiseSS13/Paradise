@@ -36,7 +36,7 @@
 	QDEL_NULL(hallucinations)
 
 
-/// Randomly secretes alcohol or hallucinogens when you're drinking something ///qwertodo: at this time this does nothing, because I used the required signal for this for modsuits and smoke. Shooting myself in the foot. Will need to figure something else out
+/// Randomly secretes alcohol or hallucinogens
 /obj/item/organ/internal/liver/corrupt
 	name = "corrupt liver"
 	desc = "After what you've seen you could really go for a drink."
@@ -44,6 +44,7 @@
 	/// How much extra ingredients to add?
 	var/amount_added = 5
 	/// What extra ingredients can we add?
+	var/time_between_injections = 5 MINUTES
 	var/list/extra_ingredients = list(
 		/datum/reagent/consumable/ethanol/demonsblood,
 		/datum/reagent/consumable/ethanol/rum,
@@ -55,12 +56,18 @@
 		/datum/reagent/happiness,
 		/datum/reagent/lsd,
 	)
+	COOLDOWN_DECLARE(secrete_alcohol)
+
 
 /obj/item/organ/internal/liver/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
 
-
+/obj/item/organ/internal/liver/corrupt/on_life()
+	. = ..()
+	if(COOLDOWN_FINISHED(src, secrete_alcohol) && prob(1))
+		COOLDOWN_START(src, secrete_alcohol, time_between_injections)
+		owner.reagents.add_reagent(pick(extra_ingredients, amount_added))
 
 /// Occasionally bombards you with spooky hands and lets everyone hear your pulse.
 /obj/item/organ/internal/heart/corrupt
@@ -82,22 +89,23 @@
 	COOLDOWN_START(src, hand_cooldown, rand(6 SECONDS, 45 SECONDS)) // Wide variance to put you off guard
 
 
-/// Sometimes cough out some kind of dangerous gas
+/// Sometimes begin to suffocate
 /obj/item/organ/internal/lungs/corrupt
 	name = "corrupt lungs"
 	desc = "Some things SHOULD be drowned in tar."
 	status = parent_type::status | ORGAN_HAZARDOUS
+	var/time_between_breaths = 1 MINUTES
+	COOLDOWN_DECLARE(time_to_breathe)
 
 /obj/item/organ/internal/lungs/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
 
-///obj/item/organ/internal/lungs/corrupt/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/breather)
-//	. = ..()
-//	if(!. || IS_IN_MANSUS(owner) || breather.reagents?.has_reagent("holywater") || !prob(cough_chance))
-//		return
-// Qwertodo: tweak this to not be plasma everywhere
-
+/obj/item/organ/internal/lungs/corrupt/on_life()
+	. = ..()
+	if(COOLDOWN_FINISHED(src, time_to_breathe))
+		COOLDOWN_START(src, time_to_breathe, time_between_breaths)
+		owner.AdjustLoseBreath(10 SECONDS, 10 SECONDS, 1 MINUTES)
 
 /// It's full of worms
 /obj/item/organ/internal/appendix/corrupt

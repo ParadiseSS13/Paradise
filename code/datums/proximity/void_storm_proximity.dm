@@ -17,7 +17,7 @@
 	full_recalc = TRUE // We always perform a full recalc because we need to update ALL the sprites
 	return ..()
 
-/datum/proximity_monitor/advanced/void_storm/let_me_bloody_clean_effects_as_my_sanity_fades(turf/target)
+/datum/proximity_monitor/advanced/void_storm/cleanup_effects(turf/target)
 	. = ..()
 	var/obj/effect/abstract/effect = LAZYACCESS(turf_effects, target)
 	LAZYREMOVE(turf_effects, target)
