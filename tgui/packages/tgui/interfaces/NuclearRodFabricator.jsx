@@ -155,20 +155,6 @@ export const NuclearRodFabricator = (props) => {
                     color="good"
                     onClick={() => act('fabricate_rod', { type_path: selectedRod.type_path })}
                   />
-
-                  {/* Debug TODO: remove later*/}
-                  <Tooltip
-                    content={
-                      <Box p={1} style={{ whiteSpace: 'pre-wrap' }}>
-                        {JSON.stringify(selectedRod, null, 2)}
-                      </Box>
-                    }
-                    position="left"
-                  >
-                    <Button icon="info-circle" mt={1}>
-                      Raw Metadata
-                    </Button>
-                  </Tooltip>
                 </Stack>
               )}
             </Section>
