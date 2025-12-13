@@ -13,6 +13,7 @@
 	metadata["desc"] = initial(T.desc)
 	metadata["icon"] = initial(T.icon)
 	metadata["icon_state"] = initial(T.icon_state)
+	metadata["type_path"] = path
 
 	metadata["max_durability"] = initial(T.max_durability)
 	metadata["degredation_speed"] = initial(T.degredation_speed)
@@ -26,7 +27,20 @@
 	metadata["minimum_temp_modifier"] = initial(T.minimum_temp_modifier)
 
 	metadata["required_object"] = initial(T.required_object)
-	metadata["materials"] = initial(T.materials)
+
+	// Temp object lets us read in materials because you can't initial() a list
+	var/obj/item/nuclear_rod/temp_rod = new path()
+	var/list/raw_materials = temp_rod.materials
+	qdel(temp_rod)
+
+	if(raw_materials && length(raw_materials))
+		var/list/formatted_materials = list()
+		for(var/mat_id in raw_materials)
+			var/display_name = CallMaterialName(mat_id)
+			formatted_materials[display_name] = raw_materials[mat_id]
+		metadata["materials"] = formatted_materials
+	else
+		metadata["materials"] = list()
 
 	if(ispath(path, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/F = path

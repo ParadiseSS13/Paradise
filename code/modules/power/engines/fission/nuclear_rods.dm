@@ -192,7 +192,7 @@
 
 /obj/item/nuclear_rod/fuel/uranium_235
 	name = "uranium 235 fuel rod"
-	desc = "An advanced fuel rod for most NGCR reactors, formed from high-density ueanium 235 isotopes."
+	desc = "An advanced fuel rod for most NGCR reactors, formed from high-density uranium 235 isotopes."
 	heat_amount = 20
 	power_amount = 50 KW
 	heat_amp_mod = 2.2
@@ -305,7 +305,7 @@
 
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
-	desc = "A basic moderation rod filled with a varint of water comprised of deuterium instead of hydrogen atoms."
+	desc = "A basic moderation rod filled with a variant of water comprised of deuterium instead of hydrogen atoms."
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
@@ -322,7 +322,7 @@
 
 /obj/item/nuclear_rod/moderator/titanium
 	name = "titanium moderator"
-	desc = "A nuclear moderation rod comprised of primarily of cast titanium. For what it makes up in power amplification, it make up in versatility and durability."
+	desc = "A nuclear moderation rod comprised primarily of cast titanium. For what it lacks in power amplification, it makes up for in versatility and durability."
 	max_durability = 5000
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.3
@@ -358,7 +358,7 @@
 
 /obj/item/nuclear_rod/moderator/bluespace_agitator
 	name = "bluespace crystal agitator"
-	desc = "An advanced moderator rod that will pull extra neutrons out of bluespace to bombard local fuel rods. The result is a massive increase of power and heat generation. It is exceptionally versatile, however its power requirements limit its uses."
+	desc = "An advanced moderator rod that will pull extra neutrons out of bluespace to bombard local fuel rods. The result is a massive increase of power and heat generation. It is exceptionally versatile; however, its power requirements limit its uses."
 	max_durability = 4000
 	power_amount = -30
 	heat_amp_mod = 12
@@ -412,7 +412,7 @@
 
 /obj/item/nuclear_rod/coolant/co2_regulator
 	name = "carbon dioxide regulator"
-	desc = "A specialized coolant rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, its very energy inefficient."
+	desc = "A specialized coolant rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, it's very energy inefficient."
 	heat_amount = -4
 	heat_amp_mod = 0.6
 	power_amount = -15 KW
@@ -422,7 +422,7 @@
 
 /obj/item/nuclear_rod/coolant/plasma_injector
 	name = "plasma injector"
-	desc = "A specialized coolant rod filled with gaseous plasma. By feeding taking advantage of plasma's unique heat absorband properties, injecting it in small amounts around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
+	desc = "A specialized coolant rod filled with gaseous plasma. By feeding taking advantage of plasma's unique heat-absorbant properties, injecting it in small amounts around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
 	heat_amp_mod = 0.3
 	power_amp_mod = 1.2
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
@@ -474,7 +474,7 @@
 
 /obj/item/nuclear_rod/coolant/bluespace_displacer
 	name = "bluespace heat displacer"
-	desc = "An advanced coolant rod capable of pulling heat directly out of neighboring rods and sending it... somewhere"
+	desc = "An advanced coolant rod capable of pulling heat directly out of neighboring rods and sending it... somewhere."
 	power_amount = -40 KW
 	heat_amount = -100
 	heat_amp_mod = 0.8
@@ -498,7 +498,7 @@
 
 /obj/item/nuclear_rod/coolant/condensed_spacematter
 	name = "condensed spacematter coolant rod"
-	desc = "While its unknown quite what the rod is filled with, theres no questioning its efficiency in the amount of heat its capable of suppressing. However, it violently dissentigrates in contact with anything that isnt its housing."
+	desc = "While it's unknown quite what the rod is filled with, there's no questioning its efficiency in the amount of heat it's capable of suppressing. However, it violently disintegrates in contact with anything that isn't its housing."
 	heat_amp_mod = 0.2
 	max_durability = 2500
 	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)

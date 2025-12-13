@@ -297,6 +297,25 @@
 	for(var/datum/nuclear_rod_design/D in category_coolant)
 		data["coolant_rods"] += list(D.metadata)
 
+	// Add available resources from the material container
+	data["resources"] = list()
+	if(materials)
+		// Get all material types that the fabricator supports
+		var/list/supported_materials = list(
+			MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA,
+			MAT_URANIUM, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE
+		)
+		for(var/mat_id in supported_materials)
+			var/amount = materials.amount(mat_id)
+			if(amount > 0)
+				var/sheets = round(amount / MINERAL_MATERIAL_AMOUNT)
+				var/display_name = CallMaterialName(mat_id)
+				data["resources"][display_name] = list(
+					"amount" = amount,
+					"sheets" = sheets,
+					"id" = mat_id
+				)
+
 	return data
 
 /obj/machinery/nuclear_rod_fabricator/attack_hand(mob/user)
@@ -316,6 +335,85 @@
 	if(!ui)
 		ui = new(user, src, "NuclearRodFabricator", name)
 		ui.open()
+
+/obj/machinery/nuclear_rod_fabricator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	switch(action)
+		if("fabricate_rod")
+			var/rod_type_path = text2path(params["type_path"])
+			if(!rod_type_path)
+				return FALSE
+
+			var/datum/nuclear_rod_design/selected_design
+			for(var/datum/nuclear_rod_design/D in category_fuel + category_moderator + category_coolant)
+				if(D.type_path == rod_type_path)
+					selected_design = D
+					break
+
+			if(!selected_design)
+				return FALSE
+
+			// Check if we have enough materials
+			var/obj/item/nuclear_rod/temp_rod = new rod_type_path()
+			var/list/required_materials = temp_rod.materials
+			qdel(temp_rod)
+
+			if(!required_materials || !length(required_materials))
+				to_chat(usr, "<span class='warning'>This rod design has no material requirements defined - please create an issue report</span>")
+				return FALSE
+
+			for(var/mat_id in required_materials)
+				var/required_amount = required_materials[mat_id] * efficiency_coeff
+				if(materials.amount(mat_id) < required_amount)
+					to_chat(usr, "<span class='warning'>Not enough materials! Need [required_amount] units of [mat_id].</span>")
+					return FALSE
+
+			// Spend materials
+			var/list/materials_to_use = list()
+			for(var/mat_id in required_materials)
+				materials_to_use[mat_id] = required_materials[mat_id] * efficiency_coeff
+
+			if(!materials.use_amount(materials_to_use))
+				to_chat(usr, "<span class='warning'>Failed to deduct materials!</span>")
+				return FALSE
+
+			// Create rod
+			var/obj/item/nuclear_rod/new_rod = new rod_type_path(get_turf(src))
+			to_chat(usr, "<span class='notice'>[src] fabricates \a [new_rod.name].</span>")
+			playsound(src, 'sound/machines/ping.ogg', 50, 1)
+
+			return TRUE
+
+		if("eject_material")
+			var/material_id = params["id"]
+			var/amount = params["amount"]
+
+			if(!material_id || !materials.materials[material_id])
+				return FALSE
+
+			var/desired_sheets = 0
+			if(amount == "custom")
+				var/datum/material/M = materials.materials[material_id]
+				var/max_sheets = round(M.amount / MINERAL_MATERIAL_AMOUNT)
+				if(max_sheets <= 0)
+					to_chat(usr, "<span class='warning'>Not enough [M.name] to eject!</span>")
+					return FALSE
+				desired_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [M.name]", 1, max_sheets, 1)
+				if(isnull(desired_sheets))
+					return FALSE
+			else
+				desired_sheets = text2num(amount)
+
+			desired_sheets = max(0, round(desired_sheets))
+			if(desired_sheets > 0)
+				materials.retrieve_sheets(desired_sheets, material_id, get_turf(src))
+				to_chat(usr, "<span class='notice'>[src] ejects [desired_sheets] sheets.</span>")
+
+			return TRUE
+
+	return FALSE
 
 // MARK: Temp rod fab
 /obj/machinery/temp_rod_fab

@@ -1,14 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Divider,
-  NoticeBox,
-  Section,
-  Stack,
-  Table,
-  Tooltip,
-} from 'tgui-core/components';
+import { Box, Button, Divider, NoticeBox, Section, Stack, Table, Tooltip } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -25,31 +16,20 @@ export const NuclearRodFabricator = (props) => {
   const [selectedRod, setSelectedRod] = useState(null);
 
   const totalRods =
-    (data.fuel_rods?.length || 0) +
-    (data.moderator_rods?.length || 0) +
-    (data.coolant_rods?.length || 0);
+    (data.fuel_rods?.length || 0) + (data.moderator_rods?.length || 0) + (data.coolant_rods?.length || 0);
 
   return (
     <Window width={850} height={600}>
       <Window.Content>
         <Stack fill stretch>
-
           {/* Left Side */}
           <Stack.Item width="50%">
-            <Section
-              title={`Available Designs (${totalRods})`}
-              fill
-              scrollable
-            >
+            <Section title={`Available Designs (${totalRods})`} fill scrollable>
               {categories.map((cat) => {
                 const list = data[cat.key] || [];
                 return (
                   <Section key={cat.key} title={cat.title} level={2}>
-                    {list.length === 0 && (
-                      <Box color="average">
-                        No {cat.title.toLowerCase()} available.
-                      </Box>
-                    )}
+                    {list.length === 0 && <Box color="average">No {cat.title.toLowerCase()} available.</Box>}
 
                     {list.map((rod, i) => (
                       <Box
@@ -58,10 +38,7 @@ export const NuclearRodFabricator = (props) => {
                         mb={0.5}
                         style={{
                           cursor: 'pointer',
-                          backgroundColor:
-                            selectedRod === rod
-                              ? 'rgba(80, 140, 255, 0.25)'
-                              : 'rgba(255,255,255,0.03)',
+                          backgroundColor: selectedRod === rod ? 'rgba(80, 140, 255, 0.25)' : 'rgba(255,255,255,0.03)',
                           border: '1px solid rgba(255,255,255,0.08)',
                         }}
                         onClick={() => setSelectedRod(rod)}
@@ -81,13 +58,10 @@ export const NuclearRodFabricator = (props) => {
           {/* Right Side */}
           <Stack.Item grow>
             <Section title="Manufacturing Console" fill>
-              {!selectedRod && (
-                <NoticeBox>Please select a rod design from the left.</NoticeBox>
-              )}
+              {!selectedRod && <NoticeBox>Please select a rod design from the left.</NoticeBox>}
 
               {selectedRod && (
                 <Stack vertical fill>
-
                   <Box bold fontSize="1.2em">
                     {selectedRod.name}
                   </Box>
@@ -100,19 +74,17 @@ export const NuclearRodFabricator = (props) => {
 
                   {/* Required Materials */}
                   <Section title="Required Materials">
-                    {!selectedRod.materials ||
-                    Object.keys(selectedRod.materials).length === 0 ? (
+                    {!selectedRod.materials || Object.keys(selectedRod.materials).length === 0 ? (
                       <Box color="average">No materials required.</Box>
                     ) : (
                       <Table>
-                        {Object.entries(selectedRod.materials).map(
-                          ([matName, matAmt], i) => (
-                            <Table.Row key={i}>
-                              <Table.Cell bold>{matName}</Table.Cell>
-                              <Table.Cell>{matAmt}</Table.Cell>
-                            </Table.Row>
-                          )
-                        )}
+                        {Object.entries(selectedRod.materials).map(([matName, matAmt], i) => (
+                          <Table.Row key={i}>
+                            <Table.Cell bold>{matName}</Table.Cell>
+                            <Table.Cell>{matAmt}</Table.Cell>
+                            <Table.Cell>({Math.round(matAmt / 2000)} sheets)</Table.Cell>
+                          </Table.Row>
+                        ))}
                       </Table>
                     )}
                   </Section>
@@ -121,19 +93,55 @@ export const NuclearRodFabricator = (props) => {
 
                   {/* Resources */}
                   <Section title="Resources">
-                    {!data.resources ||
-                    Object.keys(data.resources).length === 0 ? (
+                    {!data.resources || Object.keys(data.resources).length === 0 ? (
                       <Box color="average">No resources available.</Box>
                     ) : (
                       <Table>
-                        {Object.entries(data.resources).map(
-                          ([resName, resAmt], i) => (
-                            <Table.Row key={i}>
-                              <Table.Cell bold>{resName}</Table.Cell>
-                              <Table.Cell>{resAmt}</Table.Cell>
-                            </Table.Row>
-                          )
-                        )}
+                        {Object.entries(data.resources).map(([resName, resData], i) => (
+                          <Table.Row key={i}>
+                            <Table.Cell bold>{resName}</Table.Cell>
+                            <Table.Cell>{resData.amount}</Table.Cell>
+                            <Table.Cell>({resData.sheets} sheets)</Table.Cell>
+                            <Table.Cell>
+                              <Button
+                                content="1"
+                                onClick={() =>
+                                  act('eject_material', {
+                                    id: resData.id,
+                                    amount: '1',
+                                  })
+                                }
+                              />
+                              <Button
+                                content="C"
+                                onClick={() =>
+                                  act('eject_material', {
+                                    id: resData.id,
+                                    amount: 'custom',
+                                  })
+                                }
+                              />
+                              <Button
+                                content="5"
+                                onClick={() =>
+                                  act('eject_material', {
+                                    id: resData.id,
+                                    amount: '5',
+                                  })
+                                }
+                              />
+                              <Button
+                                content="All"
+                                onClick={() =>
+                                  act('eject_material', {
+                                    id: resData.id,
+                                    amount: resData.sheets.toString(),
+                                  })
+                                }
+                              />
+                            </Table.Cell>
+                          </Table.Row>
+                        ))}
                       </Table>
                     )}
                   </Section>
@@ -145,9 +153,7 @@ export const NuclearRodFabricator = (props) => {
                     icon="wrench"
                     content={`Fabricate ${selectedRod.name}`}
                     color="good"
-                    onClick={() =>
-                      act('fabricate_rod', { type_path: selectedRod.type_path })
-                    }
+                    onClick={() => act('fabricate_rod', { type_path: selectedRod.type_path })}
                   />
 
                   {/* Debug TODO: remove later*/}
@@ -163,12 +169,10 @@ export const NuclearRodFabricator = (props) => {
                       Raw Metadata
                     </Button>
                   </Tooltip>
-
                 </Stack>
               )}
             </Section>
           </Stack.Item>
-
         </Stack>
       </Window.Content>
     </Window>
