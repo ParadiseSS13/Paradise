@@ -49,7 +49,7 @@
 	var/proteon_dead_state = "shade_dead"
 	//Rusted Harvester Construct
 	var/rusted_harvester_name = "Rusted Harvester"
-	var/rusted_harvester_icon_state = "harvester"
+	var/rusted_harvester_icon_state = "harvester_heretic"
 	var/rusted_harvester_dead_state = "shade_dead"
 	//Shade Spirit
 	var/shade_name = "Shade"
