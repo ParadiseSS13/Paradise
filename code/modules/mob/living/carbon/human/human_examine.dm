@@ -281,8 +281,7 @@
 			continue
 
 		if(!limb.has_synthetic_skin)
-			all_visible_parts_have_skin = FALSE
-			break
+			return FALSE
 
 	return all_visible_parts_have_skin
 

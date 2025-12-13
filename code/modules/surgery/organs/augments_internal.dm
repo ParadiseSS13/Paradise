@@ -1089,11 +1089,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=6;biotech=7;syndicate=4"
 	augment_icon = "nutripump"
-	var/regeneration_active = TRUE  // Whether regeneration is allowed. This is disabled temporarily by an EMP
-	var/regen_cooldown = 30 SECONDS  // How long to wait after finding a target body part to replace skin on
-	var/regenerating = FALSE  // Whether we're currently regenerating
-	var/configured_identity = "Unknown"  // Normally synthetic skin doesn't have memory of the identity we're disguised as. This implant does, though
-	var/initial_surge_used = FALSE  // Flag for tracking if we've used up the implant's initial deployment of skin
+	/// Whether regeneration is allowed. This is disabled temporarily by an EMP
+	var/regeneration_active = TRUE
+	/// How long to wait after finding a target body part to replace skin on
+	var/regen_cooldown = 30 SECONDS
+	/// Whether we're currently regenerating
+	var/regenerating = FALSE
+	/// Normally synthetic skin doesn't have memory of the identity we're disguised as. This implant does, though
+	var/configured_identity = "Unknown"
+	/// Flag for tracking if we've used up the implant's initial deployment of skin
+	var/initial_surge_used = FALSE
 
 /obj/item/organ/internal/cyberimp/chest/skinmonger/insert(mob/living/carbon/M, special = 0)
 	. = ..()
