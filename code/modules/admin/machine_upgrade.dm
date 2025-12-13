@@ -1,6 +1,6 @@
 USER_CONTEXT_MENU(machine_upgrade, R_DEBUG, "\[Admin\] Tweak Component Ratings", obj/machinery/M as obj in world)
 	if(!istype(M))
-		to_chat(client, "<span class='danger'>This can only be used on subtypes of /obj/machinery.</span>")
+		to_chat(client, SPAN_DANGER("This can only be used on subtypes of /obj/machinery."))
 		return
 
 	var/new_rating = input(client, "Enter new rating:","Num") as num

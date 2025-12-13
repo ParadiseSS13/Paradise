@@ -40,7 +40,7 @@
 	//Guest Checking
 	if(GLOB.configuration.general.guest_ban && check_guest && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
-		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
+		// message_admins(SPAN_NOTICE("Failed Login: [key] - Guests not allowed"))
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
@@ -184,11 +184,11 @@
 		if(admin)
 			if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
 				log_admin("The admin [key] is admin banned, and has been disallowed access")
-				message_admins("<span class='adminnotice'>The admin [key] is admin banned, and has been disallowed access</span>")
+				message_admins(SPAN_ADMINNOTICE("The admin [key] is admin banned, and has been disallowed access"))
 			else
 				log_admin("The admin [key] has been allowed to bypass a matching ban on [pckey]")
-				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [pckey]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey].</span>")
+				message_admins(SPAN_ADMINNOTICE("The admin [key] has been allowed to bypass a matching ban on [pckey]"))
+				addclientmessage(ckey,SPAN_ADMINNOTICE("You have been allowed to bypass a matching ban on [pckey]."))
 				continue
 		var/expires = ""
 		if(text2num(duration) > 0)
@@ -217,8 +217,8 @@
 		//So it's safe to let admins walk thru bans here
 		if(admin)
 			log_admin("The admin [key] has been allowed to bypass a matching ban")
-			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban</span>")
-			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban.</span>")
+			message_admins(SPAN_ADMINNOTICE("The admin [key] has been allowed to bypass a matching ban"))
+			addclientmessage(ckey,SPAN_ADMINNOTICE("You have been allowed to bypass a matching ban."))
 			return null
 		else
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")

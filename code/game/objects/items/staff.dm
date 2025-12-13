@@ -35,7 +35,7 @@
 		ADD_TRAIT(user, TRAIT_FLYING, "broomstick")
 		user.say("QUID 'ITCH")
 		animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
-	to_chat(user, "<span class='notice'>You hold [src] between your legs.</span>")
+	to_chat(user, SPAN_NOTICE("You hold [src] between your legs."))
 
 /obj/item/staff/broom/proc/unwield(obj/item/source, mob/user)
 	attack_verb = list("bludgeoned", "whacked", "cleaned")

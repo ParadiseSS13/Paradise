@@ -801,7 +801,7 @@ SUBSYSTEM_DEF(air)
 
 	log_debug(err)
 	var/msg = "MILLA has crashed. SSair will stop running, and all atmospherics will stop functioning. Every turf will report as full of breathable air, and all fires will be extinguished. Shuttle call highly recommended."
-	to_chat(GLOB.admins, "<span class='boldannounceooc'>[msg]</span>")
+	to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC("[msg]"))
 	log_world(msg)
 
 	// Disable firing.

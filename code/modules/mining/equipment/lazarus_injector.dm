@@ -20,15 +20,15 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
-			to_chat(user, "<span class='notice'>[src] is only effective on the dead.</span>")
+			to_chat(user, SPAN_NOTICE("[src] is only effective on the dead."))
 			return ITEM_INTERACT_COMPLETE
 		if(!isanimal_or_basicmob(target))
-			to_chat(user, "<span class='notice'>[src] is only effective on lesser beings.</span>")
+			to_chat(user, SPAN_NOTICE("[src] is only effective on lesser beings."))
 			return ITEM_INTERACT_COMPLETE
 		if(isanimal(target))
 			var/mob/living/simple_animal/M = target
 			if(M.sentience_type != revive_type)
-				to_chat(user, "<span class='notice'>[src] does not work on this sort of creature.</span>")
+				to_chat(user, SPAN_NOTICE("[src] does not work on this sort of creature."))
 				return ITEM_INTERACT_COMPLETE
 			M.lazarus_revive(user, malfunctioning)
 			if(ishostile(target)) // Handling for simple mobs to make them not angry anymore
@@ -46,11 +46,11 @@
 		if(isbasicmob(target))
 			var/mob/living/basic/M = target
 			if(M.sentience_type != revive_type)
-				to_chat(user, "<span class='notice'>[src] does not work on this sort of creature.</span>")
+				to_chat(user, SPAN_NOTICE("[src] does not work on this sort of creature."))
 				return ITEM_INTERACT_COMPLETE
 			M.lazarus_revive(user, malfunctioning)
 		loaded = 0
-		user.visible_message("<span class='notice'>[user] injects [target] with [src], reviving it.</span>")
+		user.visible_message(SPAN_NOTICE("[user] injects [target] with [src], reviving it."))
 		playsound(src,'sound/effects/refill.ogg', 50, TRUE)
 		icon_state = "lazarus_empty"
 		return ITEM_INTERACT_COMPLETE
@@ -58,7 +58,7 @@
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
 		malfunctioning = 1
-		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
+		to_chat(user, SPAN_NOTICE("You override [src]'s safety protocols."))
 		return TRUE
 
 /obj/item/lazarus_injector/emp_act()
@@ -68,9 +68,9 @@
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += "<span class='notice'>[src] is empty.</span>"
+		. += SPAN_NOTICE("[src] is empty.")
 	if(malfunctioning)
-		. += "<span class='notice'>The display on [src] seems to be flickering.</span>"
+		. += SPAN_NOTICE("The display on [src] seems to be flickering.")
 
 /*********************Mob Capsule*************************/
 
@@ -107,7 +107,7 @@
 
 /obj/item/mobcapsule/proc/capture(mob/living/animal, mob/living/user)
 	if(captured)
-		to_chat(user, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(user, "[SPAN_NOTICE("Capture failed!")]: The capsule already has a mob registered to it!")
 	else
 		if("neutral" in animal.faction)
 			animal.forceMove(src)
@@ -118,7 +118,7 @@
 				animal.name = "[user.name]'s [initial(animal.name)]"
 				name = "Lazarus Capsule: [initial(animal.name)]"
 			animal.cancel_camera()
-			to_chat(user, "<span class='notice'>You placed a [animal.name] inside the Lazarus Capsule!</span>")
+			to_chat(user, SPAN_NOTICE("You placed a [animal.name] inside the Lazarus Capsule!"))
 			captured = animal
 		else
 			to_chat(user, "You can't capture that mob!")

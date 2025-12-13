@@ -19,12 +19,12 @@
 		return ..()
 
 	if(is_used())
-		to_chat(user, "<span class='warning'>This sample kit is already used.</span>")
+		to_chat(user, SPAN_WARNING("This sample kit is already used."))
 		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	in_use = TRUE
-	to_chat(user, "<span class='notice'>You start collecting evidence...</span>")
+	to_chat(user, SPAN_NOTICE("You start collecting evidence..."))
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
 		var/list/found_blood = list()
@@ -48,7 +48,7 @@
 
 		var/choice
 		if(!length(choices))
-			to_chat(user, "<span class='warning'>There is no evidence on [target].</span>")
+			to_chat(user, SPAN_WARNING("There is no evidence on [target]."))
 			in_use = FALSE
 			return ITEM_INTERACT_COMPLETE
 		else if(length(choices) == 1)
@@ -70,7 +70,7 @@
 		else if(choice == "Gunpowder particles")
 			var/obj/item/clothing/B = target
 			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [target].</span>")
+				to_chat(user, SPAN_WARNING("There is not a hint of gunpowder on [target]."))
 				in_use = FALSE
 				return ITEM_INTERACT_COMPLETE
 			target_gsr = B.gunshot_residue
@@ -78,8 +78,8 @@
 
 		if(sample_type)
 			user.visible_message(
-				"<span class='notice'>[user] takes a swab from [target] for analysis.</span>",
-				"<span class='notice'>You take a swab from [target] for analysis.</span>")
+				SPAN_NOTICE("[user] takes a swab from [target] for analysis."),
+				SPAN_NOTICE("You take a swab from [target] for analysis."))
 			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr

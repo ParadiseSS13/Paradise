@@ -274,7 +274,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("DB query blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE
@@ -375,7 +375,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
-			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+			to_chat(usr, SPAN_DANGER("A SQL error occurred during this operation, please inform an admin or a coder."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		message_admins("An SQL error has occurred. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**
@@ -483,12 +483,12 @@ SUBSYSTEM_DEF(dbcore)
 // Verb that lets admins force reconnect the DB
 USER_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)
 	if(!GLOB.configuration.database.enabled)
-		to_chat(client, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
+		to_chat(client, SPAN_WARNING("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
 		if(!check_rights_client(R_DEBUG, FALSE, client))
-			to_chat(client, "<span class='warning'>The database is already connected! (Only those with +DEBUG can force a reconnection)</span>")
+			to_chat(client, SPAN_WARNING("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
 		var/reconnect = alert(client, "The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
