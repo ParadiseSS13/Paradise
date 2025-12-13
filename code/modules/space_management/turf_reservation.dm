@@ -178,20 +178,20 @@
 				mobile_docking_ports++
 				if(mobile_docking_ports > 1)
 					qdel(P, force = TRUE)
-					log_world("shuttle template has multiple mobile docking ports")
+					stack_trace("shuttle template has multiple mobile docking ports")
 				else if(!port.timid)
 					// The shuttle template we loaded isn't "timid" which means
 					// it's already registered with the shuttles subsystem.
 					// This is a bad thing.
-					WARNING("shuttle template is non-timid! Unloading.")
+					stack_trace("shuttle template is non-timid! Unloading.")
 					port.jumpToNullSpace()
 					return
 
 			if(istype(P, /obj/docking_port/stationary))
-				log_world("shuttle template has a stationary docking port")
+				stack_trace("shuttle template has a stationary docking port")
 
 	if(!port)
-		log_world("could not find shuttle template mobile docking port")
+		stack_trace("could not find shuttle template mobile docking port")
 		return
 
 	RegisterSignal(port, COMSIG_MOBILE_PORT_DOCKED, PROC_REF(cleanup))

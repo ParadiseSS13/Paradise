@@ -381,21 +381,18 @@ SUBSYSTEM_DEF(shuttle)
 		reservation_type = /datum/turf_reservation/shuttle
 	)
 	if(!reserve)
-		log_debug("failed to reserve turfs for shuttle loading template [template.mappath]")
+		stack_trace("failed to reserve turfs for shuttle loading template [template.mappath]")
 		return
 
 	if(!template.load(reserve.bottom_left_turf))
-		log_debug("failed to load shuttle template [template.mappath] into reservation")
+		stack_trace("failed to load shuttle template [template.mappath] into reservation")
 		return
 
 	var/obj/docking_port/mobile/port = reserve.locate_docking_port()
 	if(port)
 		return port
 
-	var/msg = "load_template(): shuttle [template.mappath] has no mobile docking port and may be malformed or have failed to load"
-	log_debug(msg)
-	message_admins(msg)
-	WARNING(msg)
+	stack_trace("load_template(): shuttle [template.mappath] has no mobile docking port and may be malformed or have failed to load")
 
 /// Create a new shuttle and replace the emergency shuttle with it.
 /// if loaded shuttle is passed in, a new one will not be loaded.
