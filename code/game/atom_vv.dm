@@ -47,16 +47,10 @@
 		log_admin("[key_name(usr)] has rotated \the [src]")
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EXPLODE])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_explosion(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_explosion, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EMP])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_emp(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_emp, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_ADDREAGENT]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))
