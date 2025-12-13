@@ -46,6 +46,8 @@
 	name = "The Arts Unsealed"
 	desc = "Open yourself to the influences of the manuses, gleaning what you have learned to \
 	create a magnum opus of art. A masterpiece above all others, that exudes its own unique influence."
+	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_state = "book_open"
 	abstract_parent_type = /datum/heretic_knowledge/unsealed_art
 	required_atoms = list()
 	priority = 20 // fairly low priority

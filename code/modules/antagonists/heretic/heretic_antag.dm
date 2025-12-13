@@ -610,8 +610,6 @@
 	remove_sacrifice_target(source)
 
 /datum/antagonist/heretic/proc/reroll_target(mob/living/user, datum/antagonist/heretic/heretic_datum, mob/living/target)
-	if(!user.mind.job_datum)
-		return FALSE
 	var/datum/heretic_knowledge/hunt_and_sacrifice/knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	var/list/datum/mind/valid_targets = list()
 	for(var/datum/mind/possible_target as anything in SSticker.minds)

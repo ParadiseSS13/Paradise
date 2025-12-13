@@ -219,6 +219,7 @@
 	animate(owner, alpha = 45,time = 0.5 SECONDS)
 	owner.set_density(FALSE)
 	owner.status_flags |= GODMODE
+	owner.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 	RegisterSignal(owner, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(prevent_spell_usage))
 	RegisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK, PROC_REF(nullrod_handler))
@@ -230,6 +231,7 @@
 /datum/status_effect/caretaker_refuge/on_remove()
 	owner.alpha = initial(owner.alpha)
 	owner.density = initial(owner.density)
+	owner.mouse_opacity = initial(owner.mouse_opacity)
 	owner.status_flags &= ~GODMODE
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	UnregisterSignal(owner, COMSIG_MOB_BEFORE_SPELL_CAST)

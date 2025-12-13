@@ -57,6 +57,8 @@
 
 	button_icon = 'icons/obj/antags/eldritch.dmi'
 	button_icon_state = "living_heart"
+	background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
 
 	/// Tracks whether we were right clicked or left clicked in our last trigger
 	var/right_clicked = FALSE

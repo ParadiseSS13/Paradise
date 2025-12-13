@@ -4,6 +4,7 @@
 	desc = "A mask created from suffering. When you look into its eyes, it looks back."
 	icon_state = "mad_mask"
 	inhand_icon_state = null
+	flags = AIRTIGHT
 	flags_cover = MASKCOVERSEYES
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES

@@ -160,19 +160,42 @@
 	research_tree_icon_state = "moonascend"
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
-//Qwertodo: redo this entire ultimate lmaoooo. Emeraldtodo: Maybe some giant rideable moon that squishes people.
 	var/brain_damage = sacrifice.getBrainLoss()
 	// Checks if our target has enough brain damage
 	if(brain_damage < 50)
 		return FALSE
-
 	return ..()
 
 /datum/heretic_knowledge/ultimate/moon_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
-	message_admins("QWERTODO: THIS")
+	var/obj/tgvehicle/moon_ascension/ball = new(our_turf)
+	ball.owner = user
+	var/datum/spell/summonitem/moon/spell = new()
+	spell.marked_item = ball
+	spell.moon = ball
+	user.AddSpell(spell)
 
-/datum/heretic_knowledge/ultimate/moon_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
-///	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
-	SIGNAL_HANDLER
-	message_admins("QWERTODO: THIS")
+/datum/spell/summonitem/moon
+	name = "Summon Avatar"
+	desc = "Summon the Avatar of the Moon to your current location."
+	invocation = "RISE!"
+	invocation_type = "shout"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_ride"
+	var/obj/tgvehicle/moon_ascension/moon
+
+/datum/spell/summonitem/moon/cast(list/targets, mob/user = usr)
+	if(!moon)
+		to_chat(user, "<span class='danger'>THE AVATAR IS DEAD! DESPAIR!</span>")
+		cooldown_handler.revert_cast()
+		return FALSE
+	if(moon.is_occupant(user)) // prevents use of the spell when on the moon.
+		to_chat(user, "<span class='warning'>You cannot summon the avatar while utilizing it!</span>")
+		cooldown_handler.revert_cast()
+		return FALSE
+	return ..()
+
+/datum/spell/summonitem/moon/create_new_targeting()
+	return new /datum/spell_targeting/self

@@ -4,6 +4,11 @@
 	icon_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
 	flash_protect = FLASH_PROTECTION_WELDER
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+	)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
 	. = ..()
@@ -18,6 +23,11 @@
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Quite well armored, though not vs disablers
 	armor = list(MELEE = 50, BULLET = 40, LASER = 30, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 20)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)

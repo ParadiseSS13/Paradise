@@ -233,8 +233,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(!sacrifice.mind)
-		return FALSE
 	if(!sacrifice.reagents.has_reagent("bluespace_dust"))
 		return FALSE
 	return TRUE

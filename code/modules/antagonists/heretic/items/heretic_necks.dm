@@ -170,7 +170,7 @@
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
 		to_chat(user, "<span class='danger'>You feel a presence watching you!</span>")
-		user.adjustBrainLoss(30)
+		user.adjustBrainLoss(20)
 		return
 	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))

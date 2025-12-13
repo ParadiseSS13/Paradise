@@ -153,6 +153,9 @@
 	. = ..()
 
 /datum/status_effect/moon_converted/Destroy()
+	var/list/messages = list()
+	messages.Add("<span class='danger'>You have been freed from the Moon's influence and regain your senses.</span>")
+	to_chat(owner, chat_box_notice(messages.Join("<br>")))
 	return ..()
 
 /datum/status_effect/moon_converted/on_apply()
@@ -163,7 +166,7 @@
 
 	var/list/messages = list()
 	messages.Add("<span class='userdanger'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span>")
-	messages.Add("<span class='warning'>Attack everyone you can see without discrimination!</span>")
+	messages.Add("<span class='warning'>Attack everyone you can see (besides your enlightener) without discrimination!</span>")
 	to_chat(owner, chat_box_red(messages.Join("<br>")))
 
 	owner.Paralyse(5 SECONDS)
