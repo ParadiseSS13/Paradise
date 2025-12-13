@@ -93,6 +93,16 @@
 	ranged_burst_count = 1
 	ranged_cooldown = 1.5 SECONDS
 
+/mob/living/basic/malfborg/sec/combat
+	name = "combat cyborg"
+	desc = "One of Central Command's own, subverted to work for a hostile AI."
+	icon_state = "ertgamma"
+	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
+	casing_type = /obj/item/ammo_casing/caseless/multi_immolator
+	projectile_sound = 'sound/weapons/laser3.ogg'
+	ranged_burst_count = 1
+	ranged_cooldown = 1.5 SECONDS
+
 /mob/living/basic/malfborg/service
 	name = "service cyborg"
 	desc = "It's ready to serve an ass kicking."
@@ -112,6 +122,12 @@
 	pellets = 6
 	variance = 25
 	fire_sound = 'sound/weapons/laser.ogg'
+
+/obj/item/ammo_casing/caseless/multi_immolator
+	projectile_type = /obj/projectile/beam/immolator/weak
+	pellets = 6
+	variance = 25
+	fire_sound = 'sound/weapons/laser3.ogg'
 
 /mob/living/basic/malfborg/mining
 	name = "mining cyborg"

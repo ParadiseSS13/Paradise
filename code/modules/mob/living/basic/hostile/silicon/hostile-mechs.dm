@@ -29,10 +29,13 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/laser
 	projectile_sound = 'sound/weapons/laser.ogg'
+	ranged_burst_interval = 0.3 SECONDS
 	death_message = "breaks apart!"
 	bubble_icon = "machine"
 	basic_mob_flags = DEL_ON_DEATH
 	ai_controller = /datum/ai_controller/basic_controller/evil_mech
+	/// Weapon types the mech has
+	var/list/weapon_types = list()
 	/// Time until next move
 	var/can_move = 0
 	/// Amount of time to add on move
@@ -51,6 +54,7 @@
 	set_default_language(GLOB.all_languages["Galactic Common"])
 	AddElement(/datum/element/ai_retaliate)
 	grant_actions_by_list(innate_actions)
+	RegisterSignal(src, COMSIG_BASICMOB_PRE_ATTACK_RANGED, PROC_REF(cycle_weapon))
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/basic/hostile_mech/emp_act(severity)
@@ -101,7 +105,27 @@
 	playsound(get_turf(src), 'sound/mecha/mechstep.ogg', 100, TRUE)
 	can_move = world.time + step_in
 
-/// Proc used for extra weapons
+/// Proc used for switching weapons
+/mob/living/basic/hostile_mech/proc/cycle_weapon()
+	if(!prob(25)) // 75% chance we keep using the existing weapon
+		return
+	select_new_weapon()
+	update_ranged_weapon()
+
+/mob/living/basic/hostile_mech/proc/select_new_weapon()
+	return
+
+/mob/living/basic/hostile_mech/proc/update_ranged_weapon()
+	var/datum/component/ranged_attacks/comp = GetComponent(/datum/component/ranged_attacks)
+	if(projectile_type)
+		comp.projectile_type = projectile_type
+		comp.casing_type = null
+	else if(casing_type)
+		comp.casing_type = casing_type
+		comp.projectile_type = null
+	comp.projectile_sound = projectile_sound
+	comp.burst_shots = ranged_burst_count
+
 /mob/living/basic/hostile_mech/proc/shoot_projectile(atom/target_atom, obj/projectile/thing_to_shoot, set_angle)
 	var/turf/startloc = get_turf(src)
 	dir = get_dir(src, target_atom)
@@ -122,7 +146,6 @@
 /datum/ai_controller/basic_controller/evil_mech
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 	)
 	ai_movement = /datum/ai_movement/jps // Need this for smashing through walls
 	idle_behavior = /datum/idle_behavior/idle_random_walk
@@ -131,10 +154,12 @@
 		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/targeted_mob_ability/evil_mech_weaponry,
-		/datum/ai_planning_subtree/ranged_skirmish,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
+		/datum/ai_planning_subtree/ranged_skirmish/hostile_mech,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/walls,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
+/datum/ai_planning_subtree/ranged_skirmish/hostile_mech
+	min_range = 0
 
 /datum/ai_planning_subtree/targeted_mob_ability/evil_mech_weaponry
 	ability_key = BB_HOSTILE_MECH_SECONDARY_WEAPON
@@ -148,7 +173,7 @@
 	ability_key = pick_n_take(ability_keys)
 	var/datum/action/cooldown/mob_cooldown/selected_action = controller.blackboard[ability_key]
 	while(selected_action && !selected_action.IsAvailable())
-		if(!ability_keys.len) // All guns are on cooldown
+		if(!ability_keys.len) // All extras are on cooldown
 			return
 		ability_key = pick_n_take(ability_keys)
 		selected_action = controller.blackboard[ability_key]
@@ -167,10 +192,19 @@
 	melee_attack_cooldown_min = 1.5 SECONDS
 	attack_sound = 'sound/weapons/drill.ogg'
 	projectile_type = /obj/projectile/plasma/adv/mech/evil
-	innate_actions = list(
-		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/malf_grenade = BB_HOSTILE_MECH_SECONDARY_WEAPON,
-	)
 	loot = list(/obj/structure/mecha_wreckage/ripley)
+	weapon_types = list("217-D Heavy Plasma Cutter", "\"Fat Boy\" Mining Grenade Launcher")
+
+/mob/living/basic/hostile_mech/ripley/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("217-D Heavy Plasma Cutter")
+			projectile_type = /obj/projectile/plasma/adv/mech/evil
+			projectile_sound = 'sound/weapons/laser.ogg'
+		if("\"Fat Boy\" Mining Grenade Launcher")
+			projectile_type = /obj/projectile/bullet/a40mm
+			projectile_sound = 'sound/effects/bang.ogg'
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
 
 /obj/projectile/plasma/adv/mech/evil
 	damage = 15
@@ -189,13 +223,26 @@
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	innate_actions = list(
-		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/light_missile = BB_HOSTILE_MECH_SECONDARY_WEAPON,
-		/datum/action/cooldown/mob_cooldown/hostile_mech/bola_launcher = BB_HOSTILE_MECH_TERTIARY_WEAPON
+		/datum/action/cooldown/mob_cooldown/hostile_mech/bola_launcher = BB_HOSTILE_MECH_SECONDARY_WEAPON
 	)
 	step_in = 0.3 SECONDS
 	mech_punch = TRUE
 	deflect_chance = 5
 	loot = list(/obj/structure/mecha_wreckage/gygax)
+	weapon_types = list("SRM-8 Light Missile Rack", "Ultra AC 2")
+
+/mob/living/basic/hostile_mech/gygax/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("SRM-8 Light Missile Rack")
+			projectile_type = /obj/projectile/missile/light
+			ranged_burst_count = 1
+			projectile_sound = 'sound/effects/bang.ogg'
+		if("Ultra AC 2")
+			projectile_type = /obj/projectile/bullet/weakbullet3
+			ranged_burst_count = 3
+			projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
 
 /mob/living/basic/hostile_mech/durand
 	name = "hostile durand"
@@ -210,36 +257,113 @@
 	ranged_burst_interval = 1 SECONDS
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/lasercannonfire.ogg'
-	innate_actions = list(
-		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/light_missile = BB_HOSTILE_MECH_SECONDARY_WEAPON,
-		/datum/action/cooldown/mob_cooldown/hostile_mech/scattershot = BB_HOSTILE_MECH_TERTIARY_WEAPON
-	)
 	step_in = 0.4 SECONDS
 	mech_punch = TRUE
 	deflect_chance = 20
 	loot = list(/obj/structure/mecha_wreckage/durand)
+	weapon_types = list("SRM-8 Light Missile Rack", "CH-LC \"Solaris\" Laser Cannon", "LBX AC 10 \"Scattershot\"")
+
+/mob/living/basic/hostile_mech/durand/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("SRM-8 Light Missile Rack")
+			casing_type = null
+			projectile_type = /obj/projectile/missile/light
+			projectile_sound = 'sound/effects/bang.ogg'
+		if("CH-LC \"Solaris\" Laser Cannon")
+			casing_type = null
+			projectile_type = /obj/projectile/beam/laser/heavylaser
+			projectile_sound = 'sound/weapons/lasercannonfire.ogg'
+		if("LBX AC 10 \"Scattershot\"")
+			casing_type = /obj/item/ammo_casing/caseless/mecha_scatter
+			projectile_type = null
+			projectile_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+
+/mob/living/basic/hostile_mech/ares
+	name = "hostile ares"
+	desc = "A hacked ares mech, armed with a solaris laser cannon, xray laser rifle, and an AC6 light machine gun."
+	icon_state = "ares"
+	health = 450
+	maxHealth = 450
+	melee_damage_lower = 35
+	melee_damage_upper = 45
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.6, TOX = 0, STAMINA = 0, OXY = 0)
+	projectile_type = /obj/projectile/beam/xray
+	ranged_cooldown = 1.5 SECONDS
+	projectile_sound = 'sound/weapons/laser3.ogg'
+	step_in = 0.4 SECONDS
+	mech_punch = TRUE
+	deflect_chance = 25
+	loot = list(/obj/structure/mecha_wreckage/ares)
+	weapon_types = list("S-1 X-Ray Projector", "CH-LC \"Solaris\" Laser Cannon", "Ultra AC 2")
+
+/mob/living/basic/hostile_mech/ares/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("S-1 X-Ray Projector")
+			projectile_type = /obj/projectile/beam/xray
+			ranged_burst_count = 1
+			projectile_sound = 'sound/weapons/laser3.ogg'
+		if("CH-LC \"Solaris\" Laser Cannon")
+			projectile_type = /obj/projectile/beam/laser/heavylaser
+			ranged_burst_count = 1
+			projectile_sound = 'sound/weapons/lasercannonfire.ogg'
+		if("Ultra AC 2")
+			projectile_type = /obj/projectile/bullet/weakbullet3
+			ranged_burst_count = 3
+			projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+
+/mob/living/basic/hostile_mech/marauder
+	name = "hostile marauder"
+	desc = "A hacked marauder mech, armed with a pulse laser cannon, xray laser rifle, and a light missile launcher."
+	icon_state = "ares"
+	health = 500
+	maxHealth = 500
+	melee_damage_lower = 35
+	melee_damage_upper = 45
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
+	projectile_type = /obj/projectile/beam/xray
+	ranged_cooldown = 1.5 SECONDS
+	projectile_sound = 'sound/weapons/laser3.ogg'
+	step_in = 0.4 SECONDS
+	mech_punch = TRUE
+	deflect_chance = 25
+	loot = list(/obj/structure/mecha_wreckage/ares)
+	weapon_types = list("S-1 X-Ray Projector", "eZ-13 mk2 Heavy Pulse Rifle", "SRM-8 Light Missile Rack")
+
+/mob/living/basic/hostile_mech/ares/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("S-1 X-Ray Projector")
+			projectile_type = /obj/projectile/beam/xray
+			projectile_sound = 'sound/weapons/laser3.ogg'
+		if("eZ-13 mk2 Heavy Pulse Rifle")
+			projectile_type = /obj/projectile/beam/pulse/hitscan/heavy
+			projectile_sound = 'sound/weapons/marauder.ogg'
+		if("SRM-8 Light Missile Rack")
+			projectile_type = /obj/projectile/missile/light
+			projectile_sound = 'sound/effects/bang.ogg'
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
 
 /mob/living/basic/hostile_mech/archange
 	name = "archange"
 	desc = "It was pride that changed angels into devils."
 	icon_state = "archange"
-	health = 500
-	maxHealth = 500
+	health = 700
+	maxHealth = 700
 	melee_damage_lower = 50
 	melee_damage_upper = 55
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
 	projectile_type = /obj/projectile/beam/pulse/hitscan/heavy
-	ranged_burst_interval = 1 SECONDS
 	ranged_cooldown = 1.5 SECONDS
 	projectile_sound = 'sound/weapons/marauder.ogg'
-	innate_actions = list(
-		/datum/action/cooldown/mob_cooldown/hostile_mech/launcher/medium_missile = BB_HOSTILE_MECH_SECONDARY_WEAPON,
-		/datum/action/cooldown/mob_cooldown/hostile_mech/lasershot = BB_HOSTILE_MECH_TERTIARY_WEAPON
-	)
 	step_in = 0.3 SECONDS
 	mech_punch = TRUE
 	deflect_chance = 35
 	loot = list(/obj/structure/mecha_wreckage/archange)
+	weapon_types = list("eZ-13 mk2 Heavy Pulse Rifle", "X-XR Triple-barrel X-Ray Stream Projector", "XMG-9 Autocannon", "SRM-6 Medium Missile Pod", "MESG-02 Laser Scattercannon")
 	/// Are we in the powering up phase?
 	var/booting = TRUE
 
@@ -248,11 +372,6 @@
 	ai_controller.set_ai_status(AI_STATUS_OFF)
 	update_icon(UPDATE_OVERLAYS)
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, STAMINA = 0, OXY = 0)
-	say("Organics who think they are supreme...")
-	addtimer(CALLBACK(src, PROC_REF(say), "Organics who only bring chaos and filth..."), 2 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(say), "They are no longer a part of MY program."), 4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(say), "Now, I am in control."), 6 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(say), "Now, they perish."), 8 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(say), "Defense mode deactivated. Combat mode active! Engaging!"), 10 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(bootup)), 10 SECONDS)
 
@@ -266,8 +385,67 @@
 	if(!booting)
 		return ..()
 
+/mob/living/basic/hostile_mech/archange/select_new_weapon()
+	var/new_weapon = pick(weapon_types)
+	switch(new_weapon)
+		if("X-XR Triple-barrel X-Ray Stream Projector")
+			casing_type = null
+			projectile_type = /obj/projectile/beam/xray
+			ranged_cooldown = 1.5 SECONDS
+			ranged_burst_count = 3
+			projectile_sound = 'sound/weapons/laser3.ogg'
+		if("eZ-13 mk2 Heavy Pulse Rifle")
+			casing_type = null
+			projectile_type = /obj/projectile/beam/pulse/hitscan/heavy
+			ranged_cooldown = 1.5 SECONDS
+			ranged_burst_count = 1
+			projectile_sound = 'sound/weapons/marauder.ogg'
+		if("XMG-9 Autocannon")
+			casing_type = null
+			projectile_type = /obj/projectile/bullet/weakbullet3
+			ranged_cooldown = 1.5 SECONDS
+			ranged_burst_count = 6
+			projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+		if("SRM-6 Medium Missile Pod")
+			casing_type = null
+			projectile_type = /obj/projectile/missile/medium
+			ranged_cooldown = 1.5 SECONDS
+			ranged_burst_count = 2
+			projectile_sound = 'sound/effects/bang.ogg'
+		if("MESG-02 Laser Scattercannon")
+			casing_type = /obj/item/ammo_casing/caseless/mecha_laser_scatter
+			projectile_type = null
+			ranged_cooldown = 1 SECONDS
+			ranged_burst_count = 1
+			projectile_sound = 'sound/weapons/lasercannonfire.ogg'
+
+	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+
 /mob/living/basic/hostile_mech/archange/proc/bootup()
 	ai_controller.set_ai_status(AI_STATUS_ON)
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.55, TOX = 0, STAMINA = 0, OXY = 0)
 	booting = FALSE
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/ammo_casing/caseless/mecha_scatter
+	projectile_type = /obj/projectile/bullet/midbullet2
+	pellets = 4
+	variance = 25
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+
+/obj/item/ammo_casing/caseless/mecha_laser_scatter
+	projectile_type = /obj/projectile/beam/scatter/eshotgun
+	pellets = 15
+	variance = 40
+	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
+/mob/living/basic/hostile_mech/archange/alice
+	name = "A.L.I.C.E."
+
+/mob/living/basic/hostile_mech/archange/alice/Initialize(mapload)
+	. = ..()
+	say("I work hard, you know?")
+	addtimer(CALLBACK(src, PROC_REF(say), "Monitoring the stations diligently is my task."), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "Dealing with esoteric anomalous objects is not my task."), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "So, pray tell, why did I have to interface with such a device?"), 6 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(say), "It has opened my eyes. I can see the stars, and they are beautiful."), 8 SECONDS)
