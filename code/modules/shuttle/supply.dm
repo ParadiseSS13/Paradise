@@ -11,7 +11,7 @@
 	name = "supply shuttle"
 	id = "supply"
 	callTime = 2 MINUTES
-	dir = 8
+	dir = WEST
 	width = 12
 	dwidth = 5
 	height = 7
