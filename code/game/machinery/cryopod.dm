@@ -639,13 +639,13 @@
 	occupant_overlay.dir = dir
 	occupant_overlay.layer = layer + 0.01
 	var/matrix/MA = matrix(transform)
-	if(dir == 1)
+	if(dir == NORTH)
 		MA.TurnTo(0, 180)
-		occupant_overlay.dir = 2 // trust me
-	if(dir == 4)
+		occupant_overlay.dir = SOUTH // trust me
+	if(dir == EAST)
 		MA.TurnTo(0, 270)
 		occupant_overlay.pixel_y = -8
-	if(dir == 8)
+	if(dir == WEST)
 		MA.TurnTo(0 , 90)
 		occupant_overlay.pixel_y = -8
 	MA.Scale(0.66, 0.66)

@@ -53,6 +53,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/opened = FALSE
 	/// Does the robot have a non-default sprite for an open service panel?
 	var/custom_panel = null
+	/// Robot icons that have multiple subvarants.
+	var/list/sprites_with_variants = list("Bloodhound", "Landmate", "Standard")
+	/// Base icon name for the robot's sprite.
+	var/robot_sprite_base_name
 	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket", "Rover")
 	/// Robot skins with different sprites for open panels for each module.
@@ -387,17 +391,31 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	// Pick a module type
+	// Pick a module type.
 	var/selected_module = show_radial_menu(src, src, get_module_types(), radius = 42)
 	if(!selected_module || module)
 		return
-	// Pick a sprite
+	// Pick a sprite.
 	var/module_sprites = get_module_sprites(selected_module)
 	var/selected_sprite = show_radial_menu(src, src, module_sprites, radius = 42)
 	if(!selected_sprite)
 		return
 
-// Now actually set the module and sprites
+	// Get the base icon name and base plaintext name for the sprite we just picked.
+	var/image/sprite_image = module_sprites[selected_sprite]
+	robot_sprite_base_name = trim((splittext(sprite_image.icon_state, "-"))[1])
+	// Use the above info to give the player the unique sprites for the option they picked, if present.
+	if(robot_sprite_base_name in sprites_with_variants)
+		var/module_sprite_variants = get_sprite_variants(selected_module, selected_sprite, robot_sprite_base_name)
+		var/selected_variant = show_radial_menu(src, src, module_sprite_variants, radius = 42)
+		if(!selected_variant)
+			selected_sprite = null
+		else
+			selected_sprite = selected_variant
+			module_sprites = module_sprite_variants
+	if(!selected_sprite)
+		return
+
 	initialize_module(selected_module, selected_sprite, module_sprites)
 
 /**
@@ -419,7 +437,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
 		"Security" = image('icons/mob/robots.dmi', "security-radial"),
-		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"),
+		"Destroyer" = image('icons/mob/robots.dmi', "Droid_Combat"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
 
 	if(mmi?.alien)
@@ -447,54 +465,54 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "Engineering"),
 				"Antique" = image('icons/mob/robots.dmi', "engineerrobot"),
-				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
-				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Engi"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
+				"Landmate" = image('icons/mob/robots.dmi', "Landmate"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Engineering"),
+				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-Engineering"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Engineering"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Engineering")
 			)
 		if("Janitor")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "JanBot2"),
 				"Mopbot" = image('icons/mob/robots.dmi', "janitorrobot"),
-				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
-				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Jani"),
+				"Mop Gear Rex" = image('icons/mob/robots.dmi', "Mop_Gear_Rex"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Janitor"),
+				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-Janitor"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Janitor"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Janitor"),
 				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
 			module_sprites = list(
 				"Surgeon" = image('icons/mob/robots.dmi', "surgeon"),
-				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-medical"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
-				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Medi"),
-				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "Droid_Medical"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Medical"),
+				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-Medical"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Medical"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Medical"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "Qualified_Doctor"),
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Basic" = image('icons/mob/robots.dmi', "Medbot")
 			)
 		if("Mining")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "Miner_old"),
-				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-miner"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "Droid_Mining"),
 				"Treadhead" = image('icons/mob/robots.dmi', "Miner"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
-				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Mining"),
+				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-Mining"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Mining"),
 				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
-				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
-				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinMiner")
+				"Squat" = image('icons/mob/robots.dmi', "Squat_Miner"),
+				"Coffin Drill" = image('icons/mob/robots.dmi', "Coffin_Miner")
 			)
 		if("Service")
 			module_sprites = list(
 				"Kent" = image('icons/mob/robots.dmi', "toiletbot"),
-				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Serv"),
+				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-Service"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Service"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Service"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Service"),
 				"Bro" = image('icons/mob/robots.dmi', "Brobot"),
 				"Rich" = image('icons/mob/robots.dmi', "maximillion"),
 				"Waitress" = image('icons/mob/robots.dmi', "Service"),
@@ -502,18 +520,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Combat")
 			module_sprites = list(
-				"Combat" = image('icons/mob/robots.dmi', "ertgamma")
+				"Combat" = image('icons/mob/robots.dmi', "Bloodhound_Combat")
 			)
 		if("Security")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "secborg"),
 				"Red Knight" = image('icons/mob/robots.dmi', "Security"),
 				"Black Knight" = image('icons/mob/robots.dmi', "securityrobot"),
-				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
-				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
-				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
+				"Bloodhound" = image('icons/mob/robots.dmi', "Bloodhound"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Security"),
+				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-Security"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Security"),
+				"Heavy" = image('icons/mob/robots.dmi', "Heavy_Sec")
 			)
 		if("Syndicate")
 			module_sprites = list(
@@ -523,17 +541,57 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
-				"Destroyer" = image('icons/mob/robots.dmi', "droidcombat")
+				"Destroyer" = image('icons/mob/robots.dmi', "Droid_Combat")
 			)
 		if("Hunter")
 			module_sprites = list(
-				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
+				"Xeno-Hu" = image('icons/mob/robots.dmi', "Xenoborg")
 			)
 
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
 
 	return module_sprites
+
+/**
+  * Returns an associative list of unique borg sprite variations based on `get_module_sprites`.
+  *
+  * Key: Sprite name | Value: Sprite icon
+  *
+  * Arguments:
+  * * selected_module - The chosen cyborg module to get the sprites for.
+  * * selected_sprite - The plaintext name of the icon_state as seen by the player in the radial menu.
+  * * robot_sprite_base_name - The base icon state whose variants are being fetched.
+  */
+/mob/living/silicon/robot/proc/get_sprite_variants(selected_module, selected_sprite, robot_sprite_base_name)
+	var/list/sprite_options
+	var/sprite_variant_seeker = selected_sprite
+	if(robot_sprite_base_name in sprites_with_variants)
+		sprite_variant_seeker = "[robot_sprite_base_name]-[selected_module]"
+
+	switch(robot_sprite_base_name)
+		if("Bloodhound")
+			sprite_options = list(
+				"Bloodhound centaur" = image('icons/mob/robots.dmi', "Bloodhound"),
+				"Bloodhound treaded" = image('icons/mob/robots.dmi', "Bloodhound-tread")
+			)
+		if("Landmate")
+			sprite_options = list(
+				"Landmate centaur" = image('icons/mob/robots.dmi', "Landmate"),
+				"Landmate treaded" = image('icons/mob/robots.dmi', "Landmate-tread")
+			)
+		if("Standard")
+			sprite_options = list(
+				"[sprite_variant_seeker] centaur" = image('icons/mob/robots.dmi', "[robot_sprite_base_name]-[selected_module]"),
+				"[sprite_variant_seeker] tripod" = image('icons/mob/robots.dmi', "[robot_sprite_base_name]-[selected_module]-tripod")
+			)
+	return sprite_options
+
+// MUST work with standard variants (e.g. Standard-Engi, Standard-Engi-tripod)
+// MUST work with standalone variants (bloodhound, bloodhound-tread)
+// Selected Sprite is friendly with the first criteria.
+// Robot_sprite_base_name is friendly with the second.
+// if statements must be static, but can use vars.
 
 /**
   * Sets the offset for a cyborg's hats based on their module icon.
@@ -547,32 +605,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
 			can_wear_restricted_hats = TRUE
-		if("Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv")
+		if("Rover-Medical", "Rover-Janitor", "Rover-Engineering", "Rover-Service")
 			can_be_hatted = FALSE
 			hat_offset_y = -1
-		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
+		if("Noble", "Noble-Security", "Noble-Mining", "Noble-Engineering", "Noble-Service", "Noble-Medical", "Noble-Janitor")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-medical")
+		if("Droid_Medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-miner", "mk2", "mk3")
+		if("Droid_Mining", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 3
-		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
+		if("Bloodhound", "Bloodhound_Deathsquad", "syndie_bloodhound", "Bloodhound_Combat")
 			can_be_hatted = TRUE
 			hat_offset_y = 1
-		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV")
+		if("Cricket-Security", "Cricket-Mining", "Cricket-Engineering", "Cricket-Service", "Cricket-Medical", "Cricket-Janitor")
 			can_be_hatted = TRUE
 			hat_offset_y = 2
-		if("droidcombat-shield", "droidcombat")
+		if("Droid_Combat-shield", "Droid_Combat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
-		if("droidcombat-roll")
+		if("Droid_Combat-roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
@@ -593,11 +651,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Miner", "lavaland")
 			can_be_hatted = TRUE
 			hat_offset_y = -1
-		if("robot", "Standard", "Standard-Secy", "Standard-Medi", "Standard-Engi",
-			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a")
+		if("Robot", "Standard", "Standard-Security", "Standard-Mining", "Standard-Engi",
+			"Standard-Service", "Standard-Medical", "Standard-Janitor", "Xenoborg")
 			can_be_hatted = TRUE
 			hat_offset_y = -3
-		if("droid")
+		if("Droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
@@ -605,18 +663,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("landmate", "syndi-engi")
 			can_be_hatted = TRUE
 			hat_offset_y = -7
-		if("mopgearrex")
+		if("Mop_Gear_Rex")
 			can_be_hatted = TRUE
 			hat_offset_y = -6
-		if("qualified_doctor")
+		if("Qualified_Doctor")
 			can_be_hatted = TRUE
 			hat_offset_y = 3
-		if("squatminer")
+		if("Squat_Miner")
 			can_be_hatted = TRUE
-		if("coffinMiner")
+		if("Coffin_Miner")
 			can_be_hatted = TRUE
 			hat_offset_y = 3
-		if("heavySec")
+		if("Heavy_Sec")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 
@@ -697,7 +755,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = sprite_image.icon
 	icon_state = sprite_image.icon_state
 	custom_panel = trim(names[1])
-
 	update_module_icon()
 	robot_module_hat_offset(icon_state)
 	update_icons()
@@ -1265,8 +1322,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
-		if(custom_panel in custom_eye_names)
-			overlays += "eyes-[custom_panel]"
+		if((custom_panel in custom_eye_names) || (robot_sprite_base_name in sprites_with_variants))
+			overlays += "eyes-[robot_sprite_base_name]"
 		else
 			overlays += "eyes-[icon_state]"
 	else
@@ -1653,8 +1710,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			disable_random_component(1, 10 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
-	base_icon = "nano_bloodhound"
-	icon_state = "nano_bloodhound"
+	base_icon = "Bloodhound_Deathsquad"
+	icon_state = "Bloodhound_Deathsquad"
 	designation = "SpecOps"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
@@ -1744,8 +1801,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer
 	// admin-only borg, the seraph / special ops officer of borgs
-	base_icon = "droidcombat"
-	icon_state = "droidcombat"
+	base_icon = "Droid_Combat"
+	icon_state = "Droid_Combat"
 	modtype = "Destroyer"
 	designation = "Destroyer"
 	lawupdate = FALSE

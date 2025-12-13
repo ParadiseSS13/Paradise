@@ -77,9 +77,9 @@
 
 /obj/machinery/atmospherics/pipe/simple/proc/normalize_dir()
 	if(dir==3)
-		dir = 1
+		dir = NORTH
 	else if(dir==12)
-		dir = 4
+		dir = EAST
 
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	. = ..()

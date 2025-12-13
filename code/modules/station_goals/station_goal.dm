@@ -52,4 +52,4 @@
 		message_admins("[key_name_admin(usr)] removed station goal [src]")
 		log_admin("[key_name_admin(usr)] removed station goal [src]")
 		qdel(src)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)

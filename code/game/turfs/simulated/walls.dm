@@ -481,11 +481,11 @@
 				user.drop_item()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 					P.setDir(5)
-					if(user.dir == 1)
+					if(user.dir == NORTH)
 						P.setDir(6)
-					else if(user.dir == 2)
+					else if(user.dir == SOUTH)
 						P.setDir(9)
-					else if(user.dir == 4)
+					else if(user.dir == EAST)
 						P.setDir(10)
 				else
 					P.setDir(user.dir)
