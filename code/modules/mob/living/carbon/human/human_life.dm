@@ -880,9 +880,9 @@
 	if(chem_volume)
 		temp_bp += round(chem_volume * 0.25, 1)
 
-	var/obj/item/organ/internal/heart/heart = heart.linked_organ
-	if(istype(heart))
-		temp_bp += heart.blood_pressure_change
+	var/obj/item/organ/internal/heart/possible_slime_brain = heart.linked_organ
+	if(istype(possible_slime_brain))
+		temp_bp += possible_slime_brain.blood_pressure_change
 
 	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
 		if(age > 65) // Hey gramps, watch what you're doing
@@ -915,8 +915,8 @@
 			if(!heart.linked_organ.is_robotic())
 				heart.linked_organ.receive_damage(1, TRUE)
 
-			if(!L.linked_organ.is_robotic())
-				L.linked_organ.receive_damage(1, TRUE)
+			if(!lung.linked_organ.is_robotic())
+				lung.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
 				to_chat(src, "<span class='danger'>You feel incredibly weak.</span>")
@@ -990,9 +990,9 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		beats += 10
 
-	var/obj/item/organ/internal/heart/heart = heart.linked_organ
-	if(istype(heart))
-		beats += heart.heart_rate_change
+	var/obj/item/organ/internal/heart/possible_slime_brain = heart.linked_organ
+	if(istype(possible_slime_brain))
+		beats += possible_slime_brain.heart_rate_change
 
 	var/brute_dmg = getBruteLoss()
 	var/burn_dmg = getFireLoss()
