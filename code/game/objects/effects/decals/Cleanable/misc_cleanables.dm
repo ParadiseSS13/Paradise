@@ -265,7 +265,7 @@
 /obj/effect/decal/cleanable/paint_splat/Initialize(mapload)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
-	. = ..()
+	return ..()
 
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
