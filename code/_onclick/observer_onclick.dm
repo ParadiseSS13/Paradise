@@ -41,12 +41,12 @@
 		if(modifiers["ctrl"])
 			M = get_mob_in_atom_with_warning(A)
 			if(M)
-				client.holder.show_player_panel(M)
+				SSuser_verbs.invoke_verb(client, /datum/user_verb/show_player_panel, M)
 			return
 		if(modifiers["shift"] && modifiers["middle"])
 			M = get_mob_in_atom_with_warning(A)
 			if(M)
-				client.freeze(M)
+				SSuser_verbs.invoke_verb(client, /datum/user_verb/admin_freeze, M)
 			return
 	if(modifiers["middle"])
 		MiddleClickOn(A)

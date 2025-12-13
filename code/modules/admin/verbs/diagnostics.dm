@@ -99,40 +99,25 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Radio Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/reload_admins()
-	set name = "Reload Admins"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	if(!usr.client.is_connecting_from_localhost())
-		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+USER_VERB(reload_admins, R_SERVER, "Reload Admins", "Perform a forced refresh of admin data.", VERB_CATEGORY_SERVER)
+	if(!client.is_connecting_from_localhost())
+		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
-	message_admins("[key_name_admin(usr)] has manually reloaded admins")
-	log_admin("[key_name(usr)] has manually reloaded admins")
+	message_admins("[key_name_admin(client)] has manually reloaded admins")
+	log_admin("[key_name(client)] has manually reloaded admins")
 
 	load_admins(run_async=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/vv_by_ref()
-	set name = "VV by Ref"
-	set desc = "Give this a ref string, and you will see its corresponding VV panel if it exists"
-	set category = "Debug"
-
-	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
-	// AA: This seems harmless but is **incredibly** powerful and dangerous. Maints only.
-	if(!check_rights(R_MAINTAINER))
-		return
-
-	var/refstring = clean_input("Which reference?","Ref")
+USER_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists", VERB_CATEGORY_DEBUG)
+	var/refstring = clean_input("Which reference?","Ref", user = client)
 	if(!refstring)
 		return
 
 	var/datum/D = locate(refstring)
 	if(!D)
-		to_chat(usr, "<span class='warning'>That ref string does not correspond to any datum.</span>")
+		to_chat(client, "<span class='warning'>That ref string does not correspond to any datum.</span>")
 		return
 
-	debug_variables(D)
+	SSuser_verbs.invoke_verb(client, /datum/user_verb/debug_variables, D)
