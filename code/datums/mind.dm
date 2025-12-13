@@ -679,9 +679,8 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
 			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
-
 		if(!new_obj_type)
 			return
 
@@ -757,6 +756,9 @@
 
 			if("nuclear operations")
 				new_objective = /datum/objective/nuclear
+
+			if("kill pet")
+				new_objective = /datum/objective/kill_pet
 
 			if("steal")
 				if(!istype(objective, /datum/objective/steal))

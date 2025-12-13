@@ -286,16 +286,24 @@
 		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	if(M.zone_selected == "head")
-		M.visible_message(\
-		"<span class='notice'>[M] pats [src] on the head.</span>",\
-		"<span class='notice'>You pat [src] on the head.</span>",\
-		)
-		return
-	M.visible_message(\
-	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-	"<span class='notice'>You hug [src].</span>",\
+
+	switch(M.zone_selected)
+		if("head")
+			M.visible_message(
+				"<span class='notice'>[M] pats [src] on the head.</span>",
+				"<span class='notice'>You pat [src] on the head.</span>",
+			)
+			return
+		if("l_hand", "r_hand")
+			M.emote("handshake")
+			return
+
+	M.visible_message(
+		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",
+		"<span class='notice'>You hug [src].</span>",
 	)
+
+
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.wear_suit)
