@@ -8,7 +8,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/surface_name = "surface"
 	var/cooker_id
 	var/obj/machinery/cooking/parent
-	var/temperature = J_LO
+	var/temperature = J_MED
 	var/timer = 0
 	var/cooktime
 	var/obj/item/reagent_containers/cooking/container

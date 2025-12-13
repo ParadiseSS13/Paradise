@@ -1,7 +1,7 @@
 // Examples
 /*
 	-- Will call the proc for all computers in the world, thats dir is 2.
-	CALL ex_act(1) ON /obj/machinery/computer IN world WHERE dir == 2
+	CALL ex_act(1) ON /obj/machinery/computer IN world WHERE dir == SOUTH
 	-- Will open a window with a list of all the closets in the world, with a link to VV them.
 	SELECT /obj/structure/closet/secure_closet/security/cargo IN world WHERE icon_off == "secoff"
 	-- Will change all the tube lights to green
@@ -15,20 +15,18 @@
 
 */
 
-/client/proc/SDQL2_query()
-	set category = "Debug"
-
-	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
-		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
-		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
+USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", VERB_CATEGORY_DEBUG)
+	if(!check_rights_client(R_PROCCALL, FALSE, client))  //Shouldn't happen... but just to be safe.
+		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(client)] attempted to execute a SDQL query!</span>")
+		log_admin("Non-admin [key_name(client)] attempted to execute a SDQL query!")
 		return
 
-	var/query_text = input("SDQL2 query") as message
+	var/query_text = input(client, "SDQL2 query") as message
 
 	if(!query_text || length(query_text) < 1)
 		return
 
-	run_sdql2_query(query_text)
+	client.run_sdql2_query(query_text)
 
 /client/proc/run_sdql2_query(query_text)
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
