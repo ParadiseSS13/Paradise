@@ -42,7 +42,7 @@
 	/// holds our component to modify
 	var/datum/component/inherent_radioactivity/rad_component
 	/// Is this rod craftable at all via fabricators, or do they require other means?
-	var/craftable = TRUE
+	var/craftable = FALSE
 	/// Does this rod require a science-upgraded fabricator?
 	var/upgrade_required = FALSE
 
@@ -127,7 +127,6 @@
 	var/heat_enrich_progress = 0
 	/// What heat enrichment results in
 	var/heat_enrich_result
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
@@ -162,6 +161,7 @@
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_URANIUM = 1000)
 
 /obj/item/nuclear_rod/fuel/weak_thorium
@@ -178,7 +178,6 @@
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
@@ -194,7 +193,6 @@
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/uranium_235
 	name = "uranium 235 fuel rod"
@@ -210,6 +208,7 @@
 	power_enrich_threshold = 10
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/thorium_salts
 	power_enrich_result = /obj/item/nuclear_rod/fuel/enriched_plutonium
+	craftable = TRUE
 	upgrade_required = TRUE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/plasma_injector,
@@ -232,7 +231,6 @@
 		/obj/item/nuclear_rod/fuel/uranium_235,
 		/obj/item/nuclear_rod/fuel,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/enriched_plutonium
 	name = "enriched plutonium fuel rod"
@@ -247,7 +245,6 @@
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/supermatter
 	name = "supermatter fuel rod"
@@ -263,7 +260,6 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
@@ -278,12 +274,12 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
 	desc = "The funniest of all fuel rods. Who knows what you might get out of it!"
 	gamma_rad = 300
+	craftable = TRUE
 	upgrade_required = TRUE
 
 /obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
@@ -304,7 +300,6 @@
 	alpha_rad = 250
 	beta_rad = 250
 	gamma_rad = 250
-	craftable = FALSE
 
 /// MARK: Moderator Rods
 
@@ -312,13 +307,13 @@
 	name = "any moderator rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "normal"
-	craftable = FALSE
 
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
 	desc = "A basic moderation rod filled with a variant of water comprised of deuterium instead of hydrogen atoms."
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
+	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/nuclear_rod/moderator/graphite
@@ -326,6 +321,7 @@
 	desc = "A nuclear moderation rod comprised primarily of layered graphite. A staple of fission reactor operation through the ages."
 	heat_amp_mod = 1.3
 	power_amp_mod = 1.6
+	craftable = TRUE
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 
@@ -335,6 +331,7 @@
 	max_durability = 5000
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.3
+	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
 
 /obj/item/nuclear_rod/moderator/plasma_agitator
@@ -349,7 +346,6 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/moderator/aluminum_reflector
 	name = "liquid aluminum plate reflector"
@@ -364,7 +360,6 @@
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/moderator/bluespace_agitator
 	name = "bluespace crystal agitator"
@@ -383,6 +378,7 @@
 	heat_amp_mod = 6
 	power_amp_mod = 3.3
 	reactor_overheat_modifier = 100
+	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
 	adjacent_requirements = list(
@@ -400,7 +396,6 @@
 	power_amp_mod = 3.9
 	reactor_overheat_modifier = 300
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
-	craftable = FALSE
 
 /// MARK: Coolant Rods
 
@@ -408,7 +403,6 @@
 	name = "any coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
-	craftable = FALSE
 
 
 /obj/item/nuclear_rod/coolant/light_water
@@ -417,6 +411,7 @@
 	heat_amount = -10
 	power_amount = -10 KW
 	reactor_overheat_modifier = 25
+	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
@@ -426,6 +421,7 @@
 	heat_amount = -4
 	heat_amp_mod = 0.6
 	power_amount = -15 KW
+	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
@@ -434,6 +430,7 @@
 	desc = "A specialized coolant rod filled with gaseous plasma. By feeding taking advantage of plasma's unique heat-absorbant properties, injecting it in small amounts around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
 	heat_amp_mod = 0.3
 	power_amp_mod = 1.2
+	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
@@ -443,6 +440,7 @@
 	heat_amount = -10
 	power_amp_mod = 0.9
 	heat_amp_mod = 0.7
+	craftable = TRUE
 	reactor_overheat_modifier = 50
 	power_amount = -5 KW
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
@@ -463,7 +461,6 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/coolant/steam_hammerjet
 	name = "steam hammerjet"
@@ -478,7 +475,6 @@
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/coolant/bluespace_displacer
 	name = "bluespace heat displacer"
@@ -489,6 +485,7 @@
 	power_amp_mod = 1.3
 	max_durability = INFINITY
 	reactor_overheat_modifier = 200
+	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
@@ -503,7 +500,6 @@
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,
 		)
-	craftable = FALSE
 
 /obj/item/nuclear_rod/coolant/condensed_spacematter
 	name = "condensed spacematter coolant rod"
@@ -511,6 +507,7 @@
 	heat_amp_mod = 0.2
 	max_durability = 2500
 	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
+	craftable = TRUE
 	upgrade_required = TRUE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel/enriched_plutonium,

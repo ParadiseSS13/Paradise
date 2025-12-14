@@ -1597,8 +1597,6 @@
 	if(requirements_met && !operational)
 		if(prob(20))
 			operational = TRUE
-			for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-
 			update_icon(UPDATE_OVERLAYS)
 			return
 	if(!requirements_met && operational) /// if it loses requirements, it wont immediately turn off
