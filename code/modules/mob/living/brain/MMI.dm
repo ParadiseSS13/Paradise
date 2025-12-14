@@ -41,14 +41,14 @@
 /obj/item/mmi/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/organ/internal/brain) && !brainmob) // Time to stick a brain in it --NEO
 		if(istype(used, /obj/item/organ/internal/brain/golem))
-			to_chat(user, "<span class='warning'>You can't find a way to plug [used] into [src].</span>")
+			to_chat(user, SPAN_WARNING("You can't find a way to plug [used] into [src]."))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/organ/internal/brain/B = used
 		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
+			to_chat(user, SPAN_WARNING("You aren't sure where this brain came from, but you're pretty sure it's a useless brain."))
 			return ITEM_INTERACT_COMPLETE
 		if(held_brain)
-			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
+			to_chat(user, SPAN_USERDANGER("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
 			CRASH("[user] tried to stick a [used] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
@@ -84,31 +84,31 @@
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
+			to_chat(user, SPAN_WARNING("You can't drop [B]!"))
 	if(istype(used, /obj/item/mmi_radio_upgrade))
 		if(radio)
-			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
+			to_chat(user, SPAN_WARNING("[src] already has a radio installed."))
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("<span class='notice'>[user] begins to install [used] into [src]...</span>", \
-			"<span class='notice'>You start to install [used] into [src]...</span>")
+		user.visible_message(SPAN_NOTICE("[user] begins to install [used] into [src]..."), \
+			SPAN_NOTICE("You start to install [used] into [src]..."))
 		if(do_after(user, 2 SECONDS, target=src))
 			if(user.drop_item())
-				user.visible_message("<span class='notice'>[user] installs [used] in [src].</span>", \
-					"<span class='notice'>You install [used] in [src].</span>")
+				user.visible_message(SPAN_NOTICE("[user] installs [used] in [src]."), \
+					SPAN_NOTICE("You install [used] in [src]."))
 				if(brainmob)
-					to_chat(brainmob, "<span class='notice'>MMI radio capability installed.</span>")
+					to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
 					install_radio()
 					qdel(used)
 					return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You can't drop [used]!</span>")
+				to_chat(user, SPAN_WARNING("You can't drop [used]!"))
 	if(istype(used, /obj/item/stack/nanopaste)) // MMIs can get EMP damaged too so this isn't just for robobrains
 		if(!brainmob)
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/nanopaste/nano = used
 		if(nano.use(1))
 			brainmob.rejuvenate()
-			to_chat(user, "<span class='notice'>You repair the damage on [src].</span>")
+			to_chat(user, SPAN_NOTICE("You repair the damage on [src]."))
 			return ITEM_INTERACT_COMPLETE
 
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
@@ -131,7 +131,7 @@
 /obj/item/mmi/activate_self(mob/user)
 	if(..() || !brainmob || !held_brain)
 		return
-	to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
+	to_chat(user, SPAN_NOTICE("You unlock and upend the MMI, spilling the brain onto the floor."))
 	dropbrain(get_turf(user))
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
