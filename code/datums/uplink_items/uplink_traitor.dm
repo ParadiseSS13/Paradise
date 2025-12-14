@@ -241,7 +241,7 @@
 
 /datum/uplink_item/jobspecific/meltdown_rod
 	name = "Nuclear Meltdown Rod"
-	desc = "A specially designed nuclear rod for the sole intent a gaurenteed meltdown of any reactor it's placed into."
+	desc = "A specially designed nuclear rod, guaranteed to cause the meltdown of any reactor it's placed into."
 	reference = "SMDR"
 	item = /obj/item/nuclear_rod/fuel/meltdown
 	cost = 25
