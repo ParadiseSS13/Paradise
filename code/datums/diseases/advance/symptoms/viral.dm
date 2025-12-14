@@ -24,9 +24,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1)
-			to_chat(M, "<span class='notice'>You feel off, but no different from before.</span>")
+			to_chat(M, SPAN_NOTICE("You feel off, but no different from before."))
 		if(5)
-			to_chat(M, "<span class='notice'>You feel better, but nothing interesting happens.</span>")
+			to_chat(M, SPAN_NOTICE("You feel better, but nothing interesting happens."))
 
 /*
 //////////////////////////////////////
@@ -60,9 +60,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(prob(A.progress * 2))
 		// randomly set the value of a minor disability block
-		to_chat(M, "<span class='notice'>You feel like something is changing</span>")
+		to_chat(M, SPAN_NOTICE("You feel like something is changing"))
 		A.affected_mob.dna.SetSEValue(pick(possible_blocks), rand(0, 4095))
 		domutcheck(A.affected_mob)
 	else
-		to_chat(M, "<span class='notice'>You feel a weird</span>")
+		to_chat(M, SPAN_NOTICE("You feel a weird"))
 

@@ -23,7 +23,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/pai_controller, new) // Global handler f
 		if(card.pai)
 			return
 		if(!isobserver(candidate.owner.mob)) //This stops pais from being downloaded twice.
-			to_chat(usr, "<span class='warning'>Error downloading pAI from NT_NET. Please check if the pAI listing is still available.</span>")
+			to_chat(usr, SPAN_WARNING("Error downloading pAI from NT_NET. Please check if the pAI listing is still available."))
 			return
 		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
 			return
@@ -354,7 +354,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/pai_controller, new) // Global handler f
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+					to_chat(O, SPAN_BOLDNOTICE("A pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)"))
 					//question(O.client)
 
 /datum/pai_controller/proc/check_recruit(mob/dead/observer/O)
