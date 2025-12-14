@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ////////////////////////////////
 /proc/message_admins(msg)
-	msg = "<span class='admin'><span class='prefix'>ADMIN LOG:</span> <span class='message'>[msg]</span></span>"
+	msg = SPAN_ADMIN(SPAN_PREFIX("ADMIN LOG:</span> <span class='message'>[msg]") )
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class='admin'><span class='prefix'>ATTACK:</span> <span class='message'>[text]</span></span>"
+		var/rendered = SPAN_ADMIN(SPAN_PREFIX("ATTACK:</span> <span class='message'>[text]") )
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
@@ -60,12 +60,12 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 			for(var/mob/O in GLOB.mob_list)
 				if(O.ckey && O.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+						to_chat(admin_to_notify, SPAN_WARNING("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 						return O
 			if(admin_to_notify)
-				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+				to_chat(admin_to_notify, SPAN_WARNING("admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		else if(admin_to_notify)
-			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+			to_chat(admin_to_notify, SPAN_WARNING("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
@@ -384,7 +384,7 @@ USER_VERB(end_round, R_SERVER, "End Round", \
 	log_admin("[key_name(client)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
 	SSticker.record_biohazard_results()
-	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
+	to_chat(world, SPAN_WARNING("<big><b>[input]</b></big>"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
 
@@ -394,7 +394,7 @@ USER_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world", V
 		if(!check_rights_client(R_SERVER, 0, client))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, chat_box_notice("<span class='notice'><b>[client.holder.fakekey ? "Administrator" : client.key] Announces:</b><br><br><p>[message]</p></span>"))
+		to_chat(world, chat_box_notice(SPAN_NOTICE("<b>[client.holder.fakekey ? "Administrator" : client.key] Announces:</b><br><br><p>[message]</p>")))
 		log_admin("Announce: [key_name(client)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
@@ -458,7 +458,7 @@ USER_VERB(start_server_now, R_SERVER, "Start Now", "Start the round RIGHT NOW", 
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[client.key] has started the game.[msg]</span>")
+		message_admins(SPAN_DARKMBLUE("[client.key] has started the game.[msg]"))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
@@ -685,7 +685,7 @@ USER_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Guests can't enter", VERB_C
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
 	log_admin("[key_name(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(client)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed."), 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -814,7 +814,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 
 		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(SPAN_ADMINNOTICE("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
@@ -840,7 +840,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(SPAN_ADMINNOTICE("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
@@ -860,7 +860,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core.</span>")
+		message_admins(SPAN_ADMINNOTICE("[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into an empty AI core.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
@@ -911,7 +911,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 			possible_targets += possible_target.current // Allows for admins to pick off station roles
 
 	if(!length(possible_targets))
-		to_chat(caller_mob, "<span class='warning'>No possible target found.</span>")
+		to_chat(caller_mob, SPAN_WARNING("No possible target found."))
 		return
 
 	possible_targets = sortAtom(possible_targets)

@@ -12,28 +12,28 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
+			. += SPAN_NOTICE("[src] are <b>screwed</b> to the floor.")
 		if(PLASTIC_FLAPS_DETACHED)
-			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
+			. += SPAN_NOTICE("[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.")
 
 /obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == PLASTIC_FLAPS_NORMAL)
-		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message(SPAN_WARNING("[user] starts unscrewing [src] from the floor..."), SPAN_NOTICE("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
 			return
 		state = PLASTIC_FLAPS_DETACHED
 		anchored = FALSE
-		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You unscrew [src] from the floor."))
 	else if(state == PLASTIC_FLAPS_DETACHED)
-		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message(SPAN_WARNING("[user] starts screwing [src] to the floor."), SPAN_NOTICE("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
 			return
 		state = PLASTIC_FLAPS_NORMAL
 		anchored = TRUE
-		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You screw [src] to the floor."))
 
 /obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
 	if(state != PLASTIC_FLAPS_DETACHED)

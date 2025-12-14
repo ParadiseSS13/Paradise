@@ -24,9 +24,9 @@
 	. = ..()
 
 	if(metal_stored >= metal_per_use)
-		. += "<span class='notice'>It is loaded and ready to apply an epidermal layer to a body part.</span>"
+		. += SPAN_NOTICE("It is loaded and ready to apply an epidermal layer to a body part.")
 	else
-		. += "<span class='notice'>It needs [metal_per_use - metal_stored] more metal sheets.</span>"
+		. += SPAN_NOTICE("It needs [metal_per_use - metal_stored] more metal sheets.")
 
 /obj/item/epidermal_applicator/proc/is_insertion_ready(mob/user)
 	if(!user)
@@ -38,14 +38,14 @@
 		var/obj/item/stack/sheet/metal/M = used
 		var/space_left = max_metal_stored - metal_stored
 		if(space_left <= 0)
-			to_chat(user, "<span class='warning'>[src] is already full!</span>")
+			to_chat(user, SPAN_NOTICE("[src] is already full!")
 			return ITEM_INTERACT_COMPLETE
 
 		var/to_load = min(space_left, M.amount)
 		M.use(to_load)
 		metal_stored += to_load
 
-		to_chat(user, "<span class='notice'>You load [to_load] sheet\s of metal into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src].")
 		return ITEM_INTERACT_COMPLETE
 
 	return NONE
@@ -55,7 +55,7 @@
 	// Allow easier self-application
 	var/zone = user.zone_selected
 	if(!zone)
-		to_chat(user, "<span class='warning'>You need to select a body part first!</span>")
+		to_chat(user, SPAN_NOTICE("You need to select a body part first!")
 		return
 
 	attack(user, user, null)
@@ -70,35 +70,35 @@
 
 	var/def_zone = user.zone_selected
 	if(!def_zone)
-		to_chat(user, "<span class='warning'>You need to select a body part first!</span>")
+		to_chat(user, SPAN_WARNING("You need to select a body part first!</span>")
 		return TRUE
 
 	var/mob/living/carbon/human/target = M
 	var/obj/item/organ/external/affected = target.get_organ(def_zone)
 
 	if(!affected)
-		to_chat(user, "<span class='warning'>[target] doesn't have a [parse_zone(def_zone)]!</span>")
+		to_chat(user, SPAN_WARNING("[target] doesn't have a [parse_zone(def_zone)]!")
 		return TRUE
 
 	// Show these identically so it can't be used to test whether a limb is synthetic or not.
 	if(!affected.is_robotic() || affected.has_synthetic_skin)
-		to_chat(user, "<span class='warning'>The [affected.name] doesn't need skin.</span>")
+		to_chat(user, SPAN_WARNING("The [affected.name] doesn't need skin.")
 		return TRUE
 
 	// Do not put skin on a monitor. No.
 	if(ismachineperson(target) && def_zone == BODY_ZONE_HEAD && affected.model)
 		var/datum/robolimb/R = GLOB.all_robolimbs[affected.model]
 		if(R && R.is_monitor)
-			to_chat(user, "<span class='warning'>The applicator fails to find purchase on your big cube head. Probably for the best.</span>")
+			to_chat(user, SPAN_WARNING("The applicator fails to find purchase on your big cube head. Probably for the best.")
 			return TRUE
 
 	// Check if we have enough metal
 	if(metal_stored < metal_per_use)
-		to_chat(user, "<span class='warning'>[src] needs [metal_per_use] metal to function.</span>")
+		to_chat(user, SPAN_WARNING("[src] needs [metal_per_use] metal to function.")
 		return TRUE
 
 	if(applying)
-		to_chat(user, "<span class='warning'>[src] is already in use!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already in use!")
 		return TRUE
 
 	// Start application process
@@ -146,8 +146,8 @@
 		chosen_identity = choice_map[chosen_identity_option]
 
 	user.visible_message(
-		"<span class='notice'>[user] begins applying synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name] with [src].</span>",
-		"<span class='notice'>You begin applying synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name]...</span>"
+		SPAN_NOTICE("[user] begins applying synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name] with [src]."),
+		SPAN_NOTICE("You begin applying synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name]...")
 	)
 
 	// Play start sound
@@ -205,11 +205,11 @@
 		target.UpdateDamageIcon()
 
 		user.visible_message(
-			"<span class='notice'>[user] applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name].</span>",
-			"<span class='notice'>You apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].</span>"
+			SPAN_NOTICE("[user] applies synthetic skin to [target == user ? "their" : "[target]'s"] [affected.name]."),
+			SPAN_NOTICE("You apply synthetic skin to [target == user ? "your" : "[target]'s"] [affected.name].")
 		)
 
 		if(target != user)
-			to_chat(target, "<span class='notice'>You feel a thin layer of synthetic skin form over your [affected.name].</span>")
+			to_chat(target, SPAN_NOTICE("You feel a thin layer of synthetic skin form over your [affected.name].")
 
 	applying = FALSE

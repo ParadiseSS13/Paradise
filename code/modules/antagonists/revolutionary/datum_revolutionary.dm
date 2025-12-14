@@ -27,7 +27,7 @@ RESTRICT_TYPE(/datum/antagonist/rev)
 
 /datum/antagonist/rev/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]!</span>")
+		to_chat(owner.current,SPAN_USERDANGER("You have been brainwashed! You are no longer a [special_role]!"))
 
 
 /datum/antagonist/rev/add_owner_to_gamemode()
@@ -54,5 +54,5 @@ RESTRICT_TYPE(/datum/antagonist/rev)
 	new_revhead.silent = TRUE
 	old_owner.add_antag_datum(new_revhead, SSticker.mode.get_rev_team())
 	new_revhead.silent = FALSE
-	to_chat(old_owner.current, "<span class='userdanger'>You have proved your devotion to the revolution! You are a head revolutionary now!</span>")
+	to_chat(old_owner.current, SPAN_USERDANGER("You have proved your devotion to the revolution! You are a head revolutionary now!"))
 

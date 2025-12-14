@@ -32,8 +32,8 @@ USER_VERB(admin_say, R_ADMIN, "Asay", "Asay", VERB_CATEGORY_HIDDEN, msg as text)
 				temp_message = replacetext(temp_message, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
 				temp_message = replacetext(temp_message, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
-			temp_message = "<span class='emoji_enabled'>[temp_message]</span>"
-			to_chat(C, "<span class='admin_channel'>ADMIN: <font color='[display_color]'>[key_name(client, 1)]</font> ([admin_jump_link(client.mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			temp_message = SPAN_EMOJI_ENABLED("[temp_message]")
+			to_chat(C, SPAN_ADMIN_CHANNEL("ADMIN: <font color='[display_color]'>[key_name(client, 1)]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[temp_message]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -64,8 +64,8 @@ USER_VERB(dev_say, R_ADMIN|R_DEV_TEAM, "Devsay", "Devsay", VERB_CATEGORY_HIDDEN,
 					display_name = "[client.holder.fakekey]/([client.key])"
 				else
 					display_name = client.holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			msg = SPAN_EMOJI_ENABLED("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -99,8 +99,8 @@ USER_VERB(staff_say, R_ADMIN|R_MENTOR|R_DEV_TEAM, "Staffsay", "Staffsay", VERB_C
 					display_name = "[client.holder.fakekey]/([client.key])"
 				else
 					display_name = client.holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
+			msg = SPAN_EMOJI_ENABLED("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[msg]")]</span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Staffsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -135,8 +135,8 @@ USER_VERB(mentor_say, R_ADMIN|R_MENTOR|R_MOD, "Msay", "Use mentorsay.", VERB_CAT
 					display_name = "[client.holder.fakekey]/([client.key])"
 				else
 					display_name = client.holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			msg = SPAN_EMOJI_ENABLED("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

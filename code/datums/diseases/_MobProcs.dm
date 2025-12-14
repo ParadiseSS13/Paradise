@@ -168,7 +168,7 @@ MARK: Helpers
 		return FALSE
 	if(notify_ghosts)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
+			to_chat(ghost, SPAN_DEADSAY("<b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!"))
 		message_admins("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
 		log_admin("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
 	AddDisease(D, respect_carrier)

@@ -175,5 +175,5 @@
 	if(!look_for_target(friend, potential_target) || !set_command_target(parent, potential_target))
 		return FALSE
 	var/suffix = pointed_reaction ? " [pointed_reaction]" : ""
-	parent.visible_message("<span class='warning'>[parent] follows [friend]'s gesture towards [potential_target][suffix]!</span>")
+	parent.visible_message(SPAN_WARNING("[parent] follows [friend]'s gesture towards [potential_target][suffix]!"))
 	return TRUE
