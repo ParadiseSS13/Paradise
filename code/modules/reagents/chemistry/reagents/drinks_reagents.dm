@@ -1213,9 +1213,9 @@
 	if(M.nutrition > NUTRITION_LEVEL_FULL && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
 		do_sparks(2, FALSE, M)
 		M.visible_message(
-			"<span class='notice'>[M] lets off a few sparks.</span>",
-			"<span class='notice'>You feel a little <i>too</i> charged up.</span>",
-			"<span class='notice'>Something fizzles nearby.</span>"
+			SPAN_NOTICE("[M] lets off a few sparks."),
+			SPAN_NOTICE("You feel a little <i>too</i> charged up."),
+			SPAN_NOTICE("Something fizzles nearby.")
 		)
 		microbattery.receive_damage(2, TRUE) // this drink is not great for you when you're already charged
 		COOLDOWN_START(src, drink_overcharge_cooldown, 30 SECONDS)
@@ -1225,7 +1225,7 @@
 		metabolization_rate += 0.8 // charging triple means burning through triple
 		M.nutrition += 2
 		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
-			to_chat(M, "<span class='notice'>You feel relief surging through your wires!</span>")
+			to_chat(M, SPAN_NOTICE("You feel relief surging through your wires!"))
 			COOLDOWN_START(src, drink_message_cooldown, 10 MINUTES)
 	return ..()
 
@@ -1274,7 +1274,7 @@
 		qdel(pick(/obj/effect/decal/cleanable/ in M))
 	else
 		M.clean_blood()
-		to_chat(M, "<span class='notice'>The foam cleans you as it bubbles through your components.</span>")
+		to_chat(M, SPAN_NOTICE("The foam cleans you as it bubbles through your components."))
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 	return ..()
 
@@ -1332,9 +1332,9 @@
 		var/beat_verbs = pick("assaults","batters")
 		M.Jitter(0.5 SECONDS)
 		M.visible_message(
-			"<span class='notice'>[M] is battered by an unseen assailant!</span>",
-			"<span class='notice'>The beverage [beat_verbs] you!</span>",
-			"<span class='warning'>You hear empty punches against metal!</span>"
+			SPAN_NOTICE("[M] is battered by an unseen assailant!"),
+			SPAN_NOTICE("The beverage [beat_verbs] you!"),
+			SPAN_WARNING("You hear empty punches against metal!")
 		)
 		if(prob(25))
 			M.KnockDown(2 SECONDS)
@@ -1370,7 +1370,7 @@
 		Mc.wetlevel -= 2
 	M.germ_level -= min(volume*20, M.germ_level)
 	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
-		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		to_chat(M, SPAN_NOTICE("Your systems prepare for a reboot."))
 		M.Paralyse(3 SECONDS)
 		M.Drowsy(10 SECONDS)
 		metabolization_rate += 2.6 // get rid of it faster after rebooting

@@ -34,7 +34,7 @@
 	. = ..()
 	name = "\proper the coffin of [user.mind.name]"
 	desc += "<br>This coffin's owner may not actually have been dear to anyone, or even departed quite yet.<br>\
-		<span class='warning'>It appears impervious to everything but lasers and fire! Especially fire!</span>"
+		[SPAN_WARNING("It appears impervious to everything but lasers and fire! Especially fire!")]"
 	vampire = user
 
 /obj/structure/closet/coffin/vampire/welder_act(mob/user, obj/item/I)
@@ -43,8 +43,8 @@
 	if(!I.tool_use_check(user, 30))	// it's a cursed coffin, you will need something better than a maintenance welder to ignite it
 		return ITEM_INTERACT_COMPLETE
 	igniting = TRUE
-	to_chat(user, "<span class='notice'>You attempt to set [src] on fire with [I].</span>")
-	to_chat(vampire, "<span class='warning'>Your lair is being attacked!</span>")
+	to_chat(user, SPAN_NOTICE("You attempt to set [src] on fire with [I]."))
+	to_chat(vampire, SPAN_WARNING("Your lair is being attacked!"))
 	if(do_after(user, 15 SECONDS, target = src))
 		fire_act()
 	igniting = FALSE
@@ -60,19 +60,19 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, fire_act_cooldown))
 		return
-	to_chat(vampire, "<span class='warning'>Your lair is being attacked!</span>")
+	to_chat(vampire, SPAN_WARNING("Your lair is being attacked!"))
 	switch(rand(1, 4))
 		if(1)
-			visible_message("<span class='danger'>The wood howls as fire bursts out from seemingly nowhere!</span>")
+			visible_message(SPAN_DANGER("The wood howls as fire bursts out from seemingly nowhere!"))
 			playsound(src, "sound/goonstation/voice/howl.ogg", 30)
 		if(2 to 3)
-			visible_message("<span class='danger'>The wood hisses as fire bursts out from seemingly nowhere!</span>")
+			visible_message(SPAN_DANGER("The wood hisses as fire bursts out from seemingly nowhere!"))
 			if(prob(50))
 				playsound(src, "sound/effects/unathihiss.ogg", 30)
 			else
 				playsound(src, "sound/effects/tajaranhiss.ogg", 30)
 		if(4)
-			visible_message("<span class='danger'>The wood growls as fire bursts out from seemingly nowhere!</span>")
+			visible_message(SPAN_DANGER("The wood growls as fire bursts out from seemingly nowhere!"))
 			playsound(src, 'sound/goonstation/voice/growl3.ogg', 30)
 	var/turf/new_fire = pick(oview(2, src))
 	new /obj/effect/fire(get_turf(new_fire), T20C, 30 SECONDS, 1)
@@ -81,7 +81,7 @@
 
 /obj/structure/closet/coffin/vampire/burn()
 	playsound(src, 'sound/hallucinations/wail.ogg', 20, extrarange = SOUND_RANGE_SET(5))
-	visible_message("<span class='danger'>Fire bursts out from [name] as it falls apart!</span>")
+	visible_message(SPAN_DANGER("Fire bursts out from [name] as it falls apart!"))
 	for(var/turf/T in range(1, src))
 		new /obj/effect/fire(T, T20C, 30 SECONDS, 1)
 	..()

@@ -13,9 +13,9 @@
 /obj/item/organ_extractor/examine(mob/user)
 	. = ..()
 	if(storedorgan)
-		. += "<span class='notice'>It has [storedorgan] floating around inside the jar!</span>"
-		. += "<span class='notice'>You can <b>Screwdriver</b> [src] to try to adjust [storedorgan]'s configuration.</span>"
-		. += "<span class='notice'>You can <b>Wrench</b> [src] to eject [storedorgan]!</span>"
+		. += SPAN_NOTICE("It has [storedorgan] floating around inside the jar!")
+		. += SPAN_NOTICE("You can <b>Screwdriver</b> [src] to try to adjust [storedorgan]'s configuration.")
+		. += SPAN_NOTICE("You can <b>Wrench</b> [src] to eject [storedorgan]!")
 
 /obj/item/organ_extractor/screwdriver_act(mob/living/user, obj/item/I)
 	if(storedorgan)
@@ -23,7 +23,7 @@
 
 /obj/item/organ_extractor/wrench_act(mob/living/user, obj/item/I)
 	if(storedorgan)
-		to_chat(user, "<span class='warning'>You unwrench the jar, and [storedorgan] falls onto the floor!</span>")
+		to_chat(user, SPAN_WARNING("You unwrench the jar, and [storedorgan] falls onto the floor!"))
 		storedorgan.forceMove(get_turf(user))
 		storedorgan = null
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
@@ -43,21 +43,21 @@
 
 /obj/item/organ_extractor/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(in_use)
-		to_chat(user, "<span class='warning'>[src] is already busy!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already busy!"))
 		return
 	if(!iscarbon(M))
-		to_chat(user, "<span class='warning'>ERROR: [M] has no organs to harvest!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [M] has no organs to harvest!"))
 		return
 
 	var/mob/living/carbon/C = M
 	if(!length(C.client_mobs_in_contents)) //Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past
-		to_chat(user, "<span class='warning'>ERROR: [C] has no soul trace to assist in targeting the drill bit!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [C] has no soul trace to assist in targeting the drill bit!"))
 		return
 	if(!IS_HORIZONTAL(C) && C.stat == CONSCIOUS)
-		to_chat(user, "<span class='warning'>ERROR: [C] is not restrained, and may move during the operation! Correction required.</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [C] is not restrained, and may move during the operation! Correction required."))
 		return
 	if(storedorgan)
-		to_chat(user, "<span class='warning'>NOTICE: Internal organ deteced. Beginning insertion procedure!</span>")
+		to_chat(user, SPAN_WARNING("NOTICE: Internal organ deteced. Beginning insertion procedure!"))
 		insert_organ(user, C)
 		return
 
@@ -67,36 +67,36 @@
 		in_use = FALSE
 		return
 	if(!istype(chosen_organ, /obj/item/organ/internal)) //Saftey first
-		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is not valid for removal for unknown reasons!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is not valid for removal for unknown reasons!"))
 		in_use = FALSE
 		return
 	if(istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) //This breaks shit
-		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!"))
 		in_use = FALSE
 		return
 	if(HAS_TRAIT(chosen_organ, TRAIT_ORGAN_INSERTED_WHILE_DEAD))
-		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] was inserted when [C] was dead, and has no soul trace to lock onto!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] was inserted when [C] was dead, and has no soul trace to lock onto!"))
 		in_use = FALSE
 		return
 
 	var/obj/item/organ/internal/internal_organ = chosen_organ
 	var/drilled_organ = internal_organ.parent_organ
-	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [M] and hold down the trigger.</span>")
-	to_chat(C, "<span class='danger'>You feel a lot of pain as [user] drills into your [drilled_organ]!</span>")
+	user.visible_message(SPAN_DANGER("[user] activates [src] and begins to drill into [C]!"), SPAN_WARNING("You level the extractor at [M] and hold down the trigger."))
+	to_chat(C, SPAN_DANGER("You feel a lot of pain as [user] drills into your [drilled_organ]!"))
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 
 	if(!advanced)
 		C.apply_damage(15, BRUTE, drilled_organ)
 	if(!do_after_once(user, insert_time, target = C))// Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something
-		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: Process interrupted!"))
 		in_use = FALSE
 		return
 	if(!internal_organ || !istype(internal_organ) || !(internal_organ.owner == C)) //Organ got deleted / moved somewhere else?
-		to_chat(user, "<span class='warning'>ERROR: unable to find the desired organ!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: unable to find the desired organ!"))
 		in_use = FALSE
 		return
 
-	user.visible_message("<span class='danger'>[user] removes [internal_organ] from [C]!</span>", "<span class='warning'>You remove [internal_organ] from [C] as it gets sucked into [src]'s internal container!</span>")
+	user.visible_message(SPAN_DANGER("[user] removes [internal_organ] from [C]!"), SPAN_WARNING("You remove [internal_organ] from [C] as it gets sucked into [src]'s internal container!"))
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 	C.apply_damage(10, BRUTE, drilled_organ)
 	internal_organ.remove(C)
@@ -105,31 +105,31 @@
 
 /obj/item/organ_extractor/proc/insert_organ(mob/user, mob/our_target)
 	if(!storedorgan)
-		to_chat(user, "<span class='warning'>[src] currently has no organ stored.</span>")
+		to_chat(user, SPAN_WARNING("[src] currently has no organ stored."))
 		return
 	if(in_use)
-		to_chat(user, "<span class='warning'>[src] is already busy!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already busy!"))
 		return
 
 	var/user_is_target = FALSE
 	if(user == our_target)
 		user_is_target = TRUE
 	if(istype(storedorgan, /obj/item/organ/internal/brain) && user_is_target)
-		to_chat(user, "<span class='warning'>It would be really stupid to replace your brain with another one.</span>")
+		to_chat(user, SPAN_WARNING("It would be really stupid to replace your brain with another one."))
 		return
 	if(!iscarbon(our_target))
 		return
 
 	var/mob/living/carbon/C = our_target
 	in_use = TRUE
-	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [user_is_target ? "yourself" : C] and hold down the trigger.</span>")
+	user.visible_message(SPAN_DANGER("[user] activates [src] and begins to drill into [C]!"), SPAN_WARNING("You level the extractor at [user_is_target ? "yourself" : C] and hold down the trigger."))
 	var/drilled_organ = storedorgan.parent_organ
 	if(!advanced)
 		C.apply_damage(5, BRUTE, drilled_organ)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 
 	if(!do_after_once(user, (user_is_target ? self_insert_time : insert_time), target = C))
-		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
+		to_chat(user, SPAN_WARNING("ERROR: Process interrupted!"))
 		in_use = FALSE
 		return
 
@@ -145,7 +145,7 @@
 		replaced.forceMove(get_turf(src))
 		if(istype(storedorgan, /obj/item/organ/internal/heart) && ((/obj/item/organ/internal/cyberimp/brain/sensory_enhancer in C.internal_organs) || C.reagents.addiction_threshold_accumulated[/datum/reagent/mephedrone]))
 			storedorgan.damage = 40 // Damage the heart so you can't endlessly OD for cheap easily.
-			to_chat(user, "<span class='warning'>CAUTION: Crystalized mephedrone has bounced off the drill into [storedorgan], causing internal damage!</span>")
+			to_chat(user, SPAN_WARNING("CAUTION: Crystalized mephedrone has bounced off the drill into [storedorgan], causing internal damage!"))
 	SSblackbox.record_feedback("tally", "o_implant_extract", 1, "[storedorgan.type]")
 	storedorgan.insert(C)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)

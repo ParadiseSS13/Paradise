@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
+	. += SPAN_NOTICE("Metal is used in various different construction sequences.")
 
 /obj/item/stack/sheet/metal/examine_more(mob/user)
 	. = ..()
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	var/mob/living/silicon/robot/robot = user
 	if(!istype(robot.module, /obj/item/robot_module/drone))
-		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption Machine, or by picking it up from the ground.</span>"
+		. += SPAN_NOTICE("You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption Machine, or by picking it up from the ground.")
 
 /obj/item/stack/sheet/metal/cyborg/drone
 	energy_type = /datum/robot_storage/energy/metal
@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		var/atom/droploc = drop_location()
 		if(use(1))
 			playsound(I, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
-			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
+			to_chat(user, SPAN_NOTICE("You stamp the cardboard! It's a clown box! Honk!"))
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
 		. = ..()
@@ -608,12 +608,12 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 
 /obj/item/stack/sheet/runed_metal/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, SPAN_WARNING("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(usr.holy_check())
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, SPAN_WARNING("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()

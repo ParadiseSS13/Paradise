@@ -70,14 +70,8 @@ SUBSYSTEM_DEF(debugview)
 	maptext_width = viewsizes[1] * world.icon_size
 
 // Make a verb for dumping full SS stats
-/client/proc/ss_breakdown()
-	set name = "SS Info Breakdown"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
-		return
-
-	var/datum/browser/popup = new(usr, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
+USER_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", VERB_CATEGORY_DEBUG)
+	var/datum/browser/popup = new(client, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
 
 	var/list/html = list()
 	html += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"

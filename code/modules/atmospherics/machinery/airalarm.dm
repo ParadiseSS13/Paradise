@@ -858,7 +858,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return UI_CLOSE
 
 	if(aidisabled && (is_ai(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, SPAN_WARNING("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
@@ -923,7 +923,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 						return
 
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
-						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
+						message_admins(SPAN_BOLDANNOUNCEOOC("[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!"))
 						return
 
 					mode = AALARM_MODE_CUSTOM
@@ -1039,7 +1039,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
+				to_chat(usr, SPAN_WARNING("Temperature must be between [min_temperature_c]C and [max_temperature_c]C"))
 			else
 				target_temperature = input_temperature
 
@@ -1050,7 +1050,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
+			user.visible_message(SPAN_WARNING("Sparks fly out of \the [src]!"), SPAN_NOTICE("You emag \the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
@@ -1065,10 +1065,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
-					to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+					to_chat(user, SPAN_NOTICE("You [locked ? "lock" : "unlock"] the Air Alarm interface."))
 					SStgui.update_uis(src)
 				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+					to_chat(user, SPAN_WARNING("Access denied."))
 
 				return ITEM_INTERACT_COMPLETE
 
@@ -1076,10 +1076,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 			if(iscoil(used))
 				var/obj/item/stack/cable_coil/coil = used
 				if(coil.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+					to_chat(user, SPAN_WARNING("You need more cable for this!"))
 					return ITEM_INTERACT_COMPLETE
 
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
+				to_chat(user, SPAN_NOTICE("You wire [src]!"))
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
 
@@ -1090,7 +1090,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return ITEM_INTERACT_COMPLETE
 		if(AIR_ALARM_FRAME)
 			if(istype(used, /obj/item/airalarm_electronics))
-				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+				to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				qdel(used)
 				buildstage = AIR_ALARM_UNWIRED
@@ -1185,22 +1185,22 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/AltClick(mob/user)
 	if(Adjacent(user) && allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+		to_chat(user, SPAN_NOTICE("You [locked ? "lock" : "unlock"] the Air Alarm interface."))
 	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.</span>"
+			. += SPAN_NOTICE("Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.")
 		if(AIR_ALARM_UNWIRED)
-			. += "<span class='notice'>The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.</span>"
+			. += SPAN_NOTICE("The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.")
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
+				. += SPAN_NOTICE("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
 			else
-				. += "<span class='notice'>You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.</span>"
+				. += SPAN_NOTICE("You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.")
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)

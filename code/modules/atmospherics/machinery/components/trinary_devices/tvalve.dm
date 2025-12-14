@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Click this to toggle the mode. The direction with the dot is where the gas will flow to. The gas flows from the opposite side or the one with the uninterrupted line.</span>"
+	. += SPAN_NOTICE("Click this to toggle the mode. The direction with the dot is where the gas will flow to. The gas flows from the opposite side or the one with the uninterrupted line.")
 
 /obj/machinery/atmospherics/trinary/tvalve/bypass
 	icon_state = "map_tvalve1"
@@ -142,7 +142,7 @@
 	if(!has_power())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, SPAN_ALERT("Access denied."))
 		return
 	..()
 

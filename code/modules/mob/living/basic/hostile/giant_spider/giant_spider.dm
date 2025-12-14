@@ -65,7 +65,7 @@
 
 /mob/living/basic/giant_spider/proc/create_web()
 	var/T = loc
-	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to secrete a sticky substance."))
 	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop spinning a web.", interaction_key = "spider_web_create"))
 		return
 	new /obj/structure/spider/stickyweb(T)
@@ -121,7 +121,7 @@
 			return
 
 	if(cocoon_target)
-		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		visible_message(SPAN_NOTICE("[src] begins to secrete a sticky substance around [cocoon_target]."))
 		if(!do_after_once(src, 5 SECONDS, target = cocoon_target, attempt_cancel_message = "You stop wrapping [cocoon_target].", interaction_key = "spider_web_wrap"))
 			return
 		if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src, cocoon_target) <= 1)
@@ -149,7 +149,7 @@
 				C.pixel_x = L.pixel_x
 				C.pixel_y = L.pixel_y
 				fed++
-				visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
+				visible_message(SPAN_DANGER("[src] sticks a proboscis into [L] and sucks a viscous substance out."))
 
 				break
 			if(large_cocoon)
@@ -158,12 +158,12 @@
 /mob/living/basic/giant_spider/nurse/proc/lay_spider_eggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, SPAN_NOTICE("There is already a cluster of eggs here!"))
 		return
 	if(!fed)
-		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
+		to_chat(src, SPAN_WARNING("You are too hungry to do this!"))
 		return
-	visible_message("<span class='notice'>[src] begins to lay a cluster of eggs.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to lay a cluster of eggs."))
 	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop laying eggs.", interaction_key = "spider_egg_lay"))
 		return
 	var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(loc)
