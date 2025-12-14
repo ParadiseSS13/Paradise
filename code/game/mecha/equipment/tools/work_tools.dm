@@ -52,7 +52,7 @@
 				if(chamber.held_rod)
 					if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
 						chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
-						chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into cargo compartment.</span>")
+						chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
 						cargo_holder.cargo += chamber.held_rod
 						chamber.held_rod.forceMove(chassis)
 						chamber.held_rod = null
