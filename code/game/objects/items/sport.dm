@@ -21,7 +21,7 @@
 		user.unequip(src)
 		user.put_in_inactive_hand(src)
 	else
-		to_chat(user, "<span class='warning'>You can't dribble to an occupied hand!</span>")
+		to_chat(user, SPAN_WARNING("You can't dribble to an occupied hand!"))
 
 /obj/item/beach_ball/baseball
 	name = "baseball"
@@ -71,16 +71,16 @@
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, SPAN_WARNING("You need a better grip to do that!"))
 			return ITEM_INTERACT_COMPLETE
 		G.affecting.forceMove(loc)
 		G.affecting.Weaken(10 SECONDS)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
+		visible_message(SPAN_WARNING("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return ITEM_INTERACT_COMPLETE
 	else if(isitem(W) && get_dist(src,user) <= 1)
 		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
+		visible_message(SPAN_NOTICE("[user] dunks [W] into [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -88,9 +88,9 @@
 		var/atom/movable/thrower = throwingdatum?.get_thrower()
 		if(prob(50) || HAS_TRAIT(thrower, TRAIT_BADASS) || HAS_TRAIT(thrower, TRAIT_COOL))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
+			visible_message(SPAN_NOTICE("Swish! [AM] lands in [src]."))
 		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			visible_message(SPAN_DANGER("[AM] bounces off of [src]'s rim!"))
 			return ..()
 	else
 		return ..()

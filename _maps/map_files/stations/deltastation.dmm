@@ -10627,13 +10627,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson{
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
@@ -10643,6 +10636,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "aRc" = (
@@ -10666,6 +10660,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "aRf" = (
@@ -38867,6 +38866,7 @@
 	pixel_y = 21
 	},
 /obj/effect/turf_decal/tiles/department/security,
+/obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "cTD" = (
@@ -39882,6 +39882,10 @@
 "cYw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tiles/department/security,
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "cYy" = (
@@ -47146,6 +47150,17 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
+"dLE" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security,
+/obj/structure/sink/directional/south,
+/obj/structure/mirror{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/permabrig)
 "dLL" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tiles/neutral/corner{
@@ -54003,6 +54018,11 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/security,
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 1";
+	network = list("Prison","SS13");
+	dir = 10
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "fQI" = (
@@ -55880,16 +55900,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/port2)
 "gIW" = (
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 2";
-	dir = 5;
-	network = list("Prison","SS13")
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/toilet/directional/west,
 /obj/effect/turf_decal/tiles/department/security,
+/obj/structure/window/reinforced,
+/obj/structure/toilet/directional/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "gJT" = (
@@ -59512,6 +59528,18 @@
 	},
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
+"itU" = (
+/obj/machinery/cryopod/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security,
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 2";
+	dir = 6;
+	network = list("Prison","SS13")
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "itX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -72385,9 +72413,16 @@
 /area/station/maintenance/fsmaint)
 "obm" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tiles/department/security,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/food/tofu,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "obL" = (
@@ -94592,14 +94627,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "xdo" = (
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 1";
-	network = list("Prison","SS13");
-	dir = 4
-	},
-/obj/machinery/light/small,
-/obj/structure/toilet/directional/west,
 /obj/effect/turf_decal/tiles/department/security,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/toilet/directional/south,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "xdN" = (
@@ -95449,6 +95484,7 @@
 	pixel_y = -25
 	},
 /obj/effect/turf_decal/tiles/department/security,
+/obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "xwD" = (
@@ -149680,7 +149716,7 @@ lWb
 uOS
 vZQ
 vVm
-lWb
+dLE
 ygH
 aaa
 aaa
@@ -149931,7 +149967,7 @@ mnT
 ecm
 mnT
 ygH
-fQx
+itU
 iUt
 xvY
 ygH

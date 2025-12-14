@@ -33,9 +33,9 @@
 /obj/item/gripper/examine(mob/user)
 	. = ..()
 	if(!gripped_item)
-		. += "<span class='notice'>[src] is empty.</span>"
+		. += SPAN_NOTICE("[src] is empty.")
 		return
-	. += "<span class='notice'>[src] is currently holding [gripped_item].</span>"
+	. += SPAN_NOTICE("[src] is currently holding [gripped_item].")
 
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
@@ -53,10 +53,10 @@
 
 /obj/item/gripper/proc/drop_gripped_item(mob/user, silent = FALSE)
 	if(!gripped_item)
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty."))
 		return FALSE
 	if(!silent)
-		to_chat(user, "<span class='warning'>You drop [gripped_item].</span>")
+		to_chat(user, SPAN_WARNING("You drop [gripped_item]."))
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 	return TRUE
@@ -64,7 +64,7 @@
 /obj/item/gripper/activate_self(mob/user)
 	. = ..()
 	if(!gripped_item)
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(gripped_item.new_attack_chain)
@@ -107,12 +107,12 @@
 		var/obj/item/I = target
 		// Make sure the item is something the gripper can hold
 		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
-			to_chat(user, "<span class='notice'>You collect [I].</span>")
+			to_chat(user, SPAN_NOTICE("You collect [I]."))
 			I.forceMove(src)
 			gripped_item = I
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
+		to_chat(user, SPAN_WARNING("You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it."))
 		return ITEM_INTERACT_COMPLETE
 
 	// Everything past this point requires being able to engineer.
@@ -132,8 +132,8 @@
 			A.charging = APC_NOT_CHARGING
 			A.update_icon()
 			user.visible_message(
-				"<span class='warning'>[user] removes the cell from [A]!</span>",
-				"<span class='warning'>You remove the cell from [A].</span>"
+				SPAN_WARNING("[user] removes the cell from [A]!"),
+				SPAN_WARNING("You remove the cell from [A].")
 				)
 		return ITEM_INTERACT_COMPLETE
 
@@ -146,8 +146,8 @@
 			cell_charger.charging.forceMove(src)
 			cell_charger.removecell()
 		user.visible_message(
-			"<span class='notice'>[user] removes the cell from [cell_charger].</span>",
-			"<span class='notice'>You remove the cell from [cell_charger].</span>"
+			SPAN_NOTICE("[user] removes the cell from [cell_charger]."),
+			SPAN_NOTICE("You remove the cell from [cell_charger].")
 			)
 		return ITEM_INTERACT_COMPLETE
 
@@ -158,8 +158,8 @@
 		L.forceMove(src)
 		gripped_item = L
 		user.visible_message(
-			"<span class='notice'>[user] removes [L] from [light].</span>",
-			"<span class='notice'>You remove [L] from [light].</span>"
+			SPAN_NOTICE("[user] removes [L] from [light]."),
+			SPAN_NOTICE("You remove [L] from [light].")
 			)
 		return ITEM_INTERACT_COMPLETE
 
@@ -193,16 +193,16 @@
 			pickup_target.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message(
-				"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",
-				"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>"
+				SPAN_NOTICE("[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!"),
+				SPAN_NOTICE("You shake [pickup_target] trying to wake [pickup_target.p_them()] up!")
 				)
 			return
 
 	if(user.a_intent == INTENT_HELP)
 		if(target == user)
 			user.visible_message(
-				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>",
-				"<span class='notice'>You give yourself a hug to make yourself feel better.</span>"
+				SPAN_NOTICE("[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better."),
+				SPAN_NOTICE("You give yourself a hug to make yourself feel better.")
 				)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return
@@ -216,8 +216,8 @@
 
 		if(user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
-				"<span class='notice'>[user] playfully boops [target] on the head.</span>",
-				"<span class='notice'>You playfully boop [target] on the head.</span>"
+				SPAN_NOTICE("[user] playfully boops [target] on the head."),
+				SPAN_NOTICE("You playfully boop [target] on the head.")
 				)
 			user.do_attack_animation(target, ATTACK_EFFECT_BOOP)
 			playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
@@ -225,13 +225,13 @@
 
 		if(ishuman(target))
 			user.visible_message(
-				"<span class='notice'>[user] hugs [target] to make [target.p_them()] feel better.</span>",
-				"<span class='notice'>You hug [target] to make [target.p_them()] feel better.</span>"
+				SPAN_NOTICE("[user] hugs [target] to make [target.p_them()] feel better."),
+				SPAN_NOTICE("You hug [target] to make [target.p_them()] feel better.")
 				)
 		else
 			user.visible_message(
-				"<span class='notice'>[user] pets [target]!</span>",
-				"<span class='notice'>You pet [target]!</span>"
+				SPAN_NOTICE("[user] pets [target]!"),
+				SPAN_NOTICE("You pet [target]!")
 				)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		return
@@ -239,23 +239,23 @@
 	if(user.a_intent == INTENT_HARM && !emagged)
 		if(target == user)
 			user.visible_message(
-			"<span class='notice'>[user] gives [user.p_themselves()] a firm bear-hug to make [user.p_themselves()] feel better.</span>",
-			"<span class='notice'>You give yourself a firm bear-hug to make yourself feel better.</span>"
+			SPAN_NOTICE("[user] gives [user.p_themselves()] a firm bear-hug to make [user.p_themselves()] feel better."),
+			SPAN_NOTICE("You give yourself a firm bear-hug to make yourself feel better.")
 			)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return
 
 		if(!ishuman(target) || user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
-				"<span class='warning'>[user] bops [target] on the head!</span>",
-				"<span class='warning'>You bop [target] on the head!</span>"
+				SPAN_WARNING("[user] bops [target] on the head!"),
+				SPAN_WARNING("You bop [target] on the head!")
 				)
 			user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 		else
 			user.visible_message(
-				"<span class='warning'>[user] hugs [target] in a firm bear-hug! [target] looks uncomfortable...</span>",
-				"<span class='warning'>You hug [target] firmly to make [target.p_them()] feel better! [target] looks uncomfortable...</span>"
+				SPAN_WARNING("[user] hugs [target] in a firm bear-hug! [target] looks uncomfortable..."),
+				SPAN_WARNING("You hug [target] firmly to make [target.p_them()] feel better! [target] looks uncomfortable...")
 				)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		return
@@ -266,8 +266,8 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='danger'>[user] punches [user.p_themselves()] in the face!.</span>",
-			"<span class='userdanger'>You punch yourself in the face!</span>"
+			SPAN_DANGER("[user] punches [user.p_themselves()] in the face!."),
+			SPAN_USERDANGER("You punch yourself in the face!")
 			)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
@@ -278,8 +278,8 @@
 		// Try to punch them in the face... Unless it fell off or something.
 		if(user.zone_selected == BODY_ZONE_HEAD && target.get_organ("head"))
 			user.visible_message(
-				"<span class='danger'>[user] punches [target] squarely in the face!</span>",
-				"<span class='danger'>You punch [target] in the face!</span>"
+				SPAN_DANGER("[user] punches [target] squarely in the face!"),
+				SPAN_DANGER("You punch [target] in the face!")
 				)
 			var/obj/item/organ/external/head/their_face = target.get_organ("head")
 			user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
@@ -289,8 +289,8 @@
 			return
 
 	user.visible_message(
-		"<span class='danger'>[user] crushes [target] in [user.p_their()] grip!</span>",
-		"<span class='danger'>You crush [target] in your grip!</span>"
+		SPAN_DANGER("[user] crushes [target] in [user.p_their()] grip!"),
+		SPAN_DANGER("You crush [target] in your grip!")
 		)
 	playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 	target.adjustBruteLoss(15)

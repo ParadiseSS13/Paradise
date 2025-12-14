@@ -89,7 +89,7 @@
 	return scrambled_text
 
 /datum/language/proc/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return SPAN_MESSAGE("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
@@ -108,11 +108,11 @@
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
-	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [get_spoken_verb(message)], [format_message(message)]</span></i>"
+	var/msg = "<i><span class='game say'>[name], [SPAN_NAME("[speaker_mask]")] [get_spoken_verb(message)], [format_message(message)]</span></i>"
 
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player, /mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], [SPAN_NAME("[speaker_mask]")] ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
@@ -143,7 +143,7 @@
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
 /datum/language/noise/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return SPAN_MESSAGE("<span class='[colour]'>[message]</span>")
 
 /datum/language/noise/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
@@ -350,20 +350,20 @@
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(speaker.mind?.miming) // Because its a hivemind, mimes would be able to speak otherwise
-		to_chat(speaker,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
+		to_chat(speaker,SPAN_WARNING("You can't communicate without breaking your vow of silence."))
 		return FALSE
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
 		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
 		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
-			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
+			to_chat(speaker,SPAN_WARNING("You can't communicate without the ability to use your hands!"))
 			return FALSE
 	if(HAS_TRAIT(speaker, TRAIT_HANDS_BLOCKED))
-		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
+		to_chat(speaker,SPAN_WARNING("You can't communicate while unable to move your hands to your head!"))
 		return FALSE
 
-	speaker.visible_message("<span class='notice'>[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message(SPAN_NOTICE("[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 
@@ -607,12 +607,12 @@
 	log_say(log_message, speaker)
 	speaker.create_log(SAY_LOG, log_message)
 
-	var/list/message_start = list("<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>") //Strings as lists lets you add blocks of text much easier
-	var/list/message_body = list("<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>")
+	var/list/message_start = list("<i><span class='game say'>[name], [SPAN_NAME("[speaker.name]")]") //Strings as lists lets you add blocks of text much easier
+	var/list/message_body = list(SPAN_MESSAGE("[speaker.say_quote(message)],</i>[SPAN_ROBOT("\"[message]\"")]</span>"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/list/message_start_dead = list("<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>")
+			var/list/message_start_dead = list("<i><span class='game say'>[name], [SPAN_NAME("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]")
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)
 
@@ -622,7 +622,7 @@
 		else if(drone_only && !isdrone(S))
 			continue
 		else if(is_ai(S))
-			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>")
+			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[SPAN_NAME("[speaker.name]")]</a>")
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/borg = S
 			if(borg.connected_ai?.name == speaker.name)
@@ -639,7 +639,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
+		M.show_message("<i><span class='game say'>[SPAN_NAME("synthesised voice")] [SPAN_MESSAGE("beeps, \"beep beep beep\"")]</span></i>",2)
 
 /datum/language/binary/drone
 	name = "Drone Talk"

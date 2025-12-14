@@ -180,7 +180,7 @@
 			if(!istype(transfer_to) || transfer_to == src)
 				return //account no longer exists or something fucked is going on
 			if(transfer_funds(user, transfer_amount, transfer_to))
-				to_chat(user, "<span class='notice'>NanoBank: Transfer Successful</span>")
+				to_chat(user, SPAN_NOTICE("NanoBank: Transfer Successful"))
 				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)
@@ -199,7 +199,7 @@
 			if(!istype(request_from) || request_from == user_account)
 				return //account no longer exists or they're trying to send to themselves
 			if(create_fund_request(user, transfer_amount, purpose, request_from))
-				to_chat(user, "<span class='notice'>NanoBank: Transfer Request Submitted</span>")
+				to_chat(user, SPAN_NOTICE("NanoBank: Transfer Request Submitted"))
 				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)
@@ -222,9 +222,9 @@
 				attempt_pin = input_account_pin(user)
 			if(account_database.try_authenticate_login(user_account, attempt_pin, FALSE, FALSE, FALSE))
 				user_account.security_level = new_sec_level
-				to_chat(user, "<span class='notice'>Nanobank: account security set to [new_sec_level == ACCOUNT_SECURITY_ID ? "*Account Number Only*" : "*Require Pin Entry*"]</span>")
+				to_chat(user, SPAN_NOTICE("Nanobank: account security set to [new_sec_level == ACCOUNT_SECURITY_ID ? "*Account Number Only*" : "*Require Pin Entry*"]"))
 			else
-				to_chat(user, "<span class='warning'>Authentification Failure: incorrect pin.</span>")
+				to_chat(user, SPAN_WARNING("Authentification Failure: incorrect pin."))
 
 		if("purchase_premium")
 			if(premium_version)
@@ -277,12 +277,12 @@
 
 /datum/data/pda/app/nanobank/proc/attempt_login(tried_account_num, tried_pin, mob/user)
 	if(!tried_account_num)
-		to_chat(user, "<span class='warning'>Authentification Failure: Account number not found.</span>")
+		to_chat(user, SPAN_WARNING("Authentification Failure: Account number not found."))
 		return FALSE
 
 	var/datum/money_account/attempt_account = account_database.find_user_account(tried_account_num, include_departments = TRUE)
 	if(!attempt_account)
-		to_chat(user, "<span class='warning'>Authentification Failure: User Account Not Found.</span>")
+		to_chat(user, SPAN_WARNING("Authentification Failure: User Account Not Found."))
 		return FALSE
 
 	if(account_database.try_authenticate_login(attempt_account, tried_pin, TRUE, FALSE, FALSE))
@@ -337,7 +337,7 @@
 	return attempt_pin
 
 /datum/data/pda/app/nanobank/proc/error_message(mob/user, message)
-	to_chat(user, "<span class='warning'>ERROR: [message].</span>")
+	to_chat(user, SPAN_WARNING("ERROR: [message]."))
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 
@@ -363,7 +363,7 @@
 	if(ishuman(pda.loc))
 		var/mob/user = pda.loc
 		if(user.stat != UNCONSCIOUS) // Awake or dead people can see their messages
-			to_chat(user, "<span class='notice'>NanoBank: Paycheck of [amount] credits received</span>")
+			to_chat(user, SPAN_NOTICE("NanoBank: Paycheck of [amount] credits received"))
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/ping.ogg', 50, 0)
 
@@ -453,10 +453,10 @@
 
 /datum/data/pda/app/nanobank/proc/pay_with_account(user, amount, purpose, transactor, datum/money_account/target)
 	if(user_account.suspended)
-		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: account suspended."))
 		return FALSE
 	if(!account_database.charge_account(user_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
-		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")
+		to_chat(user, SPAN_WARNING("Unable to complete transaction: account has insufficient credit balance to purchase this."))
 		return FALSE
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
@@ -472,7 +472,7 @@
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
-		to_chat(user, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: incorrect credentials."))
 		return FALSE
 	return TRUE
 

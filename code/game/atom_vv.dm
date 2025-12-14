@@ -47,25 +47,20 @@
 		log_admin("[key_name(usr)] has rotated \the [src]")
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EXPLODE])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_explosion(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_explosion, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EMP])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_emp(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_emp, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_ADDREAGENT]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 
 		if(!reagents)
-			var/amount = input(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50) as num
-			if(amount)
-				create_reagents(amount)
+			var/amount = tgui_input_number(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50, 1000000, 1)
+			if(!amount)
+				return
+			create_reagents(amount)
 
 		var/chosen_id
 		var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
@@ -76,7 +71,7 @@
 				chosen_id = tgui_input_text(usr, "Enter the ID of the reagent you want to add.", "Choose a reagent")
 
 				if(!chosen_id) // Get me out of here!
-					to_chat(usr, "<span class='warning'>No input detected.</span>")
+					to_chat(usr, SPAWN_WARNING("No input detected."))
 					return
 
 				for(var/ID in reagent_options)
@@ -85,7 +80,7 @@
 						break
 
 				if(!valid_id)
-					to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+					to_chat(usr, SPAN_WARNING("A reagent with that ID doesn't exist!</span>"))
 					return
 
 			if("Choose ID")
@@ -95,8 +90,8 @@
 			var/amount = tgui_input_number(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume)
 			if(amount)
 				reagents.add_reagent(chosen_id, amount)
-				log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]")
-				message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]</span>")
+				log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
+				message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
 
 	if(href_list[VV_HK_EDITREAGENTS])
 		if(!check_rights(R_DEBUG|R_ADMIN))

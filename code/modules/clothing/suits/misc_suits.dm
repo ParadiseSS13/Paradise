@@ -272,14 +272,14 @@
 	. = ..()
 	if(slot == ITEM_SLOT_OUTER_SUIT)
 		user.faction += "carp"
-		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
+		to_chat(user, SPAN_CULT("You feel a something gnash in the back of your mind- the carp are your friends, not your foe."))
 		playsound(loc, 'sound/weapons/bite.ogg', 35, TRUE)
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon/dropped(mob/user)
 	. = ..()
 	if(user)
 		user.faction -= "carp"
-		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
+		to_chat(user, SPAN_CULT("A sudden calm fills the gnashing void of your mind- you're alone now."))
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(istype(wear_suit, /obj/item/clothing/suit/hooded/carp_costume/dragon))
@@ -927,6 +927,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Basic jacket and subtypes
 /obj/item/clothing/suit/sec_greatcoat
@@ -1296,7 +1297,7 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>This robe is made of totally reinforced fibers, granting it 100% not superficial protection. More importantly the robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn.</span>"
+		. += SPAN_WARNING("This robe is made of totally reinforced fibers, granting it 100% not superficial protection. More importantly the robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn.")
 
 /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction
@@ -1328,12 +1329,12 @@
 	// Do not allow the staff to recharge if it's more than 3 tiles away from the robe. If get_dist returns 0, the robe and the staff in the same tile.
 	if(!(get_dist(H, linked_staff) <= 3))
 		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
-			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
+			to_chat(H, SPAN_WARNING("Your staff is unable to charge at this range. Get closer!"))
 		return
 
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
-		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
+		to_chat(H, SPAN_NOTICE("Faith renewed; ready to convert new followers."))
 
 /obj/item/clothing/suit/tailcoat
 	name = "victorian tailcoat"
@@ -1401,7 +1402,7 @@
 	var/obj/item/clothing/suit/hooded/abaya/abaya = new abaya_type(get_turf(src))
 	L.unequip(src)
 	L.put_in_active_hand(abaya)
-	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
+	to_chat(L, SPAN_NOTICE("You are now wearing \a [choice]. Allahu Akbar!"))
 	qdel(src)
 
 /obj/item/clothing/suit/hooded/abaya/attack_self__legacy__attackchain(mob/user)

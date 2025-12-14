@@ -17,13 +17,13 @@
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		. += "<span class='sans'>There are small glue ejectors all over the bomb.</span>"
+		. += SPAN_SANS("There are small glue ejectors all over the bomb.")
 
 /obj/item/grenade/syndieminibomb/fake/attack_self__legacy__attackchain(mob/user)
 	if(!active)
 		set_nodrop(TRUE, user)
-		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
-		to_chat(user, "<span class='sans'>Uh oh.</span>")
+		to_chat(user, SPAN_USERDANGER("As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!"))
+		to_chat(user, SPAN_SANS("Uh oh."))
 	. = ..()
 
 /obj/item/grenade/syndieminibomb/pen
@@ -37,5 +37,5 @@
 
 /obj/item/grenade/syndieminibomb/pen/attack_self__legacy__attackchain(mob/user)
 	if(!active)
-		visible_message("<span class='notice'>[user] fumbles with [src]!</span>")
+		visible_message(SPAN_NOTICE("[user] fumbles with [src]!"))
 	. = ..()
