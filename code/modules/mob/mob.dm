@@ -103,15 +103,16 @@
 	if(!environment)
 		return
 
-	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen()] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen()] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins()] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
-	t+= "<span class='notice'>Hydrogen: [environment.hydrogen()] \n</span>"
+	var/t = SPAN_NOTICE("Coordinates: [x],[y] \n")
+	t+= SPAN_WARNING("Temperature: [environment.temperature()] \n")
+	t+= SPAN_NOTICE("Nitrogen: [environment.nitrogen()] \n")
+	t+= SPAN_NOTICE("Oxygen: [environment.oxygen()] \n")
+	t+= SPAN_NOTICE("Plasma : [environment.toxins()] \n")
+	t+= SPAN_NOTICE("Carbon Dioxide: [environment.carbon_dioxide()] \n")
+	t+= SPAN_NOTICE("N2O: [environment.sleeping_agent()] \n")
+	t+= SPAN_NOTICE("Agent B: [environment.agent_b()] \n")
+	t+= SPAN_NOTICE("Hydrogen: [environment.hydrogen()] \n")
+	t+= SPAN_NOTICE("Water Vapor: [environment.water_vapor()] \n")
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
@@ -268,7 +269,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
+				to_chat(src, SPAN_WARNING("You are unable to equip that."))//Only print if del_on_fail is false
 
 		return FALSE
 
@@ -425,7 +426,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(!(slot_flags & ITEM_SLOT_BELT))
 					return 0
@@ -483,7 +484,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(!(slot_flags & ITEM_SLOT_ID))
 					return 0
@@ -498,7 +499,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
@@ -507,7 +508,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
@@ -515,7 +516,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a suit before you can attach this [name]."))
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
@@ -638,7 +639,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(A.invisibility > see_invisible)
 		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
+		to_chat(src, chat_box_regular(SPAN_NOTICE("Something is there but you can't see it.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 
 	face_atom(A)
@@ -663,7 +664,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	else
 		result = A.examine(src)
 		if(length(A.examine_more()))
-			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
+			result += SPAN_NOTICE("<i>You can examine [A.p_them()] again to take a closer look...</i>")
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 		broadcast_examine(A)
 
@@ -702,11 +703,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 			examining_worn_item = TRUE
 
-	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
+	var/can_see_str = SPAN_SUBTLE("\The [src] looks at [examined].")
 	if(examining_worn_item || examining_stored_item)
-		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+		can_see_str = SPAN_SUBTLE("\The [src] looks [loc_str]")
 
-	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+	var/cannot_see_str = SPAN_SUBTLE("\The [src] looks [loc_str]")
 
 	var/list/can_see_target = hearers(examined)
 	// Don't broadcast if we can't see the item.
@@ -871,17 +872,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/update_flavor_text()
 	if(usr != src)
-		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
+		to_chat(usr, SPAN_NOTICE("You can't change the flavor text of this mob"))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, SPAN_NOTICE("You have to be conscious to change your flavor text"))
 		return
 
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
 	if(isnull(msg))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, SPAN_NOTICE("You have to be conscious to change your flavor text"))
 		return
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	if(dna)
@@ -892,9 +893,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
-			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
+			return SPAN_NOTICE("[msg]") // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return SPAN_NOTICE("[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -917,9 +918,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["station_report"])
 		var/obj/item/clipboard/station_report/report = GLOB.station_report
 		if(!istype(report))
-			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+			to_chat(src, SPAN_NOTICE("Nobody wrote a station report this shift!"))
 		else if(!report.toppaper)
-			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+			to_chat(src, SPAN_NOTICE("Nobody wrote a station report this shift!"))
 		else if(istype(report.toppaper, /obj/item/paper_bundle))
 			var/obj/item/paper_bundle/report_page = report.toppaper
 			report_page.show_content(src)
@@ -955,7 +956,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEIC("Interacting with admin-frozen players is not permitted."))
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
@@ -1070,11 +1071,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "Ghost"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
+		to_chat(usr, SPAN_WARNING("You are banned from playing as sentient animals."))
 		return
 
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
+		to_chat(src, SPAN_WARNING("You can't respawn as an NPC before the game starts!"))
 		return
 
 	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr)))
@@ -1109,7 +1110,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/timedifference = world.time - client.persistent.time_died_as_mouse
 	if(client.persistent.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
+		to_chat(src, SPAN_WARNING("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left."))
 		return FALSE
 
 	//find a viable mouse candidate
@@ -1117,12 +1118,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!length(found_vents))
 		found_vents = get_valid_vent_spawns(min_network_size = 0)
 		if(!length(found_vents))
-			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+			to_chat(src, SPAN_WARNING("Unable to find any unwelded vents to spawn mice at."))
 			return FALSE
 	var/obj/vent_found = pick(found_vents)
 	var/mob/living/basic/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='notice'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
+	to_chat(host, SPAN_NOTICE("You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death."))
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
@@ -1157,11 +1158,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+				visible_message(SPAN_WARNING("[src] vomits up some green goo!"),SPAN_WARNING("You vomit up some green goo!"))
 			add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message(SPAN_WARNING("[src] pukes all over [p_themselves()]!"),SPAN_WARNING("You puke all over yourself!"))
 			add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(datum/spell/S)
@@ -1464,7 +1465,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(isconstruct(src) && !mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 
-	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	to_chat(src, SPAN_WARNING("Your powers are useless on this holy ground."))
 	return TRUE
 
 /mob/proc/reset_visibility()
@@ -1505,10 +1506,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	set name = "Give Kudos (OOC)"
 
 	if(target == src)
-		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
+		to_chat(src, SPAN_WARNING("You cannot give kudos to yourself!"))
 		return
 
-	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+	to_chat(src, SPAN_NOTICE("You've given kudos to [target]!"))
 
 	// Pretend we've always succeeded when we might not have.
 	// This should prevent people from using it to suss anything out about mobs' states
@@ -1577,8 +1578,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	if(magic_flags & MAGIC_RESISTANCE)
 		visible_message(
-			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
-			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+			SPAN_WARNING("[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!"),
+			SPAN_USERDANGER("An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!"),
 		)
 		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
@@ -1586,8 +1587,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
 		visible_message(
-			"<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>",
-			"<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>",
+			SPAN_WARNING("[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!"),
+			SPAN_USERDANGER("A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!"),
 		)
 		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
@@ -1595,8 +1596,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	else if(magic_flags & MAGIC_RESISTANCE_MIND)
 		visible_message(
-			"<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>",
-			"<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>",
+			SPAN_WARNING("[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!"),
+			SPAN_USERDANGER("A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!"),
 		)
 		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_DARK_BLUE

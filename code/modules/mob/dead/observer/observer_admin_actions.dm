@@ -63,7 +63,7 @@
 	button_text.appearance_flags = RESET_COLOR | RESET_ALPHA
 	button_text.plane = FLOAT_PLANE + 1
 	button_text.maptext_x = 2
-	button_text.maptext = ticket_amt > 0 ? "<span class='maptext'>[ticket_amt]</span>" : ""
+	button_text.maptext = ticket_amt > 0 ? SPAN_MAPTEXT("[ticket_amt]") : ""
 	button.add_overlay(button_text)
 
 /datum/action/innate/admin/ticket/mentor

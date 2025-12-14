@@ -48188,13 +48188,10 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/machinery/atmospherics/portable/pump,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "jHu" = (
@@ -54799,13 +54796,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1;
 	name = "Turbine Interior Airlock"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "lbP" = (
@@ -67453,7 +67450,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_maint)
 "nGM" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "nGR" = (
@@ -86715,10 +86712,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "rwK" = (
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/black,
-/obj/item/painter,
-/turf/simulated/floor/plasteel,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "rwZ" = (
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer{
@@ -88825,13 +88826,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_ext";
-	locked = 1;
 	name = "Turbine Exterior Airlock"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "rQU" = (
@@ -115649,6 +115650,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"xmC" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "xmH" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
@@ -120477,18 +120482,6 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
-"ylD" = (
-/mob/living/basic/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ylG" = (
@@ -139447,7 +139440,7 @@ wdE
 wsR
 iws
 ave
-ave
+xmC
 ave
 giX
 nfe
@@ -139960,7 +139953,7 @@ ifs
 mLY
 ave
 cTI
-ylD
+jON
 jON
 jON
 jON

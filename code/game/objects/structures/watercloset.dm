@@ -30,15 +30,15 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, TRUE)
-		user.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>",
-							"<span class='userdanger'>You slam the toilet seat onto [swirlie]'s head!</span>",
-							"<span class='italics'>You hear reverberating porcelain.</span>")
+		user.visible_message(SPAN_DANGER("[user] slams the toilet seat onto [swirlie]'s head!"),
+							SPAN_USERDANGER("You slam the toilet seat onto [swirlie]'s head!"),
+							SPAN_ITALICS("You hear reverberating porcelain."))
 		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD, swirlie.run_armor_check(BODY_ZONE_HEAD, MELEE))
 		return
 
 	if(cistern && !open)
 		if(!length(contents))
-			to_chat(user, "<span class='notice'>The cistern is empty.</span>")
+			to_chat(user, SPAN_NOTICE("The cistern is empty."))
 			return
 		else
 			var/obj/item/I = pick(contents)
@@ -46,7 +46,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 				user.put_in_hands(I)
 			else
 				I.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You find [I] in the cistern.</span>")
+			to_chat(user, SPAN_NOTICE("You find [I] in the cistern."))
 			w_items -= I.w_class
 			return
 
@@ -75,17 +75,17 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		var/obj/item/reagent_containers/container = used
 		if(container.is_refillable())
 			if(container.reagents.holder_full())
-				to_chat(user, "<span class='warning'>[container] is full.</span>")
+				to_chat(user, SPAN_WARNING("[container] is full."))
 			else
 				container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
-				to_chat(user, "<span class='notice'>You fill [container] from [src]. Gross.</span>")
+				to_chat(user, SPAN_NOTICE("You fill [container] from [src]. Gross."))
 			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/grab))
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/grab/G = used
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='danger'>Swirling [G.affecting] might hurt them!</span>")
+			to_chat(user, SPAN_DANGER("Swirling [G.affecting] might hurt them!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!G.confirm())
 			return ITEM_INTERACT_COMPLETE
@@ -93,17 +93,17 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 			var/mob/living/target = G.affecting
 			if(G.state >= GRAB_AGGRESSIVE)
 				if(target.loc != get_turf(src))
-					to_chat(user, "<span class='warning'>[target] needs to be on [src]!</span>")
+					to_chat(user, SPAN_WARNING("[target] needs to be on [src]!"))
 					return ITEM_INTERACT_COMPLETE
 				if(!swirlie)
 					if(open)
-						user.visible_message("<span class='danger'>[user] starts to give [target] a swirlie!</span>",
-											"<span class='userdanger'>You start to give [target] a swirlie...</span>")
+						user.visible_message(SPAN_DANGER("[user] starts to give [target] a swirlie!"),
+											SPAN_USERDANGER("You start to give [target] a swirlie..."))
 						swirlie = target
 						if(do_after(user, 3 SECONDS, FALSE, target = src))
-							user.visible_message("<span class='danger'>[user] gives [target] a swirlie!</span>",
-												"<span class='userdanger'>You give [target] a swirlie!</span>",
-												"<span class='italics'>You hear a toilet flushing.</span>")
+							user.visible_message(SPAN_DANGER("[user] gives [target] a swirlie!"),
+												SPAN_USERDANGER("You give [target] a swirlie!"),
+												SPAN_ITALICS("You hear a toilet flushing."))
 							if(iscarbon(target))
 								var/mob/living/carbon/C = target
 								if(!C.internal)
@@ -113,26 +113,26 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
-						user.visible_message("<span class='danger'>[user] slams [target]'s head into [src]!</span>",
-											"<span class='userdanger'>You slam [target]'s head into [src]!</span>")
+						user.visible_message(SPAN_DANGER("[user] slams [target]'s head into [src]!"),
+											SPAN_USERDANGER("You slam [target]'s head into [src]!"))
 						target.apply_damage(5, BRUTE, BODY_ZONE_HEAD, target.run_armor_check(BODY_ZONE_HEAD, MELEE))
 				return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+				to_chat(user, SPAN_WARNING("You need a tighter grip!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/flamethrower))
 		var/obj/item/flamethrower/big_lighter = used
 		if(!big_lighter.lit)
-			to_chat(user, "<span class='warning'>[big_lighter] isn't lit!</span>")
+			to_chat(user, SPAN_WARNING("[big_lighter] isn't lit!"))
 			return ITEM_INTERACT_COMPLETE
 		big_lighter.default_ignite(loc, 0.01)
 		if(!cistern) //Just changes what message you get, since fire_act handles the open cistern too.
-			user.visible_message("<span class='warning'>[user] torches the contents of the top of the toilet with [big_lighter]!</span>",
-								"<span class='warning'>You torch the top of the toilet with [big_lighter]! Whoops.</span>")
+			user.visible_message(SPAN_WARNING("[user] torches the contents of the top of the toilet with [big_lighter]!"),
+								SPAN_WARNING("You torch the top of the toilet with [big_lighter]! Whoops."))
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("<span class='notice'>[user] torches the contents of the cistern with [big_lighter]!</span>",
-							"<span class='notice'>You torch the contents of the cistern with [big_lighter]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] torches the contents of the cistern with [big_lighter]!"),
+							SPAN_NOTICE("You torch the contents of the cistern with [big_lighter]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(cistern)
@@ -160,12 +160,12 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
+	to_chat(user, SPAN_NOTICE("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!",
-							"<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>",
-							"<span class='italics'>You hear grinding porcelain.</span>")
+							SPAN_NOTICE("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"),
+							SPAN_ITALICS("You hear grinding porcelain."))
 		cistern = !cistern
 		update_icon()
 		return
@@ -189,22 +189,22 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		if("Stash")
 			stash_goods(I, user)
 		if("Disconnect")
-			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>",
-								"<span class='notice'>You begin disconnecting [src]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] starts disconnecting [src]."),
+								SPAN_NOTICE("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>",
-									"<span class='notice'>You disconnect [src]!</span>")
+				user.visible_message(SPAN_NOTICE("[user] disconnects [src]!"),
+									SPAN_NOTICE("You disconnect [src]!"))
 				anchored = FALSE
 		if("Connect")
-			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>",
-								"<span class='notice'>You begin connecting [src]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] starts connecting [src]."),
+								SPAN_NOTICE("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message("<span class='notice'>[user] connects [src]!</span>",
-									"<span class='notice'>You connect [src]!</span>")
+				user.visible_message(SPAN_NOTICE("[user] connects [src]!"),
+									SPAN_NOTICE("You connect [src]!"))
 				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
@@ -218,17 +218,17 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	if(!I)
 		return
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='warning'>[I] does not fit!</span>")
+		to_chat(user, SPAN_WARNING("[I] does not fit!"))
 		return
 	if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
-		to_chat(user, "<span class='warning'>The cistern is full!</span>")
+		to_chat(user, SPAN_WARNING("The cistern is full!"))
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the cistern!</span>")
+		to_chat(user, SPAN_WARNING("[I] is stuck to your hand, you cannot put it in the cistern!"))
 		return
 	I.loc = src
 	update_contents_weight_class()
-	to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
+	to_chat(user, SPAN_NOTICE("You carefully place [I] into the cistern."))
 
 /obj/structure/urinal
 	name = "urinal"
@@ -243,21 +243,21 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		if(!G.confirm())
 			return ITEM_INTERACT_COMPLETE
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+			to_chat(user, SPAN_DANGER("Slamming [G.affecting] into [src] might hurt them!"))
 			return ITEM_INTERACT_COMPLETE
 		if(isliving(G.affecting))
 			var/mob/living/target = G.affecting
 			if(G.state >= GRAB_AGGRESSIVE)
 				if(target.loc != get_turf(src))
-					to_chat(user, "<span class='notice'>[target] needs to be on [src].</span>")
+					to_chat(user, SPAN_NOTICE("[target] needs to be on [src]."))
 					return ITEM_INTERACT_COMPLETE
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
-				user.visible_message("<span class='danger'>[user] slams [target]'s head into [src]!</span>",
-									"<span class='danger'>You slam [target]'s head into [src]!</span>")
+				user.visible_message(SPAN_DANGER("[user] slams [target]'s head into [src]!"),
+									SPAN_DANGER("You slam [target]'s head into [src]!"))
 				target.apply_damage(8, BRUTE, BODY_ZONE_HEAD, target.run_armor_check(BODY_ZONE_HEAD, MELEE))
 			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+				to_chat(user, SPAN_WARNING("You need a tighter grip!"))
 			return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -266,24 +266,24 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	if(!I.tool_use_check(user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='notice'>[user] begins disconnecting [src]...</span>",
-							"<span class='notice'>You begin to disconnect [src]...</span>")
+		user.visible_message(SPAN_NOTICE("[user] begins disconnecting [src]..."),
+							SPAN_NOTICE("You begin to disconnect [src]..."))
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!loc || !anchored)
 				return
-			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>",
-								"<span class='notice'>You disconnect [src]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] disconnects [src]!"),
+								SPAN_NOTICE("You disconnect [src]!"))
 			anchored = FALSE
 			pixel_x = 0
 			pixel_y = 0
 	else
-		user.visible_message("<span class='notice'>[user] begins connecting [src]...</span>",
-							"<span class='notice'>You begin to connect [src]...</span>")
+		user.visible_message(SPAN_NOTICE("[user] begins connecting [src]..."),
+							SPAN_NOTICE("You begin to connect [src]..."))
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!loc || anchored)
 				return
-			user.visible_message("<span class='notice'>[user] connects [src]!</span>",
-								"<span class='notice'>You connect [src]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] connects [src]!"),
+								SPAN_NOTICE("You connect [src]!"))
 			anchored = TRUE
 			pixel_x = 0
 			pixel_y = 32
@@ -367,14 +367,14 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 
 /obj/machinery/shower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
-		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		to_chat(user, SPAN_NOTICE("The water temperature seems to be [current_temperature]."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/living/user, obj/item/I)
 	..()
-	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with [I].</span>")
+	to_chat(user, SPAN_NOTICE("You begin to adjust the temperature valve with [I]."))
 	if(I.use_tool(src, user, 50))
 		switch(current_temperature)
 			if(SHOWER_NORMAL)
@@ -383,8 +383,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 				current_temperature = SHOWER_BOILING
 			if(SHOWER_BOILING)
 				current_temperature = SHOWER_NORMAL
-		user.visible_message("<span class='notice'>[user] adjusts the shower with \the [I].</span>",
-							"<span class='notice'>You adjust the shower with \the [I] to [current_temperature] temperature.</span>")
+		user.visible_message(SPAN_NOTICE("[user] adjusts the shower with \the [I]."),
+							SPAN_NOTICE("You adjust the shower with \the [I] to [current_temperature] temperature."))
 		add_hiddenprint(user)
 	handle_mist()
 	return TRUE
@@ -392,15 +392,15 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 /obj/machinery/shower/welder_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(on)
-		to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
+		to_chat(user, SPAN_WARNING("Turn [src] off before you attempt to cut it loose."))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>",
-					"<span class='notice'>You begin slicing [src] free...</span>",
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(SPAN_NOTICE("[user] begins slicing [src] free..."),
+					SPAN_NOTICE("You begin slicing [src] free..."),
+					SPAN_WARNING("You hear welding."))
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
-		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
+		user.visible_message(SPAN_NOTICE("[user] cuts [src] loose!"), SPAN_NOTICE("You cut [src] loose!"))
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
 		transfer_prints_to(S, TRUE)
 		qdel(src)
@@ -486,10 +486,10 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 		var/mob/living/carbon/C = M
 
 		if(current_temperature == SHOWER_FREEZING)
-			to_chat(C, "<span class='warning'>The water is freezing!</span>")
+			to_chat(C, SPAN_WARNING("The water is freezing!"))
 
 		else if(current_temperature == SHOWER_BOILING)
-			to_chat(C, "<span class='warning'>The water is searing!</span>")
+			to_chat(C, SPAN_WARNING("The water is searing!"))
 
 #undef SHOWER_FREEZING
 #undef SHOWER_NORMAL
@@ -531,7 +531,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 	if(..())
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
+		to_chat(user, SPAN_WARNING("[src] isn't connected, wrench it into position first!"))
 		return
 
 	var/obj/item/organ/external/temp = user.bodyparts_by_name["r_hand"]
@@ -541,7 +541,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 		to_chat(user, "<span class='notice'>You try to move your [temp], but cannot!")
 		return
 	if(sink_flags & SINK_BUSY)
-		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
+		to_chat(user, SPAN_NOTICE("Someone's already washing here."))
 		return
 
 	var/selected_area = parse_zone(user.zone_selected)
@@ -549,8 +549,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 	if(selected_area in list("head", "mouth", "eyes"))
 		washing_face = TRUE
 	sink_flags |= SINK_BUSY
-	user.visible_message("<span class='notice'>[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]...</span>", \
-						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]..."), \
+						SPAN_NOTICE("You start washing your [washing_face ? "face" : "hands"]..."))
 	if(!do_after(user, 4 SECONDS, target = src))
 		sink_flags &= ~SINK_BUSY
 		return
@@ -563,15 +563,15 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 	else
 		user.clean_blood()
 	sink_flags &= ~SINK_BUSY
-	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
-						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src]."), \
+						SPAN_NOTICE("You wash your [washing_face ? "face" : "hands"] using [src]."))
 
 /obj/structure/sink/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(sink_flags & SINK_BUSY)
-		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
+		to_chat(user, SPAN_WARNING("Someone's already washing here!"))
 		return ITEM_INTERACT_COMPLETE
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
+		to_chat(user, SPAN_WARNING("[src] isn't connected, wrench it into position first!"))
 		return ITEM_INTERACT_COMPLETE
 	sink_flags |= SINK_BUSY
 	if(used.wash(user, src))
@@ -600,22 +600,22 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
 			sink_flags &= ~SINK_BUSY
 		if("Disconnect")
-			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>",
-								"<span class='notice'>You begin disconnecting [src]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] starts disconnecting [src]."),
+								SPAN_NOTICE("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>",
-									"<span class='notice'>You disconnect [src]!</span>")
+				user.visible_message(SPAN_NOTICE("[user] disconnects [src]!"),
+									SPAN_NOTICE("You disconnect [src]!"))
 				anchored = FALSE
 		if("Connect")
-			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>",
-								"<span class='notice'>You begin connecting [src]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] starts connecting [src]."),
+								SPAN_NOTICE("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message("<span class='notice'>[user] connects [src]!</span>",
-									"<span class='notice'>You connect [src]!</span>")
+				user.visible_message(SPAN_NOTICE("[user] connects [src]!"),
+									SPAN_NOTICE("You connect [src]!"))
 				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
@@ -691,7 +691,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 	if(!on_wall || !user)
 		return
 	if(!(get_dir(user, on_wall) in GLOB.cardinal))
-		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
+		to_chat(user, SPAN_WARNING("You need to be standing next to a wall to place \the [src]."))
 		return
 	return TRUE
 
@@ -729,13 +729,13 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 		return
 	var/turf/T = get_turf(user)
 	if(!T)
-		to_chat(user, "<span class='warning'>You can't build that here!</span>")
+		to_chat(user, SPAN_WARNING("You can't build that here!"))
 		return
-	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>",
-						"<span class='notice'>You begin assembling a new [result_name].</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins assembling a new [result_name]."),
+						SPAN_NOTICE("You begin assembling a new [result_name]."))
 	if(do_after(user, 3 SECONDS, target = user))
-		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>",
-							"<span class='notice'>You finish building a new [result_name]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] finishes building a new [result_name]!"),
+							SPAN_NOTICE("You finish building a new [result_name]!"))
 		var/obj/structure/S = new result(T)
 		S.anchored = FALSE
 		S.dir = user.dir

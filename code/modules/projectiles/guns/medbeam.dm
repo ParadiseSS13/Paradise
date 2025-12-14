@@ -77,7 +77,7 @@
 	if(get_dist(source,current_target)>max_range || !los_check(source,current_target))
 		LoseTarget()
 		if(ishuman(source) && isrobot(source))
-			to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
+			to_chat(source, SPAN_WARNING("You lose control of the beam!"))
 		return
 
 	if(current_target)
@@ -106,7 +106,7 @@
 				return FALSE
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner && B.owner != current_beam && !QDELETED(B)) // only blow up if it has a CONFIRMED different owner than us. Don't want it blowing up on creation/deletion of beams.
-				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
+				turf.visible_message(SPAN_USERDANGER("The medbeams cross and EXPLODE!"))
 				explosion(B.loc,0,3,5,8, cause = "Crossed beams")
 				qdel(dummy)
 				return FALSE
@@ -167,37 +167,37 @@
 	. += "<span class= 'warning'>This ones cooling systems are damaged beyond repair, and will overheat rapidly. \
 	Despite the damaged cooling system, it's still mostly functional. However, if overheated, it will need to be repaired.</span>"
 	if(broken)
-		. += "<span class='notice'>It is broken, and will not function without repairs.</span>"
+		. += SPAN_NOTICE("It is broken, and will not function without repairs.")
 	switch(broken)
 		if(SCREWDRIVER_OPEN)
-			. += "<span class='notice'>The panel can be <b>screwed</b> open to access the internals.</span>"
+			. += SPAN_NOTICE("The panel can be <b>screwed</b> open to access the internals.")
 		if(REMOVE_OLD_PARTS)
-			. += "<span class='notice'>The old fried electronics and melted lens have to be <b>pried</b> out.</span>"
+			. += SPAN_NOTICE("The old fried electronics and melted lens have to be <b>pried</b> out.")
 		if(WELD_SHELL)
-			. += "<span class='notice'>The distorted shell needs to be <b>welded</b> back to form.</span>"
+			. += SPAN_NOTICE("The distorted shell needs to be <b>welded</b> back to form.")
 		if(INSTALL_LENS)
-			. += "<span class='notice'>It needs a new <b>glass</b> lens.</span>"
+			. += SPAN_NOTICE("It needs a new <b>glass</b> lens.")
 		if(INSTALL_ELECTRONICS)
-			. += "<span class='notice'>It needs new <b>cabling</b> for the electronics.</span>"
+			. += SPAN_NOTICE("It needs new <b>cabling</b> for the electronics.")
 		if(INSTALL_CELL)
 			. += "<span class='notice'>It needs a fully charged specialized <b>battery</b> to function."
 		if(MULTITOOL_ELECTRONICS)
-			. += "<span class='notice'>The electronics need to be tested and reactivated with a <b>multitool</b>.</span>"
+			. += SPAN_NOTICE("The electronics need to be tested and reactivated with a <b>multitool</b>.")
 		if(SCREWDRIVER_CLOSED)
-			. += "<span class='notice'>The panel needs to be <b>screwed</b> shut before it is usable.</span>"
+			. += SPAN_NOTICE("The panel needs to be <b>screwed</b> shut before it is usable.")
 
 	if(!in_range(src, user))
 		return
 	var/heat_percent = (current_heat / max_heat) * 100
 	switch(heat_percent)
 		if(20 to 39)
-			. += "<span class='notice'>[src] feels warm.</span>"
+			. += SPAN_NOTICE("[src] feels warm.")
 		if(40 to 59)
-			. += "<span class='notice'>[src] feels hot.</span>"
+			. += SPAN_NOTICE("[src] feels hot.")
 		if(60 to 74) // i want it to be in the 'smoke' range at ~40 heat so as magic smoke is sudden but quick reaction time can stop it
-			. += "<span class='warning'>[src] is so hot it hurts to hold.</span>"
+			. += SPAN_WARNING("[src] is so hot it hurts to hold.")
 		if(75 to INFINITY)
-			. += "<span class='warning'>[src] is emitting its magic smoke and is practically melting.</span>"
+			. += SPAN_WARNING("[src] is emitting its magic smoke and is practically melting.")
 
 /obj/item/gun/medbeam/damaged/process()
 	. = ..()
@@ -208,14 +208,14 @@
 
 /obj/item/gun/medbeam/damaged/can_trigger_gun(mob/living/user)
 	if(broken)
-		to_chat(user, "<span class='warning'>[src] fails to start! It's broken!</span>")
+		to_chat(user, SPAN_WARNING("[src] fails to start! It's broken!"))
 		return FALSE
 	return ..()
 
 /obj/item/gun/medbeam/damaged/on_beam_tick(mob/living/user, mob/living/target)
 	. = ..()
 	if(current_heat >= max_heat)
-		user.visible_message("<span class='warning'>[src] pops as it shuts off!</span>", "<span class='warning'>[src] pops and hisses as it shuts off. It is broken.</span>")
+		user.visible_message(SPAN_WARNING("[src] pops as it shuts off!"), SPAN_WARNING("[src] pops and hisses as it shuts off. It is broken."))
 		broken = SCREWDRIVER_OPEN
 		playsound(src, 'sound/effects/snap.ogg', 70, TRUE) // that didn't sound good...
 		user.adjustFireLoss(30) // you do NOT want to be holding this if it breaks. 5 more damage than hive lord cores heal, so not /thattt/ bad
@@ -227,7 +227,7 @@
 		return
 
 	if(current_heat / max_heat > damaging_heat_percent)
-		to_chat(user, "<span class='warning'>[src] burns to hold!</span>")
+		to_chat(user, SPAN_WARNING("[src] burns to hold!"))
 		user.adjustFireLoss(0.1 * (current_heat / max_heat))
 
 	current_heat = min(current_heat + 1, max_heat)
@@ -239,41 +239,41 @@
 		if(istype(attacking_item, /obj/item/stock_parts/cell/medbeam))
 			var/obj/item/stock_parts/cell/medbeam/battery = attacking_item
 			if(battery.charge != battery.maxcharge)
-				to_chat(user, "<span class='warning'>[src] won't function without a fully charged [battery].</span>")
+				to_chat(user, SPAN_WARNING("[src] won't function without a fully charged [battery]."))
 				return
-			to_chat(user, "<span class='notice'>You start replacing [src]'s battery.</span>")
+			to_chat(user, SPAN_NOTICE("You start replacing [src]'s battery."))
 			attempt_repair(user, attacking_item, MULTITOOL_ELECTRONICS)
 			return
 
 	if(broken == INSTALL_ELECTRONICS)
 		if(istype(attacking_item, /obj/item/stack/cable_coil))
-			to_chat(user, "<span class='notice'>You start replacing the fried electronics in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You start replacing the fried electronics in [src]."))
 			attempt_repair(user, attacking_item, INSTALL_CELL)
 			return
 
 	if(broken == INSTALL_LENS)
 		if(istype(attacking_item, /obj/item/stack/sheet/glass))
-			to_chat(user, "<span class='notice'>You start replacing the broken lens in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You start replacing the broken lens in [src]."))
 			attempt_repair(user, attacking_item, INSTALL_ELECTRONICS)
 			return
 
 /obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
 	if(broken == SCREWDRIVER_OPEN)
 		if(overheated)
-			to_chat(user,  "<span class='warning'>[src] is still too hot for the screws to be safely removed from it.</span>")
+			to_chat(user,  SPAN_WARNING("[src] is still too hot for the screws to be safely removed from it."))
 			return
-		to_chat(user, "<span class='notice'>You start removing the screws from [src]'s shell.</span>")
+		to_chat(user, SPAN_NOTICE("You start removing the screws from [src]'s shell."))
 		attempt_repair(user, screwdriver, REMOVE_OLD_PARTS)
 		return TRUE
 
 	if(broken == SCREWDRIVER_CLOSED)
-		to_chat(user, "<span class='notice'>You start replacing the screws on [src]'s shell.</span>")
+		to_chat(user, SPAN_NOTICE("You start replacing the screws on [src]'s shell."))
 		attempt_repair(user, screwdriver, FALSE)
 		return TRUE
 
 /obj/item/gun/medbeam/damaged/crowbar_act(mob/living/user, obj/item/crowbar)
 	if(broken == REMOVE_OLD_PARTS)
-		to_chat(user, "<span class='notice'>You start prying out the old electronics and lens from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You start prying out the old electronics and lens from [src]."))
 		attempt_repair(user, crowbar, WELD_SHELL)
 		return TRUE
 
@@ -281,9 +281,9 @@
 	. = ..()
 	if(broken == WELD_SHELL)
 		if(!welder.tool_start_check(src, user, 1))
-			to_chat(user, "<span class='warning'>[welder] isn't functioning.</span>")
+			to_chat(user, SPAN_WARNING("[welder] isn't functioning."))
 			return
-		to_chat(user, "<span class='notice'>You start welding [src] back to form.</span>")
+		to_chat(user, SPAN_NOTICE("You start welding [src] back to form."))
 		attempt_repair(user, welder, INSTALL_LENS)
 		return TRUE
 
@@ -292,7 +292,7 @@
 		if(user.electrocute_act(rand(1, 10), src))
 			do_sparks(6, FALSE, user)
 			return TRUE
-		to_chat(user, "<span class='notice'>You start to activate the electronics in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You start to activate the electronics in [src]."))
 		attempt_repair(user, multitool, SCREWDRIVER_CLOSED)
 		return TRUE
 
@@ -307,7 +307,7 @@
 
 /obj/item/gun/medbeam/damaged/proc/attempt_repair(mob/living/user, obj/item/tool_used, next_broken_state)
 	if(!do_after_once(user, 5 SECONDS, TRUE, src))
-		to_chat(user, "<span class='notice'>You stop repairing [src].</span>")
+		to_chat(user, SPAN_NOTICE("You stop repairing [src]."))
 		return
 
 	if(!user.Adjacent(src))
@@ -329,7 +329,7 @@
 			if(!istype(lens))
 				return
 			if(!lens.use(5))
-				to_chat(user, "<span class='warning'>You need [5 - lens.get_amount()] more [lens] to repair [src]'s electronics.</span>")
+				to_chat(user, SPAN_WARNING("You need [5 - lens.get_amount()] more [lens] to repair [src]'s electronics."))
 				return
 
 		if(INSTALL_ELECTRONICS)
@@ -337,7 +337,7 @@
 			if(!istype(cable))
 				return
 			if(!cable.use(10))
-				to_chat(user, "<span class='warning'>You need [10 - cable.get_amount()] more [cable] to repair [src]'s electronics.</span>")
+				to_chat(user, SPAN_WARNING("You need [10 - cable.get_amount()] more [cable] to repair [src]'s electronics."))
 				return
 
 		if(INSTALL_CELL)
@@ -345,7 +345,7 @@
 			if(!istype(battery))
 				return
 			if(!user.get_active_hand() == battery)
-				to_chat(user, "<span class='warning'>You lost [src]'s battery.</span>")
+				to_chat(user, SPAN_WARNING("You lost [src]'s battery."))
 				return
 			qdel(battery)
 
