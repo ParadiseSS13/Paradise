@@ -296,7 +296,7 @@
 
 /obj/item/nuclear_rod/fuel/meltdown
 	name = "meltdown rod"
-	desc = "A syndicate crafted rod capable of generating massive amounts of heat, and leading to an eventual meltdown."
+	desc = "A Syndicate-crafted rod capable of generating massive amounts of heat, leading to an eventual meltdown."
 	heat_amount = 2000
 	max_durability = INFINITY
 	minimum_temp_modifier = 4000 // BIG hot
