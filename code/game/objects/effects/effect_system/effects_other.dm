@@ -92,10 +92,10 @@
 		do_sparks(2, 1, location)
 
 		for(var/mob/M in viewers(5, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, SPAN_WARNING("The solution violently explodes."))
 		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(L, "<span class='warning'>The explosion knocks you down.</span>")
+				to_chat(L, SPAN_WARNING("The explosion knocks you down."))
 				L.Weaken(rand(2 SECONDS, 10 SECONDS))
 		return
 	else
@@ -118,7 +118,7 @@
 			flash += (round(amount/4) * flashing_factor)
 
 		for(var/mob/M in viewers(8, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, SPAN_WARNING("The solution violently explodes."))
 
 		explosion(location, devastation, heavy, light, flash, cause = "Reagents Explosion")
 

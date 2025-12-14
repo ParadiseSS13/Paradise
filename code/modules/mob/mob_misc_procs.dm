@@ -499,7 +499,7 @@
 	set category = "IC"
 
 	if(IsSleeping())
-		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
+		to_chat(src, SPAN_NOTICE("You are already sleeping."))
 		return
 	if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
@@ -512,9 +512,9 @@
 	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
 
 	if(resting)
-		to_chat(src, "<span class='notice'>You are now trying to rest.</span>")
+		to_chat(src, SPAN_NOTICE("You are now trying to rest."))
 	else
-		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+		to_chat(src, SPAN_NOTICE("You are now trying to get up."))
 
 	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE, hidden = TRUE))
 		return
@@ -589,15 +589,15 @@
 						lname = "[keyname] ([name])"
 					else										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
-				lname = "<span class='name'>[lname]</span> "
-			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
+				lname = "[SPAN_NAME("[lname]")] "
+			to_chat(M, SPAN_DEADSAY("[lname][follow][message]"))
 			if(should_show_runechat && (M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.see_invisible >= subject.invisibility)
 				M.create_chat_message(subject, raw_message, symbol = RUNECHAT_SYMBOL_DEAD)
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && HAS_TRAIT(O, TRAIT_RESPAWNABLE) && (!role || (role in O.client.prefs.be_special)))
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>", MESSAGE_TYPE_DEADCHAT)
+			to_chat(O, SPAN_GHOSTALERT("[message][(enter_link) ? " [enter_link]" : ""]"), MESSAGE_TYPE_DEADCHAT)
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)

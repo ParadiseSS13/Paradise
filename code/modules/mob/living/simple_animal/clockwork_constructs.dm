@@ -64,7 +64,7 @@
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/bullet_act(obj/projectile/Proj)
 	if(shield_health > 0)
 		damage_shield()
-		to_chat(src, "<span class='danger'>Your shield blocks the attack!</span>")
+		to_chat(src, SPAN_DANGER("Your shield blocks the attack!"))
 		return FALSE
 	return ..()
 
@@ -72,19 +72,19 @@
 	shield_health--
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)
-		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
-		to_chat(src, "<span class='danger'>You require a welding tool to repair your damaged shield!</span>")
+		to_chat(src, SPAN_USERDANGER("Your shield breaks!"))
+		to_chat(src, SPAN_DANGER("You require a welding tool to repair your damaged shield!"))
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
 	if(health >= maxHealth && shield_health >= MARAUDER_SHIELD_MAX)
-		to_chat(user, "<span class='notice'>[src] has no damage to repair.</span>")
+		to_chat(user, SPAN_NOTICE("[src] has no damage to repair."))
 		return
 
 	playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 	adjustBruteLoss(-10)
 	user.visible_message(
-		"<span class='notice'>You repair some of [src]'s damage.</span>",
-		"<span class='notice'>[user] repairs some of [src]'s damage.</span>"
+		SPAN_NOTICE("You repair some of [src]'s damage."),
+		SPAN_NOTICE("[user] repairs some of [src]'s damage.")
 	)
 	if(shield_health < MARAUDER_SHIELD_MAX)
 		shield_health ++
@@ -93,8 +93,8 @@
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/narsie_act()
 	visible_message(
-		"<span class='danger'>[src] is instantly crushed by an unholy aura!</span>",
-		"<span class='userdanger'>The uncaring gaze of a dark god looks down upon you for a single moment, and your shell is instantly pulverized into dust!</span>"
+		SPAN_DANGER("[src] is instantly crushed by an unholy aura!"),
+		SPAN_USERDANGER("The uncaring gaze of a dark god looks down upon you for a single moment, and your shell is instantly pulverized into dust!")
 	)
 	gib()
 
@@ -105,8 +105,8 @@
 	if(holy_check(src))
 		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
 		visible_message(
-			"<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
-			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>"
+			SPAN_DANGER("[src] slowly crumbles to dust in this holy place!"), \
+			SPAN_DANGER("Your shell burns as you crumble to dust in this holy place!")
 		)
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		adjustBruteLoss(maxHealth/8)

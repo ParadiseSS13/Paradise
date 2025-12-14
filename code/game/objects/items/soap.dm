@@ -39,9 +39,9 @@
 	user.adjust_nutrition(5)
 	user.reagents.add_reagent("soapreagent", 3)
 	if(times_eaten < max_bites)
-		to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+		to_chat(user, SPAN_NOTICE("You take a bite of [src]. Delicious!"))
 	else
-		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+		to_chat(user, SPAN_NOTICE("You finish eating [src]."))
 		qdel(src)
 
 /obj/item/soap/examine(mob/user)
@@ -49,19 +49,19 @@
 	if(!user.Adjacent(src) || !times_eaten)
 		return
 	if(times_eaten < (max_bites * 0.3))
-		. += "<span class='notice'>[src] has bite marks on it!</span>"
+		. += SPAN_NOTICE("[src] has bite marks on it!")
 	else if(times_eaten < (max_bites * 0.6))
-		. += "<span class='notice'>Big chunks of [src] have been chewed off!</span>"
+		. += SPAN_NOTICE("Big chunks of [src] have been chewed off!")
 	else if(times_eaten < (max_bites * 0.9))
-		. += "<span class='notice'>Most of [src] has been gnawed away!</span>"
+		. += SPAN_NOTICE("Most of [src] has been gnawed away!")
 	else
-		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
+		. += SPAN_NOTICE("[src] has been eaten down to a sliver!")
 
 /obj/item/soap/attack__legacy__attackchain(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth")
-		user.visible_message("<span class='warning'>[user] starts washing [target]'s mouth out with [name]!</span>")
+		user.visible_message(SPAN_WARNING("[user] starts washing [target]'s mouth out with [name]!"))
 		if(do_after(user, cleanspeed, target = target))
-			user.visible_message("<span class='warning'>[user] washes [target]'s mouth out with [name]!</span>")
+			user.visible_message(SPAN_WARNING("[user] washes [target]'s mouth out with [name]!"))
 			target.reagents.add_reagent("soapreagent", 6)
 		return
 	..()
@@ -86,11 +86,11 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		to_chat(user, "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>")
+		to_chat(user, SPAN_NOTICE("You need to take that [target.name] off before 'cleaning' it."))
 	else
-		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
+		user.visible_message(SPAN_WARNING("[user] begins to smear [src] on \the [target.name]."))
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
+			to_chat(user, SPAN_NOTICE("You 'clean' \the [target.name]."))
 			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(iscarbon(target))

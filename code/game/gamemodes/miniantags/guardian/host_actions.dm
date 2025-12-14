@@ -32,8 +32,8 @@
 		return
 
 	// Show the message to our guardian and to host.
-	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
+	to_chat(guardian, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
+	to_chat(owner, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
 	log_say("(HOST to [key_name(guardian)]): [input]", owner)
 	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
 
@@ -73,7 +73,7 @@
 
 /datum/action/guardian/reset_guardian/Trigger(left_click)
 	if(cooldown_timer)
-		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
+		to_chat(owner, SPAN_WARNING("This ability is still recharging."))
 		return
 
 	var/confirm = tgui_alert(owner, "Are you sure you want replace your guardian's player?", "Confirm", list("Yes", "No"))
@@ -84,18 +84,18 @@
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
 	build_all_button_icons()
 
-	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
+	to_chat(owner, SPAN_DANGER("Searching for a replacement ghost..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
 
 	if(!length(candidates))
-		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
+		to_chat(owner, SPAN_DANGER("There were no ghosts willing to take control of your guardian. You can try again in 5 minutes."))
 		return
 	if(QDELETED(guardian)) // Just in case
 		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
-	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
-	to_chat(owner, "<span class='danger'>Your guardian has been successfully reset.</span>")
+	to_chat(guardian, SPAN_DANGER("Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."))
+	to_chat(owner, SPAN_DANGER("Your guardian has been successfully reset."))
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 	guardian.ghostize()
 	guardian.key = new_stand.key
@@ -122,7 +122,7 @@
 	if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
 		QDEL_NULL(guardian_user.beacon)
 		guardian_user.beacon = new(beacon_loc)
-		to_chat(guardian_user, "<span class='notice'>Beacon placed! You may now warp targets to it, including your user, via <b>Alt Click</b>.</span>")
+		to_chat(guardian_user, SPAN_NOTICE("Beacon placed! You may now warp targets to it, including your user, via <b>Alt Click</b>."))
 
 	return TRUE
 
@@ -148,14 +148,14 @@
 		S.spawner = guardian_user
 		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
 		guardian_user.snares |= S
-		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")
+		to_chat(guardian_user, SPAN_NOTICE("Surveillance trap deployed!"))
 		return TRUE
 	else
 		var/picked_snare = tgui_input_list(guardian_user, "You have too many snares deployed! Delete one to place another.", "Disarm Snare", guardian_user.snares)
 		if(picked_snare)
 			guardian_user.snares -= picked_snare
 			qdel(picked_snare)
-			to_chat(user, "<span class='notice'>Snare disarmed.</span>")
+			to_chat(user, SPAN_NOTICE("Snare disarmed."))
 			revert_cast()
 
 /datum/spell/choose_battlecry

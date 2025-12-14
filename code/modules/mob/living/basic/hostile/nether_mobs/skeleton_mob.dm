@@ -191,7 +191,7 @@
 	// First, see if we can get the OG player. If not, choose from Dchat
 	var/mob/dead/observer/original_ghost = target.get_ghost()
 	if(original_ghost)
-		to_chat(original_ghost, "<span class='ghostalert'>You are being revived by otherworldly forces! Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+		to_chat(original_ghost, "[SPAN_GHOSTALERT("You are being revived by otherworldly forces! Return to your body if you want to be revived!")] (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(original_ghost.client)
 		SEND_SOUND(original_ghost, sound('sound/effects/genetics.ogg'))
 	if(do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
@@ -199,12 +199,12 @@
 		reanimate(target)
 
 /mob/living/basic/skeleton/incursion/reanimator/proc/reanimate(mob/living/carbon/human/H)
-	visible_message("<span class='warning'>[name] releases dark tendrils into the flesh of [H], morphing their corpse into a grotesque creature!</span>")
+	visible_message(SPAN_WARNING("[name] releases dark tendrils into the flesh of [H], morphing their corpse into a grotesque creature!"))
 	var/mob/living/basic/netherworld/blankbody/blank = new(H.loc)
 	blank.name = "[H]"
 	blank.desc = "It's [H], but [H.p_their()] flesh has an ashy texture, and [H.p_their()] face is featureless save an eerie smile."
 	blank.faction = faction.Copy()
-	visible_message("<span class='warning'>[blank] staggers to [H.p_their()] feet!</span>")
+	visible_message(SPAN_WARNING("[blank] staggers to [H.p_their()] feet!"))
 	blank.held_body = H
 	H.forceMove(blank)
 	var/mob/dead/observer/ghost = H.get_ghost(TRUE)
@@ -222,7 +222,7 @@
 		blank.key = chosen_ghost.key
 		blank.cancel_camera()
 		dust_if_respawnable(chosen_ghost)
-		to_chat(blank, "<span class='userdanger'>You have been raised by the dead to serve as a footsoldier in the incursion. Strike down your foes!</span>")
+		to_chat(blank, SPAN_USERDANGER("You have been raised by the dead to serve as a footsoldier in the incursion. Strike down your foes!"))
 
 /obj/projectile/magic/necrotic_bolt
 	name = "necrotic bolt"
@@ -244,7 +244,7 @@
 /datum/action/cooldown/mob_cooldown/summon_skulls/Activate(atom/target)
 	var/mob/living/summoner = target
 	if(!istype(summoner))
-		to_chat(target, "<span class='warning'>You are unable to summon skulls!</span>")
+		to_chat(target, SPAN_WARNING("You are unable to summon skulls!"))
 		return
 
 	for(var/i in 1 to 2)

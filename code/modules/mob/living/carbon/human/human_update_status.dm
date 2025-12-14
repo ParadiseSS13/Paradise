@@ -10,15 +10,15 @@
 					var/mob/dead/observer/ghost = get_ghost()
 					if(!client && !check_ghost_client() && !key)
 						if(!has_status_effect(STATUS_EFFECT_REVIVE_NOTICE))
-							visible_message("<span class='danger'>[src]'[p_s()] posibrain fails its power-on self-test. Any recovery from this state is unlikely.</span>")
+							visible_message(SPAN_DANGER("[src]'[p_s()] posibrain fails its power-on self-test. Any recovery from this state is unlikely."))
 							apply_status_effect(STATUS_EFFECT_REVIVE_NOTICE)
 						return
 
 					if(ghost)
 						if(!has_status_effect(STATUS_EFFECT_REVIVE_NOTICE))
-							to_chat(ghost, "<span class='ghostalert'>Your chassis has been repaired and repowered, re-enter if you want to continue playing!</span> (Verbs -> Ghost -> Re-enter corpse)")
+							to_chat(ghost, "[SPAN_GHOSTALERT("Your chassis has been repaired and repowered, re-enter if you want to continue playing!")] (Verbs -> Ghost -> Re-enter corpse)")
 							SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
-							visible_message("<span class='notice'>[src]'[p_s()] posibrain buffers...</span>")
+							visible_message(SPAN_NOTICE("[src]'[p_s()] posibrain buffers..."))
 							apply_status_effect(STATUS_EFFECT_REVIVE_NOTICE)
 						return
 
