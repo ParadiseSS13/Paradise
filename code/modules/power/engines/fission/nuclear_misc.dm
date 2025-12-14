@@ -275,6 +275,9 @@
 		if(!D.metadata["craftable"])
 			continue
 
+		if(D.metadata["upgrade_required"] && !upgraded)
+			continue
+
 		if(ispath(rod_path, /obj/item/nuclear_rod/fuel))
 			category_fuel += D
 		else if(ispath(rod_path, /obj/item/nuclear_rod/moderator))
