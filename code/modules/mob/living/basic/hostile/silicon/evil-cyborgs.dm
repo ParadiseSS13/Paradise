@@ -2,7 +2,7 @@
 	name = "malfunctioning cyborg"
 	desc = "It doesn't appear to obey the laws of robotics."
 	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-STD"
+	icon_state = "Noble"
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
@@ -54,7 +54,7 @@
 /mob/living/basic/malfborg/sec
 	name = "security cyborg"
 	desc = "Oh god they still have access to these!"
-	icon_state = "Noble-SEC"
+	icon_state = "Noble-Security"
 	attack_verb_simple = "baton"
 	attack_verb_continuous = "batons"
 	projectile_type = /obj/projectile/beam/disabler/weak
@@ -87,7 +87,7 @@
 /mob/living/basic/malfborg/sec/engi // Engiborg has a batonga. Might as well inherit it.
 	name = "engineering cyborg"
 	desc = "Don't let this one near the engine."
-	icon_state = "Noble-ENG"
+	icon_state = "Noble-Engineering"
 	projectile_type = /obj/projectile/beam/emitter
 	projectile_sound = 'sound/weapons/emitter.ogg'
 	ranged_burst_count = 1
@@ -96,9 +96,10 @@
 /mob/living/basic/malfborg/sec/combat
 	name = "combat cyborg"
 	desc = "One of Central Command's own, subverted to work for a hostile AI."
-	icon_state = "ertgamma"
+	icon_state = "Bloodhound_Combat"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	casing_type = /obj/item/ammo_casing/caseless/multi_immolator
+	projectile_type = null
 	projectile_sound = 'sound/weapons/laser3.ogg'
 	ranged_burst_count = 1
 	ranged_cooldown = 1.5 SECONDS
@@ -106,7 +107,7 @@
 /mob/living/basic/malfborg/service
 	name = "service cyborg"
 	desc = "It's ready to serve an ass kicking."
-	icon_state = "Noble-SRV"
+	icon_state = "Noble-Service"
 	melee_damage_lower = 15
 	melee_damage_upper = 25
 	attack_verb_simple = "slam"

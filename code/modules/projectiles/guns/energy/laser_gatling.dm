@@ -1,7 +1,7 @@
 // The ammo/gun is stored in a back slot item
 /obj/item/minigunpack
-	name = "backpack power source"
-	desc = "The massive external power source for the laser gatling gun."
+	name = "IK-134 backpack power supply"
+	desc = "The massive external power source for the IK-134 gatling gun."
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "holstered"
 	inhand_icon_state = "satchel-sec"
@@ -101,7 +101,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/gun/minigun
-	name = "laser gatling gun"
+	name = "IK-134 gatling gun"
 	desc = "An advanced laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "minigun_spin"
@@ -141,12 +141,6 @@
 		ammo_pack.attach_gun(user)
 	else
 		qdel(src)
-
-// /obj/item/gun/energy/gun/minigun/can_shoot()
-// 	if(!ammo_pack || ammo_pack.loc != usr)
-// 		to_chat(usr, "<span class='warning'>You need the backpack power source to fire the gun!</span>")
-// 		return FALSE
-// 	return ..()
 
 /obj/item/stock_parts/cell/minigun
 	name = "gatling gun fusion core"

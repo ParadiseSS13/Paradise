@@ -318,7 +318,7 @@
 /mob/living/basic/hostile_mech/marauder
 	name = "hostile marauder"
 	desc = "A hacked marauder mech, armed with a pulse laser cannon, xray laser rifle, and a light missile launcher."
-	icon_state = "ares"
+	icon_state = "marauder"
 	health = 500
 	maxHealth = 500
 	melee_damage_lower = 35

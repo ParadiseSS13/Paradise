@@ -19,14 +19,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"aF" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"aJ" = (
+/mob/living/basic/malfborg/sec/engi,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "aL" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector,
-/obj/effect/map_effect/dynamic_airlock,
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
+"aU" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ai_upgrade/ai_program_reset,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "aZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -35,6 +46,15 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"bd" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "bD" = (
 /obj/effect/turf_decal/tiles/department/command/side{
@@ -55,6 +75,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered)
+"bU" = (
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "bX" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
@@ -73,6 +97,29 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"cs" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"cx" = (
+/obj/structure/closet/crate{
+	name = "problem solver crate"
+	},
+/obj/item/minigunpack,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"cK" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"cL" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/powered)
 "cQ" = (
 /obj/structure/table,
@@ -93,6 +140,16 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Diner"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"dl" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ai_upgrade/expanded_tank,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"dn" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "do" = (
@@ -123,11 +180,19 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"dW" = (
+/obj/effect/spawner/random/smithed_item/lens,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "ea" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"es" = (
+/obj/structure/cable/yellow,
+/turf/simulated/wall/indestructible/opsglass,
 /area/ruin/powered)
 "ev" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -139,9 +204,37 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "eC" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/map_effect/dynamic_airlock/door/exterior,
-/turf/simulated/floor/plating,
+/obj/structure/shuttle/engine/large,
+/turf/space,
+/area/ruin/powered)
+"eD" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
+	},
+/mob/living/basic/malfborg/sec/combat,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"eE" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"eK" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/ai_node/processing_node,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "eS" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -166,13 +259,21 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
-"fB" = (
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+"fr" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"fB" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "fM" = (
 /obj/structure/cable/yellow{
@@ -185,6 +286,21 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"fN" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin/nanotrasen,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"fU" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/mob/living/basic/malfborg/sec/engi,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "gc" = (
 /obj/effect/turf_decal/tiles/department/science/side,
 /obj/machinery/light,
@@ -200,6 +316,7 @@
 /area/ruin/powered)
 "gj" = (
 /obj/effect/turf_decal/delivery/white/hollow,
+/obj/mecha/combat/marauder/seraph,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "gr" = (
@@ -213,6 +330,30 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"gx" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"gG" = (
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"gM" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "hc" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/yellow{
@@ -222,6 +363,12 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"hn" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "hp" = (
 /obj/machinery/mecha_part_fabricator,
@@ -254,6 +401,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"hu" = (
+/obj/structure/shelf/engineering,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/obj/item/ai_upgrade/expanded_storage,
+/obj/item/ai_upgrade/expanded_storage,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "hA" = (
 /obj/structure/chair/wood/wings,
 /turf/simulated/floor/wood,
@@ -261,6 +417,21 @@
 "hJ" = (
 /obj/effect/turf_decal/tiles/department/security/checker,
 /obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"hL" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/blue,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"hW" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "hZ" = (
@@ -273,6 +444,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"ie" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "il" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
@@ -306,6 +484,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/powered)
+"iI" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "iQ" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
@@ -318,8 +500,17 @@
 "jb" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/powered)
+"jc" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "ki" = (
-/obj/effect/map_effect/dynamic_airlock,
+/obj/structure/shuttle/engine/router,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "km" = (
@@ -337,6 +528,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"kq" = (
+/mob/living/basic/malf_drone,
+/turf/space,
+/area/space/nearstation)
 "ku" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -355,25 +550,45 @@
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/ruin/powered)
+"kx" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"kz" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/mob/living/basic/malfborg/sec/engi,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "kC" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/bluespace/trapped,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "kM" = (
 /obj/effect/turf_decal/tiles/department/virology/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "kO" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
-/obj/effect/map_effect/dynamic_airlock,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/powered)
 "kR" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 9
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "kZ" = (
@@ -389,9 +604,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "lg" = (
-/obj/machinery/light{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/mob/living/basic/malfborg/sec/combat,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "lh" = (
@@ -418,6 +634,11 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"lu" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "lw" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/powered)
@@ -439,10 +660,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "md" = (
-/obj/machinery/access_button/offset/west,
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/map_effect/dynamic_airlock/door/interior,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/powered)
 "mt" = (
 /obj/structure/lattice/catwalk,
@@ -457,6 +675,21 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"mu" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"mw" = (
+/obj/structure/gunrack,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/item/gun/energy/gun/shotgun,
+/obj/item/gun/energy/gun/shotgun,
+/obj/item/gun/energy/gun/shotgun,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "mA" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -469,9 +702,26 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"mH" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "mI" = (
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
+"mO" = (
+/obj/structure/table/reinforced,
+/obj/item/organ/internal/cyberimp/eyes/hud/security,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"mQ" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "mV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -506,6 +756,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"nD" = (
+/obj/machinery/door/airlock/vault,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "nK" = (
 /obj/effect/turf_decal/tiles/department/security/checker,
 /obj/machinery/hologram/holopad,
@@ -524,18 +780,20 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"nQ" = (
+/obj/effect/decal/remains,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "oh" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "on" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "syndishuttle_vent"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
-/obj/effect/map_effect/dynamic_airlock,
-/obj/machinery/airlock_controller/air_cycler/directional/west,
-/turf/simulated/floor/plating,
+/obj/structure/filingcabinet,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "or" = (
 /obj/effect/turf_decal/tiles/department/virology/side,
@@ -545,8 +803,25 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"ox" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "oA" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"oI" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "oK" = (
@@ -589,12 +864,33 @@
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"pf" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/mob/living/basic/hostile_mech/durand,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "pl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
+/area/ruin/powered)
+"pn" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"pD" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "pJ" = (
 /obj/structure/table/reinforced,
@@ -603,6 +899,13 @@
 	pixel_y = 8
 	},
 /obj/item/flash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"pN" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "qg" = (
@@ -634,6 +937,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"rh" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "ru" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 10
@@ -649,11 +959,22 @@
 /obj/machinery/shower/directional/north,
 /turf/simulated/floor/noslip,
 /area/ruin/powered)
+"rK" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/mob/living/basic/hostile_mech/marauder,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "rY" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
+/area/ruin/powered)
+"sf" = (
+/obj/machinery/ai_node/network_node,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "sg" = (
 /obj/structure/cable{
@@ -665,6 +986,15 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"sz" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/organ/internal/cyberimp/arm/medibeam,
+/obj/item/autosurgeon/organ,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "sC" = (
@@ -679,23 +1009,20 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"sH" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "sM" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cooking/grill,
 /turf/simulated/floor/wood,
 /area/ruin/powered)
 "sO" = (
-/obj/structure/gunrack,
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
-/obj/item/gun/energy/laser{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser,
-/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "sU" = (
@@ -713,19 +1040,9 @@
 /turf/space,
 /area/space/nearstation)
 "tn" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/table/reinforced,
+/obj/item/organ/internal/cyberimp/brain/anti_stam,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "tp" = (
 /obj/structure/table/wood,
@@ -745,6 +1062,21 @@
 /obj/item/lighter/zippo/engraved,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"tr" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
@@ -769,19 +1101,19 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"tX" = (
+/obj/machinery/ai_node/processing_node,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ud" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "uB" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "syndishuttle_vent"
-	},
-/obj/effect/map_effect/dynamic_airlock,
-/obj/structure/sign/vacuum/external{
-	pixel_x = 32
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/titanium,
 /area/ruin/powered)
 "uF" = (
 /obj/structure/cable/yellow{
@@ -794,6 +1126,21 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"vd" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
 "vu" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
@@ -804,6 +1151,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vx" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/decal/remains,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "vz" = (
@@ -829,6 +1182,13 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"vK" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "vL" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/robot_parts/robot_suit,
@@ -839,6 +1199,21 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vN" = (
+/obj/structure/table/reinforced,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vU" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/mob/living/basic/malfborg/sec,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "wa" = (
@@ -873,6 +1248,15 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"wA" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
 "wF" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
@@ -905,6 +1289,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"xk" = (
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/laserrifle,
+/obj/item/gun/projectile/automatic/laserrifle,
+/obj/item/gun/projectile/automatic/laserrifle,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
 "xv" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -922,6 +1313,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"xG" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "yr" = (
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/dark,
@@ -930,6 +1327,13 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
+/obj/structure/shelf/science,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser,
+/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "yy" = (
@@ -943,14 +1347,25 @@
 "yK" = (
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"yN" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/mob/living/basic/malfborg/sec,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "yU" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/map_effect/dynamic_airlock/door/exterior,
-/obj/machinery/access_button/offset/southwest,
-/turf/simulated/floor/plating,
+/turf/space,
 /area/ruin/powered)
 "yV" = (
 /obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"yY" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "zc" = (
@@ -998,9 +1413,21 @@
 /area/ruin/powered)
 "Af" = (
 /obj/structure/safe/floor,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random/smithed_item/lens,
+/obj/effect/spawner/random/smithed_item/lens,
+/obj/effect/spawner/random/smithed_item/lens,
+/obj/effect/spawner/random/smithed_item/lens,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "At" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"AE" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/structure/mecha_wreckage/marauder,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "AH" = (
@@ -1010,11 +1437,26 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "AI" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
+/turf/simulated/wall/indestructible/opsglass,
+/area/ruin/powered)
+"AT" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ai_upgrade/surveillance_upgrade,
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"AX" = (
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
-/obj/effect/map_effect/dynamic_airlock,
-/turf/simulated/floor/plating,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"AZ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Bc" = (
 /obj/effect/turf_decal/tiles/department/command/side{
@@ -1044,9 +1486,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"Bt" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/turretid/lethal,
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
 "Bw" = (
-/turf/template_noop,
-/area/space/nearstation)
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
 "BL" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -1054,6 +1502,21 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"BQ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "BR" = (
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
@@ -1070,6 +1533,27 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"CF" = (
+/obj/structure/gunrack,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
+"CH" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/mob/living/basic/malfborg/sec/engi,
+/turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "CI" = (
 /obj/effect/turf_decal/tiles/department/security/checker,
@@ -1105,6 +1589,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"CZ" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "De" = (
 /obj/machinery/door/airlock/engineering/glass,
 /turf/simulated/floor/plasteel/dark,
@@ -1119,6 +1612,28 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"Ds" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/mob/living/basic/hostile_mech/ripley,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"DJ" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "DL" = (
 /obj/machinery/hologram/holopad,
@@ -1136,6 +1651,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"DV" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/item/ai_upgrade/expanded_fabricator,
+/obj/item/ai_upgrade/expanded_fabricator,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "Ei" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -1149,6 +1676,11 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"Ey" = (
+/obj/structure/table/reinforced,
+/obj/item/organ/internal/cyberimp/arm/baton,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "EA" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
@@ -1181,11 +1713,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Fd" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/powered)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "Fe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1193,11 +1723,14 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/powered)
 "Fp" = (
-/obj/structure/shelf/engineering,
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ai_upgrade/expanded_storage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Fq" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/effect/spawner/random/smithed_item/lens,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Fw" = (
 /obj/effect/turf_decal/tiles/department/virology/side,
@@ -1205,6 +1738,13 @@
 	dir = 1;
 	cover_color = "#85130b"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"FF" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "FP" = (
@@ -1219,9 +1759,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Ga" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 1
+/obj/machinery/hologram/holopad,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Gf" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Gi" = (
@@ -1250,6 +1798,10 @@
 /obj/machinery/door/airlock/science/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"GR" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Hd" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
@@ -1261,6 +1813,13 @@
 /area/ruin/powered)
 "HH" = (
 /obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"HL" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/obj/structure/chair/office{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "HM" = (
@@ -1301,14 +1860,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "II" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "IM" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -1317,6 +1872,15 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"IQ" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Ja" = (
 /obj/structure/shelf/engineering,
@@ -1336,6 +1900,19 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Jm" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/shelf/science,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
+/obj/item/mecha_parts/mecha_equipment/repair_droid,
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
+/obj/item/mecha_parts/mecha_equipment/thrusters,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Jr" = (
@@ -1367,10 +1944,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"JF" = (
+/obj/machinery/door/airlock/public,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"JK" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
 "JO" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
 /area/ruin/powered)
 "Kh" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -1391,6 +1976,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"Kz" = (
+/obj/machinery/door/airlock/science/glass,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "KC" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/honey,
@@ -1404,11 +1994,8 @@
 /turf/simulated/floor/plasteel/fakestairs/left,
 /area/ruin/powered)
 "KL" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/effect/map_effect/dynamic_airlock,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "KO" = (
 /obj/structure/showcase{
@@ -1452,9 +2039,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "Md" = (
-/obj/machinery/light{
-	dir = 8
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Mi" = (
@@ -1469,6 +2057,11 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
+/area/ruin/powered)
+"Ms" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
+/obj/item/organ/internal/cyberimp/arm/combat,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Mv" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -1519,6 +2112,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"MV" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/machineprototype,
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"MY" = (
+/obj/structure/shelf/command,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Nj" = (
 /obj/machinery/atmospherics/binary/valve/open{
 	name = "Maintenance Air Supply"
@@ -1526,11 +2138,16 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "Np" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
-/obj/effect/map_effect/dynamic_airlock,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
+"Ns" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Nu" = (
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -1550,6 +2167,22 @@
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"NO" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/mob/living/basic/malfborg/sec/combat,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"NP" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "NU" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
@@ -1560,6 +2193,26 @@
 /area/ruin/powered)
 "NZ" = (
 /turf/simulated/floor/wood,
+/area/ruin/powered)
+"Oa" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Oc" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ok" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Om" = (
 /obj/structure/table/reinforced,
@@ -1601,6 +2254,13 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"Op" = (
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
 "OB" = (
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
@@ -1611,10 +2271,24 @@
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/wood,
 /area/ruin/powered)
+"OG" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "OL" = (
 /obj/effect/turf_decal/tiles/department/medical,
 /obj/effect/turf_decal/tiles/department/medical,
 /obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"OZ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Pn" = (
@@ -1624,17 +2298,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Ps" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Pv" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -1668,7 +2334,35 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "PR" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/mob/living/basic/malfborg/sec,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"PW" = (
+/obj/item/gun/energy/gun/shotgun,
+/obj/effect/decal/remains,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Qi" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/structure/shelf/security,
+/obj/item/storage/box/stingers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/stingers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/lwap,
+/obj/item/gun/energy/laser/lever_action,
+/obj/item/gun/energy/laser/lever_action,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Ql" = (
 /obj/structure/chair/sofa/bench/left{
@@ -1724,6 +2418,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"QB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/ai_node/network_node,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "QH" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 5
@@ -1759,14 +2460,37 @@
 /turf/simulated/floor/engine,
 /area/ruin/powered)
 "QT" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 10
-	},
-/turf/simulated/wall/r_wall,
+/mob/living/basic/malfborg,
+/turf/simulated/floor/wood,
 /area/ruin/powered)
 "Rj" = (
 /turf/template_noop,
 /area/template_noop)
+"Rs" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"RQ" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"RR" = (
+/obj/structure/shelf/command,
+/obj/item/toner,
+/obj/item/toner,
+/obj/item/toner,
+/obj/item/toner,
+/obj/item/toner,
+/obj/item/toner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "RS" = (
 /obj/effect/turf_decal/tiles/department/command/checker,
 /obj/structure/cable{
@@ -1794,14 +2518,19 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Sn" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
 	},
-/obj/effect/turf_decal/tiles/dark/corner,
-/turf/simulated/floor/plasteel,
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "SA" = (
 /obj/structure/cable/yellow{
@@ -1845,6 +2574,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"Tc" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Td" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 10
@@ -1877,6 +2621,35 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"TC" = (
+/obj/structure/table/reinforced,
+/obj/item/pen/multi/gold,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"TL" = (
+/obj/structure/gunrack,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"TN" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper,
+/obj/item/pen/fancy,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"TZ" = (
+/mob/living/basic/hostile_mech/ares,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Ua" = (
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel/dark,
@@ -1891,6 +2664,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/mob/living/basic/malfborg,
 /turf/simulated/floor/wood,
 /area/ruin/powered)
 "Uh" = (
@@ -1934,6 +2708,21 @@
 "UK" = (
 /turf/simulated/floor/bluegrid,
 /area/ruin/powered)
+"UN" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
 "UR" = (
 /obj/machinery/light,
 /turf/simulated/floor/wood,
@@ -1946,20 +2735,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Vg" = (
-/obj/structure/gunrack,
-/obj/item/gun/energy/disabler{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/disabler,
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Vl" = (
@@ -2001,11 +2777,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"VF" = (
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/indestructible/opsglass,
+/area/ruin/powered)
 "VM" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
 	},
 /obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"VN" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "VV" = (
@@ -2028,12 +2818,25 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Wb" = (
-/obj/structure/window/reinforced,
-/obj/machinery/light/floor,
-/turf/simulated/floor/engine,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Wf" = (
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Wl" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 4
+	},
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Wn" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/airlock/security,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Ws" = (
@@ -2058,11 +2861,22 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
-"Xb" = (
-/obj/effect/turf_decal/tiles/department/science/corner{
-	dir = 4
+"WW" = (
+/mob/living/basic/malfborg/service,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"WZ" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
 	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/gun/energy/pulse/pistol,
+/obj/effect/decal/remains,
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Xb" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel/fakestairs/center,
 /area/ruin/powered)
 "Xh" = (
 /obj/structure/table/reinforced,
@@ -2073,10 +2887,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered)
 "Xl" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
+/obj/structure/table/reinforced,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Xn" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -2087,6 +2901,28 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"Xo" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ai_upgrade/expanded_network,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Xq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
+"Xt" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/organ/internal/cyberimp/arm/muscle,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Xv" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
@@ -2114,20 +2950,29 @@
 /obj/machinery/cooking/stovetop,
 /turf/simulated/floor/wood,
 /area/ruin/powered)
+"Ya" = (
+/obj/structure/shelf/command,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi/gold,
+/obj/item/pen/multi/gold,
+/obj/item/pen/multi/gold,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
 "Yf" = (
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/shelf/security,
-/obj/item/storage/box/stingers{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/wt550,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/powered)
+"Yv" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
-/obj/item/storage/box/stingers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/weaponcrafting/gunkit/nuclear,
-/obj/item/weaponcrafting/gunkit/nuclear,
-/obj/item/weaponcrafting/gunkit/lwap,
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "Yz" = (
@@ -2137,11 +2982,14 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
-"Zd" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
+"YE" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Zd" = (
+/obj/machinery/porta_turret/centcom/pulse,
+/turf/simulated/floor/bluegrid,
 /area/ruin/powered)
 "Zg" = (
 /obj/structure/table/reinforced,
@@ -2151,6 +2999,30 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/wood,
+/area/ruin/powered)
+"ZA" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ZU" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1;
+	check_borgs = 1
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
 "ZY" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -2211,6 +3083,23 @@ Rj
 Rj
 Rj
 Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 "}
 (2,1,1) = {"
 Rj
@@ -2231,8 +3120,8 @@ Ky
 JB
 Vl
 Ja
-Fp
-JB
+hu
+Ds
 wa
 lw
 Rj
@@ -2248,6 +3137,23 @@ mI
 mI
 ab
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2274,7 +3180,7 @@ Ei
 wv
 Ei
 aZ
-tn
+kz
 nn
 SO
 SO
@@ -2287,14 +3193,31 @@ Rj
 ab
 mI
 mI
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 mI
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2334,14 +3257,31 @@ Rj
 mI
 mI
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2368,7 +3308,7 @@ Oo
 Rj
 Oo
 lw
-II
+fU
 xv
 SO
 aa
@@ -2379,16 +3319,33 @@ Ut
 lw
 Rj
 Rj
-kC
-Bw
-Xl
+Fd
+Fd
+II
 Rj
 Rj
 Rj
-Xl
-kC
+II
+Fd
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2426,17 +3383,34 @@ Uh
 lw
 Rj
 Rj
-kC
+Fd
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 ab
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ab
+ab
+ab
+ab
+ab
+ab
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2475,15 +3449,32 @@ lw
 lw
 lw
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 mI
 ab
+Rj
+Rj
+kq
+kq
+Rj
+Rj
+Rj
+Rj
+ab
+mI
+mI
+mI
+mI
+ab
+ab
+ab
+Rj
 Rj
 Rj
 Rj
@@ -2507,17 +3498,17 @@ oN
 At
 At
 qk
-Gq
+YE
 eS
 Pv
 Pv
+mH
+Rs
+mH
 Pv
 Pv
 Pv
-Pv
-Pv
-Pv
-Pv
+mH
 Pv
 ru
 lw
@@ -2526,10 +3517,27 @@ lw
 Rj
 Rj
 Rj
-Xl
-kC
-kC
+II
+Fd
+Fd
 mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ab
+mI
+Fd
+Rj
+mI
+mI
+mI
+ab
 ab
 Rj
 Rj
@@ -2558,9 +3566,9 @@ jb
 qE
 At
 At
-At
-HM
-At
+Vg
+Ga
+Vg
 At
 At
 At
@@ -2573,12 +3581,29 @@ lw
 lw
 lw
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
 Rj
 Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Fd
+Rj
+Rj
+Rj
+mI
+mI
+ab
+ab
 Rj
 Rj
 Rj
@@ -2590,19 +3615,19 @@ Rj
 "}
 (10,1,1) = {"
 Rj
-Rj
+kq
 Rj
 uF
 Lh
 oS
 lw
-Ga
+sz
 yr
 OL
 yr
 qk
 jb
-QH
+DJ
 tp
 vu
 xa
@@ -2614,13 +3639,13 @@ km
 km
 km
 km
-mW
+mu
 zo
 tJ
-ru
+Tc
 lw
 lw
-kC
+Fd
 Rj
 Rj
 Rj
@@ -2630,6 +3655,23 @@ lw
 lw
 lw
 lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Fd
+Fd
+Fd
+Rj
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2637,7 +3679,7 @@ Rj
 "}
 (11,1,1) = {"
 Rj
-Rj
+kq
 Rj
 Rj
 Rj
@@ -2659,7 +3701,7 @@ jb
 jb
 dN
 dN
-dN
+jb
 jb
 QH
 mW
@@ -2668,16 +3710,33 @@ zo
 ru
 lw
 lw
-Rj
-Rj
 lw
 lw
-sO
-Vg
-Yf
+lw
+lw
+mw
+TL
+Qi
 Jr
 lw
 lw
+lw
+lw
+lw
+lw
+Fd
+Rj
+II
+Fd
+Rj
+Rj
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2706,17 +3765,17 @@ iQ
 EZ
 EZ
 EZ
-bD
+jb
 jb
 jb
 QH
 mW
-At
-zo
+Vg
+ie
 ru
 lw
-Rj
-Rj
+vK
+Ms
 lw
 NL
 wK
@@ -2725,6 +3784,23 @@ wK
 wK
 pc
 lw
+MY
+Ya
+RR
+lw
+lw
+Rj
+Rj
+Fd
+Fd
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2745,24 +3821,24 @@ ev
 jb
 EO
 At
-At
+Vg
 At
 HM
 At
 At
+Vg
 At
 At
-At
-OB
+nD
 bD
-QT
+jb
 jb
 QH
-mW
-At
+mu
+Vg
 HH
-lw
-Rj
+iI
+KL
 lw
 lw
 wK
@@ -2772,6 +3848,23 @@ wK
 wK
 Af
 lw
+hn
+At
+At
+At
+lw
+Rj
+Rj
+Rj
+Fd
+Rj
+Rj
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2790,35 +3883,52 @@ lw
 lw
 lw
 lw
-Pn
+eE
 DR
 DR
 DR
 DR
 DR
 DR
-DR
+AZ
 Ws
 At
-At
+jb
 OB
 bD
 jb
 jb
-qE
-At
-HH
+jb
+nD
+jb
 lw
-Rj
+nQ
 lw
-oh
+Xl
 pJ
-oh
+vN
 wK
 nK
 wK
 pc
 lw
+jb
+jb
+iI
+jb
+lw
+lw
+Fd
+Fd
+Fd
+Fd
+Fd
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2846,8 +3956,8 @@ jb
 jb
 jb
 UT
-DR
-DR
+BQ
+jb
 Ws
 OB
 bD
@@ -2858,14 +3968,31 @@ HH
 lw
 lw
 lw
-kR
+eD
 Jx
-oh
+Ey
 wK
 wK
 wK
 lw
 lw
+Gf
+bd
+EZ
+ox
+jc
+lw
+lw
+Rj
+Rj
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2887,9 +4014,9 @@ lw
 jb
 jb
 hq
-hq
+UN
 mV
-hq
+UN
 hq
 jb
 jb
@@ -2897,8 +4024,8 @@ jb
 jb
 EO
 At
-BR
-dN
+aF
+jb
 qE
 At
 HH
@@ -2906,12 +4033,29 @@ jb
 VM
 AH
 sC
-Ua
+Fq
 Wy
 CI
 wK
 hJ
 lw
+ud
+IQ
+Oc
+At
+Oc
+CZ
+OZ
+lw
+Rj
+Rj
+Rj
+ab
+ab
+ab
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2926,11 +4070,11 @@ wv
 NG
 lw
 lw
-At
-At
-Md
-At
-At
+aU
+tX
+eK
+tX
+Fp
 At
 At
 KG
@@ -2939,26 +4083,43 @@ KG
 KG
 KG
 At
-At
+Fp
 jb
 Jc
-DP
-At
+WZ
+Vg
 BR
-dN
+jb
 qE
 At
 RZ
 jb
-Zd
+pf
 At
 At
 Ua
-oh
+mO
 zw
 wK
 wK
 lw
+ZA
+At
+At
+At
+At
+At
+BR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -2986,13 +4147,13 @@ iu
 iu
 iu
 At
-At
-PR
+Xo
+jb
 EO
-At
-At
+Vg
+Vg
 BR
-dN
+jb
 qE
 At
 HH
@@ -3002,10 +4163,27 @@ At
 HM
 Ua
 oh
-oh
+tn
 ko
 lw
 lw
+EO
+At
+fN
+fB
+TC
+At
+BR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3016,27 +4194,27 @@ VW
 Lh
 oS
 lw
-UK
+AT
 At
 UK
 At
 UK
 At
-UK
+Zd
 At
 UK
 At
 UK
 iu
-iu
+Xb
 iu
 iu
 iu
 At
-At
-PR
-EO
-At
+kC
+jb
+rK
+Vg
 At
 BR
 jb
@@ -3045,13 +4223,30 @@ At
 HH
 jb
 Gi
-At
+dW
 At
 CC
 AH
-AH
+yN
 Jx
 lw
+on
+DP
+At
+Ps
+hL
+Oa
+At
+kR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3079,9 +4274,9 @@ iu
 iu
 iu
 iu
+GR
 At
-At
-PR
+jb
 EO
 At
 At
@@ -3094,14 +4289,31 @@ jb
 bI
 At
 At
-At
+Vg
 At
 At
 Ju
 lw
-lw
-lw
-lw
+sO
+At
+At
+At
+At
+At
+At
+lu
+jb
+Rj
+Rj
+Rj
+Rj
+Rj
+uB
+AI
+AI
+AI
+uB
+Rj
 Rj
 Rj
 "}
@@ -3110,7 +4322,7 @@ uF
 Lh
 oS
 lw
-UK
+Zd
 Bj
 Bj
 Bj
@@ -3131,25 +4343,42 @@ At
 jb
 EO
 At
-Xw
+cs
 Cy
 jb
-qE
+lg
 At
 HH
 jb
 Sb
 Qw
-Qw
-sE
-sE
+fr
+Yv
+OG
 sE
 Yz
 jb
-aL
-AI
-lw
+yY
+DR
+DR
+DR
+DR
+Hd
+DR
+Wb
+jb
 Rj
+Rj
+Rj
+Rj
+uB
+wA
+aL
+aL
+aL
+uB
+uB
+uB
 Rj
 "}
 (22,1,1) = {"
@@ -3176,9 +4405,9 @@ iu
 At
 wS
 jb
-EO
+NO
 At
-BR
+dn
 jb
 jb
 qE
@@ -3194,16 +4423,33 @@ jb
 jb
 jb
 jb
-KL
+jb
+jb
+jb
+dh
+jb
+jb
+jb
+jb
 lw
-lw
-lw
+Rj
+Rj
+uB
+Bw
+md
+md
+md
+md
+Np
+uB
+yK
+eC
 "}
 (23,1,1) = {"
 uF
 Lh
 nP
-JO
+es
 UK
 Bj
 Bj
@@ -3214,18 +4460,18 @@ wn
 Qo
 Bj
 Bj
-UK
+Zd
+Xb
 iu
 iu
 iu
-iu
-iu
+Xb
 At
 At
 jb
 EO
 At
-BR
+dn
 jb
 Ad
 qE
@@ -3233,17 +4479,34 @@ At
 zo
 Pv
 Pv
+cK
 Pv
+mH
 Pv
-Pv
-Pv
-tJ
+vU
 Pv
 Pv
 jb
-kO
-on
-ki
+rh
+AE
+EZ
+EZ
+EZ
+iQ
+EZ
+EZ
+lw
+lw
+lw
+uB
+Bw
+md
+Yf
+xk
+md
+Np
+uB
+yK
 yU
 "}
 (24,1,1) = {"
@@ -3259,7 +4522,7 @@ Fe
 MH
 Fe
 PF
-Bj
+cL
 Bj
 At
 iu
@@ -3274,10 +4537,10 @@ EO
 HM
 Uf
 jb
-Wb
+MV
 qE
 HM
-At
+TZ
 At
 At
 At
@@ -3287,17 +4550,34 @@ At
 At
 HM
 At
+JF
+At
+At
+At
+At
+At
+At
+At
+At
+sH
+PM
+sH
+JK
 md
-KL
+md
+md
+md
+md
+md
+oI
 ki
-ki
-eC
+Rj
 "}
 (25,1,1) = {"
 uF
 Lh
 nP
-fB
+VF
 XC
 Bj
 Bj
@@ -3308,7 +4588,7 @@ wn
 Qo
 Bj
 Bj
-UK
+Zd
 iu
 iu
 iu
@@ -3318,7 +4598,7 @@ At
 At
 jb
 EO
-At
+Vg
 BR
 jb
 KO
@@ -3331,13 +4611,30 @@ km
 km
 km
 km
-wF
-km
-km
+PR
+Md
+Md
 jb
+pN
+Hd
+DR
+DR
+DR
+DR
+DR
+DR
+lw
+lw
+lw
+uB
+Bw
+md
+CF
+Op
+md
 Np
 uB
-ki
+yK
 eC
 "}
 (26,1,1) = {"
@@ -3358,13 +4655,13 @@ Bj
 At
 iu
 iu
-iu
+Xb
 iu
 iu
 At
 wS
 jb
-EO
+NO
 At
 BR
 jb
@@ -3381,18 +4678,35 @@ jb
 jb
 jb
 lw
+jb
+jb
+jb
+jb
+dh
+jb
+jb
+jb
+jb
 lw
-lw
-lw
-lw
-lw
+Rj
+Rj
+uB
+Bw
+md
+md
+md
+md
+Np
+uB
+yK
+yU
 "}
 (27,1,1) = {"
 uF
 Lh
 oS
 lw
-UK
+Zd
 Bj
 Bj
 Bj
@@ -3416,22 +4730,39 @@ At
 OB
 wo
 jb
-qE
+lg
 At
 HH
 jb
+Wf
+kx
+JO
 NZ
 NZ
 NZ
-NZ
-NZ
-NZ
-NZ
+QT
+lw
+on
+EZ
+EZ
+iQ
+EZ
+EZ
+EZ
+FF
 lw
 Rj
 Rj
 Rj
 Rj
+uB
+Xq
+kO
+kO
+kO
+uB
+uB
+uB
 Rj
 "}
 (28,1,1) = {"
@@ -3457,10 +4788,10 @@ iu
 iu
 At
 At
-PR
+jb
 EO
 At
-At
+Vg
 BR
 jb
 qE
@@ -3468,15 +4799,32 @@ At
 HH
 jb
 NZ
-NZ
-NZ
+JO
+JO
 NZ
 hA
 CK
 bS
 lw
+sO
+At
+At
+At
+At
+At
+At
+lu
+lw
 Rj
 Rj
+Rj
+Rj
+Rj
+uB
+AI
+AI
+AI
+uB
 Rj
 Rj
 Rj
@@ -3486,13 +4834,13 @@ uF
 Lh
 oS
 lw
-UK
+Bt
 At
 UK
 At
 UK
 At
-UK
+Zd
 At
 UK
 At
@@ -3500,14 +4848,14 @@ UK
 iu
 iu
 iu
+Xb
 iu
-iu
 At
+kC
+jb
+rK
 At
-PR
-EO
-At
-At
+Vg
 BR
 jb
 qE
@@ -3522,6 +4870,23 @@ hA
 CK
 bS
 lw
+yY
+Ws
+At
+Oa
+hL
+Ps
+At
+kR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3550,13 +4915,13 @@ iu
 iu
 iu
 At
-At
-PR
+Xo
+jb
 EO
 At
 At
 BR
-dN
+jb
 qE
 At
 Fw
@@ -3570,6 +4935,23 @@ CK
 bS
 lw
 lw
+EO
+At
+fN
+Oc
+TC
+At
+BR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3584,11 +4966,11 @@ wv
 BL
 lw
 lw
-At
-At
-lg
-At
-At
+dl
+sf
+QB
+sf
+Xo
 At
 At
 Tm
@@ -3597,13 +4979,13 @@ Tm
 Tm
 Tm
 At
-At
+Fp
 jb
 UT
 Ws
 At
 BR
-dN
+jb
 qE
 At
 vE
@@ -3617,6 +4999,23 @@ NZ
 NZ
 UR
 lw
+ZA
+At
+At
+At
+At
+At
+BR
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3639,9 +5038,9 @@ lw
 jb
 jb
 iz
-iz
+vd
 QM
-iz
+vd
 iz
 jb
 jb
@@ -3649,8 +5048,8 @@ jb
 jb
 EO
 At
-BR
-dN
+aF
+jb
 qE
 At
 Gv
@@ -3660,10 +5059,27 @@ NZ
 NZ
 NZ
 NZ
-NZ
+JO
 NZ
 NZ
 lw
+AX
+pD
+fB
+At
+fB
+HL
+VN
+lw
+Rj
+Rj
+Rj
+ab
+ab
+ab
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3692,8 +5108,8 @@ jb
 jb
 jb
 Jc
-EZ
-EZ
+gx
+jb
 DP
 Xw
 Bc
@@ -3706,12 +5122,29 @@ zR
 zR
 NZ
 NZ
-NZ
+JO
 EQ
 Zg
 eZ
 lw
 lw
+NP
+TN
+DR
+TN
+Ok
+lw
+lw
+Rj
+Rj
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3730,7 +5163,7 @@ lw
 lw
 lw
 lw
-zG
+tr
 EZ
 EZ
 EZ
@@ -3739,15 +5172,15 @@ EZ
 EZ
 EZ
 DP
-At
-At
+Vg
+jb
 Xw
 Bc
 jb
 jb
-qE
-At
-HH
+jb
+nD
+jb
 lw
 lw
 lw
@@ -3759,6 +5192,23 @@ KC
 NZ
 XX
 lw
+jb
+jb
+iI
+lw
+jb
+lw
+Fd
+Fd
+Fd
+Fd
+Fd
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3774,29 +5224,29 @@ lw
 lw
 lw
 Om
-su
+Jm
 yt
 jb
 EO
 At
-At
-At
+Vg
+Vg
 HM
 At
 At
 At
+Vg
 At
-At
-Xw
+nD
 Bc
 jb
 jb
 zc
 kZ
-At
-HH
+Vg
+pn
 lw
-Rj
+dW
 lw
 qg
 Zg
@@ -3806,6 +5256,23 @@ Zt
 NZ
 sM
 lw
+xG
+At
+At
+At
+lw
+Rj
+Rj
+Rj
+Fd
+Rj
+Rj
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3834,39 +5301,56 @@ Hd
 DR
 DR
 DR
-Bc
+jb
 jb
 jb
 eS
-kZ
-At
-At
-HH
+RQ
+Vg
+Vg
+vx
+gM
+gG
 lw
-Rj
 lw
-lw
+WW
 NZ
+WW
 NZ
-NZ
-NZ
-NZ
+PW
 OD
 lw
+MY
+Ya
+RR
+lw
+lw
+Rj
+Rj
+Fd
+Fd
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
 "}
 (37,1,1) = {"
 Rj
-Rj
+kq
 Rj
 Rj
 Rj
 Bh
 lw
 hp
-At
+bU
 vL
 At
 yV
@@ -3881,17 +5365,17 @@ jb
 jb
 dN
 dN
-dN
+jb
 jb
 eS
 kZ
-At
-kM
-km
-CT
+Vg
+mQ
+Md
+Xt
 lw
-Rj
-Rj
+hn
+cx
 lw
 kw
 NZ
@@ -3900,13 +5384,30 @@ NZ
 DL
 rx
 lw
+lw
+lw
+lw
+lw
+Fd
+Rj
+Fd
+Fd
+Rj
+Rj
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
 "}
 (38,1,1) = {"
 Rj
-Rj
+kq
 Rj
 uF
 Lh
@@ -3918,9 +5419,9 @@ HM
 At
 gc
 jb
-eS
-Pv
-tJ
+ZU
+mH
+hW
 Pv
 Pv
 Pv
@@ -3933,12 +5434,12 @@ Pv
 kZ
 kM
 wF
-CT
+Sn
 lw
 lw
 lw
-Rj
-Rj
+lw
+lw
 lw
 lw
 Xh
@@ -3947,6 +5448,23 @@ yy
 XD
 lw
 lw
+Rj
+Rj
+Rj
+Rj
+Fd
+Fd
+Fd
+Rj
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -3966,14 +5484,14 @@ At
 yV
 jb
 qE
-At
-At
+Vg
+Vg
 At
 HM
 At
+Vg
 At
-At
-At
+Vg
 At
 At
 kM
@@ -3983,7 +5501,7 @@ lw
 lw
 lw
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
@@ -3993,6 +5511,23 @@ lw
 lw
 lw
 lw
+Rj
+Rj
+Rj
+Rj
+Rj
+Fd
+Rj
+Rj
+Rj
+mI
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4007,11 +5542,11 @@ Lh
 Xn
 lw
 Qs
-Xb
+Wl
 At
 At
 yV
-GI
+Kz
 QH
 km
 km
@@ -4030,11 +5565,28 @@ lw
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
 Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ab
+mI
+Fd
+Rj
+mI
+mI
+mI
+ab
+ab
 Rj
 Rj
 Rj
@@ -4055,7 +5607,7 @@ Bh
 lw
 lw
 Om
-Fd
+Ns
 Uw
 Nu
 jb
@@ -4072,16 +5624,33 @@ lw
 lw
 lw
 lw
-kC
-Xl
+Fd
+II
 Rj
 Rj
 Rj
-Xl
-kC
-kC
+II
+Fd
+Fd
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ab
+mI
+mI
+mI
+mI
+ab
+ab
+ab
+Rj
 Rj
 Rj
 Rj
@@ -4108,7 +5677,7 @@ lw
 lw
 lw
 SU
-Ps
+CH
 lX
 wW
 yK
@@ -4118,17 +5687,34 @@ ht
 lw
 Rj
 Rj
-kC
+Fd
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 mI
 ab
+Rj
+Rj
+kq
+kq
+Rj
+Rj
+Rj
+Rj
+ab
+ab
+ab
+ab
+ab
+ab
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4165,17 +5751,34 @@ fo
 lw
 Rj
 Rj
-kC
+Fd
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 ab
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4212,16 +5815,33 @@ ht
 lw
 Rj
 Rj
-kC
-kC
-Xl
+Fd
+Fd
+II
 Rj
 Rj
 Rj
-Xl
-kC
+II
+Fd
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4249,7 +5869,7 @@ wv
 mt
 Dg
 cQ
-SO
+aJ
 NU
 cl
 Nj
@@ -4261,14 +5881,31 @@ Rj
 mI
 mI
 Rj
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 Rj
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4296,7 +5933,7 @@ Rj
 ku
 CO
 Iw
-Sn
+DV
 MI
 Lo
 iv
@@ -4308,14 +5945,31 @@ Rj
 ab
 mI
 mI
-kC
+Fd
 Rj
 Rj
 Rj
-kC
+Fd
 mI
 mI
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
@@ -4373,6 +6027,23 @@ Rj
 Rj
 Rj
 Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 "}
 (48,1,1) = {"
 Rj
@@ -4409,6 +6080,23 @@ ab
 ab
 ab
 ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
 Rj
 Rj
 Rj
