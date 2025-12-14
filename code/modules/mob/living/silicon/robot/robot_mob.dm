@@ -400,7 +400,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	base_icon_state = trim((splittext(sprite_image.icon_state, "-"))[1])
 	// Use the above info to give the player the unique sprites for the option they picked, if present.
 	if(base_icon_state in sprites_with_variants)
-		var/module_sprite_variants = get_sprite_variants(selected_module, selected_sprite, base_icon_state)
+		var/module_sprite_variants = get_sprite_variants(selected_module, selected_sprite)
 		var/selected_variant = show_radial_menu(src, src, module_sprite_variants, radius = 42)
 		if(!selected_variant)
 			selected_sprite = null
@@ -555,9 +555,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   * Arguments:
   * * selected_module - The chosen cyborg module to get the sprites for.
   * * selected_sprite - The plaintext name of the icon_state as seen by the player in the radial menu.
-  * * base_icon_state - The base icon state whose variants are being fetched.
   */
-/mob/living/silicon/robot/proc/get_sprite_variants(selected_module, selected_sprite, base_icon_state)
+/mob/living/silicon/robot/proc/get_sprite_variants(selected_module, selected_sprite)
 	var/list/sprite_options
 	var/sprite_variant_seeker = selected_sprite
 	if(base_icon_state in sprites_with_variants)
@@ -581,18 +580,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 	return sprite_options
 
-// MUST work with standard variants (e.g. Standard-Engi, Standard-Engi-tripod)
-// MUST work with standalone variants (bloodhound, bloodhound-tread)
-// Selected Sprite is friendly with the first criteria.
-// base_icon_state is friendly with the second.
-// if statements must be static, but can use vars.
-
 /**
   * Sets the offset for a cyborg's hats based on their module icon.
   * Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)
-  *
-  * Arguments:
-  * * base_icon_state - The base `icon_state` group for which the offset needs to be calculated.
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset()
 	switch(base_icon_state)
