@@ -199,7 +199,7 @@
 		/obj/item/smithed_item/lens/efficiency,
 		/obj/item/kitchen/knife/smithed/utility,
 		/obj/item/kitchen/knife/smithed/thrown,
-		/obj/item/kitchen/knife/smithed/combat
+		/obj/item/kitchen/knife/smithed/combat,
 	)
 
 /obj/effect/spawner/random/smithed_item/insert
@@ -235,7 +235,7 @@
 	loot = list(
 		/obj/item/kitchen/knife/smithed/utility,
 		/obj/item/kitchen/knife/smithed/thrown,
-		/obj/item/kitchen/knife/smithed/combat
+		/obj/item/kitchen/knife/smithed/combat,
 	)
 
 /obj/effect/spawner/random/space_pirate
