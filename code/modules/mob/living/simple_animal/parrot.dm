@@ -741,7 +741,7 @@
 		"Think we could weaponize ejected coolant rods?",
 		"WHO KEEPS LEAVING THE FUEL RODS OUT",
 		"Why do we need coolant rods if we use gas?",
-		"Wait, why isnt the reactor integrity going up?",
+		"Wait, why isn't the reactor integrity going up?",
 		"When did engineering get a pool!?",
 		"Does anyone else taste copper?",
 		"10 sieverts isn't a harmful amount of radiation, is it?",
