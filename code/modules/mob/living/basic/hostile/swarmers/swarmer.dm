@@ -44,6 +44,7 @@
 	projectile_type = /obj/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ranged_burst_count = 2
+	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 1 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 	see_in_dark = 6
