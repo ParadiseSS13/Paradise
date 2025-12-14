@@ -323,7 +323,7 @@
 
 /obj/item/nuclear_rod/moderator/graphite
 	name = "graphite moderator"
-	desc = "A nuclear moderation rod comprised of primarily of layered graphite. A staple of fission reactor operation through the ages."
+	desc = "A nuclear moderation rod comprised primarily of layered graphite. A staple of fission reactor operation through the ages."
 	heat_amp_mod = 1.3
 	power_amp_mod = 1.6
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
