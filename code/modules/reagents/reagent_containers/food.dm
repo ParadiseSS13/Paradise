@@ -36,12 +36,12 @@
 	if(!target.is_refillable())
 		return
 	if(target.reagents.holder_full())
-		to_chat(user, "<span class='warning'>[target] is full.</span>")
+		to_chat(user, SPAN_WARNING("[target] is full."))
 		return
 
-	to_chat(user, "<span class='notice'>You [!target.reagents.total_volume ? "pour" : "dump"] [src] in [target].</span>")
+	to_chat(user, SPAN_NOTICE("You [!target.reagents.total_volume ? "pour" : "dump"] [src] in [target]."))
 	for(var/mob/O as anything in oviewers(2, user))
-		O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
+		O.show_message(SPAN_WARNING("[user] puts something in [target]."), 1)
 	reagents.trans_to(target, reagents.total_volume)
 	qdel(src)
 

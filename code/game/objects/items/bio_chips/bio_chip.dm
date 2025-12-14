@@ -78,7 +78,7 @@
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)))
 		if(!silent)
-			to_chat(user, "<span class='warning'>You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
+			to_chat(user, SPAN_WARNING("You can't trigger [src] with that emote! Try *help to see emotes you can use."))
 		return FALSE
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))

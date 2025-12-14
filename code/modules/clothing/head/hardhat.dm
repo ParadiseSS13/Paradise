@@ -47,7 +47,7 @@
 		on = FALSE
 		turn_off()
 		update_icon(UPDATE_ICON_STATE)
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
 	name = "orange hard hat"

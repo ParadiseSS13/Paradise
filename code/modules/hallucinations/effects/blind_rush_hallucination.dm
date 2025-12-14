@@ -14,12 +14,12 @@
 /datum/hallucination_manager/blind_rush/on_spawn()
 	owner.playsound_local(get_turf(src), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
 	owner.become_blind("hallucination")
-	to_chat(owner, "<span class='whisper'>Who turned off the light?</span>", MESSAGE_TYPE_INFO)
+	to_chat(owner, SPAN_WHISPER("Who turned off the light?"), MESSAGE_TYPE_INFO)
 
 /datum/hallucination_manager/blind_rush/on_trigger()
 	var/turf/spawn_location = get_spawn_location() //we need a new spawn location incase the player moved
 	hallucination_list += new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
-	to_chat(owner, "<span class='danger'>They're here.</span>", MESSAGE_TYPE_INFO)
+	to_chat(owner, SPAN_DANGER("They're here."), MESSAGE_TYPE_INFO)
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_second_trigger)), trigger_time, TIMER_DELETE_ME)
 
 /datum/hallucination_manager/blind_rush/proc/on_second_trigger()
@@ -27,7 +27,7 @@
 	hallucination_list += new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
 	owner.Confused(9 SECONDS)
 	owner.Jitter(9 SECONDS)
-	to_chat(owner, "<span class='userdanger'>Run!</span>", MESSAGE_TYPE_INFO)
+	to_chat(owner, SPAN_USERDANGER("Run!"), MESSAGE_TYPE_INFO)
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_last_trigger)), trigger_time, TIMER_DELETE_ME)
 
 /datum/hallucination_manager/blind_rush/proc/on_last_trigger()

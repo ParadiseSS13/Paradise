@@ -195,40 +195,40 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating(MELEE) < 75)
 			if(!use(1))
-				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				to_chat(user, SPAN_NOTICE("You dont have enough [src] for this!"))
 				return
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, SPAN_NOTICE("You strengthen [target], improving its resistance against melee attacks."))
 		else
-			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+			to_chat(user, SPAN_WARNING("You can't improve [C] any further!"))
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < HIDES_COVERED_FULL && !D.plates && !D.drake_hides)
 			if(!use(1))
-				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				to_chat(user, SPAN_NOTICE("You dont have enough [src] for this!"))
 				return
 			D.hides++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, SPAN_NOTICE("You strengthen [target], improving its resistance against attacks."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, SPAN_WARNING("You can't improve [D] any further!"))
 	else if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
 		if(istype(R.module, /obj/item/robot_module/miner))
 			var/datum/armor/current_armor = R.armor
 			if(current_armor.getRating(MELEE) < 75)
 				if(!use(1))
-					to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+					to_chat(user, SPAN_NOTICE("You dont have enough [src] for this!"))
 					return
 				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-				to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				to_chat(user, SPAN_NOTICE("You strengthen [target], improving its resistance against melee attacks."))
 			else
-				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
+				to_chat(user, SPAN_WARNING("You can't improve [R] any further!"))
 		else
-			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
+			to_chat(user, SPAN_WARNING("[R]'s armor can not be improved!"))
 
 /obj/item/stack/sheet/animalhide/armor_plate
 	name = "armor plate"
@@ -246,16 +246,16 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		var/obj/mecha/working/ripley/D = target
 		if(D.plates < PLATES_COVERED_FULL && !D.hides && !D.drake_hides)
 			if(!use(1))
-				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				to_chat(user, SPAN_NOTICE("You dont have enough [src] for this!"))
 				return
 			D.plates++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 7, 60))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
-			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, SPAN_NOTICE("You strengthen [target], improving its resistance against attacks."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, SPAN_WARNING("You can't improve [D] any further!"))
 
 /obj/item/stack/sheet/animalhide/armor_plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	return // no steel leather for ya
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		var/obj/mecha/working/ripley/D = target
 		if(D.drake_hides < DRAKE_HIDES_COVERED_FULL && !D.hides && !D.plates)
 			if(!use(3))
-				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				to_chat(user, SPAN_NOTICE("You dont have enough [src] for this!"))
 				return
 			D.drake_hides++
 			D.max_integrity += 50
@@ -284,18 +284,18 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 13, 80))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, SPAN_NOTICE("You strengthen [target], improving its resistance against attacks."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, SPAN_WARNING("You can't improve [D] any further!"))
 
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
-		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
+		user.visible_message("[user] starts cutting hair off \the [src].", SPAN_NOTICE("You start cutting the hair off \the [src]..."), SPAN_ITALICS("You hear the sound of a knife rubbing against flesh."))
 		if(do_after(user, 50 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
+			to_chat(user, SPAN_NOTICE("You cut the hair from this [src.singular_name]."))
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)
 				if(HS.amount < 50)
