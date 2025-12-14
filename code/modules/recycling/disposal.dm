@@ -180,7 +180,7 @@
 
 		var/mob/GM = G.affecting
 		stuff_mob_in(GM, user)
-    qdel(G)
+		qdel(G)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item() || QDELETED(used))
@@ -204,23 +204,23 @@
 		return FALSE
 
 	user.visible_message(
-			SPAN_WARNING("[user] starts stuffing [GM] into the disposal unit!"),
-			SPAN_WARNING("You start stuffing [GM] into the disposal unit."),
-			SPAN_WARNING("You hear someone trying to stuff someone else into a disposal unit!")
-		)
+		SPAN_WARNING("[user] starts stuffing [target] into the disposal unit!"),
+		SPAN_WARNING("You start stuffing [target] into the disposal unit."),
+		SPAN_WARNING("You hear someone trying to stuff someone else into a disposal unit!")
+	)
 
-		// Abort if the target manages to scurry away.
-		if(!do_after(user, 2 SECONDS, target = GM))
-			return ITEM_INTERACT_COMPLETE
+	// Abort if the target manages to scurry away.
+	if(!do_after(user, 2 SECONDS, target = target))
+		return ITEM_INTERACT_COMPLETE
 
-		GM.forceMove(src)
-		user.visible_message(
-			SPAN_WARNING("[GM] has been stuffed into the disposal unit by [user]!"),
-			SPAN_WARNING("You stuff [GM] into the disposal unit."),
-			SPAN_WARNING("You hear someone being stuffed into a disposal unit!")
-		)
-		update()
-		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
+	target.forceMove(src)
+	user.visible_message(
+	SPAN_WARNING("[target] has been stuffed into the disposal unit by [user]!"),
+		SPAN_WARNING("You stuff [target] into the disposal unit."),
+		SPAN_WARNING("You hear someone being stuffed into a disposal unit!")
+	)
+	update()
+	add_attack_logs(user, target, "Disposal'ed", !target.ckey ? null : ATKLOG_ALL)
 	return TRUE
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
