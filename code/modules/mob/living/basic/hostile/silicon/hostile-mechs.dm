@@ -333,7 +333,7 @@
 	loot = list(/obj/structure/mecha_wreckage/ares)
 	weapon_types = list("S-1 X-Ray Projector", "eZ-13 mk2 Heavy Pulse Rifle", "SRM-8 Light Missile Rack")
 
-/mob/living/basic/hostile_mech/ares/select_new_weapon()
+/mob/living/basic/hostile_mech/marauder/select_new_weapon()
 	var/new_weapon = pick(weapon_types)
 	switch(new_weapon)
 		if("S-1 X-Ray Projector")
