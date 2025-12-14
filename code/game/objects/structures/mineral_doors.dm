@@ -28,8 +28,8 @@
 
 /obj/structure/mineral_door/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is held inside its frame by <b>screws</b>.</span>"
-	. += "<span class='notice'>It could be <b>smashed</b> or <b>drilled</b> with a digging tool.</span>"
+	. += SPAN_NOTICE("It is held inside its frame by <b>screws</b>.")
+	. += SPAN_NOTICE("It could be <b>smashed</b> or <b>drilled</b> with a digging tool.")
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
@@ -123,7 +123,7 @@
 
 /obj/structure/mineral_door/screwdriver_act(mob/living/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
 		return TRUE
 
 	if(!I.use_tool(src, user, 4 SECONDS * I.toolspeed * hardness, volume = I.tool_volume))
@@ -135,12 +135,12 @@
 /obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/pickaxe))
 		if(flags & NODECONSTRUCT)
-			to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+			to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
 			return
 		var/obj/item/pickaxe/digTool = W
-		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You start digging \the [src]."))
 		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, target = src) && src)
-			to_chat(user, "<span class='notice'>You finished digging.</span>")
+			to_chat(user, SPAN_NOTICE("You finished digging."))
 			deconstruct(TRUE)
 		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)

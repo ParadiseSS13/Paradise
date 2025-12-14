@@ -130,6 +130,7 @@
 #include "code\__DEFINES\silicon_defines.dm"
 #include "code\__DEFINES\smith_defines.dm"
 #include "code\__DEFINES\sound_defines.dm"
+#include "code\__DEFINES\span_defines.dm"
 #include "code\__DEFINES\spatial_gridmap_defines.dm"
 #include "code\__DEFINES\speech_channels.dm"
 #include "code\__DEFINES\spell_defines.dm"

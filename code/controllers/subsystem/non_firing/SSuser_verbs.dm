@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(user_verbs)
 		CRASH("Attempted to dynamically invoke user verb '[verb_type]' that doesn't exist.")
 
 	if(!check_rights_client(verb_singleton.permissions, FALSE, admin))
-		to_chat(admin, "<span class='span_adminnotice'>You lack the permissions to do this.</span>")
+		to_chat(admin, SPAN_ADMINNOTICE("You lack the permissions to do this."))
 		return
 
 	var/old_usr = usr

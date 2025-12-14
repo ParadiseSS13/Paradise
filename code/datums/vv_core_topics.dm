@@ -12,7 +12,7 @@
 
 		var/D = locateUID(href_list["datumedit"])
 		if(!istype(D,/datum) && !isclient(D))
-			to_chat(usr, "<span class='notice'>This can only be used on instances of types /client or /datum.</span>")
+			to_chat(usr, SPAN_NOTICE("This can only be used on instances of types /client or /datum."))
 			return
 
 		modify_variables(D, href_list["varnameedit"], 1)
@@ -22,7 +22,7 @@
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!istype(D,/datum) && !isclient(D))
-			to_chat(usr, "<span class='notice'>This can only be used on instances of types /client or /datum.</span>")
+			to_chat(usr, SPAN_NOTICE("This can only be used on instances of types /client or /datum."))
 			return
 
 		modify_variables(D, href_list["varnamechange"], 0)
@@ -32,7 +32,7 @@
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
-			to_chat(usr, "<span class='notice'>This can only be used on instances of type /atom.</span>")
+			to_chat(usr, SPAN_NOTICE("This can only be used on instances of type /atom."))
 			return
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
@@ -46,7 +46,7 @@
 		if(!check_rights(0))	return
 
 		if(!istype(target))
-			to_chat(usr, "<span class='notice'>This can only be done to instances of type /datum.</span>")
+			to_chat(usr, SPAN_NOTICE("This can only be done to instances of type /datum."))
 			return
 
 		holder.marked_datum = target
@@ -76,7 +76,7 @@
 			return
 
 		if(QDELETED(target))
-			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>", confidential = TRUE)
+			to_chat(usr, SPAN_NOTICE("That thing doesn't exist anymore!"), confidential = TRUE)
 			return
 
 		var/list/lst = get_callproc_args()
@@ -92,7 +92,7 @@
 			datumname = "element"
 			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)]."))
 	if(href_list[VV_HK_REMOVECOMPONENT] || href_list[VV_HK_MASSREMOVECOMPONENT])
 		if(!check_rights(NONE))
 			return
@@ -111,7 +111,7 @@
 		if(!usr || path == "---Components---" || path == "---Elements---")
 			return
 		if(QDELETED(target))
-			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>")
+			to_chat(usr, SPAN_NOTICE("That thing doesn't exist anymore!"))
 			return
 		var/list/targets_to_remove_from = list(target)
 		if(mass_remove)
@@ -133,4 +133,4 @@
 				for(var/to_delete in components_actual)
 					qdel(to_delete)
 
-		message_admins("<span class='notice'>[key_name_admin(usr)] has [mass_remove ? "mass" : ""] removed [path] component from [mass_remove ? target.type : key_name_admin(target)].</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(usr)] has [mass_remove ? "mass" : ""] removed [path] component from [mass_remove ? target.type : key_name_admin(target)]."))

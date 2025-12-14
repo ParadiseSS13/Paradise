@@ -49,7 +49,7 @@
 
 	if(Adjacent(target) && user.Adjacent(target))
 		if(!bag)
-			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
+			to_chat(user, SPAN_WARNING("There's no IV bag connected to [src]!"))
 			return
 		bag.mob_act(target, user)
 		START_PROCESSING(SSmachines, src)
@@ -65,7 +65,7 @@
 /obj/machinery/iv_drip/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/iv_bag))
 		if(bag)
-			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
+			to_chat(user, SPAN_WARNING("[src] already has an IV bag!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
@@ -73,7 +73,7 @@
 		used.forceMove(src)
 		bag = used
 		bag.update_iv_type()
-		to_chat(user, "<span class='notice'>You attach [used] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
 		return ITEM_INTERACT_COMPLETE

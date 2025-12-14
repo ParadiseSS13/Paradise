@@ -38,7 +38,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	if(assign_role(candidate, job, latejoin = TRUE, step = "latejoin"))
 		candidate.apply_to_player(player)
 	else
-		to_chat(player, "<span class='warning'>You are unable to join the round as [job.title]. Please try another job.</span>")
+		to_chat(player, SPAN_WARNING("You are unable to join the round as [job.title]. Please try another job."))
 
 /datum/job_selector/proc/apply_roles_to_players()
 	for(var/datum/job_candidate/candidate in assigned_candidates)

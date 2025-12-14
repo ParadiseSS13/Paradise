@@ -66,15 +66,15 @@
 
 	var/obj/item/stack/rods/R = used
 	if(R.get_amount() < HOLE_REPAIR)
-		to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
+		to_chat(user, SPAN_WARNING("You need [HOLE_REPAIR] rods to fix this fence!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
+	to_chat(user, SPAN_NOTICE("You begin repairing the fence..."))
 	if(do_after_once(user, 3 SECONDS * used.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 		playsound(src, used.usesound, 80, 1)
 		hole_size = NO_HOLE
 		obj_integrity = max_integrity
-		to_chat(user, "<span class='notice'>You repair the fence.</span>")
+		to_chat(user, SPAN_NOTICE("You repair the fence."))
 		update_cut_status()
 	return ITEM_INTERACT_COMPLETE
 
@@ -84,18 +84,18 @@
 		return
 
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
+		to_chat(user, SPAN_WARNING("This fence is too strong to cut through!"))
 		return
 
 	user.visible_message(
-		"<span class='warning'>[user] starts cutting through [src] with [I].</span>",
-		"<span class='notice'>You start cutting through [src] with [I].</span>"
+		SPAN_WARNING("[user] starts cutting through [src] with [I]."),
+		SPAN_NOTICE("You start cutting through [src] with [I].")
 	)
 	if(!can_have_holes)
 		if(I.use_tool(src, user, FULL_CUT_TIME, volume = I.tool_volume, do_after_once = TRUE))
 			user.visible_message(
-				"<span class='warning'>[user] completely dismantles [src].</span>",
-				"<span class='notice'>You completely dismantle [src].</span>"
+				SPAN_WARNING("[user] completely dismantles [src]."),
+				SPAN_NOTICE("You completely dismantle [src].")
 			)
 			deconstruct()
 		return
@@ -103,22 +103,22 @@
 	// Required to avoid tool spam from stacking and instantly cutting multiple stages at once.
 	if(!I.use_tool(src, user, CUT_TIME * I.toolspeed, volume = I.tool_volume, do_after_once = TRUE))
 		return
-	
+
 	switch(hole_size)
 		if(NO_HOLE)
 			user.visible_message(
-				"<span class='warning'>[user] cuts a hole into [src].</span>",
-				"<span class='notice'>You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...</span>"
+				SPAN_WARNING("[user] cuts a hole into [src]."),
+				SPAN_NOTICE("You could probably fit yourself through that hole. Although climbing through would be much faster if you made it even bigger...")
 			)
 		if(SMALL_HOLE)
 			user.visible_message(
-				"<span class='warning'>[user] completely cuts through [src].</span>",
-				"<span class='notice'>The hole in [src] is now big enough to walk through.</span>"
+				SPAN_WARNING("[user] completely cuts through [src]."),
+				SPAN_NOTICE("The hole in [src] is now big enough to walk through.")
 			)
 		if(LARGE_HOLE)
 			user.visible_message(
-				"<span class='warning'>[user] completely dismantles [src].</span>",
-				"<span class='notice'>You completely dismantle [src].</span>"
+				SPAN_WARNING("[user] completely dismantles [src]."),
+				SPAN_NOTICE("You completely dismantle [src].")
 			)
 			deconstruct()
 			return
@@ -222,7 +222,7 @@
 
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
-	visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] [src].</span>")
+	visible_message(SPAN_NOTICE("[user] [open ? "opens" : "closes"] [src]."))
 	update_door_status()
 	playsound(src, 'sound/machines/door_open.ogg', 20, TRUE)
 

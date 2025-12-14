@@ -17,7 +17,7 @@
 	if(!..())
 		return FALSE
 	if(affected_mob.reagents.has_reagent("thc"))
-		to_chat(affected_mob, "<span class='notice'>You mellow out.</span>")
+		to_chat(affected_mob, SPAN_NOTICE("You mellow out."))
 		cure()
 		return
 	switch(stage)
@@ -34,22 +34,22 @@
 				var/speak = pick("AAARRGGHHH!!!!", "GRR!!!", "FUCK!! FUUUUUUCK!!!", "FUCKING SHITCOCK!!", "WROOAAAGHHH!!")
 				affected_mob.say(speak)
 			if(prob(15))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] twitches violently!</span>")
+				affected_mob.visible_message(SPAN_DANGER("[affected_mob] twitches violently!"))
 				affected_mob.drop_l_hand()
 				affected_mob.drop_r_hand()
 			if(prob(33))
 				if(affected_mob.incapacitated())
-					affected_mob.visible_message("<span class='danger'>[affected_mob] spasms and twitches!</span>")
+					affected_mob.visible_message(SPAN_DANGER("[affected_mob] spasms and twitches!"))
 					return
-				affected_mob.visible_message("<span class='danger'>[affected_mob] thrashes around violently!</span>")
+				affected_mob.visible_message(SPAN_DANGER("[affected_mob] thrashes around violently!"))
 				for(var/mob/living/carbon/M in range(1, affected_mob))
 					if(M == affected_mob)
 						continue
 					var/damage = rand(1, 5)
 					if(prob(80))
 						playsound(affected_mob.loc, "punch", 25, TRUE, -1)
-						affected_mob.visible_message("<span class='danger'>[affected_mob] hits [M] with [affected_mob.p_their()] thrashing!</span>")
+						affected_mob.visible_message(SPAN_DANGER("[affected_mob] hits [M] with [affected_mob.p_their()] thrashing!"))
 						M.adjustBruteLoss(damage)
 					else
 						playsound(affected_mob.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-						affected_mob.visible_message("<span class='danger'>[affected_mob] fails to hit [M] with [affected_mob.p_their()] thrashing!</span>")
+						affected_mob.visible_message(SPAN_DANGER("[affected_mob] fails to hit [M] with [affected_mob.p_their()] thrashing!"))
