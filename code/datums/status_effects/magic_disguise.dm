@@ -27,7 +27,7 @@
 	if(disguise)
 		apply_disguise(owner)
 	else
-		to_chat(owner, "<span class='warning'>Your spell fails to find a disguise!</span>")
+		to_chat(owner, SPAN_WARNING("Your spell fails to find a disguise!"))
 		return FALSE
 
 	RegisterSignal(owner, list(COMSIG_MOB_APPLY_DAMAGE, COMSIG_HUMAN_ATTACKED, COMSIG_SPECIES_HITBY), PROC_REF(remove_disguise))
@@ -75,7 +75,7 @@
 	H.update_inv_l_hand()
 	H.sec_hud_set_ID()
 	SEND_SIGNAL(H, COMSIG_CARBON_REGENERATE_ICONS)
-	to_chat(H, "<span class='notice'>You disguise yourself as [disguise.name].</span>")
+	to_chat(H, SPAN_NOTICE("You disguise yourself as [disguise.name]."))
 
 /datum/status_effect/magic_disguise/proc/remove_disguise()
 	SIGNAL_HANDLER  // COMSIG_MOB_APPLY_DAMAGE + COMSIG_HUMAN_ATTACKED + COMSIG_SPECIES_HITBY

@@ -16,11 +16,11 @@
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/basic/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))
-		to_chat(user, "<span class='warning'>[M] already has a combat upgrade installed!</span>")
+		to_chat(user, SPAN_WARNING("[M] already has a combat upgrade installed!"))
 		return
 	M.melee_damage_lower += 7
 	M.melee_damage_upper += 7
-	to_chat(user, "<span class='notice'>You upgrade [M]'s combat module.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [M]'s combat module."))
 	qdel(src)
 
 /// Minebot Health Upgrade
@@ -29,11 +29,11 @@
 
 /obj/item/mine_bot_upgrade/health/upgrade_bot(mob/living/basic/mining_drone/M, mob/user)
 	if(M.maxHealth != initial(M.maxHealth))
-		to_chat(user, "<span class='warning'>[M] already has a reinforced chassis!</span>")
+		to_chat(user, SPAN_WARNING("[M] already has a reinforced chassis!"))
 		return
 	M.maxHealth += 45
 	M.updatehealth()
-	to_chat(user, "<span class='notice'>You upgrade [M]'s chassis.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [M]'s chassis."))
 	qdel(src)
 
 /// Minebot AI upgrade/sentience potion

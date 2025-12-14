@@ -33,10 +33,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		to_chat(user, SPAN_WARNING("That's not a machine!"))
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M]'s identifying data into [src]'s internal buffer.</span>")
+	to_chat(user, SPAN_NOTICE("You load [M]'s identifying data into [src]'s internal buffer."))
 	return TRUE
 
 /obj/item/multitool/Destroy()
@@ -51,12 +51,12 @@
 	var/area/local_area = get_area(src)
 	var/obj/machinery/power/apc/apc = local_area?.get_apc()
 	if(!apc)
-		to_chat(user, "<span class='warning'>No APC detected.</span>")
+		to_chat(user, SPAN_WARNING("No APC detected."))
 		return
 	if(get_turf(src) == get_turf(apc)) // we're standing on top of it
-		to_chat(user, "<span class='notice'>APC detected 0 meters [dir2text(apc.dir)].</span>")
+		to_chat(user, SPAN_NOTICE("APC detected 0 meters [dir2text(apc.dir)]."))
 		return
-	to_chat(user, "<span class='notice'>APC detected [get_dist(src, apc)] meter\s [dir2text(get_dir(src, apc))].</span>")
+	to_chat(user, SPAN_NOTICE("APC detected [get_dist(src, apc)] meter\s [dir2text(get_dir(src, apc))]."))
 
 /obj/item/multitool/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
@@ -139,7 +139,7 @@
 	var/list/victims = list()
 
 /obj/item/multitool/command/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!"))
 	//basically just cleaned up and copied from the medical wrench code
 	if(!user)
 		return

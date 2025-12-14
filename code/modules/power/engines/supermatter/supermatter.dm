@@ -16,10 +16,12 @@
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
 #define HYDROGEN_HEAT_PENALTY 20
+#define H2O_HEAT_PENALTY 5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
 #define HYDROGEN_TRANSMIT_MODIFIER 3
+#define H2O_TRANSMIT_MODIFIER -10
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
@@ -33,6 +35,7 @@
 #define N2O_CRUNCH 0.55
 #define PLASMA_CRUNCH 4
 #define HYDROGEN_CRUNCH 2
+#define H2O_CRUNCH 0.75
 
 #define MOLE_CRUNCH_THRESHOLD 1700           //Above this value we can get lord singulo and
 #define MOLE_PENALTY_THRESHOLD 1800           //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
@@ -156,6 +159,7 @@
 	var/co2comp = 0
 	var/n2ocomp = 0
 	var/h2comp = 0
+	var/h2ocomp = 0
 
 	///The last air sample's total molar count, will always be above or equal to 0
 	var/combined_gas = 0
@@ -279,13 +283,13 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && !HAS_TRAIT(H, SM_HALLUCINATION_IMMUNE) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
-			. += "<span class='danger'>You get headaches just from looking at it.</span>"
-	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
-	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
+			. += SPAN_DANGER("You get headaches just from looking at it.")
+	. += SPAN_NOTICE("When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.")
+	. +=SPAN_NOTICE("Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.")
 	if(isAntag(user))
-		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
+		. += SPAN_WARNING("Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.")
 	if(moveable)
-		. += "<span class='notice'>It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.</span>"
+		. += SPAN_NOTICE("It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.")
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -342,7 +346,7 @@
 	var/image/causality_field = image(icon, null, "causality_field")
 	add_overlay(causality_field)
 
-	var/speaking = "<span class='reallybig'>[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated.</span>"
+	var/speaking = SPAN_REALLYBIG("[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated.")
 	for(var/mob/M in GLOB.player_list) // for all players
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
@@ -355,7 +359,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("<span class='big'>[safe_alert] Failsafe has been disengaged.</span>", name, null)
+			radio.autosay(SPAN_BIG("[safe_alert] Failsafe has been disengaged."), name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -366,7 +370,7 @@
 		else if(i > 50)
 			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
 		else
-			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
+			speaking = SPAN_REALLYBIG("[i * 0.1]...")
 		radio.autosay(speaking, name, null)
 		sleep(10)
 
@@ -394,9 +398,9 @@
 			SEND_SOUND(M, super_matter_charge_sound)
 
 			if(atoms_share_level(M, src))
-				to_chat(M, "<span class='boldannounceic'>You feel reality distort for a moment...</span>")
+				to_chat(M, SPAN_BOLDANNOUNCEIC("You feel reality distort for a moment..."))
 			else
-				to_chat(M, "<span class='boldannounceic'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
+				to_chat(M, SPAN_BOLDANNOUNCEIC("You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe."))
 
 	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", INVESTIGATE_SUPERMATTER)
@@ -444,7 +448,7 @@
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
 		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			visible_message("<span class='warning'>[src] melts through [T]!</span>")
+			visible_message(SPAN_WARNING("[src] melts through [T]!"))
 		return
 
 	try_events()
@@ -522,13 +526,14 @@
 		n2ocomp = max(removed.sleeping_agent() / combined_gas, 0)
 		n2comp = max(removed.nitrogen() / combined_gas, 0)
 		h2comp = max(removed.hydrogen() / combined_gas, 0)
+		h2ocomp = max(removed.water_vapor() / combined_gas, 0)
 
-		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp - n2comp, 0), 1)
+		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp + h2ocomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY) + (h2comp * HYDROGEN_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY) + (h2comp * HYDROGEN_HEAT_PENALTY) + (h2ocomp * H2O_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
 
-		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER) + (h2comp * HYDROGEN_TRANSMIT_MODIFIER) + (h2ocomp * H2O_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
@@ -568,7 +573,7 @@
 
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
-		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH + h2comp * HYDROGEN_CRUNCH)
+		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH + h2comp * HYDROGEN_CRUNCH + h2ocomp * H2O_CRUNCH)
 
 		radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
 
@@ -665,7 +670,7 @@
 				lastwarning = REALTIMEOFDAY
 			else // We are losing integrity, let's warn engineering.
 				if(damage > emergency_point) //Oh shit it's bad, time to freak out
-					radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+					radio.autosay(SPAN_BIG("[emergency_alert] Integrity: [get_integrity()]%"), name, null)
 					lastwarning = REALTIMEOFDAY
 					if(!has_reached_emergency)
 						investigate_log("has reached the emergency point for the first time.", "supermatter")
@@ -711,12 +716,12 @@
 	var/gain = 100
 	investigate_log("Supermatter shard consumed by singularity.", INVESTIGATE_SINGULO)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
+	visible_message(SPAN_USERDANGER("[src] is consumed by the singularity!"))
 	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
-			to_chat(M, "<span class='boldannounceic'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
+			to_chat(M, SPAN_BOLDANNOUNCEIC("A horrible screeching fills your ears, and a wave of dread washes over you..."))
 	qdel(src)
 	return gain
 
@@ -725,12 +730,12 @@
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
 		if(B.obj_integrity > 100)
-			B.visible_message("<span class='danger'>[B] strikes at [src] and flinches away!</span>",\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+			B.visible_message(SPAN_DANGER("[B] strikes at [src] and flinches away!"),\
+			SPAN_ITALICS("You hear a loud crack as you are washed with a wave of heat."))
 			B.take_damage(100, BURN)
 		else
-			B.visible_message("<span class='danger'>[B] strikes at [src] and rapidly flashes to ash.</span>",\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+			B.visible_message(SPAN_DANGER("[B] strikes at [src] and rapidly flashes to ash."),\
+			SPAN_ITALICS("You hear a loud crack as you are washed with a wave of heat."))
 			Consume(B)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_tk(mob/user)
@@ -738,8 +743,8 @@
 		return
 	var/mob/living/carbon/C = user
 	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SUPERMATTER)
-	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
-		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
+	C.visible_message(SPAN_DANGER("[C] suddenly slumps over."), \
+		SPAN_USERDANGER("As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea."))
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 	C.ghostize()
 	if(B)
@@ -756,8 +761,8 @@
 	else
 		murder = S.attacktext
 	dust_mob(S, \
-	"<span class='danger'>[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!</span>", \
-	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \
+	SPAN_DANGER("[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!"), \
+	SPAN_USERDANGER("You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops."), \
 	"simple animal attack")
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_robot(mob/user)
@@ -770,7 +775,7 @@
 /obj/machinery/atmospherics/supermatter_crystal/attack_hand(mob/living/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
-		user.visible_message("<span class='notice'>[user] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] reaches out and pokes [src] harmlessly...somehow."), SPAN_NOTICE("You poke [src]."))
 		return
 	dust_mob(user, cause = "hand")
 
@@ -778,12 +783,12 @@
 	if(nom.incorporeal_move || nom.status_flags & GODMODE)
 		return
 	if(!vis_msg)
-		vis_msg = "<span class='danger'>[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!</span>"
+		vis_msg = SPAN_DANGER("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
 	if(!mob_msg)
-		mob_msg = "<span class='userdanger'>You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>"
+		mob_msg = SPAN_USERDANGER("You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"")
 	if(!cause)
 		cause = "contact"
-	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+	nom.visible_message(vis_msg, mob_msg, SPAN_ITALICS("You hear an unearthly noise as a wave of heat washes over you."))
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", INVESTIGATE_SUPERMATTER)
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
@@ -802,14 +807,14 @@
 		var/obj/item/scalpel/supermatter/scalpel = used
 
 		if(!scalpel.uses_left)
-			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
+			to_chat(H, SPAN_WARNING("[scalpel] isn't sharp enough to carve a sliver off of [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
 		if(sliver)
 			scalpel.uses_left--
 			if(!scalpel.uses_left)
-				to_chat(H, "<span class='boldwarning'>A tiny piece falls off of [scalpel]'s blade, rendering it useless!</span>")
+				to_chat(H, SPAN_BOLDWARNING("A tiny piece falls off of [scalpel]'s blade, rendering it useless!"))
 
 			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
 
@@ -817,7 +822,7 @@
 				tongs.sliver = sliver
 				sliver.forceMove(tongs)
 				tongs.icon_state = "supermatter_tongs_loaded"
-				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
+				to_chat(H, SPAN_NOTICE("You pick up [sliver] with [tongs]!"))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -826,11 +831,11 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/retractor/supermatter))
-		to_chat(user, "<span class='notice'>[used] bounces off [src], you need to cut a sliver off first!</span>")
+		to_chat(user, SPAN_NOTICE("[used] bounces off [src], you need to cut a sliver off first!"))
 	else if(user.drop_item())
-		user.visible_message("<span class='danger'>As [user] touches [src] with \a [used], silence fills the room...</span>",\
-			"<span class='userdanger'>You touch [src] with [used], and everything suddenly goes silent.</span>\n<span class='notice'>[used] flashes into dust as you flinch away from [src].</span>",\
-			"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.visible_message(SPAN_DANGER("As [user] touches [src] with \a [used], silence fills the room..."),\
+			SPAN_USERDANGER("You touch [src] with [used], and everything suddenly goes silent.</span>\n<span class='notice'>[used] flashes into dust as you flinch away from [src]."),\
+			SPAN_ITALICS("Everything suddenly goes silent."))
 		investigate_log("has been attacked ([used]) by [key_name(user)]", INVESTIGATE_SUPERMATTER)
 		Consume(used)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -843,12 +848,12 @@
 		return
 
 	if(isliving(AM))
-		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
-		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
-		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+		AM.visible_message(SPAN_DANGER("[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!"),\
+		SPAN_USERDANGER("You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\""),\
+		SPAN_ITALICS("You hear an unearthly noise as a wave of heat washes over you."))
 	else if(isobj(AM) && !iseffect(AM))
-		AM.visible_message("<span class='danger'>[AM] smacks into [src] and rapidly flashes to ash.</span>", null,\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		AM.visible_message(SPAN_DANGER("[AM] smacks into [src] and rapidly flashes to ash."), null,\
+		SPAN_ITALICS("You hear a loud crack as you are washed with a wave of heat."))
 	else
 		return
 
@@ -884,8 +889,8 @@
 				power += 5000//releases A LOT of power
 				matter_power += 500000
 				damage += 180//drops the integrety by 20%
-				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
-				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
+				AM.visible_message(SPAN_DANGER("[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!"), null,\
+				SPAN_ITALICS("You hear a loud crack as a wave of heat washes over you."))
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200
@@ -895,10 +900,10 @@
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
 		if(L in view())
-			L.show_message("<span class='danger'>As [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
+			L.show_message(SPAN_DANGER("As [src] slowly stops resonating, you find your skin covered in new radiation burns."), 1,
+				SPAN_DANGER("The unearthly ringing subsides and you notice you have new radiation burns."), 2)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+			L.show_message(SPAN_ITALICS("You hear an unearthly ringing and notice your skin is covered in fresh radiation burns."), 2)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/sm_filters()
 	var/new_filter = isnull(get_filter("ray"))
@@ -953,9 +958,9 @@
 		QDEL_NULL(warp)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(mob/living/user)
-	to_chat(user, "<span class='notice'>You begin carving a sliver off of [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin carving a sliver off of [src]..."))
 	if(do_after_once(user, 4 SECONDS, FALSE, src))
-		to_chat(user, "<span class='danger'>You carve a sliver off of [src], and it begins to react violently!</span>")
+		to_chat(user, SPAN_DANGER("You carve a sliver off of [src], and it begins to react violently!"))
 		matter_power += 800
 
 		var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
@@ -1064,7 +1069,7 @@
 			else if(M.buckled)
 				var/atom/movable/buckler = M.buckled
 				if(buckler.unbuckle_mob(M, TRUE))
-					visible_message("<span class='danger'>[src]'s sheer force rips [M] away from [buckler]!</span>")
+					visible_message(SPAN_DANGER("[src]'s sheer force rips [M] away from [buckler]!"))
 		step_towards(P,center)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
@@ -1282,9 +1287,11 @@
 #undef CO2_HEAT_PENALTY
 #undef NITROGEN_HEAT_PENALTY
 #undef HYDROGEN_HEAT_PENALTY
+#undef H2O_HEAT_PENALTY
 #undef OXYGEN_TRANSMIT_MODIFIER
 #undef PLASMA_TRANSMIT_MODIFIER
 #undef HYDROGEN_TRANSMIT_MODIFIER
+#undef H2O_TRANSMIT_MODIFIER
 #undef N2O_HEAT_RESISTANCE
 #undef POWERLOSS_INHIBITION_GAS_THRESHOLD
 #undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
@@ -1328,3 +1335,4 @@
 #undef N2O_CRUNCH
 #undef PLASMA_CRUNCH
 #undef HYDROGEN_CRUNCH
+#undef H2O_CRUNCH
