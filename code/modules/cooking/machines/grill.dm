@@ -8,7 +8,7 @@
 
 	if(!on)
 		if(grill.stored_wood <= 0)
-			to_chat(user, "<span class='notice'>There is no wood in the grill. Insert some planks first.</span>")
+			to_chat(user, SPAN_NOTICE("There is no wood in the grill. Insert some planks first."))
 			return
 
 	return ..()
@@ -60,8 +60,8 @@
 
 /obj/machinery/cooking/grill/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.</span>"
-	. += "<span class='notice'><b>Ctrl-Click</b> on a surface to set its timer, temperature, and toggle it on or off.</span>"
+	. += SPAN_NOTICE("It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.")
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a surface to set its timer, temperature, and toggle it on or off.")
 
 /obj/machinery/cooking/grill/process()
 	. = ..()
@@ -105,9 +105,9 @@
 		var/obj/item/stack/sheet/wood/stack = used
 		var/used_sheets = min(stack.get_amount(), (wood_maximum - stored_wood))
 		if(!used_sheets)
-			to_chat(user, "<span class='notice'>The grill's hopper is full.</span>")
+			to_chat(user, SPAN_NOTICE("The grill's hopper is full."))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You add [used_sheets] wood plank\s into [src]'s hopper.</span>")
+		to_chat(user, SPAN_NOTICE("You add [used_sheets] wood plank\s into [src]'s hopper."))
 		if(!stack.use(used_sheets))
 			qdel(stack)	// Protects against weirdness
 		stored_wood += used_sheets
@@ -140,7 +140,7 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
+				to_chat(burn_victim, SPAN_DANGER("You burn your hand a little taking [surface.container] off of [src]."))
 
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)

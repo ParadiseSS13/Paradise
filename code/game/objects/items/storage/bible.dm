@@ -37,15 +37,15 @@
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] stares into [name] and attempts to transcend understanding of the universe!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] stares into [name] and attempts to transcend understanding of the universe!"))
 	user.dust()
 	return OBLITERATION
 
 /obj/item/storage/bible/fart_act(mob/living/M)
 	if(QDELETED(M) || M.stat == DEAD)
 		return
-	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
-	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
+	M.visible_message(SPAN_DANGER("[M] farts on \the [name]!"))
+	M.visible_message(SPAN_USERDANGER("A mysterious force smites [M]!"))
 	M.suiciding = TRUE
 	do_sparks(3, 1, M)
 	M.gib()
@@ -72,15 +72,15 @@
 	add_attack_logs(user, M, "Hit with [src]")
 
 	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
 	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
-		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
+		to_chat(user, SPAN_WARNING("The book sizzles in your hands."))
 		user.take_organ_damage(0, 10)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
+		to_chat(user, SPAN_WARNING("[src] slips out of your hand and hits your head."))
 		user.take_organ_damage(10)
 		user.Paralyse(40 SECONDS)
 		return
@@ -89,16 +89,16 @@
 		var/mob/living/carbon/human/H = M
 		if(prob(60))
 			bless(H)
-			H.visible_message("<span class='danger'>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
-				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
+			H.visible_message(SPAN_DANGER("[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!"),
+				SPAN_DANGER("May the power of [deity_name] compel you to be healed!"))
 			playsound(loc, "punch", 25, TRUE, -1)
 		else
 			M.adjustBrainLoss(10)
-			to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_themselves()]" : "[H]"] over the head with [src]!</span>")
+			to_chat(M, SPAN_WARNING("You feel dumber."))
+			H.visible_message(SPAN_DANGER("[user] beats [H == user ? "[user.p_themselves()]" : "[H]"] over the head with [src]!"))
 			playsound(src.loc, "punch", 25, TRUE, -1)
 	else
-		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
+		M.visible_message(SPAN_DANGER("[user] smacks [M]'s lifeless corpse with [src]."))
 		playsound(src.loc, "punch", 25, TRUE, -1)
 
 
@@ -107,25 +107,25 @@
 		return
 
 	if(isfloorturf(target))
-		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
+		to_chat(user, SPAN_NOTICE("You hit the floor with the bible."))
 		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(istype(target, /obj/machinery/door/airlock))
-		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
+		to_chat(user, SPAN_NOTICE("You hit the airlock with the bible."))
 		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
 	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && target.reagents)
 		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [target].</span>")
+			to_chat(user, SPAN_NOTICE("You bless [target]."))
 			var/water2holy = target.reagents.get_reagent_amount("water")
 			target.reagents.del_reagent("water")
 			target.reagents.add_reagent("holywater", water2holy)
 
 		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [target].</span>")
+			to_chat(user, SPAN_NOTICE("You purify [target]."))
 			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
 			target.reagents.del_reagent("unholywater")
 			target.reagents.add_reagent("holywater", unholy2clean)
@@ -154,11 +154,11 @@
 	/*var/carpet_dir
 	switch(choice)
 		if("Bible")
-			carpet_dir = 2
+			carpet_dir = SOUTH
 		if("Koran")
-			carpet_dir = 4
+			carpet_dir = EAST
 		if("Scientology")
-			carpet_dir = 8
+			carpet_dir = WEST
 	if(carpet_dir)
 		for(var/area/station/service/chapel/main/A in world)
 			for(var/turf/T in A.contents)

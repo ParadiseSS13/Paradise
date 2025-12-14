@@ -1,22 +1,13 @@
+USER_VERB_VISIBILITY(trigger_event, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(trigger_event, R_EVENT, "Trigger Event", "Trigger Event", VERB_CATEGORY_EVENT, event_type in SSevents.allEvents)
+	if(ispath(event_type))
+		new event_type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
+		message_admins("[key_name_admin(client)] has triggered an event. ([event_type])", 1)
 
-/client/proc/forceEvent(type in SSevents.allEvents)
-	set name = "Trigger Event"
-	set category = "Event"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(ispath(type))
-		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])", 1)
-
-/client/proc/event_manager_panel()
-	set name = "Event Manager Panel"
-	set category = "Event"
+USER_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager Panel", VERB_CATEGORY_EVENT)
 	if(SSevents)
-		SSevents.Interact(usr)
+		SSevents.Interact(client)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = typecacheof(list(

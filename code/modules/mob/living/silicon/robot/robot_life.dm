@@ -40,7 +40,7 @@
 /mob/living/silicon/robot/proc/enter_low_power_mode()
 	low_power_mode = TRUE
 	playsound(src, "sound/mecha/lowpower.ogg", 50, FALSE, SOUND_RANGE_SET(10))
-	to_chat(src, "<span class='warning'>Alert: Power cell requires immediate charging.</span>")
+	to_chat(src, SPAN_WARNING("Alert: Power cell requires immediate charging."))
 	handle_no_power()
 
 /mob/living/silicon/robot/proc/handle_equipment()

@@ -67,7 +67,7 @@
 /obj/item/tank/jetpack/proc/toggle_stabilization(mob/user)
 	if(on)
 		configure_jetpack(!stabilize)
-		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilize ? "on" : "off"].</span>")
+		to_chat(user, SPAN_NOTICE("You turn [src]'s stabilization [stabilize ? "on" : "off"]."))
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -75,10 +75,10 @@
 
 	if(!on)
 		turn_on(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack on.</span>")
+		to_chat(user, SPAN_NOTICE("You turn the jetpack on."))
 	else
 		turn_off(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
+		to_chat(user, SPAN_NOTICE("You turn the jetpack off."))
 	update_action_buttons()
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
@@ -126,7 +126,7 @@
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
 	if(rand(0, 250) == 0)
-		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
+		to_chat(user, SPAN_NOTICE("You feel your jetpack's engines cut out."))
 		turn_off(user)
 		return
 	return ..()
@@ -205,12 +205,12 @@
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
-		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit!</span>")
+		to_chat(user, SPAN_WARNING("[src] must be connected to a hardsuit!"))
 		return
 
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.s_store, /obj/item/tank))
-		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
+		to_chat(user, SPAN_WARNING("You need a tank in your suit storage!"))
 		return
 	..()
 

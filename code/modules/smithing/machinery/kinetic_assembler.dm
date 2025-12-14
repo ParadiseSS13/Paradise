@@ -50,15 +50,15 @@
 /obj/machinery/smithing/kinetic_assembler/examine(mob/user)
 	. = ..()
 	if(primary || secondary || trim)
-		. += "<span class='notice'>You can activate the machine with your hand, or remove a component by alt-clicking.</span>"
+		. += SPAN_NOTICE("You can activate the machine with your hand, or remove a component by alt-clicking.")
 	if(primary)
-		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
+		. += SPAN_NOTICE("There is a [primary] in the primary slot.")
 	if(secondary)
-		. += "<span class='notice'>There is a [secondary] in the secondary slot.</span>"
+		. += SPAN_NOTICE("There is a [secondary] in the secondary slot.")
 	if(trim)
-		. += "<span class='notice'>There is a [trim] in the trim slot.</span>"
+		. += SPAN_NOTICE("There is a [trim] in the trim slot.")
 	if(finished_product)
-		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
+		. += SPAN_NOTICE("There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!")
 
 /obj/machinery/smithing/kinetic_assembler/RefreshParts()
 	var/operation_mult = 0
@@ -88,7 +88,7 @@
 	if(!Adjacent(user))
 		return
 	if(!primary && !secondary && !trim)
-		to_chat(user, "<span class='warning'>There is no component to remove.</span>")
+		to_chat(user, SPAN_WARNING("There is no component to remove."))
 		return
 	var/list/components = list("Primary", "Secondary", "Trim")
 	var/removed = tgui_input_list(user, "Select a component to remove", src, components)
@@ -97,9 +97,9 @@
 	switch(removed)
 		if("Primary")
 			if(!primary)
-				to_chat(user, "<span class='warning'>There is no primary component to remove.</span>")
+				to_chat(user, SPAN_WARNING("There is no primary component to remove."))
 				return
-			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [primary] from the primary component slot of [src]."))
 			if(primary.burn_check(user))
 				primary.burn_user(user)
 				primary.forceMove(user.loc)
@@ -110,9 +110,9 @@
 			return
 		if("Secondary")
 			if(!secondary)
-				to_chat(user, "<span class='warning'>There is no secondary component to remove.</span>")
+				to_chat(user, SPAN_WARNING("There is no secondary component to remove."))
 				return
-			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [secondary] from the secondary component slot of [src]."))
 			if(secondary.burn_check(user))
 				secondary.burn_user(user)
 				secondary.forceMove(user.loc)
@@ -123,9 +123,9 @@
 			return
 		if("Trim")
 			if(!trim)
-				to_chat(user, "<span class='warning'>There is no trim component to remove.</span>")
+				to_chat(user, SPAN_WARNING("There is no trim component to remove."))
 				return
-			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [trim] from the trim component slot of [src]."))
 			if(trim.burn_check(user))
 				trim.burn_user(user)
 				trim.forceMove(user.loc)
@@ -140,83 +140,83 @@
 		return ..()
 
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is still operating!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/hammer))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(used, /obj/item/smithed_item/component))
-		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+		to_chat(user, SPAN_WARNING("You feel like there's no reason to process [used]."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(finished_product)
-		to_chat(user, "<span class='warning'>There is an almost finished [finished_product] in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is an almost finished [finished_product] in [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/smithed_item/component/comp = used
 	if(comp.hammer_time)
-		to_chat(user, "<span class='warning'>[used] is not complete yet!</span>")
+		to_chat(user, SPAN_WARNING("[used] is not complete yet!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(comp.part_type == PART_PRIMARY)
 		if(primary)
-			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [primary] from the primary component slot of [src]."))
 			primary.forceMove(src.loc)
 			primary = null
 		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[comp] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [comp] into the primary component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [comp] into the primary component slot of [src]."))
 		primary = comp
 		return ITEM_INTERACT_COMPLETE
 
 	if(comp.part_type == PART_SECONDARY)
 		if(secondary)
-			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [secondary] from the secondary component slot of [src]."))
 			secondary.forceMove(src.loc)
 			secondary = null
 		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[comp] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [comp] into the secondary component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [comp] into the secondary component slot of [src]."))
 		secondary = comp
 		return ITEM_INTERACT_COMPLETE
 
 	if(comp.part_type == PART_TRIM)
 		if(trim)
-			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [trim] from the trim component slot of [src]."))
 			trim.forceMove(src.loc)
 			trim = null
 		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[comp] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [comp] into the trim component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [comp] into the trim component slot of [src]."))
 		trim = comp
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/kinetic_assembler/attack_hand(mob/user)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return FINISH_ATTACK
 	if(finished_product)
-		to_chat(user, "<span class='warning'>[src] has a nearly-complete product!</span>")
+		to_chat(user, SPAN_WARNING("[src] has a nearly-complete product!"))
 		return FINISH_ATTACK
 
 	if(!primary)
-		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a primary component!"))
 		return FINISH_ATTACK
 
 	if(!secondary)
-		to_chat(user, "<span class='warning'>[src] lacks a secondary component!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a secondary component!"))
 		return FINISH_ATTACK
 
 	if(!trim)
-		to_chat(user, "<span class='warning'>[src] lacks a trim component!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a trim component!"))
 		return FINISH_ATTACK
 
 	if(primary.finished_product != secondary.finished_product)
-		to_chat(user, "<span class='warning'>[primary] does not match [secondary]!</span>")
+		to_chat(user, SPAN_WARNING("[primary] does not match [secondary]!"))
 		return FINISH_ATTACK
 
 	operate(operation_time, user)
@@ -254,10 +254,10 @@
 
 /obj/machinery/smithing/kinetic_assembler/hammer_act(mob/user, obj/item/i)
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is still operating!"))
 		return
 	if(!finished_product)
-		to_chat(user, "<span class='warning'>There is no finished product ready!</span>")
+		to_chat(user, SPAN_WARNING("There is no finished product ready!"))
 		return
 	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
 	finished_product.forceMove(src.loc)
@@ -323,13 +323,13 @@
 /obj/machinery/smithing/scientific_assembler/examine(mob/user)
 	. = ..()
 	if(slime_core || parts || cell)
-		. += "<span class='notice'>You can activate the machine with your hand, or remove a component by alt-clicking.</span>"
+		. += SPAN_NOTICE("You can activate the machine with your hand, or remove a component by alt-clicking.")
 	if(slime_core)
-		. += "<span class='notice'>There is a [slime_core] in the core slot.</span>"
+		. += SPAN_NOTICE("There is a [slime_core] in the core slot.")
 	if(parts)
-		. += "<span class='notice'>There is a [parts] in the gun frame slot.</span>"
+		. += SPAN_NOTICE("There is a [parts] in the gun frame slot.")
 	if(cell)
-		. += "<span class='notice'>There is a [cell] in the power cell slot.</span>"
+		. += SPAN_NOTICE("There is a [cell] in the power cell slot.")
 
 /obj/machinery/smithing/scientific_assembler/RefreshParts()
 	var/operation_mult = 0
@@ -360,70 +360,70 @@
 		return ..()
 
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is still operating!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/slime_extract))
 		var/obj/item/slime_extract/core = used
 		if(!core.associated_gun_type)
-			to_chat(user, "<span class='notice'>[core] is not capable of producing an energy gun!</span>")
+			to_chat(user, SPAN_NOTICE("[core] is not capable of producing an energy gun!"))
 			return ITEM_INTERACT_COMPLETE
 		if(slime_core)
-			to_chat(user, "<span class='notice'>You remove [slime_core] from the core component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [slime_core] from the core component slot of [src]."))
 			slime_core.forceMove(src.loc)
 			slime_core = null
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [used] into the core component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into the core component slot of [src]."))
 		slime_core = used
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/smithed_item/component/egun_parts))
 		if(parts)
-			to_chat(user, "<span class='notice'>You remove [parts] from the gun parts component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [parts] from the gun parts component slot of [src]."))
 			parts.forceMove(src.loc)
 			parts = null
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/smithed_item/component/egun_parts/new_parts = used
 		if(new_parts.hammer_time)
-			to_chat(user, "<span class='warning'>[new_parts] is not complete yet!</span>")
+			to_chat(user, SPAN_WARNING("[new_parts] is not complete yet!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [used] into the gun parts component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into the gun parts component slot of [src]."))
 		parts = used
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
-			to_chat(user, "<span class='notice'>You remove [cell] from the power cell component slot of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [cell] from the power cell component slot of [src]."))
 			cell.forceMove(src.loc)
 			cell = null
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [used] into the power cell component slot of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into the power cell component slot of [src]."))
 		cell = used
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+	to_chat(user, SPAN_WARNING("You feel like there's no reason to process [used]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/scientific_assembler/attack_hand(mob/user)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return FINISH_ATTACK
 	if(!slime_core)
-		to_chat(user, "<span class='warning'>[src] lacks a slime core!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a slime core!"))
 		return FINISH_ATTACK
 
 	if(!parts)
-		to_chat(user, "<span class='warning'>[src] lacks an energy gun frame!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks an energy gun frame!"))
 		return FINISH_ATTACK
 
 	if(!cell)
-		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a power cell!"))
 		return FINISH_ATTACK
 
 	operate(operation_time, user)

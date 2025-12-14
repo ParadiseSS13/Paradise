@@ -11,9 +11,9 @@
 /obj/item/reagent_containers/drinks/cans/examine(mob/user)
 	. = ..()
 	if(can_opened)
-		. += "<span class='notice'>It has been opened.</span>"
+		. += SPAN_NOTICE("It has been opened.")
 	else
-		. += "<span class='notice'>Ctrl-click to shake it up!</span>"
+		. += SPAN_NOTICE("Ctrl-click to shake it up!")
 
 /obj/item/reagent_containers/drinks/cans/activate_self(mob/user)
 	if(..() || can_opened)
@@ -25,7 +25,7 @@
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	can_opened = TRUE
 	container_type |= OPENCONTAINER
-	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+	to_chat(user, SPAN_NOTICE("You open the drink with an audible pop!"))
 
 /obj/item/reagent_containers/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -52,9 +52,9 @@
 	if(H.is_holding(src))
 		can_shake = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
+		to_chat(H, SPAN_NOTICE("You start shaking up [src]."))
 		if(do_after(H, 1 SECONDS, target = H))
-			visible_message("<span class='warning'>[user] shakes up [src]!</span>")
+			visible_message(SPAN_WARNING("[user] shakes up [src]!"))
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -69,14 +69,14 @@
 
 /obj/item/reagent_containers/drinks/cans/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
-		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
+		user.visible_message(SPAN_WARNING("[user] crushes [src] on [user.p_their()] forehead!"), SPAN_NOTICE("You crush [src] on your forehead."))
 		crush(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/reagent_containers/drinks/cans/item_interaction(mob/living/user, obj/item/used, list/modifiers) // This doesn't belong here.
 	if(istype(used, /obj/item/storage/bag/trash/cyborg))
-		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] crushes [src] in [user.p_their()] trash compactor."), SPAN_NOTICE("You crush [src] in your trash compactor."))
 		// Automatic crushed can pickup seems to be broken until storage is migrated.
 		crush(user)
 		return ITEM_INTERACT_COMPLETE
@@ -94,21 +94,21 @@
 	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
-		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		to_chat(user, SPAN_NOTICE("You open the drink with an audible pop!"))
 	else
-		visible_message("<span class='warning'>[src] bursts open!</span>")
+		visible_message(SPAN_WARNING("[src] bursts open!"))
 
 	if(times_shaken < 5)
-		visible_message("<span class='warning'>[src] fizzes violently!</span>")
+		visible_message(SPAN_WARNING("[src] fizzes violently!"))
 	else
-		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
+		visible_message(SPAN_BOLDWARNING("[src] erupts into foam!"))
 		if(reagents.total_volume)
 			var/datum/effect_system/foam_spread/sodafizz = new
 			sodafizz.set_up(1, get_turf(src), reagents)
 			sodafizz.start()
 
 	for(var/mob/living/carbon/C in range(1, get_turf(src)))
-		to_chat(C, "<span class='warning'>You are splattered with [name]!</span>")
+		to_chat(C, SPAN_WARNING("You are splattered with [name]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 		C.wetlevel = max(C.wetlevel + 1, times_shaken)
 
