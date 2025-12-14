@@ -514,7 +514,7 @@
 
 	var/static/list/potential_uncommoner_items = list(
 		/obj/item/restraints/legcuffs/beartrap,
-		/obj/item/restraints/handcuffs/cable/zipties,
+		list(/obj/item/restraints/handcuffs),
 		/obj/item/circular_saw,
 		/obj/item/scalpel,
 		/obj/item/clothing/gloves/color/yellow,
