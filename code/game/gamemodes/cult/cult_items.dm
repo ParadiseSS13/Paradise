@@ -169,7 +169,7 @@
 	else
 		examine_text = "[src] flares a bright and malicious pale lime shade. Someone has unbound the spirit within, and power now clearly resonates from inside the blade, barely restrained and brimming with fury. You may attempt to bind it once more, sealing the horror, or try to harness its strength as a blade."
 
-	. += "<span class='cult'>[examine_text]</span>"
+	. += SPAN_CULT("[examine_text]")
 
 /datum/action/item_action/haunted_blade
 	name = "Unseal Spirit" // img is of a chained shade
@@ -204,10 +204,10 @@
 	return
 
 /obj/item/melee/cultblade/haunted/proc/on_priest_handle(mob/living/user, actiontype)
-	user.visible_message("<span class='cult'>You begin chanting the holy hymns of [GET_CULT_DATA(entity_name, "Nar'Sie")]...</span>",\
-		"<span class='cult'>[user] begins chanting while holding [src] aloft...</span>")
+	user.visible_message(SPAN_CULT("You begin chanting the holy hymns of [GET_CULT_DATA(entity_name, "Nar'Sie")]..."),\
+		SPAN_CULT(SPAN_CULT("[user] begins chanting while holding [src] aloft...")))
 	if(!do_after(user, 6 SECONDS, src))
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		binding = FALSE
 		return
 	playsound(user, 'sound/effects/pray_chaplain.ogg',60,TRUE)
@@ -217,15 +217,15 @@
 /obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/user, actiontype)
 	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/melee/sickly_blade/cursed)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, "<span class='notice'>You need to hold a ritual dagger to bind [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You need to hold a ritual dagger to bind [src]!"))
 		binding = FALSE
 		return
 
-	user.visible_message("<span class='cult'>[user] begins slicing open [user.p_their()] palm on top of [src]...</span>",\
-		"<span class='cult'>You begin slicing open your palm on top of [src]...</span>")
+	user.visible_message(SPAN_CULT("[user] begins slicing open [user.p_their()] palm on top of [src]..."),\
+		SPAN_CULT("You begin slicing open your palm on top of [src]..."))
 	if(!do_after(user, 6 SECONDS, src))
 		binding = FALSE
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		return
 	playsound(user, 'sound/weapons/bladeslice.ogg', 30, TRUE)
 	rebind_blade(user)
@@ -234,38 +234,38 @@
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, "<span class='notice'>You need to hold a focus to bind [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You need to hold a focus to bind [src]!"))
 		binding = FALSE
 		return
 
-	user.visible_message("<span class='cult'>You channel the Mansus through your focus, empowering the sealing runes...</span>", "<span class='cult'>[user] holds up their eldritch focus on top of [src] and begins concentrating...</span>")
+	user.visible_message(SPAN_CULT("You channel the Mansus through your focus, empowering the sealing runes..."), SPAN_CULT("[user] holds up their eldritch focus on top of [src] and begins concentrating..."))
 	if(!do_after(user, 6 SECONDS, src))
 		binding = FALSE
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		return
 	rebind_blade(user)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_wizard_handle(mob/living/user, actiontype)
-	user.visible_message("<span class='cult'>You begin quickly and nimbly casting the sealing runes.</span>", "<span class='cult'>[user] begins tracing anti-light runes on [src]...</span>")
+	user.visible_message(SPAN_CULT("You begin quickly and nimbly casting the sealing runes."), SPAN_CULT("[user] begins tracing anti-light runes on [src]..."))
 	if(!do_after(user, 3 SECONDS, src))
 		binding = FALSE
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		return
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_normie_handle(mob/living/user, actiontype)
 	var/binding_implements = list(/obj/item/storage/bible)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, "<span class='notice'>You need to wield a bible to bind [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You need to wield a bible to bind [src]!"))
 		binding = FALSE
 		return
 
 	var/passage = "[pick(GLOB.first_names_male)] [rand(1,9)]:[rand(1,25)]" // Space Bibles will have Alejandro 9:21 passages, as part of the Very New Testament.
-	user.visible_message("<span class='cult'>You start reading aloud the passage in [passage]...</span>", "<span class='cult'>[user] starts reading aloud the passage in [passage]...</span>")
+	user.visible_message(SPAN_CULT("You start reading aloud the passage in [passage]..."), SPAN_CULT("[user] starts reading aloud the passage in [passage]..."))
 	if(!do_after(user, 12 SECONDS, src))
 		binding = FALSE
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		return
 	rebind_blade(user)
 	return TRUE
@@ -275,11 +275,11 @@
 	var/holup = tgui_alert(user, "Are you sure you wish to unseal the spirit within?", "Sealed Evil In A Jar", list("I need the power!", "Maybe not..."))
 	if(holup != "I need the power!")
 		return
-	to_chat(user, "<span class='cult'>You start focusing on the power of the blade, letting it guide your fingers along the inscribed runes...</span>")
+	to_chat(user, SPAN_CULT("You start focusing on the power of the blade, letting it guide your fingers along the inscribed runes..."))
 	if(!do_after(user, 5 SECONDS, src))
-		to_chat(user, "<span class='notice'>You were interrupted!</span>")
+		to_chat(user, SPAN_NOTICE("You were interrupted!"))
 		return
-	visible_message("<span class='danger'>[user] has unbound [src]!</span>")
+	visible_message(SPAN_DANGER("[user] has unbound [src]!"))
 	bound = FALSE
 	for(var/datum/spell/sword_spell as anything in path_sword_actions)
 		trapped_entity.AddSpell(sword_spell)
@@ -295,7 +295,7 @@
 	AddElement(/datum/element/heretic_focus)
 
 /obj/item/melee/cultblade/haunted/proc/rebind_blade(mob/user)
-	visible_message("<span class='danger'>[user] has bound [src]!</span>")
+	visible_message(SPAN_DANGER("[user] has bound [src]!"))
 	binding = FALSE
 	bound = TRUE
 	force -= 5
@@ -438,7 +438,7 @@
 	if(!isliving(loc))
 		return TRUE
 	if(bound)
-		to_chat(trapped_entity, "<span class='warning'>You are bound, and unable to move! Try to get someone to unbind you!</span>")
+		to_chat(trapped_entity, SPAN_WARNING("You are bound, and unable to move! Try to get someone to unbind you!"))
 		return FALSE
 
 	var/mob/loccer = loc
@@ -468,7 +468,7 @@
 		return TRUE
 		// flung by later code
 	else
-		to_chat(trapped_entity, "<span class='warning'>[fail_text]</span>")
+		to_chat(trapped_entity, SPAN_WARNING("[fail_text]"))
 		return FALSE
 
 

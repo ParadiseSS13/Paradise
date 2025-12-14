@@ -43,7 +43,7 @@
 /datum/component/living_heart/proc/on_organ_removed(obj/item/organ/source, mob/living/carbon/old_owner)
 	SIGNAL_HANDLER
 
-	to_chat(old_owner, "<span class='userdanger'>As your living [source.name] leaves your body, you feel less connected to the Mansus!</span>")
+	to_chat(old_owner, SPAN_USERDANGER("As your living [source.name] leaves your body, you feel less connected to the Mansus!"))
 	qdel(src)
 
 /**
@@ -89,7 +89,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	if(!LAZYLEN(heretic_datum.sac_targets))
-		to_chat(owner, "<span class='hierophant_warning'>You have no targets, visit a rune!</span>")
+		to_chat(owner, SPAN_HIEROPHANT_WARNING("You have no targets, visit a rune!"))
 		return TRUE
 
 	var/list/targets_to_choose = list()
@@ -122,13 +122,13 @@
 		return FALSE
 
 	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(owner, "<span class='hierophant'>Your target is [get_distance_message(tracked_mob)]</span>")
+	to_chat(owner, SPAN_HIEROPHANT("Your target is [get_distance_message(tracked_mob)]"))
 
 
 	// Let them know how to sacrifice people if they're able to be sac'd
 	if(tracked_mob.stat == DEAD)
-		to_chat(owner, "<span class='hierophant'>[tracked_mob] is dead. Bring them to a transmutation rune \
-			and invoke \"[sac_knowledge.name]\" to sacrifice them!</span>")
+		to_chat(owner, SPAN_HIEROPHANT("[tracked_mob] is dead. Bring them to a transmutation rune \
+			and invoke \"[sac_knowledge.name]\" to sacrifice them!"))
 
 	return TRUE
 

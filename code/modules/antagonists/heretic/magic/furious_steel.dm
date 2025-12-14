@@ -105,7 +105,7 @@
 		if(caster.mind)
 			var/datum/antagonist/mindslave/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 			if(monster?.master == caster.mind)
-				visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+				visible_message(SPAN_WARNING("[src] fizzles on contact with [victim]!"))
 				damage = 0
 				nodamage = TRUE
 				return FALSE
@@ -123,7 +123,7 @@
 		if(caster.mind)
 			var/datum/antagonist/mindslave/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 			if(monster?.master == caster.mind)
-				visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+				visible_message(SPAN_WARNING("[src] fizzles on contact with [victim]!"))
 				return FALSE
 
 	return ..()

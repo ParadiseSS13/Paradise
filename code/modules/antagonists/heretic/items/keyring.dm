@@ -64,7 +64,7 @@
 
 	if(!IS_HERETIC_OR_MONSTER(teleportee))
 		teleportee.apply_damage(20, BRUTE) //so they dont roll it like a jackpot machine to see if they can land in the armory
-		to_chat(teleportee, "<span class='userdanger'>You stumble through [src], battered by forces beyond your comprehension, landing anywhere but where you thought you were going.</span>")
+		to_chat(teleportee, SPAN_USERDANGER("You stumble through [src], battered by forces beyond your comprehension, landing anywhere but where you thought you were going."))
 
 	INVOKE_ASYNC(src, PROC_REF(async_opendoor), doorstination)
 
@@ -109,11 +109,11 @@
 	. = ..()
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
-	. += "<span class='hierophant'>Enchanted by the Mansus!</span>"
-	. += "<span class='hierophant'>Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.</span>"
-	. += "<span class='hierophant'><b>Using this in-hand</b> allows you to change its appearance.</span>"
-	. += "<span class='hierophant'><b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.</span>"
-	. += "<span class='hierophant'><b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.</span>"
+	. += SPAN_HIEROPHANT("Enchanted by the Mansus!")
+	. += SPAN_HIEROPHANT("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
+	. += SPAN_HIEROPHANT("<b>Using this in-hand</b> allows you to change its appearance.")
+	. += SPAN_HIEROPHANT("<b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.")
+	. += SPAN_HIEROPHANT("<b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.")
 
 /obj/item/card/id/heretic/activate_self(mob/user)
 	if(..())
@@ -121,11 +121,11 @@
 	if(!IS_HERETIC(user))
 		return flash_card()
 	if(!length(fused_ids))
-		to_chat(user, "<span class='hierophant'>There is no ID to shapeshift into!</span>")
+		to_chat(user, SPAN_HIEROPHANT("There is no ID to shapeshift into!"))
 		return ..()
 	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
 	if(!cardname)
-		to_chat(user, "<span class='hierophant'>You decide not to shapeshift the id.</span>")
+		to_chat(user, SPAN_HIEROPHANT("You decide not to shapeshift the id."))
 		return ..()
 	var/obj/item/card/id/card = fused_ids[cardname]
 	shapeshift(card)
@@ -137,7 +137,7 @@
 	if(!IS_HERETIC(user))
 		return
 	inverted = !inverted
-	to_chat(user, "<span class='hierophant'>[inverted ? "now" : "no longer"] creating inverted rifts.</span>")
+	to_chat(user, SPAN_HIEROPHANT("[inverted ? "now" : "no longer"] creating inverted rifts."))
 
 ///Changes our appearance to the passed ID card
 /obj/item/card/id/heretic/proc/shapeshift(obj/item/card/id/card)
@@ -178,7 +178,7 @@
 	portal_one.destination = portal_two
 	RegisterSignal(portal_one, COMSIG_PARENT_QDELETING, PROC_REF(clear_portal_refs))  //we only really need to register one because they already qdel both portals if one is destroyed
 	portal_two.destination = portal_one
-	to_chat(user, "<span class='hierophant'>[message].</span>")
+	to_chat(user, SPAN_HIEROPHANT("[message]."))
 
 /obj/item/card/id/heretic/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(!istype(tool, /obj/item/card/id) || !IS_HERETIC(user))
@@ -193,7 +193,7 @@
 		return
 	var/mob/living/carbon/human/human_user = user
 	if(human_user.wear_id == card)
-		to_chat(user, "<span class='warning'>Take the card off first!</span>")
+		to_chat(user, SPAN_WARNING("Take the card off first!"))
 		return
 	fused_ids[card.name] = card
 	card.forceMove(get_turf(user))
@@ -220,12 +220,12 @@
 
 	if(reference_resolved)
 		make_portal(user, reference_resolved, target)
-		to_chat(user, "<span class='notice'>You use [src], to link [reference_resolved] and [target] together.</span>")
+		to_chat(user, SPAN_NOTICE("You use [src], to link [reference_resolved] and [target] together."))
 		link = null
-		to_chat(user, "<span class='hierophant'>Link 2/2.</span>")
+		to_chat(user, SPAN_HIEROPHANT("Link 2/2."))
 	else
 		link = target.UID()
-		to_chat(user, "<span class='hierophant'>Link 1/2.</span>")
+		to_chat(user, SPAN_HIEROPHANT("Link 1/2."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/heretic/Destroy()

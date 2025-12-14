@@ -24,8 +24,8 @@
 	if(!IS_HERETIC(user))
 		return
 
-	. += "<span class='notice'>Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.</span>"
-	. += "<span class='notice'>You can use your <i>Mansus Grasp</i> on the rune to remove it.</span>"
+	. += SPAN_NOTICE("Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.")
+	. += SPAN_NOTICE("You can use your <i>Mansus Grasp</i> on the rune to remove it.")
 
 /obj/effect/heretic_rune/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -52,7 +52,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		to_chat(user, "<span class='hierophant_warning'>You have no rituals avalible?</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You have no rituals avalible?"))
 		is_in_use = FALSE
 		return
 
@@ -158,7 +158,7 @@
 	if(length(what_are_we_missing))
 		// Let them know it screwed up
 		// Then let them know what they're missing
-		to_chat(user, "<span class='hierophant_warning'>You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\".</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\"."))
 		return FALSE
 
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
@@ -194,7 +194,7 @@
 	// No feedback is given on failure here -
 	// the ritual itself should handle it (providing specifics as to why it failed)
 	if(ritual_result)
-		to_chat(user, "<span class='hierophant'>The ritual was successful.</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual was successful."))
 
 	return ritual_result
 

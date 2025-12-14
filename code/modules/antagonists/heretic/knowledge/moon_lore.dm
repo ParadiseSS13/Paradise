@@ -49,7 +49,7 @@
 /datum/heretic_knowledge/moon_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 	if(target.can_block_magic(MAGIC_RESISTANCE_MIND))
-		to_chat(target, "<span class='danger'>You hear echoing laughter from above..but it is dull and distant.</span>")
+		to_chat(target, SPAN_DANGER("You hear echoing laughter from above..but it is dull and distant.</span>"))
 		return
 
 	source.apply_status_effect(/datum/status_effect/moon_grasp_hide)
@@ -57,7 +57,7 @@
 	if(!iscarbon(target))
 		return
 	var/mob/living/carbon/carbon_target = target
-	to_chat(carbon_target, "<span class='danger'>You hear echoing laughter from above</span>")
+	to_chat(carbon_target, SPAN_DANGER("You hear echoing laughter from above</span>"))
 	new /obj/effect/hallucination/delusion(get_turf(carbon_target), carbon_target, 'icons/effects/eldritch.dmi', "heretic")
 	carbon_target.adjustBrainLoss(15)
 
@@ -188,11 +188,11 @@
 
 /datum/spell/summonitem/moon/cast(list/targets, mob/user = usr)
 	if(!moon)
-		to_chat(user, "<span class='danger'>THE AVATAR IS DEAD! DESPAIR!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("THE AVATAR IS DEAD! DESPAIR!</span>"))
 		cooldown_handler.revert_cast()
 		return FALSE
 	if(moon.is_occupant(user)) // prevents use of the spell when on the moon.
-		to_chat(user, "<span class='warning'>You cannot summon the avatar while utilizing it!</span>")
+		to_chat(user, SPAN_WARNING("You cannot summon the avatar while utilizing it!</span>"))
 		cooldown_handler.revert_cast()
 		return FALSE
 	return ..()

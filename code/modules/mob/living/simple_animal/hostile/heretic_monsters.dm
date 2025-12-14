@@ -275,8 +275,8 @@
 	// If we have health, we take some damage
 	if(health > (maxHealth * 0.125))
 		visible_message(
-				"<span class='warning'>[src] seems to fade in and out slightly.</span>",
-				"<span class='userdanger'>[user]'s gaze pierces your every being!</span>",
+				SPAN_WARNING("[src] seems to fade in and out slightly."),
+				SPAN_USERDANGER("[user]'s gaze pierces your every being!"),
 		)
 
 		recent_examiner_refs += user_ref
@@ -287,8 +287,8 @@
 	// If we're examined on low enough health we die straight up
 	else
 		visible_message(
-				"<span class='danger'>[src] vanishes from existence!</span>",
-				"<span class='userdanger'>[user]'s gaze shatters your form, destroying you!</span>",
+				SPAN_DANGER("[src] vanishes from existence!"),
+				SPAN_USERDANGER("[user]'s gaze shatters your form, destroying you!"),
 		)
 
 		death()
@@ -599,7 +599,7 @@
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark)
 		nearby_mob.apply_damage(10)
-		to_chat(nearby_mob, "<span class='userdanger'>\The [src] [attack_verb_continuous] you!</span>")
+		to_chat(nearby_mob, SPAN_USERDANGER("\The [src] [attack_verb_continuous] you!"))
 		do_attack_animation(nearby_mob, ATTACK_EFFECT_CLAW)
 
 /mob/living/basic/heretic_summon/star_gazer/proc/on_teleport() // Nope, can't bait it off station

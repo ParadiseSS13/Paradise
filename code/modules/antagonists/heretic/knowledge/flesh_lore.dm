@@ -40,7 +40,7 @@
 	. = ..()
 	our_heretic.add_antag_objective(/datum/objective/heretic_summon)
 
-	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
+	to_chat(user, SPAN_HIEROPHANT("Undertaking the Path of Flesh, you are given another objective."))
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
@@ -70,15 +70,15 @@
 		return
 
 	if(LAZYLEN(created_items) >= limit)
-		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, you are at your ghoul limit.</span>")
+		to_chat(source, SPAN_HIEROPHANT_WARNING("The ritual has failed, you are at your ghoul limit."))
 		return COMPONENT_BLOCK_HAND_USE
 
 	if(HAS_TRAIT(target, TRAIT_HUSK))
-		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target is husked.</span>")
+		to_chat(source, SPAN_HIEROPHANT_WARNING("The ritual has failed, the target is husked."))
 		return COMPONENT_BLOCK_HAND_USE
 
 	if(!IS_VALID_GHOUL_MOB(target))
-		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target not valid.</span>")
+		to_chat(source, SPAN_HIEROPHANT_WARNING("The ritual has failed, the target not valid."))
 		return COMPONENT_BLOCK_HAND_USE
 
 	var/datum/antagonist/heretic/howetic = IS_HERETIC(source)
@@ -87,14 +87,14 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
 	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
-		to_chat(source, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
+		to_chat(source, SPAN_HIEROPHANT("The ritual failed, you are at your limit of [howetic.monster_limit] monsters!"))
 		return COMPONENT_BLOCK_HAND_USE
 
 	target.grab_ghost()
 
 	// The grab failed, so they're mindless or playerless. We can't continue
 	if(!target.mind || !target.client)
-		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target has no soul.</span>")
+		to_chat(source, SPAN_HIEROPHANT_WARNING("The ritual has failed, the target has no soul."))
 		return COMPONENT_BLOCK_HAND_USE
 
 	make_ghoul(source, target)
@@ -151,28 +151,28 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
 	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, you are at your limit of [howetic.monster_limit] monsters!"))
 		return FALSE
 
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
-			to_chat(user, "<span class='hierophant_warning'>[body] is not in a valid state to be made into a ghoul.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[body] is not in a valid state to be made into a ghoul."))
 			continue
 
 		// We'll select any valid bodies here. If they're clientless, we'll give them a new one.
 		selected_atoms += body
 		return TRUE
 
-	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
+	to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, there is no valid body."))
 	return FALSE
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, there is no valid body."))
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
@@ -181,7 +181,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/possible_ones = SSghost_spawns.poll_candidates("Do you want to play as [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, TRUE, 10 SECONDS, source = soon_to_be_ghoul)
 		if(!length(possible_ones))
-			to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no spirits possessed the summon!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, no spirits possessed the summon!"))
 			return FALSE
 		var/mob/chosen_one = pick(possible_ones)
 		message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")

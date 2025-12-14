@@ -208,13 +208,13 @@
 			continue
 		var/obj/item/organ/external/affecting = body.get_organ(BODY_ZONE_CHEST)
 		if(length(affecting.contents))
-			to_chat(user, "<span class='hierophant_warning'>[body] has organs in their chest.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[body] has organs in their chest."))
 			continue
 
 		selected_atoms += body
 
 	if(!LAZYLEN(selected_atoms))
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, you do not have enough valid bodies.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, you do not have enough valid bodies."))
 		return FALSE
 	return TRUE
 

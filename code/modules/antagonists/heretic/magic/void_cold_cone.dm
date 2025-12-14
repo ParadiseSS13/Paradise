@@ -55,7 +55,7 @@
 	if(on_freeze_brute_damage || on_freeze_burn_damage)
 		target_mob.take_overall_damage(on_freeze_brute_damage, on_freeze_burn_damage)
 
-	to_chat(target_mob, "<span class='userdanger'>You feel a bitter cold!</span>")
+	to_chat(target_mob, SPAN_USERDANGER("You feel a bitter cold!"))
 
 
 

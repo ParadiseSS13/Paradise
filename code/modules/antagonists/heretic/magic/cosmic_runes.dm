@@ -32,7 +32,7 @@
 /datum/spell/cosmic_rune/can_cast(mob/user, charge_check, show_message)
 	var/area/area = get_area(user)
 	if(!is_teleport_allowed(user.z) || istype(area, /area/shuttle)) // no runes on shuttles or centcomm
-		to_chat(user, "<span class='hierophant'>An unusual force prevents us from forming a rune here!</span>")
+		to_chat(user, SPAN_HIEROPHANT("An unusual force prevents us from forming a rune here!"))
 		return FALSE
 	return ..()
 
@@ -91,15 +91,15 @@
 	if(.)
 		return
 	if(!linked_rune)
-		to_chat(user, "<span class='warning'>There is no linked rune!</span>")
+		to_chat(user, SPAN_WARNING("There is no linked rune!"))
 		fail_invoke()
 		return
 	if(!(user in get_turf(src)))
-		to_chat(user, "<span class='warning'>You must be on the rune to teleport!</span>")
+		to_chat(user, SPAN_WARNING("You must be on the rune to teleport!"))
 		fail_invoke()
 		return
 	if(user.has_status_effect(/datum/status_effect/star_mark))
-		to_chat(user, "<span class='warning'>The mark blocks you from using the rune!</span>")
+		to_chat(user, SPAN_WARNING("The mark blocks you from using the rune!"))
 		fail_invoke()
 		return
 	invoke(user)
@@ -109,7 +109,7 @@
 	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)
 	new rune_effect(get_turf(src))
 	if(!is_teleport_allowed(linked_rune_resolved.z) || !is_teleport_allowed(user.z))
-		to_chat(user, "<span class='hierophant'>An unusual force prevents us from using our runes here!</span>")
+		to_chat(user, SPAN_HIEROPHANT("An unusual force prevents us from using our runes here!"))
 		return
 	if(!(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked_rune_resolved)) & COMPONENT_BLOCK_TELEPORT))
 		user.forceMove(get_turf(linked_rune_resolved))
@@ -124,7 +124,7 @@
 
 /// For if someone failed to invoke the rune
 /obj/effect/cosmic_rune/proc/fail_invoke()
-	visible_message("<span class='warning'>The rune pulses with a small flash of purple light, then returns to normal.</span>")
+	visible_message(SPAN_WARNING("The rune pulses with a small flash of purple light, then returns to normal."))
 	var/oldcolor = rgb(255, 255, 255)
 	color = rgb(150, 50, 200)
 	animate(src, color = oldcolor, time = 5)

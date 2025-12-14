@@ -55,7 +55,7 @@
 	if(!E)
 		return
 
-	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
+	to_chat(target, SPAN_DANGER("A bright green light burns your eyes horrifically!"))
 	E.receive_damage(9)
 	target.EyeBlurry(20 SECONDS)
 

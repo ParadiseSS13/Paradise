@@ -34,7 +34,7 @@
 	var/turf/origin_turf = get_turf(loser)
 	playsound(loser, 'sound/magic/forcewall.ogg', vol = 100)
 	new /obj/effect/temp_visual/curse_blast(origin_turf)
-	loser.visible_message("<span class='danger'>[organ] explodes in a burst of dark energy!</span>")
+	loser.visible_message(SPAN_DANGER("[organ] explodes in a burst of dark energy!"))
 	for(var/mob/living/target in range(1, origin_turf))
 		var/armor = target.run_armor_check()
 		target.apply_damage(30, damagetype = BURN, blocked = armor, spread_damage = TRUE)

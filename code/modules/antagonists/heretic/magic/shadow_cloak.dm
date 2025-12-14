@@ -49,8 +49,8 @@
 /datum/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
 	playsound(cast_on, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 	cast_on.visible_message(
-		"<span class='warning'>[cast_on] disappears into the shadows!</span>",
-		"<span class='notice'>You disappear into the shadows, becoming unidentifiable.</span>",
+		SPAN_WARNING("[cast_on] disappears into the shadows!"),
+		SPAN_NOTICE("You disappear into the shadows, becoming unidentifiable."),
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
@@ -67,8 +67,8 @@
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)
 		cast_on.visible_message(
-			"<span class='warning'>[cast_on] appears from the shadows!</span>",
-			"<span class='notice'>You appear from the shadows, identifiable once more.</span>",
+			SPAN_WARNING("[cast_on] appears from the shadows!"),
+			SPAN_NOTICE("You appear from the shadows, identifiable once more."),
 		)
 	COOLDOWN_START(src, uncloak_timer, 5 SECONDS)
 
@@ -80,8 +80,8 @@
 	var/mob/living/removed = source.owner
 	uncloak_mob(removed, show_message = FALSE)
 	removed.visible_message(
-		"<span class='warning'>[removed] is pulled from the shadows!</span>",
-		"<span class='userdanger'>You are pulled out of the shadows!</span>",
+		SPAN_WARNING("[removed] is pulled from the shadows!"),
+		SPAN_USERDANGER("You are pulled out of the shadows!"),
 	)
 
 	removed.KnockDown(0.5 SECONDS)
@@ -94,8 +94,8 @@
 
 	uncloak_mob(source, show_message = FALSE)
 	source.visible_message(
-		"<span class='warning'>[source] suddenly appears from the shadows!</span>",
-		"<span class='userdanger'>As you lose your focus, you are pulled out of the shadows!</span>",
+		SPAN_WARNING("[source] suddenly appears from the shadows!"),
+		SPAN_USERDANGER("As you lose your focus, you are pulled out of the shadows!"),
 	)
 	cooldown_handler.start_recharge(uncloak_time / 3)
 

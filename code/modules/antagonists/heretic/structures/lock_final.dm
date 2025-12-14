@@ -51,7 +51,7 @@
 	SIGNAL_HANDLER
 	var/turf/our_turf = get_turf(src)
 	playsound(our_turf, 'sound/magic/castsummon.ogg', vol = 100, vary = TRUE)
-	visible_message("<span class='boldwarning'>The rip in space spasms and disappears!</span>")
+	visible_message(SPAN_BOLDWARNING("The rip in space spasms and disappears!"))
 	UnregisterSignal(former_master, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING)) // Just in case they die THEN delete
 	new /obj/effect/temp_visual/destabilising_tear(our_turf)
 	qdel(src)
@@ -66,7 +66,7 @@
 	. = ..()
 	if(!isobserver(user) || gathering_candidates)
 		return
-	. += "<span class='notice'>You can use this to enter the world as a foul monster.</span>"
+	. += SPAN_NOTICE("You can use this to enter the world as a foul monster.")
 
 /// Turn a ghost into an 'orrible beast
 /obj/structure/lock_tear/proc/ghost_to_monster(mob/dead/observer/user, should_ask = TRUE)
@@ -89,7 +89,7 @@
 		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
 		if(deathtime <= death_cooldown && !joinedasobserver)
 			to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-			to_chat(user, "<span class='warning'>You must wait [death_cooldown / 1 MINUTES] minutes to respawn!</span>")
+			to_chat(user, SPAN_WARNING("You must wait [death_cooldown / 1 MINUTES] minutes to respawn!"))
 			return TRUE
 		var/ask = tgui_alert(user, "Become a monster?", "Ascended Rift", list("Yes", "No"))
 		if(ask != "Yes" || QDELETED(src) || QDELETED(user))

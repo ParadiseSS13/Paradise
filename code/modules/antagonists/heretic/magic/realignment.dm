@@ -28,7 +28,7 @@
 		return
 	var/mob/living/living_user = user
 	living_user.apply_status_effect(/datum/status_effect/realignment)
-	to_chat(user, "<span class='notice'>We begin to realign ourselves.</span>")
+	to_chat(user, SPAN_NOTICE("We begin to realign ourselves.</span>"))
 
 /datum/spell/realignment/after_cast(atom/cast_on)
 	. = ..()

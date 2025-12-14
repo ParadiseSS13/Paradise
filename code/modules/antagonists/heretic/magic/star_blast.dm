@@ -48,7 +48,7 @@
 	if(pins_hit >= 10)
 		playsound(get_turf(src), 'sound/effects/bowling_strike.ogg', 100, FALSE)
 		for(var/mob/nearby_mob in range(9, target))
-			to_chat(nearby_mob, "<span class='hierophant_warning'>STRIKE!</span>")
+			to_chat(nearby_mob, SPAN_HIEROPHANT_WARNING("STRIKE!"))
 
 /obj/projectile/magic/star_ball/Destroy()
 	playsound(get_turf(src), 'sound/magic/cosmic_energy.ogg', 50, FALSE)

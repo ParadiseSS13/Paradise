@@ -115,18 +115,18 @@
 		return
 
 	if(IS_HERETIC(user))
-		to_chat(user, "<span class='boldwarning'>You know better than to tempt forces out of your control!</span>")
+		to_chat(user, SPAN_BOLDWARNING("You know better than to tempt forces out of your control!"))
 		return TRUE
 
 	var/mob/living/carbon/human/human_user = user
 	var/dam_zone = pick("l_arm", "r_arm")
 	var/obj/item/organ/external/their_poor_arm = human_user.get_organ(dam_zone)
 	if(prob(25) && their_poor_arm)
-		human_user.visible_message("<span class='warning'>An otherwordly presence tears and atomizes [human_user]'s arm as [human_user.p_they(FALSE)] try to reach into the hole in the very fabric of reality!</span>","<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
+		human_user.visible_message(SPAN_WARNING("An otherwordly presence tears and atomizes [human_user]'s arm as [human_user.p_they(FALSE)] try to reach into the hole in the very fabric of reality!"),SPAN_USERDANGER("An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
 		their_poor_arm.droplimb()
 		qdel(their_poor_arm)
 	else
-		to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existence itself!</span>")
+		to_chat(human_user,SPAN_DANGER("You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existence itself!"))
 	return TRUE
 
 /obj/effect/visible_heretic_influence/attack_tk(mob/user)
@@ -136,13 +136,13 @@
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(IS_HERETIC(user))
-		to_chat(user, "<span class='boldwarning'>You know better than to tempt forces out of your control!</span>")
+		to_chat(user, SPAN_BOLDWARNING("You know better than to tempt forces out of your control!"))
 		return
 
 	var/mob/living/carbon/human/human_user = user
 
 	// A very elaborate way to suicide
-	to_chat(human_user, "<span class='userdanger'>Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!</span>")
+	to_chat(human_user, SPAN_USERDANGER("Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!"))
 	human_user.ghostize()
 	var/obj/item/organ/external/head/head = locate() in human_user.bodyparts
 	if(head)
@@ -160,7 +160,7 @@
 		return
 
 	var/mob/living/carbon/human/human_user = user
-	to_chat(human_user, "<span class='userdanger'>Your mind burns as you stare at the tear!</span>")
+	to_chat(human_user, SPAN_USERDANGER("Your mind burns as you stare at the tear!"))
 	human_user.adjustBrainLoss(10)
 	human_user.AdjustConfused(10 SECONDS, 10 SECONDS, 60 SECONDS)
 
@@ -225,7 +225,7 @@
 /obj/effect/heretic_influence/proc/drain_influence(mob/living/user, knowledge_to_gain)
 
 	being_drained = TRUE
-	to_chat(user, "<span class='notice'>You begin to drain the influence...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to drain the influence..."))
 
 	if(!do_after(user, 10 SECONDS, target = src, hidden = TRUE))
 		being_drained = FALSE
@@ -243,8 +243,8 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, "<span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
-		to_chat(user, "<span class='warning'>[src] begins to fade into reality!</span>")
+		to_chat(user, SPAN_HIEROPHANT("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]"))
+		to_chat(user, SPAN_WARNING("[src] begins to fade into reality!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())
 	illusion.name = "\improper" + pick_list(HERETIC_INFLUENCE_FILE, "drained") + " " + format_text(name)

@@ -495,7 +495,7 @@
 //Warns you about the impenting hands
 /datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
 	. = ..()
-	to_chat(affected_mob, "<span class='hierophant'>You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!</span>")
+	to_chat(affected_mob, SPAN_HIEROPHANT("You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!"))
 	playsound(affected_mob.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
 
 //Sends hands after you for your hubris

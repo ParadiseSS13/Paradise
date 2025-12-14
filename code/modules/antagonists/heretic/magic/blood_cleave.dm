@@ -38,8 +38,8 @@
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
-				"<span class='danger'>[victim]'s flashes in a firey glow, but repels the blaze!</span>",
-				"<span class='danger'>Your body begins to flash a firey glow, but you are protected!!</span>"
+				SPAN_DANGER("[victim]'s flashes in a firey glow, but repels the blaze!"),
+				SPAN_DANGER("Your body begins to flash a firey glow, but you are protected!!")
 			)
 			continue
 
@@ -47,8 +47,8 @@
 			continue
 
 		victim.visible_message(
-			"<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>",
-			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
+			SPAN_DANGER("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
+			SPAN_DANGER("Your veins burst from within and unholy flame erupts from your blood!")
 		)
 
 		var/obj/item/organ/external/bodypart = pick(victim.bodyparts)

@@ -25,7 +25,7 @@
 	if(!check_usability(user))
 		return
 
-	. += "<span class='notice'>You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.</span>"
+	. += SPAN_NOTICE("You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.")
 
 /// Checks if the passed mob can use this blade without being stunned
 /obj/item/melee/sickly_blade/proc/check_usability(mob/living/user)
@@ -35,7 +35,7 @@
 	if(..())
 		return FINISH_ATTACK
 	if(!check_usability(user))
-		to_chat(user, "<span class='danger'>You feel a pulse of alien intellect lash out at your mind!</span>")
+		to_chat(user, SPAN_DANGER("You feel a pulse of alien intellect lash out at your mind!"))
 		var/mob/living/carbon/human/human_user = user
 		human_user.Weaken(5 SECONDS)
 		return FINISH_ATTACK
@@ -48,15 +48,15 @@
 
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
-	to_chat(user, "<span class='warning'>You begin to break the blade...</span>")
+	to_chat(user, SPAN_WARNING("You begin to break the blade..."))
 	if(!do_after(user, 1 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
-		to_chat(user, "<span class='warning'>You fail to break the blade!</span>")
+		to_chat(user, SPAN_WARNING("You fail to break the blade!"))
 		return
 	var/turf/safe_turf = find_safe_turf()
 	var/turf/blade_turf = get_turf(user)
 	var/area/our_area = get_area(blade_turf)
 	if(!is_teleport_allowed(blade_turf.z) || our_area.tele_proof)
-		to_chat(user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+		to_chat(user, SPAN_WARNING("You shatter [src], but your plea goes unanswered."))
 		playsound(src, "shatter", 70, TRUE)
 		qdel(src)
 		return
@@ -64,11 +64,11 @@
 		var/mob/living/living_user = user
 		living_user.apply_status_effect(/datum/status_effect/broken_blade, icon_state)
 		if(do_teleport(living_user, safe_turf))
-			to_chat(living_user, "<span class='warning'>As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]</span>")
+			to_chat(living_user, SPAN_WARNING("As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]"))
 		else
-			to_chat(living_user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+			to_chat(living_user, SPAN_WARNING("You shatter [src], but your plea goes unanswered."))
 	else
-		to_chat(user,"<span class='warning'>You shatter [src].</span>")
+		to_chat(user,SPAN_WARNING("You shatter [src]."))
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
 
@@ -132,7 +132,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!heretic_datum)
 		return
-	. += "<span class='info'>We may touch the blade to ourself to call forth an aspect of winter's end.</span>"
+	. += "<span class='info'>We may touch the blade to ourself to call forth an aspect of winter's end."
 
 /obj/item/melee/sickly_blade/void/dropped(mob/user, silent)
 	. = ..()
@@ -144,13 +144,13 @@
 
 	if(user == target)
 		if(chilling)
-			to_chat(user, "<span class='warning'>We are already calling forth the patient end.</span>")
+			to_chat(user, SPAN_WARNING("We are already calling forth the patient end."))
 			return FINISH_ATTACK
 		else
 			chilling = TRUE
-			to_chat(user, "<span class='warning'>We begin to bring forth a fragment of winter.</span>")
+			to_chat(user, SPAN_WARNING("We begin to bring forth a fragment of winter."))
 			while(chilling)
-				if(!do_after_once(user, 10 SECONDS, TRUE, src, TRUE, FALSE, TRUE, "<span class='warning'>We finish channeling winter.</span>"))
+				if(!do_after_once(user, 10 SECONDS, TRUE, src, TRUE, FALSE, TRUE, SPAN_WARNING("We finish channeling winter.")))
 					chilling = FALSE
 		return FINISH_ATTACK
 
@@ -291,13 +291,13 @@
 		return FALSE
 	var/mob/living/carbon/human/human_mob = user
 	if(prob(15))
-		to_chat(human_mob, "<span class='cultlarge>[pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")]</span>")
+		to_chat(human_mob, SPAN_CULTLARGE("[pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")]"))
 		human_mob.apply_damage(5, BURN, user.get_active_hand())
 		playsound(src, 'sound/weapons/sear.ogg', 25, TRUE)
-		to_chat(human_mob, "<span class='danger'>Your hand sizzles.</span>") // Nar nar might not care but their essence still doesn't like you
+		to_chat(human_mob, SPAN_DANGER("Your hand sizzles.")) // Nar nar might not care but their essence still doesn't like you
 	else if(prob(15))
-		to_chat(human_mob, "<span class='hierophant'>LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE</span>")
-		to_chat(human_mob, "<span class='danger'>Horrible, unintelligible utterances flood your mind!</span>")
+		to_chat(human_mob, SPAN_HIEROPHANT("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE"))
+		to_chat(human_mob, SPAN_DANGER("Horrible, unintelligible utterances flood your mind!"))
 		human_mob.adjustBrainLoss(15) // This can kill you if you ignore it
 	return TRUE
 

@@ -89,7 +89,7 @@
 	var/datum/spell/touch/star_touch/star_touch_spell = attached_spell
 	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
 	if(!star_gazer_mob)
-		to_chat(user, "<span class='hierophant_warning'>You have no stargazer linked to this spell</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You have no stargazer linked to this spell"))
 		return ..()
 	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
 	playsound(user, 'sound/magic/cosmic_energy.ogg', 100, TRUE)
@@ -165,7 +165,7 @@
  */
 /datum/status_effect/cosmic_beam/proc/beam_died()
 	SIGNAL_HANDLER
-	to_chat(owner, "<span class='warning'>You lose control of the beam!</span>")
+	to_chat(owner, SPAN_WARNING("You lose control of the beam!"))
 	lose_target()
 	duration = 0
 

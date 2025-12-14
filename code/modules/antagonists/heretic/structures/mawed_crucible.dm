@@ -32,7 +32,7 @@
 /obj/structure/eldritch_crucible/obj_destruction()
 	// Create a spillage if we were destroyed with leftover mass
 	if(current_mass)
-		visible_message("<span class='warning'>[src] falls apart with a thud, spilling shining extract everywhere!</span>")
+		visible_message(SPAN_WARNING("[src] falls apart with a thud, spilling shining extract everywhere!"))
 		var/turf/our_turf = get_turf(src)
 
 		new /obj/effect/decal/cleanable/greenglow(our_turf)
@@ -41,7 +41,7 @@
 				new /obj/effect/decal/cleanable/greenglow(nearby_turf)
 		playsound(our_turf, 'sound/effects/bubbles.ogg', 50, TRUE)
 	else
-		visible_message("<span class='warning'>[src] falls apart with a thud!</span>")
+		visible_message(SPAN_WARNING("[src] falls apart with a thud!"))
 	playsound(src, 'sound/hallucinations/wail.ogg', 100, TRUE)
 
 	return ..()
@@ -52,23 +52,23 @@
 		return
 
 	if(current_mass > 0)
-		. += "<span class='notice'>You can refill an eldritch flask with this</span>"
+		. += SPAN_NOTICE("You can refill an eldritch flask with this")
 
 	if(current_mass < max_mass)
 		var/to_fill = max_mass - current_mass
-		. += "<span class='notice'>[src] requires <b>[to_fill]</b> more organ[to_fill == 1 ? "":"s"] or bodypart[to_fill == 1 ? "":"s"].</span>"
+		. += SPAN_NOTICE("[src] requires <b>[to_fill]</b> more organ[to_fill == 1 ? "":"s"] or bodypart[to_fill == 1 ? "":"s"].")
 	else
-		. += "<span class='boldnotice'>[src] is bubbling to the brim with viscous liquid, and is ready to use.</span>"
+		. += SPAN_BOLDNOTICE(">[src] is bubbling to the brim with viscous liquid, and is ready to use.")
 
-	. += "<span class='notice'>You can <b>[anchored ? "unanchor and move":"anchor in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.</span>"
-	. += "<span class='info'>The following potions can be brewed:</span>"
+	. += SPAN_NOTICE("You can <b>[anchored ? "unanchor and move":"anchor in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.")
+	. += SPAN_INFO("The following potions can be brewed:")
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
-		var/potion_string = "<span class='info'>\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip) + "</span>"
+		var/potion_string = SPAN_INFO("\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip) + "")
 		. += potion_string
 
 /obj/structure/eldritch_crucible/examine_status(mob/user)
 	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
-		return "<span class='notice'>It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return SPAN_NOTICE("It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.")
 	return ..()
 
 // no breaky herety thingy
@@ -86,10 +86,10 @@
 	if(is_organ(weapon))
 		var/obj/item/organ/consumed = weapon
 		if(consumed.status & ORGAN_ROBOT)
-			to_chat(user, "<span class='hierophant_warning'>This organ isnot organic!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("This organ isnot organic!"))
 			return
 		if(consumed.vital) // Basically, don't eat organs like brains
-			to_chat(user, "<span class='hierophant_warning'>This organ is invalid!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("This organ is invalid!"))
 			return
 
 		consume_fuel(user, consumed)
@@ -101,20 +101,20 @@
 	if(istype(tool, /obj/item/codex_cicatrix) || istype(tool, /obj/item/melee/touch_attack/mansus_fist))
 		playsound(src, 'sound/items/deconstruct.ogg', 30, TRUE, ignore_walls = FALSE)
 		anchored = !anchored
-		to_chat(user, "<span class='hierophant'>[anchored ? "":"un"]anchored.</span>")
+		to_chat(user, SPAN_HIEROPHANT("[anchored ? "":"un"]anchored."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(tool, /obj/item/reagent_containers/drinks/bottle/eldritch))
 		if(current_mass < max_mass)
-			to_chat(user, "<span class='hierophant_warning'>We are not full enough!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("We are not full enough!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/reagent_containers/drinks/bottle/eldritch/to_fill = tool
 		if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
-			to_chat(user, "<span class='hierophant_warning'>Your flask is full!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("Your flask is full!"))
 			return ITEM_INTERACT_COMPLETE
 		to_fill.reagents.add_reagent("eldritch", 50)
 		do_item_attack_animation(src, used_item = tool)
 		current_mass--
-		to_chat(user, "<span class='hierophant'>Your flask has been refilled.</span>")
+		to_chat(user, SPAN_HIEROPHANT("Your flask has been refilled."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/eldritch_crucible/attack_hand(mob/user, list/modifiers)
@@ -131,11 +131,11 @@
 		return TRUE
 
 	if(in_use)
-		to_chat(user, "<span class='hierophant_warning'>We are in use!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("We are in use!"))
 		return TRUE
 
 	if(current_mass < max_mass)
-		to_chat(user, "<span class='hierophant_warning'>We are not full enough!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("We are not full enough!"))
 		return TRUE
 
 	INVOKE_ASYNC(src, PROC_REF(show_radial), user)
@@ -181,7 +181,7 @@
 	var/obj/item/spawned_pot = new spawned_type(drop_location())
 
 	playsound(src, 'sound/effects/desecration/desecration-02.ogg', 75, TRUE)
-	visible_message("<span class='notice'>[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!</span>")
+	visible_message(SPAN_NOTICE("[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!"))
 
 	current_mass = 0
 	update_appearance(UPDATE_ICON_STATE)
@@ -198,7 +198,7 @@
 	if(affecting.limb_flags & CANNOT_DISMEMBER)
 		return
 
-	to_chat(user, "<span class='userdanger'>[src] grabs your [affecting.name]!</span>")
+	to_chat(user, SPAN_USERDANGER("[src] grabs your [affecting.name]!"))
 	affecting.droplimb(FALSE, DROPLIMB_SHARP)
 	consume_fuel(consumed = affecting)
 
@@ -209,15 +209,15 @@
 /obj/structure/eldritch_crucible/proc/consume_fuel(mob/living/feeder, obj/item/consumed)
 	if(current_mass >= max_mass)
 		if(feeder)
-			to_chat(feeder, "<span class='hierophant_warning'>We are full.</span>")
+			to_chat(feeder, SPAN_HIEROPHANT_WARNING("We are full."))
 		return
 
 	current_mass++
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
-	visible_message("<span class='notice'>[src] devours [consumed] and fills itself with a little bit of liquid!</span>")
+	visible_message(SPAN_NOTICE("[src] devours [consumed] and fills itself with a little bit of liquid!"))
 
 	if(feeder)
-		to_chat(feeder, "<span class='hierophant'>We are this filled. ([current_mass] / [max_mass])</span>")
+		to_chat(feeder, SPAN_HIEROPHANT("We are this filled. ([current_mass] / [max_mass])"))
 
 	qdel(consumed)
 	update_appearance(UPDATE_ICON_STATE)
@@ -244,7 +244,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += "<span class='notice'>[crucible_tip]</span>"
+	. += SPAN_NOTICE("[crucible_tip]")
 
 /obj/item/eldritch_potion/activate_self(mob/user)
 	if(..() || !iscarbon(user))
@@ -253,13 +253,13 @@
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
 	if(!IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, "<span class='danger'>You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes.</span>")
+		to_chat(user, SPAN_DANGER("You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes."))
 		user.reagents?.add_reagent("eldritch", 10)
 		user.adjust_disgust(60 SECONDS)
 		qdel(src)
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You drink the viscous liquid from [src], causing the glass to dematerialize.</span>")
+	to_chat(user, SPAN_NOTICE("You drink the viscous liquid from [src], causing the glass to dematerialize."))
 	potion_effect(user)
 	qdel(src)
 	return TRUE

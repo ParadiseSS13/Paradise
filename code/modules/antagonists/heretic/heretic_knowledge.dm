@@ -53,7 +53,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
-		to_chat(user, "<span class='warning'>[gain_text]</span>")
+		to_chat(user, SPAN_WARNING("[gain_text]"))
 	on_gain(user, our_heretic)
 
 /**
@@ -232,7 +232,7 @@
 			LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you are at the limit for this item!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, you are at the limit for this item!"))
 		return FALSE
 
 	return TRUE
@@ -267,7 +267,7 @@
 	var/datum/antagonist/heretic/ascend_check = IS_HERETIC(user)
 	if(!BB || ascend_check.ascended)
 		return ..()
-	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, you are unable to loan a blade from the mansus for another [round((BB.duration - world.time)/10, 1)] seconds!</span>")
+	to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, you are unable to loan a blade from the mansus for another [round((BB.duration - world.time)/10, 1)] seconds!"))
 	return FALSE
 
 /**
@@ -406,7 +406,7 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
 	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, you are at your limit of [howetic.monster_limit] monsters!"))
 		return FALSE
 
 	return TRUE
@@ -443,7 +443,7 @@
 	if(length(candidates))
 		chosen_one = pick(candidates)
 	if(isnull(chosen_one))
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no spirits possessed the summon!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, no spirits possessed the summon!"))
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
@@ -536,13 +536,13 @@
 
 	var/list/requirements_string = list()
 
-	to_chat(user, "<span class='hierophant'>The [name] requires the following:</span>")
+	to_chat(user, SPAN_HIEROPHANT("The [name] requires the following:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, "<span class='hierophant_warning'>[amount_needed] [initial(path.name)]\s...</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("[amount_needed] [initial(path.name)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
-	to_chat(user, "<span class='hierophant'>Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points, as well as additional knowledge for creating an unsealed art. You can check the knowledge in your Researched Knowledge to be reminded.</span>")
+	to_chat(user, SPAN_HIEROPHANT("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points, as well as additional knowledge for creating an unsealed art. You can check the knowledge in your Researched Knowledge to be reminded."))
 
 	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
 
@@ -557,9 +557,9 @@
 	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
 	was_completed = TRUE
 
-	to_chat(user, "<span class='boldnotice'>[name] completed!</span>")
-	to_chat(user, "<span class='hierophant'>We gain insights on how to perform a ritual to create an unsealed art!</span>")
-	to_chat(user, "<span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
+	to_chat(user, SPAN_BOLDNOTICE("[name] completed!"))
+	to_chat(user, SPAN_HIEROPHANT("We gain insights on how to perform a ritual to create an unsealed art!"))
+	to_chat(user, SPAN_HIEROPHANT("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]"))
 	var/datum/antagonist/heretic/heretic = IS_HERETIC(user)
 	heretic.gain_knowledge(/datum/heretic_knowledge/unsealed_art)
 	desc += " (Completed!)"

@@ -6,7 +6,7 @@
 	duration = 10 SECONDS
 
 /datum/status_effect/amok/on_apply(mob/living/afflicted)
-	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
+	to_chat(owner, SPAN_BOLDWARNING("You feel filled with a rage that is not your own!"))
 	return TRUE
 
 /datum/status_effect/amok/tick(seconds_between_ticks)
@@ -125,7 +125,7 @@
 
 /datum/status_effect/heretic_lastresort/on_apply()
 	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
-	to_chat(owner, "<span class='userdanger'>You are on the brink of losing consciousness, run!</span>")
+	to_chat(owner, SPAN_USERDANGER("You are on the brink of losing consciousness, run!"))
 	return TRUE
 
 /datum/status_effect/heretic_lastresort/on_remove()
@@ -154,7 +154,7 @@
 
 /datum/status_effect/moon_converted/Destroy()
 	var/list/messages = list()
-	messages.Add("<span class='danger'>You have been freed from the Moon's influence and regain your senses.</span>")
+	messages.Add(SPAN_DANGER("You have been freed from the Moon's influence and regain your senses."))
 	to_chat(owner, chat_box_notice(messages.Join("<br>")))
 	return ..()
 
@@ -165,8 +165,8 @@
 	owner.adjustFireLoss(-100)
 
 	var/list/messages = list()
-	messages.Add("<span class='userdanger'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span>")
-	messages.Add("<span class='warning'>Attack everyone you can see (besides your enlightener) without discrimination!</span>")
+	messages.Add(SPAN_USERDANGER("THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!"))
+	messages.Add(SPAN_WARNING("Attack everyone you can see (besides your enlightener) without discrimination!"))
 	to_chat(owner, chat_box_red(messages.Join("<br>")))
 
 	owner.Paralyse(5 SECONDS)
@@ -195,7 +195,7 @@
 
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning and unconscious so they realize they aren't evil anymore
-	to_chat(owner, "<span class='user_warning'>Your mind is cleared from the effect of the mansus, your alligiences are as they were before.</span>")
+	to_chat(owner, SPAN_USERDANGER("Your mind is cleared from the effect of the mansus, your alligiences are as they were before."))
 	REMOVE_TRAIT(owner, TRAIT_MUTE, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))

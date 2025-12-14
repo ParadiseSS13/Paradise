@@ -38,12 +38,12 @@
 	var/maximum_duration = 15 SECONDS
 	var/moon_smile_duration = ((cast_on.getBrainLoss() + 1) / 100) * maximum_duration
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, "<span class='notice'>The moon turns, its smile no longer set on you.</span>")
-		to_chat(user, "<span class='warning'>The moon does not smile upon them.</span>")
+		to_chat(cast_on, SPAN_NOTICE("The moon turns, its smile no longer set on you."))
+		to_chat(user, SPAN_WARNING("The moon does not smile upon them."))
 		return FALSE
 
 	playsound(cast_on, 'sound/hallucinations/i_see_you1.ogg', 50, 1)
-	to_chat(cast_on, "<span class='warning'>Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!</span>")
+	to_chat(cast_on, SPAN_WARNING("Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!"))
 	cast_on.EyeBlind(max(moon_smile_duration / 2 + (1 SECONDS), 2 SECONDS))
 	cast_on.EyeBlurry(max(moon_smile_duration + (2 SECONDS), 4 SECONDS))
 

@@ -31,7 +31,7 @@
 
 	for(var/mob/living/M in caster)
 		if(M.status_flags & GODMODE)
-			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+			to_chat(caster, SPAN_WARNING("You're already shapeshifted!"))
 			return
 	// We overide the spell vs call parent as we need to setup segments.
 

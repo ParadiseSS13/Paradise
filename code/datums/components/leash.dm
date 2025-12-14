@@ -98,7 +98,7 @@
 		return NONE
 
 	if(ismob(source))
-		to_chat(source, "<span class='warning'>You are too far away!</span>")
+		to_chat(source, SPAN_WARNING("You are too far away!"))
 
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 

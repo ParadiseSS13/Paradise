@@ -82,7 +82,7 @@
 		if(C.mind && prob(C.getBrainLoss() / 3))
 			log_debug("brain damage: [C.getBrainLoss()]")
 			C.AdjustKnockDown(5 SECONDS)
-			C.visible_message("<span class='hierophant_warning'>[victim] dazzled by the brillian light!</span>")
+			C.visible_message(SPAN_HIEROPHANT_WARNING("[victim] dazzled by the brillian light!"))
 			victim.apply_status_effect(/datum/status_effect/moon_converted)
 			add_attack_logs(owner, victim, "[victim] was driven insane by [owner]([src])")
 			log_game("[victim] was driven insane by [owner]")
@@ -101,14 +101,14 @@
 
 /obj/tgvehicle/moon_ascension/buckle_mob(mob/living/carbon/M, force, check_loc)
 	if(M != owner)
-		to_chat(M, "<span class='hierophant'>YOU THINK YOU ARE WORTHY OF THE MOONS RADIANCE!?</span>")
+		to_chat(M, SPAN_HIEROPHANT("YOU THINK YOU ARE WORTHY OF THE MOONS RADIANCE!?"))
 		M.AdjustKnockDown(5 SECONDS)
 		M.AdjustJitter(30 SECONDS, 30 SECONDS, 2 MINUTES)
 		M.AdjustConfused(5 SECONDS)
 		M.adjustFireLoss(10)
 		return FALSE
 	if(!istype(M))
-		to_chat(M, "<span class='hierophant'>Only a suitable human may pilot the moon's greatness.</span>")
+		to_chat(M, SPAN_HIEROPHANT("Only a suitable human may pilot the moon's greatness."))
 		return FALSE
 	return ..()
 

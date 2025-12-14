@@ -42,8 +42,8 @@
 
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
-			"<span class='danger'>[cast_on]'s bruises briefly glow, but repels the effect!</span>",
-			"<span class='danger'>Your bruises sting a little, but you are protected!</span>"
+			SPAN_DANGER("[cast_on]'s bruises briefly glow, but repels the effect!"),
+			SPAN_DANGER("Your bruises sting a little, but you are protected!")
 		)
 		return FALSE
 
@@ -59,8 +59,8 @@
 		other_bodypart.open = ORGAN_ORGANIC_VIOLENT_OPEN
 
 	cast_on.visible_message(
-		"<span class='danger'>[cast_on]'s scratches and bruises are torn open by an unholy force!</span>",
-		"<span class='danger'>Your scratches and bruises are torn open by some horrible unholy force!</span>"
+		SPAN_DANGER("[cast_on]'s scratches and bruises are torn open by an unholy force!"),
+		SPAN_DANGER("Your scratches and bruises are torn open by some horrible unholy force!")
 	)
 
 	new /obj/effect/temp_visual/cleave(get_turf(cast_on))

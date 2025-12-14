@@ -41,8 +41,8 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
-			"<span class='danger'>A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!</span>",
-			"<span class='danger'>A yawning void begins to open before you, but a great wave of heat bursts it apart! You are protected!!</span>"
+			SPAN_DANGER("A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!"),
+			SPAN_DANGER("A yawning void begins to open before you, but a great wave of heat bursts it apart! You are protected!!")
 		)
 		return
 	cast_on.apply_status_effect(/datum/status_effect/void_prison, "void_stasis")

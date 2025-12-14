@@ -27,7 +27,7 @@
 	// It would likely be a bad idea to teleport into an ai monitored area (ai sat)
 	var/area/phase_area = get_area(phase_turf)
 	if(istype(phase_area, /area/station/ai_monitored) && user.loc != phase_turf)
-		to_chat(user, "<span class='warning'>It's probably not a very wise idea to exit the mirror's realm here.</span>")
+		to_chat(user, SPAN_WARNING("It's probably not a very wise idea to exit the mirror's realm here."))
 		return FALSE
 	if(is_reflection_nearby(phase_turf))
 		return TRUE
@@ -42,8 +42,8 @@
 	if(!nearby_reflection) // Should only be true if you're forced out somehow, like by having the spell removed
 		return
 	L.visible_message(
-		"<span class='boldwarning'>[L] phases into reality before your very eyes!</span>",
-		"<span class='notice'>You jump out of the reflection coming off of [nearby_reflection], exiting the mirror's realm.</span>",
+		SPAN_BOLDWARNING("[L] phases into reality before your very eyes!"),
+		SPAN_NOTICE("You jump out of the reflection coming off of [nearby_reflection], exiting the mirror's realm."),
 	)
 
 /datum/spell/bloodcrawl/mirror_walk/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
@@ -52,8 +52,8 @@
 /datum/spell/bloodcrawl/mirror_walk/sink_animation(atom/A, mob/living/L)
 	var/atom/nearby_reflection = is_reflection_nearby(L)
 	L.visible_message(
-		"<span class='boldwarning'>[L] phases out of reality, vanishing before your very eyes!</span>",
-		"<span class='notice'>You jump into the reflection coming off of [nearby_reflection], entering the mirror's realm.</span>",
+		SPAN_BOLDWARNING("[L] phases out of reality, vanishing before your very eyes!"),
+		SPAN_NOTICE("You jump into the reflection coming off of [nearby_reflection], entering the mirror's realm."),
 	)
 
 /**

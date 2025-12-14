@@ -25,7 +25,7 @@
 		return TRUE
 	if(istype(get_turf(user), /turf/simulated/floor/transparent))
 		return TRUE
-	to_chat(user, "<span class='warning'>You must stand on a space or glass turf!</span>")
+	to_chat(user, SPAN_WARNING("You must stand on a space or glass turf!"))
 	return FALSE
 
 /datum/spell/bloodcrawl/space_crawl/rise_message(atom/A)
@@ -41,7 +41,7 @@
 	return
 
 /datum/spell/bloodcrawl/space_crawl/sink_animation(atom/A, mob/living/L)
-	A.visible_message("<span class='danger'>[L] sinks into [A]...</span>")
+	A.visible_message(SPAN_DANGER("[L] sinks into [A]..."))
 	new /obj/effect/temp_visual/space_explosion(A)
 	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, SPACE_PHASING)
 	ADD_TRAIT(L, TRAIT_RESISTCOLD, SPACE_PHASING)

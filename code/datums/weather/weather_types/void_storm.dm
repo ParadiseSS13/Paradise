@@ -5,7 +5,7 @@
 	telegraph_duration = 2 SECONDS
 	telegraph_overlay = "light_snow"
 
-	weather_message = "<span class='hierophant'>You feel the air around you getting colder... and void's sweet embrace...</span>"
+	weather_message = SPAN_HIEROPHANT("You feel the air around you getting colder... and void's sweet embrace...")
 	weather_overlay = "light_snow"
 	weather_color = COLOR_BLACK
 	weather_duration_lower = 60 SECONDS

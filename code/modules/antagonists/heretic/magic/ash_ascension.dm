@@ -163,13 +163,13 @@
 
 		for(var/mob/living/L in T.contents)
 			if(L.can_block_magic())
-				L.visible_message("<span class='danger'>The spell bounces off of [L]!</span>", "<span class='userdanger'>The spell bounces off of you!</span>")
+				L.visible_message(SPAN_DANGER("The spell bounces off of [L]!"), SPAN_USERDANGER("The spell bounces off of you!"))
 				continue
 			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
-			to_chat(L, "<span class='userdanger'>You're hit by [source]'s eldritch flames!</span>")
+			to_chat(L, SPAN_USERDANGER("You're hit by [source]'s eldritch flames!"))
 
 		fireflash(T, 0, 750)
 		// deals damage to mechs

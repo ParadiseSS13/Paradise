@@ -74,11 +74,11 @@
 			if("9")
 				log_admin("[key_name(usr)] has spawned event characters.")
 				if(!makeEventCharacters())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 			if("10")
 				log_admin("[key_name(usr)] has spawned heretics.")
 				if(!makeHeretics())
-					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available.</span>"))
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]

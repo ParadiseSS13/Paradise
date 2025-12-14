@@ -42,11 +42,11 @@
 /// If cast on an organ, we'll restore its health and even un-fail it.
 /obj/item/melee/touch_attack/flesh_surgery/proc/heal_organ(obj/item/melee/touch_attack/hand, obj/item/organ/to_heal, mob/living/carbon/caster)
 	if(to_heal.damage == 0 && to_heal.germ_level >= 100)
-		to_chat(caster, "<span class='notice'>The organ is already in good condition!</span>")
+		to_chat(caster, SPAN_NOTICE("The organ is already in good condition!"))
 		return FALSE
-	to_chat(caster, "<span class='notice'>You begin to heal the organ...</span>")
+	to_chat(caster, SPAN_NOTICE("You begin to heal the organ..."))
 	if(!do_after(caster, 1 SECONDS, to_heal, extra_checks = list(CALLBACK(src, PROC_REF(heal_checks), hand, to_heal, caster))))
-		to_chat(caster, "<span class='warning'>You were interupted!</span>")
+		to_chat(caster, SPAN_WARNING("You were interupted!"))
 		return FALSE
 	to_heal.germ_level = 0
 	var/organ_hp_to_heal = to_heal.max_damage * organ_percent_healing
@@ -56,13 +56,13 @@
 		to_heal.status = ORGAN_ROBOT
 	else
 		to_heal.status = 0
-	to_chat(caster, "<span class='notice'>The organ is has been healed.</span>")
+	to_chat(caster, SPAN_NOTICE("The organ is has been healed."))
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	var/condition = (to_heal.damage > 0) ? "better" : "perfect"
 	caster.visible_message(
-		"<span class='warning'>[caster]'s hand glows a brilliant red as [caster.p_they()] restore \the [to_heal] to [condition] condition!</span>",
-		"<span class='notice'>Your hand glows a brilliant red as you restore \the [to_heal] to [condition] condition!</span>",
+		SPAN_WARNING("[caster]'s hand glows a brilliant red as [caster.p_they()] restore \the [to_heal] to [condition] condition!"),
+		SPAN_NOTICE("Your hand glows a brilliant red as you restore \the [to_heal] to [condition] condition!"),
 	)
 
 	return TRUE
@@ -70,9 +70,9 @@
 /// If cast on a heretic monster who's not dead we'll heal it a bit.
 /obj/item/melee/touch_attack/flesh_surgery/proc/heal_heretic_monster(obj/item/melee/touch_attack/hand, mob/living/to_heal, mob/living/carbon/caster)
 	var/what_are_we = ishuman(to_heal) ? "minion" : "summon"
-	to_chat(caster, "<span class='notice'>You begin to heal your [what_are_we]...</span>")
+	to_chat(caster, SPAN_NOTICE("You begin to heal your [what_are_we]..."))
 	if(!do_after(caster, 1 SECONDS, to_heal, extra_checks = list(CALLBACK(src, PROC_REF(heal_checks), hand, to_heal, caster))))
-		to_chat(caster, "<span class='warning'>You were interupted!</span>")
+		to_chat(caster, SPAN_WARNING("You were interupted!"))
 		return FALSE
 
 	// Keep in mind that, for simplemobs(summons), this will just flat heal the combined value of both brute and burn healing,
@@ -81,8 +81,8 @@
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
-		"<span class='warning'>[caster]'s hand glows a brilliant red as [caster.p_they()] restore[caster.p_s()] [to_heal] to good condition!</span>",
-		"<span class='notice'>Your hand glows a brilliant red as you restore [to_heal] to good condition!</span>",
+		SPAN_WARNING("[caster]'s hand glows a brilliant red as [caster.p_they()] restore[caster.p_s()] [to_heal] to good condition!"),
+		SPAN_NOTICE("Your hand glows a brilliant red as you restore [to_heal] to good condition!"),
 	)
 	return TRUE
 
@@ -90,7 +90,7 @@
 /obj/item/melee/touch_attack/flesh_surgery/proc/steal_organ_from_mob(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	var/mob/living/carbon/carbon_victim = victim
 	if(!istype(carbon_victim) || !length(carbon_victim.internal_organs))
-		to_chat(caster, "<span class='warning'>[victim] has no organs!</span>")
+		to_chat(caster, SPAN_WARNING("[victim] has no organs!"))
 		return FALSE
 
 
@@ -113,21 +113,21 @@
 
 		time_it_takes = 6 SECONDS
 		caster.visible_message(
-			"<span class='danger'>[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [caster.p_their()] own [chosen_organ.parent_organ]!</span>",
-			"<span class='userdanger'>Your hand glows a brilliant red as you reach directly into your own [chosen_organ.parent_organ]!</span>",
+			SPAN_DANGER("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [caster.p_their()] own [chosen_organ.parent_organ]!"),
+			SPAN_USERDANGER("Your hand glows a brilliant red as you reach directly into your own [chosen_organ.parent_organ]!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			"<span class='danger'>[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [carbon_victim]'s [chosen_organ.parent_organ]!</span>",
-			"<span class='userdanger'>[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into your [chosen_organ.parent_organ]!</span>",
+			SPAN_DANGER("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [carbon_victim]'s [chosen_organ.parent_organ]!"),
+			SPAN_USERDANGER("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into your [chosen_organ.parent_organ]!"),
 		)
 
-	to_chat(caster, "<span class='notice'>You begin to extract [chosen_organ]...</span>")
+	to_chat(caster, SPAN_NOTICE("You begin to extract [chosen_organ]..."))
 	playsound(victim, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	carbon_victim.add_atom_colour(COLOR_RED, TEMPORARY_COLOUR_PRIORITY)
 	if(!do_after(caster, time_it_takes, target = carbon_victim, extra_checks = list(CALLBACK(src, PROC_REF(extraction_checks), chosen_organ, hand, victim, caster))))
-		to_chat(caster, "<span class='warning'>You were interupted!</span>")
+		to_chat(caster, SPAN_WARNING("You were interupted!"))
 		carbon_victim.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_RED)
 		return FALSE
 
@@ -135,14 +135,14 @@
 	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
-			"<span class='bolddanger'>[caster] pulls [caster.p_their()] own [chosen_organ.name] out of [caster.p_their()] [chosen_organ.parent_organ]!!</span>",
-			"<span class='userdanger'>You pull your own [chosen_organ.name] out of your [chosen_organ.parent_organ]!!</span>",
+			SPAN_BOLDDANGER("[caster] pulls [caster.p_their()] own [chosen_organ.name] out of [caster.p_their()] [chosen_organ.parent_organ]!!"),
+			SPAN_USERDANGER("You pull your own [chosen_organ.name] out of your [chosen_organ.parent_organ]!!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			"<span class='bolddanger'>[caster] pulls [carbon_victim]'s [chosen_organ.name] out of [carbon_victim.p_their()] [chosen_organ.parent_organ]!!</span>",
-			"<span class='userdanger'>[caster] pulls your [chosen_organ.name] out of your [chosen_organ.parent_organ]!!</span>",
+			SPAN_BOLDDANGER("[caster] pulls [carbon_victim]'s [chosen_organ.name] out of [carbon_victim.p_their()] [chosen_organ.parent_organ]!!"),
+			SPAN_USERDANGER("[caster] pulls your [chosen_organ.name] out of your [chosen_organ.parent_organ]!!"),
 		)
 
 	chosen_organ.remove(carbon_victim)

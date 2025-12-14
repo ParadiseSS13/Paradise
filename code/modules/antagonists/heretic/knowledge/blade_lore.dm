@@ -143,15 +143,15 @@
 		return
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	source.visible_message(
-		"<span class='warning'>[source] leans into [attack_text] and delivers a sudden riposte back at [target]!</span>",
-		"<span class='warning'>You lean into [attack_text] and deliver a sudden riposte back at [target]!</span>",
-		"<span class='hear'>You hear a clink, followed by a stab.</span>",
+		SPAN_WARNING("[source] leans into [attack_text] and delivers a sudden riposte back at [target]!"),
+		SPAN_WARNING("You lean into [attack_text] and deliver a sudden riposte back at [target]!"),
+		SPAN_HEAR("You hear a clink, followed by a stab."),
 	)
 	weapon.melee_attack_chain(source, target)
 
 /datum/heretic_knowledge/blade_dance/proc/reset_riposte(mob/living/carbon/human/source)
 	riposte_ready = TRUE
-	to_chat(source, "<span class='hierophant'>Your riposte is ready.</span>")
+	to_chat(source, SPAN_HIEROPHANT("Your riposte is ready."))
 
 #undef BLADE_DANCE_COOLDOWN
 
@@ -170,7 +170,7 @@
 	if(istype(blade_mark))
 		var/area/to_lock_to = get_area(target)
 		blade_mark.locked_to = to_lock_to
-		to_chat(target, "<span class='hierophant_warning'>An otherworldly force is compelling you to stay in [get_area_name(to_lock_to)]!</span>")
+		to_chat(target, SPAN_HIEROPHANT_WARNING("An otherworldly force is compelling you to stay in [get_area_name(to_lock_to)]!"))
 	return blade_mark
 
 /datum/heretic_knowledge/mark/blade_mark/trigger_mark(mob/living/source, mob/living/target)
@@ -230,7 +230,7 @@
 
 	var/obj/item/held_item = source.get_active_hand()
 	if(in_duelist_stance)
-		examine_list += "<span class='warning'>[source] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
+		examine_list += SPAN_WARNING("[source] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].")
 
 /datum/heretic_knowledge/duel_stance/proc/on_health_update(mob/living/source)
 	SIGNAL_HANDLER
@@ -386,9 +386,9 @@
 	user.add_stun_absorption(
 		key = name,
 		duration = INFINITY,
-		message = "<span class='warning'>%EFFECT_OWNER throws off the stun!</span>",
-		self_message = "<span class='warning'>You throw off the stun!</span>",
-		examine_message = "<span class='hierophant_warning'>%EFFECT_OWNER_THEYRE standing stalwartly.</span>",
+		message = SPAN_WARNING("%EFFECT_OWNER throws off the stun!"),
+		self_message = SPAN_WARNING("You throw off the stun!"),
+		examine_message = SPAN_HIEROPHANT_WARNING("%EFFECT_OWNER_THEYRE standing stalwartly."),
 	)
 	var/datum/spell/fireball/furious_steel/steel_spell = locate() in user.mob_spell_list
 	steel_spell?.cooldown_handler.recharge_duration *= 0.5

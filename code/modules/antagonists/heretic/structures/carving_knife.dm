@@ -35,10 +35,10 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += "<span class='notice'><b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.</span>"
-	. += "<span class='info'>The following runes can be carved:</span>"
+	. += SPAN_NOTICE("<b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.")
+	. += SPAN_INFO("The following runes can be carved:")
 	for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
-		var/potion_string = "<span class='notice'>\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "</span>"
+		var/potion_string = SPAN_NOTICE("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
 		. += potion_string
 
 /obj/item/melee/rune_carver/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
@@ -55,11 +55,11 @@
  */
 /obj/item/melee/rune_carver/proc/try_carve_rune(turf/target_turf, mob/user)
 	if(drawing)
-		to_chat(user, "<span class='hierophant_warning'>You are already carving.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You are already carving."))
 		return
 
 	if(locate(/obj/structure/trap/eldritch) in range(1, target_turf))
-		to_chat(user, "<span class='hierophant_warning'>You are too close to another carving!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You are too close to another carving!"))
 		return
 
 	for(var/rune_ref as anything in current_runes)
@@ -67,7 +67,7 @@
 			current_runes -= rune_ref
 
 	if(length(current_runes) >= max_rune_amt)
-		to_chat(user, "<span class='hierophant_warning'>This knife has too many active carvings!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("This knife has too many active carvings!"))
 		return
 
 	drawing = TRUE
@@ -100,7 +100,7 @@
 	var/to_make = names_to_path[picked_choice]
 	if(!ispath(to_make, /obj/structure/trap/eldritch))
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
-	to_chat(user, "<span class='hierophant'>Carving [picked_choice]...</span>")
+	to_chat(user, SPAN_HIEROPHANT("Carving [picked_choice]..."))
 	user.playsound_local(target_turf, 'sound/weapons/blade_sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))
 		return
@@ -203,13 +203,13 @@
 	if(user.mind && (user.mind in immune_minds))
 		return
 	if(get_dist(user, src) <= 1)
-		. += "<span class='warning'>You reveal [src]!</span>"
+		. += SPAN_WARNING("You reveal [src]!")
 		flare()
 
 /obj/structure/trap/proc/flare()
 	// Makes the trap visible, and starts the cooldown until it's
 	// able to be triggered again.
-	visible_message("<span class='warning'>[flare_message]</span>")
+	visible_message(SPAN_WARNING("[flare_message]"))
 	if(sparks)
 		spark_system.start()
 	alpha = 200
@@ -288,7 +288,7 @@
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
 	var/mob/living/real_owner = locateUID(owner)
 	if(real_owner)
-		to_chat(real_owner, "<span class='warning'>[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!</span>")
+		to_chat(real_owner, SPAN_WARNING("[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!"))
 		real_owner.playsound_local(get_turf(real_owner), 'sound/effects/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle

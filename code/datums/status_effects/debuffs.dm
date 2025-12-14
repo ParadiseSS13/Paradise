@@ -926,7 +926,7 @@
 				owner.AdjustStuttering(2 SECONDS)
 				owner.AdjustConfused(2 SECONDS)
 			if(prob(5) && !owner.stat)
-				to_chat(owner, "<span class='warning'>You feel kind of iffy...</span>")
+				to_chat(owner, SPAN_WARNING("You feel kind of iffy..."))
 			owner.AdjustJitter(-6 SECONDS)
 		if(strength >= DISGUST_LEVEL_VERYGROSS)
 			if(prob(pukeprob)) //iT hAndLeS mOrE ThaN PukInG

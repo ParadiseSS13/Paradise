@@ -158,7 +158,7 @@
 	if(!is_escaping_locked_area(source, destination))
 		return
 
-	to_chat(source, "<span class='hierophant_warning'>An otherworldly force prevents your escape from [get_area_name(locked_to)]!</span>")
+	to_chat(source, SPAN_HIEROPHANT_WARNING("An otherworldly force prevents your escape from [get_area_name(locked_to)]!"))
 
 	source.Stun(1 SECONDS)
 	return COMPONENT_BLOCK_TELEPORT
@@ -175,7 +175,7 @@
 	if(forced || !is_escaping_locked_area(old_loc, source))
 		return
 
-	to_chat(source, "<span class='hierophant_warning'>An otherworldly force prevents your escape from [get_area_name(locked_to)]!</span>")
+	to_chat(source, SPAN_HIEROPHANT_WARNING("An otherworldly force prevents your escape from [get_area_name(locked_to)]!"))
 
 	var/turf/further_behind_old_loc = get_edge_target_turf(old_loc, REVERSE_DIR(movement_dir))
 
@@ -236,7 +236,7 @@
 		return FALSE
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
 	owner.emote(pick("giggle", "laugh"))
-	to_chat(owner, "<span class='hierophant_warning'>You feel unable to hurt a soul!</span>")
+	to_chat(owner, SPAN_HIEROPHANT_WARNING("You feel unable to hurt a soul!"))
 	RegisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	return TRUE
 
@@ -255,7 +255,7 @@
 
 	// Removes the trait in here since we don't wanna destroy the mark before its detonated or allow detonation triggers with other weapons
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
-	to_chat(owner, "<span class='hierophant'>You feel your pacifism has left!</span>")
+	to_chat(owner, SPAN_HIEROPHANT("You feel your pacifism has left!"))
 
 /datum/status_effect/eldritch/moon/on_effect()
 	owner.AdjustConfused(30 SECONDS)

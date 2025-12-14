@@ -46,7 +46,7 @@
 	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 	if(!IS_HERETIC(user))
-		to_chat(user, "<span class='warning'>The curio wraps around you, and you feel the beating of something dark inside it...</span>")
+		to_chat(user, SPAN_WARNING("The curio wraps around you, and you feel the beating of something dark inside it..."))
 
 /obj/item/storage/belt/unfathomable_curio/dropped(mob/user)
 	. = ..()
@@ -69,11 +69,11 @@
 
 // Our on hit effect
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/wearer, attack_text, new_current_charges)
-	wearer.visible_message("<span class='danger'>[wearer]'s veil makes [attack_text] miss, but the force behind the blow causes it to disperse!</span>")
+	wearer.visible_message(SPAN_DANGER("[wearer]'s veil makes [attack_text] miss, but the force behind the blow causes it to disperse!"))
 	if(IS_HERETIC(wearer))
 		return
 
-	to_chat(wearer, "<span class='warning'>Laughter echoes in your mind....</span>")
+	to_chat(wearer, SPAN_WARNING("Laughter echoes in your mind...."))
 	wearer.adjustBrainLoss(80)
 
 
@@ -84,6 +84,6 @@
 
 	user.adjustBrainLoss(10)
 	user.EyeBlind(5 SECONDS)
-	. += "<span class='notice'>It. It looked. IT WRAPS ITSELF AROUND ME.</span>"
+	. += SPAN_NOTICE("It. It looked. IT WRAPS ITSELF AROUND ME.")
 
 

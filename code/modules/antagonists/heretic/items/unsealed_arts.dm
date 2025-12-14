@@ -32,7 +32,7 @@
 			if(do_after_once(user, 3 SECONDS, TRUE, src, TRUE, FALSE))
 				on_cover()
 		else
-			to_chat(user, "<span class='warning'>You need at least 3 sheets of cloth to cover this!</span>")
+			to_chat(user, SPAN_WARNING("You need at least 3 sheets of cloth to cover this!"))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -110,7 +110,7 @@
 
 /obj/structure/unsealed_art/beauty/proc/pre_enchant(mob/living/carbon/creature)
 	enchanting = TRUE
-	to_chat(creature, "<span class='danger'>You can feel the painting pulling your gaze to it!</span>")
+	to_chat(creature, SPAN_DANGER("You can feel the painting pulling your gaze to it!"))
 	creature.SetDizzy(3 MINUTES)
 	creature.playsound_local(creature, 'sound/effects/curse/curse1.ogg', 30, FALSE)
 	sleep(3 SECONDS)
@@ -119,16 +119,16 @@
 	if(isInSight(creature, src) && creature.stat != DEAD)
 		enchant(creature)
 	else
-		to_chat(creature, "<span class='warning'>You can feel your gaze return to normal.</span>")
+		to_chat(creature, SPAN_WARNING("You can feel your gaze return to normal."))
 
 /obj/structure/unsealed_art/beauty/proc/enchant(mob/living/carbon/creature)
-	to_chat(creature, "<span class='hierophant_warning'>She's so beautiful. You can't look away!</span>")
+	to_chat(creature, SPAN_HIEROPHANT_WARNING("She's so beautiful. You can't look away!"))
 	eyeobj = new /mob/camera/eye/beauty(loc, "Enchanted Eyes", src, creature)
 	eyeobj.see_in_dark = creature.see_in_dark
 	charmed_creature = creature
 
 /obj/structure/unsealed_art/beauty/proc/disenchant()
-	to_chat(charmed_creature, "<span class='warning'>You can feel your gaze return to normal.</span>")
+	to_chat(charmed_creature, SPAN_WARNING("You can feel your gaze return to normal."))
 	charmed_creature = null
 	QDEL_NULL(eyeobj)
 
@@ -154,7 +154,7 @@
 
 /obj/structure/unsealed_art/weeping/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art will overwhelm non-heretics with grief for him. They will lose the strength to stand, collapsing to the floor.</span>"
+	. += SPAN_NOTICE("This unsealed art will overwhelm non-heretics with grief for him. They will lose the strength to stand, collapsing to the floor.")
 
 /obj/structure/unsealed_art/weeping/process()
 	for(var/mob/living/carbon/human/creature in range(7, loc))
@@ -168,12 +168,12 @@
 		creature.SetDizzy(2 MINUTES)
 		creature.AdjustConfused(20 SECONDS, 20 SECONDS, 3 MINUTES)
 		if(prob(10))
-			to_chat(creature, "<span class='warning'>You feel an overwhelming crushing grief!</span>")
+			to_chat(creature, SPAN_NOTICE("You feel an overwhelming crushing grief!"))
 			continue
 		if(prob(10))
 			creature.custom_emote(EMOTE_VISIBLE, "weeps uncontrollably", FALSE)
 		if(creature.get_confusion() >= 1 MINUTES && prob(15))
-			to_chat(creature, "<span class='danger'>You are completely overcome with grief!</span>")
+			to_chat(creature, SPAN_DANGER("You are completely overcome with grief!"))
 			creature.KnockDown(4 SECONDS)
 			continue
 
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 
 /obj/structure/unsealed_art/vines/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art will bring forth purest life, converting all around it into lush greenery. All unlightened beware, the creatures birthed forth are hungry.</span>"
+	. += SPAN_NOTICE("This unsealed art will bring forth purest life, converting all around it into lush greenery. All unlightened beware, the creatures birthed forth are hungry.")
 
 /obj/structure/unsealed_art/vines/process()
 	if(!COOLDOWN_FINISHED(src, time_to_convert))
@@ -260,17 +260,17 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 	icon_state = "desire"
 	var/hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	var/list/sick_messages = list(
-		"<span class='warning'>Your stomach feels tied up in knots.</span>",
-		"<span class='warning'>You feel sick to your stomach.</span>",
-		"<span class='warning'>You feel incredibly nauseous.</span>",
-		"<span class='warning'>You feel like you could vomit at any moment!</span>",
-		"<span class='warning'>The food on that painting looks absolutely delicious.</span>",
-		"<span class='warning'>You cant stop looking at how delicious the painting's food it, even though the contents make you feel sick!</span>",
+		SPAN_WARNING("Your stomach feels tied up in knots."),
+		SPAN_WARNING("You feel sick to your stomach."),
+		SPAN_WARNING("You feel incredibly nauseous."),
+		SPAN_WARNING("You feel like you could vomit at any moment!"),
+		SPAN_WARNING("The food on that painting looks absolutely delicious."),
+		SPAN_WARNING("You cant stop looking at how delicious the painting's food it, even though the contents make you feel sick!"),
 	)
 
 /obj/structure/unsealed_art/desire/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art fills the unenlightened with the temptation of the first desire. Their hunger will never be sated in its presence, and will reject the gifts of the feast violently.</span>"
+	. += SPAN_NOTICE("This unsealed art fills the unenlightened with the temptation of the first desire. Their hunger will never be sated in its presence, and will reject the gifts of the feast violently.")
 
 /obj/structure/unsealed_art/desire/process()
 	for(var/mob/living/carbon/human/creature in range(7, loc))
@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 			if(creature.nutrition <= hunger_threshold)
 				creature.adjust_nutrition(15)
 			if(prob(5))
-				to_chat(creature, "<span class='notice'>Your hunger feels sated.</span>")
+				to_chat(creature, SPAN_NOTICE("Your hunger feels sated."))
 			continue
 		if(HAS_TRAIT(creature, TRAIT_ANTIMAGIC))
 			continue
@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 			var/turf/T = get_step(creature.loc, creature.dir)
 			var/obj/meat = new /obj/item/food/meat(T)
 			meat.name = "rotten meat"
-			creature.visible_message("<span class='warning'>[creature] vomits up rotten meat and decayed organs!</span>", "<span class='warning'>You vomit up rotten meat and decayed organs!</span>")
+			creature.visible_message(SPAN_WARNING("[creature] vomits up rotten meat and decayed organs!"), SPAN_WARNING("You vomit up rotten meat and decayed organs!"))
 
 // MARK: Rust
 /obj/structure/unsealed_art/rust
@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(blacklisted_vine_turfs, typecacheof(list(
 
 /obj/structure/unsealed_art/rust/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art brings reminds the world around it of its fate, bringing all to its final decayed destination.</span>"
+	. += SPAN_NOTICE("This unsealed art brings reminds the world around it of its fate, bringing all to its final decayed destination.")
 
 /obj/structure/unsealed_art/rust/process()
 	if(!COOLDOWN_FINISHED(src, time_to_rust))

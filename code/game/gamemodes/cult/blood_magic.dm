@@ -471,8 +471,8 @@
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
-		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							"<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+		target.visible_message(SPAN_WARNING("[target]'s holy weapon absorbs the red light!"), \
+							SPAN_USERDANGER("Your holy weapon absorbs the blinding light!"))
 	else
 		if(IS_HERETIC(L))
 			L.Stun(0.5 SECONDS)
@@ -485,9 +485,9 @@
 			L.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
 			playsound(L, 'sound/effects/curse.ogg', 50, TRUE)
 
-			to_chat(user, SPAN_WARNING("An eldritch force intervenes as you touch [target], absorbing most of the effects!</span>"))
-			to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!</span>"))
-			to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!</span>"))
+			to_chat(user, SPAN_WARNING("An eldritch force intervenes as you touch [target], absorbing most of the effects!"))
+			to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))
+			to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!"))
 		else
 			L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 			L.Silence(6 SECONDS)
@@ -502,7 +502,7 @@
 				C.Stuttering(16 SECONDS)
 				C.CultSlur(20 SECONDS)
 				C.Jitter(16 SECONDS)
-			to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>"))
+			to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!"))
 	user.do_attack_animation(target)
 	uses--
 	..()

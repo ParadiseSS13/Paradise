@@ -41,7 +41,7 @@
 		team_color = pick(COLOR_PURPLE, COLOR_GREEN)
 
 	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID())
-	to_chat(user, "<span class='alert'>Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing.</span>")
+	to_chat(user, SPAN_ALERT("Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.bleed_mod *= 3
@@ -65,7 +65,7 @@
 		return
 
 	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID()))
-		to_chat(user, "<span class='notice'>Your heart and blood return to their regular old rhythm and flow.</span>")
+		to_chat(user, SPAN_NOTICE("Your heart and blood return to their regular old rhythm and flow."))
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
 		for(var/datum/spell/spell_action in user.mob_spell_list)
@@ -89,10 +89,10 @@
 	if(..() || !isliving(user))
 		return
 	var/mob/living/our_user = user
-	to_chat(our_user, "<span class='danger'>You start tightly squeezing [src]...</span>")
+	to_chat(our_user, SPAN_DANGER("You start tightly squeezing [src]..."))
 	if(!do_after(user, 1.25 SECONDS, src))
 		return
-	to_chat(our_user, "<span class='danger'>[src] explodes into a shower of gore and blood, drenching your arm. You can feel the blood seeping into your skin. You inmediately feel better, but soon, the feeling turns hollow as your veins itch.</span>")
+	to_chat(our_user, SPAN_DANGER("[src] explodes into a shower of gore and blood, drenching your arm. You can feel the blood seeping into your skin. You inmediately feel better, but soon, the feeling turns hollow as your veins itch."))
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	var/heal_amt = our_user.adjustBruteLoss(-50)
 	our_user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
@@ -106,14 +106,14 @@
 
 	var/magic_dude
 	if(IS_CULTIST(user))
-		. += "<span class='cult_bold'>This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.</span>"
+		. += SPAN_CULT("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
 		magic_dude = TRUE
 	if(IS_HERETIC_OR_MONSTER(user))
-		. += "<span class='notice'>This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.</span>"
+		. += SPAN_NOTICE("This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.")
 		magic_dude = TRUE
 
 	if(magic_dude)
-		. += "<span class='red'>You can also squeeze it to recover a large amount of health quickly, at a cost...</span>"
+		. += SPAN_CULT("You can also squeeze it to recover a large amount of health quickly, at a cost...")
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "warm eldritch medallion"
@@ -166,32 +166,32 @@
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/examine(mob/user)
 	. = ..()
-	. += "<span class='information'>Using this amulet on the ignorant will cause them to slowly lose their minds.</span>"
-	. += "<span class='information'>Using this amulent on one who has lost their mind will cause them to go berserk.</span>"
+	. += SPAN_INFORMATION("Using this amulet on the ignorant will cause them to slowly lose their minds.")
+	. += SPAN_INFORMATION("Using this amulent on one who has lost their mind will cause them to go berserk.")
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params)
 	if(!ishuman(target))
 		return . = ..()
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, "<span class='danger'>You feel a presence watching you!</span>")
+		to_chat(user, SPAN_DANGER("You feel a presence watching you!"))
 		user.adjustBrainLoss(20)
 		return
 	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 	if(hit.getBrainLoss() < 80)
-		to_chat(user, "<span class='hierophant_warning'>Their mind is too strong!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("Their mind is too strong!"))
 		hit.adjustBrainLoss(brain_damage)
 	else
 		if(target.mind)
 			if(length(heretic.mindslaves) < heretic.mindslave_limit)
-				to_chat(user, "<span class='hierophant_warning'>Their mind has bent to see the truth!</span>")
+				to_chat(user, SPAN_HIEROPHANT_WARNING("Their mind has bent to see the truth!"))
 				hit.apply_status_effect(/datum/status_effect/moon_converted)
 				add_attack_logs(user, target, "[target] was driven insane by [user]([src])")
 				log_game("[target] was driven insane by [user]")
 			else
-				to_chat(user, "<span class='hierophant_warning'>We do not have the power to drive more beings mad!</span>")
+				to_chat(user, SPAN_HIEROPHANT_WARNING("We do not have the power to drive more beings mad!"))
 		else
-			to_chat(user, "<span class='hierophant_warning'>This one cannot go mad.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("This one cannot go mad."))
 	return ..()

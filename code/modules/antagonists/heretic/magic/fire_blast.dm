@@ -39,8 +39,8 @@
 	// but likely will (due to them not catching on fire)
 	if(target.can_block_magic(antimagic_flags))
 		target.visible_message(
-			"<span class='warning'>[target] absorbs the spell, remaining unharmed!</span>",
-			"<span class='userdanger'>You absorb the spell, remaining unharmed!</span>",
+			SPAN_WARNING("[target] absorbs the spell, remaining unharmed!"),
+			SPAN_USERDANGER("You absorb the spell, remaining unharmed!"),
 		)
 		// Apply status effect but with no overlay
 		target.apply_status_effect(/datum/status_effect/fire_blasted)

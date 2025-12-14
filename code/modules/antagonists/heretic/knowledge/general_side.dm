@@ -21,7 +21,7 @@
 	// throw a fail to show the heretic that there's no point in rerolling
 	// if you don't have a heart to track the targets in the first place.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you have no living heart!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, you have no living heart!"))
 		return FALSE
 
 	return TRUE
@@ -36,7 +36,7 @@
 		CRASH("Heretic datum didn't have a hunt_and_sacrifice knowledge learned, what?")
 
 	if(!target_finder.obtain_targets(user, heretic_datum = heretic_datum))
-		to_chat(user, "<span class='hierophant'>The ritual failed, there were no targets found!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, there were no targets found!"))
 		return FALSE
 
 	return TRUE
@@ -109,7 +109,7 @@
 /datum/heretic_knowledge/unsealed_art/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/art = pick(subtypesof(/obj/structure/unsealed_art))
 	new art(our_turf)
-	to_chat(user, "<span class='hierophant'>We open ourself to otherworldly influences, and through them we glean inspiration for a masterpiece!</span>")
+	to_chat(user, SPAN_HIEROPHANT("We open ourself to otherworldly influences, and through them we glean inspiration for a masterpiece!"))
 	was_completed = TRUE
 	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
 	return TRUE

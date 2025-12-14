@@ -65,7 +65,7 @@
 
 	// Anti-magic destroys the projectile for consistency and counterplay
 	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
-		visible_message("<span class='warning'>The parade hits [victim] and a sudden wave of clarity comes over you!</span>")
+		visible_message(SPAN_WARNING("The parade hits [victim] and a sudden wave of clarity comes over you!"))
 		disabled = TRUE
 		qdel(src)
 		return
@@ -95,7 +95,7 @@
 	if(!(victim in mobs_hit))
 		RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(clear_mob))
 		victim.AddComponent(/datum/component/leash, src, distance = 1)
-		to_chat(victim, "<span class='warning'>You feel unable to move away from the parade!</span>")
+		to_chat(victim, SPAN_WARNING("You feel unable to move away from the parade!"))
 		mobs_hit += victim
 		new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/effects/eldritch.dmi', "heretic")
 		victim.adjustBrainLoss(15)

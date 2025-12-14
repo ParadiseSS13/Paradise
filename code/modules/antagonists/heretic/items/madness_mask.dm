@@ -18,10 +18,10 @@
 /obj/item/clothing/mask/madness_mask/examine(mob/user)
 	. = ..()
 	if(IS_HERETIC_OR_MONSTER(user))
-		. += "<span class='notice'>Actively drains the sanity and stamina of nearby non-heretics when worn.</span>"
-		. += "<span class='notice'>If forced onto the face of a non-heretic, they will be unable to remove it willingly.</span>"
+		. += SPAN_NOTICE("Actively drains the sanity and stamina of nearby non-heretics when worn.")
+		. += SPAN_NOTICE("If forced onto the face of a non-heretic, they will be unable to remove it willingly.")
 	else
-		. += "<span class='danger'>The eyes fill you with dread... You best avoid it.</span>"
+		. += SPAN_DANGER("The eyes fill you with dread... You best avoid it.")
 
 /obj/item/clothing/mask/madness_mask/equipped(mob/user, slot)
 	. = ..()
@@ -37,7 +37,7 @@
 		return
 
 	flags |= NODROP
-	to_chat(user, "<span class='userdanger'>[src] clamps tightly to your face as you feel your soul draining away!</span>")
+	to_chat(user, SPAN_USERDANGER("[src] clamps tightly to your face as you feel your soul draining away!"))
 
 /obj/item/clothing/mask/madness_mask/dropped(mob/M)
 	local_user = null

@@ -46,40 +46,40 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
 	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, you are at your limit of [howetic.monster_limit] monsters!"))
 		return FALSE
 
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
-			to_chat(user, "<span class='hierophant_warning'>[body] is not in a valid state to be made into a ghoul.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[body] is not in a valid state to be made into a ghoul."))
 			continue
 		if(!body.mind)
-			to_chat(user, "<span class='hierophant_warning'>[body] is mindless and cannot be made into a ghoul.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[body] is mindless and cannot be made into a ghoul."))
 			continue
 		if(!body.client && !body.mind.get_ghost())
-			to_chat(user, "<span class='hierophant_warning'>[body] is soulless and cannot be made into a ghoul.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[body] is soulless and cannot be made into a ghoul."))
 			continue
 
 		// We will only accept valid bodies with a mind, or with a ghost connected that used to control the body
 		selected_atoms += body
 		return TRUE
 
-	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
+	to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, there is no valid body."))
 	return FALSE
 
 /datum/heretic_knowledge/limited_amount/risen_corpse/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, there is no valid body."))
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		stack_trace("[type] reached on_finished_recipe without a minded / cliented human in selected_atoms to make a ghoul out of.")
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, there is no valid body."))
 		return FALSE
 
 	selected_atoms -= soon_to_be_ghoul

@@ -82,8 +82,8 @@
 		animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
 		playsound(carbon_hit, 'sound/effects/curse.ogg', 50, TRUE)
 
-		to_chat(user, "<span class='warning'>An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!</span>")
-		to_chat(carbon_hit, "<span class='warning'>As [user] grasps you with eldritch forces, your blood magic absorbs most of the effects!</span>")
+		to_chat(user, SPAN_WARNING("An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!"))
+		to_chat(carbon_hit, SPAN_WARNING("As [user] grasps you with eldritch forces, your blood magic absorbs most of the effects!"))
 		handle_delete(user)
 		return
 
@@ -102,7 +102,7 @@
 	SIGNAL_HANDLER
 	if(source.get_int_organ(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor))
 		if(!HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
-			to_chat(source, "<span class='warning'>Some anchoring force interfears with your grasp. Perhaps a focus would stabilize it!</span>")
+			to_chat(source, SPAN_WARNING("Some anchoring force interfears with your grasp. Perhaps a focus would stabilize it!"))
 			return FALSE
 	if(!source.Adjacent(target))
 		return FALSE

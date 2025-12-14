@@ -322,15 +322,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED) && length(invokers) < 3) // harder to convert heretic-touched
 		fail_invoke()
 		for(var/I in invokers)
-			to_chat(I, SPAN_WARNING("This one struggles against our influence with an unknown force. We require at least 3 invokers to convert them!</span>"))
+			to_chat(I, SPAN_WARNING("This one struggles against our influence with an unknown force. We require at least 3 invokers to convert them!"))
 		return
 	convertee.visible_message(SPAN_WARNING("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
 							SPAN_CULTLARGE("<i>AAAAAAAAAAAAAA-</i>"))
 	convertee.mind.add_antag_datum(/datum/antagonist/cultist)
-	to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
-		and something evil takes root.</b></span>")
-	to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
-		</b></span>")
+	to_chat(convertee, SPAN_CULTITALIC("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
+		and something evil takes root.</b>"))
+	to_chat(convertee, SPAN_CULTITALIC("<b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
+		</b>"))
 
 	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED)) // Augh! heretic backlash!
 		playsound(convertee, 'sound/magic/voidblink.ogg', 50, FALSE)
@@ -342,11 +342,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 				/mob/living/basic/heretic_summon/raw_prophet,
 				/mob/living/basic/heretic_summon/maid_in_the_mirror,
 			))
-			convertee.visible_message("<span class='danger'>A heretical beast is pulled out of [convertee] during the offering!</span>")
+			convertee.visible_message(SPAN_DANGER("A heretical beast is pulled out of [convertee] during the offering!"))
 			new mob_type(convertee.loc)
 		for(var/mob in invokers)
 			if(iscarbon(mob))
-				to_chat(mob, "<span class='hierophant_warning'>AUGH! A vile magic recoils against our influence and poisons us!</span>")
+				to_chat(mob, SPAN_HIEROPHANT_WARNING("AUGH! A vile magic recoils against our influence and poisons us!"))
 				var/mob/living/carbon/carbon = mob
 				carbon.reagents.add_reagent("toxin", 15)
 				carbon.reagents.add_reagent("histamine", 15)
@@ -396,7 +396,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
 	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
 		for(var/M in invokers)
-			to_chat(M, "<span class='cultitalic'>[offering] is too powerful to be sacrificed alive!</span>")
+			to_chat(M, SPAN_CULTITALIC("[offering] is too powerful to be sacrificed alive!"))
 		fail_invoke()
 		log_game("Sacrifice rune failed - heretic is ascended and alive")
 		return
@@ -431,18 +431,18 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(do_message)
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
-				to_chat(M, SPAN_CULTLARGE("\"Yes! This is the one I desire! You have done well.\"</span>"))
+				to_chat(M, SPAN_CULTLARGE("\"Yes! This is the one I desire! You have done well.\""))
 				if(!SSticker.mode.cult_team.mirror_shields_active) // Only show once
-					to_chat(M, SPAN_CULTLARGE("You are now able to construct mirror shields inside the daemon forge.</span>"))
+					to_chat(M, SPAN_CULTLARGE("You are now able to construct mirror shields inside the daemon forge."))
 					SSticker.mode.cult_team.mirror_shields_active = TRUE
 			else
 				if((ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(offering, TRAIT_XENOBIO_SPAWNED_HUMAN)) //If you try it on a ghost role, or an envolved caterpillar/nymph, you get nothing
-					to_chat(M, SPAN_CULTLARGE("\"This soul is of no use to either of us.\"</span>"))
+					to_chat(M, SPAN_CULTLARGE("\"This soul is of no use to either of us.\""))
 					worthless = TRUE
 				else if(ishuman(offering) || isrobot(offering))
-					to_chat(M, SPAN_CULTLARGE("\"I accept this sacrifice.\"</span>"))
+					to_chat(M, SPAN_CULTLARGE("\"I accept this sacrifice.\""))
 				else
-					to_chat(M, SPAN_CULTLARGE("\"I accept this meager sacrifice.\"</span>"))
+					to_chat(M, SPAN_CULTLARGE("\"I accept this meager sacrifice.\""))
 	// post-message
 	if(signal_result & STOP_SACRIFICE)
 		return FALSE
@@ -458,7 +458,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			stone.invisibility = 0
 			var/put_in_hands = user.put_in_any_hand_if_possible(stone)
 			if(put_in_hands)
-				to_chat(user, "<span class='cultitalic'>A glowing crimson shard appears in your hand - your new ally contained within.</span>")
+				to_chat(user, SPAN_CULTITALIC("A glowing crimson shard appears in your hand - your new ally contained within."))
 		else
 			if(isrobot(offering))
 				offering.dust() //To prevent the MMI from remaining
@@ -981,7 +981,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	else if(choice == "Ascend as a Dark Spirit")
 		if(length(SSticker.mode.heretics))
-			to_chat(user, "<span class='hierophant'>The Mansus fogs your view into the spirit wrold...</span>")
+			to_chat(user, SPAN_HIEROPHANT("The Mansus fogs your view into the spirit wrold..."))
 			fail_invoke()
 			log_game("Manifest rune failed - heretic blocked ghosting")
 			return list()

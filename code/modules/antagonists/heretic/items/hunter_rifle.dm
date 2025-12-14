@@ -56,7 +56,7 @@
 		return TRUE
 
 	if(currently_aiming)
-		to_chat(user, "<span class='hierophant_warning'>You are already aiming!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You are already aiming!"))
 		return FALSE
 
 	var/distance = get_dist(user, target)
@@ -68,7 +68,7 @@
 	if(distance <= min_distance || !isliving(target))
 		return TRUE
 
-	to_chat(user, "<span class='hierophant'>Taking aim...</span>")
+	to_chat(user, SPAN_HIEROPHANT("Taking aim..."))
 	user.playsound_local(get_turf(user), 'sound/weapons/gun_interactions/rifle_load.ogg', 100, TRUE)
 
 	var/image/reticle = image(
@@ -97,7 +97,7 @@
 		viewer.client?.images -= reticle
 	if(!output)
 		currently_aiming = FALSE
-		to_chat(user, "<span class='hierophant_warning'>You were interrupted!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You were interrupted!"))
 		return FALSE
 
 	return TRUE

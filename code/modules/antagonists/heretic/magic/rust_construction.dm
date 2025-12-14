@@ -31,15 +31,15 @@
 	var/mob/living/living_owner = user
 	var/turf/cast_on = target
 	if(!isturf(cast_on))
-		to_chat(living_owner, "<span class='warning'>That is not a wall or a floor!</span>")
+		to_chat(living_owner, SPAN_WARNING("That is not a wall or a floor!"))
 		return FALSE
 
 	if(!HAS_TRAIT(cast_on, TRAIT_RUSTY))
 		if(living_owner)
-			to_chat(living_owner, "<span class='warning'>The target is not rusted!</span>")
+			to_chat(living_owner, SPAN_WARNING("The target is not rusted!"))
 			return
-	living_owner.visible_message("<span class='danger'><b>[living_owner]</b> drags [living_owner.p_their()] hand upwards as a wall of rust rises out of [cast_on]!</span>",
-	"<span class='notice'>You drag a hand upwards as a wall of rust rises out of [cast_on].</span>")
+	living_owner.visible_message(SPAN_DANGER("<b>[living_owner]</b> drags [living_owner.p_their()] hand upwards as a wall of rust rises out of [cast_on]!"),
+	SPAN_NOTICE("You drag a hand upwards as a wall of rust rises out of [cast_on]."))
 	return TRUE
 
 /datum/spell/pointed/rust_construction/cast(list/targets, mob/user)
@@ -49,7 +49,7 @@
 
 	// If we casted at a wall we'll try to rust it. In the case of an enchanted wall it'll deconstruct it
 	if(iswallturf(cast_on))
-		cast_on.visible_message("<span class='warning'>\The [cast_on] quakes as the rust causes it to crumble!</span>")
+		cast_on.visible_message(SPAN_WARNING("\The [cast_on] quakes as the rust causes it to crumble!"))
 		var/mob/living/living_owner = user
 		living_owner?.do_rust_heretic_act(cast_on)
 		// ref transfers to floor
@@ -81,13 +81,13 @@
 		message_shown = TRUE
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user)
 			living_mob.visible_message(
-				"<span class='warning'>\A [new_wall] [rises_message] and pushes along [living_mob]!</span>",
-				"<span class='notice'>\A [new_wall] [rises_message] beneath your feet and pushes you along!</span>",
+				SPAN_WARNING("\A [new_wall] [rises_message] and pushes along [living_mob]!"),
+				SPAN_NOTICE("\A [new_wall] [rises_message] beneath your feet and pushes you along!"),
 			)
 		else
 			living_mob.visible_message(
-				"<span class='warning'>\A [new_wall] [rises_message] and slams into [living_mob]!</span>",
-				"<span class='userdanger'>\A [new_wall] [rises_message] beneath your feet and slams into you!</span>",
+				SPAN_WARNING("\A [new_wall] [rises_message] and slams into [living_mob]!"),
+				SPAN_USERDANGER("\A [new_wall] [rises_message] beneath your feet and slams into you!"),
 			)
 			living_mob.apply_damage(10, BRUTE)
 			living_mob.KnockDown(5 SECONDS)
@@ -104,7 +104,7 @@
 		living_mob.throw_at(pick(turfs_by_us), 1, 3, spin = FALSE)
 
 	if(!message_shown)
-		new_wall.visible_message("<span class='warning'>\A [new_wall] [rises_message]!</span>")
+		new_wall.visible_message(SPAN_WARNING("\A [new_wall] [rises_message]!"))
 
 /datum/spell/pointed/rust_construction/proc/fade_wall_filter(turf/simulated/wall)
 	if(QDELETED(wall))

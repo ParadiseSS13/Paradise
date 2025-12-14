@@ -37,10 +37,10 @@
 /datum/spell/aoe/wave_of_desperation/cast(list/targets, mob/user)
 	var/mob/living/carbon/human/human_user = user
 	if(human_user.handcuffed)
-		human_user.visible_message("<span class='danger'>[human_user.handcuffed] on [human_user] shatter!</span>")
+		human_user.visible_message(SPAN_DANGER("[human_user.handcuffed] on [human_user] shatter!"))
 		QDEL_NULL(human_user.handcuffed)
 	if(human_user.legcuffed)
-		user.visible_message("<span class='danger'>[human_user.legcuffed] on [human_user] shatters!</span>")
+		user.visible_message(SPAN_DANGER("[human_user.legcuffed] on [human_user] shatters!"))
 		QDEL_NULL(human_user.legcuffed)
 
 	human_user.apply_status_effect(/datum/status_effect/heretic_lastresort)

@@ -29,9 +29,9 @@
 	if(!IS_HERETIC(user))
 		return
 
-	. += "<span class='notice'>Can be used to tap influences for additional knowledge points.</span>"
-	. += "<span class='notice'>Can also be used to draw or remove transmutation runes with ease.</span>"
-	. += "<span class='notice'>Additionally, it can work as a focus for your spells when held.</span>"
+	. += SPAN_NOTICE("Can be used to tap influences for additional knowledge points.")
+	. += SPAN_NOTICE("Can also be used to draw or remove transmutation runes with ease.")
+	. += SPAN_NOTICE("Additionally, it can work as a focus for your spells when held.")
 
 /obj/item/codex_cicatrix/activate_self(mob/user)
 	if(..())

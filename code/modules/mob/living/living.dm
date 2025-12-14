@@ -940,7 +940,7 @@
 	if(IS_HERETIC(src))
 		var/datum/antagonist/heretic/are_you_ascended = IS_HERETIC(src)
 		if(are_you_ascended.ascended && stat != DEAD)
-			to_chat(src, "<span class='userdanger'>You feel the crushing presense of [GET_CULT_DATA(entity_name, "Nar'sie")] pushing down on you. You won't last long!</span>")
+			to_chat(src, SPAN_USERDANGER("You feel the crushing presense of [GET_CULT_DATA(entity_name, "Nar'sie")] pushing down on you. You won't last long!)"))
 			adjustBruteLoss(40) //Note: Heretics take half damage, this is 20 brute.
 			adjustBrainLoss(5)
 			return

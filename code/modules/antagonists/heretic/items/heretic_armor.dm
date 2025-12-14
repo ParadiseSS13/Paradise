@@ -36,7 +36,7 @@
 		return
 
 	// Our hood gains the heretic_focus element.
-	. += "<span class='notice'>Allows you to cast heretic spells while the hood is up.</span>"
+	. += SPAN_NOTICE("Allows you to cast heretic spells while the hood is up.")
 
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
 // To future coders, if we get atom storage, make it back into a hood again.
@@ -136,7 +136,7 @@
 		return
 
 	// Let examiners know this works as a focus only if the hood is down
-	. += "<span class='notice'>Allows you to cast heretic spells while the hood is down.</span>"
+	. += SPAN_NOTICE("Allows you to cast heretic spells while the hood is down.")
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
 /obj/item/clothing/suit/storage/void_cloak/proc/make_invisible()
@@ -147,7 +147,7 @@
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))
-		loc.visible_message("<span class='notice'>Light shifts around [loc], making the cloak around them invisible!</span>")
+		loc.visible_message(SPAN_NOTICE("Light shifts around [loc], making the cloak around them invisible!"))
 
 /// Makes our cloak "visible" again.
 /obj/item/clothing/suit/storage/void_cloak/proc/make_visible()
@@ -157,4 +157,4 @@
 	icon_state = "void_cloak"
 	cloak_invisible = FALSE
 	if(isliving(loc))
-		loc.visible_message("<span class='notice'>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")
+		loc.visible_message(SPAN_NOTICE("A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!"))

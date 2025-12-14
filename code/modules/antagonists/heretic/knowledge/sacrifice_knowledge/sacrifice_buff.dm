@@ -27,12 +27,12 @@
 	// In softcrit you're, strong enough to stay up.
 	if(owner.health <= HEALTH_THRESHOLD_CRIT && owner.health >= HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
-			to_chat(owner, "<span class='hierophant_warning'>Your body feels like giving up, but you fight on!</span>")
+			to_chat(owner, SPAN_HIEROPHANT_WARNING("Your body feels like giving up, but you fight on!"))
 		healing_amount *= 2
 	// ...But reach hardcrit and you're done. You now die faster.
 	if(owner.health < -100)
 		if(prob(5))
-			to_chat(owner, "<span class='hierophant_warning'>You can't hold on for much longer...</span>")
+			to_chat(owner, SPAN_HIEROPHANT_WARNING("You can't hold on for much longer..."))
 		healing_amount *= -0.5
 
 	if(owner.health > 0 && prob(4))

@@ -31,7 +31,7 @@
 	if(user.holy_check())
 		return
 	if(user.AmountHereticSlurring())
-		to_chat(user, "<span class='hierophant_warning'>The Mansus blocks your call!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The Mansus blocks your call!"))
 		return
 
 	if(!user.can_speak())

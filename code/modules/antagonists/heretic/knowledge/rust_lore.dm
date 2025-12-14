@@ -200,7 +200,7 @@
 	if(ritual_location)
 		var/area/our_area = get_area(our_turf)
 		if(!istype(our_area, ritual_location))
-			to_chat(user, "<span class='hierophant_warning'>The ritual has failed, it must be done in [initial(ritual_location.name)]!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual has failed, it must be done in [initial(ritual_location.name)]!"))
 			return FALSE
 
 	return ..()

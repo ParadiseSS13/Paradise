@@ -261,7 +261,7 @@
 
 /datum/antagonist/heretic/farewell()
 	if(!silent)
-		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
+		to_chat(owner.current, SPAN_USERDANGER("Your mind begins to flare as the otherwordly knowledge escapes your grasp!"))
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)
@@ -329,7 +329,7 @@
 	// We dont want to cast spells in the void
 	if(istype(source.loc, /obj/effect/dummy/slaughter) && !istype(spell, /datum/spell/bloodcrawl/space_crawl))
 		if(show_message)
-			to_chat(source, "<span class='hierophant_warning'>You cannot cast spells space phased!</span>")
+			to_chat(source, SPAN_HIEROPHANT_WARNING("You cannot cast spells space phased!"))
 		return SPELL_CANCEL_CAST
 
 	// If we've got the trait, we don't care
@@ -341,7 +341,7 @@
 
 	// We shouldn't be able to cast this! Cancel it.
 	if(show_message)
-		to_chat(source, "<span class='hierophant_warning'>You need a focus to cast this spell!</span>")
+		to_chat(source, SPAN_HIEROPHANT_WARNING("You need a focus to cast this spell!"))
 	return SPELL_CANCEL_CAST
 
 /*
@@ -377,15 +377,15 @@
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!isfloorturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			to_chat(user, "<span class='hierophant_warning'>This is not a valid placement for a rune.</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("This is not a valid placement for a rune."))
 			return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
-		to_chat(user, "<span class='hierophant_warning'>This is too close to another rune.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("This is too close to another rune."))
 		return
 
 	if(drawing_rune)
-		to_chat(user, "<span class='hierophant_warning'>You are already drawing a rune.</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You are already drawing a rune."))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
@@ -414,7 +414,7 @@
 		qdel(drawing_effect)
 		drawing_rune = FALSE
 		return
-	to_chat(user, "<span class='hierophant'>The rune is complete.</span>")
+	to_chat(user, SPAN_HIEROPHANT("The rune is complete."))
 	qdel(drawing_effect)
 	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
@@ -459,7 +459,7 @@
 	haunted_blade.gender_reveal(outline_color = null, ray_color = COLOR_HERETIC_GREEN)
 
 	for(var/mob/living/culto as anything in invokers)
-		to_chat(culto, "<span class='cultlarge'>\"A follower of the forgotten gods! You must be rewarded for such a valuable sacrifice.\"</span>")
+		to_chat(culto, SPAN_CULTLARGE("\"A follower of the forgotten gods! You must be rewarded for such a valuable sacrifice.\""))
 
 	// Locate a cultist team (Is there a better way??)
 	var/mob/living/random_cultist = pick(invokers)
@@ -480,7 +480,7 @@
 		for(var/datum/mind/mind as anything in cult_team.members)
 			if(mind.current)
 				SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
-				to_chat(mind.current, "<span class='cultlarge>Arcane and forbidden knowledge floods your forges and archives. The cult has learned how to create the [result]!</span>")
+				to_chat(mind.current, SPAN_CULTLARGE("Arcane and forbidden knowledge floods your forges and archives. The cult has learned how to create the [result]!"))
 
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
@@ -603,9 +603,9 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner.current)
 	var/mob/living/new_target = reroll_target(owner.current, heretic_datum, source)
 	if(new_target)
-		to_chat(owner.current, "<span class='hierophant'>We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]</span>")
+		to_chat(owner.current, SPAN_HIEROPHANT("We feel that [source] has gone beyond our reach. Our new sacrifice target is: [new_target]"))
 	else
-		to_chat(owner.current, "<span class='hierophant'>We feel that [source] has gone beyond our reach, and we were unable to find a new target.</span>")
+		to_chat(owner.current, SPAN_HIEROPHANT("We feel that [source] has gone beyond our reach, and we were unable to find a new target."))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	remove_sacrifice_target(source)
 
@@ -660,7 +660,7 @@
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
 	if(owner.current.stat == CONSCIOUS)
-		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
+		to_chat(owner.current, SPAN_HEAR("You hear a whisper... <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]"))
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/game_mode/proc/auto_declare_completion_heretic()
@@ -690,9 +690,9 @@
 				text += "<br><b>Objective #[count]</b>: [objective.explanation_text]</b></font>"
 				count++
 		if(our_heretic.feast_of_owls)
-			text += "<br><span class='greentext'>Ascension Forsaken</span>"
+			text += SPAN_GREENTEXT("<br>Ascension Forsaken")
 		if(our_heretic.ascended)
-			text += "<br><span class='hierophant_warning'>THE HERETIC ASCENDED!</span>"
+			text += SPAN_HIEROPHANT_WARNING("<br>THE HERETIC ASCENDED!")
 
 		text += "<br><b>Knowledge Researched:</b> "
 
@@ -712,12 +712,12 @@
  */
 /datum/antagonist/heretic/proc/give_living_heart(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, SPAN_WARNING("You shouldn't be using this!"))
 		return
 
 	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
 	if(!heart_knowledge)
-		to_chat(admin, "<span class='warning'>The heretic doesn't have a living heart knowledge for some reason. What?</span>")
+		to_chat(admin, SPAN_WARNING("The heretic doesn't have a living heart knowledge for some reason. What?"))
 		return
 
 	heart_knowledge.on_research(owner.current, src)
@@ -728,7 +728,7 @@
  */
 /datum/antagonist/heretic/proc/remove_target(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, SPAN_WARNING("You shouldn't be using this!"))
 		return
 
 	var/list/removable = list()
@@ -743,18 +743,18 @@
 		return
 
 	if(!remove_sacrifice_target(chosen_target))
-		to_chat(admin, "<span class='warning'>Failed to remove [name_of_removed] from [owner]'s sacrifice list. Perhaps they're no longer in the list anyways.</span>")
+		to_chat(admin, SPAN_WARNING("Failed to remove [name_of_removed] from [owner]'s sacrifice list. Perhaps they're no longer in the list anyways."))
 		return
 
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets.</span>")
+		to_chat(owner.current, SPAN_DANGER("The Mansus has modified your targets."))
 
 /**
  * Admin proc for easily adding / removing knowledge points.
  */
 /datum/antagonist/heretic/proc/admin_change_points(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, SPAN_WARNING("You shouldn't be using this!"))
 		return
 
 	var/change_num = tgui_input_number(admin, "Add or remove knowledge points", "Points", 0, 100, -100)
@@ -768,12 +768,12 @@
  */
 /datum/antagonist/heretic/proc/admin_give_focus(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, SPAN_WARNING("You shouldn't be using this!"))
 		return
 
 	var/mob/living/pawn = owner.current
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
-	to_chat(pawn, "<span class='hierophant_warning'>The Mansus has manifested you a focus.</span>")
+	to_chat(pawn, SPAN_HIEROPHANT_WARNING("The Mansus has manifested you a focus."))
 
 
 /**

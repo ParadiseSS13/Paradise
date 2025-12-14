@@ -138,7 +138,7 @@
 	update_light()
 
 /obj/structure/cult/functional/rust_heretic_act()
-	visible_message("<span class='notice'>[src] crumbles to dust. In its midst, you spot \a [initial(mansus_conversion_path.name)].</span>")
+	visible_message(SPAN_NOTICE("[src] crumbles to dust. In its midst, you spot \a [initial(mansus_conversion_path.name)]."))
 	var/turf/turfy = get_turf(src)
 	new mansus_conversion_path(turfy)
 	turfy.rust_heretic_act()

@@ -156,9 +156,9 @@
 
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	source.visible_message(
-		"<span class='warning'>[to_remove] orbiting [source] snaps in front of [attack_text], blocking it before vanishing!</span>",
-		"<span class='warning'>[to_remove] orbiting you snaps in front of [attack_text], blocking it before vanishing!</span>",
-		"<span class='hear'>You hear a clink.</span>",
+		SPAN_WARNING("[to_remove] orbiting [source] snaps in front of [attack_text], blocking it before vanishing!"),
+		SPAN_WARNING("[to_remove] orbiting you snaps in front of [attack_text], blocking it before vanishing!"),
+		SPAN_HEAR("You hear a clink."),
 	)
 
 	qdel(to_remove)
@@ -239,25 +239,25 @@
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, id)
 	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
 	owner.visible_message(
-		"<span class='warning'>The haze around [owner] disappears, leaving them materialized!</span>",
-		"<span class='notice'>You exit the refuge.</span>",
+		SPAN_WARNING("The haze around [owner] disappears, leaving them materialized!"),
+		SPAN_NOTICE("You exit the refuge."),
 	)
 
 /datum/status_effect/caretaker_refuge/proc/nullrod_handler(datum/source, obj/item/weapon)
 	SIGNAL_HANDLER
 	playsound(get_turf(owner), 'sound/effects/curse/curse1.ogg', 80, TRUE)
-	owner.visible_message("<span class='warning'>[weapon] repels the haze around [owner]!</span>")
+	owner.visible_message(SPAN_WARNING("[weapon] repels the haze around [owner]!"))
 	owner.remove_status_effect(type)
 
 /datum/status_effect/caretaker_refuge/proc/on_focus_lost()
 	SIGNAL_HANDLER
-	to_chat(owner, "<span class='danger'>Without a focus, your refuge weakens and dissipates!</span>")
+	to_chat(owner, SPAN_DANGER("Without a focus, your refuge weakens and dissipates!"))
 	qdel(src)
 
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
 	if(!istype(spell, /datum/spell/caretaker))
-		to_chat(owner, "<span class='danger'>You can not cast a spell in refuge!</span>")
+		to_chat(owner, SPAN_DANGER("You can not cast a spell in refuge!"))
 		return SPELL_CANCEL_CAST
 
 

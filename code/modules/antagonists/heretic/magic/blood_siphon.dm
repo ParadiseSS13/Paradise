@@ -30,14 +30,14 @@
 	playsound(user, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 	if(cast_on.can_block_magic())
 		cast_on.visible_message(
-			"<span class='danger'>The spell bounces off of [cast_on]!</span>",
-			"<span class='danger'>The spell bounces off of you!</span>",
+			SPAN_DANGER("The spell bounces off of [cast_on]!"),
+			SPAN_DANGER("The spell bounces off of you!"),
 		)
 		return FALSE
 
 	cast_on.visible_message(
-		"<span class='danger'>[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!</span>",
-		"<span class='danger'>You pale as a red glow enevelops you!</span>",
+		SPAN_DANGER("[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!"),
+		SPAN_DANGER("You pale as a red glow enevelops you!"),
 	)
 
 	var/mob/living/living_owner = user

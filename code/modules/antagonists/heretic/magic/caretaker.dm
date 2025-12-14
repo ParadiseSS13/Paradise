@@ -22,7 +22,7 @@
 /datum/spell/caretaker/valid_target(target, user)
 	for(var/mob/living/alive in orange(5, user))
 		if(alive.stat != DEAD && alive.client)
-			to_chat(user, "<span class='warning'>There are sentient beings blocking you from shifting!</span>")
+			to_chat(user, SPAN_WARNING("There are sentient beings blocking you from shifting!"))
 			return FALSE
 	return TRUE
 

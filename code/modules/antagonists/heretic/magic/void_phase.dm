@@ -28,7 +28,7 @@
 /datum/spell/pointed/void_phase/valid_target(target, user)
 	if(get_dist(target, user) < 3)
 		var/mob/living/living_owner = user
-		to_chat(living_owner, "<span class='warning'>That is too close to teleport to!</span>")
+		to_chat(living_owner, SPAN_WARNING("That is too close to teleport to!"))
 		return FALSE
 	return TRUE
 

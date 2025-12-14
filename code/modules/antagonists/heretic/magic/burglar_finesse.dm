@@ -32,8 +32,8 @@
 	. = ..()
 	var/mob/living/carbon/cast_on = targets[1]
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, "<span class='danger'>You feel a light tug, but are otherwise fine, you were protected by magical forces!</span>")
-		to_chat(user, "<span class='danger'>[cast_on] is protected by magical forces!</span>")
+		to_chat(cast_on, SPAN_DANGER("You feel a light tug, but are otherwise fine, you were protected by magical forces!</span>"))
+		to_chat(user, SPAN_DANGER("[cast_on] is protected by magical forces!</span>"))
 		return FALSE
 
 	var/obj/storage_item = locate(/obj/item/storage/backpack) in cast_on.contents
@@ -51,6 +51,6 @@
 	var/item = pick(storage_item.contents)
 	if(isnull(item))
 		return FALSE
-	to_chat(cast_on, "<span class='warning'>Your [storage_item.name] feels lighter...</span>")
-	to_chat(user, "<span class='notice'>With a blink, you pull [item] out of [cast_on][p_s()] [storage_item.name].</span>")
+	to_chat(cast_on, SPAN_WARNING("Your [storage_item.name] feels lighter...</span>"))
+	to_chat(user, SPAN_NOTICE("With a blink, you pull [item] out of [cast_on][p_s()] [storage_item.name].</span>"))
 	user.put_in_active_hand(item)

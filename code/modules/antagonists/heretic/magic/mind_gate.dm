@@ -25,13 +25,13 @@
 
 /datum/spell/mind_gate/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, SPAN_NOTICE("No target found in range."))
 		return
 
 	var/mob/living/target = targets[1]
 	if(target.can_block_magic(antimagic_flags))
-		to_chat(target, "<span class='notice'>Your mind feels closed.</span>")
-		to_chat(user, "<span class='warning'>Their mind doesn't swing open, but neither does yours.</span>")
+		to_chat(target, SPAN_NOTICE("Your mind feels closed."))
+		to_chat(user, SPAN_WARNING("Their mind doesn't swing open, but neither does yours."))
 		return FALSE
 
 	target.AdjustConfused(10 SECONDS)

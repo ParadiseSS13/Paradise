@@ -32,6 +32,6 @@
 
 
 /datum/antagonist/soultrapped_heretic/greet()
-	var/list/messages = list("<span class='warning'>You are the trapped soul of the Heretic you once were. You may attempt to convince your wielders to unbind you, granting you some degree of freedom, and them access to some of your powers. \
-	You were enslaved by the cult, but are not a member of it, and retain what remains of your free will. Besides this, there is little to be done but commentary. Try not to get trapped in a locker.</span>")
+	var/list/messages = list(SPAN_WARNING("You are the trapped soul of the Heretic you once were. You may attempt to convince your wielders to unbind you, granting you some degree of freedom, and them access to some of your powers. \
+	You were enslaved by the cult, but are not a member of it, and retain what remains of your free will. Besides this, there is little to be done but commentary. Try not to get trapped in a locker."))
 	return messages

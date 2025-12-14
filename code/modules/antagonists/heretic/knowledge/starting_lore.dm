@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			where_to_put_our_heart = look_for_backup
 			our_heretic.living_heart_organ_slot = backup_slot
 			required_organ_type = backup_organs[backup_slot]
-			to_chat(user, "<span class='boldnotice'>As your species does not have a heart, your Living Heart is located in your [look_for_backup.name].</span>")
+			to_chat(user, SPAN_BOLDNOTICE("As your species does not have a heart, your Living Heart is located in your [look_for_backup.name]."))
 			break
 
 	if(where_to_put_our_heart)
@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			you will additionally require a usable organic [where_to_put_our_heart.name] in the transmutation."
 
 	else
-		to_chat(user, "<span class='boldnotice'>You don't have a heart, or any chest organs for that matter. You didn't get a Living Heart because of it.</span>")
+		to_chat(user, SPAN_BOLDNOTICE("You don't have a heart, or any chest organs for that matter. You didn't get a Living Heart because of it."))
 		message_admins("Oh fuck me, [user] did not have a heart, lungs, or liver. give [user] some organic lungs or something, then have them use the ritual again, then report this to me")
 
 /datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// they may have gained one unexpectantly in between now and then
 	if(!QDELETED(our_living_heart))
 		if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
-			to_chat(user, "<span class='hierophant'>The ritual failed, you already have a living heart!</span>")
+			to_chat(user, SPAN_HIEROPHANT("The ritual failed, you already have a living heart!"))
 			return FALSE
 
 		// By this point they are making a new heart
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		our_replacement_heart.insert(user, TRUE)
 		if(our_new_heart)
 			// Throw our current heart out of our chest, violently
-			user.visible_message("<span class='boldwarning'>[user]'s [our_new_heart.name] bursts suddenly out of [user.p_their()] chest!</span>")
+			user.visible_message(SPAN_BOLDWARNING("[user]'s [our_new_heart.name] bursts suddenly out of [user.p_their()] chest!"))
 			INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, emote), "scream")
 			user.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
 			selected_atoms -= our_new_heart // so we don't delete our old heart while we dramatically toss is out
@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	selected_atoms -= our_new_heart
 	// Make it the living heart
 	our_new_heart.AddComponent(/datum/component/living_heart)
-	to_chat(user, "<span class='warning'>You feel your [our_new_heart.name] begin pulse faster and faster as it awakens!</span>")
+	to_chat(user, SPAN_WARNING("You feel your [our_new_heart.name] begin pulse faster and faster as it awakens!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	return TRUE
 
@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
 	var/turf/our_turf = get_turf(body)
-	our_turf.visible_message("<span class='danger'>An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!</span>")
+	our_turf.visible_message(SPAN_DANGER("An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!"))
 	return ..()
 
 /datum/heretic_knowledge/feast_of_owls
@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(cult_team)
 		cult_players = cult_team.get_cultists()
 	if(!has_hijack && cult_players < 6)
-		to_chat(user, "<span class='hierophant_warning'>You lack the ambition of hijacking to ascend, or there is not enough cultists!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("You lack the ambition of hijacking to ascend, or there is not enough cultists!"))
 		return FALSE
 	var/alert = tgui_alert(user,"Do you really want to forsake your ascension? This action cannot be reverted.", "Feast of Owls", list("Yes I'm sure", "No"), 30 SECONDS)
 	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, our_turf) > 2)
@@ -328,13 +328,13 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		user.emote("scream")
 		playsound(our_turf, 'sound/items/eatfood.ogg', 100, TRUE)
 		heretic_datum.knowledge_points++
-		to_chat(user, "<span class='danger'>You feel something invisible tearing away at your very essence!</span>")
+		to_chat(user, SPAN_DANGER("You feel something invisible tearing away at your very essence!"))
 		user.do_jitter_animation()
 		sleep(1 SECONDS)
 		if(QDELETED(user) || QDELETED(heretic_datum))
 			return FALSE
 
-	to_chat(user, "<span class='danger'>Your ambition is ravaged, but something powerful remains in its wake...</span>")
+	to_chat(user, SPAN_DANGER("Your ambition is ravaged, but something powerful remains in its wake..."))
 	var/drain_message = pick_list(HERETIC_INFLUENCE_FILE, "drain_message")
-	to_chat(user, "<span class='hierophant'>[drain_message]</span>")
+	to_chat(user, SPAN_HIEROPHANT("[drain_message]"))
 	return .
