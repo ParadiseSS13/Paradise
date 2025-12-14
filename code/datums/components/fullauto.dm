@@ -290,7 +290,7 @@
 
 	var/other_hand = shooter.get_organ(shooter.hand ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !other_hand))
-		to_chat(shooter, "<span class='warning'>You need to use both hands!</span>")
+		to_chat(shooter, SPAN_WARNING("You need to use both hands!"))
 		return FALSE
 
 	return TRUE

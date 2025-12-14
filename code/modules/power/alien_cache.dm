@@ -85,12 +85,12 @@
 /obj/machinery/alien_cache/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>The panel is open, revealing unterminated internal wiring.</span>"
+		. += SPAN_NOTICE("The panel is open, revealing unterminated internal wiring.")
 	else
-		. += "<span class='notice'>There's a loose panel on the front that could be pried open with a screwdriver</span>"
+		. += SPAN_NOTICE("There's a loose panel on the front that could be pried open with a screwdriver")
 
 /obj/machinery/alien_cache/display_parts(user)
-	return list("<span class='warning'>ERROR: UNIDENTIFIED MACHINE DESIGN</span>")
+	return list(SPAN_WARNING("ERROR: UNIDENTIFIED MACHINE DESIGN"))
 
 /// generate a list with weights for tiers of loot depending on the reached level
 /obj/machinery/alien_cache/proc/tier_weights()
@@ -152,40 +152,40 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(terminal) // Checks for an existing terminal
-			to_chat(user, "<span class='alert'>[src] already has a terminal!</span>")
+			to_chat(user, SPAN_ALERT("[src] already has a terminal!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!panel_open) // Checks to see if the panel is closed
-			to_chat(user, "<span class='alert'>You must open the panel first!</span>")
+			to_chat(user, SPAN_ALERT("You must open the panel first!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/turf/T = get_turf(user)
 		if(T.intact) // Checks to see if floor plating is present
-			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
+			to_chat(user, SPAN_ALERT("You must first remove the floor plating!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/stack/cable_coil/C = used
 		if(C.get_amount() < 10)
-			to_chat(user, "<span class='alert'>You need more wires.</span>")
+			to_chat(user, SPAN_ALERT("You need more wires."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(user.loc == loc)
-			to_chat(user, "<span class='warning'>You must not be on the same tile as [src].</span>")
+			to_chat(user, SPAN_WARNING("You must not be on the same tile as [src]."))
 			return ITEM_INTERACT_COMPLETE
 
 		// Direction the terminal will face to
 		var/turf/temporary_location = get_step(src, REVERSE_DIR(dir))
 
 		if(isspaceturf(temporary_location))
-			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
+			to_chat(user, SPAN_WARNING("You can't build a terminal on space."))
 			return ITEM_INTERACT_COMPLETE
 
 		else if(istype(temporary_location))
 			if(temporary_location.intact)
-				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
+				to_chat(user, SPAN_WARNING("You must remove the floor plating first."))
 				return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You try to connect the cable to [src]</span>")
+		to_chat(user, SPAN_NOTICE("You try to connect the cable to [src]"))
 		playsound(loc, C.usesound, 50, TRUE)
 
 		if(do_after(user, 5 SECONDS, target = get_turf(src)))
@@ -198,8 +198,8 @@
 
 				C.use(10) // make sure the cable gets used up
 				user.visible_message(\
-					"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
-					"<span class='notice'>You add the cables and connect the power terminal.</span>")
+					SPAN_NOTICE("[user.name] adds the cables and connects the power terminal."),\
+					SPAN_NOTICE("You add the cables and connect the power terminal."))
 
 				make_terminal(user, temporary_location)
 				terminal.connect_to_network()
@@ -210,7 +210,7 @@
 
 /obj/machinery/alien_cache/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, chat_box_examine("<span class='notice'>Total energy: [DisplayJoules(total_energy)]<br>Levels opened: [level_reached]</span>"))
+	to_chat(user, chat_box_examine(SPAN_NOTICE("Total energy: [DisplayJoules(total_energy)]<br>Levels opened: [level_reached]")))
 
 /obj/machinery/alien_cache/screwdriver_act(mob/living/user, obj/item/I)
 	// Opening using screwdriver
@@ -224,11 +224,11 @@
 	. = TRUE
 	var/turf/T = get_turf(terminal)
 	if(T.intact) //is the floor plating removed ?
-		to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
+		to_chat(user, SPAN_ALERT("You must first expose the power terminal!"))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='alert'>You must first open the panel</span>")
-	to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
+		to_chat(user, SPAN_ALERT("You must first open the panel"))
+	to_chat(user, SPAN_NOTICE("You begin to dismantle the power terminal..."))
 	playsound(src.loc, I.usesound, 50, TRUE)
 
 	if(do_after(user, 5 SECONDS * I.toolspeed, target = src))
@@ -240,8 +240,8 @@
 			// Returns wires on deletion of the terminal
 			new /obj/item/stack/cable_coil(T, 10)
 			user.visible_message(\
-				"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-				"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+				SPAN_ALERT("[user.name] cuts the cables and dismantles the power terminal."),\
+				SPAN_NOTICE("You cut the cables and dismantle the power terminal."))
 			qdel(terminal)
 			return
 
