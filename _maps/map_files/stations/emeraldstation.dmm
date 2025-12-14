@@ -13932,7 +13932,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -37052,7 +37051,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -40738,7 +40736,6 @@
 /area/station/public/dorms)
 "ijM" = (
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/machinery/door/airlock/external/glass{
 	id_tag = "mining_home";
 	name = "Mining Dock Airlock"
@@ -46615,16 +46612,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/service/kitchen)
-"jsx" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/landmark/spawner/late/crew,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "jsB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -48773,7 +48760,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/crew,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -49972,7 +49958,6 @@
 /area/station/maintenance/aft)
 "kaD" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "kaF" = (
@@ -57277,13 +57262,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
-"lAJ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "lBb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -75101,13 +75079,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"pdz" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "pdA" = (
 /obj/structure/flora/junglebush,
 /obj/structure/window/reinforced{
@@ -84772,7 +84743,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/crew,
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -92377,7 +92347,6 @@
 /area/station/maintenance/incinerator)
 "sAK" = (
 /obj/machinery/door/airlock/mining,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -98088,13 +98057,6 @@
 /obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
-"tId" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "tIk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -101473,16 +101435,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/clown)
-"usj" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/landmark/spawner/late/crew,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "usq" = (
 /obj/structure/rack,
 /obj/item/crowbar/red,
@@ -150789,12 +150741,12 @@ bQO
 iYm
 kbY
 nIV
-tId
-jsx
+vVR
+bIo
 asq
 rcZ
-tId
-tId
+vVR
+vVR
 jNB
 asq
 heu
@@ -151304,7 +151256,7 @@ iYm
 kbY
 nIV
 mcW
-pdz
+urE
 asq
 kaD
 kaD
@@ -151817,12 +151769,12 @@ bQO
 iYm
 kbY
 nIV
-lAJ
-usj
+pzy
+okY
 asq
 hwo
-lAJ
-lAJ
+pzy
+pzy
 cOV
 asq
 uHu
