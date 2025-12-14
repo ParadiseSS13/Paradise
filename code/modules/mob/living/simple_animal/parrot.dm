@@ -737,7 +737,7 @@
 		"Why are there so many borgs?",
 		"Why're your eyes glowing red?",
 		"Opening the reactor vent is how it gets gas, right?",
-		"Lets fill the reactor with supermatter rods!",
+		"Let's fill the reactor with supermatter rods!",
 		"Think we could weaponize ejected coolant rods?",
 		"WHO KEEPS LEAVING THE FUEL RODS OUT",
 		"Why do we need coolant rods if we use gas?",
