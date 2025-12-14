@@ -1,6 +1,6 @@
 /obj/item/nuclear_rod
 	name = "Nuclear Control Rod"
-	desc = "You shouldnt be seeing this. Contact a developer"
+	desc = "You shouldn't be seeing this. Contact a developer"
 	icon = 'icons/obj/fission/rods.dmi'
 	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
@@ -166,7 +166,7 @@
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
+	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and won't generate as much heat."
 	heat_amount = 5
 	power_amount = 20 KW
 	heat_amp_mod = 1.6
@@ -220,7 +220,7 @@
 
 /obj/item/nuclear_rod/fuel/thorium_salts
 	name = "thorium salts fuel rod"
-	desc = "A specialized fuel rod bred from uranium 235. While this rod doesnt have any notable power boosts, its amazingly large integrity makes it vitually impossible to deplete in a single shift if one can manage its heat."
+	desc = "A specialized fuel rod bred from uranium 235. While this rod doesn't have any notable power boosts, its amazingly large integrity makes it virtually impossible to deplete in a single shift, if one can manage its heat."
 	heat_amount = 40
 	power_amount = 35 KW
 	heat_amp_mod = 2.2
@@ -267,7 +267,7 @@
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
-	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its viscious heat output."
+	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its vicious heat output."
 	heat_amount = 100
 	power_amount = 200 KW
 	heat_amp_mod = 6
@@ -296,7 +296,7 @@
 
 /obj/item/nuclear_rod/fuel/meltdown
 	name = "meltdown rod"
-	desc = "A syndicate crafted rod capable of generating massive amounts of heat, and leading to an eventual meltdown."
+	desc = "A Syndicate-crafted rod capable of generating massive amounts of heat, leading to an eventual meltdown."
 	heat_amount = 2000
 	max_durability = INFINITY
 	minimum_temp_modifier = 4000 // BIG hot
@@ -323,7 +323,7 @@
 
 /obj/item/nuclear_rod/moderator/graphite
 	name = "graphite moderator"
-	desc = "A nuclear moderation rod comprised of primarily of layered graphite. A staple of fission reactor operation through the ages."
+	desc = "A nuclear moderation rod comprised primarily of layered graphite. A staple of fission reactor operation through the ages."
 	heat_amp_mod = 1.3
 	power_amp_mod = 1.6
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)

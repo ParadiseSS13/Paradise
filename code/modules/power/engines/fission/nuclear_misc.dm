@@ -1,9 +1,9 @@
 #define DEFAULT_TIME 10 SECONDS
 
-/// MARK: Cetrifuge
+/// MARK: Centrifuge
 /obj/machinery/nuclear_centrifuge
 	name = "Fuel Enrichment Centrifuge"
-	desc = "An advanced device capable of seperating and collecting fissile materials from enriched fuel rods."
+	desc = "An advanced device capable of separating and collecting fissile materials from enriched fuel rods."
 	icon = 'icons/obj/fission/reactor_parts.dmi'
 	icon_state = "centrifuge"
 	idle_power_consumption = 200
@@ -672,7 +672,7 @@
 
 /obj/item/grenade/nuclear_starter
 	name = "Neutronic Agitator"
-	desc = "A throwable device capable of inducing an artificial startup in rod chambers. Wont do anything for chambers not positioned correctly or without any rods inserted."
+	desc = "A throwable device capable of inducing an artificial startup in rod chambers. Won't do anything for chambers not positioned correctly, or chambers without any rods inserted."
 
 /obj/item/grenade/nuclear_starter/prime()
 	playsound(src.loc, 'sound/weapons/bsg_explode.ogg', 50, TRUE, -3)

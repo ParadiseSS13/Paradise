@@ -60,7 +60,7 @@
 
 /obj/item/smithed_item/component/rod_core/molten_salt
 	name = "molten salt circulator core"
-	desc = "This is the primary core structure of a molten salt circulator"
+	desc = "This is the primary core structure of a molten salt circulator."
 	materials = list(MAT_TITANIUM = 4000)
 	finished_product = /obj/item/nuclear_rod/coolant/molten_salt
 

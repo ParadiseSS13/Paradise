@@ -24,7 +24,7 @@ export const NuclearRodFabricator = (props) => {
         <Stack fill stretch>
           {/* Left Side */}
           <Stack.Item width="50%">
-            <Section title={`Available Designs (${totalRods})`} fill scrollable>
+            <Section title={`Available Designs`} fill scrollable>
               {categories.map((cat) => {
                 const list = data[cat.key] || [];
                 return (
