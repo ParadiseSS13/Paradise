@@ -179,7 +179,7 @@
 	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that possessed basic engineering infrastructure."
 	. += ""
 	. += "However, despite the popularity of the engine, the need for frequent upkeep and higher energy demands led to innovations in newer, more advanced energy sources. \
-	This engine soon became a relic of the past, but still remains a staple in many stations due to its long term reliability. According to Nanotrasen, that is."
+	This engine soon became a relic of the past, but still remains a staple in many stations due to what Nanotrasen calls its "long term reliability".
 
 /obj/machinery/atmospherics/fission_reactor/Initialize(mapload)
 	. = ..()
