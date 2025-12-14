@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 			continue
 		if(G.slot)
 			if(human.equip_to_slot_or_del(G.spawn_item(human, save_to_load.get_gear_metadata(G)), G.slot, TRUE))
-				to_chat(human, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+				to_chat(human, SPAN_NOTICE("Equipping you with [G.display_name]!"))
 		else
 			human.equip_or_collect(G.spawn_item(null, save_to_load.get_gear_metadata(G)))
 
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	if(mob_to_delete.client)
 		if(tgui_alert(mob_to_delete, "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)", "Ghost Bar", list("Yes", "No")) != "Yes")
 			return
-	mob_to_delete.visible_message("<span class='notice'>[mob_to_delete.name] climbs into [src]...</span>")
+	mob_to_delete.visible_message(SPAN_NOTICE("[mob_to_delete.name] climbs into [src]..."))
 	playsound(src, 'sound/machines/wooden_closet_close.ogg', 50)
 	qdel(mob_to_delete)
 

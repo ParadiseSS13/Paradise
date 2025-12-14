@@ -147,4 +147,7 @@
 	if(flag & LINDA_SPAWN_HYDROGEN)
 		G.set_hydrogen(G.hydrogen() + amount)
 
+	if(flag & LINDA_SPAWN_WATER_VAPOR)
+		G.set_water_vapor(G.water_vapor() + amount)
+
 	blind_release_air(G)

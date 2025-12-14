@@ -153,7 +153,7 @@
 	if(!..())
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
+		to_chat(user, SPAN_WARNING("You need to open [I] before inserting it."))
 		return FALSE
 	return TRUE
 
@@ -424,6 +424,7 @@
 					/obj/item/clothing/under/pants/black = 3,
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
+					/obj/item/clothing/under/pants/cargo = 3,
 					/obj/item/clothing/under/pants/track = 3,
 					/obj/item/clothing/suit/tracksuit = 3,
 					/obj/item/clothing/suit/tracksuit/green = 3,
@@ -516,6 +517,7 @@
 				/obj/item/clothing/under/pants/black = 75,
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
+				/obj/item/clothing/under/pants/cargo = 75,
 				/obj/item/clothing/under/pants/track = 75,
 				/obj/item/clothing/suit/tracksuit = 75,
 				/obj/item/clothing/suit/tracksuit/green = 75,

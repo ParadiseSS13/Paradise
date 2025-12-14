@@ -39,7 +39,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(user.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+		to_chat(user, SPAN_NOTICE("The watertank needs to be on your back to use."))
 		return
 	on = !on
 	if(on)
@@ -49,7 +49,7 @@
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
 			on = FALSE
-			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
+			to_chat(user, SPAN_NOTICE("You need a free hand to hold the mister."))
 			return
 		noz.forceMove(user)
 	else
@@ -130,7 +130,7 @@
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
-	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+	to_chat(user, SPAN_NOTICE("The mister snaps back onto the watertank."))
 	tank.on = FALSE
 	loc = tank
 
@@ -228,11 +228,11 @@
 	. = ..()
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
-			. += "<span class='notice'>[src] is currently set to extinguishing mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to extinguishing mode.")
 		if(NANOFROST)
-			. += "<span class='notice'>[src] is currently set to nanofrost mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to nanofrost mode.")
 		if(METAL_FOAM)
-			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to metal foam mode.")
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	if(!check_tank_exists(loc, src))
@@ -286,7 +286,7 @@
 	if(istype(tank, /obj/item/mod/module/firefighting_tank))
 		return
 
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+	to_chat(user, SPAN_NOTICE("The nozzle snaps back onto the tank!"))
 	tank.on = FALSE
 	loc = tank
 
@@ -298,11 +298,11 @@
 	switch(nozzle_mode)
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
-				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
+				to_chat(user, SPAN_WARNING("You need at least 100 units of water to use the nanofrost launcher!"))
 				return
 
 			if(COOLDOWN_TIMELEFT(src, nanofrost_cooldown))
-				to_chat(user, "<span class='warning'>The nanofrost launcher is still recharging!</span>")
+				to_chat(user, SPAN_WARNING("The nanofrost launcher is still recharging!"))
 				return
 
 			COOLDOWN_START(src, nanofrost_cooldown, nanofrost_cooldown_time)
@@ -320,11 +320,11 @@
 				return
 
 			if(metal_synthesis_charge <= 0)
-				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized!</span>")
+				to_chat(user, SPAN_WARNING("Metal foam mix is still being synthesized!"))
 				return
 
 			if(reagents.total_volume < 10)
-				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
+				to_chat(user, SPAN_WARNING("You need at least 10 units of water to use the metal foam synthesizer!"))
 				return
 
 			var/obj/effect/particle_effect/foam/metal/foam = new /obj/effect/particle_effect/foam/metal(get_turf(A), TRUE)

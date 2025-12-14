@@ -78,11 +78,11 @@
 		passive = !passive
 		ai_controller.set_blackboard_key(BB_MALF_DRONE_PASSIVE, passive)
 		if(passive)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(SPAN_NOTICE("[src] retracts several targetting vanes."))
 			advanced_bullet_dodge_chance = 0
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, null)
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(SPAN_WARNING("[src] suddenly lights up, and additional targetting vanes slide into place."))
 			advanced_bullet_dodge_chance = 25
 		ai_controller.cancel_actions()
 		update_icons()
@@ -97,8 +97,8 @@
 		return NONE
 
 	source.visible_message(
-		"<span class='danger'>[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!</span>",
-		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+		SPAN_DANGER("[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!"),
+		SPAN_USERDANGER("You evade [hitting_projectile]!"),
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/effects/refill.ogg'), 75, TRUE)
 	if(prob(50))

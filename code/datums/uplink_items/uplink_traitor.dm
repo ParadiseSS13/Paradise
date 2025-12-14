@@ -683,13 +683,13 @@
 	var/datum/mind/mind = usr.mind
 	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(LAZYACCESS(GLOB.contractors, mind))
-		to_chat(usr, "<span class='warning'>Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit."))
 		return
 	else if(!AT)
-		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Embedded Syndicate credentials not found."))
 		return
 	else if(IS_CHANGELING(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
-		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Embedded Syndicate credentials contain an abnormal signature. Aborting."))
 		return
 
 	var/obj/item/I = ..()

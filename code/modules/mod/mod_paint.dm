@@ -15,13 +15,13 @@
 		return ..()
 	var/obj/item/mod/control/mod = target
 	if(mod.active || mod.activating)
-		to_chat(user, "<span class='warning'>Deactivate the suit!</span>")
+		to_chat(user, SPAN_WARNING("Deactivate the suit!"))
 		return FINISH_ATTACK
 	if(!istype(mod.theme, compatible_theme))
-		to_chat(user, "<span class='warning'>Theme is not compatible!</span>")
+		to_chat(user, SPAN_WARNING("Theme is not compatible!"))
 		return FINISH_ATTACK
 	mod.set_mod_skin(skin)
-	to_chat(user, "<span class='notice'>You apply the theme to [mod].</span>")
+	to_chat(user, SPAN_NOTICE("You apply the theme to [mod]."))
 	qdel(src)
 	return FINISH_ATTACK
 

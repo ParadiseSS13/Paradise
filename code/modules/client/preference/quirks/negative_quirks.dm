@@ -49,8 +49,7 @@
 	cost = -4
 	trait_to_apply = TRAIT_BLIND
 	blacklisted = TRUE
-	item_to_give = /obj/item/clothing/glasses/sunglasses/blindfold
-	item_slot = ITEM_SLOT_EYES
+	item_to_give = /obj/item/blindcane
 
 /datum/quirk/mute
 	name = "Mute"
@@ -90,7 +89,7 @@
 *  If a bad attack isn't treated, it can easily feed into itself and kill the user.
 */
 /datum/quirk/asthma/proc/trigger_asthma_symptom(current_severity)
-	owner.visible_message("<span class='notice'>[owner] violently coughs!</span>", "<span class='warning'>Your asthma flares up!</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] violently coughs!"), SPAN_WARNING("Your asthma flares up!"))
 	switch(current_severity)
 		if(50 to 75)
 			owner.adjustOxyLoss(5)
@@ -117,6 +116,7 @@
 	name = "Pacifist"
 	desc = "You can't bring yourself to hurt others, and cannot take a command or security position."
 	cost = -3
+	blacklisted = TRUE
 	trait_to_apply = TRAIT_PACIFISM
 
 /datum/quirk/hungry

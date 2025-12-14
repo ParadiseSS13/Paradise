@@ -12,7 +12,7 @@
 		return ..()
 
 
-/obj/docking_port/mobile/assault_pod/dock(obj/docking_port/stationary/S1)
+/obj/docking_port/mobile/assault_pod/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
 	..()
 	if(!istype(S1, /obj/docking_port/stationary/transit))
 		playsound(get_turf(src.loc), 'sound/effects/explosion1.ogg',50,1)
@@ -30,7 +30,7 @@
 	var/dheight = 0
 	var/width = 7
 	var/height = 7
-	var/lz_dir = 1
+	var/lz_dir = NORTH
 
 /obj/item/assault_pod/attack_self__legacy__attackchain(mob/living/user)
 	var/target_area
