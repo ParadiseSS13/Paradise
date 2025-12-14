@@ -220,7 +220,7 @@
 
 /obj/item/nuclear_rod/fuel/thorium_salts
 	name = "thorium salts fuel rod"
-	desc = "A specialized fuel rod bred from uranium 235. While this rod doesnt have any notable power boosts, its amazingly large integrity makes it vitually impossible to deplete in a single shift if one can manage its heat."
+	desc = "A specialized fuel rod bred from uranium 235. While this rod doesn't have any notable power boosts, its amazingly large integrity makes it virtually impossible to deplete in a single shift, if one can manage its heat."
 	heat_amount = 40
 	power_amount = 35 KW
 	heat_amp_mod = 2.2
