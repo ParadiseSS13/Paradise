@@ -69,6 +69,18 @@
 			continue
 		squish_victim(victim)
 
+/obj/tgvehicle/moon_ascension/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/user)
+	if(!istype(user))
+		return FINISH_ATTACK
+	if(user != owner)
+		to_chat(user, SPAN_HIEROPHANT("GET YOUR FILTHY HANDS OFF MY RADIANT FORM!"))
+		user.AdjustKnockDown(5 SECONDS)
+		user.AdjustJitter(30 SECONDS, 30 SECONDS, 2 MINUTES)
+		user.AdjustConfused(5 SECONDS)
+		user.adjustFireLoss(10)
+		return FINISH_ATTACK
+	return ..()
+
 /// Damage and flatten our poor victim
 /obj/tgvehicle/moon_ascension/proc/squish_victim(mob/living/victim)
 	if(iscarbon(victim))
@@ -76,9 +88,8 @@
 		ADD_TRAIT(victim, TRAIT_CLOWN_CAR_SQUISHED, "moon_roller")
 		addtimer(CALLBACK(src, PROC_REF(allow_resquish), C), 3 SECONDS)
 		if(C.mind && prob(C.getBrainLoss() / 3))
-			log_debug("brain damage: [C.getBrainLoss()]")
 			C.AdjustKnockDown(5 SECONDS)
-			C.visible_message(SPAN_HIEROPHANT_WARNING("[victim] dazzled by the brillian light!"))
+			C.visible_message(SPAN_HIEROPHANT_WARNING("[victim] is dazzled by the brillian lights!"))
 			victim.apply_status_effect(/datum/status_effect/moon_converted)
 			add_attack_logs(owner, victim, "[victim] was driven insane by [owner]([src])")
 			log_game("[victim] was driven insane by [owner]")
