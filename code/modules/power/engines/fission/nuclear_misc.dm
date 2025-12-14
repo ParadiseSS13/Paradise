@@ -82,7 +82,7 @@
 			radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
 
 		if(!length(radial_list))
-			to_chat(user, "<span class='warning'>This rod has no potential for enrichment!</span>")
+			to_chat(user, SPAN_WARNING("This rod has no potential for enrichment!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
@@ -188,23 +188,23 @@
 
 /obj/machinery/nuclear_rod_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened!"))
 		return FALSE
 
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, SPAN_WARNING("[src] is busy right now."))
 		return FALSE
 
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>[src] is broken.</span>")
+		to_chat(user, SPAN_WARNING("[src] is broken."))
 		return FALSE
 
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>[src] has no power.</span>")
+		to_chat(user, SPAN_WARNING("[src] has no power."))
 		return FALSE
 
 	if(loaded_item)
-		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
+		to_chat(user, SPAN_WARNING("[src] is already loaded."))
 		return FALSE
 
 	return TRUE
@@ -231,7 +231,7 @@
 /obj/machinery/nuclear_rod_fabricator/proc/check_mat(obj/item/nuclear_rod/being_built, M)
 	var/A = materials.amount(M)
 	if(!A)
-		visible_message("<span class='warning'>Something has gone very wrong. Alert a developer.</span>")
+		visible_message(SPAN_WARNING("Something has gone very wrong. Alert a developer."))
 		return
 	else
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
@@ -242,7 +242,7 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while the maintenance panel is opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while the maintenance panel is opened."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/rod_fabricator_upgrade))
@@ -324,7 +324,7 @@
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't access [src] while it's opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't access [src] while it's opened."))
 		return
 
 /obj/machinery/nuclear_rod_fabricator/ui_state(mob/user)
@@ -361,13 +361,13 @@
 			qdel(temp_rod)
 
 			if(!required_materials || !length(required_materials))
-				to_chat(usr, "<span class='warning'>This rod design has no material requirements defined - please create an issue report</span>")
+				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report"))
 				return FALSE
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
 				if(materials.amount(mat_id) < required_amount)
-					to_chat(usr, "<span class='warning'>Not enough materials! Need [required_amount] units of [mat_id].</span>")
+					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]."))
 					return FALSE
 
 			// Spend materials
@@ -376,12 +376,12 @@
 				materials_to_use[mat_id] = required_materials[mat_id] * efficiency_coeff
 
 			if(!materials.use_amount(materials_to_use))
-				to_chat(usr, "<span class='warning'>Failed to deduct materials!</span>")
+				to_chat(usr, SPAN_WARNING("Failed to deduct materials!"))
 				return FALSE
 
 			// Create rod
 			var/obj/item/nuclear_rod/new_rod = new rod_type_path(get_turf(src))
-			to_chat(usr, "<span class='notice'>[src] fabricates \a [new_rod.name].</span>")
+			to_chat(usr, SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
 			playsound(src, 'sound/machines/ping.ogg', 50, 1)
 
 			return TRUE
@@ -398,7 +398,7 @@
 				var/datum/material/M = materials.materials[material_id]
 				var/max_sheets = round(M.amount / MINERAL_MATERIAL_AMOUNT)
 				if(max_sheets <= 0)
-					to_chat(usr, "<span class='warning'>Not enough [M.name] to eject!</span>")
+					to_chat(usr, SPAN_WARNING("Not enough [M.name] to eject!"))
 					return FALSE
 				desired_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [M.name]", 1, max_sheets, 1)
 				if(isnull(desired_sheets))
@@ -409,56 +409,11 @@
 			desired_sheets = max(0, round(desired_sheets))
 			if(desired_sheets > 0)
 				materials.retrieve_sheets(desired_sheets, material_id, get_turf(src))
-				to_chat(usr, "<span class='notice'>[src] ejects [desired_sheets] sheets.</span>")
+				to_chat(usr, SPAN_NOTICE("[src] ejects [desired_sheets] sheets."))
 
 			return TRUE
 
 	return FALSE
-
-// MARK: Temp rod fab
-/obj/machinery/temp_rod_fab
-	name = "DEBUG Nuclear Fuel Rod Fabricator"
-	desc = "A highly specialized fabricator for crafting nuclear rods."
-	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "protolathe"
-	idle_power_consumption = 50
-	density = TRUE
-	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE
-
-/obj/machinery/temp_rod_fab/attack_hand(mob/user)
-	if(!iscarbon(user))
-		return
-	var/mob/living/carbon/carbon = user
-	var/list/choices = list("Fuel", "Moderator", "Coolant")
-	var/selected = tgui_input_list(carbon, "Select a nuclear rod type:", "Nuclear Rods", choices)
-
-	if(!selected)
-		return
-	if(!Adjacent(carbon))
-		return
-
-	var/list/rod_list = list()
-	switch(selected)
-		if("Fuel")
-			for(var/obj/item/nuclear_rod/fuel/rod as anything in subtypesof(/obj/item/nuclear_rod/fuel))
-				rod_list[rod::name] = rod
-		if("Moderator")
-			for(var/obj/item/nuclear_rod/moderator/rod as anything in subtypesof(/obj/item/nuclear_rod/moderator))
-				rod_list[rod::name] = rod
-		if("Coolant")
-			for(var/obj/item/nuclear_rod/coolant/rod as anything in subtypesof(/obj/item/nuclear_rod/coolant))
-				rod_list[rod::name] = rod
-
-	selected = tgui_input_list(carbon, "Select a nuclear rod:", "Nuclear Rods", rod_list)
-
-	if(!selected)
-		return
-	if(!Adjacent(carbon))
-		return
-	var/obj/item/nuclear_rod/new_rod = rod_list[selected]
-	new_rod = new new_rod
-	carbon.put_in_hands(new_rod)
 
 // MARK: Reactor Power Output
 
@@ -543,7 +498,7 @@
 	var/obj/item/multitool/multitool = I
 	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
 		active = multitool.buffer
-		to_chat(user, "<span class='notice'>You load the buffer's linking data to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You load the buffer's linking data to [src]."))
 
 /obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -611,7 +566,7 @@
 	if(action == "toggle_vent")
 		if(active.vent_lockout)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			visible_message("<span class='warning'>ERROR: Vent servos unresponsive. Manual closure required.</span>")
+			visible_message(SPAN_WARNING("ERROR: Vent servos unresponsive. Manual closure required."))
 		else
 			active.venting = !active.venting
 

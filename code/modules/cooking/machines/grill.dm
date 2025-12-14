@@ -238,9 +238,9 @@
 		if(!burn_victim.hand)
 			which_hand = "r_hand"
 		burn_victim.adjustFireLossByPart(5, which_hand)
-		to_chat(burn_victim, "<span class='warning'>Your hand is burned as you try to remove the grill grate, but its stuck firmly!</span>")
+		to_chat(burn_victim, SPAN_WARNING("Your hand is burned as you try to remove the grill grate, but its stuck firmly!"))
 	else if(istype(burn_victim))
-		to_chat(burn_victim, "<span class='warning'>You try to remove the grill grate, but its stuck firmly!</span>")
+		to_chat(burn_victim, SPAN_WARNING("You try to remove the grill grate, but its stuck firmly!"))
 
 // We dont want most of the normal proc for shutting off.
 /obj/machinery/cooking/grill/loaded/reactor/ignite()

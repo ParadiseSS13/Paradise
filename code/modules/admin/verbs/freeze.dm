@@ -119,5 +119,5 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 		GLOB.frozen_atom_list -= src
 		admin_intervention = FALSE
 		cut_overlay(freeze_overlay)
-	message_admins("<span class='notice'>[key_name_admin(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor"))
 	log_admin("[key_name(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor")

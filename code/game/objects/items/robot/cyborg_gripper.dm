@@ -169,8 +169,8 @@
 			chamber.held_rod.forceMove(src)
 			gripped_item = chamber.held_rod
 			user.visible_message(
-			"<span class='notice'>[user] removes [chamber.held_rod] from [chamber].</span>",
-			"<span class='notice'>You remove [chamber.held_rod] from [chamber].</span>"
+			SPAN_NOTICE("[user] removes [chamber.held_rod] from [chamber]."),
+			SPAN_NOTICE("You remove [chamber.held_rod] from [chamber].")
 			)
 			chamber.held_rod = null
 			chamber.update_appearance(UPDATE_OVERLAYS)

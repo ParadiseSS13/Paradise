@@ -169,9 +169,9 @@
 		. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
 		return
 	if(venting)
-		. += "<span class='notice'>A crowbar can be used to close the malfunctioning vent.</span>"
+		. += SPAN_NOTICE("A crowbar can be used to close the malfunctioning vent.")
 	if(grill)
-		. += "<span class='notice'>Wirecutters can be used to remove the grill</span>"
+		. += SPAN_NOTICE("Wirecutters can be used to remove the grill")
 
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
@@ -179,7 +179,7 @@
 	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that possessed basic engineering infrastructure."
 	. += ""
 	. += "However, despite the popularity of the engine, the need for frequent upkeep and higher energy demands led to innovations in newer, more advanced energy sources. \
-	This engine soon became a relic of the past, but still remains a staple in many stations due to what Nanotrasen calls its "long term reliability".
+	This engine soon became a relic of the past, but still remains a staple in many stations due to what Nanotrasen calls its 'long term reliability'."
 
 /obj/machinery/atmospherics/fission_reactor/Initialize(mapload)
 	. = ..()
@@ -296,9 +296,9 @@
 			new /obj/item/slag(loc)
 			if(prob(20))
 				repair_step++
-				to_chat(creature, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
+				to_chat(creature, SPAN_INFORMATION("There seems to be more slag clogging the ruined reactor core."))
 			else
-				to_chat(creature, "<span class='information'>No more melted slag remains in the chamber.</span>")
+				to_chat(creature, SPAN_INFORMATION("No more melted slag remains in the chamber."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
@@ -306,19 +306,19 @@
 			if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
 				if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 					plastitanium.use(5)
-					to_chat(creature, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
+					to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
 					repair_step++
 					icon = "reactor_maintenance"
 			else
 				if(!offline)
-					to_chat(creature, "<span class='warning'>The reactor must be off to repair it!</span>")
+					to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
 					return ITEM_INTERACT_COMPLETE
 				if(damage == 0)
-					to_chat(creature, "<span class='warning'>The reactor has nothing left to repair!</span>")
+					to_chat(creature, SPAN_WARNING("The reactor has nothing left to repair!"))
 					return ITEM_INTERACT_COMPLETE
 				var/obj/item/item = creature.get_inactive_hand()
 				if(!istype(item, /obj/item/weldingtool))
-					to_chat(creature, "<span class='warning'>A functional welder is required to adhere the plastitanium.</span>")
+					to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
 					return ITEM_INTERACT_COMPLETE
 				if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
 					return ITEM_INTERACT_COMPLETE
@@ -326,7 +326,7 @@
 					plastitanium.use(5)
 					adjust_damage((-MELTDOWN_POINT * 0.1))
 		else
-			to_chat(creature, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
+			to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
@@ -334,9 +334,9 @@
 			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 				repair_step++
 				plasteel.use(5)
-				to_chat(user, "<span class='information'>You attach a layer of radiation shielding around the reactor core.</span>")
+				to_chat(user, SPAN_INFORMATION("You attach a layer of radiation shielding around the reactor core."))
 		else
-			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure.</span>")
+			to_chat(user, SPAN_WARNING("You need at least five sheets of plasteel to reform the reactor core structure."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
 		if(!grill)
@@ -347,15 +347,15 @@
 				grill = new(loc)
 				return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You need a second grate to set up a proper grill.</span>")
+				to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill."))
 				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>There are already grill grates adhered to the surface of the reactor.</span>")
+			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface of the reactor."))
 			return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
 	if(grill)
-		to_chat(user, "<span class='warning'>You begin cutting the adhered grates from the reactor body...</span>")
+		to_chat(user, "<span class='warning'>You begin cutting the adhered grates from the reactor body...")
 		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
@@ -367,7 +367,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 			playsound(src, I.usesound, 50, 1)
 			repair_step++
-			to_chat(user, "<span class='information'>You remove any remaining damaged structure from the housing.</span>")
+			to_chat(user, SPAN_INFORMATION("You remove any remaining damaged structure from the housing."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN) && venting)
@@ -381,7 +381,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
 			repair_step++
-			to_chat(user, "<span class='information'>You secure the new plastitanium structure in place.</span>")
+			to_chat(user, SPAN_INFORMATION("You secure the new plastitanium structure in place."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
@@ -396,7 +396,7 @@
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
-			to_chat(user, "<span class='information'>You secure the radiation shielding into place.</span>")
+			to_chat(user, SPAN_INFORMATION("You secure the radiation shielding into place."))
 			set_fixed()
 		return ITEM_INTERACT_COMPLETE
 
@@ -405,7 +405,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
 			repair_step++
-			to_chat(user, "<span class='information'>You weld together the framing, ensuring an airtight seal within the core.</span>")
+			to_chat(user, SPAN_INFORMATION("You weld together the framing, ensuring an airtight seal within the core."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 
@@ -449,11 +449,11 @@
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
 		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			reactor.visible_message("<span class='warning'>[src] melts through [T]!</span>")
+			reactor.visible_message(SPAN_INFORMATION("[src] melts through [T]!"))
 		return
 
 	for(var/obj/structure/holosign/barrier/atmos/fan in reactor.loc.contents)
-		reactor.visible_message("<span class='warning'>[src] violently ruptures through [fan]!</span>")
+		reactor.visible_message(SPAN_INFORMATION("[src] violently ruptures through [fan]!"))
 		fan.Destroy()
 		return
 
@@ -739,9 +739,9 @@
 		if(SUPERMATTER_DANGER)
 			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 		if(SUPERMATTER_EMERGENCY)
-			radio.autosay("<span class='big'>[warning_alert] Integrity: [get_integrity()]%</span>", name, null)
+			radio.autosay(SPAN_BIG("[warning_alert] Integrity: [get_integrity()]%"), name, null)
 		if(SUPERMATTER_DELAMINATING)
-			radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+			radio.autosay(SPAN_BIG("[emergency_alert] Integrity: [get_integrity()]%"), name, null)
 
 /obj/machinery/atmospherics/fission_reactor/proc/get_status()
 	var/integrity = get_integrity()
@@ -823,7 +823,7 @@
 	if(final_countdown)
 		return
 	final_countdown = TRUE
-	var/speaking = "<span class='reallybig'>[emergency_alert] Reactor structural stability compromised. </span>"
+	var/speaking = SPAN_REALLYBIG("[emergency_alert] Reactor structural stability compromised. ")
 	for(var/mob/M in GLOB.player_list) // for all players
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
@@ -835,7 +835,7 @@
 			adjust_damage(MELTDOWN_POINT - 1, TRUE) // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(offline) // Engineers managed to fully turn off the reactor in time
-			radio.autosay("<span class='big'>[safe_alert]</span>", name, null)
+			radio.autosay(SPAN_BIG("[safe_alert]"), name, null)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
 			return
@@ -845,7 +845,7 @@
 		else if(i > 50)
 			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before full reactor core meltdown.</b>"
 		else
-			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
+			speaking = SPAN_REALLYBIG("[i * 0.1]...")
 		radio.autosay(speaking, name, null)
 		sleep(10)
 
@@ -1114,9 +1114,9 @@
 
 /obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
 	. = ..()
-	. += to_chat(user, "<span class='notice'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
-	. += "<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.</span>"
-	. += "<span class='notice'>Click on the chamber while it is closed to raise and lower it.</span>"
+	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder while in the down position.")
+	. += SPAN_NOTICE("<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.")
+	. += SPAN_NOTICE("<span class='notice'>Click on the chamber while it is closed to raise and lower it.")
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -1186,20 +1186,20 @@
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in range(0, src))
 		chambers_found++
 		if(chambers_found > 1)
-			visible_message("<span class='warning'>[src] has no room to deploy and breaks apart!</span>")
+			visible_message(SPAN_WARNING("[src] has no room to deploy and breaks apart!"))
 			chamber.deconstruct()
 
 /obj/machinery/atmospherics/reactor_chamber/attack_hand(mob/user)
 	if(!user)
 		return
 	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, "<span class='warning'>An unusual force prevents you from moving the chamber!</span>")
+		to_chat(user, SPAN_WARNING("An unusual force prevents you from moving the chamber!"))
 		return
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>The chamber's locks wont disengage without power!</span>")
+		to_chat(user, SPAN_WARNING("The chamber's locks wont disengage without power!"))
 		return
 	if(user.loc == loc)
-		to_chat(user, "<span class='warning'>You can't raise the rod chamber while standing on it!</span>")
+		to_chat(user, SPAN_WARNING("You can't raise the rod chamber while standing on it!"))
 		return
 
 	if(!is_mecha_occupant(user))
@@ -1210,7 +1210,7 @@
 			if(!Adjacent(user))
 				return
 			if(welded)
-				to_chat(user, "<span class='warning'>[src] is welded shut. It wont budge!</span>")
+				to_chat(user, SPAN_WARNING("[src] is welded shut. It wont budge!"))
 				return
 			var/delay = 1 SECONDS
 			if(linked_reactor && !linked_reactor.offline)
@@ -1234,7 +1234,7 @@
 			if(issilicon(user)) // handled seperately. Dont pull out this way
 				return
 			if(!held_rod)
-				to_chat(user, "<span class='warning'>There is no rod inside of the chamber to remove!</span>")
+				to_chat(user, SPAN_WARNING("There is no rod inside of the chamber to remove!"))
 				return
 			else
 				if(user.put_in_hands(held_rod))
@@ -1243,10 +1243,10 @@
 					playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
 					update_icon(UPDATE_OVERLAYS)
 				else
-					to_chat(user, "<span class='warning'>Your hands are currently full!</span>")
+					to_chat(user, SPAN_WARNING("Your hands are currently full!"))
 					return
 		if(CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, "<span class='alert'>The chamber lockdowns have been engaged, preventing it from being raised!</span>")
+			to_chat(user, SPAN_ALERT("The chamber lockdowns have been engaged, preventing it from being raised!"))
 			return
 	update_icon(UPDATE_OVERLAYS)
 
@@ -1256,14 +1256,14 @@
 	if(lockout)
 		return
 	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, "<span class='warning'>An unusual force prevents you from manipulating the chamber!</span>")
+		to_chat(user, SPAN_WARNING("An unusual force prevents you from manipulating the chamber!"))
 		return
 	if(chamber_state == CHAMBER_UP)
 		open()
 		return
 	if(chamber_state == CHAMBER_OPEN)
 		if(panel_open == TRUE)
-			to_chat(user, "<span class='warning'>You must close the maintenance panel before the chamber can be sealed!</span>")
+			to_chat(user, SPAN_WARNING("You must close the maintenance panel before the chamber can be sealed!"))
 			return
 		close()
 		return
@@ -1287,10 +1287,10 @@
 		return
 	. = TRUE
 	if(chamber_state != CHAMBER_OPEN)
-		to_chat(user, "<span class='alert'>[src] must be raised and opened first!</span>")
+		to_chat(user, SPAN_ALERT("[src] must be raised and opened first!"))
 		return
 	if(!linked_reactor.offline)
-		to_chat(user, "<span class='alert'>The safety locks prevent maintenance while the reactor is on!</span>")
+		to_chat(user, SPAN_ALERT("The safety locks prevent maintenance while the reactor is on!"))
 		return
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
@@ -1302,7 +1302,7 @@
 	if(user.a_intent == INTENT_HARM)
 		if(chamber_state != CHAMBER_DOWN)
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='warning'>You begin [welded ? "welding" : "unwelding"] [src]</span>")
+		to_chat(user, SPAN_WARNING("You begin [welded ? "welding" : "unwelding"] [src]"))
 		if(!I.use_tool(src, user, (6 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return ITEM_INTERACT_COMPLETE
 		if(welded)
@@ -1313,12 +1313,12 @@
 		return ITEM_INTERACT_COMPLETE
 	else
 		if(obj_integrity < max_integrity)
-			to_chat(user, "<span class='warning'>You begin repairing the [src]</span>")
+			to_chat(user, SPAN_WARNING("You begin repairing the [src]"))
 			if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
 				return ITEM_INTERACT_COMPLETE
 			obj_integrity = max_integrity // lets make sure we can keep these healthy if need be
 		else
-			to_chat(user, "<span class='warning'>the [src] is not in need of repair</span>")
+			to_chat(user, SPAN_WARNING("the [src] is not in need of repair"))
 		return ITEM_INTERACT_COMPLETE
 
 
@@ -1327,52 +1327,52 @@
 		return
 	. = TRUE
 	if(!held_rod)
-		to_chat(user, "<span class='warning'>There is no nuclear rod inside this housing chamber.</span>")
+		to_chat(user, SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
 		return ITEM_INTERACT_COMPLETE
 	if(!linked_reactor)
-		to_chat(user, "<span class='warning'>This chamber is not connected to a reactor.</span>")
+		to_chat(user, SPAN_WARNING("This chamber is not connected to a reactor."))
 		return ITEM_INTERACT_COMPLETE
 	var/operating_rate = linked_reactor.operating_percent()
 	var/durability_mod = held_rod.get_durability_mod()
 	var/list/message = list()
-	message += "<span class='notice'>[held_rod] is currently contained within this chamber.</span>"
+	message += SPAN_NOTICE("[held_rod] is currently contained within this chamber.")
 
 	message += ""
 
 	if(held_rod.durability == 0)
-		message += "<span class='notice'>The rod has been fully depleted and rendered inert.</span>"
+		message += SPAN_NOTICE("The rod has been fully depleted and rendered inert.")
 		to_chat(user, message)
 		return ITEM_INTERACT_COMPLETE
 	else
-		message += "<span class='notice'>Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.</span>"
+		message += SPAN_NOTICE("Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.")
 
 	message += ""
 
 	if(power_total && operational)
-		message += "<span class='notice'>The chamber is currently producing [(power_total * operating_rate * durability_mod) / 1000] KiloWatts of energy.</span>"
-		message += "<span class='notice'>The chamber has a power modifier of [power_mod_total].</span>"
+		message += SPAN_NOTICE("The chamber is currently producing [(power_total * operating_rate * durability_mod) / 1000] KiloWatts of energy.")
+		message += SPAN_NOTICE("The chamber has a power modifier of [power_mod_total].")
 	else
-		message += "<span class='notice'>The chamber is producing no power.</span>"
+		message += SPAN_NOTICE("The chamber is producing no power.")
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-			message += "<span class='notice'>[held_rod] has been power enriched</span>"
+			message += SPAN_NOTICE("[held_rod] has been power enriched")
 		else
-			message += "<span class='notice'>[held_rod] has not yet finished a power enrichment process.</span>"
+			message += SPAN_NOTICE("[held_rod] has not yet finished a power enrichment process.")
 
 	message += ""
 
 	if(heat_total)
-		message += "<span class='notice'>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.</span>"
-		message += "<span class='notice'>The chamber has a heat modifier of [heat_mod_total].</span>"
+		message += SPAN_NOTICE("The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.")
+		message += SPAN_NOTICE("The chamber has a heat modifier of [heat_mod_total].")
 	else
-		message += "<span class='notice'>The chamber is producing no heat.</span>"
+		message += SPAN_NOTICE("The chamber is producing no heat.")
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
-			message += "<span class='notice'>[held_rod] has been heat enriched</span>"
+			message += SPAN_NOTICE("[held_rod] has been heat enriched")
 		else
-			message += "<span class='notice'>[held_rod] has not yet finished a heat enrichment process.</span>"
+			message += SPAN_NOTICE("[held_rod] has not yet finished a heat enrichment process.")
 
 	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return ITEM_INTERACT_COMPLETE
@@ -1642,7 +1642,7 @@
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
 		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			chamber.visible_message("<span class='warning'>[src] melts through [T]!</span>")
+			chamber.visible_message(SPAN_WARNING("[src] melts through [T]!"))
 		return
 
 	var/heat_capacity = environment.heat_capacity()
@@ -1760,9 +1760,9 @@
 	else if(ismob(victim))
 		if(ishuman(victim))
 			var/mob/living/carbon/human/H = victim
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an ejected coolant rod!</span>",
-				"<span class='userdanger'>The rod penetrates you!</span>",
-				"<span class ='danger'>You hear a CLANG!</span>")
+			H.visible_message(SPAN_DANGER("[H.name] is penetrated by an ejected coolant rod!"),
+				SPAN_USERDANGER("The rod penetrates you!"),
+				SPAN_DANGER("You hear a CLANG!"))
 			H.adjustBruteLoss(100) // not as strong as a normal rod
 		if(victim.density || prob(20)) // we want to hit more things than a normal rod though
 			victim.ex_act(EXPLODE_HEAVY)
@@ -1815,8 +1815,8 @@
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A wrench can be used to alter the direction of the node.</span>"
-	. += "<span class='notice'>Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.</span>"
+	. += SPAN_NOTICE("A wrench can be used to alter the direction of the node.")
+	. += SPAN_NOTICE("Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.")
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
 	if(stat & (NOPOWER|BROKEN))
@@ -1863,7 +1863,7 @@
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='information'>You begin to pry out the internal piping...</span>")
+	to_chat(user, SPAN_INFORMATION("You begin to pry out the internal piping..."))
 	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		default_deconstruction_crowbar(user, I)
 
@@ -1873,11 +1873,11 @@
 	if(!selected)
 		return ITEM_INTERACT_COMPLETE
 	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
+		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return ITEM_INTERACT_COMPLETE
 	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
+		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
 		return ITEM_INTERACT_COMPLETE
 	dir = choices[selected]
 	initialize_directions = dir
@@ -1900,7 +1900,7 @@
 			linked_reactor = filler.parent
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='information'>You begin to reverse the gas flow direction...</span>")
+	to_chat(user, SPAN_INFORMATION("You begin to reverse the gas flow direction..."))
 	if(do_after_once(user, 1 SECONDS, TRUE, src, allow_moving = FALSE))
 		intake_vent = !intake_vent
 		if(intake_vent)

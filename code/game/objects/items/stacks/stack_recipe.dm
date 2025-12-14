@@ -96,7 +96,7 @@
 			return FALSE
 
 	if(locate(/obj/machinery/atmospherics/reactor_chamber) in get_turf(material))
-		to_chat(user, "<span class='warning'>Building something here would get in the way of the reactor!</span>")
+		to_chat(user, SPAN_WARNING("Building something here would get in the way of the reactor!"))
 		return FALSE
 	return TRUE
 

@@ -759,7 +759,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 			log_admin("An admin attempted to override fission reactor safeties, but it was already overriden")
 			return
 		sleep(5 SECONDS)
-		GLOB.main_fission_reactor.radio.autosay("<span class='big'>All teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty.</span>", "Automated Announcement", "Special Ops")
+		GLOB.main_fission_reactor.radio.autosay(SPAN_BIG("All teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty."), "Automated Announcement", "Special Ops")
 		GLOB.main_fission_reactor.prep_overload()
 	else
 		log_admin("An admin attempted to override fission reactor safeties, but no reactor was found!")
