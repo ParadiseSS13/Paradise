@@ -584,13 +584,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
-	var/code
-	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-			code = bombue.r_code
-			break
-	if(code)
-		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+	// We have to do it with a callback because mind/Topic creates the objective without an owner
+	addtimer(CALLBACK(src, PROC_REF(give_kit), /obj/item/nad_scanner), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/objective/nuke/check_completion()
 	if(SSticker.mode.station_was_nuked)

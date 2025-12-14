@@ -1,10 +1,5 @@
-/client/proc/edit_admin_permissions()
-	set category = "Admin"
-	set name = "Permissions Panel"
-	set desc = "Edit admin permissions"
-	if(!check_rights(R_PERMISSIONS))
-		return
-	usr.client.holder.edit_admin_permissions()
+USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admin permissions", VERB_CATEGORY_ADMIN)
+	client.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
 	if(!check_rights(R_PERMISSIONS))
@@ -41,7 +36,7 @@
 	if(GLOB.configuration.admin.use_database_admins)
 		var/datum/db_query/get_admins = SSdbcore.NewQuery({"
 			SELECT
-				admin.ckey, 
+				admin.ckey,
 				admin_ranks.name,
 				admin.display_rank,
 				IFNULL(admin_ranks.default_permissions, 0),

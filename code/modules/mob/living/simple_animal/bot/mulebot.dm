@@ -681,9 +681,9 @@
 			else
 				newdir = newdir | dir
 				if(newdir == 3)
-					newdir = 1
+					newdir = NORTH
 				else if(newdir == 12)
-					newdir = 4
+					newdir = EAST
 				B.setDir(newdir)
 			B.update_icon()
 			bloodiness--

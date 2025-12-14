@@ -750,6 +750,7 @@ SLIME SCANNER
 	var/sleeping_agent = 0
 	var/agent_b = 0
 	var/hydrogen = 0
+	var/water_vapor = 0
 
 	if(detailed)// Present all mixtures one by one
 		for(var/datum/gas_mixture/air as anything in airs)
@@ -773,7 +774,9 @@ SLIME SCANNER
 				if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
 					message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
 				if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
-					message += "  <span class='plasma'>Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)</span>"
+					message += "  <span class='hydrogen'>Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)</span>"
+				if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
+					message += "  <span class='water_vapor'>Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)</span>"
 				message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
 				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
@@ -798,6 +801,7 @@ SLIME SCANNER
 			sleeping_agent += air.sleeping_agent()
 			agent_b += air.agent_b()
 			hydrogen += air.hydrogen()
+			water_vapor += air.water_vapor()
 
 		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
 		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
@@ -818,6 +822,8 @@ SLIME SCANNER
 				message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
 			if(hydrogen && (milla_turf_details || hydrogen / total_moles > 0.01))
 				message += "  <span class='hydrogen'>Hydrogen: [round(hydrogen, 0.01)] moles ([round(hydrogen / total_moles * 100, 0.01)] %)</span>"
+			if(water_vapor && (milla_turf_details || (water_vapor / total_moles > 0.01)))
+				message += "  <span class='water_vapor'>Water Vapor: [round(water_vapor, 0.01)] moles ([round(water_vapor / total_moles * 100, 0.01)] %)</span>"
 			message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
 			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"

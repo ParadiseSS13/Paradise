@@ -20,7 +20,8 @@
 		"CO2" = 50,
 		"Plasma" = 5,
 		"Agent B" = 5,
-		"Hydrogen" = 15
+		"Hydrogen" = 15,
+		"Water Vapor" = 5
 	)
 
 /mob/living/simple_animal/hostile/guardian/gaseous/Initialize(mapload, mob/living/host)
@@ -69,6 +70,8 @@
 			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
 		if("Hydrogen")
 			linda_flags = LINDA_SPAWN_HYDROGEN | LINDA_SPAWN_20C
+		if("Water Vapor")
+			linda_flags = LINDA_SPAWN_WATER_VAPOR | LINDA_SPAWN_20C
 
 /mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(flow_x, flow_y)
 	return // Immune to gas flow.

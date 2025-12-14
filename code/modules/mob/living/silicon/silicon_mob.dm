@@ -569,9 +569,47 @@
 		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
 	)
 	silicon_hat = item_to_add
+	var/datum/action/A = new /datum/action/innate/drop_silicon_hat(src)
+	A.Grant(src)
 	update_icons()
 
 	return TRUE
+
+/datum/action/innate/drop_silicon_hat
+	name = "Drop hat"
+	desc = "Discard your hat onto the ground."
+
+/datum/action/innate/drop_silicon_hat/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	var/mob/living/silicon/S = owner
+	button_icon = S.silicon_hat.icon
+	button_icon_state = S.silicon_hat.icon_state
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
+
+/datum/action/innate/drop_silicon_hat/Activate()
+	var/mob/living/silicon/S = owner
+	// Sillycones will not escape from the wrath of the shamebrero!
+	if(S.silicon_hat.flags & NODROP)
+		to_chat(S, "<span class='warning'>[S.silicon_hat] is stuck to your head! It is impossible to remove!</span>")
+		return
+
+	if(is_ai(S))
+		S.visible_message(
+			"<span class='notice'>[S] ejects [S.silicon_hat] from [S.p_their()] hat storage area.</span>",
+			"<span class='notice'>You eject [S.silicon_hat] from your hat storage area.</span>",
+			"<span class='notice'>You hear a quiet pneumatic hiss followed by something landing on the floor.</span>"
+		)
+	else
+		S.visible_message(
+			"<span class='notice'>[S] shakes [S.silicon_hat] off [S.p_their()] head.</span>",
+			"<span class='notice'>You shake [S.silicon_hat] off your head.</span>",
+			"<span class='notice'>You hear something land on the floor.</span>"
+		)
+	S.drop_hat()
+	Remove(owner)
 
 /**
   * Attempts to remove any hats a silicon is wearing.
@@ -585,12 +623,17 @@
 		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
 		return FALSE
 	if(silicon_hat.flags & NODROP)
-		to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
+		to_chat(user, "<span class='warning'>[silicon_hat] is stuck on [src]'s head, it is impossible to remove!</span>")
 		return FALSE
 
-	to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
+	user.visible_message(
+		"<span class='warning'>[user] removes [silicon_hat] from [src]'s head!</span>",
+		"<span class='warning'>You remove [silicon_hat] from [src]'s head!</span>"
+	)
 	user.put_in_hands(silicon_hat)
-
+	for(var/datum/action/A in src.actions)
+		if(A.name == "Drop hat")
+			A.Remove(src)
 	null_hat()
 	update_icons()
 
