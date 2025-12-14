@@ -2266,8 +2266,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(next_move >= world.time)
 		return
 
-	if(stat)
-		return FALSE
+	if(stat != CONSCIOUS)
+		return
 
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
