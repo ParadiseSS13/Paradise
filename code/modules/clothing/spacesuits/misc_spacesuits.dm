@@ -104,7 +104,7 @@
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
-	desc = "Ho ho ho. Merrry X-mas! This one is spaceworthy.\n<span class='notice'>Use in hand to toggle the hat's beard.</span>"
+	desc = "Ho ho ho. Merrry X-mas! This one is spaceworthy."
 	icon_state = "santahat"
 	inhand_icon_state = null
 	sprite_sheets = list(
@@ -115,6 +115,10 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEEARS
 	dog_fashion = /datum/dog_fashion/head/santa
+
+/obj/item/clothing/head/helmet/space/santahat/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("Use in hand to toggle the hat's beard.")
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
 	if(icon_state == "santahat")
