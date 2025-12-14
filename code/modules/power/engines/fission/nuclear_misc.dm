@@ -1,6 +1,6 @@
 #define DEFAULT_TIME 10 SECONDS
 
-/// MARK: Cetrifuge
+/// MARK: Centrifuge
 /obj/machinery/nuclear_centrifuge
 	name = "Fuel Enrichment Centrifuge"
 	desc = "An advanced device capable of seperating and collecting fissile materials from enriched fuel rods."
