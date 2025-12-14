@@ -46,7 +46,7 @@
 	)
 
 /obj/item/clothing/head/wizard/fake
-	desc = "It has WIZZARD written across it in sequins. Apparently the beard comes separate now."
+	desc = "It has WIZZARD written across it in sequins. Beard sold separately."
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
