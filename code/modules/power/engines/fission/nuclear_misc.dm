@@ -3,7 +3,7 @@
 /// MARK: Centrifuge
 /obj/machinery/nuclear_centrifuge
 	name = "Fuel Enrichment Centrifuge"
-	desc = "An advanced device capable of seperating and collecting fissile materials from enriched fuel rods."
+	desc = "An advanced device capable of separating and collecting fissile materials from enriched fuel rods."
 	icon = 'icons/obj/fission/reactor_parts.dmi'
 	icon_state = "centrifuge"
 	idle_power_consumption = 200
