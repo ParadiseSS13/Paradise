@@ -58,10 +58,6 @@
 		playsound(wall, 'sound/effects/meteorimpact.ogg', 80, 1)
 		wall.dismantle_wall(TRUE, FALSE)
 
-
-/obj/tgvehicle/moon_ascension/AltClick(mob/user)
-	owner = user // REMOVE THIS BEFORE MERGE!!!!!! TESTING ONLY!!!!!!!
-
 /obj/tgvehicle/moon_ascension/Move(newloc, dir)
 	. = ..()
 	for(var/mob/living/victim in loc)
@@ -113,6 +109,7 @@
 	return ..()
 
 /obj/tgvehicle/moon_ascension/post_buckle_mob(mob/living/carbon/human/M, force, check_loc)
+	. = ..()
 	M.plane = 20
 	moonray = new(M)
 	M.vis_contents += moonray

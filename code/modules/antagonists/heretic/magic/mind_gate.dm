@@ -1,7 +1,6 @@
 /datum/spell/mind_gate
 	name = "Mind Gate"
-	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
-			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
+	desc = "target suffers a hallucination, is left confused for 10 seconds, and suffers oxygen loss and brain damage."
 
 
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -38,6 +37,3 @@
 	target.adjustOxyLoss(30)
 	new /obj/effect/hallucination/delusion(get_turf(target), target, 'icons/effects/eldritch.dmi', "heretic")
 	target.adjustBrainLoss(25)
-
-	var/mob/living/living_owner = user
-	living_owner.adjustBrainLoss(16.5)

@@ -14,13 +14,13 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 1 MINUTES
+	base_cooldown = 3 MINUTES
 
 /datum/spell/caretaker/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 /datum/spell/caretaker/valid_target(target, user)
-	for(var/mob/living/alive in orange(5, user))
+	for(var/mob/living/alive in orange(7, user))
 		if(alive.stat != DEAD && alive.client)
 			to_chat(user, SPAN_WARNING("There are sentient beings blocking you from shifting!"))
 			return FALSE

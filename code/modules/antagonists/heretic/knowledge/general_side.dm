@@ -74,18 +74,8 @@
 		)
 
 	var/static/list/paint_item = list(
-		/obj/item/toy/crayon,
-		/obj/item/toy/crayon/red,
-		/obj/item/toy/crayon/green,
-		/obj/item/toy/crayon/yellow,
-		/obj/item/toy/crayon/white,
-		/obj/item/toy/crayon/blue,
-		/obj/item/toy/crayon/purple,
-		/obj/item/toy/crayon/black,
-		/obj/item/toy/crayon/rainbow,
-		/obj/item/toy/crayon/orange,
-		/obj/item/toy/crayon/spraycan,
-		/obj/item/pen,
+		list(/obj/item/toy/crayon),
+		list(/obj/item/pen),
 		/obj/item/pen/red,
 		/obj/item/pen/blue,
 		/obj/item/pen/fancy,

@@ -125,6 +125,7 @@
 		human_user.visible_message(SPAN_WARNING("An otherwordly presence tears and atomizes [human_user]'s arm as [human_user.p_they(FALSE)] try to reach into the hole in the very fabric of reality!"),SPAN_USERDANGER("An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
 		their_poor_arm.droplimb()
 		qdel(their_poor_arm)
+		human_user.update_body()
 	else
 		to_chat(human_user,SPAN_DANGER("You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existence itself!"))
 	return TRUE

@@ -188,11 +188,11 @@
 
 /datum/spell/summonitem/moon/cast(list/targets, mob/user = usr)
 	if(!moon)
-		to_chat(user, SPAN_HIEROPHANT_WARNING("THE AVATAR IS DEAD! DESPAIR!</span>"))
+		to_chat(user, SPAN_HIEROPHANT_WARNING("THE AVATAR IS DEAD! DESPAIR!"))
 		cooldown_handler.revert_cast()
 		return FALSE
 	if(moon.is_occupant(user)) // prevents use of the spell when on the moon.
-		to_chat(user, SPAN_WARNING("You cannot summon the avatar while utilizing it!</span>"))
+		to_chat(user, SPAN_WARNING("You cannot summon the avatar while utilizing it!"))
 		cooldown_handler.revert_cast()
 		return FALSE
 	return ..()
