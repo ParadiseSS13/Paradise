@@ -1,0 +1,4423 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"ab" = (
+/obj/structure/grille,
+/turf/space,
+/area/space/nearstation)
+"aD" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"aL" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"aZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"bD" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"bI" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/obj/structure/chair,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"bS" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"bX" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/obj/structure/shelf/science,
+/obj/item/stock_parts/cell/bluespace,
+/obj/item/stock_parts/cell/bluespace,
+/obj/item/stock_parts/cell/high/slime,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"cl" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"cQ" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"dh" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Diner"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"do" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/vault,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"ds" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/space/nearstation)
+"dH" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"dN" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"ea" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"ev" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"eC" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"eS" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"eZ" = (
+/obj/machinery/door/window{
+	name = "Bar Door";
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"fo" = (
+/obj/machinery/atmospherics/portable/canister/air{
+	filled = 1
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"fB" = (
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"fM" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"gc" = (
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/light,
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ge" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"gj" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"gr" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"hc" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"hp" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"hq" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/showcase{
+	density = 0;
+	dir = 4;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"ht" = (
+/obj/machinery/atmospherics/portable/canister/air{
+	filled = 1
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"hA" = (
+/obj/structure/chair/wood/wings,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"hJ" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"hZ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"il" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ip" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"iu" = (
+/turf/simulated/floor/plasteel/fakestairs/center,
+/area/ruin/powered)
+"iv" = (
+/obj/structure/closet/toolcloset,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"iz" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"iQ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"jb" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/powered)
+"ki" = (
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"km" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ko" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ku" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"kw" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"kC" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"kM" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"kO" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"kR" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"kZ" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"lf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"lg" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"lh" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/obj/machinery/atmospherics/unary/cryo_cell,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"lo" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/obj/machinery/economy/vending/medical,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"lq" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"lw" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/powered)
+"lE" = (
+/obj/machinery/recharge_station/upgraded,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"lX" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"md" = (
+/obj/machinery/access_button/offset/west,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"mt" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"mA" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"mI" = (
+/turf/simulated/wall/r_wall,
+/area/space/nearstation)
+"mV" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/showcase{
+	density = 0;
+	dir = 4;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"mW" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"nm" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"nn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"nK" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"nP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"oh" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"on" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	autolink_id = "syndishuttle_vent"
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/airlock_controller/air_cycler/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"or" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/structure/chair/sofa/bench/right{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"oA" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"oK" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/obj/machinery/atmospherics/portable/canister/oxygen{
+	name = "Canister: \[O2] (CRYO)"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/reversed{
+	name = "Cryo Tank Storage"
+	},
+/obj/machinery/atmospherics/unary/portables_connector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"oN" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"oS" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"pc" = (
+/obj/machinery/suit_storage_unit/security/secure,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"pl" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"pJ" = (
+/obj/structure/table/reinforced,
+/obj/item/flash{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/flash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"qg" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"qk" = (
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"qE" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"qN" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"ru" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"rx" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"ry" = (
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/shower/directional/north,
+/turf/simulated/floor/noslip,
+/area/ruin/powered)
+"rY" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"sg" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"su" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"sC" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"sE" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"sM" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/grill,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"sO" = (
+/obj/structure/gunrack,
+/obj/item/gun/energy/laser{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/laser,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"sU" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"tj" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"tn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"tp" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = -7;
+	pixel_y = 16
+	},
+/obj/item/lighter/zippo/engraved,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"ty" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"tG" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"tJ" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"uB" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	autolink_id = "syndishuttle_vent"
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/obj/structure/sign/vacuum/external{
+	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"uF" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"vu" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vz" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vE" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/structure/chair/sofa/bench{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vL" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/item/robot_parts/robot_suit,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"vM" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wa" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"wc" = (
+/obj/machinery/door/airlock/atmos/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wn" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"wo" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wv" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"wF" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wK" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wS" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"wW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"xa" = (
+/obj/structure/chair/sofa/bench{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"xv" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"xE" = (
+/obj/machinery/power/smes/magical,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"yr" = (
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"yt" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"yy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"yK" = (
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"yU" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/southwest,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"yV" = (
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"zc" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/obj/machinery/economy/vending/cola/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"zo" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"zw" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"zG" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"zR" = (
+/obj/machinery/economy/slot_machine,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Ad" = (
+/obj/structure/showcase{
+	density = 0;
+	dir = 4;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"Af" = (
+/obj/structure/safe/floor,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"At" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"AH" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"AI" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Bc" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Bh" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"Bj" = (
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/powered)
+"Br" = (
+/obj/structure/chair/sofa/bench{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Bw" = (
+/turf/template_noop,
+/area/space/nearstation)
+"BL" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/space,
+/area/space/nearstation)
+"BR" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Cy" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"CC" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"CI" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"CK" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"CO" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"CQ" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/obj/machinery/optable,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"CT" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"De" = (
+/obj/machinery/door/airlock/engineering/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Dg" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"DL" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"DP" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"DR" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ei" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"EA" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"EO" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"EQ" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"ER" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"EZ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Fd" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Fe" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"Fp" = (
+/obj/structure/shelf/engineering,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Fw" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/structure/chair/sofa/bench/left{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"FP" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ga" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Gi" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/obj/structure/chair,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Gq" = (
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Gv" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/structure/chair/sofa/bench{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"GI" = (
+/obj/machinery/door/airlock/science/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Hd" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"HH" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"HM" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ie" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Is" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Iw" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/meson/engine/atmos,
+/obj/item/clothing/glasses/meson/engine/atmos{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/effect/spawner/random/maintenance{
+	pixel_x = -14;
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"II" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"IM" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/structure/sign/atmosplaque{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Ja" = (
+/obj/structure/shelf/engineering,
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Jc" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Jr" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Js" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ju" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Jx" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"JB" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"JO" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Kh" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/cap/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ky" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar_control,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"KC" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/honey,
+/obj/item/reagent_containers/condiment/bbqsauce{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"KG" = (
+/turf/simulated/floor/plasteel/fakestairs/left,
+/area/ruin/powered)
+"KL" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"KO" = (
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"Lf" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Lh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"Lo" = (
+/obj/structure/closet/wardrobe/atmospherics_yellow,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Md" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Mi" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen/blue{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/pen/blue{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Mv" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"My" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/obj/machinery/power/smes/upgraded,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"MH" = (
+/mob/living/silicon/decoy{
+	name = "A.L.I.C.E."
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"MI" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"MN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Nj" = (
+/obj/machinery/atmospherics/binary/valve/open{
+	name = "Maintenance Air Supply"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Np" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Nu" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"NG" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"NL" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"NU" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"NZ" = (
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Om" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/obj/item/robot_parts/chest{
+	pixel_y = 2
+	},
+/obj/item/robot_parts/head{
+	pixel_y = 14
+	},
+/obj/item/robot_parts/l_arm{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/robot_parts/l_leg{
+	pixel_x = 11;
+	pixel_y = -7
+	},
+/obj/item/robot_parts/r_arm{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/robot_parts/r_leg{
+	pixel_x = -9;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Oo" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"OB" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"OD" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"OL" = (
+/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/medical,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Pn" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ps" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Pv" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"PF" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"PI" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"PM" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"PR" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/powered)
+"Ql" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Qm" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"Qo" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Qs" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = -10;
+	pixel_y = 12
+	},
+/obj/item/borg/upgrade/syndicate{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Qw" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"QH" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"QL" = (
+/obj/machinery/computer/rdconsole,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"QM" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"QT" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/powered)
+"Rj" = (
+/turf/template_noop,
+/area/template_noop)
+"RS" = (
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"RZ" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Sb" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
+	},
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green/off{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Sn" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"SA" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"SC" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"SI" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"SO" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"SU" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Td" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
+	},
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Tk" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Tm" = (
+/turf/simulated/floor/plasteel/fakestairs/right,
+/area/ruin/powered)
+"Tz" = (
+/obj/machinery/shieldwallgen/telecomms,
+/obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ua" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Uf" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ug" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Uh" = (
+/obj/machinery/recharge_station/upgraded,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Un" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/powered)
+"Ut" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Uw" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ux" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/obj/structure/table/tray,
+/obj/item/storage/surgical_tray{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"UK" = (
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"UR" = (
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"UT" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Vg" = (
+/obj/structure/gunrack,
+/obj/item/gun/energy/disabler{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/disabler{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/disabler,
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Vl" = (
+/obj/structure/shelf/engineering,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"VC" = (
+/obj/structure/table,
+/obj/item/grenade/gas/oxygen{
+	pixel_x = -1;
+	pixel_y = -4
+	},
+/obj/item/grenade/gas/oxygen{
+	pixel_x = 1;
+	pixel_y = 8
+	},
+/obj/item/grenade/gas/oxygen{
+	pixel_x = -9;
+	pixel_y = 8
+	},
+/obj/item/grenade/gas/oxygen{
+	pixel_x = 9;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"VM" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
+	},
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"VV" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes/upgraded,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"VW" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"Wb" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/powered)
+"Wn" = (
+/obj/machinery/door/airlock/security/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Ws" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Wv" = (
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Wy" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_x = 8;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Xb" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Xh" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 8;
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Xl" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"Xn" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"Xv" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Xw" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"XC" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/bluegrid,
+/area/ruin/powered)
+"XD" = (
+/obj/machinery/cooking/oven,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"XX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Yf" = (
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/structure/shelf/security,
+/obj/item/storage/box/stingers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/stingers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/weaponcrafting/gunkit/nuclear,
+/obj/item/weaponcrafting/gunkit/nuclear,
+/obj/item/weaponcrafting/gunkit/lwap,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Yz" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
+	},
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Zd" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+"Zg" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"Zt" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/rag,
+/turf/simulated/floor/wood,
+/area/ruin/powered)
+"ZY" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/powered)
+
+(1,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+fM
+Rj
+fM
+Rj
+fM
+Rj
+fM
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+Rj
+Rj
+Rj
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(2,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+SA
+Rj
+SA
+Rj
+SA
+Rj
+SA
+lw
+Ky
+JB
+Vl
+Ja
+Fp
+JB
+wa
+lw
+Rj
+Rj
+ab
+ab
+mI
+mI
+mI
+mI
+mI
+mI
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(3,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+ds
+Ei
+wv
+Ei
+tj
+Ei
+wv
+Ei
+aZ
+tn
+nn
+SO
+SO
+SO
+SO
+Wv
+lw
+lw
+Rj
+ab
+mI
+mI
+kC
+Rj
+Rj
+Rj
+kC
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(4,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+ku
+Rj
+ku
+Rj
+ku
+Rj
+ku
+lw
+VV
+mA
+Bj
+Bj
+Bj
+SO
+ea
+lE
+lw
+Rj
+mI
+mI
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(5,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+Oo
+Rj
+Oo
+Rj
+Oo
+Rj
+Oo
+lw
+II
+xv
+SO
+aa
+SO
+SO
+SO
+Ut
+lw
+Rj
+Rj
+kC
+Bw
+Xl
+Rj
+Rj
+Rj
+Xl
+kC
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(6,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+My
+aD
+sU
+sU
+sU
+sU
+sU
+Uh
+lw
+Rj
+Rj
+kC
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(7,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+lw
+Ux
+lo
+Ie
+Td
+jb
+jb
+jb
+jb
+jb
+De
+jb
+jb
+jb
+jb
+lw
+lw
+lw
+lw
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(8,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+lw
+CQ
+oN
+At
+At
+qk
+Gq
+eS
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+ru
+lw
+lw
+lw
+Rj
+Rj
+Rj
+Xl
+kC
+kC
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(9,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+Xv
+At
+yr
+At
+qk
+jb
+qE
+At
+At
+At
+HM
+At
+At
+At
+At
+At
+At
+zo
+Pv
+ru
+lw
+lw
+lw
+Rj
+kC
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(10,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+lw
+Ga
+yr
+OL
+yr
+qk
+jb
+QH
+tp
+vu
+xa
+Br
+xa
+Ql
+Js
+km
+km
+km
+km
+mW
+zo
+tJ
+ru
+lw
+lw
+kC
+Rj
+Rj
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(11,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+ry
+At
+yr
+At
+qk
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+dN
+dN
+dN
+jb
+QH
+mW
+At
+zo
+ru
+lw
+lw
+Rj
+Rj
+lw
+lw
+sO
+Vg
+Yf
+Jr
+lw
+lw
+Rj
+Rj
+Rj
+"}
+(12,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+lw
+lh
+il
+SI
+lf
+qk
+Gq
+zG
+EZ
+iQ
+EZ
+EZ
+EZ
+iQ
+EZ
+EZ
+EZ
+bD
+jb
+jb
+QH
+mW
+At
+zo
+ru
+lw
+Rj
+Rj
+lw
+NL
+wK
+wK
+wK
+wK
+pc
+lw
+Rj
+Rj
+Rj
+"}
+(13,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+lw
+lw
+oK
+ZY
+ev
+jb
+EO
+At
+At
+At
+HM
+At
+At
+At
+At
+At
+OB
+bD
+QT
+jb
+QH
+mW
+At
+HH
+lw
+Rj
+lw
+lw
+wK
+wK
+wK
+wK
+wK
+Af
+lw
+Rj
+Rj
+Rj
+"}
+(14,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+Rj
+Rj
+lw
+lw
+lw
+lw
+lw
+Pn
+DR
+DR
+DR
+DR
+DR
+DR
+DR
+Ws
+At
+At
+OB
+bD
+jb
+jb
+qE
+At
+HH
+lw
+Rj
+lw
+oh
+pJ
+oh
+wK
+nK
+wK
+pc
+lw
+Rj
+Rj
+Rj
+"}
+(15,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+lw
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+UT
+DR
+DR
+Ws
+OB
+bD
+jb
+qE
+HM
+HH
+lw
+lw
+lw
+kR
+Jx
+oh
+wK
+wK
+wK
+lw
+lw
+Rj
+Rj
+Rj
+"}
+(16,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+oS
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+jb
+jb
+hq
+hq
+mV
+hq
+hq
+jb
+jb
+jb
+jb
+EO
+At
+BR
+dN
+qE
+At
+HH
+jb
+VM
+AH
+sC
+Ua
+Wy
+CI
+wK
+hJ
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(17,1,1) = {"
+uF
+Lh
+PI
+wv
+wv
+NG
+lw
+lw
+At
+At
+Md
+At
+At
+At
+At
+KG
+KG
+KG
+KG
+KG
+At
+At
+jb
+Jc
+DP
+At
+BR
+dN
+qE
+At
+RZ
+jb
+Zd
+At
+At
+Ua
+oh
+zw
+wK
+wK
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(18,1,1) = {"
+Rj
+Rj
+Bh
+lw
+lw
+lw
+lw
+At
+At
+At
+At
+At
+At
+At
+At
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+dN
+qE
+At
+HH
+jb
+bI
+At
+HM
+Ua
+oh
+oh
+ko
+lw
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(19,1,1) = {"
+VW
+Lh
+oS
+lw
+UK
+At
+UK
+At
+UK
+At
+UK
+At
+UK
+At
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+jb
+qE
+At
+HH
+jb
+Gi
+At
+At
+CC
+AH
+AH
+Jx
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(20,1,1) = {"
+Rj
+Rj
+Bh
+lw
+PM
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+PM
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+jb
+qE
+At
+HH
+jb
+bI
+At
+At
+At
+At
+At
+Ju
+lw
+lw
+lw
+lw
+Rj
+Rj
+"}
+(21,1,1) = {"
+uF
+Lh
+oS
+lw
+UK
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+jb
+EO
+At
+Xw
+Cy
+jb
+qE
+At
+HH
+jb
+Sb
+Qw
+Qw
+sE
+sE
+sE
+Yz
+jb
+aL
+AI
+lw
+Rj
+Rj
+"}
+(22,1,1) = {"
+Rj
+Rj
+Bh
+lw
+At
+Bj
+Bj
+Tk
+vM
+gr
+vM
+ER
+Bj
+Bj
+At
+iu
+iu
+iu
+iu
+iu
+At
+wS
+jb
+EO
+At
+BR
+jb
+jb
+qE
+At
+HH
+jb
+jb
+jb
+jb
+Wn
+jb
+jb
+jb
+jb
+jb
+KL
+lw
+lw
+lw
+"}
+(23,1,1) = {"
+uF
+Lh
+nP
+JO
+UK
+Bj
+Bj
+Qo
+wn
+sg
+wn
+Qo
+Bj
+Bj
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+jb
+EO
+At
+BR
+jb
+Ad
+qE
+At
+zo
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+tJ
+Pv
+Pv
+jb
+kO
+on
+ki
+yU
+"}
+(24,1,1) = {"
+Rj
+Rj
+Bh
+lw
+xE
+Un
+Un
+vz
+Fe
+MH
+Fe
+PF
+Bj
+Bj
+At
+iu
+iu
+iu
+iu
+iu
+HM
+At
+do
+EO
+HM
+Uf
+jb
+Wb
+qE
+HM
+At
+At
+At
+At
+At
+At
+At
+At
+HM
+At
+md
+KL
+ki
+ki
+eC
+"}
+(25,1,1) = {"
+uF
+Lh
+nP
+fB
+XC
+Bj
+Bj
+Qo
+wn
+sg
+wn
+Qo
+Bj
+Bj
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+jb
+EO
+At
+BR
+jb
+KO
+qE
+At
+kM
+km
+km
+km
+km
+km
+km
+wF
+km
+km
+jb
+Np
+uB
+ki
+eC
+"}
+(26,1,1) = {"
+Rj
+Rj
+Bh
+lw
+At
+Bj
+Bj
+FP
+vM
+RS
+vM
+Tz
+Bj
+Bj
+At
+iu
+iu
+iu
+iu
+iu
+At
+wS
+jb
+EO
+At
+BR
+jb
+jb
+qE
+At
+HH
+jb
+jb
+jb
+jb
+dh
+jb
+jb
+jb
+lw
+lw
+lw
+lw
+lw
+lw
+"}
+(27,1,1) = {"
+uF
+Lh
+oS
+lw
+UK
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+jb
+EO
+At
+OB
+wo
+jb
+qE
+At
+HH
+jb
+NZ
+NZ
+NZ
+NZ
+NZ
+NZ
+NZ
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(28,1,1) = {"
+Rj
+Rj
+Bh
+lw
+PM
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+Bj
+PM
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+jb
+qE
+At
+HH
+jb
+NZ
+NZ
+NZ
+NZ
+hA
+CK
+bS
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(29,1,1) = {"
+uF
+Lh
+oS
+lw
+UK
+At
+UK
+At
+UK
+At
+UK
+At
+UK
+At
+UK
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+jb
+qE
+At
+SC
+jb
+hA
+CK
+bS
+NZ
+hA
+CK
+bS
+lw
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(30,1,1) = {"
+Rj
+Rj
+Bh
+lw
+lw
+lw
+lw
+At
+At
+At
+At
+At
+At
+At
+At
+iu
+iu
+iu
+iu
+iu
+At
+At
+PR
+EO
+At
+At
+BR
+dN
+qE
+At
+Fw
+jb
+hA
+CK
+bS
+NZ
+hA
+CK
+bS
+lw
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(31,1,1) = {"
+uF
+Lh
+qN
+wv
+wv
+BL
+lw
+lw
+At
+At
+lg
+At
+At
+At
+At
+Tm
+Tm
+Tm
+Tm
+Tm
+At
+At
+jb
+UT
+Ws
+At
+BR
+dN
+qE
+At
+vE
+jb
+hA
+CK
+bS
+DL
+NZ
+NZ
+NZ
+UR
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(32,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+jb
+jb
+iz
+iz
+QM
+iz
+iz
+jb
+jb
+jb
+jb
+EO
+At
+BR
+dN
+qE
+At
+Gv
+jb
+Ug
+NZ
+NZ
+NZ
+NZ
+NZ
+NZ
+NZ
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(33,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+lw
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+Jc
+EZ
+EZ
+DP
+Xw
+Bc
+jb
+qE
+HM
+or
+jb
+zR
+zR
+NZ
+NZ
+NZ
+EQ
+Zg
+eZ
+lw
+lw
+Rj
+Rj
+Rj
+"}
+(34,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+Rj
+Rj
+lw
+lw
+lw
+lw
+lw
+zG
+EZ
+EZ
+EZ
+EZ
+EZ
+EZ
+EZ
+DP
+At
+At
+Xw
+Bc
+jb
+jb
+qE
+At
+HH
+lw
+lw
+lw
+rY
+rY
+rY
+EQ
+KC
+NZ
+XX
+lw
+Rj
+Rj
+Rj
+"}
+(35,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+lw
+lw
+Om
+su
+yt
+jb
+EO
+At
+At
+At
+HM
+At
+At
+At
+At
+At
+Xw
+Bc
+jb
+jb
+zc
+kZ
+At
+HH
+lw
+Rj
+lw
+qg
+Zg
+dH
+Mi
+Zt
+NZ
+sM
+lw
+Rj
+Rj
+Rj
+"}
+(36,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+lw
+bX
+su
+EA
+At
+yV
+GI
+Pn
+DR
+Hd
+DR
+DR
+DR
+Hd
+DR
+DR
+DR
+Bc
+jb
+jb
+eS
+kZ
+At
+At
+HH
+lw
+Rj
+lw
+lw
+NZ
+NZ
+NZ
+NZ
+NZ
+OD
+lw
+Rj
+Rj
+Rj
+"}
+(37,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+hp
+At
+vL
+At
+yV
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+jb
+dN
+dN
+dN
+jb
+eS
+kZ
+At
+kM
+km
+CT
+lw
+Rj
+Rj
+lw
+kw
+NZ
+NZ
+NZ
+DL
+rx
+lw
+Rj
+Rj
+Rj
+"}
+(38,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+lw
+QL
+At
+HM
+At
+gc
+jb
+eS
+Pv
+tJ
+Pv
+Pv
+Pv
+tJ
+Pv
+Pv
+Pv
+Pv
+Pv
+kZ
+kM
+wF
+CT
+lw
+lw
+lw
+Rj
+Rj
+lw
+lw
+Xh
+pl
+yy
+XD
+lw
+lw
+Rj
+Rj
+Rj
+"}
+(39,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+hZ
+lw
+Lf
+At
+gj
+At
+yV
+jb
+qE
+At
+At
+At
+HM
+At
+At
+At
+At
+At
+At
+kM
+km
+CT
+lw
+lw
+lw
+Rj
+kC
+Rj
+Rj
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+Rj
+Rj
+Rj
+Rj
+"}
+(40,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+lw
+Qs
+Xb
+At
+At
+yV
+GI
+QH
+km
+km
+km
+Kh
+km
+km
+km
+km
+km
+km
+CT
+lw
+lw
+lw
+Rj
+Rj
+Rj
+kC
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(41,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+lw
+lw
+Om
+Fd
+Uw
+Nu
+jb
+jb
+jb
+jb
+jb
+wc
+jb
+jb
+jb
+jb
+lw
+lw
+lw
+lw
+kC
+Xl
+Rj
+Rj
+Rj
+Xl
+kC
+kC
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(42,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+Rj
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+SU
+Ps
+lX
+wW
+yK
+IM
+oA
+ht
+lw
+Rj
+Rj
+kC
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(43,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Bh
+fM
+Rj
+fM
+Rj
+fM
+Rj
+fM
+ge
+Mv
+MN
+lq
+wW
+yK
+ty
+oA
+fo
+lw
+Rj
+Rj
+kC
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(44,1,1) = {"
+Rj
+Rj
+Rj
+uF
+Lh
+Xn
+SA
+Rj
+SA
+Rj
+SA
+Rj
+SA
+hc
+VC
+Is
+lq
+tG
+nm
+ty
+oA
+ht
+lw
+Rj
+Rj
+kC
+kC
+Xl
+Rj
+Rj
+Rj
+Xl
+kC
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(45,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Qm
+mt
+wv
+mt
+wv
+mt
+wv
+mt
+Dg
+cQ
+SO
+NU
+cl
+Nj
+ip
+ht
+lw
+lw
+Rj
+mI
+mI
+Rj
+kC
+Rj
+Rj
+Rj
+kC
+Rj
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(46,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ku
+Rj
+ku
+Rj
+ku
+Rj
+ku
+CO
+Iw
+Sn
+MI
+Lo
+iv
+cl
+ht
+lw
+Rj
+Rj
+ab
+mI
+mI
+kC
+Rj
+Rj
+Rj
+kC
+mI
+mI
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(47,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Oo
+Rj
+Oo
+Rj
+Oo
+Rj
+Oo
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+lw
+Rj
+Rj
+ab
+ab
+mI
+mI
+mI
+mI
+mI
+mI
+mI
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}
+(48,1,1) = {"
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+Rj
+"}

@@ -450,3 +450,10 @@
 	suffix = "engineering_vessel.dmm"
 	name = "Engineering Vessel"
 	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
+
+/datum/map_template/ruin/space/malice
+	id = "malice"
+	suffix = "malice.dmm"
+	name = "mALICE"
+	description = "Hi Dchat!"
+	always_place = TRUE
