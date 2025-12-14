@@ -71,7 +71,7 @@
 				chosen_id = tgui_input_text(usr, "Enter the ID of the reagent you want to add.", "Choose a reagent")
 
 				if(!chosen_id) // Get me out of here!
-					to_chat(usr, SPAWN_WARNING("No input detected."))
+					to_chat(usr, SPAN_WARNING("No input detected."))
 					return
 
 				for(var/ID in reagent_options)
