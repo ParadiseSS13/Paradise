@@ -166,7 +166,7 @@
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
+	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and won't generate as much heat."
 	heat_amount = 5
 	power_amount = 20 KW
 	heat_amp_mod = 1.6
