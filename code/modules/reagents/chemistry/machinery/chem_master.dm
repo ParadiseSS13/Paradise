@@ -123,23 +123,23 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
+		to_chat(user, SPAN_WARNING("You can't use [src] while it's panel is opened!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [used] with [beaker] inside.</span>")
+			to_chat(usr, SPAN_NOTICE("You swap [used] with [beaker] inside."))
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You add [used] to the machine.</span>")
+			to_chat(user, SPAN_NOTICE("You add [used] to the machine."))
 		beaker = used
 		SStgui.update_uis(src)
 		update_icon()
@@ -148,16 +148,16 @@
 
 	else if(istype(used, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
-			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A [loaded_pill_bottle] is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		loaded_pill_bottle = used
 		used.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [used] into the dispenser slot!</span>")
+		to_chat(user, SPAN_NOTICE("You add [used] into the dispenser slot!"))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -219,7 +219,7 @@
 			var/datum/reagent/R = reagent_list[idx]
 
 			printing = TRUE
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -557,7 +557,7 @@
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>Not enough reagents to create these items!</span>")
+			to_chat(user, SPAN_WARNING("Not enough reagents to create these items!"))
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)

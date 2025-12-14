@@ -137,14 +137,11 @@
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=src)
 		CMT.ui_interact(usr)
 
+USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
+	client.debug_variables(thing)
+
 /client/proc/debug_variables(datum/D in world)
-	set name = "\[Admin\] View Variables"
-
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
-
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
-		return
 
 	if(!D)
 		return
@@ -496,31 +493,31 @@
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] \ref[value]s)"
 
 	if(isnull(value))
-		return "<span class='value'>null</span>"
+		return SPAN_VALUE("null")
 
 	else if(is_color_text(value))
-		return "<span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
+		return SPAN_VALUE("<span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"")
 
 	else if(istext(value))
-		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return SPAN_VALUE("\"[VV_HTML_ENCODE(value)]\"")
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		return "/icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "/icon ([SPAN_VALUE("[value]")]) [bicon(value, use_class=0)]"
 		#else
-		return "/icon (<span class='value'>[value]</span>)"
+		return "/icon ([SPAN_VALUE("[value]")])"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image ([SPAN_VALUE("[value]")]) [bicon(value, use_class=0)]"
 		#else
-		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>)"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image ([SPAN_VALUE("[value]")])"
 		#endif
 
 	else if(isfile(value))
-		return "<span class='value'>'[value]'</span>"
+		return SPAN_VALUE("'[value]'")
 
 	else if(istype(value, /datum))
 		var/datum/D = value
@@ -548,9 +545,9 @@
 			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		return "<span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		return SPAN_VALUE("[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]")
 	else
-		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return SPAN_VALUE("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(sanitize)
 	return "<a href='byond://?_src_=vars;Vars=[UID()]'>[VV_HTML_ENCODE(src)] \ref[src]</a> ([type])"
@@ -724,14 +721,7 @@
 		debug_variables(locate(href_list["listrefresh"]))
 		return TRUE
 
-/client/proc/debug_global_variables(var_search as text)
-	set category = "Debug"
-	set name = "Debug Global Variables"
-
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
-		return
-
+USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variables", "Debug Global Variables", VERB_CATEGORY_DEBUG, var_search as text)
 	var_search = trim(var_search)
 	if(!var_search)
 		return
@@ -741,13 +731,13 @@
 		if("vars")
 			return FALSE
 	if(!(var_search in GLOB.vars))
-		to_chat(src, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		to_chat(client, SPAN_DEBUG("GLOB.[var_search] does not exist."))
 		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
-		to_chat(src, "<span class='debug'>Now showing GLOB.[var_search].</span>")
-		return debug_variables(result)
-	to_chat(src, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+		to_chat(client, SPAN_DEBUG("Now showing GLOB.[var_search]."))
+		return client.debug_variables(result)
+	to_chat(client, SPAN_DEBUG("GLOB.[var_search] returned [result]."))
 
 #undef VV_HTML_ENCODE

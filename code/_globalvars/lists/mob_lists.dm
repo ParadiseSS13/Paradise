@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
 GLOBAL_LIST_EMPTY(roundstart_observer_keys)	//List of ckeys who ghosted before the game began.
 GLOBAL_LIST_EMPTY(antag_hud_users) 			// ckeys of users who have enabled ahud at some point during the game
 GLOBAL_LIST_EMPTY(crew_list) 			// list of all crew on manifest, contains name paired with their assignment
+GLOBAL_LIST_EMPTY(station_pets)			// List of all station pets.
 
 GLOBAL_LIST_EMPTY(surgeries_list)
 GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's no client

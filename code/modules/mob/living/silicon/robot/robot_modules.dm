@@ -593,7 +593,7 @@
 			if(!IS_HORIZONTAL(cleaned_human))
 				continue
 			cleaned_human.clean_blood()
-			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+			to_chat(cleaned_human, SPAN_DANGER("[src] cleans your face!"))
 
 // Service
 /obj/item/robot_module/butler

@@ -21,12 +21,12 @@
 
 /datum/spell/morph_spell/open_vent/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No nearby welded vents found!</span>")
+		to_chat(user, SPAN_WARNING("No nearby welded vents found!"))
 		revert_cast(user)
 		return
-	to_chat(user, "<span class='sinister'>You begin regurgitating up some acidic puke!</span>")
+	to_chat(user, SPAN_SINISTER("You begin regurgitating up some acidic puke!"))
 	if(!do_after(user, 2 SECONDS, FALSE, user))
-		to_chat(user, "<span class='warning'>You swallow the acid again.</span>")
+		to_chat(user, SPAN_WARNING("You swallow the acid again."))
 		revert_cast(user)
 		return
 	for(var/thing in targets)

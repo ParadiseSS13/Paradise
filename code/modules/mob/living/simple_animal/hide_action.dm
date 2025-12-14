@@ -12,13 +12,13 @@
 
 		if(owner.layer != layer_to_change_to)
 			owner.layer = layer_to_change_to
-			owner.visible_message("<span class='notice'><b>[owner] scurries to the ground!</b></span>", "<span class='notice'>You are now hiding.</span>")
+			owner.visible_message(SPAN_NOTICE("<b>[owner] scurries to the ground!</b>"), SPAN_NOTICE("You are now hiding."))
 			if(istype(hiding_mob) && hiding_mob.pass_door_while_hidden || isdrone(hiding_mob))
 				hiding_mob.pass_flags |= PASSDOOR
 			return
 
 		hiding_mob.layer = layer_to_change_from
-		owner.visible_message("<span class='notice'>[owner] slowly peeks up from the ground...</span>", "<span class='notice'>You have stopped hiding.</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] slowly peeks up from the ground..."), SPAN_NOTICE("You have stopped hiding."))
 		if(istype(hiding_mob) && hiding_mob.pass_door_while_hidden || isdrone(hiding_mob))
 			hiding_mob.pass_flags &= ~PASSDOOR
 

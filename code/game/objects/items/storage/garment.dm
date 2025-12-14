@@ -23,39 +23,6 @@
 		/obj/item/clothing/gloves/color/black/krav_maga,
 	)
 
-/obj/item/storage/bag/garment/captain
-	name = "captain's garment bag"
-	desc = "A bag for storing extra clothes and shoes. This one belongs to the captain."
-
-/obj/item/storage/bag/garment/captain/populate_contents()
-	new /obj/item/clothing/head/caphat(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/caphat/parade/white(src)
-	new /obj/item/clothing/head/beret/captain(src)
-	new /obj/item/clothing/head/beret/captain/white(src)
-	new /obj/item/clothing/head/crown/fancy(src)
-	new /obj/item/clothing/neck/cloak/captain(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/coat(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/coat/white(src)
-	new /obj/item/clothing/neck/cloak/captain_mantle(src)
-	new /obj/item/clothing/under/rank/captain(src)
-	new /obj/item/clothing/under/rank/captain/skirt(src)
-	new /obj/item/clothing/under/rank/captain/white(src)
-	new /obj/item/clothing/under/rank/captain/skirt/white(src)
-	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/under/rank/captain/dress(src)
-	new /obj/item/clothing/gloves/color/captain(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/laceup(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/captain(src)
-	new /obj/item/clothing/under/plasmaman/captain(src)
-
 /obj/item/storage/bag/garment/head_of_personnel
 	name = "head of personnel's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the head of personnel."
