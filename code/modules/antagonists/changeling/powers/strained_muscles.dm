@@ -18,9 +18,9 @@
 /datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	if(!user.has_status_effect(STATUS_EFFECT_SPEEDLEGS))
 		if(user.dna.species.speed_mod < 0)
-			to_chat(user, "<span class='notice'>We are moving as fast as we can, we can not go faster.</span>")
+			to_chat(user, SPAN_NOTICE("We are moving as fast as we can, we can not go faster."))
 		else
-			to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
+			to_chat(user, SPAN_NOTICE("Our muscles tense and strengthen."))
 			user.apply_status_effect(STATUS_EFFECT_SPEEDLEGS)
 	else
 		user.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)

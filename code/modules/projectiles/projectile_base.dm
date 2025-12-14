@@ -173,7 +173,7 @@
 	if(isliving(target))
 		var/mob/living/victim = target
 		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
-			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+			visible_message(SPAN_WARNING("[src] fizzles on contact with [victim]!"))
 			damage = 0
 			nodamage = 1
 			return FALSE
@@ -242,13 +242,13 @@
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+			to_chat(L, SPAN_USERDANGER("You're shot by \a [src][organ_hit_text]!"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
 				playsound(loc, hitsound, volume, TRUE, -1)
-			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
-								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+			L.visible_message(SPAN_DANGER("[L] is hit by \a [src][organ_hit_text]!"), \
+								SPAN_USERDANGER("[L] is hit by \a [src][organ_hit_text]!"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
 			L.adjust_fire_stacks(immolate)
 			L.IgniteMob()

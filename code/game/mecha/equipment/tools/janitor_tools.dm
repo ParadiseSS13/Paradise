@@ -43,7 +43,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='warning'>You short out the automatic watering system on [src].</span>")
+	to_chat(user, SPAN_WARNING("You short out the automatic watering system on [src]."))
 	reagents.clear_reagents()
 	refill_reagent = "lube"
 	refill_cost = 50
@@ -54,7 +54,7 @@
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
-		occupant_message("<span class='notice'>Mop refilled.</span>")
+		occupant_message(SPAN_NOTICE("Mop refilled."))
 		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 		return
 	if(reagents.total_volume > 0)
@@ -65,7 +65,7 @@
 		var/turf/target_turf = get_turf(target)
 		if(!istype(target_turf) || iswallturf(target_turf))
 			return
-		chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
+		chassis.occupant.visible_message(SPAN_WARNING("[chassis] begins to mop \the [target_turf] with \the [src]."), SPAN_WARNING("You begin to mop \the [target_turf] with \the [src]."))
 		if(do_after(chassis.occupant, mop_speed, target = target, allow_moving = 0))
 			for(var/turf/current_target_turf in view(1, target))
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
@@ -127,7 +127,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the safeties on [src].</span>")
+	to_chat(user, SPAN_NOTICE("You short out the safeties on [src]."))
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/action(atom/target)
 	if(istype(target, /obj/machinery/light))
@@ -170,7 +170,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='warning'>You short out the automatic watering system on [src].</span>")
+	to_chat(user, SPAN_WARNING("You short out the automatic watering system on [src]."))
 	spray_controller.reagents.clear_reagents()
 	refill_reagent = "lube"
 	refill_cost = 50
@@ -178,7 +178,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/action(atom/target)
 	if(spray_controller.reagents.total_volume < 15) // Needs at least enough reagents to apply the full spray
-		to_chat(chassis.occupant, "<span class='danger'>*click*</span>")
+		to_chat(chassis.occupant, SPAN_DANGER("*click*"))
 		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return
 	var/direction = get_dir(chassis, target)
@@ -278,14 +278,14 @@
 
 	for(var/turf/tested_turf in get_line(chassis, target)) // Check if the path is blocked
 		if(iswallturf(tested_turf) || locate(/obj/structure/window) in tested_turf || locate(/obj/machinery/door) in tested_turf) // walls, windows, and doors
-			chassis.occupant_message("<span class='warning'>The target is out of reach of the magnet!</span>")
+			chassis.occupant_message(SPAN_WARNING("The target is out of reach of the magnet!"))
 			return
 
 	if(istype(target, /obj/machinery/disposal)) // Emptying stuff into disposals
 		chassis.occupant.visible_message(
-			"<span class='notice'>[chassis.occupant] empties [src] into the disposal unit.</span>",
-			"<span class='notice'>You empty [src] into disposal unit.</span>",
-			"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
+			SPAN_NOTICE("[chassis.occupant] empties [src] into the disposal unit."),
+			SPAN_NOTICE("You empty [src] into disposal unit."),
+			SPAN_NOTICE("You hear someone emptying something into a disposal unit.")
 		)
 		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)

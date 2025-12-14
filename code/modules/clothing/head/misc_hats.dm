@@ -253,7 +253,7 @@
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("<span class='notice'>[user] tips [user.p_their()] fedora.</span>", "<span class='notice'>You tip your fedora.</span>")
+	user.visible_message(SPAN_NOTICE("[user] tips [user.p_their()] fedora."), SPAN_NOTICE("You tip your fedora."))
 
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"

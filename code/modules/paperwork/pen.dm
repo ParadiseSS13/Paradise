@@ -23,7 +23,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!"))
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -160,7 +160,7 @@
 		var/fraction = min(transfer_amount / reagents.total_volume, 1)
 		reagents.reaction(M, REAGENT_INGEST, fraction)
 		transfered = reagents.trans_to(M, transfer_amount)
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	to_chat(user, SPAN_WARNING("You sneakily stab [M] with the pen."))
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
@@ -225,8 +225,8 @@
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
 		M.visible_message(
-			"<span class='warning'>[user] stabs [M] in the back!</span>",
-			"<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>"
+			SPAN_WARNING("[user] stabs [M] in the back!"),
+			SPAN_USERDANGER("[user] stabs you in the back! The energy blade makes you collapse in pain!")
 		)
 
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -242,22 +242,22 @@
 		return !isnull(cig)
 
 	if(!active)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		to_chat(user, SPAN_WARNING("You need to activate [src] before you can light anything with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -278,7 +278,7 @@
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_WARNING("[src] can now be concealed."))
 		set_light(0)
 	else
 		active = TRUE
@@ -290,7 +290,7 @@
 		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 2, TRUE)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, SPAN_WARNING("[src] is now active."))
 		set_light(brightness_on, 1)
 	set_sharpness(active)
 	update_icon()
@@ -326,13 +326,13 @@
 /obj/item/pen/multi/poison/on_write(obj/item/paper/P, mob/user)
 	if(current_poison)
 		if(P.contact_poison)
-			to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+			to_chat(user, SPAN_WARNING("[P] is already coated."))
 		else
 			P.contact_poison = current_poison
 			P.contact_poison_volume = 20
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
-			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+			to_chat(user, SPAN_WARNING("You apply the poison to [P]."))
 
 // MARK: CHAMELEON PEN
 /obj/item/pen/chameleon

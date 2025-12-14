@@ -37,19 +37,19 @@
 		return
 	if(!anchored)
 		connect_to_network()
-		to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You secure the generator to the floor."))
 	else
 		disconnect_from_network()
-		to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You unsecure the generator from the floor."))
 	anchored = !anchored
 
 /obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be secured down first!"))
 		return
 	if(on)
-		to_chat(user, "<span class='warning'>[src] needs to be turned off first!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be turned off first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -66,14 +66,14 @@
 /obj/machinery/power/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
 	if(panel_open)
 		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
 
 /obj/machinery/power/electrolyzer/AltClick(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] is anchored to the floor!"))
 		return
 	pixel_x = 0
 	pixel_y = 0
@@ -96,23 +96,23 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
+		to_chat(user, SPAN_WARNING("[src] must be anchored first!"))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first!</span>")
+		to_chat(user, SPAN_WARNING("Close the panel first!"))
 		return
 	var/area/A = get_area(src)
 	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
-		to_chat(user, "<span class='warning'>[src] must be powered!</span>")
+		to_chat(user, SPAN_WARNING("[src] must be powered!"))
 		return
 	. = ..()
 	if(on)
 		on = FALSE
-		to_chat(user, "<span class='notice'>[src] switches off.</span>")
+		to_chat(user, SPAN_NOTICE("[src] switches off."))
 		icon_state = "electrolyzer_off"
 	else
 		on = TRUE
-		to_chat(user, "<span class='notice'>[src] begins to hum quietly.</span>")
+		to_chat(user, SPAN_NOTICE("[src] begins to hum quietly."))
 		icon_state = "electrolyzer_on"
 	add_fingerprint(usr)
 

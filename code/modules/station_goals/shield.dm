@@ -233,10 +233,10 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
+			to_chat(user, SPAN_WARNING("You can only activate satellites which are in space."))
 		return FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src]</span>")
+		to_chat(user, SPAN_NOTICE("You [active ? "deactivate": "activate"] [src]"))
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
@@ -251,7 +251,7 @@
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
+	to_chat(user, SPAN_NOTICE("// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]"))
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"
@@ -304,7 +304,7 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
+		to_chat(user, SPAN_DANGER("You override the shield's circuits, causing it to attract meteors instead of destroying them."))
 		emagged = TRUE
 		if(active)
 			change_meteor_chance(2)

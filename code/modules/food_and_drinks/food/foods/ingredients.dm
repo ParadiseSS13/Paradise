@@ -195,10 +195,10 @@
 
 	if(isturf(loc))
 		new /obj/item/food/sliceable/flatdough(loc)
-		to_chat(user, "<span class='notice'>You flatten [src].</span>")
+		to_chat(user, SPAN_NOTICE("You flatten [src]."))
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+		to_chat(user, SPAN_NOTICE("You need to put [src] on a surface to roll it out!"))
 	return ITEM_INTERACT_COMPLETE
 
 // slicable into 3xdoughslices
@@ -248,28 +248,28 @@
 /obj/item/food/cookiedough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/kitchen/rollingpin))
 		if(flat)
-			to_chat(user, "<span class='warning'>[src] doesn't need to be flattened any further!</span>")
+			to_chat(user, SPAN_WARNING("[src] doesn't need to be flattened any further!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(isturf(loc))
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
+			to_chat(user, SPAN_NOTICE("You flatten [src]."))
 			flat = TRUE
 			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		else
-			to_chat(user, "<span class='warning'>You need to put [src] on a surface to roll it out!</span>")
+			to_chat(user, SPAN_WARNING("You need to put [src] on a surface to roll it out!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/kitchen/cutter))
 		if(!flat)
-			to_chat(user, "<span class='warning'>[src] needs to be flattened first!</span>")
+			to_chat(user, SPAN_WARNING("[src] needs to be flattened first!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(isturf(loc))
 			new /obj/item/food/rawcookies(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into cookies.</span>")
+			to_chat(user, SPAN_NOTICE("You cut [src] into cookies."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need to put [src] on a surface to cut it out!</span>")
+			to_chat(user, SPAN_WARNING("You need to put [src] on a surface to cut it out!"))
 		return ITEM_INTERACT_COMPLETE
 
 	return NONE
@@ -286,11 +286,11 @@
 	if(istype(used, /obj/item/food/choc_pile))
 		if(isturf(loc))
 			new /obj/item/food/rawcookies/chocochips(loc)
-			to_chat(user, "<span class='notice'>You sprinkle [used] all over the cookies.</span>")
+			to_chat(user, SPAN_NOTICE("You sprinkle [used] all over the cookies."))
 			qdel(src)
 			qdel(used)
 		else
-			to_chat(user, "<span class='warning'>You need to put [src] on a surface to add [used]!</span>")
+			to_chat(user, SPAN_WARNING("You need to put [src] on a surface to add [used]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	return NONE
@@ -329,10 +329,10 @@
 
 	if(isturf(loc))
 		new /obj/item/food/choc_pile(loc)
-		to_chat(user, "<span class='notice'>You cut [src] into little crumbles.</span>")
+		to_chat(user, SPAN_NOTICE("You cut [src] into little crumbles."))
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You need to put [src] on a surface to cut it out!</span>")
+		to_chat(user, SPAN_WARNING("You need to put [src] on a surface to cut it out!"))
 	return ITEM_INTERACT_COMPLETE
 
 
