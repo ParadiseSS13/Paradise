@@ -298,7 +298,7 @@
 				repair_step++
 				to_chat(creature, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
 			else
-				to_chat(creature, "<span class='information'>No more melted slag remains in the chamber</span>")
+				to_chat(creature, "<span class='information'>No more melted slag remains in the chamber.</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
