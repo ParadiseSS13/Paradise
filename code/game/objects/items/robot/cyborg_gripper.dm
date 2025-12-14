@@ -165,7 +165,7 @@
 
 	if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
 		var/obj/machinery/atmospherics/reactor_chamber/chamber = target
-		if(chamber.chamber_state == 3 && chamber.held_rod) // chamber_state 3 is equal to CHAMBER_OPEN
+		if(chamber.chamber_state == CHAMBER_OPEN && chamber.held_rod)
 			chamber.held_rod.forceMove(src)
 			gripped_item = chamber.held_rod
 			user.visible_message(
