@@ -34,11 +34,11 @@
 				armed = TRUE
 				if(!user.put_in_hands(gun))
 					armed = FALSE
-					to_chat(user, "<span class='warning'>You need a free hand to hold the gun!</span>")
+					to_chat(user, SPAN_WARNING("You need a free hand to hold the gun!"))
 					return
 				update_icon(UPDATE_ICON_STATE)
 		else
-			to_chat(user, "<span class='warning'>You are already holding the gun!</span>")
+			to_chat(user, SPAN_WARNING("You are already holding the gun!"))
 	else
 		..()
 
@@ -95,9 +95,9 @@
 	gun.forceMove(src)
 	armed = FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You attach \the [gun] to \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You attach \the [gun] to \the [src]."))
 	else
-		src.visible_message("<span class='warning'>\The [gun] snaps back onto \the [src]!<span>")
+		src.visible_message(SPAN_WARNING("\The [gun] snaps back onto \the [src]!"))
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/gun/minigun

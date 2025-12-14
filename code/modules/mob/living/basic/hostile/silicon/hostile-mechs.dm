@@ -204,7 +204,7 @@
 		if("\"Fat Boy\" Mining Grenade Launcher")
 			projectile_type = /obj/projectile/bullet/a40mm
 			projectile_sound = 'sound/effects/bang.ogg'
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /obj/projectile/plasma/adv/mech/evil
 	damage = 15
@@ -242,7 +242,7 @@
 			projectile_type = /obj/projectile/bullet/weakbullet3
 			ranged_burst_count = 3
 			projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /mob/living/basic/hostile_mech/durand
 	name = "hostile durand"
@@ -278,7 +278,7 @@
 			casing_type = /obj/item/ammo_casing/caseless/mecha_scatter
 			projectile_type = null
 			projectile_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /mob/living/basic/hostile_mech/ares
 	name = "hostile ares"
@@ -313,7 +313,7 @@
 			projectile_type = /obj/projectile/bullet/weakbullet3
 			ranged_burst_count = 3
 			projectile_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /mob/living/basic/hostile_mech/marauder
 	name = "hostile marauder"
@@ -345,7 +345,7 @@
 		if("SRM-8 Light Missile Rack")
 			projectile_type = /obj/projectile/missile/light
 			projectile_sound = 'sound/effects/bang.ogg'
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /mob/living/basic/hostile_mech/archange
 	name = "archange"
@@ -419,7 +419,7 @@
 			ranged_burst_count = 1
 			projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 
-	visible_message("<span class='warning'>[src] raises its [new_weapon]!</span>")
+	visible_message(SPAN_WARNING("[src] raises its [new_weapon]!"))
 
 /mob/living/basic/hostile_mech/archange/proc/bootup()
 	ai_controller.set_ai_status(AI_STATUS_ON)
