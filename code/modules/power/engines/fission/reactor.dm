@@ -176,7 +176,7 @@
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
 	. += "The NGCR-5600 Nuclear Reactor was first actualized as a replacement for older, static nuclear or coal models before the discovery of supermatter harvesting techniques. \
-	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that posessed basic engineering infrastructure."
+	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that possessed basic engineering infrastructure."
 	. += ""
 	. += "However, despite the popularity of the engine, the need for frequent upkeep and higher energy demands led to innovations in newer, more advanced energy sources. \
 	This engine soon became a relic of the past, but still remains a staple in many stations due to its long term reliability. According to Nanotrasen, that is."
