@@ -61,6 +61,15 @@
 	update_icon()
 	. = ..()
 
+/obj/item/food/feline_mignon
+	name = "Feline Mignon"
+	desc = "A plate of rare steak. Is that fur?"
+	icon = 'icons/obj/food/cannibalism.dmi'
+	icon_state = "feline_mignon"
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("rare steak" = 1, "fur" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
 /obj/item/food/frankfurrter
 	name = "Frankfurrter"
 	desc = "A piece of mixed and cased meat. Is that fur?"
@@ -106,16 +115,6 @@
 	icon_state = "ham_leg"
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("long pork" = 1, "burnt hair" = 1)
-	goal_difficulty = FOOD_GOAL_EXCESSIVE
-
-/obj/item/food/meow_mein
-	name = "Meow Mein"
-	desc = "A plate of noodles with meat and some vegetables. Is that fur?"
-	icon = 'icons/obj/food/cannibalism.dmi'
-	icon_state = "meow_mein"
-	trash = /obj/item/trash/plate
-	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("stir-fried noodles" = 1, "fur" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/plasmabone_broth

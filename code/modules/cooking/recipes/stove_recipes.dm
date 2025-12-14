@@ -260,12 +260,12 @@
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe/meow_mein
+/datum/cooking/recipe/feline_mignon
 	container_type = /obj/item/reagent_containers/cooking/pan
-	product_type = /obj/item/food/meow_mein
+	product_type = /obj/item/food/feline_mignon
 	steps = list(
 		new /datum/cooking/recipe_step/add_item/fried_taj(),
-		PCWJ_ADD_REAGENT("soysauce", 5, optional = TRUE),
+		PCWJ_ADD_REAGENT("wine", 5, optional = TRUE),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 	appear_in_default_catalog = FALSE
