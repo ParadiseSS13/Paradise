@@ -20,19 +20,29 @@
 	return new /datum/spell_targeting/self
 
 /datum/spell/caretaker/valid_target(target, user)
-	for(var/mob/living/alive in orange(7, user))
-		if(alive.stat != DEAD && alive.client)
-			to_chat(user, SPAN_WARNING("There are sentient beings blocking you from shifting!"))
-			return FALSE
+	if(!sentience_check(user))
+		return FALSE
 	return TRUE
 
 /datum/spell/caretaker/cast(list/targets, mob/user)
 	. = ..()
-
 	var/mob/living/carbon/carbon_user = user
 	if(carbon_user.has_status_effect(/datum/status_effect/caretaker_refuge))
 		carbon_user.remove_status_effect(/datum/status_effect/caretaker_refuge)
 	else
+		if(!do_after_once(user, 1.5 SECONDS, FALSE, user, TRUE, FALSE))
+			cooldown_handler.revert_cast()
+			return FALSE
+		if(!sentience_check(user))
+			cooldown_handler.revert_cast()
+			return FALSE
 		carbon_user.apply_status_effect(/datum/status_effect/caretaker_refuge)
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1) //Cooldown activates primarly when you leave
+	return TRUE
+
+/datum/spell/caretaker/proc/sentience_check(mob/user)
+	for(var/mob/living/alive in oview(7, user))
+		if(alive.stat != DEAD && alive.client)
+			to_chat(user, SPAN_WARNING("There are sentient beings blocking you from shifting!"))
+			return FALSE
 	return TRUE

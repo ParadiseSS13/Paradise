@@ -42,9 +42,12 @@
 		RemoveElement(/datum/element/heretic_focus)
 		w_class = WEIGHT_CLASS_SMALL
 	else
-		open_animation()
-		AddElement(/datum/element/heretic_focus)
-		w_class = WEIGHT_CLASS_NORMAL
+		if(IS_HERETIC(user))
+			open_animation()
+			AddElement(/datum/element/heretic_focus)
+			w_class = WEIGHT_CLASS_NORMAL
+		else
+			to_chat(user, SPAN_WARNING("You cant seem to open the strange book."))
 
 /obj/item/codex_cicatrix/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -68,3 +71,10 @@
 	icon_state = base_icon_state
 	flick("[base_icon_state]_closing", src)
 	book_open = FALSE
+
+/obj/item/codex_cicatrix/dropped(mob/user, silent)
+	. = ..()
+	if(book_open)
+		close_animation()
+		RemoveElement(/datum/element/heretic_focus)
+		w_class = WEIGHT_CLASS_SMALL

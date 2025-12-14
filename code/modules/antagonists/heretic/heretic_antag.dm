@@ -955,7 +955,7 @@
 /datum/objective/heretic_summon
 	name = "summon monsters"
 	target_amount = 2
-	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+	explanation_text = "Summon 2 monsters from the Mansus into this realm. Monsters created or converted from corpses will do not count towards this objective."
 	needs_target = FALSE
 	/// The total number of summons the objective owner has done
 	var/num_summoned = 0
