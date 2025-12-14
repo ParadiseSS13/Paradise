@@ -744,7 +744,7 @@
 		"Wait, why isnt the reactor integrity going up?",
 		"When did engineering get a pool!?",
 		"Does anyone else taste copper?",
-		"10 sievers isnt a harmful range of radiation is it?",
+		"10 sieverts isn't a harmful amount of radiation, is it?",
 		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
 		"Replace the spent fuel rods you lazy bums!",
 		"There is a xenomorph nesting on the reactor!",
