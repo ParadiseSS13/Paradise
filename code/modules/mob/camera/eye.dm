@@ -69,7 +69,7 @@
 /mob/camera/eye/proc/validate_active_cameranet(strict = 0)
 	var/camera = first_active_camera()
 	if(strict && !camera)
-		to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
+		to_chat(user, SPAN_WARNING("ERROR: No linked and active camera network found."))
 		return FALSE
 	return TRUE
 

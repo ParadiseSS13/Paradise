@@ -100,7 +100,7 @@
 
 /obj/item/gun/energy/e_gun/old/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Despite the passage of time, [src] looks remarkably well-preserved.</span>"
+	. += SPAN_NOTICE("Despite the passage of time, [src] looks remarkably well-preserved.")
 
 /obj/item/gun/energy/e_gun/old/examine_more(mob/user)
 	..()
@@ -315,9 +315,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, SPAN_NOTICE("The crate reanchors itself to the ground."))
 	else
-		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, SPAN_NOTICE("The crate unanchors itself from the ground."))
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it

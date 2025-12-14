@@ -133,9 +133,11 @@
 			D-3: About 250 moles of CO2 are released by the crystal</br></br></br>
 
 			C Class: Events with mild effects to standard setups. Operator intervention MAY be required. Engineering will be alerted on telecomms.</br></br>
-			C-1: 250 moles of oxygen are released by the crystal</br>
-			C-2: 250 moles of plasma are released by the crystal</br>
-			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.</br></br></br>
+			C-1: 2000 moles of oxygen are released by the crystal</br>
+			C-2: 2000 moles of plasma are released by the crystal</br>
+			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.
+			C-4: 2000 moles of hydrogen are released by the crystal.
+			C-5: 2000 moles of water vapor are released by the crystal.</br></br></br>
 
 			B Class: Events with significant effects to standard setups. Action may need to be taken to prevent a delamination event.</br></br>
 			B-1: The amount of plasma and O2 released by the engine is doubled for a few minutes.</br>
@@ -1026,7 +1028,7 @@
 				</head>
 				<body>
 				<h1>Trivial Soft Drinks</h1>
-				With upgraded machines, you can dispense many of these straightaway—Or if you're not so lucky, you can mix them as follows. Procurement doesn't currently accept soft drinks, but if they did, they wouldn't like these.
+				With upgraded machines, you can dispense many of these straightaway—Or if you're not so lucky, you can mix them as follows. Procurement won't be happy if you send these!
 				<h2>Banana Honk:</h2>
 				Mix one part each of banana juice, cream, and sugar.
 				<h2>Cafe Latte:</h2>
@@ -1055,7 +1057,7 @@
 				</head>
 				<body>
 				<h1>Easy Soft Drinks</h1>
-				You can make most of these drinks straight from your own dispensers. Procurement doesn't currently accept soft drinks, so this list is only for your reference. Drinks marked with § are for synthetic customers only. Drinks marked with † are enjoyable for synthetic and organic customers alike.
+				You can make most of these drinks straight from your own dispensers. Drinks marked with § are for synthetic customers only. Drinks marked with † are enjoyable for synthetic and organic customers alike.
 				<h2>Brown Star:</h2>
 				Mix two parts orange juice to one part cola.
 				<h2>Cog-a-Cola: §</h2>
@@ -1079,7 +1081,7 @@
 				<h2>Party Punch:</h2>
 				Mix two parts soda water to one part each of Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>), banana juice, berry juice, pineapple juice, watermelon juice, and grape juice.
 				<h2>Processor Punch: §</h2>
-				Mix one part each of TCP Sip, Dr. Gibb, and iced tea.
+				Mix one part each of TCP Sip, Dr. Gibb, and Iced Tea (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Rewriter:</h2>
 				Mix one part space mountain wind soda to one part coffee.
 				<h2>Roy Rogers:</h2>
@@ -1112,7 +1114,7 @@
 				</head>
 				<body>
 				<h1>Intermediate Soft Drinks</h1>
-				Most of these drinks require many steps or collaboration with other departments. Procurement doesn't currently accept soft drinks, so this list is only for your reference. Drinks marked with § are for synthetic customers only.
+				Most of these drinks require many steps or collaboration with other departments. Drinks marked with § are for synthetic customers only.
 				<h2>Arnold Palmer:</h2>
 				Mix one part Lemonade (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Iced Tea (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Battery Acid: §</h2>
@@ -1159,7 +1161,7 @@
 				</head>
 				<body>
 				<h1>Hard Soft Drinks</h1>
-				These drinks require a significant amount of cross-department collaboration, many steps, or rare ingredients. Procurement doesn't currently accept soft drinks, so this list is only for your reference. Drinks marked with § are for synthetic customers only.
+				These drinks require a significant amount of cross-department collaboration, many steps, or rare ingredients. Drinks marked with § are for synthetic customers only.
 				<h2>Beet Shrub:</h2>
 				Mix two parts beet juice to one part each of vinegar and corn syrup. Heat to 375K. Botany or the Kitchen can help.
 				<h2>Berry Beet Refresher:</h2>

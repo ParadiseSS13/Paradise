@@ -80,9 +80,9 @@
 	spider_lastspawn = world.time
 	canlay += getSpiderLevel()
 	if(canlay == 1)
-		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		to_chat(src, SPAN_NOTICE("You have an egg available to lay."))
 	else if(canlay > 1)
-		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+		to_chat(src, SPAN_NOTICE("You have [canlay] eggs available to lay."))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
@@ -106,10 +106,10 @@
 			if(T.spider_myqueen != src)
 				continue
 			if(prob(50) || T.spider_tier >= spider_tier)
-				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
+				to_chat(T, SPAN_USERDANGER("\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!"))
 				continue
-			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
-			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
+			T.visible_message(SPAN_DANGER("[T] writhes in pain!"))
+			to_chat(T, SPAN_USERDANGER("\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you..."))
 			T.degenerate = TRUE
 		for(var/mob/living/basic/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
 			if(T.spider_myqueen && T.spider_myqueen == src)
@@ -162,10 +162,10 @@
 				if(ok_to_nest && entry_vent)
 					nest_vent = entry_vent
 					neststep = 1
-					visible_message("<span class='danger'>\The [src] settles down, starting to build a nest.</span>")
+					visible_message(SPAN_DANGER("\The [src] settles down, starting to build a nest."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
+						visible_message(SPAN_DANGER("\The [src] looks around warily - then seeks a better nesting ground."))
 						path_to_vent = TRUE
 				else
 					neststep = -1
@@ -236,14 +236,14 @@
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
-	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
+	to_chat(src, SPAN_NOTICE("You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl."))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
 	if(stat == DEAD)
 		return
 	if(!hasnested)
-		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
+		to_chat(src, SPAN_DANGER("You must nest before doing this."))
 		return
 	if(canlay < 1)
 		show_egg_timer()
@@ -254,10 +254,10 @@
 	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Laying Eggs", eggtypes)
 	if(canlay < 1)
 		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
-		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
+		to_chat(src, SPAN_DANGER("Too soon to lay another egg."))
 		return
 	if(!(eggtype in eggtypes))
-		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+		to_chat(src, SPAN_DANGER("Unrecognized egg type."))
 		return FALSE
 
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
@@ -270,15 +270,15 @@
 		else if(canlay == 2)
 			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
-		to_chat(src, "<span class='danger'>Cancelled.</span>")
+		to_chat(src, SPAN_DANGER("Cancelled."))
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		to_chat(src, SPAN_DANGER("Eggs can only be laid while standing on a floor."))
 		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>Too soon to do this again!</span>")
+		to_chat(src, SPAN_WARNING("Too soon to do this again!"))
 		return
 	canlay -= numlings
 	eggslaid += numlings
@@ -302,14 +302,14 @@
 		if(TS_DESC_PRINCESS)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 		else
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, SPAN_DANGER("Unrecognized egg type."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/show_egg_timer()
 	var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10, 1)
 	if(remainingtime > 0)
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds.</span>")
+		to_chat(src, SPAN_DANGER("Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds."))
 	else
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
+		to_chat(src, SPAN_DANGER("Too soon to attempt that again. Wait just a few more seconds..."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
 	if(MinutesAlive() >= 20)
@@ -329,7 +329,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
-	visible_message("<span class='userdanger'>[src] emits a bone-chilling shriek!</span>")
+	visible_message(SPAN_USERDANGER("[src] emits a bone-chilling shriek!"))
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()
@@ -344,8 +344,8 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
-	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
+	. += SPAN_NOTICE("[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].")
+	. += SPAN_NOTICE("[p_they(TRUE)] has lived for [MinutesAlive()] minutes.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)

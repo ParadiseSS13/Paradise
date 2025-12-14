@@ -23,7 +23,7 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/get_climb_text()
-	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
+	return SPAN_NOTICE("You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.")
 
 /// aesthetic corner sharp edges hurt oof ouch
 /obj/structure/railing/corner
@@ -51,26 +51,26 @@
 	. = ..()
 	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		deconstruct(FALSE)
-		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
+		M.visible_message(SPAN_DANGER("[M] tears apart [src]!"), SPAN_NOTICE("You tear apart [src]!"))
 
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already in good condition!"))
 		return
 	if(!I.tool_start_check(user, amount = 0))
 		return
-	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin repairing [src]..."))
 	if(I.use_tool(src, user, 4 SECONDS, I.tool_volume))
 		obj_integrity = max_integrity
-		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		to_chat(user, SPAN_NOTICE("You repair [src]."))
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
 		return
-	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
+	to_chat(user, SPAN_WARNING("You cut apart the railing."))
 	I.play_tool_sound(src, 100)
 	deconstruct()
 	return TRUE
@@ -85,10 +85,10 @@
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
 		return
-	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor..."))
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor."))
 	return TRUE
 
 /obj/structure/railing/corner/CanPass()
@@ -187,13 +187,13 @@
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, -45)
 
 	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
-		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be rotated in that direction!"))
 		return FALSE
 	return TRUE
 
@@ -206,7 +206,7 @@
 
 /obj/structure/railing/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return

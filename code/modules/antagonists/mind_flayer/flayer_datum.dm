@@ -98,7 +98,7 @@
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
 	if(HAS_TRAIT(owner.current, TRAIT_MINDFLAYER_NULLIFIED))
 		message = stutter(message, 0, TRUE)
-	to_chat(owner.current, "<span class='sinister'>[message]</span>")
+	to_chat(owner.current, SPAN_SINISTER("[message]"))
 
 /**
 	Checks for any reason that you should not be able to drain someone for.
@@ -145,9 +145,9 @@
 		return
 	var/unique_drain_id = H.UID()
 	owner.current.visible_message(
-		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>",
-		"<span class='sinister'>We begin our harvest on [H].</span>",
-		"<span class='notice'>You hear the hum of electricity.</span>"
+		SPAN_DANGER("[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!"),
+		SPAN_SINISTER("We begin our harvest on [H]."),
+		SPAN_NOTICE("You hear the hum of electricity.")
 	)
 	if(!do_mob(owner.current, H, time = 2 SECONDS, hidden = TRUE))
 		send_swarm_message("Our connection was incomplete.")
@@ -178,7 +178,7 @@
 /datum/antagonist/mindflayer/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
-	messages += "<span class='danger'>You feel something stirring within your chassis... You are a Mindflayer!</span><br>"
+	messages += "[SPAN_DANGER("You feel something stirring within your chassis... You are a Mindflayer!")]<br>"
 	messages += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
 	return messages
 
