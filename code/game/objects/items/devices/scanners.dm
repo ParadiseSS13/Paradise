@@ -102,7 +102,7 @@ SLIME SCANNER
 				if(!overdosing)
 					overdosing = prob(10)
 
-			msgs += "<span class='notice'>[volume]u of [R.name][overdosing ? "</span> - [SPAN_BOLDANNOUNCEIC("OVERDOSING")]" : ".</span>"]"
+			msgs += SPAN_NOTICE("[volume]u of [R.name][overdosing ? "</span> - [SPAN_BOLDANNOUNCEIC("OVERDOSING")]" : "."]")
 
 	if(hallucinating && prob(10))
 		has_real_or_fake_reagents = TRUE
@@ -110,7 +110,7 @@ SLIME SCANNER
 			msgs += SPAN_BOLDNOTICE("Subject contains the following reagents:")
 			for(var/i in 1 to rand(1, 2))
 				var/reagent_name = pick(GLOB.chemical_reagents_list)
-				msgs += "<span class='notice'>[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - [SPAN_BOLDANNOUNCEIC("OVERDOSING")]" : ".</span>"]"
+				msgs += SPAN_NOTICE("[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - [SPAN_BOLDANNOUNCEIC("OVERDOSING")]" : "."]")
 
 	if(!has_real_or_fake_reagents)
 		msgs += SPAN_NOTICE("Subject contains no reagents.")
@@ -205,7 +205,7 @@ SLIME SCANNER
 			to_chat(user, SPAN_NOTICE("Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font>"))
 			return
 
-		to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
+		to_chat(user, SPAN_NOTICE("Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy"))
 		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
 		return
 
@@ -252,7 +252,7 @@ SLIME SCANNER
 		else
 			status = "[H.health]% Healthy"
 
-	msgs += "<span class='notice'>Analyzing Results for [scanned_name]:\nOverall Status: [status]"
+	msgs += SPAN_NOTICE("Analyzing Results for [scanned_name]:\nOverall Status: [status]")
 	msgs += "Key: [SPAN_HEALTHSCAN_OXY("Suffocation")]/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 	msgs += "Damage Specifics: [SPAN_HEALTHSCAN_OXY("[OX]")] - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 
@@ -296,11 +296,11 @@ SLIME SCANNER
 	if(H.undergoing_cardiac_arrest())
 		var/datum/organ/heart/heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(heart && !(heart.linked_organ.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>")
 		else if(heart && (heart.linked_organ.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>Subject's heart is necrotic.</b></font>")
 		else if(!heart)
-			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>Subject has no heart.</b></font>")
 
 	if(H.getStaminaLoss() || HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		msgs += SPAN_NOTICE("Subject appears to be suffering from fatigue.")
@@ -547,7 +547,7 @@ SLIME SCANNER
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
 			var/is_ipc = ismachineperson(H)
-			msgs += "<span class='notice'>Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat == DEAD ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]" //for the record im sorry
+			msgs += SPAN_NOTICE("Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat == DEAD ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]") //for the record im sorry
 			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			msgs += SPAN_NOTICE("External prosthetics:")
 			var/organ_found
@@ -886,24 +886,24 @@ SLIME SCANNER
 		return
 
 	if(!O.reagents)
-		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
+		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [O]."))
 		return
 
 	var/dat
 	var/blood_type = ""
 	if(!length(O.reagents.reagent_list))
-		to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
+		to_chat(user, SPAN_NOTICE("No active chemical agents found in [O]."))
 		return
 
 	var/one_percent = O.reagents.total_volume / 100
 	for(var/datum/reagent/R in O.reagents.reagent_list)
 		if(R.id != "blood")
-			dat += "<br>[TAB]<span class='notice'>[R] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
+			dat += "<br>[TAB][SPAN_NOTICE("[R] [details ? ":([R.volume / one_percent]%)" : ""]")]"
 		else
 			blood_type = R.data["blood_type"]
-			dat += "<br>[TAB]<span class='notice'>[blood_type ? "[blood_type]" : ""] [R.data["species"]] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
+			dat += "<br>[TAB][SPAN_NOTICE("[blood_type ? "[blood_type]" : ""] [R.data["species"]] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]")]"
 
-	to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
+	to_chat(user, SPAN_NOTICE("Chemicals found: [dat]"))
 	datatoprint = dat
 	scanning = FALSE
 
@@ -918,10 +918,10 @@ SLIME SCANNER
 		return
 
 	if(scanning)
-		to_chat(user, "<span class='notice'>[src] has no logs or is already in use.</span>")
+		to_chat(user, SPAN_NOTICE("[src] has no logs or is already in use."))
 		return
 
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message(SPAN_WARNING("[src] rattles and prints out a sheet of paper."))
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	sleep(5 SECONDS)
 
@@ -930,7 +930,7 @@ SLIME SCANNER
 	P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
 
 	user.put_in_hands(P)
-	to_chat(user, "<span class='notice'>Report printed. Log cleared.</span>")
+	to_chat(user, SPAN_NOTICE("Report printed. Log cleared."))
 	datatoprint = ""
 	scanning = TRUE
 
