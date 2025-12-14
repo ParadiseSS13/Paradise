@@ -38,7 +38,7 @@
 		var/obj/item/stack/sheet/metal/M = used
 		var/space_left = max_metal_stored - metal_stored
 		if(space_left <= 0)
-			to_chat(user, SPAN_NOTICE("[src] is already full!")
+			to_chat(user, SPAN_NOTICE("[src] is already full!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/to_load = min(space_left, M.amount)
@@ -55,7 +55,7 @@
 	// Allow easier self-application
 	var/zone = user.zone_selected
 	if(!zone)
-		to_chat(user, SPAN_NOTICE("You need to select a body part first!")
+		to_chat(user, SPAN_NOTICE("You need to select a body part first!"))
 		return
 
 	attack(user, user, null)
@@ -70,35 +70,35 @@
 
 	var/def_zone = user.zone_selected
 	if(!def_zone)
-		to_chat(user, SPAN_WARNING("You need to select a body part first!</span>")
+		to_chat(user, SPAN_WARNING("You need to select a body part first!</span>"))
 		return TRUE
 
 	var/mob/living/carbon/human/target = M
 	var/obj/item/organ/external/affected = target.get_organ(def_zone)
 
 	if(!affected)
-		to_chat(user, SPAN_WARNING("[target] doesn't have a [parse_zone(def_zone)]!")
+		to_chat(user, SPAN_WARNING("[target] doesn't have a [parse_zone(def_zone)]!"))
 		return TRUE
 
 	// Show these identically so it can't be used to test whether a limb is synthetic or not.
 	if(!affected.is_robotic() || affected.has_synthetic_skin)
-		to_chat(user, SPAN_WARNING("The [affected.name] doesn't need skin.")
+		to_chat(user, SPAN_WARNING("The [affected.name] doesn't need skin."))
 		return TRUE
 
 	// Do not put skin on a monitor. No.
 	if(ismachineperson(target) && def_zone == BODY_ZONE_HEAD && affected.model)
 		var/datum/robolimb/R = GLOB.all_robolimbs[affected.model]
 		if(R && R.is_monitor)
-			to_chat(user, SPAN_WARNING("The applicator fails to find purchase on your big cube head. Probably for the best.")
+			to_chat(user, SPAN_WARNING("The applicator fails to find purchase on your big cube head. Probably for the best."))
 			return TRUE
 
 	// Check if we have enough metal
 	if(metal_stored < metal_per_use)
-		to_chat(user, SPAN_WARNING("[src] needs [metal_per_use] metal to function.")
+		to_chat(user, SPAN_WARNING("[src] needs [metal_per_use] metal to function."))
 		return TRUE
 
 	if(applying)
-		to_chat(user, SPAN_WARNING("[src] is already in use!")
+		to_chat(user, SPAN_WARNING("[src] is already in use!"))
 		return TRUE
 
 	// Start application process
@@ -210,6 +210,6 @@
 		)
 
 		if(target != user)
-			to_chat(target, SPAN_NOTICE("You feel a thin layer of synthetic skin form over your [affected.name].")
+			to_chat(target, SPAN_NOTICE("You feel a thin layer of synthetic skin form over your [affected.name]."))
 
 	applying = FALSE
