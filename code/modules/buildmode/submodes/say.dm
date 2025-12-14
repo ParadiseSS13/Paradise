@@ -2,10 +2,10 @@
 	key = "say"
 
 /datum/buildmode_mode/say/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button        = Say</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button       = Emote</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button        = Say"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button       = Emote"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/say/handle_click(mob/user, params, atom/object)
 	if(ismob(object))
@@ -23,7 +23,7 @@
 		if(isnull(say))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] say [say].")
-		message_admins("<span class='notice'>Build Mode: [key_name(user)] made [object] at [ADMIN_VERBOSEJMP(object)] say \"[say]\".</span>")
+		message_admins(SPAN_NOTICE("Build Mode: [key_name(user)] made [object] at [ADMIN_VERBOSEJMP(object)] say \"[say]\"."))
 		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] say [say].")
 		object.atom_say(say)
 	else if(right_click)
@@ -31,6 +31,6 @@
 		if(isnull(emote))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] emote *[emote].")
-		message_admins("<span class='notice'>Build Mode: [key_name(user)] made [object] at [ADMIN_VERBOSEJMP(object)] emote \"*[emote]\".</span>")
+		message_admins(SPAN_NOTICE("Build Mode: [key_name(user)] made [object] at [ADMIN_VERBOSEJMP(object)] emote \"*[emote]\"."))
 		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] emote *[emote].")
 		object.atom_emote(emote)

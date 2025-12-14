@@ -48,7 +48,7 @@
 
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
+	. += SPAN_NOTICE("This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.")
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null

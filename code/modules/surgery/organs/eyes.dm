@@ -124,7 +124,7 @@
 		return
 	if(prob(10 * severity))
 		return
-	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
+	to_chat(owner, SPAN_WARNING("Static obfuscates your vision!"))
 	owner.flash_eyes(flash_intensity, visual = TRUE)
 	..()
 
@@ -313,20 +313,20 @@
 				receive_damage(0.25, 1)
 				new /obj/effect/temp_visual/eyesofgod(T)
 				if(prob(25))
-					to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
+					to_chat(M, SPAN_WARNING("You feel like you are being watched..."))
 		switch(damage)
 			if(25 to 30)
 				if(prob(50))
-					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes are burning in your skull!"))
 					owner.apply_damage(0.5, BURN, parent_organ)
 			if(30 to 54)
 				receive_damage(0.25, 1) //more pain when damaged
 				if(prob(15)) //Warning that you are still hurting yourself still
-					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes are burning in your skull!"))
 					owner.apply_damage(0.5, BURN, parent_organ)
 			if(55 to 60)
 				if(prob(50))
-					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes feel like they are going to explode!"))
 					owner.apply_damage(1, BURN, parent_organ)
 
 
@@ -339,7 +339,7 @@
 		if(shatter_state == ONE_SHATTERED)
 			return
 		shatter_state = ONE_SHATTERED
-	to_chat(owner, "<span class='notice'>Your feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!</span>")
+	to_chat(owner, SPAN_NOTICE("Your feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!"))
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/receive_damage(amount, silent)
 	. = ..()
@@ -357,7 +357,7 @@
 			shatter_state = ONE_SHATTERED
 			msg = "right eye"
 			owner.become_nearsighted(EYES_OF_GOD)
-	to_chat(owner, "<span class='userdanger'>You scream out in pain as your [msg] shatters!</span>")
+	to_chat(owner, SPAN_USERDANGER("You scream out in pain as your [msg] shatters!"))
 	owner.emote("scream")
 	owner.bleed(5)
 	deactivate()

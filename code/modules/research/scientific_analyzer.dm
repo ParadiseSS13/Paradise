@@ -66,30 +66,30 @@ Note: Must be placed within 3 tiles of the R&D Console
 		return ITEM_INTERACT_COMPLETE
 
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
+		to_chat(user, SPAN_WARNING("[src] must be linked to an R&D console first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, SPAN_WARNING("[src] is busy right now."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(isitem(used) && !loaded_item)
 		if(!used.origin_tech)
-			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
+			to_chat(user, SPAN_WARNING("This doesn't seem to have a tech origin!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/list/temp_tech = ConvertReqString2List(used.origin_tech)
 		if(length(temp_tech) == 0)
-			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
+			to_chat(user, SPAN_WARNING("You cannot deconstruct this item!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand, you cannot put it in [src]!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot put it in [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		busy = TRUE
 		loaded_item = used
-		to_chat(user, "<span class='notice'>You add [used] to [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You add [used] to [src]!"))
 		SStgui.update_uis(linked_console)
 		flick("s_analyzer_la", src)
 		spawn(10)

@@ -89,7 +89,7 @@
 	if(..())
 		return
 	if(!anchored)
-		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
+		to_chat(user,SPAN_WARNING("This device must be anchored by a wrench!"))
 		return
 	if(!Adjacent(user) && !is_ai(user))
 		return
