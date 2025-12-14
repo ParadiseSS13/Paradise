@@ -39,7 +39,7 @@
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
-			to_chat(user, "<span class='warning'>[held] falls out!</span>")
+			to_chat(user, SPAN_WARNING("[held] falls out!"))
 			held.forceMove(get_turf(user))
 			held = null
 	else

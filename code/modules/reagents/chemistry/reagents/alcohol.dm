@@ -20,15 +20,15 @@
 	if(istype(O,/obj/item/paper))
 		var/obj/item/paper/paperaffected = O
 		paperaffected.clearpaper()
-		paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+		paperaffected.visible_message(SPAN_NOTICE("The solution melts away the ink on the paper."))
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			for(var/page in affectedbook.pages)
 				affectedbook.pages[page] = " " //we're blanking the pages not making em null
-			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
+			affectedbook.visible_message(SPAN_NOTICE("The solution melts away the ink on the book."))
 		else
-			O.visible_message("<span class='warning'>It wasn't enough...</span>")
+			O.visible_message(SPAN_WARNING("It wasn't enough..."))
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -734,7 +734,7 @@
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
-	taste_description = "<span class='warning'>evil</span>"
+	taste_description = SPAN_WARNING("evil")
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/vodkatonic
@@ -1103,7 +1103,7 @@
 		if(prob(50))
 			M.say("[sonic_message]")
 		else
-			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+			to_chat(M, SPAN_NOTICE("[sonic_message ]"))
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/applejack
@@ -1161,7 +1161,7 @@
 	id = "dragonsbreath"
 	description = "Possessing this stuff probably breaks the Geneva convention."
 	color = "#DC0000"
-	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
+	taste_description = SPAN_USERDANGER("LIQUID FUCKING DEATH OH GOD WHAT THE FUCK")
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST && prob(20))
@@ -1171,7 +1171,7 @@
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(M.reagents.has_reagent("milk"))
-		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		to_chat(M, SPAN_NOTICE("The milk stops the burning. Ahhh."))
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
 		return
@@ -1179,22 +1179,22 @@
 		M.reagents.del_reagent("dragonsbreath") //As funny as it is, let's not have new wizards dust themselfs.
 		return
 	if(prob(8))
-		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+		to_chat(M, SPAN_USERDANGER("Oh god! Oh GODD!!"))
 	if(prob(50))
-		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
+		to_chat(M, SPAN_DANGER("Your throat burns terribly!"))
 		M.emote(pick("scream","cry","choke","gasp"))
 		M.Stun(2 SECONDS, FALSE)
 	if(prob(8))
-		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+		to_chat(M, SPAN_DANGER("Why!? WHY!?"))
 	if(prob(8))
-		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+		to_chat(M, SPAN_DANGER("ARGHHHH!"))
 	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'><b>OH GOD OH GOD PLEASE NO!!</b></span>")
+		to_chat(M, SPAN_USERDANGER("<b>OH GOD OH GOD PLEASE NO!!</b>"))
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))
-			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
-			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			to_chat(M, SPAN_USERDANGER("IT BURNS!!!!"))
+			M.visible_message(SPAN_DANGER("[M] is consumed in flames!"))
 			M.dust()
 			return
 	return ..() | update_flags
@@ -1414,7 +1414,7 @@
 		Mc.wetlevel = 0
 	M.germ_level -= min(volume * 30, M.germ_level)
 	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
-		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		to_chat(M, SPAN_NOTICE("Your systems prepare for a reboot."))
 		M.Paralyse(5 SECONDS)
 		M.Drowsy(20 SECONDS)
 		metabolization_rate += 4.6 // get rid of it faster after rebooting
@@ -1478,7 +1478,7 @@
 		if(head_organ && robohead.is_monitor)
 			H.change_hair("Blue IPC Screen", 1)
 			var/bluescreen_message = pick("Stack underflow.", "Null pointer exception.", "Syntax error.", "500 Internal Server Error.", "Segmentation fault.", "Runtime exception.", "418 I'm a teapot.", "Could not open [M]: No such file or directory.", "fatal: not a git repository (or any of the parent directories): .git", "Display error: No signal.")
-			to_chat(M, "<span class='warning'>[bluescreen_message]</span>")
+			to_chat(M, SPAN_WARNING("[bluescreen_message]"))
 		if(prob(50) && COOLDOWN_FINISHED(src, drink_drowsiness_cooldown))
 			M.EyeBlurry(10 SECONDS)
 			M.Drowsy(5 SECONDS)
@@ -1505,7 +1505,7 @@
 	if(prob(5))
 		update_flags |= M.adjustFireLoss(5, FALSE)
 		var/burn_message = pick("Your wires singe!", "Your fans are working overtime!", "It burns...!")
-		to_chat(M, "<span class='userdanger'>[burn_message]</span>")
+		to_chat(M, SPAN_USERDANGER("[burn_message]"))
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/synthanol/dryer_martini
@@ -1668,10 +1668,10 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
 		if(prob(66.66))
-			to_chat(M, "<span class='warning'>You feel hungry...</span>")
+			to_chat(M, SPAN_WARNING("You feel hungry..."))
 		else if(prob(50))
 			update_flags |= M.adjustToxLoss(1, FALSE)
-			to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+			to_chat(M, SPAN_WARNING("Your stomach grumbles painfully!"))
 	else
 		if(prob(60))
 			M.adjust_nutrition(-remove_nutrition)
@@ -1808,7 +1808,7 @@
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_add(mob/living/M)
 	if(isgrey(M))
-		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		to_chat(M, SPAN_NOTICE("Your mind expands and your eyes see the world for what it really is."))
 		M.Druggy(12 SECONDS)
 		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id) // Powerful? Sure. But everyone knows you're there. Also you've got a druggy filter over your eyes.
 	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
@@ -1829,18 +1829,18 @@
 			target_list += L
 		if(length(target_list))
 			for(var/mob/living/target in target_list)
-				to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
+				to_chat(target, SPAN_WARNING("You feel that [M.name] is somewhere near."))
 			to_chat(M, pick(
-				"<span class='warning'>The scent of your brainwaves intermingles with another!</span>",
-				"<span class='warning'>Your synapses accidentally call out your name!</span>",
-				"<span class='warning'>Your mind bumps into someone!</span>",
-				"<span class='warning'>The eyes of other minds are staring at you from across the noosphere!</span>")
+				SPAN_WARNING("The scent of your brainwaves intermingles with another!"),
+				SPAN_WARNING("Your synapses accidentally call out your name!"),
+				SPAN_WARNING("Your mind bumps into someone!"),
+				SPAN_WARNING("The eyes of other minds are staring at you from across the noosphere!"))
 			)
 	return ..()
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_delete(mob/living/M)
 	if(isgrey(M))
-		to_chat(M, "<span class='warning'>Your mind shrinks down to its usual size and the world hides its secrets from you!</span>")
+		to_chat(M, SPAN_WARNING("Your mind shrinks down to its usual size and the world hides its secrets from you!"))
 		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
 		M.Druggy(0 SECONDS)
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
@@ -1852,7 +1852,7 @@
 		REMOVE_TRAIT(M, TRAIT_NIGHT_VISION, id)
 		M.Druggy(0 SECONDS)
 	else
-		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		to_chat(M, SPAN_NOTICE("Your mind expands and your eyes see the world for what it really is."))
 		M.Druggy(12 SECONDS)
 		ADD_TRAIT(M, TRAIT_NIGHT_VISION, id)
 
@@ -1883,7 +1883,7 @@
 		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	// Don't spam the chat too much.
 	if(prob(36) && M.getFireLoss())
-		to_chat(M, "<span class='notice'>The icy energies within you soothe your burns.</span>")
+		to_chat(M, SPAN_NOTICE("The icy energies within you soothe your burns."))
 	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/human/H = M
 	update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1892,7 +1892,7 @@
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_delete(mob/living/M)
 	if(istajaran(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
-		to_chat(M, "<span class='warning'>The raging blizzard within you subsides.</span>")
+		to_chat(M, SPAN_WARNING("The raging blizzard within you subsides."))
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
 	return ..()
 
@@ -1971,9 +1971,9 @@
 
 	if(prob(50))
 		M.visible_message(
-			"<span class='notice'>A soapy liqid flows out of [M]'s pores, cleaning [M.p_them()].</span>",
-			"<span class='notice'>Your skin emits a soapy liquid from its pores, cleaning you in the process.</span>",
-			"<span class='warning'>A sickening oozing sound fills the air.</span>"
+			SPAN_NOTICE("A soapy liqid flows out of [M]'s pores, cleaning [M.p_them()]."),
+			SPAN_NOTICE("Your skin emits a soapy liquid from its pores, cleaning you in the process."),
+			SPAN_WARNING("A sickening oozing sound fills the air.")
 		)
 		M.clean_blood()
 	return ..()
@@ -1984,9 +1984,9 @@
 
 	if(prob(5))
 		M.visible_message(
-			"<span class='warning'>A huge surge of soapy liqid gushes out of [M]'s pores and pools on the floor!</span>",
-			"<span class='notice'>Your skin emits a surge of soapy liquid from its pores, cleaning you and the surrounding floor in the process.</span>",
-			"<span class='warning'>A vile gushing sound fills the air followed by the splattering of a thick liquid on the floor!</span>"
+			SPAN_WARNING("A huge surge of soapy liqid gushes out of [M]'s pores and pools on the floor!"),
+			SPAN_NOTICE("Your skin emits a surge of soapy liquid from its pores, cleaning you and the surrounding floor in the process."),
+			SPAN_WARNING("A vile gushing sound fills the air followed by the splattering of a thick liquid on the floor!")
 		)
 		new /obj/effect/particle_effect/foam(M.loc)
 	return list(0)
@@ -2007,7 +2007,7 @@
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_add(mob/living/M)
 	if(iskidan(M))
-		to_chat(M, "<span class='notice'>Delicious! You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
+		to_chat(M, SPAN_NOTICE("Delicious! You feel a surge of energy in your muscles, you feel like you can smash anything!"))
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus += damage_mod
 	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
@@ -2015,7 +2015,7 @@
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_delete(mob/living/M)
 	if(iskidan(M))
-		to_chat(M, "<span class='warning'>You no longer have the energy to smash!</span>")
+		to_chat(M, SPAN_WARNING("You no longer have the energy to smash!"))
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus -= damage_mod
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
@@ -2026,7 +2026,7 @@
 	if(iskidan(M))
 		var/mob/living/carbon/human/H = M
 		H.physiology.melee_bonus += damage_mod
-		to_chat(M, "<span class='notice'>You feel a surge of energy in your muscles, you feel like you can smash anything!</span>")
+		to_chat(M, SPAN_NOTICE("You feel a surge of energy in your muscles, you feel like you can smash anything!"))
 	// No need to change the damage modifier when turning into a non-Kidan, it gets reset when species changes.
 
 /datum/reagent/consumable/ethanol/howler
@@ -2091,7 +2091,7 @@
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_add(mob/living/M)
 	if(isvox(M))
-		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
+		to_chat(M, SPAN_NOTICE("As the dust is filtered out of your lungs, it becomes much easier to breathe."))
 		ADD_TRAIT(M, TRAIT_NOBREATH, id)
 	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, PROC_REF(on_species_change))
 	return ..()
@@ -2109,7 +2109,7 @@
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_delete(mob/living/M)
 	if(isvox(M))
-		to_chat(M, "<span class='warning'>Your lungs begin to feel dusty again...</span>")
+		to_chat(M, SPAN_WARNING("Your lungs begin to feel dusty again..."))
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
 	return ..()
@@ -2120,7 +2120,7 @@
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
 	else
 		ADD_TRAIT(M, TRAIT_NOBREATH, id)
-		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
+		to_chat(M, SPAN_NOTICE("As the dust is filtered out of your lungs, it becomes much easier to breathe."))
 
 /datum/reagent/consumable/ethanol/slime_mold
 	name = "Slime Mold"
@@ -2142,7 +2142,7 @@
 	if(!(NO_BLOOD in H.dna.species.species_traits))
 		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 			if(prob(36))
-				to_chat(M, "<span class='notice'>You feel a surge of invigoration flow through your veins!</span>")
+				to_chat(M, SPAN_NOTICE("You feel a surge of invigoration flow through your veins!"))
 			H.blood_volume += REAGENTS_METABOLISM
 	return ..()
 
@@ -2166,8 +2166,8 @@
 	if(ismoth(M))
 		M.set_light(3, 4)
 		M.visible_message(
-			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
-			"<span class='notice'>The Sun was within you all this time!</span>"
+			SPAN_NOTICE("[M] suddenly starts radiating a brillant light!"),
+			SPAN_NOTICE("The Sun was within you all this time!")
 		)
 	RegisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE, TYPE_PROC_REF(/datum/reagent/consumable/ethanol/sontse, on_species_change))
 
@@ -2183,8 +2183,8 @@
 	if(ismoth(M))
 		M.set_light(0, null)
 		M.visible_message(
-			"<span class='warning'>The radiant light of [M] fades away.</span>",
-			"<span class='warning'>The Sun within you subsides.</span>"
+			SPAN_WARNING("The radiant light of [M] fades away."),
+			SPAN_WARNING("The Sun within you subsides.")
 		)
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
 	return ..()
@@ -2203,9 +2203,9 @@
 		update_flags |= M.adjustFireLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.bodytemperature += rand(15, 30)
 		M.visible_message(
-			"<span class='danger'>The radiant aura of [M] suddenly flares into a blinding flash!</span>",
-			"<span class='userdanger'>THE SUN BURNS YOU!</span>",
-			"<span class='warning'>You briefly feel a wave of warmth wash over you.</span>"
+			SPAN_DANGER("The radiant aura of [M] suddenly flares into a blinding flash!"),
+			SPAN_USERDANGER("THE SUN BURNS YOU!"),
+			SPAN_WARNING("You briefly feel a wave of warmth wash over you.")
 		)
 	return list(0, update_flags)
 
@@ -2216,8 +2216,8 @@
 	else
 		M.set_light(3, 4)
 		M.visible_message(
-			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
-			"<span class='notice'>The Sun was within you all this time!</span>"
+			SPAN_NOTICE("[M] suddenly starts radiating a brillant light!"),
+			SPAN_NOTICE("The Sun was within you all this time!")
 		)
 
 /datum/reagent/consumable/ethanol/ultramatter
@@ -2255,9 +2255,9 @@
 		suit.next_extinguish = world.time + 10 SECONDS
 	if(!inflamed)
 		M.visible_message(
-			"<span class='danger'>[M] expels a flaming substance and suddenly erupts into an inferno!</span>",
-			"<span class='userdanger'>You expell flaming substance and become bathed in fire!</span>",
-			"<span class='danger'>You hear spraying and fire igniting!</span>"
+			SPAN_DANGER("[M] expels a flaming substance and suddenly erupts into an inferno!"),
+			SPAN_USERDANGER("You expell flaming substance and become bathed in fire!"),
+			SPAN_DANGER("You hear spraying and fire igniting!")
 		)
 		inflamed = TRUE
 	return ..()
@@ -2266,7 +2266,7 @@
 	if(isplasmaman(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 	M.ExtinguishMob()
-	to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
+	to_chat(M, SPAN_WARNING("The fires surrounding you are quenched!"))
 	UnregisterSignal(M, COMSIG_AFTER_SPECIES_CHANGE)
 	return ..()
 

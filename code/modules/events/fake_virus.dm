@@ -30,7 +30,7 @@
 	for(var/i in 1 to rand(1, fake_virus_victims))
 		var/mob/living/carbon/human/one_cough_man = pick(valid_targets)
 		if(prob(25)) // 1/4 odds to get a spooky message instead of coughing out loud
-			addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(to_chat), one_cough_man, "<span class='warning'>[pick("Your head hurts.", "Your head pounds.")]</span>"), rand(1, 120) SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(to_chat), one_cough_man, SPAN_WARNING("[pick("Your head hurts.", "Your head pounds.")]")), rand(1, 120) SECONDS)
 		else
 			addtimer(CALLBACK(one_cough_man, TYPE_PROC_REF(/mob/, emote), pick("cough", "sniff", "sneeze", "yawn")), rand(1, 120) SECONDS) // Deliver the message with a randomized time interval so there arent multiple people coughing at the same time
 		valid_targets -= one_cough_man

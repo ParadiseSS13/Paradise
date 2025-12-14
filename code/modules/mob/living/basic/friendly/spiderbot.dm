@@ -57,10 +57,10 @@
 	if(istype(O, /obj/item/mmi))
 		var/obj/item/mmi/B = O
 		if(mmi) // There's already a brain in it.
-			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
+			to_chat(user, SPAN_WARNING("There's already a brain in [src]!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>")
+			to_chat(user, SPAN_WARNING("Sticking an empty MMI into the frame would sort of defeat the purpose."))
 			return ITEM_INTERACT_COMPLETE
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
@@ -74,18 +74,18 @@
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)
-				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
+				to_chat(user, SPAN_NOTICE("[B] is completely unresponsive; there's no point."))
 				return ITEM_INTERACT_COMPLETE
 
 		if(B.brainmob.stat == DEAD)
-			to_chat(user, "<span class='warning'>[B] is dead. Sticking it into the frame would sort of defeat the purpose.</span>")
+			to_chat(user, SPAN_WARNING("[B] is dead. Sticking it into the frame would sort of defeat the purpose."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob, "nonhumandept"))
-			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
+			to_chat(user, SPAN_WARNING("[B] does not seem to fit."))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You install [B] in [src]!"))
 
 		user.drop_item()
 		B.forceMove(src)
@@ -97,11 +97,11 @@
 
 	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 		if(!mmi)
-			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
+			to_chat(user, SPAN_WARNING("There's no reason to swipe your ID - the spiderbot has no brain to remove."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(emagged)
-			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
+			to_chat(user, SPAN_WARNING("[src] doesn't seem to respond."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/card/id/id_card
@@ -113,11 +113,11 @@
 			id_card = pda.id
 
 		if(ACCESS_ROBOTICS in id_card.access)
-			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You swipe your access card and pop the brain out of [src]."))
 			eject_brain()
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
+			to_chat(user, SPAN_WARNING("You swipe your card, with no effect."))
 			return ITEM_INTERACT_COMPLETE
 
 /mob/living/basic/spiderbot/welder_act(mob/user, obj/item/I)
@@ -126,23 +126,23 @@
 	if(user == src) // No self-repair dummy
 		return
 	if(health >= maxHealth)
-		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
+		to_chat(user, SPAN_WARNING("[src] does not need repairing!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	adjustHealth(-5)
 	add_fingerprint(user)
-	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
+	user.visible_message("[user] repairs [src]!",SPAN_NOTICE("You repair [src]."))
 
 /mob/living/basic/spiderbot/emag_act(mob/living/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
+		to_chat(user, SPAN_WARNING("[src] doesn't seem to respond."))
 		return 0
 	else
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
+		to_chat(user, SPAN_NOTICE("You short out the security protocols and rewrite [src]'s internal memory."))
+		to_chat(src, SPAN_USERDANGER("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
 		emagged_master = user
 		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
@@ -158,7 +158,7 @@
 	ckey = M.brainmob.ckey
 	name = "Spider-bot ([M.brainmob.name])"
 	if(emagged)
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
+		to_chat(src, SPAN_USERDANGER("You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!"))
 
 /mob/living/basic/spiderbot/update_icon_state()
 	if(mmi)

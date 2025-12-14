@@ -63,7 +63,7 @@
 	apply_label()
 
 /datum/component/label/proc/on_examine(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
+	examine_list += SPAN_NOTICE("It has a label with some words written on it. Use a hand labeler to remove it.")
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
 /datum/component/label/proc/apply_label()
@@ -94,7 +94,7 @@
 		owner = person
 	if(department)
 		owner += " in [department]"
-	
+
 	if(from_cc)
 		label_name = owner
 	else
@@ -113,4 +113,4 @@
 
 /// Adds detailed information to the examine text.
 /datum/component/label/goal/on_examine(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal for [owner]. Use a hand labeler to remove it.</span>"
+	examine_list += SPAN_NOTICE("It has a label on it, marking it as part of a secondary goal for [owner]. Use a hand labeler to remove it.")

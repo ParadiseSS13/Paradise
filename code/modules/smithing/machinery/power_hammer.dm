@@ -18,8 +18,8 @@
 
 /obj/machinery/smithing/power_hammer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can set [src] to automatically continue hammering heated metal with a multitool.</span>"
-	. += "<span class='notice'>The autohammer light is currently [repeating ? "on" : "off"].</span>"
+	. += SPAN_NOTICE("You can set [src] to automatically continue hammering heated metal with a multitool.")
+	. += SPAN_NOTICE("The autohammer light is currently [repeating ? "on" : "off"].")
 
 /obj/machinery/smithing/power_hammer/update_overlays()
 	. = ..()
@@ -46,13 +46,13 @@
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
 	if(!working_component)
-		to_chat(user, "<span class='notice'>There is no component to hammer!</span>")
+		to_chat(user, SPAN_NOTICE("There is no component to hammer!"))
 		return
 	if(!working_component.heat)
-		to_chat(user, "<span class='notice'>[working_component] is too cold to properly shape.</span>")
+		to_chat(user, SPAN_NOTICE("[working_component] is too cold to properly shape."))
 		return
 	if(working_component.hammer_time <= 0)
-		to_chat(user, "<span class='notice'>[working_component] is already fully shaped.</span>")
+		to_chat(user, SPAN_NOTICE("[working_component] is already fully shaped."))
 		return
 	..()
 	working_component.powerhammer()
@@ -70,18 +70,18 @@
 		return
 	if(!repeating)
 		repeating = TRUE
-		to_chat(user, "<span class='notice'>You set [src] to auto-repeat.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src] to auto-repeat."))
 	else
 		repeating = FALSE
-		to_chat(user, "<span class='notice'>You set [src] to not auto-repeat.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src] to not auto-repeat."))
 
 /obj/machinery/smithing/power_hammer/attack_hand(mob/user)
 	. = ..()
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return FINISH_ATTACK
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently operating!"))
 		return
 	operate(operation_time, user)
 	update_icon(UPDATE_ICON_STATE)
@@ -90,10 +90,10 @@
 /obj/machinery/smithing/power_hammer/special_attack(mob/user, mob/living/target)
 	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 	if(!istype(head))
-		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		to_chat(user, SPAN_WARNING("This person doesn't have a head!"))
 		return FALSE
-	target.visible_message("<span class='danger'>[user] hammers [target]'s head with [src]!</span>", \
-					"<span class='userdanger'>[user] hammers your head with [src]! Did somebody get the license plate on that car?</span>")
+	target.visible_message(SPAN_DANGER("[user] hammers [target]'s head with [src]!"), \
+					SPAN_USERDANGER("[user] hammers your head with [src]! Did somebody get the license plate on that car?"))
 	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, armor_type = MELEE, armor_penetration_percentage = 50)
 	target.apply_damage(40, BRUTE, BODY_ZONE_HEAD, armor)
 	target.Weaken(4 SECONDS)

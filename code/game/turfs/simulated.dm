@@ -151,7 +151,7 @@
 							var/obj/item/organ/external/affected = M.get_organ("head")
 							if(affected)
 								M.apply_damage(5, BRUTE, "head")
-								M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
+								M.visible_message(SPAN_WARNING("<b>[M]</b> hits their head on the ice!"))
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
