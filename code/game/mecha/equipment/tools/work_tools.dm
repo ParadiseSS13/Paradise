@@ -60,7 +60,7 @@
 						chamber.update_icon(UPDATE_OVERLAYS)
 						return
 					else
-						occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+						occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
 						return
 				else
 					for(var/obj/item/nuclear_rod/rod in cargo_holder.cargo)
