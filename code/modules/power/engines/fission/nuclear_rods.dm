@@ -1,6 +1,6 @@
 /obj/item/nuclear_rod
 	name = "Nuclear Control Rod"
-	desc = "You shouldnt be seeing this. Contact a developer"
+	desc = "You shouldn't be seeing this. Contact a developer"
 	icon = 'icons/obj/fission/rods.dmi'
 	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
