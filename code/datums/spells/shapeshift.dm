@@ -38,7 +38,7 @@
 /datum/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/M in caster)
 		if(M.status_flags & GODMODE)
-			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+			to_chat(caster, SPAN_WARNING("You're already shapeshifted!"))
 			return
 
 	var/mob/living/shape = new shapeshift_type(get_turf(caster))
@@ -82,10 +82,10 @@
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
 /datum/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
-	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
-		"<span class='danger'>You begin channeling the transformation.</span>")
+	caster.visible_message(SPAN_DANGER("[caster] screams in agony as bones and claws erupt out of their flesh!"),
+		SPAN_DANGER("You begin channeling the transformation."))
 	if(!do_after(caster, 5 SECONDS, FALSE, caster))
-		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
+		to_chat(caster, SPAN_WARNING("You lose concentration of the spell!"))
 		return
 	return ..()
 

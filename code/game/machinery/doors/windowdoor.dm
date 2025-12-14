@@ -74,9 +74,9 @@
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
 	if(emagged)
-		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+		. += SPAN_WARNING("Its access panel is smoking slightly.")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
+		. += SPAN_WARNING("The access panel is coated in yellow ooze...")
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -281,7 +281,7 @@
 	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
 		deconstruct(FALSE)
-		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		M.visible_message(SPAN_DANGER("[M] smashes through [src]!"), SPAN_NOTICE("You smash through [src]."))
 
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -326,12 +326,12 @@
 		return
 	. = TRUE
 	if(density || operating)
-		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
+		to_chat(user, SPAN_WARNING("You need to open the door to access the maintenance panel!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
+	to_chat(user, SPAN_NOTICE("You [panel_open ? "open":"close"] the maintenance panel of the [src.name]."))
 
 
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
@@ -343,7 +343,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
+		user.visible_message(SPAN_WARNING("[user] removes the electronics from the [name]."), \
 							"You start to remove electronics from the [name]...")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
@@ -370,7 +370,7 @@
 				else
 					WA.name = "wired windoor assembly"
 
-				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+				to_chat(user, SPAN_NOTICE("You remove the airlock electronics."))
 
 				var/obj/item/airlock_electronics/ae
 				if(!electronics)
@@ -399,7 +399,7 @@
 		else
 			close(2)
 	else
-		to_chat(user, "<span class='warning'>The door's motors resist your efforts to force it!</span>")
+		to_chat(user, SPAN_WARNING("The door's motors resist your efforts to force it!"))
 
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)

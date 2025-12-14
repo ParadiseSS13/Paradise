@@ -22,7 +22,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return
 
 	ui_interact(user)
@@ -93,7 +93,7 @@
 
 			dronefab.produce_drones = !dronefab.produce_drones
 			var/toggle = dronefab.produce_drones ? "enable" : "disable"
-			to_chat(usr, "<span class='notice'>You [toggle] drone production in the nearby fabricator.</span>")
+			to_chat(usr, SPAN_NOTICE("You [toggle] drone production in the nearby fabricator."))
 			message_admins("[key_name_admin(usr)] [toggle]d maintenance drone production from the control console.")
 			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
 
@@ -102,22 +102,22 @@
 
 		if("ping")
 			ping_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
-			to_chat(usr, "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>")
+			to_chat(usr, SPAN_NOTICE("You issue a maintenance request for all active drones, highlighting [drone_call_area]."))
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.client && D.stat == CONSCIOUS)
-					to_chat(D, "<span class='boldnotice'>-- Maintenance drone presence requested in: [drone_call_area].</span>")
+					to_chat(D, SPAN_BOLDNOTICE("-- Maintenance drone presence requested in: [drone_call_area]."))
 
 		if("resync")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
 				D.sync_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
-				to_chat(usr, "<span class='notice'>You issue a law synchronization directive for the drone.</span>")
+				to_chat(usr, SPAN_NOTICE("You issue a law synchronization directive for the drone."))
 				D.law_resync()
 
 		if("recall")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
-				to_chat(usr, "<span class='warning'>You issue a recall command for the unfortunate drone.</span>")
+				to_chat(usr, SPAN_WARNING("You issue a recall command for the unfortunate drone."))
 				if(D != usr) // Don't need to bug admins about a suicide
 					message_admins("[key_name_admin(usr)] issued recall order for drone [key_name_admin(D)] from control console.")
 				log_game("[key_name(usr)] issued recall order for [key_name(D)] from control console.")
@@ -135,8 +135,8 @@
 
 		dronefab = fab
 		if(user)
-			to_chat(user, "<span class='notice'>Drone fabricator located.</span>")
+			to_chat(user, SPAN_NOTICE("Drone fabricator located."))
 		return
 
 	if(user)
-		to_chat(user, "<span class='warning'>Unable to locate drone fabricator.</span>")
+		to_chat(user, SPAN_WARNING("Unable to locate drone fabricator."))

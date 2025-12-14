@@ -21,9 +21,9 @@
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
-		. += "<span class='cult'>A dagger gifted by [GET_CULT_DATA(entity_title3, "your god")]. Allows the scribing of runes and access to the knowledge archives of the cult of [GET_CULT_DATA(entity_name, "your god")].</span>"
-		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
-		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
+		. += SPAN_CULT("A dagger gifted by [GET_CULT_DATA(entity_title3, "your god")]. Allows the scribing of runes and access to the knowledge archives of the cult of [GET_CULT_DATA(entity_name, "your god")].")
+		. += SPAN_CULTITALIC("Striking another cultist with it will purge holy water from them.")
+		. += SPAN_CULTITALIC("Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.")
 
 /obj/item/melee/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
 	if(..())
@@ -32,11 +32,11 @@
 	if(IS_CULTIST(target))
 		if(target.reagents && target.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(target == user) // Targeting yourself
-				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+				to_chat(user, SPAN_WARNING("You can't remove holy water from yourself!"))
 
 			else // Targeting someone else
-				to_chat(user, "<span class='cult'>You remove the taint from [target].</span>")
-				to_chat(target, "<span class='cult'>[user] removes the taint from your body.</span>")
+				to_chat(user, SPAN_CULT("You remove the taint from [target]."))
+				to_chat(target, SPAN_CULT("[user] removes the taint from your body."))
 				target.reagents.del_reagent("holywater")
 				add_attack_logs(user, target, "Hit with [src], removing the holy water from them")
 
@@ -49,4 +49,4 @@
 	if(IS_CULTIST(user))
 		scribe_rune(user)
 	else
-		to_chat(user, "<span class='warning'>[src] is covered in unintelligible shapes and markings.</span>")
+		to_chat(user, SPAN_WARNING("[src] is covered in unintelligible shapes and markings."))

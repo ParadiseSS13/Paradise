@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
-				"<span class='notice'>You slide [P] along \the [src].</span>", \
+				SPAN_NOTICE("You slide [P] along \the [src]."), \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
 
@@ -218,10 +218,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		burnt = FALSE
 		current_overlay = null
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
+			to_chat(user, SPAN_DANGER("You remove the broken plating."))
 	else
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
+			to_chat(user, SPAN_DANGER("You remove the floor tile."))
 		if(floor_tile && make_tile)
 			new floor_tile(src)
 	return make_plating()

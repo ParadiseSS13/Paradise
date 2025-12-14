@@ -118,11 +118,11 @@
 /mob/living/basic/swarmer/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	face_atom(target)
 	if(is_type_in_list(target, GLOB.swarmer_blacklist))
-		to_chat(src, "<span class='warning'>Our sensors have designated this object important to station functionality or to our mission. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("Our sensors have designated this object important to station functionality or to our mission. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING))
-		to_chat(src, "<span class='warning'>This asset is already being converted into useable resources. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("This asset is already being converted into useable resources. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(iswallturf(target))
@@ -141,7 +141,7 @@
 		return ..()
 	var/mob/living/L = target
 	if(istype(L, /mob/living/basic/swarmer))
-		to_chat(src, "<span class='warning'>We do not wish to harm one of our own. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("We do not wish to harm one of our own. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(L.stat == DEAD)
@@ -242,7 +242,7 @@
 
 /mob/living/basic/swarmer/proc/disappear_mob(mob/target)
 	if(!is_station_level(z))
-		to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
+		to_chat(src, SPAN_WARNING("Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area."))
 		return
 
 	var/turf/simulated/floor/F = find_safe_turf(zlevels = z)
@@ -262,10 +262,10 @@
 		var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || pressure_dangerlevel)
-			to_chat(src, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(src, SPAN_WARNING("Destroying this object has the potential to cause a hull breach. Aborting."))
 			return TRUE
 		else if(istype(A, /area/station/engineering/engine/supermatter))
-			to_chat(src, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(src, SPAN_WARNING("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			return TRUE
 	return FALSE
 

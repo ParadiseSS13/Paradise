@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
-	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
+	var/msg = SPAN_RESONATE(SPAN_NAME("[owner.real_name]</span> <span class='message'>resonates, \"[message]\"") )
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 		if(owner.stat)
 			return FALSE
 	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
-		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		to_chat(owner, SPAN_WARNING("No one can hear you when you are jaunting, no point in talking now!"))
 		return FALSE
 	return TRUE
 
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
-			to_chat(owner, "<span class='notice'>You must wait [(cords.next_command - world.time)/10] seconds before Speaking again.</span>")
+			to_chat(owner, SPAN_NOTICE("You must wait [(cords.next_command - world.time)/10] seconds before Speaking again."))
 		return
 	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
 	if(!command)
@@ -117,17 +117,17 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, "<span class='notice'>You must wait [(next_command - world.time)/10] seconds before Speaking again.</span>")
+		to_chat(owner, SPAN_NOTICE("You must wait [(next_command - world.time)/10] seconds before Speaking again."))
 		return FALSE
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
-		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(owner, SPAN_WARNING("You are unable to speak!"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
 	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
-		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		to_chat(owner, SPAN_WARNING("No one can hear you when you are jaunting, no point in talking now!"))
 		return FALSE
 	return TRUE
 

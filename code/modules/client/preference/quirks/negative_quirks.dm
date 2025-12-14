@@ -89,7 +89,7 @@
 *  If a bad attack isn't treated, it can easily feed into itself and kill the user.
 */
 /datum/quirk/asthma/proc/trigger_asthma_symptom(current_severity)
-	owner.visible_message("<span class='notice'>[owner] violently coughs!</span>", "<span class='warning'>Your asthma flares up!</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] violently coughs!"), SPAN_WARNING("Your asthma flares up!"))
 	switch(current_severity)
 		if(50 to 75)
 			owner.adjustOxyLoss(5)

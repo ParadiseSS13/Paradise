@@ -80,7 +80,7 @@
 	if(!is_zoomed_in())
 		return
 	if(source.loc != tracker.owner) //Dropped.
-		to_chat(tracker.owner, "<span class='warning'>[parent]'s scope is overloaded by movement and shuts down!</span>")
+		to_chat(tracker.owner, SPAN_WARNING("[parent]'s scope is overloaded by movement and shuts down!"))
 	stop_zooming(tracker.owner)
 
 /datum/component/scope/proc/on_action_trigger(datum/action/source)
@@ -118,7 +118,7 @@
 	var/scope = istype(parent, /obj/item/gun) ? "scope in" : "zoom out"
 	switch(zoom_method)
 		if(ZOOM_METHOD_WIELD)
-			examine_list += "<span class='notice'>You can [scope] by wielding it with both hands.</span>"
+			examine_list += SPAN_NOTICE("You can [scope] by wielding it with both hands.")
 
 /datum/component/scope/proc/on_lionhunter_fire(obj/item/gun/projectile/shotgun/boltaction/lionhunter/lion)
 	SIGNAL_HANDLER // COMSIG_LIONHUNTER_FIRE
@@ -166,13 +166,13 @@
 	if(isnull(user.client))
 		return
 	if(HAS_TRAIT(user, TRAIT_SCOPED))
-		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
+		to_chat(user, SPAN_WARNING("You are already zoomed in!"))
 		return
 	if((flags & SCOPE_TURF_ONLY) && !isturf(user.loc))
-		to_chat(user, "<span class='warning'>There is not enough space to zoom in!</span>")
+		to_chat(user, SPAN_WARNING("There is not enough space to zoom in!"))
 		return
 	if((flags & SCOPE_NEED_ACTIVE_HAND) && user.get_active_hand() != parent)
-		to_chat(user, "<span class='warning'>You need to hold [parent] in your active hand to zoom in!</span>")
+		to_chat(user, SPAN_WARNING("You need to hold [parent] in your active hand to zoom in!"))
 		return
 	if(time_to_scope)
 		if(!do_after_once(user, time_to_scope, target = parent))

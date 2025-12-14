@@ -25,14 +25,14 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
+			to_chat(owner, SPAN_DANGER("You feel like something is tearing its way out of your skin..."))
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
 					new/mob/living/basic/spiderling(get_turf(owner))
-				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
+				owner.visible_message(SPAN_DANGER("[owner] bursts open! Holy fuck!"))
 				owner.gib()
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
@@ -99,7 +99,7 @@
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			infection_completed = TRUE
 	eggs_hatched++
-	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
+	to_chat(owner, SPAN_WARNING("A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!"))
 	owner.Paralyse(20 SECONDS)
 	if(infection_completed)
 		remove(owner)

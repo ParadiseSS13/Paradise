@@ -52,7 +52,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM", ticket_id = -1)
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
+		to_chat(src, SPAN_DANGER("Error: Private-Message: You are unable to use PM-s (muted)."))
 		return
 
 	var/client/C
@@ -63,7 +63,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 
 	if(!C)
 		if(holder)
-			to_chat(src, "<span class='danger'>Error: Private-Message: Client not found.</span>")
+			to_chat(src, SPAN_DANGER("Error: Private-Message: Client not found."))
 		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
@@ -71,7 +71,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 	/*if(C && C.last_pm_received + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
-			to_chat(src, "<span class='danger'>Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
+			to_chat(src, "[SPAN_DANGER("Simultaneous PMs warning:")] that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -119,7 +119,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 			return
 		if(!C)
 			if(holder)
-				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>")
+				to_chat(src, SPAN_DANGER("Error: Admin-PM: Client not found."))
 			else
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
@@ -141,7 +141,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 		receive_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>")
+		to_chat(src, SPAN_DANGER("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."))
 		return
 
 	var/receive_message = ""
@@ -179,7 +179,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 		else
 			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
-	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
+	var/emoji_msg = SPAN_EMOJI_ENABLED("[msg]")
 	var/receive_window_link = "(<a href='byond://?src=[C.persistent.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
 		receive_window_link = ticket_link
@@ -206,9 +206,9 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_mhelp(SPAN_MENTORHELP("[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]"))
 	else
-		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_ahelp(SPAN_ADMINHELP("[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]"))
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
@@ -237,11 +237,11 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
+		to_chat(src, SPAN_DANGER("Error: Private-Message: You are unable to use PMs (muted)."))
 		return
 
 	if(last_discord_pm_time > world.time)
-		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		to_chat(usr, SPAN_WARNING("Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord."))
 		return
 
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
@@ -255,20 +255,20 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 	sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
-		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
-		to_chat(src, "<span class='notice'>[msg]</span>")
+		to_chat(src, SPAN_WARNING("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"))
+		to_chat(src, SPAN_NOTICE("[msg]"))
 		return
 
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='discordpm'>PM to-<b>Discord Admins</b>: [msg]</span>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	to_chat(src, SPAN_DISCORDPM("PM to-<b>Discord Admins</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<span class='discordpm'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
+			to_chat(X, SPAN_DISCORDPM("<b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [SPAN_NOTICE("[msg]")]"))
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
@@ -380,7 +380,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 		dat += "</table>"
 		dat += "</div>"
 		if(convo.typing)
-			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
+			dat += "<i>[SPAN_TYPING("[current_title] is typing")]</i>"
 		dat += "<br>"
 		dat += "</h4>"
 		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"
@@ -439,7 +439,7 @@ USER_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by
 			C.persistent.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.persistent.pm_tracker.show_ui(C.mob)
-			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
+			to_chat(usr, SPAN_NOTICE("Forced open [C]'s messages window."))
 		return
 
 	if(href_list["reply"])
