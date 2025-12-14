@@ -45,7 +45,7 @@
 		M.use(to_load)
 		metal_stored += to_load
 
-		to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src].")
+		to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src]."))
 		return ITEM_INTERACT_COMPLETE
 
 	return NONE
