@@ -79,7 +79,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+		to_chat(user, SPAN_NOTICE("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 		update_appearance()
 		if(panel_open)
 			machine_state_change()
@@ -136,7 +136,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	for(var/allowed_container_type in allowed_containers)
 		if(istype(used, allowed_container_type))
 			if(ismob(user))
-				to_chat(user, "<span class='notice'>You put [used] on [src].</span>")
+				to_chat(user, SPAN_NOTICE("You put [used] on [src]."))
 				if(user.drop_item())
 					used.forceMove(src)
 			else

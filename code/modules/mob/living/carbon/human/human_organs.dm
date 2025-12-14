@@ -42,7 +42,7 @@
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
 	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
+	if(istype(buckled, /obj/structure/chair) || istype(buckled, /obj/vehicle/bike) || !isturf(loc))
 		return
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
@@ -51,7 +51,7 @@
 			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)
-				to_chat(src, "<span class='danger'>Your [E] is hanging on by a thread! You need someone to surgically attach it for you!</span>")
+				to_chat(src, SPAN_DANGER("Your [E] is hanging on by a thread! You need someone to surgically attach it for you!"))
 			// let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs.
 			// Also, if you haven't gotten your leg properly attached surgically, you're not gonna have a good time trying to walk.
 			stance_damage += 2
@@ -102,8 +102,8 @@
 
 			if(!E.properly_attached)
 				visible_message(
-					"<span class='warning'>[src]'s [E.name] seems to be hanging loosely from [p_their()] wrist, completely fumbling what [p_they()] [p_were()] holding!</span>",
-					"<span class='userdanger'>You feel pain shoot through your [E.name] as it dangles limply from your [E.amputation_point], you need to get it surgically attached before you can hold anything with it!</span>"
+					SPAN_WARNING("[src]'s [E.name] seems to be hanging loosely from [p_their()] wrist, completely fumbling what [p_they()] [p_were()] holding!"),
+					SPAN_USERDANGER("You feel pain shoot through your [E.name] as it dangles limply from your [E.amputation_point], you need to get it surgically attached before you can hold anything with it!")
 				)
 
 				return
@@ -134,11 +134,11 @@
 		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, "<span class='notice'>You feel fit again!</span>")
+	to_chat(src, SPAN_NOTICE("You feel fit again!"))
 	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	to_chat(src, SPAN_ALERT("You suddenly feel blubbery!"))
 	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces

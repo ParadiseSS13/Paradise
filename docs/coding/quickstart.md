@@ -1,8 +1,9 @@
 # Code Contribution Quickstart
 
-by *Farie82*
+by _Farie82_
 
 ## Intro
+
 Glad you're reading this and hopefully this guide will help you start
 contributing to this codebase! First a word of wisdom. Start small with your
 first set of PRs even if you are already experienced with developing for other
@@ -22,6 +23,7 @@ I've also made a [debugging tutorial](./debugging.md) which will help you find
 the cause of bugs and how to fix them.
 
 ## Quick DM tutorial
+
 For your first PR you won't need an in-depth knowledge of how to code in DM, but
 here are some of the basics. Feel free to skip these and come back to this once
 you feel like you are missing some info.
@@ -32,7 +34,9 @@ guide for you to use as well. Just `Ctrl`-click on any BYOND proc or variable to
 see the reference on it.
 
 ### Objects and Inheritance
+
 An object is defined the following way:
+
 ```dm
 /obj/item/multitool
 ```
@@ -53,7 +57,8 @@ could look something like this:
 Where `mob` is a being in DM. Thus something that "lives" and can do things.
 
 ### Procs
-The way DM groups a set of instructions is as follows. It uses a *proc* or in
+
+The way DM groups a set of instructions is as follows. It uses a _proc_ or in
 other languages also called a method or function.
 
 ```dm
@@ -132,6 +137,7 @@ world.log << "val is [val]. val plus 10 is: [val + 10]"
 Which will produce `"val is 1. val plus 10 is: 11"`
 
 ### Scoping
+
 If you come from another language then you might think. "Hey, where are the
 {}'s?!". Well, we do not use those (usually). Instead scoping is done by
 whitespace. Tabs in our case. One tab means one scope deeper.
@@ -177,6 +183,7 @@ It contains all of the coding standards and some tips and tricks on how to write
 good and safe code.
 
 ### Terminology
+
 We will be using some terminology moving forward you should be comfortable with:
 
 - [PR](../references/glossary.md#pull-request), an abbreviation for pull
@@ -198,11 +205,13 @@ We will be using some terminology moving forward you should be comfortable with:
   branch and the master branch.
 
 ## Setup
+
 Code contributions require setting up a development environment. If you haven't
 done that already, follow the guide at [Getting Started](../contributing/getting_started.md)
 first.
 
 ## Your First PR
+
 Once you've completed the setup you can continue with making an actual PR.
 
 I'd suggest keeping it small since setting up all of the git stuff was already a
@@ -214,7 +223,7 @@ attached to it like in the picture below.
 
 ![image](./images/quickstart_good_first_issue.png)
 
-You *can* make a PR that solves that issue. But it would be a waste of time
+You _can_ make a PR that solves that issue. But it would be a waste of time
 since somebody else already solved it before you but their PR is still awaiting
 approval.
 
@@ -237,6 +246,7 @@ There of course are many more options that are not included in this list.
 [gfi]: https://github.com/ParadiseSS13/Paradise/labels/Good%20First%20Issue
 
 ### Finding The Relevant Code
+
 The first thing you will need to do is to find the relevant code once you
 figured out what you want to add/change. This is no exact science and requires
 some creative thinking but I will list a few methods I use myself when finding
@@ -249,6 +259,7 @@ files.
 ![image](./images/quickstart_search_dm.png)
 
 #### Finding Existing Items
+
 If you're looking for an existing item then it might be easiest to look for the
 name of the item. Let's take a multitool as an example here.
 
@@ -285,6 +296,7 @@ Most of the times the file containing the definition will also include the
 looked for proc or value you want to change.
 
 #### Finding Behaviour
+
 This is a very wide concept and thus hard to exactly find.
 
 For this, we will use the above method and use keywords explaining the behaviour
@@ -326,6 +338,7 @@ will currently move the attached pet collar (if any) to the drop location of the
 animal when they are gibbed.
 
 #### Finding A Suitable Place To Add A New Item
+
 When adding a new item you want to ensure that it is placed in a logical file or
 that you make a new file in a logical directory. I find that it is best to find
 other similar items and see how they are defined. For example a special jumpsuit
@@ -350,6 +363,7 @@ Depending on your to add the item you can pick one of those files and see if it
 would fit in there. Feel free to ask for advice from others if you are unsure.
 
 ### Solving The Actual Issue
+
 Now comes the **Fun** part. How to achieve what you want to achieve? The answer
 is. "That depends" Fun, isn't it? Every problem has its own way of solving it. I
 will list some of the more common solutions to a problem down here. This list
@@ -376,19 +390,21 @@ goes wrong sometimes) but going to the location shows the problem quite easily.
 More cases might be added later.
 
 #### Typo Or Grammar
+
 The easiest of them all if you can properly speak English. Say the multitool
 description text is: `"Used for pusling wires to test which to cut. Not
 recommended by doctors."` Then you can easily fix the typo ("pusling" to
 "pulsing") by just changing the value of the string to the correct spelling.
 
 #### Wrong Logic
+
 This one really depends on the context. But let us take the following example.
 You cannot link machinery using a multitool. Something it should do.
 
 ```dm
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
 	if(ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		to_chat(user, SPAN_WARNING("That's not a machine!"))
 		return
 ```
 
@@ -430,6 +446,7 @@ that you can spawn the item using admin powers. It will not automagically appear
 in vendors or such.
 
 ### Testing Your Code
+
 Once you are done coding you can start testing your code, assuming your code compiles of course.
 
 To do this simply press `F5` on your keyboard. This will by default build your
@@ -439,6 +456,7 @@ code in more detail.
 Later I will include a more detailed testing plan in this guide.
 
 ### Making The PR
+
 Once you are done with your changes you can make a new PR.
 
 New PRs must be created on _branches_. Branches are copies of the `master`
@@ -486,7 +504,7 @@ the branch you just pushed. Be sure to fill in the template shown to you. It is
 quite straight forward but it is important to note down the thing you changed in
 enough detail. If you fixed an issue then you can write the following `fixes #12345`
 where 12345 is the number of the issue. Put this line of text in the
-*What Does This PR Do* part of the PR.
+_What Does This PR Do_ part of the PR.
 
 You can submit it once you are happy with how the PR looks. After this, your PR
 will be made public and visible to others to review. In due time a maintainer
@@ -494,6 +512,7 @@ will look at your PR and will merge it if it is deemed an addition to the
 codebase.
 
 ## Tips And Tricks
+
 Here I will list some of my tips and tricks that can be useful for you when
 developing our codebase.
 

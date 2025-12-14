@@ -317,12 +317,12 @@ SUBSYSTEM_DEF(mapping)
 		if(map_datum_path)
 			map_datum = new map_datum_path
 		else
-			to_chat(world, "<span class='narsie'>ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?</span>")
+			to_chat(world, SPAN_NARSIE("ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?"))
 
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
 		// Make a VERY OBVIOUS error
-		to_chat(world, "<span class='narsie'>ERROR: The path specified for the map to load is invalid. No station has been loaded!</span>")
+		to_chat(world, SPAN_NARSIE("ERROR: The path specified for the map to load is invalid. No station has been loaded!"))
 		return
 
 	var/watch = start_watch()

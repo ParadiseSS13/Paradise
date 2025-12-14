@@ -11039,7 +11039,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "bnE" = (
-/obj/structure/dresser,
+/obj/structure/dresser/wardrobe/captain,
 /obj/structure/sign/bobross{
 	pixel_y = 32
 	},
@@ -12805,6 +12805,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"bvj" = (
+/mob/living/basic/gorilla/cargo_domestic/forklift,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "bvk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -15640,6 +15644,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
 "bHW" = (
@@ -20944,6 +20949,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "ciM" = (
@@ -30346,6 +30352,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "dmi" = (
@@ -30374,8 +30381,8 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "dmN" = (
-/obj/item/clothing/head/cone,
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "dmO" = (
@@ -52609,13 +52616,13 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1;
 	name = "Incinerator Exterior Airlock"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "len" = (
@@ -107035,7 +107042,7 @@ qpk
 oXH
 kdx
 aRo
-aRo
+bvj
 cKf
 aVk
 nxW

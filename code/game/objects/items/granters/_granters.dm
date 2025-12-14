@@ -29,10 +29,10 @@
 	if(..())
 		return
 	if(reading)
-		to_chat(user, "<span class='warning'>You're already reading this!</span>")
+		to_chat(user, SPAN_WARNING("You're already reading this!"))
 		return FINISH_ATTACK
 	if(!user.has_vision())
-		to_chat(user, "<span class='warning'>You are blind and can't read anything!</span>")
+		to_chat(user, SPAN_WARNING("You are blind and can't read anything!"))
 		return FINISH_ATTACK
 	if(!isliving(user))
 		return FINISH_ATTACK
@@ -57,15 +57,15 @@
 
 /// Called when the user starts to read the granter.
 /obj/item/book/granter/proc/on_reading_start(mob/living/user)
-	to_chat(user, "<span class='notice'>You start reading [name]...</span>")
+	to_chat(user, SPAN_NOTICE("You start reading [name]..."))
 
 /// Called when the reading is interrupted without finishing.
 /obj/item/book/granter/proc/on_reading_stopped(mob/living/user)
-	to_chat(user, "<span class='notice'>You stop reading...</span>")
+	to_chat(user, SPAN_NOTICE("You stop reading..."))
 
 /// Called when the reading is completely finished. This is where the actual granting should happen.
 /obj/item/book/granter/proc/on_reading_finished(mob/living/user)
-	to_chat(user, "<span class='notice'>You finish reading [name]!</span>")
+	to_chat(user, SPAN_NOTICE("You finish reading [name]!"))
 
 /// The actual "turning over of the page" flavor bit that happens while someone is reading the granter.
 /obj/item/book/granter/proc/turn_page(mob/living/user)
@@ -74,7 +74,7 @@
 	if(!do_after(user, reading_time, src))
 		return FALSE
 
-	to_chat(user, "<span class='notice'>[length(remarks) ? pick(remarks) : "You keep reading..."]</span>")
+	to_chat(user, SPAN_NOTICE("[length(remarks) ? pick(remarks) : "You keep reading..."]"))
 	return TRUE
 
 /// Effects that occur whenever the book is read when it has no uses left.
@@ -96,15 +96,15 @@
 	if(!granted_action)
 		CRASH("Someone attempted to learn [type], which did not have an action set.")
 	if(locate(granted_action) in user.actions)
-		to_chat(user, "<span class='warning'>You already know all about [action_name]!</span>")
+		to_chat(user, SPAN_WARNING("You already know all about [action_name]!"))
 		return FALSE
 	return TRUE
 
 /obj/item/book/granter/action/on_reading_start(mob/living/user)
-	to_chat(user, "<span class='notice'>You start reading about [action_name]...</span>")
+	to_chat(user, SPAN_NOTICE("You start reading about [action_name]..."))
 
 /obj/item/book/granter/action/on_reading_finished(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel like you've got a good handle on [action_name]!</span>")
+	to_chat(user, SPAN_NOTICE("You feel like you've got a good handle on [action_name]!"))
 	// Action goes on the mind as the user actually learns the thing in your brain
 	var/datum/action/new_action = new granted_action(user.mind || user)
 	new_action.Grant(user)
@@ -119,5 +119,5 @@
 /obj/item/book/granter/spell/on_reading_finished(mob/living/user)
 	if(!user.mind)
 		return
-	to_chat(user, "<span class='notice'>You feel like you've got a good handle on [spell_name]!</span>")
+	to_chat(user, SPAN_NOTICE("You feel like you've got a good handle on [spell_name]!"))
 	user.mind.AddSpell(new granted_spell(null))

@@ -25,9 +25,9 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 /obj/machinery/autochef/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Specify the desired output by using a food item on [src].</span>"
-	. += "<span class='notice'>Start, pause, or restart [src] by clicking on it.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to reset and clear all pending recipes.</span>"
+	. += SPAN_NOTICE("Specify the desired output by using a food item on [src].")
+	. += SPAN_NOTICE("Start, pause, or restart [src] by clicking on it.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to reset and clear all pending recipes.")
 
 /obj/machinery/autochef/Initialize(mapload)
 	. = ..()
@@ -86,7 +86,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 			UnregisterSignal(storage, COMSIG_PARENT_QDELETING)
 
 		if(!length(remote.linkable_machine_uids))
-			to_chat(user, "<span class='notice'>You unlink all items from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You unlink all items from [src]."))
 
 		for(var/uid in remote.linkable_machine_uids)
 			var/obj = locateUID(uid)
@@ -104,9 +104,9 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 			if(success)
 				RegisterSignal(obj, COMSIG_PARENT_QDELETING, PROC_REF(unlink), override = TRUE)
-				to_chat(user, "<span class='notice'>[obj] is registered to [src].</span>")
+				to_chat(user, SPAN_NOTICE("[obj] is registered to [src]."))
 			else
-				to_chat(user, "<span class='notice'>[obj] failed to register to [src].</span>")
+				to_chat(user, SPAN_NOTICE("[obj] failed to register to [src]."))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -163,7 +163,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+	to_chat(user, SPAN_NOTICE("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 	update_icon()
 
 /obj/machinery/autochef/wrench_act(mob/user, obj/item/I)
