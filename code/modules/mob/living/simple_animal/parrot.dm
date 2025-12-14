@@ -748,7 +748,7 @@
 		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
 		"Replace the spent fuel rods you lazy bums!",
 		"There is a xenomorph nesting on the reactor!",
-		"Why is there a ripley pulling out the coolant rods ?",
+		"Why is there a Ripley pulling out the coolant rods?",
 		"Atmospheric Technicians are the NGCR's favorite moderators",
 		"Who let the clown touch the control rods?",
 		"Which of you chucklefucks brought a fuel rod to medbay?",
