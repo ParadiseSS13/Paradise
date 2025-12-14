@@ -53,7 +53,7 @@
 	. = ..()
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
-		to_chat(ghost, "<span class='ghostalert'>Your brain has been fixed, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
+		to_chat(ghost, SPAN_GHOSTALERT("Your brain has been fixed, re-enter if you want to continue! (Verbs -> Ghost -> Re-enter corpse)"))
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
 /*
