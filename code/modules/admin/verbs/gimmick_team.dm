@@ -79,7 +79,7 @@
 
 		H.equipOutfit(O, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
+		to_chat(H, "<BR>[SPAN_DANGER("<B>[themission]</B>")]")
 		H.mind.store_memory("<B>[themission]</B><BR><BR>")
 
 		if(is_syndicate)

@@ -70,9 +70,9 @@
 		var/obj/item/barcodescanner/B = used
 		if(!B.connect(src))
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
+			to_chat(user, SPAN_WARNING("ERROR: No Connection Established!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
+		to_chat(user, SPAN_NOTICE("Barcode Scanner Successfully Connected to Computer."))
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return ITEM_INTERACT_COMPLETE
@@ -84,14 +84,14 @@
 			user_data.patron_name = null
 			user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: No name detected!</span>")
+			to_chat(user, SPAN_NOTICE("ERROR: No name detected!"))
 			return ITEM_INTERACT_COMPLETE //no point in continuing if the ID card has no associated name!
 		playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 		if(ID.associated_account_number)
 			user_data.patron_account = ID.associated_account_number
 		else
 			user_data.patron_account = null
-			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
+			to_chat(user, SPAN_NOTICE("[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(default_unfasten_wrench(user, used, time = 60))
@@ -574,19 +574,19 @@
 	if(!newbook?.id)
 		return
 	new /obj/item/book(loc, newbook, TRUE, FALSE)
-	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
+	visible_message(SPAN_NOTICE("[src]'s printer hums as it produces a completely bound book. How did it do that?"))
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
 	if(!newbook?.book_type)
 		return
 
 	new newbook.book_type(loc)
-	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
+	visible_message(SPAN_NOTICE("[src]'s printer hums as it produces a completely bound book. How did it do that?"))
 
 /obj/machinery/computer/library/emag_act(mob/user)
 	if(print_cooldown <= world.time)
 		new /obj/item/storage/bible/syndi(loc)
-		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
+		visible_message(SPAN_NOTICE("[src]'s printer ominously hums as it produces a completely bound book. How did it do that?"))
 		print_cooldown = world.time + PRINTING_COOLDOWN
 		return TRUE
 

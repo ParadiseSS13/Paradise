@@ -36,12 +36,12 @@
 /obj/item/pneumatic_cannon/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
-		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+		. += SPAN_NOTICE("You'll need to get closer to see any more.")
 	else
 		if(tank)
-			. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
+			. += SPAN_NOTICE("[bicon(tank)] It has [tank] mounted onto it.")
 		for(var/obj/item/I in loaded_items)
-			. += "<span class='notice'>[bicon(I)] It has [I] loaded.</span>"
+			. += SPAN_NOTICE("[bicon(I)] It has [I] loaded.")
 
 /**
 * Arguments:
@@ -52,13 +52,13 @@
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
 	if((loaded_weight_class + I.w_class) > max_weight_class)
-		to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
+		to_chat(user, SPAN_WARNING("[I] won't fit into [src]!"))
 		return FALSE
 	if(I.w_class > w_class)
-		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
+		to_chat(user, SPAN_WARNING("[I] is too large to fit into [src]!"))
 		return FALSE
 	if(!user.unequip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
-		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
+		to_chat(user, SPAN_WARNING("You can't put [I] into [src]!"))
 		return FALSE
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
@@ -74,17 +74,17 @@
 		pressure_setting = 1
 	else
 		pressure_setting++
-	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
+	to_chat(user, SPAN_NOTICE("You tweak [src]'s pressure output to [pressure_setting]."))
 
 /obj/item/pneumatic_cannon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/tank/internals) && !tank)
 		if(istype(used, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, "<span class='warning'>[used] is too small for [src].</span>")
+			to_chat(user, SPAN_WARNING("[used] is too small for [src]."))
 			return ITEM_INTERACT_COMPLETE
 		add_tank(used, user)
 		return ITEM_INTERACT_COMPLETE
 	if(used.type == type)
-		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
+		to_chat(user, SPAN_WARNING("You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption."))
 		return ITEM_INTERACT_COMPLETE
 	load_item(used, user)
 	return ..()
@@ -110,17 +110,17 @@
 		return
 	var/has_discharged = FALSE
 	if(!loaded_items || !loaded_weight_class)
-		to_chat(user, "<span class='warning'>[src] has nothing loaded.</span>")
+		to_chat(user, SPAN_WARNING("[src] has nothing loaded."))
 		return
 	if(requires_tank)
 		if(!tank)
-			to_chat(user, "<span class='warning'>[src] can't fire without a source of gas.</span>")
+			to_chat(user, SPAN_WARNING("[src] can't fire without a source of gas."))
 			return
 		if(!tank.air_contents.boolean_remove(gas_per_throw * pressure_setting))
-			to_chat(user, "<span class='warning'>[src] lets out a weak hiss and doesn't react!</span>")
+			to_chat(user, SPAN_WARNING("[src] lets out a weak hiss and doesn't react!"))
 			return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
+		user.visible_message(SPAN_WARNING("[user] loses [user.p_their()] grip on [src], causing it to go off!"), SPAN_USERDANGER("[src] slips out of your hands and goes off!"))
 		user.drop_item()
 		has_discharged = TRUE
 		if(prob(10))
@@ -129,8 +129,8 @@
 			var/list/possible_targets = range(3,src)
 			target = pick(possible_targets)
 	if(!has_discharged)
-		user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
-							"<span class='danger'>You fire [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] fires [src]!"), \
+							SPAN_DANGER("You fire [src]!"))
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(loc, 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE)
 	for(var/obj/item/loaded_item in loaded_items)
@@ -140,16 +140,16 @@
 		loaded_item.forceMove(get_turf(src))
 		loaded_item.throw_at(target, pressure_setting * 5, pressure_setting * 2, user)
 	if(pressure_setting >= 3 && user)
-		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
+		user.visible_message(SPAN_WARNING("[user] is thrown down by the force of the cannon!"), "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		user.KnockDown(3 SECONDS)
 
 /obj/item/pneumatic_cannon/proc/add_tank(obj/item/tank/new_tank, mob/living/carbon/human/user)
 	if(tank)
-		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
+		to_chat(user, SPAN_WARNING("[src] already has a tank."))
 		return
 	if(!user.unequip(new_tank))
 		return
-	to_chat(user, "<span class='notice'>You hook [new_tank] up to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You hook [new_tank] up to [src]."))
 	new_tank.forceMove(src)
 	tank = new_tank
 	update_icons()
@@ -157,7 +157,7 @@
 /obj/item/pneumatic_cannon/proc/remove_tank(mob/living/carbon/human/user)
 	if(!tank)
 		return FALSE
-	to_chat(user, "<span class='notice'>You detach [tank] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You detach [tank] from [src]."))
 	user.put_in_hands(tank)
 	tank = null
 	update_icons()

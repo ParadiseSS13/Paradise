@@ -80,7 +80,7 @@
 				if("Gamma")
 					D = new /datum/response_team/gamma
 				else
-					to_chat(usr, "<span class='userdanger'>Invalid ERT type.</span>")
+					to_chat(usr, SPAN_USERDANGER("Invalid ERT type."))
 					return
 			GLOB.ert_request_answered = TRUE
 			var/slots_list = list()

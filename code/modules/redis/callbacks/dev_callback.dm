@@ -8,4 +8,4 @@
 		return
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_DEV_TEAM, FALSE, C.mob))
-			to_chat(C, "<span class='dev_channel'>DEV: <small>[data["author"]]@[data["source"]]</small>: [html_encode(data["message"])]</span>")
+			to_chat(C, SPAN_DEV_CHANNEL("DEV: <small>[data["author"]]@[data["source"]]</small>: [html_encode(data["message"])]"))

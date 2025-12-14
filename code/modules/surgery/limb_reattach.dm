@@ -94,25 +94,25 @@
 	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
-		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
+		to_chat(user, SPAN_WARNING("[target] already has an [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
 	if(E.limb_name != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
-		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
+		to_chat(user, SPAN_WARNING("The [E.name] does not go there."))
 		return SURGERY_BEGINSTEP_ABORT
 	if(!is_correct_limb(E))
-		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
+		to_chat(user, SPAN_WARNING("This is not the correct limb type for this surgery!"))
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
-		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!</span>")
+		to_chat(user, SPAN_WARNING("[target.dna.species] don't have the anatomy for [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
 	if(!target.bodyparts_by_name[E.parent_organ])
-		to_chat(user, "<span class='warning'>[target] doesn't have a [parse_zone(E.parent_organ)] to attach the [E.name] to!</span>")
+		to_chat(user, SPAN_WARNING("[target] doesn't have a [parse_zone(E.parent_organ)] to attach the [E.name] to!"))
 		return SURGERY_BEGINSTEP_ABORT
 	if(length(E.search_contents_for(/obj/item/organ/internal/brain)) && target.get_int_organ(/obj/item/organ/internal/brain))
-		to_chat(user, "<span class='warning'>Both [target] and [E.name] contain a brain, and [target] can't have two brains!</span>")
+		to_chat(user, SPAN_WARNING("Both [target] and [E.name] contain a brain, and [target] can't have two brains!"))
 		return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
@@ -125,8 +125,8 @@
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
-		"<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",
-		"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>",
+		SPAN_NOTICE("[user] has attached [target]'s [E.name] to the [E.amputation_point]."),
+		SPAN_NOTICE("You have attached [target]'s [E.name] to the [E.amputation_point]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	attach_limb(user, target, E)
@@ -135,8 +135,8 @@
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>",
+		SPAN_ALERT("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"),
+		SPAN_ALERT("Your hand slips, damaging [target]'s [E.amputation_point]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
@@ -199,8 +199,8 @@
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
-		"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
+		SPAN_NOTICE("[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool]."),
+		SPAN_NOTICE("You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	E.properly_attached = TRUE
@@ -212,8 +212,8 @@
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>",
+		SPAN_ALERT("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"),
+		SPAN_ALERT("Your hand slips, damaging [target]'s [E.amputation_point]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
@@ -230,7 +230,7 @@
 	var/obj/item/robot_parts/P = tool
 	if(P.part)
 		if(!(target_zone in P.part))
-			to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+			to_chat(user, SPAN_WARNING("\The [tool] does not go there!"))
 			return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
@@ -243,8 +243,8 @@
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
 	user.visible_message(
-		"<span class='notice'>[user] has attached \the [tool] to [target].</span>",
-		"<span class='notice'>You have attached \the [tool] to [target].</span>",
+		SPAN_NOTICE("[user] has attached \the [tool] to [target]."),
+		SPAN_NOTICE("You have attached \the [tool] to [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -274,8 +274,8 @@
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>",
+		SPAN_ALERT("[user]'s hand slips, damaging [target]'s flesh!"),
+		SPAN_ALERT("Your hand slips, damaging [target]'s flesh!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)

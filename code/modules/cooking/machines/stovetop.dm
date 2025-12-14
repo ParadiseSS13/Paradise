@@ -29,7 +29,7 @@
 
 /obj/machinery/cooking/stovetop/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> on a burner to set its timer, temperature, and toggle it on or off.</span>"
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a burner to set its timer, temperature, and toggle it on or off.")
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 21
@@ -71,7 +71,7 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [burner.container] off of the stove.</span>")
+				to_chat(burn_victim, SPAN_DANGER("You burn your hand a little taking [burner.container] off of the stove."))
 		user.put_in_hands(burner.container)
 		burner.UnregisterSignal(burner.container, COMSIG_PARENT_EXAMINE)
 		burner.container = null

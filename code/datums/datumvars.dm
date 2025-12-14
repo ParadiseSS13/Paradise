@@ -493,31 +493,31 @@ USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Varia
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] \ref[value]s)"
 
 	if(isnull(value))
-		return "<span class='value'>null</span>"
+		return SPAN_VALUE("null")
 
 	else if(is_color_text(value))
-		return "<span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
+		return SPAN_VALUE("<span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"")
 
 	else if(istext(value))
-		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return SPAN_VALUE("\"[VV_HTML_ENCODE(value)]\"")
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		return "/icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "/icon ([SPAN_VALUE("[value]")]) [bicon(value, use_class=0)]"
 		#else
-		return "/icon (<span class='value'>[value]</span>)"
+		return "/icon ([SPAN_VALUE("[value]")])"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image ([SPAN_VALUE("[value]")]) [bicon(value, use_class=0)]"
 		#else
-		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>)"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image ([SPAN_VALUE("[value]")])"
 		#endif
 
 	else if(isfile(value))
-		return "<span class='value'>'[value]'</span>"
+		return SPAN_VALUE("'[value]'")
 
 	else if(istype(value, /datum))
 		var/datum/D = value
@@ -545,9 +545,9 @@ USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Varia
 			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		return "<span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		return SPAN_VALUE("[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]")
 	else
-		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return SPAN_VALUE("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(sanitize)
 	return "<a href='byond://?_src_=vars;Vars=[UID()]'>[VV_HTML_ENCODE(src)] \ref[src]</a> ([type])"
@@ -731,13 +731,13 @@ USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variable
 		if("vars")
 			return FALSE
 	if(!(var_search in GLOB.vars))
-		to_chat(client, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		to_chat(client, SPAN_DEBUG("GLOB.[var_search] does not exist."))
 		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
-		to_chat(client, "<span class='debug'>Now showing GLOB.[var_search].</span>")
+		to_chat(client, SPAN_DEBUG("Now showing GLOB.[var_search]."))
 		return client.debug_variables(result)
-	to_chat(client, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+	to_chat(client, SPAN_DEBUG("GLOB.[var_search] returned [result]."))
 
 #undef VV_HTML_ENCODE

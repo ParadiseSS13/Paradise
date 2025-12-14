@@ -141,5 +141,5 @@
 	mind?.transfer_to(L)
 	L.faction = faction.Copy()
 	L.setDir(dir)
-	visible_message("<span class='notice'>[src] grows up into [L].</span>")
+	visible_message(SPAN_NOTICE("[src] grows up into [L]."))
 	qdel(src)
