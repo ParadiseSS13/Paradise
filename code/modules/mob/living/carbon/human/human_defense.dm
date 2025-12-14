@@ -411,7 +411,7 @@ emp_act
 
 		if(affecting.has_synthetic_skin)
 			visible_message(SPAN_WARNING("The synthetic skin on [src]'s [affecting.name] bubbles and melts away."), \
-							SPAN_WARNING("The synthetic skin on your [affecting.name] bubbles and melts away.")
+							SPAN_WARNING("The synthetic skin on your [affecting.name] bubbles and melts away."))
 			affecting.remove_synthetic_skin(TRUE)
 
 		UpdateDamageIcon()
