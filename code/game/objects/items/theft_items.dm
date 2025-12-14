@@ -24,7 +24,7 @@
 	return ..()
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 // MARK: Plutonium core
@@ -51,11 +51,11 @@
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
 	if(cracked) // Cracked open.
-		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
+		. += SPAN_WARNING("It is broken, and can no longer store objects safely.")
 	else if(dented) // Not cracked, but dented.
-		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
+		. += SPAN_NOTICE("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
-		. += "<span class='notice'>Fine print on the box reads \"Syndicate Field Operations secure core extraction container. Guaranteed thermite proof, assistant proof, and explosive resistant.\"</span>"
+		. += SPAN_NOTICE("Fine print on the box reads \"Syndicate Field Operations secure core extraction container. Guaranteed thermite proof, assistant proof, and explosive resistant.\"")
 
 /obj/item/nuke_core_container/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/nuke_core/plutonium))
@@ -66,7 +66,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[core] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[core] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
 	load(core, user)
@@ -96,7 +96,7 @@
 	new_core.forceMove(src)
 	core = new_core
 	icon_state = "core_container_loaded"
-	to_chat(user, "<span class='warning'>Container is sealing...</span>")
+	to_chat(user, SPAN_WARNING("Container is sealing..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/proc/unload(mob/user)
@@ -115,10 +115,10 @@
 		icon_state = "core_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
+			to_chat(loc, SPAN_WARNING("[src] is permanently sealed, [core]'s radiation is contained."))
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(SPAN_BOLDNOTICE("[src] bursts open!"))
 	if(core)
 		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
 		START_PROCESSING(SSradiation, radioactivity)
@@ -187,13 +187,13 @@
 	if(istype(used, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = used
 		if(tongs.sliver)
-			to_chat(user, "<span class='warning'>[tongs] are already holding a supermatter sliver!</span>")
+			to_chat(user, SPAN_WARNING("[tongs] are already holding a supermatter sliver!"))
 			return ITEM_INTERACT_COMPLETE
 
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
+		to_chat(user, SPAN_NOTICE("You carefully pick up [src] with [tongs]."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/scalpel/supermatter) || istype(used, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
@@ -203,7 +203,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(issilicon(user))
-		to_chat(user, "<span class='userdanger'>You try to touch [src] with [used]. ERROR!</span>")
+		to_chat(user, SPAN_USERDANGER("You try to touch [src] with [used]. ERROR!"))
 		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		user.dust()
@@ -213,10 +213,10 @@
 	// Don't poke it with no-drops!
 	if(!user.drop_item())
 		radiation_pulse(user, 2000, GAMMA_RAD)
-		to_chat(user, "<span class='userdanger'>As it touches [src], both [src] and [used] burst into dust. The resonance then consumes you as well!</span>")
+		to_chat(user, SPAN_USERDANGER("As it touches [src], both [src] and [used] burst into dust. The resonance then consumes you as well!"))
 		user.dust()
 	else
-		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [used] burst into dust!</span>")
+		to_chat(user, SPAN_DANGER("As it touches [src], both [src] and [used] burst into dust!"))
 		radiation_pulse(user, 400, GAMMA_RAD)
 		qdel(used)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -239,9 +239,9 @@
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", INVESTIGATE_SUPERMATTER)
-	victim.visible_message("<span class='danger'>As [victim] is hit by [src], both flash into dust and silence fills the room...</span>",
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
-		"<span class='hear'>Everything suddenly goes silent.</span>")
+	victim.visible_message(SPAN_DANGER("As [victim] is hit by [src], both flash into dust and silence fills the room..."),
+		SPAN_USERDANGER("You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well."),
+		SPAN_HEAR("Everything suddenly goes silent."))
 	victim.dust()
 	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -255,9 +255,9 @@
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
 
-	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
-			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+	user.visible_message(SPAN_DANGER("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
+			SPAN_USERDANGER("You reach for [src] with your hands. That was dumb."),
+			SPAN_HEAR("Everything suddenly goes silent."))
 	radiation_pulse(user, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.dust()
@@ -280,7 +280,7 @@
 	I.sliver = null
 	I.update_icon(UPDATE_ICON_STATE)
 	icon_state = "supermatter_container_loaded"
-	to_chat(user, "<span class='warning'>Container is sealing...</span>")
+	to_chat(user, SPAN_WARNING("Container is sealing..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 
@@ -293,7 +293,7 @@
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
+			to_chat(loc, SPAN_WARNING("[src] is permanently sealed, [sliver] is safely contained."))
 
 /obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
@@ -304,7 +304,7 @@
 	sliver = null
 	I.update_icon(UPDATE_ICON_STATE)
 	icon_state = "core_container_cracked_empty"
-	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
+	to_chat(user, SPAN_NOTICE("You carefully pick up [I.sliver] with [I]."))
 
 /obj/item/nuke_core_container/supermatter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/retractor/supermatter))
@@ -323,9 +323,9 @@
 		if(!isliving(user) || user.status_flags & GODMODE || HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
 			return FALSE
 
-		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
-				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
-				"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.visible_message(SPAN_DANGER("[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
+				SPAN_USERDANGER("You reach for [sliver] with your hands. That was dumb."),
+				SPAN_ITALICS("Everything suddenly goes silent."))
 		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
@@ -337,7 +337,7 @@
 		return ..()
 
 /obj/item/nuke_core_container/supermatter/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(SPAN_BOLDNOTICE("[src] bursts open!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		icon_state = "supermatter_container_cracked_loaded"
@@ -390,7 +390,7 @@
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
+		visible_message(SPAN_NOTICE("[sliver] falls out of [src] as it hits the ground."))
 		sliver = null
 		update_icon(UPDATE_ICON_STATE)
 	return ..()
@@ -425,18 +425,18 @@
 		if(!(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE) || user.status_flags & GODMODE))
 			add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user].")
 			user.visible_message(
-				"<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
-				"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
-				"<span class='hear'>Everything suddenly goes silent.</span>"
+				SPAN_DANGER("As [user] touches [AM] with [src], both flash into dust and silence fills the room..."),
+				SPAN_USERDANGER("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well."),
+				SPAN_HEAR("Everything suddenly goes silent.")
 			)
 			user.dust()
 			radiation_pulse(src, 2000, GAMMA_RAD)
 		else
 			add_attack_logs(user, AM, "[AM] consumed by melee attack with [src] by [user].")
 			user.visible_message(
-				"<span class='danger'>As [user] touches [AM] with [src], [AM] flashes into dust and silence fills the room...</span>",
-				"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust.</span>",
-				"<span class='hear'>Everything suddenly goes silent.</span>"
+				SPAN_DANGER("As [user] touches [AM] with [src], [AM] flashes into dust and silence fills the room..."),
+				SPAN_USERDANGER("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust."),
+				SPAN_HEAR("Everything suddenly goes silent.")
 			)
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)
@@ -477,28 +477,28 @@
 /obj/item/ppp_processor/examine(mob/user)
 	. = ..()
 	if(fully_processed_particulate)
-		. += "<span class='notice'>[src] has processed the data you now possess. All you need to do is present it after this shift.</span>"
+		. += SPAN_NOTICE("[src] has processed the data you now possess. All you need to do is present it after this shift.")
 		return
 	if(clouds_processed < 3)
-		. += "<span class='notice'>[src] has only [clouds_processed] out of 3 samples.</span>"
+		. += SPAN_NOTICE("[src] has only [clouds_processed] out of 3 samples.")
 	if(clouds_processed == 3)
-		. += "<span class='notice'>[src] has all 3 samples. Use it in hand to process the particulate.</span>"
+		. += SPAN_NOTICE("[src] has all 3 samples. Use it in hand to process the particulate.")
 
 
 /obj/item/ppp_processor/activate_self(mob/user)
 	if(..())
 		return
 	if(fully_processed_particulate)
-		to_chat(user, "<span class='notice'>[src] has already processed and ejected the particulate canisters. Just make sure to escape with the processor!</span>")
+		to_chat(user, SPAN_NOTICE("[src] has already processed and ejected the particulate canisters. Just make sure to escape with the processor!"))
 		return
 	if(clouds_processed < 3)
-		to_chat(user, "<span class='warning'>[src] has only [clouds_processed] out of 3 samples. You still need to collect more!</span>")
+		to_chat(user, SPAN_WARNING("[src] has only [clouds_processed] out of 3 samples. You still need to collect more!"))
 		return
 	if(presently_processing_particular_particultate)
-		to_chat(user, "<span class='warning'>[src] is presently processing particularly powerful packets of your particular particulate. Wait for it to finish before proceeding.</span>")
+		to_chat(user, SPAN_WARNING("[src] is presently processing particularly powerful packets of your particular particulate. Wait for it to finish before proceeding."))
 		return
 
-	to_chat(user, "<span class='notice'>[src] is presently processing the particulate. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
+	to_chat(user, SPAN_NOTICE("[src] is presently processing the particulate. Please hold as processing finishes, and be aware it may eject collection canisters."))
 	if(me_cro_wah_vey)
 		me_cro_wah_vey.start()
 	addtimer(CALLBACK(src, PROC_REF(perfectly_processed), user), 15 SECONDS)
@@ -524,7 +524,7 @@
 
 /obj/item/ppp_processor/proc/perfectly_processed(mob/user)
 	if(!QDELETED(user))
-		to_chat(user, "<span class='notice'>[src] has perfectly processed the particulate. You may now use the canisters however you wish. Ensure the processor gets back to us.</span>")
+		to_chat(user, SPAN_NOTICE("[src] has perfectly processed the particulate. You may now use the canisters however you wish. Ensure the processor gets back to us."))
 	me_cro_wah_vey.stop()
 	presently_processing_particular_particultate = FALSE
 	clouds_processed = -1
@@ -537,7 +537,7 @@
 	potential_grenade_rewards -= /obj/item/grenade/anomalous_canister/mini
 
 	var/turf/our_turf = get_turf(src)
-	our_turf.visible_message("<span class='warning'>Three containers are ejected out of [src].</span>")
+	our_turf.visible_message(SPAN_WARNING("Three containers are ejected out of [src]."))
 	for(var/i in 1 to 3)
 		var/obj/item/new_toy = pick_n_take(potential_grenade_rewards)
 		new new_toy(get_turf(src))
@@ -601,7 +601,7 @@
 		return
 	has_primed = TRUE
 	var/turf/our_turf = get_turf(src)
-	our_turf.visible_message("<span class='danger'>[src] shatters open, the [(number_of_anomalies - 1) ? "clouds" : "cloud"] of particulate rapidly forming into something more!</span>")
+	our_turf.visible_message(SPAN_DANGER("[src] shatters open, the [(number_of_anomalies - 1) ? "clouds" : "cloud"] of particulate rapidly forming into something more!"))
 	playsound(src, "shatter", 70, TRUE)
 	update_mob()
 	for(var/i in 1 to number_of_anomalies)
@@ -618,7 +618,7 @@
 
 /obj/item/grenade/anomalous_canister/dual_core/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Two smaller clouds of particulate are swirling around in this canister. It will likely form into two anomalies.</span>"
+	. += SPAN_NOTICE("Two smaller clouds of particulate are swirling around in this canister. It will likely form into two anomalies.")
 
 /obj/item/grenade/anomalous_canister/condensed
 	name = "condensed anomalous particulate canister"
@@ -627,7 +627,7 @@
 
 /obj/item/grenade/anomalous_canister/condensed/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A large cloud of resiliant particulate is floating in this canister. It will last longer than other anomalies.</span>"
+	. += SPAN_NOTICE("A large cloud of resiliant particulate is floating in this canister. It will last longer than other anomalies.")
 
 /obj/item/grenade/anomalous_canister/stabilized
 	name = "stabilized anomalous particulate canister"
@@ -636,14 +636,14 @@
 
 /obj/item/grenade/anomalous_canister/stabilized/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The predicted result for the cloud to condense into is displayed as \an [anomaly_type::name]!</span>"
+	. += SPAN_NOTICE("The predicted result for the cloud to condense into is displayed as \an [anomaly_type::name]!")
 
 /obj/effect/abstract/dummy_mini_spawner
 
 /obj/effect/abstract/dummy_mini_spawner/Initialize(mapload)
 	. = ..()
 	var/turf/our_turf = get_turf(src)
-	our_turf.visible_message("<span class='warning'>One of the containers splits into 3 smaller capsules!</span>")
+	our_turf.visible_message(SPAN_WARNING("One of the containers splits into 3 smaller capsules!"))
 	for(var/i in 1 to 3)
 		new /obj/item/grenade/anomalous_canister/mini(our_turf)
 	return INITIALIZE_HINT_QDEL
@@ -661,12 +661,12 @@
 	has_primed = TRUE
 	update_mob()
 	var/turf/our_turf = get_turf(src)
-	our_turf.visible_message("<span class='danger'>[src] activates and...</span>")
+	our_turf.visible_message(SPAN_DANGER("[src] activates and..."))
 	playsound(src, "shatter", 70, TRUE)
 	switch(anomaly_type)
 		if(/obj/effect/anomaly/bluespace) // Teleport and slow combat for 15
 			if(!is_teleport_allowed(z))
-				visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
+				visible_message(SPAN_WARNING("[src]'s fragments begin rapidly vibrating and blink out of existence."))
 				qdel(src)
 				return
 			for(var/mob/living/L in range(7, our_turf))
@@ -697,13 +697,13 @@
 						var/mob/living/M = AM
 						M.Weaken(8 SECONDS)
 						M.adjustBruteLoss(5)
-						to_chat(M, "<span class='userdanger'>You're slammed into the floor by an anomalous force!</span>")
+						to_chat(M, SPAN_USERDANGER("You're slammed into the floor by an anomalous force!"))
 				else
 					new /obj/effect/temp_visual/gravpush(get_turf(AM), get_dir(src, AM)) // created sparkles will disappear on their own
 					if(isliving(AM))
 						var/mob/living/M = AM
 						M.Weaken(3 SECONDS)
-						to_chat(M, "<span class='userdanger'>You're thrown back by a anomalous force!</span>")
+						to_chat(M, SPAN_USERDANGER("You're thrown back by a anomalous force!"))
 					spawn(0)
 						AM.throw_at(throwtarget, ((clamp((5 - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, 5))), 1) // So stuff gets tossed around at the same time.
 		if(/obj/effect/anomaly/pyro) // burn

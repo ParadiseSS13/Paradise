@@ -59,7 +59,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += "<span class='notice'>It has [amt] units of [lowertext(M.name)] stored.</span>"
+				examine_list += SPAN_NOTICE("It has [amt] units of [lowertext(M.name)] stored.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -72,7 +72,7 @@
 	if(I.flags & ABSTRACT)
 		return
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
-		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
+		to_chat(user, SPAN_WARNING("[parent] won't accept [I]!"))
 		return
 	. = COMPONENT_SKIP_AFTERATTACK
 	var/datum/callback/pc = precondition
@@ -80,10 +80,10 @@
 		return
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount)
-		to_chat(user, "<span class='warning'>[I] does not contain sufficient amounts of metal or glass to be accepted by [parent].</span>")
+		to_chat(user, SPAN_WARNING("[I] does not contain sufficient amounts of metal or glass to be accepted by [parent]."))
 		return
 	if(!has_space(material_amount))
-		to_chat(user, "<span class='warning'>[parent] is full. Please remove metal or glass from [parent] in order to insert more.</span>")
+		to_chat(user, SPAN_WARNING("[parent] is full. Please remove metal or glass from [parent] in order to insert more."))
 		return
 	user_insert(I, user)
 
@@ -99,18 +99,18 @@
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
+		to_chat(user, SPAN_WARNING("[I] is stuck to you and cannot be placed into [parent]."))
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
-			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
+			to_chat(user, SPAN_NOTICE("You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent]."))
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+			to_chat(user, SPAN_NOTICE("You insert a material total of [inserted] into [parent]."))
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)

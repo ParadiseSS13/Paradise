@@ -52,8 +52,8 @@
 	antaghud.join_hud(B.mind.current)
 	set_antag_hud(B.mind.current, "hudblob")
 
-	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
-	to_chat(B, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")
+	to_chat(B, SPAN_USERDANGER("You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around."))
+	to_chat(B, SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)"))
 	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE
 	SSevents.biohazards_this_round += BIOHAZARD_BLOB

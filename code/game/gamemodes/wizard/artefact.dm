@@ -44,7 +44,7 @@
 
 	if(!length(candidates))
 		used = FALSE
-		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		to_chat(H, SPAN_WARNING("Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."))
 		return
 	new /obj/effect/particle_effect/smoke(get_turf(H))
 
@@ -64,7 +64,7 @@
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'>You've already summoned an apprentice or you are in process of summoning one.</span>")
+		to_chat(user, SPAN_WARNING("You've already summoned an apprentice or you are in process of summoning one."))
 		return
 
 	ui_interact(user)
@@ -93,9 +93,9 @@
 	if(charged)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
 		charged = 0
-		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
+		user.visible_message(SPAN_USERDANGER("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!"))
 	else
-		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
+		to_chat(user, SPAN_DANGER("The unearthly energies that powered the blade are now dormant."))
 
 /obj/effect/rend
 	name = "tear in the fabric of reality"
@@ -129,7 +129,7 @@
 
 /obj/effect/rend/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [used].</span>")
+		user.visible_message(SPAN_DANGER("[user] seals \the [src] with \the [used]."))
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -191,7 +191,7 @@
 	var/mob/holder = get(loc, /mob)
 	if(current_owner && current_owner != holder)
 
-		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
+		to_chat(current_owner, SPAN_NOTICE("Your otherworldly vision fades..."))
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
@@ -203,7 +203,7 @@
 	if(!current_owner && holder)
 		current_owner = holder
 
-		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
+		to_chat(current_owner, SPAN_NOTICE("You can see...everything!"))
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
@@ -215,18 +215,18 @@
 		return
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
+	user.visible_message(SPAN_NOTICE("[user] stares into [src], [user.p_their()] eyes glazing over."),
+					SPAN_DANGER("You stare into [src], you can see the entire universe!"))
 	ghost = user.ghostize(ghost_name = "Magic Spirit of [user.name]", ghost_color = COLOR_BLUE)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
-			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
-								"<span class='danger'>You look away from [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] blinks, returning to the world around [user.p_them()]."),
+								SPAN_DANGER("You look away from [src]."))
 			break
 		if(user.get_active_hand() != src)
 			user.grab_ghost()
-			user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
-								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user]'s focus is forced away from [src]."),
+								SPAN_USERDANGER("Your vision is ripped away from [src]."))
 			break
 		sleep(5)
 	in_use = FALSE
@@ -284,13 +284,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
+		to_chat(user, SPAN_WARNING("[src] detects benevolent energies in your target and redirects your attack!"))
 		return
 	..()
 
 /obj/item/multisword/attack_self__legacy__attackchain(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
+		to_chat(user, SPAN_WARNING("You know better than to touch your teacher's stuff."))
 		return
 	if(cooldown < world.time)
 		var/faction_check = 0
@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
 				if(prob(probability_evil))
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+					to_chat(user, SPAN_WARNING("<B>With your new found power you could easily conquer the station!</B>"))
 
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
@@ -317,7 +317,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+					to_chat(user, SPAN_WARNING("<B>With your new found power you could easily defend the station!</B>"))
 
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
@@ -339,13 +339,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(length(candidates))
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
-				to_chat(user, "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>")
+				to_chat(user, SPAN_WARNING("<B>The sword flashes, and you find yourself face to face with...you!</B>"))
 				dust_if_respawnable(C)
 
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
 	else
-		to_chat(user, "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
+		to_chat(user, SPAN_WARNING("<B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
 /obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
@@ -689,21 +689,21 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return ..()
 
 	if(victim.stat != DEAD)
-		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
+		to_chat(necromancer, SPAN_WARNING("This artifact can only affect the dead!"))
 		return
 
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
-		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
+		to_chat(necromancer, SPAN_WARNING("There is no soul connected to this body..."))
 		return
 
 	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy/plague_zombie))
-		to_chat(necromancer, "<span class='warning'>This one is already under another artifact's influence!</span>")
+		to_chat(necromancer, SPAN_WARNING("This one is already under another artifact's influence!"))
 		return
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
-		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.</span>")
+		to_chat(necromancer, SPAN_NOTICE("The amount of skeleton thralls risen by [src] strains its power."))
 		if(!COOLDOWN_FINISHED(src, additional_thralls_cooldown))
-			to_chat(necromancer, "<span class='warning'>[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))].</span>")
+			to_chat(necromancer, SPAN_WARNING("[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))]."))
 			return
 		COOLDOWN_START(src, additional_thralls_cooldown, above_cap_cooldown)
 
@@ -712,7 +712,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 ///Mindslave and equip the victim
 /obj/item/necromantic_stone/proc/convert_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	active_skeletons |= victim
-	var/greet_text = "<span class='userdanger'>You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
+	var/greet_text = SPAN_USERDANGER("You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!")
 	if(!victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
 		victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
 
@@ -720,7 +720,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		equip_heresy(victim)//oh god why
 		return
 
-	victim.visible_message("<span class='warning'>A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
+	victim.visible_message(SPAN_WARNING("A massive amount of flesh sloughs off [victim] and a skeleton rises up!"))
 	equip_skeleton(victim)
 
 ///Clean the list of active skeletons and check if more can be summoned easily
@@ -856,19 +856,19 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return ..()
 
 	if(victim.stat != DEAD)
-		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
+		to_chat(necromancer, SPAN_WARNING("This artifact can only affect the dead!"))
 		return
 
 	if(ismachineperson(victim))
-		to_chat(necromancer, "<span class='warning'>This one isn't vulnerable to this form of plague magic.</span>")
+		to_chat(necromancer, SPAN_WARNING("This one isn't vulnerable to this form of plague magic."))
 		return
 
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
-		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
+		to_chat(necromancer, SPAN_WARNING("There is no soul connected to this body..."))
 		return
 
 	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
-		to_chat(necromancer, "<span class='warning'>This one is already under the artifact's influence! Give it time.</span>")
+		to_chat(necromancer, SPAN_WARNING("This one is already under the artifact's influence! Give it time."))
 		return
 
 	raise_victim(victim, necromancer)
@@ -879,7 +879,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/datum/disease/chosen_plague = pick_disease() //what disease to give them
 
 	victim.grab_ghost() // to attempt to hold their ghost still while we do our thing
-	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
+	victim.visible_message(SPAN_DANGER("[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!"))
 
 	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 	for(var/trait in plague_traits)
@@ -973,7 +973,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
-	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
+	to_chat(user, SPAN_NOTICE("The [name] fills to brimming with [options_to_descriptions[choice]]."))
 	magic_fill(options_to_reagent[choice])
 
 /obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)

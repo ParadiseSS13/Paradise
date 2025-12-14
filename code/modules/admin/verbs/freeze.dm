@@ -45,7 +45,7 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 		admin_prev_sleeping = null
 
 	to_chat(src, "<b><font color= red>You have been [frozen ? "frozen" : "unfrozen"] by [admin]</b></font>")
-	message_admins("<span class='notice'>[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] [key_name_admin(src)] [mech ? "in a [mech]" : ""]</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] [key_name_admin(src)] [mech ? "in a [mech]" : ""]"))
 	log_admin("[key_name(admin)] [frozen ? "froze" : "unfroze"] [key_name(src)] [mech ? "in a [mech]" : ""]")
 	update_icons()
 
@@ -88,7 +88,7 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 	if(occupant)
 		occupant.admin_Freeze(admin, mech = name) // We also want to freeze the driver of the mech.
 	else
-		message_admins("<span class='notice'>[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] an empty [name]</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] an empty [name]"))
 		log_admin("[key_name(admin)] [frozen ? "froze" : "unfroze"] an empty [name]")
 
 /obj/machinery/atmospherics/supermatter_crystal/admin_Freeze(client/admin)
@@ -103,5 +103,5 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 		GLOB.frozen_atom_list -= src
 		processes = TRUE
 		cut_overlay(freeze_overlay)
-	message_admins("<span class='notice'>[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal"))
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")

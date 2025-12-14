@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!length(all_jobs))
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
+		to_chat(world, SPAN_WARNING("Error setting up jobs, no job datums found."))
 		return 0
 
 	for(var/J in all_jobs)
@@ -270,8 +270,8 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.store_memory("<b>Your account number is:</b> #[account.account_number]<br><b>Your account pin is:</b> [account.account_pin]")
 	H.mind.set_initial_account(account)
 
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
-	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
+	to_chat(H, SPAN_BOLDNOTICE("As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes"))
+	to_chat(H, SPAN_BOLDNOTICE("Your account number is: [account.account_number], your account pin is: [account.account_pin]"))
 
 	if(!job) //if their job datum is null (looking at you ERTs...), we don't need to do anything past this point
 		return
@@ -307,8 +307,8 @@ SUBSYSTEM_DEF(jobs)
 		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
 
 		H.mind.store_memory(remembered_info)
-		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
-		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
+		to_chat(H, SPAN_BOLDNOTICE("Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes"))
+		to_chat(H, SPAN_BOLDNOTICE("The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]"))
 
 /// Returns a list of jobs keyed by name to UI color for the job transfer selection.
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
@@ -520,7 +520,7 @@ SUBSYSTEM_DEF(jobs)
 			added_differential[EXP_TYPE_LIVING] += minutes
 
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(C.mob, SPAN_NOTICE("You got: [minutes] Living EXP!"))
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
@@ -528,18 +528,18 @@ SUBSYSTEM_DEF(jobs)
 						play_records[C.ckey][category] += minutes
 						added_differential[category] += minutes
 						if(announce)
-							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+							to_chat(C.mob, SPAN_NOTICE("You got: [minutes] [category] EXP!"))
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+					to_chat(C.mob, SPAN_NOTICE("You got: [minutes] Special EXP!"))
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
 			added_differential[EXP_TYPE_GHOST] += minutes
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+				to_chat(C.mob, SPAN_NOTICE("You got: [minutes] Ghost EXP!"))
 		else
 			continue
 

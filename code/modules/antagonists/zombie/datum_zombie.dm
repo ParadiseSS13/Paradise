@@ -55,7 +55,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<span class='userdanger zombie'>We are a [special_role]!</span>")
-		messages.Add("<span class='zombie'>You can feel your heart stopping, but something isn't right... life has not abandoned your broken form. You can only feel a deep and immutable hunger that not even death can stop.</span>")
+		messages.Add(SPAN_ZOMBIE("You can feel your heart stopping, but something isn't right... life has not abandoned your broken form. You can only feel a deep and immutable hunger that not even death can stop."))
 
 /datum/antagonist/zombie/finalize_antag()
 	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE)) // we shouldnt get a second welcome message for wiz zombies
@@ -63,7 +63,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	var/list/messages = list()
 	. = messages
 	if(owner && owner.current)
-		messages.Add("<br><span class='notice'>You can use your claws to break down doors, and to crack open damaged skulls. Once their head is open, use an empty hand to eat their brains. Alternatively, grab someone aggressively and them harm them to bite and infect them. You heal slowly but you heal faster in the dark, after death you will slowly revive and reawaken.</span>")
+		messages.Add("<br>[SPAN_NOTICE("You can use your claws to break down doors, and to crack open damaged skulls. Once their head is open, use an empty hand to eat their brains. Alternatively, grab someone aggressively and them harm them to bite and infect them. You heal slowly but you heal faster in the dark, after death you will slowly revive and reawaken.")]")
 
 /datum/antagonist/zombie/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
