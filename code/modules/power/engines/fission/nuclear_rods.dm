@@ -267,7 +267,7 @@
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
-	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its viscious heat output."
+	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its vicious heat output."
 	heat_amount = 100
 	power_amount = 200 KW
 	heat_amp_mod = 6
