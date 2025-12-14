@@ -106,7 +106,7 @@
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
 			var/mob/living/new_traitor = new_traitor_mind.current
 
-			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+			to_chat(new_traitor, "[SPAN_DANGER("ATTENTION:")] It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			message_admins("[key_name(new_traitor)] was added in as a traitor!")
 			log_game("[key_name(new_traitor)] was added in as a traitor.")

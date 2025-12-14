@@ -6,15 +6,15 @@
 	name = "Ash storm"
 	desc = "An intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
 
-	telegraph_message = "<span class='boldwarning'>An eerie moan rises on the wind. Sheets of burning ash blacken the horizon. Seek shelter.</span>"
+	telegraph_message = SPAN_BOLDWARNING("An eerie moan rises on the wind. Sheets of burning ash blacken the horizon. Seek shelter.")
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>Smoldering clouds of scorching ash billow down around you! Get inside!</i></span>"
+	weather_message = SPAN_USERDANGER("<i>Smoldering clouds of scorching ash billow down around you! Get inside!</i>")
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "ash_storm"
 
-	end_message = "<span class='boldannounceic'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
+	end_message = SPAN_BOLDANNOUNCEIC("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -105,10 +105,10 @@
 	name = "Emberfall"
 	desc = "A passing ash storm blankets the area in harmless embers."
 
-	weather_message = "<span class='notice'>Gentle embers waft down around you like grotesque snow. The storm seems to have passed you by...</span>"
+	weather_message = SPAN_NOTICE("Gentle embers waft down around you like grotesque snow. The storm seems to have passed you by...")
 	weather_overlay = "light_ash"
 
-	end_message = "<span class='notice'>The emberfall slows, stops. Another layer of hardened soot to the basalt beneath your feet.</span>"
+	end_message = SPAN_NOTICE("The emberfall slows, stops. Another layer of hardened soot to the basalt beneath your feet.")
 	end_sound = null
 
 	aesthetic = TRUE
@@ -118,11 +118,11 @@
 	name = "Volcanic activity"
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
 
-	telegraph_message = "<span class='boldwarning'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
+	telegraph_message = SPAN_BOLDWARNING("<i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i>")
 	telegraph_duration = 600
 	telegraph_sound = 'sound/weather/volcano/lavaland_volcano_warning.ogg'
 
-	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelter now!.</i></span>"
+	weather_message = SPAN_USERDANGER("<i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelter now!.</i>")
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_sound = 'sound/weather/volcano/lavaland_volcano_eruption.ogg'
@@ -231,7 +231,7 @@
 				L.visible_message("[L.name] easily withstands the hit of the massive rock!")
 				return
 			else
-				L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
+				L.visible_message(SPAN_DANGER("[L.name] is crushed under the massive impact of the boulder!"), SPAN_USERDANGER("You are crushed as a massive weight suddenly descends upon you!"), SPAN_DANGER("You hear wet splatters as something is hit with a massive object!"))
 				L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
 		for(var/obj/structure/thing in T.contents) // dont cover the tendrils
@@ -247,16 +247,16 @@
 	name = "Acidic rain"
 	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
 
-	telegraph_message = "<span class='boldwarning'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
+	telegraph_message = SPAN_BOLDWARNING("<i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i>")
 	telegraph_duration = 600
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>Acidic rain begins to pour down in thick sheets, melting rock and flesh alike. Get inside now!</i></span>"
+	weather_message = SPAN_USERDANGER("<i>Acidic rain begins to pour down in thick sheets, melting rock and flesh alike. Get inside now!</i>")
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "acid_rain"
 
-	end_message = "<span class='boldannounceic'>The pitter of acidic dropples slows to silence. It should be safe to go outside now.</span>"
+	end_message = SPAN_BOLDANNOUNCEIC("The pitter of acidic dropples slows to silence. It should be safe to go outside now.")
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -364,16 +364,16 @@
 	name = "High-velocity wind"
 	desc = "High-pressure barometrics in the area have caused a radical change in air pressure, resulting in high-speed winds in the immediate vicinity."
 
-	telegraph_message = "<span class='boldwarning'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"
+	telegraph_message = SPAN_BOLDWARNING("<i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i>")
 	telegraph_duration = 600
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>The wind rises into a furious rage, kicking up dirt and ash in its wake. Get inside now!</i></span>"
+	weather_message = SPAN_USERDANGER("<i>The wind rises into a furious rage, kicking up dirt and ash in its wake. Get inside now!</i>")
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "wind"
 
-	end_message = "<span class='boldannounceic'>The wind calms into its normal rhythms, dust settling back to the ashen surface. It should be safe to go outside now.</span>"
+	end_message = SPAN_BOLDANNOUNCEIC("The wind calms into its normal rhythms, dust settling back to the ashen surface. It should be safe to go outside now.")
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)

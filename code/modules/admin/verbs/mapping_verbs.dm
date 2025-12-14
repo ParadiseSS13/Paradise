@@ -173,4 +173,4 @@ USER_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_
 	message_admins("[key_name_admin(client)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
 	log_admin("[key_name(client)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
 	if(announce_to_players == "Yes")
-		to_chat(world, "<span class='boldannounceooc'>[client.key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font></span>")
+		to_chat(world, SPAN_BOLDANNOUNCEOOC("[client.key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font>"))

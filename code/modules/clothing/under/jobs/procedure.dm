@@ -119,7 +119,7 @@
 
 /obj/item/clothing/under/rank/procedure/iaa/formal/goodman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Now all you need is a law degree and a job that actually deals with the law...</span>"	// But don't get any ideas about it meaning anything.
+	. += SPAN_NOTICE("Now all you need is a law degree and a job that actually deals with the law...")	// But don't get any ideas about it meaning anything.
 
 /obj/item/clothing/under/rank/procedure/iaa/formal/goodman/skirt
 	name = "criminal lawyer skirt"

@@ -393,7 +393,7 @@
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
-				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(M, SPAN_NOTICE("You no longer feel reliant on [R.name]!"))
 				addiction_list.Remove(R)
 				qdel(R)
 
@@ -533,14 +533,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
+							to_chat(M, SPAN_NOTICE("[bicon(my_atom)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] [my_atom]'s power is consumed in the reaction.</span>")
+								to_chat(M, SPAN_NOTICE("[bicon(my_atom)] [my_atom]'s power is consumed in the reaction."))
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
@@ -660,24 +660,24 @@
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
 					if(H.reagent_safety_check())
-						to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+						to_chat(H, SPAN_DANGER("You are scalded by the hot chemicals!"))
 						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					if(H.reagent_safety_check(FALSE))
-						to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+						to_chat(H, SPAN_DANGER("You are frostbitten by the freezing cold chemicals!"))
 						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
-				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+				to_chat(H, SPAN_DANGER("You scald yourself trying to consume the boiling hot substance!"))
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
-				to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+				to_chat(H, SPAN_DANGER("You frostburn yourself trying to consume the freezing cold substance!"))
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 

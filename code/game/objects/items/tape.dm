@@ -24,19 +24,19 @@
 	if(!M.check_has_mouth())
 		to_chat(user, "[M.p_they(TRUE)] [M.p_have()] no mouth to tape over!")
 		return
-	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
-	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
-	"<span class='warning'>You hear tape ripping.</span>")
+	user.visible_message(SPAN_WARNING("[user] is taping [M]'s mouth closed!"),
+	SPAN_NOTICE("You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!"),
+	SPAN_WARNING("You hear tape ripping."))
 	if(!do_after(user, 50, target = M))
 		return
 	if(!use(2))
-		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
+		to_chat(user, SPAN_NOTICE("You don't have enough tape!"))
 		return
 	if(M.wear_mask)
-		to_chat(user, "<span class='notice'>[M == user ? user : M]'s mouth is already covered!</span>")
+		to_chat(user, SPAN_NOTICE("[M == user ? user : M]'s mouth is already covered!"))
 		return
-	user.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>",
-	"<span class='notice'>You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]</span>")
+	user.visible_message(SPAN_WARNING("[user] tapes [M]'s mouth shut!"),
+	SPAN_NOTICE("You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]"))
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 	M.equip_to_slot(G, ITEM_SLOT_MASK)
 	G.add_fingerprint(user)

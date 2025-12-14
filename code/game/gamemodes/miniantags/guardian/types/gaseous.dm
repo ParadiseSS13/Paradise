@@ -48,11 +48,11 @@
 	var/picked_gas = tgui_input_list(src, "Select a gas to expel.", "Gas Producer", possible_gases)
 	if(!picked_gas)
 		moles_of_gas = null
-		to_chat(src, "<span class='notice'>You stopped expelling gas.</span>")
+		to_chat(src, SPAN_NOTICE("You stopped expelling gas."))
 		return
 	if(!picked_gas)
 		return
-	to_chat(src, "<span class='bolddanger'>You are now expelling [picked_gas].</span>")
+	to_chat(src, SPAN_BOLDDANGER("You are now expelling [picked_gas]."))
 	investigate_log("set their gas type to [picked_gas].", INVESTIGATE_ATMOS)
 	moles_of_gas = possible_gases[picked_gas]
 	switch(picked_gas)

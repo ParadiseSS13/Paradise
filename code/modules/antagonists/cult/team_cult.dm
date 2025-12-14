@@ -182,7 +182,7 @@ RESTRICT_TYPE(/datum/team/cult)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+		to_chat(M.current, SPAN_CULTLARGE("The veil weakens as your cult grows, your eyes begin to glow..."))
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise), VARSET_CALLBACK(src, cult_risen, TRUE)), 20 SECONDS)
 
@@ -192,7 +192,7 @@ RESTRICT_TYPE(/datum/team/cult)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
+		to_chat(M.current, SPAN_CULTLARGE("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend), VARSET_CALLBACK(src, cult_ascendant, TRUE)), 20 SECONDS)
 	if(!no_announcements)
@@ -204,7 +204,7 @@ RESTRICT_TYPE(/datum/team/cult)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
+		to_chat(M.current, SPAN_CULTLARGE("The veil repairs itself, your power grows weaker..."))
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend), VARSET_CALLBACK(src, cult_ascendant, FALSE)), 20 SECONDS)
 	if(!no_announcements)
@@ -360,26 +360,26 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	switch(cult_status)
 		if(NARSIE_IS_ASLEEP)
-			to_chat(M, "<span class='cult'>[GET_CULT_DATA(entity_name, "The Dark One")] is asleep. This is probably a bug.</span>")
+			to_chat(M, SPAN_CULT("[GET_CULT_DATA(entity_name, "The Dark One")] is asleep. This is probably a bug."))
 		if(NARSIE_DEMANDS_SACRIFICE)
 			var/list/all_objectives = objective_holder.get_objectives()
 			if(!length(all_objectives))
-				to_chat(M, "<span class='danger'>Error: No objectives. Something went wrong, adminhelp with F1.</span>")
+				to_chat(M, SPAN_DANGER("Error: No objectives. Something went wrong, adminhelp with F1."))
 			else
 				var/datum/objective/sacrifice/current_obj = all_objectives[length(all_objectives)] //get the last obj in the list, ie the current one
-				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [GET_CULT_DATA(entity_title1, "The Dark One")].</span>")
-				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
+				to_chat(M, SPAN_CULT("The Veil needs to be weakened before we are able to summon [GET_CULT_DATA(entity_title1, "The Dark One")]."))
+				to_chat(M, SPAN_CULT("Current goal: [current_obj.explanation_text]"))
 		if(NARSIE_NEEDS_SUMMONING)
-			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [GET_CULT_DATA(entity_title3, "The Dark One")]!</span>")
-			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
+			to_chat(M, SPAN_CULT("The Veil is weak! We can summon [GET_CULT_DATA(entity_title3, "The Dark One")]!"))
+			to_chat(M, SPAN_CULT("Current goal: [obj_summon.explanation_text]"))
 		if(NARSIE_HAS_RISEN)
-			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
+			to_chat(M, SPAN_CULTLARGE("\"I am here.\""))
+			to_chat(M, SPAN_CULT("Current goal:</span> <span class='cultlarge'>\"Feed me.\""))
 		if(NARSIE_HAS_FALLEN)
-			to_chat(M, "<span class='cultlarge'>[GET_CULT_DATA(entity_name, "The Dark One")] has been banished!</span>")
-			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
+			to_chat(M, SPAN_CULTLARGE("[GET_CULT_DATA(entity_name, "The Dark One")] has been banished!"))
+			to_chat(M, SPAN_CULT("Current goal: Slaughter the unbelievers!"))
 		else
-			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong, adminhelp with F1.</span>")
+			to_chat(M, SPAN_DANGER("Error: Cult objective status currently unknown. Something went wrong, adminhelp with F1."))
 
 	if(!display_members)
 		return
@@ -430,7 +430,7 @@ RESTRICT_TYPE(/datum/team/cult)
 		objective_holder.remove_objective(current_obj)
 		ready_to_summon()
 		return FALSE
-	speak_to_all_alive_cultists("<span class='danger'>[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+	speak_to_all_alive_cultists(SPAN_DANGER("[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead..."))
 	return TRUE
 
 /datum/team/cult/proc/successful_sacrifice()
@@ -448,8 +448,8 @@ RESTRICT_TYPE(/datum/team/cult)
 		return
 
 	speak_to_all_alive_cultists(
-		"<span class='cult'>You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!</span>",
-		"<span class='cult'>Current goal: [obj_sac.explanation_text]</span>"
+		SPAN_CULT("You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!"),
+		SPAN_CULT("Current goal: [obj_sac.explanation_text]")
 	)
 
 /datum/team/cult/proc/ready_to_summon()
@@ -458,8 +458,8 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	cult_status = NARSIE_NEEDS_SUMMONING
 	speak_to_all_alive_cultists(
-		"<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>",
-		"<span class='cult'>Current goal: [obj_summon.explanation_text]</span>"
+		SPAN_CULT("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"),
+		SPAN_CULT("Current goal: [obj_summon.explanation_text]")
 	)
 
 /datum/team/cult/proc/successful_summon()
@@ -470,8 +470,8 @@ RESTRICT_TYPE(/datum/team/cult)
 	cult_status = NARSIE_HAS_FALLEN
 	obj_summon.killed = TRUE
 	speak_to_all_alive_cultists(
-		"<span class='cultlarge'>RETRIBUTION!</span>",
-		"<span class='cult'>Current goal: Slaughter the heretics!</span>"
+		SPAN_CULTLARGE("RETRIBUTION!"),
+		SPAN_CULT("Current goal: Slaughter the heretics!")
 	)
 
 /datum/team/cult/proc/get_cult_status_as_string()
@@ -498,10 +498,10 @@ RESTRICT_TYPE(/datum/team/cult)
 	if(!input)
 		return
 
-	speak_to_all_alive_cultists("<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+	speak_to_all_alive_cultists(SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\""))
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		to_chat(O, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+		to_chat(O, SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\""))
 
 	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
 	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
@@ -551,7 +551,7 @@ RESTRICT_TYPE(/datum/team/cult)
 
 		if("cult_newsummonlocations")
 			if(!obj_summon)
-				to_chat(usr, "<span class='danger'>The cult has NO summon objective yet.</span>")
+				to_chat(usr, SPAN_DANGER("The cult has NO summon objective yet."))
 				return
 			if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
 				return
@@ -559,8 +559,8 @@ RESTRICT_TYPE(/datum/team/cult)
 			obj_summon.find_summon_locations(TRUE)
 			if(cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 				speak_to_all_alive_cultists(
-					"<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>",
-					"<span class='cult'>Current goal: [obj_summon.explanation_text]</span>"
+					SPAN_CULT("The veil has shifted! Our summoning will need to take place elsewhere."),
+					SPAN_CULT("Current goal: [obj_summon.explanation_text]")
 				)
 
 			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
