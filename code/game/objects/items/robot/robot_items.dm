@@ -63,7 +63,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 	braced = !braced
-	update_appearance(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/push_broom/update_icon_state()
