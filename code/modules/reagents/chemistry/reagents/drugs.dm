@@ -195,7 +195,7 @@
 	description = "Reduces stun times and improves stamina regeneration. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	heart_rate_change = 10
+	heart_rate_change = 20
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
@@ -406,7 +406,7 @@
 	addiction_threshold = 5
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
-	heart_rate_change = 10
+	heart_rate_change = 20
 	taste_description = "speed"
 	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug

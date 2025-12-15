@@ -926,11 +926,12 @@
 				Dizzy(5 SECONDS)
 			// Oxyloss under 60 BP
 			adjustOxyLoss(max(round(7 - temp_bp / 10, 1), 1))
-		if(100 to 130)
+
+		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_HIGH)
 			if(prob(5))
 				to_chat(src, SPAN_WARNING("You feel a bit weak."))
 
-		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_V_HIGH)
+		if(BLOODPRESSURE_HIGH to BLOODPRESSURE_V_HIGH)
 			false_cardiac_pain += rand(1, 10)
 			if(prob(5))
 				to_chat(src, SPAN_WARNING("Your nose bleeds."))
@@ -972,7 +973,6 @@
 
 	if(undergoing_cardiac_arrest())
 		heartbeat = 0
-		heartbeat_drawbacks()
 		return
 
 	// First we start at the baseline
@@ -1072,10 +1072,13 @@
 		else if(prob(5))
 			to_chat(src, SPAN_DANGER("Something is very wrong."))
 		var/damage = round(heartbeat / 10, 1)
+		damage = max(5 - damage, 0)
 		// No oxydamage when above 50 bpm
-		adjustOxyLoss(max(5 - damage, 0))
+		if(damage)
+			adjustOxyLoss(damage)
 
 	else if(heartbeat >= HEARTBEAT_2FAST)
+		false_cardiac_pain += 15
 		var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 		// No need to nullcheck, we have a heartbeat
 		heart.linked_organ.receive_damage(1, TRUE)
