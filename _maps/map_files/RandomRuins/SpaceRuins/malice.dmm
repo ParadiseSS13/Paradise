@@ -434,6 +434,16 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/powered)
+"hZ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
 "ie" = (
 /obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 8
@@ -1021,6 +1031,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"tj" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
 "tn" = (
 /obj/structure/table/reinforced,
 /obj/item/organ/internal/cyberimp/brain/anti_stam,
@@ -3157,7 +3175,7 @@ ds
 Ei
 wv
 Ei
-wv
+tj
 Ei
 wv
 Ei
@@ -3303,11 +3321,11 @@ Rj
 Rj
 Fd
 Fd
-Fd
+II
 Rj
 Rj
 Rj
-Fd
+II
 Fd
 mI
 ab
@@ -3499,7 +3517,7 @@ lw
 Rj
 Rj
 Rj
-Fd
+II
 Fd
 Fd
 mI
@@ -5457,7 +5475,7 @@ Rj
 Rj
 Rj
 Rj
-Bh
+hZ
 lw
 Lf
 At
