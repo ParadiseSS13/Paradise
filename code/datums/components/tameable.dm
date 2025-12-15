@@ -62,7 +62,7 @@
 	if(QDELETED(animal) || chosen_name == animal.name)
 		return
 	if(!chosen_name)
-		to_chat(tamer, "<span class='warning'>Please enter a valid name.</span>")
+		to_chat(tamer, SPAN_WARNING("Please enter a valid name."))
 		rename_pet(animal, tamer)
 		return
 	animal.rename_character(animal.name, chosen_name)

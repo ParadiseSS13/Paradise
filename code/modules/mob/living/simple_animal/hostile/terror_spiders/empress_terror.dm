@@ -50,7 +50,7 @@
 	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Egg laying", list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE, TS_DESC_BROWN))
 	var/numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50)
 	if(eggtype == null || numlings == null)
-		to_chat(src, "<span class='danger'>Cancelled.</span>")
+		to_chat(src, SPAN_DANGER("Cancelled."))
 		return
 	switch(eggtype)
 		if(TS_DESC_RED)
@@ -76,7 +76,7 @@
 		if(TS_DESC_QUEEN)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen, numlings)
 		else
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, SPAN_DANGER("Unrecognized egg type."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EmpressLings()
 	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
@@ -100,12 +100,12 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_tier < spider_tier)
 			T.degenerate = TRUE
-			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
+			to_chat(T, SPAN_USERDANGER("Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!"))
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)
 	for(var/mob/living/basic/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
 		qdel(T)
-	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
+	to_chat(src, SPAN_USERDANGER("All Terror Spiders, except yourself, will die off shortly."))
 
 /obj/projectile/terrorqueenspit/empress
 	damage = 90

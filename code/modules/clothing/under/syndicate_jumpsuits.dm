@@ -44,11 +44,11 @@
 	if(slot == ITEM_SLOT_JUMPSUIT)
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		user.set_invisible(SEE_INVISIBLE_LIVING)
-		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+		to_chat(user, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators activate."))
 
 /obj/item/clothing/under/syndicate/silicon_cham/dropped(mob/user)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		user.set_invisible(INVISIBILITY_MINIMUM)
-		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")
+		to_chat(user, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators deactivate."))

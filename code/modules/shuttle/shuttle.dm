@@ -825,7 +825,7 @@
 
 // MARK: Shuttle Ports
 /obj/docking_port/mobile/labour
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 5
 	id = "laborcamp"
@@ -836,7 +836,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/mining
-	dir = 8
+	dir = WEST
 	dwidth = 3
 	height = 5
 	id = "mining"
@@ -847,7 +847,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/specops
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 11
 	id = "specops"
@@ -856,7 +856,7 @@
 	preferred_direction = EAST
 
 /obj/docking_port/mobile/sit
-	dir = 8
+	dir = WEST
 	dwidth = 3
 	height = 5
 	id = "sit"
@@ -866,7 +866,7 @@
 	port_direction = WEST
 
 /obj/docking_port/mobile/sst
-	dir = 4
+	dir = EAST
 	dwidth = 7
 	height = 5
 	id = "sst"
@@ -876,7 +876,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/admin
-	dir = 2
+	dir = SOUTH
 	dwidth = 8
 	height = 15
 	id = "admin"
@@ -912,7 +912,7 @@
 	return TRUE
 
 /obj/docking_port/mobile/ferry
-	dir = 8
+	dir = WEST
 	dwidth = 2
 	height = 12
 	id = "ferry"
@@ -920,19 +920,31 @@
 	width = 5
 	preferred_direction = EAST
 
+/obj/docking_port/stationary/trader
+	id = "trader_home"
+	name = "Docking bay 4 at station"
+	width = 22
+	dwidth = 11
+	height = 30
+
+/obj/docking_port/stationary/trader/centcom
+	id = "trader_away"
+	name = "Docking bay at trade hub"
+	dir = WEST
+
 /obj/docking_port/mobile/trader
-	dir = 8
+	dir = WEST
 	dwidth = 11
 	height = 30
 	id = "trader"
-	name = "sol trade shuttle"
+	name = "trade shuttle"
 	width = 22
 	preferred_direction = EAST
 	timid = TRUE
 
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
-	dir = 2
+	dir = SOUTH
 	dwidth = 5
 	height = 22
 	id = "syndicate"
@@ -945,7 +957,7 @@
 	width = 12
 
 /obj/docking_port/mobile/whiteship
-	dir = 8
+	dir = WEST
 	id = "whiteship"
 	name = "NEV Cherub"
 	dwidth = 6
@@ -1044,7 +1056,7 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		to_chat(usr, SPAN_DANGER("Access denied."))
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE
@@ -1052,7 +1064,7 @@
 	if(action == "move")
 		var/destination = params["move"]
 		if(!options.Find(destination))//figure out if this translation works
-			message_admins("<span class='boldannounceooc'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
@@ -1063,9 +1075,9 @@
 				add_fingerprint(usr)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
 			if(2)
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, SPAN_NOTICE("Unable to comply."))
 			if(3)
 				atom_say("Shuttle is refuelling at dock. Please wait...")
 			if(4)
@@ -1077,7 +1089,7 @@
 	if(!emagged)
 		src.req_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		to_chat(user, SPAN_NOTICE("You fried the consoles ID checking system."))
 		return TRUE
 
 //for restricting when the computer can be used, needed for some console subtypes.
@@ -1106,7 +1118,7 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
+		to_chat(usr, SPAN_NOTICE("Your request has been received by Centcom."))
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
@@ -1141,7 +1153,7 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trader_base;trade_dock"
+	possible_destinations = "trader_away;trader_home"
 	shuttleId = "trader"
 
 //#undef DOCKING_PORT_HIGHLIGHT

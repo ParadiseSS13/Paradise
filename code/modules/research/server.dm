@@ -131,12 +131,12 @@
 				if(wifi_pass == RNC.network_password)
 					network_manager_uid = RNC.UID()
 					RNC.servers += UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[RNC.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[RNC.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Network manager not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Network manager not found. Please file an issue report."))
 
 
 

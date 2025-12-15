@@ -490,12 +490,12 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/trader/trade_shuttle = getShuttle("trader")
 	if(trade_shuttle)
 		var/obj/docking_port/stationary/docked_id = trade_shuttle.get_docked()
-		if(docked_id?.id != "trader_base")
+		if(docked_id?.id != "trader_away")
 			CRASH("Attempted to load a new trade shuttle while the existing one was not at its home base.")
 		// Dispose of the old shuttle.
 		trade_shuttle.jumpToNullSpace()
 
-	var/obj/docking_port/mobile/trader/dock = getDock("trader_base")
+	var/obj/docking_port/mobile/trader/dock = getDock("trader_away")
 	if(!dock)
 		CRASH("Unable to load trading shuttle, no trading dock found.")
 
@@ -510,7 +510,6 @@ SUBSYSTEM_DEF(shuttle)
 		CRASH("New trading shuttle unable to dock at the trading dock: [result]")
 
 	trade_shuttle.dock(dock)
-
 	trade_shuttle.register()
 
 	// TODO indicate to the user that success happened, rather than just

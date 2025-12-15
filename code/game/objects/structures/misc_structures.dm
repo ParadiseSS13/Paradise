@@ -63,10 +63,10 @@
 /obj/structure/signpost/wood/AltClick(mob/living/user)
 	if(!scarf)
 		scarf = TRUE
-		to_chat(user, "<span class='notice'>You tie a memorial wreath around the sign.</span>")
+		to_chat(user, SPAN_NOTICE("You tie a memorial wreath around the sign."))
 	else
 		scarf = FALSE
-		to_chat(user, "<span class='notice'>You untie the memorial wreath from the sign.</span>")
+		to_chat(user, SPAN_NOTICE("You untie the memorial wreath from the sign."))
 	update()
 
 /obj/structure/signpost/wood/update()
@@ -96,14 +96,14 @@
 				playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
 				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
 				new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
-				to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
+				to_chat(user, "[SPAN_BOLDNOTICE("VOID-Shift")] translocation successful")
 
 			if("No")
-				to_chat(user, "<span class='danger'>Process aborted!</span>")
+				to_chat(user, SPAN_DANGER("Process aborted!"))
 				return
 
 			else
-				to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+				to_chat(user, "[SPAN_DANGER("FĆAL �Rr�R")]: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
@@ -112,6 +112,7 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// An outfit for ghosts to spawn with
 	var/datum/outfit/selected_outfit
 
@@ -183,7 +184,7 @@
 /obj/structure/ghost_beacon/attack_hand(mob/user)
 	if(!is_admin(user))
 		return
-	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [active ? "disable" : "enable"] \the [src]."))
 	if(active)
 		STOP_PROCESSING(SSobj, src)
 	else

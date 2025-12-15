@@ -20,7 +20,7 @@
 		if(length(S.contents))
 			for(var/obj/item/stack/ore/O in S.contents)
 				S.remove_from_storage(O, src) //This will move the item to this item's contents
-			to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
+			to_chat(user, SPAN_NOTICE("You empty the satchel into the box."))
 		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
@@ -29,7 +29,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
+	user.visible_message(SPAN_NOTICE("[user] pries [src] apart."), SPAN_NOTICE("You pry apart [src]."), SPAN_ITALICS("You hear splitting wood."))
 	deconstruct(TRUE, user)
 
 /obj/structure/ore_box/attack_hand(mob/user)
@@ -61,7 +61,7 @@
 	add_fingerprint(usr)
 	if(href_list["removeall"])
 		dump_box_contents()
-		to_chat(usr, "<span class='notice'>You empty the box.</span>")
+		to_chat(usr, SPAN_NOTICE("You empty the box."))
 	updateUsrDialog()
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
@@ -83,7 +83,7 @@
 /obj/structure/ore_box/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to empty the ore box.</span>"
+		. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> to empty the ore box.")
 
 /obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
 	return ..()
@@ -96,8 +96,8 @@
 	add_fingerprint(user)
 
 	if(length(contents) < 1)
-		to_chat(user, "<span class='warning'>The ore box is empty.</span>")
+		to_chat(user, SPAN_WARNING("The ore box is empty."))
 		return
 
 	dump_box_contents()
-	to_chat(user, "<span class='notice'>You empty the ore box.</span>")
+	to_chat(user, SPAN_NOTICE("You empty the ore box."))
