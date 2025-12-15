@@ -92,5 +92,10 @@ Common Mistakes
    staircasing whenever possible unless the intent is for a portion or outline
    to look thicker.
 
+   The following image shows an example of staircasing on the left, with a more
+   appropriate outlining on the right.
+
+   ![](images/staircasing.png)
+
 7. Orphan pixels are pixels that are isolated from other pixels of the same or
    similar pixels. They create contrast and distract the viewer.
