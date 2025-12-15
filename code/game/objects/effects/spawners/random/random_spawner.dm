@@ -24,7 +24,7 @@
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
 	/// Do we spawn our
-	var/no_double_spawn = TRUE
+	var/no_double_spawn = FALSE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)
 	var/spawn_loot_chance = 100
 	/// Determines how big of a range (in tiles) we should scatter things in.
