@@ -678,6 +678,7 @@
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/contractor
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
 
 /datum/uplink_item/bundles_tc/contractor/spawn_item(turf/loc, obj/item/uplink/U)
 	var/datum/mind/mind = usr.mind
