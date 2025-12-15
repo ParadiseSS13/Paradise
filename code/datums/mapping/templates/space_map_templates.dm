@@ -457,4 +457,3 @@
 	name = "mALICE"
 	description = "Hi Dchat!"
 	always_place = TRUE
-	allow_duplicates = FALSE
