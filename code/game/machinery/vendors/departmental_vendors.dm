@@ -316,7 +316,7 @@
 					/obj/item/reagent_containers/glass/bottle/atropine = 3,
 					/obj/item/reagent_containers/glass/bottle/oculine = 3,
 					/obj/item/reagent_containers/syringe/antiviral = 3,
-					/obj/item/reagent_containers/syringe/calomel = 3,
+					/obj/item/reagent_containers/syringe/amiodarone = 3,
 					/obj/item/reagent_containers/syringe/heparin = 3,
 					/obj/item/reagent_containers/pill/salbutamol = 5,
 					/obj/item/reagent_containers/pill/mannitol = 5,

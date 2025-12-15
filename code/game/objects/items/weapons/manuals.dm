@@ -512,7 +512,7 @@
 					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Alpha</li>
 					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
 						<ul>
-							<li>Saline-Glucose Solution</li>
+							<li>Saline Solution</li>
 							<li>Toxin</li>
 							<li>Atropine</li>
 							<li>Lye</li>
@@ -946,7 +946,7 @@
 				<h2>Feast by the Beach: (an Unathi favorite!)</h2>
 				Mix one part each of vodka, lime juice, grape juice, and silicon. Heat above 373K. Chemistry can help.
 				<h2>Flaming Moe:</h2>
-				Mix one part each of cognac, gin, saline-glucose solution, tequila, and vodka. Heat to 374K. Chemistry can help.
+				Mix one part each of cognac, gin, saline solution, tequila, and vodka. Heat to 374K. Chemistry can help.
 				<h2>Hooch:</h2>
 				Mix two parts ethanol with one part each welding fuel and universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Islay Whiskey: (a Dionae favorite!)</h2>

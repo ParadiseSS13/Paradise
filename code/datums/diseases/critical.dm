@@ -30,8 +30,8 @@
 /datum/disease/critical/shock
 	name = "Shock"
 	spread_text = "The patient is in shock."
-	cure_text = "Saline-Glucose Solution"
-	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
+	cure_text = "Saline Solution"
+	cures = list("saline_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	stage_prob = 6
 

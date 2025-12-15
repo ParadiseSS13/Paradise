@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(standard_cures, list(
 									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
+									"spaceacillin", "saline_solution", "ethanol",
 									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
 ))

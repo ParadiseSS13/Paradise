@@ -77,7 +77,7 @@
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
 	antable = FALSE
-	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
+	list_reagents = list("nutriment" = 4, "saline_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
 
 /obj/item/food/tastybread

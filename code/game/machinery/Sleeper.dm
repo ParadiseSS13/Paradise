@@ -16,7 +16,7 @@
 	var/mob/living/carbon/human/occupant = null
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
+	var/possible_chems = list("ephedrine", "saline_solution", "salbutamol", "charcoal")
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null

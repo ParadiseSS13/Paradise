@@ -28,7 +28,6 @@ Bonus
 	level = 3
 	severity = 3
 	chem_treatments = list(
-		"calomel" = list("multiplier" = 0, "timer" = 0),
 		"charcoal" = list("multiplier" = 0, "timer" = 0),
 		"pen_acid" = list("multiplier" = 0, "timer" = 0),
 		)

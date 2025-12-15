@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder","happiness",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
-								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))
+								"frostoil","amanitin","psilocybin","nothing","saline_solution","neurotoxin"))
 // Rare medicines
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic",
 					"cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail",
 					"booger","bloodymary","gargleblaster","bravebull","tequilasunrise","toxinsspecial",
-					"beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea",
+					"beepskysmash","saline_solution","irishcream","manlydorf","longislandicedtea",
 					"moonshine","b52","irishcoffee","margarita","blackrussian","manhattan",
 					"manhattan_proj","whiskeysoda","adminfreeze","antifreeze","barefoot","snowwhite","demonsblood",
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",

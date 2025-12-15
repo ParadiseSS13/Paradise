@@ -827,7 +827,7 @@
 	product_type = /obj/item/food/candy/taffy
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
-		PCWJ_ADD_REAGENT("salglu_solution", 15),
+		PCWJ_ADD_REAGENT("saline_solution", 15),
 		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
 	)
 

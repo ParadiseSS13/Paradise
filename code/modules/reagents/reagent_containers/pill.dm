@@ -171,11 +171,11 @@
 	icon_state = "pill6"
 	list_reagents = list("hydrocodone" = 15)
 
-/obj/item/reagent_containers/pill/calomel
-	name = "\improper Calomel pill"
-	desc = "Can be used to purge impurities, but is highly toxic itself."
+/obj/item/reagent_containers/pill/amiodarone
+	name = "\improper Amiodarone pill"
+	desc = "Can be used to lower heartrate and bloodpressure."
 	icon_state = "pill3"
-	list_reagents = list("calomel" = 15)
+	list_reagents = list("amiodarone" = 15)
 
 /obj/item/reagent_containers/pill/mutadone
 	name = "\improper Mutadone pill"
@@ -199,7 +199,7 @@
 	name = "\improper Iron saline pill"
 	desc = "Used to help with blood loss."
 	icon_state = "pill2"
-	list_reagents = list("iron" = 10, "salglu_solution" = 10)
+	list_reagents = list("iron" = 10, "saline_solution" = 10)
 
 /obj/item/reagent_containers/pill/lazarus_reagent
 	name = "\improper Lazarus Reagent pill"

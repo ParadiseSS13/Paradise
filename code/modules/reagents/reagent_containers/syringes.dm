@@ -276,10 +276,10 @@
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
-/obj/item/reagent_containers/syringe/calomel
-	name = "syringe (calomel)"
-	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
-	list_reagents = list("calomel" = 15)
+/obj/item/reagent_containers/syringe/amiodarone
+	name = "syringe (amiodarone)"
+	desc = "Contains amiodarone, which can be used to lower heartrate and lower bloodpressure."
+	list_reagents = list("amiodarone" = 15)
 
 /obj/item/reagent_containers/syringe/heparin
 	name = "syringe (heparin)"

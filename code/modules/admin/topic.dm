@@ -2116,7 +2116,7 @@
 				to_chat(M,SPAN_USERDANGER("You feel invigorated!"))
 				logmsg = "a moderate heal."
 			if("Heal Over Time")
-				H.reagents.add_reagent("salglu_solution", 30)
+				H.reagents.add_reagent("saline_solution", 30)
 				H.reagents.add_reagent("salbutamol", 20)
 				H.reagents.add_reagent("spaceacillin", 20)
 				logmsg = "a heal over time."

@@ -62,12 +62,12 @@
 	mix_message = "A strong and cloying odor begins to bubble from the mixture."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/salglu_solution
-	name = "Saline-Glucose Solution"
-	id = "salglu_solution"
-	result = "salglu_solution"
-	required_reagents = list("sodiumchloride" = 1, "water" = 1, "sugar" = 1)
-	result_amount = 3
+/datum/chemical_reaction/saline_solution
+	name = "Saline Solution"
+	id = "saline_solution"
+	result = "saline_solution"
+	required_reagents = list("sodiumchloride" = 1, "water" = 5)
+	result_amount = 5
 
 /datum/chemical_reaction/heparin
 	name = "Heparin"
@@ -93,13 +93,13 @@
 	result_amount = 4
 	mix_message = "The solution yields an astringent powder."
 
-/datum/chemical_reaction/calomel
-	name = "Calomel"
-	id = "calomel"
-	result = "calomel"
-	required_reagents = list("mercury" = 1, "chlorine" = 1)
-	result_amount = 2
-	min_temp = T0C + 100
+/datum/chemical_reaction/amiodarone
+	name = "amiodarone"
+	id = "amiodarone"
+	result = "amiodarone"
+	required_reagents = list("sacid" = 1, "salt" = 1, "carbon" = 1, "phenol" = 1)
+	result_amount = 3
+	min_temp = T0C + 200
 	mix_message = "Stinging vapors rise from the solution."
 
 /datum/chemical_reaction/potass_iodide
@@ -167,7 +167,7 @@
 	name = "Oculine"
 	id = "oculine"
 	result = "oculine"
-	required_reagents = list("atropine" = 1, "spaceacillin" = 1, "salglu_solution" = 1)
+	required_reagents = list("atropine" = 1, "spaceacillin" = 1, "saline_solution" = 1)
 	result_amount = 3
 	mix_message = "The mixture settles, becoming a milky white."
 

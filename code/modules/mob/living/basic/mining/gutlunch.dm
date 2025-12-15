@@ -76,7 +76,7 @@
 	if(prob(60))
 		reagents.add_reagent("cream", rand(2, 5))
 	if(prob(45))
-		reagents.add_reagent("salglu_solution", rand(2, 5))
+		reagents.add_reagent("saline_solution", rand(2, 5))
 	if(prob(30))
 		reagents.add_reagent("epinephrine", rand(2, 5))
 

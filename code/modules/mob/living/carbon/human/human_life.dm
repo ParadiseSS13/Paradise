@@ -998,26 +998,27 @@
 	var/burn_dmg = getFireLoss()
 	var/tox_dmg = getToxLoss()
 	var/oxy_dmg = getOxyLoss()
+	var/clone_dmg = getCloneLoss()
 
 	switch(health)
 		// Small amounts of damage are ignored
 		if(50 to 90)
-			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
 				beats -= (20 + round((maxHealth - health) / 10, 1))
 			else
 				beats += (20 + round((maxHealth - health) / 10, 1))
 		if(HEALTH_THRESHOLD_CRIT to 50)
-			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
 				beats -= 50
 			else
 				beats += 60
 		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
-			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
 				beats -= 70
 			else
 				beats += 80
 		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
-			if((oxy_dmg + tox_dmg) > (brute_dmg + burn_dmg))
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
 				beats -= 100
 			else
 				beats += 100
