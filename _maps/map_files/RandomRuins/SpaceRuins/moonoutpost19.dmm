@@ -684,15 +684,11 @@
 /obj/structure/railing/cap{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "cb" = (
 /obj/structure/railing/corner,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "cc" = (
 /obj/structure/flora/tree/jungle/small,
@@ -727,9 +723,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "cj" = (
 /obj/structure/chair/office/dark{
@@ -766,9 +760,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "cr" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1167,9 +1159,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "dM" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "dN" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1512,9 +1502,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "eX" = (
 /obj/structure/barricade/wooden/crude{
@@ -1792,9 +1780,7 @@
 	dir = 4
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "gc" = (
 /obj/structure/chair/sofa/bench/right{
@@ -2746,17 +2732,13 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "iI" = (
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "iJ" = (
 /obj/machinery/light/small,
@@ -3029,9 +3011,7 @@
 /area/ruin/space/moonbase19)
 "jD" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "jE" = (
 /obj/structure/grille,
@@ -3360,9 +3340,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "kz" = (
 /obj/structure/cable{
@@ -3754,9 +3732,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awaykitchen"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "mt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4390,9 +4366,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4979,9 +4953,7 @@
 /obj/structure/railing/cap{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "rs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5170,9 +5142,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "sc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5639,9 +5609,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "uJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5781,9 +5749,7 @@
 /obj/structure/railing/cap{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "vz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -5941,9 +5907,7 @@
 /area/ruin/space/moonbase19)
 "wj" = (
 /obj/structure/railing/cap,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "wk" = (
 /obj/machinery/computer/nonfunctional,
@@ -6074,9 +6038,7 @@
 /area/ruin/space/moonbase19)
 "xi" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "xl" = (
 /obj/structure/cable{
@@ -6214,11 +6176,6 @@
 "xG" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
-"xL" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
-/area/ruin/space/moonbase19)
 "xO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6286,9 +6243,7 @@
 /area/ruin/space/moonbase19)
 "yd" = (
 /obj/structure/railing,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "yf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6332,9 +6287,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "yu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6504,9 +6457,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "yZ" = (
 /obj/structure/closet/cabinet,
@@ -6749,9 +6700,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "An" = (
 /obj/structure/punching_bag,
@@ -6891,9 +6840,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "AP" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -6973,11 +6920,6 @@
 "Be" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/moonbase19)
-"Bg" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
 /area/ruin/space/moonbase19)
 "Bj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7364,9 +7306,6 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
-"Da" = (
-/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "Dc" = (
 /obj/structure/chair/sofa/bench/left{
@@ -8254,9 +8193,7 @@
 /obj/structure/railing/cap{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "Hj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -8271,9 +8208,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "Hp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -9108,9 +9043,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "LA" = (
 /obj/structure/shuttle/engine/propulsion/burst,
@@ -9255,9 +9188,7 @@
 	dir = 1
 	},
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "Mq" = (
 /obj/structure/window/reinforced{
@@ -10312,10 +10243,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
-"QP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/stairs,
-/area/ruin/space/moonbase19)
 "QQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -10489,17 +10416,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
-/area/ruin/space/moonbase19)
-"RN" = (
-/obj/structure/sign/radiation/rad_area{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
 /area/ruin/space/moonbase19)
 "RQ" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -10830,9 +10746,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "TI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11064,12 +10978,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
-/area/ruin/space/moonbase19)
-"UH" = (
-/obj/structure/railing/cap{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "UI" = (
 /obj/structure/railing{
@@ -11742,9 +11650,7 @@
 /obj/structure/railing/cap{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "XR" = (
 /obj/structure/chair{
@@ -13115,7 +13021,7 @@ ag
 XY
 ix
 Tr
-Da
+dM
 iO
 ym
 uA
@@ -13124,7 +13030,7 @@ RD
 gM
 Ey
 ba
-Da
+dM
 jS
 Ql
 ag
@@ -13208,7 +13114,7 @@ ia
 ia
 Kt
 ia
-xL
+dM
 XH
 ys
 nW
@@ -13401,8 +13307,8 @@ hm
 ag
 cm
 cm
-Bg
-Bg
+dM
+dM
 cm
 cm
 rZ
@@ -13647,8 +13553,8 @@ Sc
 kR
 yy
 cM
-Bg
-Bg
+dM
+dM
 YM
 tV
 ak
@@ -13881,7 +13787,7 @@ nu
 Xl
 af
 af
-RN
+sa
 Hh
 XB
 pW
@@ -14431,7 +14337,7 @@ Pt
 Pr
 Pr
 Af
-UH
+rq
 cX
 QS
 PF
@@ -14942,10 +14848,10 @@ aw
 fJ
 hD
 ib
-Da
+dM
 Yk
 Zj
-Bg
+dM
 ia
 ib
 as
@@ -15313,7 +15219,7 @@ bK
 nz
 nz
 bK
-Bg
+dM
 fq
 fq
 li
@@ -15709,7 +15615,7 @@ AP
 dW
 UX
 Jr
-xL
+dM
 Jr
 Jr
 vS
@@ -16039,7 +15945,7 @@ gC
 cr
 gW
 hK
-QP
+xi
 cm
 aA
 aA
@@ -16222,7 +16128,7 @@ hG
 ad
 ad
 Zb
-Da
+dM
 iv
 bx
 aU
@@ -16405,7 +16311,7 @@ dA
 iM
 ad
 Zb
-Da
+dM
 iv
 dg
 hu

@@ -14135,9 +14135,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/chapel)
 "ciN" = (
 /obj/machinery/computer/security{
@@ -15481,7 +15479,6 @@
 "cuR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -16069,7 +16066,6 @@
 /obj/item/flashlight/lantern,
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -20202,9 +20198,7 @@
 /area/station/hallway/secondary/exit)
 "dih" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay)
 "diq" = (
 /obj/machinery/light/small{
@@ -23392,9 +23386,7 @@
 /area/station/hallway/spacebridge/serveng)
 "dPg" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay2)
 "dPr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -31387,9 +31379,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay2)
 "fEx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -34032,7 +34022,6 @@
 /area/station/maintenance/asmaint)
 "glz" = (
 /turf/simulated/floor/plasteel{
-	dir = 9;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -34393,9 +34382,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/chapel)
 "gpq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -36118,13 +36105,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
-"gMG" = (
-/obj/item/flashlight/lantern,
-/obj/structure/table/wood/fancy/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "gMO" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -38421,7 +38401,7 @@
 "hnE" = (
 /obj/machinery/computer/general_air_control{
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/department/engineering/side{
@@ -44228,7 +44208,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47500,7 +47479,6 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -55746,7 +55724,6 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -59247,9 +59224,7 @@
 	color = "#505050";
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay)
 "lFo" = (
 /obj/structure/cable{
@@ -62499,16 +62474,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
-"mtA" = (
-/obj/structure/chair/sofa/pew/left{
-	dir = 8
-	},
-/obj/effect/landmark/start/assistant,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "mtO" = (
 /obj/structure/reflector/single,
 /turf/simulated/floor/plasteel/dark,
@@ -63854,7 +63819,6 @@
 "mKT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -65376,7 +65340,7 @@
 "ncS" = (
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -66338,12 +66302,6 @@
 "npV" = (
 /turf/simulated/mineral/ancient,
 /area/station/hallway/primary/fore/north)
-"nqc" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "nqg" = (
 /obj/machinery/atmospherics/binary/pump,
 /obj/machinery/light{
@@ -72948,7 +72906,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 10
@@ -74913,13 +74871,6 @@
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
-"pkk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "pkp" = (
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -75427,9 +75378,7 @@
 	},
 /area/station/maintenance/starboard)
 "pqY" = (
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/theatre)
 "prq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -76462,7 +76411,6 @@
 "pDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -77699,9 +77647,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/hallway/primary/port/north)
 "pRK" = (
 /obj/machinery/light{
@@ -78456,12 +78402,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
-"qbG" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "qcb" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -81516,7 +81456,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -83191,11 +83130,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
-"rdf" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "rdg" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -84875,9 +84809,7 @@
 	name = "Holodeck Door"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/hallway/primary/port/north)
 "rAh" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -86981,9 +86913,7 @@
 	id_tag = "MechbayShutters2";
 	name = "Mech Bay Shutters"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/science/robotics/chargebay)
 "rWa" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -88141,16 +88071,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"skc" = (
-/obj/structure/chair/sofa/pew/right{
-	dir = 8
-	},
-/obj/effect/landmark/start/assistant,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "skd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -89079,12 +88999,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/supply/break_room)
-"sug" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "suh" = (
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/north,
@@ -94406,7 +94320,7 @@
 "tEA" = (
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank");
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank");
 	dir = 1
 	},
 /obj/machinery/light,
@@ -94491,7 +94405,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -95417,15 +95330,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cryo)
-"tPE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "tPI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -101051,12 +100955,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/west)
-"uZZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "vaa" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -109913,11 +109811,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"wTg" = (
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
-/area/station/hallway/secondary/exit)
 "wTm" = (
 /obj/structure/sign/poster/random/directional/east,
 /obj/structure/table,
@@ -111313,9 +111206,7 @@
 	id_tag = "MechbayShutters2";
 	name = "Mech Bay Shutters"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/science/robotics/chargebay)
 "xhO" = (
 /obj/structure/disposalpipe/segment,
@@ -111967,15 +111858,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
-"xru" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Holodeck Door"
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 8
-	},
-/area/station/hallway/primary/port/north)
 "xrF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -127910,7 +127792,7 @@ lRT
 lVV
 ujf
 tXI
-pkk
+mKT
 ixP
 erp
 erp
@@ -128167,13 +128049,13 @@ aEe
 aEe
 bZg
 qor
-sug
-gMG
+glz
+czo
 yau
 fYy
 fHC
 czo
-rdf
+glz
 bYT
 bZg
 cDo
@@ -128425,12 +128307,12 @@ cRs
 bZg
 bYT
 glz
-uZZ
+glz
 bVS
 ujm
 vBi
 glz
-uZZ
+glz
 bYT
 bZg
 nvU
@@ -128681,13 +128563,13 @@ ybP
 gwW
 bZg
 bjl
-nqc
-qbG
+glz
+glz
 bVS
 bVS
 vBi
-nqc
-qbG
+glz
+glz
 bYT
 bZg
 beJ
@@ -128939,12 +128821,12 @@ bHZ
 bZg
 pjx
 jgx
-skc
+kUu
 bVS
 cqu
 vBi
 jgx
-skc
+kUu
 lME
 bZg
 cMT
@@ -129195,13 +129077,13 @@ bHZ
 bHZ
 bZg
 hIS
-sug
-rdf
+glz
+glz
 bVS
 bVS
 vBi
-sug
-rdf
+glz
+glz
 jNe
 bZg
 cNj
@@ -129452,12 +129334,12 @@ mrF
 bHZ
 bUN
 szr
-mtA
+jgx
 kUu
 bVS
 bVS
 vBi
-mtA
+jgx
 kUu
 iRX
 bZg
@@ -129715,7 +129597,7 @@ ciZ
 ciZ
 rMs
 pDJ
-tPE
+tFX
 bYT
 bZg
 gAq
@@ -129967,12 +129849,12 @@ vZK
 bUN
 pWq
 jgx
-skc
+kUu
 bVS
 bVS
 vBi
 jgx
-skc
+kUu
 bYT
 bZg
 pqU
@@ -130223,13 +130105,13 @@ rUL
 vEs
 bZg
 iAa
-sug
-rdf
+glz
+glz
 bVS
 bVS
 vBi
-sug
-rdf
+glz
+glz
 iAa
 bZg
 pqY
@@ -136354,10 +136236,10 @@ uSv
 uSv
 gav
 gav
-xru
+rAg
 gav
 gav
-xru
+rAg
 gav
 gav
 gav
@@ -169060,15 +168942,15 @@ qpe
 pUf
 pUf
 pUf
-wTg
+fKZ
 pUf
 pgB
 pgB
 pgB
 pUf
-wTg
+fKZ
 jGJ
-wTg
+fKZ
 pUf
 qsN
 qsN

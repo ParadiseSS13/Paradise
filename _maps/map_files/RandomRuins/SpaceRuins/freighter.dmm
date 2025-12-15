@@ -297,9 +297,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/powered)
 "xF" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/powered)
 "xJ" = (
 /obj/effect/turf_decal/tiles/dark/checker,

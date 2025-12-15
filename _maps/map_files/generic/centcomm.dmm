@@ -364,7 +364,6 @@
 /area/ghost_bar)
 "bo" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon_state = "wood"
 	},
 /area/holodeck/source_theatre)
@@ -580,9 +579,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/stairs/left{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/left,
 /area/ghost_bar)
 "ch" = (
 /turf/simulated/floor/holofloor/space,
@@ -705,7 +702,6 @@
 /area/holodeck/source_snowfield)
 "cB" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid3"
 	},
@@ -7400,9 +7396,7 @@
 /area/ghost_bar)
 "zk" = (
 /obj/structure/railing,
-/turf/simulated/floor/plasteel/stairs/left{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs/left,
 /area/ghost_bar)
 "zl" = (
 /obj/structure/table/reinforced,
@@ -9314,7 +9308,6 @@
 /area/shuttle/supply)
 "Gg" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid11"
 	},
@@ -10735,7 +10728,6 @@
 /area/centcom/evac)
 "Lf" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid8"
 	},
@@ -10860,9 +10852,7 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "LA" = (
-/turf/simulated/floor/plasteel/stairs/right{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs/right,
 /area/ghost_bar)
 "LC" = (
 /obj/structure/chair/comfy/green{
@@ -11229,7 +11219,6 @@
 /area/centcom/specops)
 "MR" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid1"
 	},
@@ -11470,9 +11459,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NH" = (
-/turf/simulated/floor/plasteel/stairs/left{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs/left,
 /area/ghost_bar)
 "NI" = (
 /obj/effect/turf_decal/tiles/neutral/side{
@@ -11840,7 +11827,6 @@
 /area/ghost_bar)
 "OT" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroid2"
 	},
@@ -11908,9 +11894,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "Pi" = (
-/turf/simulated/floor/plasteel/stairs/medium{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/medium,
 /area/ghost_bar)
 "Pk" = (
 /obj/structure/chair/comfy/black{
@@ -11956,9 +11940,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs/right{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/right,
 /area/ghost_bar)
 "Pr" = (
 /obj/machinery/door/airlock/hatch/syndicate,
@@ -12558,9 +12540,6 @@
 /obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Ro" = (
-/turf/simulated/floor/plasteel/stairs/right,
-/area/ghost_bar)
 "Rp" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/specops)
@@ -64841,7 +64820,7 @@ Jy
 Jy
 Jy
 Jy
-Ro
+LA
 rU
 xV
 Jy
