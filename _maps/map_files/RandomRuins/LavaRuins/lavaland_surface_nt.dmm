@@ -17,6 +17,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
 "aj" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
@@ -388,6 +389,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"da" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance/south)
 "db" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -635,7 +641,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white,
 /area/mine/outpost/medbay)
 "eA" = (
@@ -764,6 +769,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ft" = (
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -1073,6 +1079,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
 "gS" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/airlock/maintenance{
 	name = "Infirmary Maintence"
 	},
@@ -1083,7 +1091,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -1150,7 +1157,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "hn" = (
@@ -1213,6 +1219,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
@@ -1401,6 +1409,8 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
@@ -1513,10 +1523,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
-"jv" = (
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/plasteel/dark,
-/area/mine/outpost/hallway/west)
 "jw" = (
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
@@ -2863,6 +2869,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
@@ -3554,7 +3562,6 @@
 	},
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -3576,6 +3583,7 @@
 	name = "Shuttle Airlock";
 	id_tag = "mining_away"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/turf_decal/tiles/department/security{
 	dir = 8
 	},
@@ -3632,6 +3640,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "vL" = (
@@ -3872,7 +3882,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "wL" = (
@@ -3985,6 +3994,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "xK" = (
@@ -4016,6 +4027,8 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Airlock Maintence"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -4059,7 +4072,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -4126,7 +4138,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -4211,7 +4222,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -4656,6 +4666,8 @@
 	name = "Processing Room"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -5046,7 +5058,6 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Eg" = (
@@ -5279,7 +5290,6 @@
 /obj/structure/noticeboard{
 	pixel_y = 28
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Fm" = (
@@ -5367,6 +5377,8 @@
 /obj/machinery/door/airlock/maintenance/external{
 	name = "Processing Room Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -5425,7 +5437,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Gm" = (
@@ -5469,6 +5480,8 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Custodial Storage Maintence"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -6114,6 +6127,8 @@
 /area/mine/outpost/lockers)
 "KE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/airlock/maintenance{
 	name = "Mech Bay Maintence"
 	},
@@ -6180,6 +6195,8 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/effect/turf_decal/tiles/department/security{
 	dir = 8
 	},
@@ -6267,7 +6284,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Lq" = (
@@ -6394,6 +6410,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/effect/turf_decal/tiles/department/virology/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/custodial)
@@ -6508,6 +6526,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Mj" = (
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay"
 	},
@@ -6524,6 +6543,8 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -6971,6 +6992,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/sign/directions/cargo{
 	dir = 8;
 	pixel_y = -24
@@ -7953,6 +7975,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "UT" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -7969,7 +7993,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -8027,7 +8050,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -8103,7 +8125,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Wi" = (
@@ -8147,7 +8168,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -8293,6 +8313,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/medbay)
 "Xm" = (
@@ -8545,7 +8567,6 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Yr" = (
@@ -8569,6 +8590,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Hallway"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Yx" = (
@@ -8711,7 +8733,6 @@
 /area/mine/laborcamp)
 "Zv" = (
 /obj/structure/chair,
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "Zy" = (
@@ -8742,7 +8763,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel/white,
 /area/mine/outpost/medbay)
 "ZF" = (
@@ -16404,7 +16424,7 @@ wH
 Ef
 xY
 eT
-jv
+pa
 iv
 wq
 ku
@@ -17210,7 +17230,7 @@ ZF
 ZF
 ol
 rp
-UT
+da
 CL
 mp
 lq
