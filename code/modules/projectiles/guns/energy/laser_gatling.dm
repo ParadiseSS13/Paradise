@@ -112,7 +112,6 @@
 	weapon_weight = WEAPON_HEAVY
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/minigun)
 	cell_type = /obj/item/stock_parts/cell/minigun
-	needs_permit = TRUE
 	can_charge = FALSE
 	selfcharge = TRUE
 	shaded_charge = FALSE
