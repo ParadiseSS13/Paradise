@@ -43,25 +43,25 @@
 	. = ..()
 
 	if(unfastened)
-		. += "<span class='warning'>It has been unfastened.</span>"
+		. += SPAN_WARNING("It has been unfastened.")
 
 /turf/simulated/floor/plating/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/rods))
 		if(broken || burnt)
-			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			to_chat(user, SPAN_WARNING("Repair the plating first!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/rods/R = used
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
+			to_chat(user, SPAN_WARNING("You need two rods to make a reinforced floor!"))
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
+			to_chat(user, SPAN_NOTICE("You begin reinforcing the floor..."))
 			if(do_after(user, 30 * used.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, used.usesound, 80, 1)
 					R.use(2)
-					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
+					to_chat(user, SPAN_NOTICE("You reinforce the floor."))
 				return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/stack/tile))
@@ -73,17 +73,17 @@
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
+			to_chat(user, SPAN_WARNING("This section is too damaged to support a tile! Use a welder to fix the damage."))
 			return ITEM_INTERACT_COMPLETE
 	else if(is_glass_sheet(used))
 		if(broken || burnt)
-			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			to_chat(user, SPAN_WARNING("Repair the plating first!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/sheet/R = used
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
+			to_chat(user, SPAN_WARNING("You need two sheets to build a [used.name] floor!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin swapping the plating for [used]..."))
 		if(do_after(user, 3 SECONDS * used.toolspeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(used, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
@@ -100,7 +100,7 @@
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
 				playsound(src, used.usesound, 80, TRUE)
 				R.use(2)
-				to_chat(user, "<span class='notice'>You swap the plating for [used].</span>")
+				to_chat(user, SPAN_NOTICE("You swap the plating for [used]."))
 				new /obj/item/stack/sheet/metal(src, 2)
 			return ITEM_INTERACT_COMPLETE
 
@@ -117,12 +117,12 @@
 		return
 	. = TRUE
 	if(locate(/obj/structure/cable) in src)
-		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
+		to_chat(user, SPAN_NOTICE("There is a cable still attached to [src]. Remove it first!"))
 		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+	to_chat(user, SPAN_NOTICE("You start [unfastened ? "fastening" : "unfastening"] [src]."))
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [unfastened ? "fasten" : "unfasten"] [src]."))
 	unfastened = !unfastened
 
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
@@ -134,14 +134,14 @@
 	if(user.a_intent == INTENT_HARM) // no repairing on harm intent, so you can use the welder in a fight near damaged paneling without welding your eyes out
 		return
 	if(unfastened)
-		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
+		to_chat(user, SPAN_WARNING("You start removing [src], exposing space after you're done!"))
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
 			return
 		new /obj/item/stack/tile/plasteel(get_turf(src))
 		remove_plating(user)
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
-		to_chat(user, "<span class='notice'>You fix some dents on the broken plating.</span>")
+		to_chat(user, SPAN_NOTICE("You fix some dents on the broken plating."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -211,7 +211,7 @@
 	if(!user)
 		return
 	. = TRUE
-	to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+	to_chat(user, SPAN_NOTICE("You begin removing rods..."))
 	if(W.use_tool(src, user, 3 SECONDS, 0, 50))
 		if(!istype(src, /turf/simulated/floor/engine))
 			return
@@ -314,6 +314,13 @@
 	hydrogen = 100000
 	oxygen = 0
 	nitrogen = 0
+
+/turf/simulated/floor/engine/water_vapor
+	name = "\improper H2O floor"
+	water_vapor = 10000
+	oxygen = 0
+	nitrogen = 0
+	temperature = 716
 
 /turf/simulated/floor/engine/xenobio
 	oxygen = 0
@@ -425,25 +432,25 @@
 		var/smash_prob = max(0, attacking.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
-			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [attacking]!</span>")
+			visible_message(SPAN_DANGER("[user] smashes through \the [src] with \the [attacking]!"))
 			smash()
 			return FINISH_ATTACK
 		else
-			visible_message("<span class='warning'>[user]'s [attacking.name] bounces against \the [src]!</span>")
+			visible_message(SPAN_WARNING("[user]'s [attacking.name] bounces against \the [src]!"))
 			return FINISH_ATTACK
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)
-		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
+		M.visible_message(SPAN_NOTICE("[M] nudges \the [src]."))
 	else
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, TRUE, 1)
-		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
+		M.visible_message(SPAN_DANGER("\The [M] [M.attacktext] [src]!"))
 		smash(src)
 
 /turf/simulated/floor/plating/metalfoam/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>")
+	M.visible_message(SPAN_DANGER("[M] tears apart \the [src]!"))
 	smash(src)
 
 /turf/simulated/floor/plating/metalfoam/burn_tile()

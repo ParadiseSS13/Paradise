@@ -84,7 +84,7 @@
 
 /datum/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		to_chat(user, "<span class='warning'>You feel MIGHTY!</span>")
+		to_chat(user, SPAN_WARNING("You feel MIGHTY!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
@@ -106,7 +106,7 @@
 	var/mob/living/L = user
 	// they're not getting anything out of this spell if they're stunned or buckled anyways, so we might as well stop them from wasting the blood
 	if(L.IsWeakened() || L.buckled)
-		to_chat(L, "<span class='warning'>You can't cast this spell while incapacitated!</span>")
+		to_chat(L, SPAN_WARNING("You can't cast this spell while incapacitated!"))
 		return FALSE
 	return ..()
 
@@ -116,7 +116,7 @@
 		return
 
 	var/mob/living/carbon/human/H = target
-	to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+	to_chat(H, SPAN_NOTICE("You feel a rush of energy!"))
 
 	H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 	H.clear_legcuffs(TRUE)
@@ -131,8 +131,8 @@
 	base_cooldown = 30 SECONDS
 	fireball_type = /obj/projectile/magic/demonic_grasp
 
-	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You re-absorb the energy...for now.")
 
 	action_background_icon_state = "bg_garg"
 	action_icon_state = "demonic_grasp"
@@ -307,6 +307,6 @@
 	QDEL_LIST_CONTENTS(all_temp_walls)
 	cooldown_handler.start_recharge()
 	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
-	user.visible_message("<span class='warning'>The arena begins to dissipate.</span>")
+	user.visible_message(SPAN_WARNING("The arena begins to dissipate."))
 
 #undef ARENA_SIZE

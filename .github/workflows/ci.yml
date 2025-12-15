@@ -13,7 +13,7 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Cache
         uses: actions/cache@v4
@@ -57,6 +57,7 @@ jobs:
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
+          python -m tools.ci.check_user_verb_params
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
@@ -67,12 +68,12 @@ jobs:
     name: Lint with OpenDream
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5.0.0
+        uses: actions/setup-dotnet@v5.0.1
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -87,7 +88,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -109,7 +110,7 @@ jobs:
         station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -131,7 +132,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:

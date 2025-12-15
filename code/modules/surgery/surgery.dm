@@ -126,7 +126,7 @@
 		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
-			to_chat(user, "<span class='warning'>This step requires a different tool!</span>")
+			to_chat(user, SPAN_WARNING("This step requires a different tool!"))
 			return TRUE
 	return FALSE
 
@@ -439,10 +439,10 @@
 	if(S?.voluntary)
 		H.SetSleeping(0) // wake up people who are napping through the surgery
 		if(pain_mod < 0.95)
-			to_chat(H, "<span class='danger'>The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!</span>")
+			to_chat(H, SPAN_DANGER("The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!"))
 		else
 			// Still wake people up, but they shouldn't be as alarmed.
-			to_chat(H, "<span class='warning'>The surgery being performed on your [parse_zone(target_zone)] wakes you up.</span>")
+			to_chat(H, SPAN_WARNING("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
 	return pain_mod //operating on conscious people is hard.
 
 /**
@@ -479,10 +479,10 @@
 			return
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
-				target.visible_message("<span class='notice'>Blood splashes onto [user]'s hands.</span>")
+				target.visible_message(SPAN_NOTICE("Blood splashes onto [user]'s hands."))
 				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color(), 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
-				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
+				target.visible_message(SPAN_NOTICE("A spray of blood coats [user]."))
 				H.bloody_body(target)
 	SEND_SIGNAL(tool, COMSIG_MOB_REAGENT_EXCHANGE, target)
 	tool.AddComponent(/datum/component/viral_contamination, target.viruses)

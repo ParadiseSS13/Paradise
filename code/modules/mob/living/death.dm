@@ -88,9 +88,9 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=\ref[T]'>JMP</a>)</span>")
+					to_chat(M, SPAN_DEADSAY("<b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=\ref[T]'>JMP</a>)"))
 					if(last_words)
-						to_chat(M, "<span class='deadsay'><b>[p_their(TRUE)] last words were:</b> \"[last_words]\"</span>")
+						to_chat(M, SPAN_DEADSAY("<b>[p_their(TRUE)] last words were:</b> \"[last_words]\""))
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
@@ -101,7 +101,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib(inflate_at_end = FALSE)
-	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+	visible_message(SPAN_DANGER("<b>[src]</b> starts convulsing violently!"), "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, inflate_at_end ? PROC_REF(quick_explode_gib) : PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

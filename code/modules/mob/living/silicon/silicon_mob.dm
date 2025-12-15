@@ -250,8 +250,8 @@
 		if(EMP_LIGHT)
 			take_organ_damage(10)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
+	to_chat(src, SPAN_DANGER("*BZZZT*"))
+	to_chat(src, SPAN_WARNING("Warning: Electromagnetic pulse detected."))
 
 
 /mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
@@ -259,7 +259,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, SPAN_ALERT("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -272,16 +272,16 @@
 		return
 	. = TRUE
 	if(!getBruteLoss())
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		to_chat(user, SPAN_NOTICE("Nothing to fix!"))
 		return
 	else if(!getBruteLoss(TRUE))
-		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+		to_chat(user, SPAN_WARNING("The damaged components are beyond saving!"))
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	adjustBruteLoss(-30)
 	add_fingerprint(user)
-	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
+	user.visible_message(SPAN_ALERT("[user] patches some dents on [src] with [I]."))
 
 
 /mob/living/silicon/bullet_act(obj/projectile/Proj)
@@ -434,7 +434,7 @@
 	janisensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
+	to_chat(src, SPAN_NOTICE("Please select sensor type."))
 	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
 							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
 							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
@@ -447,16 +447,16 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Robotics diagnostic overlay enabled."))
 		if("Janitor")
 			add_jani_hud()
-			to_chat(src, "<span class='notice'>Janitorial filth overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Janitorial filth overlay enabled."))
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
@@ -540,38 +540,76 @@
 
 	if(!item_to_add)
 		user.visible_message(
-			"<span class='notice'>[user] pats [src] on the head.</span>",
-			"<span class='notice'>You pat [src] on the head.</span>")
+			SPAN_NOTICE("[user] pats [src] on the head."),
+			SPAN_NOTICE("You pat [src] on the head."))
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
-		to_chat(user, "<span class='warning'>[item_to_add] cannot be worn on the head by [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] cannot be worn on the head by [src]!"))
 		return FALSE
 
 	if(!can_be_hatted)
-		to_chat(user, "<span class='notice'>No matter how hard you try you don't seem to be able to put a hat on [src]!</span>")
+		to_chat(user, SPAN_NOTICE("No matter how hard you try you don't seem to be able to put a hat on [src]!"))
 		return FALSE
 
 	if(silicon_hat)
-		to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
+		to_chat(user, SPAN_WARNING("[src] can't wear more than one hat!"))
 		return FALSE
 
 	if(!can_wear_restricted_hats && is_type_in_list(item_to_add, restricted_hats))
-		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] does not fit on the head of [src]!"))
 		return FALSE
 
 	if(!user.transfer_item_to(item_to_add, src))
-		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] is stuck to your hand, you cannot put it on [src]!"))
 		return FALSE
 
 	user.visible_message(
-		"<span class='notice'>[user] puts [item_to_add] on [real_name].</span>",
-		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
+		SPAN_NOTICE("[user] puts [item_to_add] on [real_name]."),
+		SPAN_NOTICE("You put [item_to_add] on [real_name].")
 	)
 	silicon_hat = item_to_add
+	var/datum/action/A = new /datum/action/innate/drop_silicon_hat(src)
+	A.Grant(src)
 	update_icons()
 
 	return TRUE
+
+/datum/action/innate/drop_silicon_hat
+	name = "Drop hat"
+	desc = "Discard your hat onto the ground."
+
+/datum/action/innate/drop_silicon_hat/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	var/mob/living/silicon/S = owner
+	button_icon = S.silicon_hat.icon
+	button_icon_state = S.silicon_hat.icon_state
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
+
+/datum/action/innate/drop_silicon_hat/Activate()
+	var/mob/living/silicon/S = owner
+	// Sillycones will not escape from the wrath of the shamebrero!
+	if(S.silicon_hat.flags & NODROP)
+		to_chat(S, SPAN_WARNING("[S.silicon_hat] is stuck to your head! It is impossible to remove!"))
+		return
+
+	if(is_ai(S))
+		S.visible_message(
+			SPAN_NOTICE("[S] ejects [S.silicon_hat] from [S.p_their()] hat storage area."),
+			SPAN_NOTICE("You eject [S.silicon_hat] from your hat storage area."),
+			SPAN_NOTICE("You hear a quiet pneumatic hiss followed by something landing on the floor.")
+		)
+	else
+		S.visible_message(
+			SPAN_NOTICE("[S] shakes [S.silicon_hat] off [S.p_their()] head."),
+			SPAN_NOTICE("You shake [S.silicon_hat] off your head."),
+			SPAN_NOTICE("You hear something land on the floor.")
+		)
+	S.drop_hat()
+	Remove(owner)
 
 /**
   * Attempts to remove any hats a silicon is wearing.
@@ -582,15 +620,20 @@
   */
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(!silicon_hat)
-		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
+		to_chat(user, SPAN_WARNING("[src] isn't wearing anything on their head!"))
 		return FALSE
 	if(silicon_hat.flags & NODROP)
-		to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
+		to_chat(user, SPAN_WARNING("[silicon_hat] is stuck on [src]'s head, it is impossible to remove!"))
 		return FALSE
 
-	to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
+	user.visible_message(
+		SPAN_WARNING("[user] removes [silicon_hat] from [src]'s head!"),
+		SPAN_WARNING("You remove [silicon_hat] from [src]'s head!")
+	)
 	user.put_in_hands(silicon_hat)
-
+	for(var/datum/action/A in src.actions)
+		if(A.name == "Drop hat")
+			A.Remove(src)
 	null_hat()
 	update_icons()
 

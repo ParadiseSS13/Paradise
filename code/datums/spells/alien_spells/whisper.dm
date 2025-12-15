@@ -23,6 +23,6 @@
 		return
 	log_say("(AWHISPER to [key_name(target)]) [msg]", user)
 	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")
-	to_chat(user, "<span class='noticealien'>You said: [msg] to [target]</span>")
+	to_chat(user, SPAN_NOTICEALIEN("You said: [msg] to [target]"))
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
 		ghosts.show_message("<i>Alien message from <b>[user]</b> ([ghost_follow_link(user, ghost=ghosts)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=ghosts)]): [msg]</i>")

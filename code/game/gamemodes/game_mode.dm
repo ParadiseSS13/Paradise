@@ -423,7 +423,7 @@
 //Reports player logouts//
 //////////////////////////
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = "[SPAN_NOTICE("Roundstart logout report")]\n\n"
 	for(var/mob/living/L in GLOB.mob_list)
 
 		if(L.ckey)
@@ -510,14 +510,14 @@
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
-		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
+		to_chat(M, SPAN_USERDANGER("Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"))
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
 		dust_if_respawnable(theghost)
 	else
 		message_admins("[M] ([M.key]) has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
-		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [role_type], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		to_chat(M, SPAN_BIGGERDANGER("You have been converted into [role_type] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [role_type], but any further violations of the rules on your part are likely to result in a permanent ban."))
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
@@ -526,19 +526,19 @@
 	var/text = "<br><b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += "<span class='bold'>died!</span>"
+			text += SPAN_BOLD("died!")
 		else
-			text += "<span class='bold'>survived</span>"
+			text += SPAN_BOLD("survived")
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
 			if(!T || !is_station_level(T.z))
-				text += " while <span class='bold'>fleeing the station</span>"
+				text += " while [SPAN_BOLD("fleeing the station")]"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]!</b>"
 		else
 			text += "!"
 	else
-		text += "<span class='bold'>had [ply.p_their()] body destroyed!</span>"
+		text += SPAN_BOLD("had [ply.p_their()] body destroyed!")
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
@@ -548,11 +548,11 @@
 	text += " and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += "<span class='bold'>died!</span>"
+			text += SPAN_BOLD("died!")
 		else
-			text += "<span class='bold'>survived!</span>"
+			text += SPAN_BOLD("survived!")
 	else
-		text += "<span class='bold'>had [ply.p_their()] body destroyed!</span>"
+		text += SPAN_BOLD("had [ply.p_their()] body destroyed!")
 	return text
 
 /proc/printobjectives(datum/mind/ply)
@@ -609,9 +609,9 @@
 	for(var/department in departments)
 		if(departments[department])
 			any = TRUE
-			to_chat(world, "<b>[department]</b>: <span class='greenannounce'>[departments[department]] completed!</span>")
+			to_chat(world, "<b>[department]</b>: [SPAN_GREENANNOUNCE("[departments[department]] completed!")]")
 	if(!any)
-		to_chat(world, "<span class='boldannounceic'>None completed!</span>")
+		to_chat(world, SPAN_BOLDANNOUNCEIC("None completed!"))
 
 /datum/game_mode/proc/generate_station_trait_report()
 	var/something_to_print = FALSE

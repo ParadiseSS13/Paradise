@@ -66,14 +66,14 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 /datum/antagonist/mindslave/greet()
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
-		return "<span class='biggerdanger'>[greet_text]</span>"
+		return SPAN_BIGGERDANGER("[greet_text]")
 	else // Default greeting text if nothing is given.
 		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master]!</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("You are no longer a mindslave of [master]!"))
 
 /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
 	. = ..()
