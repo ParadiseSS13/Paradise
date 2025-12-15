@@ -23,6 +23,8 @@
 	var/datum/spawner_pixel_placer/pixel_placer
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
+	/// Do we spawn our
+	var/no_double_spawn = FALSE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)
 	var/spawn_loot_chance = 100
 	/// Determines how big of a range (in tiles) we should scatter things in.
@@ -83,6 +85,9 @@
 		spawn_loot_count = INFINITY
 		spawn_loot_double = FALSE
 
+	if(no_double_spawn)
+		spawn_loot_double = FALSE
+
 	var/list/loot_list = generate_loot_list()
 	var/safe_failure_count = 0
 
@@ -91,7 +96,7 @@
 
 	if(length(loot_list))
 		var/loot_spawned = 0
-		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
+		while((spawn_loot_count - loot_spawned) && length(loot_list) && safe_failure_count <= 10)
 			loot_spawned++
 			var/lootspawn = pick_weight_recursive(loot_list)
 
@@ -101,6 +106,7 @@
 
 			if(!spawn_loot_double)
 				loot_list.Remove(lootspawn)
+
 			if(lootspawn)
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))

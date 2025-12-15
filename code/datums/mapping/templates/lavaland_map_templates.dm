@@ -243,6 +243,15 @@
 	suffix = "lavaland_surface_shuttlecrash.dmm"
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/nt_engineering
+	name = "Nanotrasen Engineering Outpost"
+	id = "engi_outpost"
+	description = "Nanotrasen's \"sturdy\" planetside engineering outpost."
+	suffix = "lavaland_surface_engineering.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+	never_spawn_on_the_same_level = list("gulag")
+
 /datum/map_template/ruin/lavaland/nt
 	name = "Nanotrasen Mining Complex"
 	id = "gulag"

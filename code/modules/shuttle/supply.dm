@@ -54,6 +54,12 @@
 	// The item preventing this shuttle from going to CC.
 	var/blocking_item = "ERR_UNKNOWN"
 
+	/// Our external fuel tank
+	var/obj/machinery/fluid_pipe/shuttle_fuel_tank/fuel_tank
+
+	/// What is our base speed? Only influenced by station traits
+	var/base_speed = 1
+
 /obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
@@ -77,7 +83,46 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port, force=FALSE, transit=FALSE)
+// Literally exactly the same EXCEPT for the `SHUTTLE_IGNITING` part
+/obj/docking_port/mobile/supply/check()
+	check_effects()
+
+	if(mode == SHUTTLE_IGNITING)
+		check_transit_zone()
+
+	var/time_left = timeLeft(1 DECISECONDS)
+
+	if(time_left <= 0)
+		switch(mode)
+			if(SHUTTLE_CALL)
+				if(dock(destination))
+					setTimer(2 SECONDS)	// Can't dock for some reason, try again in 2 seconds
+					return
+			if(SHUTTLE_RECALL)
+				if(dock(previous))
+					setTimer(2 SECONDS)	// Can't dock for some reason, try again in 2 seconds
+					return
+			if(SHUTTLE_IGNITING)
+				if(!check_transit_zone())
+					setTimer(2 SECONDS)
+					return
+				mode = SHUTTLE_CALL
+
+				if(!fuel_tank?.tank.remove_fluid(fuel_tank.current_fuel, 250))
+					callTime = initial(callTime) * base_speed
+				else
+					callTime /= initial(fuel_tank.current_fuel.fuel_value)
+					callTime *= base_speed
+
+				setTimer(callTime)
+				callTime = initial(callTime) * base_speed
+				enterTransit()
+				return
+		mode = SHUTTLE_IDLE
+		timer = 0
+		destination = null
+
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port, force = FALSE, transit = FALSE)
 	. = ..()
 	if(.)
 		return
@@ -462,6 +507,62 @@
 	manifest.line_items += item
 	SSblackbox.record_feedback("tally", "cargo plasma sold", plasma, "amount")
 	SSblackbox.record_feedback("tally", "cargo plasma sold", item.credits, "credits")
+
+
+/datum/economy/simple_seller/barrel
+	var/barrels = 0
+	var/credits = 0
+	var/refined_plasma = 0
+	var/turbofuel = 0
+
+/datum/economy/simple_seller/barrel/begin_sell(obj/docking_port/mobile/supply/S)
+	barrels = 0
+	credits = 0
+	refined_plasma = 0
+	turbofuel = 0
+
+/datum/economy/simple_seller/barrel/check_sell(obj/docking_port/mobile/supply/S, AM)
+	if(istype(AM, /obj/structure/barrel))
+		return COMSIG_CARGO_SELL_NORMAL | COMSIG_CARGO_IS_SECURED
+
+/datum/economy/simple_seller/barrel/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+
+	barrels += 1
+	credits += 50 // 50 credits for bringing in a barrel
+	sell_fluids(AM)
+
+/datum/economy/simple_seller/barrel/proc/sell_fluids(obj/structure/barrel/barrel)
+	for(var/datum/fluid/liquid in barrel.tank.fluids)
+		if(istype(liquid, /datum/fluid/refined_plasma))
+			refined_plasma += liquid.fluid_amount
+		else if(istype(liquid, /datum/fluid/fuel/turbo))
+			turbofuel += liquid.fluid_amount
+
+	barrel.tank.clear_fluids()
+
+/datum/economy/simple_seller/barrel/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!barrels)
+		return
+
+	var/datum/economy/line_item/item = new
+	if(refined_plasma)
+		item.account = SSeconomy.cargo_account
+		item.credits = refined_plasma * SSeconomy.credits_per_ref_plasma
+		item.reason = "Received [refined_plasma] unit[refined_plasma > 1 ? "s" : ""] of refined exotic material."
+		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "refined plasma sold", refined_plasma, "amount")
+		SSblackbox.record_feedback("tally", "refined plasma sold", item.credits, "credits")
+
+	if(turbofuel)
+		item = new
+		item.account = SSeconomy.cargo_account
+		item.credits = turbofuel * SSeconomy.credits_per_turbofuel
+		item.reason = "Received [turbofuel] unit[turbofuel > 1 ? "s" : ""] of turbofuel."
+		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "turbofuel sold", turbofuel, "amount")
+		SSblackbox.record_feedback("tally", "turbofuel sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/intel

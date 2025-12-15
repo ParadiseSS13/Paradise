@@ -700,7 +700,7 @@ USER_CONTEXT_MENU(admin_check_contents, R_ADMIN, "\[Admin\] Check Contents", mob
 
 USER_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Change tile view range.", VERB_CATEGORY_ADMIN)
 	if(client.view == world.view)
-		client.view = input(client, "Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+		client.view = input(client, "Select view range:", "View Range", world.view) in list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,11, 12, 13, 14, 20, 128)
 	else
 		client.view = world.view
 
