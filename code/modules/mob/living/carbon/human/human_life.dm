@@ -919,7 +919,7 @@
 				lung.linked_organ.receive_damage(1, TRUE)
 
 			if(prob(10))
-				to_chat(src, "<span class='danger'>You feel incredibly weak.</span>")
+				to_chat(src, SPAN_DANGER("You feel incredibly weak."))
 
 		if(BLOODPRESSURE_DANGER to BLOODPRESSURE_LOW)
 			if(prob(5))
@@ -928,12 +928,12 @@
 			adjustOxyLoss(max(round(7 - temp_bp / 10, 1), 1))
 		if(100 to 130)
 			if(prob(5))
-				to_chat(src, "<span class='warning'>You feel a bit weak.</span>")
+				to_chat(src, SPAN_WARNING("You feel a bit weak."))
 
 		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_V_HIGH)
 			false_cardiac_pain += rand(1, 10)
 			if(prob(5))
-				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
+				to_chat(src, SPAN_WARNING("Your nose bleeds."))
 				bleed(10)
 			if(prob(5))
 				SetEyeBlind(5 SECONDS)
@@ -948,12 +948,12 @@
 					if(limb.status & ORGAN_INT_BLEEDING)
 						continue
 					limb.cause_internal_bleeding(FALSE)
-					to_chat(src, "<span class='danger'>You feel like something just popped in your [limb.name]!</span>")
+					to_chat(src, SPAN_DANGER("You feel like something just popped in your [limb.name]!"))
 					break
 
 			// Same as the previous tier of drawbacks but higher chances and amounts
 			if(prob(15))
-				to_chat(src, "<span class='warning'>Your nose bleeds.</span>")
+				to_chat(src, SPAN_WARNING("Your nose bleeds."))
 				bleed(15)
 			if(prob(5))
 				SetEyeBlind(5 SECONDS)
@@ -1061,15 +1061,15 @@
 	if(heartbeat <= HEARTBEAT_NONE)
 		adjustOxyLoss(5)
 		if(prob(10))
-			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
+			to_chat(src, SPAN_WARNING("Your heart skips a beat."))
 		else if(prob(10))
-			to_chat(src, "<span class='userdanger'>Something is very wrong.</span>")
+			to_chat(src, SPAN_USERDANGER("Something is very wrong."))
 
 	else if(heartbeat <= HEARTBEAT_SLOW)
 		if(prob(5))
-			to_chat(src, "<span class='warning'>Your heart skips a beat.</span>")
+			to_chat(src, SPAN_WARNING("Your heart skips a beat."))
 		else if(prob(5))
-			to_chat(src, "<span class='danger'>Something is very wrong.</span>")
+			to_chat(src, SPAN_DANGER("Something is very wrong."))
 		var/damage = round(heartbeat / 10, 1)
 		// No oxydamage when above 50 bpm
 		adjustOxyLoss(max(5 - damage, 0))
@@ -1086,15 +1086,15 @@
 		if(prob(30))
 			Dizzy(5 SECONDS)
 		if(prob(5))
-			to_chat(src, "<span class='warning'>Your heart is racing!</span>")
+			to_chat(src, SPAN_WARNING("Your heart is racing!"))
 		else if(prob(5))
-			to_chat(src, "<span class='warning'>Something is very wrong.</span>")
+			to_chat(src, SPAN_WARNING("Something is very wrong."))
 		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
 			send_heart_sound()
 
 	else if(heartbeat >= HEARTBEAT_NORMAL)
 		if(prob(2))
-			to_chat(src, "<span class='warning'>You notice your heart is beating a little faster than normal.</span>")
+			to_chat(src, SPAN_WARNING("You notice your heart is beating a little faster than normal."))
 
 /// Proc to play the heartbeat sound
 /mob/living/carbon/human/proc/send_heart_sound()
