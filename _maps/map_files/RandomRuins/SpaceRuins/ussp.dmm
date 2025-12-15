@@ -3149,12 +3149,21 @@
 	},
 /obj/structure/sign/poster/contraband/communist_state/directional/west,
 /turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
 "in" = (
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"io" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -3163,6 +3172,7 @@
 /obj/item/storage/fancy/candle_box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -3282,6 +3292,7 @@
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -3293,6 +3304,13 @@
 "iL" = (
 /obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
+"iM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
 /area/ruin/space/derelict/crew_quarters)
 "iN" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -4604,6 +4622,26 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"lX" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"lY" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"lZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -4685,12 +4723,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
 "ms" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"mt" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "chapel"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -13026,7 +13071,7 @@ XQ
 kC
 XQ
 je
-iK
+lX
 ms
 hT
 mQ
@@ -13301,15 +13346,15 @@ gX
 ho
 bm
 hV
-ms
-ms
+io
+iM
 eD
 eD
 kE
 fc
 eD
-iK
-iK
+lY
+mt
 mE
 bm
 nh
@@ -13402,7 +13447,7 @@ jJ
 kF
 ln
 lG
-ms
+lZ
 ms
 mF
 bm

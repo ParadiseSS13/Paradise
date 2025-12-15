@@ -189,7 +189,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 8
 	},
 /area/ruin/space/unpowered)
 "aH" = (
@@ -266,7 +267,8 @@
 "aS" = (
 /obj/structure/railing/cap,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 1
 	},
 /area/ruin/space/unpowered)
 "aT" = (
@@ -724,7 +726,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 1
 	},
 /area/ruin/space/unpowered)
 "cm" = (
@@ -892,6 +895,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -922,6 +926,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -944,6 +949,12 @@
 "eh" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
+/area/ruin/space/deepstorage)
+"em" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "stairs";
+	dir = 8
+	},
 /area/ruin/space/deepstorage)
 "eq" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
@@ -980,6 +991,7 @@
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -1105,6 +1117,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -1496,6 +1509,7 @@
 	},
 /obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -1583,6 +1597,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -1741,6 +1756,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2068,7 +2084,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 1
 	},
 /area/ruin/space/deepstorage)
 "nC" = (
@@ -2371,6 +2388,7 @@
 "pV" = (
 /obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2381,6 +2399,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2549,6 +2568,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2589,6 +2609,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/spaceinfected/default,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2680,6 +2701,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -2700,6 +2722,12 @@
 /obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/deepstorage)
+"tb" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
+	dir = 4
+	},
+/area/ruin/space/unpowered)
 "tc" = (
 /obj/machinery/hydroponics/constructable{
 	pixel_y = 9
@@ -2728,6 +2756,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -3044,6 +3073,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -3085,6 +3115,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -3401,6 +3432,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -3451,7 +3483,8 @@
 "yX" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 8
 	},
 /area/ruin/space/unpowered)
 "yY" = (
@@ -3659,6 +3692,7 @@
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -4068,6 +4102,7 @@
 	},
 /obj/structure/closet,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -4169,6 +4204,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -4354,7 +4390,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 1
 	},
 /area/ruin/space/deepstorage)
 "Fk" = (
@@ -4542,7 +4579,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stairs"
+	icon_state = "stairs";
+	dir = 4
 	},
 /area/ruin/space/deepstorage)
 "Ha" = (
@@ -4738,6 +4776,7 @@
 /area/ruin/space/deepstorage)
 "JH" = (
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -4893,6 +4932,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/deepstorage)
+"KI" = (
+/obj/structure/railing/cap{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stairs";
+	dir = 4
+	},
 /area/ruin/space/deepstorage)
 "KP" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -5238,6 +5286,12 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/chasm,
 /area/ruin/space/deepstorage)
+"Oe" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
+	dir = 8
+	},
+/area/ruin/space/unpowered)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/salvage/ruin/soviet,
@@ -5287,6 +5341,7 @@
 "OA" = (
 /obj/structure/closet,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -5913,6 +5968,7 @@
 "Us" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6028,6 +6084,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6172,6 +6229,7 @@
 "Wj" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6194,6 +6252,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6364,6 +6423,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6545,6 +6605,7 @@
 /obj/item/bedsheet/brown,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -6630,6 +6691,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "podfloor"
 	},
 /area/ruin/space/deepstorage)
@@ -8812,8 +8874,8 @@ Jl
 bM
 bM
 XO
-bH
-bH
+tb
+tb
 aM
 aM
 aM
@@ -9452,7 +9514,7 @@ bD
 bQ
 bD
 aF
-bH
+Oe
 bD
 ai
 aM
@@ -9674,7 +9736,7 @@ bn
 bD
 bD
 aF
-bH
+Oe
 yX
 bw
 am
@@ -11227,10 +11289,10 @@ bf
 CZ
 WI
 WI
-Ik
+em
 XF
 Ob
-Ik
+em
 jB
 Vu
 eu
@@ -11409,7 +11471,7 @@ jB
 AC
 GX
 XD
-cm
+KI
 vA
 jB
 aK

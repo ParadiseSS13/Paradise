@@ -40,7 +40,7 @@
 /obj/item/gun/projectile/bow/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You ready \the [A] into \the [src]."))
 		update_icon()
 		chamber_round()
 
@@ -65,7 +65,7 @@
 	max_ammo = 1
 
 
-/obj/item/projectile/bullet/reusable/arrow
+/obj/projectile/bullet/reusable/arrow
 	name = "arrow"
 	icon_state = "arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
@@ -77,7 +77,7 @@
 	desc = "Stab, stab, stab."
 	icon_state = "arrow"
 	force = 10
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow
+	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
 	caliber = "arrow"
 

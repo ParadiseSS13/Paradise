@@ -70,7 +70,7 @@
 		var/datum/pai_software/P = new type()
 		if(GLOB.pai_software_by_key[P.id])
 			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
-			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
+			to_chat(world, SPAN_WARNING("pAI software module [P.name] has the same key as [O.name]!"))
 			continue
 		GLOB.pai_software_by_key[P.id] = P
 
@@ -115,6 +115,20 @@
 		)
 
 		GLOB.gear_datums[gear_type] = gear
+
+	for(var/quirk_path in subtypesof(/datum/quirk))
+		var/datum/quirk/quirk = quirk_path
+		if(!quirk || !quirk.name) // Filter out quirks without names so we don't show basetypes
+			continue
+		quirk = new quirk_path
+		var/list/data = list(
+			"name" = quirk.name,
+			"desc" = quirk.desc,
+			"cost" = quirk.cost,
+			"path" = quirk.type
+		)
+		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
+		GLOB.quirk_tgui_info += list(data)
 
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()

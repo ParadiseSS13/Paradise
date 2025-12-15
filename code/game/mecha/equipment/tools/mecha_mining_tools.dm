@@ -26,12 +26,12 @@
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
 	if(is_ancient_rock(target))
-		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		return
 
-	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
-					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
-					"<span class='italics'>You hear drilling.</span>")
+	target.visible_message(SPAN_WARNING("[chassis] starts to drill [target]."),
+					SPAN_USERDANGER("[chassis] starts to drill [target]..."),
+					SPAN_ITALICS("You hear drilling."))
 
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)
@@ -68,7 +68,7 @@
 			drill.log_message("Drilled through [src]")
 			dismantle_wall(TRUE, FALSE)
 	else
-		drill.occupant_message("<span class='danger'>[src] is too durable to drill through.</span>")
+		drill.occupant_message(SPAN_DANGER("[src] is too durable to drill through."))
 
 /turf/simulated/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
@@ -96,8 +96,8 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
-	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
-						"<span class='userdanger'>[chassis] is drilling you with [src]!</span>")
+	target.visible_message(SPAN_DANGER("[chassis] is drilling [target] with [src]!"),
+						SPAN_USERDANGER("[chassis] is drilling you with [src]!"))
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")

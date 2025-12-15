@@ -42,7 +42,6 @@
 #include "test_origin_tech.dm"
 #include "test_purchase_reference_test.dm"
 #include "test_reagent_id_typos.dm"
-#include "test_rustg_version.dm"
 #include "test_spawn_humans.dm"
 #include "test_spell_targeting_test.dm"
 #include "test_sql.dm"

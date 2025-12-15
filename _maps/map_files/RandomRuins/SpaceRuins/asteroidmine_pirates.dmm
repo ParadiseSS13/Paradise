@@ -1,0 +1,902 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/space,
+/area/space)
+"b" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"e" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"f" = (
+/obj/structure/marker_beacon,
+/turf/space,
+/area/ruin/space/unpowered)
+"g" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/uncommon_ore,
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"h" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"i" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"j" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"k" = (
+/obj/effect/turf_decal/border/department/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"l" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"m" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"n" = (
+/turf/simulated/mineral/random/low_chance/space,
+/area/ruin/space/unpowered)
+"o" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"p" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/space/unpowered)
+"q" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"r" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"s" = (
+/obj/machinery/door/airlock/maintenance/external,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"t" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"u" = (
+/obj/effect/turf_decal/border/department/supply/corner{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/effect/spawner/random/smithed_item/lens,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"v" = (
+/obj/structure/table,
+/obj/effect/spawner/random/smithed_item/bit,
+/obj/effect/spawner/random/smithed_item/bit,
+/obj/effect/spawner/random/smithed_item/bit,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"w" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
+"x" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"y" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/common_ore,
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"z" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"A" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"B" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/table,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"C" = (
+/obj/effect/turf_decal/border/department/supply/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"D" = (
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"E" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"F" = (
+/obj/machinery/light/spot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"G" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered)
+"I" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"K" = (
+/obj/effect/turf_decal/caution/red{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"L" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"M" = (
+/turf/simulated/wall,
+/area/ruin/space/powered)
+"N" = (
+/obj/machinery/floodlight/anchored,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"O" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
+"P" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"Q" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"R" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/border/department/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"S" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/unpowered)
+"T" = (
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"U" = (
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"V" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"W" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/unpowered)
+"X" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+p
+p
+p
+p
+p
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+p
+p
+p
+S
+S
+S
+S
+p
+p
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+p
+p
+p
+W
+W
+p
+p
+S
+S
+p
+p
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+p
+p
+W
+p
+W
+W
+W
+p
+p
+p
+p
+p
+p
+a
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+p
+W
+S
+p
+p
+p
+p
+W
+W
+p
+p
+p
+p
+p
+a
+a
+a
+a
+a
+"}
+(7,1,1) = {"
+a
+p
+W
+S
+S
+O
+g
+p
+p
+W
+p
+p
+p
+p
+p
+a
+a
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+p
+W
+p
+S
+L
+L
+p
+p
+p
+W
+p
+p
+p
+p
+p
+a
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+p
+W
+p
+S
+L
+L
+S
+S
+S
+W
+S
+S
+S
+p
+p
+a
+a
+a
+a
+"}
+(10,1,1) = {"
+a
+p
+W
+p
+p
+L
+L
+S
+n
+S
+p
+W
+p
+S
+p
+p
+a
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+p
+W
+n
+n
+L
+L
+S
+S
+S
+p
+p
+W
+S
+S
+p
+p
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+p
+W
+n
+n
+L
+L
+S
+S
+n
+p
+p
+W
+W
+S
+p
+p
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+p
+W
+n
+y
+L
+L
+L
+L
+n
+n
+G
+p
+W
+W
+p
+p
+a
+a
+a
+"}
+(14,1,1) = {"
+a
+p
+W
+L
+L
+L
+D
+L
+L
+n
+n
+G
+p
+p
+W
+p
+p
+a
+a
+a
+"}
+(15,1,1) = {"
+a
+p
+W
+N
+L
+L
+L
+L
+L
+L
+n
+G
+G
+p
+W
+W
+p
+a
+a
+a
+"}
+(16,1,1) = {"
+a
+p
+W
+L
+L
+L
+L
+L
+L
+L
+n
+G
+G
+G
+p
+W
+p
+a
+a
+a
+"}
+(17,1,1) = {"
+a
+W
+W
+p
+L
+n
+n
+L
+L
+L
+n
+p
+G
+G
+p
+W
+p
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+W
+n
+L
+D
+p
+L
+D
+L
+L
+L
+p
+p
+G
+p
+W
+p
+a
+a
+a
+"}
+(19,1,1) = {"
+a
+W
+W
+p
+L
+L
+L
+L
+L
+L
+L
+L
+p
+p
+p
+W
+p
+a
+a
+a
+"}
+(20,1,1) = {"
+a
+p
+W
+p
+L
+L
+l
+t
+p
+y
+L
+L
+L
+L
+p
+W
+p
+a
+a
+a
+"}
+(21,1,1) = {"
+a
+W
+p
+p
+p
+E
+s
+p
+p
+p
+p
+L
+L
+p
+p
+W
+p
+p
+a
+a
+"}
+(22,1,1) = {"
+a
+w
+A
+v
+C
+k
+R
+u
+M
+p
+p
+n
+L
+O
+p
+W
+p
+p
+a
+a
+"}
+(23,1,1) = {"
+a
+w
+U
+z
+X
+j
+x
+P
+m
+o
+p
+n
+n
+p
+W
+W
+p
+a
+a
+a
+"}
+(24,1,1) = {"
+a
+M
+K
+r
+X
+X
+X
+F
+M
+h
+p
+W
+W
+W
+W
+n
+n
+a
+a
+a
+"}
+(25,1,1) = {"
+a
+b
+e
+M
+T
+X
+i
+z
+M
+V
+p
+W
+p
+n
+n
+n
+p
+a
+a
+a
+"}
+(26,1,1) = {"
+a
+b
+Q
+b
+B
+X
+X
+z
+M
+q
+W
+W
+n
+n
+n
+n
+p
+a
+a
+a
+"}
+(27,1,1) = {"
+a
+M
+I
+M
+M
+b
+b
+b
+M
+w
+W
+n
+n
+p
+p
+a
+a
+a
+a
+a
+"}
+(28,1,1) = {"
+a
+f
+a
+f
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(29,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(30,1,1) = {"
+a
+f
+a
+f
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

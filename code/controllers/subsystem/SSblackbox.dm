@@ -28,7 +28,6 @@ SUBSYSTEM_DEF(blackbox)
 	record_feedback("amount", "byond_version", world.byond_version)
 	record_feedback("amount", "byond_build", world.byond_build)
 	record_feedback("text", "random_seed", 1, num2text(Master.random_seed, 32), 1) // a text string because json_encode turns it into lossy scientific notation
-	record_feedback("text", "rust_g_filepath", 1, "[RUST_G]", 1)
 	record_feedback("text", "rustlibs_filepath", 1, "[RUSTLIB]", 1)
 
 /datum/controller/subsystem/blackbox/fire(resumed = 0)
@@ -149,7 +148,7 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "common")
 		if(SCI_FREQ)
 			record_feedback("tally", "radio_usage", 1, "science")
-		if(COMM_FREQ)
+		if(COM_FREQ)
 			record_feedback("tally", "radio_usage", 1, "command")
 		if(MED_FREQ)
 			record_feedback("tally", "radio_usage", 1, "medical")
@@ -203,7 +202,7 @@ SUBSYSTEM_DEF(blackbox)
   *
   * Arguments:
   * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
-  * * key - Key of the data to be used (EG: "admin_verb")
+  * * key - Key of the data to be used (EG: "user_verb")
   * * stat - Either a number accumulated via "amount", "tally", or "nested tally"; or a number/string collected by "ledger" or "nested ledger".
   * * data - The actual data to logged
   * * overwrite - Do we want to overwrite the existing key
@@ -348,7 +347,7 @@ SUBSYSTEM_DEF(blackbox)
 			"key" = L.key,
 			"job" = L.mind.assigned_role,
 			"special" = L.mind.special_role || "",
-			"pod" = podname,
+			"pod" = strip_byond_macros(podname),
 			"laname" = laname,
 			"lakey" = lakey,
 			"gender" = L.gender,

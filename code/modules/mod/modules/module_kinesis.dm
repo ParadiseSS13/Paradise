@@ -66,10 +66,10 @@
 		clear_grab(playsound = FALSE)
 		return
 	if(!range_check(target))
-		to_chat(mod.wearer, "<span class='warning'>[target] is too far away!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("[target] is too far away!"))
 		return
 	if(!can_grab(target))
-		to_chat(mod.wearer, "<span class='warning'>[target] can not be grabbed!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("[target] can not be grabbed!"))
 		return
 	drain_power(use_power_cost)
 	grabbed_atom = target
@@ -99,7 +99,7 @@
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))
-		to_chat(mod.wearer, "<span class='warning'>[grabbed_atom] is too far away!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("[grabbed_atom] is too far away!"))
 		clear_grab()
 		return
 	beam.forceMove(get_turf(mod.wearer))

@@ -45,11 +45,15 @@
 	L.apply_damage(30, STAMINA)
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
 		if(!IsTSInfected(L) && ishuman(L))
-			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
+			visible_message(SPAN_DANGER("[src] buries its long fangs deep into the [inject_target] of [L]!"))
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
 				LoseTarget()
 				GLOB.move_manager.move_away(src,L,2,1)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/white/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 5, ASSIGNMENT_MEDICAL = 2)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
@@ -59,6 +63,12 @@
 /obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
 	. = ..()
 	GLOB.ts_infected_list += src
+	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
+
+/obj/item/organ/internal/body_egg/terror_eggs/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && owner)
+		return list(ASSIGNMENT_MEDICAL = 1)
 
 /obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
 	. = ..()
@@ -86,5 +96,5 @@
 		if(!IsTSInfected(C) && ishuman(C))
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				to_chat(C, SPAN_DANGER("[src] slices into you!"))
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)

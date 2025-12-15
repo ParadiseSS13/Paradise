@@ -200,6 +200,12 @@
 		/obj/item/stack/marker_beacon/ten=1
 	)
 
+/datum/outfit/job/mining/equipped/less
+	backpack_contents = list(
+		/obj/item/flashlight/seclite=1,\
+		/obj/item/stack/marker_beacon/ten=1
+	)
+
 /datum/outfit/job/mining/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -233,9 +239,7 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 		ACCESS_CARGO,
-		ACCESS_CARGO_BAY,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_MINING_STATION
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
@@ -335,6 +339,7 @@
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
+	neck = /obj/item/clothing/neck/neckerchief/red
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
@@ -475,7 +480,7 @@
 	active = TRUE
 	background_icon_state = "bg_spell"
 	build_all_button_icons()
-	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+	to_chat(H, SPAN_NOTICE("You start acting clumsy to throw suspicions off. Focus again before using weapons."))
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
@@ -484,7 +489,7 @@
 	active = FALSE
 	background_icon_state = "bg_default"
 	build_all_button_icons()
-	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
+	to_chat(H, SPAN_NOTICE("You focus and can now use weapons regularly."))
 
 /datum/job/mime
 	title = "Mime"

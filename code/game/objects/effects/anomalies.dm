@@ -103,7 +103,7 @@
 
 /obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
-		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		to_chat(user, SPAN_NOTICE("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/anomaly/grav
@@ -464,7 +464,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	var/obj/projectile/temp/basilisk/O = new /obj/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	if(drops_core)
 		O.stun = 0.5 SECONDS

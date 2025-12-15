@@ -45,7 +45,7 @@
 
 /obj/machinery/mineral/smart_hopper/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
+	. += SPAN_NOTICE("There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]")
 
 /obj/machinery/mineral/smart_hopper/update_overlays()
 	. = ..()
@@ -99,19 +99,19 @@
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/ID = used
 		if(!points)
-			to_chat(user, "<span class='warning'>There are no points to claim.</span>");
+			to_chat(user, SPAN_WARNING("There are no points to claim."));
 			return ITEM_INTERACT_COMPLETE
 		var/claimed = FALSE
 		for(var/access in req_access_claim)
 			if(anyone_claim || (access in ID.access))
 				ID.mining_points += points
 				ID.total_mining_points += points
-				to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
+				to_chat(user, SPAN_NOTICE("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!"))
 				points = 0
 				claimed = TRUE
 				break
 		if(!claimed)
-			to_chat(user, "<span class='warning'>Required access not found.</span>")
+			to_chat(user, SPAN_WARNING("Required access not found."))
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
@@ -125,11 +125,11 @@
 	if(panel_open)
 		var/obj/item/multitool/multi = I
 		if(!istype(multi.buffer, /obj/machinery/magma_crucible))
-			to_chat(user, "<span class='warning'>You cannot link [src] to [multi.buffer]!</span>")
+			to_chat(user, SPAN_WARNING("You cannot link [src] to [multi.buffer]!"))
 			return
 		linked_crucible = multi.buffer
 		linked_crucible.linked_machines |= src
-		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] to [multi.buffer]."))
 
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -150,7 +150,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	input_dir = turn(input_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src]'s input, moving the input to [dir2text(input_dir)].</span>")
+	to_chat(user, SPAN_NOTICE("You change [src]'s input, moving the input to [dir2text(input_dir)]."))
 
 /obj/machinery/mineral/smart_hopper/Destroy()
 	if(linked_crucible)

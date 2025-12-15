@@ -293,3 +293,36 @@
 		/obj/item/stack/sheet/mineral/uranium/ten = 5,
 		/obj/item/stack/sheet/mineral/diamond/ten = 1,
 	)
+
+/obj/effect/spawner/random/common_ore
+	name = "random common ore stack"
+	loot = list(
+		/obj/item/stack/ore/iron,
+		/obj/item/stack/ore/glass,
+	)
+	spawn_loot_count = 20
+	spawn_random_offset = TRUE
+
+/obj/effect/spawner/random/uncommon_ore
+	name = "random uncommon ore stack"
+	loot = list(
+		/obj/item/stack/ore/gold,
+		/obj/item/stack/ore/silver,
+		/obj/item/stack/ore/uranium,
+		/obj/item/stack/ore/titanium,
+		/obj/item/stack/ore/plasma,
+	)
+	spawn_loot_count = 15
+	spawn_random_offset = TRUE
+
+/obj/effect/spawner/random/rare_ore
+	name = "random rare ore stack"
+	loot = list(
+		/obj/item/stack/ore/diamond,
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/ore/palladium,
+		/obj/item/stack/ore/iridium,
+		/obj/item/stack/ore/platinum
+	)
+	spawn_loot_count = 5
+	spawn_random_offset = TRUE

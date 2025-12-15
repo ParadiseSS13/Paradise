@@ -130,6 +130,13 @@
 			return TRUE
 	return FALSE
 
+/datum/job/proc/barred_by_quirk(client/C)
+	if(!C || !length(blacklisted_disabilities)) // If there's no disability locks, there won't be a quirk lock either.
+		return FALSE
+	for(var/datum/quirk/quirk in C.prefs.active_character.quirks)
+		if(quirk.blacklisted)
+			return TRUE
+	return FALSE
 /// Returns true if the character has amputated limbs when their selected job doesn't allow it
 /datum/job/proc/barred_by_missing_limbs(client/C)
 	if(!C || missing_limbs_allowed)
@@ -213,12 +220,12 @@
 					permitted = TRUE
 
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(H, SPAN_WARNING("Your current job or whitelist status does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G)), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						to_chat(H, SPAN_NOTICE("Equipping you with [G.display_name]!"))
 					else
 						gear_leftovers += G
 				else
@@ -234,24 +241,31 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
+	var/list/leftover_items = list()
+	for(var/datum/quirk/quirk as anything in H.quirks)
+		if(quirk.item_to_give)
+			var/obj/item/new_item = new quirk.item_to_give
+			leftover_items += new_item
 
-	if(length(gear_leftovers))
-		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G)))
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
-				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
-				continue
-			if(H.equip_to_appropriate_slot(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
-				continue
-			if(H.put_in_hands(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(G)
+	for(var/datum/gear/G in gear_leftovers)
+		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
+
+	for(var/obj/item/item in leftover_items)
+		var/atom/placed_in = H.equip_or_collect(item)
+		if(istype(placed_in))
+			if(isturf(placed_in))
+				to_chat(H, SPAN_NOTICE("Placing [item] on [placed_in]!"))
+			else
+				to_chat(H, SPAN_NOTICE("Placing [item] in your [placed_in.name]."))
+			continue
+		if(H.equip_to_appropriate_slot(item))
+			to_chat(H, SPAN_NOTICE("Placing [item] in your inventory!"))
+			continue
+		if(H.put_in_hands(item))
+			to_chat(H, SPAN_NOTICE("Placing [item] in your hands!"))
+			continue
+		to_chat(H, SPAN_DANGER("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
+		qdel(item)
 
 		gear_leftovers.Cut()
 

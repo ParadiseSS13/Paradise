@@ -16,20 +16,20 @@
 
 	// If the target is catatonic or doesn't have a mind, return.
 	if(!mindslave_target.mind)
-		to_chat(user, "<span class='warning'><i>This person doesn't have a mind for you to slave!</i></span>")
+		to_chat(user, SPAN_WARNING("<i>This person doesn't have a mind for you to slave!</i>"))
 		return FALSE
 
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
 	if(IS_MINDSLAVE(mindslave_target) || ismindshielded(mindslave_target))
 		mindslave_target.visible_message(
-			"<span class='warning'>[mindslave_target] seems to resist the bio-chip!</span>", \
-			"<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
+			SPAN_WARNING("[mindslave_target] seems to resist the bio-chip!"), \
+			SPAN_WARNING("You feel a strange sensation in your head that quickly dissipates."))
 		qdel(src)
 		return FALSE
 
 	// Mindslaving yourself.
 	if(mindslave_target == user)
-		to_chat(user, "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>")
+		to_chat(user, SPAN_NOTICE("Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot."))
 		user.adjustBrainLoss(20)
 		qdel(src)
 		return FALSE

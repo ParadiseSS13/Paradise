@@ -24,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	user.update_inv_r_hand()
 	user.update_inv_l_hand()
-	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
+	to_chat(user, SPAN_NOTICE("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
 
 /obj/item/latexballon/proc/burst()
@@ -49,14 +49,14 @@
 			if(prob(50))
 				qdel(src)
 
-/obj/item/latexballon/bullet_act(obj/item/projectile/P)
+/obj/item/latexballon/bullet_act(obj/projectile/P)
 	if(!P.nodamage)
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(temperature, volume)
+/obj/item/latexballon/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C+100)
+	if(exposed_temperature > T0C+100)
 		burst()
 
 /obj/item/latexballon/attackby__legacy__attackchain(obj/item/W, mob/user, params)

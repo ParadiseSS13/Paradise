@@ -103,9 +103,9 @@
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
 		ignite(2500) //The number's big enough
-		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		user.visible_message(SPAN_DANGER("[user] sets [src] on fire!"),\
+							SPAN_DANGER("[src] disintegrates into a cloud of plasma!"),\
+							SPAN_WARNING("You hear a 'whoompf' and a roar."))
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
@@ -115,21 +115,16 @@
 	ChangeTurf(/turf/simulated/floor)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 
-/turf/simulated/wall/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
 /turf/simulated/wall/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/turf/simulated/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+/turf/simulated/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(Proj.damage == 0)//lasertag guns and so on don't set off plasma anymore. can't use nodamage here because lasertag guns actually don't have it.
 		return
-	if(istype(Proj,/obj/item/projectile/beam))
+	if(istype(Proj,/obj/projectile/beam))
 		PlasmaBurn(2500)
-	else if(istype(Proj,/obj/item/projectile/ion))
+	else if(istype(Proj,/obj/projectile/ion))
 		PlasmaBurn(500)
 	..()
 
