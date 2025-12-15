@@ -29542,14 +29542,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "ddG" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Portable Air Pump Connector";
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Portable Scrubber Connector"
+	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "ddQ" = (
@@ -36264,14 +36264,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "foV" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Portable Scrubber Connector"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector";
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "fpl" = (
@@ -40425,6 +40425,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"gPo" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/closet/bombcloset,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "gPU" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -47623,10 +47630,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "jwi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
-/obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "jwo" = (
@@ -49062,16 +49069,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jSe" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Portable Scrubber Connector"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector";
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "jSo" = (
@@ -49802,13 +49809,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "keu" = (
-/obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Distro to Air Pump"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -67178,17 +67188,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "qkD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment/corner,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "qkK" = (
@@ -73195,14 +73205,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "stj" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Portable Air Pump Connector";
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Portable Scrubber Connector"
+	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "stW" = (
@@ -74207,7 +74217,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "sMf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+/obj/machinery/atmospherics/pipe/manifold/hidden/purple{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77674,10 +77684,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ubf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 6
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -83623,6 +83633,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "whI" = (
@@ -84824,7 +84835,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "wBV" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/purple,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "wBW" = (
@@ -87239,10 +87252,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
 "xrA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "xrD" = (
@@ -89338,10 +89349,12 @@
 /turf/space,
 /area/space/nearstation)
 "yed" = (
-/obj/structure/closet/bombcloset,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -89413,11 +89426,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "yeU" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "yeW" = (
@@ -123282,7 +123295,7 @@ fyt
 ikU
 xCY
 lhF
-whx
+gPo
 whx
 rOc
 gUo
@@ -123790,7 +123803,7 @@ qEh
 aAO
 bdN
 keu
-xIl
+kgx
 xIl
 rgX
 wtQ
