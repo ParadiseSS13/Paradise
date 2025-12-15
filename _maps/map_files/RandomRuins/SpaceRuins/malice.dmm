@@ -1841,11 +1841,6 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
-"II" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "IM" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -3708,7 +3703,7 @@ lw
 lw
 Fd
 Rj
-II
+Fd
 Fd
 Rj
 Rj
@@ -5607,11 +5602,11 @@ lw
 lw
 lw
 Fd
-II
+Fd
 Rj
 Rj
 Rj
-II
+Fd
 Fd
 Fd
 mI
@@ -5799,11 +5794,11 @@ Rj
 Rj
 Fd
 Fd
-II
+Fd
 Rj
 Rj
 Rj
-II
+Fd
 Fd
 mI
 ab
