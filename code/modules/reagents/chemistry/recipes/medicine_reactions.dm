@@ -97,7 +97,7 @@
 	name = "amiodarone"
 	id = "amiodarone"
 	result = "amiodarone"
-	required_reagents = list("sacid" = 1, "salt" = 1, "carbon" = 1, "phenol" = 1)
+	required_reagents = list("sacid" = 1, "sodiumchloride" = 1, "carbon" = 1, "phenol" = 1)
 	result_amount = 3
 	min_temp = T0C + 200
 	mix_message = "Stinging vapors rise from the solution."
