@@ -24,6 +24,11 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
+/datum/spell/pointed/void_phase/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.allowed_type = /turf/simulated
+	return T
 
 /datum/spell/pointed/void_phase/valid_target(target, user)
 	if(get_dist(target, user) < 3)
@@ -31,7 +36,6 @@
 		to_chat(living_owner, SPAN_WARNING("That is too close to teleport to!"))
 		return FALSE
 	return TRUE
-
 
 /datum/spell/pointed/void_phase/cast(list/targets, mob/user)
 	. = ..()
