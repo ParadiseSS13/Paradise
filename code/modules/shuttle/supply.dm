@@ -96,11 +96,11 @@
 		switch(mode)
 			if(SHUTTLE_CALL)
 				if(dock(destination))
-					setTimer(2 SECONDS)	//can't dock for some reason, try again in 2 seconds
+					setTimer(2 SECONDS)	// Can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_RECALL)
 				if(dock(previous))
-					setTimer(2 SECONDS)	//can't dock for some reason, try again in 2 seconds
+					setTimer(2 SECONDS)	// Can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
 				if(!check_transit_zone())

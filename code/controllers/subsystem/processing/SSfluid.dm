@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(fluid_name_to_path)
 /datum/controller/subsystem/processing/fluid/fire(resumed = FALSE)
 	if(!resumed)
 		currentrun = processing.Copy()
-	//cache for sanic speed (lists are references anyways)
+	// Cache for sanic speed (lists are references anyways)
 	var/list/current_run = currentrun
 
 	while(length(current_run))

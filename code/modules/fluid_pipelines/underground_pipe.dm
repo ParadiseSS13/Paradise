@@ -4,7 +4,6 @@
 	icon_state = "underground"
 	dir = EAST
 
-
 /obj/machinery/fluid_pipe/underground_pipe/Initialize(mapload)
 	. = ..()
 	connect_dirs = list(REVERSE_DIR(dir))

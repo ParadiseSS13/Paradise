@@ -1,6 +1,6 @@
 /obj/machinery/fluid_pipe/tank
 	name = "tank"
-	desc = "Stores liquids. Good for a total storage of 1000"
+	desc = "Stores liquids. Good for a total storage of 1000."
 	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
 	icon_state = "tank"
 	just_a_pipe = FALSE
