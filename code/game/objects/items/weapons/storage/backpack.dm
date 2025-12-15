@@ -371,10 +371,11 @@
 
 /obj/item/storage/backpack/duffel/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!")
+	. += SPAN_NOTICE("It is currently [zipped ? "zipped" : "unzipped"]. Alt+Click to [zipped ? "un-" : ""]zip it!")
 
-/obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
+/obj/item/storage/backpack/duffel/AltClick(mob/user)
 	. = ..()
+	visible_message(SPAN_WARNING("[user] tries to [zipped ? "un-" : ""]zip [src]."), SPAN_WARNING("You start to [zipped ? "un-" : ""]zip [src]."))
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
