@@ -5,8 +5,8 @@
 
 /datum/martial_combo/mimejutsu/silent_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
-		target.visible_message("<span class='danger'>[user] has barely touched [target] with [user.p_their()] palm!</span>", \
-						"<span class='userdanger'>[user] hovers [user.p_their()] palm over your face!</span>")
+		target.visible_message(SPAN_DANGER("[user] has barely touched [target] with [user.p_their()] palm!"), \
+						SPAN_USERDANGER("[user] hovers [user.p_their()] palm over your face!"))
 
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
 		target.throw_at(throw_target, 200, 4, user)

@@ -30,18 +30,18 @@
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(!anchored)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+		. += SPAN_NOTICE("Alt-click to rotate it.")
 	else
-		. += "<span class='notice'>It is secured in place.</span>"
+		. += SPAN_NOTICE("It is secured in place.")
 
 /obj/machinery/processor/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		to_chat(user, SPAN_WARNING("[src] is secured in place!"))
 		return
 	setDir(turn(dir, 90))
 
@@ -67,7 +67,7 @@
 	if(!P)
 		return
 
-	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
+	visible_message(SPAN_NOTICE("[picked_slime] is sucked into [src]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -142,7 +142,7 @@
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.forceMove(processor.drop_location())
-		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
+		S.visible_message(SPAN_NOTICE("[S] crawls free of the processor!"))
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())
@@ -157,9 +157,9 @@
 	var/mob/living/carbon/human/monkey/O = what
 	if(O.client) //grief-proof
 		O.loc = loc
-		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
-				"<span class='notice'>You jump out of \the [src].</span>", \
-				"<span class='notice'>You hear a chimp.</span>")
+		O.visible_message(SPAN_NOTICE("Suddenly [O] jumps out from the processor!"), \
+				SPAN_NOTICE("You jump out of \the [src]."), \
+				SPAN_NOTICE("You hear a chimp."))
 		return
 	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
@@ -189,7 +189,7 @@
 
 /obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", used))
@@ -212,10 +212,10 @@
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if(!P)
-		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
+		to_chat(user, SPAN_WARNING("That probably won't blend."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
+	user.visible_message(SPAN_NOTICE("\the [user] puts \the [what] into \the [src]."), \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
 	user.drop_item()
@@ -228,17 +228,17 @@
 		return
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return 1
 
 	if(length(contents) == 0)
-		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
+		to_chat(user, SPAN_WARNING("\the [src] is empty."))
 		return 1
 	processing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("[user] turns on [src].", \
-		"<span class='notice'>You turn on [src].</span>", \
-		"<span class='italics'>You hear a food processor.</span>")
+		SPAN_NOTICE("You turn on [src]."), \
+		SPAN_ITALICS("You hear a food processor."))
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
 	var/total_time = 0
@@ -259,6 +259,6 @@
 	processing = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>You hear a food processor stopping.</span>")
+	visible_message(SPAN_NOTICE("\the [src] has finished processing."), \
+		SPAN_NOTICE("\the [src] has finished processing."), \
+		SPAN_NOTICE("You hear a food processor stopping."))

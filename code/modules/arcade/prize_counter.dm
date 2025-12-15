@@ -87,7 +87,7 @@
 			SStgui.update_uis(src)
 			qdel(T)
 		else
-			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("\The [T] seems stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		return ITEM_INTERACT_COMPLETE
@@ -109,7 +109,7 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
+	to_chat(user, SPAN_NOTICE("You [panel_open ? "open" : "close"] the maintenance panel."))
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/prize_counter/wrench_act(mob/living/user, obj/item/I)

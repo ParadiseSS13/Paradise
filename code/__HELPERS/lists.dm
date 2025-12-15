@@ -538,22 +538,24 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+#define MAX_BITFIELD_BITS 24
+
 //Converts a bitfield to a list of numbers (or words if a wordlist is provided)
-/proc/bitfield2list(bitfield = 0, list/wordlist)
+/proc/bitfield2list(bitfield = 0, list/L)
 	var/list/r = list()
-	if(istype(wordlist,/list))
-		var/max = min(length(wordlist),16)
-		var/bit = 1
-		for(var/i=1, i<=max, i++)
-			if(bitfield & bit)
-				r += wordlist[i]
-			bit = bit << 1
+	if(islist(L))
+		var/max = min(length(L), MAX_BITFIELD_BITS)
+		for(var/i in 0 to max-1)
+			if(bitfield & (1 << i))
+				r += L[i+1]
 	else
-		for(var/bit=1, bit<=65535, bit = bit << 1)
-			if(bitfield & bit)
-				r += bit
+		for(var/i in 0 to MAX_BITFIELD_BITS-1)
+			if(bitfield & (1 << i))
+				r += (1 << i)
 
 	return r
+
+#undef MAX_BITFIELD_BITS
 
 // Returns the key based on the index
 /proc/get_key_by_index(list/L, index)

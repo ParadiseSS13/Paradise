@@ -27,7 +27,7 @@ Bonus
 
 /datum/symptom/fever/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
+	to_chat(M, SPAN_WARNING("[pick("You feel hot.", "You feel like you're burning.")]"))
 	if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT)
 		Heat(M, A, unmitigated)
 	return

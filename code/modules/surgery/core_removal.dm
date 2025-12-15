@@ -30,13 +30,13 @@
 	return ..()
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='notice'>[user] cuts through [target]'s flesh with \the [tool].</span>",
-	"<span class='notice'>You cut through [target]'s flesh with \the [tool], revealing its silky innards.</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message(SPAN_NOTICE("[user] cuts through [target]'s flesh with \the [tool]."),
+	SPAN_NOTICE("You cut through [target]'s flesh with \the [tool], revealing its silky innards."), chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'>[user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'>Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message(SPAN_WARNING("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"), \
+	SPAN_WARNING("Your hand slips, tearing [target]'s flesh with \the [tool]!"), chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/slime/extract_core
@@ -48,8 +48,8 @@
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
-		"<span class='notice'>[user] begins to extract a core from [target].</span>",
-		"<span class='notice'>You begin to extract a core from [target]...</span>",
+		SPAN_NOTICE("[user] begins to extract a core from [target]."),
+		SPAN_NOTICE("You begin to extract a core from [target]..."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -58,8 +58,8 @@
 /datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/slime, target_zone, obj/item/tool)
 	if(slime.cores > 0)
 		slime.cores--
-		user.visible_message("<span class='notice'>[user] successfully extracts a core from [slime]!</span>",
-			"<span class='notice'>You successfully extract a core from [slime]. [slime.cores] core\s remaining.</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+		user.visible_message(SPAN_NOTICE("[user] successfully extracts a core from [slime]!"),
+			SPAN_NOTICE("You successfully extract a core from [slime]. [slime.cores] core\s remaining."), chat_message_type = MESSAGE_TYPE_COMBAT)
 
 		new slime.coretype(slime.loc)
 
@@ -69,10 +69,10 @@
 		else
 			return SURGERY_STEP_INCOMPLETE
 	else
-		to_chat(user, "<span class='warning'>There aren't any cores left in [slime]!</span>")
+		to_chat(user, SPAN_WARNING("There aren't any cores left in [slime]!"))
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'>[user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'>Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message(SPAN_WARNING("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"), \
+	SPAN_WARNING("Your hand slips, tearing [target]'s flesh with \the [tool]!"), chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY

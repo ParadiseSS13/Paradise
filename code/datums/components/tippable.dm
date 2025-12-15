@@ -84,16 +84,16 @@
 		return
 
 	if(tip_time > 0)
-		to_chat(tipper, "<span class='warning'>You begin tipping over [tipped_mob]...</span>")
+		to_chat(tipper, SPAN_WARNING("You begin tipping over [tipped_mob]..."))
 		tipped_mob.visible_message(
-			"<span class='warning'>[tipper] begins tipping over [tipped_mob].</span>",
-			"<span class='userdanger'>[tipper] begins tipping you over!</span>"
+			SPAN_WARNING("[tipper] begins tipping over [tipped_mob]."),
+			SPAN_USERDANGER("[tipper] begins tipping you over!")
 		)
 
 		if(!do_after(tipper, tip_time, target = tipped_mob))
 			if(!isnull(tipped_mob.client))
 				add_attack_logs(tipper, tipped_mob, "attempted to tip over")
-			to_chat(tipper, "<span class='danger'>You fail to tip over [tipped_mob].</span>")
+			to_chat(tipper, SPAN_DANGER("You fail to tip over [tipped_mob]."))
 			return
 	do_tip(tipped_mob, tipper)
 
@@ -111,12 +111,12 @@
 	if(is_tipped) // sanity check in case multiple people try to tip at the same time
 		return
 
-	to_chat(tipper, "<span class='warning'>You tip over [tipped_mob].</span>")
+	to_chat(tipper, SPAN_WARNING("You tip over [tipped_mob]."))
 	if(!isnull(tipped_mob.client))
 		add_attack_logs(tipper, tipped_mob, "tipped over")
 	tipped_mob.visible_message(
-		"<span class='warning'>[tipper] tips over [tipped_mob].</span>",
-		"<span class='danger'>You are tipped over by [tipper]!</span>"
+		SPAN_WARNING("[tipper] tips over [tipped_mob]."),
+		SPAN_DANGER("You are tipped over by [tipper]!")
 	)
 
 	set_tipped_status(tipped_mob, TRUE)
@@ -137,14 +137,14 @@
  */
 /datum/component/tippable/proc/try_untip(mob/living/tipped_mob, mob/untipper)
 	if(untip_time > 0)
-		to_chat(untipper, "<span class='notice'>You begin righting [tipped_mob]...</span>")
+		to_chat(untipper, SPAN_NOTICE("You begin righting [tipped_mob]..."))
 		tipped_mob.visible_message(
-			"<span class='notice'>[untipper] begins righting [tipped_mob].</span>",
-			"<span class='notice'>[untipper] begins righting you.</span>",
+			SPAN_NOTICE("[untipper] begins righting [tipped_mob]."),
+			SPAN_NOTICE("[untipper] begins righting you."),
 		)
 
 		if(!do_after(untipper, untip_time, target = tipped_mob))
-			to_chat(untipper, "<span class='warning'>You fail to right [tipped_mob].</span>")
+			to_chat(untipper, SPAN_WARNING("You fail to right [tipped_mob]."))
 			return
 
 	do_untip(tipped_mob, untipper)
@@ -162,10 +162,10 @@
 	if(!is_tipped) // sanity check in case multiple people try to untip at the same time
 		return
 
-	to_chat(untipper, "<span class='notice'>You right [tipped_mob].</span>")
+	to_chat(untipper, SPAN_NOTICE("You right [tipped_mob]."))
 	tipped_mob.visible_message(
-		"<span class='notice'>[untipper] rights [tipped_mob].</span>",
-		"<span class='notice'>You are righted by [untipper]!</span>"
+		SPAN_NOTICE("[untipper] rights [tipped_mob]."),
+		SPAN_NOTICE("You are righted by [untipper]!")
 	)
 
 	if(self_untip_timer)
@@ -187,8 +187,8 @@
 	post_untipped_callback?.Invoke()
 
 	tipped_mob.visible_message(
-		"<span class='notice'>[tipped_mob] rights [tipped_mob.p_themselves()].</span>",
-		"<span class='notice'>You right yourself.</span>"
+		SPAN_NOTICE("[tipped_mob] rights [tipped_mob.p_themselves()]."),
+		SPAN_NOTICE("You right yourself.")
 	)
 
 /**

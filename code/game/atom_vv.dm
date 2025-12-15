@@ -47,16 +47,10 @@
 		log_admin("[key_name(usr)] has rotated \the [src]")
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EXPLODE])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_explosion(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_explosion, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EMP])
-		if(!check_rights(R_DEBUG|R_EVENT))
-			return
-
-		usr.client.cmd_admin_emp(src)
+		SSuser_verbs.invoke_verb(usr.client, /datum/user_verb/admin_emp, src)
 		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_ADDREAGENT]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))
@@ -81,7 +75,7 @@
 							if(ID == chosen_id)
 								valid_id = 1
 						if(!valid_id)
-							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+							to_chat(usr, SPAN_WARNING("A reagent with that ID doesn't exist!"))
 				if("Choose ID")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
 			if(chosen_id)
@@ -89,7 +83,7 @@
 				if(amount)
 					reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]</span>")
+					message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]"))
 	if(href_list[VV_HK_EDITREAGENTS])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return

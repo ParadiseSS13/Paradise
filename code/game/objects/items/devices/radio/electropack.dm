@@ -32,7 +32,7 @@
 
 /obj/item/electropack/attack_hand(mob/user)
 	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
+		to_chat(user, SPAN_NOTICE("You need help taking this off!"))
 		return FALSE
 
 	..()
@@ -48,7 +48,7 @@
 		A.icon = 'icons/obj/assemblies.dmi'
 
 		if(!user.unequip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
 			return
 
 		W.forceMove(A)
@@ -72,7 +72,7 @@
 
 	if(isliving(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
+		to_chat(M, SPAN_DANGER("You feel a sharp shock!"))
 		do_sparks(3, 1, M)
 
 		M.Weaken(10 SECONDS)

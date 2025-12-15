@@ -75,7 +75,7 @@
 		if(25 to 50)
 			examine_text = "It appears heavily damaged."
 		if(0 to 25)
-			examine_text = "<span class='warning'>It's falling apart!</span>"
+			examine_text = SPAN_WARNING("It's falling apart!")
 
 	return examine_text
 
@@ -205,20 +205,20 @@
 		return ..()
 	if(user.drop_item())
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
 		if(inserted_key)	//just in case there's an invalid key
 			inserted_key.forceMove(drop_location())
 		inserted_key = I
 	else
-		to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[I] seems to be stuck to your hand!"))
 
 /obj/tgvehicle/AltClick(mob/user)
 	if(!inserted_key)
 		return ..()
 	if(!is_occupant(user) || !(occupants[user] & VEHICLE_CONTROL_DRIVE))
-		to_chat(user, "<span class='warning'>You must be driving the [src] to remove [src]'s key!</span>")
+		to_chat(user, SPAN_WARNING("You must be driving the [src] to remove [src]'s key!"))
 		return
-	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [inserted_key] from [src]."))
 	inserted_key.forceMove(drop_location())
 	user.put_in_hands(inserted_key)
 	inserted_key = null
