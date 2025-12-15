@@ -34,7 +34,7 @@
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [(tank.get_fluid_volumes() / tank.total_capacity) * 100]% full.</span>"
+	. += SPAN_NOTICE("It is [(tank.get_fluid_volumes() / tank.total_capacity) * 100]% full.")
 	if(current_fuel)
 		. += "The current fuel is [initial(current_fuel.fluid_name)]."
 
