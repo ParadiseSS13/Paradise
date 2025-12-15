@@ -85,8 +85,6 @@
 	var/mob/living/target = controller.blackboard[target_key]
 	if(ismecha(target))
 		var/obj/mecha/mech = target
-		if(!mech.occupant)
-			return
 		target = mech.occupant
 	if(QDELETED(target) || target.faction_check_mob(controller.pawn))
 		return // Only flee if we have a hostile target
