@@ -47,7 +47,7 @@ any.
 To locate a sprite, begin by finding the code definition of the object, or any
 parents of the object. Under its variables, there should be the following:
 
-- `icon = "abc"` - The icon refers to the file storing the image
+- `icon = 'icons/path/abc.dmi'` - The icon refers to the file storing the image
 - `icon_state = "abc"` - The icon_state refers to the exact image used from the file
 
 ## Importing .png Files
