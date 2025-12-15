@@ -144,7 +144,7 @@
 	available_points = 8
 
 /obj/effect/spawner/random/pool/geyser_spawner
-	spawn_all_loot = TRUE
+	no_double_spawn = TRUE
 	spawn_pool = /datum/spawn_pool/geysers
 	point_value = 1
 	loot = list(

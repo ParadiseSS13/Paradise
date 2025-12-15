@@ -23,6 +23,8 @@
 	var/datum/spawner_pixel_placer/pixel_placer
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
+	/// Do we spawn our
+	var/no_double_spawn = TRUE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)
 	var/spawn_loot_chance = 100
 	/// Determines how big of a range (in tiles) we should scatter things in.
@@ -81,6 +83,9 @@
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
+		spawn_loot_double = FALSE
+
+	if(no_double_spawn)
 		spawn_loot_double = FALSE
 
 	var/list/loot_list = generate_loot_list()
