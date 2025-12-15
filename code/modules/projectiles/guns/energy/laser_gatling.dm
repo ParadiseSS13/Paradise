@@ -119,9 +119,9 @@
 	var/obj/item/minigunpack/ammo_pack
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
+	. = ..()
 	if(!istype(loc, /obj/item/minigunpack)) // We should spawn inside an ammo pack so let's use that one.
 		return INITIALIZE_HINT_QDEL // No pack, no gun
-	. = ..()
 	ammo_pack = loc
 	AddComponent(/datum/component/automatic_fire, 0.1 SECONDS, allow_akimbo = FALSE)
 
