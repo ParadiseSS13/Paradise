@@ -10,6 +10,13 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+	)
 
 /obj/item/clothing/mask/madness_mask/Destroy()
 	local_user = null
