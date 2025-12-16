@@ -156,7 +156,7 @@
 
 /obj/item/gun/projectile/automatic/paintball_gun
 	name = "paintball gun"
-	desc = "A gas-powered gun that shoots small balls of paint! Ages 13 and up. Do not aim at eyes."
+	desc = "A gas-powered gun that shoots small balls of paint! Ages 13 and up. Do not aim at the eyes."
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "paintgun"
 	inhand_icon_state = "paintgun"
