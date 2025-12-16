@@ -214,7 +214,7 @@
 
 /obj/item/clothing/under/skulk
 	icon = 'icons/obj/clothing/species/skkulakin/uniforms.dmi'
-	worn_icon = 'icons/mob/clothing/species/skkulakin/under/misc.dmi' //Placeholder, change if you want to add more stuff
+	worn_icon = 'icons/mob/clothing/species/skkulakin/under/misc.dmi' // Placeholder, change if you want to add more stuff
 	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
@@ -229,7 +229,7 @@
 
 /obj/item/clothing/suit/collectiverobe
 	name = "collective robe"
-	desc = "A set of comfortable purple robes made from silk and faux gold, offers substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
+	desc = "A set of comfortable purple robes made from silk and faux gold, offering substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
 	icon = 'icons/obj/clothing/species/skkulakin/suits.dmi'
 	worn_icon = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	icon_state = "collectiverobe"

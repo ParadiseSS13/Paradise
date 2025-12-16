@@ -663,7 +663,7 @@
 	key = "chitter"
 	key_third_person = "chitters"
 	message = "chitters."
-	message_param = "chitters at &t."
+	message_param = "chitters at %t."
 	emote_type = EMOTE_AUDIBLE
 	sound = "sound/effects/chitter.ogg"
 	species_type_whitelist_typecache = list(/datum/species/skulk)

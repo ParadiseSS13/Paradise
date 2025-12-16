@@ -137,7 +137,7 @@
 
 /obj/item/flag/species/skulk
 	name = "\improper Collective Flag"
-	desc = "A foreboding flag made with silk and religious fervor. The cloth of this flag undoubtly made by faithful silk-spinners and blessed by Skkula-Kkavan priests. Some would argue its beauty does not befit itself however, believing it to be a beacon of zealotry that plagues the Silver Collective in its entirety."
+	desc = "A foreboding flag made with silk and religious fervor. The cloth of this flag undoubtly made by faithful silk-spinners and blessed by Skkula-Kkavan priests. Some would argue its beauty does not befit it, believing it to be a beacon of zealotry that plagues the Silver Collective in its entirety."
 	icon_state = "skulkflag"
 
 //Department Flags

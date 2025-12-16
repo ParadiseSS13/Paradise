@@ -94,7 +94,7 @@
 	var/tail
 	/// Same as tail but wing
 	var/wing
-	// Same as wing but with back spines
+	/// Same as wing but with back spines
 	var/spines
 
 	var/tail_wagging = FALSE

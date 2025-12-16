@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	name = "Bluespace Wings"
 	icon_state = "bluespace"
 
-//Skulk spines
+// Skulk spines
 /datum/body_accessory/spines
 	icon = 'icons/mob/sprite_accessories/skulk/skulk_spines.dmi'
 	animated_icon = null

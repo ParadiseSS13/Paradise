@@ -413,7 +413,7 @@
 
 /datum/language/skulk
 	name = "Skkula-Runespeak"
-	desc = "A language comprised mostly of unintelligible chittering, laced with psionic resonations used to convey urgency and emotion. Utterly esoteric to the unenlightened."
+	desc = "A language comprised mostly of chittering, laced with psionic resonations used to convey urgency and emotion. Utterly esoteric to the unenlightened."
 	speech_verb = "resonates"
 	ask_verb = "pulses"
 	exclaim_verbs = list("thunders")
@@ -424,8 +424,8 @@
 	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ","ᖋリᒣ|:॥.","ᒣ⍑ᒷ ▭","⍊ᒷ∷","ᒷ⎓","╎リ┤ ▭ ⍑╎ᒲ")
 
 /datum/language/skulk/get_random_name()
-	var/new_name = "[pick("Akki","Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv","Llav","Vykke","Hakki","Askki","Tavv","Maskii","Tokko","Kkavik","Morkk","Savv")]"
-	new_name += "-[pick("Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv", "Llav","Vykke","Hakki","Askki","Tavv","Maskii","Tokko","Kkavik","Morkk","Savv")]"
+	var/new_name = "[pick("Akki", "Akku", "Avvi", "Bakku", "Bakki", "Bakk", "Kkath", "Makkith", "Vullo", "Mortis", "Vaal", "Kkari", "Thrakk", "Skkiv", "Llav", "Vykke", "Hakki", "Askki", "Tavv", "Maskii", "Tokko", "Kkavik", "Morkk", "Savv")]"
+	new_name += "-[pick("Akku", "Avvi", "Bakku", "Bakki", "Bakk", "Kkath", "Makkith", "Vullo", "Mortis", "Vaal", "Kkari", "Thrakk", "Skkiv", "Llav", "Vykke", "Hakki", "Askki", "Tavv", "Maskii", "Tokko", "Kkavik", "Morkk", "Savv")]"
 	return new_name
 
 /datum/language/common

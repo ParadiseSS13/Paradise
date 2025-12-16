@@ -860,7 +860,7 @@
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
 		number += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
-		if(!is_species(src, /datum/species/skulk))		//makes sure skkulakin properly suffer
+		if(!is_species(src, /datum/species/skulk))		// makes sure skkulakin properly suffer
 			var/obj/item/clothing/glasses/GFP = glasses
 			number += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask

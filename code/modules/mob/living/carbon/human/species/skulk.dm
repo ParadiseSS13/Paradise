@@ -10,9 +10,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "The Skkulakin are a species of psionically-attuned furred arthropods hailing from the Western Orion Spur. \
-	Originating from the planet Votum-Accorium, an artic world ruled by the brutal theocratic government known as the Silver Collective.<br/><br/> \
-	Despite owning a large amount of territory in the western arm of the sector, the lack of plasma of which their empire relies on is being stretched thin. \
-	This has forced the once-proud species to branch out and desperate seek out a solution to their critical shortage."
+	Originating from the planet Votum-Accorium, an arctic world ruled by the brutal theocratic government known as the Silver Collective.<br/><br/> \
+	Despite owning a large amount of territory in the western arm of the sector, the plasma supply their empire relies on is being stretched thin. \
+	This has forced the once-proud species to desperately branch out and seek a solution to their critical shortage."
 
 	cold_level_1 = 240
 	cold_level_2 = 180
@@ -79,9 +79,9 @@
 	for(var/datum/action/innate/spin_silk/spin_silk in H.actions)
 		spin_silk.Remove(H)
 
-/datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
+/datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) // Handling species-specific skin-tones for the Skulk race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi' //Default Blackgate Skkulakin.
+		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi' // Default Blackgate Skkulakin.
 		var/current_spine_type = null
 		if(H.body_accessory)
 			current_spine_type = lowertext("[H.body_accessory.name]")
@@ -92,22 +92,22 @@
 //			current_spine_type = null
 		var/chosen_spine_color = 1
 		switch(H.s_tone)
-			if(1) //Blackgate Skkulakin.
+			if(1) // Blackgate Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi'
 				chosen_spine_color = 1
-			if(2) //Talwyrm Skkulakin.
+			if(2) // Talwyrm Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi'
 				chosen_spine_color = 2
-			if(3) //Valcore Skkulakin.
+			if(3) // Valcore Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkred.dmi'
 				chosen_spine_color = 3
-			if(4) //Ossya Skkulakin.
+			if(4) // Ossya Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkblue.dmi'
 				chosen_spine_color = 4
-			if(5) //Highfield Skkulakin.
+			if(5) // Highfield Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkgreen.dmi'
 				chosen_spine_color = 5
-			if(6) //Votum-Accorium Skkulakin.
+			if(6) // Votum-Accorium Skkulakin.
 				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
 				chosen_spine_color = 6
 		if(H.body_accessory && current_spine_type)
@@ -118,7 +118,7 @@
 /datum/action/innate/spin_silk
 	name = "Spin Silk"
 	desc = "Use your spinnerets to create a spool of silk that can be used for crafting."
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_STUNNED|AB_CHECK_RESTRAINED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_STUNNED | AB_CHECK_RESTRAINED | AB_CHECK_CONSCIOUS
 	button_icon = 'icons/obj/stacks/organic.dmi'
 	button_icon_state = "sheet-silk"
 	var/cooldown = 0
