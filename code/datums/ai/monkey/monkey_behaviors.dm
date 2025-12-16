@@ -69,7 +69,7 @@
 
 /datum/ai_behavior/monkey_equip/pickpocket/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()
-	if(controller.blackboard[BB_MONKEY_PICKPOCKETING]) //We are pickpocketing, don't do ANYTHING!!!!
+	if(controller.blackboard[BB_MONKEY_PICKPOCKETING]) // We are pickpocketing, don't do ANYTHING!!!!
 		return
 	INVOKE_ASYNC(src, PROC_REF(attempt_pickpocket), controller)
 
@@ -82,7 +82,7 @@
 		finish_action(controller, FALSE)
 		return
 
-	victim.visible_message(SPAN_WARNING("[living_pawn] starts trying to take [target] from [victim]!</span>", "<span class='danger'>[living_pawn] tries to take [target]"))
+	victim.visible_message(SPAN_WARNING("[living_pawn] starts trying to take [target] from [victim]!"), SPAN_DANGER("[living_pawn] tries to take [target]!"))
 
 	controller.set_blackboard_key(BB_MONKEY_PICKPOCKETING, TRUE)
 
@@ -91,14 +91,14 @@
 	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.Adjacent(victim))
 		for(var/obj/item/I in victim.held_items())
 			if(I == target)
-				victim.visible_message(SPAN_DANGER("[living_pawn] snatches [target] from [victim].", "<span class='userdanger'>[living_pawn] snatched [target]!"))
+				victim.visible_message(SPAN_DANGER("[living_pawn] snatches [target] from [victim]."), SPAN_USERDANGER("[living_pawn] snatched [target]!"))
 				if(victim.unequip(target))
 					if(!QDELETED(target) && !equip_item(controller))
 						target.forceMove(living_pawn.drop_location())
 						success = TRUE
 						break
 				else
-					victim.visible_message(SPAN_DANGER("[living_pawn] tried to snatch [target] from [victim], but failed!</span>", "<span class='userdanger'>[living_pawn] tried to grab [target]!?</span>"))
+					victim.visible_message(SPAN_DANGER("[living_pawn] tried to snatch [target] from [victim], but failed!"), SPAN_USERDANGER("[living_pawn] tried to grab [target]!?))
 
 	finish_action(controller, success) // We either fucked up or got the item.
 
