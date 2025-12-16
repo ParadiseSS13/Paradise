@@ -2302,7 +2302,7 @@
 				html += "</td>"
 				// sets the size of the job preference column, but only for assistant.
 				// It will pick the bigger number of this and the rest of the column
-				html += "<td style='margin: 5px;'><span class='dark'>[difficultyMeter]</span></td></tr>"
+				html += "<td style='margin: 5px;'>[SPAN_DARK("[difficultyMeter]")]</td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2316,7 +2316,7 @@
 				*/
 			// determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width: 30%; margin: 5px;'><span class='dark'>[difficultyMeter]</span>"
+			html += "</td><td style='width: 30%; margin: 5px;'>[SPAN_DARK("[difficultyMeter]")]"
 			html += "</td></tr>"
 
 		index += 1
