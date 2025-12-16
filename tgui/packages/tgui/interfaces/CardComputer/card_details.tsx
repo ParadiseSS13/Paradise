@@ -54,7 +54,7 @@ export const CardSkins = (props: CardSkinsProps) => {
           selected={card?.current_skin === v.skin}
           key={v.skin}
           tooltip={v.display_name}
-          dmIcon={'icons/obj/card.dmi'}
+          dmIcon={v.icon}
           dmIconState={v.skin}
           onClick={() => act('set_card_skin', { skin_target: v.skin })}
         />
@@ -67,21 +67,11 @@ export const CardSkins = (props: CardSkinsProps) => {
                 selected={card?.current_skin === v.skin}
                 key={v.skin}
                 tooltip={v.display_name}
-                dmIcon={'icons/obj/card.dmi'}
+                dmIcon={v.icon}
                 dmIconState={v.skin}
                 color="purple"
                 onClick={() => act('set_card_skin', { skin_target: v.skin })}
               />
-              /*
-              <Button
-                selected={card?.current_skin === v.skin}
-                key={v.skin}
-                color="purple"
-                onClick={() => act('set_card_skin', { skin_target: v.skin })}
-              >
-                {v.display_name}
-              </Button>
-              */
             ))}
         </Box>
       )}
