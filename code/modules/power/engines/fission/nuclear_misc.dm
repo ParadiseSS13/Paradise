@@ -4,8 +4,8 @@
 /obj/machinery/nuclear_centrifuge
 	name = "Fuel Enrichment Centrifuge"
 	desc = "An advanced device capable of separating and collecting fissile materials from enriched fuel rods."
-	icon = 'icons/obj/fission/reactor_parts.dmi'
-	icon_state = "centrifuge"
+	icon = 'icons/obj/fission/reactor_machines.dmi'
+	icon_state = "centrifuge_empty"
 	idle_power_consumption = 200
 	active_power_consumption = 3000
 	anchored = TRUE
@@ -27,6 +27,8 @@
 	var/datum/looping_sound/centrifuge/soundloop
 	var/soundloop_type
 
+	COOLDOWN_DECLARE(enrichment_timer)
+
 /obj/machinery/nuclear_centrifuge/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), FALSE)
@@ -39,17 +41,14 @@
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/nuclear_centrifuge/examine(mob/user)
+	. = ..()
+	if(held_rod)
+		. += SPAN_NOTICE("The current fuel rod may be removed with ALT-Click.")
+
 /obj/machinery/nuclear_centrifuge/Destroy()
 	QDEL_NULL(soundloop)
 	return ..()
-
-/obj/machinery/nuclear_centrifuge/update_overlays()
-	. = ..()
-	if(power_state == ACTIVE_POWER_USE)
-		. += "centrifuge_spinning"
-	else
-		. += "centrifuge_empty"
-	. += "centrifuge_glass"
 
 /obj/machinery/nuclear_centrifuge/RefreshParts()
 	average_component_rating = 0
@@ -62,11 +61,13 @@
 	. = ..()
 	if(istype(used, /obj/item/nuclear_rod/fuel))
 		if(stat & NOPOWER)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(panel_open)
-			return
+			to_chat(user, SPAN_WARNING("You must close the access panel first!"))
+			return ITEM_INTERACT_COMPLETE
 		if(power_state == ACTIVE_POWER_USE) // dont start a new cycle when on
-			return
+			to_chat(user, SPAN_WARNING("There is already a fuel rod being processed!"))
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/nuclear_rod/fuel/rod = used
 		var/list/enrichment_to_name = list()
 		var/list/radial_list = list()
@@ -87,12 +88,22 @@
 
 		var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
 		if(!enrichment_choice)
-			return
+			return ITEM_INTERACT_COMPLETE
 		rod_result = enrichment_to_name[enrichment_choice]
 		held_rod = rod
 		user.transfer_item_to(rod, src)
 		begin_enrichment()
 		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/nuclear_centrifuge/AltClick(mob/user, modifiers)
+	if(held_rod)
+		if(power_state == ACTIVE_POWER_USE)
+			to_chat(user, SPAN_WARNING("You cannot remove the fuel rod while the machine is running!"))
+			return
+		held_rod.forceMove(loc)
+		held_rod = null
+		icon_state = "centrifuge_empty"
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/nuclear_centrifuge/process()
 	if(stat & NOPOWER)
@@ -101,31 +112,37 @@
 		return
 	if(power_state == IDLE_POWER_USE)
 		return
-	if(world.time < time_to_completion)
+	if(!COOLDOWN_FINISHED(src, enrichment_timer))
 		return
 	finish_enrichment()
 
+/obj/machinery/nuclear_centrifuge/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(held_rod)
+		to_chat(user, SPAN_WARNING("The machine cannot be opened while it contains a fuel rod."))
+		return ITEM_INTERACT_COMPLETE
+	default_deconstruction_screwdriver(user, "centrifuge_maint", "centrifuge_empty", I)
+
 /obj/machinery/nuclear_centrifuge/proc/begin_enrichment()
 	power_state = ACTIVE_POWER_USE
-	update_icon(UPDATE_OVERLAYS)
-	time_to_completion = world.time + 10 SECONDS
+	icon_state = "centrifuge_on"
+	COOLDOWN_START(src, enrichment_timer, work_time)
 	soundloop.start()
 
 /obj/machinery/nuclear_centrifuge/proc/abort_enrichment()
-	held_rod.forceMove(loc)
-	held_rod = null
 	power_state = IDLE_POWER_USE
-	update_icon(UPDATE_OVERLAYS)
+	icon_state = "centrifuge_full"
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 	soundloop.stop()
 
 /obj/machinery/nuclear_centrifuge/proc/finish_enrichment()
-	held_rod = null
-	power_state = IDLE_POWER_USE
-	update_icon(UPDATE_OVERLAYS)
+	icon_state = "centrifuge_full"
 	playsound(src, 'sound/machines/ping.ogg', 30, 1)
-	new rod_result(loc)
+	power_state = IDLE_POWER_USE
+	var/new_rod = new rod_result(contents)
 	rod_result = null
+	QDEL_NULL(held_rod)
+	held_rod = new_rod
 	soundloop.stop()
 
 // MARK: Rod Fabricator
@@ -133,8 +150,8 @@
 /obj/machinery/nuclear_rod_fabricator
 	name = "Nuclear Fuel Rod Fabricator"
 	desc = "A highly specialized fabricator for crafting nuclear rods."
-	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "protolathe"
+	icon = 'icons/obj/fission/reactor_machines.dmi'
+	icon_state = "rod_fab"
 	idle_power_consumption = 50
 	active_power_consumption = 3000
 	density = TRUE
@@ -157,6 +174,12 @@
 	var/list/category_coolant = list()
 	/// Is the rod fabricator currently upgraded from science
 	var/upgraded = FALSE
+	/// What is the current item being produced
+	var/schematic
+	/// The time it takes for the machine to process a rod
+	var/work_time
+
+	COOLDOWN_DECLARE(fabrication_timer)
 
 /obj/machinery/nuclear_rod_fabricator/upgraded
 	upgraded = TRUE
@@ -177,9 +200,12 @@
 
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12
+	var/average_component_rating = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		temp_coeff -= M.rating
-	efficiency_coeff = clamp(temp_coeff / 10, 0, 1)
+		average_component_rating += M.rating
+	work_time = DEFAULT_TIME / average_component_rating
+	efficiency_coeff = clamp(temp_coeff / 10, 0.05, 1)
 	temp_coeff = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		temp_coeff += M.rating
@@ -379,10 +405,8 @@
 				to_chat(usr, SPAN_WARNING("Failed to deduct materials!"))
 				return FALSE
 
-			// Create rod
-			var/obj/item/nuclear_rod/new_rod = new rod_type_path(get_turf(src))
-			to_chat(usr, SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
-			playsound(src, 'sound/machines/ping.ogg', 50, 1)
+			// Begin Process
+			begin_fabrication(rod_type_path)
 
 			return TRUE
 
@@ -414,6 +438,41 @@
 			return TRUE
 
 	return FALSE
+
+/obj/machinery/nuclear_rod_fabricator/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(power_state == ACTIVE_POWER_USE)
+		to_chat(user, SPAN_WARNING("The machine cannot be opened while it is operating."))
+		return ITEM_INTERACT_COMPLETE
+	default_deconstruction_screwdriver(user, "rod_fab_maint", "rod_fab", I)
+
+
+/obj/machinery/nuclear_rod_fabricator/proc/begin_fabrication(rod_type_path)
+	power_state = ACTIVE_POWER_USE
+	icon_state = "rod_fab_on"
+	COOLDOWN_START(src, fabrication_timer, work_time)
+	schematic = rod_type_path
+
+/obj/machinery/nuclear_rod_fabricator/proc/finish_fabrication()
+	var/obj/item/nuclear_rod/new_rod = new schematic(get_turf(src))
+	to_chat(usr, SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
+	playsound(src, 'sound/machines/ping.ogg', 50, 1)
+
+/obj/machinery/nuclear_rod_fabricator/proc/abort_fabrication()
+	power_state = IDLE_POWER_USE
+	icon_state = "centrifuge_full"
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+
+/obj/machinery/nuclear_rod_fabricator/process()
+	if(stat & NOPOWER)
+		if(power_state == ACTIVE_POWER_USE)
+			abort_fabrication()
+		return
+	if(power_state == IDLE_POWER_USE)
+		return
+	if(!COOLDOWN_FINISHED(src, fabrication_timer))
+		return
+	finish_fabrication()
 
 // MARK: Reactor Power Output
 

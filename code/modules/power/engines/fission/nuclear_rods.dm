@@ -130,7 +130,7 @@
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
-	if(!(istype(loc, /obj/structure/closet/crate/engineering)))
+	if((get_turf(src) != loc))
 		check_rad_shield()
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)

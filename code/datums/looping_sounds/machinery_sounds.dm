@@ -97,8 +97,8 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 
 /datum/looping_sound/centrifuge
 	start_sound = 'sound/machines/fission/centrifuge_start.ogg'
-	start_length = 1.05 SECONDS
+	start_length = 0.95 SECONDS
 	mid_sounds = list('sound/machines/fission/centrifuge_mid.ogg' = 1)
-	mid_length = 1.05 SECONDS
+	mid_length = 0.95 SECONDS
 	volume = 35
 	channel = CHANNEL_ENGINE
