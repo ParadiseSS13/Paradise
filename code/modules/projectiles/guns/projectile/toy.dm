@@ -245,7 +245,7 @@
 /obj/item/gun/projectile/automatic/paintball_gun/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	var/cmagged = HAS_TRAIT(src, TRAIT_CMAGGED)
 	. = ..()
-	if(cmagged)
+	if(cmagged && .)
 		paintball_color = PAINTBALL_BLUE
 		color_paintball()
 		update_icon(UPDATE_OVERLAYS)
