@@ -195,7 +195,7 @@
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
 	. = ..()
-	name = "[initial(name)] - Saline Glucose"
+	name = "[initial(name)] - Saline Solution"
 
 /// Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 /obj/item/reagent_containers/iv_bag/blood
