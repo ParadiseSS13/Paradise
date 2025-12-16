@@ -830,9 +830,9 @@
 
 	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 	var/datum/organ/lungs/lung = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-	if(heart)
+	if(heart && !heart.linked_organ.is_robotic())
 		heart.linked_organ.receive_damage(0.2, TRUE)
-	if(lung)
+	if(lung && !lung.linked_organ.is_robotic())
 		lung.linked_organ.receive_damage(0.2, TRUE)
 	adjustBrainLoss(0.2)
 
