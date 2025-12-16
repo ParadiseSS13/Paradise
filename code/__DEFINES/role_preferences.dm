@@ -49,7 +49,6 @@
 #define ROLEBAN_AHUD			"AntagHUD"
 #define ROLEBAN_RECORDS			"Records"
 
-
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
@@ -87,6 +86,5 @@ GLOBAL_LIST_INIT(special_roles_neutral, list(
 	ROLE_TOURIST, // Tourist
 	ROLE_TRADER, // Trader
 ))
-
 
 GLOBAL_LIST_INIT(special_roles, special_roles_antags | special_roles_neutral)
