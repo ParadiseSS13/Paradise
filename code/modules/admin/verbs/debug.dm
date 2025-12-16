@@ -780,11 +780,11 @@ USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", 
 	if(!length(bug_reports))
 		to_chat(client, SPAN_WARNING("There are no bug reports to view"))
 		return
-	var/selection = tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_reports)
+	var/selection = tgui_input_list(client, "Select a report to view:", "Bug Reports", bug_reports)
 	if(!bug_reports[selection])
 		return
 	var/datum/tgui_bug_report_form/form = read_bug_report(bug_reports[selection])
-	if(!form?.assign_approver(usr))
+	if(!form?.assign_approver(client))
 		qdel(form)
 		return
 	form.ui_interact(client.mob)
