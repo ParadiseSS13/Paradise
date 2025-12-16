@@ -2089,12 +2089,12 @@
 	var/width = widthPerColumn
 
 	// these are used to show the mechanical difficulty to the player
-	var/filledDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
-	var/unfilledDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
-	var/halfDifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_half")) + "'>"
+	var/filled_difficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
+	var/unfilled_fifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
+	var/half_difficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_half")) + "'>"
 	var/all_difficulty
 	for(var/i in 1 to MAX_DIFFICULTY / 2)
-		all_difficulty += filledDifficulty
+		all_difficulty += filled_difficulty
 
 	var/list/html = list()
 	html += {"
@@ -2184,16 +2184,16 @@
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
 
-			var/difficultyMeter = ""
+			var/difficulty_meter = ""
 			if(job.difficulty)
 				for(var/i in 1 to ceil(MAX_DIFFICULTY / 2))
 					if(job.difficulty >= (2 * i))
-						difficultyMeter += filledDifficulty
+						difficulty_meter += filled_difficulty
 						continue
 					if(job.difficulty > (2 * (i - 1)))
-						difficultyMeter += halfDifficulty
+						difficulty_meter += half_difficulty
 						continue
-					difficultyMeter += unfilledDifficulty
+					difficulty_meter += unfilled_fifficulty
 
 			if(job.admin_only)
 				continue
@@ -2236,26 +2236,26 @@
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td><td></td></tr>"
 				continue
 			if(restrictions)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td><td>[difficultyMeter]</td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td><td>[difficultyMeter]</td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if(job.barred_by_quirk(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[QUIRK\]</b></td></tr>"
 				continue
 			if(job.barred_by_missing_limbs(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[FIX LIMBS\]</b></td><td>[difficultyMeter]</td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[FIX LIMBS\]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td><td>[difficultyMeter]</td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 
 			// Disable choice if the player has assitant selected (and this job isn't assistant)
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
 				// this determines the job preference column when assistant is enabled, since the other choices will be hidden
-				html += "<font color='orange'>[rank]</font></td><td style='width:20%;'></td><td>[difficultyMeter]</td></tr>"
+				html += "<font color='orange'>[rank]</font></td><td style='width:20%;'></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
 				html += "<b>[SPAN_DARK("[rank]")]</b>"
@@ -2302,7 +2302,7 @@
 				html += "</td>"
 				// sets the size of the job preference column, but only for assistant.
 				// It will pick the bigger number of this and the rest of the column
-				html += "<td style='margin: 5px;'>[SPAN_DARK("[difficultyMeter]")]</td></tr>"
+				html += "<td style='margin: 5px;'>[SPAN_DARK("[difficulty_meter]")]</td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2316,7 +2316,7 @@
 				*/
 			// determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-			html += "</td><td style='width: 30%; margin: 5px;'>[SPAN_DARK("[difficultyMeter]")]"
+			html += "</td><td style='width: 30%; margin: 5px;'>[SPAN_DARK("[difficulty_meter]")]"
 			html += "</td></tr>"
 
 		index += 1
