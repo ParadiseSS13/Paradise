@@ -82,7 +82,7 @@
 		finish_action(controller, FALSE)
 		return
 
-	victim.visible_message("<span class='warning'>[living_pawn] starts trying to take [target] from [victim]!</span>", "<span class='danger'>[living_pawn] tries to take [target]!</span>")
+	victim.visible_message(SPAN_WARNING("[living_pawn] starts trying to take [target] from [victim]!</span>", "<span class='danger'>[living_pawn] tries to take [target]"))
 
 	controller.set_blackboard_key(BB_MONKEY_PICKPOCKETING, TRUE)
 
@@ -91,16 +91,16 @@
 	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.Adjacent(victim))
 		for(var/obj/item/I in victim.held_items())
 			if(I == target)
-				victim.visible_message("<span class='danger'>[living_pawn] snatches [target] from [victim].", "<span class='userdanger'>[living_pawn] snatched [target]!")
+				victim.visible_message(SPAN_DANGER("[living_pawn] snatches [target] from [victim].", "<span class='userdanger'>[living_pawn] snatched [target]!"))
 				if(victim.unequip(target))
 					if(!QDELETED(target) && !equip_item(controller))
 						target.forceMove(living_pawn.drop_location())
 						success = TRUE
 						break
 				else
-					victim.visible_message("<span class='danger'>[living_pawn] tried to snatch [target] from [victim], but failed!</span>", "<span class='userdanger'>[living_pawn] tried to grab [target]!?</span>")
+					victim.visible_message(SPAN_DANGER("[living_pawn] tried to snatch [target] from [victim], but failed!</span>", "<span class='userdanger'>[living_pawn] tried to grab [target]!?</span>"))
 
-	finish_action(controller, success) //We either fucked up or got the item.
+	finish_action(controller, success) // We either fucked up or got the item.
 
 /datum/ai_behavior/monkey_equip/pickpocket/finish_action(datum/ai_controller/controller, success)
 	. = ..()
@@ -113,7 +113,7 @@
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 
-	if(living_pawn.health >= MONKEY_FLEE_HEALTH) //we're back in bussiness
+	if(living_pawn.health >= MONKEY_FLEE_HEALTH) // we're back in business
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 	var/mob/living/target = null
@@ -130,7 +130,7 @@
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/monkey_attack_mob
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION //performs to increase frustration
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION // performs to increase frustration
 
 /datum/ai_behavior/monkey_attack_mob/setup(datum/ai_controller/controller, target_key)
 	. = ..()
@@ -142,7 +142,7 @@
 	var/mob/living/living_pawn = controller.pawn
 	var/datum/targeting_strategy/strategy = GET_TARGETING_STRATEGY(controller.blackboard[BB_TARGETING_STRATEGY])
 
-	if(QDELETED(target) || !strategy.can_attack(living_pawn, target)) //Target == owned
+	if(QDELETED(target) || !strategy.can_attack(living_pawn, target)) // Target == owned
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 	// check if target has a weapon
@@ -157,7 +157,7 @@
 	if(!attack_results || controller.blackboard[BB_MONKEY_AGGRESSIVE])
 		return AI_BEHAVIOR_DELAY
 
-	//check if we can de-aggro on the enemy...
+	// check if we can de-aggro on the enemy...
 	var/hatred_value = controller.blackboard[BB_MONKEY_ENEMIES][target]
 
 	if(isnull(hatred_value))
@@ -167,7 +167,7 @@
 	if(!SPT_PROB(MONKEY_HATRED_REDUCTION_PROB, seconds_per_tick))
 		return AI_BEHAVIOR_DELAY
 
-	//we decrease our hatred value to them by 1
+	// we decrease our hatred value to them by 1
 	hatred_value--
 	if(hatred_value <= 0)
 		controller.remove_thing_from_blackboard_key(BB_MONKEY_ENEMIES, target)
