@@ -14266,6 +14266,11 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28;
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "bgB" = (
@@ -15571,10 +15576,10 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/cable,
-/obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 10
 	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "blt" = (
@@ -33140,12 +33145,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/procedure/trainer_office)
 "cyz" = (
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
+	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
-	},
-/obj/effect/turf_decal/tiles/neutral/corner{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
@@ -52644,15 +52649,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "foX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore/east)
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "fpK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -136094,7 +136100,7 @@ aHR
 aJb
 msE
 aZZ
-aZc
+foX
 aWk
 wLH
 aWk
@@ -137124,7 +137130,7 @@ aKw
 xCH
 aRH
 bhY
-foX
+bhY
 fob
 aFC
 bhY
@@ -137138,7 +137144,7 @@ bhY
 bhY
 blq
 bhY
-foX
+bhY
 bMb
 bov
 hgo
