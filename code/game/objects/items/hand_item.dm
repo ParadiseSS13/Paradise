@@ -12,7 +12,7 @@
 /obj/item/slapper/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
+	user.visible_message(SPAN_DANGER("[user] slaps [M]!"), SPAN_NOTICE("You slap [M]!"), SPAN_HEAR("You hear a slap."))
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.IsSleeping())
@@ -44,12 +44,12 @@
 			if(istype(human_user.shoes, /obj/item/clothing/shoes/cowboy))
 				human_user.say(pick("Hot damn!", "Hoo-wee!", "Got-dang!"))
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
-		user.visible_message("<b><span class='danger'>[user] slams [user.p_their()] fist down on [the_table]!</span></b>", "<b><span class='danger'>You slam your fist down on [the_table]!</span></b>")
+		user.visible_message("<b>[SPAN_DANGER("[user] slams [user.p_their()] fist down on [the_table]!")]</b>", "<b>[SPAN_DANGER("You slam your fist down on [the_table]!")]</b>")
 		qdel(src)
 	else
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
-		user.visible_message("<span class='notice'>[user] slaps [user.p_their()] hand on [the_table].</span>", "<span class='notice'>You slap your hand on [the_table].</span>")
+		user.visible_message(SPAN_NOTICE("[user] slaps [user.p_their()] hand on [the_table]."), SPAN_NOTICE("You slap your hand on [the_table]."))
 		table_smacks_left--
 		if(table_smacks_left <= 0)
 			qdel(src)

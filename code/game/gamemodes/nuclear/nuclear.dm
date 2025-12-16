@@ -64,12 +64,12 @@
 		SSticker.mode.syndicates -= operative_mind
 		operative_mind.special_role = null
 		operative_mind.objective_holder.clear(/datum/objective/nuclear)
-		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
+		operative_mind.current.create_attack_log(SPAN_DANGER("No longer nuclear operative"))
 		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, SPAN_USERDANGER("You have been turned into a robot! You are no longer a Syndicate operative."))
 		else
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, SPAN_USERDANGER("You have been brainwashed! You are no longer a Syndicate operative."))
 		SSticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -242,10 +242,10 @@
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	var/list/messages = list()
 	if(you_are)
-		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		messages.Add(SPAN_NOTICE("You are a [syndicate_name()] agent!"))
 
 	messages.Add(syndicate.prepare_announce_objectives(FALSE))
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
+	messages.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)"))
 	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 

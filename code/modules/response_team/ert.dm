@@ -15,11 +15,11 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 		"Send an CentComm response team to the station.", \
 		VERB_CATEGORY_EVENT)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(client, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(client, SPAN_WARNING("The game hasn't started yet!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(client, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(client, SPAN_WARNING("The round hasn't started yet!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -28,16 +28,16 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 
 /mob/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
+		to_chat(src, SPAN_WARNING("No emergency response team is currently being sent."))
 		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
+		to_chat(src, SPAN_WARNING("You are jobbanned from playing on an emergency response team!"))
 		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
-		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(src, SPAN_WARNING("This role is not yet available to you. You need to wait another [player_age_check] days."))
 		return FALSE
 
 	return TRUE
@@ -45,7 +45,7 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 /mob/dead/observer/JoinResponseTeam()
 	. = ..()
 	if(!check_ahud_rejoin_eligibility())
-		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(src, SPAN_BOLDNOTICE("Upon using the antagHUD you forfeited the ability to join the round."))
 		return FALSE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)

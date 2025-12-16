@@ -113,7 +113,7 @@
 
 /obj/structure/dresser/wardrobe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's currently [locked ? null : "un"]locked.</span>"
+	. += SPAN_NOTICE("It's currently [locked ? null : "un"]locked.")
 
 /obj/structure/dresser/wardrobe/AltShiftClick(mob/user)
 	change_undergarments(user)
@@ -137,7 +137,7 @@
 	if(!Adjacent(user))
 		return
 	item_to_retrieve.forceMove(loc)
-	to_chat(user, "<span class='notice'>You take [item_to_retrieve] out of [src].</span>")
+	to_chat(user, SPAN_NOTICE("You take [item_to_retrieve] out of [src]."))
 	if(issilicon(user))
 		return
 	user.put_in_hands(item_to_retrieve)
@@ -151,23 +151,23 @@
 	if(!Adjacent(user))
 		return ITEM_INTERACT_COMPLETE
 	if(!is_type_in_list(used, can_hold) || is_type_in_list(used, cant_hold))
-		to_chat(user, "<span class='notice'>You can't put [used] in [src]. It doesn't fit.</span>")
+		to_chat(user, SPAN_NOTICE("You can't put [used] in [src]. It doesn't fit."))
 		return ITEM_INTERACT_COMPLETE
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 		return ITEM_INTERACT_COMPLETE
 	used.forceMove(src)
 	var/mob/living/carbon/human/H = user
 	add_fingerprint(H)
-	to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+	to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/dresser/wardrobe/proc/toggle_lock(mob/user)
 	if(!allowed(user))
-		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		to_chat(user, SPAN_NOTICE("Access Denied."))
 		return
 	locked = !locked
-	visible_message("<span class='notice'>[user] [locked ? null : "un"]lock[user.p_s()] [src].</span>")
+	visible_message(SPAN_NOTICE("[user] [locked ? null : "un"]lock[user.p_s()] [src]."))
 	var/mob/living/carbon/human/H = user
 	add_fingerprint(H)
 	update_appearance(UPDATE_OVERLAYS)

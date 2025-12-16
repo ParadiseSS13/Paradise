@@ -16,7 +16,7 @@
 /obj/item/lance_docking_generator/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You emag [src], removing its docking safeties.</span>")
+		to_chat(user, SPAN_NOTICE("You emag [src], removing its docking safeties."))
 		var/turf/T = get_turf(src)
 		do_sparks(5, FALSE, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -24,7 +24,7 @@
 
 /obj/item/lance_docking_generator/attack_self__legacy__attackchain(mob/living/user)
 	if(!is_station_level(user.z))
-		to_chat(user, "<span class='warning'>You'll want this to dock on the station.</span>")
+		to_chat(user, SPAN_WARNING("You'll want this to dock on the station."))
 		return
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 	var/dir_choice = tgui_input_list(user, "Which direction should the shuttle approach from?", "Dock Orientation", dir_choices)
@@ -49,16 +49,16 @@
 		max_y = max_y < 0 ? T.y : max(max_y, T.y)
 		for(var/obj/O in T.contents)
 			if((istype(O, /obj/machinery/atmospherics/supermatter_crystal) || istype(O, /obj/singularity)) && !emagged)
-				to_chat(user, "<span class='warning'>Dangerous landing conditions, aborting!</span>")
+				to_chat(user, SPAN_WARNING("Dangerous landing conditions, aborting!"))
 				qdel(port, force = TRUE)
 				return
 
 	if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
-		to_chat(user, "<span class='warning'>Docking space area too close to edge of sector, aborting!</span>")
+		to_chat(user, SPAN_WARNING("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
 		return
 	if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
-		to_chat(user, "<span class='warning'>Docking space area too close to edge of sector, aborting!</span>")
+		to_chat(user, SPAN_WARNING("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
 		return
 	var/list/L2 = list()
@@ -74,13 +74,13 @@
 	for(var/turf/BT in L2)
 		for(var/obj/Ohno in BT.contents)
 			if((istype(Ohno, /obj/machinery/atmospherics/supermatter_crystal) || istype(Ohno, /obj/singularity)) && !emagged)
-				to_chat(user, "<span class='warning'>Dangerous landing conditions, aborting!</span>")
+				to_chat(user, SPAN_WARNING("Dangerous landing conditions, aborting!"))
 				qdel(port, force = TRUE)
 				return
 	port.register()
 
 	log_admin("[key_name(user)] created the lance docking location at [COORD(port)].")
-	to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
+	to_chat(user, SPAN_NOTICE("Landing zone set. The signaller vanishes!"))
 	new /obj/structure/lance_beacon(get_turf(src))
 	qdel(src)
 

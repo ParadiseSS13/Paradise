@@ -58,16 +58,16 @@
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its door is currently [door_open ? "open" : "closed"].</span>"
+	. += SPAN_NOTICE("Its door is currently [door_open ? "open" : "closed"].")
 	if(washing)
-		. += "<span class='notice'>It is currently in its wash cycle.</span>"
+		. += SPAN_NOTICE("It is currently in its wash cycle.")
 	else
-		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to start its washing cycle.")
 	if(bloody_mess)
-		. += "<span class='warning'>The inside is covered in blood and gibs, you will need to clean it out with soap first.</span>"
+		. += SPAN_WARNING("The inside is covered in blood and gibs, you will need to clean it out with soap first.")
 	else
 		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
-		. += "<span class='notice'>It has [total_contents] item\s inside.</span>"
+		. += SPAN_NOTICE("It has [total_contents] item\s inside.")
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -79,7 +79,7 @@
 
 /obj/machinery/washing_machine/attack_hand(mob/user)
 	if(washing && !door_open)
-		to_chat(user, "<span class='warning'>[src]'s door is shut, you will need to wait until the end of the cycle.</span>")
+		to_chat(user, SPAN_WARNING("[src]'s door is shut, you will need to wait until the end of the cycle."))
 		return
 	toggle_door()
 
@@ -119,22 +119,22 @@
 	if(!anchored || (stat & BROKEN) || (stat & NOPOWER))
 		return FALSE
 	if(!door_open)
-		to_chat(user, "<span class='warning'>[src]'s door is closed!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s door is closed!"))
 		return FALSE // simply not possible (or is it?)
 	if(!istype(atom_to_insert) || !istype(user))
 		return FALSE
 	if(user.stat != CONSCIOUS || !Adjacent(user) || !atom_to_insert.Adjacent(user))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='notice'>You try to insert [atom_to_insert] into [src] but your hands are blocked!</span>")
+		to_chat(user, SPAN_NOTICE("You try to insert [atom_to_insert] into [src] but your hands are blocked!"))
 		return FALSE
 	if(isliving(atom_to_insert)) // not ismob() b/c we only want living creatures, ghosts could just float out of the washing machine whenever they wanted
 		var/mob/living/sacrifice = atom_to_insert
 		if(sacrifice.mob_size >= MOB_SIZE_HUMAN) // prevents some most mobs from being washed even if it would be really really funny
-			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] too large to fit inside!</span>")
+			to_chat(user, SPAN_NOTICE("You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] too large to fit inside!"))
 			return FALSE
 		if(sacrifice.buckled)
-			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] still buckled to something!</span>")
+			to_chat(user, SPAN_NOTICE("You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] still buckled to something!"))
 			return FALSE
 		return insert_mob_into_tub(user, sacrifice)
 	if(isitem(atom_to_insert)) // Restricting this to only item types prevents a lot of issues, you really only wanna shove items in here anyway...
@@ -142,7 +142,7 @@
 		if(item_to_insert.anchored)
 			return FALSE
 		if(item_to_insert.w_class >= WEIGHT_CLASS_HUGE)
-			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large to fit inside!</span>")
+			to_chat(user, SPAN_NOTICE("You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large to fit inside!"))
 			return FALSE
 		return insert_item_into_tub(user, item_to_insert)
 
@@ -150,9 +150,9 @@
 /obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
 	var/mob_content_size = mob_to_insert.mob_size
 	if(max_tub_capacity < (mob_content_size * 2) + current_tub_capacity)
-		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!</span>")
+		to_chat(user, SPAN_WARNING("You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!"))
 		return FALSE
-	mob_to_insert.visible_message("<span class='warning'>[user] starts shoving [mob_to_insert] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
+	mob_to_insert.visible_message(SPAN_WARNING("[user] starts shoving [mob_to_insert] into [src]!"), SPAN_USERDANGER("[user] starts shoving you into [src]!"))
 	if(!do_after_once(user, (3 SECONDS * mob_content_size), target = src, attempt_cancel_message = "You stop inserting [mob_to_insert] into [src]."))
 		return FALSE
 	mob_to_insert.forceMove(src)
@@ -162,20 +162,20 @@
 	calculate_tub_capacity()
 	update_washing_state()
 	add_attack_logs(user, mob_to_insert, "Shoved into washing machine.")
-	to_chat(mob_to_insert, "<span class='userdanger'>[user] shoves you into [src]. Oh shit!</span>")
-	mob_to_insert.visible_message("<span class='danger'>[user] shoves [mob_to_insert] into [src].</span>", "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
+	to_chat(mob_to_insert, SPAN_USERDANGER("[user] shoves you into [src]. Oh shit!"))
+	mob_to_insert.visible_message(SPAN_DANGER("[user] shoves [mob_to_insert] into [src]."), SPAN_DANGER("You shove [mob_to_insert] into [src]."))
 	return TRUE
 
 /// Handles inserting obj/items into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
 /obj/machinery/washing_machine/proc/insert_item_into_tub(mob/user, obj/item/item_to_insert)
 	var/item_content_size = item_to_insert.w_class
 	if(max_tub_capacity < (item_content_size + current_tub_capacity))
-		to_chat(user, "<span class='warning'>You try to insert [item_to_insert] into [src] but [src] is too full for [item_to_insert.p_them()]!</span>")
+		to_chat(user, SPAN_WARNING("You try to insert [item_to_insert] into [src] but [src] is too full for [item_to_insert.p_them()]!"))
 		return FALSE
 	if(!do_after_once(user, (1 SECONDS * (item_to_insert.w_class / 3)), target = src, attempt_cancel_message = "You stop inserting [item_to_insert] into [src]."))
 		return FALSE
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[item_to_insert] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_insert] is stuck to your hand!"))
 		return FALSE
 	item_to_insert.forceMove(src)
 	RegisterSignal(item_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
@@ -183,7 +183,7 @@
 	LAZYADD(inserted_items, item_to_insert)
 	calculate_tub_capacity()
 	update_washing_state()
-	to_chat(user, "<span class='notice'>You insert [item_to_insert] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You insert [item_to_insert] into [src]."))
 	return TRUE
 
 /*
@@ -337,7 +337,7 @@
 
 /obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	if(washing)
-		to_chat(user, "<span class='warning'>[src]'s door is shut, you will need to wait until the end of the cycle to clean it out.</span>")
+		to_chat(user, SPAN_WARNING("[src]'s door is shut, you will need to wait until the end of the cycle to clean it out."))
 		return
 	. = ..()
 	if(. && !washing)

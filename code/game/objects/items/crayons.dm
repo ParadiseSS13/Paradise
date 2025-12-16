@@ -36,7 +36,7 @@
 	var/consumable = TRUE
 
 /obj/item/toy/crayon/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|OXYLOSS
 
 /obj/item/toy/crayon/Initialize(mapload)
@@ -123,12 +123,12 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name].</span>")
+		to_chat(user, SPAN_NOTICE("You start drawing a [temp] on the [target.name]."))
 		busy = TRUE
 		if(instant || do_after(user, 50 * toolspeed, target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, crayon_color, drawtype, temp)
 			C.add_hiddenprint(user)
-			to_chat(user, "<span class='notice'>You finish drawing [temp].</span>")
+			to_chat(user, SPAN_NOTICE("You finish drawing [temp]."))
 
 			if(preset_message_index > 0)
 				preset_message_index++
@@ -139,7 +139,7 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
+					to_chat(user, SPAN_DANGER("You used up your [name]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -150,15 +150,15 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				to_chat(user, SPAN_WARNING("You do not have a mouth!"))
 				return
 		times_eaten++
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		user.adjust_nutrition(5)
 		if(times_eaten < max_bites)
-			to_chat(user, "<span class='notice'>You take a bite of the [name]. Delicious!</span>")
+			to_chat(user, SPAN_NOTICE("You take a bite of the [name]. Delicious!"))
 		else
-			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			to_chat(user, SPAN_WARNING("There is no more of [name] left!"))
 			qdel(src)
 
 /obj/item/toy/crayon/examine(mob/user)
@@ -166,9 +166,9 @@
 	if(!user.Adjacent(src) || !times_eaten)
 		return
 	if(times_eaten == 1)
-		. += "<span class='notice'>[src] was bitten by someone!</span>"
+		. += SPAN_NOTICE("[src] was bitten by someone!")
 	else
-		. += "<span class='notice'>[src] was bitten multiple times!</span>"
+		. += SPAN_NOTICE("[src] was bitten multiple times!")
 
 /obj/item/toy/crayon/red
 	name = "red crayon"
@@ -322,7 +322,7 @@
 	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You [capped ? "remove" : "replace"] the cap of [src]."))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -338,7 +338,7 @@
 	if(!proximity_flag)
 		return
 	if(capped)
-		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
+		to_chat(user, SPAN_WARNING("You cannot spray [target] while the cap is still on!"))
 		return
 	if(istype(target, /obj/item/clothing/head/cardborg) || istype(target, /obj/item/clothing/suit/cardborg))	// Spraypainting your cardborg suit for more fashion options.
 		cardborg_recolor(target, user)
@@ -347,10 +347,10 @@
 		return
 	var/mob/living/carbon/human/attackee = target
 	if(uses < 10)
-		to_chat(user, "<span class='warning'>Theres not enough paint left to have an effect!</span>")
+		to_chat(user, SPAN_WARNING("Theres not enough paint left to have an effect!"))
 		return
 	uses -= 10
-	user.visible_message("<span class='danger'>[user] sprays [src] into the face of [target]!</span>")
+	user.visible_message(SPAN_DANGER("[user] sprays [src] into the face of [target]!"))
 	if(!attackee.is_eyes_covered()) // eyes aren't covered? ARGH IT BURNS.
 		attackee.Confused(6 SECONDS)
 		attackee.KnockDown(6 SECONDS)

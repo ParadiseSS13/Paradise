@@ -478,13 +478,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			break
 	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 	if(!RNC) // Could not find the RND server. It probably blew up.
-		to_chat(src, "<span class='warning'>No research server found!</span>")
+		to_chat(src, SPAN_WARNING("No research server found!"))
 		return
 
 	var/upgraded = FALSE
 	var/datum/research/files = RNC.research_files
 	if(!files)
-		to_chat(src, "<span class='warning'>No research server found!</span>")
+		to_chat(src, SPAN_WARNING("No research server found!"))
 		return
 	var/list/possible_tech = list()
 	for(var/datum/tech/T in files.possible_tech)
@@ -493,7 +493,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
 		// If there are no possible techs to upgrade, stop the program
 		if(!tech_to_upgrade)
-			to_chat(src, "<span class='notice'>Current research cannot be discovered any further.</span>")
+			to_chat(src, SPAN_NOTICE("Current research cannot be discovered any further."))
 			research_subsystem = FALSE
 			return
 		// No illegals until level 10
@@ -703,7 +703,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(world.time < next_text_announcement)
-		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
+		to_chat(src, SPAN_WARNING("Please allow one minute to pass between announcements."))
 		return
 
 	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
@@ -757,7 +757,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Toggle Floor Bolts"
 
 	if(stat == DEAD)
-		to_chat(src, "<span class='warning'>You are dead!</span>")
+		to_chat(src, SPAN_WARNING("You are dead!"))
 		return
 
 	if(!isturf(loc)) // if their location isn't a turf
@@ -843,7 +843,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(H)
 				H.attack_ai(src) //may as well recycle
 			else
-				to_chat(src, "<span class='notice'>Unable to locate the holopad.</span>")
+				to_chat(src, SPAN_NOTICE("Unable to locate the holopad."))
 
 	if(href_list["say_word"])
 		play_vox_word(href_list["say_word"], null, src)
@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
-			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+			to_chat(src, SPAN_WARNING("Target is not on or near any active cameras on the station."))
 		return
 
 	if(href_list["trackbot"])
@@ -862,7 +862,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(target))
 			ai_actual_track(target)
 		else
-			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+			to_chat(src, SPAN_WARNING("Target is not on or near any active cameras on the station."))
 		return
 
 	if(href_list["ai_take_control"]) //Mech domination
@@ -882,19 +882,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 
 		if(controlled_mech)
-			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
+			to_chat(src, SPAN_WARNING("You are already loaded into an onboard computer!"))
 			return
 		if(!GLOB.cameranet.check_camera_vis(M))
-			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
+			to_chat(src, SPAN_WARNING("Exosuit is no longer near active cameras."))
 			return
 		if(lacks_power())
-			to_chat(src, "<span class='warning'>You're depowered!</span>")
+			to_chat(src, SPAN_WARNING("You're depowered!"))
 			return
 		if(!isturf(loc))
-			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
+			to_chat(src, SPAN_WARNING("You aren't in your core!"))
 			return
 		if(M.occupant && !can_dominate_mechs)
-			to_chat(src, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
+			to_chat(src, SPAN_WARNING("This exosuit has a pilot and cannot be controlled."))
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
@@ -926,7 +926,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
 	if(stat == DEAD)
-		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
+		to_chat(src, SPAN_DANGER("Critical error. System offline."))
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
@@ -944,7 +944,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(turf_check))
 		call_bot(turf_check)
 	else
-		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
+		to_chat(src, SPAN_DANGER("Selected location is not visible."))
 
 /mob/living/silicon/ai/proc/call_bot(turf/waypoint)
 
@@ -952,7 +952,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(Bot.calling_ai && Bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
-		to_chat(src, "<span class='danger'>Interface error. Unit is already in use.</span>")
+		to_chat(src, SPAN_DANGER("Interface error. Unit is already in use."))
 		return
 
 	Bot.call_bot(src, waypoint)
@@ -1056,7 +1056,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(network in C.network)
 				U.eyeobj.set_loc(get_turf(C))
 				break
-	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
+	to_chat(src, SPAN_NOTICE("Switched to [network] camera network."))
 //End of code by Mord_Sith
 
 /mob/living/silicon/ai/proc/ai_statuschange()
@@ -1395,18 +1395,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		user.visible_message("<span class='notice'>[user] starts to unbolt [src] from the plating...</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts to unbolt [src] from the plating..."))
 		if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
-			user.visible_message("<span class='notice'>[user] decides not to unbolt [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] decides not to unbolt [src]."))
 			return
-		user.visible_message("<span class='notice'>[user] finishes unfastening [src]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] finishes unfastening [src]!"))
 		anchored = FALSE
 		return
-	user.visible_message("<span class='notice'>[user] starts to bolt [src] to the plating...</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts to bolt [src] to the plating..."))
 	if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
-		user.visible_message("<span class='notice'>[user] decides not to bolt [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] decides not to bolt [src]."))
 		return FALSE
-	user.visible_message("<span class='notice'>[user] finishes fastening down [src]!</span>")
+	user.visible_message(SPAN_NOTICE("[user] finishes fastening down [src]!"))
 	anchored = TRUE
 
 /mob/living/silicon/ai/welder_act()
@@ -1427,18 +1427,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/check_unable(flags = 0)
 	if(stat == DEAD)
-		to_chat(src, "<span class='warning'>You are dead!</span>")
+		to_chat(src, SPAN_WARNING("You are dead!"))
 		return TRUE
 
 	if(lacks_power())
-		to_chat(src, "<span class='warning'>Power systems failure!</span>")
+		to_chat(src, SPAN_WARNING("Power systems failure!"))
 		return TRUE
 
 	if((flags & AI_CHECK_WIRELESS) && control_disabled)
-		to_chat(src, "<span class='warning'>Wireless control is disabled!</span>")
+		to_chat(src, SPAN_WARNING("Wireless control is disabled!"))
 		return TRUE
 	if((flags & AI_CHECK_RADIO) && aiRadio.disabledAi)
-		to_chat(src, "<span class='warning'>System Error - Transceiver Disabled!</span>")
+		to_chat(src, SPAN_WARNING("System Error - Transceiver Disabled!"))
 		return TRUE
 	return FALSE
 
@@ -1450,14 +1450,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
 		if(!mind)
-			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
+			to_chat(user, SPAN_WARNING("No intelligence patterns detected."))//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
 
 		if(stat != DEAD)
-			to_chat(user, "<span class='notice'>Beginning active intelligence transfer: please wait.</span>")
+			to_chat(user, SPAN_NOTICE("Beginning active intelligence transfer: please wait."))
 
 			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
-				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
+				to_chat(user, SPAN_WARNING("Intelligence transfer aborted."))
 				return
 
 		new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
@@ -1470,7 +1470,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			program_picker.reset_programs()
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+		to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
@@ -1490,7 +1490,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/message = combine_message(message_pieces, verb, M)
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
+	var/rendered = "<i><span class='game say'>Relayed Speech: [SPAN_NAME("[name_used]")] [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
 		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
@@ -1500,7 +1500,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!program_picker)
 		return
 	program_picker.reset_programs()
-	to_chat(src, "<span class='notice'>Your programs have been reset to factory settings!</span>")
+	to_chat(src, SPAN_NOTICE("Your programs have been reset to factory settings!"))
 	src.throw_alert("programsreset", /atom/movable/screen/alert/programs_reset)
 
 /mob/living/silicon/ai/proc/add_program_picker()
@@ -1515,10 +1515,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	clear_alert("hackingapc")
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
-		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
+		to_chat(src, SPAN_DANGER("Hack aborted. The designated APC no longer exists on the power network."))
 		SEND_SOUND(src, sound('sound/machines/buzz-two.ogg'))
 	else if(apc.aidisabled)
-		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
+		to_chat(src, SPAN_DANGER("Hack aborted. [apc] is no longer responding to our systems."))
 		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
 		malf_picker.processing_time += 15
@@ -1578,16 +1578,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			switch(tgui_alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
 				if("Yes")
 					if(!A.density)
-						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
+						to_chat(src, SPAN_NOTICE("[A] was already opened."))
 					else if(A.open_close(src))
-						to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
+						to_chat(src, SPAN_NOTICE("You open \the [A] for [target]."))
 				else
-					to_chat(src, "<span class='warning'>You deny the request.</span>")
+					to_chat(src, SPAN_WARNING("You deny the request."))
 		else
-			to_chat(src, "<span class='warning'>Unable to locate an airlock near [target].</span>")
+			to_chat(src, SPAN_WARNING("Unable to locate an airlock near [target]."))
 
 	else
-		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+		to_chat(src, SPAN_WARNING("Target is not on or near any active cameras on the station."))
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/core()
@@ -1682,16 +1682,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/component/ducttape/ducttapecomponent = card.GetComponent(/datum/component/ducttape)
 	if(!ducttapecomponent)
 		return
-	to_chat(src, "<span class='notice'>The tiny fan that could begins to work against the tape to remove it.</span>")
+	to_chat(src, SPAN_NOTICE("The tiny fan that could begins to work against the tape to remove it."))
 	if(!do_after(src, 2 MINUTES, target = card))
 		return
-	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
+	to_chat(src, SPAN_NOTICE("The tiny in built fan finally removes the tape!"))
 	ducttapecomponent.remove_tape(card, src)
 
 //Stores the location of the AI to the value of stored_locations associated with location_number.
 /mob/living/silicon/ai/proc/store_location(location_number)
 	if(!isturf(eyeobj.loc)) //i.e., inside a mech or other shenanigans
-		to_chat(src, "<span class='warning'>You can't set a location here!</span>")
+		to_chat(src, SPAN_WARNING("You can't set a location here!"))
 		return FALSE
 
 	stored_locations[location_number] = eyeobj.loc

@@ -121,6 +121,16 @@
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
+/obj/item/clothing/head/santahat
+	name = "\improper Santa hat"
+	desc = "A festive red hat."
+	icon_state = "santahat"
+	dog_fashion = /datum/dog_fashion/head/santa
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/Grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/Drask/helmet.dmi'
+		)
+
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
@@ -253,7 +263,7 @@
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("<span class='notice'>[user] tips [user.p_their()] fedora.</span>", "<span class='notice'>You tip your fedora.</span>")
+	user.visible_message(SPAN_NOTICE("[user] tips [user.p_their()] fedora."), SPAN_NOTICE("You tip your fedora."))
 
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"

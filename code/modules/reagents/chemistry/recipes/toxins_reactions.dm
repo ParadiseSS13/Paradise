@@ -29,7 +29,7 @@
 
 /datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	T.visible_message(SPAN_WARNING("The solution generates a strong vapor!"))
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("cyanide", 7)
@@ -96,7 +96,7 @@
 
 /datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	T.visible_message(SPAN_WARNING("The solution generates a strong vapor!"))
 	for(var/mob/living/carbon/C in range(T, 2))
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("sarin", 4)
@@ -147,7 +147,7 @@
 	result = "teslium"
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
+	mix_message = SPAN_DANGER("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	min_temp = T0C + 50
 	mix_sound = null
 
@@ -169,4 +169,4 @@
 	result = "rotatium"
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
+	mix_message = SPAN_DANGER("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")

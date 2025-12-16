@@ -64,7 +64,7 @@
 		return
 
 	if(user.get_active_hand() != P || !P.get_heat())
-		to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
+		to_chat(user, SPAN_WARNING("You must hold [P] steady to burn [src]."))
 		return
 
 	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
@@ -83,8 +83,8 @@
 	if(in_range(user, src) || isobserver(user))
 		show(user)
 	else
-		. += "<span class='notice'>It is too far away.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+		. += SPAN_NOTICE("It is too far away.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] with a pen in hand to rename it.")
 
 /obj/item/photo/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -204,8 +204,8 @@
 /obj/item/camera/examine(mob/user)
 	. = ..()
 	if(!digital)
-		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> [src] to change the photo size.</span>"
+		. += SPAN_NOTICE("There is [pictures_left] photos left.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] to change the photo size.")
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -239,13 +239,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	flashing_light = !flashing_light
 
-	to_chat(user, "<span class='notice'>You turn [src]'s flash [flashing_light ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You turn [src]'s flash [flashing_light ? "on" : "off"]."))
 
 /obj/item/camera/proc/change_size(mob/user)
 	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
-		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
+		to_chat(user, SPAN_NOTICE("Camera will now take [size]x[size] photos."))
 
 /obj/item/camera/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/activate_self(mob/user)
 	. = ..()
 	if(on_cooldown)
-		to_chat(user, "<span class='notice'>[src] is still on cooldown!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is still on cooldown!"))
 		return
 	on = !on
 	if(on)
@@ -266,9 +266,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/camera_film))
 		if(pictures_left > 0)
-			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
+			to_chat(user, SPAN_NOTICE("[src] still has some film in it!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 		user.drop_item()
 		qdel(used)
 		pictures_left = pictures_max
@@ -423,7 +423,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.1 SECONDS)
 
 	captureimage(target, user)
-	to_chat(user, "<span class='notice'>[pictures_left] photo\s left.</span>")
+	to_chat(user, SPAN_NOTICE("[pictures_left] photo\s left."))
 	icon_state = icon_off
 
 	handle_haunt(user)
@@ -539,9 +539,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
-	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
+	. += SPAN_NOTICE("A small screen shows that there are currently [length(saved_pictures)] pictures stored.")
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> [src] to print a specific photo.")
+	. += SPAN_NOTICE("<b>Ctrl-Shift-Click</b> [src] to delete a specific photo.")
 
 /obj/item/camera/digital/take_photo(atom/target, mob/user)
 	if(!on || !pictures_left || ismob(target.loc))
@@ -558,7 +558,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user)
 	if(length(saved_pictures) >= max_storage)
-		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
+		to_chat(user, SPAN_NOTICE("Maximum photo storage capacity reached."))
 		return
 	to_chat(user, "Picture saved.")
 	var/x_c = target.x - (size-1)/2
@@ -583,10 +583,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!length(saved_pictures))
-		to_chat(user, "<span class='userdanger'>No images saved.</span>")
+		to_chat(user, SPAN_USERDANGER("No images saved."))
 		return
 	if(!pictures_left)
-		to_chat(user, "<span class='userdanger'>There is no film left to print.</span>")
+		to_chat(user, SPAN_USERDANGER("There is no film left to print."))
 		return
 
 	var/datum/picture/picture
@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	if(!length(saved_pictures))
-		to_chat(user, "<span class='userdanger'>No images saved</span>")
+		to_chat(user, SPAN_USERDANGER("No images saved"))
 		return
 	var/datum/picture/picture
 	picture = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
@@ -639,7 +639,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		camera.turn_off(null, 0)
 		QDEL_NULL(camera)
-	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
+	visible_message(SPAN_NOTICE("The video camera has been turned [on ? "on" : "off"]."))
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
 		if(on)
 			TV.feeds_on++
@@ -656,11 +656,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		camera.turn_off(null, 0)
 		QDEL_NULL(camera)
-		visible_message("<span class='notice'>The video camera turns off.</span>")
+		visible_message(SPAN_NOTICE("The video camera turns off."))
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, video_cooldown))
-		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
+		to_chat(user, SPAN_WARNING("[src] is overheating, give it some time."))
 		return
 	camera_state(user)
 
