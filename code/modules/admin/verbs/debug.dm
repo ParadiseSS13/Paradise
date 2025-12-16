@@ -784,7 +784,7 @@ USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", 
 	if(!bug_reports[selection])
 		return
 	var/datum/tgui_bug_report_form/form = read_bug_report(bug_reports[selection])
-	if(!form?.assign_approver(client))
+	if(!form?.assign_approver(client.mob))
 		qdel(form)
 		return
 	form.ui_interact(client.mob)
