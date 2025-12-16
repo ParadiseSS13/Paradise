@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Collapsible, Divider, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { Box, Button, Divider, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -21,6 +21,7 @@ export const NuclearRodFabricator = (props) => {
   const [selectedRod, setSelectedRod] = useState(null);
   const [hoveredRod, setHoveredRod] = useState(null);
   const [activeTab, setActiveTab] = useState(TABS.FABRICATE);
+  const [categoryTab, setCategoryTab] = useState('fuel_rods');
 
   const totalRods =
     (data.fuel_rods?.length || 0) + (data.moderator_rods?.length || 0) + (data.coolant_rods?.length || 0);
@@ -48,44 +49,71 @@ export const NuclearRodFabricator = (props) => {
                 {/* Left Side */}
                 <Stack.Item width="50%">
                   <Section title={`Available Designs`} fill scrollable>
-                    {categories.map((cat) => {
-                      const list = data[cat.key] || [];
-                      return (
-                        <Collapsible key={cat.key} title={cat.title} open={cat.key === 'fuel_rods'}>
-                          {list.length === 0 && (
-                            <Box color="average" p={1}>
-                              No {cat.title.toLowerCase()} available.
-                            </Box>
-                          )}
+                    {/* Category Tabs */}
+                    <Tabs>
+                      <Tabs.Tab
+                        icon="atom"
+                        selected={categoryTab === 'fuel_rods'}
+                        onClick={() => setCategoryTab('fuel_rods')}
+                      >
+                        Fuel Rods
+                      </Tabs.Tab>
+                      <Tabs.Tab
+                        icon="cubes"
+                        selected={categoryTab === 'moderator_rods'}
+                        onClick={() => setCategoryTab('moderator_rods')}
+                      >
+                        Moderator Rods
+                      </Tabs.Tab>
+                      <Tabs.Tab
+                        icon="snowflake"
+                        selected={categoryTab === 'coolant_rods'}
+                        onClick={() => setCategoryTab('coolant_rods')}
+                      >
+                        Coolant Rods
+                      </Tabs.Tab>
+                    </Tabs>
 
-                          {list.map((rod, i) => (
-                            <Box
-                              key={i}
-                              p={1}
-                              mb={0.5}
-                              style={{
-                                cursor: 'pointer',
-                                backgroundColor:
-                                  selectedRod?.type_path === rod.type_path
-                                    ? 'rgba(80, 140, 255, 0.25)'
-                                    : hoveredRod?.type_path === rod.type_path
-                                      ? 'rgba(255,255,255,0.08)'
-                                      : 'rgba(255,255,255,0.03)',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                              }}
-                              onClick={() => setSelectedRod(rod)}
-                              onMouseEnter={() => setHoveredRod(rod)}
-                              onMouseLeave={() => setHoveredRod(null)}
-                            >
-                              <Box bold>{rod.name}</Box>
-                              <Box fontSize="0.85em" color="label">
-                                {rod.desc}
-                              </Box>
+                    {/* Rod List */}
+                    <Box mt={1}>
+                      {(() => {
+                        const list = data[categoryTab] || [];
+
+                        if (list.length === 0) {
+                          return (
+                            <Box color="average" p={1}>
+                              No {categories.find((c) => c.key === categoryTab)?.title.toLowerCase()} available.
                             </Box>
-                          ))}
-                        </Collapsible>
-                      );
-                    })}
+                          );
+                        }
+
+                        return list.map((rod, i) => (
+                          <Box
+                            key={i}
+                            p={1}
+                            mb={0.5}
+                            style={{
+                              cursor: 'pointer',
+                              backgroundColor:
+                                selectedRod?.type_path === rod.type_path
+                                  ? 'rgba(80, 140, 255, 0.25)'
+                                  : hoveredRod?.type_path === rod.type_path
+                                    ? 'rgba(255,255,255,0.08)'
+                                    : 'rgba(255,255,255,0.03)',
+                              border: '1px solid rgba(255,255,255,0.08)',
+                            }}
+                            onClick={() => setSelectedRod(rod)}
+                            onMouseEnter={() => setHoveredRod(rod)}
+                            onMouseLeave={() => setHoveredRod(null)}
+                          >
+                            <Box bold>{rod.name}</Box>
+                            <Box fontSize="0.85em" color="label">
+                              {rod.desc}
+                            </Box>
+                          </Box>
+                        ));
+                      })()}
+                    </Box>
                   </Section>
                 </Stack.Item>
 
@@ -96,18 +124,8 @@ export const NuclearRodFabricator = (props) => {
 
                     {selectedRod && (
                       <Stack vertical fill>
-                        <Box bold fontSize="1.2em">
-                          {selectedRod.name}
-                        </Box>
-
-                        <Box mb={1} color="label">
-                          {selectedRod.desc}
-                        </Box>
-
-                        <Divider />
-
                         {/* Rod Statistics */}
-                        <Section title="Rod Statistics">
+                        <Section title={selectedRod.name}>
                           <Table>
                             <Table.Row>
                               <Table.Cell bold>Power Generation:</Table.Cell>
