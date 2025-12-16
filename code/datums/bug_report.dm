@@ -96,10 +96,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	if(approving_user)
 		if(user.ckey == approving_user)
-			to_chat(user, "<span class='warning'>This bug report review is already opened and accessed by you.</span>")
+			to_chat(user, SPAN_WARNING("This bug report review is already opened and accessed by you."))
 			return FALSE
 		else
-			to_chat(user, "<span class='warning'>[approving_user] is currently accessing this report, it will open in read only mode.</span>")
+			to_chat(user, SPAN_WARNING("[approving_user] is currently accessing this report, it will open in read only mode."))
 			return TRUE
 
 	approving_user = user.ckey
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		var/client/initial_user = locateUID(initial_user_uid)
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		if(initial_user)
-			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+			to_chat(initial_user, SPAN_NOTICE("An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!"))
 		// Update bug report status on the DB
 		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 		if(!query_update_submission.warn_execute())
@@ -195,8 +195,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	file_time = SQLtime()
 	if(!save_to_db())
 		external_link_prompt(initial_user)
+		return
 	if(initial_user)
-		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
+		to_chat(initial_user, SPAN_NOTICE("Your bug report has been submitted, thank you!"))
 	message_roles(chat_box_green("[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab"), R_DEBUG|R_VIEWRUNTIMES|R_ADMIN)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
@@ -248,7 +249,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [SQLtime()].")
 		var/client/initial_user = locateUID(initial_user_uid)
 		if(initial_user)
-			to_chat(initial_user, "<span class='warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+			to_chat(initial_user, SPAN_WARNING("A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue."))
 	qdel(query_update_submission)
 
 /// Populates a list using the bug reports db table and returns it
