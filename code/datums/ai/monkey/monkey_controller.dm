@@ -55,7 +55,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 
 /datum/ai_controller/monkey/pun_pun
-	movement_delay = 0.7 SECONDS // pun pun moves slower so the bartender can keep track of them
+	movement_delay = 7 DECISECONDS // pun pun moves slower so the bartender can keep track of them
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/monkey_combat,
