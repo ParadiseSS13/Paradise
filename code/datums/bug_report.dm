@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		return FALSE
 
 	if(!initial_key)
-		to_chat(user, "<span class='warning'>Unable to identify the author of the bug report.</span>")
+		to_chat(user, SPAN_WARNING("Unable to identify the author of the bug report."))
 		return FALSE
 
 	if(approving_user)
@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	var/datum/http_response/response = request.into_response()
 	if(response.errored || response.status_code != STATUS_SUCCESS)
-		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
+		message_admins(SPAN_ADMINNOTICE("The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord."))
 		external_link_prompt(user)
 	else
 		var/client/initial_user = locateUID(initial_user_uid)
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	switch(action)
 		if("confirm")
 			if(selected_confirm) // prevent someone from spamming the approve button
-				to_chat(user, "<span class='warning'>You have already approved this submission, please wait a moment for the API to process your submission.</span>")
+				to_chat(user, SPAN_WARNING("You have already approved this submission, please wait a moment for the API to process your submission."))
 				return
 			bug_report_data = sanitize_payload(params)
 			add_metadata(user)

@@ -32,7 +32,7 @@
 
 /obj/machinery/salvage_redemption/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
+	. += SPAN_NOTICE("There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]")
 
 /obj/machinery/salvage_redemption/update_icon_state()
 	. = ..()
@@ -62,32 +62,32 @@
 		return ..()
 
 	if(animating)
-		to_chat(user, "<span class='warning'>The machine is currently processing salvage at the moment.</span>");
+		to_chat(user, SPAN_WARNING("The machine is currently processing salvage at the moment."));
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/ID = used
 		if(!points)
-			to_chat(user, "<span class='warning'>There are no points to claim.</span>");
+			to_chat(user, SPAN_WARNING("There are no points to claim."));
 			return ITEM_INTERACT_COMPLETE
 		var/claimed = FALSE
 		for(var/access in req_access_claim)
 			if(anyone_claim || (access in ID.access))
 				ID.mining_points += points
 				ID.total_mining_points += points
-				to_chat(user, "<span class='notice'><b>[points] Salvage Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Salvage Points</b> this Shift!</span>")
+				to_chat(user, SPAN_NOTICE("<b>[points] Salvage Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Salvage Points</b> this Shift!"))
 				points = 0
 				claimed = TRUE
 				break
 		if(!claimed)
-			to_chat(user, "<span class='warning'>Required access not found.</span>")
+			to_chat(user, SPAN_WARNING("Required access not found."))
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/storage/bag/expedition))
 		var/obj/item/storage/bag/expedition/bag = used
 		if(!length(bag.contents))
-			to_chat(user, "<span class='warning'>You have no salvage to redeem.</span>");
+			to_chat(user, SPAN_WARNING("You have no salvage to redeem."));
 			return ITEM_INTERACT_COMPLETE
 		for(var/obj/item/salvage/loot in bag.contents)
 			salvage_buffer |= loot
@@ -97,7 +97,7 @@
 
 	if(istype(used, /obj/item/salvage))
 		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/salvage/loot = used
 		salvage_buffer |= loot

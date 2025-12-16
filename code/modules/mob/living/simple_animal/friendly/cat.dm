@@ -274,8 +274,8 @@
 
 	if(stat == DEAD)
 		if(++final_bites >= total_final_bites)
-			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</span>")
-			to_chat(L, "<span class='notice'>Whoa, that last bite tasted weird.</span>")
+			visible_message(SPAN_DANGER("[L] finished eating [src], there's nothing left!"))
+			to_chat(L, SPAN_NOTICE("Whoa, that last bite tasted weird."))
 			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 
@@ -294,5 +294,5 @@
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
 	if(!new_name)
 		return
-	to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
+	to_chat(src, SPAN_NOTICE("Your name is now <b>\"[new_name]\"</b>!"))
 	name = new_name

@@ -709,14 +709,14 @@
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
 						if(!length(possible_targets_random))
-							to_chat(usr, "<span class='warning'>No random target found. Pick one manually.</span>")
+							to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
 							return
 						new_target = pick(possible_targets_random)
 
 					if(!new_target)
 						return
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					to_chat(usr, SPAN_WARNING("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
@@ -859,7 +859,7 @@
 				for(var/obj/item/bio_chip/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><font size='3'><b>Your mindshield bio-chip has been deactivated.</b></font></span>")
+				to_chat(H, SPAN_NOTICE("<font size='3'><b>Your mindshield bio-chip has been deactivated.</b></font>"))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
@@ -869,11 +869,11 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield bio-chip")
 
-				to_chat(H, "<span class='userdanger'>You somehow have become the recipient of a mindshield transplant, and it just activated!</span>")
+				to_chat(H, SPAN_USERDANGER("You somehow have become the recipient of a mindshield transplant, and it just activated!"))
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
 					remove_antag_datum(/datum/antagonist/rev, silent_removal = TRUE) // we have some custom text, lets make the removal silent
-					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!</span>")
+					to_chat(H, SPAN_USERDANGER("The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!"))
 
 	else if(href_list["revolution"])
 
@@ -926,7 +926,7 @@
 			if("flash")
 				var/datum/antagonist/rev/head/headrev = has_antag_datum(/datum/antagonist/rev/head)
 				if(!headrev.equip_revolutionary(TRUE, FALSE))
-					to_chat(usr, "<span class='warning'>Spawning flash failed!</span>")
+					to_chat(usr, SPAN_WARNING("Spawning flash failed!"))
 				log_admin("[key_name(usr)] has given [key_name(current)] a flash")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a flash")
 
@@ -934,7 +934,7 @@
 				var/list/L = current.get_contents()
 				var/obj/item/flash/flash = locate() in L
 				if(!flash)
-					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
+					to_chat(usr, SPAN_WARNING("Deleting flash failed!"))
 				qdel(flash)
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s flash")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s flash")
@@ -943,7 +943,7 @@
 				var/list/L = current.get_contents()
 				var/obj/item/flash/flash = locate() in L
 				if(!flash)
-					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
+					to_chat(usr, SPAN_WARNING("Repairing flash failed!"))
 				else
 					flash.broken = FALSE
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
@@ -956,7 +956,7 @@
 				take_uplink()
 				var/datum/antagonist/rev/head/headrev = has_antag_datum(/datum/antagonist/rev/head)
 				if(!headrev.equip_revolutionary())
-					to_chat(usr, "<span class='warning'>Reequipping revolutionary went wrong!</span>")
+					to_chat(usr, SPAN_WARNING("Reequipping revolutionary went wrong!"))
 					return
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a revolutionary")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a revolutionary")
@@ -971,17 +971,17 @@
 			if("cultist")
 				if(!has_antag_datum(/datum/antagonist/cultist))
 					add_antag_datum(/datum/antagonist/cultist)
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back.</span>")
+					to_chat(current, SPAN_CULTITALIC("Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back."))
 					log_and_message_admins("has culted [key_name(current)]")
 			if("dagger")
 				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
 				if(!cultist.cult_give_item(/obj/item/melee/cultblade/dagger))
-					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
+					to_chat(usr, SPAN_WARNING("Spawning dagger failed!"))
 				log_and_message_admins("has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")
 				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
 				if(!cultist.cult_give_item(/obj/item/stack/sheet/runed_metal/ten))
-					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
+					to_chat(usr, SPAN_WARNING("Spawning runed metal failed!"))
 				log_and_message_admins("has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
@@ -1032,21 +1032,21 @@
 			if("changeling")
 				if(!IS_CHANGELING(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... We are a changeling!</span>")
+					to_chat(current, SPAN_BIGGERDANGER("Your powers have awoken. A flash of memory returns to us... We are a changeling!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
 			if("autoobjectives")
 				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 				cling.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for changeling [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, SPAN_NOTICE("The objectives for changeling [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 			if("initialdna")
 				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 				if(!cling || !length(cling.absorbed_dna))
-					to_chat(usr, "<span class='warning'>Resetting DNA failed!</span>")
+					to_chat(usr, SPAN_WARNING("Resetting DNA failed!"))
 				else
 					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
@@ -1138,7 +1138,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/vampire/V = has_antag_datum(/datum/antagonist/vampire)
 				V.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, SPAN_NOTICE("The objectives for vampire [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1181,7 +1181,7 @@
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
 					objective_holder.clear(/datum/objective/nuclear)
-					to_chat(current, "<span class='warning'><font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font></span>")
+					to_chat(current, SPAN_WARNING("<font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font>"))
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1193,7 +1193,7 @@
 					else
 						current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"
 					special_role = SPECIAL_ROLE_NUKEOPS
-					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+					to_chat(current, SPAN_NOTICE("You are a [syndicate_name()] agent!"))
 					SSticker.mode.forge_syndicate_objectives(src)
 					SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
@@ -1216,7 +1216,7 @@
 				qdel(H.w_uniform)
 
 				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
+					to_chat(usr, SPAN_WARNING("Equipping a Syndicate failed!"))
 					return
 				SSticker.mode.update_syndicate_id(current.mind, length(SSticker.mode.syndicates) == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
@@ -1234,7 +1234,7 @@
 					log_admin("[key_name(usr)] has given [key_name(current)] the nuclear authorization code")
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
-					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
+					to_chat(usr, SPAN_WARNING("No valid nuke found!"))
 
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
@@ -1309,7 +1309,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 				T.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, SPAN_NOTICE("The objectives for traitor [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1522,10 +1522,10 @@
 	else if(href_list["abductor"])
 		switch(href_list["abductor"])
 			if("clear")
-				to_chat(usr, "<span class='userdanger'>This will probably never be implemented. Sorry!</span>")
+				to_chat(usr, SPAN_USERDANGER("This will probably never be implemented. Sorry!"))
 			if("abductor")
 				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					to_chat(usr, SPAN_WARNING("This only works on humans!"))
 					return
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into an abductor.")
@@ -1580,7 +1580,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 					if(!T.give_uplink())
-						to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
+						to_chat(usr, SPAN_WARNING("Equipping a Syndicate failed!"))
 						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
@@ -1680,7 +1680,7 @@
 		return
 	var/list/text = list()
 	if(title)
-		text.Add("<span class='notice'>Your current objectives:</span>")
+		text.Add(SPAN_NOTICE("Your current objectives:"))
 	text.Add(gen_objective_text())
 	return text
 
@@ -1710,7 +1710,7 @@
 			current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"
 		special_role = SPECIAL_ROLE_NUKEOPS
 		assigned_role = SPECIAL_ROLE_NUKEOPS
-		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		to_chat(current, SPAN_NOTICE("You are a [syndicate_name()] agent!"))
 		SSticker.mode.forge_syndicate_objectives(src)
 		SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 
@@ -1842,8 +1842,8 @@
 			var/mob/living/carbon/human/H = current
 			H.update_inv_w_uniform()
 
-	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
-	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
+	to_chat(current, SPAN_WARNING("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
+	to_chat(current, SPAN_WARNING("<b>This means you don't remember who you were working for or what you were doing.</b>"))
 
 /datum/mind/proc/has_normal_assigned_role()
 	if(!assigned_role)

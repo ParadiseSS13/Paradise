@@ -90,7 +90,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, SPAN_NOTICE("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 
@@ -98,17 +98,17 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED)
-			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
+			. += SPAN_NOTICE("\The [name]'s <i>anchoring bolts</i> are loose.")
 		if(ACCELERATOR_WRENCHED)
-			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
+			. += SPAN_NOTICE("\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
 		if(ACCELERATOR_WIRED)
-			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. +=  SPAN_NOTICE("\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
 		if(ACCELERATOR_READY)
-			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
+			. += SPAN_NOTICE("\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.")
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+		. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -236,7 +236,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, SPAN_NOTICE("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 

@@ -108,10 +108,10 @@
 /obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)
 	I.play_tool_sound(src, 50)
 	if(anchored)
-		to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
+		to_chat(user, SPAN_NOTICE("You lean down and unwrench [src]."))
 		anchored = FALSE
 	else
-		to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
+		to_chat(user, SPAN_NOTICE("You wrench [src] into place."))
 		anchored = TRUE
 	return TRUE
 
@@ -127,23 +127,23 @@
 	if(!user.put_in_hands(T))
 		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
 
-	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
+	to_chat(user, SPAN_NOTICE("You take [T] out of [src]."))
 	update_icon(UPDATE_OVERLAYS)
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
 	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
-		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		to_chat(user, SPAN_WARNING("[src] is full."))
 		return
 
 	if(!user.drop_item()) // Antidrop check
-		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[T] is stuck to your hand!"))
 		return
 
 	T.forceMove(src)
 	tank_list.Add(T)
 	update_icon(UPDATE_OVERLAYS)
-	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
+	to_chat(user, SPAN_NOTICE("You put [T] in [src]."))
 	SStgui.update_uis(src)
 
 /obj/structure/dispenser/deconstruct(disassembled = TRUE)

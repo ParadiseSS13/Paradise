@@ -41,12 +41,12 @@
 
 /datum/painter/floor/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor/plasteel))
-		to_chat(user, "<span class='warning'>[holder] can only be used on station flooring.</span>")
+		to_chat(user, SPAN_WARNING("[holder] can only be used on station flooring."))
 		return
 	var/turf/simulated/floor/plasteel/F = target
 
 	if(!wide_mode && F.icon_state == floor_state && F.dir == floor_dir)
-		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		to_chat(user, SPAN_NOTICE("This is already painted [floor_state] [dir2text(floor_dir)]!"))
 		return
 
 	F.icon_state = floor_state

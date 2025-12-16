@@ -106,7 +106,7 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
+	to_chat(M, SPAN_DANGER("You pass out from hyperglycemic shock!"))
 	M.emote("faint")
 	..()
 
@@ -179,7 +179,7 @@
 	addiction_chance_additional = 10
 	addiction_threshold = 2
 	minor_addiction = TRUE
-	taste_description = "<span class='warning'>HOTNESS</span>"
+	taste_description = SPAN_WARNING("HOTNESS")
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -210,11 +210,11 @@
 	description = "This shit goes in pepper spray."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = "<span class='userdanger'>PURE FIRE</span>"
+	taste_description = SPAN_USERDANGER("PURE FIRE")
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		M.visible_message(SPAN_WARNING("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -228,7 +228,7 @@
 				victim.apply_status_effect(STATUS_EFFECT_PEPPERSPRAYED)
 
 			if(!eyes_covered)
-				to_chat(victim, "<span class='danger'>Your eyes burns!</span>")
+				to_chat(victim, SPAN_DANGER("Your eyes burns!"))
 				victim.Stun(0.5 SECONDS)
 				victim.EyeBlurry(20 SECONDS)
 				victim.EyeBlind(8 SECONDS)
@@ -656,7 +656,7 @@
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(8))
-		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
+		to_chat(M, SPAN_WARNING("You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat."))
 		update_flags |= M.adjustToxLoss(rand(1,2), FALSE)
 	return list(0, update_flags)
 
@@ -751,12 +751,12 @@
 /datum/reagent/consumable/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
+		to_chat(M, SPAN_WARNING("You feel horribly weak."))
 	if(prob(10))
-		to_chat(M, "<span class='warning'>You cannot breathe!</span>")
+		to_chat(M, SPAN_WARNING("You cannot breathe!"))
 		update_flags |= M.adjustOxyLoss(5, FALSE)
 	if(prob(5))
-		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
+		to_chat(M, SPAN_WARNING("You feel a sharp pain in your chest!"))
 		update_flags |= M.adjustOxyLoss(25, FALSE)
 		M.Stun(10 SECONDS)
 		M.Paralyse(20 SECONDS)
@@ -808,9 +808,9 @@
 /datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		if(volume <= 1)
-			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+			to_chat(M, SPAN_NOTICE("Your nostrils tingle briefly."))
 		else
-			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			to_chat(M, SPAN_WARNING("Your nostrils burn uncomfortably!"))
 			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
@@ -827,7 +827,7 @@
 /datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
-			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+			to_chat(H, SPAN_DANGER("Ugh! Eating that was a terrible idea!"))
 			if(!H.HasDisease(/datum/disease/food_poisoning))
 				H.fakevomit(no_text = TRUE)
 		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
@@ -850,7 +850,7 @@
 		if(prob(10))
 			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		if(prob(7))
-			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
+			to_chat(M, SPAN_WARNING("A horrible migraine overpowers you."))
 			M.Stun(rand(4 SECONDS, 10 SECONDS))
 	return ..() | update_flags
 
@@ -865,14 +865,14 @@
 /datum/reagent/cholesterol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(volume >= 25 && prob(volume*0.15))
-		to_chat(M, "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>")
+		to_chat(M, SPAN_WARNING("Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!"))
 		update_flags |= M.adjustToxLoss(rand(1,2), FALSE)
 	else if(volume >= 45 && prob(volume*0.08))
-		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
+		to_chat(M, SPAN_WARNING("Your chest [pick("hurts","stings","aches","burns")]!"))
 		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		M.Stun(2 SECONDS)
 	else if(volume >= 150 && prob(volume*0.01))
-		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
+		to_chat(M, SPAN_WARNING("Your chest is burning with pain!"))
 		M.Weaken(2 SECONDS)
 		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags
@@ -889,13 +889,13 @@
 	if(method == REAGENT_INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
-			to_chat(M, "<span class='warning'>You feel very sick.</span>")
+			to_chat(M, SPAN_WARNING("You feel very sick."))
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
-			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
+			to_chat(M, SPAN_WARNING("That tasted absolutely FOUL."))
 			M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 		else
-			to_chat(M, "<span class='warning'>Yuck!</span>")
+			to_chat(M, SPAN_WARNING("Yuck!"))
 
 /datum/reagent/ectoplasm
 	name = "Ectoplasm"
@@ -909,14 +909,14 @@
 /datum/reagent/ectoplasm/on_mob_life(mob/living/M)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
 	if(prob(8))
-		to_chat(M, "<span class='warning'>[spooky_message]</span>")
+		to_chat(M, SPAN_WARNING("[spooky_message]"))
 	return ..()
 
 /datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		M.reagents.add_reagent("sodiumchloride", rand(10, 20))	// The salt!
 		var/spooky_eat = pick("A wave of seething anger briefly passes over you!", "This is all bullshit!", "You internally seethe and mald.", "You briefly see a dense halo of spirits taunting you!")
-		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
+		to_chat(M, SPAN_WARNING("[spooky_eat]"))
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))

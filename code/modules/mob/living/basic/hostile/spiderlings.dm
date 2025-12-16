@@ -72,7 +72,7 @@
 			S.key = C.key
 			dust_if_respawnable(C)
 			if(S.master_commander)
-				to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+				to_chat(S, SPAN_BIGGERDANGER("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 	qdel(src)
 
 /mob/living/basic/spiderling/death(gibbed)
@@ -83,8 +83,8 @@
 /mob/living/basic/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
 		return ..()
-	user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-	"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+	user.visible_message(SPAN_NOTICE("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+	SPAN_WARNING("It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises."))
 	C.stored_comms["metal"] += 2
 	C.stored_comms["glass"] += 1
 	playsound(src, 'sound/misc/demon_consume.ogg', 10, TRUE, SOUND_RANGE_SET(4))

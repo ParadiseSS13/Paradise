@@ -164,7 +164,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(stat == CONSCIOUS && eggsleft < 8)
 		eggsleft += rand(1, 4)
 	else
-		to_chat(feeder, "<span class='warning'>[src] doesn't seem hungry!</span>")
+		to_chat(feeder, SPAN_WARNING("[src] doesn't seem hungry!"))
 		return COMSIG_MOB_CANCEL_EAT
 
 /mob/living/basic/chicken/attack_hand(mob/living/carbon/human/M)

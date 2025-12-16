@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
-			to_chat(world, "<span class='boldannounceooc'>Rebooting world immediately due to host request</span>")
+			to_chat(world, SPAN_BOLDANNOUNCEOOC("Rebooting world immediately due to host request"))
 		rustlibs_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(GLOB.configuration.system.shutdown_on_reboot)
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the stats URL if applicable
 	if(GLOB.configuration.url.round_stats_url && GLOB.round_id)
 		var/stats_link = "[GLOB.configuration.url.round_stats_url][GLOB.round_id]"
-		to_chat(world, "<span class='notice'>Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a></span>")
+		to_chat(world, SPAN_NOTICE("Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a>"))
 
 	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	if(GLOB.slower_restart)
