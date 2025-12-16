@@ -98,7 +98,7 @@
 						success = TRUE
 						break
 				else
-					victim.visible_message(SPAN_DANGER("[living_pawn] tried to snatch [target] from [victim], but failed!"), SPAN_USERDANGER("[living_pawn] tried to grab [target]!?))
+					victim.visible_message(SPAN_DANGER("[living_pawn] tried to snatch [target] from [victim], but failed!"), SPAN_USERDANGER("[living_pawn] tried to grab [target]!?"))
 
 	finish_action(controller, success) // We either fucked up or got the item.
 
