@@ -171,13 +171,13 @@
 /obj/item/gun/projectile/automatic/paintball_gun/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += "<span class='warning'>The paint selector is covered in yellow sludge!</span>"
+		. += SPAN_WARNING("The paint selector is covered in yellow sludge!")
 	else if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
-		. += "<span class='warning'>A magazine of pepperballs is loaded!</span>"
+		. += SPAN_WARNING("A magazine of pepperballs is loaded!")
 	else
-		. += "<span class='notice'>It is configured to fire [paintball_color] paintballs.</span>"
+		. += SPAN_NOTICE("It is configured to fire [paintball_color] paintballs.")
 	if(emagged)
-		. += "<span class='warning'>The air compressor sparks dangerously.</span>"
+		. +=SPAN_WARNING("The air compressor sparks dangerously.")
 
 /obj/item/gun/projectile/automatic/paintball_gun/update_icon_state()
 	icon_state = "paintgun"
@@ -230,6 +230,7 @@
 
 /obj/item/gun/projectile/automatic/paintball_gun/cmag_act(mob/user)
 	. = ..()
+	to_chat(user, SPAN_WARNING("You smear bananium over [src]'s paint selector."))
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	paintball_color = PAINTBALL_CMAGGED
 	update_icon(UPDATE_OVERLAYS)
@@ -237,7 +238,7 @@
 /obj/item/gun/projectile/automatic/paintball_gun/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='warning'>You overcharge [src]'s air compressor.</span>")
+	to_chat(user, SPAN_WARNING("You overcharge [src]'s air compressor."))
 	if(magazine)
 		color_paintball()
 
