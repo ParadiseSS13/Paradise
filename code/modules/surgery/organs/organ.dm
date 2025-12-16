@@ -44,6 +44,9 @@
 	/// What level of upgrades are needed to detect this. Level 0 is default. 1 is hidden from health analysers. 2 is hidden from cyborg analysers, and the body scanner at level 1. 4 is the highest level the body scanner can reach.
 	var/stealth_level = 0
 
+	/// A list of all wounds currently on this organ
+	var/list/wound_list = list()
+
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
@@ -218,7 +221,7 @@
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = 0)
+/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
 	if(tough)
 		return
 	damage = clamp(damage + amount, 0, max_damage)

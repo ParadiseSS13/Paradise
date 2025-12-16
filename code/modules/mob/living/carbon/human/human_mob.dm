@@ -1096,7 +1096,7 @@
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 
-	return L?.linked_organ.is_bruised()
+	return locate(/datum/wound/ruptured_lungs) in L.linked_organ.wound_list
 
 /mob/living/carbon/human/proc/rupture_lung()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
@@ -2252,10 +2252,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(E.status & ORGAN_BURNT)
 				analysis += SPAN_INFO("You conclude [src]'s [E.name] has been critically burned.")
 			if(E.status & ORGAN_BROKEN)
-				if(!E.broken_description)
-					analysis += SPAN_INFO("You conclude [src]'s [E.name] is broken.")
-				else
-					analysis += SPAN_INFO("You conclude [src]'s [E.name] has a [E.broken_description].")
+				var/datum/wound/fracture = locate(/datum/wound/fracture) in E.wound_list
+				analysis += SPAN_INFO("You conclude [src]'s [E.name] has a [fracture.name].")
 		if(!length(analysis))
 			analysis += SPAN_INFO("[src] appears to be in perfect health.")
 		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))

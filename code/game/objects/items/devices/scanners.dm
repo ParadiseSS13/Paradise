@@ -1212,7 +1212,8 @@ SLIME SCANNER
 		if(e.status & ORGAN_SPLINTED)
 			splint = "Splinted:"
 		if(e.status & ORGAN_BROKEN)
-			AN = "[e.broken_description]:"
+			var/datum/wound/fracture = locate(/datum/wound/fracture) in e.wound_list
+			AN = "[fracture.name]:"
 		if(e.is_robotic())
 			robot = "Robotic:"
 		if(e.open)

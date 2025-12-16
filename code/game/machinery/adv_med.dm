@@ -347,10 +347,9 @@
 
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)
-				if(!E.broken_description)
-					organStatus["broken"] = "Broken"
-				else
-					organStatus["broken"] = E.broken_description
+				var/datum/wound/fracture = locate(/datum/wound/fracture) in E.wound_list
+				organStatus["broken"] = fracture.name
+
 			if(E.is_robotic())
 				organStatus["robotic"] = TRUE
 			if(E.status & ORGAN_SPLINTED)
@@ -508,7 +507,8 @@
 			if(e.status & ORGAN_SPLINTED)
 				ailments |= "Splinted"
 			if(e.status & ORGAN_BROKEN)
-				ailments |= "[e.broken_description]"
+				var/datum/wound/fracture = locate(/datum/wound/fracture) in e.wound_list
+				ailments |= "[fracture.name]"
 			if(e.status & ORGAN_SALVED)
 				ailments |= "Salved"
 			if(e.status & ORGAN_BURNT)
