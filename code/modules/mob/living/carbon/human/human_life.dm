@@ -828,6 +828,14 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(heart)
+		heart.linked_organ.receive_damage(0.2, TRUE)
+	if(lung)
+		lung.linked_organ.receive_damage(0.2, TRUE)
+	adjustBrainLoss(0.2)
+
 	if(HAS_TRAIT(src, TRAIT_NODECAY))
 		return
 
@@ -911,12 +919,12 @@
 		if(0 to BLOODPRESSURE_DANGER)
 			Dizzy(3 SECONDS)
 			adjustOxyLoss(5)
-			adjustBrainLoss(1) // Brains are more fragile, no cap (on the damage)
+			adjustBrainLoss(0.2)
 			if(!heart.linked_organ.is_robotic())
-				heart.linked_organ.receive_damage(1, TRUE)
+				heart.linked_organ.receive_damage(0.2, TRUE)
 
 			if(!lung.linked_organ.is_robotic())
-				lung.linked_organ.receive_damage(1, TRUE)
+				lung.linked_organ.receive_damage(0.2, TRUE)
 
 			if(prob(10))
 				to_chat(src, SPAN_DANGER("You feel incredibly weak."))
@@ -1081,17 +1089,17 @@
 		false_cardiac_pain += 15
 		var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 		// No need to nullcheck, we have a heartbeat
-		heart.linked_organ.receive_damage(1, TRUE)
+		heart.linked_organ.receive_damage(0.2, TRUE)
 		if(prob(10) && !undergoing_cardiac_arrest())
 			set_heartattack(TRUE) // Not having a good time
 
 	else if(heartbeat >= HEARTBEAT_FAST)
 		false_cardiac_pain += rand(5, 15)
-		if(prob(30))
+		if(prob(15))
 			Dizzy(5 SECONDS)
-		if(prob(5))
+		if(prob(3))
 			to_chat(src, SPAN_WARNING("Your heart is racing!"))
-		else if(prob(5))
+		else if(prob(3))
 			to_chat(src, SPAN_WARNING("Something is very wrong."))
 		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
 			send_heart_sound()
