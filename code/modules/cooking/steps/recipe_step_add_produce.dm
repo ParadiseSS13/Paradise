@@ -51,7 +51,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 			if(user.unequip(used_item))
 				used_item.forceMove(container)
 			else
-				to_chat(user, "<span class='notice'>You can't remove [used_item] from your hands!</span>")
+				to_chat(user, SPAN_NOTICE("You can't remove [used_item] from your hands!"))
 				return list()
 		else
 			used_item.forceMove(container)

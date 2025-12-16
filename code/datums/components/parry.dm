@@ -63,7 +63,7 @@
 	for(var/attack_type in parryable_attack_types)
 		attack_list += attack_types_english[attack_type]
 
-	examine_text = "<span class='notice'>It's able to <b>parry</b> [english_list(attack_list)].</span>"
+	examine_text = SPAN_NOTICE("It's able to <b>parry</b> [english_list(attack_list)].")
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER

@@ -2257,12 +2257,10 @@
 				// this determines the job preference column when assistant is enabled, since the other choices will be hidden
 				html += "<font color='orange'>[rank]</font></td><td style='width:20%;'></td><td>[difficultyMeter]</td></tr>"
 				continue
-
-			// Bold head jobs
-			if((job.title in GLOB.command_positions) || (job.title == "AI"))
-				html += "<b><span class='dark'>[rank]</span></b>"
+			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+				html += "<b>[SPAN_DARK("[rank]")]</b>"
 			else
-				html += "<span class='dark'>[rank]</span>"
+				html += SPAN_DARK("[rank]")
 
 			html += "</td><td style='text-align:center;'>"
 			var/prefLevelLabel = "ERROR"
