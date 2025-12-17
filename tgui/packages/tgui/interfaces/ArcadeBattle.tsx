@@ -75,7 +75,7 @@ export const ArcadeBattle = (props, context) => {
                     green: [20, enemyMaxHP],
                   }}
                 >
-                  {enemyName}&apos;s Health: {enemyHP}
+                  Their Health: {enemyHP}
                 </ProgressBar>
               </Section>
             </Stack.Item>
@@ -115,7 +115,7 @@ export const ArcadeBattle = (props, context) => {
                   </Stack.Item>
                   <Stack.Item>
                     <Box bold align="center">
-                      What Will You Do?
+                      What will you do?
                     </Box>
                   </Stack.Item>
                   <Stack.Item>

@@ -54,16 +54,16 @@
 	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villain"
-	var/previous_event = "Winners Don't Use Spacedrugs" //event message for attack messages, etc
-	var/player_hp = 30 //Player health/attack points
-	var/player_max_hp = 0
-	var/player_mp = 10
-	var/player_max_mp = 10
-	var/enemy_hp = 45 //Enemy health/attack points
-	var/enemy_max_hp = 45
-	var/enemy_mp = 20
+	var/previous_event = "Make your move!" /// event message for attack messages, etc
+	var/player_hp = 30 /// Player health/attack points
+	var/player_max_hp = 30 /// the highest amount of health that the player has held
+	var/player_mp = 10 /// player magic points
+	var/player_max_mp = 10 /// the highest amount of mana that the player has held
+	var/enemy_hp = 45 /// Enemy health/attack points
+	var/enemy_max_hp = 45 /// the highest amount of health that the enemy achieves - this never changes, but avoids magic numbers
+	var/enemy_mp = 20 /// enemy magic points
 	var/gameover = FALSE
-	var/turtle = 0
+	var/passive_streak = 0 /// whether the last player input was to heal, incurs a turtling penalty when emagged
 	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/computer/arcade/battle/proc/generate_name()
@@ -76,16 +76,16 @@
 	name = (name_action + name_part1 + name_part2)
 
 /obj/machinery/computer/arcade/battle/Reset()
-	previous_event = "New Round - Make Your Move!"
-	player_hp = 30
-	player_max_hp = 30
-	player_mp = 10
-	player_max_mp = 10
-	enemy_hp = 45
-	enemy_max_hp = 45
-	enemy_mp = 20
-	gameover = FALSE
-	turtle = 0
+	previous_event = initial(previous_event)
+	player_hp = initial(player_hp)
+	player_max_hp = initial(player_max_hp)
+	player_mp = initial(player_mp)
+	player_max_mp = initial(player_max_mp)
+	enemy_hp = initial(enemy_hp)
+	enemy_max_hp = initial(enemy_max_hp)
+	enemy_mp = initial(enemy_mp)
+	gameover = initial(gameover)
+	passive_streak = initial(enemy_mp)
 
 /obj/machinery/computer/arcade/battle/Initialize(mapload)
 	. = ..()
@@ -125,8 +125,8 @@
 			var/attack_amount = rand(2,6)
 			enemy_hp -= attack_amount
 			previous_event = "You attack for [attack_amount] damage!"
-			if(turtle > 0)
-				turtle--
+			if(passive_streak > 0)
+				passive_streak--
 			playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
@@ -140,7 +140,7 @@
 			if(player_hp > player_max_hp)
 				player_max_hp = player_hp
 			previous_event = "You use [point_amount] magic to heal for [heal_amount] damage!"
-			turtle++
+			passive_streak++
 			playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
@@ -151,8 +151,8 @@
 			if(player_mp > player_max_mp)
 				player_max_mp = player_mp
 			previous_event = "You regain [charge_amount] points!"
-			if(turtle > 0)
-				turtle--
+			if(passive_streak > 0)
+				passive_streak--
 			playsound(loc, 'sound/arcade/mana.ogg', 50, TRUE)
 			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
@@ -184,7 +184,7 @@
 			SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 			prizevend(35)
 
-	else if(emagged && (turtle >= 4))
+	else if(emagged && (passive_streak >= 4))
 		var/boom_amount = rand(5,10)
 		previous_event = "[enemy_name] throws a bomb, exploding you for [boom_amount] damage!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
