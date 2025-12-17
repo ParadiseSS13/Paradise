@@ -35,7 +35,6 @@
 	desc = "O Lord, bless this Thy Hand Grenade that, with it, Thou mayest blow Thine enemies to tiny bits in Thy mercy."
 	icon_state = "holy_grenade"
 	origin_tech = "materials=3; magnets=4; combat=5"
-	det_time = 5 SECONDS
 	modifiable_timer = FALSE
 	/// The type of projectile that will fired.
 	embedded_type = /obj/projectile/bullet/shrapnel/holy
