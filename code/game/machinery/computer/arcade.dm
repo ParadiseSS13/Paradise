@@ -54,16 +54,25 @@
 	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villain"
-	var/previous_event = "Make your move!" /// event message for attack messages, etc
-	var/player_hp = 30 /// Player health/attack points
-	var/player_max_hp = 30 /// the highest amount of health that the player has held
-	var/player_mp = 10 /// player magic points
-	var/player_max_mp = 10 /// the highest amount of mana that the player has held
-	var/enemy_hp = 45 /// Enemy health/attack points
-	var/enemy_max_hp = 45 /// the highest amount of health that the enemy achieves - this never changes, but avoids magic numbers
-	var/enemy_mp = 20 /// enemy magic points
+	/// event message for attack messages, etc
+	var/previous_event = "Make your move!"
+	/// Player health/attack points
+	var/player_hp = 30
+	/// the highest amount of health that the player has held
+	var/player_max_hp = 30
+	/// player magic points
+	var/player_mp = 10
+	/// the highest amount of mana that the player has held
+	var/player_max_mp = 10
+	/// Enemy health/attack points
+	var/enemy_hp = 45
+	/// the highest amount of health that the enemy achieves - this never changes, but avoids magic numbers
+	var/enemy_max_hp = 45
+	/// enemy magic points
+	var/enemy_mp = 20
 	var/gameover = FALSE
-	var/passive_streak = 0 /// whether the last player input was to heal, incurs a turtling penalty when emagged
+	/// a counter of whether the last few player inputs were to heal, incurs a turtling penalty when emagged
+	var/passive_streak = 0
 	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/computer/arcade/battle/proc/generate_name()
