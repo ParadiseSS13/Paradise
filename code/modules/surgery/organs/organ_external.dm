@@ -413,6 +413,9 @@ This function completely restores a damaged organ to perfect condition.
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
+	for(var/datum/wound/wound as anything in wound_list)
+		wound.cure_wound()
+
 	for(var/obj/item/organ/external/EO in contents)
 		EO.rejuvenate()
 
@@ -817,6 +820,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
+	var/datum/wound/fracture = locate(/datum/wound/fracture) in wound_list
+	fracture.cure_wound()
+
 	if(owner)
 		owner.handle_splints()
 	return TRUE

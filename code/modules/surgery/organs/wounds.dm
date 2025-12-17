@@ -29,6 +29,11 @@
 /datum/wound/proc/do_effect()
 	return
 
+/// The cure wounds proc. Just deletes the wound by default, but can be used to apply additional effects upon cure
+/datum/wound/proc/cure_wound()
+	SHOULD_CALL_PARENT(TRUE)
+	remove_and_destroy()
+
 // MARK: Fractures
 /datum/wound/fracture
 	name = "hairline fracture"

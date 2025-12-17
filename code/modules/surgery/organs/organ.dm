@@ -196,6 +196,10 @@
 		status = ORGAN_ROBOT
 	else
 		status = 0
+
+	for(var/datum/wound/wound as anything in wound_list)
+		wound.cure_wound()
+
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
