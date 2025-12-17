@@ -353,6 +353,7 @@
 		user.put_in_hands(beaker)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/eject(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

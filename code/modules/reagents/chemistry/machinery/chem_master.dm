@@ -368,7 +368,6 @@
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
-				to_chat(ui.user, "<span class='notice'>M == null</span>")
 				return
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
 			update_icon()
@@ -438,7 +437,7 @@
 	data["mode"] = mode
 	data["printing"] = printing
 
-	// Transfer modal information if there is onedw
+	// Transfer modal information if there is one
 	data["modal"] = ui_modal_data(src)
 
 	data["production_mode"] = production_mode
@@ -568,7 +567,6 @@
 
 /datum/chemical_production_mode/proc/synthesize(user, location, datum/reagents/reagents, obj/item/storage/S = null)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='notice'>synthesize / total_volume == 0</span>")
 		return
 
 	var/medicine_name = set_name
