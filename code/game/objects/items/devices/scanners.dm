@@ -875,28 +875,36 @@ SLIME SCANNER
 	var/datatoprint = ""
 	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
+	new_attack_chain = TRUE
 
-/obj/item/reagent_scanner/afterattack__legacy__attackchain(obj/O, mob/user as mob)
+/obj/item/reagent_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	do_scan(target, user)
+
+/obj/item/reagent_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	do_scan(target, user)
+
+/obj/item/reagent_scanner/proc/do_scan(atom/target, mob/living/user)
 	if(user.stat != CONSCIOUS)
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
-	if(!istype(O))
+
+	if(!target.reagents)
+		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [target]."))
 		return
 
-	if(!O.reagents)
-		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [O]."))
+	if(!length(target.reagents.reagent_list))
+		to_chat(user, SPAN_NOTICE("No active chemical agents found in [target]."))
 		return
 
 	var/dat
 	var/blood_type = ""
-	if(!length(O.reagents.reagent_list))
-		to_chat(user, SPAN_NOTICE("No active chemical agents found in [O]."))
-		return
 
-	var/one_percent = O.reagents.total_volume / 100
-	for(var/datum/reagent/R in O.reagents.reagent_list)
+	var/one_percent = target.reagents.total_volume / 100
+	for(var/datum/reagent/R in target.reagents.reagent_list)
 		if(R.id != "blood")
 			dat += "<br>[TAB][SPAN_NOTICE("[R] [details ? ":([R.volume / one_percent]%)" : ""]")]"
 		else
