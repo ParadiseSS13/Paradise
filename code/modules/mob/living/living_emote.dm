@@ -198,7 +198,7 @@
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
-				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "[SPAN_USERDANGER("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
 
 	return ..()
 
@@ -391,7 +391,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, SPAN_DANGER("Invalid emote."))
 		return TRUE
 	return FALSE
 
@@ -402,7 +402,7 @@
 	if(QDELETED(user))
 		return FALSE
 	else if(check_mute(user?.client?.ckey, MUTE_IC))
-		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
+		to_chat(user, SPAN_BOLDWARNING("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!params)
 		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
@@ -414,7 +414,7 @@
 				if("Hearable")
 					custom_emote_type = EMOTE_AUDIBLE
 				else
-					to_chat(user,"<span class='warning'>Unable to use this emote, must be either hearable or visible.</span>")
+					to_chat(user,SPAN_WARNING("Unable to use this emote, must be either hearable or visible."))
 					return
 	else
 		custom_emote = params

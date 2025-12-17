@@ -1,3 +1,9 @@
+/datum/event/spacevine
+	name = "Space Vines"
+	role_weights = list(ASSIGNMENT_CREW = 0.4, ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_BOTANIST = 2)
+	role_requirements = list(ASSIGNMENT_CREW = 25 , ASSIGNMENT_BOTANIST = 1, ASSIGNMENT_ENGINEERING = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
+
 /datum/event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
@@ -193,7 +199,7 @@
 	if(issilicon(crosser))
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
-		to_chat(crosser, "<span class='alert'>You accidentally touch the vine and feel a strange sensation.</span>")
+		to_chat(crosser, SPAN_ALERT("You accidentally touch the vine and feel a strange sensation."))
 		crosser.adjustToxLoss(5)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
@@ -286,13 +292,13 @@
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, SPAN_ALERT("You cut yourself on the thorny vines."))
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, SPAN_ALERT("You cut yourself on the thorny vines."))
 	. =	expected_damage
 
 /datum/spacevine_mutation/woodening
@@ -667,7 +673,7 @@
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
 		SM.on_buckle(src, V)
 	if((V.stat != DEAD) && (V.buckled != src)) //not dead or captured
-		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
+		to_chat(V, SPAN_DANGER("The vines [pick("wind", "tangle", "tighten")] around you!"))
 		buckle_mob(V, 1)
 
 /obj/structure/spacevine/proc/spread()
@@ -701,12 +707,12 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(temp, volume)
+/obj/structure/spacevine/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		override += SM.process_temperature(src, temp, volume)
+		override += SM.process_temperature(src, exposed_temperature, exposed_volume)
 	if(!override)
 		wither()
 

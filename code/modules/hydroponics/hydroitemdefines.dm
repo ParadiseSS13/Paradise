@@ -9,6 +9,21 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+	new_attack_chain = TRUE
+
+	/// Shows plant stats when true, shows only basic info when set to false
+	var/high_details_mode = TRUE
+
+/obj/item/plant_analyzer/activate_self(mob/user)
+	if(..())
+		return
+
+	if(high_details_mode)
+		high_details_mode = FALSE
+		to_chat(user, SPAN_NOTICE("You switch [src] into low detail mode."))
+	else
+		high_details_mode = TRUE
+		to_chat(user, SPAN_NOTICE("You switch [src] into high detail mode."))
 
 /obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
 	if(!istype(target, /obj/item))
@@ -45,7 +60,7 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /// -- Skie
@@ -61,7 +76,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/cultivator
@@ -111,7 +126,7 @@
 	sharp = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is chopping at [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -158,7 +173,7 @@
 	origin_tech = "materials=1;combat=2"
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is beheading [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -199,7 +214,7 @@
 /obj/item/scythe/tele/attack_self__legacy__attackchain(mob/user)
 	extend = !extend
 	if(extend)
-		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
+		to_chat(user, SPAN_WARNING("With a flick of your wrist, you extend the scythe. It's reaping time!"))
 		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
@@ -208,7 +223,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
-		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
+		to_chat(user, SPAN_NOTICE("You collapse the scythe, folding it away for easy storage."))
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3

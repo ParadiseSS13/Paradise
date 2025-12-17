@@ -6,6 +6,7 @@
 	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/softcap
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/softcap.dmi'
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/softcap.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
@@ -143,6 +144,11 @@
 	desc = "It's a blue baseball hat with a white medical shield."
 	icon_state = "paramedic"
 	dog_fashion = /datum/dog_fashion/head/paramedic
+
+/obj/item/clothing/head/soft/robotics
+	name = "robotics cap"
+	desc = "It's a black baseball hat with a red research shield."
+	icon_state = "robo"
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

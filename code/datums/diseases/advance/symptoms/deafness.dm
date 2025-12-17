@@ -32,7 +32,7 @@ Bonus
 		return //cutting off your ears to cure the deafness: the ultimate own
 	switch(A.stage)
 		if(3, 4)
-			to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
+			to_chat(M, SPAN_WARNING("[pick("You hear a ringing in your ear.", "Your ears pop.")]"))
 		if(5)
-			to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
+			to_chat(M, SPAN_USERDANGER("Your ears pop and begin ringing loudly!"))
 			M.Deaf(40 SECONDS * unmitigated)

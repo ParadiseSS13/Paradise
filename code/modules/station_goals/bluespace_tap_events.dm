@@ -30,7 +30,7 @@
 
 /datum/engi_event/bluespace_tap_event/gas/on_start()
 	var/datum/gas_mixture/air = new()
-	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown")
+	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown", "H2", "H2O")
 	switch(picked_gas)
 		if("N2")
 			name = "G-1"
@@ -50,6 +50,12 @@
 		if("Unknown")
 			name = "G-6"
 			air.set_agent_b(250)
+		if("H2")
+			name = "G-7"
+			air.set_hydrogen(250)
+		if("H2O")
+			name = "G-8"
+			air.set_water_vapor(250)
 
 	air.set_temperature(T20C)
 	var/turf/tap_turf = get_turf(tap)
@@ -84,7 +90,7 @@
 	tap.radio.autosay("Bluespace harvester has released a spike of radiation!", tap, "Engineering")
 
 /datum/engi_event/bluespace_tap_event/radiation/on_start()
-	radiation_pulse(tap, 12000, BETA_RAD)
+	tap.AddComponent(/datum/component/radioactive, 12000, tap, BETA_RAD, 30) // strong rads for a little over two minutes, becomes harmless after that, still visually glows but that goes away after another minute or so
 
 // electrical arc
 /datum/engi_event/bluespace_tap_event/electric_arc

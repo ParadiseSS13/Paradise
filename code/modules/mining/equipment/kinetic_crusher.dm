@@ -32,6 +32,10 @@
 	/// Tracker for the current amount of force used when the item is wielded.
 	/// Note that this isn't wired to anything, and must be updated with AddComponent to have value.
 	var/force_wielded = 20
+	/// The file in which our projectile icon resides
+	var/projectile_icon = 'icons/obj/projectiles.dmi'
+	/// Used by retool kits when changing the crusher's projectile sprite
+	var/projectile_icon_state = "pulse1"
 
 /obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
@@ -44,13 +48,13 @@
 
 /obj/item/kinetic_crusher/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.</span>"
-	. += "<span class='notice'>Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.</span>"
+	. += SPAN_NOTICE("Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.")
+	. += SPAN_NOTICE("Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.")
 	if(length(trophies))
-		. += "<span class='notice'>You can use a crowbar on it to remove its attached trophies.</span>"
+		. += SPAN_NOTICE("You can use a crowbar on it to remove its attached trophies.")
 	for(var/t in trophies)
 		var/obj/item/crusher_trophy/T = t
-		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
+		. += SPAN_NOTICE("It has \a [T] attached, which causes [T.effect_desc()].")
 
 /obj/item/kinetic_crusher/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/crusher_trophy))
@@ -64,16 +68,16 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(LAZYLEN(trophies))
-		to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
+		to_chat(user, SPAN_NOTICE("You remove [src]'s trophies."))
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.remove_from(src, user)
 	else
-		to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
+		to_chat(user, SPAN_WARNING("There are no trophies on [src]."))
 
 /obj/item/kinetic_crusher/attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.</span>")
+		to_chat(user, SPAN_WARNING("[src] is too heavy to use with one hand. You fumble and drop everything."))
 		user.drop_r_hand()
 		user.drop_l_hand()
 		return
@@ -109,16 +113,18 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-			user.visible_message("<span class='warning'>[user] dashes!</span>")
+			user.visible_message(SPAN_WARNING("[user] dashes!"))
 		else
-			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+			to_chat(user, SPAN_WARNING("Something prevents you from dashing!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = get_turf_for_projectile(user)
 		if(!isturf(proj_turf))
 			return
-		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(proj_turf)
+		var/obj/projectile/destabilizer/D = new /obj/projectile/destabilizer(proj_turf)
+		D.icon = projectile_icon
+		D.icon_state = projectile_icon_state
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
@@ -183,10 +189,10 @@
 /obj/item/kinetic_crusher/extinguish_light()
 	if(light_on)
 		toggle_light()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/kinetic_crusher/update_icon_state()
-	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	inhand_icon_state = "[icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/kinetic_crusher/update_overlays()
 	. = ..()
@@ -197,7 +203,7 @@
 	update_action_buttons()
 
 //destablizing force
-/obj/item/projectile/destabilizer
+/obj/projectile/destabilizer
 	name = "destabilizing force"
 	icon_state = "pulse1"
 	nodamage = TRUE
@@ -207,11 +213,11 @@
 	log_override = TRUE
 	var/obj/item/kinetic_crusher/hammer_synced
 
-/obj/item/projectile/destabilizer/Destroy()
+/obj/projectile/destabilizer/Destroy()
 	hammer_synced = null
 	return ..()
 
-/obj/item/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
 		var/had_effect = (L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)) //used as a boolean
@@ -223,7 +229,7 @@
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
 		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)
@@ -241,7 +247,7 @@
 
 /obj/item/crusher_trophy/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Causes [effect_desc()] when attached to a kinetic crusher.</span>"
+	. += SPAN_NOTICE("Causes [effect_desc()] when attached to a kinetic crusher.")
 
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
@@ -256,13 +262,13 @@
 	for(var/t in H.trophies)
 		var/obj/item/crusher_trophy/T = t
 		if(istype(T, denied_type) || istype(src, T.denied_type))
-			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
+			to_chat(user, SPAN_WARNING("You can't seem to attach [src] to [H]. Maybe remove a few trophies?"))
 			return FALSE
 	if(!user.unequip(src))
 		return
 	forceMove(H)
 	H.trophies += src
-	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
+	to_chat(user, SPAN_NOTICE("You attach [src] to [H]."))
 	return TRUE
 
 /obj/item/crusher_trophy/proc/remove_from(obj/item/kinetic_crusher/H, mob/living/user)
@@ -279,7 +285,7 @@
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 	return
 
-/obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+/obj/item/crusher_trophy/proc/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
 	return
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
@@ -346,7 +352,7 @@
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
 	return "mark detonation to make the next destabilizer shot deal <b>[bonus_value]</b> damage"
 
-/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "heated [marker.name]"
 		marker.icon_state = "lava"
@@ -479,7 +485,7 @@
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
 	return "mark detonation to make the next destabilizer shot deal <b>[bonus_value]</b> damage but move slower"
 
-/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "deadly [marker.name]"
 		marker.icon_state = "chronobolt"

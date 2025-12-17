@@ -107,5 +107,9 @@
 			T.dismantle_wall(TRUE)
 			hit_something = TRUE
 	if(hit_something)
-		visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+		visible_message(SPAN_DANGER("[src] slams into [hit_atom]!"), SPAN_USERDANGER("You slam into [hit_atom]!"))
 		playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 20, ASSIGNMENT_MEDICAL = 3)

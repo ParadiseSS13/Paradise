@@ -1,14 +1,19 @@
 #define APC_BREAK_PROBABILITY 25 // the probability that a given APC will be disabled
 
 /datum/event/apc_short
-	var/const/announce_after_mc_ticks     = 5
+	name = "APC Short"
+	// Keeps engies busy for a while
+	role_weights = 	list(ASSIGNMENT_ENGINEERING = 3)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 3)
+	nominal_severity = EVENT_LEVEL_MODERATE
+	var/const/announce_after_mc_ticks = 5
 	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
 	var/const/event_min_duration_mc_ticks = announce_after_mc_ticks
 
 	announceWhen = announce_after_mc_ticks
 
 /datum/event/apc_short/setup()
-	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks)
+	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks) + 1800
 
 /datum/event/apc_short/start()
 	power_failure(announce = FALSE)

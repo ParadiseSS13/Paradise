@@ -33,3 +33,8 @@
 			Pulse(5, i, color)
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	color = null
+
+/obj/structure/blob/node/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 0.1, ASSIGNMENT_CREW = 1)

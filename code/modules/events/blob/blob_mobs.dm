@@ -25,6 +25,12 @@
 /mob/living/basic/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blob_minions |= src
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
+
+/mob/living/basic/blob/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
 
 /mob/living/basic/blob/Destroy()
 	GLOB.blob_minions -= src
@@ -123,7 +129,7 @@
 	update_icons()
 	H.forceMove(src)
 	oldguy = H
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(SPAN_WARNING("The corpse of [H.name] suddenly rises!"))
 
 /mob/living/basic/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
@@ -209,6 +215,11 @@
 	if(name == "blobbernaut")
 		name = "blobbernaut ([rand(1, 1000)])"
 
+/mob/living/basic/blob/blobbernaut/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
+
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
 	button_icon = 'icons/mob/guardian.dmi'
@@ -247,6 +258,6 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
-			rendered = "<span class='blob'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span>"
+			rendered = SPAN_BLOB("Blob Telepathy, [SPAN_NAME("[name]([overmind])")][follow_text] [SPAN_MESSAGE("states, \"[message]\"")]")
 			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/basic/blob/blobbernaut))
 				M.show_message(rendered, EMOTE_AUDIBLE)

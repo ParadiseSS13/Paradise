@@ -27,8 +27,11 @@
 	var/cotton_type = /obj/item/stack/sheet/cotton
 	var/cotton_name = "raw cotton"
 
-/obj/item/grown/cotton/attack_self__legacy__attackchain(mob/user)
-	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
+/obj/item/grown/cotton/activate_self(mob/user)
+	if(..())
+		return
+
+	user.show_message(SPAN_NOTICE("You pull some [cotton_name] out of [src]!"), 1)
 	var/seed_modifier = 0
 	if(seed)
 		seed_modifier = round(seed.potency / 25)
@@ -38,7 +41,7 @@
 		if(ST != cotton && istype(ST, cotton_type) && ST.amount < ST.max_amount)
 			ST.attackby__legacy__attackchain(cotton, user)
 	if(cotton.amount > old_cotton_amount)
-		to_chat(user, "<span class='notice'>You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name].</span>")
+		to_chat(user, SPAN_NOTICE("You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name]."))
 	qdel(src)
 
 //reinforced mutated variant

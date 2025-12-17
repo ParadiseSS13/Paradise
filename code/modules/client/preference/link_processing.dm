@@ -16,7 +16,7 @@
 					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
-					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
+					to_chat(user, SPAN_DANGER("The Wiki URL is not set in the server configuration."))
 			if("random")
 				if(active_character.alternate_option == GET_RANDOM_JOB || active_character.alternate_option == BE_ASSISTANT)
 					active_character.alternate_option += 1
@@ -196,9 +196,10 @@
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
-						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
+						to_chat(user, SPAN_WARNING("Invalid species, please pick something else."))
 						return
 					if(prev_species != active_character.species)
+						active_character.quirks = list() //Reset their quirks
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
@@ -682,6 +683,11 @@
 					loadout.ui_interact(user)
 					return FALSE
 
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
+					return FALSE
+
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)
@@ -1024,7 +1030,7 @@
 						to_chat(user, "<span class='notice'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
 								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
-						to_chat(user, "<span class='notice'>Automatic cryoing turned off.</span>")
+						to_chat(user, SPAN_NOTICE("Automatic cryoing turned off."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
@@ -1058,6 +1064,12 @@
 					if(length(parent?.screen))
 						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/cogbar) in parent.screen
 						PM.backdrop(parent.mob)
+
+				if("dark_flash")
+					toggles3 ^= PREFTOGGLE_3_DARK_FLASH
+
+				if("toggle_post_credits")
+					toggles3 ^= PREFTOGGLE_3_POSTCREDS
 
 				if("be_special")
 					var/r = href_list["role"]

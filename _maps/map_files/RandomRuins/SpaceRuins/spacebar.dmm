@@ -547,7 +547,6 @@
 /area/ruin/space/powered/bar)
 "wQ" = (
 /obj/structure/mopbucket/full,
-/obj/item/mop,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/bar)
 "xZ" = (

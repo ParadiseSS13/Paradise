@@ -11,6 +11,7 @@
 	var/obj/item/seeds/seed = null
 	/// The unsorted seed of this plant, if any. Used by the seed extractor.
 	var/obj/item/unsorted_seeds/unsorted_seed = null
+	new_attack_chain = TRUE
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -40,10 +41,10 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
-	if(istype(O, /obj/item/plant_analyzer))
+/obj/item/grown/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/plant_analyzer))
 		send_plant_details(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
@@ -70,7 +71,7 @@
 	set_light(0)
 
 /obj/item/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src]</span>\n"
+	var/msg = "[SPAN_NOTICE("This is")][SPAN_NAME(" \a [src]")]\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	msg += "</span>"

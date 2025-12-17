@@ -14,7 +14,7 @@
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
 /obj/structure/glowshroom/extinguish_light(force = FALSE)
-	visible_message("<span class='warning'>[src] withers away!</span>")
+	visible_message(SPAN_WARNING("[src] withers away!"))
 	qdel(src)
 
 /obj/structure/glowshroom/glowcap
@@ -96,7 +96,7 @@
 		var/newDir = pick(dirList)
 		if(newDir == 16)
 			floor = 1
-			newDir = 1
+			newDir = NORTH
 		return newDir
 
 	floor = 1
@@ -113,7 +113,7 @@
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message("<span class='danger'>[src] melts away!</span>")
+	visible_message(SPAN_DANGER("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

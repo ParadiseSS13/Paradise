@@ -44,6 +44,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/alarm/server/directional/south,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "fm" = (
@@ -71,6 +72,10 @@
 "fM" = (
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
 /turf/template_noop,
+/area/template_noop)
+"gz" = (
+/obj/machinery/alarm/server/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "gY" = (
 /obj/structure/chair{
@@ -198,10 +203,11 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
 	ailock = 1;
 	check_borgs = 1
 	},
+/obj/effect/turf_decal/trimline/department/security,
 /turf/template_noop,
 /area/template_noop)
 "qV" = (
@@ -282,6 +288,7 @@
 	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/template_noop,
 /area/template_noop)
 "zm" = (
@@ -1253,7 +1260,7 @@ kl
 OI
 OI
 OI
-SX
+gz
 yC
 qr
 qr

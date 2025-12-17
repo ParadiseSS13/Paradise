@@ -1,4 +1,4 @@
-/obj/item/projectile/energy
+/obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
@@ -6,7 +6,7 @@
 	flag = "energy"
 	reflectability = REFLECTABILITY_ENERGY
 
-/obj/item/projectile/energy/electrode
+/obj/projectile/energy/electrode
 	name = "electrode"
 	color = "#FFFF00"
 	nodamage = 1
@@ -17,7 +17,7 @@
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
-/obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
@@ -30,11 +30,11 @@
 			spawn(5)
 				C.Jitter(jitter)
 
-/obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
+/obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
 	..()
 
-/obj/item/projectile/energy/declone
+/obj/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
 	damage = 20
@@ -42,7 +42,7 @@
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/bolt
+/obj/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
@@ -52,12 +52,12 @@
 	knockdown = 2 SECONDS
 	slur = 10 SECONDS
 
-/obj/item/projectile/energy/bolt/large
+/obj/projectile/energy/bolt/large
 	damage = 20
 
 #define BSG_BASE_DAMAGE 90
 
-/obj/item/projectile/energy/bsg
+/obj/projectile/energy/bsg
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
@@ -71,23 +71,23 @@
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
-	var/obj/item/projectile/energy/bsg/P = BB
-	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/energy/bsg, make_chain), P, user), 1)
+	var/obj/projectile/energy/bsg/P = BB
+	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/projectile/energy/bsg, make_chain), P, user), 1)
 
-/obj/item/projectile/energy/bsg/proc/make_chain(obj/item/projectile/P, mob/user)
+/obj/projectile/energy/bsg/proc/make_chain(obj/projectile/P, mob/user)
 	P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)
 
-/obj/item/projectile/energy/bsg/on_hit(atom/target)
+/obj/projectile/energy/bsg/on_hit(atom/target)
 	. = ..()
 	kaboom(target)
 	qdel(src)
 
-/obj/item/projectile/energy/bsg/on_range()
+/obj/projectile/energy/bsg/on_range()
 	kaboom()
 	new /obj/effect/temp_visual/bsg_kaboom(loc)
 	..()
 
-/obj/item/projectile/energy/bsg/proc/kaboom(atom/target)
+/obj/projectile/energy/bsg/proc/kaboom(atom/target)
 	// If a lens is modifying the damage of the projectile, the AOE should be impacted as well
 	var/damage_multiplier = damage / BSG_BASE_DAMAGE
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
@@ -96,7 +96,7 @@
 			continue
 		var/floored = FALSE
 		if(HAS_TRAIT(M, TRAIT_BSG_IMMUNE))
-			to_chat(M, "<span class='notice'>Your B.S.G deploys an energy shield to project you from [src]'s explosion.</span>")
+			to_chat(M, SPAN_NOTICE("Your B.S.G deploys an energy shield to project you from [src]'s explosion."))
 			new /obj/effect/temp_visual/at_shield(get_turf(M), M)
 			continue
 		var/distance = (1 + get_dist(M, src))
@@ -106,15 +106,15 @@
 			M.apply_damage((rand(60, 80) * (1.1 - distance / 10)) * damage_multiplier, BURN) //reduced by 10% per tile
 			add_attack_logs(firer, M, "Hit heavily by [src]")
 			if(floored)
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+				to_chat(M, SPAN_USERDANGER("You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!"))
 				M.KnockDown(4 SECONDS)
 			else
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+				to_chat(M, SPAN_USERDANGER("You see a flash of briliant blue light as [src] explodes, burning you!"))
 			if(immolate)
 				M.adjust_fire_stacks(immolate)
 				M.IgniteMob()
 		else
-			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
+			to_chat(M, SPAN_USERDANGER("You feel the heat of the explosion of [src], but the blast mostly misses you."))
 			add_attack_logs(firer, M, "Hit lightly by [src]")
 			M.apply_damage(rand(20, 25) * damage_multiplier, BURN)
 		if(ROLE_BLOB in M.faction)
@@ -122,12 +122,12 @@
 
 #undef BSG_BASE_DAMAGE
 
-/obj/item/projectile/energy/weak_plasma
+/obj/projectile/energy/weak_plasma
 	name = "plasma bolt"
 	icon_state = "plasma_light"
 	damage = 12.5
 
-/obj/item/projectile/homing/charged_plasma
+/obj/projectile/homing/charged_plasma
 	name = "charged plasma bolt"
 	icon_state = "plasma_heavy"
 	damage = 45
@@ -137,7 +137,7 @@
 	shield_buster = TRUE
 	var/reached_target = FALSE
 
-/obj/item/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
+/obj/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
 	homing_active = FALSE
 	if(isturf(original))
 		return ..() //It gets weird if it is a turf. Turfs don't move anyway.
@@ -155,13 +155,13 @@
 
 #define ARC_REVOLVER_BASE_DAMAGE 10
 
-/obj/item/projectile/energy/arc_revolver
+/obj/projectile/energy/arc_revolver
 	name = "arc emitter"
 	icon_state = "plasma_light"
 	damage = ARC_REVOLVER_BASE_DAMAGE
 	var/charge_number = null
 
-/obj/item/projectile/energy/arc_revolver/on_hit(atom/target)
+/obj/projectile/energy/arc_revolver/on_hit(atom/target)
 	. = ..()
 	for(var/obj/effect/E in target)
 		if(istype(E, /obj/effect/abstract/arc_revolver))
@@ -256,9 +256,9 @@
 			if(L.stat != DEAD)
 				if(successfulshocks > 2)
 					L.visible_message(
-						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
-						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
-						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+						SPAN_DANGER("[L] was shocked by the lightning chain!"), \
+						SPAN_USERDANGER("You are shocked by the lightning chain!"), \
+						SPAN_ITALICS("You hear a heavy electrical crack.") \
 					)
 				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) * damage_multiplier //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
 				L.adjustFireLoss(damage) //time to die

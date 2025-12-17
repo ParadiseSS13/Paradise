@@ -4,15 +4,16 @@
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "vampire_claws"
 
 /datum/spell/vampire/self/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
-		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
+		to_chat(user, SPAN_NOTICE("You drop what was in your hands as large blades spring from your fingers!"))
 		user.drop_l_hand()
 		user.drop_r_hand()
 	else
-		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
+		to_chat(user, SPAN_NOTICE("Large blades of blood spring from your fingers!"))
 	var/obj/item/vamp_claws/claws = new /obj/item/vamp_claws(user.loc, src)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 	user.put_in_hands(claws)
@@ -29,7 +30,7 @@
 		current = user.r_hand
 	if(current)
 		qdel(current)
-		to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+		to_chat(user, SPAN_NOTICE("You dispel your claws!"))
 
 /datum/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
@@ -72,7 +73,7 @@
 	return ..()
 
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
+	return SPAN_WARNING("[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.")
 
 /obj/item/vamp_claws/attack(mob/living/target, mob/living/user, params)
 	if(..())
@@ -90,7 +91,7 @@
 	if(isalien(target))
 		if(!xenomorph_acid_boosted)
 			if(C.ckey && C.stat != DEAD)
-				to_chat(user, "<span class='warning'>As [C] bleeds acid, you mix it into your claws!</span>")
+				to_chat(user, SPAN_WARNING("As [C] bleeds acid, you mix it into your claws!"))
 				xenomorph_acid_boosted = TRUE
 				durability += 5 // Small boost in durability once.
 				blood_drain_amount *= 1.5
@@ -112,7 +113,7 @@
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
 		if(durability <= 0)
-			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			to_chat(user, SPAN_WARNING("Your claws shatter!"))
 			qdel(src)
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
@@ -123,7 +124,7 @@
 /obj/item/vamp_claws/activate_self(mob/user)
 	if(..())
 		return
-	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	to_chat(user, SPAN_NOTICE("You dispel your claws!"))
 	qdel(src)
 
 /datum/spell/vampire/blood_tendrils
@@ -133,12 +134,13 @@
 	required_blood = 10
 
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b></span>"
-	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b>")
+	selection_deactivated_message = SPAN_NOTICE("Your magics subside.")
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -160,7 +162,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensnared in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message(SPAN_WARNING("[L] gets ensnared in blood tendrils, restricting [L.p_their()] movement!"))
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril
@@ -178,6 +180,7 @@
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_barrier"
 
 	var/max_walls = 3
@@ -203,7 +206,7 @@
 /datum/spell/vampire/blood_barrier/cast(list/targets, mob/user)
 	var/turf/target_turf = get_turf(targets[1])
 	if(target_turf == start_turf)
-		to_chat(user, "<span class='notice'>You deselect the targeted turf.</span>")
+		to_chat(user, SPAN_NOTICE("You deselect the targeted turf."))
 		start_turf = null
 		should_recharge_after_cast = FALSE
 		return
@@ -270,7 +273,7 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	action_background_icon_state = "bg_vampire"
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
 	jaunt_water_effect = FALSE
@@ -288,6 +291,7 @@
 	name = "Predator Senses"
 	desc = "Hunt down your prey, there's nowhere to hide..."
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
 	create_attack_logs = FALSE
@@ -310,7 +314,7 @@
 			continue
 		targets_by_name[H.real_name] = H
 	if(!length(targets_by_name))
-		to_chat(user, "<span class='cultlarge'>There is no prey to be hunted here...</span>")
+		to_chat(user, SPAN_CULTLARGE("There is no prey to be hunted here..."))
 		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
 	if(!target_name)
@@ -319,7 +323,7 @@
 	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> They are wounded...</i>"
-	to_chat(user, "<span class='cultlarge'>[message]</span>")
+	to_chat(user, SPAN_CULTLARGE("[message]"))
 
 /datum/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
@@ -327,6 +331,7 @@
 	gain_desc = "You have gained the ability to weaponize pools of blood to damage those stood on them."
 	required_blood = 100
 	base_cooldown = 200 SECONDS
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_spikes"
 
 /datum/spell/vampire/blood_eruption/create_new_targeting()
@@ -351,7 +356,7 @@
 		spike.color = B.basecolor
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
-		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
+		L.visible_message(SPAN_WARNING("<b>[L] gets impaled by a spike of living blood!</b>"))
 
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
@@ -362,6 +367,7 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
+	action_background_icon_state = "bg_hemo"
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 
@@ -405,7 +411,7 @@
 		owner.AdjustWeakened(-2 SECONDS)
 		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
-			to_chat(H, "<span class='warning'><b>You feel your life force draining!</b></span>")
+			to_chat(H, SPAN_WARNING("<b>You feel your life force draining!</b>"))
 
 		if(beam_number >= max_beams)
 			break

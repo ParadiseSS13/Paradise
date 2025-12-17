@@ -80,6 +80,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/relay_message/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
 

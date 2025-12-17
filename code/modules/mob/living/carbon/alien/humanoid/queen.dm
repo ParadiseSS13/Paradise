@@ -19,6 +19,11 @@
 	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
 	AddSpell(new /datum/spell/alien_spell/tail_lash)
 
+/mob/living/carbon/alien/humenoid/queen/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 12, ASSIGNMENT_MEDICAL = 1)
+
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()
 	. += list(

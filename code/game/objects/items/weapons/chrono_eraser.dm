@@ -82,14 +82,14 @@
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, SPAN_ALERT("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
+			to_chat(user, SPAN_NOTICE("Connection established with target: <b>[F.captured]</b>"))
 
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
@@ -98,7 +98,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, SPAN_ALERT("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -117,7 +117,7 @@
 		TED.pass_mind(M)
 
 
-/obj/item/projectile/energy/chrono_beam
+/obj/projectile/energy/chrono_beam
 	name = "eradication beam"
 	icon_state = "chronobolt"
 	range = CHRONO_BEAM_RANGE
@@ -125,21 +125,21 @@
 	nodamage = 1
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
-/obj/item/projectile/energy/chrono_beam/fire()
+/obj/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))
 		return ..()
 	else
 		return 0
 
-/obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
+/obj/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
 
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
-	projectile_type = /obj/item/projectile/energy/chrono_beam
+	projectile_type = /obj/projectile/energy/chrono_beam
 	muzzle_flash_color = null
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
@@ -177,7 +177,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon(UPDATE_ICON_STATE)
 
-		desc = initial(desc) + "<br><span class='notice'>It appears to contain [target.name].</span>"
+		desc = initial(desc) + "<br>[SPAN_NOTICE("It appears to contain [target.name].")]"
 	START_PROCESSING(SSobj, src)
 	return ..()
 
@@ -202,7 +202,7 @@
 				AM.forceMove(drop_location())
 			qdel(src)
 		else if(tickstokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
+			to_chat(captured, SPAN_BOLDNOTICE("As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy..."))
 			var/mob/dead/observer/ghost = captured.ghostize()
 			if(captured.mind)
 				if(ghost)
@@ -228,9 +228,9 @@
 		qdel(src)
 
 
-/obj/structure/chrono_field/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy/chrono_beam))
-		var/obj/item/projectile/energy/chrono_beam/beam = P
+/obj/structure/chrono_field/bullet_act(obj/projectile/P)
+	if(istype(P, /obj/projectile/energy/chrono_beam))
+		var/obj/projectile/energy/chrono_beam/beam = P
 		var/obj/item/gun/energy/chrono_gun/Pgun = beam.gun
 		if(Pgun && istype(Pgun))
 			Pgun.field_connect(src)

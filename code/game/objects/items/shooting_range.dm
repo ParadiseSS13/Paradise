@@ -34,7 +34,7 @@
 	if(!use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	overlays.Cut()
-	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
+	to_chat(user, SPAN_NOTICE("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 
 /obj/item/target/attack_hand(mob/user)
 	// taking pinned targets off!
@@ -78,25 +78,25 @@
 #define DECALTYPE_SCORCH 1
 #define DECALTYPE_BULLET 2
 
-/obj/item/target/bullet_act(obj/item/projectile/P)
+/obj/item/target/bullet_act(obj/projectile/P)
 	var/p_x = P.p_x + pick(0,0,0,0,0,-1,1) // really ugly way of coding "sometimes offset P.p_x!"
 	var/p_y = P.p_y + pick(0,0,0,0,0,-1,1)
 	var/decaltype = DECALTYPE_SCORCH
-	if(istype(P, /obj/item/projectile/bullet))
+	if(istype(P, /obj/projectile/bullet))
 		decaltype = DECALTYPE_BULLET
 
 	var/icon/C = icon(icon, icon_state)
 	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
-			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
+			visible_message(SPAN_DANGER("[src] breaks into tiny pieces and collapses!"))
 			qdel(src)
 			return
 		var/image/bullet_hole = image('icons/effects/effects.dmi', "scorch", OBJ_LAYER + 0.5)
 		bullet_hole.pixel_x = p_x - 1 //offset correction
 		bullet_hole.pixel_y = p_y - 1
 		if(decaltype == DECALTYPE_SCORCH)
-			if(P.damage >= 20 || istype(P, /obj/item/projectile/beam/practice))
+			if(P.damage >= 20 || istype(P, /obj/projectile/beam/practice))
 				bullet_hole.dir = pick(NORTH,SOUTH,EAST,WEST) // random scorch design. light_scorch does not have different directions
 			else
 				bullet_hole.icon_state = "light_scorch"

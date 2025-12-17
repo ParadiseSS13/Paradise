@@ -1,3 +1,7 @@
+#define PART_FLAGS "part_flags"
+#define SPRITE_SHEETS_OVERRIDE "sprite_sheets_override"
+#define SPRITE_SHEETS_DEFAULT "sprite_sheets_default"
+
 /// MODsuits, trade-off between armor and utility
 /obj/item/mod
 	name = "Base MOD"
@@ -92,6 +96,8 @@
 	var/datum/mod_link/mod_link
 	/// The starting MODlink frequency, by default NT to make it easier for everyone to use.
 	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
+	/// Used when we set up new skins for a modsuit
+	var/list/part_data = list()
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -128,13 +134,33 @@
 	new_core?.install(src)
 	helmet = new /obj/item/clothing/head/mod(src)
 	mod_parts += helmet
+	part_data[helmet] = list(
+		PART_FLAGS = HELMET_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = HELMET_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/head/mod::sprite_sheets,
+	)
 	chestplate = new /obj/item/clothing/suit/mod(src)
 	chestplate.allowed += theme.allowed_suit_storage
 	mod_parts += chestplate
+	part_data[chestplate] = list(
+		PART_FLAGS = CHESTPLATE_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = CHESTPLATE_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/suit/mod::sprite_sheets,
+	)
 	gauntlets = new /obj/item/clothing/gloves/mod(src)
 	mod_parts += gauntlets
+	part_data[gauntlets] = list(
+		PART_FLAGS = GAUNTLETS_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = GAUNTLETS_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/gloves/mod::sprite_sheets,
+	)
 	boots = new /obj/item/clothing/shoes/mod(src)
 	mod_parts += boots
+	part_data[boots] = list(
+		PART_FLAGS = BOOTS_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = BOOTS_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/shoes/mod::sprite_sheets,
+	)
 	var/list/all_parts = mod_parts + src
 	for(var/obj/item/part as anything in all_parts)
 		part.name = "[theme.name] [part.name]"
@@ -191,6 +217,7 @@
 		QDEL_NULL(core)
 	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
+	part_data = null
 	wearer = null
 	selected_module = null
 	bag = null
@@ -288,7 +315,7 @@
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
 					if(part.loc != src)
-						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
+						to_chat(wearer, SPAN_WARNING("Retract parts first!"))
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
 				if(!M.unequip(src, force = TRUE))
@@ -314,7 +341,7 @@
 		return TRUE
 	if(open)
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core!</span>")
+			to_chat(user, SPAN_WARNING("There is no core!"))
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
@@ -341,7 +368,7 @@
 	var/obj/item/linked_thing = locateUID(M.buffer_uid)
 
 	if(!linked_thing)
-		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 		M.buffer_uid = UID()
 		return TRUE
 	if(ismodcontrol(linked_thing))
@@ -351,12 +378,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_control.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 	else
 		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
@@ -365,12 +392,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_scryer.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 
 
@@ -378,26 +405,26 @@
 	if(..())
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
-		to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
+		to_chat(user, SPAN_WARNING("Deactivate the suit first!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
-	to_chat(user, "<span class='notice'>[open ? "Closing" : "Opening"] cover...</span>")
+	to_chat(user, SPAN_NOTICE("[open ? "Closing" : "Opening"] cover..."))
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
-			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		to_chat(user, "<span class='notice'>Cover [open ? "closed" : "opened"]</span>")
+			to_chat(user, SPAN_WARNING("Deactivate the suit first!"))
+		to_chat(user, SPAN_NOTICE("Cover [open ? "closed" : "opened"]"))
 		open = !open
 	return TRUE
 
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
 	. = ..()
 	if(!open)
-		to_chat(user, "<span class='warning'>Open the cover first!</span>")
+		to_chat(user, SPAN_WARNING("Open the cover first!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Insufficient access!</span>")
+		to_chat(user, SPAN_WARNING("Insufficient access!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(seconds_electrified && get_charge() && shock(user))
@@ -419,14 +446,14 @@
 		crowbar.play_tool_sound(src, 100)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVED, user)
 		return TRUE
-	to_chat(user, "<span class='warning'>No modules!</span>")
+	to_chat(user, SPAN_WARNING("No modules!"))
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
 /obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
-			to_chat(user, "<span class='warning'>Open the cover first!</span>")
+			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		install(attacking_item, user)
@@ -434,11 +461,11 @@
 		return TRUE
 	else if(istype(attacking_item, /obj/item/mod/core))
 		if(!open)
-			to_chat(user, "<span class='warning'>Open the cover first!</span>")
+			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		if(core)
-			to_chat(user, "<span class='warning'>Core already installed!</span>")
+			to_chat(user, SPAN_WARNING("Core already installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		var/obj/item/mod/core/attacking_core = attacking_item
@@ -452,13 +479,13 @@
 		return TRUE
 	else if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
@@ -650,7 +677,7 @@
 		return
 	if(user)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[new_module] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[new_module] is stuck to your hand!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	new_module.forceMove(src)
@@ -754,18 +781,13 @@
 	var/list/used_skin = theme.skins[new_skin]
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
-		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+		part.icon = used_skin[MOD_ICON_OVERRIDE] || initial(part.icon)
+		part.worn_icon = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.worn_icon)
 		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
-		var/used_category
-		if(part == helmet)
-			used_category = HELMET_FLAGS
-		if(part == chestplate)
-			used_category = CHESTPLATE_FLAGS
-		if(part == gauntlets)
-			used_category = GAUNTLETS_FLAGS
-		if(part == boots)
-			used_category = BOOTS_FLAGS
+		part.sprite_sheets = LAZYACCESSASSOC(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, LAZYACCESSASSOC(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
+			|| LAZYACCESSASSOC(part_data, part, SPRITE_SHEETS_DEFAULT)
+		var/used_category = LAZYACCESSASSOC(part_data, part, PART_FLAGS)
 		var/list/category = used_skin[used_category]
 		part.flags = category[UNSEALED_CLOTHING] || NONE
 		part.visor_flags = category[SEALED_CLOTHING] || NONE
@@ -858,3 +880,7 @@
 	if(bag)
 		for(var/obj/object in bag)
 			object.hear_message(user, msg)
+
+#undef PART_FLAGS
+#undef SPRITE_SHEETS_OVERRIDE
+#undef SPRITE_SHEETS_DEFAULT
