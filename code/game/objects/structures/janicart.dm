@@ -14,7 +14,7 @@
 	var/obj/item/storage/bag/trash/my_bag = null
 	var/obj/item/mop/my_mop = null
 	var/obj/item/push_broom/my_broom = null
-	var/obj/item/reagent_containers/spray/cleaner/my_spray = null
+	var/obj/item/reagent_containers/spray/my_spray = null
 	var/obj/item/lightreplacer/my_replacer = null
 	var/signs = 0
 	var/const/max_signs = 4
@@ -123,7 +123,7 @@
 			return
 		item_present = TRUE
 
-	if(istype(used, /obj/item/reagent_containers/spray/cleaner))
+	if(istype(used, /obj/item/reagent_containers/spray))
 		if(!my_spray)
 			my_spray = used
 			put_in_cart(user, used)
