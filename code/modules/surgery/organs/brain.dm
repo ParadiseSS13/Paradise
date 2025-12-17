@@ -207,6 +207,7 @@
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
 	organ_datums = list(/datum/organ/heart, /datum/organ/lungs/slime)
+	is_merged_organ = TRUE
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

@@ -8,6 +8,8 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
+	/// If this organ is multiple organs combined. Used to snowflake things like slime brains misreporting ruptured lung.
+	var/is_merged_organ = FALSE
 	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
 	var/hidden_origin_tech
 	/// What is the level of tech for the hidden tech type?
