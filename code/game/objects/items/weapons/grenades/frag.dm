@@ -8,7 +8,7 @@
 	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
 	/// The type of projectile that will fired.
-	var/embedded_type = /obj/projectile/bullet/shrapnel/holy
+	var/embedded_type = /obj/projectile/bullet/shrapnel
 
 /obj/item/grenade/frag/prime()
 	update_mob()
