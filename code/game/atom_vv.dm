@@ -62,36 +62,17 @@
 				return
 			create_reagents(amount)
 
-		var/chosen_id
 		var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-		var/response = tgui_input_list(usr, "Choose a method.", "Add reagents", list("Enter ID", "Choose ID"))
-		switch(response)
-			if("Enter ID")
-				var/valid_id = FALSE
-				chosen_id = tgui_input_text(usr, "Enter the ID of the reagent you want to add.", "Choose a reagent")
+		var/chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent", reagent_options)
 
-				if(!chosen_id) // Get me out of here!
-					to_chat(usr, SPAN_WARNING("No input detected."))
-					return
+		if(!chosen_id)
+			return
 
-				for(var/ID in reagent_options)
-					if(ID == chosen_id)
-						valid_id = TRUE
-						break
-
-				if(!valid_id)
-					to_chat(usr, SPAN_WARNING("A reagent with that ID doesn't exist!</span>"))
-					return
-
-			if("Choose ID")
-				chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent", reagent_options)
-
-		if(chosen_id)
-			var/amount = tgui_input_number(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume)
-			if(amount)
-				reagents.add_reagent(chosen_id, amount)
-				log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
-				message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
+		var/amount = tgui_input_number(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume)
+		if(amount)
+			reagents.add_reagent(chosen_id, amount)
+			log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
+			message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
 
 	if(href_list[VV_HK_EDITREAGENTS])
 		if(!check_rights(R_DEBUG|R_ADMIN))
