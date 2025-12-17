@@ -25,12 +25,14 @@
 	metadata["beta_rad"] = initial(T.beta_rad)
 	metadata["gamma_rad"] = initial(T.gamma_rad)
 	metadata["minimum_temp_modifier"] = initial(T.minimum_temp_modifier)
+	metadata["upgrade_required"] = initial(T.upgrade_required)
 
 	metadata["required_object"] = initial(T.required_object)
 
-	// Temp object lets us read in materials because you can't initial() a list
+	// Temp object lets us read in materials and adjacent requirements because you can't initial() a list
 	var/obj/item/nuclear_rod/temp_rod = new path()
 	var/list/raw_materials = temp_rod.materials
+	var/list/requirements = temp_rod.adjacent_requirements
 	qdel(temp_rod)
 
 	if(raw_materials && length(raw_materials))
@@ -49,12 +51,22 @@
 		metadata["power_enrich_threshold"] = initial(F.power_enrich_threshold)
 		metadata["heat_enrich_threshold"] = initial(F.heat_enrich_threshold)
 
+		// Get enrichment result names
 		if(initial(F.power_enrich_result))
 			var/obj/item/nuclear_rod/power_result = initial(F.power_enrich_result)
-			metadata["power_enrich_result_name"] = initial(power_result.name)
+			metadata["power_enrichment"] = initial(power_result.name)
+			metadata["power_enrichment_requirement"] = initial(F.power_enrich_threshold)
+		else
+			metadata["power_enrichment"] = null
+			metadata["power_enrichment_requirement"] = null
+
 		if(initial(F.heat_enrich_result))
 			var/obj/item/nuclear_rod/heat_result = initial(F.heat_enrich_result)
-			metadata["heat_enrich_result_name"] = initial(heat_result.name)
+			metadata["heat_enrichment"] = initial(heat_result.name)
+			metadata["heat_enrichment_requirement"] = initial(F.heat_enrich_threshold)
+		else
+			metadata["heat_enrichment"] = null
+			metadata["heat_enrichment_requirement"] = null
 	else if(ispath(path, /obj/item/nuclear_rod/moderator))
 		var/obj/item/nuclear_rod/moderator/M = path
 		metadata["craftable"] = initial(M.craftable)
@@ -64,14 +76,28 @@
 	else
 		metadata["craftable"] = FALSE
 
-	var/list/requirements = initial(T.adjacent_requirements)
 	if(requirements && length(requirements))
 		var/list/temp_reqs = list()
+		var/list/req_counts = list()
+
+		// Count occurrences of each requirement type
 		for(var/req_path in requirements)
 			var/obj/item/nuclear_rod/req = req_path
-			temp_reqs += initial(req.name)
+			var/req_name = initial(req.name)
+			if(req_counts[req_name])
+				req_counts[req_name]++
+			else
+				req_counts[req_name] = 1
+
+		// Format the requirements with counts
+		for(var/req_name in req_counts)
+			var/count = req_counts[req_name]
+			temp_reqs += "[count]x [req_name]"
+
+		metadata["neighbor_requirements"] = temp_reqs
 		metadata["adjacent_requirements_display"] = english_list(temp_reqs, and_text = ", ")
 	else
+		metadata["neighbor_requirements"] = list()
 		metadata["adjacent_requirements_display"] = "None"
 
 	return TRUE
