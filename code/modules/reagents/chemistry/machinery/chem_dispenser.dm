@@ -202,7 +202,7 @@
 	. = TRUE
 	switch(actions)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 75) // round to nearest 1 and clamp to 0 - 75
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
@@ -520,7 +520,7 @@
 	. = TRUE
 	switch(action)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"])), 1, 50) // round to nearest 1 and clamp to 1 - 50
+			amount = clamp(round(text2num(params["amount"])), 1, 75) // round to nearest 1 and clamp to 1 - 75
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]

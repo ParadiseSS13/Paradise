@@ -83,12 +83,17 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
+	reagents.set_reacting(TRUE)
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		reagents.maximum_volume += 2 * B.reagents.maximum_volume
+		if(istype(B, /obj/item/reagent_containers/glass/beaker/noreact))
+			reagents.set_reacting(FALSE)
+		else
+			reagents.handle_reactions()	// If cryostasis beaker is removed via upgrading, force a reaction
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		production_amount_limit = 30 * M.rating
+		production_amount_limit = 20 * RaiseToPower(2, M.rating - 1)
 	for(var/key in production_modes)
-		production_modes[key].max_items_amount = production_amount_limit
+		production_modes[key].max_items_amount = clamp(production_amount_limit, 20, 120)
 
 /obj/machinery/chem_master/AltClick(mob/user, modifiers)
 	if(!beaker)
@@ -97,11 +102,11 @@
 		return
 	if(user.incapacitated())
 		return
-	beaker.forceMove(get_turf(user))
-	if(Adjacent(user) && !issilicon(user))
+	beaker.forceMove(loc)
+	if(!issilicon(user))
 		user.put_in_hands(beaker)
-		beaker = null
-		update_icon()
+	beaker = null
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
@@ -315,7 +320,7 @@
 	var/datum/reagents/R
 	if(beaker)
 		R = beaker.reagents
-	
+
 	switch(action)
 		if("add")
 			var/id = params["id"]
@@ -577,7 +582,7 @@
 	if(amount_per_item < 0.1)
 		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
 		return
-	
+
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
