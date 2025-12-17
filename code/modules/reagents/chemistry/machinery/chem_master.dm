@@ -125,7 +125,8 @@
 		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon_state()
-	icon_state = "mixer[beaker || reagents.total_volume ? "1" : "0"][has_power() ? "" : "_nopower"]"
+	if(reagents)
+		icon_state = "mixer[beaker || reagents.total_volume ? "1" : "0"][has_power() ? "" : "_nopower"]"
 
 /obj/machinery/chem_master/update_overlays()
 	. = ..()
@@ -337,6 +338,7 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+				update_icon()
 		if("addcustom")
 			if(!beaker || !beaker.reagents.total_volume)
 				return
@@ -356,6 +358,7 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+				update_icon()
 		if("eject")
 			if(!beaker)
 				return
