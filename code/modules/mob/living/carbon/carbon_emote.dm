@@ -143,7 +143,7 @@
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
-datum/emote/living/carbon/sign/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/carbon/sign/run_emote(mob/user, params, type_override, intentional)
 	var/fingers = round(text2num(params), 1)
 
 	if(fingers > 10)
