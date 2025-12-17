@@ -842,3 +842,12 @@
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	new_attack_chain = TRUE
+
+/// MARK: Chamber Doors
+
+/obj/effect/temp_visual/chamber_closing
+	icon = 'icons/obj/fission/reactor_chamber.dmi'
+	icon_state = "doors_closing"
+	duration = 0.7 SECONDS
+	layer = ABOVE_ALL_MOB_LAYER + 0.03
+

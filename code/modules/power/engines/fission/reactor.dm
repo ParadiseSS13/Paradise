@@ -1073,8 +1073,6 @@
 	var/heat_mod_total = 1
 	/// A simple binary to prevent open/close spam mucking up the anims
 	var/lockout = FALSE
-	/// Holds our cover icon for easy manipulation
-	var/mutable_appearance/cover_icon
 	/// holds our durability bar overlay level. Updates overlays if it changes
 	var/durability_level = 0
 	/// holds our previous overlay.
@@ -1090,7 +1088,6 @@
 	component_parts += new /obj/item/stack/sheet/metal(src, 2)
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
-	cover_icon = mutable_appearance(icon, layer = ABOVE_ALL_MOB_LAYER + 0.02)
 	update_icon(UPDATE_OVERLAYS)
 	return INITIALIZE_HINT_LATELOAD
 
@@ -1141,15 +1138,20 @@
 
 /obj/machinery/atmospherics/reactor_chamber/update_overlays()
 	. = ..()
+	overlays.Cut()
 	if(welded)
 		. += "welded"
 	if(!held_rod)
 		return
 	if(chamber_state == CHAMBER_OPEN)
 		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.01)
-		rod_overlay.icon = held_rod.icon
-		rod_overlay.icon_state = held_rod.icon_state
-		rod_overlay.pixel_y = 14
+		rod_overlay.icon = icon
+		if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+			rod_overlay.icon_state = "fuel_overlay"
+		if(istype(held_rod, /obj/item/nuclear_rod/coolant))
+			rod_overlay.icon_state = "coolant_overlay"
+		if(istype(held_rod, /obj/item/nuclear_rod/moderator))
+			rod_overlay.icon_state = "moderator_overlay"
 		. += rod_overlay
 
 	var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
@@ -1175,6 +1177,12 @@
 	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
 		state_overlay.icon_state = "overload_active"
 	. += state_overlay
+
+	if(chamber_state == CHAMBER_OPEN)
+		var/mutable_appearance/cover_icon = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.02)
+		cover_icon.icon = icon
+		cover_icon.icon_state = "door_open"
+		. += cover_icon
 
 	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
 	durability_overlay.icon_state = "dur_[durability_level]"
@@ -1259,13 +1267,15 @@
 		to_chat(user, SPAN_WARNING("An unusual force prevents you from manipulating the chamber!"))
 		return
 	if(chamber_state == CHAMBER_UP)
-		open()
+		if(!lockout)
+			open()
 		return
 	if(chamber_state == CHAMBER_OPEN)
 		if(panel_open == TRUE)
 			to_chat(user, SPAN_WARNING("You must close the maintenance panel before the chamber can be sealed!"))
 			return
-		close()
+		if(!lockout)
+			close()
 		return
 
 /obj/machinery/atmospherics/reactor_chamber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -1380,7 +1390,8 @@
 /obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
 	icon_state = "chamber_up_anim"
-	addtimer(CALLBACK(src, PROC_REF(finish_raise_anim)), 1.2 SECONDS)
+	lockout = TRUE
+	addtimer(CALLBACK(src, PROC_REF(finish_raise_anim)), 0.7 SECONDS)
 	density = TRUE
 	operational = FALSE
 	enriching = FALSE
@@ -1408,6 +1419,7 @@
 			chamber.requirements_met = FALSE
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_raise_anim()
+	lockout = FALSE
 	icon_state = "chamber_up"
 
 /obj/machinery/atmospherics/reactor_chamber/proc/lower(playsound = TRUE)
@@ -1443,33 +1455,31 @@
 
 /obj/machinery/atmospherics/reactor_chamber/proc/close(playsound = TRUE)
 	chamber_state = CHAMBER_UP
-	cover_icon.icon_state = "doors_closing"
-	addtimer(CALLBACK(src, PROC_REF(finish_closing)), 1 SECONDS)
+	new /obj/effect/temp_visual/chamber_closing(loc)
+	addtimer(CALLBACK(src, PROC_REF(finish_closing)), 0.5 SECONDS)
 	lockout = TRUE
 	if(playsound)
 		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_closing()
 	lockout = FALSE
 	icon_state = "chamber_up"
-	overlays.Cut()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/open(playsound = TRUE)
 	chamber_state = CHAMBER_OPEN
 	icon_state = "chamber_open"
-	cover_icon.icon_state = "doors_opening"
+	var/cover_icon = mutable_appearance(icon, icon_state = "doors_opening", layer = ABOVE_ALL_MOB_LAYER + 0.02)
 	add_overlay(cover_icon)
 	lockout = TRUE
-	addtimer(CALLBACK(src, PROC_REF(finish_opening)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_opening)), 0.5 SECONDS)
 	if(playsound)
 		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_opening()
+
 	lockout = FALSE
-	cover_icon.icon_state = "door_open"
 
 /obj/machinery/atmospherics/reactor_chamber/proc/set_idle_overload()
 	if(chamber_state == CHAMBER_DOWN)
