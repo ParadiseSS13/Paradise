@@ -47,35 +47,35 @@
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/photo))
+	if(istype(used, /obj/item/photo))
 		amount++
 		photos++
 		if(screen == 2)
 			screen = 1
-		to_chat(user, SPAN_NOTICE("You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
-		user.transfer_item_to(W, src)
+		to_chat(user, SPAN_NOTICE("You add [(used.name == "photo") ? "the photo" : used.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
+		user.transfer_item_to(used, src)
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
-	if(W.get_heat())
-		burnpaper(W, user)
+	if(used.get_heat())
+		burnpaper(used, user)
 		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/paper_bundle))
-		for(var/obj/O in W)
+	else if(istype(used, /obj/item/paper_bundle))
+		for(var/obj/O in used)
 			O.loc = src
 			O.add_fingerprint(usr)
 			src.amount++
 			if(screen == 2)
 				screen = 1
-		to_chat(user, SPAN_NOTICE("You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
-		qdel(W)
+		to_chat(user, SPAN_NOTICE("You add \the [used.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
+		qdel(used)
 
 	else
-		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
+		if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = get_page()
-		P.attackby__legacy__attackchain(W, user, params)
+		P.item_interaction(user, used, modifiers)
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
 	var/class = "warning"

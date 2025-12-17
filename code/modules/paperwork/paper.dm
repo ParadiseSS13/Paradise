@@ -420,13 +420,13 @@
 		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
-	if(P.get_heat())
+	if(used.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				SPAN_WARNING("[user] accidentally ignites [user.p_themselves()]!"),
 				SPAN_USERDANGER("You miss the paper and accidentally light yourself on fire!")
 			)
-			user.drop_item_to_ground(P)
+			user.drop_item_to_ground(used)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return ITEM_INTERACT_COMPLETE
@@ -436,15 +436,15 @@
 
 		user.drop_item_to_ground(src)
 		user.visible_message(
-			SPAN_DANGER("[user] lights [src] ablaze with [P]!"),
+			SPAN_DANGER("[user] lights [src] ablaze with [used]!"),
 			SPAN_DANGER("You light [src] on fire!")
 		)
 		fire_act()
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
-		if(istype(P, /obj/item/paper/carbon))
-			var/obj/item/paper/carbon/C = P
+	if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo))
+		if(istype(used, /obj/item/paper/carbon))
+			var/obj/item/paper/carbon/C = used
 			if(!C.iscopy && !C.copied)
 				to_chat(user, SPAN_NOTICE("Take off the carbon copy first."))
 				return ITEM_INTERACT_COMPLETE
@@ -452,9 +452,9 @@
 		var/obj/item/paper_bundle/B = new(src.loc, FALSE)
 		if(name != "paper")
 			B.name = name
-		else if(P.name != "paper" && P.name != "photo")
-			B.name = P.name
-		user.drop_item_to_ground(P)
+		else if(used.name != "paper" && used.name != "photo")
+			B.name = used.name
+		user.drop_item_to_ground(used)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
@@ -484,36 +484,39 @@
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		to_chat(user, SPAN_NOTICE("You clip [P] to [(src.name == "paper") ? "the paper" : src.name]."))
+		to_chat(user, SPAN_NOTICE("You clip [used] to [(src.name == "paper") ? "the paper" : src.name]."))
 		forceMove(B)
-		P.loc = B
+		used.loc = B
 		B.amount++
 		B.update_icon()
 		return ITEM_INTERACT_COMPLETE
 
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, SPAN_WARNING("You don't know how to write!"))
-		else
-			var/obj/item/pen/multi/robopen/RP = P
-			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
-				RP.RenamePaper(user,src)
-			else
-				show_content(user, infolinks = 1)
-		return ITEM_INTERACT_COMPLETE
-
-	if(istype(P, /obj/item/stamp))
-		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard)) && loc.loc != user && user.get_active_hand() != P))
 			return ITEM_INTERACT_COMPLETE
 
-		if(istype(P, /obj/item/stamp/clown) && !user?.mind.assigned_role == "Clown")
+		var/obj/item/pen/multi/robopen/RP = used
+		if(istype(used, /obj/item/pen/multi/robopen) && RP.mode == 2)
+			RP.RenamePaper(user,src)
+		else
+			show_content(user, infolinks = 1)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stamp))
+		if((!in_range(src, usr) && loc != user && !(istype(loc, /obj/item/clipboard)) && loc.loc != user && user.get_active_hand() != used))
+			return ITEM_INTERACT_COMPLETE
+
+		if(istype(used, /obj/item/stamp/clown) && !user?.mind.assigned_role == "Clown")
 			to_chat(user, SPAN_NOTICE("You are totally unable to use the stamp. HONK!"))
 			return ITEM_INTERACT_COMPLETE
 
-		stamp(P)
+		stamp(used)
 		to_chat(user, SPAN_NOTICE("You stamp the paper with your rubber stamp."))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-	return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
