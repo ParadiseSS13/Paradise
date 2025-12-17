@@ -1,7 +1,3 @@
-GLOBAL_LIST_INIT(bone_rod_recipes, list (
-
-	))
-
 /obj/item/stack/bone_rods
 	name = "bone rod"
 	desc = "Some bone rods. Can be used for cooking."
@@ -28,7 +24,6 @@ GLOBAL_LIST_INIT(bone_rod_recipes, list (
 
 /obj/item/stack/bone_rods/Initialize(mapload, new_amount, merge)
 	. = ..()
-	recipes = GLOB.bone_rod_recipes
 
 /obj/item/stack/bone_rods/update_icon_state()
 	var/amount = get_amount()
