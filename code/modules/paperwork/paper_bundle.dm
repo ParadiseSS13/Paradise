@@ -25,6 +25,10 @@
 		amount += 1
 
 /obj/item/paper_bundle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat())
+		burnpaper(used, user)
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/paper/P
 	if(istype(used, /obj/item/paper))
 		P = used
@@ -57,11 +61,7 @@
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
-	if(used.get_heat())
-		burnpaper(used, user)
-		return ITEM_INTERACT_COMPLETE
-
-	else if(istype(used, /obj/item/paper_bundle))
+	if(istype(used, /obj/item/paper_bundle))
 		for(var/obj/O in used)
 			O.loc = src
 			O.add_fingerprint(usr)
@@ -70,12 +70,15 @@
 				screen = 1
 		to_chat(user, SPAN_NOTICE("You add \the [used.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
 		qdel(used)
+		return ITEM_INTERACT_COMPLETE
 
-	else
-		if(is_pen(used) || istype(used, /obj/item/toy/crayon))
-			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
+		usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = get_page()
 		P.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
 	var/class = "warning"
