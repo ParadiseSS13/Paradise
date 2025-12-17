@@ -9,7 +9,7 @@
 /datum/wound/New(obj/item/organ/_parent)
 	. = ..()
 	if(!_parent) // So many things will runtime without a parent organ
-		INVOKE_ASYNC(src, PROC_REF(qdel), src)
+		INVOKE_ASYNC(src, GLOBAL_PROC_REF(qdel), src)
 		return
 	parent = _parent
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_and_destroy))

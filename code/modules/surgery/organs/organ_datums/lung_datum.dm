@@ -288,7 +288,8 @@
 			linked_organ.owner.emote("cough")		//respitory tract infection
 
 	var/datum/wound/ruptured_lungs/wound = locate(/datum/wound/ruptured_lungs) in linked_organ.wound_list
-	wound.do_effect()
+	if(wound)
+		wound.do_effect()
 
 /datum/organ/lungs/on_prepare_eat(obj/item/food/organ/snorgan)
 	snorgan.reagents.add_reagent("salbutamol", 5)
