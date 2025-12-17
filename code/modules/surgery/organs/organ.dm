@@ -342,3 +342,13 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		last_pain_message = msg
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
+
+/// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
+/obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)
+	if(!wound_to_find)
+		return
+	if(!exact)
+		return locate(wound_to_find) in wound_list
+	for(var/datum/wound/wound as anything in wound_list)
+		if(wound.type == wound_to_find)
+			return wound

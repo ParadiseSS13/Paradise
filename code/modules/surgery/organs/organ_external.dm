@@ -820,7 +820,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
-	var/datum/wound/fracture = locate(/datum/wound/fracture) in wound_list
+	var/datum/wound/fracture = get_wound(/datum/wound/fracture)
 	fracture.cure_wound()
 
 	if(owner)

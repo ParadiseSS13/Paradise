@@ -2252,7 +2252,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(E.status & ORGAN_BURNT)
 				analysis += SPAN_INFO("You conclude [src]'s [E.name] has been critically burned.")
 			if(E.status & ORGAN_BROKEN)
-				var/datum/wound/fracture = locate(/datum/wound/fracture) in E.wound_list
+				var/datum/wound/fracture = E.get_wound(/datum/wound/fracture)
 				analysis += SPAN_INFO("You conclude [src]'s [E.name] has a [fracture.name].")
 		if(!length(analysis))
 			analysis += SPAN_INFO("[src] appears to be in perfect health.")
