@@ -19,7 +19,7 @@
 		return
 	var/obj/item/stack/ore/glass/sand_pile = new /obj/item/stack/ore/glass(get_turf(src))
 	sand_pile.amount = 5
-	visible_message("<span class='danger'>With nowhere to dig, [src] falls apart.</span>")
+	visible_message(SPAN_DANGER("With nowhere to dig, [src] falls apart."))
 	// In case somehow something is buried here already
 	dig_up()
 	return INITIALIZE_HINT_QDEL
@@ -29,10 +29,10 @@
 	if(buried && ismob(buried))
 		. += "Here lies [buried], [headstone_message]."
 	if(buried)
-		. += "<span class='notice'>You can dig up [src] with a shovel or other digging tool.</span>"
+		. += SPAN_NOTICE("You can dig up [src] with a shovel or other digging tool.")
 	else
-		. += "<span class='notice'>You can bury an object here by clicking on [src] with the object.</span>"
-		. += "<span class='notice'>You can bury a mob or person here by clicking on [src] with the mob or person strongly grabbed.</span>"
+		. += SPAN_NOTICE("You can bury an object here by clicking on [src] with the object.")
+		. += SPAN_NOTICE("You can bury a mob or person here by clicking on [src] with the mob or person strongly grabbed.")
 
 /obj/structure/grave/update_icon_state()
 	. = ..()
@@ -61,34 +61,34 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/shovel) || istype(used, /obj/item/pickaxe))
-		to_chat(user, "<span class='notice'>You begin to dig up [src] with [used].</span>")
+		to_chat(user, SPAN_NOTICE("You begin to dig up [src] with [used]."))
 		playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
 		if(do_after(user, 10 SECONDS, target = src))
 			dig_up()
 		return ITEM_INTERACT_COMPLETE
 
 	if(buried)
-		to_chat(user, "<span class='warning'>The grave is already full.</span>")
+		to_chat(user, SPAN_WARNING("The grave is already full."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/grab)) // Burying Mobs
 		var/obj/item/grab/G = used
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='danger'>You need a stronger grip on [G.affecting] to bury [G.affecting.p_them()]!</span>")
+			to_chat(user, SPAN_DANGER("You need a stronger grip on [G.affecting] to bury [G.affecting.p_them()]!"))
 			return ITEM_INTERACT_COMPLETE
 		if(HAS_TRAIT(user, TRAIT_PACIFISM) && G.affecting.stat != DEAD)
-			to_chat(user, "<span class='danger'>Burying [G.affecting] in [src] might hurt [G.affecting.p_them()]!</span>")
+			to_chat(user, SPAN_DANGER("Burying [G.affecting] in [src] might hurt [G.affecting.p_them()]!"))
 			return ITEM_INTERACT_COMPLETE
-		visible_message("<span class='danger'>[user] starts to bury [G.affecting] in [src]!</span>", \
-			"<span class='userdanger'>[user] starts to bury [G.affecting]!</span>")
-		to_chat(G.affecting, "<span class='userdanger'>[user] is burying you alive!</span>")
+		visible_message(SPAN_DANGER("[user] starts to bury [G.affecting] in [src]!"), \
+			SPAN_USERDANGER("[user] starts to bury [G.affecting]!"))
+		to_chat(G.affecting, SPAN_USERDANGER("[user] is burying you alive!"))
 		log_admin("[user] started to bury [G.affecting] in [src]")
 		if(do_after(user, 10 SECONDS, target = G.affecting))
 			log_attack(user, G.affecting, "buried [G.affecting] in [src].")
 			bury(user, G.affecting)
 	else // Burying Objects
-		visible_message("<span class='danger'>[user] starts to bury [used] in [src]!</span>", \
-			"<span class='userdanger'>[user] starts to bury [used]!</span>")
+		visible_message(SPAN_DANGER("[user] starts to bury [used] in [src]!"), \
+			SPAN_USERDANGER("[user] starts to bury [used]!"))
 		if(do_after(user, 10 SECONDS, target = used))
 			bury(user, used)
 	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
@@ -100,7 +100,7 @@
 	return vacuum
 
 /obj/structure/grave/container_resist(mob/living)
-	to_chat(living, "<span class='danger'>You begin to dig out of [src]! This will take about 30 seconds.</span>")
+	to_chat(living, SPAN_DANGER("You begin to dig out of [src]! This will take about 30 seconds."))
 	if(do_after(living, 30 SECONDS, target = src))
 		dig_up()
 
@@ -108,7 +108,7 @@
 	if(isobj(thing_to_bury))
 		var/obj/bury_me = thing_to_bury
 		if(bury_me.flags & NODROP || !user.transfer_item_to(bury_me, src))
-			to_chat(user, "<span class='warning'>[bury_me] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[bury_me] is stuck to your hand!"))
 			return
 		bury_me.forceMove(src)
 	if(ismob(thing_to_bury))

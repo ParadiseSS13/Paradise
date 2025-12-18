@@ -21,7 +21,7 @@
 	process_chamber()
 
 /obj/item/gun/throw/piecannon/notify_ammo_count()
-	return "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.</span>"
+	return SPAN_NOTICE("[src] has [get_ammocount()] of [max_capacity] pies left.")
 
 /obj/item/gun/throw/piecannon/update_icon_state()
 	if(to_launch)

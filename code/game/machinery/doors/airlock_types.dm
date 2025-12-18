@@ -374,7 +374,7 @@
 	security_level = 6
 
 /obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /// This door is used in the malf AI telecomms ruin. This door starts early access, and will try to crush someone to death who enters it's turf like how an AI door crushes.
@@ -466,9 +466,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(SPAN_NOTICE("[user] [welded ? null : "un"]welds [src]!"),\
+					SPAN_NOTICE("You [welded ? null : "un"]weld [src]!"),\
+					SPAN_WARNING("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/abductor

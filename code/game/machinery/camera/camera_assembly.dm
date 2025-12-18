@@ -26,32 +26,32 @@
 	. = ..()
 	switch(state)
 		if(ASSEMBLY_UNBUILT)
-			. += "<span class='notice'>The camera assembly's <i>bolts</i> need to be secured in a wall.</span>"
+			. += SPAN_NOTICE("The camera assembly's <i>bolts</i> need to be secured in a wall.")
 		if(ASSEMBLY_WRENCHED)
-			. += "<span class='notice'>The camera assembly is <b>bolted</b>, but it needs to be <i>welded</i> into place.</span>"
+			. += SPAN_NOTICE("The camera assembly is <b>bolted</b>, but it needs to be <i>welded</i> into place.")
 		if(ASSEMBLY_WELDED)
-			. += "<span class='notice'>The camera assembly is <b>welded</b> to the wall, it's lacking <i>wires</i>.</span>"
+			. += SPAN_NOTICE("The camera assembly is <b>welded</b> to the wall, it's lacking <i>wires</i>.")
 		if(ASSEMBLY_WIRED)
-			. += "<span class='notice'>The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.</span>"
-			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
+			. += SPAN_NOTICE("The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.")
+			. += SPAN_NOTICE("Upgrades can be added to the camera assembly, and removed with a crowbar.")
 
 /obj/item/camera_assembly/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
-			to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
+			to_chat(user, SPAN_NOTICE("You add wires to the assembly."))
 			playsound(loc, I.usesound, 50, 1)
 			state = ASSEMBLY_WIRED
 		else
-			to_chat(user, "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>")
+			to_chat(user, SPAN_WARNING("You need 2 coils of wire to wire the assembly."))
 		return
 
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
 		if(!user.drop_item_to_ground(I))
-			to_chat(user, "<span class='warning'>[I] is stuck!</span>")
+			to_chat(user, SPAN_WARNING("[I] is stuck!"))
 			return
-		to_chat(user, "<span class='notice'>You attach [I] into the assembly inner circuits.</span>")
+		to_chat(user, SPAN_NOTICE("You attach [I] into the assembly inner circuits."))
 		upgrades += I
 		user.drop_item()
 		I.loc = src
@@ -67,7 +67,7 @@
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
-		to_chat(user, "<span class='notice'>You detach an upgrade from the assembly.</span>")
+		to_chat(user, SPAN_NOTICE("You detach an upgrade from the assembly."))
 		playsound(loc, I.usesound, 50, 1)
 		U.loc = get_turf(src)
 		upgrades -= U
@@ -82,13 +82,13 @@
 	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")
+		to_chat(usr, SPAN_WARNING("No input found please hang up and try your call again."))
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
 	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, "<span class='warning'>No network found please hang up and try your call again.</span>")
+		to_chat(usr, SPAN_WARNING("No network found please hang up and try your call again."))
 		return
 
 	var/area/camera_area = get_area(src)
@@ -146,7 +146,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
-		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
+		to_chat(user, SPAN_WARNING("[src] can't fit here!"))
 
 /obj/item/camera_assembly/welder_act(mob/user, obj/item/I)
 	if(state == ASSEMBLY_UNBUILT)
@@ -158,12 +158,12 @@
 	if(state == ASSEMBLY_WRENCHED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You weld [src] into place.</span>")
+		to_chat(user, SPAN_NOTICE("You weld [src] into place."))
 		state = ASSEMBLY_WELDED
 	else if(state == ASSEMBLY_WELDED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
+		to_chat(user, SPAN_NOTICE("You unweld [src] from its place."))
 		state = ASSEMBLY_WRENCHED
 
 /obj/item/camera_assembly/update_icon_state()

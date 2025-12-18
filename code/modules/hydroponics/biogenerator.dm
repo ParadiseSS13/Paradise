@@ -114,16 +114,16 @@
 		return ..()
 
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently processing."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(user, SPAN_WARNING("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(container)
-			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
+			to_chat(user, SPAN_WARNING("A container is already loaded into [src]."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
@@ -131,14 +131,14 @@
 
 		used.forceMove(src)
 		container = used
-		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You add the [container] to [src]."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/storage/bag/plants))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
+			to_chat(user, SPAN_WARNING("[src] can't hold any more plants!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/storage/bag/plants/PB = used
@@ -150,22 +150,22 @@
 			stored_plants += P
 
 		if(length(stored_plants) < max_storable_plants)
-			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You empty [PB] into [src]."))
 		else
-			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
+			to_chat(user, SPAN_NOTICE("You fill [src] to its capacity."))
 
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
 	else if(is_type_in_typecache(used, acceptable_items))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
+			to_chat(user, SPAN_WARNING("[src] can't hold any more plants!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.transfer_item_to(used, src))
 			return ITEM_INTERACT_COMPLETE
 
 		stored_plants += used
-		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -184,7 +184,7 @@
 		update_ui_product_list(user)
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='warning'>You cannot put [used] in [src]!</span>")
+	to_chat(user, SPAN_WARNING("You cannot put [used] in [src]!"))
 	return ITEM_INTERACT_COMPLETE
 
 /**
@@ -274,7 +274,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently processing!"))
 		return
 
 	processing = TRUE

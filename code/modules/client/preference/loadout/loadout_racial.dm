@@ -28,9 +28,9 @@
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Virologist", "Paramedic")
 
 /datum/gear/racial/taj/sec
-	display_name = "Tajaran Security Veil"
+	display_name = "Shaded Tajaran Security Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a security HUD."
-	path = /obj/item/clothing/glasses/hud/tajblind/sec
+	path = /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent", "Magistrate")
 
 /datum/gear/racial/taj/miner

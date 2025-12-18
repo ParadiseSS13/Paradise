@@ -189,6 +189,7 @@
 					/obj/item/seeds/berry = 3,
 					/obj/item/seeds/cabbage = 3,
 					/obj/item/seeds/carrot = 3,
+					/obj/item/seeds/cassava = 3,
 					/obj/item/seeds/cherry = 3,
 					/obj/item/seeds/chanter = 3,
 					/obj/item/seeds/chili = 3,
@@ -412,6 +413,8 @@
 					/obj/item/smithing_cast/component/lens_focus = 3,
 					/obj/item/smithing_cast/component/lens_frame = 3,
 					/obj/item/smithing_cast/component/trim = 3,
+					/obj/item/smithing_cast/component/knife_blade = 3,
+					/obj/item/smithing_cast/component/knife_handle = 3,
 					/obj/item/smithing_cast/misc/egun_parts = 3,
 					/obj/item/storage/bag/smith = 2,
 					/obj/item/storage/box/crewvend = 1)

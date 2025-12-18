@@ -38,7 +38,7 @@
 	if(!desc)
 		return
 	teleport_target = L[desc]
-	to_chat(user, "<span class='notice'>The [src] is now set to [desc].</span>")
+	to_chat(user, SPAN_NOTICE("The [src] is now set to [desc]."))
 	//Process the shot without draining the cell
 	if(chambered)
 		if(chambered.BB)

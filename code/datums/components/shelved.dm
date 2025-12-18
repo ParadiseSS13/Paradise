@@ -48,7 +48,7 @@
 		return
 
 	var/joined_results = english_list(results)
-	examine_list += "<span class='notice'>It currently holds: [joined_results].</span>"
+	examine_list += SPAN_NOTICE("It currently holds: [joined_results].")
 
 /datum/component/shelver/proc/prepare_autoshelf()
 	SIGNAL_HANDLER // COMSIG_SHELF_ADDED_ON_MAPLOAD
@@ -140,7 +140,7 @@
 	var/in_allowed_subtypes = is_type_in_typecache(attacker, allowed_subtypes)
 
 	if(restrictions && !(in_allowed_types || in_allowed_subtypes))
-		to_chat(user, "<span class='notice'>[attacker] won't fit on [parent]!</span>")
+		to_chat(user, SPAN_NOTICE("[attacker] won't fit on [parent]!"))
 		return COMPONENT_SKIP_AFTERATTACK
 
 	var/list/PL = params2list(params)
@@ -152,15 +152,15 @@
 		i++
 		if(icon_x >= coords[1] && icon_x <= coords[3] && icon_y >= coords[2] && icon_y <= coords[4])
 			if(used_places[i])
-				to_chat(user, "<span class='notice'>There's already something there on [parent].</span>")
+				to_chat(user, SPAN_NOTICE("There's already something there on [parent]."))
 				return COMPONENT_SKIP_AFTERATTACK
 
 			var/position_details = placement_zones[coords]
 			if(user.drop_item())
 				add_item(attacker, i, position_details)
 				user.visible_message(
-					"<span class='notice'>[user] places [attacker] on [parent].</span>",
-					"<span class='notice'>You place [attacker] on [parent].</span>",
+					SPAN_NOTICE("[user] places [attacker] on [parent]."),
+					SPAN_NOTICE("You place [attacker] on [parent]."),
 				)
 				return COMPONENT_SKIP_AFTERATTACK
 
@@ -336,7 +336,7 @@
 			CRASH("received non-obj shelf with UID [shelf_uid]")
 
 		var/shelf_name = shelf ? "flies off [shelf]" : "falls down"
-		O.visible_message("<span class='notice'>[O] [shelf_name]!</span>")
+		O.visible_message(SPAN_NOTICE("[O] [shelf_name]!"))
 		O.throw_at(pick(clear_turfs), 2, 3)
 		qdel(src)
 

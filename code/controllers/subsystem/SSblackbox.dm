@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(blackbox)
   *
   * Arguments:
   * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
-  * * key - Key of the data to be used (EG: "admin_verb")
+  * * key - Key of the data to be used (EG: "user_verb")
   * * stat - Either a number accumulated via "amount", "tally", or "nested tally"; or a number/string collected by "ledger" or "nested ledger".
   * * data - The actual data to logged
   * * overwrite - Do we want to overwrite the existing key

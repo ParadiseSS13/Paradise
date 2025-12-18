@@ -78,7 +78,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	to_chat(src, SPAN_NOTICE("\The [grabber] scoops you up."))
 	grabber.status_flags |= PASSEMOTES
 	return H
 
