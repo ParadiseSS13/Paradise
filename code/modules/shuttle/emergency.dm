@@ -297,7 +297,9 @@
 /obj/docking_port/mobile/emergency/Destroy(force)
 	if(force && SSshuttle.emergency == src)
 		// If we're the selected emergency shuttle
-		WARNING("The emergency mobile docking port has been forcibly destroyed. An emergency shuttle may need to be loaded in.")
+		var/msg = "The emergency mobile docking port has been forcibly destroyed. An emergency shuttle may need to be loaded in."
+		stack_trace(msg)
+		log_and_message_admins_no_usr(msg)
 
 	return ..()
 
