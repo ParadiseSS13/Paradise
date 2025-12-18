@@ -1087,7 +1087,7 @@
 	implant_color = "#FFDDAA"
 	slot = "chest_synthetic_skin"
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=6;biotech=7;syndicate=4"
+	origin_tech = "materials=6;biotech=7;syndicate=1"
 	augment_icon = "nutripump"
 	/// Whether regeneration is allowed. This is disabled temporarily by an EMP
 	var/regeneration_active = TRUE
