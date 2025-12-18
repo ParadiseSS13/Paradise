@@ -45,8 +45,7 @@ type CardSkinsProps = {
 export const CardSkins = (props: CardSkinsProps) => {
   const { act } = useBackend();
   const { card_skins, card, is_centcom, all_centcom_skins } = props;
-  const t = card?.current_skin;
-  console.log('card_skins, card, is_centcom, all_centcom_skins');
+
   return (
     <Section title="Card Skins">
       {card_skins.map((v) => (
