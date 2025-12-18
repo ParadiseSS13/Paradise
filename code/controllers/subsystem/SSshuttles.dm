@@ -92,10 +92,7 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		var/obj/docking_port/mobile/port = thing
 		port.check()
-	for(var/T as anything in transit_docking_ports)
-		var/obj/docking_port/stationary/transit/transit_port = T
-		if(!istype(transit_port))
-			continue
+	for(var/obj/docking_port/stationary/transit/transit_port in transit_docking_ports)
 		if(!transit_port.owner)
 			qdel(transit_port, force=TRUE)
 		// This next one removes transit docks/zones that aren't
