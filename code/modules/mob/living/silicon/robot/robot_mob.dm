@@ -1301,7 +1301,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_rolling_icon()
 
 	// Dead or incapacitated.
-	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode))
+	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsSleeping() || IsWeakened() || low_power_mode))
 		overlays -= "eyes"
 	else if((base_icon_state in grouped_eye_names) || (base_icon_state in sprites_with_variants))
 		overlays += "eyes-[base_icon_state]"
