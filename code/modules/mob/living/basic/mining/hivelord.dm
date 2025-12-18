@@ -149,8 +149,8 @@
 		return ..()
 
 /mob/living/basic/mining/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message("<span class='notice'>[src] is reabsorbed by [C]'s body.</span>", \
-								"<span class='notice'>[src] is reabsorbed by your body.</span>")
+	C.visible_message(SPAN_NOTICE("[src] is reabsorbed by [C]'s body."), \
+								SPAN_NOTICE("[src] is reabsorbed by your body."))
 	transfer_reagents(C)
 	death()
 
@@ -212,7 +212,7 @@
 	dwarf_mob = TRUE
 
 /mob/living/basic/mining/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+	visible_message(SPAN_WARNING("The skulls on [src] wail in anger as they flee from their dying host!"))
 	var/turf/T = get_turf(src)
 	if(T)
 		if(stored_mob)
@@ -254,13 +254,13 @@
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	if(H?.dna?.species && !H.dna.species.can_be_legion_infested())
 		return
-	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
+	visible_message(SPAN_WARNING("[name] burrows into the flesh of [H]!"))
 	var/mob/living/basic/mining/hivelord/legion/L
 	if(HAS_TRAIT(H, TRAIT_DWARF)) // dwarf legions aren't just fluff!
 		L = new /mob/living/basic/mining/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
-	visible_message("<span class='warning'>[L] staggers to [L.p_their()] feet!</span>")
+	visible_message(SPAN_WARNING("[L] staggers to [L.p_their()] feet!"))
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
@@ -322,9 +322,9 @@
 		if(faction_check(faction, L.faction, FALSE))
 			continue
 
-		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-		"<span class='userdanger'>You feel a strong force throwing you!</span>",
-		"<span class='danger'>You hear a thud.</span>")
+		L.visible_message(SPAN_DANGER("[L] was thrown by [src]!"),
+		SPAN_USERDANGER("You feel a strong force throwing you!"),
+		SPAN_DANGER("You hear a thud."))
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

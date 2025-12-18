@@ -33,15 +33,15 @@
 		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			if(target.revive())
 				target.grab_ghost(force = TRUE) // even suicides
-				to_chat(target, "<span class='notice'>You rise with a start, you're undead!!!</span>")
+				to_chat(target, SPAN_NOTICE("You rise with a start, you're undead!!!"))
 			else if(target.stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
+				to_chat(target, SPAN_NOTICE("You feel great!"))
 			return
 		if(ismachineperson(target) || issilicon(target)) //speshul snowfleks deserv speshul treetment
 			target.adjustFireLoss(6969)  //remember - slimes love fire
 		target.death(FALSE)
 
-		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+		target.visible_message(SPAN_DANGER("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
 
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -111,7 +111,7 @@
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.death(FALSE)
-			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+			target.visible_message(SPAN_DANGER("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
 		else
 			var/old_stat = target.stat
 			target.suiciding = FALSE
@@ -122,9 +122,9 @@
 						ghost.reenter_corpse()
 						break
 			if(old_stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
+				to_chat(target, SPAN_NOTICE("You feel great!"))
 			else
-				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+				to_chat(target, SPAN_NOTICE("You rise with a start, you're alive!!!"))
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>"))
+				to_chat(M, chat_box_red(SPAN_USERDANGER("Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!")))
 			if("terror")
 				var/terror_type = pick(
 					/mob/living/simple_animal/hostile/poison/terror_spider/red,
@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 					/mob/living/simple_animal/hostile/poison/terror_spider/gray,
 					/mob/living/simple_animal/hostile/poison/terror_spider/black)
 				new_mob = new terror_type(M.loc)
-				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!</span>"))
+				to_chat(M, chat_box_red(SPAN_USERDANGER("Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!")))
 			if("animal")
 				if(prob(50))
 					var/beast = pick(GLOB.wabbajack_hostile_animals)
@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				if(H.mind)
 					H.mind.transfer_to(S)
 					var/list/messages = list()
-					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add(SPAN_USERDANGER("You have been transformed into an animated statue."))
 					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
 					messages.Add("Do not harm [firer.name], your creator.")
 					to_chat(S, chat_box_red(messages.Join("<br>")))
@@ -405,12 +405,12 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
-			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
+			to_chat(target, SPAN_WARNING("You get splatted by [src], HONKING your sensors!"))
 			R.Stun(slip_stun)
 	else if(isliving(target))
 		var/mob/living/L = target
 		if(!L.IsStunned())
-			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
+			to_chat(target, SPAN_NOTICE("You get splatted by [src]."))
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
 

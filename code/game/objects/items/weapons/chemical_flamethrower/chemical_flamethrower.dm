@@ -74,15 +74,15 @@
 /obj/item/chemical_flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/chemical_canister))
-		to_chat(user, "<span class='notice'>You can't fit [I] in there!</span>")
+		to_chat(user, SPAN_NOTICE("You can't fit [I] in there!"))
 		return
 	if(length(canisters) >= max_canisters)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already full!"))
 		return
 
 	if(user.transfer_item_to(I, src))
 		canisters += I
-		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [I] into [src]."))
 		update_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
@@ -120,11 +120,11 @@
 		return
 
 	if(user.mind?.martial_art?.no_guns)
-		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
+		to_chat(user, SPAN_WARNING("[user.mind.martial_art.no_guns_message]"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
+		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
 		return
 
 	if(user.get_active_hand() == src) // Make sure our user is still holding us
@@ -143,7 +143,7 @@
 		if(iswallturf(T)) // No going through walls
 			break
 		if(!use_ammo(ammo_usage))
-			to_chat(user, "<span class='warning'>You hear a click!</span>")
+			to_chat(user, SPAN_WARNING("You hear a click!"))
 			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 			break // Whoops! No ammo!
 
@@ -257,11 +257,11 @@
 		return
 
 	if(has_filled_reagent && (reagents.get_master_reagent_id() != current_reagent_id))
-		audible_message("<span class='notice'>[src]'s speaker beeps: chemical override started!</span>")
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: chemical override started!"))
 
 	if(!(reagents.get_master_reagent_id() in accepted_chemicals))
 		reagents.clear_reagents()
-		audible_message("<span class='notice'>[src]'s speaker beeps: the most present chemical isn't accepted!</span>")
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: the most present chemical isn't accepted!"))
 		return
 
 	var/old_chem_id = current_reagent_id
@@ -271,7 +271,7 @@
 	var/has_enough_reagents = reagents.total_volume >= required_volume
 
 	if(old_chem_id == reagents.get_master_reagent_id())
-		audible_message("<span class='notice'>[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started.</span>")
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: Refill started. Need [max(required_volume - reagents.total_volume, 0)] units before refill is started."))
 		if(has_enough_reagents)
 			ammo = initial(ammo)
 			reagents.clear_reagents()

@@ -27,7 +27,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This moves gas from one pipe to another. A higher target pressure demands more energy. The side with the red end is the output.</span>"
+	. += SPAN_NOTICE("This moves gas from one pipe to another. A higher target pressure demands more energy. The side with the red end is the output.")
 
 // So we can CtrlClick without triggering the anchored message.
 /obj/machinery/atmospherics/binary/pump/can_be_pulled(user, grab_state, force, show_message)
@@ -100,7 +100,7 @@ Thus, the two variables affect pump operation are set in New():
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, SPAN_ALERT("Access denied."))
 		return
 
 	add_fingerprint(user)

@@ -122,48 +122,42 @@
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////
 
-/client/proc/debugNatureMapGenerator()
-	set name = "Test Nature Map Generator"
-	set category = "Debug"
-
-	if(!check_rights(R_MAINTAINER))
-		return
-
+USER_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", "Test nature map generator", VERB_CATEGORY_DEBUG)
 	var/datum/map_generator/nature/N = new()
-	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
-	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[mob ? mob.z : 1]")
+	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1", user = client)
+	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[client.mob ? client.mob.z : 1]", user = client)
 	//maxx maxy and current z so that if you fuck up, you only fuck up one entire z level instead of the entire universe
 	if(!startInput || !endInput)
-		to_chat(src, "Missing Input")
+		to_chat(client, "Missing Input")
 		return
 
 	var/list/startCoords = splittext(startInput, ";")
 	var/list/endCoords = splittext(endInput, ";")
 	if(!startCoords || !endCoords)
-		to_chat(src, "Invalid Coords")
-		to_chat(src, "Start Input: [startInput]")
-		to_chat(src, "End Input: [endInput]")
+		to_chat(client, "Invalid Coords")
+		to_chat(client, "Start Input: [startInput]")
+		to_chat(client, "End Input: [endInput]")
 		return
 
 	var/turf/Start = locate(text2num(startCoords[1]),text2num(startCoords[2]),text2num(startCoords[3]))
 	var/turf/End = locate(text2num(endCoords[1]),text2num(endCoords[2]),text2num(endCoords[3]))
 	if(!Start || !End)
-		to_chat(src, "Invalid Turfs")
-		to_chat(src, "Start Coords: [startCoords[1]] - [startCoords[2]] - [startCoords[3]]")
-		to_chat(src, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
+		to_chat(client, "Invalid Turfs")
+		to_chat(client, "Start Coords: [startCoords[1]] - [startCoords[2]] - [startCoords[3]]")
+		to_chat(client, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
 		return
 
 	var/list/clusters = list("None"=MAP_GENERATOR_CLUSTER_CHECK_NONE,"All"=MAP_GENERATOR_CLUSTER_CHECK_ALL,"Sames"=MAP_GENERATOR_CLUSTER_CHECK_SAMES,"Differents"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS, \
 	"Same turfs"=MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS, "Same atoms"=MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS, \
 	"Different atoms"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS,"All atoms"=MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS)
 
-	var/moduleClusters = input("Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
+	var/moduleClusters = input(client, "Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
 	//null for default
 
 	var/theCluster = 0
 	if(moduleClusters != "None")
 		if(!clusters[moduleClusters])
-			to_chat(src, "Invalid Cluster Flags")
+			to_chat(client, "Invalid Cluster Flags")
 			return
 		theCluster = clusters[moduleClusters]
 	else
@@ -174,9 +168,9 @@
 			M.clusterCheckFlags = theCluster
 
 
-	to_chat(src, "Defining Region")
+	to_chat(client, "Defining Region")
 	N.defineRegion(Start, End)
-	to_chat(src, "Region Defined")
-	to_chat(src, "Generating Region")
+	to_chat(client, "Region Defined")
+	to_chat(client, "Generating Region")
 	N.generate()
-	to_chat(src, "Generated Region")
+	to_chat(client, "Generated Region")

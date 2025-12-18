@@ -87,7 +87,7 @@
 /obj/item/relic/attack_self__legacy__attackchain(mob/user)
 	if(revealed)
 		if((last_use_time + cooldown_duration) > world.time)
-			to_chat(user, "<span class='warning'>[src] does not react!</span>")
+			to_chat(user, SPAN_WARNING("[src] does not react!"))
 			return
 		else if(loc == user)
 			last_use_time = world.time
@@ -95,11 +95,11 @@
 			// Figure out our real function
 			switch(function_id)
 				if(STRANGEOBJECT_FUNCTION_TELEPORT)
-					to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
+					to_chat(user, SPAN_NOTICE("[src] begins to vibrate!"))
 					addtimer(CALLBACK(src, PROC_REF(teleport_callback), user), rand(10, 30))
 
 				if(STRANGEOBJECT_FUNCTION_EXPLODE)
-					to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
+					to_chat(user, SPAN_DANGER("[src] begins to heat up!"))
 					addtimer(CALLBACK(src, PROC_REF(explode_callback), user), rand(35, 100))
 
 				if(STRANGEOBJECT_FUNCTION_RAPID_DUPE)
@@ -118,7 +118,7 @@
 
 				if(STRANGEOBJECT_FUNCTION_MASS_SPAWN)
 					// This is the unlucky one
-					var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
+					var/message = SPAN_DANGER("[src] begins to shake, and in the distance the sound of rampaging animals arises!")
 					visible_message(message)
 					to_chat(user, message)
 					var/animal_spawncount = rand(1,25)
@@ -145,7 +145,7 @@
 
 					warn_admins(user, "Mass Mob Spawn")
 					if(prob(60))
-						to_chat(user, "<span class='warning'>[src] falls apart!</span>")
+						to_chat(user, SPAN_WARNING("[src] falls apart!"))
 						qdel(src)
 
 				if(STRANGEOBJECT_FUNCTION_FLASH)
@@ -168,14 +168,14 @@
 					warn_admins(user, "Pet Spawn", 0)
 
 	else
-		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
+		to_chat(user, SPAN_NOTICE("You aren't quite sure what to do with this, yet."))
 
 
 // Callbacks for timers
 /obj/item/relic/proc/teleport_callback(mob/user)
 	var/turf/userturf = get_turf(user)
 	if(loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-		visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
+		visible_message(SPAN_NOTICE("[src] twists and bends, relocating itself!"))
 		throw_smoke(userturf)
 		do_teleport(user, userturf, 8, sound_in = 'sound/effects/phasein.ogg')
 		throw_smoke(get_turf(user))
@@ -184,7 +184,7 @@
 
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
-		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
+		visible_message(SPAN_NOTICE("[src]'s top opens, releasing a powerful blast!"))
 		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)

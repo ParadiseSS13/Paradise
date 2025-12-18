@@ -297,7 +297,7 @@
 /obj/item/storage/pill_bottle/attack__legacy__attackchain(mob/M, mob/user)
 	if(iscarbon(M) && length(contents))
 		if(applying_meds)
-			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
+			to_chat(user, SPAN_WARNING("You are already applying meds."))
 			return
 		applying_meds = TRUE
 		for(var/obj/item/reagent_containers/P in contents)
@@ -345,13 +345,13 @@
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
 			if(!length(contents))
-				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				to_chat(C, SPAN_NOTICE("There is nothing in [src]!"))
 				return
-			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
+			C.visible_message(SPAN_DANGER("[C] [rapid_intake_message]"))
 			if(do_mob(C, C, 100)) // 10 seconds
 				for(var/obj/item/reagent_containers/pill/P in contents)
 					P.interact_with_atom(C, C)
-				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
+				C.visible_message(SPAN_DANGER("[C] [rapid_post_instake_message]"))
 			return
 
 	return ..()

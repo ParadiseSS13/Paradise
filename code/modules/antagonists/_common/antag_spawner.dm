@@ -30,13 +30,13 @@
 
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
+		to_chat(user, SPAN_WARNING("[src] is out of power!"))
 		return FALSE
 	if(!(user.mind in SSticker.mode.syndicates))
-		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
+		to_chat(user, SPAN_DANGER("AUTHENTICATION FAILURE. ACCESS DENIED."))
 		return FALSE
 	if(checking)
-		to_chat(user, "<span class='danger'>The device is already connecting to Syndicate command. Please wait.</span>")
+		to_chat(user, SPAN_DANGER("The device is already connecting to Syndicate command. Please wait."))
 		return FALSE
 	return TRUE
 
@@ -50,7 +50,7 @@
 
 	checking = TRUE
 
-	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	to_chat(user, SPAN_NOTICE("You activate [src] and wait for confirmation."))
 	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
 	if(length(nuke_candidates))
 		checking = FALSE
@@ -64,7 +64,7 @@
 		qdel(src)
 	else
 		checking = FALSE
-		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+		to_chat(user, SPAN_WARNING("Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded."))
 
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
@@ -188,14 +188,14 @@
 
 /obj/item/antag_spawner/slaughter_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, SPAN_NOTICE("You should probably wait until you reach the station."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		to_chat(user, SPAN_NOTICE("This bottle already has a broken seal."))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
+	to_chat(user, SPAN_NOTICE("You break the seal on the bottle, calling upon the dire spirits of the underworld..."))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [demon_type::name] summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
@@ -209,7 +209,7 @@
 		qdel(src)
 	else
 		used = FALSE
-		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
+		to_chat(user, SPAN_NOTICE("The demons do not respond to your summon. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
@@ -274,14 +274,14 @@
 
 /obj/item/antag_spawner/morph/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, SPAN_NOTICE("You should probably wait until you reach the station."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		to_chat(user, SPAN_NOTICE("This bottle already has a broken seal."))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
+	to_chat(user, SPAN_NOTICE("You break the seal on the bottle, calling upon the dire sludge to awaken..."))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
@@ -295,7 +295,7 @@
 		qdel(src)
 	else
 		used = FALSE
-		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+		to_chat(user, SPAN_NOTICE("The sludge does not respond to your attempt to awake it. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
@@ -344,20 +344,20 @@
 
 /obj/item/antag_spawner/revenant/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, SPAN_NOTICE("You should probably wait until you reach the station."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		to_chat(user, SPAN_NOTICE("This bottle already has a broken seal."))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the salty specter to awaken...</span>")
+	to_chat(user, SPAN_NOTICE("You break the seal on the bottle, calling upon the salty specter to awaken..."))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant awakened by [user.real_name]?", ROLE_REVENANT, 1, 10 SECONDS, source = revenant)
 
 	if(!length(candidates))
 		used = FALSE
-		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+		to_chat(user, SPAN_NOTICE("The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later."))
 		return
 
 	var/mob/C = pick(candidates)
@@ -394,34 +394,34 @@
 	desc = "A magically sealed lightbulb confining some manner of electricity based creature. It is *heavily* advised not to summon it in maintenance areas."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
-	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
-	var/veil_msg = "<span class='warning'>The creature sparks energetically and zips away...</span>"
+	var/shatter_msg = SPAN_NOTICE("You shatter the bulb, no turning back now!")
+	var/veil_msg = SPAN_WARNING("The creature sparks energetically and zips away...")
 	var/objective_verb = "Electrocute"
 	var/mob/living/demon_type = /mob/living/basic/demon/pulse_demon/wizard
 
 /obj/item/antag_spawner/pulse_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, SPAN_NOTICE("You should probably wait until you reach the station."))
 		return
 
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/wire = locate() in T
 	if(!wire || wire.get_available_power() <= 0)
-		to_chat(user, "<span class='warning'>This is not a suitable place, the creature would die here. Find a powered cable to release it onto.</span>")
+		to_chat(user, SPAN_WARNING("This is not a suitable place, the creature would die here. Find a powered cable to release it onto."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bulb already has a broken seal.</span>")
+		to_chat(user, SPAN_NOTICE("This bulb already has a broken seal."))
 		return
 
 	used = TRUE
-	to_chat(user, "<span class='danger'>You break the seal on the bulb, waiting for the creature to spark to life... you might wish to get to safety!</span>")
+	to_chat(user, SPAN_DANGER("You break the seal on the bulb, waiting for the creature to spark to life... you might wish to get to safety!"))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(!length(candidates))
 		used = FALSE
-		to_chat(user, "<span class='notice'>The creature does not come to life. Perhaps you should try again later.</span>")
+		to_chat(user, SPAN_NOTICE("The creature does not come to life. Perhaps you should try again later."))
 		return
 
 	var/mob/C = pick(candidates)

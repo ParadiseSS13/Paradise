@@ -50,7 +50,7 @@
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 2 SECONDS * I.toolspeed, volume = 10))
 		panel_open = !panel_open
-		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the service panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the service panel.</span>")
+		user.visible_message(SPAN_NOTICE("[user] [panel_open ? "opens" : "closes"] the service panel on [src]."), SPAN_NOTICE("You [panel_open ? "open" : "close"] the service panel."))
 	return TRUE
 
 /obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
@@ -59,13 +59,13 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
-	to_chat(user, "<span class='notice'>You start fiddling with the internal memory mechanisms.</span>")
+	to_chat(user, SPAN_NOTICE("You start fiddling with the internal memory mechanisms."))
 	if(do_after_once(user, 10 SECONDS * I.toolspeed, target = src))
 		if(prob(40))
-			to_chat(user, "<span class='notice'>The screen dims, the internal memory seems to be reset.</span>")
+			to_chat(user, SPAN_NOTICE("The screen dims, the internal memory seems to be reset."))
 			code = null
 		else
-			to_chat(user, "<span class='notice'>The screen flashes, and then goes back to normal.</span>")
+			to_chat(user, SPAN_NOTICE("The screen flashes, and then goes back to normal."))
 
 
 /obj/item/storage/secure/emag_act(user, weapon)
@@ -96,7 +96,7 @@
 /obj/item/storage/secure/proc/try_to_open()
 	if(locked)
 		add_fingerprint(usr)
-		to_chat(usr, "<span class='warning'>It's locked!</span>")
+		to_chat(usr, SPAN_WARNING("It's locked!"))
 		return FALSE
 	return TRUE
 
@@ -105,7 +105,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, SPAN_NOTICE("[src] is locked!"))
 	return FALSE
 
 /obj/item/storage/secure/update_overlays()
@@ -166,14 +166,14 @@
 						if(length(user_entered_code) != 5)
 							return FALSE
 						code = user_entered_code
-						to_chat(ui.user, "<span class='notice'>You set the code to [code].</span>")
+						to_chat(ui.user, SPAN_NOTICE("You set the code to [code]."))
 						locked = FALSE
 					else if(!locked)
 						locked = TRUE
-						to_chat(ui.user, "<span class='notice'>You lock [src].</span>")
+						to_chat(ui.user, SPAN_NOTICE("You lock [src]."))
 					else if(user_entered_code == code) // correct code!
 						locked = FALSE
-						to_chat(ui.user, "<span class='notice'>You unlock [src].</span>")
+						to_chat(ui.user, SPAN_NOTICE("You unlock [src]."))
 					update_icon(UPDATE_OVERLAYS)
 					COOLDOWN_START(src, enter_spam, 0.1 SECONDS)
 				if("C")
@@ -214,7 +214,7 @@
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if(loc == user && locked)
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, SPAN_WARNING("[src] is locked and cannot be opened!"))
 	else if((loc == user) && !locked)
 		playsound(loc, 'sound/effects/briefcase.ogg', 50, TRUE, -5)
 		if(user.s_active)

@@ -53,21 +53,21 @@
 /obj/item/grown/log/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.sharp)
 		if(in_inventory)
-			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
+			to_chat(user, SPAN_WARNING("You need to place [src] on a flat surface to make [plank_name]."))
 			return ITEM_INTERACT_COMPLETE
-		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
+		user.show_message(SPAN_NOTICE("You make [plank_name] out of \the [src]!"), 1)
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
 		new plank_type(user.loc, 1 + seed_modifier)
-		to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack.</span>")
+		to_chat(user, SPAN_NOTICE("You add the newly-formed [plank_name] to the stack."))
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
 	if(CheckAccepted(used))
 		var/obj/item/food/grown/leaf = used
 		if(leaf.dry)
-			user.show_message("<span class='notice'>You wrap \the [used] around the log, turning it into a torch!</span>")
+			user.show_message(SPAN_NOTICE("You wrap \the [used] around the log, turning it into a torch!"))
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
 			user.unequip(leaf)
 			usr.put_in_active_hand(T)
@@ -158,7 +158,7 @@
 	if(burning)
 		return
 	if(!CheckOxygen())
-		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!</span>")
+		to_chat(user, SPAN_WARNING("You can't seem to ignite [src] in this environment!"))
 		return
 
 	icon_state = "[initial(icon_state)]_burning"
@@ -211,7 +211,7 @@
 		R.use(1)
 		can_buckle = TRUE
 		buckle_requires_restraints = TRUE
-		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
+		to_chat(user, SPAN_ITALICS("You add a rod to [src]."))
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
 		return ITEM_INTERACT_COMPLETE
@@ -243,7 +243,7 @@
 
 /obj/structure/lightable/bonfire/attack_hand(mob/user)
 	if(burning)
-		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!</span>")
+		to_chat(user, SPAN_WARNING("You need to extinguish [src] before removing the logs!"))
 		return
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
