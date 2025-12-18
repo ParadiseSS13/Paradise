@@ -2174,7 +2174,6 @@
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
 
-
 		// The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
 		if(!SSjobs)
