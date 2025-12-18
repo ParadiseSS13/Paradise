@@ -261,7 +261,7 @@
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(is_xeno_organ)
-			to_chat(user, "<span class='warning'>It wouldnt be a very good idea to eat this.</span>")
+			to_chat(user, SPAN_WARNING("It wouldnt be a very good idea to eat this."))
 			return ..()
 		var/obj/item/food/S = prepare_eat()
 		if(S)
@@ -277,7 +277,7 @@
 		var/obj/item/stack/synthetic_skin/skin = I
 		skin.use(1)
 		self_augmented_skin_level = skin.skin_level
-		to_chat(user, "<span class='notice'>You apply [skin] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You apply [skin] to [src]."))
 		return
 	return ..()
 

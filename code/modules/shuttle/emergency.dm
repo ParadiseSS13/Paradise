@@ -31,10 +31,10 @@
 	if(hijack_announce)
 		. += "Security systems present on console. Any unauthorized tampering will result in an emergency announcement, and a fee of 20000 credits."
 	if(user?.mind?.get_hijack_speed())
-		. += "<span class='danger'>Alt click on this to attempt to hijack the shuttle. This will take multiple tries (current: stage [SSshuttle.emergency.hijack_status]/[HIJACKED]).</span>"
-		. += "<span class='danger'>It will take you [user.mind.get_hijack_speed() / 10] seconds to reprogram a stage of the shuttle's navigational firmware, and the console will undergo automated timed lockout for [hijack_stage_cooldown / 10] seconds after each stage.</span>"
+		. += SPAN_DANGER("Alt click on this to attempt to hijack the shuttle. This will take multiple tries (current: stage [SSshuttle.emergency.hijack_status]/[HIJACKED]).")
+		. += SPAN_DANGER("It will take you [user.mind.get_hijack_speed() / 10] seconds to reprogram a stage of the shuttle's navigational firmware, and the console will undergo automated timed lockout for [hijack_stage_cooldown / 10] seconds after each stage.")
 		if(hijack_announce)
-			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
+			. += SPAN_WARNING("It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...")
 
 /obj/machinery/computer/emergency_shuttle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & (BROKEN|NOPOWER))
@@ -161,7 +161,7 @@
 	update_icon()
 	AI.cancel_camera()
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "<span class='userdanger'>You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...</span>")
+	to_chat(AI, SPAN_USERDANGER("You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back..."))
 	SSshuttle.emergency.aihacked = TRUE
 	authorized.Cut() //In case command was already swiping to early launch or something
 
@@ -198,11 +198,11 @@
 	if(!ishuman(user) && !is_ai) //No, xenomorphs, constructs and traitors in cyborgs can not hack it.
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You need your hands free before you can manipulate [src].</span>")
+		to_chat(user, SPAN_WARNING("You need your hands free before you can manipulate [src]."))
 		return
 	var/speed = user.mind?.get_hijack_speed()
 	if(!speed)
-		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span>")
+		to_chat(user, SPAN_WARNING("You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone."))
 		return
 	if(is_ai && isnull(windows_33_exe))
 		var/mob/living/silicon/ai/AI = user
@@ -215,13 +215,13 @@
 	if(hijack_hacking)
 		return
 	if(SSshuttle.emergency.hijack_status >= HIJACKED)
-		to_chat(user, "<span class='warning'>The emergency shuttle is already loaded with a corrupt navigational payload. What more do you want from it?</span>")
+		to_chat(user, SPAN_WARNING("The emergency shuttle is already loaded with a corrupt navigational payload. What more do you want from it?"))
 		return
 	if(hijack_last_stage_increase >= world.time - hijack_stage_cooldown)
 		atom_say("ACCESS DENIED: Console is temporarily on security lockdown. Please try again.")
 		return
 	hijack_hacking = TRUE
-	to_chat(user, "<span class='userdanger'>You [SSshuttle.emergency.hijack_status == NOT_BEGUN ? "begin" : "continue"] to override [src]'s navigational protocols.</span>")
+	to_chat(user, SPAN_USERDANGER("You [SSshuttle.emergency.hijack_status == NOT_BEGUN ? "begin" : "continue"] to override [src]'s navigational protocols."))
 	atom_say("Software override initiated.")
 	playsound(src, 'sound/machines/terminal_on.ogg', 100, FALSE)
 	var/turf/console_hijack_turf = get_turf(src)
@@ -233,8 +233,8 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] has hijacked [src] in [ADMIN_VERBOSEJMP(console_hijack_turf)]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		log_game("[key_name(usr)] has hijacked [src]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		. = TRUE
-		to_chat(user, "<span class='notice'>You fiddle with [src]'s programming and manage to get a foothold, looks like it'll take [hijack_stage_cooldown / 10] seconds before you can try again!</span>")
-		visible_message("<span class='danger'>[user.name] appears to be tampering with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You fiddle with [src]'s programming and manage to get a foothold, looks like it'll take [hijack_stage_cooldown / 10] seconds before you can try again!"))
+		visible_message(SPAN_DANGER("[user.name] appears to be tampering with [src]."))
 	hijack_hacking = FALSE
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_hijack_stage()
@@ -264,7 +264,7 @@
 
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_here(a_header = "Emergency Shuttle", a_text = "")
-	var/msg_text = "<b><font size=4 color='red'>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font></font></b></span>"
+	var/msg_text = "<b><font size=4 color='red'>[a_header]</font><br> <font size=3>[SPAN_ROBOT("[a_text]</font></font></b>")]"
 	for(var/mob/R in range(35, src)) //Normal escape shutttle is 30 tiles from console to bottom. Extra range for if we ever get a bigger shuttle. Would do in shuttle area, doesn't account for mechs and such,
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
@@ -276,7 +276,7 @@
 	dwidth = 9
 	width = 22
 	height = 11
-	dir = 4
+	dir = EAST
 	port_direction = WEST
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 

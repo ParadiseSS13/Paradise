@@ -79,7 +79,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

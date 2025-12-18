@@ -20,7 +20,7 @@
 
 /obj/item/documents/nanotrasen/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>These documents are marked \"<b>TOP SECRET</b> - property of Nanotrasen\".</span>"
+	. += SPAN_WARNING("These documents are marked \"<b>TOP SECRET</b> - property of Nanotrasen\".")
 
 /obj/item/documents/syndicate
 	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
@@ -31,7 +31,7 @@
 
 /obj/item/documents/syndicate/red/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - RED</b>\" and the logo of the Syndicate.</span>"
+	. += SPAN_WARNING("These documents are marked with \"<b>TOP SECRET - RED</b>\" and the logo of the Syndicate.")
 
 /obj/item/documents/syndicate/blue
 	name = "'Blue' secret documents"
@@ -39,7 +39,7 @@
 
 /obj/item/documents/syndicate/blue/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - BLUE</b>\" and the logo of the Syndicate.</span>"
+	. += SPAN_WARNING("These documents are marked with \"<b>TOP SECRET - BLUE</b>\" and the logo of the Syndicate.")
 
 /obj/item/documents/syndicate/yellow
 	name = "'Yellow' secret documents"
@@ -48,7 +48,7 @@
 
 /obj/item/documents/syndicate/yellow/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - YELLOW</b>\" and the logo of the Syndicate.</span>"
+	. += SPAN_WARNING("These documents are marked with \"<b>TOP SECRET - YELLOW</b>\" and the logo of the Syndicate.")
 
 /obj/item/documents/syndicate/yellow/trapped
 	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence, and have a thin film of clear material covering their surface."
@@ -61,7 +61,7 @@
 
 /obj/item/documents/syndicate/mining/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>These documents are marked with \"<b>SECRET</b>\" and the logo of the Syndicate.</span>"
+	. += SPAN_WARNING("These documents are marked with \"<b>SECRET</b>\" and the logo of the Syndicate.")
 
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)

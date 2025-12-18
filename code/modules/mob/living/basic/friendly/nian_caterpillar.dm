@@ -78,11 +78,11 @@
 	// A changeling caterpillar shouldn't be restricted from evolving.
 	// A caterpillar needs to consume food-- similar to a dioan nymph --to evolve.
 	if((nutrition < nutrition_need) && !IS_CHANGELING(M))
-		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
+		to_chat(src, SPAN_WARNING("You need to binge on food in order to have the energy to evolve..."))
 		return
 
 	if(master_commander)
-		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+		to_chat(src, SPAN_USERDANGER("As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!"))
 
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
@@ -125,7 +125,7 @@
 /mob/living/basic/nian_caterpillar/proc/check_full(datum/source, obj/item/potential_food)
 	SIGNAL_HANDLER // COMSIG_MOB_PRE_EAT
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
-		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
+		to_chat(src, SPAN_WARNING("You're too full to consume this! Perhaps it's time to grow bigger..."))
 		return COMSIG_MOB_TERMINATE_EAT
 
 
@@ -141,7 +141,7 @@
 	if(M.a_intent != INTENT_HELP)
 		return ..()
 	if(isrobot(M))
-		M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
+		M.visible_message(SPAN_NOTICE("[M] playfully boops [src] on the head!"), SPAN_NOTICE("You playfully boop [src] on the head!"))
 	else
 		get_scooped(M)
 
@@ -171,7 +171,7 @@
 /datum/action/innate/nian_caterpillar_emerge/Activate()
 	var/mob/living/basic/nian_caterpillar/user = owner
 
-	user.visible_message("<span class='notice'>[user] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins to hold still and concentrate on weaving a cocoon..."), SPAN_NOTICE("You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)"))
 	if(do_after(user, COCOON_WEAVE_DELAY, FALSE, user))
 		var/obj/structure/moth_cocoon/C = new(get_turf(user))
 		var/datum/mind/H = user.mind
@@ -190,13 +190,13 @@
 
 /datum/action/cooldown/mob_cooldown/spin_mothsilk/Activate(atom/target)
 	if(owner.nutrition < 425)
-		to_chat(owner, "<span class='warning'>You don't have enough nutrition to spin silk!</span>")
+		to_chat(owner, SPAN_WARNING("You don't have enough nutrition to spin silk!"))
 		return FALSE
 	if(!do_after(owner, 3 SECONDS))
 		return FALSE
 	new /obj/item/stack/sheet/mothsilk(get_turf(owner))
 	owner.nutrition -= 15
-	owner.visible_message("<span class='notice'>[owner] spins some mothsilk!</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] spins some mothsilk!"))
 	StartCooldown()
 	return TRUE
 

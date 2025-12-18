@@ -19,7 +19,7 @@
 		return
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this
 	if(owned)
-		to_chat(user, "<span class='notice'>[src] stares up at you with friendly eyes.</span>")
+		to_chat(user, SPAN_NOTICE("[src] stares up at you with friendly eyes."))
 		owner = user
 		owned = 0
 	return ..()
@@ -34,14 +34,14 @@
 	if(!proximity_flag)
 		return
 	if(istype(target,/obj/structure/sink))
-		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
+		to_chat(user, SPAN_NOTICE("You place [src] under a stream of water..."))
 		user.drop_item()
 		loc = get_turf(target)
 		return Swell()
 
 /obj/item/toy/plushie/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
-	visible_message("<span class='notice'>[src] swells up!</span>")
+	visible_message(SPAN_NOTICE("[src] swells up!"))
 	// Animation
 	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)

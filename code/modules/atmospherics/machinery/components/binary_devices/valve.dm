@@ -15,7 +15,7 @@
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
-	. += "<span class='notice'>Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.</span>"
+	. += SPAN_NOTICE("Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.")
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = TRUE
@@ -68,7 +68,7 @@
 		close()
 	else
 		open()
-	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [open ? "open" : "close"] [src]."))
 
 /// can be controlled by AI
 /obj/machinery/atmospherics/binary/valve/digital
@@ -83,7 +83,7 @@
 	if(!has_power())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, SPAN_ALERT("Access denied."))
 		return
 	..()
 

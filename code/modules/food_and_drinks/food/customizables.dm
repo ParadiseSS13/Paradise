@@ -326,7 +326,7 @@ do {\
 		return ..()
 
 	if(!istype(used, /obj/item/food))
-		to_chat(user, "<span class='warning'>[used] isn't exactly something that you would want to eat.</span>")
+		to_chat(user, SPAN_WARNING("[used] isn't exactly something that you would want to eat."))
 		return ITEM_INTERACT_COMPLETE
 
 	add_ingredient(used, user)
@@ -340,21 +340,21 @@ do {\
  */
 /obj/item/food/customizable/proc/add_ingredient(obj/item/food/snack, mob/user)
 	if(length(ingredients) > ingredient_limit)
-		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
+		to_chat(user, SPAN_WARNING("If you put anything else in or on [src] it's going to make a mess."))
 		return
 
 	// Fully custom snacks don't add the ingredients. So no need to check
 	if(!fullycustom && istype(snack, /obj/item/food/customizable))
 		var/obj/item/food/customizable/origin = snack
 		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
-			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
+			to_chat(user, SPAN_WARNING("Merging [snack] and [src] together is going to make a mess."))
 			return
 
 	if(!user.unequip(snack))
-		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[snack] is stuck to your hand!"))
 		return
 
-	to_chat(user, "<span class='notice'>You add [snack] to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You add [snack] to [src]."))
 	snack.reagents.trans_to(src, snack.reagents.total_volume)
 
 	var/list/added_ingredients = list(snack)
@@ -419,7 +419,7 @@ do {\
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'>You think you can see [whatsinside] in there.</span>"
+		. += SPAN_NOTICE("You think you can see [whatsinside] in there.")
 
 
 /obj/item/food/customizable/proc/newname()
