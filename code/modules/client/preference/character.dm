@@ -2175,9 +2175,7 @@
 		var/index = -1
 
 
-
-
-		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
+		// The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
 		if(!SSjobs)
 			return
