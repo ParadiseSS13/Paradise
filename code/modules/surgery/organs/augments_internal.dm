@@ -1106,7 +1106,7 @@
 	if(!initial_surge_used)
 		apply_full_synthetic_skin(M)
 		to_chat(M, SPAN_WARNING("In an instant, a surge of skin wraps around you and binds itself to your body!"))
-		playsound(M, 'sound/surgery/organ2.ogg', 70, 1, frequency = 0.8)
+		playsound(M, 'sound/surgery/organ2.ogg', 70, TRUE, frequency = 0.8)
 		initial_surge_used = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/skinmonger/remove(mob/living/carbon/M, special = 0)
