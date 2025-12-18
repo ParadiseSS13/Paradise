@@ -8,7 +8,7 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/Initialize(mapload, loc, amount = null)
+/obj/item/stack/tape_roll/Initialize(mapload, loc, amount)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 

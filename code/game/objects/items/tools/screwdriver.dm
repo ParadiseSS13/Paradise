@@ -28,12 +28,12 @@
 	. = ..()
 	if(random_color)
 		if(!param_color)
-			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
+			param_color = pick("red", "blue", "pink", "brown", "green", "cyan", "yellow")
 		icon_state = "screwdriver_[param_color]"
 		belt_icon = "screwdriver_[param_color]"
 
 	if(prob(75))
-		src.pixel_y = rand(0, 16)
+		pixel_y = rand(0, 16)
 
 	AddComponent(/datum/component/surgery_initiator/robo)
 	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))

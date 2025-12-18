@@ -37,10 +37,6 @@
 	QDEL_NULL(diode)
 	return ..()
 
-/obj/item/laser_pointer/upgraded/Initialize(mapload)
-	. = ..()
-	diode = new /obj/item/stock_parts/micro_laser/ultra
-
 /obj/item/laser_pointer/proc/create_diode()
 	diode = new(src)
 
