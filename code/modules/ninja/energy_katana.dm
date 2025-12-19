@@ -19,10 +19,10 @@
 	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_ENERGY)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			owner.visible_message(SPAN_DANGER("[owner] parries [attack_text] with [src]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 			return -1
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 		return TRUE
 	return TRUE

@@ -12,6 +12,7 @@
 	box = /obj/item/storage/box/survival_syndie
 	backpack_contents = list(
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
+		/obj/item/ninja_scanner,
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/dust
