@@ -11,6 +11,7 @@
 /obj/item/clothing/head/centhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"
@@ -41,6 +42,7 @@
 /obj/item/clothing/head/that/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
@@ -71,6 +73,7 @@
 /obj/item/clothing/head/plaguedoctorhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -210,6 +213,7 @@
 /obj/item/clothing/head/cowboyhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
@@ -254,6 +258,7 @@
 /obj/item/clothing/head/fedora/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
 	tip_fedora(user)
@@ -282,6 +287,7 @@
 /obj/item/clothing/head/fez/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 2)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //end bs12 hats
 
@@ -295,6 +301,7 @@
 /obj/item/clothing/head/witchwig/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -315,6 +322,7 @@
 /obj/item/clothing/head/corgi/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/corgi/en
 	name = "E-N suit head"
@@ -323,6 +331,7 @@
 /obj/item/clothing/head/corgi/en/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
@@ -336,6 +345,7 @@
 /obj/item/clothing/head/corgi/super_hero/en/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/bearpelt
 	name = "space bear pelt hat"
@@ -367,6 +377,7 @@
 /obj/item/clothing/head/xenos/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /// Why do these exist - Because they aren't specifically Nazi Germany
 /obj/item/clothing/head/stalhelm
@@ -386,6 +397,7 @@
 /obj/item/clothing/head/foragecap/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/armyofficer
 	name = "clown officer cap"
@@ -412,6 +424,7 @@
 /obj/item/clothing/head/sombrero/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
@@ -456,6 +469,7 @@
 /obj/item/clothing/head/rice_hat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
@@ -520,6 +534,7 @@
 /obj/item/clothing/head/crown/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"
@@ -530,6 +545,8 @@
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 2)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/zepelli
 	name = "chequered diamond hat"
@@ -539,6 +556,7 @@
 /obj/item/clothing/head/zepelli/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/cuban_hat
 	name = "rhumba hat"
@@ -549,6 +567,7 @@
 /obj/item/clothing/head/cuban_hat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/flower_crown
 	name = "flower crown"
@@ -563,6 +582,7 @@
 /obj/item/clothing/head/flower_crown/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/sunflower_crown
 	name = "sunflower crown"
@@ -577,6 +597,7 @@
 /obj/item/clothing/head/sunflower_crown/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/poppy_crown
 	name = "poppy crown"
@@ -591,6 +612,7 @@
 /obj/item/clothing/head/poppy_crown/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/lily_crown
 	name = "lily crown"
@@ -616,6 +638,7 @@
 /obj/item/clothing/head/geranium_crown/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/cool_bandana
 	name = "badass bandana"

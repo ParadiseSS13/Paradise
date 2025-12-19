@@ -30,6 +30,7 @@
 /obj/item/clothing/head/chefhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -49,6 +50,7 @@
 /obj/item/clothing/head/caphat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
@@ -58,6 +60,7 @@
 /obj/item/clothing/head/caphat/parade/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/caphat/parade/white
 	name = "captain's white parade cap"
@@ -79,6 +82,7 @@
 /obj/item/clothing/head/hop/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //Quartermaster
 /obj/item/clothing/head/qm
@@ -95,6 +99,7 @@
 /obj/item/clothing/head/qm/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
@@ -111,6 +116,7 @@
 /obj/item/clothing/head/ntrep/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -294,6 +300,7 @@
 /obj/item/clothing/head/hos/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -340,6 +347,7 @@
 /obj/item/clothing/head/rd/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 //Medical
 /obj/item/clothing/head/cmo
@@ -357,6 +365,7 @@
 /obj/item/clothing/head/cmo/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/surgery
 	name = "blue surgical cap"
@@ -402,3 +411,4 @@
 /obj/item/clothing/head/drilltrainer/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))

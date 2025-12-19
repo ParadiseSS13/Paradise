@@ -60,3 +60,52 @@
 
 	overlay.pixel_x = pixel_x
 	overlay.pixel_y = pixel_y
+
+// Clothing Adjustments Handling Skkulakin
+
+/datum/element/clothing_adjustment/skulk_headgear
+	var/alist/directions
+
+/datum/element/clothing_adjustment/skulk_headgear/Attach(datum/target, alist/directions)
+	if(!istype(directions))
+		return ELEMENT_INCOMPATIBLE
+
+	. = ..()
+
+	directions = directions
+
+/datum/element/clothing_adjustment/skulk_headgear/proc/update_overlay(mob/living/carbon/human/target, face_dir = null)
+	if(!face_dir)
+		face_dir = target.dir
+
+	var/mutable_appearance/overlay = target.overlays_standing[HEAD_LAYER]
+	overlay.pixel_x = directions[face_dir][0]
+	overlay.pixel_y = directions[face_dir][1]
+
+/datum/element/clothing_adjustment/skulk_headgear/on_item_equipped(datum/source, mob/target)
+	RegisterSignal(target, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(on_carbon_apply_overlay), override = TRUE)
+	RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_atom_dir_change), override = TRUE)
+
+/datum/element/clothing_adjustment/skulk_headgear/on_item_dropped(datum/source, mob/target)
+	UnregisterSignal(target, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_ATOM_DIR_CHANGE))
+
+/datum/element/clothing_adjustment/skulk_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index, mutable_appearance/overlay)
+	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY
+	if(cache_index != HEAD_LAYER || !istype(source))
+		return
+
+	var/datum/species = source.dna?.species
+	if(!istype(species))
+		return
+
+	if(!istype(species, /datum/species/skulk))
+		return
+
+	update_overlay(source)
+
+/datum/element/clothing_adjustment/skulk_headgear/proc/on_atom_dir_change(mob/living/carbon/human/source, old_dir, new_dir)
+	SIGNAL_HANDLER // COMSIG_ATOM_DIR_CHANGE
+	if(old_dir == new_dir)
+		return
+
+	update_overlay(source, new_dir)

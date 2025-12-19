@@ -15,6 +15,7 @@
 /obj/item/clothing/head/wizard/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -59,6 +60,7 @@
 /obj/item/clothing/head/wizard/fake/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -77,6 +79,7 @@
 /obj/item/clothing/head/wizard/magus/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
@@ -88,6 +91,7 @@
 /obj/item/clothing/head/wizard/amp/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	RemoveElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
