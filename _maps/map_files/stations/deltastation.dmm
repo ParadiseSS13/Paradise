@@ -90870,6 +90870,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
+"vFw" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/bar)
 "vFA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -132236,7 +132240,7 @@ awX
 awX
 vSU
 aFr
-aIZ
+vFw
 ivB
 aFA
 aOx
