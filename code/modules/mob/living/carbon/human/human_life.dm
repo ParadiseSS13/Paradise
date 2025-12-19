@@ -1010,7 +1010,7 @@
 
 	switch(health)
 		// Small amounts of damage are ignored
-		if(50 to 90)
+		if(50 to 75)
 			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
 				beats -= (20 + round((maxHealth - health) / 10, 1))
 			else
@@ -1099,13 +1099,11 @@
 			Dizzy(5 SECONDS)
 		if(prob(3))
 			to_chat(src, SPAN_WARNING("Your heart is racing!"))
-		else if(prob(3))
-			to_chat(src, SPAN_WARNING("Something is very wrong."))
 		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
 			send_heart_sound()
 
 	else if(heartbeat >= HEARTBEAT_NORMAL)
-		if(prob(2))
+		if(prob(1))
 			to_chat(src, SPAN_WARNING("You notice your heart is beating a little faster than normal."))
 
 /// Proc to play the heartbeat sound
