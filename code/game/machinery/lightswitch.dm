@@ -13,16 +13,16 @@
 	name = "light switch" // Needed to remove the "(dir) bump" naming
 	switch(build_dir)
 		if(NORTH)
-			pixel_y = 25
+			pixel_y = -25
 			dir = NORTH
 		if(SOUTH)
-			pixel_y = -25
+			pixel_y = 25
 			dir = SOUTH
 		if(EAST)
-			pixel_x = 25
+			pixel_x = -25
 			dir = EAST
 		if(WEST)
-			pixel_x = -25
+			pixel_x = 25
 			dir = WEST
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)

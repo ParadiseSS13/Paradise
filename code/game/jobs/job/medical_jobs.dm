@@ -34,6 +34,9 @@
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = HARD_DIFFICULTY
+	description = "The Chief Medical Officer has the responsibility of overseeing the Medical Department.\n\n\
+					Difficulties: Standard Operating Procedure (General, Medical), surgery, cloning, healing, virology, autopsies, communication"
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -81,6 +84,9 @@
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead.\n\n\
+					Difficulties: Surgery, cloning, healing"
 
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
@@ -122,6 +128,9 @@
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
+	description = "The Coroner has the responsibility of organizing dead crew members and their belongings.\n\n\
+					Difficulties: Autopsies"
 
 /datum/outfit/job/coroner
 	name = "Coroner"
@@ -192,6 +201,9 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Chemists have the responsibility of providing medicine to medical.\n\n\
+					Difficulties: Chemistry, menu navigation"
 
 /datum/outfit/job/chemist
 	name = "Chemist"
@@ -238,6 +250,9 @@
 	)
 	outfit = /datum/outfit/job/virologist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Virologist has the responsibility of manipulating and creating viruses as well as vaccines.\n\n\
+					Difficulties: Virus mutation, virus curing, virus mixing, menu navigation"
 
 
 /datum/outfit/job/virologist
@@ -280,6 +295,9 @@
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = EASY_DIFFICULTY
+	description = "The Psychologist has the responsibility to keep the crew sane.\n\n\
+					Difficulties: Communication, menu navigation"
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"
@@ -333,6 +351,9 @@
 	outfit = /datum/outfit/job/paramedic
 	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo, or space emergencies via the Teleporter near the Bridge."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
+	description = "The Paramedic has the responsibility of rescuing crew members from danger.\n\n\
+					Difficulties: Healing"
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"
