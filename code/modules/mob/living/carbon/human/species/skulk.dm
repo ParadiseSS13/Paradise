@@ -37,6 +37,7 @@
 	spines = "Illusive1"
 
 	eyes = "skulk_eyes_s"
+	butt_sprite = "nian"
 
 	optional_body_accessory = FALSE
 
