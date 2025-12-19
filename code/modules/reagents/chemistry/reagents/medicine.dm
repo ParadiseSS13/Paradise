@@ -838,6 +838,7 @@
 	color = "#757377"
 	taste_description = "clarity"
 	goal_difficulty = REAGENT_GOAL_HARD
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
