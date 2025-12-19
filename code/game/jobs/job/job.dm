@@ -75,6 +75,12 @@
 	/// Standard paycheck amount for this job
 	var/standard_paycheck = CREW_PAY_ASSISTANT
 
+	/// A description to be shown when set to high priority
+	var/description = "Missing description"
+
+	/// How mechanically difficult this job is, shown on the job selection screen
+	var/difficulty
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
@@ -220,12 +226,12 @@
 					permitted = TRUE
 
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(H, SPAN_WARNING("Your current job or whitelist status does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G)), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						to_chat(H, SPAN_NOTICE("Equipping you with [G.display_name]!"))
 					else
 						gear_leftovers += G
 				else
@@ -254,17 +260,17 @@
 		var/atom/placed_in = H.equip_or_collect(item)
 		if(istype(placed_in))
 			if(isturf(placed_in))
-				to_chat(H, "<span class='notice'>Placing [item] on [placed_in]!</span>")
+				to_chat(H, SPAN_NOTICE("Placing [item] on [placed_in]!"))
 			else
-				to_chat(H, "<span class='notice'>Placing [item] in your [placed_in.name].</span>")
+				to_chat(H, SPAN_NOTICE("Placing [item] in your [placed_in.name]."))
 			continue
 		if(H.equip_to_appropriate_slot(item))
-			to_chat(H, "<span class='notice'>Placing [item] in your inventory!</span>")
+			to_chat(H, SPAN_NOTICE("Placing [item] in your inventory!"))
 			continue
 		if(H.put_in_hands(item))
-			to_chat(H, "<span class='notice'>Placing [item] in your hands!</span>")
+			to_chat(H, SPAN_NOTICE("Placing [item] in your hands!"))
 			continue
-		to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+		to_chat(H, SPAN_DANGER("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 		qdel(item)
 
 		gear_leftovers.Cut()

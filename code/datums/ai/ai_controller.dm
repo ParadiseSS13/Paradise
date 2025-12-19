@@ -26,9 +26,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 	/// Bitfield of traits for this AI to handle extra behavior.
 	var/ai_traits = NONE
 	/// Current actions planned to be performed by the AI in the upcoming plan.
-	var/list/planned_behaviors
+	var/list/planned_behaviors = list()
 	/// Current actions being performed by the AI.
-	var/list/current_behaviors
+	var/list/current_behaviors = list()
 	/// Current actions and their respective last time ran as an assoc list.
 	var/list/behavior_cooldowns = list()
 	/// Current status of AI (OFF/ON)
@@ -55,6 +55,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 	/// The idle behavior this AI performs when it has no actions.
 	var/datum/idle_behavior/idle_behavior = null
+	/// Our current cell grid.
+	var/datum/cell_tracker/our_cells
 
 	// Movement related things here
 	/// Reference to the movement datum we use. Is a type on initialize but becomes a ref afterwards.
@@ -75,9 +77,10 @@ RESTRICT_TYPE(/datum/ai_controller)
 	/// Make sure you hook update_able_to_run() in setup_able_to_run() to whatever parameters changing that you added
 	/// Otherwise we will not pay attention to them changing
 	var/able_to_run = FALSE
+	/// are we even able to plan?
+	var/able_to_plan = TRUE
 	/// are we currently on failed planning timeout?
 	var/on_failed_planning_timeout = FALSE
-
 
 /datum/ai_controller/New(atom/new_pawn)
 	change_ai_movement_type(ai_movement)
@@ -90,15 +93,19 @@ RESTRICT_TYPE(/datum/ai_controller)
 		possess_pawn(new_pawn)
 
 /datum/ai_controller/Destroy(force)
-	set_ai_status(AI_STATUS_OFF)
 	unpossess_pawn(FALSE)
+
+	if(ai_status)
+		GLOB.ai_controllers_by_status[ai_status] -= src
+
+	our_cells = null
 	set_movement_target(type, null)
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 
-	LAZYCLEARLIST(planned_behaviors)
+	planned_behaviors.Cut()
 	LAZYCLEARLIST(planning_subtrees)
-	LAZYCLEARLIST(current_behaviors)
+	current_behaviors.Cut()
 
 	return ..()
 
@@ -135,7 +142,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return
 	var/list/temp_subtree_list = list()
 	for(var/subtree in planning_subtrees)
-		var/subtree_instance = SSai_controllers.ai_subtrees[subtree]
+		var/subtree_instance = GLOB.ai_subtrees[subtree]
 		temp_subtree_list += subtree_instance
 	planning_subtrees = temp_subtree_list
 
@@ -162,7 +169,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 	var/turf/pawn_turf = get_turf(pawn)
 	if(pawn_turf)
-		SSai_controllers.ai_controllers_by_zlevel[pawn_turf.z] += src
+		GLOB.ai_controllers_by_zlevel[pawn_turf.z] += src
 
 	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_POSSESSED_PAWN)
 
@@ -173,6 +180,18 @@ RESTRICT_TYPE(/datum/ai_controller)
 	RegisterSignal(pawn, COMSIG_PARENT_QDELETING, PROC_REF(on_pawn_qdeleted))
 	update_able_to_run()
 	setup_able_to_run()
+
+	our_cells = new(interesting_dist, interesting_dist, 1)
+	set_new_cells()
+
+	RegisterSignal(pawn, COMSIG_MOVABLE_MOVED, PROC_REF(update_grid))
+
+/datum/ai_controller/proc/update_grid(datum/source, datum/spatial_grid_cell/new_cell)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+
+	set_new_cells()
+	if(current_movement_target)
+		check_target_max_distance()
 
 /datum/ai_controller/proc/on_movement_target_move(datum/source)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
@@ -186,6 +205,66 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(get_dist(current_movement_target, pawn) > max_target_distance)
 		cancel_actions()
 
+/datum/ai_controller/proc/set_new_cells()
+	if(isnull(our_cells))
+		return
+
+	var/turf/our_turf = get_turf(pawn)
+
+	if(isnull(our_turf))
+		return
+
+	var/list/cell_collections = our_cells.recalculate_cells(our_turf)
+
+	for(var/datum/old_grid as anything in cell_collections[2])
+		UnregisterSignal(old_grid, list(SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)))
+
+	for(var/datum/spatial_grid_cell/new_grid as anything in cell_collections[1])
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_enter))
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_exit))
+
+	recalculate_idle()
+
+/datum/ai_controller/proc/should_idle()
+	if(!can_idle || isnull(our_cells))
+		return FALSE
+	for(var/datum/spatial_grid_cell/grid as anything in our_cells.member_cells)
+		if(locate(/mob/living) in grid.client_contents)
+			return FALSE
+	return TRUE
+
+/datum/ai_controller/proc/recalculate_idle(datum/exited)
+	if(ai_status == AI_STATUS_OFF)
+		return
+
+	var/distance = INFINITY
+	if(islist(exited))
+		var/list/exited_list = exited
+		distance = get_dist(pawn, exited_list[1])
+	else if(isatom(exited))
+		var/atom/exited_atom = exited
+		distance = get_dist(pawn, exited_atom)
+
+	if(distance <= interesting_dist) // is our target in between interesting cells?
+		return
+
+	if(should_idle())
+		set_ai_status(AI_STATUS_IDLE)
+
+/datum/ai_controller/proc/on_client_enter(datum/source, list/target_list)
+	SIGNAL_HANDLER // COMSIG_CLIENT_ENTER
+
+	if(!(locate(/mob/living) in target_list))
+		return
+
+	if(ai_status == AI_STATUS_IDLE)
+		set_ai_status(AI_STATUS_ON)
+
+/datum/ai_controller/proc/on_client_exit(datum/source, datum/exited)
+	SIGNAL_HANDLER // COMSIG_CLIENT_EXIT
+
+	recalculate_idle(exited)
+
 /// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
 /datum/ai_controller/proc/reset_ai_status()
 	set_ai_status(get_expected_ai_status())
@@ -197,20 +276,20 @@ RESTRICT_TYPE(/datum/ai_controller)
  * Returns AI_STATUS_ON otherwise.
  */
 /datum/ai_controller/proc/get_expected_ai_status()
-	. = AI_STATUS_ON
+	if(isnull(get_turf(pawn)))
+		return AI_STATUS_OFF
 
 	if(!ismob(pawn))
-		return
+		return AI_STATUS_ON
 
 	var/mob/living/mob_pawn = pawn
 	if(!continue_processing_when_client && mob_pawn.client)
-		. = AI_STATUS_OFF
-
-	if(ai_traits & AI_FLAG_CAN_ACT_WHILE_DEAD)
-		return
+		return AI_STATUS_OFF
 
 	if(mob_pawn.stat == DEAD)
-		. = AI_STATUS_OFF
+		if(ai_traits & AI_FLAG_CAN_ACT_WHILE_DEAD)
+			return AI_STATUS_ON
+		return AI_STATUS_OFF
 
 	var/turf/pawn_turf = get_turf(mob_pawn)
 #ifdef GAME_TESTS
@@ -218,7 +297,11 @@ RESTRICT_TYPE(/datum/ai_controller)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
 	if(!SSmobs.clients_by_zlevel || !length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout)
-		. = AI_STATUS_OFF
+		return AI_STATUS_OFF
+	if(should_idle())
+		return AI_STATUS_IDLE
+
+	return AI_STATUS_ON
 
 /// Called when the AI controller pawn changes z levels.
 /// We check if there's any clients on the new one and wake up the AI if there is.
@@ -230,9 +313,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		if(mob_pawn?.client && !continue_processing_when_client)
 			return
 	if(old_turf)
-		SSai_controllers.ai_controllers_by_zlevel[old_turf.z] -= src
+		GLOB.ai_controllers_by_zlevel[old_turf.z] -= src
 	if(new_turf)
-		SSai_controllers.ai_controllers_by_zlevel[new_turf.z] += src
+		GLOB.ai_controllers_by_zlevel[new_turf.z] += src
 		reset_ai_status()
 
 /// Abstract proc for initializing the pawn to the new controller
@@ -241,17 +324,20 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 /// Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/unpossess_pawn(destroy)
+	SHOULD_CALL_PARENT(TRUE)
 	if(isnull(pawn))
 		return // instantiated without an applicable pawn, fine
 
-	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE, COMSIG_PARENT_QDELETING))
+	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_UNPOSSESSED_PAWN)
+	set_ai_status(AI_STATUS_OFF)
+	UnregisterSignal(pawn, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE, COMSIG_PARENT_QDELETING))
+	clear_able_to_run()
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 	var/turf/pawn_turf = get_turf(pawn)
 	if(pawn_turf)
-		SSai_controllers.ai_controllers_by_zlevel[pawn_turf.z] -= src
-	if(ai_status)
-		SSai_controllers.ai_controllers_by_status[ai_status] -= src
+		GLOB.ai_controllers_by_zlevel[pawn_turf.z] -= src
+	remove_from_unplanned_controllers()
 	pawn.ai_controller = null
 	pawn = null
 	if(destroy)
@@ -315,77 +401,55 @@ RESTRICT_TYPE(/datum/ai_controller)
 	// in the AI controller implementation are actually the managing subsystem's `wait`.
 	seconds_per_tick /= (1 SECONDS)
 
-	if(!able_to_run)
-		GLOB.move_manager.stop_looping(pawn) //stop moving
-		return //this should remove them from processing in the future through event-based stuff.
-
-	if(!LAZYLEN(current_behaviors) && idle_behavior)
-		idle_behavior.perform_idle_behavior(seconds_per_tick, src) //Do some stupid shit while we have nothing to do
-		return
-
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the seconds_per_tick passed to ai_controller.process()
 		// Action cooldowns cannot happen faster than seconds_per_tick, so seconds_per_tick should be the value used in this scenario.
 		var/action_seconds_per_tick = max(current_behavior.get_cooldown(src) * 0.1, seconds_per_tick)
 
-		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
-			if(isnull(current_movement_target))
-				fail_behavior(current_behavior)
-				return
-
-			// Stops pawns from performing such actions that should require the target to be adjacent.
-			var/atom/movable/moving_pawn = pawn
-			var/can_reach = !(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_REACH) || moving_pawn.can_reach_nested_adjacent(current_movement_target)
-			if(can_reach && current_behavior.required_distance >= get_dist(moving_pawn, current_movement_target)) // Are we close enough to engage?
-				if(ai_movement.moving_controllers[src] == current_movement_target) // We are close enough, if we're moving stop.
-					ai_movement.stop_moving_towards(src)
-
-				if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
-					continue
-				process_behavior(action_seconds_per_tick, current_behavior)
-				return
-
-			else if(ai_movement.moving_controllers[src] != current_movement_target) // We're too far, if we're not already moving start doing it.
-				ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) // Then start moving
-
-			if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) // If we can move and perform then do so.
-				if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
-					continue
-				process_behavior(action_seconds_per_tick, current_behavior)
-				return
-		else // No movement required
+		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT))
 			if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
 				continue
 			process_behavior(action_seconds_per_tick, current_behavior)
 			return
 
-/// Determines whether the AI can currently make a new plan.
-/datum/ai_controller/proc/able_to_plan()
-	. = TRUE
-	if(QDELETED(pawn))
-		return FALSE
-	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) // We have a behavior that blocks planning
-			return FALSE
+		if(isnull(current_movement_target))
+			fail_behavior(current_behavior)
+			return
+
+		/// Stops pawns from performing such actions that should require the target to be adjacent.
+		var/atom/movable/moving_pawn = pawn
+		var/can_reach = !(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_REACH) || moving_pawn.can_reach(current_movement_target)
+		if(can_reach && current_behavior.required_distance >= get_dist(moving_pawn, current_movement_target)) // Are we close enough to engage?
+			if(ai_movement.moving_controllers[src] == current_movement_target) // We are close enough, if we're moving stop.
+				ai_movement.stop_moving_towards(src)
+
+			if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
+				continue
+			process_behavior(action_seconds_per_tick, current_behavior)
+			return
+
+		if(ai_movement.moving_controllers[src] != current_movement_target) // We're too far, if we're not already moving start doing it.
+			ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) // Then start moving
+
+		if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) // If we can move and perform then do so.
+			if(behavior_cooldowns[current_behavior] > world.time) // Still on cooldown
+				continue
+			process_behavior(action_seconds_per_tick, current_behavior)
+			return
 
 /// This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/select_behaviors(seconds_per_tick)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if(!COOLDOWN_FINISHED(src, failed_planning_cooldown))
-		return FALSE
+	planned_behaviors.Cut()
 
-	LAZYINITLIST(current_behaviors)
-	LAZYCLEARLIST(planned_behaviors)
-
-	if(LAZYLEN(planning_subtrees))
-		for(var/datum/ai_planning_subtree/subtree as anything in planning_subtrees)
-			if(subtree.select_behaviors(src, seconds_per_tick) == SUBTREE_RETURN_FINISH_PLANNING)
-				break
+	for(var/datum/ai_planning_subtree/subtree as anything in planning_subtrees)
+		if(subtree.select_behaviors(src, seconds_per_tick) == SUBTREE_RETURN_FINISH_PLANNING)
+			break
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		if(LAZYACCESS(planned_behaviors, current_behavior))
+		if(current_behavior in planned_behaviors)
 			continue
 		var/list/arguments = list(src, FALSE)
 		var/list/stored_arguments = behavior_args[type]
@@ -394,24 +458,57 @@ RESTRICT_TYPE(/datum/ai_controller)
 		current_behavior.finish_action(arglist(arguments))
 
 /// This proc handles changing AI status, and starts/stops processing if required.
-/datum/ai_controller/proc/set_ai_status(new_ai_status)
+/datum/ai_controller/proc/set_ai_status(new_ai_status, additional_flags = NONE)
 	if(ai_status == new_ai_status)
 		return FALSE // no change
 
 	// remove old status, if we've got one
 	if(ai_status)
-		SSai_controllers.ai_controllers_by_status[ai_status] -= src
+		GLOB.ai_controllers_by_status[ai_status] -= src
+	remove_from_unplanned_controllers()
+	stop_previous_processing()
 	ai_status = new_ai_status
-	SSai_controllers.ai_controllers_by_status[new_ai_status] += src
+	GLOB.ai_controllers_by_status[new_ai_status] += src
+	if(ai_status == AI_STATUS_OFF)
+		if(!(additional_flags & AI_PREVENT_CANCEL_ACTIONS))
+			cancel_actions()
+		return
+	if(!length(current_behaviors))
+		add_to_unplanned_controllers()
+		return
+	start_ai_processing()
+
+/datum/ai_controller/proc/start_ai_processing()
 	switch(ai_status)
 		if(AI_STATUS_ON)
 			START_PROCESSING(SSai_behaviors, src)
-		if(AI_STATUS_OFF, AI_STATUS_IDLE)
+		if(AI_STATUS_IDLE)
+			START_PROCESSING(SSidle_ai_behaviors, src)
+
+/datum/ai_controller/proc/stop_previous_processing()
+	switch(ai_status)
+		if(AI_STATUS_ON)
 			STOP_PROCESSING(SSai_behaviors, src)
-			cancel_actions()
+		if(AI_STATUS_IDLE)
+			STOP_PROCESSING(SSidle_ai_behaviors, src)
 
 /datum/ai_controller/proc/pause_ai(time)
 	paused_until = world.time + time
+	update_able_to_run()
+	addtimer(CALLBACK(src, PROC_REF(update_able_to_run)), time)
+
+/datum/ai_controller/proc/add_to_unplanned_controllers()
+	if(isnull(ai_status) || ai_status == AI_STATUS_OFF || isnull(idle_behavior))
+		return
+	GLOB.unplanned_controllers[ai_status][src] = TRUE
+
+/datum/ai_controller/proc/remove_from_unplanned_controllers()
+	if(isnull(ai_status) || ai_status == AI_STATUS_OFF)
+		return
+	GLOB.unplanned_controllers[ai_status] -= src
+	for(var/datum/controller/subsystem/unplanned_controllers/potential_holder as anything in GLOB.unplanned_controller_subsystems)
+		if(potential_holder.target_status == ai_status)
+			potential_holder.current_run -= src
 
 /datum/ai_controller/proc/modify_cooldown(datum/ai_behavior/behavior, new_cooldown)
 	behavior_cooldowns[behavior] = new_cooldown
@@ -426,20 +523,49 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 	// It's still in the plan, don't add it again to current_behaviors
 	// but do keep it in the planned behavior list so its not cancelled
-	if(LAZYACCESS(current_behaviors, behavior))
-		LAZYADDASSOC(planned_behaviors, behavior, TRUE)
+	if(current_behaviors[behavior])
+		planned_behaviors[behavior] = TRUE
 		return
 
 	if(!behavior.setup(arglist(arguments)))
 		return
-	LAZYADDASSOC(current_behaviors, behavior, TRUE)
-	LAZYADDASSOC(planned_behaviors, behavior, TRUE)
+
+	var/should_exit_unplanned = !length(current_behaviors)
+	planned_behaviors[behavior] = TRUE
+	current_behaviors[behavior] = TRUE
 	arguments.Cut(1, 2)
 	if(length(arguments))
 		behavior_args[behavior_type] = arguments
 	else
 		behavior_args -= behavior_type
+
+	if(!(behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) // this one blocks planning!
+		able_to_plan = FALSE
+
+	if(should_exit_unplanned)
+		exit_unplanned_mode()
+
 	SEND_SIGNAL(src, AI_CONTROLLER_BEHAVIOR_QUEUED(behavior_type), arguments)
+
+/datum/ai_controller/proc/check_able_to_plan()
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
+		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) // We have a behavior that blocks planning
+			return FALSE
+	return TRUE
+
+/datum/ai_controller/proc/dequeue_behavior(datum/ai_behavior/behavior)
+	current_behaviors -= behavior
+	able_to_plan = check_able_to_plan()
+	if(!length(current_behaviors))
+		enter_unplanned_mode()
+
+/datum/ai_controller/proc/exit_unplanned_mode()
+	remove_from_unplanned_controllers()
+	start_ai_processing()
+
+/datum/ai_controller/proc/enter_unplanned_mode()
+	add_to_unplanned_controllers()
+	stop_previous_processing()
 
 /datum/ai_controller/proc/process_behavior(seconds_per_tick, datum/ai_behavior/behavior)
 	var/list/arguments = list(seconds_per_tick, src)
@@ -460,7 +586,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		behavior.finish_action(arglist(arguments))
 
 /datum/ai_controller/proc/cancel_actions()
-	if(!LAZYLEN(current_behaviors))
+	if(!length(current_behaviors))
 		return
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		fail_behavior(current_behavior)

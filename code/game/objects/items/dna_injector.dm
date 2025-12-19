@@ -120,13 +120,13 @@
 
 /obj/item/dnainjector/attack__legacy__attackchain(mob/M, mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>This injector is used up!</span>")
+		to_chat(user, SPAN_WARNING("This injector is used up!"))
 		return
 	if(!M.dna || HAS_TRAIT(M, TRAIT_GENELESS) || HAS_TRAIT(M, TRAIT_BADDNA)) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
 		return FALSE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return FALSE
 
 	var/attack_log = "injected with the Isolated [name]"
@@ -135,22 +135,22 @@
 		if(block)
 			if(GetState() && block == GLOB.monkeyblock && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] [SPAN_WARNING("(MONKEY)")]")
 
 		else
 			if(GetState(GLOB.monkeyblock) && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] [SPAN_WARNING("(MONKEY)")]")
 
 
 	if(M != user)
-		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
+		M.visible_message(SPAN_DANGER("[user] is trying to inject [M] with [src]!"), SPAN_USERDANGER("[user] is trying to inject [M] with [src]!"))
 		if(!do_mob(user, M))
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
 	else
-		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You inject yourself with [src]."))
 
 	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
 

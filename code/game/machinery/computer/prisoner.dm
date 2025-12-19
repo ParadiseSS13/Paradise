@@ -133,7 +133,7 @@
 				I.forceMove(src)
 				inserted_id_uid = I.UID()
 			else
-				to_chat(user, "<span class='warning'>No valid ID.</span>")
+				to_chat(user, SPAN_WARNING("No valid ID."))
 		if("inject")
 			var/obj/item/bio_chip/chem/implant = locateUID(params["uid"])
 			if(!implant)
@@ -169,13 +169,13 @@
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
+						to_chat(user, SPAN_WARNING("The warning system for that bio-chip is still cooling down."))
 						return
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
 						var/warning = copytext(sanitize(answer), 1, MAX_MESSAGE_LEN)
-						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
+						to_chat(implantee, SPAN_BOLDNOTICE("Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'"))
 
 				if("set_points")
 					if(isnull(text2num(answer)))

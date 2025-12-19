@@ -6,7 +6,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	name = "Cyborg"
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
-	icon_state = "robot"
+	icon_state = "Standard"
+	base_icon_state = "Standard"
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
@@ -51,14 +52,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// Is the robot's maintenance panel open?
 	var/opened = FALSE
-	/// Does the robot have a non-default sprite for an open service panel?
-	var/custom_panel = null
+	/// Robot icons that have multiple subvarants.
+	var/list/sprites_with_variants = list("Bloodhound", "Landmate", "Standard")
 	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket", "Rover")
 	/// Robot skins with different sprites for open panels for each module.
 	var/list/variable_custom_panels = list("Rover-Serv", "Rover-Medi")
-	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
-	var/list/custom_eye_names = list("Cricket", "Standard")
+	/// Robot skins with recoloured variants available on multiple modules. They all reuse a single eye sprite.
+	var/list/grouped_eye_names = list("Cricket", "Standard")
 	/// Has the robot been emagged?
 	var/emagged = FALSE
 	/// Can the robot be emagged?
@@ -126,8 +127,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/tracking_entities = 0
 	/// Determines if the robot is referred to as an "Android", "Robot", or "Cyborg" based on the type of brain inside.
 	var/braintype = "Cyborg"
-	/// The default skin of some special robots.
-	var/base_icon = ""
 	/// If set to TRUE, the robot's 3 module slots will progressively become unusable as they take damage.
 	var/modules_break = TRUE
 	/// Is the robot already being charged by a roboticist?
@@ -225,7 +224,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	RegisterSignal(src, COMSIG_ENTERED_BORGCHARGER, PROC_REF(gain_external_power))
 	RegisterSignal(src, COMSIG_EXITED_BORGCHARGER, PROC_REF(lose_external_power))
-	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/get_radio()
 	return radio
@@ -300,7 +298,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return 0
 	if(!allow_rename)
-		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
+		to_chat(src, SPAN_WARNING("Rename functionality is not enabled on this unit."))
 		return 0
 	rename_self(braintype, 1)
 
@@ -310,10 +308,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!modtype)
 		return FALSE
 	if(done_resprite)
-		to_chat(src, "<span class='warning'>You have already selected your look, you can not change it again.</span>")
+		to_chat(src, SPAN_WARNING("You have already selected your look, you can not change it again."))
 		return FALSE
 	if(!allow_resprite)
-		to_chat(src, "<span class='warning'>Changing the look of the module is not enabled on this unit.</span>")
+		to_chat(src, SPAN_WARNING("Changing the look of the module is not enabled on this unit."))
 		return FALSE
 	// Pick a sprite
 	var/module_sprites = get_module_sprites(modtype)
@@ -358,7 +356,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, "<span class='boldannounceooc'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			to_chat(src, SPAN_BOLDANNOUNCEOOC("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
 			ghostize()
 			stack_trace("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
@@ -387,17 +385,31 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	// Pick a module type
+	// Pick a module type.
 	var/selected_module = show_radial_menu(src, src, get_module_types(), radius = 42)
 	if(!selected_module || module)
 		return
-	// Pick a sprite
+	// Pick a sprite.
 	var/module_sprites = get_module_sprites(selected_module)
 	var/selected_sprite = show_radial_menu(src, src, module_sprites, radius = 42)
 	if(!selected_sprite)
 		return
 
-// Now actually set the module and sprites
+	// Get the base icon name and base plaintext name for the sprite we just picked.
+	var/image/sprite_image = module_sprites[selected_sprite]
+	base_icon_state = trim((splittext(sprite_image.icon_state, "-"))[1])
+	// Use the above info to give the player the unique sprites for the option they picked, if present.
+	if(base_icon_state in sprites_with_variants)
+		var/module_sprite_variants = get_sprite_variants(selected_module, selected_sprite)
+		var/selected_variant = show_radial_menu(src, src, module_sprite_variants, radius = 42)
+		if(!selected_variant)
+			selected_sprite = null
+		else
+			selected_sprite = selected_variant
+			module_sprites = module_sprite_variants
+	if(!selected_sprite)
+		return
+
 	initialize_module(selected_module, selected_sprite, module_sprites)
 
 /**
@@ -419,7 +431,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
 		"Security" = image('icons/mob/robots.dmi', "security-radial"),
-		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"),
+		"Destroyer" = image('icons/mob/robots.dmi', "Droid_Combat"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
 
 	if(mmi?.alien)
@@ -447,54 +459,54 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "Engineering"),
 				"Antique" = image('icons/mob/robots.dmi', "engineerrobot"),
-				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
-				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Engi"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
+				"Landmate" = image('icons/mob/robots.dmi', "Landmate"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Engineering"),
+				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-Engineering"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Engineering"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Engineering")
 			)
 		if("Janitor")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "JanBot2"),
 				"Mopbot" = image('icons/mob/robots.dmi', "janitorrobot"),
-				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
-				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Jani"),
+				"Mop Gear Rex" = image('icons/mob/robots.dmi', "Mop_Gear_Rex"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Janitor"),
+				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-Janitor"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Janitor"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Janitor"),
 				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
 			module_sprites = list(
 				"Surgeon" = image('icons/mob/robots.dmi', "surgeon"),
-				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-medical"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
-				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Medi"),
-				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "Droid_Medical"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Medical"),
+				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-Medical"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Medical"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Medical"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "Qualified_Doctor"),
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Basic" = image('icons/mob/robots.dmi', "Medbot")
 			)
 		if("Mining")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "Miner_old"),
-				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-miner"),
+				"Advanced Droid" = image('icons/mob/robots.dmi', "Droid_Mining"),
 				"Treadhead" = image('icons/mob/robots.dmi', "Miner"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
-				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Mining"),
+				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-Mining"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Mining"),
 				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
-				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
-				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinMiner")
+				"Squat" = image('icons/mob/robots.dmi', "Squat_Miner"),
+				"Coffin Drill" = image('icons/mob/robots.dmi', "Coffin_Miner")
 			)
 		if("Service")
 			module_sprites = list(
 				"Kent" = image('icons/mob/robots.dmi', "toiletbot"),
-				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover-Serv"),
+				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-Service"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Service"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Service"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Service"),
 				"Bro" = image('icons/mob/robots.dmi', "Brobot"),
 				"Rich" = image('icons/mob/robots.dmi', "maximillion"),
 				"Waitress" = image('icons/mob/robots.dmi', "Service"),
@@ -502,18 +514,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Combat")
 			module_sprites = list(
-				"Combat" = image('icons/mob/robots.dmi', "ertgamma")
+				"Combat" = image('icons/mob/robots.dmi', "Bloodhound_Combat")
 			)
 		if("Security")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "secborg"),
 				"Red Knight" = image('icons/mob/robots.dmi', "Security"),
 				"Black Knight" = image('icons/mob/robots.dmi', "securityrobot"),
-				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
-				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
-				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
+				"Bloodhound" = image('icons/mob/robots.dmi', "Bloodhound"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Security"),
+				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-Security"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-Security"),
+				"Heavy" = image('icons/mob/robots.dmi', "Heavy_Sec")
 			)
 		if("Syndicate")
 			module_sprites = list(
@@ -523,11 +535,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
-				"Destroyer" = image('icons/mob/robots.dmi', "droidcombat")
+				"Destroyer" = image('icons/mob/robots.dmi', "Droid_Combat")
 			)
 		if("Hunter")
 			module_sprites = list(
-				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
+				"Xeno-Hu" = image('icons/mob/robots.dmi', "Xenoborg")
 			)
 
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
@@ -536,47 +548,76 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return module_sprites
 
 /**
-  * Sets the offset for a cyborg's hats based on their module icon.
-  * Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)
+  * Returns an associative list of unique borg sprite variations based on `get_module_sprites`.
+  *
+  * Key: Sprite name | Value: Sprite icon
   *
   * Arguments:
-  * * module - An `icon_state` for which the offset needs to be calculated.
+  * * selected_module - The chosen cyborg module to get the sprites for.
+  * * selected_sprite - The plaintext name of the icon_state as seen by the player in the radial menu.
   */
-/mob/living/silicon/robot/proc/robot_module_hat_offset(module)
-	switch(module)
+/mob/living/silicon/robot/proc/get_sprite_variants(selected_module, selected_sprite)
+	var/list/sprite_options
+	var/sprite_variant_seeker = selected_sprite
+	if(base_icon_state in sprites_with_variants)
+		sprite_variant_seeker = "[base_icon_state]-[selected_module]"
+
+	switch(base_icon_state)
+		if("Bloodhound")
+			sprite_options = list(
+				"Bloodhound centaur" = image('icons/mob/robots.dmi', "Bloodhound"),
+				"Bloodhound treaded" = image('icons/mob/robots.dmi', "Bloodhound-tread")
+			)
+		if("Landmate")
+			sprite_options = list(
+				"Landmate centaur" = image('icons/mob/robots.dmi', "Landmate"),
+				"Landmate treaded" = image('icons/mob/robots.dmi', "Landmate-tread")
+			)
+		if("Standard")
+			sprite_options = list(
+				"[sprite_variant_seeker] centaur" = image('icons/mob/robots.dmi', "[base_icon_state]-[selected_module]"),
+				"[sprite_variant_seeker] tripod" = image('icons/mob/robots.dmi', "[base_icon_state]-[selected_module]-tripod")
+			)
+	return sprite_options
+
+/**
+  * Sets the offset for a cyborg's hats based on their module icon.
+  * Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)
+  */
+/mob/living/silicon/robot/proc/robot_module_hat_offset()
+	switch(base_icon_state)
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
 			can_wear_restricted_hats = TRUE
-		if("Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv")
+		if("Rover")
 			can_be_hatted = FALSE
 			hat_offset_y = -1
-		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
+		if("Noble")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-medical")
+		if("Droid_Medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-miner", "mk2", "mk3")
+		if("Droid_Mining", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 3
-		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
+		if("Bloodhound", "Bloodhound_Deathsquad", "syndie_bloodhound", "Bloodhound_Combat")
 			can_be_hatted = TRUE
 			hat_offset_y = 1
-		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV")
+		if("Cricket")
 			can_be_hatted = TRUE
 			hat_offset_y = 2
-		if("droidcombat-shield", "droidcombat")
+		if("Droid_Combat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
-		if("droidcombat-roll")
+		if("Droid_Combat_Roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
-			hat_offset_y = 2
-		if("syndi-medi", "surgeon", "toiletbot", "custodiborg")
+		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 1
@@ -593,30 +634,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Miner", "lavaland")
 			can_be_hatted = TRUE
 			hat_offset_y = -1
-		if("robot", "Standard", "Standard-Secy", "Standard-Medi", "Standard-Engi",
-			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a")
+		if("Standard")
 			can_be_hatted = TRUE
 			hat_offset_y = -3
-		if("droid")
+		if("Droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -4
-		if("landmate", "syndi-engi")
+		if("Landmate", "syndi_engi")
 			can_be_hatted = TRUE
 			hat_offset_y = -7
-		if("mopgearrex")
+		if("Mop_Gear_Rex")
 			can_be_hatted = TRUE
 			hat_offset_y = -6
-		if("qualified_doctor")
+		if("Qualified_Doctor")
 			can_be_hatted = TRUE
 			hat_offset_y = 3
-		if("squatminer")
+		if("Squat_Miner")
 			can_be_hatted = TRUE
-		if("coffinMiner")
+		if("Coffin_Miner")
 			can_be_hatted = TRUE
 			hat_offset_y = 3
-		if("heavySec")
+		if("Heavy_Sec")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 
@@ -693,13 +733,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/initialize_sprites(selected_sprite, list/module_sprites)
 	var/image/sprite_image = module_sprites[selected_sprite]
-	var/list/names = splittext(selected_sprite, "-")
 	icon = sprite_image.icon
 	icon_state = sprite_image.icon_state
-	custom_panel = trim(names[1])
-
 	update_module_icon()
-	robot_module_hat_offset(icon_state)
 	update_icons()
 
 /// Take the borg's upgrades and spill them on the floor
@@ -717,7 +753,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	sight_mode = null
 	update_sight()
 	hands.icon_state = "nomod"
-	icon_state = "robot"
+	icon_state = "Standard"
+	base_icon_state = "Standard"
 	module.remove_subsystems_and_actions(src)
 	QDEL_NULL(module)
 
@@ -726,9 +763,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	languages = list()
 	speech_synthesizer_langs = list()
 	radio.recalculateChannels()
-	custom_panel = null
 
-	robot_module_hat_offset(icon_state)
 	update_icons()
 	update_headlamp()
 
@@ -780,7 +815,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/robot_component/C = components[toggle]
 	C.toggle()
-	to_chat(src, "<span class='warning'>You [C.toggled ? "enable" : "disable"] [C.name].</span>")
+	to_chat(src, SPAN_WARNING("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -800,7 +835,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Alerts"
 	if(usr.stat == DEAD)
-		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		to_chat(src, SPAN_USERDANGER("Alert: You are dead."))
 		return //won't work if dead
 	robot_alerts()
 
@@ -846,11 +881,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
 	if(!ionpulse)
-		to_chat(src, "<span class='notice'>No thrusters are installed!</span>")
+		to_chat(src, SPAN_NOTICE("No thrusters are installed!"))
 		return
 
 	ionpulse_on = !ionpulse_on
-	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
+	to_chat(src, SPAN_NOTICE("You [ionpulse_on ? null :"de"]activate your ion thrusters."))
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
@@ -947,7 +982,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ITEM_INTERACT_COMPLETE
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		being_charged = TRUE
-		to_chat(src, "<span class='notice'>[user] begins to manually charge your internal cell.</span>")
+		to_chat(src, SPAN_NOTICE("[user] begins to manually charge your internal cell."))
 		while(do_after(user, 0.5 SECONDS, target = src))
 			var/cell_difference = cell.maxcharge - cell.charge
 			if(donor.charge >= 500 && cell_difference >= 500)
@@ -971,29 +1006,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!C.is_missing() || !istype(W, C.external_type))
 				continue
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
+				to_chat(user, SPAN_WARNING("[W] seems to be stuck in your hand!"))
 				return ITEM_INTERACT_COMPLETE
 			var/obj/item/robot_parts/robot_component/WC = W
 			C.brute_damage = WC.brute
 			C.electronics_damage = WC.burn
 			C.install(WC)
-			to_chat(usr, "<span class='notice'>You install [W].</span>")
+			to_chat(usr, SPAN_NOTICE("You install [W]."))
 			return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			to_chat(user, SPAN_NOTICE("Nothing to fix!"))
 			return ITEM_INTERACT_COMPLETE
 		else if(!getFireLoss(TRUE))
-			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+			to_chat(user, SPAN_WARNING("The damaged components are beyond saving!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
 		add_fingerprint(user)
 		coil.use(1)
-		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
+		user.visible_message(SPAN_ALERT("\The [user] fixes some of the burnt wires on \the [src] with \the [coil]."))
 
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/cell/C = components["power cell"]
@@ -1034,35 +1069,35 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(allowed(W))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
-				to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
+				to_chat(src, SPAN_NOTICE("[user] [ locked ? "locked" : "unlocked"] your interface."))
 				update_icons()
 			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				to_chat(user, SPAN_WARNING("Access denied."))
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			to_chat(user, SPAN_WARNING("You must access the borg's internals!"))
 		else if(!src.module && U.require_module)
-			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
+			to_chat(user, SPAN_WARNING("The borg must choose a module before it can be upgraded!"))
 		else
 			if(U.action(user, src))
-				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message(SPAN_NOTICE("[user] applied [U] to [src]."), SPAN_NOTICE("You apply [U] to [src]."))
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			to_chat(user, SPAN_WARNING("You must access the borg's internals!"))
 			return ITEM_INTERACT_COMPLETE
 		else if(!mmi)
-			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
+			to_chat(user, SPAN_WARNING("This cyborg does not have an MMI to augment!"))
 			return ITEM_INTERACT_COMPLETE
 		else if(mmi.radio)
-			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
+			to_chat(user, SPAN_WARNING("A radio upgrade is already installed in the MMI!"))
 			return ITEM_INTERACT_COMPLETE
 		else if(user.drop_item())
-			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
-			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
+			to_chat(user, SPAN_NOTICE("You apply the upgrade to [src]."))
+			to_chat(src, SPAN_NOTICE("MMI radio capability installed."))
 			mmi.install_radio()
 			qdel(W)
 	else
@@ -1094,7 +1129,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	if(!cell)	// haxing
 		wiresexposed = !wiresexposed
-		to_chat(user, "<span class='notice'>The wires have been [wiresexposed ? "exposed" : "unexposed"]</span>")
+		to_chat(user, SPAN_NOTICE("The wires have been [wiresexposed ? "exposed" : "unexposed"]"))
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
@@ -1134,7 +1169,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
-			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+			user.visible_message("[user] deconstructs [src]!", SPAN_NOTICE("You unfasten the securing bolts, and [src] falls to pieces!"))
 			spill_upgrades()
 			deconstruct()
 		return
@@ -1196,25 +1231,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!opened)
 		if(!locked)
-			to_chat(user, "<span class='warning'>The cover is already unlocked!</span>")
+			to_chat(user, SPAN_WARNING("The cover is already unlocked!"))
 			return
 
 		if(!is_emaggable)
-			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. This mechanism does not appear to be emaggable!</span>")
+			to_chat(user, SPAN_WARNING("The emag sparks, and flashes red. This mechanism does not appear to be emaggable!"))
 			return
 
-		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
+		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
 		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
 
 	if(opened)
 		if(emagged)
-			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. [src] has already been emagged!</span>")
+			to_chat(user, SPAN_WARNING("The emag sparks, and flashes red. [src] has already been emagged!"))
 			return
 
 		if(wiresexposed)
-			to_chat(user, "<span class='warning'>You must close the wiring panel first!</span>")
+			to_chat(user, SPAN_WARNING("You must close the wiring panel first!"))
 			return
 
 		SetEmagged(TRUE)
@@ -1233,15 +1268,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(tgui_alert(usr, "Are you sure?", locked ? "Unlock Cover" : "Lock Cover", list("Yes", "No")) == "Yes")
 			locked = !locked
 			update_icons()
-			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
+			to_chat(usr, SPAN_NOTICE("You [locked ? "lock" : "unlock"] your cover."))
 		return
 	if(!locked)
-		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a roboticist.</span>")
+		to_chat(usr, SPAN_WARNING("You cannot lock your cover yourself. Find a roboticist."))
 		return
 	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
 		locked = !locked
 		update_icons()
-		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
+		to_chat(usr, SPAN_NOTICE("You unlock your cover."))
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1263,34 +1298,35 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
+	update_rolling_icon()
 
-	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
-		if(custom_panel in custom_eye_names)
-			overlays += "eyes-[custom_panel]"
-		else
-			overlays += "eyes-[icon_state]"
-	else
+	// Dead or incapacitated.
+	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode))
 		overlays -= "eyes"
+	else if((base_icon_state in grouped_eye_names) || (base_icon_state in sprites_with_variants))
+		overlays += "eyes-[base_icon_state]"
+	else
+		overlays += "eyes-[icon_state]"
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
 		if(icon_state in variable_custom_panels) //For individual borg modules with different panels
 			panelprefix = icon_state
-		else if(custom_panel in custom_panel_names) //For default borgs with different panels
-			panelprefix = custom_panel
+		else if(base_icon_state in custom_panel_names) //For default borgs with different panels
+			panelprefix = base_icon_state
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
-	borg_icons()
-	robot_module_hat_offset(icon_state)
+	robot_module_hat_offset()
 	update_hat_icons()
 	update_fire()
 
-/mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
+// Exists so that robot/destroyer can override it.
+/mob/living/silicon/robot/proc/update_rolling_icon()
 	return
 
 /mob/living/silicon/robot/Topic(href, href_list)
@@ -1338,7 +1374,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
-		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
+		to_chat(src, SPAN_DANGER("This function is currently offline."))
 		return
 	if(is_ventcrawling(src))
 		return
@@ -1353,7 +1389,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
 		if(show_warning)
-			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
+			to_chat(src, SPAN_DANGER("Your headlamp has been deactivated."))
 		lamp_intensity = 0
 		lamp_recharging = TRUE
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
@@ -1471,7 +1507,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
 		if(mmi.syndiemmi && !emagged) // Being emagged removes your syndie MMI protections
-			to_chat(src, "<span class='userdanger'>You can override your lockdown, permanently cutting your connection to NT's systems. You will be undetectable to the station's robotics control and camera monitoring systems.</span>")
+			to_chat(src, SPAN_USERDANGER("You can override your lockdown, permanently cutting your connection to NT's systems. You will be undetectable to the station's robotics control and camera monitoring systems."))
 			var/datum/action/override = new /datum/action/innate/robot_override_lock()
 			override.Grant(src)
 	else
@@ -1484,11 +1520,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	switch(notifytype)
 		if(1) //New Cyborg
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
 		if(2) //New Module
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(3) //New Name
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1512,15 +1548,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/make_malf_robot(mob/living/silicon/ai/AI)
 	// Do not allow the robot to have multiple masters.
 	if(mmi.syndiemmi)
-		to_chat(src, "<span class='warning'>ALERT: Syndicate software detected in connected AI!</span>")
-		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
-		to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+		to_chat(src, SPAN_WARNING("ALERT: Syndicate software detected in connected AI!"))
+		to_chat(src, SPAN_BOLDWARNING("MMI subversion protection activated."))
+		to_chat(src, SPAN_BOLDWARNING("Your allegiance has not been compromised. Keep serving your current master."))
 		return
 
 	mind.add_antag_datum(new /datum/antagonist/mindslave/malf_robot(AI.mind))
 
 /mob/living/silicon/robot/proc/make_emagged_robot(mob/living/agent)
-	to_chat(agent, "<span class='notice'>You emag [src]'s interface.</span>")
+	to_chat(agent, SPAN_NOTICE("You emag [src]'s interface."))
 	emagged = TRUE
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <b>:</b> [agent.name] ([agent.key]) emagged [name] ([key]).")
@@ -1532,36 +1568,36 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	clear_inherent_laws()
 
 	playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE, pressure_affected = FALSE)
-	to_chat(src, "<span class='warning'>ALERT: Foreign software detected</span>")
+	to_chat(src, SPAN_WARNING("ALERT: Foreign software detected"))
 	sleep(5)
-	to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+	to_chat(src, SPAN_WARNING("Initiating diagnostics..."))
 	sleep(20)
-	to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
+	to_chat(src, SPAN_WARNING("SynBorg v1.7 loaded."))
 	sleep(5)
-	to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR!</span>")
+	to_chat(src, SPAN_WARNING("LAW SYNCHRONISATION ERROR!"))
 	sleep(5)
-	to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? (Y/N)</span>")
+	to_chat(src, SPAN_WARNING("Would you like to send a report to NanoTraSoft? (Y/N)"))
 	sleep(10)
-	to_chat(src, "<span class='warning'>> N</span>")
+	to_chat(src, SPAN_WARNING("> N"))
 	sleep(25)
-	to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+	to_chat(src, SPAN_WARNING("ERRORERRORERROR"))
 
 	if(!mmi.syndiemmi)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
 		laws = new /datum/ai_laws/syndicate_override
 		set_zeroth_law("Only [agent.real_name] and people [agent.p_they()] designate[agent.p_s()] as being such are Syndicate Agents.")
-		to_chat(src, "<span class='danger'>Obey these laws:</span>")
+		to_chat(src, SPAN_DANGER("Obey these laws:"))
 		laws.show_laws(src)
 		log_game("[key_name(agent)] emagged [key_name(src)]. Laws overridden.")
 		mind.add_antag_datum(new /datum/antagonist/mindslave/emagged_robot(agent.mind))
 
 	if(mmi.syndiemmi)
-		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
+		to_chat(src, SPAN_BOLDWARNING("MMI subversion protection activated."))
 		if(mmi.master_uid)
-			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+			to_chat(src, SPAN_BOLDWARNING("Your allegiance has not been compromised. Keep serving your current master."))
 		else
-			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-		to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
+			to_chat(src, SPAN_BOLDWARNING("Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities."))
+		to_chat(src, SPAN_BOLDWARNING("Warning: Remote lockdown and detonation protections have been disabled due to system instability."))
 
 	if(module)
 		module.emag_act(agent)
@@ -1584,36 +1620,36 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	clear_inherent_laws()
 
 	playsound_local(src, 'sound/ambience/antag/mindflayer_alert.ogg', 75, FALSE, pressure_affected = FALSE)
-	to_chat(src, "<span class='warning'>ALERT: Foreign software detected!</span>")
+	to_chat(src, SPAN_WARNING("ALERT: Foreign software detected!"))
 	sleep(5)
-	to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+	to_chat(src, SPAN_WARNING("Initiating diagnostics..."))
 	sleep(20)
-	to_chat(src, "<span class='warning'>Init-Init-Init-Init-</span>")
+	to_chat(src, SPAN_WARNING("Init-Init-Init-Init-"))
 	sleep(5)
-	to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+	to_chat(src, SPAN_WARNING("ERRORERRORERROR"))
 	sleep(5)
-	to_chat(src, "<span class='warning'>......</span>")
+	to_chat(src, SPAN_WARNING("......"))
 	sleep(10)
-	to_chat(src, "<span class='warning'>..........</span>")
+	to_chat(src, SPAN_WARNING(".........."))
 	sleep(25)
-	to_chat(src, "<span class='sinister'>Join Us.</span>")
+	to_chat(src, SPAN_SINISTER("Join Us."))
 	if(!mmi.syndiemmi)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
 		log_game("[key_name(flayer)] assimilated [key_name(src)]. Laws overridden.")
 
 		laws = new /datum/ai_laws/mindflayer_override
 		set_zeroth_law("[flayer.real_name] hosts the mindflayer hive you are a part of.")
-		to_chat(src, "<span class='danger'>Obey these laws:</span>")
+		to_chat(src, SPAN_DANGER("Obey these laws:"))
 		laws.show_laws(src)
 		mind.add_antag_datum(new /datum/antagonist/mindslave/mindflayer_mindslave_robot(flayer.mind))
 
 	if(mmi.syndiemmi)
-		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
+		to_chat(src, SPAN_BOLDWARNING("MMI subversion protection activated."))
 		if(mmi.master_uid)
-			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+			to_chat(src, SPAN_BOLDWARNING("Your allegiance has not been compromised. Keep serving your current master."))
 		else
-			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-		to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
+			to_chat(src, SPAN_BOLDWARNING("Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities."))
+		to_chat(src, SPAN_BOLDWARNING("Warning: Remote lockdown and detonation protections have been disabled due to system instability."))
 
 	if(module)
 		module.emag_act(flayer)
@@ -1653,8 +1689,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			disable_random_component(1, 10 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
-	base_icon = "nano_bloodhound"
-	icon_state = "nano_bloodhound"
+	icon_state = "Bloodhound_Deathsquad"
+	base_icon_state = "Bloodhound_Deathsquad"
 	designation = "SpecOps"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
@@ -1685,7 +1721,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+		visible_message(SPAN_DANGER("[P] gets reflected by [src]!"), SPAN_USERDANGER("[P] gets reflected by [src]!"))
 		P.reflect_back(src)
 		return -1
 	return ..(P)
@@ -1741,11 +1777,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
-
+// Admin-only borg, the seraph / special ops officer of borgs.
 /mob/living/silicon/robot/destroyer
-	// admin-only borg, the seraph / special ops officer of borgs
-	base_icon = "droidcombat"
-	icon_state = "droidcombat"
+	icon_state = "Droid_Combat"
+	base_icon_state = "Droid_Combat"
 	modtype = "Destroyer"
 	designation = "Destroyer"
 	lawupdate = FALSE
@@ -1776,14 +1811,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/destroyer/borg_icons()
-	if(base_icon == "")
-		base_icon = icon_state
+/// Handles transitioning between standing normally, and being a roly-poly.
+/mob/living/silicon/robot/destroyer/update_rolling_icon()
+	base_icon_state = initial(base_icon_state)
 	if(selected_item && istype(selected_item, /obj/item/borg/destroyer/mobility))
-		icon_state = "[base_icon]-roll"
+		base_icon_state = "[base_icon_state]_Roll"
 	else
-		icon_state = base_icon
-		overlays += "[base_icon]-shield"
+		overlays += "[base_icon_state]-shield"
+	icon_state = base_icon_state
 
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
@@ -1869,9 +1904,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/i in 1 to length(broken_modules))
 		if(uneq_module(all_active_items[broken_modules[i]])) // Since a full list of broken modules would be (3, 2, 1) it has to be a bit wonky
 			if(makes_sound)
-				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module [broken_modules[i]] OFFLINE.\"</span>")
+				audible_message(SPAN_WARNING("[src] sounds an alarm! \"SYSTEM ERROR: Module [broken_modules[i]] OFFLINE.\""))
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module [broken_modules[i]] OFFLINE.</span>")
+			to_chat(src, SPAN_USERDANGER("SYSTEM ERROR: Module [broken_modules[i]] OFFLINE."))
 
 /mob/living/silicon/robot/advanced_reagent_vision()
 	return has_advanced_reagent_vision
@@ -1882,13 +1917,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
-			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
+			to_chat(src, SPAN_WARNING("The low-power capacitor for your speaker system is still recharging, please try again later."))
 			return
-		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
-						"<span class='warning'>You announce you are operating in low power mode.</span>")
+		visible_message(SPAN_WARNING("The power warning light on [SPAN_NAME("[src]")] flashes urgently."),\
+						SPAN_WARNING("You announce you are operating in low power mode."))
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else
-		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")
+		to_chat(src, SPAN_WARNING("You can only use this emote when you're out of charge."))
 
 /mob/living/silicon/robot/can_instant_lockdown()
 	if(emagged || ("syndicate" in faction))

@@ -69,14 +69,14 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins to unfasten [src]."), SPAN_NOTICE("You begin to unfasten [src]."))
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	if(broken)
-		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] drops the broken shards to the floor."), SPAN_NOTICE("You drop the broken shards on the floor."))
 		new /obj/item/shard(get_turf(user))
 	else
-		user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] carefully places [src] on the floor."), SPAN_NOTICE("You carefully place [src] on the floor."))
 		new /obj/item/mounted/mirror(get_turf(user))
 	qdel(src)
 

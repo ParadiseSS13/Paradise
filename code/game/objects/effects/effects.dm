@@ -125,12 +125,12 @@
 /obj/effect/decal/proc/scoop(obj/item/I, mob/user)
 	if(reagents && I.reagents && !no_scoop)
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='notice'>There isn't enough [src] to scoop up!</span>")
+			to_chat(user, SPAN_NOTICE("There isn't enough [src] to scoop up!"))
 			return
 		if(I.reagents.total_volume >= I.reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[I] is full!</span>")
+			to_chat(user, SPAN_NOTICE("[I] is full!"))
 			return
-		to_chat(user, "<span class='notice'>You scoop [src] into [I]!</span>")
+		to_chat(user, SPAN_NOTICE("You scoop [src] into [I]!"))
 		on_scoop()
 		reagents.trans_to(I, reagents.total_volume)
 		if(!reagents.total_volume && !no_clear) //scooped up all of it

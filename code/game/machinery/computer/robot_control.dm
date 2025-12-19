@@ -68,12 +68,12 @@
 	if(is_ai(user))
 		if(R.connected_ai != user)
 			if(telluserwhy)
-				to_chat(user, "<span class='warning'>AIs can only control cyborgs which are linked to them.</span>")
+				to_chat(user, SPAN_WARNING("AIs can only control cyborgs which are linked to them."))
 			return FALSE
 	if(isrobot(user))
 		if(R != user)
 			if(telluserwhy)
-				to_chat(user, "<span class='warning'>Cyborgs cannot control other cyborgs.</span>")
+				to_chat(user, SPAN_WARNING("Cyborgs cannot control other cyborgs."))
 			return FALSE
 	return TRUE
 
@@ -81,7 +81,7 @@
 /obj/machinery/computer/robotics/proc/can_detonate_any(mob/user, telluserwhy = FALSE)
 	if(ispulsedemon(user))
 		if(telluserwhy)
-			to_chat(user, "<span class='warning'>The console's authentication circuits reject your control!</span>")
+			to_chat(user, SPAN_WARNING("The console's authentication circuits reject your control!"))
 		return FALSE
 	return TRUE
 
@@ -174,75 +174,75 @@
 		return
 	. = FALSE
 	if(!is_authenticated(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 		return
 	if(SSticker.current_state == GAME_STATE_FINISHED)
-		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your station's property.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied, borgs are no longer your station's property."))
 		return
 	switch(action)
 		if("arm") // Arms the muli-lock system
 			if(issilicon(usr))
-				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
+				to_chat(usr, SPAN_DANGER("Access Denied (silicon detected)"))
 				return
 			safety = !safety
-			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency lockdown system.</span>")
+			to_chat(usr, SPAN_NOTICE("You [safety ? "disarm" : "arm"] the emergency lockdown system."))
 			. = TRUE
 		if("masslock") // Locks down all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
-				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
+				to_chat(usr, SPAN_DANGER("Access Denied (silicon detected)"))
 				return
 			if(!can_detonate_any(usr, TRUE)) // Uses the same permissions as detonate.
 				return
 			if(safety)
-				to_chat(usr, "<span class='danger'>Emergency lockdown aborted - safety active</span>")
+				to_chat(usr, SPAN_DANGER("Emergency lockdown aborted - safety active"))
 				return
-			message_admins("<span class='notice'>[key_name_admin(usr)] locked all cyborgs!</span>")
-			log_game("\<span class='notice'>[key_name(usr)] locked all cyborgs!</span>")
+			message_admins(SPAN_NOTICE("[key_name_admin(usr)] locked all cyborgs!"))
+			log_game(SPAN_NOTICE("[key_name(usr)] locked all cyborgs!"))
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(isdrone(R))
 					continue
 				// Ignore antagonistic cyborgs
 				if(R.scrambledcodes)
 					continue
-				to_chat(R, "<span class='danger'>Emergency lockdown received.</span>")
+				to_chat(R, SPAN_DANGER("Emergency lockdown received."))
 				if(R.connected_ai)
-					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg lockdown detected: [R.name]</span><br>")
+					to_chat(R.connected_ai, "<br><br>[SPAN_ALERT("ALERT - Cyborg lockdown detected: [R.name]")]<br>")
 				R.SetLockdown(!R.lockcharge)
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
 			if(!COOLDOWN_FINISHED(src, detonate_cooldown))
-				to_chat(usr, "<span class='danger'>Detonation Safety Cooldown Active. Please Stand By!</span>")
+				to_chat(usr, SPAN_DANGER("Detonation Safety Cooldown Active. Please Stand By!"))
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_detonate(usr, R, TRUE))
 				return
 			if(R.mind && R.mmi.syndiemmi && !R.emagged) // Emagging removes your syndie MMI protections.
-				to_chat(R, "<span class='danger'>Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE: Detonation aborted. Connection to NT systems severed.</span>")
+				to_chat(R, SPAN_DANGER("Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE: Detonation aborted. Connection to NT systems severed."))
 				R.UnlinkSelf()
 				. = TRUE
 				return
 			var/turf/T = get_turf(R)
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!</span>")
-			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
-			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
+			message_admins(SPAN_NOTICE("[key_name_admin(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!"))
+			log_game(SPAN_NOTICE("[key_name(usr)] detonated [key_name(R)]!"))
+			to_chat(R, SPAN_DANGER("Self-destruct command received."))
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+				to_chat(R.connected_ai, "<br><br>[SPAN_ALERT("ALERT - Cyborg detonation detected: [R.name]")]<br>")
 			R.self_destruct()
 			COOLDOWN_START(src, detonate_cooldown, 60 SECONDS)
 			. = TRUE
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
-				to_chat(usr, "<span class='danger'>Access Denied.</span>")
+				to_chat(usr, SPAN_DANGER("Access Denied."))
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_control(usr, R, TRUE))
 				return
-			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!</span>")
+			message_admins(SPAN_NOTICE("[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!"))
 			log_game("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
 			R.SetLockdown(!R.lockcharge)
-			to_chat(R, "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>")
+			to_chat(R, "[!R.lockcharge ? SPAN_NOTICE("Your lockdown has been lifted!") : SPAN_ALERT("You have been locked down!")]")
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "[!R.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='byond://?src=[R.connected_ai.UID()];track=[html_encode(R.name)]'>[R.name]</a></span><br>")
+				to_chat(R.connected_ai, "[!R.lockcharge ? SPAN_NOTICE("NOTICE - Cyborg lockdown lifted") : SPAN_ALERT("ALERT - Cyborg lockdown detected")]: <a href='byond://?src=[R.connected_ai.UID()];track=[html_encode(R.name)]'>[R.name]</a></span><br>")
 			. = TRUE
 		if("hackbot") // AIs hacking/emagging a borg
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
@@ -252,11 +252,11 @@
 			if(choice != "Yes")
 				return
 			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
-			message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
+			message_admins(SPAN_NOTICE("[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!"))
 			R.emagged = TRUE
 			R.module.emag_act(usr)
 			R.module.module_type = "Malf"
 			R.update_module_icon()
 			R.module.rebuild_modules()
-			to_chat(R, "<span class='notice'>Failsafe protocols overridden. New tools available.</span>")
+			to_chat(R, SPAN_NOTICE("Failsafe protocols overridden. New tools available."))
 			. = TRUE
