@@ -105,6 +105,17 @@
 	..()
 	update_icon()
 
+/mob/living/basic/carp/Move(newloc, direct) // Make's the carp slow down when moving diagonally so it isn't going at the speed of light.
+	if(direct & (NORTHEAST | SOUTHEAST | SOUTHWEST | NORTHWEST))
+		var/slowdown = 2
+		if(istype(src, /mob/living/basic/carp/megacarp))
+			slowdown = 3.5
+		speed = slowdown
+		. = ..()
+		speed = initial(speed)
+	else
+		. = ..()
+
 /mob/living/basic/carp/update_overlays()
 	. = ..()
 	if(!random_color)
@@ -130,6 +141,7 @@
 	icon_gib = "megacarp_gib"
 	maxHealth = 20
 	health = 20
+	speed = 1.75
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
 	random_color = FALSE
