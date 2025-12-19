@@ -30,6 +30,7 @@
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
+	materials = list(MAT_METAL = 1000)
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/New()
@@ -70,6 +71,7 @@
 	desc = "Yay, no washing up to do."
 	icon_state = "pfork"
 	flags = NONE
+	materials = list(MAT_PLASTIC = 1000)
 
 /obj/item/kitchen/utensil/spoon
 	name = "spoon"
@@ -83,6 +85,7 @@
 	icon_state = "pspoon"
 	attack_verb = list("attacked", "poked")
 	flags = NONE
+	materials = list(MAT_PLASTIC = 1000)
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
@@ -96,6 +99,7 @@
 	icon_state = "pspork"
 	attack_verb = list("attacked", "sporked")
 	flags = NONE
+	materials = list(MAT_PLASTIC = 1000)
 
 /*
  * Knives
@@ -137,6 +141,7 @@
 	icon_state = "pknife"
 	sharp = FALSE
 	flags = NONE
+	materials = list(MAT_PLASTIC = 1000)
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -151,6 +156,7 @@
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "glass_shiv"
 	flags = NONE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
 
 /obj/item/kitchen/knife/shiv/carrot
 	name = "carrot shiv"
@@ -163,6 +169,7 @@
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
 	armor = null
+	materials = list()
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -224,7 +231,6 @@
 	icon_state = "knife-cheese"
 	materials = list(MAT_METAL = 4000)
 	force = 3
-	materials = list(MAT_METAL = 4000)
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
@@ -232,7 +238,6 @@
 	icon_state = "pizza_cutter"
 	materials = list(MAT_METAL = 10000)
 	force = 8
-	materials = list(MAT_METAL = 10000)
 
 /*
  * Rolling Pins
@@ -242,10 +247,11 @@
 	name = "rolling pin"
 	desc = "Used to knock out the Bartender."
 	icon_state = "rolling_pin"
-	force = 8.0
-	throwforce = 10.0
+	force = 8
+	throwforce = 10
 	throw_speed = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	materials = list(MAT_WOOD = 10000)
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -263,6 +269,7 @@
 	throw_speed = 3
 	throw_range = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	materials = list(MAT_PLASTIC = 1000)
 
 /obj/item/reagent_containers/cooking/mould/make_mini()
 	transform *= 0.5
