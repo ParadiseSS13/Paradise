@@ -47,6 +47,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suits/bio.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/bio.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/bio.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit/bio.dmi'
 		)
 
 //Medical biosuit, white with blue

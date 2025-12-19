@@ -2,7 +2,7 @@
 /obj/item/clothing/suit/unathi
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/unathi/robe

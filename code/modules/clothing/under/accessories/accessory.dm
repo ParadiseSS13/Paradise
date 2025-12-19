@@ -121,7 +121,7 @@
 	icon_state = "waistcoat"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 //Medals
@@ -338,7 +338,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
 	)
@@ -449,7 +449,7 @@
 	icon_state = "cowboyshirt"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
@@ -458,7 +458,8 @@
 	icon_state = "cowboyshirt_s"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi')
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
@@ -466,7 +467,8 @@
 	icon_state = "cowboyshirt_white"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi')
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
@@ -474,7 +476,7 @@
 	icon_state = "cowboyshirt_whites"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
@@ -483,7 +485,7 @@
 	icon_state = "cowboyshirt_pink"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
@@ -492,7 +494,7 @@
 	icon_state = "cowboyshirt_pinks"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
@@ -501,7 +503,7 @@
 	icon_state = "cowboyshirt_navy"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
@@ -510,7 +512,7 @@
 	icon_state = "cowboyshirt_navys"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red
@@ -519,7 +521,7 @@
 	icon_state = "cowboyshirt_red"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
@@ -528,7 +530,7 @@
 	icon_state = "cowboyshirt_reds"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)

@@ -127,25 +127,25 @@
 /datum/action/innate/spin_silk/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, "<span class='warning'>You are still recovering from spinning silk. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		to_chat_(user, SPAN_WARNING("You are still recovering from spinning silk. Wait [round((cooldown - world.time) / 10)] seconds and try again."))
 		return
 	var/mob/living/carbon/human/skulk/H = owner
 	if(H.nutrition < SILK_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to spin silk right now.</span>")
+		to_chat_(user, SPAN_WARNING("You are too hungry to spin silk right now."))
 		return
 	var/obj/item/stack/sheet/silk/silk
 	if(user.get_active_hand() && user.get_inactive_hand())
-		to_chat(H, "<span class='warning'>You don't have any free hands!</span>")
+		to_chat_(user, SPAN_WARNING("You don't have any free hands!"))
 		return
-	H.visible_message("<span class='notice'>[H] You begin spinning a small amount of silk...</span>", "<span class='notice'>You begin spinning a small amount of silk... (This will take [5] seconds, and you must hold still.)</span>")
+	H.visible_message(SPAN_WARNING("[H] begins spinning a small amount of silk..."), SPAN_WARNING("You begin spinning a small amount of silk... (This will take [5] seconds, and you must hold still.)"))
 	if(!do_after_once(H, 5 SECONDS, TRUE, H, attempt_cancel_message = "You stop spinning silk."))
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot spin silk in your current state!</span>")
+			to_chat_(user, SPAN_WARNING("You cannot spin silk in your current state!"))
 		return
 	silk = new(get_turf(H), 1)
 	user.put_in_hands(silk)
 	cooldown = world.time + cooldown_duration
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
-	to_chat(user, "<span class='notice'>You spin a small amount of silk.</span>")
+	to_chat_(user, SPAN_WARNING("You spin a small amount of silk."))
 
 #undef SILK_NUTRITION_AMOUNT

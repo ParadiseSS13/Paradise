@@ -74,7 +74,7 @@
 	inhand_icon_state = "old_mantle"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/neck.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
 		)
 
 /obj/item/clothing/neck/cloak/captain_mantle
@@ -123,5 +123,5 @@
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/neck.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
 	)

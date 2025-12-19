@@ -29,7 +29,7 @@
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 //Deathsquad space suit, not hardsuits because no flashlight!
@@ -183,7 +183,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -200,7 +200,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
@@ -234,7 +234,7 @@
 	inhand_icon_state = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/eva/clown
@@ -251,5 +251,5 @@
 	inhand_icon_state = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
