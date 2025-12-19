@@ -637,9 +637,9 @@
 	// Math equasion for here: y = a + b * ln(x)
 	var/gas_offset = 1.5 // The offset for the math calc. Gives a flat number boost. (A) component
 	var/gas_curve_intensity = 4 // Affects the rate of decay. higher = reactivity builds easier. (B) component
-	var/power_component = max((final_power / 1 MW), 0.01) // (X) Component
-	var/toxins_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
-	temp_gas.set_toxins(clamp(toxins_amount * reactivity_multiplier, 0.1, 100)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
+	var/power_component = max((final_power / 2 MW), 0.01) // (X) Component
+	var/h2_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
+	temp_gas.set_hydrogen(clamp(h2_amount * reactivity_multiplier, 0.1, 100))
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
 
@@ -1141,6 +1141,12 @@
 	overlays.Cut()
 	if(welded)
 		. += "welded"
+	if(chamber_state == CHAMBER_OPEN)
+		var/mutable_appearance/cover_icon = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.02)
+		cover_icon.icon = icon
+		cover_icon.icon_state = "door_open"
+		. += cover_icon
+
 	if(!held_rod)
 		return
 	if(chamber_state == CHAMBER_OPEN)
@@ -1177,12 +1183,6 @@
 	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
 		state_overlay.icon_state = "overload_active"
 	. += state_overlay
-
-	if(chamber_state == CHAMBER_OPEN)
-		var/mutable_appearance/cover_icon = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.02)
-		cover_icon.icon = icon
-		cover_icon.icon_state = "door_open"
-		. += cover_icon
 
 	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
 	durability_overlay.icon_state = "dur_[durability_level]"

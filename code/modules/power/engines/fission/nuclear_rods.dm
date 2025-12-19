@@ -381,7 +381,7 @@
 /obj/item/nuclear_rod/moderator/bluespace_agitator
 	name = "bluespace crystal agitator"
 	desc = "An advanced moderator rod that will pull extra neutrons out of bluespace to bombard local fuel rods. The result is a massive increase of power and heat generation. It is exceptionally versatile; however, its power requirements limit its uses."
-	icon_state = "mod_blueespace"
+	icon_state = "mod_bluespace"
 	max_durability = 4000
 	power_amount = -30
 	heat_amp_mod = 12
