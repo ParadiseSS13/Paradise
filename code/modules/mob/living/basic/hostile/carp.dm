@@ -108,7 +108,7 @@
 /mob/living/basic/carp/Move(newloc, direct) // Make's the carp slow down when moving diagonally so it isn't going at the speed of light.
 	if(direct & (NORTHEAST | SOUTHEAST | SOUTHWEST | NORTHWEST))
 		var/slowdown = 2
-		if(istype(src, /mob/living/basic/carp/megacarp))
+		if(type == /mob/living/basic/carp/megacarp)
 			slowdown = 3.5
 		speed = slowdown
 		. = ..()
