@@ -85,6 +85,11 @@ nav:
       - 'Testing Requirements': './coding/testing_requirements.md'
       - 'Database Changes': './coding/db_changes.md'
 
+  - 'Spriting':
+      - 'Spriting Quickstart': './spriting/quickstart.md'
+      - 'Spriting Requirements': './spriting/requirements.md'
+      - 'Spriting Guidelines': './spriting/spriting_guidelines.md'
+
   - 'Mapping':
       - 'Mapping Quickstart': './mapping/quickstart.md'
       - 'Mapping Requirements': './mapping/requirements.md'
