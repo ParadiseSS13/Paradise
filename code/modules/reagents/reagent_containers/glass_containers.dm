@@ -320,7 +320,7 @@
 	materials = null
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
-	materials = list(MAT_WOOD = 500)
+	materials = list(MAT_WOOD = 2000)
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
@@ -350,7 +350,7 @@
 	icon_state = "smallbottle"
 	inhand_icon_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_PLASTIC = 200)
+	materials = list(MAT_PLASTIC = 500)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty
 	list_reagents = list()
@@ -362,7 +362,7 @@
 	list_reagents = list("water" = 100)
 	volume = 100
 	amount_per_transfer_from_this = 20
-	materials = list(MAT_PLASTIC = 500)
+	materials = list(MAT_PLASTIC = 1000)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
 	list_reagents = list()
