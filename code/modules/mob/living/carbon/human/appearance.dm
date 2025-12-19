@@ -119,7 +119,9 @@
 		return
 
 	m_styles["tail"] = "None"
-	update_body()
+	update_tail_layer()
+	update_wing_layer()
+	update_spines_layer()
 	return TRUE
 
 /mob/living/carbon/human/proc/change_alt_head(alternate_head)
