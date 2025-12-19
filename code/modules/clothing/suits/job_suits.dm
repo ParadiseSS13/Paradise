@@ -304,7 +304,7 @@
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit/utility.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suits/utility.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi'

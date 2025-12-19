@@ -43,7 +43,8 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suits/utility.dmi'
 	)
 
 /obj/item/clothing/suit/fire/firefighter/atmos
