@@ -1665,7 +1665,7 @@
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
 
-/datum/outfit/admin/collective/supreme
+/datum/outfit/admin/supreme
 	name = "Supreme-Inquisitor"
 	uniform = /obj/item/clothing/under/skulk/skulkcasual
 	suit = /obj/item/clothing/suit/supremeinquis
@@ -1682,7 +1682,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 
-/datum/outfit/admin/collective/low
+/datum/outfit/admin/low
 	name = "Low-Inquisitor"
 	uniform = /obj/item/clothing/under/skulk/skulkcasual
 	suit = /obj/item/clothing/suit/hooded/lowinquis
