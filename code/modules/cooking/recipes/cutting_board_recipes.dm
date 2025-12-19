@@ -470,6 +470,19 @@
 	else
 		. = ..()
 
+/datum/cooking/recipe_step/add_item/supermatter_sliver/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/container = locateUID(tracker.container_uid)
+	if(!istype(container))
+		return FALSE
+
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs))
+		for(var/obj/item/nuke_core/supermatter_sliver/sliver in container.contents)
+			if(istype(sliver))
+				return TRUE
+
+	return ..()
+
 /datum/cooking/recipe/supermatter_sandwich
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/supermatter_sandwich

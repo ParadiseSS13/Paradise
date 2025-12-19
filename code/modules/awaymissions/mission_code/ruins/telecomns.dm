@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "Security cyborg"
 	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-SEC"
+	icon_state = "Noble-Security"
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
