@@ -41,6 +41,13 @@
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
 // To future coders, if we get atom storage, make it back into a hood again.
 
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/mob_can_equip(mob/M, slot, disable_warning)
+	if(!IS_HERETIC(M))
+		to_chat(M, SPAN_HIEROPHANT("The armor refuses to be equipped, repelling your attempts."))
+		return FALSE
+	. = ..()
+
+
 /obj/item/clothing/suit/storage/void_cloak
 	name = "void cloak"
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
@@ -93,7 +100,10 @@
 	if(slot & ITEM_SLOT_OUTER_SUIT)
 		RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item))
 		RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item))
-	make_invisible()
+	if(IS_HERETIC(user))
+		make_invisible()
+	else
+		make_visible()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
@@ -107,6 +117,9 @@
 		return TRUE
 
 /obj/item/clothing/suit/storage/void_cloak/attack_self__legacy__attackchain(mob/user)
+	if(!IS_HERETIC(user))
+		to_chat(user, SPAN_HIEROPHANT("You lack the forbidden knowledge to access this cloaks potential."))
+		return
 	if(cloak_invisible)
 		make_visible()
 	else

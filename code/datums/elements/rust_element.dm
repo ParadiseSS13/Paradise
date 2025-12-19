@@ -97,7 +97,7 @@
 	var/mob/living/victim = entered
 	if(istype(victim, /mob/living/basic/revenant))
 		return
-	if(IS_HERETIC(victim))
+	if(IS_HERETIC_OR_MONSTER(victim))
 		return
 	victim.apply_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
@@ -106,7 +106,7 @@
 	if(!isliving(gone))
 		return
 	var/mob/living/leaver = gone
-	if(IS_HERETIC(leaver))
+	if(IS_HERETIC_OR_MONSTER(leaver))
 		return
 	leaver.remove_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 

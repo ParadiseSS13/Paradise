@@ -37,6 +37,8 @@
 			cooldown_handler.revert_cast()
 			return FALSE
 		carbon_user.apply_status_effect(/datum/status_effect/caretaker_refuge)
+		addtimer(CALLBACK(src, PROC_REF(early_warning), carbon_user), base_cooldown - (20 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(remove_refuge), carbon_user), base_cooldown) // using base_cooldown makes it impossible to cast again bfore this effect is done
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1) //Cooldown activates primarly when you leave
 	return TRUE
 
@@ -46,3 +48,12 @@
 			to_chat(user, SPAN_WARNING("There are sentient beings blocking you from shifting!"))
 			return FALSE
 	return TRUE
+
+/datum/spell/caretaker/proc/early_warning(mob/living/carbon/carbon_user)
+	if(carbon_user.has_status_effect(/datum/status_effect/caretaker_refuge))
+		to_chat(carbon_user, SPAN_DANGER("The caretaker will not allow us to remain in refuge for much longer!"))
+
+/datum/spell/caretaker/proc/remove_refuge(mob/living/carbon/carbon_user)
+	if(carbon_user.has_status_effect(/datum/status_effect/caretaker_refuge))
+		carbon_user.remove_status_effect(/datum/status_effect/caretaker_refuge)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration)

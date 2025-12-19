@@ -21,6 +21,9 @@
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
+
+	. += SPAN_NOTICE("It looks like the ink can be scrubbed off with some soap.")
+
 	if(!IS_HERETIC(user))
 		return
 
