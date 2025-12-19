@@ -351,7 +351,7 @@
 
 /obj/item/nuclear_rod/moderator/plasma_agitator
 	name = "plasma agitator"
-	desc = "A specialized moderator rod capable of inducing higher fissionr rates in fuel rods through a series of micro-burns. It doesnt last long"
+	desc = "A specialized moderator rod capable of inducing higher fission rates in fuel rods through a series of micro-burns. It doesn't last long."
 	icon_state = "mod_plasma"
 	max_durability = 2500
 	heat_amount = 20
