@@ -38558,7 +38558,9 @@
 /obj/item/grenade/nuclear_starter{
 	pixel_x = 3
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/structure/disaster_counter/reactor{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "cSz" = (
@@ -39013,6 +39015,10 @@
 "cUo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine)
@@ -46969,6 +46975,12 @@
 /obj/effect/turf_decal/tiles/department/science/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
+"exC" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "exN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment/corner{
@@ -51041,7 +51053,8 @@
 /obj/structure/railing/pool_lining,
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4;
-	name = "Output to Waste"
+	name = "Output to Waste";
+	on = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -52376,7 +52389,7 @@
 	name = "engine outlet injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "heK" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -63899,13 +63912,16 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "mNd" = (
-/obj/machinery/access_button{
-	autolink_id = "engsm_btn_int";
-	name = "Supermatter Access Button";
+/obj/machinery/airlock_controller/access_controller{
+	name = "Supermatter Access Console";
 	pixel_y = 24;
-	req_access = list(10)
+	ext_door_link_id = "engsm_door_ext";
+	int_door_link_id = "engsm_door_int";
+	ext_button_link_id = "engsm_btn_ext";
+	int_button_link_id = "engsm_btn_int";
+	req_one_access = list(10,24)
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -64712,6 +64728,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"noX" = (
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "npb" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
 /obj/effect/turf_decal/tiles/white/side{
@@ -65737,6 +65759,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"nNQ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/item/pipe_meter,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "nOo" = (
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
@@ -67270,6 +67297,13 @@
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"oxg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "oxp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -67346,6 +67380,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
+"oyK" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "oyO" = (
 /obj/item/stack/package_wrap,
 /obj/structure/table/glass,
@@ -70346,10 +70384,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/sand,
 /area/station/hallway/secondary/exit)
-"pXE" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "pXY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -74598,6 +74632,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 4
 	},
+/obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "rWJ" = (
@@ -76447,6 +76482,7 @@
 /area/station/engineering/transmission_laser)
 "sTh" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
+/obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "sTF" = (
@@ -77093,6 +77129,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"tmE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "tmS" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -77624,6 +77671,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
 	},
+/obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "tDt" = (
@@ -77705,8 +77753,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "tEq" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/stripes/red/line{
 	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
@@ -81981,6 +82033,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine)
 "vOj" = (
@@ -83678,6 +83731,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "wGR" = (
@@ -86529,6 +86583,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "xXa" = (
@@ -86770,6 +86825,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"ycA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "ycI" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -87044,9 +87108,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/structure/sign/radiation/rad_area{
-	pixel_y = -32
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -110559,8 +110620,8 @@ aaa
 aaa
 aaa
 aaa
-pXE
-pXE
+afX
+afX
 aaa
 aaa
 aaa
@@ -110804,21 +110865,21 @@ aaa
 aab
 aaa
 aaa
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
 aaa
 aab
 dmD
-pXE
-pXE
+afX
+afX
 aab
 aaa
 aaa
@@ -111061,7 +111122,7 @@ aaa
 aab
 aab
 aab
-pXE
+afX
 dmD
 dmD
 dmD
@@ -111070,12 +111131,12 @@ dmD
 dmD
 dmD
 dmD
-pXE
+afX
 aaa
 aab
 dmD
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -111318,16 +111379,16 @@ aaa
 aab
 aaa
 aaa
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
-pXE
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
 aab
 aab
 aab
@@ -111843,9 +111904,9 @@ aab
 aaa
 aaa
 aaa
-pXE
-pXE
-pXE
+afX
+afX
+afX
 aaa
 aaa
 aaa
@@ -112100,9 +112161,9 @@ xcn
 rlX
 aab
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -112357,9 +112418,9 @@ xcn
 djc
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -112614,9 +112675,9 @@ xcn
 rlX
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -112871,9 +112932,9 @@ xcn
 djc
 aab
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -113128,13 +113189,13 @@ xcn
 rlX
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
-xhe
-xhe
+afX
+afX
 aaa
 aaa
 aaa
@@ -113385,14 +113446,14 @@ xcn
 djc
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aab
 aab
 dmD
-xhe
-xhe
+afX
+afX
 aab
 aaa
 aaa
@@ -113642,14 +113703,14 @@ xcn
 rlX
 aab
 aab
-pXE
-pXE
-pXE
+afX
+afX
+afX
 aaa
 aab
 dmD
 dmD
-xhe
+afX
 aaa
 aaa
 aaa
@@ -114417,9 +114478,9 @@ cSU
 cSU
 aab
 aab
-pXE
-pXE
-pXE
+afX
+afX
+afX
 aaa
 aaa
 aaa
@@ -114665,7 +114726,7 @@ fTc
 fTc
 cRb
 fTc
-pMy
+cTF
 jjz
 vXQ
 nxq
@@ -114674,9 +114735,9 @@ ePY
 cSU
 aaa
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -114911,7 +114972,7 @@ eaW
 eaW
 xGt
 sSb
-fhr
+ycA
 fhr
 cSF
 oDT
@@ -114931,9 +114992,9 @@ ixP
 cSU
 aaa
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -115168,7 +115229,7 @@ fYe
 fYe
 uwD
 dyH
-tEq
+exC
 cRf
 kVF
 gFy
@@ -115188,9 +115249,9 @@ itF
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 abp
@@ -115445,9 +115506,9 @@ gmW
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aab
 aaa
 aaa
@@ -115702,9 +115763,9 @@ itF
 cSU
 aab
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -115959,9 +116020,9 @@ itF
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -116197,7 +116258,7 @@ fYe
 dyH
 eqs
 uvS
-sTh
+hbq
 sTh
 jVe
 uvS
@@ -116216,9 +116277,9 @@ itF
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -116453,9 +116514,9 @@ vFA
 aig
 dyH
 qyM
-uvS
-tDn
-wva
+nNQ
+oyK
+noX
 uyu
 kRa
 kRa
@@ -116473,9 +116534,9 @@ lKP
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -116709,7 +116770,7 @@ lIb
 fYe
 wVp
 pKs
-fTc
+exC
 fTc
 cVy
 wva
@@ -116730,9 +116791,9 @@ qsH
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -116987,9 +117048,9 @@ qsH
 cSU
 aab
 aab
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -117223,7 +117284,7 @@ jPG
 pTR
 cVp
 iEA
-aaX
+tmE
 aaX
 lYB
 pVR
@@ -117244,9 +117305,9 @@ bAO
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -117501,9 +117562,9 @@ uod
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aab
 aaa
 aaa
@@ -117758,9 +117819,9 @@ nxq
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -117995,7 +118056,7 @@ pFl
 iBS
 uDI
 dft
-fWP
+oxg
 xWO
 fWP
 pRU
@@ -118015,9 +118076,9 @@ lXu
 cSU
 aaa
 aaa
-pXE
+afX
 dmD
-pXE
+afX
 aaa
 aaa
 aaa
@@ -118272,9 +118333,9 @@ cSU
 cSU
 aab
 aaa
-pXE
-pXE
-pXE
+afX
+afX
+afX
 aaa
 aaa
 aaa
