@@ -47,13 +47,17 @@
 	taste_description = "slimes"
 	taste_mult = 1.3
 
+/datum/reagent/slimejelly/reaction_mob(mob/living/M, method, volume, show_message)
+	var/mob/living/carbon/C = M
+	if(method == REAGENT_INGEST && iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
+		M.blood_volume = min(M.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+		M.absorb_blood(id)
+
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/C = M
 	if(iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
-		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
-		if(M.get_blood_id() != id)
-			M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
 		return ..() | update_flags
 
 	if(M.get_blood_id() != id)
