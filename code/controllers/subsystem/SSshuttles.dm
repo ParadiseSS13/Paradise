@@ -52,8 +52,6 @@ SUBSYSTEM_DEF(shuttle)
 	// These vars are necessary to prevent multiple loads on the same turfs at the same times causing massive server issues
 	/// Whether or not a custom shuttle is currently loading at centcomm.
 	var/custom_escape_shuttle_loading = FALSE
-	/// Whether or not a shuttle is currently being loaded at the template landmark, if it exists.
-	var/loading_shuttle_at_preview_template = FALSE
 	/// Have we locked in the emergency shuttle, to prevent people from breaking things / wasting player money?
 	var/emergency_locked_in = FALSE
 
@@ -65,14 +63,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/transit_utilized = 0
 
 /datum/controller/subsystem/shuttle/Initialize()
-	if(!emergency)
-		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
 	if(!backup_shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
-	if(!gamma_armory)
-		WARNING("No /obj/docking_port/mobile/gamma_armory placed on the map!")
 
 	initial_load()
 	initial_move()
@@ -377,59 +371,28 @@ SUBSYSTEM_DEF(shuttle)
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
 
-// load an alternative shuttle in at the appropriate landmark.
-/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S)
-	// load shuttle template, centred at shuttle import landmark,
-	if(loading_shuttle_at_preview_template)
-		CRASH("A shuttle was already loading at the preview template when another was loaded")
+/// Loads a shuttle from the template into a cordon. Returns its docking port if successful.
+/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/template)
+	template.preload()
 
-	S.preload()
+	var/datum/turf_reservation/shuttle/reserve = SSmapping.request_turf_block_reservation(
+		template.width,
+		template.height,
+		reservation_type = /datum/turf_reservation/shuttle
+	)
+	if(!reserve)
+		stack_trace("failed to reserve turfs for shuttle loading template [template.mappath]")
+		return
 
-	loading_shuttle_at_preview_template = TRUE
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
-	S.load(landmark_turf, centered = TRUE)
+	if(!template.load(reserve.bottom_left_turf))
+		stack_trace("failed to load shuttle template [template.mappath] into reservation")
+		return
 
-	var/affected = S.get_affected_turfs(landmark_turf, centered = TRUE)
-
-	var/mobile_docking_ports = 0
-	var/obj/docking_port/mobile/port
-	// Search the turfs for docking ports
-	// - We need to find the mobile docking port because that is the heart of
-	//   the shuttle.
-	// - We need to check that no additional ports have slipped in from the
-	//   template, because that causes unintended behaviour.
-	for(var/T in affected)
-		for(var/obj/docking_port/P in T)
-			if(istype(P, /obj/docking_port/mobile))
-				port = P
-				mobile_docking_ports++
-				if(mobile_docking_ports > 1)
-					qdel(P, force = TRUE)
-					log_world("Map warning: Shuttle Template [S.mappath] has multiple mobile docking ports.")
-				else if(!port.timid)
-					// The shuttle template we loaded isn't "timid" which means
-					// it's already registered with the shuttles subsystem.
-					// This is a bad thing.
-					WARNING("Template [S] is non-timid! Unloading.")
-					port.jumpToNullSpace()
-					loading_shuttle_at_preview_template = FALSE
-					return
-
-			if(istype(P, /obj/docking_port/stationary))
-				log_world("Map warning: Shuttle Template [S.mappath] has a stationary docking port.")
-
+	var/obj/docking_port/mobile/port = reserve.locate_docking_port()
 	if(port)
-		loading_shuttle_at_preview_template = FALSE
 		return port
 
-	for(var/T in affected)
-		var/turf/T0 = T
-		T0.contents = null
-
-	var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
-	message_admins(msg)
-	WARNING(msg)
-	loading_shuttle_at_preview_template = FALSE
+	stack_trace("load_template(): shuttle [template.mappath] has no mobile docking port and may be malformed or have failed to load")
 
 /// Create a new shuttle and replace the emergency shuttle with it.
 /// if loaded shuttle is passed in, a new one will not be loaded.

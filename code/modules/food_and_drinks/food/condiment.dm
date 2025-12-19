@@ -138,6 +138,10 @@
 	list_reagents = list("sodiumchloride" = 20)
 	possible_states = list()
 
+/obj/item/reagent_containers/condiment/saltshaker/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shelf_positioning, y_offset_ = -3)
+
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/newname = "[name]"
@@ -159,6 +163,10 @@
 	volume = 20
 	list_reagents = list("blackpepper" = 20)
 	possible_states = list()
+
+/obj/item/reagent_containers/condiment/peppermill/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shelf_positioning, y_offset_ = -3)
 
 /obj/item/reagent_containers/condiment/milk
 	name = "space milk"
