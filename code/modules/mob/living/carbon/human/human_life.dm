@@ -1067,44 +1067,45 @@
 	if(undergoing_cardiac_arrest())
 		return // We let this be handled by cardiac arrest
 
-	if(heartbeat <= HEARTBEAT_NONE)
-		adjustOxyLoss(5)
-		if(prob(10))
-			to_chat(src, SPAN_WARNING("Your heart skips a beat."))
-		else if(prob(10))
-			to_chat(src, SPAN_USERDANGER("Something is very wrong."))
+	switch(heartbeat)
+		if(0 to HEARTBEAT_NONE)
+			adjustOxyLoss(5)
+			if(prob(10))
+				to_chat(src, SPAN_WARNING("Your heart skips a beat."))
+			else if(prob(10))
+				to_chat(src, SPAN_USERDANGER("Something is very wrong."))
 
-	else if(heartbeat <= HEARTBEAT_SLOW)
-		if(prob(5))
-			to_chat(src, SPAN_WARNING("Your heart skips a beat."))
-		else if(prob(5))
-			to_chat(src, SPAN_DANGER("Something is very wrong."))
-		var/damage = round(heartbeat / 10, 1)
-		damage = max(5 - damage, 0)
-		// No oxydamage when above 50 bpm
-		if(damage)
-			adjustOxyLoss(damage)
+		if(HEARTBEAT_NONE to HEARTBEAT_SLOW)
+			if(prob(5))
+				to_chat(src, SPAN_WARNING("Your heart skips a beat."))
+			else if(prob(5))
+				to_chat(src, SPAN_DANGER("Something is very wrong."))
+			var/damage = round(heartbeat / 10, 1)
+			damage = max(5 - damage, 0)
+			// No oxydamage when above 50 bpm
+			if(damage)
+				adjustOxyLoss(damage)
 
-	else if(heartbeat >= HEARTBEAT_2FAST)
-		false_cardiac_pain += 15
-		var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
-		// No need to nullcheck, we have a heartbeat
-		heart.linked_organ.receive_damage(0.2, TRUE)
-		if(prob(10) && !undergoing_cardiac_arrest())
-			set_heartattack(TRUE) // Not having a good time
+		if(HEARTBEAT_NORMAL to HEARTBEAT_FAST)
+			if(prob(1))
+				to_chat(src, SPAN_WARNING("You notice your heart is beating a little faster than normal."))
 
-	else if(heartbeat >= HEARTBEAT_FAST)
-		false_cardiac_pain += rand(5, 15)
-		if(prob(15))
-			Dizzy(5 SECONDS)
-		if(prob(3))
-			to_chat(src, SPAN_WARNING("Your heart is racing!"))
-		if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
-			send_heart_sound()
+		if(HEARTBEAT_FAST to HEARTBEAT_2FAST)
+			false_cardiac_pain += rand(5, 15)
+			if(prob(15))
+				Dizzy(5 SECONDS)
+			if(prob(3))
+				to_chat(src, SPAN_WARNING("Your heart is racing!"))
+			if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
+				send_heart_sound()
 
-	else if(heartbeat >= HEARTBEAT_NORMAL)
-		if(prob(1))
-			to_chat(src, SPAN_WARNING("You notice your heart is beating a little faster than normal."))
+		if(HEARTBEAT_2FAST to INFINITY)
+			false_cardiac_pain += 15
+			var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+			// No need to nullcheck, we have a heartbeat
+			heart.linked_organ.receive_damage(0.2, TRUE)
+			if(prob(10) && !undergoing_cardiac_arrest())
+				set_heartattack(TRUE) // Not having a good time
 
 /// Proc to play the heartbeat sound
 /mob/living/carbon/human/proc/send_heart_sound()
