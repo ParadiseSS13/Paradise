@@ -53,6 +53,8 @@
 		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
 		M.blood_volume = min(M.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 		M.absorb_blood(id)
+		return
+	return ..()
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
