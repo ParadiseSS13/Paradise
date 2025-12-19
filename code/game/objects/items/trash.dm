@@ -112,7 +112,7 @@
 	var/is_glass = 0
 	var/is_plastic = 0
 	resistance_flags = NONE
-	materials = list(MAT_METAL = 50)
+	materials = list(MAT_METAL = 200)
 
 /obj/item/trash/gum
 	name = "chewed gum"
