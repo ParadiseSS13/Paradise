@@ -1,6 +1,5 @@
 /obj/item/restraints/legcuffs
 	name = "base type legcuffs"
-	desc = ABSTRACT_TYPE_DESC
 	gender = PLURAL
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
