@@ -294,6 +294,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	gender = PLURAL
 	singular_name = "wood plank"
+	materials = list(MAT_WOOD = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -823,7 +824,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 GLOBAL_LIST_INIT(silk_recipes, list(
 	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6),
 	new /datum/stack_recipe("collective jumpsuit", /obj/item/clothing/under/skulk/skulkcasual, 3, on_floor = TRUE)
-	))
+))
 
 /obj/item/stack/sheet/silk
 	name = "silk spool"
