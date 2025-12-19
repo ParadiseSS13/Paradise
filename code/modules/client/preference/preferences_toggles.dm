@@ -36,6 +36,9 @@
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, SPAN_NOTICE("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
@@ -311,7 +314,7 @@
 	name = "Toggle Post-Round Credits"
 	description = "Toggle seeing the post-round credit popup."
 	preftoggle_bitflag = PREFTOGGLE_3_POSTCREDS
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	enable_message = "You will now see post-round credits."
 	disable_message = "You will no longer see post-round credits."
