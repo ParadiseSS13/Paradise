@@ -54259,6 +54259,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"ied" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "iek" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tiles/department/medical/corner{
@@ -76505,7 +76512,7 @@
 /area/station/engineering/transmission_laser)
 "sTh" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "sTF" = (
@@ -77694,7 +77701,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "tDt" = (
@@ -83757,7 +83764,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "wGR" = (
@@ -86612,7 +86619,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "xXa" = (
@@ -117573,7 +117580,7 @@ dyH
 hJA
 fTc
 scM
-hbq
+ied
 lXg
 lXg
 cUl

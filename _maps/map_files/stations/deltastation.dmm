@@ -32348,7 +32348,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 10
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "cwx" = (
@@ -57721,6 +57721,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "hCU" = (
@@ -58334,6 +58335,7 @@
 /area/station/engineering/controlroom)
 "hRs" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/green,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "hRx" = (
@@ -71963,6 +71965,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 4
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "nMD" = (
@@ -89468,11 +89471,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
-"uLm" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green,
-/obj/item/pipe_meter,
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "uLr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -95898,7 +95896,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "xpj" = (
@@ -97702,7 +97700,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4
 	},
-/obj/item/pipe_meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "ygh" = (
@@ -119430,7 +119428,7 @@ bZm
 cmC
 hXA
 jpT
-uLm
+hXA
 shz
 ofS
 aeg
