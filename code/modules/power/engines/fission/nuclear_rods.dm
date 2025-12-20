@@ -158,7 +158,7 @@
 	alpha_rad = 200
 	beta_rad = 100
 	heat_enrich_threshold = 10 // all uranium rods surrounding: 1.8 x 1.8 x 1.8 x 1.8
-	power_enrich_threshold = 6.5 // all graphite rods surrounding: 1.6 x 1.6 x 1.6 x 1.6
+	power_enrich_threshold = 6.4 // all graphite rods surrounding: 1.6 x 1.6 x 1.6 x 1.6
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
