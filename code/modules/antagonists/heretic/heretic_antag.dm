@@ -645,14 +645,10 @@
 				heretic_datum.add_sacrifice_target(sec_mind.current)
 				return sec_mind.current
 
-	// just grab literal anyone else
-	for(var/datum/mind/any_mind as anything in shuffle(valid_targets))
-		if(!(any_mind.current in heretic_datum.sac_targets))
-			heretic_datum.add_sacrifice_target(any_mind.current)
-			return any_mind.current
-
-	// somehow we didnt get anyone
-	return FALSE
+	// just grab literally anyone else
+	var/random_mind = pick(valid_targets)
+	heretic_datum.add_sacrifice_target(random_mind)
+	return random_mind
 
 
 /**
