@@ -45,7 +45,7 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
-#define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
+#define CHAMBER_HEAT_DAMAGE 15 // How much damage reactor chambers do when on.
 
 #define MOLE_BONUS_THRESHOLD 800 // The minimum number of moles needed to begin accruing multiplier.
 #define MOLE_BONUS_COMPONENT 250 // how many moles are required for one "unit" of modifier increase. Used in the math calculation.
@@ -1114,6 +1114,10 @@
 	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder while in the down position.")
 	. += SPAN_NOTICE("<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.")
 	. += SPAN_NOTICE("<span class='notice'>Click on the chamber while it is closed to raise and lower it.")
+	. += ""
+
+	if(isobserver(user))
+		deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -1333,9 +1337,12 @@
 
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	deep_examine(user)
+
+/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(mob/user)
 	if(chamber_state != CHAMBER_DOWN)
 		return
-	. = TRUE
 	if(!held_rod)
 		to_chat(user, SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
 		return ITEM_INTERACT_COMPLETE

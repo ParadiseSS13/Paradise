@@ -458,13 +458,15 @@
 	schematic = rod_type_path
 
 /obj/machinery/nuclear_rod_fabricator/proc/finish_fabrication()
+	power_state = IDLE_POWER_USE
+	icon_state = "rod_fab"
 	var/obj/item/nuclear_rod/new_rod = new schematic(get_turf(src))
 	to_chat(usr, SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
 	playsound(src, 'sound/machines/ping.ogg', 50, 1)
 
 /obj/machinery/nuclear_rod_fabricator/proc/abort_fabrication()
 	power_state = IDLE_POWER_USE
-	icon_state = "centrifuge_full"
+	icon_state = "rod_fab"
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 
 /obj/machinery/nuclear_rod_fabricator/process()
