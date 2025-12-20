@@ -31684,7 +31684,7 @@
 /area/station/maintenance/abandoned_garden)
 "dTt" = (
 /obj/machinery/access_button{
-	autolink_id = "enginesm_btn_ext";
+	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_x = 24;
 	req_access = list(10)
@@ -40746,7 +40746,7 @@
 "gZP" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
-	id_tag = "enginesm_door_ext";
+	id_tag = "engsm_door_ext";
 	name = "Supermatter Exterior Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -44186,7 +44186,7 @@
 "isB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
-	id_tag = "enginesm_door_int";
+	id_tag = "engsm_door_int";
 	name = "Supermatter Interior Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -46905,7 +46905,7 @@
 "jnF" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
-	id_tag = "enginesm_door_int";
+	id_tag = "engsm_door_int";
 	name = "Supermatter Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
@@ -85845,7 +85845,7 @@
 /area/station/public/arcade)
 "xbT" = (
 /obj/machinery/access_button{
-	autolink_id = "enginesm_btn_int";
+	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_x = 24;
 	req_access = list(10)
@@ -87132,7 +87132,7 @@
 "xxi" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
-	id_tag = "enginesm_door_ext";
+	id_tag = "engsm_door_ext";
 	name = "Supermatter Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
@@ -88523,7 +88523,7 @@
 /area/station/security/prison/cell_block/a)
 "xWl" = (
 /obj/machinery/access_button{
-	autolink_id = "enginesm_btn_ext";
+	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_x = -24;
 	req_access = list(10)
