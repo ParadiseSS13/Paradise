@@ -731,15 +731,17 @@
 	name = "holding pool"
 	icon = 'icons/obj/fission/pool.dmi'
 	icon_state = "pool_round"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+	/// Holds our pool controller
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 
 /turf/simulated/floor/plasteel/reactor_pool/Initialize(mapload)
 	. = ..()
-	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_MOB_LAYER)
+	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_ALL_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlay_image.alpha = 75
 	overlay_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT

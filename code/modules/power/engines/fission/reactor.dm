@@ -59,19 +59,6 @@
 #define PLASMA_REACTIVITY_BONUS 0.2 // the highest amount of reactivity that plasma coolant provides
 #define PLASMA_OVERHEAT_BONUS 200 // // The overheat threshold bonus that plasma coolant provides
 
-// ========= MONITOR =========
-// fix the neighbor finding
-// fix chamber welding
-// adjust damage, its too slow (previously 3)
-// implement heat cap, its too silly (800,000,000K)
-// make reactor emit radiation waves while on
-// Make reactor generate gas. when H2 is in, add that.
-// Allow grilling on an active reactor
-// Monitor the sounds and adjust as needed
-// Gasses now affect event chance, overheat thresholds, and reactivity.
-
-// Todo: sprites, tgui
-
 /// MARK: Fission Reactor
 /obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
@@ -80,7 +67,7 @@
 	icon_state = "reactor_off"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	pixel_x = -16
+	pixel_x = -32
 	flags_2 = NO_MALF_EFFECT_2
 
 	/// Holds the list for the connected reactor chambers to take data from
@@ -1145,7 +1132,9 @@
 	. = ..()
 	overlays.Cut()
 	if(welded)
-		. += "welded"
+		var/mutable_appearance/weld_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.03)
+		weld_overlay.icon_state = "welded"
+		. += weld_overlay
 	if(chamber_state == CHAMBER_OPEN)
 		var/mutable_appearance/cover_icon = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.02)
 		cover_icon.icon = icon
@@ -1181,6 +1170,14 @@
 			else
 				state_overlay.icon_state = "red"
 
+		var/mutable_appearance/display_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
+		if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+			display_overlay.icon_state = "display_fuel"
+		if(istype(held_rod, /obj/item/nuclear_rod/moderator))
+			display_overlay.icon_state =  "display_moderator"
+		if(istype(held_rod, /obj/item/nuclear_rod/coolant))
+			display_overlay.icon_state =  "display_coolant"
+		. += display_overlay
 	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
 		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
 			state_overlay.icon_state = "overload_idle"
@@ -1189,7 +1186,7 @@
 	. += state_overlay
 
 	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
-	durability_overlay.icon_state = "dur_[durability_level]"
+	durability_overlay.icon_state = "dur_[previous_durability_level]"
 	. += durability_overlay
 
 // check for multiple on a tile and nuke it
@@ -1450,6 +1447,7 @@
 			held_rod.stop_rads()
 			if(held_rod.reactor_overheat_modifier)
 				linked_reactor.update_overheat_threshold(held_rod.reactor_overheat_modifier)
+			previous_durability_level = clamp(ROUND_UP((held_rod.durability / held_rod.max_durability) - 20), 0, 6)
 		if(check_status())
 			requirements_met = TRUE
 		else
@@ -1597,7 +1595,7 @@
 		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
 		return
-	durability_level = clamp(ROUND_UP((held_rod.durability / held_rod.max_durability) / 20), 0, 6)
+	durability_level = clamp(ROUND_UP(((held_rod.durability / held_rod.max_durability) * 5) - 0.8), 0, 5)
 	if(durability_level != previous_durability_level)
 		previous_durability_level = durability_level
 		update_icon(UPDATE_OVERLAYS)
