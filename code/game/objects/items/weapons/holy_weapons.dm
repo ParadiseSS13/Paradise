@@ -418,7 +418,7 @@
 /obj/item/nullrod/fedora/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, directions = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
