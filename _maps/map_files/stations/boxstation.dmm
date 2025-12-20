@@ -39242,9 +39242,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,

@@ -2,7 +2,7 @@
 	name = "Nuclear Control Rod"
 	desc = "You shouldn't be seeing this. Contact a developer"
 	icon = 'icons/obj/fission/reactor_rods.dmi'
-	icon_state = "irradiated"
+	icon_state = "fuel_238"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
 	w_class = WEIGHT_CLASS_HUGE
 	force = 15
@@ -113,6 +113,7 @@
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
+	icon_state = "fuel_238"
 	alpha_rad = 50
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
@@ -318,7 +319,7 @@
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
-	icon_state = "normal"
+	icon_state = "mod_water"
 
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
@@ -422,8 +423,7 @@
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
-	icon_state = "bananium"
-
+	icon_state = "coolant_water"
 
 /obj/item/nuclear_rod/coolant/light_water
 	name = "light water circulator"
