@@ -623,6 +623,8 @@
 			continue
 		if(!ishuman(possible_target.current))
 			continue
+		if(possible_target.current in heretic_datum.sac_targets)
+			continue
 		if(possible_target.current.stat == DEAD)
 			continue
 
@@ -645,7 +647,7 @@
 
 	// just grab literal anyone else
 	for(var/datum/mind/any_mind as anything in shuffle(valid_targets))
-		if(any_mind.assigned_role in GLOB.active_security_positions)
+		if(!(any_mind.current in heretic_datum.sac_targets))
 			heretic_datum.add_sacrifice_target(any_mind.current)
 			return any_mind.current
 
