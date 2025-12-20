@@ -6162,6 +6162,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "aRc" = (
@@ -57020,6 +57026,9 @@
 /obj/machinery/atmospherics/binary/pump{
 	name = "Cooling Loop to Gas"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "mNJ" = (
@@ -69305,6 +69314,13 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"rfp" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "rfC" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -69462,6 +69478,13 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
+"riC" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "riK" = (
 /obj/machinery/shieldwallgen,
 /obj/structure/window/reinforced{
@@ -133198,9 +133221,9 @@ aDi
 gHz
 ntU
 wky
-knc
+rfp
 mNw
-mdF
+riC
 aRa
 wbP
 wbP
