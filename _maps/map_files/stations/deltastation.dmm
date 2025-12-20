@@ -26477,7 +26477,7 @@
 	volume_rate = 200
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/engineering/engine/reactor)
 "cbc" = (
 /obj/structure/closet/emcloset,
 /obj/structure/sign/poster/official/random/directional/east,

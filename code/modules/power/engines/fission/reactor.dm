@@ -13,7 +13,7 @@
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.8 // multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.5 // multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
@@ -405,6 +405,7 @@
 /obj/machinery/atmospherics/fission_reactor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	. = TRUE
 	var/obj/item/multitool/multi = I
 	multi.set_multitool_buffer(user, src)
 
@@ -631,7 +632,7 @@
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
 
-	radiation_pulse(src, 10 * reactivity_multiplier, rad_type)
+	radiation_pulse(src, 100 * reactivity_multiplier, rad_type)
 
 	// Begin heating the air based off heat produced
 	var/heat_capacity = air_contents.heat_capacity()
@@ -674,7 +675,7 @@
 			damage_multiplier *= EVENT_MODIFIER * gas_event_modifier
 			if(final_countdown)
 				damage_multiplier = 10
-			if(prob(new_damage * damage_multiplier * 0.3)) // rod ejection events. Rarer
+			if(prob(new_damage * damage_multiplier * 0.15)) // rod ejection events. Rarer
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
@@ -696,7 +697,7 @@
 							break
 						else
 							valid_chambers -= failure // just keep cycling through.
-			if(prob(new_damage * damage_multiplier * 2) && control_rods_remaining > 0) // Control rod failure. more probable
+			if(prob(new_damage * damage_multiplier * 0.5) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
 			if(prob(new_damage * damage_multiplier * 0.05)) // Vent control failure. much rarer
@@ -1287,6 +1288,8 @@
 	if(istype(used, /obj/item/nuclear_rod))
 		if(chamber_state == CHAMBER_OPEN)
 			if(!held_rod)
+				if(panel_open)
+					to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
 				if(user.transfer_item_to(used, src, force = TRUE))
 					held_rod = used
 					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
@@ -1300,8 +1303,11 @@
 	if(chamber_state != CHAMBER_OPEN)
 		to_chat(user, SPAN_ALERT("[src] must be raised and opened first!"))
 		return
-	if(!linked_reactor.offline)
+	if(linked_reactor && !linked_reactor.offline)
 		to_chat(user, SPAN_ALERT("The safety locks prevent maintenance while the reactor is on!"))
+		return
+	if(held_rod)
+		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if a rod inside."))
 		return
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 

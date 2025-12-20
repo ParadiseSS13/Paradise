@@ -52422,7 +52422,7 @@
 	volume_rate = 200
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/engineering/engine/reactor)
 "heK" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/machinery/ai_node/network_node,

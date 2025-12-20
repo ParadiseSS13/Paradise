@@ -385,6 +385,7 @@
 	heat_amp_mod = 12
 	power_amp_mod = 5
 	upgrade_required = TRUE
+	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
 
 /obj/item/nuclear_rod/moderator/diamond_plate
