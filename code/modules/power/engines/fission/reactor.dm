@@ -1755,6 +1755,7 @@
 /obj/effect/immovablerod/nuclear_rod
 	name = "\improper Nuclear Coolant Rod"
 	desc = "Oh fuck this shouldnt be happening."
+	notify = FALSE
 	var/obj/held_rod
 
 /// lets not break the reactor with this.
