@@ -635,7 +635,7 @@
 	metabolization_rate = 0.2
 	taste_description = "safety"
 	goal_difficulty = REAGENT_GOAL_NORMAL
-	heart_rate_change = -25
+	heart_rate_change = 25
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
