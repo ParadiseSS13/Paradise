@@ -64541,6 +64541,14 @@
 /area/station/public/storage/tools/auxiliary)
 "nfE" = (
 /obj/machinery/shower/directional/west,
+/obj/machinery/airlock_controller/access_controller{
+	name = "Atmos Supermatter Access Console";
+	ext_door_link_id = "atmossm_door_ext";
+	int_door_link_id = "atmossm_door_int";
+	pixel_y = -24;
+	ext_button_link_id = "atmossm_btn_ext";
+	int_button_link_id = "atmossm_btn_int"
+	},
 /turf/simulated/floor/noslip,
 /area/station/engineering/engine/reactor)
 "nfS" = (
@@ -118851,7 +118859,7 @@ aMM
 epT
 xJE
 ssQ
-dcq
+cSU
 oSd
 dcq
 dcq
@@ -119107,8 +119115,8 @@ dcq
 vJY
 dcq
 edD
-dcq
-dcq
+cSU
+cSU
 ddr
 qqe
 ddr

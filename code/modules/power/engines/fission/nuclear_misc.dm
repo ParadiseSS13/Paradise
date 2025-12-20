@@ -727,7 +727,6 @@
 	name = "holding pool"
 	icon = 'icons/obj/fission/pool.dmi'
 	icon_state = "pool_round"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
@@ -739,6 +738,7 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlay_image.alpha = 75
+	overlay_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	overlays += overlay_image
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
 
