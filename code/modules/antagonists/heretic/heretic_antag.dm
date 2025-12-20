@@ -646,8 +646,8 @@
 				return sec_mind.current
 
 	// just grab literally anyone else
-	var/random_mind = pick(valid_targets)
-	heretic_datum.add_sacrifice_target(random_mind)
+	var/datum/mind/random_mind = pick(valid_targets)
+	heretic_datum.add_sacrifice_target(random_mind.current)
 	return random_mind
 
 
