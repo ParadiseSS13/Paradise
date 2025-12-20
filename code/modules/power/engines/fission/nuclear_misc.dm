@@ -273,6 +273,7 @@
 
 	if(istype(used, /obj/item/rod_fabricator_upgrade))
 		upgraded = TRUE
+		create_designs()
 		user.drop_item(used)
 		qdel(used)
 		return ITEM_INTERACT_COMPLETE
@@ -457,13 +458,15 @@
 	schematic = rod_type_path
 
 /obj/machinery/nuclear_rod_fabricator/proc/finish_fabrication()
+	power_state = IDLE_POWER_USE
+	icon_state = "rod_fab"
 	var/obj/item/nuclear_rod/new_rod = new schematic(get_turf(src))
 	to_chat(usr, SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
 	playsound(src, 'sound/machines/ping.ogg', 50, 1)
 
 /obj/machinery/nuclear_rod_fabricator/proc/abort_fabrication()
 	power_state = IDLE_POWER_USE
-	icon_state = "centrifuge_full"
+	icon_state = "rod_fab"
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 
 /obj/machinery/nuclear_rod_fabricator/process()
@@ -728,7 +731,6 @@
 	name = "holding pool"
 	icon = 'icons/obj/fission/pool.dmi'
 	icon_state = "pool_round"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
@@ -740,6 +742,7 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlay_image.alpha = 75
+	overlay_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	overlays += overlay_image
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
 

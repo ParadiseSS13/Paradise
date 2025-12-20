@@ -162,7 +162,7 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 	var/wrap_time = 2 SECONDS
-	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
+	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/envelope)
 
 /obj/item/stack/package_wrap/pre_attack(atom/atom_target, mob/living/user, params)
 	. = ..()

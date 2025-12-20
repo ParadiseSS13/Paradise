@@ -13,7 +13,7 @@
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.4 // multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.8 // multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
@@ -45,7 +45,7 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
-#define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
+#define CHAMBER_HEAT_DAMAGE 15 // How much damage reactor chambers do when on.
 
 #define MOLE_BONUS_THRESHOLD 800 // The minimum number of moles needed to begin accruing multiplier.
 #define MOLE_BONUS_COMPONENT 250 // how many moles are required for one "unit" of modifier increase. Used in the math calculation.
@@ -584,8 +584,9 @@
 		if(chamber.chamber_state == CHAMBER_OPEN)
 			continue
 		var/durability_mod = chamber.held_rod.get_durability_mod()
-		if(chamber.chamber_state == CHAMBER_DOWN && chamber.operational) // We generate heat but not power while its down.
-			power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
+		if(chamber.chamber_state == CHAMBER_DOWN)
+			if(chamber.operational) // We generate heat but not power while its down.
+				power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
 				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
 				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.power_mod_total * operating_rate))
@@ -1114,6 +1115,10 @@
 	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder while in the down position.")
 	. += SPAN_NOTICE("<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.")
 	. += SPAN_NOTICE("<span class='notice'>Click on the chamber while it is closed to raise and lower it.")
+	. += ""
+
+	if(isobserver(user))
+		deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -1163,12 +1168,11 @@
 	var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
 	state_overlay.icon = icon
 	if(chamber_state == CHAMBER_DOWN)
-		if(requirements_met)
+		if(enriching)
+			state_overlay.icon_state = "blue"
+		else if(requirements_met)
 			if(operational)
-				if(enriching)
-					state_overlay.icon_state = "blue"
-				else
-					state_overlay.icon_state = "green"
+				state_overlay.icon_state = "green"
 			else
 				state_overlay.icon_state = "orange"
 		else
@@ -1333,9 +1337,12 @@
 
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	deep_examine(user)
+
+/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(mob/user)
 	if(chamber_state != CHAMBER_DOWN)
 		return
-	. = TRUE
 	if(!held_rod)
 		to_chat(user, SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
 		return ITEM_INTERACT_COMPLETE
