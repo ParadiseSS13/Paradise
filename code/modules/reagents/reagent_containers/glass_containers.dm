@@ -320,7 +320,7 @@
 	materials = null
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
-	materials = list(MAT_WOOD = 2000)
+	materials = list(MAT_WOOD = 6000)
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()

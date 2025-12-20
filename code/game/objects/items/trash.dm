@@ -8,7 +8,7 @@
 	desc = "This is rubbish."
 	resistance_flags = FLAMMABLE
 	// Recycle your litter, kids!
-	materials = list(MAT_PLASTIC = 50)
+	materials = list(MAT_PLASTIC = 100)
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
@@ -138,7 +138,7 @@
 	name = "caviar can"
 	icon_state = "caviar-empty"
 	desc = "There's none left."
-	materials = list(MAT_METAL = 50)
+	materials = list(MAT_METAL = 100)
 
 // Ammo casings
 /obj/item/trash/spentcasing
@@ -147,7 +147,7 @@
 	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
 	icon_state = "pistol_brass"
 	scatter_distance = 10
-	materials = list(MAT_METAL = 10)
+	materials = list(MAT_METAL = 100)
 
 /obj/item/trash/spentcasing/Initialize(mapload)
 	. = ..()

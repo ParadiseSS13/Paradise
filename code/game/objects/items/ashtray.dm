@@ -76,7 +76,7 @@
 	max_integrity = 8
 	throwforce = 3
 	material = /obj/item/stack/sheet/plastic
-	materials = list(MAT_PLASTIC = 1000)
+	materials = list(MAT_PLASTIC = 2000)
 
 /obj/item/ashtray/bronze
 	name = "bronze ashtray"
@@ -87,7 +87,7 @@
 	max_butts = 16
 	max_integrity = 16
 	throwforce = 10
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 2000)
 
 /obj/item/ashtray/glass
 	name = "glass ashtray"
@@ -99,4 +99,4 @@
 	max_integrity = 12
 	throwforce = 6
 	material = /obj/item/stack/sheet/glass
-	materials = list(MAT_GLASS = 1000)
+	materials = list(MAT_GLASS = 2000)
