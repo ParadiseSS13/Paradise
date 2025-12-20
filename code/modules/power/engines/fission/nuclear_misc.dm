@@ -273,6 +273,7 @@
 
 	if(istype(used, /obj/item/rod_fabricator_upgrade))
 		upgraded = TRUE
+		create_designs()
 		user.drop_item(used)
 		qdel(used)
 		return ITEM_INTERACT_COMPLETE
