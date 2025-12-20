@@ -380,7 +380,10 @@
 
 	if(!Adjacent(user))
 		return
-	visible_message(SPAN_NOTICE("[user] tries to [zipped ? "un-" : ""]zip [src]."), SPAN_NOTICE("You start to [zipped ? "un-" : ""]zip [src]."))
+	visible_message(
+		SPAN_NOTICE("[user] tries to [zipped ? "un-" : ""]zip [src]."),
+		SPAN_NOTICE("You start to [zipped ? "un-" : ""]zip [src].")
+	)
 
 	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
