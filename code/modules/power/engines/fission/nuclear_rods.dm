@@ -113,7 +113,6 @@
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
-	icon_state = "fuel_238"
 	alpha_rad = 50
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
@@ -152,7 +151,6 @@
 /obj/item/nuclear_rod/fuel/uranium_238
 	name = "uranium 238 fuel rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
-	icon_state = "fuel_238"
 	heat_amount = 5
 	power_amount = 20 KW
 	heat_amp_mod = 1.8
@@ -324,7 +322,6 @@
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
 	desc = "A basic moderation rod filled with a variant of water comprised of deuterium instead of hydrogen atoms."
-	icon_state = "mod_water"
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
 	craftable = TRUE
@@ -430,7 +427,6 @@
 	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
 	heat_amount = -10
 	power_amount = -10 KW
-	icon_state = "coolant_water"
 	reactor_overheat_modifier = 25
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
@@ -449,7 +445,7 @@
 
 /obj/item/nuclear_rod/coolant/plasma_injector
 	name = "plasma injector"
-	desc = "A specialized coolant rod filled with gaseous plasma. By feeding taking advantage of plasma's unique heat-absorbant properties, injecting it in small amounts around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
+	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbant properties, small amounts are injected around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
 	icon_state = "coolant_plasma"
 	heat_amp_mod = 0.3
 	power_amp_mod = 1.2
