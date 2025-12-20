@@ -35633,6 +35633,13 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"cHe" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4;
+	name = "Cooling Loop to Gas"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "cHf" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -38862,6 +38869,7 @@
 /area/station/engineering/engine/reactor)
 "cTF" = (
 /obj/machinery/atmospherics/binary/pump{
+	name = "Cooling Loop";
 	dir = 4
 	},
 /turf/simulated/floor/engine,
@@ -39244,7 +39252,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cVs" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -44548,9 +44556,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "dto" = (
-/obj/machinery/atmospherics/binary/pump,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	name = "Cooling Loop Bypass"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -46004,7 +46014,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "eba" = (
 /obj/effect/decal/cleanable/dirt,
@@ -47723,7 +47736,7 @@
 	c_tag = "Engine Fabrication";
 	dir = 6
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "ePu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -49087,6 +49100,13 @@
 /obj/effect/turf_decal/tiles/department/virology,
 /turf/simulated/floor/plasteel/white,
 /area/station/public/sleep)
+"fwr" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8;
+	name = "Cooling Loop to Gas"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "fwy" = (
 /obj/item/chair/stool,
 /obj/effect/decal/cleanable/dirt,
@@ -51867,11 +51887,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "gRE" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -54410,11 +54430,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "ihW" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/pump{
+	name = "Cooling Loop Bypass";
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -61130,6 +61151,9 @@
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
+"luv" = (
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "lvc" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tiles/white/corner{
@@ -63561,6 +63585,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"mFk" = (
+/obj/machinery/atmospherics/binary/pump{
+	name = "Port to Cooling Loop"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "mFn" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Morgue Maintenance"
@@ -64047,6 +64077,13 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"mPb" = (
+/obj/machinery/atmospherics/binary/pump{
+	name = "Gas Extraction";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "mPx" = (
 /turf/simulated/wall,
 /area/station/maintenance/electrical/fore_port)
@@ -68854,6 +68891,12 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"pjn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "pko" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -69938,6 +69981,7 @@
 /area/station/command/teleporter)
 "pMy" = (
 /obj/machinery/atmospherics/binary/pump{
+	name = "Cooling Loop";
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -70285,7 +70329,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "pUb" = (
 /obj/machinery/door/airlock/maintenance,
@@ -72185,12 +72232,18 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
+"qLI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "qLK" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/nuclear_rod_fabricator,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "qMh" = (
 /obj/structure/bed,
@@ -74181,7 +74234,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/stack/cable_coil,
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "rJx" = (
 /turf/simulated/floor/plating,
@@ -78240,6 +78293,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tPk" = (
+/obj/machinery/shower/directional/north,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/station/engineering/control)
 "tPl" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -78349,6 +78409,9 @@
 	name = "Supermatter Access Button";
 	pixel_y = 24;
 	req_access = list(10)
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -79589,7 +79652,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uvS" = (
-/obj/machinery/atmospherics/binary/pump,
+/obj/machinery/atmospherics/binary/pump{
+	name = "Gas Intake"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "uwi" = (
@@ -79628,7 +79693,7 @@
 /area/station/maintenance/incinerator)
 "uwD" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "uwJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81722,6 +81787,9 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -84330,7 +84398,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "wVq" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -85776,7 +85844,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "xGy" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -115004,7 +115072,7 @@ iUF
 rIH
 cVj
 lTV
-eaW
+pjn
 eaW
 xGt
 sSb
@@ -115261,8 +115329,8 @@ cWC
 cXJ
 jNB
 dyH
-fYe
-fYe
+luv
+luv
 uwD
 dyH
 exC
@@ -115528,7 +115596,7 @@ wva
 bbD
 kRa
 kRa
-pMy
+mPb
 kRa
 kRa
 fqV
@@ -116036,7 +116104,7 @@ mBc
 lsx
 uDI
 qBw
-uvS
+mFk
 deA
 wva
 jsX
@@ -116293,7 +116361,7 @@ ntt
 aMw
 dyH
 eqs
-uvS
+mFk
 hbq
 sTh
 jVe
@@ -116803,7 +116871,7 @@ cZP
 cXx
 jNB
 lIb
-fYe
+qLI
 wVp
 pKs
 exC
@@ -117574,7 +117642,7 @@ xmN
 cXJ
 xEl
 uDI
-pFl
+tPk
 iZg
 dyH
 hJA
@@ -117840,10 +117908,10 @@ gRE
 fTc
 fTc
 fTc
-pMy
+fwr
 fTc
 shG
-cTF
+cHe
 tRc
 giQ
 rWB
