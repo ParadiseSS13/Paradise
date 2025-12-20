@@ -79,6 +79,7 @@
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
 	density = TRUE
+	pass_flags_self = PASSTAKE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	pixel_x = -16
 	flags_2 = NO_MALF_EFFECT_2
@@ -1039,6 +1040,7 @@
 	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
 	layer = BELOW_OBJ_LAYER
+	pass_flags_self = PASSTAKE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	max_integrity = 400
 	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // fairly robust
