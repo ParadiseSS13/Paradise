@@ -61970,10 +61970,6 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
-"oAK" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "oAL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -137579,7 +137575,7 @@ ivi
 ivi
 aaa
 arA
-oAK
+bre
 arA
 aaa
 aaa
