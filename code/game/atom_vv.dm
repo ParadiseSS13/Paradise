@@ -57,33 +57,23 @@
 			return
 
 		if(!reagents)
-			var/amount = input(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50) as num
-			if(amount)
-				create_reagents(amount)
+			var/amount = tgui_input_number(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50, 1000000, 1)
+			if(!amount)
+				return
+			create_reagents(amount)
 
-		if(reagents)
-			var/chosen_id
-			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
-				if("Enter ID")
-					var/valid_id
-					while(!valid_id)
-						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
-						if(!chosen_id) //Get me out of here!
-							break
-						for(var/ID in reagent_options)
-							if(ID == chosen_id)
-								valid_id = 1
-						if(!valid_id)
-							to_chat(usr, SPAN_WARNING("A reagent with that ID doesn't exist!"))
-				if("Choose ID")
-					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
-			if(chosen_id)
-				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume) as num
-				if(amount)
-					reagents.add_reagent(chosen_id, amount)
-					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]")
-					message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to \the [src]"))
+		var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
+		var/chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent", reagent_options)
+
+		if(!chosen_id)
+			return
+
+		var/amount = tgui_input_number(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume)
+		if(amount)
+			reagents.add_reagent(chosen_id, amount)
+			log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
+			message_admins(SPAN_NOTICE("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
+
 	if(href_list[VV_HK_EDITREAGENTS])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
