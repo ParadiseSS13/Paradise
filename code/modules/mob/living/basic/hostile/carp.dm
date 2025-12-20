@@ -14,7 +14,7 @@
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
 	response_disarm_simple = "gently push aside"
-	speed = 0
+	speed = 0.25
 	maxHealth = 25
 	health = 25
 
@@ -104,17 +104,6 @@
 /mob/living/basic/carp/revive()
 	..()
 	update_icon()
-
-/mob/living/basic/carp/Move(newloc, direct) // Make's the carp slow down when moving diagonally so it isn't going at the speed of light.
-	if(IS_DIR_DIAGONAL(direct))
-		var/slowdown = 2
-		if(type == /mob/living/basic/carp/megacarp)
-			slowdown = 3.5
-		speed /= slowdown
-		. = ..()
-		speed *= slowdown
-	else
-		. = ..()
 
 /mob/living/basic/carp/update_overlays()
 	. = ..()
