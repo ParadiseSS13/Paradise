@@ -13647,7 +13647,7 @@
 	pixel_x = -32
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bzs" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -38413,7 +38413,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gjo" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass,
@@ -42750,7 +42750,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hPi" = (
 /obj/structure/table_frame,
 /obj/item/mounted/frame/apc_frame,
@@ -44352,7 +44352,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ivn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46634,7 +46634,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jhk" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -61973,7 +61973,7 @@
 "oAK" = (
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "oAL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -62549,7 +62549,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "oKS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -63510,13 +63510,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/port)
-"pas" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "pat" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/secure_data/laptop{
@@ -63827,13 +63820,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
-"pgy" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "pgF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -72484,7 +72470,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "smd" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/binary/valve{
@@ -136576,7 +136562,7 @@ wPg
 jMX
 jMX
 egm
-bwM
+abq
 bsK
 bDj
 bsK
@@ -137082,14 +137068,14 @@ bzq
 jha
 jha
 giy
-pgy
+wJN
 aaa
-bwM
-bwM
-bwM
-bwM
-bwM
-bwM
+aaa
+abq
+abq
+abq
+aaa
+aaa
 abq
 aaa
 aaa
@@ -137330,9 +137316,9 @@ abq
 mZb
 ivi
 slD
-pas
+cxT
 slD
-pas
+cxT
 slD
 hPg
 jha
@@ -137341,12 +137327,12 @@ jha
 hPg
 giy
 aaa
-bwM
-bwM
-bwM
-bwM
-bwM
-bwM
+aaa
+abq
+aaa
+aaa
+aaa
+aaa
 iju
 aaa
 aaa
@@ -137592,18 +137578,18 @@ ivi
 ivi
 ivi
 aaa
-cxB
+arA
 oAK
-cxB
+arA
 aaa
 aaa
 aaa
-bwM
 aaa
-bwM
-bwM
-bwM
-bwM
+abq
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -137858,8 +137844,8 @@ aaa
 aaa
 aaa
 aaa
-bwM
-bwM
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -138095,7 +138081,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -138352,14 +138338,14 @@ aaa
 aaa
 aaa
 aaa
+abq
+abq
+abq
+abq
+abq
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -138609,14 +138595,14 @@ aaa
 aaa
 aaa
 aaa
+abq
 aaa
 aaa
 aaa
+abq
 aaa
 aaa
-aaa
-aaa
-aaa
+abq
 aaa
 iju
 abq
@@ -138866,16 +138852,16 @@ aaa
 aaa
 aaa
 aaa
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
 aaa
 abq
 arA
@@ -139122,18 +139108,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaD
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
+mZb
+bre
+bre
+bre
+bre
+bre
+bre
+mZb
+abq
+abq
+abq
 abq
 arA
 abq
@@ -139378,18 +139364,18 @@ aaa
 aaa
 aaa
 aaa
+abq
+abq
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
+mZb
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
 aaa
 abq
 arA
@@ -139640,8 +139626,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+abq
+abq
 aaa
 aaa
 aaa
@@ -140155,7 +140141,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aaD
 aaa
 aaa
 aaa
