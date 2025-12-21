@@ -47734,7 +47734,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine Fabrication";
-	dir = 6
+	dir = 6;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -52625,7 +52626,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine West";
-	dir = 5
+	dir = 5;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -59057,7 +59059,8 @@
 /obj/machinery/camera{
 	c_tag = "Engine East";
 	dir = 9;
-	view_range = 8
+	view_range = 8;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
@@ -61836,7 +61839,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine Storage Pool";
-	dir = 1
+	dir = 1;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
@@ -71765,7 +71769,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine North";
-	dir = 6
+	dir = 6;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

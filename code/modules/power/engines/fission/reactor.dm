@@ -1324,7 +1324,7 @@
 	if(held_rod)
 		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if a rod inside."))
 		return
-	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	default_deconstruction_screwdriver(user, "chamber_maint", "chamber_open", I)
 
 /obj/machinery/atmospherics/reactor_chamber/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

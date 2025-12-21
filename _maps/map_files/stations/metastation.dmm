@@ -35952,7 +35952,8 @@
 "fnu" = (
 /obj/machinery/camera{
 	c_tag = "Engine Fabrication";
-	dir = 10
+	dir = 10;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
@@ -36054,7 +36055,8 @@
 /obj/structure/railing/corner/pool_corner,
 /obj/machinery/camera{
 	c_tag = "Engine South";
-	dir = 10
+	dir = 10;
+	network = list("SS13","Engineering")
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -36491,7 +36493,8 @@
 "fzN" = (
 /obj/machinery/camera{
 	c_tag = "Engine North";
-	dir = 6
+	dir = 6;
+	name = list("SS13","Engineering")
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -47816,7 +47819,8 @@
 /obj/item/geiger_counter,
 /obj/machinery/camera{
 	c_tag = "Engine North East";
-	dir = 8
+	dir = 8;
+	network = list("SS13","Engineering")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -68146,7 +68150,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine North West";
-	dir = 5
+	dir = 5;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

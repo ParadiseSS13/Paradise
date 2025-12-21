@@ -747,8 +747,12 @@
 
 /turf/simulated/floor/plasteel/reactor_pool/Initialize(mapload)
 	. = ..()
-	effect = new(loc)
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/plasteel/reactor_pool/LateInitialize()
+	. = ..()
+	effect = new(src)
 
 /turf/simulated/floor/plasteel/reactor_pool/crowbar_act(mob/user, obj/item/I)
 	return
@@ -812,6 +816,7 @@
 	alpha = 75
 	layer = ABOVE_ALL_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
 
 /obj/structure/railing/corner/pool_corner
 	name = "pool lining"
