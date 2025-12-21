@@ -480,17 +480,14 @@
 	id_job = "Assistant"
 	outfit = /datum/outfit/job/assistant
 
-//Yes you guess it, they have disease in corpse.
+// Yes you guess it, they have disease in corpse.
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
 	disease = /datum/disease/beesease
-
-/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
-	disease = /datum/disease/brainrot
 
 /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
 	disease = /datum/disease/fluspanish
 
-//Bartender corpse.
+// Bartender corpse.
 /obj/effect/mob_spawn/human/corpse/bartender
 	name = "Space Bartender"
 	mob_name = "Bartender"
@@ -507,7 +504,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
-//Lavaland Beach Turist (?) corpse.
+// Lavaland Beach Tourist (?) corpse.
 /obj/effect/mob_spawn/human/corpse/beach
 	outfit = /datum/outfit/beachbum
 

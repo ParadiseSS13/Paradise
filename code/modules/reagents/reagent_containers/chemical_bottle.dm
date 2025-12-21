@@ -343,11 +343,6 @@
 	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS- culture in synthblood medium."//Or simply - General BullShit
 	spawned_disease = /datum/disease/fake_gbs
 
-/obj/item/reagent_containers/glass/bottle/brainrot
-	name = "Brainrot culture bottle"
-	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
-	spawned_disease = /datum/disease/brainrot
-
 /obj/item/reagent_containers/glass/bottle/magnitis
 	name = "Magnitis culture bottle"
 	desc = "A small bottle. Contains a small dosage of Fukkos Miracos."
