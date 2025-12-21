@@ -1682,22 +1682,10 @@
 /area/station/security/main)
 "asa" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/magistrate,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Magistrate"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/glass,
@@ -33122,6 +33110,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "evX" = (
+/mob/living/basic/lizard{
+	name = "Greentext"
+	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "ewa" = (
@@ -45369,6 +45360,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
+"iEJ" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Detective"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "detective_office";
+	name = "detective office privacy shutters";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/security/detective)
 "iER" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -61099,9 +61104,6 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/firealarm/directional/east,
 /obj/structure/rack,
 /obj/item/storage/box/handcuffs{
@@ -61373,9 +61375,6 @@
 /area/station/service/library)
 "nZh" = (
 /obj/structure/closet/secure_closet/warden,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/item/megaphone,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
@@ -67369,9 +67368,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "qdr" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -79505,12 +79501,6 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
@@ -79520,6 +79510,15 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/range)
@@ -109671,7 +109670,7 @@ jnG
 nTY
 bUS
 rDV
-fIs
+dYN
 abq
 aaa
 aaa
@@ -109928,7 +109927,7 @@ sbK
 gCp
 gCp
 rDV
-dYN
+fIs
 abq
 aaa
 aaa
@@ -116388,7 +116387,7 @@ jsH
 lft
 kLn
 lAG
-aHM
+iEJ
 aJd
 pNc
 jRH
