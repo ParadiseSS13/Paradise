@@ -30143,6 +30143,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/mob/living/basic/mouse/brown/tom,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	luminosity = 2
@@ -63754,10 +63755,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/a)
-"oQN" = (
-/mob/living/basic/mouse/brown/tom,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore2)
 "oQV" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -112509,7 +112506,7 @@ gtm
 adi
 lIM
 haD
-oQN
+mtd
 gYO
 mtd
 igq
