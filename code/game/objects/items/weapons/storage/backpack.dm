@@ -377,7 +377,6 @@
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
-
 	if(!Adjacent(user))
 		return
 	visible_message(
