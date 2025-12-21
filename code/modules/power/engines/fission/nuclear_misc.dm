@@ -698,6 +698,9 @@
 	name = "Neutronic Agitator"
 	desc = "A throwable device capable of inducing an artificial startup in rod chambers. Won't do anything for chambers not positioned correctly, or chambers without any rods inserted."
 
+/obj/item/grenade/nuclear_starter/deconstruct(disassembled)
+	qdel(src)
+
 /obj/item/grenade/nuclear_starter/prime()
 	playsound(src.loc, 'sound/weapons/bsg_explode.ogg', 50, TRUE, -3)
 	var/obj/effect/warp_effect/supermatter/warp = new(loc)
@@ -731,21 +734,18 @@
 	name = "holding pool"
 	icon = 'icons/obj/fission/pool.dmi'
 	icon_state = "pool_round"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 	/// Holds our pool controller
 	var/obj/machinery/poolcontroller/linkedcontroller = null
+	/// Holds our effect overlay
+	var/obj/item/effect/pool_overlay/effect
 
 /turf/simulated/floor/plasteel/reactor_pool/Initialize(mapload)
 	. = ..()
-	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_ALL_MOB_LAYER)
-	overlay_image.plane = GAME_PLANE
-	overlay_image.alpha = 75
-	overlay_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	overlays += overlay_image
+	effect = new(loc)
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
 
 /turf/simulated/floor/plasteel/reactor_pool/crowbar_act(mob/user, obj/item/I)
@@ -771,6 +771,13 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool -= AM
 
+/turf/simulated/floor/plasteel/reactor_pool/ChangeTurf(turf/simulated/floor/T, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+	QDEL_NULL(effect)
+	. = ..()
+
+/turf/simulated/floor/plasteel/reactor_pool/Destroy()
+	QDEL_NULL(effect)
+	. = ..()
 
 /turf/simulated/floor/plasteel/reactor_pool/wall
 	icon_state = "pool_wall_round"
@@ -794,6 +801,15 @@
 /obj/structure/railing/pool_lining/ex_act(severity)
 	if(severity == EXPLODE_HEAVY || severity == EXPLODE_DEVASTATE)
 		qdel(src)
+
+/obj/item/effect/pool_overlay
+	name = "holding pool"
+	desc = "water"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "seadeep"
+	alpha = 75
+	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/structure/railing/corner/pool_corner
 	name = "pool lining"

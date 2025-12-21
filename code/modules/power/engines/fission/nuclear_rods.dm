@@ -486,7 +486,7 @@
 
 /obj/item/nuclear_rod/coolant/steam_hammerjet
 	name = "steam hammerjet"
-	desc = "A specialized coolant rod that injects distilled steam throughout the reactor's critical components. Although it makes the reactor run warm, its very good at suppressing heat buildup"
+	desc = "A specialized coolant rod that injects distilled steam throughout the reactor's critical components. Although it makes the reactor run warm, it's very good at suppressing heat buildup."
 	icon_state = "coolant_steam"
 	power_amount = -10 KW
 	heat_amount = -40
@@ -528,7 +528,7 @@
 
 /obj/item/nuclear_rod/coolant/condensed_spacematter
 	name = "condensed spacematter coolant rod"
-	desc = "While it's unknown quite what the rod is filled with, there's no questioning its efficiency in the amount of heat it's capable of suppressing. However, it violently disintegrates in contact with anything that isn't its housing."
+	desc = "While it's unknown quite what the rod is filled with, there's no questioning its heat-suppressing efficiency. However, it violently disintegrates in contact with anything that isn't its housing."
 	icon_state = "coolant_spacematter"
 	heat_amp_mod = 0.2
 	max_durability = 2500

@@ -142,7 +142,7 @@
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
 	id = "reactor_chamber"
 	req_tech = list("programming" = 4, "materials" = 4, "magnets" = 4, "plasmatech" = 3)
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 2000)
 	build_path = /obj/item/circuitboard/machine/reactor_chamber
 	category = list("Power", "Engineering Machinery", "Misc")

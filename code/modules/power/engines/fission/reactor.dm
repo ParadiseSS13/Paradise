@@ -158,7 +158,22 @@
 	if(venting)
 		. += SPAN_NOTICE("A crowbar can be used to close the malfunctioning vent.")
 	if(grill)
-		. += SPAN_NOTICE("Wirecutters can be used to remove the grill")
+		. += SPAN_NOTICE("Wirecutters can be used to remove the grill.")
+	switch(repair_step)
+		if(REACTOR_NEEDS_DIGGING)
+			. += SPAN_NOTICE("A shovel will be needed to extract all of the melted corium.")
+		if(REACTOR_NEEDS_CROWBAR)
+			. += SPAN_NOTICE("The old broken plating needs to be removed with a crowbar.")
+		if(REACTOR_NEEDS_PLASTITANIUM)
+			. += SPAN_NOTICE("The reactor requires a new plastitanium core.")
+		if(REACTOR_NEEDS_WRENCH)
+			. += SPAN_NOTICE("The new plastitanium core needs to be wrenched into place.")
+		if(REACTOR_NEEDS_WELDING)
+			. += SPAN_NOTICE("The new plastitanium core needs welded into place.")
+		if(REACTOR_NEEDS_PLASTEEL)
+			. += SPAN_NOTICE("The new plastitanium core needs a new plasteel housing cover.")
+		if(REACTOR_NEEDS_SCREWDRIVER)
+			. += SPAN_NOTICE("The plasteel housing cover needs screwed into place.")
 
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
@@ -624,11 +639,11 @@
 	//Generating  the amount of Plasma created
 	var/datum/gas_mixture/temp_gas = new()
 	// Math equasion for here: y = a + b * ln(x)
-	var/gas_offset = 1.5 // The offset for the math calc. Gives a flat number boost. (A) component
-	var/gas_curve_intensity = 4 // Affects the rate of decay. higher = reactivity builds easier. (B) component
-	var/power_component = max((final_power / 2 MW), 0.01) // (X) Component
+	var/gas_offset = 0.5 // The offset for the math calc. Gives a flat number boost. (A) component
+	var/gas_curve_intensity = 1.6 // Affects the rate of decay. higher = reactivity builds easier. (B) component
+	var/power_component = max((final_power / 10 MW), 0.01) // (X) Component
 	var/h2_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
-	temp_gas.set_hydrogen(clamp(h2_amount * reactivity_multiplier, 0.1, 100))
+	temp_gas.set_hydrogen(clamp(h2_amount * reactivity_multiplier, 1, 100))
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
 
