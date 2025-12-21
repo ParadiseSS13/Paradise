@@ -30121,7 +30121,7 @@
 	desc = "Used for watching the singularity chamber.";
 	dir = 8;
 	layer = 4;
-	name = "Singularity Engine Telescreen";
+	name = "NGCR Telescreen";
 	network = list("Singularity")
 	},
 /turf/simulated/wall/r_wall,
@@ -66605,7 +66605,7 @@
 	autoclose = 0;
 	id_tag = "engsm_door_int";
 	locked = 1;
-	name = "Supermatter Interior Access"
+	name = "Reactor Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73781,7 +73781,7 @@
 	autoclose = 0;
 	id_tag = "engsm_door_ext";
 	locked = 1;
-	name = "Supermatter Exterior Access"
+	name = "Reactor Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -86216,7 +86216,7 @@
 	autoclose = 0;
 	id_tag = "engsm_door_int";
 	locked = 1;
-	name = "Supermatter Interior Access"
+	name = "Reactor Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

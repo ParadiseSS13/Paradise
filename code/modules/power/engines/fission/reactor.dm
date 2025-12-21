@@ -1095,6 +1095,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(deep_examine))
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/atmospherics/reactor_chamber/uranium
@@ -1141,6 +1142,7 @@
 	QDEL_NULL(held_rod)
 	if(linked_reactor)
 		desync()
+	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
 	return ..()
 
 /obj/machinery/atmospherics/reactor_chamber/update_icon_state()
@@ -1361,6 +1363,8 @@
 	deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(mob/user)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+
 	if(chamber_state != CHAMBER_DOWN)
 		return
 	if(!held_rod)

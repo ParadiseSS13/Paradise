@@ -55281,13 +55281,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
 	id_tag = "engsm_door_int";
 	locked = 1;
-	name = "Supermatter Interior Access"
+	name = "Reactor Interior Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "iFa" = (
@@ -57799,7 +57799,7 @@
 	autoclose = 0;
 	id_tag = "engsm_door_ext";
 	locked = 1;
-	name = "Supermatter Exterior Access"
+	name = "Reactor Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61719,13 +61719,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "lIb" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
 	id_tag = "engsm_door_ext";
 	locked = 1;
-	name = "Supermatter Exterior Access"
+	name = "Reactor Exterior Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lIl" = (
@@ -69924,7 +69924,7 @@
 	autoclose = 0;
 	id_tag = "engsm_door_int";
 	locked = 1;
-	name = "Supermatter Interior Access"
+	name = "Reactor Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plasteel/dark,
@@ -74018,12 +74018,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "rFJ" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
@@ -74031,6 +74025,12 @@
 	req_access = list(10)
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Reactor Interior Access"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "rFK" = (

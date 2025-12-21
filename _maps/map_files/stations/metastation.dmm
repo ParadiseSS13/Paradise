@@ -40763,11 +40763,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "gZP" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	name = "Supermatter Exterior Access"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -40779,6 +40774,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_ext";
+	name = "Reactor Exterior Access"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "gZT" = (
@@ -44206,7 +44206,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
 	id_tag = "engsm_door_int";
-	name = "Supermatter Interior Access"
+	name = "Reactor Interior Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46922,16 +46922,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "jnF" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	name = "Supermatter Interior Access"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	name = "Reactor Interior Access"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "jnG" = (
@@ -87183,7 +87183,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
 	id_tag = "engsm_door_ext";
-	name = "Supermatter Exterior Access"
+	name = "Reactor Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /obj/structure/cable/yellow{
