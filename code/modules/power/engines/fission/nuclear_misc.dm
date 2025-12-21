@@ -211,6 +211,8 @@
 		temp_coeff += M.rating
 	materials.max_amount = temp_coeff * 75000
 
+/obj/machinery/nuclear_rod_fabricator/attack_ghost(mob/user)
+	return attack_hand(user)
 
 /obj/machinery/nuclear_rod_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
