@@ -12,9 +12,9 @@
 	desc = "A carton of pending drink."
 	. = ..()
 
-	var/reagent_name = reagents.get_master_reagent().name
-	name = "[reagent_name] Box"
-	desc = "A carton of [lowertext(reagent_name)]."
+	var/datum/reagent/drink_reagent = reagents.get_master_reagent()
+	name = "[drink_reagent.name] Box"
+	desc = "A carton of [lowertext(drink_reagent.name)]."
 
 /obj/item/reagent_containers/drinks/carton/apple
 	icon_state = "applebox"
