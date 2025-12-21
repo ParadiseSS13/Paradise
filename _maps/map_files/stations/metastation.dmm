@@ -16226,6 +16226,10 @@
 	pixel_y = 13
 	},
 /obj/item/ashtray/glass,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "bNG" = (
