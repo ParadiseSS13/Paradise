@@ -691,8 +691,15 @@
 /obj/item/slag/Initialize(mapload)
 	. = ..()
 	scatter_atom()
-	var/datum/component/inherent_radioactivity/rad_component = AddComponent(/datum/component/inherent_radioactivity, 200, 200, 200, 2)
+	var/datum/component/inherent_radioactivity/rad_component = AddComponent(/datum/component/inherent_radioactivity, 5000, 5000, 5000, 2)
 	START_PROCESSING(SSradiation, rad_component)
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/slag/process()
+	. = ..()
+	radiation_pulse(src, 500, ALPHA_RAD)
+	radiation_pulse(src, 500, BETA_RAD)
+	radiation_pulse(src, 500, GAMMA_RAD)
 
 // MARK: Starter Grenade
 

@@ -284,7 +284,7 @@
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
 	stat &= ~BROKEN
-	icon = "reactor_off"
+	icon_state = "reactor_off"
 	build_reactor_network()
 
 /obj/machinery/atmospherics/fission_reactor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -292,16 +292,16 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/creature = user
-	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING)
+	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING && (stat & BROKEN))
 		playsound(src, used.usesound, 50, 1)
 		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 			playsound(src, used.usesound, 50, 1)
 			new /obj/item/slag(loc)
 			if(prob(20))
 				repair_step++
-				to_chat(creature, SPAN_INFORMATION("There seems to be more slag clogging the ruined reactor core."))
-			else
 				to_chat(creature, SPAN_INFORMATION("No more melted slag remains in the chamber."))
+			else
+				to_chat(creature, SPAN_INFORMATION("There seems to be additional slag clogging the ruined reactor core."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
@@ -311,7 +311,7 @@
 					plastitanium.use(5)
 					to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
 					repair_step++
-					icon = "reactor_maintenance"
+					icon_state = "reactor_maintenance"
 			else
 				if(!offline)
 					to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
