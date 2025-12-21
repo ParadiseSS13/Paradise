@@ -492,7 +492,7 @@
 /obj/machinery/atmospherics/fission_reactor/process()
 	if(stat & BROKEN)
 		var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
-		radiation_pulse(src, 100, rad_type)
+		radiation_pulse(src, 500, rad_type)
 		return
 
 	if(admin_intervention)
