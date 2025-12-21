@@ -1595,6 +1595,7 @@
 			continue
 		if(chamber.held_rod.type in temp_requirements)
 			temp_requirements -= chamber.held_rod.type
+			continue
 		for(var/requirement in temp_requirements)
 			if(chamber.held_rod.type in typesof(requirement))
 				temp_requirements -= requirement
