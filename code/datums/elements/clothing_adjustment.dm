@@ -44,7 +44,7 @@
 /datum/element/clothing_adjustment/monitor_headgear/on_item_dropped(datum/source, mob/target)
 	UnregisterSignal(target, COMSIG_CARBON_APPLY_OVERLAY)
 
-/datum/element/clothing_adjustment/monitor_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/source, cache_index, mutable_appearance/overlay)
+/datum/element/clothing_adjustment/monitor_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index)
 	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY
 	if(cache_index != HEAD_LAYER || !istype(source))
 		return
@@ -58,6 +58,7 @@
 	if(!robohead?.is_monitor)
 		return
 
+	var/mutable_appearance/overlay = source.overlays_standing[cache_index]
 	overlay.pixel_x = pixel_x
 	overlay.pixel_y = pixel_y
 
@@ -66,30 +67,27 @@
 /datum/element/clothing_adjustment/skulk_headgear
 	var/alist/directions
 
-/datum/element/clothing_adjustment/skulk_headgear/Attach(datum/target, alist/directions)
-	if(!istype(directions))
+/datum/element/clothing_adjustment/skulk_headgear/Attach(datum/target, alist/directions_)
+	if(!istype(directions_))
 		return ELEMENT_INCOMPATIBLE
 
 	. = ..()
 
-	directions = directions
-
-/datum/element/clothing_adjustment/skulk_headgear/proc/update_overlay(mob/living/carbon/human/target, face_dir = null)
-	if(!face_dir)
-		face_dir = target.dir
-
-	var/mutable_appearance/overlay = target.overlays_standing[HEAD_LAYER]
-	overlay.pixel_x = directions[face_dir][0]
-	overlay.pixel_y = directions[face_dir][1]
+	directions = directions_
 
 /datum/element/clothing_adjustment/skulk_headgear/on_item_equipped(datum/source, mob/target)
 	RegisterSignal(target, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(on_carbon_apply_overlay), override = TRUE)
-	RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_atom_dir_change), override = TRUE)
 
 /datum/element/clothing_adjustment/skulk_headgear/on_item_dropped(datum/source, mob/target)
-	UnregisterSignal(target, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_ATOM_DIR_CHANGE))
+	UnregisterSignal(target, list(COMSIG_CARBON_APPLY_OVERLAY))
 
-/datum/element/clothing_adjustment/skulk_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index, mutable_appearance/overlay)
+	var/mob/living/carbon/human/human = target
+	if(!istype(human))
+		return
+
+	human.update_inv_head()
+
+/datum/element/clothing_adjustment/skulk_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index)
 	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY
 	if(cache_index != HEAD_LAYER || !istype(source))
 		return
@@ -101,11 +99,12 @@
 	if(!istype(species, /datum/species/skulk))
 		return
 
-	update_overlay(source)
+	var/icon/I = new()
+	var/image/overlay = source.overlays_standing[cache_index]
+	for(var/dir in GLOB.cardinal)
+		var/icon/dir_image = icon(overlay.icon, overlay.icon_state)
+		dir_image.Shift(NORTH, directions[dir][1])
+		dir_image.Shift(WEST, directions[dir][2])
+		I.Insert(dir_image, dir = dir)
 
-/datum/element/clothing_adjustment/skulk_headgear/proc/on_atom_dir_change(mob/living/carbon/human/source, old_dir, new_dir)
-	SIGNAL_HANDLER // COMSIG_ATOM_DIR_CHANGE
-	if(old_dir == new_dir)
-		return
-
-	update_overlay(source, new_dir)
+	source.overlays_standing[cache_index] = I
