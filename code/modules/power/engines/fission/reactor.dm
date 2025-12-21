@@ -15,7 +15,7 @@
 
 #define EVENT_MODIFIER 0.5 // multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
+#define HEAT_MODIFIER 450 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 50 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
@@ -640,11 +640,11 @@
 	//Generating  the amount of Plasma created
 	var/datum/gas_mixture/temp_gas = new()
 	// Math equasion for here: y = a + b * ln(x)
-	var/gas_offset = 0.5 // The offset for the math calc. Gives a flat number boost. (A) component
+	var/gas_offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
 	var/gas_curve_intensity = 1.6 // Affects the rate of decay. higher = reactivity builds easier. (B) component
-	var/power_component = max((final_power / 10 MW), 0.01) // (X) Component
+	var/power_component = max((final_power / (5 MW)), 0.01) // (X) Component
 	var/h2_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
-	temp_gas.set_hydrogen(clamp(h2_amount * reactivity_multiplier, 1, 100))
+	temp_gas.set_hydrogen(clamp(h2_amount * reactivity_multiplier, 0.2, 100))
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
 
