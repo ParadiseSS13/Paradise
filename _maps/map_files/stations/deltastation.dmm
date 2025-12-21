@@ -93352,7 +93352,7 @@
 "wqU" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4;
-	name = "Output to Waste"
+	name = "Output to Scrubbers"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

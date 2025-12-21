@@ -64889,12 +64889,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "nrS" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Output to Waste"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Output to Scrubbers"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

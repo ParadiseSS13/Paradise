@@ -1200,9 +1200,11 @@
 		. += display_overlay
 	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
 		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
-			state_overlay.icon_state = "overload_idle"
+			state_overlay.icon_state = "orange"
+		else
+			state_overlay.icon_state = "red"
 	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
-		state_overlay.icon_state = "overload_active"
+		state_overlay.icon_state = "overload"
 	. += state_overlay
 
 	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
@@ -1336,6 +1338,9 @@
 
 /obj/machinery/atmospherics/reactor_chamber/welder_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
+		if(chamber_state == CHAMBER_OVERLOAD_IDLE || chamber_state == CHAMBER_OVERLOAD_ACTIVE)
+			to_chat(user, SPAN_WARNING("You probably shouldnt try to weld it right now."))
+			return ITEM_INTERACT_COMPLETE
 		if(chamber_state != CHAMBER_DOWN)
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, SPAN_WARNING("You begin [welded ? "welding" : "unwelding"] [src]"))
@@ -1517,6 +1522,8 @@
 	if(chamber_state == CHAMBER_DOWN)
 		chamber_state = CHAMBER_OVERLOAD_IDLE
 		icon_state = "chamber_overload"
+	if(welded)
+		welded = FALSE
 	operational = FALSE
 	enriching = FALSE
 	requirements_met = FALSE
