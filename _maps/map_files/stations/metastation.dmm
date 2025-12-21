@@ -240,12 +240,8 @@
 /obj/machinery/computer/prisoner{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	id = "Secure Gate";
-	name = "Security Departmental Lockdown Button";
-	pixel_x = -26;
-	pixel_y = 7;
-	req_access = list(2)
+/obj/item/radio/intercom/department/security{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
@@ -2030,7 +2026,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "perma_dorms"
+	id = "prison_dorms"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
@@ -25612,7 +25608,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "perma_dorms"
+	id = "prison_dorms"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
@@ -35167,6 +35163,13 @@
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 24
+	},
+/obj/machinery/button/windowtint{
+	dir = 8;
+	id = "HoS";
+	pixel_x = 24;
+	pixel_y = -8;
+	req_access = list(58)
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
@@ -58639,9 +58642,6 @@
 /obj/machinery/computer/brigcells{
 	dir = 4
 	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = -28
-	},
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
@@ -62529,7 +62529,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "perma_dorms"
+	id = "prison_dorms"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
@@ -79968,7 +79968,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/door_control{
-	id = "detective_offce";
+	id = "detective_office";
 	name = "Detective Office Privacy Shutter Control";
 	req_access = list(4);
 	pixel_y = 24;
