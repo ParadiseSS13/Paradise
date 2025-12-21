@@ -109,7 +109,6 @@
 /obj/item/clothing/head/hardhat/atmos/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/hardhat/durathread
 	name = "durathread hard hat"

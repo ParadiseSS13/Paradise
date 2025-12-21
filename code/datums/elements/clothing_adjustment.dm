@@ -108,3 +108,7 @@
 		I.Insert(dir_image, dir = dir)
 
 	source.overlays_standing[cache_index] = I
+
+/obj/item/clothing/head/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(-1, 0), NORTH = list(-1, 0), EAST = list(0, -2), WEST = list(0, 2)))

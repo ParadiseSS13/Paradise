@@ -13,7 +13,6 @@
 /obj/item/clothing/head/collectable/petehat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/slime
 	name = "collectable slime cap!"
@@ -36,7 +35,6 @@
 /obj/item/clothing/head/collectable/chef/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/paper
 	name = "collectable paper hat"
@@ -47,7 +45,6 @@
 /obj/item/clothing/head/collectable/paper/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/tophat
 	name = "collectable top hat"
@@ -59,7 +56,6 @@
 /obj/item/clothing/head/collectable/tophat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"
@@ -71,7 +67,6 @@
 /obj/item/clothing/head/collectable/captain/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/police
 	name = "collectable police officer's hat"
@@ -138,7 +133,6 @@
 /obj/item/clothing/head/collectable/wizard/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/hardhat
 	name = "collectable hard hat"
@@ -155,7 +149,6 @@
 /obj/item/clothing/head/collectable/hos/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/hop
 	name = "collectable HoP hat"
@@ -166,7 +159,6 @@
 /obj/item/clothing/head/collectable/hop/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/collectable/thunderdome
 	name = "collectable Thunderdome helmet"

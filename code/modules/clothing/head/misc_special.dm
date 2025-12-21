@@ -67,7 +67,6 @@
 /obj/item/clothing/head/cakehat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 3)
-	AddElement(/datum/element/clothing_adjustment/skulk_headgear, alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(-2, 0), WEST = list(2, 0)))
 
 /obj/item/clothing/head/cakehat/process()
 	if(!onfire)
