@@ -1497,10 +1497,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!canon_client)
 		return
 
-	/// Appears unused
-	// for(var/datum/callback/CB as anything in persistent_client.post_logout_callbacks)
-	// 	CB.Invoke()
-
 	if(canon_client?.movingmob)
 		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
 		canon_client.movingmob = null

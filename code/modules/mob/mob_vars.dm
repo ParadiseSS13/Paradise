@@ -13,8 +13,6 @@
 	/// We need to do this because the mob on logout never actually has a reference to client
 	/// We also need to clear this var/do other cleanup in client/Destroy, since that happens before logout
 	var/client/canon_client
-	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
-	var/datum/persistent_client/persistent_client
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	rad_insulation_beta = RAD_MOB_INSULATION
 	rad_insulation_gamma = RAD_MOB_INSULATION
