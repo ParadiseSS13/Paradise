@@ -695,17 +695,9 @@
 	name = "\improper SolGov winter coat"
 	icon_state = "wintercoat_solgov"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/solgov
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 
 /obj/item/clothing/head/hooded/winterhood/solgov
 	icon_state = "winterhood_solgov"
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
 
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
