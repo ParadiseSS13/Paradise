@@ -176,6 +176,8 @@
 	durability = 5000
 	beta_rad = 100
 	gamma_rad = 100
+	power_enrich_threshold = 7
+	power_enrich_result = /obj/item/nuclear_rod/fuel/uranium_235
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
@@ -191,6 +193,8 @@
 	power_amp_mod = 1.1
 	max_durability = 3500
 	gamma_rad = 100
+	heat_enrich_threshold = 12
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/uranium_235
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
@@ -247,6 +251,8 @@
 	power_amp_mod = 1.6
 	max_durability = 5000
 	beta_rad = 250
+	power_enrich_threshold = 17
+	power_enrich_result = /obj/item/nuclear_rod/fuel/americium
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
