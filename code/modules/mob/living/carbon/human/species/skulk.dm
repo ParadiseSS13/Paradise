@@ -27,7 +27,7 @@
 	species_traits = list()
 	inherent_traits = list(TRAIT_BRITTLE_BONES)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_BODY_MARKINGS | HAS_BACK_SPINES | HAS_ICON_SKIN_TONE | SHAVED | HAS_BODY_ACCESSORY
 	dietflags = DIET_OMNI
 	flesh_color = "#e3e2dd"

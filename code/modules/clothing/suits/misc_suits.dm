@@ -482,7 +482,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suits/coat.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/coat.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suits/coat.dmi'
 	)
 
 /obj/item/clothing/head/hooded/winterhood
@@ -1110,7 +1110,7 @@
 	actions_types = list(/datum/action/item_action/zipper)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suits/coat.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/coat.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/coat.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/coat.dmi'
