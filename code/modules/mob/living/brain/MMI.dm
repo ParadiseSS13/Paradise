@@ -5,6 +5,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	origin_tech = "biotech=2;programming=3;engineering=2"
+	new_attack_chain = TRUE
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
@@ -37,22 +38,22 @@
 	. = ..()
 	. += extended_desc
 
-/obj/item/mmi/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/organ/internal/brain/golem))
-		to_chat(user, SPAN_WARNING("You can't find a way to plug [O] into [src]."))
-		return
-	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
-		var/obj/item/organ/internal/brain/B = O
+/obj/item/mmi/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/organ/internal/brain) && !brainmob) // Time to stick a brain in it --NEO
+		if(istype(used, /obj/item/organ/internal/brain/golem))
+			to_chat(user, SPAN_WARNING("You can't find a way to plug [used] into [src]."))
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/organ/internal/brain/B = used
 		if(!B.brainmob)
 			to_chat(user, SPAN_WARNING("You aren't sure where this brain came from, but you're pretty sure it's a useless brain."))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(held_brain)
 			to_chat(user, SPAN_USERDANGER("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
-			CRASH("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
+			CRASH("[user] tried to stick a [used] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
 			if(!syndiemmi)
-				visible_message(SPAN_NOTICE("[user] sticks \a [O] into \the [src]."))
+				visible_message(SPAN_NOTICE("[user] sticks \a [used] into \the [src]."))
 			brainmob = B.brainmob
 			B.brainmob = null
 			brainmob.container = src
@@ -67,49 +68,50 @@
 			GLOB.alive_mob_list += brainmob
 
 			held_brain = B
-			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
+			if(istype(used, /obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
 				name = "\improper [mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
-				alien = 1
+				alien = TRUE
 			else
 				name = "\improper [mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
-				alien = 0
+				alien = FALSE
 
 			if(radio_action)
 				radio_action.build_all_button_icons()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, SPAN_WARNING("You can't drop [B]!"))
-
-		return
-
-	if(istype(O, /obj/item/mmi_radio_upgrade))
+	if(istype(used, /obj/item/mmi_radio_upgrade))
 		if(radio)
 			to_chat(user, SPAN_WARNING("[src] already has a radio installed."))
-		else
-			user.visible_message(SPAN_NOTICE("[user] begins to install [O] into [src]..."), \
-				SPAN_NOTICE("You start to install [O] into [src]..."))
-			if(do_after(user, 20, target=src))
-				if(user.drop_item())
-					user.visible_message(SPAN_NOTICE("[user] installs [O] in [src]."), \
-						SPAN_NOTICE("You install [O] in [src]."))
-					if(brainmob)
-						to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
+			return ITEM_INTERACT_COMPLETE
+		user.visible_message(SPAN_NOTICE("[user] begins to install [used] into [src]..."), \
+			SPAN_NOTICE("You start to install [used] into [src]..."))
+		if(do_after(user, 2 SECONDS, target=src))
+			if(user.drop_item())
+				user.visible_message(SPAN_NOTICE("[user] installs [used] in [src]."), \
+					SPAN_NOTICE("You install [used] in [src]."))
+				if(brainmob)
+					to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
 					install_radio()
-					qdel(O)
-				else
-					to_chat(user, SPAN_WARNING("You can't drop [O]!"))
-		return
-
-	// Maybe later add encryption key support, but that's a pain in the neck atm
-
-	return ..()
+					qdel(used)
+					return ITEM_INTERACT_COMPLETE
+			else
+				to_chat(user, SPAN_WARNING("You can't drop [used]!"))
+	if(istype(used, /obj/item/stack/nanopaste)) // MMIs can get EMP damaged too so this isn't just for robobrains
+		if(!brainmob)
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/nanopaste/nano = used
+		if(nano.use(1))
+			brainmob.rejuvenate()
+			to_chat(user, SPAN_NOTICE("You repair the damage on [src]."))
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
@@ -123,17 +125,17 @@
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message(SPAN_WARNING("[user] uninstalls the radio from [src]."), \
 						SPAN_NOTICE("You uninstall the radio from [src]."))
+	return TRUE
 
 
-/obj/item/mmi/attack_self__legacy__attackchain(mob/user as mob)
-	if(!brainmob)
-		to_chat(user, SPAN_WARNING("You upend the MMI, but there's nothing in it."))
-	else
-		to_chat(user, SPAN_NOTICE("You unlock and upend the MMI, spilling the brain onto the floor."))
-		dropbrain(get_turf(user))
-		icon = 'icons/obj/assemblies.dmi'
-		icon_state = "mmi_empty"
-		name = initial(name)
+/obj/item/mmi/activate_self(mob/user)
+	if(..() || !brainmob || !held_brain)
+		return
+	to_chat(user, SPAN_NOTICE("You unlock and upend the MMI, spilling the brain onto the floor."))
+	dropbrain(get_turf(user))
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "mmi_empty"
+	name = initial(name)
 
 /obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
@@ -310,13 +312,13 @@
 		Just like the mindslave implant, these are extremely illegal in most regions of space. Simple possession (to say nothing of actual use) generally warrants a very long prison sentence. \
 		The manufacturer of these devices remains unknown, though independent observers have noted similarities in the design to contemporary Cybersun electronics. The company, naturally, denies all such associations."
 
-/obj/item/mmi/syndie/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
+/obj/item/mmi/syndie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!master_uid && ishuman(user) && user.mind && istype(used, /obj/item/organ/internal/brain))
 		to_chat(user, SPAN_NOTICE("You press your thumb on [src] and imprint your user information."))
 		master_uid = user.mind.UID()
 		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
-			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
-	..()
+			message_admins("[user] has mindslaved [used] using a Syndicate MMI, but they are not a traitor!")
+	return ..()
 
 /obj/item/mmi/syndie/become_occupied(new_icon)
 	..()

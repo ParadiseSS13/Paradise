@@ -23,6 +23,7 @@
 	var/starts_with_tape = TRUE
 	/// Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
+	new_attack_chain = TRUE
 
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
@@ -58,14 +59,15 @@
 	else
 		soundloop.start()
 
-/obj/item/taperecorder/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(!mytape && istype(I, /obj/item/tape))
+/obj/item/taperecorder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!mytape && istype(used, /obj/item/tape))
 		if(user.drop_item())
-			I.forceMove(src)
-			mytape = I
-			to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
+			used.forceMove(src)
+			mytape = used
+			to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 			update_icon(UPDATE_ICON_STATE)
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	mytape?.ruin() //Fires destroy the tape
@@ -105,7 +107,10 @@
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
 
-/obj/item/taperecorder/attack_self__legacy__attackchain(mob/user)
+/obj/item/taperecorder/activate_self(mob/user)
+	if(..())
+		return
+
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -280,6 +285,7 @@
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
 	var/ruined = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/tape/examine(mob/user)
 	. = ..()
@@ -301,7 +307,10 @@
 	..()
 	ruin()
 
-/obj/item/tape/attack_self__legacy__attackchain(mob/user)
+/obj/item/tape/activate_self(mob/user)
+	if(..())
+		return
+
 	if(!ruined)
 		ruin(user)
 
@@ -334,9 +343,10 @@
 	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(is_pen(I))
-		rename_interactive(user, I)
+/obj/item/tape/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

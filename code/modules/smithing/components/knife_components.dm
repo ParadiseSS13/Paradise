@@ -37,13 +37,13 @@
 	finished_product = /obj/item/kitchen/knife/smithed/utility
 
 /obj/item/smithed_item/component/knife_handle/throwing
-	name = "throwing knife blade"
+	name = "throwing knife handle"
 	desc = "Lightweight smithed component part of a knife. There is a small ring on the end of the handle."
 	materials = list(MAT_METAL = 3000, MAT_TITANIUM = 3000)
 	finished_product = /obj/item/kitchen/knife/smithed/thrown
 
 /obj/item/smithed_item/component/knife_handle/combat
-	name = "combat knife blade"
+	name = "combat knife handle"
 	desc = "Heavyweight smithed component part of a knife. The handle is thick and rugged."
 	materials = list(MAT_TITANIUM = 3000, MAT_PLASMA = 3000)
 	finished_product = /obj/item/kitchen/knife/smithed/combat

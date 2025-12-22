@@ -12000,10 +12000,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
-"PA" = (
-/obj/effect/landmark/shuttle_import,
-/turf/space,
-/area/space/centcomm)
 "PB" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/havana_cigar,
@@ -26587,7 +26583,7 @@ aN
 aN
 aN
 aN
-PA
+aN
 aN
 aN
 aN
