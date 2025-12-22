@@ -232,10 +232,10 @@
 /datum/supply_packs/engineering/nuclear_moderator_rods
 	name = "Forged Nuclear Moderator crate"
 	contains = list(
-		/obj/item/nuclear_rod/coolant/steam_hammerjet,
-		/obj/item/nuclear_rod/coolant/steam_hammerjet,
-		/obj/item/nuclear_rod/coolant/molten_salt,
-		/obj/item/nuclear_rod/coolant/molten_salt
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector
 	)
 	cost = 600
 	containername = "Forged Nuclear Moderator crate"
@@ -243,10 +243,10 @@
 /datum/supply_packs/engineering/nuclear_coolant_rods
 	name = "Forged Nuclear Coolant crate"
 	contains = list(
-		/obj/item/nuclear_rod/moderator/aluminum_reflector,
-		/obj/item/nuclear_rod/moderator/aluminum_reflector,
-		/obj/item/nuclear_rod/moderator/plasma_agitator,
-		/obj/item/nuclear_rod/moderator/plasma_agitator
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+		/obj/item/nuclear_rod/coolant/molten_salt
 	)
 	cost = 600
 	containername = "Forged Nuclear Coolant crate"

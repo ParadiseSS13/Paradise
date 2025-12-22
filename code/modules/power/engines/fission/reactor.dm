@@ -593,7 +593,7 @@
 				power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
 				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
-				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.power_mod_total * operating_rate))
+				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.heat_mod_total * operating_rate))
 					if(!chamber.enriching) // so we arnt constantly updating our overlay
 						chamber.enriching = TRUE
 						chamber.update_icon(UPDATE_OVERLAYS)
