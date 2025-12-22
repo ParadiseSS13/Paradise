@@ -46,7 +46,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
+	var/damage_msg = SPAN_WARNING("You feel an intense pain")
 	var/broken_description
 
 	var/open = 0  // If the body part has an open incision from surgery. Can have values > 1.
@@ -63,6 +63,12 @@
 	var/splinted_count = 0 //Time when this organ was last splinted
 	///If this organ's max HP is reduced by the IPC magnetic joints implant
 	var/fragile = FALSE
+	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
+	var/augmented_skin_cover_level = 0
+
+// When the limb is not on a person, make sure it faces south so it's always visible.
+/obj/item/organ/external/setDir()
+	dir = SOUTH
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -71,7 +77,7 @@
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
-		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
+		to_chat(owner, SPAN_NOTICE("You can't feel your [name] anymore..."))
 		owner.update_body()
 		if(vital && !ignore_vital_death)
 			owner.death()
@@ -107,7 +113,7 @@
 	for(var/obj/item/I in embedded_objects)
 		embedded_names += "[I]"
 	if(length(embedded_names))
-		. += "<span class='warning'>You can see [english_list(embedded_names)] embedded.</span>"
+		. += SPAN_WARNING("You can see [english_list(embedded_names)] embedded.")
 
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
@@ -176,8 +182,8 @@
 		C.updatehealth()
 		C.UpdateDamageIcon()
 		user.visible_message(
-			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
-			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
+			SPAN_NOTICE("[user] has attached [C]'s [src] to the [amputation_point]."),
+			SPAN_NOTICE("You have attached [C]'s [src] to the [amputation_point]."))
 		return TRUE
 	return ..()
 
@@ -218,6 +224,8 @@
 	var/max_limb_damage = max_damage
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
+	if(owner && HAS_TRAIT(owner, TRAIT_FRAIL))
+		max_limb_damage /= 2
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -241,6 +249,8 @@
 	check_for_internal_bleeding(brute)
 	// See if we need to inflict severe burns
 	check_for_burn_wound(burn)
+	// See what happens to the skin covers.
+	check_skin_covers(brute, burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
@@ -258,7 +268,7 @@
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
-		owner.visible_message("<span class='danger'>The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!</span>","<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.visible_message(SPAN_DANGER("The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!"),SPAN_USERDANGER("The splint on your [name] unravels!"))
 		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
@@ -311,9 +321,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(limb_brute + limb_burn >= max_damage && prob(original_brute / 2))
+			if(limb_brute + limb_burn >= max_limb_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(limb_brute + limb_burn >= max_damage && prob(original_burn / 2))
+			if(limb_brute + limb_burn >= max_limb_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -366,6 +376,9 @@
 			if(EMP_LIGHT)
 				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
+			if(EMP_RESIST_BODY)
+				// 1.9 burn damage, 20.9 damage with 11 limbs.
+				receive_damage(0, 1.9)
 			if(EMP_WEAKENED)
 				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
 				receive_damage(0, 2)
@@ -494,7 +507,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"Your [name] feels like it's burning from the inside out!",
 				"Your [name] seems to be turning a nasty color.",
 			)
-			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
+			to_chat(owner, SPAN_DANGER("[pick(messages)]"))
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		if(vital)
@@ -505,7 +518,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			)
 			// kill them fast, but don't drop them dead.
 			if(prob(5))
-				to_chat(owner, "<span class='userdanger'>[pick(messages)]</span>")
+				to_chat(owner, SPAN_USERDANGER("[pick(messages)]"))
 			owner.adjustToxLoss(5)
 		else
 			necrotize()
@@ -521,22 +534,43 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
-	if(GLOB.configuration.general.breakable_bones && brute_dam > min_broken_damage && !is_robotic())
-		if(prob(damage_inflicted))
+	var/frail_multiplier = 1
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
+	if(GLOB.configuration.general.breakable_bones && brute_dam > adjusted_broken_damage && !is_robotic())
+		if(prob(damage_inflicted * frail_multiplier))
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	var/frail_multiplier = 1
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > min_broken_damage && prob(damage))
+	if(damage > 15 && local_damage > adjusted_broken_damage && prob(damage * frail_multiplier))
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
+	var/frail_multiplier = 1
 	if(is_robotic())
 		return
-	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
+	if(burn_dam >= adjusted_broken_damage && prob(damage * frail_multiplier * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
 		cause_burn_wound(update_health)
+
+/obj/item/organ/external/proc/check_skin_covers(brute, burn)
+	if(!augmented_skin_cover_level || augmented_skin_cover_level == 4) // No need to run it if they don't have it, or if it is unbreakable.
+		return
+	if(((brute_dam >= min_broken_damage && brute) || (burn_dam >= min_broken_damage && burn)) && augmented_skin_cover_level == 1) // We want this at 50% for arms / feet which have low max hp, 35% for head / chest
+		break_augmented_skin()
+		return
+	if((brute_dam >= max_damage * (augmented_skin_cover_level / 3) && brute) || (burn_dam >= max_damage * (augmented_skin_cover_level / 3) && burn)) // 66% for level 2, 100% for level 3
+		break_augmented_skin()
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -571,9 +605,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		status &= ~ORGAN_SPLINTED // Oh no, we actually need surgery now!
 		owner.handle_splints()
 		if(!(status & ORGAN_BROKEN))
-			to_chat(owner, "<span class='notice'>Your splint harmlessly pops off your [name].</span>") // If we fixed our bones, a splint popping off shouldn't be painful and stun us.
+			to_chat(owner, SPAN_NOTICE("Your splint harmlessly pops off your [name].")) // If we fixed our bones, a splint popping off shouldn't be painful and stun us.
 			return
-		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!"),SPAN_USERDANGER("You scream in pain as your splint pops off your [name]!"))
 		owner.emote("scream")
 		owner.Weaken(4 SECONDS) // Better feedback compared to stun() - We won't be just standing there menancingly
 
@@ -599,22 +633,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(!clean)
 				var/gore_sound = "[is_robotic() ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
-					"<span class='danger'>\The [owner]'s [name] flies off in an arc!</span>",\
-					"<span class='moderate'><b>Your [name] goes flying off!</b></span>",\
-					"<span class='danger'>You hear a terrible sound of [gore_sound].</span>")
+					SPAN_DANGER("\The [owner]'s [name] flies off in an arc!"),\
+					SPAN_MODERATE("<b>Your [name] goes flying off!</b>"),\
+					SPAN_DANGER("You hear a terrible sound of [gore_sound]."))
 		if(DROPLIMB_BURN)
 			var/gore = "[is_robotic() ? "" : " of burning flesh"]"
 			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [name] flashes away into ashes!</span>",\
-				"<span class='moderate'><b>Your [name] flashes away into ashes!</b></span>",\
-				"<span class='danger'>You hear a crackling sound[gore].</span>")
+				SPAN_DANGER("\The [owner]'s [name] flashes away into ashes!"),\
+				SPAN_MODERATE("<b>Your [name] flashes away into ashes!</b>"),\
+				SPAN_DANGER("You hear a crackling sound[gore]."))
 		if(DROPLIMB_BLUNT)
 			var/gore = "[is_robotic() ? "": " in shower of gore"]"
 			var/gore_sound = "[is_robotic() ? "rending sound of tortured metal" : "sickening splatter of gore"]"
 			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [name] explodes[gore]!</span>",\
-				"<span class='moderate'><b>Your [name] explodes[gore]!</b></span>",\
-				"<span class='danger'>You hear the [gore_sound].</span>")
+				SPAN_DANGER("\The [owner]'s [name] explodes[gore]!"),\
+				SPAN_MODERATE("<b>Your [name] explodes[gore]!</b>"),\
+				SPAN_DANGER("You hear the [gore_sound]."))
 			disembowel(limb_name)
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
@@ -632,7 +666,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
-		dir = 2
+		dir = SOUTH
 
 	if(victim)
 		victim.updatehealth("droplimb")
@@ -650,7 +684,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				// Throw limb around.
 				if(src && isturf(loc))
 					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
-				dir = 2
+				dir = SOUTH
 			brute_dam = 0
 			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
 			return dropped_part
@@ -692,9 +726,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			something_else = TRUE
 
 	if(organ_spilled)
-		C.visible_message("<span class='danger'><b>[C]'s internal organs spill out onto the floor!</b></span>")
+		C.visible_message(SPAN_DANGER("<b>[C]'s internal organs spill out onto the floor!</b>"))
 	if(something_else)
-		C.visible_message("<span class='danger'>Some things fall out of [C]!</span>")
+		C.visible_message(SPAN_DANGER("Some things fall out of [C]!"))
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()
@@ -709,11 +743,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
+			to_chat(user, SPAN_WARNING("There is nothing left inside [src]!"))
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
-			"<span class='notice'>You begin to cut open [src]...</span>")
+		user.visible_message(SPAN_WARNING("[user] begins to cut open [src]."),\
+			SPAN_NOTICE("You begin to cut open [src]..."))
 		if(do_after(user, 5.4 SECONDS, target = src))
 			drop_organs(user)
 			drop_embedded_objects()
@@ -756,10 +790,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner && !silent)
 		owner.audible_message(
-			"<span class='warning'>You hear a sickening crack coming from \the [owner].</span>",
-			"<span class='danger'>[owner]'s [name] appears to buckle unnaturally!</span>"
+			SPAN_WARNING("You hear a sickening crack coming from \the [owner]."),
+			SPAN_DANGER("[owner]'s [name] appears to buckle unnaturally!")
 		)
-		to_chat(owner, "<span class='userdanger'>Something feels like it shattered in your [name]!</span>")
+		to_chat(owner, SPAN_USERDANGER("Something feels like it shattered in your [name]!"))
 		playsound(owner, "bonebreak", 150, 1)
 		if(owner.can_feel_pain())
 			owner.emote("scream")
@@ -814,6 +848,31 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(update_health)
 		owner.updatehealth("burn wound fixed")
 
+/obj/item/organ/external/proc/break_augmented_skin(intentional = FALSE)
+	augmented_skin_cover_level = 0
+	if(!owner)
+		return
+	playsound(owner.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	if(!intentional)
+		owner.visible_message(SPAN_WARNING("Synthetic skin shatters and flakes off [owner]'s [name]!"),
+		SPAN_USERDANGER("Your synthetic skin fails on your [name]!"))
+	else
+		owner.visible_message(SPAN_WARNING("[owner] tears their synthetic skin off their [name], exposing the cybernetics beneath!"),
+		SPAN_DANGER("You peel your synthetic skin off your cybernetics on your [name]."))
+	if(ishuman(owner))
+		var/mob/living/carbon/human/refreshing = owner
+		refreshing.update_int_organs()
+
+/obj/item/organ/external/proc/apply_augmented_skin(applied_level)
+	if(applied_level + is_robotic() <= augmented_skin_cover_level) // Don't do anything if the application matches or is below the current level.
+		return FALSE
+	augmented_skin_cover_level = (applied_level + is_robotic()) // Robotic limbs get an extra level of protection.
+	if(!owner || !ishuman(owner))
+		return TRUE
+	var/mob/living/carbon/human/refreshing = owner
+	refreshing.update_int_organs()
+	return TRUE
+
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
 	//robot limbs take reduced damage
@@ -821,6 +880,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		dismember_at_max_damage = TRUE
 	else
 		tough = TRUE
+	if(augmented_skin_cover_level)
+		apply_augmented_skin(augmented_skin_cover_level) // Raises it a level
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
@@ -920,9 +981,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged)
 		victim.visible_message(
-			"<span class='danger'>\The [victim]'s [name] explodes violently!</span>",\
-			"<span class='userdanger'>Your [name] explodes!</span>",\
-			"<span class='danger'>You hear an explosion!</span>")
+			SPAN_DANGER("\The [victim]'s [name] explodes violently!"),\
+			SPAN_USERDANGER("Your [name] explodes!"),\
+			SPAN_DANGER("You hear an explosion!"))
 		explosion(get_turf(victim), -1, -1, 2, 3, cause = "Sabotaged robotic limb")
 		do_sparks(5, 0, victim)
 		qdel(src)
@@ -931,9 +992,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(status & ORGAN_DISFIGURED)
 		return
 	if(owner)
-		owner.visible_message("<span class='warning'>\The [owner]'s [name] turns into a mangled mess!</span>",	\
-							"<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
-							"<span class='warning'>You hear a sickening sound.</span>")
+		owner.visible_message(SPAN_WARNING("\The [owner]'s [name] turns into a mangled mess!"),	\
+							SPAN_USERDANGER("Your [name] becomes a mangled mess!"),	\
+							SPAN_WARNING("You hear a sickening sound."))
 
 	status |= ORGAN_DISFIGURED
 

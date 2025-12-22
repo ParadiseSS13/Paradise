@@ -38,7 +38,7 @@
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
-		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [W] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
 	else if(is_pen(W))
 		rename_interactive(user, W)
@@ -97,8 +97,8 @@
 	name = "folder- 'TOP SECRET'"
 	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
 
-/obj/item/folder/documents/New()
-	..()
+/obj/item/folder/documents/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/nanotrasen(src)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -109,8 +109,8 @@
 /obj/item/folder/syndicate/red
 	icon_state = "folder_sred"
 
-/obj/item/folder/syndicate/red/New()
-	..()
+/obj/item/folder/syndicate/red/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/red(src)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -121,22 +121,20 @@
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
 
-/obj/item/folder/syndicate/blue/New()
-	..()
+/obj/item/folder/syndicate/blue/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/blue(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
 
-/obj/item/folder/syndicate/yellow/full/New()
-	..()
+/obj/item/folder/syndicate/yellow/full/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/folder/syndicate/mining/New()
+/obj/item/folder/syndicate/mining/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
 	update_icon(UPDATE_OVERLAYS)
-
-

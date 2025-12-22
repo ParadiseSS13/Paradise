@@ -104,6 +104,17 @@
 	var/mob/living/silicon/robot/R = usr
 	R.toggle_ionpulse()
 
+/atom/movable/screen/robot/pda
+	name = "internal PDA"
+	icon_state = "pda"
+	screen_loc = UI_BORG_PDA
+
+/atom/movable/screen/robot/pda/Click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/R = usr
+	R.open_pda()
+
 /atom/movable/screen/robot/mov_intent
 	name = "fast/slow toggle"
 	icon_state = "running"
@@ -203,6 +214,11 @@
 	static_inventory += using
 	mymobR.thruster_button = using
 
+// PDA
+	using = new /atom/movable/screen/robot/pda()
+	static_inventory += using
+	mymobR.pda_button = using
+
 /datum/hud/robot/Destroy()
 	var/mob/living/silicon/robot/myrob = mymob
 	myrob.hands = null
@@ -248,7 +264,7 @@
 		screenmob.client.screen += module_store_icon	//"store" icon
 
 		if(!R.module.modules)
-			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
+			to_chat(usr, SPAN_DANGER("Selected module has no modules to select."))
 			return
 
 		if(!robot_modules_background)

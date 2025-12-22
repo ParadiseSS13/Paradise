@@ -11,7 +11,7 @@
 
 /obj/item/grenade/clusterbuster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
+	. += SPAN_NOTICE("Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.")
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -213,7 +213,7 @@
 /obj/item/grenade/clusterbuster/crab
 	name = "\improper Crab Grenade"
 	desc = "Reserved for those pesky request."
-	payload = /mob/living/simple_animal/crab
+	payload = /mob/living/basic/crab
 
 /obj/item/grenade/clusterbuster/plasma
 	name = "\improper Plasma Cluster Grenade"

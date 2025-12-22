@@ -7,7 +7,6 @@
 	icon_state = "yellow"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.01
-	item_color = "yellow"
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/yellow/fake
@@ -20,7 +19,6 @@
 	icon_state = "yellow"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.01
-	item_color = "yellow"
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
@@ -40,7 +38,6 @@
 	desc = "A pair of black gloves made of fire-resistant fabric."
 	icon_state = "black"
 	inhand_icon_state = "bgloves"
-	item_color = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -66,7 +63,7 @@
 				to_chat(user, "You have moved too far away.")
 				return
 			if(confirm == "Yes")
-				to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
+				to_chat(user, SPAN_NOTICE("You snip the fingertips off of [src]."))
 				playsound(user.loc, W.usesound, rand(10,50), 1)
 				var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
 				if(pickpocket)
@@ -83,13 +80,11 @@
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
-	item_color = "orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
-	item_color = "red"
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
@@ -102,47 +97,39 @@
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
-	item_color = "rainbow"
 
 /obj/item/clothing/gloves/color/rainbow/clown
-	item_color = "clown"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
-	item_color = "blue"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
-	item_color = "purple"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
-	item_color = "green"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
-	icon_state = "gray" // <-----
+	icon_state = "gray"
 	inhand_icon_state = "bgloves"
-	item_color = "grey" // <-----
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
-	item_color = "light brown"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
-	item_color = "brown"
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -151,7 +138,6 @@
 	inhand_icon_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	item_color = "white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
 
@@ -160,14 +146,12 @@
 	desc = "A pair of high-quality sterile gloves made from thick nitrile material. "
 	icon_state = "nitrile"
 	transfer_prints = FALSE
-	item_color = "medical"
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "A pair of white silk gloves for individuals of class and discerning taste."
 	icon_state = "white"
 	inhand_icon_state = "lgloves"
-	item_color = "mime"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -179,7 +163,6 @@
 	name = "captain's gloves"
 	desc = "A pair of very expensive gloves made of reinforced blue & gold fabric. They're insulated against both electrical shocks and extreme temperatures."
 	icon_state = "captain"
-	item_color = "captain"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.01
 	cold_protection = HANDS

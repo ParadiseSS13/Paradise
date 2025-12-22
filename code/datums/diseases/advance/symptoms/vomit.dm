@@ -30,7 +30,18 @@ Bonus
 	chem_treatments = list(
 		"calomel" = list("multiplier" = 0, "timer" = 0),
 		"charcoal" = list("multiplier" = 0, "timer" = 0),
-		"pen_acid" = list("multiplier" = 0, "timer" = 0))
+		"pen_acid" = list("multiplier" = 0, "timer" = 0),
+		)
+	phys_treatments = list(
+		"sleep" = list("multiplier" = 0.2, "timer" = 0, "max_timer" = 2),
+		"sleep_linger" = list("multiplier" = 0.6, "timer" = 0, "max_timer" = VIRUS_MAX_PHYS_TREATMENT_TIMER * 7),
+		)
+
+/datum/symptom/vomit/Start(datum/disease/advance/A)
+	if(!iscarbon(A.affected_mob))
+		return
+	var/mob/living/carbon/target = A.affected_mob
+	RegisterSignal(target, COMSIG_MOB_SLEEP_TICK, PROC_REF(on_mob_sleep))
 
 /datum/symptom/vomit/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
@@ -39,13 +50,19 @@ Bonus
 	else
 		switch(A.progress)
 			if(0 to 59)
-				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+				to_chat(M, SPAN_WARNING("[pick("You feel nauseous.", "You feel like you're going to throw up!")]"))
 			if(60 to INFINITY)
-				to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
+				to_chat(M, SPAN_WARNING("[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]"))
 	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M, progress)
 	M.vomit(20 * (progress / 100))
+
+/datum/symptom/vomit/proc/on_mob_sleep(mob/source, comfort)
+	SIGNAL_HANDLER // COMSIG_MOB_SLEEP_TICK
+	if(comfort)
+		increase_phys_treatment_timer("sleep", 2)
+		increase_phys_treatment_timer("sleep_linger", 10 * comfort)
 
 /*
 //////////////////////////////////////

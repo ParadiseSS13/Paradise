@@ -284,3 +284,10 @@
 	cost = 500
 	containertype = /obj/structure/closet/crate
 	containername = "chemical flamethrower canister crate"
+
+/datum/supply_packs/engineering/canister/large_air_pump
+	name = "Large Air Pump"
+	contains = list(/obj/machinery/atmospherics/portable/pump/big)
+	cost = 400
+	containertype = /obj/structure/largecrate
+	containername = "Large Air Pump Crate"

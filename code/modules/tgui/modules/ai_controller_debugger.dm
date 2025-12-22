@@ -14,7 +14,7 @@
 	controller = controller_
 
 /datum/ui_module/ai_controller_debugger/ui_state(mob/user)
-	return GLOB.admin_state
+	return GLOB.always_state
 
 /datum/ui_module/ai_controller_debugger/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -49,11 +49,11 @@
 			"uid" = "[movement_target.UID()]",
 			"source" = "[controller.movement_target_source]",
 		)
-	if(LAZYLEN(controller.current_behaviors))
+	if(length(controller.current_behaviors))
 		for(var/datum/ai_behavior/behavior in controller.current_behaviors)
 			data["controller"]["current_behaviors"] += "[behavior.type]"
 
-	if(LAZYLEN(controller.planned_behaviors))
+	if(length(controller.planned_behaviors))
 		for(var/datum/ai_behavior/behavior in controller.planned_behaviors)
 			data["controller"]["planned_behaviors"] += "[behavior.type]"
 

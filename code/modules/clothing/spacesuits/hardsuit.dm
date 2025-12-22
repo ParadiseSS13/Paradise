@@ -2,15 +2,15 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	icon_state = null
+	base_icon_state = "engineering"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
-	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
+	var/basestate = "hardsuit"
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
-	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
 
 	var/scanning = TRUE
 	var/current_tick_amount = 0
@@ -46,7 +46,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "[basestate][on]-[item_color]"
+	icon_state = "[basestate][on]-[base_icon_state]"
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -61,7 +61,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
 	..()
@@ -87,7 +87,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
-		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
+		wearer.show_message("<b>[SPAN_ROBOT("[msg]")]</b>", 1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(atom/source, amount, emission_type)
 	current_tick_amount += amount
@@ -120,7 +120,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_geiger_counter()
 	scanning = !scanning
 	if(ishuman(loc))
-		to_chat(loc, "<span class='notice'>You toggle [src]'s internal geiger counter [scanning ? "on" : "off"].</span>")
+		to_chat(loc, SPAN_NOTICE("You toggle [src]'s internal geiger counter [scanning ? "on" : "off"]."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
@@ -177,16 +177,14 @@
 /obj/item/clothing/suit/space/hardsuit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		if(jetpack)
-			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
+			to_chat(user, SPAN_WARNING("[src] already has a jetpack installed."))
 			return
 		if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
+			to_chat(user, SPAN_WARNING("You cannot install the upgrade to [src] while wearing it."))
 			return
-
-		if(user.temperature_expose(I))
-			I.forceMove(src)
+		if(user.transfer_item_to(I, src))
 			jetpack = I
-			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You successfully install the jetpack into [src]."))
 			return
 	return ..()
 
@@ -195,15 +193,15 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!jetpack)
-		to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+		to_chat(user, SPAN_WARNING("[src] has no jetpack installed."))
 		return
 	if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT))
-		to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
+		to_chat(user, SPAN_WARNING("You cannot remove the jetpack from [src] while wearing it."))
 		return
 	jetpack.turn_off(user)
 	jetpack.forceMove(drop_location())
 	jetpack = null
-	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You successfully remove the jetpack from [src]."))
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
@@ -237,7 +235,7 @@
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
-	item_color = "syndi"
+	base_icon_state = "syndi"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 50, ACID = 450)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
@@ -246,7 +244,7 @@
 	visor_flags = STOPSPRESSUREDMAGE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "hardsuit[on]-[base_icon_state]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
@@ -259,11 +257,11 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self__legacy__attackchain(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot toggle your helmet while in this [user.loc]!</span>" )
+		to_chat(user, SPAN_WARNING("You cannot toggle your helmet while in this [user.loc]!") )
 		return
 	on = !on
 	if(on)
-		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
+		to_chat(user, SPAN_NOTICE("You switch your hardsuit to EVA mode, sacrificing speed for space protection."))
 		name = initial(name)
 		desc = initial(desc)
 		set_light(brightness_on)
@@ -272,7 +270,7 @@
 		flags_inv |= visor_flags_inv
 		cold_protection |= HEAD
 	else
-		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
+		to_chat(user, SPAN_NOTICE("You switch your hardsuit to combat mode and can now run at full speed."))
 		name += " (combat)"
 		desc = alt_desc
 		set_light(0)
@@ -316,7 +314,7 @@
 	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	inhand_icon_state = "syndie_hardsuit"
-	item_color = "syndi"
+	base_icon_state = "syndi"
 	origin_tech = "engineering=6;syndicate=4"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = TRUE
@@ -327,14 +325,14 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "hardsuit[on]-[base_icon_state]"
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	base_icon_state = "syndielite"
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -343,7 +341,7 @@
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	base_icon_state = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -354,13 +352,13 @@
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 35, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
-	item_color = "sst"
+	base_icon_state = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 40, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
-	item_color = "sst"
+	base_icon_state = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst/Initialize(mapload)
@@ -382,6 +380,7 @@
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
@@ -392,7 +391,7 @@
 	name = "\improper Soviet hardsuit helmet"
 	desc = "A military hardsuit helmet bearing the red star of the U.S.S.P."
 	icon_state = "hardsuit0-soviet"
-	item_color = "soviet"
+	base_icon_state = "soviet"
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
 
 /obj/item/clothing/suit/space/hardsuit/soviet
@@ -410,7 +409,7 @@
 	name = "\improper Soviet command hardsuit helmet"
 	desc = "A military hardsuit helmet with a red command stripe."
 	icon_state = "hardsuit0-soviet-commander"
-	item_color = "soviet-commander"
+	base_icon_state = "soviet-commander"
 
 /obj/item/clothing/suit/space/hardsuit/soviet/commander
 	name = "\improper Soviet command hardsuit"
@@ -423,7 +422,7 @@
 	name = "singuloth knight's helmet"
 	desc = "This is an adamantium helmet from the chapter of the Singuloth Knights. It shines with a holy aura."
 	icon_state = "hardsuit0-singuloth"
-	item_color = "singuloth"
+	base_icon_state = "singuloth"
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null

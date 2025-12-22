@@ -1467,6 +1467,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
 	category = list("IPC Upgrades")
 
+/datum/design/mistral_implant
+	name = "Electromagnetic Shielding Implant"
+	desc = "This implant improves the conductivity of the IPC frame, providing partial protection against EMPs."
+	id = "ci-mistral_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "engineering" = 5, "combat" = 5)
+	build_type = MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield
+	category = list("IPC Upgrades")
+
 /datum/design/flayer_pacification
 	name = "Mindflayer Pacification Implant"
 	desc = "This implant acts on mindflayer swarms like smoke to bees, making them much more docile."
@@ -1476,6 +1487,17 @@
 	construction_time = 6 SECONDS
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_GOLD = 3000, MAT_PLASMA = 10000)
 	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
+	category = list("IPC Upgrades")
+
+/datum/design/culinary_processing_implant
+	name = "Culinary Processing Implant"
+	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
+	id = "ci-culinary_implant"
+	req_tech = list("materials" = 3, "powerstorage" = 4, "biotech" = 3)
+	build_type = MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_food
 	category = list("IPC Upgrades")
 
 // Misc

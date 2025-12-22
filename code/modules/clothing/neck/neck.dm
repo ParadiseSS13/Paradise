@@ -6,27 +6,23 @@
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
 	icon_state = "bluetie"
-	item_color = "bluetie"
 
 /obj/item/clothing/neck/tie/red
 	name = "red tie"
 	icon_state = "redtie"
-	item_color = "redtie"
 
 /obj/item/clothing/neck/tie/black
 	name = "black tie"
 	icon_state = "blacktie"
-	item_color = "blacktie"
 
 /obj/item/clothing/neck/tie/horrible
 	name = "horrible tie"
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
-	item_color = "horribletie"
 
 /obj/item/clothing/neck/tie/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to adjust if it is worn under or over your suit.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to adjust if it is worn under or over your suit.")
 
 /obj/item/clothing/neck/tie/AltClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
@@ -35,13 +31,12 @@
 	under_suit = !under_suit
 	if(user.neck == src)
 		user.update_inv_neck()
-	to_chat(user, "<span class='notice'>You adjust [src] to be worn [under_suit ? "under" : "over"] your suit.</span>")
+	to_chat(user, SPAN_NOTICE("You adjust [src] to be worn [under_suit ? "under" : "over"] your suit."))
 
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus, used to get a rough idea of the condition of the heart and lungs. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
-	item_color = "stethoscope"
 
 /obj/item/clothing/neck/stethoscope/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!ishuman(M) || !isliving(user))
@@ -54,13 +49,13 @@
 	var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
 	var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lung_datum || !heart_datum)
-		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		to_chat(user, SPAN_WARNING("You don't hear anything."))
 		return
 
 	var/obj/item/organ/internal/H = heart_datum.linked_organ
 	var/obj/item/organ/internal/L = lung_datum.linked_organ
 	if(!M.pulse || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
-		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		to_chat(user, SPAN_WARNING("You don't hear anything."))
 		return
 
 	var/color = "notice"
@@ -93,3 +88,25 @@
 				lung_sound = "gurgling"
 				color = "warning"
 		to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+
+/obj/item/clothing/neck/neckerchief
+	name = "white neckerchief"
+	desc = "A neatly tied neckerchief for the service professional."
+	icon_state = "neckerchief_white"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi'
+	)
+
+/obj/item/clothing/neck/neckerchief/black
+	name = "black neckerchief"
+	icon_state = "neckerchief_black"
+
+/obj/item/clothing/neck/neckerchief/green
+	name = "green neckerchief"
+	icon_state = "neckerchief_green"
+
+/obj/item/clothing/neck/neckerchief/red
+	name = "red neckerchief"
+	icon_state = "neckerchief_red"

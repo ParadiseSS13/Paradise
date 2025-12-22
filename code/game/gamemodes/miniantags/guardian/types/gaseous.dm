@@ -12,14 +12,16 @@
 	var/moles_of_gas = null
 	///Linda flag for the expelled gas because we need to use special flags for it that are not readable in game well.
 	var/linda_flags = null
-	/// Possible gases to expel, with how much moles they create.
+	/// Possible gases to expel, with how many moles they create.
 	var/static/list/possible_gases = list(
 		"Oxygen" = 50,
 		"Nitrogen" = 750, //overpressurizing is hard!.
 		"N2O" = 15,
 		"CO2" = 50,
 		"Plasma" = 5,
-		"Agent B" = 5
+		"Agent B" = 5,
+		"Hydrogen" = 15,
+		"Water Vapor" = 5
 	)
 
 /mob/living/simple_animal/hostile/guardian/gaseous/Initialize(mapload, mob/living/host)
@@ -46,11 +48,11 @@
 	var/picked_gas = tgui_input_list(src, "Select a gas to expel.", "Gas Producer", possible_gases)
 	if(!picked_gas)
 		moles_of_gas = null
-		to_chat(src, "<span class='notice'>You stopped expelling gas.</span>")
+		to_chat(src, SPAN_NOTICE("You stopped expelling gas."))
 		return
 	if(!picked_gas)
 		return
-	to_chat(src, "<span class='bolddanger'>You are now expelling [picked_gas].</span>")
+	to_chat(src, SPAN_BOLDDANGER("You are now expelling [picked_gas]."))
 	investigate_log("set their gas type to [picked_gas].", INVESTIGATE_ATMOS)
 	moles_of_gas = possible_gases[picked_gas]
 	switch(picked_gas)
@@ -66,6 +68,10 @@
 			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
 		if("Agent B")
 			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
+		if("Hydrogen")
+			linda_flags = LINDA_SPAWN_HYDROGEN | LINDA_SPAWN_20C
+		if("Water Vapor")
+			linda_flags = LINDA_SPAWN_WATER_VAPOR | LINDA_SPAWN_20C
 
 /mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(flow_x, flow_y)
 	return // Immune to gas flow.

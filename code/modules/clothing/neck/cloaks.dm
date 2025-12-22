@@ -109,3 +109,15 @@
 	name = "research director's mantle"
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
 	icon_state = "rdmantle"
+
+/obj/item/clothing/neck/cloak/tallit
+	name = "tallit"
+	desc = "A Jewish prayer shawl."
+	icon_state = "tallit"
+
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi'
+	)

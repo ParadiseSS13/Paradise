@@ -26,7 +26,7 @@
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The blade looks very well-suited for piercing armour.</span>"
+	. += SPAN_NOTICE("The blade looks very well-suited for piercing armour.")
 
 /obj/item/melee/saber/examine_more(mob/user)
 	. = ..()
@@ -49,12 +49,12 @@
 		return
 	var/mob/living/carbon/human/H = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
-							"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] accidentally slaps [user.p_themselves()] with [src]!"), \
+							SPAN_USERDANGER("You accidentally slap yourself with [src]!"))
 		slap(user, user)
 	else
-		user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+		user.visible_message(SPAN_DANGER("[user] slaps [H] with the flat of the blade!"), \
+							SPAN_USERDANGER("You slap [H] with the flat of the blade!"))
 		slap(target, user)
 
 /obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
@@ -66,9 +66,285 @@
 	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
 /obj/item/melee/saber/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	user.visible_message(pick(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
+						SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS
+
+
+// MARK: BONE SWORD
+/obj/item/melee/bone_sword
+	name = "bone sword"
+	desc = "A curved blade made of sharpened bone and bound with sinew."
+	icon_state = "bone_sword"
+	force = 18
+	throwforce = 14
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	attack_verb = list("slashed", "sliced", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/melee/bone_sword/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 4, _stamina_coefficient = 0.6, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+#define SECSWORD_OFF 0
+#define SECSWORD_STUN 1
+#define SECSWORD_BURN 2
+
+// MARK: SECURIBLADE
+/obj/item/melee/secsword
+	name = "securiblade"
+	desc = "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
+	base_icon_state = "secsword0"
+	flags = CONDUCT
+	force = 15
+	throwforce = 5
+	w_class = WEIGHT_CLASS_BULKY
+	origin_tech = "combat=4"
+	attack_verb = list("stabbed", "slashed", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 1000)
+	new_attack_chain = TRUE
+	/// The icon the sword has when turned off
+	var/base_icon = "secsword"
+	/// How much stamina damage the sword does in stamina mode
+	var/stam_damage = 35 // 3 hits to stamcrit
+	/// How much burn damage the sword does in burn mode
+	var/burn_damage = 10
+	/// How much power does it cost to stun someone
+	var/stam_hitcost = 1000
+	/// How much power does it cost to burn someone
+	var/burn_hitcost = 1500
+	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
+	var/cooldown = 3.5 SECONDS
+	/// The sword's power cell - starts high
+	var/obj/item/stock_parts/cell/high/cell
+	/// The sword's current mode. Defaults to off.
+	var/state = SECSWORD_OFF
+	/// Stun cooldown
+	COOLDOWN_DECLARE(stun_cooldown)
+
+/obj/item/melee/secsword/Initialize(mapload)
+	. = ..()
+	cell = new(src)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/melee/secsword/Destroy()
+	QDEL_NULL(cell)
+	return ..()
+
+/obj/item/melee/secsword/examine(mob/user)
+	. = ..()
+	if(!cell)
+		. += SPAN_NOTICE("The powercell has been removed!")
+		return
+	. += SPAN_NOTICE("It is [round(cell.percent())]% charged.")
+	if(round(cell.percent() < 100))
+		. += SPAN_NOTICE("Can be recharged with a recharger.")
+
+/obj/item/melee/secsword/examine_more(mob/user)
+	. = ..()
+	. += "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
+	. += ""
+	. += "The Securiblade is a simple blade of lightweight silver plasteel, augmented with an energy-emitting edge and with a simple \
+	power pack built into the hilt. A multi-purpose option for the NT Officer with a flair for impracticality, the \
+	Securiblade serves just as well as a regular sword, as it does a stun weapon or even an energized, heated blade."
+	. += ""
+	. += "While not the most popular option among the officers of Nanotrasen’s security forces, the Securiblade has still been valued for the multiple options it \
+	presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, heated blade \
+	that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it. Rest assured, the Securiblade is a reliable tool in the hands of a skilled officer."
+
+/obj/item/melee/secsword/update_icon_state()
+	if(!cell)
+		icon_state = "[base_icon]3"
+	else
+		icon_state = "[base_icon][state]"
+
+/obj/item/melee/secsword/emp_act(severity)
+	if(!cell)
+		return
+	cell.use(round(cell.charge / severity))
+	update_icon()
+
+/obj/item/melee/secsword/get_cell()
+	return cell
+
+/obj/item/melee/secsword/proc/clear_cell()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = null
+	update_icon()
+
+/obj/item/melee/secsword/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/stock_parts/cell/C = used
+	if(cell)
+		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+		return ITEM_INTERACT_COMPLETE
+	if(C.maxcharge < stam_hitcost)
+		to_chat(user, SPAN_WARNING("[src] requires a higher capacity cell!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!user.unequip(used))
+		return ITEM_INTERACT_COMPLETE
+	used.forceMove(src)
+	cell = used
+	to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
+	update_icon()
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, SPAN_WARNING("There's no cell installed!"))
+		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+
+	user.put_in_hands(cell)
+	to_chat(user, SPAN_NOTICE("You remove [cell] from [src]."))
+	cell.update_icon()
+	clear_cell()
+
+/obj/item/melee/secsword/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+	if(!cell)
+		to_chat(user, SPAN_WARNING("[src] does not have a power source!"))
+		return FINISH_ATTACK
+
+	add_fingerprint(user)
+	if(cell.charge < stam_hitcost || (SECSWORD_STUN && cell.charge < burn_hitcost))
+		state = SECSWORD_OFF
+		armor_penetration_percentage = 0
+		to_chat(user, SPAN_NOTICE("[src] does not have enough charge!"))
+		return FINISH_ATTACK
+	switch(state)
+		if(SECSWORD_OFF)
+			state = SECSWORD_STUN
+			armor_penetration_percentage = 30
+			to_chat(user, SPAN_WARNING("[src]'s edge is now set to stun."))
+		if(SECSWORD_STUN)
+			state = SECSWORD_BURN
+			armor_penetration_percentage = 60
+			to_chat(user, SPAN_WARNING("[src]'s edge is now set to burn."))
+		if(SECSWORD_BURN)
+			state = SECSWORD_OFF
+			armor_penetration_percentage = 0
+			to_chat(user, SPAN_NOTICE("[src]'s edge is now turned off."))
+	update_icon()
+	playsound(src, "sparks", 60, TRUE, -1)
+	return FINISH_ATTACK
+
+/obj/item/melee/secsword/attack(mob/living/M, mob/living/user, params)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		if(state == SECSWORD_STUN && sword_stun(user, user, skip_cooldown = TRUE))
+			user.visible_message(SPAN_DANGER("[user] accidentally hits [user.p_themselves()] with [src]!"),
+							SPAN_USERDANGER("You accidentally hit yourself with [src]!"))
+		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) // Just like the baton, no sword + judo.
+		to_chat(user, SPAN_WARNING("The sword feels off-balance in your hand due to your specific martial training!"))
+		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
+
+	// Off
+	if(!isliving(M) || state == SECSWORD_OFF)
+		if(user.a_intent == INTENT_HELP)
+			if(!COOLDOWN_FINISHED(src, stun_cooldown))
+				return
+			if(issilicon(M)) // Can't slap borgs and AIs
+				user.do_attack_animation(M)
+				M.visible_message(
+					SPAN_WARNING("[user] has slapped [M] harmlessly with [src]."),
+					SPAN_DANGER("[user] has slapped you harmlessly with [src].")
+				)
+				return
+			slap(M, user) // Just a little slap. No harm
+			return
+		return ..()
+
+	// Stun mode
+	if(state == SECSWORD_STUN)
+		if(issilicon(M) && user.a_intent != INTENT_HELP) // Can't stun borgs and AIs
+			return ..()
+		else if(issilicon(M))
+			user.do_attack_animation(M)
+			M.visible_message(
+				SPAN_WARNING("[user] has slapped [M] harmlessly with [src]."),
+				SPAN_DANGER("[user] has slapped you harmlessly with [src].")
+			)
+			return
+		if(sword_stun(M, user))
+			user.do_attack_animation(M)
+		if(user.a_intent != INTENT_HELP) // Hurt people only if not help
+			return ..()
+		return
+	// Burn
+	var/mob/living/L = M
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+		H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE, armor_penetration_percentage = armor_penetration_percentage))
+	else
+		L.apply_damage(burn_damage, BURN)
+	deduct_charge(burn_hitcost)
+	return ..()
+
+/obj/item/melee/secsword/proc/slap(mob/living/carbon/human/target, mob/living/user)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	target.apply_damage(10, STAMINA)
+	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
+	COOLDOWN_START(src, stun_cooldown, cooldown) // Shares cooldown with stun to avoid comboing slap into stun
+
+/obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown) && !skip_cooldown)
+		return FALSE
+
+	var/user_UID = user.UID()
+	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // Doesn't work in conjunction with stun batons.
+		return FALSE
+
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) // No message; check_shields() handles that
+			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
+			return TRUE
+		// Weaker than a stun baton, less bad effects applied
+		H.Jitter(6 SECONDS)
+		H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+		H.SetStuttering(6 SECONDS)
+		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
+		deduct_charge(stam_hitcost)
+
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // So a person cannot hit the same person with a sword AND a baton, or two swords
+	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
+	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	COOLDOWN_START(src, stun_cooldown, cooldown)
+	return TRUE
+
+// Proc called to remove trait that prevents repeated stamina damage. Called on a 2 Second timer when hit in stun mode
+/obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
+
+/obj/item/melee/secsword/proc/deduct_charge(amount)
+	if(!cell)
+		return
+	if(cell.rigged)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(clear_cell))
+	cell.use(amount)
+	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
+		state = SECSWORD_OFF
+		armor_penetration_percentage = 0
+		playsound(src, "sparks", 60, TRUE, -1)
+	update_icon()
+
+#undef SECSWORD_OFF
+#undef SECSWORD_STUN
+#undef SECSWORD_BURN
 
 // MARK: SNAKESFANG
 /obj/item/melee/snakesfang
@@ -148,7 +424,7 @@
 	icon_state = "[base_icon_state]0"
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
-	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	to_chat(user, SPAN_NOTICE("You heave [src] up in both hands."))
 	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -168,7 +444,7 @@
 	var/mob/living/carbon/human/H = user
 	H.changeNext_move(CLICK_CD_MELEE)
 	H.do_attack_animation(O)
-	H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+	H.visible_message(SPAN_DANGER("[H] has hit [O] with [src]!"), SPAN_DANGER("You hit [O] with [src]!"))
 	var/damage = force_wield
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
@@ -182,9 +458,9 @@
 
 	switch(user.a_intent)
 		if(INTENT_HELP) // Stamina damage
-			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
-							"<span class='italics'>You hear a thud.</span>")
+			H.visible_message(SPAN_DANGER("[user] slams [H] with the flat of the blade!"), \
+							SPAN_USERDANGER("[user] slams you with the flat of the blade!"), \
+							SPAN_ITALICS("You hear a thud."))
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
@@ -195,9 +471,9 @@
 			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 				return ..()
 
-			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
-							"<span class='userdanger'>[user] smashes you with the blade's tip!</span>", \
-							"<span class='italics'>You hear crushing.</span>")
+			H.visible_message(SPAN_DANGER("[user] smashes [H] with the blade's tip!"), \
+							SPAN_USERDANGER("[user] smashes you with the blade's tip!"), \
+							SPAN_ITALICS("You hear crushing."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
@@ -207,9 +483,9 @@
 			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
 		if(INTENT_GRAB) // Knocks down
-			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
-							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
-							"<span class='italics'>You hear a chopping noise.</span>")
+			H.visible_message(SPAN_DANGER("[user] cleaves [H] with an overhead strike!"), \
+							SPAN_USERDANGER("[user] cleaves you with an overhead strike!"), \
+							SPAN_ITALICS("You hear a chopping noise."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
@@ -307,13 +583,13 @@
 // MARK: SLAYER CHAINSAW
 /obj/item/chainsaw/doomslayer
 	name = "OOOH BABY"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
+	desc = SPAN_WARNING("VRRRRRRR!!!")
 	armor_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(SPAN_DANGER("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE

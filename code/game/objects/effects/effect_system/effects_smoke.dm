@@ -129,8 +129,8 @@
 	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, border_dir)
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/B = mover
+	if(istype(mover, /obj/projectile/beam))
+		var/obj/projectile/beam/B = mover
 		B.damage = (B.damage / 2)
 	return TRUE
 
@@ -156,7 +156,7 @@
 
 	breather.adjust_bodytemperature(80) // Enough to immediately take a small amount of damage, but people cool down quickly.
 	if(prob(20))
-		to_chat(breather, "<span class='warning'>You are being scalded by the hot steam!</span>")
+		to_chat(breather, SPAN_WARNING("You are being scalded by the hot steam!"))
 
 /////////////////////////////////////////////
 // Nanofrost smoke
@@ -182,12 +182,12 @@
 		if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 			V.welded = TRUE
 			V.update_icon()
-			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
+			V.visible_message(SPAN_DANGER("[V] was frozen shut!"))
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
 		if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
 			U.welded = TRUE
 			U.update_icon()
-			U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
+			U.visible_message(SPAN_DANGER("[U] was frozen shut!"))
 	for(var/mob/living/L in T)
 		L.ExtinguishMob()
 	for(var/obj/item/Item in T)

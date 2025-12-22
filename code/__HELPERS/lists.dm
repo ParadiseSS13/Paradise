@@ -293,6 +293,28 @@
 
 	return null
 
+/**
+ * Picks an element based on its weight. Weight can be any real number
+ * L - The input list
+ *
+ * example: list("a" = 0.33, "b" = 0.67) will have a 67% chance to pick "b"
+ */
+/proc/pickweight_fraction(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(L[item] < 0)
+			continue
+		total += L[item]
+
+	total = rand() * total
+	for(item in L)
+		total -=L [item]
+		if(total <= 0)
+			return item
+
+	return null
+
 //Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/listfrom)
 	if(length(listfrom) > 0)
@@ -516,22 +538,24 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+#define MAX_BITFIELD_BITS 24
+
 //Converts a bitfield to a list of numbers (or words if a wordlist is provided)
-/proc/bitfield2list(bitfield = 0, list/wordlist)
+/proc/bitfield2list(bitfield = 0, list/L)
 	var/list/r = list()
-	if(istype(wordlist,/list))
-		var/max = min(length(wordlist),16)
-		var/bit = 1
-		for(var/i=1, i<=max, i++)
-			if(bitfield & bit)
-				r += wordlist[i]
-			bit = bit << 1
+	if(islist(L))
+		var/max = min(length(L), MAX_BITFIELD_BITS)
+		for(var/i in 0 to max-1)
+			if(bitfield & (1 << i))
+				r += L[i+1]
 	else
-		for(var/bit=1, bit<=65535, bit = bit << 1)
-			if(bitfield & bit)
-				r += bit
+		for(var/i in 0 to MAX_BITFIELD_BITS-1)
+			if(bitfield & (1 << i))
+				r += (1 << i)
 
 	return r
+
+#undef MAX_BITFIELD_BITS
 
 // Returns the key based on the index
 /proc/get_key_by_index(list/L, index)
@@ -755,7 +779,7 @@
 ///Removes the value V from the item K, if the item K is empty will remove it from the list, if the list is empty will set the list to null
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
 ///Accesses an associative list, returns null if nothing is found
-#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
+#define LAZYACCESSASSOC(L, I, K) (L?[I]?[K])
 ///Qdel every item in the list before setting the list to null
 #define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
 ///If the lazy list is currently initialized find item I in list L
@@ -1007,3 +1031,10 @@
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
+
+/**
+ * Removes any null entries from the list
+ * Returns TRUE if the list had nulls, FALSE otherwise
+**/
+/proc/list_clear_nulls(list/list_to_clear)
+	return (list_to_clear.RemoveAll(null) > 0)

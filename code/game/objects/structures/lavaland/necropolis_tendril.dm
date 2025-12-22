@@ -9,7 +9,7 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 250
-	mob_types = list(/mob/living/basic/mining/basilisk/watcher/tendril)
+	mob_types = list(/mob/living/basic/mining/basilisk/watcher)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
@@ -17,10 +17,10 @@
 	var/obj/effect/light_emitter/tendril/emitted_light
 
 /obj/structure/spawner/lavaland/goliath
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_types = list(/mob/living/basic/mining/goliath)
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/basic/mining/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/hivelord/legion)
 
 GLOBAL_LIST_EMPTY(tendrils)
 
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
-/obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
+/obj/structure/spawner/lavaland/bullet_act(obj/projectile/P)
 	. = ..()
 	if(P.firer)
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
@@ -74,8 +74,8 @@ GLOBAL_LIST_EMPTY(tendrils)
 /obj/effect/collapse/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
-	visible_message("<span class='boldannounceic'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
-	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
+	visible_message(SPAN_BOLDANNOUNCEIC("The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!"))
+	visible_message(SPAN_WARNING("Something falls free of the tendril!"))
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
 
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
-	visible_message("<span class='boldannounceic'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
+	visible_message(SPAN_BOLDANNOUNCEIC("The tendril falls inward, the ground around it widening into a yawning chasm!"))
 	for(var/turf/T in range(LAVALAND_TENDRIL_COLLAPSE_RANGE, src))
 		if(!T.density)
 			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)

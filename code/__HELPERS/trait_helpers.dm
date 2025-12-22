@@ -208,6 +208,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COLORBLIND		"colorblind"
 #define TRAIT_WINGDINGS			"wingdings"
 #define TRAIT_WATERBREATH		"waterbreathing"
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_NOFAT				"no_fatness"
 #define TRAIT_NOGERMS			"no_germs"
 #define TRAIT_NODECAY			"no_decay"
@@ -232,6 +233,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 #define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
+#define TRAIT_IPC_CAN_EAT "ipc_can_eat" // IPC can eat food
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
@@ -264,6 +266,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 #define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
+#define TRAIT_BOOTS_OF_JUMPING "boots_of_jumping" // Mob can do the jump emote without losing stamina
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -490,8 +493,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MENTOR_OBSERVING "mobserving"
 #define TIPPED_OVER "tipped_over"
 
-//quirk traits
-#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
@@ -511,6 +512,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+#define TRAIT_FROM_TENDRIL "from_tendril"
+#define TRAIT_TENTACLE_IMMUNE "tentacle_immune"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
@@ -538,6 +541,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_MESSY "station_trait_messy"
 #define STATION_TRAIT_TRIAI "station_trait_triai"
 
+/*********************
+*    QUIRK TRAITS    *
+**********************/
+#define TRAIT_FRAIL "frail"
+#define TRAIT_ASTHMATIC "asthma"
+#define TRAIT_SKITTISH "skittish"
+#define TRAIT_FREERUNNER "freerunner"
+#define TRAIT_GLUTTON "glutton"
+#define TRAIT_NO_APC_CHARGING "no_apc_charging"
+#define TRAIT_FOREIGNER "foreigner"
+#define TRAIT_HUNGRY "hungry"
+#define TRAIT_NO_WHISPERING "no_whisper"
+#define TRAIT_COOL "cool"
+
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
 #define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
@@ -548,6 +565,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// A web is being spun on this turf presently
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
+/// A swarmer construct is being built here
+#define TRAIT_SWARMER_CONSTRUCTION "swarmer_construction_turf"
+/// A swarmer is deconstructing this already
+#define TRAIT_SWARMER_DISINTEGRATING "swarmer_disintegrating"
+
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
@@ -555,6 +577,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** MOVABLE ATOM TRAITS *****//
 // Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
 #define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
+
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+///every object that is currently the active storage of some client mob has this trait
+#define TRAIT_ACTIVE_STORAGE "active_storage"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

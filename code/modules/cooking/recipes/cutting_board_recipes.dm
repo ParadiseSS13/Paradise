@@ -414,6 +414,85 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
+/datum/cooking/recipe/glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard, exact = TRUE),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plasma_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plasma),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plastitanium_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma/plastitanium
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plastitanium),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/// A step that allows either direct adding of a supermatter sliver
+/// (if you have somehow manage to hold one), or
+/// from tongs if those are used and contain a sliver in them.
+/datum/cooking/recipe_step/add_item/supermatter_sliver
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs) && tongs.sliver)
+		return PCWJ_CHECK_VALID
+
+	var/obj/item/nuke_core/supermatter_sliver/sliver = added_item
+	if(istype(sliver))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
+	var/obj/item/retractor/supermatter/tongs = used_item
+	if(istype(tongs) && tongs.sliver)
+		. = ..(tongs.sliver, tracker, user)
+		// TODO: refactor the tongs so they actually check if(sliver) in `update_icon()` instead of manually setting the icons everywhere.
+		tongs.sliver = null
+		tongs.update_appearance(UPDATE_ICON_STATE)
+	else
+		. = ..()
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/container = locateUID(tracker.container_uid)
+	if(!istype(container))
+		return FALSE
+
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs))
+		for(var/obj/item/nuke_core/supermatter_sliver/sliver in container.contents)
+			if(istype(sliver))
+				return TRUE
+
+	return ..()
+
+/datum/cooking/recipe/supermatter_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/supermatter_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		new /datum/cooking/recipe_step/add_item/supermatter_sliver(),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
 /datum/cooking/recipe/philly_cheesesteak
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/philly_cheesesteak
@@ -519,4 +598,12 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/tomato),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/drytapioca_pearls
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/reagent_containers/food/drytapioca_pearls
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough)
 	)

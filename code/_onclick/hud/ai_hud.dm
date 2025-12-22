@@ -109,25 +109,15 @@
 		var/mob/living/silicon/ai/AI = usr
 		AI.subsystem_law_manager()
 
-/atom/movable/screen/ai/pda_msg_send
-	name = "PDA - Send Message"
-	icon_state = "pda_send"
+/atom/movable/screen/ai/pda
+	name = "Internal PDA"
+	icon_state = "pda"
 
-/atom/movable/screen/ai/pda_msg_send/Click()
+/atom/movable/screen/ai/pda/Click()
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
-	AI.aiPDA.cmd_send_pdamesg()
-
-/atom/movable/screen/ai/pda_msg_show
-	name = "PDA - Show Message Log"
-	icon_state = "pda_receive"
-
-/atom/movable/screen/ai/pda_msg_show/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.aiPDA.cmd_show_message_log()
+	AI.open_pda()
 
 /atom/movable/screen/ai/image_take
 	name = "Take Image"
@@ -222,14 +212,9 @@
 	using.screen_loc = UI_AI_STATE_LAWS
 	static_inventory += using
 
-//PDA message
-	using = new /atom/movable/screen/ai/pda_msg_send()
-	using.screen_loc = UI_AI_PDA_SEND
-	static_inventory += using
-
-//PDA log
-	using = new /atom/movable/screen/ai/pda_msg_show()
-	using.screen_loc = UI_AI_PDA_LOG
+//PDA
+	using = new /atom/movable/screen/ai/pda()
+	using.screen_loc = UI_AI_PDA
 	static_inventory += using
 
 //Take image

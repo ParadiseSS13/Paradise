@@ -68,6 +68,17 @@
 	new A(loc)
 	qdel(src)
 
+/obj/item/raw_anomaly_core
+	name = "unrefined anomaly core"
+	desc = "The raw core of an unknown anomaly. It glimmers with potential."
+	icon_state = "unrefined_anomaly_core"
+	w_class = WEIGHT_CLASS_SMALL
+	var/target_explosion_size = 4
+
+/obj/item/raw_anomaly_core/Initialize(mapload)
+	. = ..()
+	target_explosion_size = rand(4, 20)
+
 /obj/item/reactive_armour_shell
 	name = "reactive armour shell"
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
@@ -89,7 +100,7 @@
 		var/armour_path = anomaly_armour_types[A.type]
 		if(!armour_path)
 			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
-		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armor gently hums to life.</span>")
+		to_chat(user, SPAN_NOTICE("You insert [A] into the chest plate, and the armor gently hums to life."))
 		new armour_path(get_turf(src))
 		qdel(src)
 		qdel(A)

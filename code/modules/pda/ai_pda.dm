@@ -2,6 +2,19 @@
 /obj/item/pda/silicon
 	detonate = FALSE
 	ttone = "data"
+	model_name = "Thinktronic 6000 Internal Personal Data Assistant"
+	silicon_pda = TRUE
+	// No flashlight app - robot cart has a headlamp app instead.
+	programs = list(
+		new/datum/data/pda/app/main_menu,
+		new/datum/data/pda/app/notekeeper,
+		new/datum/data/pda/app/messenger,
+		new/datum/data/pda/app/manifest,
+		new/datum/data/pda/app/nanobank,
+		new/datum/data/pda/app/atmos_scanner,
+		new/datum/data/pda/app/games,
+		new/datum/data/pda/app/game/minesweeper,
+		)
 
 /obj/item/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
@@ -20,7 +33,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, SPAN_WARNING("Cannot use messenger!"))
 	var/list/plist = M.available_pdas()
 	if(plist)
 		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
@@ -37,7 +50,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, SPAN_WARNING("Cannot use messenger!"))
 	var/HTML = "<html><meta charset='utf-8'><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -55,8 +68,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
-
+	to_chat(usr, SPAN_NOTICE("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
@@ -66,18 +78,19 @@
 		return
 
 	silent = !silent
-	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
+	to_chat(usr, SPAN_NOTICE("PDA ringer toggled [(silent ? "Off" : "On")]!"))
 
-/obj/item/pda/silicon/attack_self__legacy__attackchain(mob/user as mob)
-	if((honkamt > 0) && (prob(60)))//For clown virus.
-		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+/obj/item/pda/silicon/ai
+	default_cartridge = /obj/item/cartridge/ai
 
 /obj/item/pda/silicon/ai/can_use()
 	var/mob/living/silicon/ai/AI = usr
 	if(!istype(AI))
 		return 0
 	return ..() && !AI.check_unable(AI_CHECK_WIRELESS)
+
+/obj/item/pda/silicon/robot
+	default_cartridge = /obj/item/cartridge/robot
 
 /obj/item/pda/silicon/robot/can_use()
 	var/mob/living/silicon/robot/R = usr
@@ -93,6 +106,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
+		to_chat(usr, SPAN_WARNING("You have not purchased the digital messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time

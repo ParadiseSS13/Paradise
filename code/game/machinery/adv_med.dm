@@ -11,6 +11,7 @@
 	light_color = "#00FF00"
 	light_power = 0.5
 	var/mob/living/carbon/human/occupant
+	var/obj/effect/occupant_overlay = null
 	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
 	var/scan_level = 1
 	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking)
@@ -19,11 +20,11 @@
 	. = ..()
 	if(occupant)
 		if(occupant.stat == DEAD)
-			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+			. += SPAN_WARNING("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!")
 		else
-			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+			. += SPAN_NOTICE("You see [occupant.name] inside.")
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.")
 
 
 /obj/machinery/bodyscanner/Destroy()
@@ -69,29 +70,29 @@
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = used
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
 			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
+			to_chat(user, SPAN_NOTICE("The scanner is already occupied!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
+			to_chat(user, SPAN_WARNING("[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
+			to_chat(user, SPAN_NOTICE("Subject may not hold anything in their hands."))
 			return ITEM_INTERACT_COMPLETE
 
 		M.forceMove(src)
 		occupant = M
 		playsound(src, 'sound/machines/podclose.ogg', 5)
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -112,10 +113,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		to_chat(user, SPAN_NOTICE("The scanner is occupied."))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 
 	setDir(turn(dir, -90))
@@ -132,18 +133,18 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return TRUE //panel open
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already occupied."))
 		return TRUE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
+		to_chat(user, SPAN_NOTICE("Subject may not hold anything in their hands."))
 		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head."))
 		return TRUE
 
 	if(H == user)
@@ -155,7 +156,7 @@
 	H.forceMove(src)
 	occupant = H
 	playsound(src, 'sound/machines/podclose.ogg', 5)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
 	return TRUE
@@ -174,7 +175,7 @@
 		return // you cant reach that
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 
 	ui_interact(user)
@@ -202,7 +203,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	playsound(src, 'sound/machines/podopen.ogg', 5)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
@@ -226,6 +227,36 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
+
+/obj/machinery/bodyscanner/update_overlays()
+	. = ..()
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+	if(!occupant)
+		return
+
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.dir = dir
+	occupant_overlay.layer = layer + 0.01
+	var/matrix/MA = matrix(transform)
+	if(dir == NORTH)
+		MA.TurnTo(0, 180)
+		occupant_overlay.dir = SOUTH // trust me
+	if(dir == EAST)
+		MA.TurnTo(0, 270)
+		occupant_overlay.pixel_y = -8
+	if(dir == WEST)
+		MA.TurnTo(0 , 90)
+		occupant_overlay.pixel_y = -8
+	MA.Scale(0.66, 0.66)
+	occupant_overlay.transform = MA
+	var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "bodyscanner_first_overlay", layer = occupant_overlay.layer + 0.01)
+	var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "bodyscanner-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+	. += rim
+	. += lid
 
 /obj/machinery/bodyscanner/ui_state(mob/user)
 	return GLOB.default_state
@@ -380,7 +411,7 @@
 		if("ejectify")
 			eject()
 		if("print_p")
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			var/name = occupant ? occupant.name : "Unknown"

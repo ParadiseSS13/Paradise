@@ -793,6 +793,14 @@
 	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
 
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barrier Box"
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
+
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
 	id = "rcd"
@@ -1103,3 +1111,11 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
 	build_path = /obj/item/forensics/swab
 	category = list("initial", "Security")
+
+/datum/design/suture_needle
+	name = "Suture Needle"
+	id = "sutureneedle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/suture_needle
+	category = list("initial", "Medical")

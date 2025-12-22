@@ -44,3 +44,11 @@ redis = { version = "0.21.4" }
 flume = { version = "0.10" }
 notify-rust = "4.11.7"
 git2 = { version = "0.20.2", default-features = false }
+once_cell = { version = "1.21" }
+mysql = { git = "https://github.com/ZeWaka/rust-mysql-simple.git", tag = "v26.0.0", default-features = false }
+dashmap = { version = "6.1", features = ["rayon", "serde"] }
+uuid = { version = "1.18.1", features = ["v4"] }
+
+[features]
+# Use the native tls stack for the mysql db
+default = ["mysql/default-rust", "mysql/rustls-tls-ring"]

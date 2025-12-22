@@ -50,20 +50,20 @@
 		return FALSE
 
 	if(stack.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		to_chat(user, SPAN_WARNING("You need at least one sheet of [stack] to do this!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You start adding [stack] to [src]..."))
 	if(!do_after(user, construction_time, target = src))
 		return TRUE
 
 	if(!stack.use(1))
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		to_chat(user, SPAN_WARNING("You need at least one sheet of [stack] to do this!"))
 		return TRUE
 
 	var/obj/structure/table/table_already_there = locate(/obj/structure/table) in get_turf(src)
 	if(table_already_there) //check again after to make sure one wasnt added since
-		to_chat(user, "<span class='warning'>There is already [table_already_there] here.</span>")
+		to_chat(user, SPAN_WARNING("There is already [table_already_there] here."))
 		return TRUE
 
 	if(!istype(new_table_type, /obj/structure/table)) //if its something unique, skip the table parts
@@ -129,3 +129,15 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table_frame/cult
+	name = "runed metal table frame"
+	desc = "Four pieces of runed metal arranged in a square. It's cold to the touch."
+	icon_state = "cult_frame"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	density = TRUE
+	anchored = TRUE
+	framestack = /obj/item/stack/sheet/runed_metal
+	framestackamount = 1
+	construction_time = 2 SECONDS
+	restrict_table_types = list(/obj/item/stack/sheet/runed_metal = /obj/item/stack/sheet/runed_metal::table_type)

@@ -1,7 +1,6 @@
 /obj/item/clothing/shoes/black
 	name = "black shoes"
 	icon_state = "black"
-	item_color = "black"
 	desc = "A pair of black shoes."
 
 	cold_protection = FEET
@@ -16,56 +15,62 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
-	item_color = "brown"
 
 /obj/item/clothing/shoes/blue
 	name = "blue shoes"
 	icon_state = "blue"
-	item_color = "blue"
 
 /obj/item/clothing/shoes/green
 	name = "green shoes"
 	icon_state = "green"
-	item_color = "green"
 
 /obj/item/clothing/shoes/yellow
 	name = "yellow shoes"
 	icon_state = "yellow"
-	item_color = "yellow"
 
 /obj/item/clothing/shoes/purple
 	name = "purple shoes"
 	icon_state = "purple"
-	item_color = "purple"
 
 /obj/item/clothing/shoes/red
 	name = "red shoes"
 	desc = "Stylish red shoes."
 	icon_state = "red"
-	item_color = "red"
 
 /obj/item/clothing/shoes/white
 	name = "white shoes"
 	icon_state = "white"
 	permeability_coefficient = 0.01
-	item_color = "white"
 
 /obj/item/clothing/shoes/leather
 	name = "leather shoes"
 	desc = "A sturdy pair of leather shoes."
 	icon_state = "leather"
-	item_color = "leather"
+
+/obj/item/clothing/shoes/leather/jump
+	name = "boots of jumping"
+	desc = "Boots with the sole purpose of jumping."
+
+/obj/item/clothing/shoes/leather/jump/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
+		return
+	ADD_TRAIT(user, TRAIT_BOOTS_OF_JUMPING, "boots_of_jumping[UID()]")
+
+/obj/item/clothing/shoes/leather/jump/dropped(mob/user, silent)
+	. = ..()
+	if(!ishuman(user) || !HAS_TRAIT(user, TRAIT_BOOTS_OF_JUMPING))
+		return
+	REMOVE_TRAIT(user, TRAIT_BOOTS_OF_JUMPING, "boots_of_jumping[UID()]")
 
 /obj/item/clothing/shoes/rainbow
 	name = "rainbow shoes"
 	desc = "Very gay shoes."
 	icon_state = "rain_bow"
-	item_color = "rainbow"
 
 /obj/item/clothing/shoes/orange
 	name = "orange shoes"
 	icon_state = "orange"
-	item_color = "orange"
 	var/obj/item/restraints/handcuffs/shackles
 
 /obj/item/clothing/shoes/orange/Destroy()

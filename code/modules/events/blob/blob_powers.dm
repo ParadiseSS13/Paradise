@@ -2,7 +2,7 @@
 
 /mob/camera/blob/proc/can_buy(cost = 15)
 	if(blob_points < cost)
-		to_chat(src, "<span class='warning'>You cannot afford this!</span>")
+		to_chat(src, SPAN_WARNING("You cannot afford this!"))
 		return 0
 	add_points(-cost)
 	return 1
@@ -38,9 +38,9 @@
 	set desc = "Toggle requiring nodes to place resource and factory blobs."
 	nodes_required = !nodes_required
 	if(nodes_required)
-		to_chat(src, "<span class='warning'>You now require a nearby node or core to place factory and resource blobs.</span>")
+		to_chat(src, SPAN_WARNING("You now require a nearby node or core to place factory and resource blobs."))
 	else
-		to_chat(src, "<span class='warning'>You no longer require a nearby node or core to place factory and resource blobs.</span>")
+		to_chat(src, SPAN_WARNING("You no longer require a nearby node or core to place factory and resource blobs."))
 
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
@@ -72,18 +72,18 @@
 	else
 
 		if(istype(S, /obj/structure/blob/shield/reflective))
-			to_chat(src, "<span class='warning'>There's already a reflector blob here!</span>")
+			to_chat(src, SPAN_WARNING("There's already a reflector blob here!"))
 			return
 
 
 		else if(S.obj_integrity < S.max_integrity * 0.5)
-			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
+			to_chat(src, SPAN_WARNING("This shield blob is too damaged to be modified properly!"))
 			return
 
 		else if(!can_buy(15))
 			return
 
-		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
+		to_chat(src, SPAN_WARNING("You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity."))
 
 		S.change_to(/obj/structure/blob/shield/reflective)
 		S.color = blob_reagent_datum.color
@@ -116,7 +116,7 @@
 
 	if(nodes_required)
 		if(!(locate(/obj/structure/blob/node) in orange(3, T)) && !(locate(/obj/structure/blob/core) in orange(4, T)))
-			to_chat(src, "<span class='warning'>You need to place this blob closer to a node or core!</span>")
+			to_chat(src, SPAN_WARNING("You need to place this blob closer to a node or core!"))
 			return //handholdotron 2000
 
 	if(!can_buy(40))
@@ -192,7 +192,7 @@
 
 	if(nodes_required)
 		if(!(locate(/obj/structure/blob/node) in orange(3, T)) && !(locate(/obj/structure/blob/core) in orange(4, T)))
-			to_chat(src, "<span class='warning'>You need to place this blob closer to a node or core!</span>")
+			to_chat(src, SPAN_WARNING("You need to place this blob closer to a node or core!"))
 			return //handholdotron 2000
 
 	if(!can_buy(60))
@@ -228,12 +228,11 @@
 	if(!can_buy(60))
 		return
 
-	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
+	var/mob/living/basic/blob/blobbernaut/blobber = new /mob/living/basic/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
 	add_mob_to_overmind(blobber)
-	blobber.AIStatus = AI_OFF
-	blobber.LoseTarget()
+	blobber.ai_controller.set_ai_status(AI_STATUS_OFF)
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
 		if(length(candidates) && !QDELETED(blobber))
@@ -241,10 +240,10 @@
 			if(C)
 				blobber.key = C.key
 				dust_if_respawnable(C)
-				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
-				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
+				to_chat(blobber, SPAN_BIGGERDANGER("You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!"))
+				to_chat(blobber, SPAN_DANGER("You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob."))
 		if(!blobber.ckey)
-			blobber.AIStatus = AI_ON
+			blobber.ai_controller.set_ai_status(AI_STATUS_ON)
 	return
 
 
@@ -288,17 +287,17 @@
 	if(!T)
 		return
 	if(!B)
-		to_chat(src, "<span class='warning'>There is no blob there!</span>")
+		to_chat(src, SPAN_WARNING("There is no blob there!"))
 		return
 	if(B.point_return < 0)
-		to_chat(src, "<span class='warning'>Unable to remove this blob.</span>")
+		to_chat(src, SPAN_WARNING("Unable to remove this blob."))
 		return
 	if(max_blob_points < B.point_return + blob_points)
-		to_chat(src, "<span class='warning'>You have too many resources to remove this blob!</span>")
+		to_chat(src, SPAN_WARNING("You have too many resources to remove this blob!"))
 		return
 	if(B.point_return)
 		add_points(B.point_return)
-		to_chat(src, "<span class='notice'>Gained [B.point_return] resources from removing \the [B].</span>")
+		to_chat(src, SPAN_NOTICE("Gained [B.point_return] resources from removing \the [B]."))
 	qdel(B)
 	return
 
@@ -365,10 +364,10 @@
 	if(!length(surrounding_turfs))
 		return
 
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)
+	for(var/mob/living/basic/blob/blobspore/BS in GLOB.alive_mob_list)
 		if(isturf(BS.loc) && get_dist(BS, T) <= 35)
-			BS.LoseTarget()
-			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
+			BS.ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+			BS.ai_controller.set_blackboard_key(BB_TRAVEL_DESTINATION, pick(surrounding_turfs))
 	return
 
 /mob/camera/blob/verb/split_consciousness()
@@ -380,21 +379,21 @@
 	if(!T)
 		return
 	if(split_used)
-		to_chat(src, "<span class='warning'>You have already produced an offspring.</span>")
+		to_chat(src, SPAN_WARNING("You have already produced an offspring."))
 		return
 	if(is_offspring)
-		to_chat(src, "<span class='warning'>You cannot split as an offspring of another Blob.</span>")
+		to_chat(src, SPAN_WARNING("You cannot split as an offspring of another Blob."))
 		return
 	if(length(GLOB.clients) < GLOB.configuration.event.blob_highpop_trigger)
-		to_chat(src, "<span class='warning'>There isnt enough organic matter on this station to justify a second core.</span>")
+		to_chat(src, SPAN_WARNING("There isnt enough organic matter on this station to justify a second core."))
 		return
 
 	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
 	if(!N)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		to_chat(src, SPAN_WARNING("A node is required to birth your offspring."))
 		return
 	if(!istype(N, /obj/structure/blob/node))
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		to_chat(src, SPAN_WARNING("A node is required to birth your offspring."))
 		return
 	if(!can_buy(100))
 		return
@@ -414,7 +413,7 @@
 		return
 	else
 		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
-	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
+	for(var/mob/living/basic/blob_minion in blob_mobs)
 		if(blob_minion.stat == CONSCIOUS)
 			blob_minion.say(speak_text)
 
@@ -472,7 +471,7 @@
 	for(var/obj/structure/blob/BL in GLOB.blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
-	for(var/mob/living/simple_animal/hostile/blob/BLO in GLOB.blob_minions)
+	for(var/mob/living/basic/blob/BLO in GLOB.blob_minions)
 		BLO.adjustcolors(blob_reagent_datum.complementary_color)
 
 	to_chat(src, "Your reagent is now: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")

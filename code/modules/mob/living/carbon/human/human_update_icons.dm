@@ -105,9 +105,9 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	. = overlays_standing[cache_index]
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 	if(.)
 		add_overlay(.)
-	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
-			var/worn_icon_state = w_uniform.item_color || w_uniform.worn_icon_state || w_uniform.icon_state
+			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
 
 			if(w_uniform.blood_DNA)
@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 				for(var/obj/item/clothing/accessory/A in w_uniform.accessories)
 					var/tie_icon = A.worn_icon || listgetindex(A.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/accessories.dmi'
-					var/tie_color = A.item_color || A.icon_state
+					var/tie_color = A.worn_icon_state || A.icon_state
 					standing.overlays += image(tie_icon, tie_color)
 			overlays_standing[UNIFORM_LAYER] = standing
 
@@ -816,11 +816,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
 			if(!P.up)
 				standing.overlays += P.visor_icon
+			else if(P.on && P.light_icon)
+				standing.overlays += P.light_icon
 
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) ||listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
 				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
 				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
@@ -1173,6 +1175,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(WING_LAYER)
 
 /mob/living/carbon/human/proc/update_tail_layer()
+	// If the tail is currently wagging, don't stop wagging.
+	if(tail_wagging)
+		if(wear_suit?.flags_inv & HIDETAIL)
+			stop_tail_wagging()
+		else
+			start_tail_wagging()
+		return
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1259,6 +1268,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/start_tail_wagging()
+	tail_wagging = TRUE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1338,6 +1348,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/stop_tail_wagging()
+	tail_wagging = FALSE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER)
 	remove_overlay(TAIL_LAYER)
 	update_tail_layer() //just trigger a full update for normal stationary sprites
@@ -1354,6 +1365,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[INTORGAN_LAYER] = standing
 	apply_overlay(INTORGAN_LAYER)
+	update_hand_int_organs()
+
+/mob/living/carbon/human/proc/update_hand_int_organs()
+	remove_overlay(HAND_INTORGAN_LAYER)
+
+	var/list/standing = list()
+	for(var/organ in internal_organs)
+		var/obj/item/organ/internal/I = organ
+		var/extra_render = I.extra_render()
+		if(extra_render)
+			standing += extra_render
+
+	overlays_standing[HAND_INTORGAN_LAYER] = standing
+	apply_overlay(HAND_INTORGAN_LAYER)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()

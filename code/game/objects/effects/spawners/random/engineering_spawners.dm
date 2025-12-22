@@ -61,5 +61,6 @@
 	loot = list(
 		/obj/item/storage/toolbox/mechanical,
 		/obj/item/storage/toolbox/electrical,
-		/obj/item/storage/toolbox/emergency
+		/obj/item/storage/toolbox/emergency,
+		/obj/item/storage/toolbox/artistic,
 	)

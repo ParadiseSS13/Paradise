@@ -5,9 +5,11 @@
 	desc = "A base rootkit for ai upgrades. If you are seeing this, report where you found it on the github issues."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	inhand_icon_state = "card-id"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	new_attack_chain = TRUE
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ai_upgrade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(is_ai(target))
@@ -27,11 +29,11 @@
 		return
 	if(AI.malf_picker)
 		AI.malf_picker.processing_time += 50
-		to_chat(AI, "<span class='userdanger'>[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead.</span>")
+		to_chat(AI, SPAN_USERDANGER("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))
 	else
-		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with combat software!</span>")
+		to_chat(AI, SPAN_USERDANGER("[user] has upgraded you with combat software!"))
 		AI.add_malf_picker()
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 
@@ -45,21 +47,20 @@
 		return
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = 1
-		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with surveillance software!</span>")
+		to_chat(AI, SPAN_USERDANGER("[user] has upgraded you with surveillance software!"))
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 // AI program reset
 /obj/item/ai_upgrade/ai_program_reset
 	name = "Program Reset Disk"
 	desc = "Insert this disk into the AI core to completely reset their programs."
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ai_upgrade/ai_program_reset/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
-	to_chat(user, "<span class='notice'>You reset [AI]'s program storage to factory settings.</span>")
+	to_chat(user, SPAN_NOTICE("You reset [AI]'s program storage to factory settings."))
 	AI.reset_programs()
 
 // Expanded Storage
@@ -70,10 +71,10 @@
 /obj/item/ai_upgrade/expanded_storage/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
-	to_chat(AI, "<span class='notice'>[user] has upgraded you an expanded storage module. Extra memory granted!</span>")
+	to_chat(AI, SPAN_NOTICE("[user] has upgraded you an expanded storage module. Extra memory granted!"))
 	AI.program_picker.total_memory += 2
 	AI.program_picker.memory += 2
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 // Expanded Network Array
@@ -84,10 +85,10 @@
 /obj/item/ai_upgrade/expanded_network/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
-	to_chat(AI, "<span class='notice'>[user] has upgraded you an expanded network array module. Extra bandwidth granted!</span>")
+	to_chat(AI, SPAN_NOTICE("[user] has upgraded you an expanded network array module. Extra bandwidth granted!"))
 	AI.program_picker.total_bandwidth += 1
 	AI.program_picker.bandwidth += 1
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 // Expanded Nanite Tank
@@ -98,9 +99,9 @@
 /obj/item/ai_upgrade/expanded_tank/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
-	to_chat(AI, "<span class='notice'>[user] has upgraded you an expanded nanite tank module. Extra nanite storage capacity granted!</span>")
+	to_chat(AI, SPAN_NOTICE("[user] has upgraded you an expanded nanite tank module. Extra nanite storage capacity granted!"))
 	AI.program_picker.max_nanites += 10
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 // Expanded Nanite Fabricator
@@ -111,7 +112,7 @@
 /obj/item/ai_upgrade/expanded_fabricator/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
-	to_chat(AI, "<span class='notice'>[user] has upgraded you an expanded nanite fabricator module. Extra nanite regeneration granted!</span>")
+	to_chat(AI, SPAN_NOTICE("[user] has upgraded you an expanded nanite fabricator module. Extra nanite regeneration granted!"))
 	AI.nanite_regen += 0.5
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, SPAN_NOTICE("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)

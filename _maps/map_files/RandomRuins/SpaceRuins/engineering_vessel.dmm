@@ -1,0 +1,440 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"b" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"c" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"d" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"e" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"f" = (
+/obj/effect/spawner/random/loot_crate,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"g" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/food_or_drink/dinner,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"k" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"l" = (
+/obj/structure/bed/dogbed,
+/mob/living/basic/mouse/gray{
+	name = "Jeremy"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"m" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/food_or_drink/dinner{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/item/stamp/chameleon{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"o" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"p" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"q" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"r" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"s" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/sign/poster/random/directional/north,
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"t" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"u" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"v" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"x" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"y" = (
+/obj/machinery/power/apc/important/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"z" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"A" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"B" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"C" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/unpowered)
+"E" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"F" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/unpowered)
+"H" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"I" = (
+/obj/structure/machine_frame,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"J" = (
+/obj/effect/spawner/airlock/e_to_w,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/unpowered)
+"K" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/survival_pod,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"L" = (
+/obj/structure/shelf/science,
+/obj/item/circuitboard/tcomms/relay,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/paper/tcommskey,
+/obj/item/stack/cable_coil/ten,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"N" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/item/stack/sheet/mineral/plasma/ten,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"O" = (
+/obj/structure/shelf,
+/obj/structure/shelf,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common,
+/obj/effect/spawner/random/seed_vault,
+/obj/effect/spawner/random/seed_vault,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"P" = (
+/turf/template_noop,
+/area/template_noop)
+"Q" = (
+/obj/effect/spawner/random/oil/maybe,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"R" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/unpowered)
+"S" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"U" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
+"V" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/spawner/random/loot_crate,
+/obj/item/toy/plushie/nianplushie/royal,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"W" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"X" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"Y" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"Z" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/bluespace_tap/clothes_rare,
+/obj/effect/spawner/random/loot/outfit/fancy,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+
+(1,1,1) = {"
+P
+P
+C
+a
+a
+C
+P
+P
+P
+P
+P
+P
+P
+"}
+(2,1,1) = {"
+P
+C
+F
+r
+N
+C
+C
+o
+J
+P
+P
+P
+P
+"}
+(3,1,1) = {"
+B
+K
+Z
+t
+R
+C
+x
+o
+C
+C
+a
+C
+P
+"}
+(4,1,1) = {"
+B
+K
+f
+H
+W
+F
+C
+o
+F
+U
+m
+a
+a
+"}
+(5,1,1) = {"
+C
+C
+S
+H
+X
+Y
+c
+b
+z
+p
+E
+A
+a
+"}
+(6,1,1) = {"
+B
+K
+g
+H
+I
+F
+C
+d
+F
+q
+p
+A
+a
+"}
+(7,1,1) = {"
+B
+K
+O
+u
+k
+C
+e
+Q
+C
+s
+l
+a
+a
+"}
+(8,1,1) = {"
+P
+C
+F
+v
+L
+C
+V
+y
+C
+C
+a
+C
+P
+"}
+(9,1,1) = {"
+P
+P
+C
+a
+a
+F
+C
+a
+C
+P
+P
+P
+P
+"}

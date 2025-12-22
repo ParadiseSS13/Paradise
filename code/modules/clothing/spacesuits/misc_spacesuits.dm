@@ -70,9 +70,14 @@
 	icon_state = "beret_soo"
 	inhand_icon_state = null
 	worn_icon = 'icons/mob/clothing/head/beret.dmi'
+	icon_monitor = null
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_inv = null
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi')
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper TSF staff officer's beret"
@@ -99,7 +104,7 @@
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
-	desc = "Ho ho ho. Merrry X-mas!"
+	desc = "Ho ho ho. Merrry X-mas! This one is spaceworthy."
 	icon_state = "santahat"
 	inhand_icon_state = null
 	sprite_sheets = list(
@@ -108,7 +113,12 @@
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEARS
 	dog_fashion = /datum/dog_fashion/head/santa
+
+/obj/item/clothing/head/helmet/space/santahat/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("Use in hand to toggle the hat's beard.")
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
 	if(icon_state == "santahat")
@@ -120,7 +130,7 @@
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
-	desc = "Festive!"
+	desc = "Festive! This one is spaceworthy."
 	icon_state = "santa"
 	inhand_icon_state = null
 	slowdown = 0
@@ -138,6 +148,7 @@
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/suit/space/pirate
 	name = "pirate coat"

@@ -13,7 +13,8 @@
 	access = list(
 		ACCESS_ATMOSPHERICS,
 		ACCESS_CE,
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP,
 		ACCESS_ENGINE,
 		ACCESS_EVA,
@@ -37,6 +38,9 @@
 	outfit = /datum/outfit/job/chief_engineer
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = HARD_DIFFICULTY
+	description = "The Chief Engineer has the responsibility of overseeing the Engineering department.\n\n\
+					Difficulties: Standard Operating Procedure (General, Engineering), construction (advanced), hacking, engines (supermatter, tesla, singularity), communication"
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -50,6 +54,7 @@
 	l_ear = /obj/item/radio/headset/heads/ce
 	id = /obj/item/card/id/ce
 	l_pocket = /obj/item/t_scanner
+	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -75,7 +80,8 @@
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP,
 		ACCESS_ENGINE,
 		ACCESS_EVA,
@@ -89,6 +95,9 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/engineer
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Station Engineers have the responsibility of maintaining the station's infrastructure and operating the station's engine.\n\n\
+					Difficulties: Construction (advanced), space movement"
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -101,6 +110,7 @@
 	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
+	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/engineering
 
 	backpack = /obj/item/storage/backpack/industrial
@@ -124,7 +134,8 @@
 	selection_color = "#fff5cc"
 	access = list(
 		ACCESS_ATMOSPHERICS,
-		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_ENGINE,
 		ACCESS_EVA,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAINT_TUNNELS,
@@ -136,12 +147,16 @@
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/atmos
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Atmospheric Technicians have the responsibility of maintaining the station's atmospherics system.\n\n\
+					Difficulties: Atmospherics, pipe manipulation, gas pressure, space movement"
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
+	r_pocket = /obj/item/storage/bag/construction
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng

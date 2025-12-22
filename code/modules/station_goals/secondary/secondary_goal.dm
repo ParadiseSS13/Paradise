@@ -49,6 +49,7 @@
 	message_parts += "All requested materials must be properly labeled for transport, or be inside a properly-labeled container. You can configure a hand labeler to create suitable labels by by swiping your ID card on it."
 	if(should_send_crate)
 		message_parts += "For your convenience, a pre-labeled personal crate will be sent to your cargo department."
+		send_requests_console_message("A new secondary goal crate for [requester] from [department] is ready to ship with your next order.", "Procurement Office", "Cargo Bay", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	send_requests_console_message(message_parts, "Procurement Office", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	if(department !=  "Captain's Desk")
 		send_requests_console_message(message_parts, "Procurement Office", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
@@ -75,7 +76,7 @@
 
 	if(isnull(possible))
 		if(user)
-			to_chat(user, "<span class='notice'>No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)].</span>")
+			to_chat(user, SPAN_NOTICE("No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)]."))
 		return
 
 	if(length(possible) == 0)
@@ -117,16 +118,16 @@
 		log_admin("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
 		tracker.unregister(SSshuttle.supply)
 		qdel(src)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 	else if(href_list["mark_complete"])
 		completed = 1
 		tracker.unregister(SSshuttle.supply)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 		message_admins("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 		log_admin("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 	else if(href_list["reset_progress"])
 		completed = 0
 		tracker.reset()
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 		message_admins("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")
 		log_admin("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")

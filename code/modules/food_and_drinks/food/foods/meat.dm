@@ -37,6 +37,12 @@
 	name = "-meat"
 	tastes = list("salty meat" = 1)
 
+/obj/item/food/meat/human/robot // Does it make sense? No. Is it funny? Very!
+	desc = "A slab of robotic meat."
+	icon_state = "robot_meat"
+	list_reagents = list("iron" = 3, "oil" = 3)
+	tastes = list("oily meat" = 1)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
@@ -195,7 +201,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/food/monstermeat/goliath/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
 	new /obj/item/food/goliath_steak(loc)
 	qdel(src)
 
@@ -270,15 +276,15 @@
 
 /obj/item/food/meat/patty_raw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+	. += SPAN_NOTICE("Use it in hand to shape it into a raw meatball.")
 
 /obj/item/food/meat/patty_raw/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
-		"<span class='notice'>You shape [src] into a raw meatball.</span>"
+		SPAN_NOTICE("[user] shapes [src] into a raw meatball."),
+		SPAN_NOTICE("You shape [src] into a raw meatball.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
@@ -298,16 +304,16 @@
 
 /obj/item/food/ground_meat/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
-	. += "<span class='notice'>Use it in hand again to flatten it into a raw patty.</span>"
+	. += SPAN_NOTICE("Use it in hand to shape it into a raw meatball.")
+	. += SPAN_NOTICE("Use it in hand again to flatten it into a raw patty.")
 
 /obj/item/food/ground_meat/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a ball.</span>",
-		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
+		SPAN_NOTICE("[user] shapes [src] into a ball."),
+		SPAN_NOTICE("You shape [src] into a ball of raw ground meat.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
@@ -326,15 +332,15 @@
 
 /obj/item/food/meat/raw_meatball/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to flatten it into a raw patty.</span>"
+	. += SPAN_NOTICE("Use it in hand to flatten it into a raw patty.")
 
 /obj/item/food/meat/raw_meatball/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] flattens [src] into a patty.</span>",
-		"<span class='notice'>You flatten [src] into a raw patty.</span>"
+		SPAN_NOTICE("[user] flattens [src] into a patty."),
+		SPAN_NOTICE("You flatten [src] into a raw patty.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/patty_raw/M = new(get_turf(user))
@@ -454,7 +460,7 @@
 	if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
 		return
 	if(!QDELETED(src))
-		visible_message("<span class='notice'>[src] expands!</span>")
+		visible_message(SPAN_NOTICE("[src] expands!"))
 		if(fingerprintslast)
 			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
@@ -507,6 +513,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	var/fertile = FALSE
 
 /obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()
@@ -528,40 +535,31 @@
 
 	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
 	icon_state = "egg-[clr]"
-	item_color = clr
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
-	item_color = "blue"
 
 /obj/item/food/egg/green
 	icon_state = "egg-green"
-	item_color = "green"
 
 /obj/item/food/egg/mime
 	icon_state = "egg-mime"
-	item_color = "mime"
 
 /obj/item/food/egg/orange
 	icon_state = "egg-orange"
-	item_color = "orange"
 
 /obj/item/food/egg/purple
 	icon_state = "egg-purple"
-	item_color = "purple"
 
 /obj/item/food/egg/rainbow
 	icon_state = "egg-rainbow"
-	item_color = "rainbow"
 
 /obj/item/food/egg/red
 	icon_state = "egg-red"
-	item_color = "red"
 
 /obj/item/food/egg/yellow
 	icon_state = "egg-yellow"
-	item_color = "yellow"
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."

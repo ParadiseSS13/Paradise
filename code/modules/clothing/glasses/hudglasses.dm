@@ -51,6 +51,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
@@ -62,6 +63,7 @@
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -78,6 +80,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	name = "diagnostic sunglasses"
@@ -87,6 +90,7 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -104,6 +108,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -116,6 +121,7 @@
 	tint = FLASH_PROTECTION_FLASH
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	hide_examine = TRUE
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
 	name = "augmented shades"
@@ -140,6 +146,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
@@ -156,6 +163,7 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/janitor
 	name = "janitor HUD"
@@ -173,6 +181,7 @@
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision janitor HUD"
@@ -182,3 +191,4 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+	flags_cover = GLASSESCOVERSEYES

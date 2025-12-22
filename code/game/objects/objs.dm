@@ -1,36 +1,48 @@
 /obj
-	//var/datum/module/mod		//not used
-	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	animate_movement = SLIDE_STEPS
-	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
-	var/sharp = FALSE		// whether this object cuts
-	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+	/// Used by R&D to determine what research bonuses it grants.
+	var/origin_tech = null
+	/// A list of otherwise restricted /datum/species type paths that are permitted to wear this item.
+	var/list/species_exception = null
+	/// Can this object cut?
+	var/sharp = FALSE
+	/// If we have a user using us, this will become `TRUE`. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+	var/in_use = FALSE
+	/// What type of damage does this object deal?
 	var/damtype = "brute"
+	/// How much damage this object does in melee.
 	var/force = 0
 	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
 	// which would be converted to armor datum during initialization.
 	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
+	/// Health of the object. If unspecified, defaults to `max_integrity`.
+	var/obj_integrity
+	/// Maximum health of the object, and default value of `obj_integrity`.
 	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
-	///Damage under this value will be completely ignored
+	/// Health threshold below which the object will break. Defaults to 0 for no special broken behavior.
+	var/integrity_failure = 0
+	/// Damage under this value will be completely ignored.
 	var/damage_deflection = 0
-
-	var/resistance_flags = NONE // INDESTRUCTIBLE
-	var/custom_fire_overlay // Update_fire_overlay will check if a different icon state should be used
-
-	var/acid_level = 0 //how much acid is on that obj
-
-	var/can_be_hit = TRUE //can this be bludgeoned by items?
-
+	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
+	var/resistance_flags = NONE
+	/// If provided, a custom overlay representing being the object being on fire.
+	var/custom_fire_overlay
+	/// How much acid is on this object?
+	var/acid_level = 0
+	/// Can this object be attacked in melee?
+	var/can_be_hit = TRUE
+	/// Is this object currently being zapped by lightning?
 	var/being_shocked = FALSE
+	/// Should this object speed process? Greatly increases the frequency of process events (5 times more frequent).
 	var/speed_process = FALSE
-
-	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
-	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
-	/// Is it emagged or not?
+	/// Are we visible on the station blueprints at roundstart?
+	var/on_blueprints = FALSE
+	/// Forces the object to be on the blueprints, regardless of when it was created.
+	var/force_blueprints = FALSE
+	/// Does this object require you to hold it to commit suicide with it?
+	var/suicidal_hands = FALSE
+	/// Is this object emagged?
 	var/emagged = FALSE
 
 	// Access-related fields
@@ -48,8 +60,6 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(sharp)
-		AddComponent(/datum/component/surgery_initiator)
 
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
@@ -83,7 +93,7 @@
 			STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-//Output a creative message and then return the damagetype done
+/// Override this to enable special self-termination interactions on an object when using the suicide command.
 /obj/proc/suicide_act(mob/user)
 	return FALSE
 
@@ -174,9 +184,10 @@
 /obj/proc/hear_message(mob/M, text)
 	return
 
-/obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+/// Returns `TRUE` if the object was successfully repaired. Fully repairs an object (setting `BROKEN` to `FALSE`), default repair time = 40.
+/obj/proc/default_welder_repair(mob/user, obj/item/I)
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, SPAN_NOTICE("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -190,18 +201,19 @@
 		update_icon()
 	return TRUE
 
+/// Handles (un)anchoring. Returns `TRUE` if successful, otherwise returns `FALSE`.
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	if(!anchored && !isfloorturf(loc))
-		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		user.visible_message(SPAN_WARNING("A floor must be present to secure [src]!"))
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		to_chat(user, SPAN_NOTICE("Now [anchored ? "un" : ""]securing [name]."))
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			to_chat(user, SPAN_NOTICE("You've [anchored ? "un" : ""]secured [name]."))
 			anchored = !anchored
 		return TRUE
 	return FALSE
@@ -253,12 +265,11 @@
 		return
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
-	if(!sharp && new_sharp_val)
+	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
 
-
+/// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 /obj/proc/force_eject_occupant(mob/target)
-	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 
@@ -267,7 +278,7 @@
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
-	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.visible_message(SPAN_DANGER("[C] slams into [src]!"), SPAN_USERDANGER("You slam into [src]!"))
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
 
@@ -283,7 +294,7 @@
 			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-/obj/handle_ricochet(obj/item/projectile/P)
+/obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && receive_ricochet_damage_coeff)
 		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet

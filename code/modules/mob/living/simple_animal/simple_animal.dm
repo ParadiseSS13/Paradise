@@ -188,10 +188,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += SPAN_DEADSAY("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += SPAN_NOTICE("Upon closer examination, [p_they()] appear[p_s()] to be asleep.")
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
@@ -341,9 +341,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+			visible_message(SPAN_DANGER("\The [src] [deathmessage]"))
 		else if(!del_on_death)
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(SPAN_DANGER("\The [src] stops moving..."))
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)

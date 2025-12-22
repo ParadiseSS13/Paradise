@@ -1,5 +1,6 @@
 GLOBAL_DATUM(plmaster, /obj/effect/overlay)
 GLOBAL_DATUM(slmaster, /obj/effect/overlay)
+GLOBAL_DATUM(wvmaster, /obj/effect/overlay)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
@@ -60,9 +61,9 @@ GLOBAL_LIST_EMPTY(mod_link_ids)
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
 ///Global list for descriptors
-GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
+GLOBAL_LIST_INIT(character_physiques, list("emaciated", "rail thin", "thin", "gaunt", "lanky", "scrawny", "average", "lean", "toned", "well-built", "muscular", "chiseled", "shredded", "chubby", "overweight"))
 
-GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
+GLOBAL_LIST_INIT(character_heights, list("miniscule", "very short", "short", "average height", "tall", "very tall", "humongous"))
 
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks

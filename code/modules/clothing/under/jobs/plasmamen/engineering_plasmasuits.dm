@@ -2,20 +2,17 @@
 	name = "engineering plasma envirosuit"
 	desc = "An airtight suit designed to be used by plasmamen employed as engineers, the usual purple stripes being replaced by engineering's orange. It protects the user from fire and acid damage."
 	icon_state = "engineer_envirosuit"
-	item_color = "engineer_envirosuit"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/under/plasmaman/engineering/ce
 	name = "chief engineer's plasma envirosuit"
 	desc = "An airtight suit designed to be used by plasmamen employed as the chief engineer."
 	icon_state = "ce_envirosuit"
-	item_color = "ce_envirosuit"
 
 /obj/item/clothing/under/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit"
 	desc = "An airtight suit designed to be used by plasmamen employed as atmos technicians, the usual purple stripes being replaced by atmos' blue."
 	icon_state = "atmos_envirosuit"
-	item_color = "atmos_envirosuit"
 
 /obj/item/clothing/under/plasmaman/atmospherics/contortionist
 	desc = "An airtight suit designed to be used by plasmemen for squeezing through narrow vents."
@@ -40,6 +37,6 @@
 	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_BELT, ITEM_SLOT_OUTER_SUIT)
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
-			to_chat(user,"<span class='warning'>You can't fit inside while wearing [user.get_item_by_slot(slot_id)].</span>")
+			to_chat(user,SPAN_WARNING("You can't fit inside while wearing [user.get_item_by_slot(slot_id)]."))
 			return FALSE
 	return TRUE

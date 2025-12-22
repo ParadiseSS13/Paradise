@@ -11,6 +11,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 200, FIRE = 20, ACID = INFINITY)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	resistance_flags = ACID_PROOF
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/bio.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/bio.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head/bio.dmi',
@@ -33,7 +34,7 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 0.45
-	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
+	allowed = list(/obj/item/tank/internals/, /obj/item/pen, /obj/item/flashlight/pen)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 200, FIRE = 20, ACID = INFINITY)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70

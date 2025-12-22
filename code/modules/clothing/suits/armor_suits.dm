@@ -54,7 +54,7 @@
 			icon_state = "armorsec"
 			user.update_inv_wear_suit()
 			desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+			to_chat(user, SPAN_NOTICE("You attach [attached_badge] to [src]."))
 		return
 	..()
 
@@ -68,7 +68,7 @@
 		icon_state = "armor"
 		user.update_inv_wear_suit()
 		desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [attached_badge] from [src]."))
 		attached_badge = null
 
 		return
@@ -390,7 +390,7 @@
 /obj/item/clothing/suit/armor/reactive/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
+		. += SPAN_NOTICE("The armor is [round(cell.percent())]% charged.")
 
 /obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
 	. = ..()
@@ -403,13 +403,13 @@
 /obj/item/clothing/suit/armor/reactive/attack_self__legacy__attackchain(mob/user)
 	active = !(active)
 	if(disabled)
-		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")
+		to_chat(user, SPAN_WARNING("[src] is disabled and rebooting!"))
 		return
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now active."))
 		icon_state = "reactive"
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now inactive."))
 		icon_state = "reactiveoff"
 		add_fingerprint(user)
 	user.update_inv_wear_suit()
@@ -454,8 +454,8 @@
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
-			if(istype(P, /obj/item/projectile/ion))
+			var/obj/projectile/P = hitby
+			if(istype(P, /obj/projectile/ion))
 				return FALSE
 			if(!P.nodamage || P.stun || P.weaken)
 				return TRUE
@@ -475,7 +475,7 @@
 	if(reaction_check(hitby) && is_teleport_allowed(owner.z) && use_power())
 		var/mob/living/carbon/human/H = owner
 		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
-			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+			owner.visible_message(SPAN_DANGER("The reactive teleport system flings [H] clear of [attack_text]!"))
 			return TRUE
 		return FALSE
 	return FALSE
@@ -500,7 +500,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out jets of flame!"))
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -527,13 +527,13 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out freezing bolts!"))
 
 		for(var/mob/living/M in oview(get_turf(src), 7))
 			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses
-			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
+			owner.visible_message(SPAN_WARNING("[src] vents excess coolant!"))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 
 			var/turf/simulated/T = get_turf(src)
@@ -550,7 +550,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	var/obj/projectile/temp/basilisk/O = new /obj/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	O.current = T
 	O.yo = U.y - T.y
@@ -571,7 +571,7 @@
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(SPAN_DANGER("[owner] is hit by [attack_text] in the chest!")) //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
 		disable(rand(4, 5)) //No blocking while invisible
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
@@ -585,7 +585,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out arcs of lightning!"))
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -611,7 +611,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], converting the attack into a wave of force!"))
 		use_power()
 		var/list/thrown_atoms = list()
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
@@ -628,13 +628,13 @@
 				if(isliving(AM))
 					var/mob/living/M = AM
 					M.Weaken(6 SECONDS)
-					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
+					to_chat(M, SPAN_USERDANGER("You're slammed into the floor by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else
 				new sparkle_path(get_turf(AM), get_dir(owner, AM))
 				if(isliving(AM))
 					var/mob/living/M = AM
-					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
+					to_chat(M, SPAN_USERDANGER("You're thrown back by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 				INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
@@ -831,6 +831,39 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+
+/obj/item/clothing/suit/hooded/bone_light
+	name = "light bone armor"
+	desc = "A lightweight set of bone armor, crafted crudely from animal products."
+	icon_state = "light_bone_armor"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
+	hoodtype = /obj/item/clothing/head/hooded/bone_light
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+/obj/item/clothing/head/hooded/bone_light
+	name = "light bone helmet"
+	desc = "A crude helmet crafted from the bones of animals."
+	icon_state = "light_bone_helmet"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	heat_protection = HEAD
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"

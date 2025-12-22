@@ -14,9 +14,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "d" = (
 /obj/structure/chair/comfy/shuttle{
@@ -25,9 +23,7 @@
 /mob/living/basic/skeleton/warden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -37,9 +33,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "f" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "g" = (
 /obj/structure/window/reinforced{
@@ -48,9 +42,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "h" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -59,9 +51,7 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "m" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -84,9 +74,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "y" = (
 /obj/effect/decal/cleanable/blood,
@@ -97,15 +85,11 @@
 /area/template_noop)
 "B" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "D" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "E" = (
 /obj/structure/closet/crate/secure/sec_shuttle_ruin{
@@ -123,9 +107,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "G" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -148,9 +130,7 @@
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/corpse/skeleton/security_officer,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "R" = (
 /obj/structure/chair/comfy/shuttle{
@@ -163,9 +143,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 "T" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
@@ -202,9 +180,7 @@
 /area/ruin/space/sec_shuttle)
 "Z" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 
 (1,1,1) = {"

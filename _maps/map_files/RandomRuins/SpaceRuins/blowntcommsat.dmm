@@ -54,9 +54,7 @@
 "cl" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "cM" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -106,9 +104,7 @@
 /area/ruin/space/tcommsat)
 "fS" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "gg" = (
 /obj/structure/chair{
@@ -193,9 +189,7 @@
 "le" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "lk" = (
 /obj/structure/window/reinforced{
@@ -209,9 +203,7 @@
 "lo" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "lq" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
@@ -234,9 +226,7 @@
 "nk" = (
 /obj/structure/rack,
 /obj/item/wirerod,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "nv" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -273,9 +263,7 @@
 "oZ" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "pg" = (
 /obj/machinery/economy/vending/snack,
@@ -333,9 +321,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "sb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "sm" = (
 /obj/structure/chair{
@@ -764,9 +750,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "UK" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "UP" = (
 /obj/structure/window/reinforced{
@@ -868,9 +852,7 @@
 /area/ruin/space/tcommsat)
 "Zd" = (
 /obj/structure/closet/malf_suits,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "Zi" = (
 /obj/structure/window/reinforced{

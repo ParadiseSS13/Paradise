@@ -110,6 +110,8 @@
 	var/runechat_color = "#FFFFFF"
 	/// The ringtone their PDA should start with
 	var/pda_ringtone
+	/// A list/JSON of the quirk datums to attach to the character
+	var/list/quirks = list()
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -131,6 +133,8 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(length(loadout_gear))
 		gearlist = json_encode(loadout_gear)
+	if(islist(quirks))
+		quirks = json_encode(quirks)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
@@ -138,6 +142,25 @@
 	if(!firstquery.warn_execute())
 		qdel(firstquery)
 		return
+
+	// ALL OF THIS SHIT BECAUSE h_style CAN BE A STRING OR A DATUM
+	var/h_style_str = "Bald"
+	if(istype(h_style, /datum/sprite_accessory/hair))
+		var/datum/sprite_accessory/hair/H = h_style
+		h_style_str = H.name
+
+	if(istext(h_style))
+		h_style_str = h_style
+
+	// Same with f_style
+	var/f_style_str = "Bald"
+	if(istype(f_style, /datum/sprite_accessory/facial_hair))
+		var/datum/sprite_accessory/facial_hair/F = f_style
+		f_style_str = F.name
+
+	if(istext(f_style))
+		f_style_str = f_style
+
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == slot_number) // Check if the character exists
 			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE characters
@@ -202,7 +225,8 @@
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
-					pda_ringtone=:pda_ringtone
+					pda_ringtone=:pda_ringtone,
+					quirks=:quirks
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -222,8 +246,8 @@
 						"s_colour" = s_colour,
 						"markingcolourslist" = markingcolourslist,
 						"hacc_colour" = hacc_colour,
-						"h_style" = h_style,
-						"f_style" = f_style,
+						"h_style" = h_style_str,
+						"f_style" = f_style_str,
 						"markingstyleslist" = markingstyleslist,
 						"ha_style" = ha_style,
 						"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
@@ -267,7 +291,8 @@
 						"cyborg_brain_type" = cyborg_brain_type,
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
-						"slot" = slot_number
+						"slot" = slot_number,
+						"quirks" = quirks
 					))
 
 			if(!query.warn_execute())
@@ -306,7 +331,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -333,7 +358,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -354,8 +379,8 @@
 		"s_colour" = s_colour,
 		"markingcolourslist" = markingcolourslist,
 		"hacc_colour" = hacc_colour,
-		"h_style" = h_style,
-		"f_style" = f_style,
+		"h_style" = h_style_str,
+		"f_style" = f_style_str,
 		"markingstyleslist" = markingstyleslist,
 		"ha_style" = ha_style,
 		"alt_head" = (alt_head ? alt_head : "None"), // bane of my fucking life
@@ -397,7 +422,8 @@
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
-		"pda_ringtone" = pda_ringtone
+		"pda_ringtone" = pda_ringtone,
+		"quirks" = quirks
 	))
 
 	if(!query.warn_execute())
@@ -493,6 +519,8 @@
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
 
+	quirks = query.item[62]
+
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	if(!SP)
@@ -580,6 +608,7 @@
 	runechat_color = sanitize_hexcolor(runechat_color)
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
+	quirks = sanitize_json(quirks)
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -1017,7 +1046,7 @@
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (current_species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.sprite_sheet_name] : U2.icon
 			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
@@ -1152,7 +1181,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "smithing"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "smithsoft"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "smith"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1376,7 +1405,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cig_off"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "paramedicsoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "paramedic"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
@@ -1866,6 +1895,11 @@
 	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender, species)
+	var/balance_check = rebuild_quirks()
+	for(var/datum/quirk/to_add in quirks)
+		to_add.apply_quirk_effects(character)
+	if(balance_check > 0)
+		log_debug("[src] spawned in with more quirks than they should have been able to. Quirk balance of [balance_check].")
 	character.add_language(language)
 
 	character.real_name = real_name
@@ -2042,39 +2076,121 @@
 /datum/character_save/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low)
 
-
+/// limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+/// splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
+/// widthPerColumn - Screen's width for every column.
+/// height - Screen's height.
+/// 1366x768 is a common screen resolution, and increasing widthPerColumn or height to above 400 and 700,
+/// will result in the window being placed outside the screen for these users. If we get more jobs than limit x 3, increase limit.
 /datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
-	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
-	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-	//widthPerColumn - Screen's width for every column.
-	//height - Screen's height.
 	var/width = widthPerColumn
 
+	// these are used to show the mechanical difficulty to the player
+	var/filled_difficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_full")) + "'>"
+	var/unfilled_fifficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_empty")) + "'>"
+	var/half_difficulty = "<img style='width: 16px; heigh: 16px;' src='data:image/png;base64, " + icon2base64(icon("icons/ui_icons/stars.dmi", "star_half")) + "'>"
+	var/all_difficulty
+	for(var/i in 1 to MAX_DIFFICULTY / 2)
+		all_difficulty += filled_difficulty
 
 	var/list/html = list()
+	html += {"
+	<head>
+		<style>
+		.info-div-wrapper {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			margin-bottom: 5px;'
+		}
+
+		.info-div {
+			line-height: 1;
+			display: flex;
+			flex-direction: column;
+			width: 50%;
+			padding: 10px;
+			text-align: left;
+			border: 1px solid white;
+		}
+
+		.left-side {
+			margin-left: 5px;
+		}
+
+		.right-side {
+			margin-right: 5px;
+		}
+
+		.flex-end {
+			align-self: flex-end;
+		}
+		</style>
+	</head>
+	"}
 	html += "<body>"
 	if(!length(SSjobs.occupations))
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
-		html += "<tt><center>"
-		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
-		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
-		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		var/unavailable_job
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Get a random job</a></u>"
+			if(BE_ASSISTANT)
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Be an assistant</a></u>"
+			if(RETURN_TO_LOBBY)
+				unavailable_job = "<u><a href='byond://?_src_=prefs;preference=job;task=random'>Return to lobby</a></u>"
+
+		html += {"
+		<tt>
+			<center>
+				<div align='center'>
+					<p>Left-click to raise an occupation preference, right-click to lower it.</p>
+				</div>
+					<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>
+				<div align='center'>Mechanical difficulty is shown as [all_difficulty].
+					<br>
+				</div>
+				<hr>
+				<div class='info-div-wrapper'>
+					<div class='info-div right-side'>
+						<p>Save preferences: <a href='byond://?_src_=prefs;preference=job;task=close'>Save and Close This Window</a></p>
+						<p>Reset preferences: <a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></p>
+						<p>If job preferences are unavailable: [unavailable_job]</p>
+						<br>
+						<a class='flex-end' href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a>
+					</div>
+					<div class='info-div left-side'>
+						<p id='tooltip'>Hover over a job to get more information about it.</p>
+					</div>
+				</div>
+				<table width='100%' cellpadding='1' cellspacing='0'>
+					<tr>
+					<td width='20%'>"}; // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
 
-		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
+		// The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
 		if(!SSjobs)
 			return
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
+
+			var/difficulty_meter = ""
+			if(job.difficulty)
+				for(var/i in 1 to ceil(MAX_DIFFICULTY / 2))
+					if(job.difficulty >= (2 * i))
+						difficulty_meter += filled_difficulty
+						continue
+					if(job.difficulty > (2 * (i - 1)))
+						difficulty_meter += half_difficulty
+						continue
+					difficulty_meter += unfilled_fifficulty
 
 			if(job.admin_only)
 				continue
@@ -2087,6 +2203,7 @@
 					continue
 
 			index += 1
+			// when max jobs are listed, or the name of a "header" job is listed, make a new column
 			if((index >= limit) || (job.title in splitJobs))
 				if((index < limit) && (lastJob != null))
 					// Dynamic window width
@@ -2094,45 +2211,55 @@
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
 					//the last job's selection color. Creating a rather nice effect.
 					for(var/i in 1 to limit - index)
-						html += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+						html += "<tr bgcolor='[lastJob.selection_color]'><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
-			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
+			lastJob = job
+
+			// determines the size of the job name column
+			// !! watch out for the funni open tag here. It needs to be closed later !!
+			// all this should probably be put in a function to make it easier to read and save future headaches
+			var/job_description = html_encode(replacetext_char(job.description, "\n", "<br>"))
+			html += "<tr onmouseover='document.getElementById(`tooltip`).innerHTML = `[job_description]`' bgcolor='[job.selection_color]'><td width='50%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			lastJob = job
-			if(jobban_isbanned(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
-				continue
 
 			var/restrictions = job.get_exp_restrictions(user.client)
+			if(jobban_isbanned(user, job.title))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td><td></td></tr>"
+				continue
 			if(restrictions)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td><td>[difficulty_meter]</td></tr>"
+				continue
+			if(job.barred_by_quirk(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[QUIRK\]</b></td></tr>"
 				continue
 			if(job.barred_by_missing_limbs(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MISSING LIMBS\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[FIX LIMBS\]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td><td>[difficulty_meter]</td></tr>"
 				continue
+
+			// Disable choice if the player has assitant selected (and this job isn't assistant)
 			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
-				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				// this determines the job preference column when assistant is enabled, since the other choices will be hidden
+				html += "<font color='orange'>[rank]</font></td><td style='width:20%;'></td><td>[difficulty_meter]</td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
-				html += "<b><span class='dark'>[rank]</span></b>"
+				html += "<b>[SPAN_DARK("[rank]")]</b>"
 			else
-				html += "<span class='dark'>[rank]</span>"
+				html += SPAN_DARK("[rank]")
 
-			html += "</td><td width='40%'>"
-
+			html += "</td><td style='text-align:center;'>"
 			var/prefLevelLabel = "ERROR"
 			var/prefLevelColor = "pink"
 			var/prefUpperLevel = -1 // level to assign on left click
@@ -2166,10 +2293,13 @@
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
-					html += " <font color=green>Yes</font></a>"
+					html += " <font color='green'>Yes</font></a>"
 				else
-					html += " <font color=red>No</font></a>"
-				html += "</td></tr>"
+					html += " <font color='red'>No</font></a>"
+				html += "</td>"
+				// sets the size of the job preference column, but only for assistant.
+				// It will pick the bigger number of this and the rest of the column
+				html += "<td style='margin: 5px;'>[SPAN_DARK("[difficulty_meter]")]</td></tr>"
 				continue
 	/*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -2181,26 +2311,18 @@
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
+			// determines the width of the jobs priority column
 			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
-
+			html += "</td><td style='width: 30%; margin: 5px;'>[SPAN_DARK("[difficulty_meter]")]"
 			html += "</td></tr>"
+
 		index += 1
-		for(var/i in 1 to limit - index) // Finish the column so it is even
-			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+		for(var/i in 1 to limit - index) // Fill the column with blank slots so it is even
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td align='right'>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>"
 
 		html += "</td></tr></table>"
 		html += "</center></table>"
 
-		switch(alternate_option)
-			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
-			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
-
-		html += "<center><a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
-		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")
@@ -2255,3 +2377,21 @@
 		custom_emotes[custom_emote.name] = emote_text
 
 	return custom_emotes
+/*
+* This serves two purposes. It tallies up and returns the total quirk balance of the current loadout
+* It also rebuilds then entire list of quirks, converting the JSON format it could be into a usable datum.
+*/
+/datum/character_save/proc/rebuild_quirks()
+	var/point_total = 0
+	if(!islist(quirks)) // If it's not a normal list then it has to be JSON. Or something went horribly wrong.
+		quirks = json_decode(quirks)
+	var/list/quirk_cache = quirks.Copy()
+	quirks.Cut()
+	for(var/quirk_name in quirk_cache)
+		var/datum/quirk/chosen_quirk = GLOB.quirk_paths["[quirk_name]"]
+		var/datum/quirk/quirk = new chosen_quirk.type // Don't want hard refs to the global list
+		if(!quirk)
+			continue
+		point_total += quirk.cost
+		quirks += quirk
+	return point_total

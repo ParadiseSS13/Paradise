@@ -106,7 +106,7 @@
 	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
 	detonate = FALSE
 	default_pen = /obj/item/pen/multi/fountain
 
@@ -202,7 +202,8 @@
 	icon_state = "pda-genetics"
 
 /obj/item/pda/centcom
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
+	detonate = FALSE
 	icon_state = "pda-h"
 	default_pen = /obj/item/pen/multi/gold
 

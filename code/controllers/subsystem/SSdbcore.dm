@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(dbcore)
 	/// SQL errors that have occured mid round
 	var/total_errors = 0
 
-	/// Connection handle. This is an arbitrary handle returned from rust_g.
+	/// Connection handle. This is an arbitrary handle returned from rustlibs.
 	var/connection
 
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(dbcore)
   * Connection Creator
   *
   * This proc basically does a few sanity checks before connecting, then attempts to make a connection
-  * When connecting, RUST_G will initialize a thread pool for queries to use to run asynchronously
+  * When connecting, rustlibs will initialize a thread pool for queries to use to run asynchronously
   */
 /datum/controller/subsystem/dbcore/proc/Connect()
 	if(IsConnected())
@@ -76,22 +76,26 @@ SUBSYSTEM_DEF(dbcore)
 		failed_connection_timeout = world.time + 50
 		return FALSE
 
-	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
-		"host" = GLOB.configuration.database.address,
-		"port" = GLOB.configuration.database.port,
-		"user" = GLOB.configuration.database.username,
-		"pass" = GLOB.configuration.database.password,
-		"db_name" = GLOB.configuration.database.db,
-		"read_timeout" = GLOB.configuration.database.async_query_timeout,
-		"write_timeout" = GLOB.configuration.database.async_query_timeout,
-		"max_threads" = GLOB.configuration.database.async_thread_limit,
-	))))
-	. = (result["status"] == "ok")
+	var/datum/db_connection_request/dbcreq = new()
+	dbcreq.host = GLOB.configuration.database.address
+	dbcreq.port = GLOB.configuration.database.port
+	dbcreq.user = GLOB.configuration.database.username
+	dbcreq.pass = GLOB.configuration.database.password
+	dbcreq.db_name = GLOB.configuration.database.db
+	dbcreq.read_timeout = GLOB.configuration.database.async_query_timeout
+	dbcreq.write_timeout = GLOB.configuration.database.async_query_timeout
+	dbcreq.min_threads = 1
+	dbcreq.max_threads = GLOB.configuration.database.async_thread_limit
+
+	var/datum/db_connection_response/dbcres = rustlibs_sql_connect_pool(dbcreq)
+
+	. = dbcres.ok
+
 	if(.)
-		connection = result["handle"]
+		connection = dbcres.handle
 	else
 		connection = null
-		last_error = result["data"]
+		last_error = dbcres.error_message
 		log_sql("Connect() failed | [last_error]")
 		++failed_connections
 
@@ -129,8 +133,17 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/Disconnect()
 	failed_connections = 0
 	if(connection)
-		rustg_sql_disconnect_pool(connection)
-	connection = null
+		var/dc_result = rustlibs_sql_disconnect_pool(connection)
+		connection = null
+		if(isnum(dc_result))
+			switch(dc_result)
+				if(1)
+					// Do nothing - was a success
+					return // This return is here just to shut OD up
+				if(0)
+					log_sql("Failed to disconnect - pool is already offline")
+		else
+			log_sql("Failed to disconnect - [dc_result]")
 
 /**
   * Shutdown Handler
@@ -212,7 +225,19 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	if(!connection)
 		return FALSE
-	return json_decode(rustg_sql_connected(connection))["status"] == "online"
+
+	var/conn_result = rustlibs_sql_connected(connection)
+	if(isnum(conn_result))
+		switch(conn_result)
+			if(1)
+				return TRUE
+			if(0)
+				log_sql("Connection is offline")
+				return FALSE
+
+	else
+		log_sql("Error checking connection - [conn_result]")
+		return FALSE
 
 
 /**
@@ -249,7 +274,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("DB query blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE
@@ -301,44 +326,6 @@ SUBSYSTEM_DEF(dbcore)
 	if(log)
 		log_debug("Executed [length(querys)] queries in [stop_watch(start_time)]s")
 
-/**
-  * # db_query
-  *
-  * Datum based handler for all database queries
-  *
-  * Holds information regarding inputs, status, and outputs
-  */
-/datum/db_query
-	// Inputs
-	/// The connection being used with this query
-	var/connection
-	/// The SQL statement being executed with :parameter placeholders
-	var/sql
-	/// An associative list of parameters to be substituted into the statement
-	var/arguments
-
-	// Status information
-	/// Is the query currently in progress
-	var/in_progress
-	/// What was our last error, if any
-	var/last_error
-	/// What was our last activity
-	var/last_activity
-	/// When was our last activity
-	var/last_activity_time
-
-	// Output
-	/// List of all rows returned
-	var/list/list/rows
-	/// Counter of the next row to take
-	var/next_row_to_take = 1
-	/// How many rows were affected by the query
-	var/affected
-	/// ID of the last inserted row
-	var/last_insert_id
-	/// List of data values populated by NextRow()
-	var/list/item
-
 // Sets up some vars and throws it into the SS active query list
 /datum/db_query/New(connection, sql, arguments)
 	SSdbcore.active_queries[src] = TRUE
@@ -388,7 +375,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
-			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+			to_chat(usr, SPAN_DANGER("A SQL error occurred during this operation, please inform an admin or a coder."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		message_admins("An SQL error has occurred. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**
@@ -433,33 +420,36 @@ SUBSYSTEM_DEF(dbcore)
   * * async - Are we running this query asynchronously
   */
 /datum/db_query/proc/run_query(async)
-	var/job_result_str
-
 	if(async)
-		var/job_id = rustg_sql_query_async(connection, sql, json_encode(arguments))
-		in_progress = TRUE
-		UNTIL((job_result_str = rustg_sql_check_query(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
-		in_progress = FALSE
+		rustlibs_sql_query_async(src)
 
-		if(job_result_str == RUSTG_JOB_ERROR)
-			last_error = job_result_str
-			return FALSE
+		if(!in_progress)
+			CRASH("Query was not set as in progress - this is bad")
+
+		UNTIL(async_query_done())
 	else
-		job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
+		rustlibs_sql_query_blocking(src)
 
-	var/result = json_decode(job_result_str)
-	switch(result["status"])
-		if("ok")
-			rows = result["rows"]
-			affected = result["affected"]
-			last_insert_id = result["last_insert_id"]
-			return TRUE
-		if("err")
-			last_error = result["data"]
-			return FALSE
-		if("offline")
-			last_error = "offline"
-			return FALSE
+	return isnull(last_error)
+
+/datum/db_query/proc/async_query_done()
+	// If we dont have an ID, were blocking, so assume complete
+	if(isnull(query_id))
+		return TRUE
+
+	// If we arent in progress, assume complete
+	if(!in_progress)
+		return TRUE
+
+	// We got here, so check the status
+	rustlibs_sql_check_query(src)
+
+	// If we have no result, were not finished
+	if(last_error == RUSTLIBS_JOB_NO_RESULTS_YET)
+		return FALSE
+
+	// If we got here, we have a result to parse
+	return TRUE
 
 // Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
@@ -491,28 +481,26 @@ SUBSYSTEM_DEF(dbcore)
 	item = null
 
 // Verb that lets admins force reconnect the DB
-/client/proc/reestablish_db_connection()
-	set category = "Debug"
-	set name = "Reestablish DB Connection"
+USER_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)
 	if(!GLOB.configuration.database.enabled)
-		to_chat(usr, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
+		to_chat(client, SPAN_WARNING("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
-		if(!check_rights(R_DEBUG, FALSE))
-			to_chat(usr, "<span class='warning'>The database is already connected! (Only those with +DEBUG can force a reconnection)</span>")
+		if(!check_rights_client(R_DEBUG, FALSE, client))
+			to_chat(client, SPAN_WARNING("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
-		var/reconnect = alert("The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
+		var/reconnect = alert(client, "The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
 		if(reconnect != "Force Reconnect")
 			return
 
 		SSdbcore.Disconnect()
-		log_admin("[key_name(usr)] has forced the database to disconnect")
-		message_admins("[key_name_admin(usr)] has <b>forced</b> the database to disconnect!!!")
+		log_admin("[key_name(client)] has forced the database to disconnect")
+		message_admins("[key_name_admin(client)] has <b>forced</b> the database to disconnect!!!")
 
-	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
-	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
+	log_admin("[key_name(client)] is attempting to re-establish the DB Connection")
+	message_admins("[key_name_admin(client)] is attempting to re-establish the DB Connection")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this
@@ -520,3 +508,62 @@ SUBSYSTEM_DEF(dbcore)
 		message_admins("Database connection failed: [SSdbcore.ErrorMsg()]")
 	else
 		message_admins("Database connection re-established")
+
+
+
+// Dont touch stuff below this line without first checking the rust side
+/datum/db_connection_response
+	var/ok
+	var/handle
+	var/error_message
+
+/datum/db_connection_request
+	var/host
+	var/port
+	var/user
+	var/pass
+	var/db_name
+	var/read_timeout
+	var/write_timeout
+	var/min_threads
+	var/max_threads
+
+/**
+  * # db_query
+  *
+  * Datum based handler for all database queries
+  *
+  * Holds information regarding inputs, status, and outputs
+  */
+/datum/db_query
+	// Inputs
+	/// The connection being used with this query
+	var/connection
+	/// The SQL statement being executed with :parameter placeholders
+	var/sql
+	/// An associative list of parameters to be substituted into the statement
+	var/arguments
+
+	// Status information
+	/// Is the query currently in progress
+	var/in_progress
+	/// What is the query ID?
+	var/query_id
+	/// What was our last error, if any
+	var/last_error
+	/// What was our last activity
+	var/last_activity
+	/// When was our last activity
+	var/last_activity_time
+
+	// Output
+	/// List of all rows returned
+	var/list/list/rows
+	/// Counter of the next row to take
+	var/next_row_to_take = 1
+	/// How many rows were affected by the query
+	var/affected
+	/// ID of the last inserted row
+	var/last_insert_id
+	/// List of data values populated by NextRow()
+	var/list/item

@@ -61,7 +61,7 @@
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 // Most of these overrides procs below are overkill, but better safe than sorry.
-/obj/effect/abstract/bullet_act(obj/item/projectile/P)
+/obj/effect/abstract/bullet_act(obj/projectile/P)
 	return
 
 /obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -125,12 +125,12 @@
 /obj/effect/decal/proc/scoop(obj/item/I, mob/user)
 	if(reagents && I.reagents && !no_scoop)
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='notice'>There isn't enough [src] to scoop up!</span>")
+			to_chat(user, SPAN_NOTICE("There isn't enough [src] to scoop up!"))
 			return
 		if(I.reagents.total_volume >= I.reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[I] is full!</span>")
+			to_chat(user, SPAN_NOTICE("[I] is full!"))
 			return
-		to_chat(user, "<span class='notice'>You scoop [src] into [I]!</span>")
+		to_chat(user, SPAN_NOTICE("You scoop [src] into [I]!"))
 		on_scoop()
 		reagents.trans_to(I, reagents.total_volume)
 		if(!reagents.total_volume && !no_clear) //scooped up all of it

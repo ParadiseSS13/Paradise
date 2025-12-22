@@ -16,7 +16,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 	new item.typepath(prize_counter.loc)
 	prize_counter.tickets -= item.cost
-	to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
+	to_chat(usr, SPAN_NOTICE("Enjoy your prize!"))
 	playsound(prize_counter, 'sound/machines/machine_vend.ogg', 50, TRUE)
 
 //////////////////////////////////////
@@ -369,6 +369,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Gloves of Headpats"
 	desc = "Gloves that fill you with an irresistable urge to give headpats."
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
+	cost = 150
+
+/datum/prize_item/bootsofjumping
+	name = "Boots of Jumping"
+	desc = "Boots that were made for jumping. And that's just what they'll do."
+	typepath = /obj/item/clothing/shoes/leather/jump
 	cost = 150
 
 /datum/prize_item/tommygun

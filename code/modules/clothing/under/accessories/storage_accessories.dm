@@ -2,7 +2,6 @@
 	name = "load bearing equipment"
 	desc = "Used to hold things when you don't have enough hands."
 	icon_state = "webbing"
-	item_color = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/slots = 3
 	var/obj/item/storage/internal/hold
@@ -66,7 +65,7 @@
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
-		to_chat(user, "<span class='notice'>You empty [src].</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src]."))
 		var/turf/T = get_turf(src)
 		hold.hide_from(usr)
 		for(var/obj/item/I in hold.contents)
@@ -85,21 +84,18 @@
 	name = "black webbing vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	icon_state = "vest_black"
-	item_color = "vest_black"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/brown_vest
 	name = "brown webbing vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	icon_state = "vest_brown"
-	item_color = "vest_brown"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/knifeharness
 	name = "decorated harness"
 	desc = "A heavily decorated harness of sinew and leather with two knife-loops."
 	icon_state = "unathiharness2"
-	item_color = "unathiharness2"
 	slots = 2
 
 /obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)

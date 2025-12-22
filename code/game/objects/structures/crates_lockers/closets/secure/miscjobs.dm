@@ -6,7 +6,7 @@
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
 	new /obj/item/storage/backpack/duffel/clown(src)
-	new /obj/item/storage/backpack/satchel/clown(src)
+	new /obj/item/storage/backpack/satchel_clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/clown/sexy(src)

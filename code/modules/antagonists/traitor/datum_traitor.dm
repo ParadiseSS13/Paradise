@@ -95,6 +95,13 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
 			organization = new org_type(src)
+			if(istype(organization, /datum/antag_org/syndicate/gorlex))
+				if(prob(50))
+					organization.intro_desc += "Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+					organization.forced_objectives = list(/datum/objective/hijack)
+				else
+					organization.intro_desc += "Get in, fuck shit up, send the station out with a bang. You know the drill."
+					organization.forced_objectives = list(/datum/objective/nuke)
 			return
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
@@ -107,6 +114,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
+	else if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+		antag_hud_name = is_contractor ? "hudnukecontractor" : "hudnuke"
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
 	return ..()
@@ -118,7 +127,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		forge_human_objectives()
 
 /datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
 	// Remove mindslaves
 	var/list/mindslaves = SSticker.mode.implanted
 	for(var/datum/mind/possible_slave in mindslaves)
@@ -139,15 +151,19 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/can_succeed_if_dead = TRUE
 	// If our org has forced objectives, give them to us guaranteed.
 	if(organization && length(organization.forced_objectives))
+		var/list/instant_known_objs = list(/datum/objective/hijack, /datum/objective/nuke)
 		for(var/forced_objectives in organization.forced_objectives)
 			var/datum/objective/forced_obj = forced_objectives
-			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) // Hijackers know their objective immediately
+			if(!is_path_in_list(forced_obj, instant_known_objs) && delayed_objectives) // Some objectives are known instantly
 				forced_obj = new /datum/objective/delayed(forced_obj)
 			add_antag_objective(forced_obj)
 			iteration++
 
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		return //Hijackers only get hijack.
+
+	if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+		return // If you're gonna nuke the place, you don't need any other objectives.
 
 	// Will give objectives from our org or random objectives.
 	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
@@ -204,11 +220,11 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 	var/list/messages = list()
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<span class='bold body'>Code Phrase: [SPAN_CODEPHRASES("[phrases]")]</span>")
+	messages.Add("<span class='bold body'>Code Response: [SPAN_CODERESPONSES("[responses]")]</span>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Code Phrase</b>: [SPAN_RED("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [SPAN_RED("[responses]")]<br>"
 
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
@@ -244,7 +260,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		R = locate(/obj/item/radio) in traitor_mob.contents
 
 	if(!R)
-		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
+		to_chat(traitor_mob, SPAN_WARNING("Unfortunately, the Syndicate wasn't able to give you an uplink."))
 		return FALSE // They had no PDA or radio for whatever reason.
 
 	if(isradio(R))
@@ -264,7 +280,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		target_radio.hidden_uplink = T
 		T.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.</span>")
+		to_chat(traitor_mob, SPAN_NOTICE("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."))
 		antag_memory += "<B>Radio Freq:</B> [format_frequency(freq)] ([R.name])."
 		return TRUE
 
@@ -278,7 +294,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/obj/item/pda/P = R
 		P.lock_code = pda_pass
 
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.</span>")
+		to_chat(traitor_mob, SPAN_NOTICE("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."))
 		antag_memory += "<B>Uplink Passcode:</B> [pda_pass] ([R.name]."
 		return TRUE
 	return FALSE
@@ -288,8 +304,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var/message = "<br><b>The code phrases were:</b> [SPAN_BLUETEXT("[phrases]")]<br>\
+					<b>The code responses were:</b> [SPAN_REDTEXT("[responses]")]<br>"
 
 	return message
 
@@ -306,6 +322,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	if(prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
 		queue_backstab()
+
+	if(prob(EXCHANGE_PROBABILITY))
+		start_exchange()
 
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))

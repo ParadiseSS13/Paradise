@@ -191,7 +191,6 @@
 
 		I.worn_icon_state = initial(picked_item.worn_icon_state)
 		I.inhand_icon_state = initial(picked_item.inhand_icon_state)
-		I.item_color = initial(picked_item.item_color)
 		I.color = initial(picked_item.color)
 
 		I.worn_icon = initial(picked_item.worn_icon)
@@ -239,7 +238,6 @@
 	icon_state = "black"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	inhand_icon_state = "bl_suit"
-	item_color = "black"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -449,8 +447,7 @@
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
 	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
-	icon_state = "greysoft"
-	item_color = "grey"
+	icon_state = "grey"
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -542,7 +539,6 @@
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	icon_state = "black"
-	item_color = "black"
 	desc = "A pair of black shoes."
 	dyeable = FALSE
 	permeability_coefficient = 0.05
@@ -724,7 +720,7 @@
 		var/obj/item/mod/control/C = target
 		C.current_disguise = FALSE
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
@@ -744,7 +740,7 @@
 				toreturn.return_look()
 				return
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 	..()
 

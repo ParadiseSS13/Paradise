@@ -6,7 +6,6 @@
 /// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
-
 /obj/item/pda
 	name = "\improper PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
@@ -18,24 +17,33 @@ GLOBAL_LIST_EMPTY(PDAs)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
-
-	//Main variables
+	/// Is this a silicon's internal PDA?
+	var/silicon_pda = FALSE
+	/// Name on the registered owner's ID card.
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
-	var/obj/item/cartridge/cartridge = null //current cartridge
+	/// Typepath of the ROM cartridge that spawns with this PDA, if any. Gives extra functionality to the PDA.
+	var/default_cartridge = 0
+	/// The ROM cartridge currently inside this PDA.
+	var/obj/item/cartridge/cartridge = null
+	/// The program currently loaded in the PDA (e.g. crew manifest, messanger, main menu).
 	var/datum/data/pda/app/current_app = null
-	var/datum/data/pda/app/lastapp = null
-
-	//Secondary variables
+	/// Stated by some programs, not visible on examination.
 	var/model_name = "Thinktronic 5230 Personal Data Assistant"
+	/// Some PDA programs turn the PDA into scanning tool (e.g. gas scaner, medical analyzer).
 	var/datum/data/pda/utility/scanmode/scanmode = null
-
-	var/lock_code = "" // Lockcode to unlock uplink
-	var/silent = FALSE //To beep or not to beep, that is the question
-	var/honkamt = 0 //How many honks left when infected with honk.exe
-	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = TRUE // Can the PDA be blown up?
-	var/ttone = "beep" //The ringtone!
+	/// Code to unlock the Syndicate uplink.
+	var/lock_code = ""
+	/// Is the PDA muted?
+	var/silent = FALSE
+	/// How many sounds will be replaced with HONKs (when infected with honk.exe)?
+	var/honkamt = 0
+	/// How many sounds will be muted (when infected with mime.exe)?
+	var/mimeamt = 0
+	/// Can this PDA be blown up?
+	var/detonate = TRUE
+	/// This PDA's ringtone.
+	var/ttone = "beep"
+	/// Core programs that come with this PDA.
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -51,16 +59,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
 
-	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
+	/// ID card currently slotted into the PDA.
+	var/obj/item/card/id/id = null
+	/// Job on the current ID card.
 	var/ownjob = null //related to above
+	/// Rank of the current ID card.
 	var/ownrank = null // this one is rank, never alt title
-
-	var/obj/item/paicard/pai = null	// A slot for a personal AI device
-	// The slot where you can store a pen
+	/// PDA slot for a pAI.
+	var/obj/item/paicard/pai = null
+	/// PDA slot for a pen.
 	var/obj/item/held_pen
-	var/retro_mode = 0
-	/// What pen is loaded in the PDA
+	/// Type of pen this PDA spawns with.
 	var/obj/item/pen/default_pen = /obj/item/pen
+	var/retro_mode = 0
 
 /*
  *	The Actual PDA
@@ -81,9 +92,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> [src] to remove its ID card.</span>"
-	. += "<span class='notice'><b>Ctrl-Click</b> [src] to remove its pen.</span>"
-	. += "<span class='notice'>Use a screwdriver on [src] to reset it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] to remove its ID card.")
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> [src] to remove its pen.")
+	. += SPAN_NOTICE("Use a screwdriver on [src] to reset it.")
 
 /obj/item/pda/proc/can_use()
 	if(!ismob(loc))
@@ -143,7 +154,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 	var/datum/data/pda/utility/flashlight/flash = find_program(/datum/data/pda/utility/flashlight)
-	if(flash.fon)
+	if(flash?.fon)
 		switch(icon_state)
 			if("pda-library")
 				. += image('icons/obj/pda.dmi', "pda-light-library")
@@ -187,7 +198,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	notifying_programs.Cut()
 	update_icon(UPDATE_OVERLAYS)
-	to_chat(user, "<span class='notice'>You press the reset button on \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You press the reset button on \the [src]."))
 	SStgui.update_uis(src)
 
 /obj/item/pda/AltClick(mob/user)
@@ -203,7 +214,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(id)
 		remove_id(user)
 	else
-		to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+		to_chat(user, SPAN_WARNING("This PDA does not have an ID in it!"))
 
 /obj/item/pda/CtrlClick(mob/user)
 	..()
@@ -218,7 +229,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			to_chat(user, "<span class='notice'>You remove the ID from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove the ID from [src]."))
 			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
@@ -237,15 +248,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if(can_use(user))
 		if(held_pen)
-			to_chat(user, "<span class='notice'>You remove [held_pen] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [held_pen] from [src]."))
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			user.put_in_hands(held_pen)
 			clear_pen()
 			update_icon(UPDATE_OVERLAYS)
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
+			to_chat(user, SPAN_WARNING("This PDA does not have a pen in it."))
 	else
-		to_chat(user, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(user, SPAN_NOTICE("You cannot do this while restrained."))
 
 /obj/item/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
 	if(choice == 1)
@@ -280,14 +291,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge.forceMove(src)
 		cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [cartridge] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
 		if(!idcard.registered_name)
-			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
+			to_chat(user, SPAN_NOTICE("\The [src] rejects the ID."))
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
@@ -300,7 +311,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
-			to_chat(user, "<span class='notice'>Card scanned.</span>")
+			to_chat(user, SPAN_NOTICE("Card scanned."))
 			SStgui.update_uis(src)
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
@@ -308,7 +319,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user))))
 				id_check(user, 2)
-				to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
+				to_chat(user, SPAN_NOTICE("You put the ID into \the [src]'s slot.<br>You can remove it with ALT click."))
 				update_icon(UPDATE_OVERLAYS)
 				SStgui.update_uis(src)
 
@@ -316,16 +327,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 		user.drop_item()
 		C.forceMove(src)
 		pai = C
-		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You slot \the [C] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(is_pen(C))
 		if(held_pen)
-			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
+			to_chat(user, SPAN_NOTICE("There is already a pen in \the [src]."))
 		else
 			user.drop_item()
 			add_pen(C)
-			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+			to_chat(user, SPAN_NOTICE("You slide \the [C] into \the [src]."))
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /obj/item/pda/proc/add_pen(obj/item/P)
@@ -354,7 +365,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(SPAN_DANGER("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)

@@ -4,15 +4,14 @@
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
 	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans-Solar Federation. \
-	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
-	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
-	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
+	Similar to the organic species of the Orion Arm, IPCs possess full sapience, as well as creativity and adaptability on par with other life. Unlike traditional cyborgs and AI units, IPCs are given full rights by Nanotrasen and do not possess lawsets.<br/><br/> \
+	Views on IPCs vary widely between groups across the sector, ranging from openly discriminatory, to supportive of their rights. \
+	In recent years, IPCs have formed diplomatic relations with various governments in the sector, elevating their status from tools and assistants to minor players in interstellar affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
-	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	tox_mod = 0
@@ -44,6 +43,8 @@
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
+	meat_type = /obj/item/food/meat/human/robot
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
@@ -79,10 +80,13 @@
 	..()
 	var/datum/action/innate/change_monitor/monitor = new()
 	monitor.Grant(H)
-	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
-		medhud.remove_from_hud(H)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(H)
+	for(var/hud_key, hud in GLOB.huds)
+		if(istype(hud, /datum/atom_hud/data/diagnostic))
+			var/datum/atom_hud/data/diagnostic/diag_hud = hud
+			diag_hud.add_to_hud(H)
+		else if(istype(hud, /datum/atom_hud/data/human/medical))
+			var/datum/atom_hud/data/human/medical/med_hud = hud
+			med_hud.remove_from_hud(H)
 
 	// i love snowflake code
 	var/image/health_bar = H.hud_list[DIAG_HUD]
@@ -97,10 +101,13 @@
 	..()
 	for(var/datum/action/innate/change_monitor/monitor in H.actions)
 		monitor.Remove(H)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_from_hud(H)
-	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
-		medhud.add_to_hud(H)
+	for(var/hud_key, hud in GLOB.huds)
+		if(istype(hud, /datum/atom_hud/data/diagnostic))
+			var/datum/atom_hud/data/diagnostic/diag_hud = hud
+			diag_hud.remove_from_hud(H)
+		else if(istype(hud, /datum/atom_hud/data/human/medical))
+			var/datum/atom_hud/data/human/medical/med_hud = hud
+			med_hud.add_hud_to(H)
 
 	// i love snowflake code
 	var/image/health_bar = H.hud_list[DIAG_HUD]
@@ -129,16 +136,16 @@
 		return
 
 	if(prob(6))
-		to_chat(H, "<span class='warning'>Error 74: Microbattery critical malfunction, likely cause: Extended strain.</span>")
+		to_chat(H, SPAN_WARNING("Error 74: Microbattery critical malfunction, likely cause: Extended strain."))
 		microbattery.receive_damage(4, TRUE)
 	else if(prob(4))
 		H.Weaken(6 SECONDS)
 		H.Stuttering(20 SECONDS)
-		to_chat(H, "<span class='warning'>Power critical, shutting down superfluous functions.</span>")
+		to_chat(H, SPAN_WARNING("Power critical, shutting down superfluous functions."))
 		H.emote("collapse")
 		microbattery.receive_damage(2, TRUE)
 	else if(prob(4))
-		to_chat(H, "<span class='warning'>Redirecting excess power from servos to vital components.</span>")
+		to_chat(H, SPAN_WARNING("Redirecting excess power from servos to vital components."))
 		H.Slowed(rand(15 SECONDS, 32 SECONDS))
 
 // Allows IPC's to change their monitor display
@@ -152,7 +159,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		to_chat(H, SPAN_WARNING("Where's your head at? Can't change your monitor/display without one."))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
@@ -161,7 +168,7 @@
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = tgui_input_color(H, "Please select an optic color", "Select Optic Color", H.m_colours["head"])
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the color of your optics.</span>")
+			to_chat(H, SPAN_WARNING("You were interrupted while changing the color of your optics."))
 			return
 		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
@@ -185,7 +192,7 @@
 		var/new_color = tgui_input_color(H, "Please select hair color.", "Monitor Color", head_organ.hair_colour)
 
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, SPAN_WARNING("You were interrupted while changing your monitor display."))
 			return
 
 		if(new_style)
@@ -224,7 +231,7 @@
 								"Daisy.... Daisy...."
 								)
 		var/error_message = pick(error_messages)
-		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
+		to_chat(H, SPAN_BOLDWARNING("[error_message]"))
 
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)

@@ -51,6 +51,12 @@
 		/obj/item/ammo_box/magazine/toy/pistol = 2
 	)
 
+/datum/outfit/admin/ghostbar_antag/syndicate/plasmaman
+	name = "Syndicate Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+
 /datum/outfit/admin/ghostbar_antag/vampire
 	name = "Vampire"
 
@@ -64,6 +70,12 @@
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/reagent_containers/iv_bag/blood/o_plus = 3
 	)
+
+/datum/outfit/admin/ghostbar_antag/vampire/plasmaman
+	name = "Vampire Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
 
 /datum/outfit/admin/ghostbar_antag/changeling
 	name = "Changeling"
@@ -79,6 +91,12 @@
 		/obj/item/toy/foamblade = 1
 	)
 
+/datum/outfit/admin/ghostbar_antag/changeling/plasmaman
+	name = "Changeling Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+
 /datum/outfit/admin/ghostbar_antag/mindflayer
 	name = "Mindflayer"
 
@@ -92,3 +110,9 @@
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/toy/plushie/ipcplushie = 1
 	)
+
+/datum/outfit/admin/ghostbar_antag/mindflayer/plasmaman
+	name = "Mindflayer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman

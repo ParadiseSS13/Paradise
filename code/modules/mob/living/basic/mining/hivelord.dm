@@ -54,7 +54,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = -1 // Faster than a person
+	speed = -1
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
@@ -72,11 +72,39 @@
 	basic_mob_flags = DEL_ON_DEATH
 	ai_controller = /datum/ai_controller/basic_controller/hivelord_brood
 	initial_traits = list(TRAIT_FLYING)
+	///Are we an advanced legion skull used in hardmode legion? Ignore the attack rules.
+	var/advanced_legion = FALSE
 
 /mob/living/basic/mining/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
+
+/mob/living/basic/mining/hivelordbrood/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isliving(target))
+		return TRUE
+	var/mob/living/living_target = target
+	var/can_continue = FALSE
+	var/datum/status_effect/hivelord_tracking/tracker = living_target.has_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	if(tracker && advanced_legion)
+		tracker.refresh()
+		if(!(src.UID() in tracker.list_of_uids)) // Add in the UID so non advanced legion skulls in the fight are harder too.
+			tracker.list_of_uids += UID()
+		return TRUE
+	if(tracker)
+		tracker.refresh()
+		if((UID() in tracker.list_of_uids) || length(tracker.list_of_uids) >= 3 || advanced_legion)
+			can_continue = TRUE
+	if(!tracker)
+		tracker = living_target.apply_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	if(!can_continue && !advanced_legion)
+		tracker.list_of_uids += src.UID()
+		return FALSE
+	else
+		return TRUE
 
 /mob/living/basic/mining/hivelordbrood/space
 
@@ -121,8 +149,8 @@
 		return ..()
 
 /mob/living/basic/mining/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message("<span class='notice'>[src] is reabsorbed by [C]'s body.</span>", \
-								"<span class='notice'>[src] is reabsorbed by your body.</span>")
+	C.visible_message(SPAN_NOTICE("[src] is reabsorbed by [C]'s body."), \
+								SPAN_NOTICE("[src] is reabsorbed by your body."))
 	transfer_reagents(C)
 	death()
 
@@ -183,17 +211,14 @@
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
 
-/mob/living/basic/mining/hivelord/legion/tendril
-	from_tendril = TRUE
-
 /mob/living/basic/mining/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+	visible_message(SPAN_WARNING("The skulls on [src] wail in anger as they flee from their dying host!"))
 	var/turf/T = get_turf(src)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
 			stored_mob = null
-		else if(from_tendril)
+		else if(HAS_TRAIT(src, TRAIT_FROM_TENDRIL))
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 		else if(dwarf_mob)
 			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf(T)
@@ -219,7 +244,7 @@
 	throw_blocked_message = "is shrugged off by"
 	var/can_infest_dead = FALSE
 
-/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/target, list/modifiers, ignore_cooldown)
 	. = ..()
 	if(!ishuman(target))
 		return
@@ -229,13 +254,13 @@
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	if(H?.dna?.species && !H.dna.species.can_be_legion_infested())
 		return
-	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
+	visible_message(SPAN_WARNING("[name] burrows into the flesh of [H]!"))
 	var/mob/living/basic/mining/hivelord/legion/L
 	if(HAS_TRAIT(H, TRAIT_DWARF)) // dwarf legions aren't just fluff!
 		L = new /mob/living/basic/mining/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
-	visible_message("<span class='warning'>[L] staggers to [L.p_their()] feet!</span>")
+	visible_message(SPAN_WARNING("[L] staggers to [L.p_their()] feet!"))
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
@@ -257,9 +282,7 @@
 /mob/living/basic/mining/hivelordbrood/legion/advanced
 	ai_controller = /datum/ai_controller/basic_controller/hivelord_brood/advanced_legion
 	can_infest_dead = TRUE
-
-/mob/living/basic/mining/hivelord/legion/advanced/tendril
-	from_tendril = TRUE
+	advanced_legion = TRUE
 
 // Big legion (billy)
 /mob/living/basic/mining/big_legion
@@ -299,9 +322,9 @@
 		if(faction_check(faction, L.faction, FALSE))
 			continue
 
-		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-		"<span class='userdanger'>You feel a strong force throwing you!</span>",
-		"<span class='danger'>You hear a thud.</span>")
+		L.visible_message(SPAN_DANGER("[L] was thrown by [src]!"),
+		SPAN_USERDANGER("You feel a strong force throwing you!"),
+		SPAN_DANGER("You hear a thud."))
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
@@ -373,7 +396,7 @@
 			if(prob(70))
 				backpack_contents += pick(/obj/item/stamp/clown, /obj/item/reagent_containers/spray/waterflower, /obj/item/food/grown/banana, /obj/item/megaphone)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(alist(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))

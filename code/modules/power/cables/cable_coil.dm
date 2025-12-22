@@ -90,16 +90,16 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 	if(!S && ismachineperson(M) && user.a_intent == INTENT_HELP)
-		to_chat(user, "<span class='notice'>[M.p_they(TRUE)] [M.p_are()] missing that limb!</span>")
+		to_chat(user, SPAN_NOTICE("[M.p_they(TRUE)] [M.p_are()] missing that limb!"))
 		return
 
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
 	if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
-		to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+		to_chat(user, SPAN_DANGER("The damage is far too severe to patch over externally."))
 		return
 	if(!S.burn_dam)
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		to_chat(user, SPAN_NOTICE("Nothing to fix!"))
 		return
 	if(H == user)
 		if(!do_mob(user, H, 10))
@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			cable_used += 1
 			E.heal_damage(0, HEALPERCABLE, 0, TRUE)
 		H.UpdateDamageIcon()
-		user.visible_message("<span class='alert'>[user] repairs some burn damage on [M]'s [E.name] with [src].</span>")
+		user.visible_message(SPAN_ALERT("[user] repairs some burn damage on [M]'s [E.name] with [src]."))
 	return TRUE
 
 /obj/item/stack/cable_coil/split()
@@ -177,13 +177,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	if(!isturf(user.loc))
 		return
 	if(!isturf(T) || T.intact || !T.can_have_cabling())
-		to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
+		to_chat(user, SPAN_WARNING("You can only lay cables on catwalks and plating!"))
 		return
 	if(get_amount() < 1) // Out of cable
-		to_chat(user, "<span class='warning'>There is no cable left!</span>")
+		to_chat(user, SPAN_WARNING("There is no cable left!"))
 		return
 	if(get_dist(T, user) > 1) // Too far
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, SPAN_WARNING("You can't lay cable at a place that far away!"))
 		return
 
 	if(!cable_direction) //If we weren't given a direction, come up with one! (Called as null from catwalk.dm and floor.dm)
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	for(var/obj/structure/cable/LC in T)
 		if(LC.d2 == cable_direction && LC.d1 == NO_DIRECTION) //there's already a cable here that would be exactly what we just placed!
-			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 			return
 
 	var/obj/structure/cable/C = get_new_cable(T)
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		return
 	// make sure it's close enough
 	if(get_dist(C, user) > 1)
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, SPAN_WARNING("You can't lay cable at a place that far away!"))
 		return
 	//if clicked on the turf we're standing on, try to put a cable in the direction we're facing
 	if(U == T)
@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == new_direction || C.d2 == new_direction)
 		if(U.intact || U.transparent_floor)						// can't place a cable if the floor is complete
-			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
+			to_chat(user, SPAN_WARNING("You can't lay cable there unless the floor tiles are removed!"))
 			return
 		// cable is pointing at us, we're standing on an open tile
 		// so create a stub pointing at the clicked cable on our tile
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
 			if(LC.d1 == direction_flipped || LC.d2 == direction_flipped)
-				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+				to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 				return
 
 		var/obj/structure/cable/NC = get_new_cable (U)
@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
-				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+				to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 				return
 
 
@@ -355,9 +355,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/proc/color_rainbow()

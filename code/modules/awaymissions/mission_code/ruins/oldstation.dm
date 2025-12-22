@@ -100,7 +100,7 @@
 
 /obj/item/gun/energy/e_gun/old/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Despite the passage of time, [src] looks remarkably well-preserved.</span>"
+	. += SPAN_NOTICE("Despite the passage of time, [src] looks remarkably well-preserved.")
 
 /obj/item/gun/energy/e_gun/old/examine_more(mob/user)
 	..()
@@ -169,7 +169,7 @@
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
-	item_color = "ancient"
+	base_icon_state = "ancient"
 	resistance_flags = FIRE_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
@@ -315,9 +315,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, SPAN_NOTICE("The crate reanchors itself to the ground."))
 	else
-		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, SPAN_NOTICE("The crate unanchors itself from the ground."))
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it

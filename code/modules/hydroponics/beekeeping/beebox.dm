@@ -11,7 +11,7 @@
 	return FALSE
 
 
-/mob/living/simple_animal/hostile/poison/bees/bee_friendly()
+/mob/living/basic/bee/bee_friendly()
 	return TRUE
 
 /mob/living/simple_animal/bot/bee_friendly()
@@ -19,7 +19,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/diona/bee_friendly()
+/mob/living/basic/diona_nymph/bee_friendly()
 	return TRUE
 
 /mob/living/carbon/human/bee_friendly()
@@ -37,7 +37,7 @@
 	icon_state = "beebox"
 	anchored = TRUE
 	density = TRUE
-	var/mob/living/simple_animal/hostile/poison/bees/queen/queen_bee = null
+	var/mob/living/basic/bee/queen/queen_bee = null
 	var/list/bees = list() //bees owned by the box, not those inside it
 	var/list/honeycombs = list()
 	var/list/honey_frames = list()
@@ -51,7 +51,7 @@
 
 /obj/structure/beebox/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
+	for(var/mob/living/basic/bee/B in bees)
 		B.beehome = null
 	bees.Cut()
 	bees = null
@@ -82,7 +82,7 @@
 		honey_frames += HF
 
 	for(var/i in 1 to get_max_bees())
-		var/mob/living/simple_animal/hostile/poison/bees/B = new(src)
+		var/mob/living/basic/bee/B = new(src)
 		bees += B
 		B.beehome = src
 		B.assign_reagent(R)
@@ -107,7 +107,7 @@
 			if((bee_resources >= BEE_RESOURCE_NEW_BEE_COST && prob(BEE_PROB_NEW_BEE)) || freebee)
 				if(!freebee)
 					bee_resources = max(bee_resources - BEE_RESOURCE_NEW_BEE_COST, 0)
-				var/mob/living/simple_animal/hostile/poison/bees/B = new(get_turf(src))
+				var/mob/living/basic/bee/B = new(get_turf(src))
 				B.beehome = src
 				B.assign_reagent(queen_bee.beegent)
 				bees += B
@@ -128,22 +128,22 @@
 	. = ..()
 
 	if(!queen_bee)
-		. += "<span class='warning'>There is no queen bee! There won't bee any honeycomb without a queen!</span>"
+		. += SPAN_WARNING("There is no queen bee! There won't bee any honeycomb without a queen!")
 
 	var/half_bee = get_max_bees()*0.5
 	if(half_bee && (length(bees) >= half_bee))
-		. += "<span class='notice'>This place is a BUZZ with activity... there are lots of bees!</span>"
+		. += SPAN_NOTICE("This place is a BUZZ with activity... there are lots of bees!")
 
-	. += "<span class='notice'>[bee_resources]/100 resource supply.</span>"
-	. += "<span class='notice'>[bee_resources]% towards a new honeycomb.</span>"
-	. += "<span class='notice'>[bee_resources*2]% towards a new bee.</span>"
+	. += SPAN_NOTICE("[bee_resources]/100 resource supply.")
+	. += SPAN_NOTICE("[bee_resources]% towards a new honeycomb.")
+	. += SPAN_NOTICE("[bee_resources*2]% towards a new bee.")
 
 	if(length(honeycombs))
 		var/plural = length(honeycombs) > 1
-		. += "<span class='notice'>There [plural? "are" : "is"] [length(honeycombs)] uncollected honeycomb[plural ? "s":""] in the apiary.</span>"
+		. += SPAN_NOTICE("There [plural? "are" : "is"] [length(honeycombs)] uncollected honeycomb[plural ? "s":""] in the apiary.")
 
 	if(length(honeycombs) >= get_max_honeycomb())
-		. += "<span class='warning'>there's no room for more honeycomb!</span>"
+		. += SPAN_WARNING("there's no room for more honeycomb!")
 
 
 /obj/structure/beebox/item_interaction(mob/living/user, obj/item/I, list/modifiers)
@@ -153,16 +153,16 @@
 		if(length(honey_frames) < BEEBOX_MAX_FRAMES)
 			if(!user.unequip(HF))
 				return
-			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
+			visible_message(SPAN_NOTICE("[user] adds a frame to the apiary."))
 			HF.forceMove(src)
 			honey_frames += HF
 		else
-			to_chat(user, "<span class='warning'>There's no room for anymore frames in the apiary!</span>")
+			to_chat(user, SPAN_WARNING("There's no room for anymore frames in the apiary!"))
 		return
 
 	if(istype(I, /obj/item/queen_bee))
 		if(queen_bee)
-			to_chat(user, "<span class='warning'>This hive already has a queen!</span>")
+			to_chat(user, SPAN_WARNING("This hive already has a queen!"))
 			return
 
 		var/obj/item/queen_bee/qb = I
@@ -175,10 +175,10 @@
 		qb.queen = null
 
 		if(queen_bee)
-			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
+			visible_message(SPAN_NOTICE("[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home."))
 			var/relocated = 0
 			for(var/b in bees)
-				var/mob/living/simple_animal/hostile/poison/bees/B = b
+				var/mob/living/basic/bee/B = b
 				if(B.reagent_incompatible(queen_bee))
 					bees -= B
 					B.beehome = null
@@ -186,10 +186,10 @@
 						B.forceMove(drop_location())
 					relocated++
 			if(relocated)
-				to_chat(user, "<span class='warning'>This queen has a different reagent to some of the bees who live here, those bees will not return to this apiary!</span>")
+				to_chat(user, SPAN_WARNING("This queen has a different reagent to some of the bees who live here, those bees will not return to this apiary!"))
 
 		else
-			to_chat(user, "<span class='warning'>The queen bee disappeared! bees disappearing has been in the news lately...</span>")
+			to_chat(user, SPAN_WARNING("The queen bee disappeared! bees disappearing has been in the news lately..."))
 
 		qdel(qb)
 		return
@@ -209,7 +209,7 @@
 	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/beebox/attack_animal(mob/living/simple_animal/M)
-	if(!istype(M, /mob/living/simple_animal/hostile/poison/bees))
+	if(!istype(M, /mob/living/basic/bee))
 		return ..()
 
 	M.forceMove(src)
@@ -222,18 +222,18 @@
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))
 		if(!user.bee_friendly())
-			//Time to get stung!
+			// Time to get stung!
 			var/bees = FALSE
-			for(var/b in bees) //everyone who's ever lived here now instantly hates you, suck it assistant!
-				var/mob/living/simple_animal/hostile/poison/bees/B = b
-				if(B.isqueen)
+			for(var/b in bees) // everyone who's ever lived here now instantly hates you, suck it assistant!
+				var/mob/living/basic/bee/B = b
+				if(B.is_queen)
 					continue
 				if(B.loc == src)
 					B.forceMove(drop_location())
-				B.target = user
+				B.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, user)
 				bees = TRUE
 			if(bees)
-				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
+				visible_message(SPAN_DANGER("[user] disturbs the bees!"))
 		else
 			var/option = tgui_input_list(user, "What Action do you wish to perform?", "Apiary", list("Remove a Honey Frame", "Remove the Queen Bee"))
 			if(!Adjacent(user) || !option)
@@ -241,14 +241,14 @@
 			switch(option)
 				if("Remove a Honey Frame")
 					if(!length(honey_frames))
-						to_chat(user, "<span class='warning'>There are no honey frames to remove!</span>")
+						to_chat(user, SPAN_WARNING("There are no honey frames to remove!"))
 						return
 
 					var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
 					if(HF)
 						if(!user.put_in_active_hand(HF))
 							HF.forceMove(get_turf(src))
-						visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
+						visible_message(SPAN_NOTICE("[user] removes a frame from the apiary."))
 
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
@@ -260,11 +260,11 @@
 								fallen++
 						if(fallen)
 							var/multiple = fallen > 1
-							visible_message("<span class='notice'>[user] scrapes [multiple ? "[fallen]" : "a"] honeycomb[multiple ? "s" : ""] off of the frame.</span>")
+							visible_message(SPAN_NOTICE("[user] scrapes [multiple ? "[fallen]" : "a"] honeycomb[multiple ? "s" : ""] off of the frame."))
 
 				if("Remove the Queen Bee")
 					if(!queen_bee || queen_bee.loc != src)
-						to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
+						to_chat(user, SPAN_WARNING("There is no queen bee to remove!"))
 						return
 					var/obj/item/queen_bee/QB = new()
 					queen_bee.forceMove(QB)
@@ -273,7 +273,7 @@
 					QB.name = queen_bee.name
 					if(!user.put_in_active_hand(QB))
 						QB.forceMove(get_turf(src))
-					visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
+					visible_message(SPAN_NOTICE("[user] removes the queen from the apiary."))
 					queen_bee = null
 
 /obj/structure/beebox/deconstruct(disassembled = FALSE)
@@ -281,7 +281,7 @@
 	if(disassembled)
 		mat_drop = 40
 	new /obj/item/stack/sheet/wood(loc, mat_drop)
-	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
+	for(var/mob/living/basic/bee/B in bees)
 		if(B.loc == src)
 			B.forceMove(drop_location())
 	for(var/obj/item/honey_frame/HF in honey_frames)
@@ -291,6 +291,14 @@
 
 /obj/structure/beebox/unwrenched
 	anchored = FALSE
+
+/obj/structure/beebox/proc/habitable(mob/living/basic/target)
+	if(!istype(target, /mob/living/basic/bee))
+		return FALSE
+	var/mob/living/basic/bee/citizen = target
+	if(citizen.reagent_incompatible(queen_bee) || bees.len >= get_max_bees())
+		return FALSE
+	return TRUE
 
 #undef BEEBOX_MAX_FRAMES
 #undef BEES_RATIO

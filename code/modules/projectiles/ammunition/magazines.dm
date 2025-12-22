@@ -110,6 +110,9 @@
 	name = "combat shotgun internal magazine"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/shot/com/confetti
+	ammo_type = /obj/item/ammo_casing/shotgun/confetti
+
 /obj/item/ammo_box/magazine/internal/shot/malf
 	name = "cyborg shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
@@ -280,13 +283,13 @@
 			user.transfer_item_to(AC, src)
 			return
 	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
+		to_chat(user, SPAN_NOTICE("You begin to load the magazine with [A]."))
 		var/obj/item/ammo_box/AB = A
 		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
 			if(length(stored_ammo) >= max_ammo)
-				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				to_chat(user, SPAN_NOTICE("You stop loading the magazine with [A]."))
 				break
-			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = "<span class='notice'>You stop loading the magazine with [A].</span>"))
+			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = SPAN_NOTICE("You stop loading the magazine with [A].")))
 				src.give_round(AC)
 				AB.stored_ammo -= AC
 				update_mat_value()
@@ -612,7 +615,7 @@
 
 /obj/item/ammo_box/magazine/detective/speedcharger/examine()
 	. = ..()
-	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+	. += SPAN_NOTICE("There is [charge_percent()]% charge left!")
 
 /obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
 	return

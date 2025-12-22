@@ -622,6 +622,10 @@
 	linked_emote = /datum/emote/living/silicon/halt
 	name = "Halt"
 
+/datum/keybinding/emote/silicon/salute
+	linked_emote = /datum/emote/living/silicon/salute
+	name = "Salute"
+
 /datum/keybinding/emote/simple_animal
 	category = KB_CATEGORY_EMOTE_ANIMAL
 

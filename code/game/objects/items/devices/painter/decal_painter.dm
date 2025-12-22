@@ -37,14 +37,14 @@
 	var/selected_category = DECAL_PAINTER_CATEGORY_STANDARD
 	/// When removal_mode is TRUE the decal painter will remove decals instead
 	var/removal_mode = FALSE
-	var/max_decals = 3
+	var/max_decals = 4
 	var/static/list/decal_blacklist = typecacheof(
 		list(
 			/obj/effect/turf_decal/raven,
 			/obj/effect/turf_decal/weather,
 			/obj/effect/turf_decal/stripes/asteroid,
-			/obj/effect/turf_decal/tile,
-			/obj/effect/turf_decal/sand
+			/obj/effect/turf_decal/sand,
+			/obj/effect/turf_decal/plaque,
 		)
 	)
 	/// List of typepaths of turf decals exposed by the painter.
@@ -63,7 +63,7 @@
 
 /datum/painter/decal/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor))
-		to_chat(user, "<span class='warning'>[holder] can only be used on flooring.</span>")
+		to_chat(user, SPAN_WARNING("[holder] can only be used on flooring."))
 		return FALSE
 	var/turf/target_turf = get_turf(target)
 	var/list/datum/element/decal/decals = target_turf.get_decals()
@@ -71,7 +71,7 @@
 		remove_decals(target)
 		return TRUE
 	if(length(decals) >= max_decals)
-		to_chat(user, "<span class='warning'>You can't fit more decals on [target].</span>")
+		to_chat(user, SPAN_WARNING("You can't fit more decals on [target]."))
 		return FALSE
 
 	if(ispath(selected_type, /obj/effect/turf_decal))
@@ -112,6 +112,7 @@
 			DECAL_PAINTER_CATEGORY_THICK,
 			DECAL_PAINTER_CATEGORY_SQUARE,
 			DECAL_PAINTER_CATEGORY_ALPHANUM,
+			DECAL_PAINTER_CATEGORY_TILES,
 		)
 		data["icon"] = decal_icon
 		var/list/availableStyles = list()

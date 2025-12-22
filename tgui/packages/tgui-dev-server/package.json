@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "tgui-dev-server",
-  "version": "6.0.0-paradise",
+  "version": "6.1.0-paradise",
   "type": "module",
   "dependencies": {
-    "@rspack/core": "^1.3.5",
-    "axios": "^1.12.0",
-    "source-map": "^0.7.4",
+    "@rspack/core": "^1.5.8",
+    "axios": "^1.12.2",
+    "source-map": "^0.7.6",
     "stacktrace-parser": "^0.1.11",
-    "ws": "^8.18.1"
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/ws": "^8.18.1"

@@ -1,7 +1,6 @@
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"
-	item_color = "mime"
 
 /// basic syndicate combat boots for nuke ops and mob corpses
 /obj/item/clothing/shoes/combat
@@ -85,7 +84,6 @@
 	icon_state = "clown"
 	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
-	item_color = "clown"
 	// "Dyeable" in this case is a bit of an understatement, washing these
 	// with a crayon will give them the appearance and name of normal
 	// shoes, but the functionality of clown shoes.
@@ -119,10 +117,10 @@
 
 /obj/item/clothing/shoes/clown_shoes/proc/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
@@ -163,7 +161,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, SPAN_WARNING("The boot's internal propulsion needs to recharge still!"))
 		return
 	var/prev_dir = user.dir
 	var/old_pass = user.pass_flags
@@ -177,11 +175,11 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 		slowdown = SHOES_SLOWDOWN + 1
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
+		to_chat(user, SPAN_NOTICE("You switch on the waddle dampeners, [src] no longer slow you down!"))
 		enabled_waddle = FALSE
 		slowdown = SHOES_SLOWDOWN
 
@@ -190,7 +188,6 @@
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
 	icon_state = "jackboots"
 	inhand_icon_state = "jackboots"
-	item_color = "hosred"
 	can_cut_open = 1
 	strip_delay = 50
 	put_on_delay = 50
@@ -202,7 +199,6 @@
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
 	can_cut_open = 0
 	icon_state = "jacksandal"
-	item_color = "jacksandal"
 
 /obj/item/clothing/shoes/jackboots/noisy
 	name = "heavy jackboots"
@@ -255,7 +251,6 @@
 	name = "boots"
 	desc = "A pair of boots usually worn by cultists."
 	icon_state = "cult"
-	item_color = "cult"
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
@@ -312,7 +307,6 @@
 	name = "noble boots"
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble_boot"
-	item_color = "noble_boot"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/furboots
@@ -325,13 +319,11 @@
 	name = "white sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
-	item_color = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
 	name = "fancy sandals"
 	desc = "FANCY!!."
 	icon_state = "fancysandal"
-	item_color = "fancysandal"
 
 /obj/item/clothing/shoes/cursedclown
 	name = "cursed clown shoes"
@@ -378,32 +370,27 @@
 	name = "cowboy boots"
 	desc = "A pair a' brown boots."
 	icon_state = "cowboy_brown"
-	item_color = "cowboy_brown"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
 	desc = "A pair a' black rustlers' boots."
 	icon_state = "cowboy_black"
-	item_color = "cowboy_black"
 
 /obj/item/clothing/shoes/cowboy/white
 	name = "white cowboy boots"
 	desc = "For the rancher in us all."
 	icon_state = "cowboy_white"
-	item_color = "cowboy_white"
 
 /obj/item/clothing/shoes/cowboy/fancy
 	name = "bilton wrangler boots"
 	desc = "A pair of authentic haute couture boots from Japanifornia. You doubt they have ever been close to cattle."
 	icon_state = "cowboy_fancy"
-	item_color = "cowboy_fancy"
 
 /obj/item/clothing/shoes/cowboy/pink
 	name = "pink cowgirl boots"
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
-	item_color = "cowboyboots_pink"
 
 /obj/item/clothing/shoes/cowboy/lizard
 	name = "lizard skin boots"
@@ -435,7 +422,6 @@
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid forward movement."
 	icon_state = "jetboots"
-	item_color = "hosred"
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
@@ -455,18 +441,18 @@
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, SPAN_WARNING("The boot's internal propulsion needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 	ADD_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "bhop_shoes")))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(SPAN_WARNING("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
 		REMOVE_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, SPAN_WARNING("Something prevents you from dashing forward!"))
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"

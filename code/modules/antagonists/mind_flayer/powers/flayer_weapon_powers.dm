@@ -133,7 +133,7 @@
 /obj/item/ammo_casing/magic/grapple_ammo
 	name = "grapple"
 	desc = "a hand"
-	projectile_type = /obj/item/projectile/tether/flayer
+	projectile_type = /obj/projectile/tether/flayer
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	caliber = "grapple"
@@ -149,7 +149,7 @@
 	. = ..()
 	grapple = null
 
-/obj/item/projectile/tether/flayer
+/obj/projectile/tether/flayer
 	name = "Grapple Arm"
 	range = 10
 	damage = 15
@@ -160,30 +160,30 @@
 	/// The ammo this came from
 	var/obj/item/ammo_casing/magic/grapple_ammo/ammo
 
-/obj/item/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
+/obj/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
 	. = ..()
 	ammo = grapple_casing
 
-/obj/item/projectile/tether/flayer/fire(setAngle)
+/obj/projectile/tether/flayer/fire(setAngle)
 	. = ..()
 	make_chain()
 	SEND_SIGNAL(firer, COMSIG_FLAYER_RETRACT_IMPLANTS)
 
-/obj/item/projectile/tether/flayer/Destroy()
+/obj/projectile/tether/flayer/Destroy()
 	. = ..()
 	ammo = null
 
-/obj/item/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
+/obj/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	playsound(target, 'sound/items/zip.ogg', 75, TRUE)
 	if(isliving(target) && blocked < 100)
 		var/mob/living/creature = target
 		creature.visible_message(
-			"<span class='notice'>[firer] uses [creature] to pull [firer.p_themselves()] over!</span>",
-			"<span class='danger'>You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!</span>")
+			SPAN_NOTICE("[firer] uses [creature] to pull [firer.p_themselves()] over!"),
+			SPAN_DANGER("You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!"))
 		creature.KnockDown(1 SECONDS)
 		return
-	target.visible_message("<span class='notice'>[firer] drags [firer.p_themselves()] across the room!</span>")
+	target.visible_message(SPAN_NOTICE("[firer] drags [firer.p_themselves()] across the room!"))
 
 /datum/spell/flayer/self/weapon/grapple_arm/on_apply()
 	..()
@@ -209,7 +209,7 @@
 	desc = "Allows us to propel pieces of shrapnel from our arm."
 	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
 	action_icon = 'icons/obj/guns/projectile.dmi'
-	action_icon_state = "shell_cannon_weapon"
+	action_icon_state = "shell_cannon"
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
@@ -230,7 +230,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/flayer
 	name = "integrated shrapnel cannon"
 	desc = "Allows us to propel shrapnel at high velocities. Cannot be loaded with conventional shotgun shells."
-	icon_state = "shell_cannon_weapon"
+	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	flags = NODROP | ABSTRACT

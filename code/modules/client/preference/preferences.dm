@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 		successful_load = load_preferences(Q)
 		if(!successful_load)
-			to_chat(C, "<span class='narsie'>Your preferences failed to load. Please inform the server host immediately.</span>")
+			to_chat(C, SPAN_NARSIE("Your preferences failed to load. Please inform the server host immediately."))
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
 				active_character.randomise()
-
+			active_character.rebuild_quirks()
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a>"
 			if(active_character.from_db)
-				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Clear slot</span></a>"
+				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\">[SPAN_BAD("Clear slot")]</a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
@@ -397,6 +397,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=quirks;task=input'>Open Quirk Menu</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -486,6 +487,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Dark flash:</b> <a href='byond://?_src_=prefs;preference=dark_flash'>[(toggles3 & PREFTOGGLE_3_DARK_FLASH) ? "Yes" : "No"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
@@ -512,7 +514,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
-				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
+				dat += SPAN_WARNING("Playtime tracking is not enabled.")
 			else
 				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
 			dat += "</td><td width='405px' height='300px' valign='top'>"
@@ -557,7 +559,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[SPAN_GOOD("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb
@@ -611,13 +613,15 @@ GLOBAL_LIST_INIT(special_role_times, list(
 						if(PREFTOGGLE_SPECIAL)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
 						if(PREFTOGGLE_TOGGLE1)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_TOGGLE2)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
+						if(PREFTOGGLE_TOGGLE3)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_SOUND)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_LIGHT)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 
@@ -671,7 +675,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
+		to_chat(user, SPAN_WARNING("UpdateJobPreference - desired level was not a number. Please notify coders!"))
 		ShowChoices(user)
 		return
 
@@ -780,7 +784,13 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		var shift = e.shiftKey ? 1 : 0;
 		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
 		var escPressed = e.keyCode == 27 ? 1 : 0;
-		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		var number = 0;
+		if(e.keyCode >= 48 && e.keyCode <= 57) { <!-- keycodes 48-57 equate to 0-9, e.key returns the key eg, ! instead of shift + 1 -->
+			number = e.keyCode - 48; <!-- gets the number from the keycode and we use that instead of e.key -->
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+number+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		} else {
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		}
 		window.location=url;
 		deedDone = true;
 	}

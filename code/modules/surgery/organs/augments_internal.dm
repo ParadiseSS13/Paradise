@@ -6,6 +6,7 @@
 	var/implant_overlay
 	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
+	augment_state ='icons/mob/human_races/robotic.dmi'
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
@@ -19,7 +20,7 @@
 
 /obj/item/organ/internal/cyberimp/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It looks like it belongs in the [parse_zone(parent_organ)].</span>"
+	. += SPAN_NOTICE("It looks like it belongs in the [parse_zone(parent_organ)].")
 
 //[[[[BRAIN]]]]
 
@@ -35,7 +36,7 @@
 		return
 	var/weaken_time = (5 + (severity - 1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Weaken(weaken_time)
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	to_chat(owner, SPAN_WARNING("Your body seizes up!"))
 	return weaken_time
 
 
@@ -73,7 +74,7 @@
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
-			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
+			to_chat(owner, SPAN_NOTICE("You are not holding any items, your hands relax..."))
 			active = FALSE
 		else
 			var/msg = 0
@@ -81,14 +82,14 @@
 			msg += !r_hand_ignore && r_hand_obj ? 2 : 0
 			switch(msg)
 				if(1)
-					to_chat(owner, "<span class='notice'>Your left hand's grip tightens.</span>")
+					to_chat(owner, SPAN_NOTICE("Your left hand's grip tightens."))
 				if(2)
-					to_chat(owner, "<span class='notice'>Your right hand's grip tightens.</span>")
+					to_chat(owner, SPAN_NOTICE("Your right hand's grip tightens."))
 				if(3)
-					to_chat(owner, "<span class='notice'>Both of your hand's grips tighten.</span>")
+					to_chat(owner, SPAN_NOTICE("Both of your hand's grips tighten."))
 	else
 		release_items()
-		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
+		to_chat(owner, SPAN_NOTICE("Your hands relax..."))
 		l_hand_obj = null
 		r_hand_obj = null
 
@@ -105,12 +106,12 @@
 	if(L_item)
 		A = pick(oview(range, owner))
 		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
+		to_chat(owner, SPAN_NOTICE("Your left arm spasms and throws [L_item]!"))
 		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range, owner))
 		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
+		to_chat(owner, SPAN_NOTICE("Your right arm spasms and throws [R_item]!"))
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
@@ -156,6 +157,8 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_enter()
 	SIGNAL_HANDLER // COMSIG_CARBON_ENTER_STAMINACRIT
+	if(status & ORGAN_DEAD)
+		return
 	if(currently_modifying_stamina || !COOLDOWN_FINISHED(src, implant_cooldown))
 		return
 	owner.stamina_regen_block_modifier *= stamina_crit_time_multiplier
@@ -194,16 +197,18 @@
 	..()
 	if(crit_fail)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.stat == UNCONSCIOUS && !cooldown)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
-		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
+		to_chat(owner, SPAN_NOTICE("You feel a rush of energy course through your body!"))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
-		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
+		to_chat(owner, SPAN_NOTICE("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
 	. = ..()
@@ -230,7 +235,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
-	desc = "<span class='sans'>Uh oh.</span>"
+	desc = SPAN_SANS("Uh oh.")
 	implant_color = "#DEDE00"
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
@@ -265,7 +270,7 @@
 	if(emp_proof)
 		return
 	if(owner && active && !crit_fail)
-		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
+		to_chat(owner, SPAN_DANGER("Your translator implant shuts down with a harsh buzz."))
 		addtimer(CALLBACK(src, PROC_REF(reboot)), 60 SECONDS)
 		crit_fail = TRUE
 		active = FALSE
@@ -273,17 +278,17 @@
 /obj/item/organ/internal/cyberimp/brain/speech_translator/proc/reboot()
 	crit_fail = FALSE
 	if(owner)
-		to_chat(owner, "<span class='notice'>Your translator implant beeps.</span>")
+		to_chat(owner, SPAN_NOTICE("Your translator implant beeps."))
 		SEND_SOUND(owner, sound('sound/machines/twobeep.ogg'))
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && crit_fail)
-		to_chat(owner, "<span class='warning'>The implant is still rebooting.</span>")
+		to_chat(owner, SPAN_WARNING("The implant is still rebooting."))
 	else if(owner && !active)
-		to_chat(owner, "<span class='notice'>You turn on your translator implant.</span>")
+		to_chat(owner, SPAN_NOTICE("You turn on your translator implant."))
 		active = TRUE
 	else if(owner && active)
-		to_chat(owner, "<span class='notice'>You turn off your translator implant.</span>")
+		to_chat(owner, SPAN_NOTICE("You turn off your translator implant."))
 		active = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface
@@ -330,6 +335,8 @@
 	emp_proof = TRUE
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
+	augment_icon = "sandy"
+	always_show_augment = TRUE // A bit too big and bright to hide with synthetic skin.
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
 	var/custom_mob_sprite = "sandy"
 	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
@@ -339,7 +346,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine(mob/user)
 	. = ..()
-	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
+	. += SPAN_USERDANGER("Epilepsy Warning: Drug has vibrant visual effects!")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
 	. = ..()
@@ -363,13 +370,16 @@
 	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
+	. = ..()
+	if(!.)
+		return
 	if(isvox(owner))
 		custom_mob_sprite = "vox_sandy"
 	else if(isdrask(owner))
 		custom_mob_sprite = "drask_sandy"
 	else
 		custom_mob_sprite = "sandy"
-	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, custom_mob_sprite, layer = -INTORGAN_LAYER)
 	return our_MA
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
@@ -401,7 +411,7 @@
 	if(istype(target, /obj/item/organ/internal/cyberimp/brain/sensory_enhancer))
 		var/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/ourtarget = target
 		if(!COOLDOWN_FINISHED(ourtarget, sensory_enhancer_cooldown))
-			to_chat(owner, "<span class='warning'>[ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds!</span>")
+			to_chat(owner, SPAN_WARNING("[ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds!"))
 			return
 
 		COOLDOWN_START(ourtarget, sensory_enhancer_cooldown, 5 MINUTES)
@@ -421,8 +431,8 @@
 
 	human_owner.reagents.add_reagent("mephedrone", injection_amount)
 
-	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on [owner.p_their()] spine, shattering as they land.</span>", \
-			"<span class='userdanger'>You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land.</span>")
+	owner.visible_message(SPAN_DANGER("[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on [owner.p_their()] spine, shattering as they land."), \
+			SPAN_USERDANGER("You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land."))
 	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
 
 	var/obj/item/telegraph_vial = new /obj/item/qani_laaca_telegraph(get_turf(owner))
@@ -499,7 +509,7 @@
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
 	owner.adjustStaminaLoss(40 / severity)
 	owner.adjust_bodytemperature(400 / severity)
-	to_chat(owner, "<span class='warning'>Your [name] heats up drastically!</span>")
+	to_chat(owner, SPAN_WARNING("Your [name] heats up drastically!"))
 	return TRUE
 
 /datum/spell/hackerman_deck
@@ -533,11 +543,11 @@
 /datum/spell/hackerman_deck/cast(list/targets, mob/user)
 	var/atom/target = targets[1]
 	if(get_dist(user, target) > 3) //fucking cameras holy shit
-		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
+		to_chat(user, SPAN_WARNING("Your implant is not robust enough to hack at that distance!"))
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
 	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
-		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
+		to_chat(user, SPAN_WARNING("Your implant is unable to get a lock on anything in the pipes!"))
 		return
 	var/beam
 	if(!isturf(user.loc)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
@@ -545,8 +555,8 @@
 	else
 		beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
-	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
-			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
+	user.visible_message(SPAN_WARNING("[user] makes an unusual buzzing sound as the air between them and [target] crackles."), \
+			SPAN_WARNING("The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!"))
 
 	if(!do_after(user, 3 SECONDS, target))
 		qdel(beam)
@@ -554,7 +564,7 @@
 		return
 
 	if(!target.emag_act(user))
-		to_chat(user, "<span class='warning'>You are unable to hack this!</span>")
+		to_chat(user, SPAN_WARNING("You are unable to hack this!"))
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
 
@@ -581,12 +591,20 @@
 	slot = "breathing_tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
+	augment_icon = "breathing_tube"
+
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
 		return
 	if(prob(60/severity) && owner)
-		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		to_chat(owner, SPAN_WARNING("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
@@ -607,6 +625,7 @@
 	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	augment_icon = "nutripump"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
 	. = ..()
@@ -622,9 +641,11 @@
 		return
 	if(owner.stat == DEAD)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		to_chat(owner, SPAN_NOTICE("You feel less hungry..."))
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
@@ -638,13 +659,21 @@
 	if(!owner || emp_proof)
 		return
 	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
-	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
-		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
-		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
+	owner.visible_message(SPAN_WARNING("The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!"),
+		SPAN_WARNING("You feel like your insides are burning as you vomit profusely!"),
+		SPAN_WARNING("You hear vomiting and a sickening splattering against the floor!"))
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
 	synthesizing = FALSE
 	addtimer(CALLBACK(src, PROC_REF(emp_cool)), 60 SECONDS)
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -653,6 +682,7 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+	augment_icon = "nutripump_adv"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	name = "hardened nutriment pump implant"
@@ -669,6 +699,7 @@
 	implant_overlay = null
 	origin_tech = "materials=5;programming=5;biotech=6"
 	slot = "heartdrive"
+	augment_icon = "reviver"
 	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
 	var/revive_cost = 0 SECONDS
 	/// Are we in the progress of healing the user?
@@ -692,10 +723,21 @@
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
+/obj/item/organ/internal/cyberimp/chest/reviver/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
+
 /obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	try_heal() // Allows implant to work even on dead people
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
+	if(status & ORGAN_DEAD)
+		return FALSE
 	try_heal()
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/try_heal()
@@ -703,7 +745,7 @@
 		if(owner.stat != DEAD && reached_heal_threshold()) //Don't stop healing when they are dead.
 			COOLDOWN_START(src, reviver_cooldown, revive_cost)
 			reviving = FALSE
-			to_chat(owner, "<span class='notice'>Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)].</span>")
+			to_chat(owner, SPAN_NOTICE("Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)]."))
 			applied_nugget_cooldown = FALSE
 		else
 			addtimer(CALLBACK(src, PROC_REF(heal)), 3 SECONDS)
@@ -719,7 +761,7 @@
 		revive_cost = 0
 		reviving = TRUE
 		has_defibed = FALSE
-		to_chat(owner, "<span class='notice'>You feel a faint buzzing as your reviver implant starts patching your wounds...</span>")
+		to_chat(owner, SPAN_NOTICE("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 		COOLDOWN_START(src, defib_cooldown, 8 SECONDS) // 5 seconds after heal proc delay
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
@@ -749,23 +791,23 @@
 
 	if(body_damage_patched && prob(25)) // healing is called every few seconds, not every tick
 		if(owner.stat != CONSCIOUS)
-			owner.visible_message("<span class='warning'>[owner]'s body [pick("twitches", "shifts", "shivers", "spasms", "vibrates")] a bit.</span>", \
-			"<span class='notice'>You feel like something is patching your injured body.</span>")
+			owner.visible_message(SPAN_WARNING("[owner]'s body [pick("twitches", "shifts", "shivers", "spasms", "vibrates")] a bit."), \
+			SPAN_NOTICE("You feel like something is patching your injured body."))
 		else // No twitching if awake.
-			to_chat(owner, "<span class='notice'>You feel like something is patching your injured body.</span>")
+			to_chat(owner, SPAN_NOTICE("You feel like something is patching your injured body."))
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/revive_dead()
 	if(!COOLDOWN_FINISHED(src, defib_cooldown) || owner.stat != DEAD || !can_defib())
 		return
 	var/mob/dead/observer/ghost = owner.get_ghost()
 	if(ghost)
-		to_chat(ghost, "<span class='ghostalert'>You are being revived by [src]!</span>")
+		to_chat(ghost, SPAN_GHOSTALERT("You are being revived by [src]!"))
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 	COOLDOWN_START(src, defib_cooldown, 16 SECONDS)
 	playsound(get_turf(owner), 'sound/machines/defib_charge.ogg', 50, FALSE)
 	owner.grab_ghost()
-	owner.visible_message("<span class='warning'>[owner]'s body spasms violently!</span>")
+	owner.visible_message(SPAN_WARNING("[owner]'s body spasms violently!"))
 	addtimer(CALLBACK(src, PROC_REF(zap_em)), 5 SECONDS)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/zap_em()
@@ -847,7 +889,7 @@
 	H.adjustOxyLoss(-100) ///In the unlikely case that you are still alive, this should get you maybe to livable circumstances.
 	H.SetLoseBreath(0)
 	if(H.stat == CONSCIOUS)
-		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+		to_chat(H, SPAN_NOTICE("You feel your heart beating again!"))
 
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor
 	name = "bluespace anchor implant"
@@ -874,7 +916,7 @@
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_teleport(mob/living/teleportee, atom/destination, channel)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED
 
-	to_chat(teleportee, "<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>")
+	to_chat(teleportee, SPAN_USERDANGER("You feel yourself teleporting, but are suddenly flung back to where you just were!"))
 
 	teleportee.Weaken(5 SECONDS)
 	var/datum/effect_system/spark_spread/spark_system = new()
@@ -886,7 +928,7 @@
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_jaunt(mob/living/jaunter)
 	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT
 
-	to_chat(jaunter, "<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>")
+	to_chat(jaunter, SPAN_USERDANGER("As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!"))
 
 	jaunter.Weaken(5 SECONDS)
 	var/datum/effect_system/spark_spread/spark_system = new()
@@ -905,6 +947,8 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_repair/on_life()
 	if(crit_fail)
 		return
+	if(status & ORGAN_DEAD)
+		return FALSE
 	if(owner.maxHealth == owner.health)
 		owner.adjust_nutrition(-0.25)
 		return //Passive damage scanning
@@ -938,7 +982,7 @@
 		return
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		to_chat(H, "<span class='userdanger'>Your magnetic joints lose power!</span>")
+		to_chat(H, SPAN_USERDANGER("Your magnetic joints lose power!"))
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
 				E.droplimb(TRUE) //lego disasemble sound
@@ -962,7 +1006,7 @@
 		return
 	var/weaken_time = (10 + (severity - 1 ? 0 : 10)) SECONDS
 	owner.Weaken(weaken_time) //Pop it and lock it
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	to_chat(owner, SPAN_WARNING("Your body seizes up!"))
 	return weaken_time
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
@@ -973,6 +1017,36 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	owner.physiology.stamina_mod /= 1.15
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield
+	name = "Electromagnetic Shielding Implant"
+	desc = "This implant improves the conductivity of the IPC frame, providing partial protection against EMPs."
+	implant_color = "#301beeff"
+	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_EMP_RESIST, "ipc[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp
+	name = "Experimental Defensive Implant"
+	desc = "This implant deploys experimental nanobots into the IPC chassis to harden joints and provide partial protection against EMPs."
+	implant_color = "#065513ff"
+	origin_tech = "materials=5;programming=5;biotech=5;engineering=5;combat=5;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc_joint[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	REMOVE_TRAIT(M, TRAIT_EMP_RESIST, "ipc_joint[UID()]")
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
@@ -988,6 +1062,22 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/remove(mob/living/carbon/M, special)
 	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food
+	name = "Culinary Processing Implant"
+	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
+	implant_color = "#d8780a"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	slot = "gastrointestinal"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
 	return ..()
 
 //BOX O' IMPLANTS
@@ -1008,3 +1098,6 @@
 	while(length(contents) <= amount)
 		implant = pick(boxed)
 		new implant(src)
+
+/obj/item/storage/box/cyber_implants/empty/populate_contents()
+	return
