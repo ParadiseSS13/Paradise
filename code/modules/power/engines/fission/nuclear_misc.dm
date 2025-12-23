@@ -387,6 +387,10 @@
 			if(!selected_design)
 				return FALSE
 
+			if(power_state == ACTIVE_POWER_USE)
+				to_chat(usr, SPAN_WARNING("A rod is already being fabricated!"))
+				return FALSE
+
 			// Check if we have enough materials
 			var/obj/item/nuclear_rod/temp_rod = new rod_type_path()
 			var/list/required_materials = temp_rod.materials

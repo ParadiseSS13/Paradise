@@ -630,7 +630,7 @@
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
 
 
-	final_heat *= (reactivity_multiplier * 1.5) * HEAT_MODIFIER // proportionally affects heat more
+	final_heat *= (reactivity_multiplier * 2) * HEAT_MODIFIER // proportionally affects heat more
 	final_power *= reactivity_multiplier
 
 	final_power = max(final_power, 0) // no negative numbers
@@ -691,16 +691,20 @@
 			damage_multiplier *= EVENT_MODIFIER * gas_event_modifier
 			if(final_countdown)
 				damage_multiplier = 10
-			if(prob(new_damage * damage_multiplier * 0.15)) // rod ejection events. Rarer
+
+			// Eject a rod
+			if(prob(new_damage * damage_multiplier * 0.2))
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
 						coolers += chamber
 				if(length(coolers))
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
-					if(!failure.welded) // you got lucky punk
+					if(prob(60) || !failure.welded) // 75% chance to beak through the weld. you got lucky punk
 						failure.eject_rod()
-			if(prob(new_damage * damage_multiplier * 3)) // weld event
+
+			// Weld a vent.
+			if(prob(new_damage * damage_multiplier * 3))
 				var/list/valid_chambers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(chamber.chamber_state == CHAMBER_DOWN)
@@ -713,9 +717,12 @@
 							break
 						else
 							valid_chambers -= failure // just keep cycling through.
+
+			// Control rod failure.
 			if(prob(new_damage * damage_multiplier * 0.5) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
+			// Vent seal failure.
 			if(prob(new_damage * damage_multiplier * 0.05)) // Vent control failure. much rarer
 				begin_venting()
 
@@ -1229,9 +1236,10 @@
 	if(stat & NOPOWER)
 		to_chat(user, SPAN_WARNING("The chamber's locks wont disengage without power!"))
 		return
-	if(user.loc == loc)
-		to_chat(user, SPAN_WARNING("You can't raise the rod chamber while standing on it!"))
-		return
+	for(var/obj/thing in loc)
+		if(thing.density)
+			to_chat(user, SPAN_WARNING("The chamber is being blocked from opening!"))
+			return
 
 	if(!is_mecha_occupant(user))
 		add_fingerprint(user)

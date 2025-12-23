@@ -216,6 +216,7 @@
 	power_enrich_threshold = 14
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/thorium_salts
 	power_enrich_result = /obj/item/nuclear_rod/fuel/enriched_plutonium
+	origin_tech = "toxins=4"
 	craftable = TRUE
 	upgrade_required = TRUE
 	adjacent_requirements = list(
@@ -372,7 +373,7 @@
 	desc = "A specialized moderator rod for amplifying the power output of nearby fuel rods. However, the temperature of the liquid aluminum will force the reactor to run hot."
 	icon_state = "mod_aluminium"
 	max_durability = 6000
-	power_amount = -15
+	power_amount = -15 KW
 	heat_amp_mod = 5
 	power_amp_mod = 3
 	minimum_temp_modifier = 400
@@ -387,7 +388,7 @@
 	desc = "An advanced moderator rod that will pull extra neutrons out of bluespace to bombard local fuel rods. The result is a massive increase of power and heat generation. It is exceptionally versatile; however, its power requirements limit its uses."
 	icon_state = "mod_bluespace"
 	max_durability = 4000
-	power_amount = -30
+	power_amount = -30 KW
 	heat_amp_mod = 12
 	power_amp_mod = 5
 	upgrade_required = TRUE
