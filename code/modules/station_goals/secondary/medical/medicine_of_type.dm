@@ -7,7 +7,9 @@
 	var/generic_name_plural = "medicines"
 	var/reward
 	var/specific_type = "burn"
+	/// Medicine that will count 1:1 towards the goal amount.
 	var/list/datum/reagent/preferred_meds = list()
+	/// Mecidine that will count 2:1 towards the goal amount.
 	var/list/datum/reagent/adequate_meds = list()
 	var/amount_needed = 300
 	var/alist/med_lookup = alist(
