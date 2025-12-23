@@ -293,6 +293,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	gender = PLURAL
 	singular_name = "wood plank"
+	materials = list(MAT_WOOD = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)

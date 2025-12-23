@@ -616,6 +616,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_TOGGLE2)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
+						if(PREFTOGGLE_TOGGLE3)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_LIGHT)
