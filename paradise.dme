@@ -1645,6 +1645,7 @@
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"
 #include "code\modules\admin\verbs\adminsay.dm"
+#include "code/modules/admin/verbs/ai_controller_debugger_verb.dm"
 #include "code\modules\admin\verbs\antag-ooc.dm"
 #include "code\modules\admin\verbs\asays.dm"
 #include "code\modules\admin\verbs\atmosdebug.dm"
