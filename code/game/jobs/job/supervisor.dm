@@ -17,6 +17,9 @@
 	outfit = /datum/outfit/job/captain
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = VERY_HARD_DIFFICULTY
+	description = "The Captain has the responsibility to oversee heads of staff.\n\n\
+					Difficulties: Standard Operating Procedure (General, Legal, Command), Space Law, paperwork, AI modules, communication"
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -111,6 +114,9 @@
 	outfit = /datum/outfit/job/hop
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Service), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Head of Personnel has the responsibility of overseeing the Service department.\n\n\
+					Difficulties: Standard Operating Procedure (Standard, Service, Command), Space Law, administration, IDs, paperwork "
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -187,6 +193,9 @@
 	outfit = /datum/outfit/job/nanotrasenrep
 	important_information = "This role requires you to advise the Command team about Standard Operating Procedure, Chain of Command, and report to Central Command about various matters. You are required to act in a manner befitting someone representing Nanotrasen."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
+	description = "The Nanotrasen Representative has the responsibility of ensuring heads of staff are following Standard Operating Procedure.\n\n\
+					Difficulties: Standard Operating Procedure (General, Command), paperwork, communication"
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
@@ -249,6 +258,9 @@
 	outfit = /datum/outfit/job/blueshield
 	important_information = "This role requires you to ensure the safety of the Heads of Staff, not the general crew. You may perform arrests only if the combatant is directly threatening a member of Command, the Nanotrasen Representative, or the Magistrate."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = HARD_DIFFICULTY
+	description = "The Blueshield has the responsibility of protecting heads of staff and dignitaries.\n\n\
+					Difficulties: Healing, combat, communication"
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
@@ -302,6 +314,9 @@
 	outfit = /datum/outfit/job/judge
 	important_information = "This role requires you to oversee legal matters and make important decisions about sentencing. You are required to have an extensive knowledge of Space Law and Security SOP and only operate within, not outside, the boundaries of the law."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = HARD_DIFFICULTY
+	description = "The Magistrate has the responsibility of being the final word on Space Law and ensuring it's enforced properly.\n\n\
+					Difficulties: Space Law, Standard Operating Procedure (General, Legal), communication"
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -357,6 +372,9 @@
 	outfit = /datum/outfit/job/iaa
 	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are NOT a prisoner defence lawyer."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Internal Affairs Agents have the responsibility of ensuring departments are following Standard Operating Procedure.\n\n\
+					Difficulties: Standard Operating Procedure (General, Departmental), paperwork"
 
 /datum/outfit/job/iaa
 	name = "Internal Affairs Agent"
@@ -419,6 +437,9 @@
 	outfit = /datum/outfit/job/nct
 	important_information = "Your job is to try to assist as many crew members as possible regardless of department. You are NOT permitted to give command staff advice on any command SOP questions or aid in legal advice."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Nanotrasen Career Trainers (NCTs for short) are currently a mentor/admin only job. They are held to a higher standard, like any other staff-only job.\n\n\
+					Difficulties: Training crew."
 
 /datum/outfit/job/nct
 	name = "Nanotrasen Career Trainer"
