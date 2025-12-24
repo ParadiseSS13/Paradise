@@ -158,7 +158,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 
-/obj/item/clothing/ears/offear/New(obj/O)
+/obj/item/clothing/ears/offear/Initialize(mapload, obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc

@@ -158,6 +158,8 @@
 
 	GLOB.emote_list = init_emote_list()
 
+	GLOB.chemical_reagents_list = init_reagent_list()
+
 	// Set up PCWJ recipes
 	initialize_cooking_recipes()
 
@@ -240,3 +242,10 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/// Initialises all of /datum/reagent into a list indexed by reagent id.
+/proc/init_reagent_list()
+	. = list()
+	for(var/path in subtypesof(/datum/reagent))
+		var/datum/reagent/R = new path()
+		.[R.id] = R

@@ -7,8 +7,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/head/ipc/New(mob/living/carbon/holder, datum/species/species_override = null)
-	..(holder, /datum/species/machine) // IPC heads need to be explicitly set to this since you can print them
+/obj/item/organ/external/head/ipc/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
@@ -16,8 +16,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/chest/ipc/New()
-	..()
+/obj/item/organ/external/chest/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/groin/ipc
@@ -25,8 +25,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/groin/ipc/New()
-	..()
+/obj/item/organ/external/groin/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
@@ -34,8 +34,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/arm/ipc/New()
-	..()
+/obj/item/organ/external/arm/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/right/ipc
@@ -43,8 +43,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/arm/right/ipc/New()
-	..()
+/obj/item/organ/external/arm/right/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/ipc
@@ -52,8 +52,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/leg/ipc/New()
-	..()
+/obj/item/organ/external/leg/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/right/ipc
@@ -61,8 +61,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/leg/right/ipc/New()
-	..()
+/obj/item/organ/external/leg/right/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
@@ -70,8 +70,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/foot/ipc/New()
-	..()
+/obj/item/organ/external/foot/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/right/ipc
@@ -79,8 +79,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/foot/right/ipc/New()
-	..()
+/obj/item/organ/external/foot/right/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
@@ -88,8 +88,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/hand/ipc/New()
-	..()
+/obj/item/organ/external/hand/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/right/ipc
@@ -97,8 +97,8 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/hand/right/ipc/New()
-	..()
+/obj/item/organ/external/hand/right/ipc/Initialize(mapload)
+	. = ..()
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/internal/cell
@@ -130,8 +130,8 @@
 /obj/item/organ/internal/brain/mmi_holder/posibrain
 	name = "positronic brain"
 
-/obj/item/organ/internal/brain/mmi_holder/posibrain/New()
-	..()
+/obj/item/organ/internal/brain/mmi_holder/posibrain/Initialize(mapload)
+	. = ..()
 	stored_mmi = new /obj/item/mmi/robotic_brain/positronic(src)
 	if(!owner)
 		stored_mmi.forceMove(get_turf(src))

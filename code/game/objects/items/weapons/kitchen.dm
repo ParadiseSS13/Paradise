@@ -32,8 +32,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	var/max_contents = 1
 
-/obj/item/kitchen/utensil/New()
-	..()
+/obj/item/kitchen/utensil/Initialize(mapload)
+	. = ..()
 	if(prob(60))
 		src.pixel_y = rand(0, 4)
 

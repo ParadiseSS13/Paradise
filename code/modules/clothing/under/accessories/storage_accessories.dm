@@ -10,7 +10,7 @@
 
 /obj/item/clothing/accessory/storage/Initialize(mapload)
 	. = ..()
-	hold = new/obj/item/storage/internal(src)
+	hold = new/obj/item/storage/internal(src, src)
 	hold.storage_slots = slots
 
 /obj/item/clothing/accessory/storage/Destroy()

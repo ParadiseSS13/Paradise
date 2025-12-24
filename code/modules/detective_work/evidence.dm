@@ -93,10 +93,9 @@
 		transfer_evidence(supplied)
 		name = "[initial(name)] ([supplied])"
 
-/obj/item/sample/print/New(newloc, atom/supplied)
-	. = ..()
 	if(length(evidence))
 		icon_state = "fingerprint1"
+		update_icon()
 
 /obj/item/sample/proc/transfer_evidence(atom/supplied)
 	if(length(supplied.suit_fibers))

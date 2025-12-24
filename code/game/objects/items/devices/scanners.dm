@@ -1026,8 +1026,8 @@ SLIME SCANNER
 /obj/item/bodyanalyzer/borg/syndicate
 	scan_cd = 20 SECONDS
 
-/obj/item/bodyanalyzer/New()
-	..()
+/obj/item/bodyanalyzer/Initialize(mapload)
+	. = ..()
 	cell = new cell_type(src)
 	cell.give(cell.maxcharge)
 	update_icon()

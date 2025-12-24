@@ -462,8 +462,8 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
-/obj/item/conveyor_switch_construct/New(loc, new_id)
-	..(loc)
+/obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
+	. = ..()
 	if(new_id)
 		id = new_id
 	else

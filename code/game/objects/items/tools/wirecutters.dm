@@ -24,18 +24,15 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/wirecutters/Initialize(mapload)
+/obj/item/wirecutters/Initialize(mapload, param_color = null)
 	. = ..()
-	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
-	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
-
-/obj/item/wirecutters/New(loc, param_color = null)
-	..()
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/mob = target

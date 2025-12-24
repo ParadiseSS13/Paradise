@@ -8,8 +8,8 @@
 	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 
-/obj/item/robot_parts/New(newloc, model)
-	..(newloc)
+/obj/item/robot_parts/Initialize(mapload, model)
+	. = ..()
 	if(model_info && model)
 		model_info = model
 		var/datum/robolimb/R = GLOB.all_robolimbs[model]
@@ -101,8 +101,8 @@
 	var/aisync = 1
 	var/panel_locked = 1
 
-/obj/item/robot_parts/robot_suit/New()
-	..()
+/obj/item/robot_parts/robot_suit/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
