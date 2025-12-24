@@ -56,7 +56,7 @@ CONTENTS:
 		if(no_den_usage)
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
-				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+				to_chat(user, SPAN_WARNING("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
 				no_den_usage = FALSE
@@ -66,7 +66,7 @@ CONTENTS:
 	update_icon()
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message("<span class='danger'>[user] zaps [user.p_themselves()] with [src].</span>")
+	user.visible_message(SPAN_DANGER("[user] zaps [user.p_themselves()] with [src]."))
 	playsound(user, fire_sound, 50, 1)
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_themselves()] with a <b>[src]</b>")
 	add_attack_logs(user, user, "zapped [user.p_themselves()] with a [src]", ATKLOG_ALL)
@@ -89,9 +89,9 @@ CONTENTS:
 	if(isliving(user))
 		if(user.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			user.revive()
-			to_chat(user, "<span class='notice'>You feel great!</span>")
+			to_chat(user, SPAN_NOTICE("You feel great!"))
 			return
-	to_chat(user, "<span class='warning'>You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+	to_chat(user, SPAN_WARNING("You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]"))
 	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
 		user.adjustFireLoss(6969)
 	user.death(FALSE)
@@ -112,11 +112,11 @@ CONTENTS:
 	charges--
 	if(isliving(user))
 		if(user.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
-			to_chat(user, "<span class='warning'>You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+			to_chat(user, SPAN_WARNING("You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]"))
 			user.death(FALSE)
 			return
 	user.revive()
-	to_chat(user, "<span class='notice'>You feel great!</span>")
+	to_chat(user, SPAN_NOTICE("You feel great!"))
 
 // WAND OF POLYMORPH
 
@@ -170,7 +170,7 @@ CONTENTS:
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
+	to_chat(user, SPAN_NOTICE("You feel vaguely more open with your feelings."))
 	charges--
 	..()
 
@@ -208,30 +208,30 @@ CONTENTS:
 		return !isnull(cig)
 
 	if(!charges)
-		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")
+		to_chat(user, SPAN_WARNING("[src] is out of charge!"))
 		return TRUE
 
 	if(prob(50) || user.mind.assigned_role == "Wizard")
 		if(target == user)
 			user.visible_message(
-				"<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [cig.name] with [src], with only moderate eyebrow singing!?</span>",
-				"<span class='notice'>You swish and flick [src], lighting [cig] with a plume of flame, whilst only moderately eyebrow singing your eyebrows.</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_WARNING("Holy shit! Did [user] just manage to light [user.p_their()] [cig.name] with [src], with only moderate eyebrow singing!?"),
+				SPAN_NOTICE("You swish and flick [src], lighting [cig] with a plume of flame, whilst only moderately eyebrow singing your eyebrows."),
+				SPAN_WARNING("You hear a brief burst of flame!")
 			)
 		else
 			user.visible_message(
-				"<span class='warning'>Holy shit! Did [user] just manage to light [cig] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
-				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [cig.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows.</span>",
-				"<span class='warning'>You hear a brief burst of flame!</span>"
+				SPAN_WARNING("Holy shit! Did [user] just manage to light [cig] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?"),
+				SPAN_NOTICE("You swish and flick [src] at [target], lighting [user.p_their()] [cig.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows."),
+				SPAN_WARNING("You hear a brief burst of flame!")
 			)
 		cig.light(user, target)
 		return TRUE
 
 	// Oops...
 	user.visible_message(
-		"<span class='userdanger'>Unsure which end of [src] is which, [user] zaps [user.p_themselves()] with a fireball!</span>",
-		"<span class='userdanger'>Unsure which end of [src] is which, you accidentally zap yourself with a fireball!</span>",
-		"<span class='userdanger'>You hear a firey explosion!</span>"
+		SPAN_USERDANGER("Unsure which end of [src] is which, [user] zaps [user.p_themselves()] with a fireball!"),
+		SPAN_USERDANGER("Unsure which end of [src] is which, you accidentally zap yourself with a fireball!"),
+		SPAN_USERDANGER("You hear a firey explosion!")
 	)
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "Fireball to the face from failed cigarette lighting")
 	charges--
@@ -255,7 +255,7 @@ CONTENTS:
 	max_charges = 5 //5, 4, 3, 2
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
+	to_chat(user, SPAN_NOTICE("You feel rather silly!."))
 	charges--
 	..()
 

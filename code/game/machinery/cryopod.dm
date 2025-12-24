@@ -102,7 +102,7 @@
 	add_fingerprint(user)
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		to_chat(user, SPAN_WARNING("Access Denied."))
 		return
 
 	if(!allow_items)
@@ -115,14 +115,14 @@
 
 			var/obj/item/item = locateUID(params["item"])
 			if(!item || item.loc != src)
-				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
+				to_chat(user, SPAN_NOTICE("[item] is no longer in storage."))
 				return
 
-			visible_message("<span class='notice'>[src] beeps happily as it dispenses [item].</span>")
+			visible_message(SPAN_NOTICE("[src] beeps happily as it dispenses [item]."))
 			dispense_item(item)
 
 		if("all_items")
-			visible_message("<span class='notice'>[src] beeps happily as it dispenses the desired objects.</span>")
+			visible_message(SPAN_NOTICE("[src] beeps happily as it dispenses the desired objects."))
 
 			for(var/list/frozen_item in frozen_items)
 				var/obj/item/item = locateUID(frozen_item["uid"])
@@ -155,10 +155,10 @@
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!length(objective_items))
-		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
+		visible_message(SPAN_WARNING("The console buzzes in an annoyed manner."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
-	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
+	visible_message(SPAN_WARNING("The console sparks, and some items fall out!"))
 	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
@@ -441,7 +441,7 @@
 					announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+	visible_message(SPAN_NOTICE("[src] hums and hisses as it moves [occupant.real_name] into storage."))
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
@@ -461,7 +461,7 @@
 		return ..()
 
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is in use.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is in use."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ismob(G.affecting))
@@ -475,7 +475,7 @@
 	time_till_despawn = initial(time_till_despawn)
 
 	if(!istype(M) || M.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, SPAN_NOTICE("Dead people can not be put into cryo."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(M.client)
@@ -495,20 +495,20 @@
 				return ITEM_INTERACT_COMPLETE
 
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
+				to_chat(user, SPAN_BOLDNOTICE("[src] is in use."))
 				return ITEM_INTERACT_COMPLETE
 
 			take_occupant(M, willing)
 
 		else //because why the fuck would you keep going if the mob isn't in the pod
-			to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
+			to_chat(user, SPAN_NOTICE("You stop putting [M] into the cryopod."))
 			return ITEM_INTERACT_COMPLETE
 
 		icon_state = occupied_icon_state
 
 		M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
-		to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+		to_chat(M, SPAN_NOTICE("[on_enter_occupant_message]"))
+		to_chat(M, SPAN_BOLDNOTICE("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 
 		take_occupant(M, willing)
 
@@ -533,7 +533,7 @@
 	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
+		to_chat(user, SPAN_BOLDNOTICE("The cryo pod is already occupied!"))
 		return TRUE
 
 
@@ -542,11 +542,11 @@
 		return
 
 	if(L.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, SPAN_NOTICE("Dead people can not be put into cryo."))
 		return TRUE
 
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
 	return TRUE
 
@@ -564,7 +564,7 @@
 
 	if(willing)
 		if(!Adjacent(L) && !Adjacent(user))
-			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
+			to_chat(user, SPAN_BOLDNOTICE("You're not close enough to [src]."))
 			return TRUE
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
@@ -573,11 +573,11 @@
 		if(do_after(user, 20, target = L))
 			if(!L) return TRUE
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
+				to_chat(user, SPAN_BOLDNOTICE("\The [src] is in use."))
 				return TRUE
 			take_occupant(L, willing)
 		else
-			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
+			to_chat(user, SPAN_NOTICE("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
 /obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
@@ -588,8 +588,8 @@
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state
-	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
-	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	to_chat(E, SPAN_NOTICE("[on_enter_occupant_message]"))
+	to_chat(E, SPAN_BOLDNOTICE("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 	E.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 	occupant = E
 	name = "[name] ([occupant.name])"
@@ -639,13 +639,13 @@
 	occupant_overlay.dir = dir
 	occupant_overlay.layer = layer + 0.01
 	var/matrix/MA = matrix(transform)
-	if(dir == 1)
+	if(dir == NORTH)
 		MA.TurnTo(0, 180)
-		occupant_overlay.dir = 2 // trust me
-	if(dir == 4)
+		occupant_overlay.dir = SOUTH // trust me
+	if(dir == EAST)
 		MA.TurnTo(0, 270)
 		occupant_overlay.pixel_y = -8
-	if(dir == 8)
+	if(dir == WEST)
 		MA.TurnTo(0 , 90)
 		occupant_overlay.pixel_y = -8
 	MA.Scale(0.66, 0.66)

@@ -41,8 +41,8 @@
 
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_themselves()] with [src]!</span>", \
-							"<span class='userdanger'>You accidentally club yourself with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] accidentally clubs [user.p_themselves()] with [src]!"), \
+							SPAN_USERDANGER("You accidentally club yourself with [src]!"))
 		user.KnockDown(knockdown_duration)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -74,8 +74,8 @@
 	if(HAS_TRAIT_FROM(target, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
 	if(issilicon(target))
-		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] pulses [target]'s sensors with [src]!"),\
+							SPAN_DANGER("You pulse [target]'s sensors with [src]!"))
 		on_silicon_stun(target, user)
 
 	// Check for shield/countering
@@ -83,13 +83,13 @@
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			return FALSE
-		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							"<span class='danger'>You knock down [target] with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] knocks down [target] with [src]!"),\
+							SPAN_DANGER("You knock down [target] with [src]!"))
 		on_non_silicon_stun(target, user)
 
 	else if(isbot(target))
-		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] pulses [target]'s sensors with [src]!"),\
+							SPAN_DANGER("You pulse [target]'s sensors with [src]!"))
 		var/mob/living/simple_animal/bot/H = target
 		H.disable(stun_time_silicon)
 	// Visuals and sound
@@ -190,14 +190,14 @@
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)
-		to_chat(user, "<span class='warning'>You extend [src].</span>")
+		to_chat(user, SPAN_WARNING("You extend [src]."))
 		worn_icon_state = worn_icon_state_on
 		inhand_icon_state = inhand_icon_state_on
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = force_on //stunbaton damage
 		attack_verb = attack_verb_on
 	else
-		to_chat(user, "<span class='notice'>You collapse [src].</span>")
+		to_chat(user, SPAN_NOTICE("You collapse [src]."))
 		worn_icon_state = null
 		inhand_icon_state = null //no sprite for concealment even when in hand
 		w_class = WEIGHT_CLASS_SMALL

@@ -31,7 +31,7 @@
 	if(slot & ITEM_SLOT_BOTH_HANDS)
 		if(H.mind.martial_art != style)
 			style.teach(H, TRUE)
-			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")
+			to_chat(H, SPAN_NOTICE("THERE CAN ONLY BE ONE!"))
 	else if(H.mind.martial_art && H.mind.martial_art == style)
 		style.remove(H)
 		var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)

@@ -50,9 +50,9 @@ Bonus
 	else
 		switch(A.progress)
 			if(0 to 59)
-				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+				to_chat(M, SPAN_WARNING("[pick("You feel nauseous.", "You feel like you're going to throw up!")]"))
 			if(60 to INFINITY)
-				to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
+				to_chat(M, SPAN_WARNING("[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]"))
 	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M, progress)

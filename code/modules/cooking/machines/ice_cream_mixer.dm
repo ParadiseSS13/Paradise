@@ -28,7 +28,7 @@
 
 /obj/machinery/cooking/ice_cream_mixer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer and toggle it on or off.</span>"
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> to set its timer and toggle it on or off.")
 
 /obj/machinery/cooking/ice_cream_mixer/clickpos_to_surface(modifiers)
 	return 1
@@ -39,7 +39,7 @@
 		return
 
 	if(surface.on)
-		to_chat(user, "<span class='notice'>\The [src] must be off to retrieve its contents.</span>")
+		to_chat(user, SPAN_NOTICE("\The [src] must be off to retrieve its contents."))
 		return
 
 	user.put_in_hands(surface.container)
@@ -75,6 +75,14 @@
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
+
+/obj/machinery/cooking/ice_cream_mixer/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/icecream_bowl(src)
+
+	update_appearance()
 
 /obj/item/circuitboard/cooking/ice_cream_mixer
 	board_name = "Ice Cream Mixer"

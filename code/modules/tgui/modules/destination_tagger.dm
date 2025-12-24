@@ -51,5 +51,5 @@
 			//Auto flush if we use this verb inside a disposal chute.
 			if(istype(R.loc, /obj/machinery/disposal))
 				var/obj/machinery/disposal/D = R.loc
-				to_chat(R, "<span class='notice'>[D] acknowledges your signal.</span>")
+				to_chat(R, SPAN_NOTICE("[D] acknowledges your signal."))
 				D.flush_count = D.flush_every_ticks

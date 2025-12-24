@@ -72,15 +72,15 @@
 	U.adjustStaminaLoss(-100)
 	U.stand_up(TRUE)
 	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
-	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, SPAN_NOTICE("You instill your body with clean blood and remove any incapacitating effects."))
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/disease/zombie/zombie_infection in U.viruses)
 		zombie_infection.stage = min(zombie_infection.stage, round(7 - (V.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
 		if(zombie_infection.stage <= 0)
 			zombie_infection.cure()
-			to_chat(user, "<span class='notice'>You cleanse the plague from your system.</span>")
+			to_chat(user, SPAN_NOTICE("You cleanse the plague from your system."))
 		else
-			to_chat(user, "<span class='warning'>You weaken the plague in your system, but you don't have enough blood to completely remove it.</span>")
+			to_chat(user, SPAN_WARNING("You weaken the plague in your system, but you don't have enough blood to completely remove it."))
 
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
@@ -119,7 +119,7 @@
 
 /datum/spell/vampire/self/exfiltrate/cast(mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>You have already attempted to create a blood chalice!</span>")
+		to_chat(user, SPAN_WARNING("You have already attempted to create a blood chalice!"))
 		return
 	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	vamp.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/vampire)
@@ -226,19 +226,19 @@
 /datum/spell/vampire/lair/cast(list/targets, mob/user)
 	var/obj/structure/closet/coffin/C = targets[1] // this spell will basically always target a singular coffin unless you stack multiple on the same tile
 	if(!istype(C, /obj/structure/closet/coffin))
-		to_chat(user, "<span class='warning'>This only works on coffins!</span>")
+		to_chat(user, SPAN_WARNING("This only works on coffins!"))
 		return
 	if(istype(C, /obj/structure/closet/coffin/vampire))
-		to_chat(user, "<span class='warning'>This coffin serves another and refuses to bend to your will!</span>")
+		to_chat(user, SPAN_WARNING("This coffin serves another and refuses to bend to your will!"))
 		return
 	if(istype(C, /obj/structure/closet/coffin/sarcophagus))
-		to_chat(user, "<span class='warning'>Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now.</span>")
+		to_chat(user, SPAN_WARNING("Making such a lavish lair would likely upset an ancient. You should really use a wooden coffin for now."))
 		return
 	for(var/turf/T in range(1, C))
 		if(T.density)
-			to_chat(user, "<span class='warning'>You need more space around the coffin for the ritual!</span>")
+			to_chat(user, SPAN_WARNING("You need more space around the coffin for the ritual!"))
 			return
-	to_chat(user, "<span class='danger'>You begin marking the coffin!</span>")
+	to_chat(user, SPAN_DANGER("You begin marking the coffin!"))
 	C.Beam(user, icon_state = "drainbeam", maxdistance = 1, time = 10 SECONDS)
 	playsound(C, 'sound/misc/enter_blood.ogg', 20)
 	for(var/obj/machinery/light/L in range(5, user))
@@ -282,10 +282,10 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
 			if(B.tint)
-				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				to_chat(user, SPAN_WARNING("You're blindfolded!"))
 				return
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
-	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
+	user.visible_message(SPAN_WARNING("[user]'s eyes emit a blinding flash!"))
 
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire(user))
@@ -310,7 +310,7 @@
 			target.KnockDown(12 SECONDS)
 			target.AdjustSilence(8 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
-		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
+		to_chat(target, SPAN_WARNING("You are blinded by [user]'s glare."))
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /datum/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
@@ -383,7 +383,7 @@
 /datum/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
+	to_chat(user, SPAN_WARNING("You call out within bluespace, summoning more vampiric spirits to aid you!"))
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -400,7 +400,7 @@
 		H.visible_message("[H] looks unfazed!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		H.visible_message("<span class='notice'>[H] looks refreshed!</span>")
+		H.visible_message(SPAN_NOTICE("[H] looks refreshed!"))
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in H.bodyparts)
@@ -412,10 +412,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			H.visible_message("<span class='warning'>[H] looks to be in pain!</span>")
+			H.visible_message(SPAN_WARNING("[H] looks to be in pain!"))
 			H.adjustBrainLoss(60)
 		else
-			H.visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
+			H.visible_message(SPAN_WARNING("[H] looks to be stunned by the energy!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/bio_chip/mindshield/L in H)
@@ -424,7 +424,7 @@
 	for(var/obj/item/bio_chip/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
-	H.visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")
+	H.visible_message(SPAN_WARNING("[H] gets an eerie red glow in their eyes!"))
 
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.target = M.mind

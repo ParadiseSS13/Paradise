@@ -84,7 +84,7 @@
 
 	clonemind.transfer_to(H) //INSTANTLY INTO THE CLONE
 	H.ckey = R.ckey
-	to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
+	to_chat(H, SPAN_NOTICE("<b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i>"))
 
 	update_icon()
 

@@ -40,7 +40,7 @@
 		if(!check_rights(R_SPAWN))
 			return
 		if(QDELETED(src))
-			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return
 		var/quirk_name = tgui_input_list(usr, "What quirk do you want to add to [src]?", "Quirk to add", GLOB.quirk_paths)
 		if(!quirk_name)
@@ -54,7 +54,7 @@
 		if(!check_rights(R_SPAWN))
 			return
 		if(QDELETED(src))
-			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return
 		var/datum/quirk/to_remove = tgui_input_list(usr, "What quirk do you want to remove from [src]?", "Quirk to remove", src.quirks)
 		if(!to_remove)

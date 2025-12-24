@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_CO2			(1<<5)
 #define SENSOR_N2O			(1<<6)
 #define SENSOR_H2			(1<<7)
+#define SENSOR_H2O			(1<<8)
 
 /obj/machinery/atmospherics/air_sensor
 	icon_state = "gsensor1"
@@ -48,7 +49,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
 
-	user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
+	user.visible_message("[user] unfastens \the [src].", SPAN_NOTICE("You have unfastened \the [src]."), "You hear ratchet.")
 	new /obj/item/pipe_gsensor(loc)
 	qdel(src)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
@@ -64,6 +65,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
 		"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
 		"Hydrogen: [ONOFF_TOGGLE(SENSOR_H2)]" = SENSOR_H2,
+		"Water Vapor: [ONOFF_TOGGLE(SENSOR_H2O)]" = SENSOR_H2O,
 		"-SAVE TO BUFFER-" = "multitool"
 	)
 
@@ -90,13 +92,15 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				output ^= SENSOR_N2O
 			if(SENSOR_H2)
 				output ^= SENSOR_H2
+			if(SENSOR_H2O)
+				output ^= SENSOR_H2O
 			if("multitool")
 				if(!ismultitool(I)) // Should never happen
 					return
 
 				var/obj/item/multitool/M = I
 				M.buffer_uid = UID()
-				to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+				to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))
 
 	return TRUE
 #undef ONOFF_TOGGLE
@@ -178,7 +182,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum || !(istype(linked_datum, /obj/machinery/atmospherics/air_sensor) || istype(linked_datum, /obj/machinery/atmospherics/meter)))
-				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a sensor or meter.</span>")
+				to_chat(user, SPAN_WARNING("Error: No device in multitool buffer, or device is not a sensor or meter."))
 				return
 
 			var/new_name = clean_input(user, "Enter a name for the sensor/meter", "Name")
@@ -187,7 +191,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 			sensor_name_uid_map[new_name] = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			sensor_name_data_map[new_name] = list()
-			to_chat(user, "<span class='notice'>Successfully added a new sensor/meter with name <code>[new_name]</code></span>")
+			to_chat(user, SPAN_NOTICE("Successfully added a new sensor/meter with name <code>[new_name]</code>"))
 
 		if("Remove")
 			var/to_remove = tgui_input_list(user, "Select a sensor/meter to remove", "Sensor/Meter Removal", sensor_name_uid_map)
@@ -200,7 +204,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 			sensor_name_uid_map -= to_remove
 			sensor_name_data_map -= to_remove
-			to_chat(user, "<span class='notice'>Successfully removed sensor/meter with name <code>[to_remove]</code></span>")
+			to_chat(user, SPAN_NOTICE("Successfully removed sensor/meter with name <code>[to_remove]</code>"))
 
 // Makes overrides easier
 /obj/machinery/computer/general_air_control/proc/refresh_all()
@@ -266,6 +270,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					sensor_data["h2"] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
 				else
 					sensor_data -= "h2"
+
+				if(AS.output & SENSOR_H2O)
+					sensor_data["h2o"] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
+				else
+					sensor_data -= "h2o"
 
 		else if(istype(AM, /obj/machinery/atmospherics/meter))
 			var/list/meter_data = sensor_name_data_map[sensor_name]
@@ -361,7 +370,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				"filter_co2" = scrubber.scrub_CO2,
 				"filter_toxins" = scrubber.scrub_Toxins,
 				"filter_n2o" = scrubber.scrub_N2O,
-				"filter_h2" = scrubber.scrub_H2))
+				"filter_h2" = scrubber.scrub_H2,
+				"filter_h2o" = scrubber.scrub_H2O,))
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
@@ -390,12 +400,12 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	switch(choice)
 		if("Add")
 			if(M.buffer_uid in inlet_uids)
-				to_chat(user, "<span class='warning'>Error: This device is already connected to the console.</span>")
+				to_chat(user, SPAN_WARNING("Error: This device is already connected to the console."))
 				return
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/outlet_injector))
-				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not an injector.</span>")
+				to_chat(user, SPAN_WARNING("Error: No device in multitool buffer, or device is not an injector."))
 				return
 
 			inlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
@@ -406,7 +416,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			inlet_injector.update_icon()
 			inlet_data += list("[linked_datum.UID()]" = list("name" = inlet_injector.name, "on" = inlet_injector.on, "rate" = inlet_injector.volume_rate, "uid" = inlet_injector.UID()))
 			refresh_inlets()
-			to_chat(user, "<span class='notice'>Successfully added an inlet injector.</span>")
+			to_chat(user, SPAN_NOTICE("Successfully added an inlet injector."))
 
 		if("Remove")
 			var/list/namelist = list()
@@ -435,9 +445,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				inlet_uids = list()
 				inlet_data = list()
 				refresh_inlets()
-				to_chat(user, "<span class='notice'>Successfully unlinked inlet injector.</span>")
+				to_chat(user, SPAN_NOTICE("Successfully unlinked inlet injector."))
 			else
-				to_chat(user, "<span class='warning'>Error - No injector linked!</span>")
+				to_chat(user, SPAN_WARNING("Error - No injector linked!"))
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
@@ -448,12 +458,12 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	switch(choice)
 		if("Add")
 			if(M.buffer_uid in outlet_uids)
-				to_chat(user, "<span class='warning'>Error: This device is already connected to the console.</span>")
+				to_chat(user, SPAN_WARNING("Error: This device is already connected to the console."))
 				return
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum)
-				to_chat(user, "<span class='warning'>Error: No compatible device in multitool buffer</span>")
+				to_chat(user, SPAN_WARNING("Error: No compatible device in multitool buffer"))
 				return
 			if(istype(linked_datum, /obj/machinery/atmospherics/unary/vent_pump))
 				outlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
@@ -467,7 +477,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				outlet_vent.update_icon()
 				outlet_vent_data += list("[linked_datum.UID()]" = list("name" = outlet_vent.name, "on" = outlet_vent.on, "checks" = outlet_vent.pressure_checks, "rate" = outlet_vent.internal_pressure_bound, "uid" = outlet_vent.UID()))
 				refresh_outlets()
-				to_chat(user, "<span class='notice'>Successfully added an outlet vent</span>")
+				to_chat(user, SPAN_NOTICE("Successfully added an outlet vent"))
 				return
 			if(istype(linked_datum, /obj/machinery/atmospherics/unary/vent_scrubber))
 				outlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
@@ -489,12 +499,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					"filter_co2" = scrubber.scrub_CO2,
 					"filter_toxins" = scrubber.scrub_Toxins,
 					"filter_n2o" = scrubber.scrub_N2O,
-					"filter_h2" = scrubber.scrub_H2))
+					"filter_h2" = scrubber.scrub_H2,
+					"filter_h2o" = scrubber.scrub_H2O,))
 				refresh_outlets()
-				to_chat(user, "<span class='notice'>Successfully added an outlet scrubber</span>")
+				to_chat(user, SPAN_NOTICE("Successfully added an outlet scrubber"))
 				return
 			else
-				to_chat(user, "<span class='warning'>Error: No compatible device in multitool buffer</span>")
+				to_chat(user, SPAN_WARNING("Error: No compatible device in multitool buffer"))
 				return
 
 		if("Remove")
@@ -529,9 +540,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				outlet_scrubber_data = list()
 				outlet_vent_data = list()
 				refresh_outlets()
-				to_chat(user, "<span class='notice'>Successfully unlinked outlet vent.</span>")
+				to_chat(user, SPAN_NOTICE("Successfully unlinked outlet vent."))
 			else
-				to_chat(user, "<span class='warning'>Error - No outlets linked!</span>")
+				to_chat(user, SPAN_WARNING("Error - No outlets linked!"))
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_inlets()
@@ -578,6 +589,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_scrubber_data[uid]["filter_toxins"] = scrubber.scrub_Toxins
 			outlet_scrubber_data[uid]["filter_n2o"] = scrubber.scrub_N2O
 			outlet_scrubber_data[uid]["filter_h2"] = scrubber.scrub_H2
+			outlet_scrubber_data[uid]["filter_h2o"] = scrubber.scrub_H2O
 
 /obj/machinery/computer/general_air_control/large_tank_control/refresh_all()
 	..()
@@ -665,6 +677,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					scrubber.scrub_O2 = !scrubber.scrub_O2
 				if("scrub_h2")
 					scrubber.scrub_H2 = !scrubber.scrub_H2
+				if("h2o_scrub")
+					scrubber.scrub_H2O = !scrubber.scrub_H2O
 				if("widenet")
 					scrubber.widenet = !scrubber.widenet
 				if("scrubbing")
@@ -720,3 +734,4 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #undef SENSOR_CO2
 #undef SENSOR_N2O
 #undef SENSOR_H2
+#undef SENSOR_H2O
