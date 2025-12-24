@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(xeno_things, list("xenos" = list(), "eggs" = list()))
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 0.9, ASSIGNMENT_MEDICAL = 3)
-	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 50, ASSIGNMENT_MEDICAL = 4)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 20, ASSIGNMENT_MEDICAL = 3)
 
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(xeno_things, list("xenos" = list(), "eggs" = list()))
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	if(length(GLOB.crew_list) < 50) // manifest must have 50 crew to roll
+	if(length(GLOB.crew_list) < 20) // manifest must have 20 crew to roll
 		// if xenos dont roll due to pop, try again to roll for a major in 60 seconds
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + 1 MINUTES
