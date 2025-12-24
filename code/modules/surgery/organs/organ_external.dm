@@ -344,6 +344,8 @@
 
 	if(internal)
 		status &= ~ORGAN_BROKEN
+		var/datum/wound/fracture = get_wound(/datum/wound/fracture)
+		fracture.cure_wound()
 		perma_injury = 0
 
 	if(updating_health)
