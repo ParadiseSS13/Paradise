@@ -20,11 +20,11 @@
 
 	if(!allow_floor_mounting)
 		if(!(get_dir(on_wall, user) in GLOB.cardinal))
-			to_chat(user, "<span class='warning'>You need to be standing next to [on_wall] to place [src].</span>")
+			to_chat(user, SPAN_WARNING("You need to be standing next to [on_wall] to place [src]."))
 			return FALSE
 
 		if(gotwallitem(get_turf(user), get_dir(user, on_wall)))
-			to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+			to_chat(user, SPAN_WARNING("There's already an item on this wall!"))
 			return FALSE
 
 	return TRUE

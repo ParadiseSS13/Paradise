@@ -34,14 +34,14 @@
 		if(wizard.current.stat != CONSCIOUS)
 			if(wizard.current.health < HEALTH_THRESHOLD_DEAD || wizard.current.stat == DEAD) //Lets make this not get funny rng crit involved
 				if(!squabble_helper(wizard))
-					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+					to_chat(wizard.current, SPAN_WARNING("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 					wizard.current.dust() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 				continue
 
 		if(!wizard.current.client)
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		if(wizard.current.client.is_afk() > 10 MINUTES)
-			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+			to_chat(wizard.current, SPAN_WARNING("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 			wizard.current.dust() // Let's keep the round moving
 			continue
 		wizards_alive++
@@ -62,7 +62,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/squabble_helper(datum/mind/wizard)
 	if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-		to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
+		to_chat(wizard.current, SPAN_WARNING("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums."))
 		message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 		end_squabble(get_area(wizard.current))
 		return TRUE
@@ -82,7 +82,7 @@
 			marked_for_death |= M.current
 	for(var/mob/living/L in marked_for_death)
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
-			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
+			to_chat(L, SPAN_USERDANGER("STOP FIGHTING."))
 		L.ghostize()
 		if(isbrain(L))
 			// diediedie
@@ -146,7 +146,7 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><font size = 3><b>The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></font></span>")
+		to_chat(world, SPAN_WARNING("<font size = 3><b>The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></font>"))
 	..(1)
 
 /datum/game_mode/wizard/raginmages/proc/populate_magivends()

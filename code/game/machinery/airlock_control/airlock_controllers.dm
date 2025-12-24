@@ -73,7 +73,7 @@
 
 /obj/machinery/airlock_controller/attack_hand(mob/user)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return FALSE
 	ui_interact(user)
 
@@ -97,7 +97,7 @@
 	add_fingerprint(usr)
 
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 		return TRUE
 
 	switch(action)

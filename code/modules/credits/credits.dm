@@ -1,14 +1,13 @@
-#define CREDIT_ROLL_SPEED 100
-#define CREDIT_SPAWN_SPEED 20
+#define CREDIT_ROLL_SPEED 10 SECONDS
+#define CREDIT_SPAWN_SPEED 2 SECONDS
 #define CREDIT_ANIMATE_HEIGHT (14 * world.icon_size)
-#define CREDIT_EASE_DURATION 22
+#define CREDIT_EASE_DURATION 2.2 SECONDS
 
 GLOBAL_VAR_INIT(end_credits_song, null)
 GLOBAL_VAR_INIT(end_credits_title, null)
 GLOBAL_LIST(end_titles)
 
 /datum/controller/subsystem/ticker/proc/generate_credits()
-
 	if(!GLOB.end_titles)
 		GLOB.end_titles = generate_titles()
 
@@ -16,15 +15,15 @@ GLOBAL_LIST(end_titles)
 		if(!C)
 			continue
 		if(!length(C.credits))
-			C.roll_credits()
+			INVOKE_ASYNC(C, TYPE_PROC_REF(/client/, roll_credits))
 
 /client/proc/roll_credits()
 	if(!mob.get_preference(PREFTOGGLE_3_POSTCREDS))
 		return
 
-	verbs += /client/proc/clear_credits
+	add_verb(src, /client/proc/clear_credits)
 	for(var/I in GLOB.end_titles)
-		if(!length(credits))
+		if(!credits)
 			return
 		var/atom/movable/screen/credit/T = new(null, null, I, src)
 		credits += T
@@ -34,12 +33,12 @@ GLOBAL_LIST(end_titles)
 
 /client/proc/end_credits()
 	clear_credits()
-	verbs -= /client/proc/clear_credits
+	remove_verb(src, /client/proc/clear_credits)
 
 /client/proc/clear_credits()
 	set name = "Stop End Titles"
 	set category = "OOC"
-	verbs -= /client/proc/clear_credits
+	remove_verb(src, /client/proc/clear_credits)
 	QDEL_LIST_CONTENTS(credits)
 
 /atom/movable/screen/credit

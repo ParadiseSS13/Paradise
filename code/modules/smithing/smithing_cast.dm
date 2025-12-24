@@ -22,7 +22,7 @@
 /obj/item/smithing_cast/examine(mob/user)
 	. = ..()
 	. += "It is currently configured to make [amount_to_make == 1 ? "a" : "[amount_to_make]"] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
-	. += "<span class='notice'>You can select the desired product by using [src] in your hand.</span>"
+	. += SPAN_NOTICE("You can select the desired product by using [src] in your hand.")
 
 /obj/item/smithing_cast/activate_self(mob/user)
 	. = ..()
@@ -57,7 +57,7 @@
 
 /obj/item/smithing_cast/sheet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can change the amount of sheets smelted by alt-clicking [src].</span>"
+	. += SPAN_NOTICE("You can change the amount of sheets smelted by alt-clicking [src].")
 
 /obj/item/smithing_cast/sheet/populate_products()
 	possible_products = list(/obj/item/stack/sheet/metal,
@@ -101,7 +101,7 @@
 /obj/item/smithing_cast/component/examine(mob/user)
 	. = ..()
 	. += "The current selected quality is [quality.name]."
-	. += "<span class='notice'>You can change the quality of the product by alt-clicking [src].</span>"
+	. += SPAN_NOTICE("You can change the quality of the product by alt-clicking [src].")
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
 	. = ..()
@@ -165,6 +165,20 @@
 	desc = "A cast for creating lens foci."
 	product_type = /obj/item/smithed_item/component/lens_focus
 	basin_state = "cast_focus"
+
+/obj/item/smithing_cast/component/knife_blade
+	name = "knife blade cast"
+	desc = "A cast for creating knife blades."
+	icon_state = "knife_blade_cast"
+	product_type = /obj/item/smithed_item/component/knife_blade
+	basin_state = "cast_knife_blade"
+
+/obj/item/smithing_cast/component/knife_handle
+	name = "knife handle cast"
+	desc = "A cast for creating knife handles."
+	icon_state = "knife_handle_cast"
+	product_type = /obj/item/smithed_item/component/knife_handle
+	basin_state = "cast_knife_handle"
 
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"

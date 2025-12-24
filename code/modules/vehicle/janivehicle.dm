@@ -58,7 +58,16 @@
 	else
 		J.floorbuffer = FALSE
 		J.vehicle_move_delay -= J.buffer_delay
-	to_chat(usr, "<span class='notice'>The floor buffer is now [J.floorbuffer ? "active" : "deactivated"].</span>")
+	to_chat(usr, SPAN_NOTICE("The floor buffer is now [J.floorbuffer ? "active" : "deactivated"]."))
+
+/obj/vehicle/janicart/user_buckle_mob(mob/living/M, mob/user)
+	var/mob/living/carbon/human/driver = M
+	var/obj/item/organ/external/l_leg = driver.get_organ("l_leg")
+	var/obj/item/organ/external/r_leg = driver.get_organ("r_leg")
+	if(!l_leg && !r_leg)
+		to_chat(user, SPAN_WARNING("[src] requires legs to ride!"))
+		return
+	return ..()
 
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()
@@ -91,7 +100,7 @@
 		. += "It has been upgraded with a floor buffer."
 
 /obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	var/fail_msg = SPAN_NOTICE("There is already one of those in [src].")
 
 	if(istype(used, /obj/item/storage/bag/trash))
 		if(mybag)
@@ -99,7 +108,7 @@
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You hook [used] onto [src].</span>")
+		to_chat(user, SPAN_NOTICE("You hook [used] onto [src]."))
 		used.forceMove(src)
 		mybag = used
 		update_icon(UPDATE_OVERLAYS)
@@ -111,7 +120,7 @@
 			return ITEM_INTERACT_COMPLETE
 		buffer_installed = TRUE
 		qdel(used)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [used].</span>")
+		to_chat(user,SPAN_NOTICE("You upgrade [src] with [used]."))
 		update_icon(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 

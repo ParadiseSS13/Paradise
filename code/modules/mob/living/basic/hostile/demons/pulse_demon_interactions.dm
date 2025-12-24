@@ -18,12 +18,12 @@
 		// we probably shouldn't be firing from inside a recharger or someone's bag
 		if(iscarbon(G.loc) || isturf(G.loc))
 			G.process_fire(A, src, FALSE)
-			visible_message("<span class='danger'>[G] fires itself at [A]!</span>", "<span class='danger'>You force [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
+			visible_message(SPAN_DANGER("[G] fires itself at [A]!"), SPAN_DANGER("You force [G] to fire at [A]!"), SPAN_ITALICS("You hear \a [G.fire_sound_text]!"))
 			changeNext_click(CLICK_CD_RANGE) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
 			return
 	else if(current_robot)
 		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]")
-		message_admins("<span class='notice'>[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]"))
 
 		current_robot.ClickOn(A, params)
 		changeNext_click(0.5 SECONDS)
@@ -109,8 +109,8 @@
 /mob/living/simple_animal/bot/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc == src)
 		return
-	to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you.</span>")
-	to_chat(user, "<span class='notice'>Leave it by jumping to a hijacked APC.</span>")
+	to_chat(user, SPAN_WARNING("You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you."))
+	to_chat(user, SPAN_NOTICE("Leave it by jumping to a hijacked APC."))
 	ejectpai(user)
 	user.forceMove(src)
 	user.current_bot = src
@@ -129,77 +129,77 @@
 /obj/machinery/recharger/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
 	if(!charging)
-		to_chat(user, "<span class='warning'>There is no weapon charging. Click again to retry.</span>")
+		to_chat(user, SPAN_WARNING("There is no weapon charging. Click again to retry."))
 		return
-	to_chat(user, "<span class='notice'>You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds.</span>")
+	to_chat(user, SPAN_NOTICE("You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds."))
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
 	if(!charging)
-		to_chat(src, "<span class='warning'>Failed to hijack [src]</span>")
+		to_chat(src, SPAN_WARNING("Failed to hijack [src]"))
 		return
-	to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+	to_chat(user, SPAN_NOTICE("You are now inside [charging]. Click on a hijacked APC to return."))
 	user.forceMove(charging)
 	user.current_weapon = charging
 
 /obj/machinery/cell_charger/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
 	if(!charging)
-		to_chat(user, "<span class='warning'>There is no cell charging. Click again to retry.</span>")
+		to_chat(user, SPAN_WARNING("There is no cell charging. Click again to retry."))
 		return
-	to_chat(user, "<span class='notice'>You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds.</span>")
+	to_chat(user, SPAN_NOTICE("You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds."))
 	if(charging.rigged)
-		to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+		to_chat(user, SPAN_NOTICE("You are now inside [charging]. Click on a hijacked APC to return."))
 		user.forceMove(charging)
 		return
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
 	if(!charging)
-		to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
+		to_chat(src, SPAN_WARNING("Failed to hijack [src]."))
 		return
-	to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+	to_chat(user, SPAN_NOTICE("You are now inside [charging]. Click on a hijacked APC to return."))
 	user.forceMove(charging)
 
 /obj/machinery/recharge_station/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
 	if(!isrobot(occupant))
-		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
+		to_chat(user, SPAN_WARNING("There is no silicon-based occupant inside. Click again to retry."))
 		return
-	to_chat(user, "<span class='notice'>You are now attempting to hijack [occupant], this will take approximately [user.hijack_time / 10] seconds.</span>")
+	to_chat(user, SPAN_NOTICE("You are now attempting to hijack [occupant], this will take approximately [user.hijack_time / 10] seconds."))
 	var/mob/living/silicon/robot/R = occupant
 	if(R in user.hijacked_robots)
 		user.do_hijack_robot(occupant)
 		return
-	to_chat(R, "<span class='userdanger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
+	to_chat(R, SPAN_USERDANGER("ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS"))
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
 	if(isrobot(occupant))
 		user.do_hijack_robot(occupant)
 		return
-	to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
+	to_chat(src, SPAN_WARNING("Failed to hijack [src]."))
 
 /mob/living/basic/demon/pulse_demon/proc/do_hijack_robot(mob/living/silicon/robot/R)
-	to_chat(src, "<span class='notice'>You are now inside [R]. Click on a hijacked APC to return.</span>")
+	to_chat(src, SPAN_NOTICE("You are now inside [R]. Click on a hijacked APC to return."))
 	forceMove(R)
 	current_robot = R
 	if(!(R in hijacked_robots))
 		hijacked_robots += R
-		to_chat(R, "<span class='userdanger'>TARGETING SYSTEMS HIJACKED, REPORT ALL UNWANTED ACTIVITY</span>")
+		to_chat(R, SPAN_USERDANGER("TARGETING SYSTEMS HIJACKED, REPORT ALL UNWANTED ACTIVITY"))
 
 /obj/machinery/camera/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards [src]. Click on a hijacked APC to return.</span>")
+		to_chat(user, SPAN_NOTICE("You jump towards [src]. Click on a hijacked APC to return."))
 
 // see pulse_demon/say
 /obj/machinery/hologram/holopad/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards [src]. You can now communicate via the holopad's speaker. Click on a hijacked APC to return.</span>")
+		to_chat(user, SPAN_NOTICE("You jump towards [src]. You can now communicate via the holopad's speaker. Click on a hijacked APC to return."))
 
 /obj/item/radio/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards [src]. You can now communicate via radio. Click on a hijacked APC to return.</span>")
+		to_chat(user, SPAN_NOTICE("You jump towards [src]. You can now communicate via radio. Click on a hijacked APC to return."))
 	else
 		attack_ai(user)
 
@@ -228,7 +228,7 @@
 		var/turf/simulated/floor/F = A
 		// there was originally a 1% chance to break to lattice, but that doesn't help a pulse demon, so I don't see the point
 		F.break_tile_to_plating()
-		audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
+		audible_message(SPAN_DANGER("[src] makes an excited booping sound."))
 
 /mob/living/simple_animal/bot/cleanbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
 	if(!on)
@@ -238,7 +238,7 @@
 		if(prob(50))
 			F.MakeSlippery(TURF_WET_WATER)
 		if(prob(50))
-			visible_message("<span class='warning'>Something flies out of [src]! It seems to be acting oddly.</span>")
+			visible_message(SPAN_WARNING("Something flies out of [src]! It seems to be acting oddly."))
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)

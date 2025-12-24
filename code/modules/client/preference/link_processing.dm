@@ -16,7 +16,7 @@
 					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
-					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
+					to_chat(user, SPAN_DANGER("The Wiki URL is not set in the server configuration."))
 			if("random")
 				if(active_character.alternate_option == GET_RANDOM_JOB || active_character.alternate_option == BE_ASSISTANT)
 					active_character.alternate_option += 1
@@ -196,7 +196,7 @@
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
-						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
+						to_chat(user, SPAN_WARNING("Invalid species, please pick something else."))
 						return
 					if(prev_species != active_character.species)
 						active_character.quirks = list() //Reset their quirks
@@ -1030,7 +1030,7 @@
 						to_chat(user, "<span class='notice'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
 								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
-						to_chat(user, "<span class='notice'>Automatic cryoing turned off.</span>")
+						to_chat(user, SPAN_NOTICE("Automatic cryoing turned off."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
