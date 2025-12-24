@@ -16,121 +16,121 @@
 		"burn" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine,
-				/datum/reagent/medicine/heal_on_apply/synthflesh
+				/datum/reagent/medicine/heal_on_apply/synthflesh,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/omnizine_diluted,
 				/datum/reagent/medicine/omnizine,
 				/datum/reagent/medicine/menthol,
 				/datum/reagent/medicine/salglu_solution,
-				/datum/reagent/medicine/cryoxadone
-			)
+				/datum/reagent/medicine/cryoxadone,
+			),
 		),
 		"brute" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/heal_on_apply/styptic_powder,
-				/datum/reagent/medicine/heal_on_apply/synthflesh
+				/datum/reagent/medicine/heal_on_apply/synthflesh,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/omnizine_diluted,
 				/datum/reagent/medicine/omnizine,
 				/datum/reagent/medicine/sal_acid,
 				/datum/reagent/medicine/salglu_solution,
-				/datum/reagent/medicine/cryoxadone
-			)
+				/datum/reagent/medicine/cryoxadone,
+			),
 		),
 		"antitoxin" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/charcoal,
-				/datum/reagent/medicine/pen_acid
+				/datum/reagent/medicine/pen_acid,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/omnizine_diluted,
 				/datum/reagent/medicine/omnizine,
 				/datum/reagent/medicine/potass_iodide,
 				/datum/reagent/medicine/cryoxadone,
-				/datum/reagent/medicine/calomel
-			)
+				/datum/reagent/medicine/calomel,
+			),
 		),
 		"respiratory" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/perfluorodecalin,
-				/datum/reagent/medicine/salbutamol
+				/datum/reagent/medicine/salbutamol,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/omnizine_diluted,
 				/datum/reagent/medicine/omnizine,
 				/datum/reagent/medicine/cryoxadone,
-				/datum/reagent/medicine/ephedrine
-			)
+				/datum/reagent/medicine/ephedrine,
+			),
 		),
 		"cloning" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/sanguine_reagent,
-				/datum/reagent/medicine/osseous_reagent
+				/datum/reagent/medicine/osseous_reagent,
 			),
 			"adequate" = list(
 				/datum/reagent/blood,
 				/datum/reagent/medicine/cryoxadone,
-				/datum/reagent/medicine/mitocholide
-			)
+				/datum/reagent/medicine/mitocholide,
+			),
 		),
 		"neurological" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/haloperidol,
 				/datum/reagent/methamphetamine,
-				/datum/reagent/medicine/mannitol
+				/datum/reagent/medicine/mannitol,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/ether,
-				/datum/reagent/lithium
-			)
+				/datum/reagent/lithium,
+			),
 		),
 		"cardiac" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/atropine,
-				/datum/reagent/medicine/epinephrine
+				/datum/reagent/medicine/epinephrine,
 			),
 			"adequate" = list(
-				/datum/reagent/heparin
-			)
+				/datum/reagent/heparin,
+			),
 		),
 		"pain management" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/hydrocodone,
-				/datum/reagent/medicine/sal_acid
+				/datum/reagent/medicine/sal_acid,
 			),
 			"adequate" = list(
-				/datum/reagent/medicine/morphine
-			)
+				/datum/reagent/medicine/morphine,
+			),
 		),
 		"cellular" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/mutadone,
-				/datum/reagent/medicine/rezadone
+				/datum/reagent/medicine/rezadone,
 			),
 			"adequate" = list(
-				/datum/reagent/medicine/cryoxadone
-			)
+				/datum/reagent/medicine/cryoxadone,
+			),
 		),
 		"temperature-stabilizing" = alist(
 			"preferred" = list(
-				/datum/reagent/medicine/teporone
+				/datum/reagent/medicine/teporone,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/menthol,
-				/datum/reagent/medicine/sal_acid
-			)
+				/datum/reagent/medicine/sal_acid,
+			),
 		),
 		"blood loss" = alist(
 			"preferred" = list(
-				/datum/reagent/medicine/sanguine_reagent
+				/datum/reagent/medicine/sanguine_reagent,
 			),
 			"adequate" = list(
 				/datum/reagent/blood,
 				/datum/reagent/medicine/salglu_solution,
-				/datum/reagent/iron
-			)
+				/datum/reagent/iron,
+			),
 		),
 		"specific purgative" = alist(
 			"preferred" = list(
@@ -138,22 +138,22 @@
 				/datum/reagent/medicine/potass_iodide,
 				/datum/reagent/medicine/antihol,
 				/datum/reagent/medicine/diphenhydramine,
-				/datum/reagent/medicine/haloperidol
+				/datum/reagent/medicine/haloperidol,
 			),
 			"adequate" = list(
 				/datum/reagent/medicine/mutadone,
-				/datum/reagent/medicine/epinephrine
-			)
+				/datum/reagent/medicine/epinephrine,
+			),
 		),
 		"antibiotic" = alist(
 			"preferred" = list(
 				/datum/reagent/medicine/spaceacillin,
-				/datum/reagent/medicine/sterilizine
+				/datum/reagent/medicine/sterilizine,
 			),
 			"adequate" = list(
-				/datum/reagent/medicine/mitocholide
-			)
-		)
+				/datum/reagent/medicine/mitocholide,
+			),
+		),
 	)
 
 /datum/station_goal/secondary/medicine_of_type/Initialize(requester_account)
