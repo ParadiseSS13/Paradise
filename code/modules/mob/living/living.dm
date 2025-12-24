@@ -619,6 +619,58 @@
 	stand_up() // wake the fuck up badmin, we've got an "event" to burn
 	return
 
+/**
+ * Heals up the mob up to [heal_to] of the main damage types.
+ * EX: If heal_to is 50, and they have 150 brute damage, they will heal 100 brute (up to 50 brute damage)
+ *
+ * If the target is dead, also revives them and heals their organs / restores blood.
+ * If we have a [revive_message], play a visible message if the revive was successful.
+ *
+ * Arguments
+ * * heal_to - the health threshold to heal the mob up to for each of the main damage types.
+ * * revive_message - if provided, a visible message to show on a successful revive.
+ *
+ * Returns TRUE if the mob is alive afterwards, or FALSE if they're still dead (revive failed).
+ */
+/mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
+
+	// Heal their brute and burn up to the threshold we're looking for
+	var/brute_to_heal = heal_to - getBruteLoss()
+	var/burn_to_heal = heal_to - getFireLoss()
+	var/oxy_to_heal = heal_to - getOxyLoss()
+	var/tox_to_heal = heal_to - getToxLoss()
+	if(brute_to_heal < 0)
+		adjustBruteLoss(brute_to_heal, updating_health = FALSE)
+	if(burn_to_heal < 0)
+		adjustFireLoss(burn_to_heal, updating_health = FALSE)
+	if(oxy_to_heal < 0)
+		adjustOxyLoss(oxy_to_heal, updating_health = FALSE)
+	if(tox_to_heal < 0)
+		adjustToxLoss(tox_to_heal, updating_health = FALSE)
+
+	// Run updatehealth once to set health for the revival check
+	updatehealth()
+
+	// We've given them a decent heal.
+	// If they happen to be dead too, try to revive them - if possible.
+	if(stat == DEAD && can_be_revived())
+		// If the revive is successful, show our revival message (if present).
+		if(update_revive() && revive_message)
+			visible_message(revive_message)
+
+	// Finally update health again after we're all done
+	updatehealth()
+
+	return stat != DEAD
+
+
+/// Checks if we are actually able to ressuscitate this mob.
+/// (We don't want to revive then to have them instantly die again)
+/mob/living/proc/can_be_revived()
+	if(health <= HEALTH_THRESHOLD_DEAD)
+		return FALSE
+	return TRUE
+
 /mob/living/proc/remove_CC()
 	SetWeakened(0)
 	SetKnockDown(0)
@@ -885,6 +937,13 @@
 		step_towards(src,S)
 
 /mob/living/narsie_act()
+	if(IS_HERETIC(src))
+		var/datum/antagonist/heretic/are_you_ascended = IS_HERETIC(src)
+		if(are_you_ascended.ascended && stat != DEAD)
+			to_chat(src, SPAN_USERDANGER("You feel the crushing presense of [GET_CULT_DATA(entity_name, "Nar'sie")] pushing down on you. You won't last long!)"))
+			adjustBruteLoss(40) //Note: Heretics take half damage, this is 20 brute.
+			adjustBrainLoss(5)
+			return
 	if(client)
 		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE, create_smoke = TRUE)
 	spawn_dust()

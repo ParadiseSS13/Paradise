@@ -102,12 +102,14 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
 /datum/antagonist/proc/add_owner_to_gamemode()
+	stack_trace("[type] did not implement add_owner_to_gamemode()!")
 	return
 
 /**
  * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
  */
 /datum/antagonist/proc/remove_owner_from_gamemode()
+	stack_trace("[type] did not implement remove_owner_from_gamemode()!")
 	return
 
 /**
