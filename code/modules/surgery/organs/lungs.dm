@@ -10,7 +10,7 @@
 
 /obj/item/organ/internal/lungs/receive_damage(amount, silent)
 	..()
-	if(damage >= min_bruised_damage && amount > 1 && !(locate(/datum/wound/ruptured_lungs) in wound_list))
+	if(damage >= min_bruised_damage && amount > 1 && !get_wound(/datum/wound/ruptured_lungs))
 		wound_list += new /datum/wound/ruptured_lungs(src)
 
 /obj/item/organ/internal/lungs/heal_internal_damage(amount, robo_repair)
