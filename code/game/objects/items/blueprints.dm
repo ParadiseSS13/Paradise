@@ -106,9 +106,9 @@
 			return
 		edit_area()
 	if(href_list["view_blueprints"])
-		set_viewer(usr, "<span class='notice'>You flip the blueprints over to view the complex information diagram.</span>")
+		set_viewer(usr, SPAN_NOTICE("You flip the blueprints over to view the complex information diagram."))
 	if(href_list["hide_blueprints"])
-		clear_viewer(usr, "<span class='notice'>You flip the blueprints over to view the simple information diagram.</span>")
+		clear_viewer(usr, SPAN_NOTICE("You flip the blueprints over to view the simple information diagram."))
 	if(href_list["refresh"])
 		clear_viewer(usr)
 		set_viewer(usr)
@@ -170,13 +170,13 @@
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
+				to_chat(usr, SPAN_WARNING("The new area must be completely airtight."))
 				return area_created
 			if(ROOM_ERR_TOOLARGE)
-				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
+				to_chat(usr, SPAN_WARNING("The new area is too large."))
 				return area_created
 			else
-				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
+				to_chat(usr, SPAN_WARNING("Error! Please notify administration."))
 				return area_created
 	var/list/turf/turfs = res
 	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN, encode = FALSE)
@@ -220,7 +220,7 @@
 		for(var/D in our_area.firedoors)
 			var/obj/machinery/door/firedoor/FD = D
 			FD.CalculateAffectingAreas()
-	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
+	to_chat(usr, SPAN_NOTICE("You rename the '[prevname]' to '[str]'."))
 	interact()
 	message_admins("A room was renamed by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
 	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")

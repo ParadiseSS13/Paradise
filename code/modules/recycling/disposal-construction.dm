@@ -23,7 +23,7 @@
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b>")
 
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
@@ -80,7 +80,7 @@
 
 /obj/structure/disposalconstruct/proc/rotate(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='notice'>You must unfasten the pipe before rotating it.</span>")
+		to_chat(user, SPAN_NOTICE("You must unfasten the pipe before rotating it."))
 		return
 
 	dir = turn(dir, -90)
@@ -93,7 +93,7 @@
 
 /obj/structure/disposalconstruct/proc/flip(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='notice'>You must unfasten the pipe before flipping it.</span>")
+		to_chat(user, SPAN_NOTICE("You must unfasten the pipe before flipping it."))
 		return
 
 	dir = turn(dir, 180)
@@ -141,21 +141,21 @@
 	var/turf/T = get_turf(src)
 
 	if(T.intact)
-		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
+		to_chat(user, SPAN_WARNING("You can only attach the [nicetype] if the floor plating is removed."))
 		return
 
 	if(ispipe)
 		anchored = !anchored
 		level = anchored ? 1 : 2
-		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the underfloor.</span>" : "<span class='notice'>You detach the [nicetype] from the underfloor.</span>")
+		to_chat(user, anchored ? SPAN_NOTICE("You attach the [nicetype] to the underfloor.") : SPAN_NOTICE("You detach the [nicetype] from the underfloor."))
 	else
 		var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
 		if(!CT)
-			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to be anchored.</span>")
+			to_chat(user, SPAN_WARNING("The [nicetype] requires a trunk underneath it in order to be anchored."))
 			return
 		anchored = !anchored
 		density = anchored
-		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the trunk.</span>" : "<span class='notice'>You detach the [nicetype] from the trunk.</span>")
+		to_chat(user, anchored ? SPAN_NOTICE("You attach the [nicetype] to the trunk.") : SPAN_NOTICE("You detach the [nicetype] from the trunk."))
 
 	I.play_tool_sound(src, I.tool_volume)
 	update()
@@ -192,13 +192,13 @@
 	add_fingerprint(user)
 
 	if(T.intact)
-		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
+		to_chat(user, SPAN_WARNING("You can only attach the [nicetype] if the floor plating is removed."))
 		return
 
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T
 		if(!CP) // There's no trunk
-			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to work.</span>")
+			to_chat(user, SPAN_WARNING("The [nicetype] requires a trunk underneath it in order to work."))
 			return
 	else
 		for(var/obj/structure/disposalpipe/CP in T)
@@ -208,15 +208,15 @@
 				if(istype(CP, /obj/structure/disposalpipe/broken))
 					pdir = CP.dir
 				if(pdir & dpdir)
-					to_chat(user, "<span class='warning'>There is already a [nicetype] at that location.</span>")
+					to_chat(user, SPAN_WARNING("There is already a [nicetype] at that location."))
 					return
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
 			if(I.tool_use_check(user, 0))
-				to_chat(user, "<span class='notice'>You begin welding the [nicetype] in place.</span>")
+				to_chat(user, SPAN_NOTICE("You begin welding the [nicetype] in place."))
 				if(I.use_tool(src, user, 20, volume = I.tool_volume))
-					to_chat(user, "<span class='notice'>You have welded the [nicetype] in place!</span>")
+					to_chat(user, SPAN_NOTICE("You have welded the [nicetype] in place!"))
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe
 
@@ -253,10 +253,10 @@
 					qdel(src)
 					return
 			else
-				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
+				to_chat(user, SPAN_WARNING("You need more welding fuel to complete this task."))
 				return
 		else
-			to_chat(user, "<span class='warning'>You need to attach it to the plating first!</span>")
+			to_chat(user, SPAN_WARNING("You need to attach it to the plating first!"))
 			return
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)

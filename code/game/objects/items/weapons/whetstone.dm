@@ -15,27 +15,27 @@
 
 /obj/item/whetstone/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
+		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
 		return
 	if(requires_sharpness && !I.sharp)
-		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
+		to_chat(user, SPAN_WARNING("You can only sharpen items that are already sharp, such as knives!"))
 		return
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max)
 
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || I.force >= max || I.throwforce >= max) //If the item's components enforce more limits on maximum power from sharpening,  we fail
-		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
+		to_chat(user, SPAN_WARNING("[I] is much too powerful to sharpen further!"))
 		return
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, "<span class='warning'>[I] is not able to be sharpened right now!</span>")
+		to_chat(user, SPAN_WARNING("[I] is not able to be sharpened right now!"))
 		return
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (I.force > initial(I.force) && !(signal_out & COMPONENT_SHARPEN_APPLIED))) //No sharpening stuff twice
-		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
+		to_chat(user, SPAN_WARNING("[I] has already been refined before. It cannot be sharpened further!"))
 		return
 
 	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
 		I.force = clamp(I.force + increment, 0, max)
 
-	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
+	user.visible_message(SPAN_NOTICE("[user] sharpens [I] with [src]!"), SPAN_NOTICE("You sharpen [I], making it much more deadly than before."))
 	if(!requires_sharpness)
 		set_sharpness(TRUE)
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
@@ -48,7 +48,7 @@
 
 /obj/item/whetstone/attack_self__legacy__attackchain(mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
+		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -58,14 +58,14 @@
 			if(!C.has_been_sharpened)
 				C.has_been_sharpened = TRUE
 				attack.damage += claw_damage_increase
-				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
+				H.visible_message(SPAN_NOTICE("[H] sharpens [H.p_their()] claws on [src]!"), SPAN_NOTICE("You sharpen your claws on [src]."))
 				playsound(get_turf(H), usesound, 50, 1)
 				name = "worn out [name]"
 				desc = "[desc] At least, it used to."
 				used = TRUE
 				update_icon()
 			else
-				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")
+				to_chat(user, SPAN_WARNING("You can not sharpen your claws any further!"))
 
 /obj/item/whetstone/super
 	name = "super whetstone block"

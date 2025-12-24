@@ -32,7 +32,7 @@
 	else
 		return // no stinky mobs/xenos allowed
 	if(phone_state != NO_CALLS)
-		to_chat(user, "<span class='warning'>There is already an ongoing call!</span>")
+		to_chat(user, SPAN_WARNING("There is already an ongoing call!"))
 		return
 
 	var/list/available_phones = list()
@@ -43,7 +43,7 @@
 		return
 	var/obj/machinery/phone/target_phone = available_phones[phone_choice]
 	if(target_phone.phone_state != NO_CALLS)
-		to_chat(user, "<span class='warning'>Call attemp failed: Line busy.</span>")
+		to_chat(user, SPAN_WARNING("Call attemp failed: Line busy."))
 		return
 	handheld = new
 	handheld.parent_phone = src
@@ -70,7 +70,7 @@
 
 	switch(phone_state)
 		if(NO_CALLS)
-			to_chat(user, "<span class='warning'>There are no calls at the moment to pick up.</span>")
+			to_chat(user, SPAN_WARNING("There are no calls at the moment to pick up."))
 			return
 		if(RINGING)
 			handheld = new
@@ -80,13 +80,13 @@
 			icon_state = "answered"
 			start_call()
 		else
-			to_chat(user, "<span class='warning'>The receiver is already off the dock!</span>")
+			to_chat(user, SPAN_WARNING("The receiver is already off the dock!"))
 			return
 
 /obj/machinery/phone/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/radio/phone_receiver))
 		if(phone_state == ACTIVE_CALL)
-			to_chat(user, "<span class='information'>You hang up the call.</span>")
+			to_chat(user, SPAN_INFORMATION("You hang up the call."))
 			end_call()
 		playsound(src, 'sound/machines/starline_hangup.ogg', 50, 0)
 		handheld.dropped()
@@ -121,13 +121,13 @@
 	phone_state = ACTIVE_CALL
 	handheld.listening = TRUE
 	connected_line.handheld.listening = TRUE
-	connected_line.audible_message("<span class='information'>The receiver clicks as the other line picks up.</span>", hearing_distance = 3)
+	connected_line.audible_message(SPAN_INFORMATION("The receiver clicks as the other line picks up."), hearing_distance = 3)
 
 /obj/machinery/phone/proc/end_call()
 	handheld.listening = FALSE
 	phone_state = NO_CALLS
 	if(connected_line)
-		connected_line.audible_message("<span class='information'>The receiver clicks as the other line hangs up</span>", hearing_distance = 3)
+		connected_line.audible_message(SPAN_INFORMATION("The receiver clicks as the other line hangs up"), hearing_distance = 3)
 		connected_line.connected_line = null
 		if(connected_line.phone_state == RINGING)
 			connected_line.phone_state = NO_CALLS
@@ -160,7 +160,7 @@
 	freqlock = TRUE
 
 /obj/item/radio/phone_receiver/dropped(mob/user, silent)
-	visible_message("<span class='information'>The receiver snaps back into its dock.</span>")
+	visible_message(SPAN_INFORMATION("The receiver snaps back into its dock."))
 	parent_phone.icon_state = "base"
 	if(parent_phone.phone_state == ACTIVE_CALL)
 		parent_phone.end_call()

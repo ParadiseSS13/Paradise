@@ -42,25 +42,25 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove its pen.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to remove its pen.")
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
 /obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
-			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")
+			to_chat(user, SPAN_WARNING("There's already a pen in [src]!"))
 			return
 		if(!is_pen(P))
 			return
-		to_chat(user, "<span class='notice'>You slide [P] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You slide [P] into [src]."))
 		user.transfer_item_to(P, src)
 		containedpen = P
 	else
 		if(!containedpen)
-			to_chat(user, "<span class='warning'>There isn't a pen in [src] for you to remove!</span>")
+			to_chat(user, SPAN_WARNING("There isn't a pen in [src] for you to remove!"))
 			return
-		to_chat(user, "<span class='notice'>You remove [containedpen] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [containedpen] from [src]."))
 		user.put_in_hands(containedpen)
 		containedpen = null
 	update_icon()
@@ -99,7 +99,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
 		user.unequip(W)
 		W.forceMove(src)
-		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
+		to_chat(user, SPAN_NOTICE("You clip [W] onto [src]."))
 		playsound(loc, "pageturn", 50, 1)
 		if(isPaperwork(W) == PAPERWORK)
 			toppaper = W
@@ -134,7 +134,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		var/obj/item/P = locate(href_list["remove"]) in src
 		if(isPaperwork(P))
 			usr.put_in_hands(P)
-			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
+			to_chat(usr, SPAN_NOTICE("You remove [P] from [src]."))
 			toppaper = locate(/obj/item/paper) in src
 			if(!toppaper) //In case there's no paper, try find a paper bundle instead
 				toppaper = locate(/obj/item/paper_bundle) in src
@@ -153,7 +153,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		var/obj/item/P = locate(href_list["topPaper"]) in src
 		if(P == toppaper)
 			return
-		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
+		to_chat(usr, SPAN_NOTICE("You flick the pages so that [P] is on top."))
 		playsound(loc, "pageturn", 50, 1)
 		toppaper = P
 	update_icon()

@@ -81,7 +81,7 @@
 /mob/living/carbon/proc/examine_show_ssd()
 	if(!HAS_TRAIT(src, SCRYING))
 		if(!key)
-			return "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+			return "[SPAN_DEADSAY("[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.")]\n"
 		else if(!client)
 			return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
@@ -89,7 +89,7 @@
 
 /mob/living/carbon/examine(mob/user)
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
-		return list("<span class='notice'>You're struggling to make out any details...</span>")
+		return list(SPAN_NOTICE("You're struggling to make out any details..."))
 
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
@@ -120,7 +120,7 @@
 
 	var/msg = "<span class='notice'>This is "
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
-		msg = "<span class='notice'>This is the <span class='warning'>shambling corpse</span> of "
+		msg = "[SPAN_NOTICE("This is the <span class='warning'>shambling corpse")] of "
 
 	msg += "<em>[name]</em>"
 
@@ -160,7 +160,7 @@
 				if(limb_name)
 					submsg += " [preposition] [p_their()] [limb_name]"
 				if(item.blood_DNA)
-					submsg = "<span class='warning'>[submsg]!</span>\n"
+					submsg = "[SPAN_WARNING("[submsg]!")]\n"
 				else
 					submsg = "[submsg].\n"
 				msg += submsg
@@ -192,25 +192,25 @@
 	)
 		// Pick a random hallucination description
 		var/random_text = pick(hallucination_texts)
-		msg += "<span class='warning'>[random_text]</span>\n"
+		msg += "[SPAN_WARNING("[random_text]")]\n"
 
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")]\n"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/twimsts))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!")]\n"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")]\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")]\n"
 
 	//legcuffed?
 	if(legcuffed)
 		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!")]\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!")]\n"
 
 	for(var/obj/item/abstract_item in abstract_items)
 		var/text = abstract_item.customised_abstract_text(src)
@@ -221,20 +221,20 @@
 	for(var/obj/item/grab/grab in grab_items)
 		switch(grab.state)
 			if(GRAB_AGGRESSIVE)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!")]\n"
 			if(GRAB_NECK)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!")]\n"
 			if(GRAB_KILL)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] strangling [grab.affecting]!")]\n"
 
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><b>[p_they(TRUE)] [p_are()] convulsing violently!</b></span>\n"
+			msg += "[SPAN_WARNING("<b>[p_they(TRUE)] [p_are()] convulsing violently!</b>")]\n"
 		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] extremely jittery.")]\n"
 		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] twitching ever so slightly.")]\n"
 
 
 	var/appears_dead = FALSE
@@ -250,7 +250,7 @@
 			appears_dead = TRUE
 
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.")]\n"
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
@@ -261,7 +261,7 @@
 			msg += "...</span>\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
+		msg += "[SPAN_DEADSAY("It appears that [p_their()] brain is missing...")]\n"
 
 	msg += "<span class='warning'>"
 

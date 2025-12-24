@@ -13,7 +13,7 @@
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	if(stat != DEAD && bleed_rate && bleedsuppress)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+		to_chat(src, SPAN_WARNING("The blood soaks through your bandage."))
 	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
@@ -33,18 +33,18 @@
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel [word]."))
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				adjustOxyLoss(5)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 
@@ -365,11 +365,13 @@
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
 
-/mob/living/proc/absorb_blood()
+/mob/living/proc/absorb_blood(passed_id)
 	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
 	// The update to .blood_volume happens in `/datum/reagent/proc/reaction_mob`
 	var/id = get_blood_id()
+	if(passed_id)
+		id = passed_id
 	if(id)
-		reagents.del_reagent(get_blood_id())
+		reagents.del_reagent(id)
 
 #undef EXOTIC_BLEED_MULTIPLIER

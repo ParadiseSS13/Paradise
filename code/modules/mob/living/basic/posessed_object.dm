@@ -24,9 +24,9 @@
 /mob/living/basic/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
+		. += SPAN_WARNING("[src] appears to be floating without any support!")
 	else
-		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
+		. += SPAN_WARNING("[src] appears to be having trouble staying afloat!")
 
 
 /mob/living/basic/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
@@ -36,7 +36,7 @@
 
 /mob/living/basic/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+		to_chat(src, SPAN_WARNING("You are unable to pull [AM]!"))
 
 
 /mob/living/basic/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -79,27 +79,27 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
+		visible_message(SPAN_NOTICE("[src] refuses to be contained!"))
 		forceMove(get_turf(src))
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
 			possessed_item.forceMove(src)
 
 /mob/living/basic/possessed_object/Login()
 	..()
-	to_chat(src, "<span class='notice'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
+	to_chat(src, SPAN_NOTICE("<b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn."))
 
 
 /mob/living/basic/possessed_object/Initialize(mapload)
 	. = ..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
-		message_admins("<span class='adminnotice'>Possessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(SPAN_ADMINNOTICE("Possessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		stack_trace("[src] spawned manually, no object to assign attributes to.")
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
-		message_admins("<span class='adminnotice'>Possessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(SPAN_ADMINNOTICE("Possessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		stack_trace("[src] attempted to find a turf to spawn on, and could not.")
 		qdel(src)
 
@@ -115,7 +115,7 @@
 	melee_damage_lower = max(0, possessed_item.force - 5)
 	melee_damage_upper = possessed_item.force + 5
 
-	visible_message("<span class='notice'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
+	visible_message(SPAN_NOTICE("[src] rises into the air and begins to float!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 

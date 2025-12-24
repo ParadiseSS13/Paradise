@@ -4,6 +4,7 @@
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
 	slot_flags = ITEM_SLOT_BELT
+	embedded_ignore_throwspeed_threshold = TRUE
 
 	new_attack_chain = TRUE
 	/// The quality of the item
@@ -91,12 +92,11 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/kitchen/knife/smithed/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	. = ..()
 	if(!isstack(used))
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 	var/obj/item/stack/stacked_item = used
 	if(wrap_type)
-		to_chat(user, "<span class='warning'>There is already a wrap on [src]!</span>")
+		to_chat(user, SPAN_WARNING("There is already a wrap on [src]!"))
 		return ITEM_INTERACT_COMPLETE
 	var/wrap_to_attach
 	if(istype(stacked_item, /obj/item/stack/cable_coil))
@@ -112,8 +112,8 @@
 	if(istype(stacked_item, /obj/item/stack/sheet/mothsilk))
 		wrap_to_attach = /datum/handle_wrapping/mothsilk
 	if(!wrap_to_attach)
-		to_chat(user, "<span class='warning'>You cannot wrap [stacked_item] around [src]!</span>")
-		return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_WARNING("You cannot wrap [stacked_item] around [src]!"))
+		return ..()
 	if(do_after_once(user, 5 SECONDS, target = src))
 		if(stacked_item.use(5))
 			attach_wrapping(wrap_to_attach)
@@ -122,7 +122,7 @@
 /obj/item/kitchen/knife/smithed/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(wrap_type)
-		to_chat(user, "<span class='notice'>You cut off the wrap on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You cut off the wrap on [src]."))
 		remove_wrapping()
 
 /obj/item/kitchen/knife/smithed/utility
@@ -136,6 +136,7 @@
 	name = "throwing knife"
 	desc = "A lightweight, balanced throwing knife. The sharp blade enhances the chance to embed."
 	icon_state = "throwing_knife"
+	throw_speed = 4
 	base_speed_mod = -0.25
 	base_productivity_mod = -0.25
 	throw_force_increase = 6 // 16 throw force at standard, 22 throw force at masterwork
