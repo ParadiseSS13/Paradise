@@ -22,9 +22,6 @@
 /obj/item/stack/bone_rods/fifty
 	amount = 50
 
-/obj/item/stack/bone_rods/Initialize(mapload, new_amount, merge)
-	. = ..()
-
 /obj/item/stack/bone_rods/update_icon_state()
 	var/amount = get_amount()
 	icon_state = "bone_rods-[clamp(amount, 1, 5)]"
