@@ -1236,10 +1236,6 @@
 	if(stat & NOPOWER)
 		to_chat(user, SPAN_WARNING("The chamber's locks wont disengage without power!"))
 		return
-	for(var/obj/thing in loc)
-		if(thing.density)
-			to_chat(user, SPAN_WARNING("The chamber is being blocked from opening!"))
-			return
 
 	if(!is_mecha_occupant(user))
 		add_fingerprint(user)
@@ -1251,6 +1247,8 @@
 			if(welded)
 				to_chat(user, SPAN_WARNING("[src] is welded shut. It wont budge!"))
 				return
+			if(!density_check(user))
+				return
 			var/delay = 1 SECONDS
 			if(linked_reactor && !linked_reactor.offline)
 				delay = 8 SECONDS
@@ -1259,14 +1257,18 @@
 			if(do_after_once(user, delay, target = src, allow_moving = FALSE))
 				if(!Adjacent(user)) // for mecha users
 					return
-				raise()
+				if(density_check(user))
+					raise()
 				return
 
 		if(CHAMBER_UP)
+			if(!density_check(user))
+				return
 			if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
 				if(chamber_state != CHAMBER_UP) // so that we cant lower while in the open state
 					return
-				lower()
+				if(density_check(user))
+					lower()
 				return
 
 		if(CHAMBER_OPEN)
@@ -1308,6 +1310,15 @@
 		if(!lockout)
 			close()
 		return
+
+/obj/machinery/atmospherics/reactor_chamber/proc/density_check(mob/user)
+	for(var/atom/thing in loc.contents)
+		if(thing == src)
+			continue
+		if(thing.density)
+			to_chat(user, SPAN_WARNING("The chamber is being blocked from opening!"))
+			return FALSE
+	return TRUE
 
 /obj/machinery/atmospherics/reactor_chamber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -1719,10 +1730,12 @@
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue
-		if(held_rod.heat_amount > 0) // no negatives amplified here.
+		if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && !chamber.operational) // Do not apply negative heat gen on coolant when not on.
+			heat_mod_total *= 1
+		else if(held_rod.heat_amount > 0) // Do not multiply negative heat.
 			heat_mod_total *= chamber.held_rod.current_heat_mod // we generate heat even when its not operational
 		if(operational && chamber.chamber_state == CHAMBER_DOWN)
-			if(held_rod.power_amount > 0) // no negatives amplified here.
+			if(held_rod.power_amount > 0) // Do not multiply negative power.
 				power_mod_total *= chamber.held_rod.current_power_mod
 
 	power_total *= power_mod_total

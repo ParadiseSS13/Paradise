@@ -127,6 +127,16 @@
 	build_path = /obj/item/circuitboard/nuclear_rod_fabricator
 	category = list("Power", "Engineering Machinery")
 
+/datum/design/nuclear_gas_node
+	name = "Machine Design (Nuclear Gas Node Board)"
+	desc = "The circuit board for a nuclear gas node."
+	id = "nuclear_gas_node"
+	req_tech = list("programming" = 4, "materials" = 4, "magnets" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/reactor_gas_node
+	category = list("Power", "Engineering Machinery")
+
 /datum/design/rod_fabricator_upgrade
 	name = "Nuclear Rod Fabricator Upgrade"
 	desc = "A design disk containing a dizzying amount of designs and improvements for nuclear rod fabrication."
