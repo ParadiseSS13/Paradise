@@ -28,6 +28,10 @@
 	do_sparks(1, 1, src)
 	..()
 
+/obj/projectile/beam/laser/minigun
+	damage = 15
+	armor_penetration_percentage = 50
+
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"

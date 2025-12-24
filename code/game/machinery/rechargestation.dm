@@ -208,6 +208,10 @@
 			return
 		if(ismodcontrol(H.back) || ismachineperson(H))
 			can_accept_user = TRUE
+		if(istype(H.back, /obj/item/minigunpack))
+			var/obj/item/minigunpack/gunpack = H.back
+			if(!gunpack.armed)
+				can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, SPAN_NOTICE("Only non-organics and people wearing modsuits may enter the recharger!"))
