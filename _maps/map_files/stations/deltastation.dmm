@@ -35205,7 +35205,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cFF" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -36464,13 +36463,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJF" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJG" = (
@@ -59695,6 +59692,13 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"iwt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iwu" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -60107,13 +60111,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"iEw" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner,
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "iEH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/barsign{
@@ -60678,6 +60675,13 @@
 /obj/effect/turf_decal/tiles/neutral/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
+"iRp" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iRs" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -67835,9 +67839,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"mcD" = (
-/turf/space,
-/area/station/public/fitness)
 "mcM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72698,15 +72699,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
-"oiz" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "oiF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -87149,6 +87141,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"ubo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "ubB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -90796,6 +90796,10 @@
 /obj/effect/turf_decal/tiles/department/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"vEc" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "vEh" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -90877,6 +90881,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
+"vFw" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/bar)
 "vFA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -132243,7 +132251,7 @@ awX
 awX
 vSU
 aFr
-aIZ
+vFw
 ivB
 aFA
 aOx
@@ -152354,7 +152362,7 @@ cze
 cze
 cze
 cJB
-cLu
+iRp
 cuM
 xSg
 ema
@@ -153381,10 +153389,10 @@ cAv
 cAv
 cAv
 cFD
-oiz
+cFv
 gTT
 cHa
-iEw
+cWh
 cJD
 cMR
 cMR
@@ -153638,10 +153646,10 @@ iuY
 iuY
 iuY
 cFE
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJE
 iuY
 iuY
@@ -153894,11 +153902,11 @@ aaa
 aaa
 abj
 iuY
-cFF
-csi
-mcD
-mcD
-csi
+ubo
+iuY
+abj
+abj
+iuY
 cJF
 iuY
 abj
@@ -154152,10 +154160,10 @@ tkb
 mFS
 mFS
 cFG
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJG
 eOT
 eOT
@@ -155952,9 +155960,9 @@ abj
 aaa
 iuY
 cFF
-csi
-csi
-cJF
+vEc
+vEc
+iwt
 iuY
 aaa
 abj
