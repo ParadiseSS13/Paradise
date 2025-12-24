@@ -656,7 +656,7 @@
 	new /obj/item/reagent_containers/condiment/enzyme(src)
 	new /obj/item/reagent_containers/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
-	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
+	var/list/reagent_list = list("msg", "triple_citrus", "saline_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)

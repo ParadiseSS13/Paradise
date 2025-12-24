@@ -55,9 +55,9 @@
 	list_reagents = list("atropine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/saline
-	name = "saline-glucose bottle"
-	desc = "A small bottle containing saline-glucose solution."
-	list_reagents = list("salglu_solution" = 30)
+	name = "saline bottle"
+	desc = "A small bottle containing saline solution."
+	list_reagents = list("saline_solution" = 30)
 
 /obj/item/reagent_containers/glass/bottle/salicylic
 	name = "salicylic acid bottle"

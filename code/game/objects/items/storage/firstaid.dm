@@ -14,9 +14,9 @@
 	icon_state = "firstaid_generic"
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
-	var/treatment_brute = "salglu_solution"
+	var/treatment_brute = "saline_solution"
 	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
+	var/treatment_fire = "saline_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
 	var/med_bot_skin = null
@@ -336,6 +336,7 @@
 		new /obj/item/reagent_containers/pill/pentetic(src)
 		new /obj/item/reagent_containers/pill/ironsaline(src)
 		new /obj/item/reagent_containers/pill/hydrocodone(src)
+		new /obj/item/reagent_containers/pill/amiodarone(src)
 		new /obj/item/reagent_containers/pill/mannitol(src)
 		new /obj/item/reagent_containers/pill/lazarus_reagent(src)
 		new /obj/item/reagent_containers/pill/rezadone(src)

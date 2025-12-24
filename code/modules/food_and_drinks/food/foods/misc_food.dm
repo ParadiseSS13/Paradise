@@ -164,7 +164,7 @@
 	desc = "It's just an herb salad with meatballs and fried potato slices. Nothing suspicious about it."
 	icon_state = "validsalad"
 	filling_color = "#76B87F"
-	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
+	list_reagents = list("nutriment" = 8, "saline_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
 
 
@@ -249,7 +249,7 @@
 	M.reagents.add_reagent("omnizine", 15)
 	M.reagents.add_reagent("teporone", 15)
 	M.reagents.add_reagent("synaptizine", 15)
-	M.reagents.add_reagent("salglu_solution", 15)
+	M.reagents.add_reagent("saline_solution", 15)
 	M.reagents.add_reagent("salbutamol", 15)
 	M.reagents.add_reagent("methamphetamine", 15)
 	M.reagents.add_reagent("mannitol", 15)

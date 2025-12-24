@@ -7,7 +7,7 @@
 	density = TRUE
 	var/mob/living/carbon/human/occupant
 	var/datum/gas_mixture/air_contents
-	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //Taken from cloner, a bit of extra healing though they should be fully good.
+	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "saline_solution") //Taken from cloner, a bit of extra healing though they should be fully good.
 	var/datum/mind/clonemind
 	/// If the clone pod is cloning someone, attempting becomes true, so only one person can clone at a time. False otherwise.
 	var/attempting = FALSE

@@ -18,6 +18,8 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
+	heart_rate_change = 5
+	blood_pressure_change = 5
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, COLD_WATER_TEMPERATURE, src, method)

@@ -45,7 +45,7 @@
 		// Grinder stuff, but only if dry
 		/obj/item/food/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 		/obj/item/food/grown/coffee = list("coffeepowder" = 0),
-		/obj/item/food/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+		/obj/item/food/grown/tea/astra = list("teapowder" = 0, "saline_solution" = 0),
 		/obj/item/food/grown/tea = list("teapowder" = 0),
 
 		// All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -87,7 +87,7 @@
 		// Grinder stuff, but only if dry,
 		/obj/item/food/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 		/obj/item/food/grown/coffee = list("coffeepowder" = 0),
-		/obj/item/food/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+		/obj/item/food/grown/tea/astra = list("teapowder" = 0, "saline_solution" = 0),
 		/obj/item/food/grown/tea = list("teapowder" = 0)
 	)
 

@@ -377,7 +377,7 @@
 		edible_minerals += list(
 			/obj/item/stack/sheet/mineral/gold = list(
 				"reagents" = list(
-					"salglu_solution" = 5,
+					"saline_solution" = 5,
 					"nutriment" = 1,
 					"vitamin" = 1,
 				),

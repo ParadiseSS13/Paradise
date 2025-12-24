@@ -72,7 +72,7 @@
 		/datum/reagent/diethylamine = list("production speed"),
 		/datum/reagent/medicine/cryoxadone = list("endurance"),
 		/datum/reagent/medicine/omnizine = list("lifespan"),
-		/datum/reagent/medicine/salglu_solution = list("weed rate", "weed count"))
+		/datum/reagent/medicine/saline_solution = list("weed rate", "weed count"))
 	/// What do we call the mutagen tank?
 	var/mutagen_tank_name = "Mutagen tank"
 
@@ -678,10 +678,10 @@
 		replace_doping(/datum/reagent/medicine/omnizine, user)
 
 	// Mild healing
-	if(reagents.has_reagent("salglu_solution", 1))
-		adjustHealth(round(reagents.get_reagent_amount("salglu_solution") * 0.1))
-		adjustToxic(-round(reagents.get_reagent_amount("salglu_solution") * 0.1))
-		replace_doping(/datum/reagent/medicine/salglu_solution, user)
+	if(reagents.has_reagent("saline_solution", 1))
+		adjustHealth(round(reagents.get_reagent_amount("saline_solution") * 0.1))
+		adjustToxic(-round(reagents.get_reagent_amount("saline_solution") * 0.1))
+		replace_doping(/datum/reagent/medicine/saline_solution, user)
 
 	// Ammonia heals and feeds plants
 	if(reagents.has_reagent("ammonia", 1))

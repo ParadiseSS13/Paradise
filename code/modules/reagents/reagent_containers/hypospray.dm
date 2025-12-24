@@ -23,7 +23,7 @@
 	// List of SOSHA-approved medicines.
 	/// List of reagents that are allowed to go into a hypospray with active safeties.
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
-									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
+									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "saline_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
 									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
 									"lavaland_extract", "synaptizine", "bicaridine", "kelotane")
@@ -134,7 +134,7 @@
 	penetrate_thick = TRUE // So they can heal their comrades.
 	ignore_hypospray_immunity = TRUE
 	penetrate_everything = TRUE
-	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
+	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "saline_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with a cocktail of experimental combat drugs and <b>extremely</b> expensive medical nanomachines. Capable of healing almost any injury in just a few seconds. It can interface with the injection ports on any type of hardsuit."
@@ -297,4 +297,4 @@
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37
-	list_reagents = list("salglu_solution" = 3, "synthflesh" = 4, "omnizine" = 3, "weak_omnizine" = 3, "perfluorodecalin" = 2, "sal_acid" = 1, "bicaridine" = 4, "kelotane" = 4, "epinephrine" = 5, "lavaland_extract" = 2, "rezadone" = 1, "teporone" =  2, "menthol" = 1, "vitamin" = 2)
+	list_reagents = list("saline_solution" = 3, "synthflesh" = 4, "omnizine" = 3, "weak_omnizine" = 3, "perfluorodecalin" = 2, "sal_acid" = 1, "bicaridine" = 4, "kelotane" = 4, "epinephrine" = 5, "lavaland_extract" = 2, "rezadone" = 1, "teporone" =  2, "menthol" = 1, "vitamin" = 2)

@@ -78,7 +78,7 @@
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 	if(antibiotics > 50)
 		extra_progress -= 0.5
-	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
+	var/boosters = owner.reagents.get_reagent_amount("saline_solution")
 	if(boosters > 1)
 		extra_progress += 1
 	return extra_progress

@@ -89,7 +89,15 @@
 /obj/machinery/optable/update_icon_state()
 	if(no_icon_updates)
 		return
-	if(patient?.pulse)
+	if(patient && !ishuman(patient))
+		icon_state = "table2-active"
+		return
+	else if(!ishuman(patient))
+		icon_state = "table2-idle"
+		return
+
+	var/mob/living/carbon/human/H = patient
+	if(H.heartbeat)
 		icon_state = "table2-active"
 	else
 		icon_state = "table2-idle"

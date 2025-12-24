@@ -20,12 +20,12 @@
 	/// if true - will play a sound on use
 	var/play_sound = TRUE
 	/// reagent that we will transfer on hypo use
-	var/reagent_selected = "salglu_solution"
+	var/reagent_selected = "saline_solution"
 	/// reagents that we are able to dispense
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
+	var/list/reagent_ids = list("saline_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
 	/// reagents that we will be able to dispense when someone emaggs us
 	var/list/reagent_ids_emagged = list("tirizene")
-	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
+	var/static/list/reagent_icons = list("saline_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
 							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
 							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
 							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"),
@@ -155,6 +155,6 @@
 /obj/item/reagent_containers/borghypo/abductor
 	penetrate_thick = TRUE
 	charge_cost = 40
-	reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol", "corazone")
+	reagent_ids = list("saline_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol", "corazone")
 
 #undef BORGHYPO_REFILL_VALUE

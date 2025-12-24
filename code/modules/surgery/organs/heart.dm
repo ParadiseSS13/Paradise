@@ -7,6 +7,10 @@
 	dead_icon = "heart-off"
 	base_icon_state = "heart"
 	organ_datums = list(/datum/organ/heart)
+	/// By how much does this in- or decrease our heartrate
+	var/heart_rate_change = 0
+	/// By how much does this in- or decrease our blood pressure
+	var/blood_pressure_change = 0
 
 /obj/item/organ/internal/heart/update_icon_state()
 	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]

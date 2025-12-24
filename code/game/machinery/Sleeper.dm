@@ -16,7 +16,7 @@
 	var/mob/living/carbon/human/occupant = null
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
+	var/possible_chems = list("ephedrine", "saline_solution", "salbutamol", "charcoal")
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -120,7 +120,7 @@
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				occupant.transfer_blood_to(beaker, 1)
 				for(var/datum/reagent/reagent in occupant.reagents.reagent_list)
-					occupant.transfer_blood_to(beaker, 1)
+					occupant.transfer_blood_to(beaker, 0.5)
 					if(reagent.id in GLOB.blocked_chems)
 						occupant.reagents.remove_reagent(reagent.id, 3)
 						beaker.reagents.add_reagent("saturated_charcoal", 3)
@@ -226,7 +226,7 @@
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
-			occupantData["pulse"] = occupant.get_pulse()
+			occupantData["pulse"] = occupant.heartbeat
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood

@@ -71,9 +71,9 @@
 	var/declare_cooldown = FALSE //Prevents spam of critical patient alerts.
 	var/stationary_mode = FALSE //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
-	var/treatment_brute = "salglu_solution"
+	var/treatment_brute = "saline_solution"
 	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
+	var/treatment_fire = "saline_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
 	var/treat_virus = TRUE //If on, the bot will attempt to treat viral infections, curing them if possible.

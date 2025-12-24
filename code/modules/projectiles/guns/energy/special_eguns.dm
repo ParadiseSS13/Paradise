@@ -1100,7 +1100,7 @@
 /obj/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.bleed(50)
+		H.bleed(20)
 	..()
 
 /obj/item/gun/energy/spikethrower/examine(mob/user)

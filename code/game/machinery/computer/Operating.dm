@@ -123,11 +123,11 @@
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			var/mob/living/carbon/human/H = occupant
-			occupantData["pulse"] = occupant.get_pulse()
+			occupantData["pulse"] = H.heartbeat
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = H.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/H.max_blood), 0.01) //copy pasta ends here
+			occupantData["bloodPercent"] = round(100 * (occupant.blood_volume / H.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(length(occupant.surgeries))

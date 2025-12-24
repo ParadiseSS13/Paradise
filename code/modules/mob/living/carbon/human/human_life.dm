@@ -12,6 +12,11 @@
 
 	voice = GetVoice()
 
+	// We clear this before we add extra in heartbeats and blood pressure
+	false_cardiac_pain = 0
+	handle_heartbeat()
+	handle_blood_pressure()
+
 	if(.) //not dead
 
 		if(check_mutations)
@@ -20,7 +25,7 @@
 			check_mutations = FALSE
 
 		handle_pain()
-		handle_heartbeat()
+
 		dna.species.handle_life(src)
 		if(!client)
 			dna.species.handle_npc(src)
@@ -32,9 +37,8 @@
 	if(stat == DEAD)
 		handle_decay()
 
-	//Update our name based on whether our face is obscured/disfigured
+	// Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
-	pulse = handle_pulse(times_fired)
 
 	var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
@@ -711,6 +715,7 @@
 
 /mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
 	var/shock_reduction = 0
+	shock_reduction -= false_cardiac_pain // Sometimes having bad medical stats means we feel pain but aren't physically hurt
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
@@ -820,48 +825,16 @@
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
-/mob/living/carbon/human/proc/handle_pulse(times_fired)
-	if(times_fired % 5 == 1)
-		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
-
-	if(NO_BLOOD in dna.species.species_traits)
-		return PULSE_NONE //No blood, no pulse.
-
-	if(stat == DEAD)
-		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
-
-	if(undergoing_cardiac_arrest())
-		return PULSE_NONE
-
-	var/temp = PULSE_NORM
-
-	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
-		temp = PULSE_THREADY	//not enough :(     ) fuck you bracket colouriser
-
-	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
-
-	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.heart_rate_decrease)
-			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
-				temp--
-				break
-
-	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.has_heart_rate_increase())
-			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
-				temp++
-				break
-
-	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.heart_rate_stop)
-			temp = PULSE_NONE
-			break
-
-	return temp
-
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
+
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(heart && !heart.linked_organ.is_robotic())
+		heart.linked_organ.receive_damage(0.2, TRUE)
+	if(lung && !lung.linked_organ.is_robotic())
+		lung.linked_organ.receive_damage(0.2, TRUE)
+	adjustBrainLoss(0.2)
 
 	if(HAS_TRAIT(src, TRAIT_NODECAY))
 		return
@@ -903,42 +876,252 @@
 			to_chat(H, SPAN_WARNING("You smell something foul..."))
 			H.fakevomit()
 
+/mob/living/carbon/human/proc/handle_blood_pressure()
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(!heart || !lung || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
+		blood_pressure = 0
+		return
+
+	var/chem_volume = reagents.total_volume
+	var/temp_bp = (blood_volume * 0.016) ** 2 // Baseline. At 560u of blood you have a bp of 80
+	if(chem_volume)
+		temp_bp += round(chem_volume * 0.25, 1)
+
+	var/obj/item/organ/internal/heart/possible_slime_brain = heart.linked_organ
+	if(istype(possible_slime_brain))
+		temp_bp += possible_slime_brain.blood_pressure_change
+
+	if(!isdrask(src) && !isdiona(src)) // These species live longer than normal humans, exempt
+		if(age > 65) // Hey gramps, watch what you're doing
+			temp_bp += 15
+		else if(age > 45) // Getting old
+			temp_bp += 10
+
+	if(HAS_TRAIT(src, TRAIT_FAT))
+		temp_bp += 10
+
+	temp_bp += lung.linked_organ.damage
+	temp_bp += 5 * get_infected_limbs()
+
+	var/found_alcohol = FALSE
+	for(var/datum/reagent/chem in reagents.reagent_list)
+		if(istype(chem, /datum/reagent/consumable/ethanol))
+			if(found_alcohol)
+				continue
+			found_alcohol = TRUE
+
+		temp_bp += chem.blood_pressure_change
+
+	temp_bp += 5 * length(reagents.addiction_list)
+
+	switch(temp_bp)
+		if(0 to BLOODPRESSURE_DANGER)
+			Dizzy(3 SECONDS)
+			adjustOxyLoss(5)
+			adjustBrainLoss(0.2)
+			if(!heart.linked_organ.is_robotic())
+				heart.linked_organ.receive_damage(0.2, TRUE)
+
+			if(!lung.linked_organ.is_robotic())
+				lung.linked_organ.receive_damage(0.2, TRUE)
+
+			if(prob(10))
+				to_chat(src, SPAN_DANGER("You feel incredibly weak."))
+
+		if(BLOODPRESSURE_DANGER to BLOODPRESSURE_LOW)
+			if(prob(5))
+				Dizzy(5 SECONDS)
+			// Oxyloss under 60 BP
+			adjustOxyLoss(max(round(7 - temp_bp / 10, 1), 1))
+
+		if(BLOODPRESSURE_NORMAL to BLOODPRESSURE_HIGH)
+			if(prob(5))
+				to_chat(src, SPAN_WARNING("You feel a bit weak."))
+
+		if(BLOODPRESSURE_HIGH to BLOODPRESSURE_V_HIGH)
+			false_cardiac_pain += rand(1, 10)
+			if(prob(5))
+				to_chat(src, SPAN_WARNING("Your nose bleeds."))
+				bleed(10)
+			if(prob(5))
+				SetEyeBlind(5 SECONDS)
+			else if(prob(5))
+				Dizzy(5 SECONDS)
+
+		if(BLOODPRESSURE_V_HIGH to INFINITY)
+			false_cardiac_pain += rand(5, 15)
+
+			if(prob(5))
+				for(var/obj/item/organ/external/limb in shuffle(bodyparts))
+					if(limb.status & ORGAN_INT_BLEEDING)
+						continue
+					limb.cause_internal_bleeding(FALSE)
+					to_chat(src, SPAN_DANGER("You feel like something just popped in your [limb.name]!"))
+					break
+
+			// Same as the previous tier of drawbacks but higher chances and amounts
+			if(prob(15))
+				to_chat(src, SPAN_WARNING("Your nose bleeds."))
+				bleed(15)
+			if(prob(5))
+				SetEyeBlind(5 SECONDS)
+			else if(prob(10))
+				Dizzy(5 SECONDS)
+
+	// Some randomness to make it a bit nicer looking, doesn't affect the above drawbacks
+	blood_pressure = round(temp_bp, 0.1)
+
 /mob/living/carbon/human/proc/handle_heartbeat()
-	if(client && client.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-		var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
 
-		if(!H) //H.status will runtime if there is no H (obviously)
-			return
+	if(!heart || stat == DEAD || (NO_BLOOD in dna.species.species_traits)) // No heart, no heartbeat
+		heartbeat = 0
+		return
 
-		if(H.linked_organ.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
-			if(isinspace())
-				//PULSE_THREADY - maximum value for pulse, currently it 5.
-				//High pulse value corresponds to a fast rate of heartbeat.
-				//Divided by 2, otherwise it is too slow.
-				var/rate = (PULSE_THREADY - 2)/2 //machine people (main target) have no pulse, manually subtract standard human pulse (2). Mechanic-heart humans probably have a pulse, but 'advanced neural systems' keep the heart rate steady, or something
+	if(undergoing_cardiac_arrest())
+		heartbeat = 0
+		return
 
-				if(heartbeat >= rate)
-					heartbeat = 0
-					SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 30)) // Credit to GhostHack (www.ghosthack.de) for sound.
+	// First we start at the baseline
+	var/beats = initial(heartbeat)
 
-				else
-					heartbeat++
-			return
+	// Subtract the amount of damage the heart has
+	beats -= heart.linked_organ.damage
 
-		if(pulse == PULSE_NONE)
-			return
+	// Robotic hearts don't really care about anything else
+	if(heart.linked_organ.is_robotic())
+		heartbeat = beats
+		heartbeat_drawbacks()
+		return
 
-		if(pulse >= PULSE_2FAST || isinspace())
-			//PULSE_THREADY - maximum value for pulse, currently it 5.
-			//High pulse value corresponds to a fast rate of heartbeat.
-			//Divided by 2, otherwise it is too slow.
-			var/rate = (PULSE_THREADY - pulse)/2
+	if(HAS_TRAIT(src, TRAIT_FAT))
+		beats += 10
 
-			if(heartbeat >= rate)
-				heartbeat = 0
-				SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
+	var/obj/item/organ/internal/heart/possible_slime_brain = heart.linked_organ
+	if(istype(possible_slime_brain))
+		beats += possible_slime_brain.heart_rate_change
+
+	var/brute_dmg = getBruteLoss()
+	var/burn_dmg = getFireLoss()
+	var/tox_dmg = getToxLoss()
+	var/oxy_dmg = getOxyLoss()
+	var/clone_dmg = getCloneLoss()
+
+	switch(health)
+		// Small amounts of damage are ignored
+		if(50 to 75)
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
+				beats -= (20 + round((maxHealth - health) / 10, 1))
 			else
-				heartbeat++
+				beats += (20 + round((maxHealth - health) / 10, 1))
+		if(HEALTH_THRESHOLD_CRIT to 50)
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
+				beats -= 50
+			else
+				beats += 60
+		if(HEALTH_THRESHOLD_KNOCKOUT to HEALTH_THRESHOLD_CRIT)
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
+				beats -= 70
+			else
+				beats += 80
+		if(HEALTH_THRESHOLD_DEAD to HEALTH_THRESHOLD_KNOCKOUT)
+			if((clone_dmg + tox_dmg) > (brute_dmg + burn_dmg + oxy_dmg))
+				beats -= 100
+			else
+				beats += 100
+		if(-1000 to HEALTH_THRESHOLD_DEAD)
+			beats = 0
+			heartbeat_drawbacks()
+			return
+
+	if(blood_volume < BLOOD_VOLUME_BAD)
+		beats += 50
+	else if(blood_volume < BLOOD_VOLUME_STABLE)
+		beats += 25
+	else if(blood_volume < BLOOD_VOLUME_SAFE)
+		beats += 10
+
+	if(blood_pressure < 20)
+		beats -= 50
+	else if(blood_pressure < 40)
+		beats -= 25
+	else if(blood_pressure < 70)
+		beats -= 10
+
+	for(var/datum/reagent/chem in reagents.reagent_list)
+		if(chem.heart_rate_stop)
+			heartbeat = 0
+			// No bad effects from this, just exit out of here
+			return
+		beats += chem.heart_rate_change
+
+	heartbeat_drawbacks()
+
+	return random_beat_number(beats)
+
+/mob/living/carbon/human/proc/heartbeat_drawbacks()
+	if(HEARTBEAT_IS_NORMAL(heartbeat))
+		return
+
+	if(undergoing_cardiac_arrest())
+		return // We let this be handled by cardiac arrest
+
+	switch(heartbeat)
+		if(0 to HEARTBEAT_NONE)
+			adjustOxyLoss(5)
+			if(prob(10))
+				to_chat(src, SPAN_WARNING("Your heart skips a beat."))
+			else if(prob(10))
+				to_chat(src, SPAN_USERDANGER("Something is very wrong."))
+
+		if(HEARTBEAT_NONE to HEARTBEAT_SLOW)
+			if(prob(5))
+				to_chat(src, SPAN_WARNING("Your heart skips a beat."))
+			else if(prob(5))
+				to_chat(src, SPAN_DANGER("Something is very wrong."))
+			var/damage = round(heartbeat / 10, 1)
+			damage = max(5 - damage, 0)
+			// No oxydamage when above 50 bpm
+			if(damage)
+				adjustOxyLoss(damage)
+
+		if(HEARTBEAT_NORMAL to HEARTBEAT_FAST)
+			if(prob(1))
+				to_chat(src, SPAN_WARNING("You notice your heart is beating a little faster than normal."))
+
+		if(HEARTBEAT_FAST to HEARTBEAT_2FAST)
+			false_cardiac_pain += rand(5, 15)
+			if(prob(15))
+				Dizzy(5 SECONDS)
+			if(prob(3))
+				to_chat(src, SPAN_WARNING("Your heart is racing!"))
+			if(prob(33)) // About 33% chance to get the heartbeat. It's very erratic after all
+				send_heart_sound()
+
+		if(HEARTBEAT_2FAST to INFINITY)
+			false_cardiac_pain += 15
+			var/datum/organ/heart/heart = get_int_organ_datum(ORGAN_DATUM_HEART)
+			// No need to nullcheck, we have a heartbeat
+			heart.linked_organ.receive_damage(0.2, TRUE)
+			if(prob(10) && !undergoing_cardiac_arrest())
+				set_heartattack(TRUE) // Not having a good time
+
+/// Proc to play the heartbeat sound
+/mob/living/carbon/human/proc/send_heart_sound()
+	var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
+
+	if(!(client?.prefs.sound & SOUND_HEARTBEAT) || !H)
+		return
+
+	if(H.linked_organ.is_robotic())
+		SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 30)) // Credit to GhostHack (www.ghosthack.de) for sound.
+	else
+		SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
+
+/// Sets the heartbeat to a number very close to the given number
+/mob/living/carbon/human/proc/random_beat_number(beats)
+	heartbeat = max(beats + pick(1, 2, 3, 4, 0, -1, -2, -3, -4), 0)
 
 /*
 	Called by life(), instead of having the individual hud items update icons each tick and check for status changes
@@ -980,7 +1163,3 @@
 	Weaken(10 SECONDS)
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
-
-// Need this in species.
-//#undef HUMAN_MAX_OXYLOSS
-//#undef HUMAN_CRIT_MAX_OXYLOSS

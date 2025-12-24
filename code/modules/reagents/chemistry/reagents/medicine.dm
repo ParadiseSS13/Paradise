@@ -169,7 +169,7 @@
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
-	heart_rate_decrease = 1
+	heart_rate_change = -10
 	taste_description = "a safe refuge"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	data = list()
@@ -264,10 +264,10 @@
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
 	return ..()
 
-/datum/reagent/medicine/salglu_solution
-	name = "Saline-Glucose Solution"
-	id = "salglu_solution"
-	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
+/datum/reagent/medicine/saline_solution
+	name = "Saline Solution"
+	id = "saline_solution"
+	description = "This saline solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#cbc6ce"
 	penetrates_skin = TRUE
@@ -275,14 +275,14 @@
 	taste_description = "salt"
 	goal_difficulty = REAGENT_GOAL_EASY
 
-/datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
+/datum/reagent/medicine/saline_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits)) // Do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	return ..() | update_flags
@@ -452,11 +452,11 @@
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.id, 0.5)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine
@@ -536,27 +536,21 @@
 	description = "An exotic liquid metal alloy that flows into cracks, fractures, and other surface imperfections before solidifying to patch up damaged components."
 	process_flags = SYNTHETIC
 
-/datum/reagent/medicine/calomel
-	name = "Calomel"
-	id = "calomel"
-	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
+/datum/reagent/medicine/amiodarone
+	name = "Amiodarone"
+	id = "amiodarone"
+	description = "A medicinal drug that massively lowers heartrate and slightly lowers bloodpressure."
+	color = "#e7dcdc"
 	reagent_state = LIQUID
-	color = "#22AB35"
-	metabolization_rate = 0.8
-	harmless = FALSE
-	taste_description = "a painful cleansing"
-	goal_difficulty = REAGENT_GOAL_EASY
+	taste_description = "calming"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+	heart_rate_change = -30
+	blood_pressure_change = -10
 
-/datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
-	if(M.health > 20)
-		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(prob(6))
-		M.fakevomit()
-	return ..() | update_flags
+/datum/reagent/medicine/amiodarone/on_mob_life(mob/living/M)
+	. = ..()
+	if(prob(3))
+		M.fakevomit(no_text = TRUE)
 
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
@@ -585,13 +579,13 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-70)
+			M.reagents.remove_reagent(R.id, 3)
+	M.radiation = max(0, M.radiation - 70)
 	if(prob(75))
-		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
@@ -641,6 +635,7 @@
 	metabolization_rate = 0.2
 	taste_description = "safety"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	heart_rate_change = 15
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -806,6 +801,7 @@
 	addiction_chance = 10
 	addiction_threshold = 15
 	metabolization_rate = 0.25 //Lasts for 120 seconds
+	heart_rate_change = -20
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
@@ -862,6 +858,8 @@
 	reagent_state = LIQUID
 	metabolization_rate = 0.2
 	overdose_threshold = 25
+	heart_rate_change = -20
+	blood_pressure_change = -20
 	harmless = FALSE
 	taste_description = "a moment of respite"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -892,6 +890,8 @@
 	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 20
+	heart_rate_change = 10
+	blood_pressure_change = 10
 	harmless = FALSE
 	taste_description = "borrowed time"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -905,6 +905,12 @@
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits))
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.4
+
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
@@ -1371,6 +1377,7 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
+	heart_rate_change = -10
 	harmless = FALSE
 	taste_description = "sleepiness"
 	goal_difficulty = REAGENT_GOAL_EASY
