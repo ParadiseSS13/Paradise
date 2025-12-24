@@ -35203,7 +35203,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cFF" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -36462,13 +36461,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJF" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJG" = (
@@ -59693,6 +59690,13 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"iwt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iwu" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -60105,13 +60109,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"iEw" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner,
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "iEH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/barsign{
@@ -60676,6 +60673,13 @@
 /obj/effect/turf_decal/tiles/neutral/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
+"iRp" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iRs" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -61574,13 +61578,13 @@
 "jls" = (
 /obj/machinery/door/airlock/bananium,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/service/clown,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "jlw" = (
@@ -61919,13 +61923,13 @@
 "jtF" = (
 /obj/machinery/door/airlock/tranquillite,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/any/service/mime,
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
 "jtL" = (
@@ -67833,9 +67837,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"mcD" = (
-/turf/space,
-/area/station/public/fitness)
 "mcM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72696,15 +72697,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
-"oiz" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "oiF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -87142,6 +87134,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"ubo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "ubB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -90789,6 +90789,10 @@
 /obj/effect/turf_decal/tiles/department/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"vEc" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "vEh" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -90870,6 +90874,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
+"vFw" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/bar)
 "vFA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -109462,10 +109470,10 @@ aaa
 aaa
 aaa
 aaa
-acF
 aaa
 acF
 aaa
+acF
 aaa
 aaa
 aaa
@@ -109719,10 +109727,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -109975,12 +109983,12 @@ aaa
 aaa
 aaa
 aaa
-abj
-abj
 aaa
 abj
 abj
 aaa
+abj
+abj
 aaa
 aaa
 aaa
@@ -110231,6 +110239,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 rLB
@@ -110238,7 +110247,6 @@ dyn
 rLB
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -110487,6 +110495,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 dyn
@@ -110496,7 +110505,6 @@ rLB
 dyn
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -110743,6 +110751,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 rLB
@@ -110754,7 +110763,6 @@ rLB
 rLB
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -110998,6 +111006,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 acF
 abj
 abj
@@ -111013,7 +111022,6 @@ dyn
 abj
 abj
 acF
-aaa
 aaa
 aaa
 aaa
@@ -111258,6 +111266,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 rLB
 dzv
 dAH
@@ -111267,7 +111276,6 @@ dAH
 dAH
 dFf
 rLB
-aaa
 aaa
 aaa
 aaa
@@ -111512,6 +111520,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 acF
 abj
 abj
@@ -111527,7 +111536,6 @@ dyn
 abj
 abj
 acF
-aaa
 aaa
 aaa
 aaa
@@ -111771,6 +111779,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 rLB
@@ -111782,7 +111791,6 @@ rLB
 rLB
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -112029,6 +112037,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 dyn
@@ -112038,7 +112047,6 @@ rLB
 dyn
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -112287,6 +112295,7 @@ aaa
 aaa
 aaa
 aaa
+aaa
 abj
 abj
 rLB
@@ -112294,7 +112303,6 @@ dDP
 rLB
 abj
 abj
-aaa
 aaa
 aaa
 aaa
@@ -112545,12 +112553,12 @@ aaa
 aaa
 aaa
 aaa
-abj
-abj
 aaa
 abj
 abj
 aaa
+abj
+abj
 aaa
 aaa
 aaa
@@ -112803,10 +112811,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -113060,10 +113068,10 @@ aaa
 aaa
 aaa
 aaa
-acF
 aaa
 acF
 aaa
+acF
 aaa
 aaa
 aaa
@@ -113317,10 +113325,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -113574,10 +113582,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -113831,10 +113839,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -114088,10 +114096,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -114345,10 +114353,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -114602,10 +114610,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -114859,10 +114867,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -115116,10 +115124,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -115373,10 +115381,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -115630,10 +115638,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -115887,10 +115895,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -116144,10 +116152,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -116401,10 +116409,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -116658,10 +116666,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -116915,10 +116923,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -117172,10 +117180,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -117429,10 +117437,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -117683,13 +117691,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 aaZ
 aaa
 aaa
 abj
 aaa
 abj
-aaa
 aaa
 aaa
 aaa
@@ -117943,10 +117951,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -118200,10 +118208,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -118457,10 +118465,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -118714,10 +118722,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -118971,10 +118979,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -119228,10 +119236,10 @@ aaa
 aaa
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -119485,10 +119493,10 @@ abj
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -119742,10 +119750,10 @@ aaa
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -120000,9 +120008,9 @@ abj
 abj
 abj
 abj
-aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -120256,10 +120264,10 @@ aaa
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -120513,10 +120521,10 @@ abj
 acF
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -120770,10 +120778,10 @@ aaa
 acF
 abj
 abj
+abj
 acF
 aaa
 abj
-aaa
 aaa
 aaa
 aaa
@@ -121027,10 +121035,10 @@ abj
 acF
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -121284,10 +121292,10 @@ aaa
 acF
 abj
 abj
+abj
 acF
 aaa
 abj
-aaa
 aaa
 aaa
 aaa
@@ -121541,10 +121549,10 @@ aaa
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -121798,10 +121806,10 @@ aaa
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -122056,9 +122064,9 @@ abj
 abj
 abj
 abj
-aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -122312,10 +122320,10 @@ aaa
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -122569,10 +122577,10 @@ bDp
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -122826,10 +122834,10 @@ bDp
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -123082,11 +123090,11 @@ ekK
 bDp
 abj
 abj
+abj
 acF
 acF
 aaa
 acF
-aaa
 aaa
 aaa
 aaa
@@ -123339,11 +123347,11 @@ dtQ
 bDp
 abj
 aaa
+aaa
 acF
 abj
 aaa
 abj
-aaa
 aaa
 aaa
 aaa
@@ -123596,12 +123604,12 @@ teD
 bDp
 abj
 abj
+abj
 acF
 acF
 aaa
 acF
 sso
-aWP
 aWP
 aWP
 sso
@@ -123854,10 +123862,10 @@ bDp
 abj
 aaa
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -124111,10 +124119,10 @@ bDp
 abj
 abj
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -124368,10 +124376,10 @@ bDp
 abj
 abj
 aaa
-abj
 aaa
 abj
 aaa
+abj
 aaa
 aaa
 aaa
@@ -132236,7 +132244,7 @@ awX
 awX
 vSU
 aFr
-aIZ
+vFw
 ivB
 aFA
 aOx
@@ -152347,7 +152355,7 @@ cze
 cze
 cze
 cJB
-cLu
+iRp
 cuM
 xSg
 ema
@@ -153374,10 +153382,10 @@ cAv
 cAv
 cAv
 cFD
-oiz
+cFv
 gTT
 cHa
-iEw
+cWh
 cJD
 cMR
 cMR
@@ -153631,10 +153639,10 @@ iuY
 iuY
 iuY
 cFE
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJE
 iuY
 iuY
@@ -153887,11 +153895,11 @@ aaa
 aaa
 abj
 iuY
-cFF
-csi
-mcD
-mcD
-csi
+ubo
+iuY
+abj
+abj
+iuY
 cJF
 iuY
 abj
@@ -154145,10 +154153,10 @@ tkb
 mFS
 mFS
 cFG
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJG
 eOT
 eOT
@@ -155945,9 +155953,9 @@ abj
 aaa
 iuY
 cFF
-csi
-csi
-cJF
+vEc
+vEc
+iwt
 iuY
 aaa
 abj

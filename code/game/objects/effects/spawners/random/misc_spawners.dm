@@ -196,7 +196,10 @@
 		/obj/item/smithed_item/lens/accelerator,
 		/obj/item/smithed_item/lens/speed,
 		/obj/item/smithed_item/lens/amplifier,
-		/obj/item/smithed_item/lens/efficiency
+		/obj/item/smithed_item/lens/efficiency,
+		/obj/item/kitchen/knife/smithed/utility,
+		/obj/item/kitchen/knife/smithed/thrown,
+		/obj/item/kitchen/knife/smithed/combat,
 	)
 
 /obj/effect/spawner/random/smithed_item/insert
@@ -225,6 +228,14 @@
 		/obj/item/smithed_item/lens/speed,
 		/obj/item/smithed_item/lens/amplifier,
 		/obj/item/smithed_item/lens/efficiency
+	)
+
+/obj/effect/spawner/random/smithed_item/knife
+	name = "random smithed knife"
+	loot = list(
+		/obj/item/kitchen/knife/smithed/utility,
+		/obj/item/kitchen/knife/smithed/thrown,
+		/obj/item/kitchen/knife/smithed/combat,
 	)
 
 /obj/effect/spawner/random/space_pirate
