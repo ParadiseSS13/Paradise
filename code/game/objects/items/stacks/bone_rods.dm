@@ -13,6 +13,10 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/bone_rods
 
+/obj/item/stack/bone_rods/update_icon_state()
+	var/amount = get_amount()
+	icon_state = "bone_rods-[clamp(amount, 1, 5)]"
+
 /obj/item/stack/bone_rods/ten
 	amount = 10
 
@@ -21,7 +25,3 @@
 
 /obj/item/stack/bone_rods/fifty
 	amount = 50
-
-/obj/item/stack/bone_rods/update_icon_state()
-	var/amount = get_amount()
-	icon_state = "bone_rods-[clamp(amount, 1, 5)]"
