@@ -207,8 +207,14 @@
 
 	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
-	SSshuttle.transit_docking_ports += src
+	SSshuttle.transit_docking_ports |= src
 	return 1
+
+/obj/docking_port/stationary/transit/Destroy(force)
+	. = ..()
+	if(force && SSshuttle)
+		SSshuttle.transit_docking_ports -= src
+
 // MARK: Mobile port
 /obj/docking_port/mobile
 	name = "shuttle"
