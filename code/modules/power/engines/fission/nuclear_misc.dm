@@ -44,7 +44,7 @@
 /obj/machinery/nuclear_centrifuge/examine(mob/user)
 	. = ..()
 	if(held_rod)
-		. += SPAN_NOTICE("The current fuel rod may be removed with ALT-Click.")
+		. += SPAN_NOTICE("The current fuel rod may be removed with <b>Alt-Click</b>.")
 
 /obj/machinery/nuclear_centrifuge/Destroy()
 	QDEL_NULL(soundloop)
@@ -54,7 +54,7 @@
 	average_component_rating = 0
 	for(var/obj/item/stock_parts/manipulator/part in component_parts)
 		average_component_rating += part.rating
-	average_component_rating /= 4 //average all 4 components
+	average_component_rating /= 4 // average all 4 components
 	work_time = DEFAULT_TIME / average_component_rating
 
 /obj/machinery/nuclear_centrifuge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -510,7 +510,7 @@
 	if(linked_reactor && linked_reactor.can_create_power)
 		produce_direct_power(linked_reactor.final_power)
 
-/// MARK: Monitor
+// MARK: Monitor
 
 /obj/machinery/computer/fission_monitor
 	name = "NGCR monitoring console"
@@ -606,23 +606,23 @@
 	var/list/gasdata = list()
 	var/TM = air.total_moles()
 	if(TM)
-		gasdata.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Water Vapor", "amount" = air.water_vapor(), "portion" = round(100 * air.water_vapor() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / TM, 0.01))))
+		gasdata.Add(list(list("name" = "Water Vapor", "amount" = air.water_vapor(), "portion" = round(100 * air.water_vapor() / TM, 0.01))))
 	else
-		gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
-		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Hydrogen", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Water Vapor", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Oxygen", "amount" = 0, "portion" = 0)))
+		gasdata.Add(list(list("name" = "Carbon Dioxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Nitrogen", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Plasma", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Nitrous Oxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Agent B", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Hydrogen", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name" = "Water Vapor", "amount" = 0,"portion" = 0)))
 	data["gases"] = gasdata
 
 	return data
@@ -653,7 +653,9 @@
 	build_path = /obj/machinery/nuclear_centrifuge
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
-	req_components = list(/obj/item/stock_parts/manipulator = 4)
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 4,
+	)
 
 /obj/item/circuitboard/nuclear_rod_fabricator
 	board_name = "Nuclear Rod Fabricator"
@@ -664,7 +666,7 @@
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/matter_bin = 2,
-		)
+	)
 
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"
@@ -721,7 +723,7 @@
 	warp.pixel_x += 16
 	warp.pixel_y += 16
 	warp.transform = matrix().Scale(0.01,0.01)
-	animate(warp, time = 0.5 SECONDS, transform = matrix().Scale(1,1))
+	animate(warp, time = 0.5 SECONDS, transform = matrix().Scale(1, 1))
 	var/list/chamber_list = list()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in range(3, loc))
 		chamber_list += chamber
@@ -752,13 +754,13 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 	/// Holds our pool controller
-	var/obj/machinery/poolcontroller/linkedcontroller = null
+	var/obj/machinery/poolcontroller/linkedcontroller
 	/// Holds our effect overlay
 	var/obj/item/effect/pool_overlay/effect
 
 /turf/simulated/floor/plasteel/reactor_pool/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/simulated/floor/plasteel/reactor_pool/LateInitialize()
@@ -768,7 +770,8 @@
 /turf/simulated/floor/plasteel/reactor_pool/crowbar_act(mob/user, obj/item/I)
 	return
 
-/turf/simulated/floor/plasteel/reactor_pool/proc/InitializedOn(atom/A)
+/turf/simulated/floor/plasteel/reactor_pool/proc/initialized_on(atom/A)
+	SIGNAL_HANDLER // COMSIG_ATOM_INITIALIZED_ON
 	if(!linkedcontroller)
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
@@ -846,11 +849,9 @@
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
-	for(var/turf/T in contents_loop)
-		if(istype(T, /turf/simulated/floor/plasteel/reactor_pool))
-			var/turf/simulated/floor/plasteel/reactor_pool/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
+	for(var/turf/simulated/floor/plasteel/reactor_pool/T in contents_loop)
+		T.linkedcontroller = src
+		linkedturfs += T
 	return ..()
 
 /obj/machinery/poolcontroller/invisible/nuclear/Destroy()
@@ -875,7 +876,7 @@
 		if(ishuman(M))
 			handleDrowning(M)
 
-/// MARK: Fab  upgrade
+// MARK: Fab upgrade
 
 /obj/item/rod_fabricator_upgrade
 	name = "Nuclear Fabricator Upgrade"
@@ -886,7 +887,7 @@
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	new_attack_chain = TRUE
 
-/// MARK: Chamber Doors
+// MARK: Chamber Doors
 
 /obj/effect/temp_visual/chamber_closing
 	icon = 'icons/obj/fission/reactor_chamber.dmi'

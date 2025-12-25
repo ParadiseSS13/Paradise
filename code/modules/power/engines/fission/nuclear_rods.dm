@@ -46,8 +46,6 @@
 	/// Does this rod require a science-upgraded fabricator?
 	var/upgrade_required = FALSE
 
-
-
 /obj/item/nuclear_rod/Initialize(mapload)
 	. = ..()
 	durability = max_durability
@@ -146,7 +144,7 @@
 			successful_enrichment = TRUE
 	return successful_enrichment
 
-/// MARK: Fuel Rods
+// MARK: Fuel Rods
 
 /obj/item/nuclear_rod/fuel/uranium_238
 	name = "uranium 238 fuel rod"
@@ -181,7 +179,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
@@ -199,7 +197,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/uranium_235
 	name = "uranium 235 fuel rod"
@@ -223,7 +221,7 @@
 		/obj/item/nuclear_rod/coolant/plasma_injector,
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/moderator,
-		)
+	)
 	materials = list(MAT_METAL = 4000, MAT_URANIUM = 4000)
 
 /obj/item/nuclear_rod/fuel/thorium_salts
@@ -257,7 +255,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/supermatter
 	name = "supermatter fuel rod"
@@ -273,7 +271,7 @@
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
@@ -288,7 +286,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
@@ -319,7 +317,7 @@
 	beta_rad = 250
 	gamma_rad = 250
 
-/// MARK: Moderator Rods
+// MARK: Moderator Rods
 
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
@@ -366,7 +364,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
-		)
+	)
 
 /obj/item/nuclear_rod/moderator/aluminum_reflector
 	name = "liquid aluminum plate reflector"

@@ -9,11 +9,11 @@
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 
-#define TOTAL_CONTROL_RODS 5 // The max number of control rods.
+#define TOTAL_CONTROL_RODS 5 //! The max number of control rods.
 
-#define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
+#define MIN_CHAMBERS_TO_OVERLOAD 20 //! The amount of connected chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.5 // multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.5 //! multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 450 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
@@ -378,7 +378,6 @@
 			venting = FALSE
 			return ITEM_INTERACT_COMPLETE
 
-
 /obj/machinery/atmospherics/fission_reactor/wrench_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WRENCH)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
@@ -393,7 +392,6 @@
 				control_rods_remaining++
 				update_icon(UPDATE_OVERLAYS)
 			return ITEM_INTERACT_COMPLETE
-
 
 /obj/machinery/atmospherics/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
@@ -447,8 +445,8 @@
 	if(isnull(T)) // We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(reactor.loc, /turf)) // how in the FUCK did we manage this
-		return  //Yeah just stop.
+	if(!isturf(reactor.loc) 
+		return
 
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
@@ -468,7 +466,7 @@
 	// already equalized
 	if(abs(pressure_delta) < 0.01)
 		return FALSE
-
+	. = TRUE
 	if(pressure_delta > 0)
 		// transfer from pipe air to environment
 		if((reactor.air_contents.total_moles() > 0) && (reactor.air_contents.temperature() > 0))
@@ -477,17 +475,16 @@
 
 			var/datum/gas_mixture/removed = reactor.air_contents.remove(transfer_moles)
 			environment.merge(removed)
-	else
-		// transfer from environment to pipe air
-		pressure_delta = -pressure_delta
-		if((environment.total_moles() > 0) && (environment.temperature() > 0))
-			var/transfer_moles = pressure_delta * reactor.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
-			transfer_moles = min(transfer_moles, reactor.air_contents.volume)
-
-			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
-			reactor.air_contents.merge(removed)
-	return TRUE
-
+		return
+		
+	// transfer from environment to pipe air
+	pressure_delta = -pressure_delta
+	if((environment.total_moles() > 0) && (environment.temperature() > 0))
+		var/transfer_moles = pressure_delta * reactor.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+		transfer_moles = min(transfer_moles, reactor.air_contents.volume)
+		
+		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+		reactor.air_contents.merge(removed)
 
 /obj/machinery/atmospherics/fission_reactor/process()
 	if(stat & BROKEN)
@@ -827,8 +824,7 @@
 
 /// returns a value from 0 to 1 based off current operating power
 /obj/machinery/atmospherics/fission_reactor/proc/operating_percent()
-	var/operating_rate = operating_power / 100
-	return operating_rate
+	return operating_power / 100
 
 // Pretty much ripped from the SM
 /obj/machinery/atmospherics/fission_reactor/proc/countdown()
@@ -841,7 +837,7 @@
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null)
-	for(var/i in NGCR_COUNTDOWN_TIME to 0 step -10)
+	for(var/i in NGCR_COUNTDOWN_TIME to 0 step -1 SECONDS)
 		if(admin_intervention) // Stop exploding if you're frozen by an admin, damn you
 			final_countdown = FALSE
 			adjust_damage(MELTDOWN_POINT - 1, TRUE) // One point below exploding, so it will re-start the countdown once unfrozen
@@ -851,15 +847,15 @@
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
 			return
-		else if((i % 50) != 0 && i > 50) // A message once every 5 seconds until the final 5 seconds which count down individualy
-			sleep(10)
+		else if((i % 5 SECONDS) != 0 && i > 5 SECONDS) // A message once every 5 seconds until the final 5 seconds which count down individualy
+			sleep(1 SECONDS)
 			continue
-		else if(i > 50)
+		else if(i > 5 SECONDS)
 			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before full reactor core meltdown.</b>"
 		else
 			speaking = SPAN_REALLYBIG("[i * 0.1]...")
 		radio.autosay(speaking, name, null)
-		sleep(10)
+		sleep(1 SECONDS)
 
 	set_broken()
 
@@ -899,7 +895,7 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
 		SSticker.record_biohazard_results()
-	sleep(100)
+	sleep(10 SECONDS)
 
 	SSblackbox.record_feedback("tally", "fisson_overload", 1, "detonation successful")
 	icon_state = "broken"
@@ -1218,7 +1214,7 @@
 	durability_overlay.icon_state = "dur_[previous_durability_level]"
 	. += durability_overlay
 
-// check for multiple on a tile and nuke it
+/// check for multiple on a tile and nuke it
 /obj/machinery/atmospherics/reactor_chamber/proc/dupe_check()
 	var/chambers_found = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in range(0, src))
@@ -1277,24 +1273,22 @@
 			if(!held_rod)
 				to_chat(user, SPAN_WARNING("There is no rod inside of the chamber to remove!"))
 				return
-			else
-				if(user.put_in_hands(held_rod))
-					held_rod.add_fingerprint(user)
-					held_rod = null
-					playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
-					update_icon(UPDATE_OVERLAYS)
-				else
-					to_chat(user, SPAN_WARNING("Your hands are currently full!"))
-					return
+			if(user.put_in_hands(held_rod))
+				held_rod.add_fingerprint(user)
+				held_rod = null
+				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
+				update_icon(UPDATE_OVERLAYS)
+				return
+				
+			to_chat(user, SPAN_WARNING("Your hands are currently full!"))
+			return
 		if(CHAMBER_OVERLOAD_ACTIVE)
 			to_chat(user, SPAN_ALERT("The chamber lockdowns have been engaged, preventing it from being raised!"))
 			return
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/AltClick(mob/user, modifiers)
-	if(!Adjacent(user))
-		return
-	if(lockout)
+	if(!Adjacent(user) || lockout)
 		return
 	if(linked_reactor && linked_reactor.admin_intervention)
 		to_chat(user, SPAN_WARNING("An unusual force prevents you from manipulating the chamber!"))
@@ -1312,7 +1306,7 @@
 		return
 
 /obj/machinery/atmospherics/reactor_chamber/proc/density_check(mob/user)
-	for(var/atom/thing in loc.contents)
+	for(var/atom/thing in get_turf(src))
 		if(thing == src)
 			continue
 		if(thing.density)
@@ -1373,12 +1367,12 @@
 		return ITEM_INTERACT_COMPLETE
 	else
 		if(obj_integrity < max_integrity)
-			to_chat(user, SPAN_WARNING("You begin repairing the [src]"))
+			to_chat(user, SPAN_WARNING("You begin repairing [src]"))
 			if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
 				return ITEM_INTERACT_COMPLETE
 			obj_integrity = max_integrity // lets make sure we can keep these healthy if need be
 		else
-			to_chat(user, SPAN_WARNING("the [src] is not in need of repair"))
+			to_chat(user, SPAN_WARNING("[src] is not in need of repair"))
 		return ITEM_INTERACT_COMPLETE
 
 
@@ -1487,6 +1481,8 @@
 		icon_state = "chamber_overload"
 		if(linked_reactor.check_overload_ready())
 			linked_reactor.set_overload()
+		update_icon()
+		return
 	else
 		chamber_state = CHAMBER_DOWN
 		icon_state = "chamber_down_anim"
@@ -1557,8 +1553,9 @@
 /obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
-		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf)
+		var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in get_step(src, direction)
+		if(!chamber)
+			continue
 			if(chamber.linked_reactor && chamber.linked_reactor != linked_reactor) // if for some god forsaken reason we have two
 				continue
 			if((chamber in neighbors) || (src in chamber.neighbors))
@@ -1586,8 +1583,7 @@
 	if(linked_reactor || skip_link) // prevent duplicate linking or unwanted chambers
 		return
 	linked_reactor = reactor
-	if(!(src in linked_reactor.connected_chambers))
-		linked_reactor.connected_chambers += src
+	linked_reactor |= src
 	get_neighbors()
 
 /// Searches for a valid reactor or linked chamber nearby
@@ -1610,17 +1606,17 @@
 				return TRUE
 	return FALSE
 
-/// validates that all rod requirements are being met
+/// Validates that all rod requirements are being met
 /obj/machinery/atmospherics/reactor_chamber/proc/check_status()
 	if(!held_rod)
 		return FALSE
 
 	var/list/temp_requirements = list()
-	temp_requirements += held_rod.adjacent_requirements // a temporary modable holder
+	temp_requirements += held_rod.adjacent_requirements // A temporary modable holder
 	if(!temp_requirements)
 		return TRUE
 
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber as anything in neighbors)
 		if(!chamber.operational)
 			continue
 		if(chamber.held_rod.type in temp_requirements)
@@ -1640,14 +1636,12 @@
 	if(!linked_reactor)
 		if(find_link())
 			get_neighbors()
-			return
-		else
-			return
+		return
 	if(linked_reactor.admin_intervention)
 		return
 	if(!held_rod)
 		return
-	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
+	if(chamber_state != CHAMBER_DOWN) // we should only process reactor info when down
 		return
 	durability_level = clamp(ROUND_UP(((held_rod.durability / held_rod.max_durability) * 5) - 0.8), 0, 5)
 	if(durability_level != previous_durability_level)
@@ -1668,7 +1662,7 @@
 			operational = TRUE
 			update_icon(UPDATE_OVERLAYS)
 			return
-	if(!requirements_met && operational) /// if it loses requirements, it wont immediately turn off
+	if(!requirements_met && operational) // if it loses requirements, it wont immediately turn off
 		if(istype(held_rod.type, /obj/item/nuclear_rod/coolant))
 			if(prob(10)) // higher rates of coolant rod failures once they're already on. Good luck.
 				operational = FALSE
@@ -1680,11 +1674,7 @@
 		return
 
 /obj/machinery/atmospherics/reactor_chamber/process_atmos()
-	if(!held_rod) // no rod no heat
-		return
-	if(!linked_reactor)
-		return
-	if(linked_reactor.offline)
+	if(!held_rod || !linked_reactor || linked_reactor.offline)
 		return
 	if(chamber_state != CHAMBER_OPEN && chamber_state != CHAMBER_UP)
 		return
@@ -1820,7 +1810,7 @@
 		return
 	if(istype(victim, /obj/structure/filler))
 		var/obj/structure/filler/filler = victim
-		if(filler.parent && istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
+		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			return
 	if(istype(victim, /obj/machinery/atmospherics/reactor_chamber))
 		return
@@ -1927,7 +1917,7 @@
 
 		parent.update = 1
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/screwdriver_act(mob/living/user, obj/item/I)
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
