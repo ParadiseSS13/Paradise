@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/update_icons()
 	. = ..()
 	update_hat_icons()
-	if(player_logged) //make sure the SSD overlay stays
+	if(player_logged) // make sure the SSD overlay stays
 		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 
 /mob/living/silicon/ai/proc/do_research()

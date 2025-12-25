@@ -1324,7 +1324,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	robot_module_hat_offset()
 	update_hat_icons()
 	update_fire()
-	if(player_logged) //make sure the SSD overlay stays
+	if(player_logged) // make sure the SSD overlay stays
 		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 
 // Exists so that robot/destroyer can override it.
