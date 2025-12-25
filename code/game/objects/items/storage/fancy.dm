@@ -15,6 +15,7 @@
  *		Cigar Box
  *		Vial Box
  *		Aquatic Starter Kit
+ *		Juice Box Box
  */
 
 /obj/item/storage/fancy
@@ -561,3 +562,51 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+/obj/item/storage/fancy/juice_boxes
+	name = "Juice Box Variety Pack"
+	desc = "Every flavor of juice boxes, right at your fingertips."
+	storage_slots = 12
+	icon = 'icons/obj/juice_box.dmi'
+	icon_state = "juice_box_box"
+	icon_type = "juice carton"
+	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	can_hold = list(/obj/item/reagent_containers/drinks/carton)
+
+/obj/item/storage/fancy/juice_boxes/update_icon_state()
+	return
+
+/obj/item/storage/fancy/juice_boxes/update_overlays()
+	. = ..()
+	. += image('icons/obj/juice_box.dmi', "juice_box_box")
+	var/list/cached_contents = contents
+	for(var/index in 1 to length(cached_contents))
+		var/obj/item/reagent_containers/drinks/carton/juice_type = cached_contents[index]
+		if(!(juice_type.icon_state))
+			continue
+		var/image/box_icon = image(icon, src, "[copytext(juice_type.icon_state, 1, -3)]slot")
+		box_icon.pixel_x = 3 * ((index - 1) % 6)
+		box_icon.pixel_y = -4 * (index > 6)
+		. += box_icon
+	. += image(icon, src, "juice_box_box_front")
+
+/obj/item/storage/fancy/juice_boxes/random/populate_contents()
+	for(var/juice_box in typesof(/obj/item/reagent_containers/drinks/carton) - /obj/item/reagent_containers/drinks/carton)
+		if(prob(30))
+			new juice_box(src)
+	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/full/populate_contents()
+	new /obj/item/reagent_containers/drinks/carton/apple(src)
+	new /obj/item/reagent_containers/drinks/carton/banana(src)
+	new /obj/item/reagent_containers/drinks/carton/berry(src)
+	new /obj/item/reagent_containers/drinks/carton/carrot(src)
+	new /obj/item/reagent_containers/drinks/carton/grape(src)
+	new /obj/item/reagent_containers/drinks/carton/lemonade(src)
+	new /obj/item/reagent_containers/drinks/carton/orange(src)
+	new /obj/item/reagent_containers/drinks/carton/pineapple(src)
+	new /obj/item/reagent_containers/drinks/carton/plum(src)
+	new /obj/item/reagent_containers/drinks/carton/tomato(src)
+	new /obj/item/reagent_containers/drinks/carton/vegetable(src)
+	new /obj/item/reagent_containers/drinks/carton/watermelon(src)
+	update_icon()
