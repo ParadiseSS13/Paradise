@@ -804,7 +804,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status |= ORGAN_BROKEN
 	var/picked_type = pick(typesof(/datum/wound/fracture))
-	var/datum/wound/fracture = new picked_type()
+	var/datum/wound/fracture = new picked_type(src)
 	if(fracture_name_override)
 		fracture.name = fracture_name_override
 	wound_list += fracture
@@ -823,7 +823,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	var/datum/wound/fracture = get_wound(/datum/wound/fracture)
-	fracture.cure_wound()
+	if(fracture) // Not sure how we got here but it happens
+		fracture.cure_wound()
 
 	if(owner)
 		owner.handle_splints()
