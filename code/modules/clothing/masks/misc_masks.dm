@@ -393,7 +393,7 @@
 		var/datum/action/item_action/adjust/act = new(src)
 		if(loc == user)
 			act.Grant(user)
-		to_chat(user, (SPAN_NOTICE("You untie the neckercheif.")))
+		to_chat(user, (SPAN_NOTICE("You untie the neckerchief.")))
 	else
 		icon = 'icons/obj/clothing/neck.dmi'
 		flags_inv = FALSE
