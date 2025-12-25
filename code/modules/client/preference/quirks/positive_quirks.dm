@@ -51,7 +51,7 @@
 		/obj/item/food/meatkebab,
 		/obj/item/food/salmonsteak, // If anyone microwaves their leftover fish in the workplace it should be on sight
 		/obj/item/food/shrimp_skewer,
-		/obj/item/food/omelette
+		/obj/item/food/omelette,
 	)
 	var/list/snack_options = list(
 		/obj/item/food/chips,
@@ -63,7 +63,7 @@
 		/obj/item/food/candy/chocolate_orange,
 		/obj/item/food/sliced/mothmallow,
 		/obj/item/food/sliced/apple_cake,
-		/obj/item/food/sliced/banarnarbread
+		/obj/item/food/sliced/banarnarbread,
 	)
 	var/list/drink_options = list(
 		/obj/item/reagent_containers/drinks/h_chocolate,
@@ -86,7 +86,7 @@
 		/obj/item/reagent_containers/drinks/carton/plum,
 		/obj/item/reagent_containers/drinks/carton/tomato,
 		/obj/item/reagent_containers/drinks/carton/vegetable,
-		/obj/item/reagent_containers/drinks/carton/watermelon
+		/obj/item/reagent_containers/drinks/carton/watermelon,
 	)
 
 /obj/item/storage/box/papersack/prepped_meal/populate_contents()
