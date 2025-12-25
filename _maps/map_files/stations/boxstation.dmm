@@ -18330,8 +18330,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/cooking/ice_cream_mixer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bok" = (
@@ -18370,8 +18370,8 @@
 /area/station/service/kitchen)
 "boo" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bop" = (
@@ -18383,8 +18383,8 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "boq" = (
-/obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bor" = (
@@ -18411,11 +18411,11 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/machinery/cooking/oven,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bot" = (
@@ -19768,9 +19768,15 @@
 "bsS" = (
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/enzyme{
-	layer = 5
+	layer = 5;
+	pixel_x = -8;
+	pixel_y = 7
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/drinks/bottle/cream{
+	pixel_x = 3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bsT" = (
@@ -20292,8 +20298,12 @@
 /area/station/service/kitchen)
 "buu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/bottle/cream,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 7;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "buv" = (
@@ -20376,7 +20386,6 @@
 /area/station/service/kitchen)
 "buK" = (
 /obj/machinery/requests_console/directional/east,
-/obj/structure/closet/crate/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -55932,6 +55941,10 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "iRC" = (
@@ -78291,8 +78304,8 @@
 /area/station/maintenance/apmaint)
 "tLA" = (
 /obj/structure/table,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "tLB" = (
