@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	desc = "This is rubbish."
 	resistance_flags = FLAMMABLE
+	// Recycle your litter, kids!
+	materials = list(MAT_PLASTIC = 100)
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
@@ -104,6 +106,7 @@
 	name = "Tray"
 	icon_state = "tray"
 	resistance_flags = NONE
+	materials = list(MAT_METAL = 100)
 
 /obj/item/trash/candle
 	name = "candle"
@@ -120,6 +123,7 @@
 	var/is_glass = 0
 	var/is_plastic = 0
 	resistance_flags = NONE
+	materials = list(MAT_METAL = 200)
 
 /obj/item/trash/gum
 	name = "chewed gum"
@@ -145,6 +149,7 @@
 	name = "caviar can"
 	icon_state = "caviar-empty"
 	desc = "There's none left."
+	materials = list(MAT_METAL = 100)
 
 // Ammo casings
 /obj/item/trash/spentcasing
@@ -153,6 +158,7 @@
 	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
 	icon_state = "pistol_brass"
 	scatter_distance = 10
+	materials = list(MAT_METAL = 100)
 
 /obj/item/trash/spentcasing/Initialize(mapload)
 	. = ..()
