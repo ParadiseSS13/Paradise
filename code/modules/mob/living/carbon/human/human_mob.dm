@@ -1095,7 +1095,8 @@
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
-
+	if(!L)
+		return FALSE
 	return L.linked_organ.get_wound(/datum/wound/ruptured_lungs)
 
 /mob/living/carbon/human/proc/rupture_lung()
