@@ -42,3 +42,32 @@
 		if(can_see(controller.pawn, possible_turf, search_range))
 			return possible_turf
 	return null
+
+/**
+ * Variant of find and set that fails if the living pawn doesn't hold something
+ */
+/datum/ai_behavior/find_and_set/pawn_must_hold_item
+
+/datum/ai_behavior/find_and_set/pawn_must_hold_item/search_tactic(datum/ai_controller/controller)
+	var/mob/living/living_pawn = controller.pawn
+	if(!living_pawn.held_items())
+		return // we want to fail the search if we don't have something held
+	return ..()
+
+/**
+ * Variant of find and set that also requires the item to be edible. checks hands too
+ */
+/datum/ai_behavior/find_and_set/edible
+
+/datum/ai_behavior/find_and_set/edible/search_tactic(datum/ai_controller/controller, locate_path, search_range)
+	var/mob/living/living_pawn = controller.pawn
+
+	for(var/atom/held_candidate as anything in living_pawn.held_items())
+		if(IsEdible(held_candidate))
+			return held_candidate
+
+	for(var/atom/local_candidate as anything in oview(search_range, controller.pawn))
+		if(IsEdible(local_candidate) && istype(local_candidate, locate_path))
+			return local_candidate
+
+	return null
