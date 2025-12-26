@@ -111,14 +111,14 @@
 
 		if(ishuman(entered))
 			var/mob/living/carbon/H = entered
-			if(H.buckled) //if you ride your wheelchair into the trap, snare that instead
+			if(H.buckled) // if you ride your wheelchair into the trap, snare that instead
 				var/obj/buckled_obj = H.buckled
 				buckled_obj.take_damage(trap_damage, BRUTE)
 			else if(IS_HORIZONTAL(H))
 				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
 				H.apply_damage(trap_damage, BRUTE, pick("l_leg", "r_leg"))
-			if(!H.legcuffed && H.get_num_legs() >= 2 && !H.buckled) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+			if(!H.legcuffed && H.get_num_legs() >= 2 && !H.buckled) // beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 				H.legcuffed = src
 				forceMove(H)
 				H.update_inv_legcuffed()
