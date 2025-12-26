@@ -779,7 +779,9 @@
 					/obj/item/clothing/under/costume/kasaya = 1,
 					/obj/item/clothing/under/costume/modestgreen = 1,
 					/obj/item/clothing/under/costume/thobe = 1,
-					/obj/item/clothing/neck/cloak/tallit = 1)
+					/obj/item/clothing/neck/cloak/tallit = 1,
+					/obj/item/clothing/head/santahat = 3,
+					/obj/item/clothing/suit/santa = 1)
 
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
@@ -916,7 +918,9 @@
 				/obj/item/clothing/under/costume/kasaya = 100,
 				/obj/item/clothing/under/costume/modestgreen = 100,
 				/obj/item/clothing/under/costume/thobe = 100,
-				/obj/item/clothing/neck/cloak/tallit = 75)
+				/obj/item/clothing/neck/cloak/tallit = 75,
+				/obj/item/clothing/head/santahat = 50,
+				/obj/item/clothing/suit/santa = 200)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 

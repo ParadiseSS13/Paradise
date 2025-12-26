@@ -121,6 +121,16 @@
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
+/obj/item/clothing/head/santahat
+	name = "\improper Santa hat"
+	desc = "A festive red hat."
+	icon_state = "santahat"
+	dog_fashion = /datum/dog_fashion/head/santa
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/Grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/Drask/helmet.dmi'
+		)
+
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
@@ -428,6 +438,7 @@
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
 	magical = TRUE // It's pointy, it's funny!
+	materials = list(MAT_PLASTIC = 10000)
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
