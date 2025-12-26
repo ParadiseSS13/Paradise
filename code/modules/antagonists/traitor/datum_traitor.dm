@@ -92,20 +92,25 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/select_organization()
 	if(is_ai(owner.current))
 		return
-	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
+	var/list/chaos_weights = list(
+		ORG_CHAOS_HUNTER = ORG_PROB_HUNTER,
+		ORG_CHAOS_MILD = ORG_PROB_MILD,
+		ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE
+	)
+	if(can_assign_hijack_objective())
+		chaos_weights[ORG_CHAOS_HIJACK] = ORG_PROB_HIJACK
+	var/chaos = pickweight(chaos_weights)
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
 			organization = new org_type(src)
 			if(istype(organization, /datum/antag_org/syndicate/gorlex))
-				var/can_hijack = can_assign_hijack_objective()
-				if(can_hijack)
-					if(prob(50))
-						organization.intro_desc += "Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
-						organization.forced_objectives = list(/datum/objective/hijack)
-					else
-						organization.intro_desc += "Get in, fuck shit up, send the station out with a bang. You know the drill."
-						organization.forced_objectives = list(/datum/objective/nuke)
+				if(prob(50))
+					organization.intro_desc += "Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+					organization.forced_objectives = list(/datum/objective/hijack)
+				else
+					organization.intro_desc += "Get in, fuck shit up, send the station out with a bang. You know the drill."
+					organization.forced_objectives = list(/datum/objective/nuke)
 			return
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
@@ -158,9 +163,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/list/instant_known_objs = list(/datum/objective/hijack, /datum/objective/nuke)
 		for(var/forced_objectives in organization.forced_objectives)
 			var/datum/objective/forced_obj = forced_objectives
-			// Check if hijack objective is allowed before adding it
-			if(ispath(forced_obj, /datum/objective/hijack) && !can_assign_hijack_objective())
-				continue
 			if(!is_path_in_list(forced_obj, instant_known_objs) && delayed_objectives) // Some objectives are known instantly
 				forced_obj = new /datum/objective/delayed(forced_obj)
 			add_antag_objective(forced_obj)
@@ -360,27 +362,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		total_players = GLOB.roundstart_ready_players
 		if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
 			return FALSE
-	else
-		total_players = count_current_players()
-		if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
-			return FALSE
-		var/security_count = count_living_security_players()
-		if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
-			return FALSE
+		return TRUE
+	total_players = get_living_players_count()
+	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
+		return FALSE
+	var/security_count = get_living_security_players_count()
+	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
+		return FALSE
 	return TRUE
 
-/datum/antagonist/traitor/proc/count_current_players()
-	var/count = 0
-	for(var/mob/living/carbon/human/player in GLOB.human_list)
-		if(!player.mind || player.stat == DEAD || !player.client)
-			count++
-	return count
-
-/datum/antagonist/traitor/proc/count_living_security_players()
-	var/count = 0
-	for(var/mob/living/carbon/human/player in GLOB.human_list)
-		if(!player.mind || player.stat == DEAD || !player.client)
-			continue
-		if(player.mind.assigned_role in GLOB.active_security_positions)
-			count++
-	return count

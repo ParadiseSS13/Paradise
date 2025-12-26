@@ -419,9 +419,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		// Check if hijack is allowed based on player count and number of sec
-		var/hijack_allowed = can_assign_hijack_objective()
-
-		if(hijack_allowed)
+		if(can_assign_hijack_objective())
 			if(prob(50)) // 50% chance you have to detonate the nuke instead
 				add_antag_objective(/datum/objective/nuke)
 				return
