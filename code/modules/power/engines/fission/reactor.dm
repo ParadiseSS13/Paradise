@@ -1592,7 +1592,7 @@
 	if(linked_reactor || skip_link) // prevent duplicate linking or unwanted chambers
 		return
 	linked_reactor = reactor
-	linked_reactor |= src
+	linked_reactor.connected_chambers |= src
 	get_neighbors()
 
 /// Searches for a valid reactor or linked chamber nearby

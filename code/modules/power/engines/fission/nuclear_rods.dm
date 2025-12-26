@@ -110,7 +110,6 @@
 
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
-	desc = ABSTRACT_TYPE_DESC
 	alpha_rad = 50
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
@@ -321,7 +320,6 @@
 
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
-	desc = ABSTRACT_TYPE_DESC
 	icon_state = "mod_water"
 
 /obj/item/nuclear_rod/moderator/heavy_water
@@ -425,7 +423,6 @@
 
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
-	desc = ABSTRACT_TYPE_DESC
 	icon_state = "coolant_water"
 
 /obj/item/nuclear_rod/coolant/light_water
