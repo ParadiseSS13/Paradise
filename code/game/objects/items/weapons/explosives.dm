@@ -180,6 +180,10 @@
 	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
 	var/ex_breach = FALSE
 
+/obj/item/grenade/plastic/c4/Initialize(mapload)
+	. = ..()
+	desc += SPAN_NOTICE("<br><b>Use [src] in-hand</b> to adjust the detonation timer.")
+
 /obj/item/grenade/plastic/c4/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user, AM)
 	..()

@@ -39,9 +39,13 @@
 			"name" = "[controller.pawn]",
 			"uid" = controller.pawn.UID(),
 		)
+	data["controller"]["ai_status"] = controller.ai_status
 	data["controller"]["type"] = "[controller.type]"
 	data["controller"]["idle_behavior"] = "[controller.idle_behavior]"
 	data["controller"]["movement"] = "[controller.ai_movement]"
+	data["controller"]["movement_delay"] = controller.movement_delay
+	data["controller"]["able_to_plan"] = controller.able_to_plan
+	data["controller"]["on_failed_planning_timeout"] = controller.on_failed_planning_timeout
 	var/datum/movement_target = controller.current_movement_target
 	if(istype(movement_target))
 		data["controller"]["movement_target"] = list(

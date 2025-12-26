@@ -18347,8 +18347,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/cooking/ice_cream_mixer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bok" = (
@@ -18387,8 +18387,8 @@
 /area/station/service/kitchen)
 "boo" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bop" = (
@@ -18400,8 +18400,8 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "boq" = (
-/obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bor" = (
@@ -18428,11 +18428,11 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/machinery/cooking/oven,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bot" = (
@@ -19785,9 +19785,15 @@
 "bsS" = (
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/enzyme{
-	layer = 5
+	layer = 5;
+	pixel_x = -8;
+	pixel_y = 7
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/drinks/bottle/cream{
+	pixel_x = 3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bsT" = (
@@ -20309,8 +20315,12 @@
 /area/station/service/kitchen)
 "buu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/bottle/cream,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 7;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "buv" = (
@@ -20393,7 +20403,6 @@
 /area/station/service/kitchen)
 "buK" = (
 /obj/machinery/requests_console/directional/east,
-/obj/structure/closet/crate/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -37899,15 +37908,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "cPX" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = 3;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/metal/ten,
+/obj/structure/closet/radiation,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "cPZ" = (
@@ -38689,7 +38691,7 @@
 /area/station/maintenance/solar_maintenance/aft_port)
 "cSU" = (
 /turf/simulated/wall/r_wall,
-/area/station/engineering/engine/reactor)
+/area/station/engineering/control)
 "cSV" = (
 /obj/machinery/ai_status_display{
 	pixel_y = -32
@@ -39240,19 +39242,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cVp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/caution{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/light,
+/turf/simulated/floor/noslip,
 /area/station/engineering/control)
 "cVs" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -40034,12 +40025,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "cYQ" = (
-/obj/structure/railing/corner/pool_corner,
-/obj/structure/railing/corner/pool_corner{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/station/engineering/control)
 "cYS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44826,10 +44814,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"dyH" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "dyJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47784,9 +47768,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "ePY" = (
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/reactor_pool,
-/area/station/engineering/engine/reactor)
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "eQa" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
@@ -48173,6 +48156,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
+"fbR" = (
+/turf/simulated/wall/r_wall,
+/area/station/engineering/engine/reactor)
 "fbS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -49559,6 +49545,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
+"fFm" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stack/cable_coil,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "fFA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
@@ -50176,9 +50169,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"fYe" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "fYk" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -53114,6 +53104,18 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
+"hyj" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/item/stack/sheet/metal/ten,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "hyk" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -55136,6 +55138,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"izz" = (
+/obj/machinery/access_button{
+	autolink_id = "engsm_btn_ext";
+	name = "Supermatter Access Button";
+	pixel_y = 24;
+	req_access = list(10)
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "izR" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/item/radio/intercom{
@@ -55227,10 +55241,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"iBS" = (
-/obj/machinery/light,
-/turf/simulated/floor/noslip,
-/area/station/engineering/control)
 "iBU" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -55756,6 +55766,10 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "iRC" = (
@@ -56128,12 +56142,6 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
-"iZg" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/simulated/floor/noslip,
-/area/station/engineering/control)
 "iZj" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -57748,6 +57756,13 @@
 /obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/server)
+"jOF" = (
+/obj/structure/railing/corner/pool_corner,
+/obj/structure/railing/corner/pool_corner{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "jPb" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom{
 	dir = 1
@@ -62206,13 +62221,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
-"lTV" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "lUa" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -64963,11 +64971,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
-"ntt" = (
-/obj/structure/closet/radiation,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "ntv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -65201,6 +65204,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
+"nzn" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "nAi" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2";
@@ -68994,6 +69001,19 @@
 "pnc" = (
 /turf/simulated/wall,
 /area/station/supply/smith_office)
+"pnB" = (
+/obj/machinery/access_button{
+	autolink_id = "engsm_btn_int";
+	name = "Supermatter Access Button";
+	pixel_y = -24;
+	req_access = list(10)
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "pnT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/computerframe{
@@ -69785,10 +69805,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
-"pFl" = (
-/obj/machinery/shower/directional/north,
-/turf/simulated/floor/noslip,
-/area/station/engineering/control)
 "pFm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -74235,11 +74251,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "rJr" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/stack/cable_coil,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
 /area/station/engineering/control)
 "rJx" = (
 /turf/simulated/floor/plating,
@@ -75784,6 +75800,21 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"sys" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "syy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -78096,8 +78127,8 @@
 /area/station/maintenance/apmaint)
 "tLA" = (
 /obj/structure/table,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "tLB" = (
@@ -78409,16 +78440,8 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "tQJ" = (
-/obj/machinery/access_button{
-	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
-	pixel_y = 24;
-	req_access = list(10)
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/shower/directional/north,
+/turf/simulated/floor/noslip,
 /area/station/engineering/control)
 "tRc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -79095,9 +79118,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"ugg" = (
-/turf/simulated/floor/noslip,
-/area/station/engineering/control)
 "ugC" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -79953,9 +79973,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"uDI" = (
-/turf/simulated/wall/r_wall,
-/area/station/engineering/control)
 "uDR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/trinary/mixer{
@@ -83202,17 +83219,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "wpH" = (
-/obj/machinery/access_button{
-	autolink_id = "engsm_btn_int";
-	name = "Supermatter Access Button";
-	pixel_y = -24;
-	req_access = list(10)
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/noslip,
 /area/station/engineering/control)
 "wqh" = (
 /obj/structure/chair/stool{
@@ -84396,14 +84403,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "wVp" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/caution{
-	dir = 1
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/noslip,
 /area/station/engineering/control)
 "wVq" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -85629,6 +85632,16 @@
 "xBl" = (
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
+"xBs" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "xBt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -114310,20 +114323,20 @@ cSv
 cRr
 rgM
 rgM
-cSU
-cSU
-cSU
+fbR
+fbR
+fbR
 mLo
 mLo
-cSU
+fbR
 rCe
-cSU
+fbR
 mLo
 mLo
-cSU
+fbR
 rCe
-cSU
-cSU
+fbR
+fbR
 aaa
 aaa
 aaa
@@ -114562,11 +114575,11 @@ cTH
 uVt
 cXJ
 uVt
-uDI
-uDI
-uDI
-uDI
-uDI
+cSU
+cSU
+cSU
+cSU
+cSU
 gMc
 cCp
 cOd
@@ -114580,11 +114593,11 @@ fYk
 pFm
 mFv
 exQ
-cSU
-cSU
-cSU
-cSU
-cSU
+fbR
+fbR
+fbR
+fbR
+fbR
 aab
 aab
 afX
@@ -114819,11 +114832,11 @@ dtk
 omG
 jeU
 mHi
-uDI
+cSU
 ePt
 qLK
-rJr
-uDI
+fFm
+cSU
 tEq
 fTc
 fTc
@@ -114840,8 +114853,8 @@ jjz
 vXQ
 nxq
 vpH
-ePY
-cSU
+nzn
+fbR
 aaa
 aab
 afX
@@ -115076,7 +115089,7 @@ dtl
 iUF
 rIH
 cVj
-lTV
+rJr
 pjn
 eaW
 xGt
@@ -115093,12 +115106,12 @@ dto
 xOn
 shz
 mMK
-cYQ
+jOF
 szm
 nxq
 nxq
 ixP
-cSU
+fbR
 aaa
 aab
 afX
@@ -115333,11 +115346,11 @@ cRR
 cWC
 cXJ
 jNB
-dyH
+cYQ
 luv
 luv
 uwD
-dyH
+cYQ
 exC
 cRf
 kVF
@@ -115355,7 +115368,7 @@ qHc
 nxq
 nxq
 itF
-cSU
+fbR
 aaa
 aaa
 afX
@@ -115590,11 +115603,11 @@ lom
 jJn
 cXJ
 jNB
-uDI
-cPX
-fYe
+cSU
+hyj
+ePY
 ljv
-uDI
+cSU
 jbt
 fTc
 wva
@@ -115612,7 +115625,7 @@ daG
 nxq
 nxq
 gmW
-cSU
+fbR
 aaa
 aaa
 afX
@@ -115847,11 +115860,11 @@ iWm
 pKa
 sXm
 jNB
-uDI
-uDI
+cSU
+cSU
 rFJ
-uDI
-uDI
+cSU
+cSU
 cSx
 cVw
 oSD
@@ -115869,7 +115882,7 @@ qHc
 nxq
 nxq
 itF
-cSU
+fbR
 aab
 aab
 afX
@@ -116104,10 +116117,10 @@ okv
 cWI
 uEh
 jNB
-dyH
+cYQ
 mBc
 lsx
-uDI
+cSU
 qBw
 mFk
 deA
@@ -116126,7 +116139,7 @@ qHc
 nxq
 nxq
 itF
-cSU
+fbR
 aaa
 aaa
 afX
@@ -116361,10 +116374,10 @@ nYC
 uku
 kSu
 jNB
-dyH
-ntt
+cYQ
+cPX
 aMw
-dyH
+cYQ
 eqs
 mFk
 hbq
@@ -116383,7 +116396,7 @@ qHc
 nxq
 nxq
 itF
-cSU
+fbR
 aaa
 aaa
 afX
@@ -116618,10 +116631,10 @@ lHi
 eAt
 cVF
 jNB
-uDI
+cSU
 vFA
 aig
-dyH
+cYQ
 qyM
 nNQ
 oyK
@@ -116640,7 +116653,7 @@ hrW
 nxq
 nxq
 lKP
-cSU
+fbR
 aaa
 aaa
 afX
@@ -116877,7 +116890,7 @@ cXx
 jNB
 lIb
 qLI
-wVp
+xBs
 pKs
 exC
 fTc
@@ -116897,7 +116910,7 @@ sbw
 nxq
 nxq
 qsH
-cSU
+fbR
 aaa
 aaa
 afX
@@ -117132,10 +117145,10 @@ gLG
 cWM
 cXJ
 oyC
-uDI
-tQJ
-wpH
-uDI
+cSU
+izz
+pnB
+cSU
 mNd
 fTc
 hQW
@@ -117154,7 +117167,7 @@ hOq
 nxq
 nxq
 qsH
-cSU
+fbR
 aab
 aab
 afX
@@ -117391,7 +117404,7 @@ cXF
 yjK
 jPG
 pTR
-cVp
+sys
 iEA
 tmE
 aaX
@@ -117411,7 +117424,7 @@ hOq
 nxq
 nxq
 bAO
-cSU
+fbR
 aaa
 aaa
 afX
@@ -117646,10 +117659,10 @@ gLG
 xmN
 cXJ
 xEl
-uDI
+cSU
 tPk
-iZg
-dyH
+wVp
+cYQ
 hJA
 fTc
 scM
@@ -117668,7 +117681,7 @@ hOq
 nxq
 nxq
 uod
-cSU
+fbR
 aaa
 aaa
 afX
@@ -117903,10 +117916,10 @@ gLG
 uVt
 cXJ
 opx
-uDI
-pFl
-ugg
-dyH
+cSU
+tQJ
+wpH
+cYQ
 mGK
 fTc
 gRE
@@ -117925,7 +117938,7 @@ szm
 nxq
 nxq
 nxq
-cSU
+fbR
 aaa
 aaa
 afX
@@ -118160,10 +118173,10 @@ gLG
 cNX
 cXJ
 opx
-uDI
-pFl
-iBS
-uDI
+cSU
+tQJ
+cVp
+cSU
 dft
 oxg
 xWO
@@ -118182,7 +118195,7 @@ vXQ
 nxq
 ufh
 lXu
-cSU
+fbR
 aaa
 aaa
 afX
@@ -118424,8 +118437,8 @@ xfI
 epT
 xfI
 pEY
-cSU
-cSU
+fbR
+fbR
 nVf
 dhv
 euu
@@ -118435,11 +118448,11 @@ nVf
 mnc
 nVf
 llQ
-cSU
-cSU
-cSU
-cSU
-cSU
+fbR
+fbR
+fbR
+fbR
+fbR
 aab
 aaa
 afX
@@ -118682,7 +118695,7 @@ aMM
 epT
 xJE
 nfE
-cSU
+fbR
 nVf
 cTm
 ksO
@@ -118939,7 +118952,7 @@ aMM
 epT
 xJE
 ssQ
-cSU
+fbR
 oSd
 dcq
 dcq
@@ -119195,8 +119208,8 @@ dcq
 vJY
 dcq
 edD
-cSU
-cSU
+fbR
+fbR
 ddr
 qqe
 ddr
