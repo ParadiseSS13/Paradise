@@ -751,19 +751,6 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 			H.close() //DOOR STUCK
 		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_recall.ogg')
 
-/proc/overload_reactor()
-	if(GLOB.main_fission_reactor)
-		if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA_SPECIAL)
-			SSsecurity_level.set_level(SEC_LEVEL_DELTA_SPECIAL)
-		else
-			log_admin("An admin attempted to override fission reactor safeties, but it was already overriden")
-			return
-		sleep(5 SECONDS)
-		GLOB.main_fission_reactor.radio.autosay(SPAN_BIG("All teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty."), "Automated Announcement", "Special Ops")
-		GLOB.main_fission_reactor.prep_overload()
-	else
-		log_admin("An admin attempted to override fission reactor safeties, but no reactor was found!")
-
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
 	if(isturf(location))

@@ -1,6 +1,6 @@
 /obj/item/nuclear_rod
 	name = "Nuclear Control Rod"
-	desc = "You shouldn't be seeing this. Contact a developer"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/fission/reactor_rods.dmi'
 	icon_state = "fuel_238"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
@@ -110,7 +110,7 @@
 
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
-	desc = "This is a base item and should not be found. Alert a developer!"
+	desc = ABSTRACT_TYPE_DESC
 	alpha_rad = 50
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
@@ -238,7 +238,7 @@
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/fuel/uranium_235,
 		/obj/item/nuclear_rod/fuel,
-		)
+	)
 
 /obj/item/nuclear_rod/fuel/enriched_plutonium
 	name = "enriched plutonium fuel rod"
@@ -321,7 +321,7 @@
 
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
-	desc = "This is a base item and should not be found. Alert a developer!"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "mod_water"
 
 /obj/item/nuclear_rod/moderator/heavy_water
@@ -379,7 +379,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
-		)
+	)
 
 /obj/item/nuclear_rod/moderator/bluespace_agitator
 	name = "bluespace crystal agitator"
@@ -409,7 +409,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
-		)
+	)
 
 /obj/item/nuclear_rod/moderator/platinum_plating
 	name = "platinum reflector plating"
@@ -425,7 +425,7 @@
 
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
-	desc = "This is a base item and should not be found. Alert a developer!"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "coolant_water"
 
 /obj/item/nuclear_rod/coolant/light_water
@@ -487,7 +487,7 @@
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
-		)
+	)
 
 /obj/item/nuclear_rod/coolant/steam_hammerjet
 	name = "steam hammerjet"
@@ -502,7 +502,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
-		)
+	)
 
 /obj/item/nuclear_rod/coolant/bluespace_displacer
 	name = "bluespace heat displacer"
@@ -529,7 +529,7 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,
-		)
+	)
 
 /obj/item/nuclear_rod/coolant/condensed_spacematter
 	name = "condensed spacematter coolant rod"
@@ -543,4 +543,4 @@
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel/enriched_plutonium,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
-		)
+	)

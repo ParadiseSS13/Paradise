@@ -16,6 +16,7 @@
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
 	flags = ABSTRACT
+	flags_2 = RAD_NO_CONTAMINATE_2
 	new_attack_chain = TRUE
 	/// Set to TRUE to removal of cells/lights from machine objects containing them.
 	var/engineering_machine_interaction = FALSE

@@ -305,56 +305,57 @@
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
-		if(plastitanium.amount >= 5)
-			if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
-				if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-					plastitanium.use(5)
-					to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
-					repair_step++
-					icon_state = "reactor_maintenance"
-			else
-				if(!offline)
-					to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
-					return ITEM_INTERACT_COMPLETE
-				if(damage == 0)
-					to_chat(creature, SPAN_WARNING("The reactor has nothing left to repair!"))
-					return ITEM_INTERACT_COMPLETE
-				var/obj/item/item = creature.get_inactive_hand()
-				if(!istype(item, /obj/item/weldingtool))
-					to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
-					return ITEM_INTERACT_COMPLETE
-				if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
-					return ITEM_INTERACT_COMPLETE
-				if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
-					plastitanium.use(5)
-					adjust_damage((-MELTDOWN_POINT * 0.1))
-		else
+		if(plastitanium.amount < 5)
 			to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
+			return ITEM_INTERACT_COMPLETE
+		if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
+			if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+				plastitanium.use(5)
+				to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
+				repair_step++
+				icon_state = "reactor_maintenance"
+		else
+			if(!offline)
+				to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
+				return ITEM_INTERACT_COMPLETE
+			if(damage == 0)
+				to_chat(creature, SPAN_WARNING("The reactor has nothing left to repair!"))
+				return ITEM_INTERACT_COMPLETE
+			var/obj/item/item = creature.get_inactive_hand()
+			if(!istype(item, /obj/item/weldingtool))
+				to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
+				return ITEM_INTERACT_COMPLETE
+			if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
+				return ITEM_INTERACT_COMPLETE
+			if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
+				plastitanium.use(5)
+				adjust_damage((-MELTDOWN_POINT * 0.1))
 		return ITEM_INTERACT_COMPLETE
+
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
-		if(plasteel.amount >= 5)
-			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-				repair_step++
-				plasteel.use(5)
-				to_chat(user, SPAN_INFORMATION("You attach a layer of radiation shielding around the reactor core."))
-		else
+		if(plasteel.amount < 5)
 			to_chat(user, SPAN_WARNING("You need at least five sheets of plasteel to reform the reactor core structure."))
+			return ITEM_INTERACT_COMPLETE
+		if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+			repair_step++
+			plasteel.use(5)
+			to_chat(user, SPAN_INFORMATION("You attach a layer of radiation shielding around the reactor core."))
 		return ITEM_INTERACT_COMPLETE
+
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
-		if(!grill)
-			var/obj/item/item = creature.get_inactive_hand()
-			if(istype(item, /obj/item/reagent_containers/cooking/grill_grate))
-				qdel(used)
-				qdel(item)
-				grill = new(loc)
-				return ITEM_INTERACT_COMPLETE
-			else
-				to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill."))
-				return ITEM_INTERACT_COMPLETE
-		else
+		var/obj/item/item = creature.get_inactive_hand()
+		if(!istype(item, /obj/item/reagent_containers/cooking/grill_grate))
+			to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill."))
+			return ITEM_INTERACT_COMPLETE
+		if(grill)
 			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface of the reactor."))
 			return ITEM_INTERACT_COMPLETE
+
+		qdel(used)
+		qdel(item)
+		grill = new(loc)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
 	if(grill)
@@ -388,7 +389,7 @@
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
 		if(I.use_tool(src, user, (0 SECONDS * I.toolspeed), volume = I.tool_volume))
-			if(!do_after_once(user, 8 SECONDS, allow_moving = FALSE))
+			if(do_after_once(user, 8 SECONDS, allow_moving = FALSE))
 				control_rods_remaining++
 				update_icon(UPDATE_OVERLAYS)
 			return ITEM_INTERACT_COMPLETE
@@ -445,7 +446,7 @@
 	if(isnull(T)) // We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!isturf(reactor.loc) 
+	if(!isturf(reactor.loc))
 		return
 
 	if(T.density)
@@ -476,13 +477,13 @@
 			var/datum/gas_mixture/removed = reactor.air_contents.remove(transfer_moles)
 			environment.merge(removed)
 		return
-		
+
 	// transfer from environment to pipe air
 	pressure_delta = -pressure_delta
 	if((environment.total_moles() > 0) && (environment.temperature() > 0))
 		var/transfer_moles = pressure_delta * reactor.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
 		transfer_moles = min(transfer_moles, reactor.air_contents.volume)
-		
+
 		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 		reactor.air_contents.merge(removed)
 
@@ -501,20 +502,19 @@
 	else
 		remove_light()
 
-	if(!control_lockout)
-		var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
-		if(operating_power < minimum_power) // oops, control rods stuck
+	if(control_lockout)
+		return
+	var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
+	if(operating_power < minimum_power) // oops, control rods stuck
+		operating_power++
+		update_appearance(UPDATE_OVERLAYS)
+	else
+		if(desired_power > operating_power)
 			operating_power++
 			update_appearance(UPDATE_OVERLAYS)
-		else
-			if(desired_power > operating_power)
-				operating_power++
-				update_appearance(UPDATE_OVERLAYS)
-			else if(desired_power < operating_power)
-				operating_power--
-				update_appearance(UPDATE_OVERLAYS)
-	else
-		return // stopping here until control lockout is done
+		else if(desired_power < operating_power)
+			operating_power--
+			update_appearance(UPDATE_OVERLAYS)
 
 	if(operating_power == desired_power && desired_power == 0 && offline != TRUE)
 		shut_off()
@@ -837,7 +837,7 @@
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null)
-	for(var/i in NGCR_COUNTDOWN_TIME to 0 step -1 SECONDS)
+	for(var/i in NGCR_COUNTDOWN_TIME to 0 step (-1 SECONDS))
 		if(admin_intervention) // Stop exploding if you're frozen by an admin, damn you
 			final_countdown = FALSE
 			adjust_damage(MELTDOWN_POINT - 1, TRUE) // One point below exploding, so it will re-start the countdown once unfrozen
@@ -847,7 +847,7 @@
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
 			return
-		else if((i % 5 SECONDS) != 0 && i > 5 SECONDS) // A message once every 5 seconds until the final 5 seconds which count down individualy
+		else if((i % 5 SECONDS) != 0 && i > (5 SECONDS)) // A message once every 5 seconds until the final 5 seconds which count down individualy
 			sleep(1 SECONDS)
 			continue
 		else if(i > 5 SECONDS)
@@ -1038,6 +1038,16 @@
 	update_overheat_threshold(-gas_overheat_bonus)
 	update_overheat_threshold(temp_bonus_holder)
 	gas_overheat_bonus = temp_bonus_holder
+
+/obj/machinery/atmospherics/fission_reactor/proc/overload_reactor()
+	if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA_SPECIAL)
+		SSsecurity_level.set_level(SEC_LEVEL_DELTA_SPECIAL)
+	else
+		log_admin("An admin attempted to override fission reactor safeties, but it was already overriden")
+		return
+	sleep(5 SECONDS)
+	radio.autosay(SPAN_BIG("Response teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty."), "Automated Announcement", "Special Ops")
+	prep_overload()
 
 /// MARK: Rod Chamber
 
@@ -1279,7 +1289,7 @@
 				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
 				update_icon(UPDATE_OVERLAYS)
 				return
-				
+
 			to_chat(user, SPAN_WARNING("Your hands are currently full!"))
 			return
 		if(CHAMBER_OVERLOAD_ACTIVE)
@@ -1551,7 +1561,6 @@
 
 /// Gets the neighbors of the current chamber, and adds itself to its neighbors. can prompt a cascade of linking
 /obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
-	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in get_step(src, direction)
 		if(!chamber)
@@ -1868,7 +1877,7 @@
 	update_icon()
 	return INITIALIZE_HINT_LATELOAD
 
-// needs to be late so it does not initialize before the reactor
+// Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
 /obj/machinery/atmospherics/unary/reactor_gas_node/LateInitialize()
 	. = ..()
 	form_link()

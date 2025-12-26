@@ -1,4 +1,4 @@
-#define DEFAULT_TIME 10 SECONDS
+#define DEFAULT_OPERATION_TIME 10 SECONDS //! The base amount of time needed to craft an item
 
 /// MARK: Centrifuge
 /obj/machinery/nuclear_centrifuge
@@ -55,7 +55,7 @@
 	for(var/obj/item/stock_parts/manipulator/part in component_parts)
 		average_component_rating += part.rating
 	average_component_rating /= 4 // average all 4 components
-	work_time = DEFAULT_TIME / average_component_rating
+	work_time = DEFAULT_OPERATION_TIME / average_component_rating
 
 /obj/machinery/nuclear_centrifuge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
@@ -204,7 +204,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		temp_coeff -= M.rating
 		average_component_rating += M.rating
-	work_time = DEFAULT_TIME / average_component_rating
+	work_time = DEFAULT_OPERATION_TIME / average_component_rating
 	efficiency_coeff = clamp(temp_coeff / 10, 0.05, 1)
 	temp_coeff = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -502,6 +502,7 @@
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
+// Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
 /obj/machinery/power/reactor_power/LateInitialize()
 	. = ..()
 	linked_reactor = GLOB.main_fission_reactor
@@ -680,7 +681,7 @@
 		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
 
-#undef DEFAULT_TIME
+#undef DEFAULT_OPERATION_TIME
 
 // MARK: Slag
 
