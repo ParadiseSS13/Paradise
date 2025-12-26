@@ -156,10 +156,10 @@
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(isrobot(copymob))
-		temp_img = icon('icons/obj/butts.dmi', "machine")
 	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
+	else if(isrobot(copymob))
+		temp_img = icon('icons/obj/butts.dmi', "machine")
 	else if(isnymph(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
 	else if(isalien(copymob) || istype(copymob,/mob/living/basic/alien)) //Xenos have their own asses, thanks to Pybro.
