@@ -15,11 +15,11 @@
 /obj/item/reagent_containers/drinks/mob_act(mob/target, mob/living/user)
 	. = TRUE
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, SPAN_WARNING("None of [src] left, oh no!"))
 		return
 
 	if(!is_drainable())
-		to_chat(user, "<span class='warning'>You need to open [src] first!</span>")
+		to_chat(user, SPAN_WARNING("You need to open [src] first!"))
 		return
 
 	if(iscarbon(target))
@@ -31,20 +31,20 @@
 		return
 	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
-		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
+		to_chat(chugger, SPAN_NOTICE("You need to open [src] first!"))
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
-			"<span class='notice'>You start chugging [src].</span>",
-			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugger.visible_message(SPAN_NOTICE("[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!"),
+			SPAN_NOTICE("You start chugging [src]."),
+			SPAN_NOTICE("You hear what sounds like gulping."))
 		chugging = TRUE
 		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
 			chugger.drink(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
-					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
-					"<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message(SPAN_NOTICE("[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!"),
+					SPAN_NOTICE("You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]"),
+					SPAN_NOTICE("You hear a gasp and a clink."))
 				break
 		chugging = FALSE
 
@@ -55,46 +55,46 @@
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
 		. = TRUE
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty.</span>")
+			to_chat(user, SPAN_WARNING("[src] is empty."))
 			return
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			to_chat(user, SPAN_WARNING("[target] is full."))
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, SPAN_NOTICE("You transfer [trans] units of the solution to [target]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		. = TRUE
 		if(!is_refillable())
-			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
+			to_chat(user, SPAN_WARNING("[src]'s tab isn't open!"))
 			return
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+			to_chat(user, SPAN_WARNING("[target] is empty."))
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, SPAN_WARNING("[src] is full."))
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You fill [src] with [trans] units of the contents of [target]."))
 
 /obj/item/reagent_containers/drinks/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(!reagents || reagents.total_volume == 0)
-			. += "<span class='notice'>[src] is empty!</span>"
+			. += SPAN_NOTICE("[src] is empty!")
 		else if(reagents.total_volume <= volume/4)
-			. += "<span class='notice'>[src] is almost empty!</span>"
+			. += SPAN_NOTICE("[src] is almost empty!")
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'>[src] is half full!</span>"// We're all optimistic, right?!
+			. += SPAN_NOTICE("[src] is half full!")// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
-			. += "<span class='notice'>[src] is almost full!</span>"
+			. += SPAN_NOTICE("[src] is almost full!")
 		else
-			. += "<span class='notice'>[src] is full!</span>"
+			. += SPAN_NOTICE("[src] is full!")
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
@@ -268,13 +268,13 @@
 		return
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
+		to_chat(user, SPAN_WARNING("You won't shake an empty shaker now, will you?"))
 		return
 
 	if(COOLDOWN_FINISHED(src, shaking_cooldown))
 		shaking = TRUE
 		var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
-		user.visible_message("<span class='notice'>[user] shakes [src] [adjective]!</span>", "<span class='notice'>You shake [src] [adjective]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] shakes [src] [adjective]!"), SPAN_NOTICE("You shake [src] [adjective]!"))
 		icon_state = "shaker-shake"
 		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc

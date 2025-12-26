@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+		visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 		P.info = "<U><font size=\"4\"><B><center> Releasing Virus </B></center></font></U>"
@@ -615,14 +615,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		if(stat & (NOPOWER|BROKEN))
 			return ITEM_INTERACT_COMPLETE
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
+			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
 		beaker.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
+		to_chat(user, SPAN_NOTICE("You add the beaker to the machine."))
 		icon_state = "pandemic1"
 		var/datum/reagent/blood/inserted = locate() in beaker.reagents.reagent_list
 		if(inserted && inserted.data && inserted.data["viruses"])

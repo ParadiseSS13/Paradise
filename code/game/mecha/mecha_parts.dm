@@ -267,7 +267,7 @@
 /obj/item/mecha_parts/chassis/phazon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
-		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
+		to_chat(user, SPAN_WARNING("The anomaly core socket only accepts bluespace anomaly cores!"))
 
 /obj/item/mecha_parts/part/phazon_torso
 	name = "\improper Phazon torso"

@@ -66,7 +66,6 @@
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	///Additional armour value for the species.
 	var/armor = 0
-	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -502,6 +501,9 @@
 			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
+				// IPCs spark when taking brute
+				if(ismachineperson(H) && prob(10))
+					do_sparks(1, 0, H)
 
 			if(organ)
 				if(organ.receive_damage(damage_amount, 0, sharp, used_weapon))
@@ -569,7 +571,7 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
 		return FALSE
 	if(target != user && handle_harm_antag(user, target))
 		return FALSE
@@ -591,7 +593,7 @@
 	user.do_attack_animation(target, attack.animation_type)
 	if(attack.harmless)
 		playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
-		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+		target.visible_message(SPAN_DANGER("[user] [pick(attack.attack_verb)]ed [target]!"))
 		return FALSE
 	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
@@ -602,20 +604,25 @@
 	damage += user.physiology.melee_bonus
 	if(!damage)
 		playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
-		target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+		target.visible_message(SPAN_DANGER("[user] tried to [pick(attack.attack_verb)] [target]!"))
 		return FALSE
 
 
 	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-	playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
+	// IPCs make clang sound like borgs when punched
+	var/punch_sound = attack.attack_sound
+	if(ismachineperson(target))
+		punch_sound = 'sound/effects/bang.ogg'
 
-	target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+	playsound(target.loc, punch_sound, 25, TRUE, -1)
+
+	target.visible_message(SPAN_DANGER("[user] [pick(attack.attack_verb)]ed [target]!"))
 	target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
 	if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-		target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
-						"<span class='userdanger'>[user] has knocked down [target]!</span>")
+		target.visible_message(SPAN_DANGER("[user] has knocked down [target]!"), \
+						SPAN_USERDANGER("[user] has knocked down [target]!"))
 		target.KnockDown(4 SECONDS)
 	SEND_SIGNAL(target, COMSIG_ATTACK_BY)
 
@@ -625,7 +632,7 @@
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(target.absorb_stun(0))
-		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
+		target.visible_message(SPAN_WARNING("[target] is not affected by [user]'s disarm attempt!"))
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		return FALSE
@@ -679,8 +686,8 @@
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message("<span class='warning'>[user] slams [target] into an obstacle!</span>", \
-								"<span class='userdanger'>You get slammed into the obstacle by [user]!</span>", \
+		target.visible_message(SPAN_WARNING("[user] slams [target] into an obstacle!"), \
+								SPAN_USERDANGER("You get slammed into the obstacle by [user]!"), \
 								"You hear a loud thud.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
@@ -696,7 +703,7 @@
 			target.Slowed(2.5 SECONDS, 0.5)
 			var/obj/item/I = target.get_active_hand()
 			if(I)
-				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
+				to_chat(target, SPAN_WARNING("Your grip on [I] loosens!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
@@ -709,7 +716,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
+			to_chat(M, SPAN_WARNING("You can't use your hand."))
 			return
 
 	if(M.mind)
@@ -717,7 +724,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
+		H.visible_message(SPAN_WARNING("[M] attempted to touch [H]!"))
 		return FALSE
 
 	switch(M.a_intent)
@@ -823,7 +830,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT) && !(I.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & ITEM_SLOT_BELT))
 				return
@@ -845,7 +852,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & ITEM_SLOT_ID))
 				return FALSE
@@ -857,7 +864,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & ITEM_SLOT_PDA))
 				return FALSE
@@ -871,7 +878,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_BOTH_POCKETS))
 				return TRUE
@@ -884,7 +891,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_BOTH_POCKETS))
 				return TRUE
@@ -896,7 +903,7 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a suit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_ALERT("You need a suit before you can attach this [I.name]."))
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
@@ -904,7 +911,7 @@
 				return FALSE
 			if(I.w_class > H.wear_suit.max_suit_w)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
+					to_chat(H, SPAN_WARNING("[I] is too big to attach."))
 				return FALSE
 			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
@@ -931,11 +938,11 @@
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(!uniform)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(length(uniform.accessories) && !uniform.can_attach_accessory(I))
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
+					to_chat(H, SPAN_WARNING("You already have an accessory of this type attached to your [uniform]."))
 				return FALSE
 			if(!(I.slot_flags & ITEM_SLOT_ACCESSORY))
 				return FALSE
@@ -955,14 +962,14 @@
 		if(!H.IsWeakened())
 			H.emote("collapse")
 		H.Weaken(RAD_MOB_KNOCKDOWN_AMOUNT)
-		to_chat(H, "<span class='danger'>You feel weak.</span>")
+		to_chat(H, SPAN_DANGER("You feel weak."))
 
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 		H.vomit(10, TRUE)
 
 	if(radiation > RAD_MOB_MUTATE)
 		if(prob(1))
-			to_chat(H, "<span class='danger'>You mutate!</span>")
+			to_chat(H, SPAN_DANGER("You mutate!"))
 			randmutb(H)
 			H.emote("gasp")
 			domutcheck(H)
@@ -972,7 +979,7 @@
 		if(!istype(head_organ) || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
-			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
+			to_chat(H, SPAN_DANGER("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 5 SECONDS)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
@@ -1128,7 +1135,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				to_chat(user, "<span class='warning zombie'>Our bite fails to pierce [target]!</span>")
 				return FALSE
 
-			user.visible_message("<span class='danger'>[user] violently bites [target]!</span>")
+			user.visible_message(SPAN_DANGER("[user] violently bites [target]!"))
 			playsound(user.loc, 'sound/weapons/bite.ogg', 20, TRUE)
 			playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 			user.do_attack_animation(target, ATTACK_EFFECT_BITE)
@@ -1172,7 +1179,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			return TRUE
 
 		eat_brain.custom_pain("OH GOD!!! THEY'RE EATING MY [uppertext(eat_brain.name)]!!") // gnarly
-		user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!</span>", "<span class='danger zombie'>We feast on [target]'s brains.</span>")
+		user.visible_message(SPAN_DANGER("[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!"), "<span class='danger zombie'>We feast on [target]'s brains.</span>")
 		if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 			if(!target.HasDisease(/datum/disease/zombie))
 				var/datum/disease/zombie/zomb = new /datum/disease/zombie
@@ -1201,13 +1208,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V && !V.draining && user.zone_selected == BODY_ZONE_HEAD)
 		if((NO_BLOOD in target.dna.species.species_traits) || !target.blood_volume)
-			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			to_chat(user, SPAN_WARNING("They have no blood!"))
 			return TRUE
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh!</span>")
+			to_chat(user, SPAN_WARNING("Your fangs fail to pierce [target.name]'s cold flesh!"))
 			return TRUE
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
-			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			to_chat(user, SPAN_WARNING("There is no blood in a skeleton!"))
 			return TRUE
 		//we're good to suck the blood, blaah
 		V.handle_bloodsucking(target)
