@@ -120,6 +120,15 @@
 	QDEL_NULL(beaker)
 	return ..()
 
+/obj/machinery/reagentgrinder/AltClick(mob/user, modifiers)
+	if(!beaker)
+		return
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
+		return
+	detach(user)
+
 /obj/machinery/reagentgrinder/ex_act(severity)
 	if(beaker)
 		beaker.ex_act(severity)
@@ -334,9 +343,14 @@
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(!beaker)
 		return
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
 		return
 	beaker.forceMove(loc)
+	SStgui.update_uis(src)
+	if(!issilicon(user))
+		user.put_in_hands(beaker)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
