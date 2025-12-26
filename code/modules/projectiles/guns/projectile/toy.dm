@@ -177,7 +177,7 @@
 	else
 		. += SPAN_NOTICE("It is configured to fire [paintball_color] paintballs.")
 	if(emagged)
-		. +=SPAN_WARNING("The air compressor sparks dangerously.")
+		. += SPAN_WARNING("The air compressor sparks dangerously.")
 
 /obj/item/gun/projectile/automatic/paintball_gun/update_icon_state()
 	icon_state = "paintgun"

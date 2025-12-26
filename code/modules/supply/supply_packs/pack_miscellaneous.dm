@@ -27,9 +27,9 @@
 /datum/supply_packs/misc/paintball_gun
 	name = "Paintball Crate"
 	contains = list(/obj/item/gun/projectile/automatic/paintball_gun,
-	/obj/item/gun/projectile/automatic/paintball_gun,
-	/obj/item/ammo_box/magazine/paintball,
-	/obj/item/ammo_box/magazine/paintball)
+		/obj/item/gun/projectile/automatic/paintball_gun,
+		/obj/item/ammo_box/magazine/paintball,
+		/obj/item/ammo_box/magazine/paintball)
 	cost = 300
 	containername = "paintball crate"
 
