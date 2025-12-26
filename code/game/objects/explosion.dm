@@ -46,7 +46,7 @@
 	spawn(0)
 		var/watch = start_watch()
 
-		var/list/cached_exp_block = list()
+		var/alist/cached_exp_block = alist()
 
 		if(adminlog)
 			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] (Cause: [cause]) [ADMIN_COORDJMP(epicenter)] ")
@@ -135,8 +135,7 @@
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
 		if(GLOB.configuration.general.reactionary_explosions)
-			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
-				var/turf/T = A
+			for(var/turf/T as anything in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
 				cached_exp_block[T] = 0
 				if(T.density && T.explosion_block)
 					cached_exp_block[T] += T.explosion_block
@@ -147,8 +146,6 @@
 				CHECK_TICK
 
 		for(var/turf/T as anything in affected_turfs)
-			if(!T)
-				continue
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
 			if(GLOB.configuration.general.reactionary_explosions)
@@ -158,11 +155,6 @@
 					dist += cached_exp_block[Trajectory]
 					if(dist > max_range)
 						break
-
-			var/flame_dist = 0
-
-			if(dist < flame_range)
-				flame_dist = 1
 
 			var/explosion_strength = EXPLODE_NONE
 			if(dist < devastation_range)
@@ -174,7 +166,7 @@
 
 			//------- TURF FIRES -------
 
-			if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
+			if((dist < flame_range) && prob(40) && !isspaceturf(T) && !T.density)
 				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T) //Mostly for ambience!
 				hotspot.temperature = 1000
 				hotspot.recolor()
@@ -188,7 +180,7 @@
 				T.ex_act(EXPLODE_LIGHT)
 
 			if(!issimulatedturf(T))
-				for(var/atom/AM as anything in T.contents)
+				for(var/atom/AM as anything in T)
 					if(!QDELETED(AM) && AM.simulated)
 						AM.ex_act(explosion_strength)
 				CHECK_TICK
@@ -202,9 +194,8 @@
 				affecting_level = 2
 
 			for(var/atom/AM as anything in S)
-				if(!QDELETED(AM) && AM.simulated)
-					if(AM.level >= affecting_level)
-						AM.ex_act(explosion_strength)
+				if(!QDELETED(AM) && AM.simulated && (AM.level >= affecting_level))
+					AM.ex_act(explosion_strength)
 
 			CHECK_TICK
 
