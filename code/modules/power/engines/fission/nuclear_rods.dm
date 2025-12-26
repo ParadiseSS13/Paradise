@@ -534,8 +534,9 @@
 	name = "condensed spacematter coolant rod"
 	desc = "While it's unknown quite what the rod is filled with, there's no questioning its heat-suppressing efficiency. However, it violently disintegrates in contact with anything that isn't its housing."
 	icon_state = "coolant_spacematter"
+	heat_amount = -1500
 	heat_amp_mod = 0.2
-	max_durability = 2500
+	max_durability = 3000
 	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
 	craftable = TRUE
 	upgrade_required = TRUE
