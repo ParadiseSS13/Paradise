@@ -10517,6 +10517,7 @@
 /area/station/maintenance/fsmaint)
 "aNj" = (
 /obj/structure/table,
+/obj/item/reagent_containers/drinks/carton/grape,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aNk" = (

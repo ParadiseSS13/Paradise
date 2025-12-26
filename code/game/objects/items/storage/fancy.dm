@@ -590,11 +590,15 @@
 		. += box_icon
 	. += image(icon, src, "juice_box_box_front")
 
+/obj/item/storage/fancy/juice_boxes/random
+
 /obj/item/storage/fancy/juice_boxes/random/populate_contents()
 	for(var/juice_box in typesof(/obj/item/reagent_containers/drinks/carton) - /obj/item/reagent_containers/drinks/carton)
 		if(prob(30))
 			new juice_box(src)
 	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/full
 
 /obj/item/storage/fancy/juice_boxes/full/populate_contents()
 	new /obj/item/reagent_containers/drinks/carton/apple(src)
