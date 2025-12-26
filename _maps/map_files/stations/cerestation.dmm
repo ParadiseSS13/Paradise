@@ -40229,6 +40229,10 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/reagent_containers/drinks/carton/plum{
+	pixel_y = 14;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hGE" = (
@@ -61022,7 +61026,13 @@
 	pixel_x = -13;
 	pixel_y = 2
 	},
-/obj/item/ashtray/plastic,
+/obj/item/ashtray/plastic{
+	pixel_y = -2
+	},
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 11;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "lZy" = (
@@ -95232,6 +95242,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay2)
+"tNX" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/item/reagent_containers/drinks/carton/watermelon{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/south)
 "tNZ" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
@@ -131765,7 +131785,7 @@ kAn
 stO
 hzU
 mRj
-gTt
+tNX
 iYG
 mCM
 ecG
