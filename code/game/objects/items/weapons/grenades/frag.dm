@@ -129,5 +129,6 @@
 	name = "blessed shrapnel"
 	desc = "Shards of godlike judgement, launched at high velocity. The power of Christ propels you."
 	force = 6
+	color = "#FFFF00" // Yellow because it's holy yo
 
 #undef DEFAULT_SHRAPNEL_RANGE
