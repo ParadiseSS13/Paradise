@@ -672,11 +672,14 @@ CREATE TABLE `json_datum_saves` (
 --
 DROP TABLE IF EXISTS `bug_reports`;
 CREATE TABLE `bug_reports` (
-  `db_uid` BIGINT(32) NOT NULL,
-  `author_ckey` varchar(32) NOT NULL,
-  `title` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
-  `round_id` int(11),
-  `contents_json` LONGTEXT,
-  CONSTRAINT bug_key PRIMARY KEY (`db_uid`,`author_ckey`) USING BTREE
-
-) COLLATE = 'utf8mb4_general_ci' ENGINE = INNODB;
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `filetime` DATETIME NOT NULL DEFAULT NOW(),
+    `author_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+    `title` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+    `round_id` INT(11) NOT NULL DEFAULT 0,
+    `contents_json` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+    `submitted` BIT(2) NOT NULL DEFAULT 0,
+	`approver_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+    PRIMARY KEY (`id`),
+    INDEX `submitted` (`submitted`)
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;

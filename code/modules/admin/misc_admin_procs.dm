@@ -13,6 +13,13 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
 				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
+/// Sends a message to all players with a role and the specified permissions
+/proc/message_roles(msg, permissions)
+	for(var/client/C in GLOB.admins)
+		if(C.holder.rights & permissions)
+			to_chat(C, msg)
+			SEND_SOUND(C, sound('sound/effects/bug_report.ogg'))
+
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = SPAN_ADMIN(SPAN_PREFIX("ATTACK:</span> <span class='message'>[text]") )

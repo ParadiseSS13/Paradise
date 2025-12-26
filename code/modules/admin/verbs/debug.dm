@@ -776,14 +776,16 @@ USER_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all ra
 	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
 
 USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", "Select a bug report to view", VERB_CATEGORY_DEBUG)
-	if(!length(GLOB.bug_reports))
+	var/list/bug_reports = read_bug_report_titles()
+	if(!length(bug_reports))
 		to_chat(client, SPAN_WARNING("There are no bug reports to view"))
 		return
-	var/list/bug_report_selection = list()
-	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
-		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
-	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(client, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	var/selection = tgui_input_list(client, "Select a report to view:", "Bug Reports", bug_reports)
+	if(!bug_reports[selection])
+		return
+	var/datum/tgui_bug_report_form/form = read_bug_report(bug_reports[selection])
 	if(!form?.assign_approver(client.mob))
+		qdel(form)
 		return
 	form.ui_interact(client.mob)
 
