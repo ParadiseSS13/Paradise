@@ -50471,7 +50471,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Prison Common Area Port";
+	c_tag = "Prison Common Area Fore-Port";
 	dir = 4;
 	network = list("Prison","SS13")
 	},
@@ -51010,11 +51010,6 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "kuu" = (
-/obj/machinery/camera{
-	c_tag = "Prison Common Area Starboard";
-	dir = 8;
-	network = list("Prison","SS13")
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -59246,6 +59241,15 @@
 /obj/effect/turf_decal/tiles/department/medical/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
+"njc" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/machinery/camera{
+	c_tag = "Prison Common Area Aft";
+	dir = 10;
+	network = list("Prison","SS13")
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "njd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -71595,6 +71599,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Prison Common Area Starboard";
+	dir = 9;
+	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -112791,7 +112800,7 @@ rnV
 wXi
 iNl
 adi
-uZy
+njc
 lIM
 haD
 mtd
