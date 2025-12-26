@@ -91,7 +91,7 @@
 	return regex.Replace(fragment, "")
 
 /// Gets the location of an object on a client's screen. Thanks to Kaioken on BYOND forums.
-proc/get_obj_screen_xy(obj/target_obj, client/viewer)
+/proc/get_obj_screen_xy(obj/target_obj, client/viewer)
 	var/atom/scrn_center = viewer.virtual_eye
 	var/center_x
 	var/center_y
