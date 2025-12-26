@@ -160,7 +160,7 @@
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 
-	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
+	// Counts how many `Life()` ticks have occured on an SSD mob, for SSD handling. There isn't a `/mob`-level proc for SSD handling, so you must define one for any mob that you want to give SSD effects to.
 	var/player_logged = 0
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.

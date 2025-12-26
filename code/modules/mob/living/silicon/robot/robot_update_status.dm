@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5) // Borgs need to be able to sleep for adminfreeze
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsSleeping() || IsWeakened() || getOxyLoss() > maxHealth * 0.5) // Borgs need to be able to sleep for adminfreeze
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
