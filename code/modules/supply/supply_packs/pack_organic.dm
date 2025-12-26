@@ -205,7 +205,7 @@
 	announce_beacons = list("Bar" = list("Bar"))
 
 /datum/supply_packs/organic/juice_boxes
-	name = "Juice Boxes Variety Pack"
+	name = "Stationside Juice Boxes Variety Pack"
 	contains = list(/obj/item/storage/fancy/juice_boxes/full,
 		/obj/item/storage/fancy/juice_boxes/full,
 		/obj/item/storage/fancy/juice_boxes/full,

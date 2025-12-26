@@ -14,8 +14,8 @@
 	. = ..()
 
 	var/datum/reagent/drink_reagent = reagents.get_master_reagent()
-	name = "[drink_reagent.name] Box"
-	desc = "A carton of [lowertext(drink_reagent.name)]."
+	name = "Stationside [drink_reagent.name] Box"
+	desc = "A carton of Stationside brand [lowertext(drink_reagent.name)]."
 
 /obj/item/reagent_containers/drinks/carton/apple
 	icon_state = "apple_box"

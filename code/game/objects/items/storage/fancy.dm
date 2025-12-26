@@ -564,7 +564,7 @@
 	new /obj/item/storage/bag/fish(src)
 
 /obj/item/storage/fancy/juice_boxes
-	name = "Juice Box Variety Pack"
+	name = "Stationside Juice Box Variety Pack"
 	desc = "Every flavor of juice boxes, right at your fingertips."
 	storage_slots = 12
 	// Fancier storage slots for that haphazardly-picked-over look
