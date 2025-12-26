@@ -73,7 +73,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
-		usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
+		usr << browse("", "window=PaperBundle[UID()]") // Closes the dialog
 		P = get_page()
 		P.item_interaction(user, used, modifiers)
 		return ITEM_INTERACT_COMPLETE

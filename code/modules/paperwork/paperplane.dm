@@ -65,7 +65,7 @@
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
-		internal_paper.item_interaction(user, P) //spoofed attack to update internal paper.
+		internal_paper.item_interaction(user, P) // spoofed attack to update internal paper.
 		update_icon()
 
 	else if(P.get_heat())

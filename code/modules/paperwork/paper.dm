@@ -431,7 +431,7 @@
 			user.IgniteMob()
 			return ITEM_INTERACT_COMPLETE
 
-		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+		if(!Adjacent(user)) // to prevent issues as a result of telepathically lighting a paper
 			return ITEM_INTERACT_COMPLETE
 
 		user.drop_item_to_ground(src)
