@@ -114,6 +114,9 @@ have ways of interacting with a specific mob and control it.
 	return ..()
 
 /datum/ai_controller/monkey/proc/set_trip_mode(mode = TRUE)
+	if(!ismonkeybasic(pawn)) // In case the monkey was humanized.
+		tripping = FALSE
+		return
 	tripping = mode
 
 /// re-used behavior pattern by monkeys for finding a weapon

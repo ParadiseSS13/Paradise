@@ -56,6 +56,12 @@
 	H.ai_controller = new /datum/ai_controller/monkey(H)
 	H.dna.blood_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
+/datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	if(H.ai_controller && istype(H.ai_controller, /datum/ai_controller/monkey))
+		var/datum/ai_controller/monkey/controller = H.ai_controller
+		controller.set_trip_mode(mode = FALSE)
+
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
