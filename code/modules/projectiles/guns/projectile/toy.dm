@@ -188,7 +188,6 @@
 
 /obj/item/gun/projectile/automatic/paintball_gun/update_overlays()
 	. = ..()
-	overlays.Cut()
 	if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
 		. += "paintgun-pepper[chambered ? "" : "-empty"]"
 		return
