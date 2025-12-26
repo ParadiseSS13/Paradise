@@ -1301,7 +1301,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_rolling_icon()
 
 	// Dead or incapacitated.
-	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode))
+	if(stat == DEAD || (IsParalyzed() || IsStunned() || IsSleeping() || IsWeakened() || low_power_mode))
 		overlays -= "eyes"
 	else if((base_icon_state in grouped_eye_names) || (base_icon_state in sprites_with_variants))
 		overlays += "eyes-[base_icon_state]"
@@ -1324,6 +1324,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	robot_module_hat_offset()
 	update_hat_icons()
 	update_fire()
+	if(player_logged) // make sure the SSD overlay stays
+		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 
 // Exists so that robot/destroyer can override it.
 /mob/living/silicon/robot/proc/update_rolling_icon()
