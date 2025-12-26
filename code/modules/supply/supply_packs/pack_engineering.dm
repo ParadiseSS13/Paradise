@@ -221,13 +221,22 @@
 	contains = list(
 	/obj/item/nuclear_rod/fuel/supermatter,
 	/obj/item/nuclear_rod/fuel/supermatter,
+	)
+	cost = 400
+	containername = "nuclear supermatter rod crate"
+
+/datum/supply_packs/engineering/nuclear_supermatter_kit
+	name = "Nuclear Supermatter Starter Crate"
+	contains = list(
+	/obj/item/nuclear_rod/fuel/supermatter,
+	/obj/item/nuclear_rod/fuel/supermatter,
 	/obj/item/nuclear_rod/coolant/steam_hammerjet,
 	/obj/item/nuclear_rod/coolant/steam_hammerjet,
 	/obj/item/nuclear_rod/moderator/plasma_agitator,
 	/obj/item/nuclear_rod/moderator/plasma_agitator
 	)
-	cost = 1000
-	containername = "nuclear supermatter rod crate"
+	cost = 800
+	containername = "nuclear supermatter starter crate"
 
 /datum/supply_packs/engineering/nuclear_moderator_rods
 	name = "Forged Nuclear Moderator crate"
