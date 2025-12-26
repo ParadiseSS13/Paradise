@@ -583,7 +583,7 @@
 	. += image('icons/obj/juice_box.dmi', "juice_box_box")
 	for(var/index in 1 to length(storage_slot_list))
 		var/obj/item/reagent_containers/drinks/carton/juice_type = storage_slot_list[index]
-		if (!istype(juice_type))
+		if(!istype(juice_type))
 			continue
 		if(!(juice_type.icon_state))
 			continue
@@ -613,7 +613,7 @@
 	. = ..()
 	if(!.)
 		return
-	if (!juice_box in contents)
+	if(!(juice_box in contents))
 		return
 
 	var/list/paramlist = params2list(params)
