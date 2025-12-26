@@ -58,7 +58,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/restraints/legcuffs/beartrap/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	//Let's get explosive.
+	// Let's get explosive.
 	if(istype(used, /obj/item/grenade/iedcasing))
 		if(IED)
 			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
