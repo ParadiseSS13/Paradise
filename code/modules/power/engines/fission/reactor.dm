@@ -1,4 +1,4 @@
-// the steps for repairing the reactor
+// The steps for repairing the reactor
 #define REACTOR_NEEDS_DIGGING 		1
 #define REACTOR_NEEDS_CROWBAR 		2
 #define REACTOR_NEEDS_PLASTITANIUM	3
@@ -13,12 +13,11 @@
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 //! The amount of connected chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.5 //! multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.5 //! Multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 450 //! a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 //! the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 50 //! The threshold the average heat-per-rod must exceed to generate coefficient.
-#define TOTAL_HEAT_THRESHOLD 600 //! the temp (in K) needed to begin generating coefficient.
+#define TOTAL_HEAT_THRESHOLD 600 //! The temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 //! How much heat over the threshold = an extra coefficient point.
 #define REACTIVITY_COEFFICIENT_CAP 30 //! The highest that reactivity coefficient can be
 
@@ -28,38 +27,35 @@
 #define NGCR_DANGER_PERCENT 50
 #define NGCR_WARNING_PERCENT 99
 #define CRITICAL_TEMPERATURE 10000
-#define WARNING_POINT 50 //! begin sending warning messages
+#define WARNING_POINT 50 //! Begin sending warning messages
 #define EMERGENCY_POINT 700 //! Begin sending warning messages over common
-#define MELTDOWN_POINT 1000 //! The dammage cap where meltdown occurs. higher = longer to meltdown
+#define MELTDOWN_POINT 1000 //! The damage cap where meltdown occurs. higher = longer to meltdown
 
 #define NGCR_COUNTDOWN_TIME 30 SECONDS //! How long the meltdown countdown lasts
-#define WARNING_DELAY 60 //! time in deciseconds between warnings
+#define WARNING_DELAY 60 //! Time in deciseconds between warnings
 
 #define HEAT_DAMAGE_RATE 500 //! The rate at which damage increases due to heat
 #define MOL_MINIMUM 30 //! The amount of mols of gas needed before it begins to take damage while operational
 #define PRESSURE_MAXIMUM 20000 //! The highest safe pressure allowed by the reactor
-#define PRESSURE_DAMAGE 0.5 //! the minimum damage caused by overpresurization
+#define PRESSURE_DAMAGE 0.5 //! The minimum damage caused by overpresurization
 #define DAMAGE_MINIMUM 0.002 //! The minimum amount of damage done when taking any damage
 #define DAMAGE_MAXIMUM 8 //! The highest amount of damage done when taking damage
-#define MOL_DAMAGE_MULTIPLIER 1 //! an adjuster for damage balance from no gas
-#define HEAT_DAMAGE_MULTIPLIER 1 //! an adjuster for damage balance from high heat
+#define MOL_DAMAGE_MULTIPLIER 1 //! An adjuster for damage balance from no gas
+#define HEAT_DAMAGE_MULTIPLIER 1 //! An adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 //! Adjusts the size of the engine explosion
 
-#define CHAMBER_HEAT_DAMAGE 15 //! How much damage reactor chambers do when on.
-
 #define MOLE_BONUS_THRESHOLD 800 //! The minimum number of moles needed to begin accruing multiplier.
-#define MOLE_BONUS_COMPONENT 250 //! how many moles are required for one "unit" of modifier increase. Used in the math calculation.
+#define MOLE_BONUS_COMPONENT 250 //! How many moles are required for one "unit" of modifier increase. Used in the math calculation.
 #define N2_OVERHEAT_BONUS 600 //! The overheat threshold bonus that N2 coolant provides
 #define N2_EVENT_MODIFIER 20 //! The negative event chance from N2.
 #define N2O_OVERHEAT_BONUS 300 //! The overheat threshold bonus that N2O coolant provides
 #define N2O_EVENT_MODIFIER 20 //! The negative event chance from N2O.
 #define CO2_EVENT_MODIFIER 60 //! The negative event chance from CO2.
 #define O2_EVENT_MODIFIER -50 //! The POSITIVE event chance from N2.
-#define O2_REACTIVITY_BONUS 0.8 //! the highest amount of reactivity that O2 coolant provides
-#define PLASMA_REACTIVITY_BONUS 0.2 //! the highest amount of reactivity that plasma coolant provides
+#define O2_REACTIVITY_BONUS 0.8 //! The highest amount of reactivity that O2 coolant provides
+#define PLASMA_REACTIVITY_BONUS 0.2 //! The highest amount of reactivity that plasma coolant provides
 #define PLASMA_OVERHEAT_BONUS 200 //! The overheat threshold bonus that plasma coolant provides
 
-/// MARK: Fission Reactor
 /obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
 	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."
@@ -85,9 +81,9 @@
 	var/reactivity_multiplier = 1
 	/// How many functional control rods does the reactor have?
 	var/control_rods_remaining = 5
-	/// what repair step is the reactor on?
+	/// What repair step is the reactor on?
 	var/repair_step = 1
-	/// the desired percentage the engineers set the reactor control rods
+	/// The desired percentage the engineers set the reactor control rods
 	var/desired_power = 0
 	/// What percentage are the reactor control rods running at? Minimum raised for each broken control rod
 	var/operating_power = 0
@@ -111,7 +107,7 @@
 	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT."
 	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	/// a boolean value for if we need to send out an alert. (usually during meltdowns)
+	/// A boolean value for if we need to send out an alert. (usually during meltdowns)
 	var/send_message = FALSE
 	/// Are we giving the final countdown to meltdown
 	var/final_countdown = FALSE
@@ -219,7 +215,7 @@
 /obj/machinery/atmospherics/fission_reactor/zap_act(power, zap_flags)
 	. = ..()
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
-		qdel(src) //like the singulo, tesla deletes it. stops it from exploding over and over
+		qdel(src) // Like the singulo, tesla deletes it. stops it from exploding over and over
 
 // This shouldnt happen normally
 /obj/machinery/atmospherics/fission_reactor/Destroy()
@@ -268,7 +264,7 @@
 		return
 
 	clear_reactor_network()
-	if(meltdown) // in case we dont want a violent explosion
+	if(meltdown) // Just in case we dont want a violent explosion
 		INVOKE_ASYNC(src, PROC_REF(meltdown))
 	else
 		icon_state = "broken"
@@ -451,7 +447,7 @@
 
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
-		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
+		if(!did_it_melt.density) // In case some joker finds way to place these on indestructible walls
 			reactor.visible_message(SPAN_INFORMATION("[src] melts through [T]!"))
 		return
 
@@ -463,13 +459,12 @@
 	var/pressure_delta = reactor.air_contents.return_pressure() - environment.return_pressure()
 	pressure_delta /= 10
 
-	// based on pressure_pump to equalize pressure
-	// already equalized
-	if(abs(pressure_delta) < 0.01)
+	// Based on pressure_pump to equalize pressure
+	if(abs(pressure_delta) < 0.01) 	// Already equalized
 		return FALSE
 	. = TRUE
 	if(pressure_delta > 0)
-		// transfer from pipe air to environment
+		// Transfer from pipe air to environment
 		if((reactor.air_contents.total_moles() > 0) && (reactor.air_contents.temperature() > 0))
 			var/transfer_moles = pressure_delta * reactor.air_contents.volume / (reactor.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			transfer_moles = min(transfer_moles, reactor.air_contents.volume)
@@ -478,7 +473,7 @@
 			environment.merge(removed)
 		return
 
-	// transfer from environment to pipe air
+	// Transfer from environment to pipe air
 	pressure_delta = -pressure_delta
 	if((environment.total_moles() > 0) && (environment.temperature() > 0))
 		var/transfer_moles = pressure_delta * reactor.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
@@ -506,7 +501,7 @@
 		return
 
 	var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
-	if(operating_power < minimum_power) // oops, control rods stuck
+	if(operating_power < minimum_power) // Oops, control rods stuck
 		operating_power++
 		update_appearance(UPDATE_OVERLAYS)
 	else
@@ -535,7 +530,7 @@
 			countdown()
 			return
 
-		// lets fake it a little
+		// Lets fake it a little
 		var/heat_capacity = air_contents.heat_capacity()
 		var/temp = air_contents.temperature()
 		if(heat_capacity && temp < CRITICAL_TEMPERATURE)
@@ -547,19 +542,19 @@
 		else
 			reactivity_multiplier = 20
 
-		damage += max(0.5, rand(1, DAMAGE_MAXIMUM * 20) / 20) // this wont actually blow us up early
+		damage += max(0.5, rand(1, DAMAGE_MAXIMUM * 20) / 20) // This wont actually blow us up early
 		return
 
-	final_power = 0 // full resets to be recalculated
+	final_power = 0 // Full resets to be recalculated
 	final_heat = 0
 
 	calculate_gas_effects()
 
 	// Calculate the durability loss for all rods in use
-	// lower operating power = more durability. Agorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
-	var/algorithm_decay = 0.077 // higher = steeper decline
+	// Lower operating power = more durability. Agorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
+	var/algorithm_decay = 0.077 // Higher = steeper decline
 	var/durability_loss = 1
-	if(operating_power <= 90) // full loss at 90% and above
+	if(operating_power <= 90) // Full loss at 90% and above
 		durability_loss = round(1 / (1 + 2.5 ** (-algorithm_decay * (operating_power - 65))), 0.01)
 	var/operating_rate = operating_rate()
 
@@ -574,7 +569,7 @@
 				active_chambers++
 				continue
 
-	// gather all our data from the chambers, and enrich if we need to
+	// Gather all our data from the chambers, and enrich if we need to
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -585,11 +580,11 @@
 		var/durability_mod = chamber.held_rod.get_durability_mod()
 		if(chamber.chamber_state == CHAMBER_DOWN)
 			if(chamber.operational) // We generate heat but not power while its down.
-				power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
+				power_total = chamber.power_total * durability_mod // Some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
 				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
 				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.heat_mod_total * operating_rate))
-					if(!chamber.enriching) // so we arnt constantly updating our overlay
+					if(!chamber.enriching) // So we arnt constantly updating our overlay
 						chamber.enriching = TRUE
 						chamber.update_icon(UPDATE_OVERLAYS)
 				else if(chamber.enriching)
@@ -611,7 +606,7 @@
 	var/total_mols = air_contents.total_moles()
 	if(!temp || !total_mols)
 		temp = 0
-	if(average_heatgen > AVERAGE_HEAT_THRESHOLD) // the base reactivity from average heat gen
+	if(average_heatgen > AVERAGE_HEAT_THRESHOLD) // The base reactivity from average heat gen
 		reactivity_multiplier = 1 + gas_reactivity_bonus + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
 	else
 		reactivity_multiplier = 1 + gas_reactivity_bonus
@@ -625,10 +620,10 @@
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
 
 
-	final_heat *= (reactivity_multiplier * 2) * HEAT_MODIFIER // proportionally affects heat more
+	final_heat *= (reactivity_multiplier * 2) * HEAT_MODIFIER // Proportionally affects heat more
 	final_power *= reactivity_multiplier
 
-	final_power = max(final_power, 0) // no negative numbers
+	final_power = max(final_power, 0) // No negative numbers
 
 	var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
 
@@ -651,7 +646,7 @@
 		if(temp < minimum_operating_temp)
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 200)) // RAPIDLY reach our minimum temperature or our normal heat gen. Whichever is higher
 		else if(temp > HEAT_CAP)
-			air_contents.set_temperature(temp + rand(3, 20)) // cap it but slowly gain until we get it down
+			air_contents.set_temperature(temp + rand(3, 20)) // Cap it but slowly gain until we get it down
 		else
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 
@@ -671,24 +666,24 @@
 		if(total_mols <= MOL_MINIMUM)
 			new_damage += max(((1 - (total_mols / MOL_MINIMUM)) * DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 		if(check_overheating())
-			// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
-			var/rate_of_decay = 1.13 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
+			// Breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
+			var/rate_of_decay = 1.13 // Closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
 			var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
 			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
-			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
+			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // God math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
 
 			var/pressure = air_contents.return_pressure()
 			if(pressure > PRESSURE_MAXIMUM)
 				new_damage += PRESSURE_DAMAGE
 
 			new_damage = clamp(new_damage, DAMAGE_MINIMUM, DAMAGE_MAXIMUM)
-			var/damage_multiplier = clamp(1 + ((50 - get_integrity()) / 25), 1, 3) // gives a higher event chance below 50% integrity, up to 3x
+			var/damage_multiplier = clamp(1 + ((50 - get_integrity()) / 25), 1, 3) // Gives a higher event chance below 50% integrity, up to 3x
 			damage_multiplier *= EVENT_MODIFIER * gas_event_modifier
 			if(final_countdown)
 				damage_multiplier = 10
 
 			// Eject a rod
-			if(prob(new_damage * damage_multiplier * 0.2))
+			if(prob(new_damage * damage_multiplier * 0.3))
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
@@ -711,10 +706,10 @@
 							failure.weld_shut()
 							break
 						else
-							valid_chambers -= failure // just keep cycling through.
+							valid_chambers -= failure // Just keep cycling through.
 
 			// Control rod failure.
-			if(prob(new_damage * damage_multiplier * 0.5) && control_rods_remaining > 0) // Control rod failure. more probable
+			if(prob(new_damage * damage_multiplier * 0.4) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
 			// Vent seal failure.
@@ -737,7 +732,7 @@
 	lastwarning = REALTIMEOFDAY
 	if(!new_damage)
 		radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
-		send_message = FALSE // only stop sending alerts when no damage has been taken
+		send_message = FALSE // Only stop sending alerts when no damage has been taken
 		return
 
 	switch(get_status())
@@ -820,7 +815,7 @@
 			if(!surface.on)
 				surface.turn_on()
 
-/// returns a value from 0 to 1 based off current operating power
+/// Returns a value from 0 to 1 based off current operating power
 /obj/machinery/atmospherics/fission_reactor/proc/operating_rate()
 	return operating_power / 100
 
@@ -830,10 +825,10 @@
 		return
 	final_countdown = TRUE
 	var/speaking = SPAN_REALLYBIG("[emergency_alert] Reactor structural stability compromised. ")
-	for(var/mob/M in GLOB.player_list) // for all players
+	for(var/mob/M in GLOB.player_list) // For ALL players
 		var/turf/T = get_turf(M)
-		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
-			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
+		if(istype(T) && atoms_share_level(T, src)) // If the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // Then send them the sound file
 	radio.autosay(speaking, name, null)
 	for(var/i in NGCR_COUNTDOWN_TIME to 0 step (-1 SECONDS))
 		if(admin_intervention) // Stop exploding if you're frozen by an admin, damn you
@@ -993,8 +988,8 @@
 /// Calculate all of the bonuses and detriments of using specific gasses.
 /obj/machinery/atmospherics/fission_reactor/proc/calculate_gas_effects()
 	gas_reactivity_bonus = 0
-	var/temp_bonus_holder = 0 // heat bounus container
-	var/temp_event_holder = 0 // event chance modifier in percentages. 0 to 100
+	var/temp_bonus_holder = 0 // Heat bounus container
+	var/temp_event_holder = 0 // Event chance modifier in percentages. 0 to 100
 	var/combined_gas = air_contents.total_moles()
 
 	// Math equasion for here: y = a + b * ln(x)
@@ -1003,14 +998,14 @@
 	var/gas_component = max((combined_gas - MOLE_BONUS_THRESHOLD) / MOLE_BONUS_COMPONENT, 0.01)
 	var/mole_multiplier = max((offset + curve_intensity * log(gas_component)), 0)
 
-	// raw composition of each gas in the chamber, ranges from 0 to 1
+	// Raw composition of each gas in the chamber, ranges from 0 to 1
 	var/n2comp = max(air_contents.nitrogen() / combined_gas, 0)
 	var/plasmacomp = max(air_contents.toxins() / combined_gas, 0)
 	var/o2comp = max(air_contents.oxygen() / combined_gas, 0)
 	var/co2comp = max(air_contents.carbon_dioxide() / combined_gas, 0)
 	var/n2ocomp = max(air_contents.sleeping_agent() / combined_gas, 0)
 
-	// dont put a mole multiplier on the event chances o
+	// Dont put a mole multiplier on the event chances
 	if(n2comp)
 		temp_bonus_holder += n2comp * N2_OVERHEAT_BONUS * mole_multiplier
 		temp_event_holder += n2comp * N2_EVENT_MODIFIER
@@ -1021,15 +1016,15 @@
 		temp_event_holder += co2comp * CO2_EVENT_MODIFIER * mole_multiplier
 	if(o2comp)
 		gas_reactivity_bonus += o2comp * O2_REACTIVITY_BONUS * mole_multiplier
-		temp_event_holder += o2comp * O2_EVENT_MODIFIER // this one actually should make events more likely
+		temp_event_holder += o2comp * O2_EVENT_MODIFIER // This one actually should make events more likely
 	if(plasmacomp)
 		gas_reactivity_bonus += plasmacomp * PLASMA_REACTIVITY_BONUS * mole_multiplier
 		temp_bonus_holder += plasmacomp * PLASMA_OVERHEAT_BONUS * mole_multiplier
 
-	temp_event_holder /= 100 // bring between 0 and 1
+	temp_event_holder /= 100 // Bring between 0 and 1
 	gas_event_modifier = 1 - temp_event_holder
 
-	// replace the old bonus witht he new one
+	// Replace the old bonus witht he new one
 	update_overheat_threshold(-gas_overheat_bonus)
 	update_overheat_threshold(temp_bonus_holder)
 	gas_overheat_bonus = temp_bonus_holder
@@ -1043,945 +1038,6 @@
 	sleep(5 SECONDS)
 	radio.autosay(SPAN_BIG("Response teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty."), "Automated Announcement", "Special Ops")
 	prep_overload()
-
-/// MARK: Rod Chamber
-
-/obj/machinery/atmospherics/reactor_chamber
-	name = "rod housing chamber"
-	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
-	icon = 'icons/obj/fission/reactor_chamber.dmi'
-	icon_state = "chamber_down"
-	layer = BELOW_OBJ_LAYER
-	pass_flags_self = PASSTAKE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
-	max_integrity = 400
-	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // fairly robust
-	idle_power_consumption = 100
-	flags_2 = NO_MALF_EFFECT_2
-
-	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
-	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
-	/// Holds the specific rod inserted into the chamber
-	var/obj/item/nuclear_rod/held_rod
-	/// Is the chamber up, down, or open
-	var/chamber_state = 1
-	/// Has the requirements for the rod inside this chamber been met?
-	var/requirements_met = FALSE
-	/// Is the rod chamber actively running and providing its effects
-	var/operational = FALSE
-	/// Holds the list of linked neighbors
-	var/list/neighbors = list()
-	/// skip this chamber when building links
-	var/skip_link = FALSE
-	/// The total amount of heat produced by this chamber
-	var/heat_total
-	/// The total amount of power produced by this rod
-	var/power_total
-	/// Is the chamber currently in an enrichment process
-	var/enriching = FALSE
-	/// Has the chamber been welded shut. Uh oh!
-	var/welded = FALSE
-	/// Holds the current accumulated power mod value from its neighbors
-	var/power_mod_total = 1
-	/// Holds the current accumulated power mod value from its neighbors
-	var/heat_mod_total = 1
-	/// A simple binary to prevent open/close spam mucking up the anims
-	var/lockout = FALSE
-	/// holds our durability bar overlay level. Updates overlays if it changes
-	var/durability_level = 0
-	/// holds our previous overlay.
-	var/previous_durability_level
-
-/obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
-	. = ..()
-	dupe_check()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/reactor_chamber(null)
-	component_parts += new /obj/item/stock_parts/manipulator(src)
-	component_parts += new /obj/item/stack/sheet/mineral/plastitanium(src, 2)
-	component_parts += new /obj/item/stack/sheet/metal(src, 2)
-	component_parts += new /obj/item/stack/cable_coil(src, 5)
-	RefreshParts()
-	update_icon(UPDATE_OVERLAYS)
-	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(deep_examine))
-	return INITIALIZE_HINT_LATELOAD
-
-// needs to be late so it does not initialize before the reactor or the other neighbors are ready
-/obj/machinery/atmospherics/reactor_chamber/LateInitialize()
-	. = ..()
-	find_link()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/uranium
-
-/obj/machinery/atmospherics/reactor_chamber/uranium/Initialize(mapload)
-	. = ..()
-	held_rod = new /obj/item/nuclear_rod/fuel/uranium_238(src)
-
-/obj/machinery/atmospherics/reactor_chamber/heavy_water
-
-/obj/machinery/atmospherics/reactor_chamber/heavy_water/Initialize(mapload)
-	. = ..()
-	held_rod = new /obj/item/nuclear_rod/moderator/heavy_water(src)
-
-/obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
-	. = ..()
-	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder using harm intent, but only while the chamer is lowered.")
-	. += SPAN_NOTICE("<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.")
-	. += SPAN_NOTICE("<span class='notice'>Click on the chamber while it is closed to raise and lower it.")
-	. += ""
-
-	if(isobserver(user))
-		deep_examine(user)
-
-/obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
-	if(linked_reactor)
-		desync()
-	if(held_rod) // we shouldnt be able to decon with this in, but just in case
-		if(held_rod.reactor_overheat_modifier)
-			linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
-		held_rod.forceMove(loc)
-		held_rod = null
-	return ..()
-
-/obj/machinery/atmospherics/reactor_chamber/Destroy()
-	if(held_rod && held_rod.reactor_overheat_modifier)
-		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
-	QDEL_NULL(held_rod)
-	if(linked_reactor)
-		desync()
-	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
-	return ..()
-
-/obj/machinery/atmospherics/reactor_chamber/update_icon_state()
-	return
-
-/obj/machinery/atmospherics/reactor_chamber/update_overlays()
-	. = ..()
-	overlays.Cut()
-	if(welded)
-		var/mutable_appearance/weld_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.03)
-		weld_overlay.icon_state = "welded"
-		. += weld_overlay
-	if(chamber_state == CHAMBER_OPEN)
-		var/mutable_appearance/cover_icon = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.02)
-		cover_icon.icon = icon
-		cover_icon.icon_state = "door_open"
-		. += cover_icon
-
-	if(!held_rod)
-		return
-	if(chamber_state == CHAMBER_OPEN)
-		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.01)
-		rod_overlay.icon = icon
-		if(istype(held_rod, /obj/item/nuclear_rod/fuel))
-			rod_overlay.icon_state = "fuel_overlay"
-		if(istype(held_rod, /obj/item/nuclear_rod/coolant))
-			rod_overlay.icon_state = "coolant_overlay"
-		if(istype(held_rod, /obj/item/nuclear_rod/moderator))
-			rod_overlay.icon_state = "moderator_overlay"
-		. += rod_overlay
-
-	var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
-	state_overlay.icon = icon
-	if(chamber_state == CHAMBER_DOWN)
-		if(enriching)
-			state_overlay.icon_state = "blue"
-		else if(requirements_met)
-			if(operational)
-				state_overlay.icon_state = "green"
-			else
-				state_overlay.icon_state = "orange"
-		else
-			if(operational)
-				state_overlay.icon_state = "orange"
-			else
-				state_overlay.icon_state = "red"
-
-		var/mutable_appearance/display_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
-		if(istype(held_rod, /obj/item/nuclear_rod/fuel))
-			display_overlay.icon_state = "display_fuel"
-		if(istype(held_rod, /obj/item/nuclear_rod/moderator))
-			display_overlay.icon_state =  "display_moderator"
-		if(istype(held_rod, /obj/item/nuclear_rod/coolant))
-			display_overlay.icon_state =  "display_coolant"
-		. += display_overlay
-	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
-		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
-			state_overlay.icon_state = "orange"
-		else
-			state_overlay.icon_state = "red"
-	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
-		state_overlay.icon_state = "overload"
-	. += state_overlay
-
-	var/mutable_appearance/durability_overlay = mutable_appearance(icon, layer = BELOW_OBJ_LAYER + 0.01)
-	durability_overlay.icon_state = "dur_[previous_durability_level]"
-	. += durability_overlay
-
-/// check for multiple on a tile and nuke it
-/obj/machinery/atmospherics/reactor_chamber/proc/dupe_check()
-	var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in range(0, src)
-	if(chamber && chamber != src)
-		visible_message(SPAN_WARNING("[src] has no room to deploy and breaks apart!"))
-		chamber.deconstruct()
-
-/obj/machinery/atmospherics/reactor_chamber/attack_hand(mob/user)
-	if(!user)
-		return
-	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, SPAN_WARNING("An unusual force prevents you from moving the chamber!"))
-		return
-	if(stat & NOPOWER)
-		to_chat(user, SPAN_WARNING("The chamber's locks wont disengage without power!"))
-		return
-
-	if(!is_mecha_occupant(user))
-		add_fingerprint(user)
-
-	switch(chamber_state)
-		if(CHAMBER_DOWN, CHAMBER_OVERLOAD_IDLE)
-			if(!Adjacent(user))
-				return
-			if(welded)
-				to_chat(user, SPAN_WARNING("[src] is welded shut. It wont budge!"))
-				return
-			if(!density_check(user))
-				return
-			var/delay = 1 SECONDS
-			if(linked_reactor && !linked_reactor.offline)
-				delay = 8 SECONDS
-				if(!is_mecha_occupant(user)) // mech users are unaffected
-					burn_handler(user)
-			if(do_after_once(user, delay, target = src, allow_moving = FALSE))
-				if(!Adjacent(user)) // for mecha users
-					return
-				if(density_check(user))
-					raise()
-				return
-
-		if(CHAMBER_UP)
-			if(!density_check(user))
-				return
-			if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
-				if(chamber_state != CHAMBER_UP) // so that we cant lower while in the open state
-					return
-				if(density_check(user))
-					lower()
-				return
-
-		if(CHAMBER_OPEN)
-			if(issilicon(user)) // handled seperately. Dont pull out this way
-				return
-			if(!held_rod)
-				to_chat(user, SPAN_WARNING("There is no rod inside of the chamber to remove!"))
-				return
-			if(user.put_in_hands(held_rod))
-				held_rod.add_fingerprint(user)
-				held_rod = null
-				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
-				update_icon(UPDATE_OVERLAYS)
-				return
-
-			to_chat(user, SPAN_WARNING("Your hands are currently full!"))
-			return
-		if(CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, SPAN_ALERT("The chamber lockdowns have been engaged, preventing it from being raised!"))
-			return
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/AltClick(mob/user, modifiers)
-	if(!Adjacent(user) || lockout)
-		return
-	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, SPAN_WARNING("An unusual force prevents you from manipulating the chamber!"))
-		return
-	if(chamber_state == CHAMBER_UP)
-		if(!lockout)
-			open()
-		return
-	if(chamber_state == CHAMBER_OPEN)
-		if(panel_open == TRUE)
-			to_chat(user, SPAN_WARNING("You must close the maintenance panel before the chamber can be sealed!"))
-			return
-		if(!lockout)
-			close()
-		return
-
-/obj/machinery/atmospherics/reactor_chamber/proc/density_check(mob/user)
-	for(var/atom/thing in get_turf(src))
-		if(thing == src)
-			continue
-		if(thing.density)
-			to_chat(user, SPAN_WARNING("The chamber is being blocked from opening!"))
-			return FALSE
-	return TRUE
-
-/obj/machinery/atmospherics/reactor_chamber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(issilicon(user) && get_dist(src, user) > 1)
-		attack_hand(user)
-		return ITEM_INTERACT_COMPLETE
-
-	if(istype(used, /obj/item/nuclear_rod))
-		if(chamber_state == CHAMBER_OPEN)
-			if(!held_rod)
-				if(panel_open)
-					to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
-				if(user.transfer_item_to(used, src, force = TRUE))
-					held_rod = used
-					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
-					update_icon(UPDATE_OVERLAYS)
-					return ITEM_INTERACT_COMPLETE
-
-/obj/machinery/atmospherics/reactor_chamber/screwdriver_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	. = TRUE
-	if(chamber_state != CHAMBER_OPEN)
-		to_chat(user, SPAN_ALERT("[src] must be raised and opened first!"))
-		return
-	if(linked_reactor && !linked_reactor.offline)
-		to_chat(user, SPAN_ALERT("The safety locks prevent maintenance while the reactor is on!"))
-		return
-	if(held_rod)
-		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if a rod inside."))
-		return
-	default_deconstruction_screwdriver(user, "chamber_maint", "chamber_open", I)
-
-/obj/machinery/atmospherics/reactor_chamber/crowbar_act(mob/living/user, obj/item/I)
-	. = TRUE
-	default_deconstruction_crowbar(user, I)
-
-/obj/machinery/atmospherics/reactor_chamber/welder_act(mob/living/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		if(chamber_state == CHAMBER_OVERLOAD_IDLE || chamber_state == CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, SPAN_WARNING("You probably shouldnt try to weld it right now."))
-			return ITEM_INTERACT_COMPLETE
-		if(chamber_state != CHAMBER_DOWN)
-			return ITEM_INTERACT_COMPLETE
-		to_chat(user, SPAN_WARNING("You begin [welded ? "welding" : "unwelding"] [src]"))
-		if(!I.use_tool(src, user, (6 SECONDS) * I.toolspeed, volume = I.tool_volume))
-			return ITEM_INTERACT_COMPLETE
-		if(welded)
-			unweld()
-		else
-			weld_shut()
-		update_icon(UPDATE_OVERLAYS)
-		return ITEM_INTERACT_COMPLETE
-	if(obj_integrity < max_integrity)
-		to_chat(user, SPAN_WARNING("You begin repairing [src]"))
-		if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
-			return ITEM_INTERACT_COMPLETE
-		obj_integrity = max_integrity // lets make sure we can keep these healthy if need be
-	else
-		to_chat(user, SPAN_WARNING("[src] is not in need of repair"))
-		return ITEM_INTERACT_COMPLETE
-
-
-/obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
-	. = TRUE
-	deep_examine(user)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(mob/user)
-	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
-
-	if(chamber_state != CHAMBER_DOWN)
-		return
-	if(!held_rod)
-		to_chat(user, SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
-		return ITEM_INTERACT_COMPLETE
-	if(!linked_reactor)
-		to_chat(user, SPAN_WARNING("This chamber is not connected to a reactor."))
-		return ITEM_INTERACT_COMPLETE
-	var/operating_rate = linked_reactor.operating_rate()
-	var/durability_mod = held_rod.get_durability_mod()
-	var/list/message = list()
-	message += SPAN_NOTICE("[held_rod] is currently contained within this chamber.")
-
-	message += ""
-
-	if(held_rod.durability == 0)
-		message += SPAN_NOTICE("The rod has been fully depleted and rendered inert.")
-		to_chat(user, message)
-		return ITEM_INTERACT_COMPLETE
-	else
-		message += SPAN_NOTICE("Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.")
-
-	message += ""
-
-	if(power_total && operational)
-		message += SPAN_NOTICE("The chamber is currently producing [(power_total * operating_rate * durability_mod) / 1000] KiloWatts of energy.")
-		message += SPAN_NOTICE("The chamber has a power modifier of [power_mod_total].")
-	else
-		message += SPAN_NOTICE("The chamber is producing no power.")
-	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
-		var/obj/item/nuclear_rod/fuel/rod = held_rod
-		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-			message += SPAN_NOTICE("[held_rod] has been power enriched")
-		else
-			message += SPAN_NOTICE("[held_rod] has not yet finished a power enrichment process.")
-
-	message += ""
-
-	if(heat_total)
-		message += SPAN_NOTICE("The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.")
-		message += SPAN_NOTICE("The chamber has a heat modifier of [heat_mod_total].")
-	else
-		message += SPAN_NOTICE("The chamber is producing no heat.")
-	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
-		var/obj/item/nuclear_rod/fuel/rod = held_rod
-		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
-			message += SPAN_NOTICE("[held_rod] has been heat enriched")
-		else
-			message += SPAN_NOTICE("[held_rod] has not yet finished a heat enrichment process.")
-
-	to_chat(user, chat_box_examine(message.Join("<br>")))
-	return ITEM_INTERACT_COMPLETE
-
-/obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
-	chamber_state = CHAMBER_UP
-	icon_state = "chamber_up_anim"
-	lockout = TRUE
-	addtimer(CALLBACK(src, PROC_REF(finish_raise_anim)), 0.7 SECONDS)
-	density = TRUE
-	operational = FALSE
-	enriching = FALSE
-	requirements_met = FALSE
-	layer = ABOVE_MOB_LAYER
-	power_total = 0
-	check_minimum_modifier()
-	if(held_rod && held_rod.reactor_overheat_modifier)
-		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
-	if(playsound)
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
-		if(linked_reactor.offline)
-			held_rod.start_rads()
-		else
-			held_rod.start_rads(linked_reactor.reactivity_multiplier)
-
-	update_icon()
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-		if(!chamber.held_rod)
-			return
-		if(chamber.check_status())
-			chamber.requirements_met = TRUE
-		else
-			chamber.requirements_met = FALSE
-
-/obj/machinery/atmospherics/reactor_chamber/proc/finish_raise_anim()
-	lockout = FALSE
-	icon_state = "chamber_up"
-
-/obj/machinery/atmospherics/reactor_chamber/proc/lower(playsound = TRUE)
-	density = FALSE
-	layer = BELOW_OBJ_LAYER
-	if(playsound)
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-
-	if(linked_reactor && linked_reactor.safety_override)
-		chamber_state = CHAMBER_OVERLOAD_IDLE
-		icon_state = "chamber_overload"
-		if(linked_reactor.check_overload_ready())
-			linked_reactor.set_overload()
-		update_icon()
-		return
-
-	chamber_state = CHAMBER_DOWN
-	icon_state = "chamber_down_anim"
-	addtimer(CALLBACK(src, PROC_REF(finish_down_anim)), 1.3 SECONDS)
-
-	if(!held_rod)
-		update_icon()
-		return
-
-	held_rod.stop_rads()
-	if(held_rod.reactor_overheat_modifier)
-		linked_reactor.update_overheat_threshold(held_rod.reactor_overheat_modifier)
-	previous_durability_level = clamp(ROUND_UP((held_rod.durability / held_rod.max_durability) - 20), 0, 6)
-	if(check_status())
-		requirements_met = TRUE
-	else
-		requirements_met = FALSE
-	check_minimum_modifier()
-	update_icon()
-
-/obj/machinery/atmospherics/reactor_chamber/proc/finish_down_anim()
-	icon_state = "chamber_down"
-
-/obj/machinery/atmospherics/reactor_chamber/proc/close(playsound = TRUE)
-	chamber_state = CHAMBER_UP
-	new /obj/effect/temp_visual/chamber_closing(loc)
-	addtimer(CALLBACK(src, PROC_REF(finish_closing)), 0.5 SECONDS)
-	lockout = TRUE
-	if(playsound)
-		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/finish_closing()
-	lockout = FALSE
-	icon_state = "chamber_up"
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/open(playsound = TRUE)
-	chamber_state = CHAMBER_OPEN
-	icon_state = "chamber_open"
-	var/cover_icon = mutable_appearance(icon, icon_state = "doors_opening", layer = ABOVE_ALL_MOB_LAYER + 0.02)
-	add_overlay(cover_icon)
-	lockout = TRUE
-	addtimer(CALLBACK(src, PROC_REF(finish_opening)), 0.5 SECONDS)
-	if(playsound)
-		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/finish_opening()
-
-	lockout = FALSE
-
-/obj/machinery/atmospherics/reactor_chamber/proc/set_idle_overload()
-	if(chamber_state == CHAMBER_DOWN)
-		chamber_state = CHAMBER_OVERLOAD_IDLE
-		icon_state = "chamber_overload"
-	if(welded)
-		welded = FALSE
-	operational = FALSE
-	enriching = FALSE
-	requirements_met = FALSE
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/set_active_overload()
-	chamber_state = CHAMBER_OVERLOAD_ACTIVE
-	icon_state = "chamber_down"
-	update_icon(UPDATE_OVERLAYS)
-
-/// Gets the neighbors of the current chamber, and adds itself to its neighbors. can prompt a cascade of linking
-/obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
-	for(var/direction in GLOB.cardinal)
-		var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in get_step(src, direction)
-		if(!chamber)
-			continue
-		if(chamber.linked_reactor && chamber.linked_reactor != linked_reactor) // if for some god forsaken reason we have two
-			continue
-		if((chamber in neighbors) || (src in chamber.neighbors))
-			continue
-		neighbors += chamber
-		chamber.neighbors += src
-		if(!chamber.linked_reactor)
-			chamber.linked_reactor = linked_reactor
-			linked_reactor.connected_chambers += chamber
-			chamber.get_neighbors()
-
-///  Removes the chamber from neighbor from its neighbors, and forces them to run status checks
-/obj/machinery/atmospherics/reactor_chamber/proc/desync()
-	if(length(neighbors)) // for when we need to rerun this
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-			chamber.neighbors -= src
-		neighbors.Cut()
-	if(linked_reactor)
-		linked_reactor.connected_chambers -= src
-		linked_reactor.clear_reactor_network(restart = TRUE)
-
-
-/// Forms the two-way link between the reactor and the chamber, then searches for valid neighbors.
-/obj/machinery/atmospherics/reactor_chamber/proc/form_link(obj/machinery/atmospherics/fission_reactor/reactor)
-	if(linked_reactor || skip_link) // prevent duplicate linking or unwanted chambers
-		return
-	linked_reactor = reactor
-	linked_reactor.connected_chambers |= src
-	get_neighbors()
-
-/// Searches for a valid reactor or linked chamber nearby
-/obj/machinery/atmospherics/reactor_chamber/proc/find_link()
-	if(linked_reactor) // we already have a linked reactor
-		return
-	var/turf/nearby_turf
-	for(var/direction in GLOB.cardinal)
-		nearby_turf = get_step(src, direction)
-		var/obj/machinery/atmospherics/fission_reactor/reactor = locate() in nearby_turf
-		if(reactor)
-			form_link(reactor)
-			return TRUE
-		var/obj/structure/filler/filler = locate() in nearby_turf
-		if(filler &&istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
-			form_link(filler.parent)
-			return TRUE
-		var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in nearby_turf
-		if(chamber &&chamber.linked_reactor)
-			form_link(chamber.linked_reactor)
-			return TRUE
-	return FALSE
-
-/// Validates that all rod requirements are being met
-/obj/machinery/atmospherics/reactor_chamber/proc/check_status()
-	if(!held_rod)
-		return FALSE
-
-	var/list/temp_requirements = list()
-	temp_requirements += held_rod.adjacent_requirements // A temporary modable holder
-	if(!temp_requirements)
-		return TRUE
-
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber as anything in neighbors)
-		if(!chamber.operational)
-			continue
-		if(chamber.held_rod.type in temp_requirements)
-			temp_requirements -= chamber.held_rod.type
-			continue
-		for(var/requirement in temp_requirements)
-			if(chamber.held_rod.type in typesof(requirement))
-				temp_requirements -= requirement
-				break
-
-	if(!length(temp_requirements))
-		return TRUE
-
-	return FALSE
-
-/obj/machinery/atmospherics/reactor_chamber/process()
-	if(!linked_reactor)
-		if(find_link())
-			get_neighbors()
-		return
-	if(linked_reactor.admin_intervention)
-		return
-	if(!held_rod)
-		return
-	if(chamber_state != CHAMBER_DOWN) // we should only process reactor info when down
-		return
-	durability_level = clamp(ROUND_UP(((held_rod.durability / held_rod.max_durability) * 5) - 0.8), 0, 5)
-	if(durability_level != previous_durability_level)
-		previous_durability_level = durability_level
-		update_icon(UPDATE_OVERLAYS)
-	if(!linked_reactor.offline)
-		held_rod.calc_stat_decrease() // only need to re-calc durability loss when the chamber is down and reactor is online
-	if(linked_reactor && linked_reactor.safety_override && !linked_reactor.control_lockout) // we only remove control lockout when the others are ready
-		if(chamber_state == CHAMBER_OVERLOAD_IDLE && istype(held_rod, /obj/item/nuclear_rod/fuel))
-			set_active_overload() // for latejoiners
-	if(!requirements_met && !operational)
-		if(check_status())
-			requirements_met = TRUE
-			update_icon(UPDATE_OVERLAYS)
-			return
-	if(requirements_met && !operational)
-		if(prob(20))
-			operational = TRUE
-			update_icon(UPDATE_OVERLAYS)
-			return
-	if(!requirements_met && operational) // if it loses requirements, it wont immediately turn off
-		if(istype(held_rod.type, /obj/item/nuclear_rod/coolant))
-			if(prob(10)) // higher rates of coolant rod failures once they're already on. Good luck.
-				operational = FALSE
-				update_icon(UPDATE_OVERLAYS)
-		else if(prob(1))
-			enriching = FALSE
-			operational = FALSE
-			update_icon(UPDATE_OVERLAYS)
-		return
-
-/obj/machinery/atmospherics/reactor_chamber/process_atmos()
-	if(!held_rod || !linked_reactor || linked_reactor.offline)
-		return
-	if(chamber_state != CHAMBER_OPEN && chamber_state != CHAMBER_UP)
-		return
-	if(linked_reactor.admin_intervention)
-		return
-
-	var/datum/milla_safe/chamber_process/milla = new()
-	milla.invoke_async(src)
-
-/datum/milla_safe/chamber_process
-
-/datum/milla_safe/chamber_process/on_run(obj/machinery/atmospherics/reactor_chamber/chamber)
-	var/turf/T = get_turf(chamber)
-	var/datum/gas_mixture/environment = get_turf_air(T)
-
-	if(isnull(T)) // We have a null turf...something is wrong, stop processing this entity.
-		return PROCESS_KILL
-
-	if(!istype(chamber.loc, /turf)) // how in the FUCK did we manage this
-		return  //Yeah just stop.
-
-	if(T.density)
-		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
-		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			chamber.visible_message(SPAN_WARNING("[src] melts through [T]!"))
-		return
-
-	var/heat_capacity = environment.heat_capacity()
-	var/heat_change = max(chamber.heat_total / heat_capacity) * HEAT_MODIFIER // the hotter the rod, the hotter the air
-	var/temp = environment.temperature()
-	if(chamber.chamber_state == CHAMBER_UP) // its not fully exposed yet, and heating the reactor
-		heat_change *= 0.25
-	heat_change = max(heat_change, 1) //always heat up at least a little
-	environment.set_temperature(temp + heat_change)
-
-/// Calculate how much heat and energy we should be making
-/obj/machinery/atmospherics/reactor_chamber/proc/calculate_stats(operating_rate = 0)
-	power_total = (held_rod.power_amount * operating_rate)
-	heat_total = (held_rod.heat_amount * operating_rate)
-
-	power_mod_total = 1
-	heat_mod_total = 1
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
-			continue
-		if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && !chamber.operational) // Do not apply negative heat gen on coolant when not on.
-			heat_mod_total *= 1
-		else if(held_rod.heat_amount > 0) // Do not multiply negative heat.
-			heat_mod_total *= chamber.held_rod.current_heat_mod // we generate heat even when its not operational
-		if(operational && chamber.chamber_state == CHAMBER_DOWN)
-			if(held_rod.power_amount > 0) // Do not multiply negative power.
-				power_mod_total *= chamber.held_rod.current_power_mod
-
-	power_total *= power_mod_total
-	heat_total *= heat_mod_total
-
-/obj/machinery/atmospherics/reactor_chamber/proc/eject_rod()
-	raise(FALSE)
-	open(FALSE)
-	var/datum/effect_system/smoke_spread/bad/smoke = new()
-	smoke.set_up(5, FALSE, loc)
-	smoke.start()
-	var/rad_type = pick(ALPHA_RAD, BETA_RAD, GAMMA_RAD)
-	for(var/turf/T in view(2, loc))
-		T.contaminate_atom(src, 300, rad_type)
-	var/distance_traveled = rand(6, 20)
-	var/angle = rand(0, 360)
-	var/turf/end = get_turf_in_angle(angle, loc, distance_traveled)
-	var/obj/effect/immovablerod/nuclear_rod/nuclear_rod = new(loc, end)
-	var/matrix/M = new
-	M.Turn(angle)
-	nuclear_rod.transform = M
-	nuclear_rod.icon = held_rod.icon
-	nuclear_rod.icon_state = held_rod.icon_state
-	nuclear_rod.held_rod = held_rod
-	held_rod.forceMove(src)
-	held_rod = null
-	update_icon(UPDATE_OVERLAYS)
-	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
-	audible_message("POW!")
-
-/obj/machinery/atmospherics/reactor_chamber/proc/weld_shut()
-	welded = TRUE
-	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/unweld()
-	welded = FALSE
-	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/burn_handler(mob/user)
-	var/burn_damage = CHAMBER_HEAT_DAMAGE
-	if(linked_reactor.check_overheating()) // ouch, even hotter!
-		burn_damage *= 2
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.gloves)
-			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.max_heat_protection_temperature)
-				burn_damage *= 0.5
-			else if(HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
-				burn_damage *= 0.5
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-		if(affecting.receive_damage(0, burn_damage)) // burn damage to them fingers
-			H.UpdateDamageIcon()
-			H.updatehealth()
-	else if(isliving(user))
-		var/mob/living/L = user
-		if(issilicon(L)) // more resistant by default
-			burn_damage *= 0.5
-		L.adjustFireLoss(burn_damage)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/check_minimum_modifier()
-	if(!linked_reactor)
-		return
-	if(!held_rod)
-		return
-	if(!held_rod.minimum_temp_modifier)
-		return
-	if(held_rod.minimum_temp_modifier >= linked_reactor.minimum_operating_temp)
-		linked_reactor.update_minimum_temp()
-
-/obj/effect/immovablerod/nuclear_rod
-	name = "\improper Nuclear Coolant Rod"
-	desc = "Oh fuck this shouldnt be happening."
-	notify = FALSE
-	var/obj/held_rod
-
-/// lets not break the reactor with this.
-/obj/effect/immovablerod/nuclear_rod/clong_thing(atom/victim)
-	if(istype(victim, /obj/machinery/atmospherics/fission_reactor))
-		return
-	if(istype(victim, /obj/structure/filler))
-		var/obj/structure/filler/filler = victim
-		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
-			return
-	if(istype(victim, /obj/machinery/atmospherics/reactor_chamber))
-		return
-
-	if(isobj(victim) && victim.density)
-		victim.ex_act(EXPLODE_HEAVY)
-	else if(ismob(victim))
-		if(ishuman(victim))
-			var/mob/living/carbon/human/H = victim
-			H.visible_message(SPAN_DANGER("[H.name] is penetrated by an ejected coolant rod!"),
-				SPAN_USERDANGER("The rod penetrates you!"),
-				SPAN_DANGER("You hear a CLANG!"))
-			H.adjustBruteLoss(100) // not as strong as a normal rod
-		if(victim.density || prob(20)) // we want to hit more things than a normal rod though
-			victim.ex_act(EXPLODE_HEAVY)
-
-/obj/effect/immovablerod/nuclear_rod/Move()
-	. = ..()
-	if(loc == end)
-		qdel(src)
-
-/obj/effect/immovablerod/nuclear_rod/Destroy()
-	held_rod.forceMove(end)
-	return ..()
-
-/// MARK: Gas Node
-
-/obj/machinery/atmospherics/unary/reactor_gas_node
-	name = "reactor gas intake"
-	desc = "A sturdy-looking gas inlet that injects gas into the reactor"
-	icon = 'icons/obj/fission/reactor_parts.dmi'
-	icon_state = "gas_node"
-	layer = GAS_PIPE_VISIBLE_LAYER
-	max_integrity = 2000
-	target_pressure = 100000 // maximum pressure in KPA
-	flags_2 = NO_MALF_EFFECT_2
-
-	/// Hold which reactor the intake is connected to.
-	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
-	/// Is this vent taking air in or out. TRUE by default.
-	var/intake_vent = TRUE
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/output
-	name = "Reactor Gas Extractor"
-	intake_vent = FALSE
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/reactor_gas_node(null)
-	component_parts += new /obj/item/stack/sheet/metal(src, 2)
-	component_parts += new /obj/item/stack/cable_coil(src, 2)
-	initialize_directions = dir
-	RefreshParts()
-	update_icon()
-	return INITIALIZE_HINT_LATELOAD
-
-// Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
-/obj/machinery/atmospherics/unary/reactor_gas_node/LateInitialize()
-	. = ..()
-	form_link()
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/examine(mob/user)
-	. = ..()
-	. += SPAN_NOTICE("A wrench can be used to alter the direction of the node.")
-	. += SPAN_NOTICE("Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.")
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
-	if(stat & (NOPOWER|BROKEN))
-		return FALSE
-	if(!linked_reactor)
-		return FALSE
-	if(linked_reactor.admin_intervention)
-		return FALSE
-	if(linked_reactor.safety_override) // we dont want to cool down an intentional runaway reactor
-		return FALSE
-	var/datum/gas_mixture/network1
-	var/datum/gas_mixture/network2
-
-	if(intake_vent)
-		network1 = linked_reactor.air_contents
-		network2 = air_contents
-	if(!intake_vent)
-		network1 = air_contents
-		network2 = linked_reactor.air_contents
-
-	if(!network1 || !network2)
-		return FALSE
-
-	// this is basically passive gate code
-	var/output_starting_pressure = network1.return_pressure()
-	var/input_starting_pressure = network2.return_pressure()
-
-	//Calculate necessary moles to transfer using PV = nRT
-	if((network2.total_moles() > 0) && (network2.temperature() > 0))
-		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure) / 2)
-		if(intake_vent)
-			pressure_delta = max(pressure_delta, 3) // always work at least a little bit when inputting gas
-		var/transfer_moles = pressure_delta * network1.volume / (network2.temperature() * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = network2.remove(transfer_moles)
-		network1.merge(removed)
-
-		parent.update = 1
-
-	return TRUE
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/screwdriver_act(mob/living/user, obj/item/I)
-	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
-	to_chat(user, SPAN_INFORMATION("You begin to pry out the internal piping..."))
-	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-		default_deconstruction_crowbar(user, I)
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
-	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
-	if(!selected)
-		return ITEM_INTERACT_COMPLETE
-	if(!Adjacent(user))
-		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-		return ITEM_INTERACT_COMPLETE
-	if(!Adjacent(user))
-		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
-		return ITEM_INTERACT_COMPLETE
-	dir = choices[selected]
-	initialize_directions = dir
-	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
-			break
-	form_link()
-	initialize_atmos_network()
-	update_icon()
-	return ITEM_INTERACT_COMPLETE
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/proc/form_link()
-	linked_reactor = null
-	var/turf/T = get_step(src, REVERSE_DIR(dir))
-	for(var/obj/machinery/atmospherics/fission_reactor/reactor in T)
-		linked_reactor = reactor
-	for(var/obj/structure/filler/filler in T)
-		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
-			linked_reactor = filler.parent
-
-/obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, SPAN_INFORMATION("You begin to reverse the gas flow direction..."))
-	if(do_after_once(user, 1 SECONDS, TRUE, src, allow_moving = FALSE))
-		intake_vent = !intake_vent
-		if(intake_vent)
-			name = "Reactor Gas Intake"
-		else
-			name = "Reactor Gas Extractor"
-	return ..()
-
-/obj/item/circuitboard/machine/reactor_gas_node
-	board_name = "Reactor Gas Node"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
-	origin_tech = "engineering=2"
-	req_components = list(
-		/obj/item/stack/cable_coil = 2,
-		/obj/item/stack/sheet/metal = 2,
-	)
 
 #undef REACTOR_NEEDS_DIGGING
 #undef REACTOR_NEEDS_CROWBAR
@@ -1999,7 +1055,6 @@
 
 #undef EVENT_MODIFIER
 
-#undef HEAT_MODIFIER
 #undef HEAT_CAP
 #undef AVERAGE_HEAT_THRESHOLD
 #undef TOTAL_HEAT_THRESHOLD
@@ -2027,8 +1082,6 @@
 #undef MOL_DAMAGE_MULTIPLIER
 #undef HEAT_DAMAGE_MULTIPLIER
 #undef EXPLOSION_MODIFIER
-
-#undef CHAMBER_HEAT_DAMAGE
 
 #undef MOLE_BONUS_THRESHOLD
 #undef MOLE_BONUS_COMPONENT

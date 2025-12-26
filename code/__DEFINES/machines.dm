@@ -45,6 +45,8 @@
 #define CHAMBER_OVERLOAD_IDLE	4
 #define CHAMBER_OVERLOAD_ACTIVE	5
 
+#define HEAT_MODIFIER 450 //! A flat multiplier for all reactor heat. Higher = more heat production.
+
 // More defines for the suppermatter
 /// Higher == Crystal safe operational temperature is higher.
 #define SUPERMATTER_HEAT_PENALTY_THRESHOLD 40

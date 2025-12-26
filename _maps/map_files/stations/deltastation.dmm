@@ -14389,11 +14389,6 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
-"bhk" = (
-/obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "bhn" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -15369,7 +15364,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bkK" = (
@@ -15881,6 +15876,7 @@
 /area/station/engineering/atmos)
 "bmv" = (
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bmw" = (
@@ -15892,7 +15888,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bmx" = (
@@ -25963,10 +25958,10 @@
 /area/station/engineering/ai_transit_tube)
 "bZl" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bZm" = (
@@ -50798,7 +50793,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "eFX" = (
@@ -51417,7 +51412,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "eQW" = (
@@ -51814,6 +51808,10 @@
 /obj/effect/turf_decal/tiles/neutral/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
+"fch" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos)
 "fcl" = (
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
@@ -56178,7 +56176,6 @@
 /area/station/hallway/primary/central/south)
 "gQp" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/atmospherics/portable/canister,
 /obj/machinery/camera{
 	c_tag = "Engine North";
 	network = list("SS13","Engineering")
@@ -56186,6 +56183,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "gQG" = (
@@ -58476,7 +58474,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room/secondary)
 "hUX" = (
@@ -61394,6 +61395,18 @@
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"jgX" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "jhk" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
@@ -62282,7 +62295,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "jCt" = (
@@ -63105,6 +63118,11 @@
 /obj/effect/turf_decal/tiles/department/security,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
+"jTs" = (
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "jTJ" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/table,
@@ -68867,7 +68885,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "mtx" = (
@@ -70250,6 +70267,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room/secondary)
@@ -72881,7 +72901,7 @@
 "ogd" = (
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/tiles/neutral,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "ogw" = (
@@ -94558,6 +94578,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
+"wNH" = (
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "wNJ" = (
 /obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
@@ -121734,11 +121762,11 @@ aYy
 bdo
 bgg
 fmZ
-ban
-ban
-ban
+wNH
+jTs
+jTs
 bmv
-aOg
+fch
 mYc
 jim
 vOG
@@ -121986,12 +122014,12 @@ beJ
 olO
 oyp
 ogd
-bhk
+jTs
 fFX
 bkJ
 eFM
 jCk
-eQM
+jgX
 eQM
 mtk
 bmw

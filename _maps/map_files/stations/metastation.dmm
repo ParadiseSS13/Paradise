@@ -12063,7 +12063,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/computer/sm_monitor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -12076,6 +12075,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/computer/fission_monitor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "btZ" = (
@@ -30369,7 +30369,8 @@
 	pixel_x = 3
 	},
 /obj/structure/disaster_counter/reactor{
-	pixel_x = -32
+	pixel_x = -32;
+	layer = 3.3
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -70840,18 +70841,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/misc_lab)
-"rHp" = (
-/obj/machinery/airlock_controller/access_controller{
-	name = "Turbine Access Console";
-	pixel_x = 40;
-	pixel_y = 8;
-	ext_door_link_id = "turbine_door_ext";
-	int_door_link_id = "turbine_door_int";
-	ext_button_link_id = "turbine_btn_ext";
-	int_button_link_id = "turbine_btn_int"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "rHu" = (
 /obj/docking_port/stationary/trader{
 	name = "Docking bay 4 at NSS Cerebron";
@@ -133017,7 +133006,7 @@ wbP
 wbP
 uNp
 rdm
-rHp
+rab
 bbC
 egm
 egm
