@@ -123,7 +123,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	for(var/skin in card_skins)
 		formatted.Add(list(list(
 			"display_name" = get_skin_desc(skin),
-			"skin" = skin)))
+			"skin" = skin,
+			"icon" = 'icons/obj/card.dmi')))
 	return formatted
 
 /obj/machinery/computer/card/AltClick(mob/user)
