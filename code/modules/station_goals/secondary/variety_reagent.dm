@@ -50,7 +50,7 @@
 		return
 
 	// No reagents? Ignore.
-	if(!AM.reagents?.reagent_list)
+	if(!length(AM.reagents?.reagent_list))
 		return
 
 	var/datum/reagent/reagent = AM.reagents.get_master_reagent()
