@@ -2726,6 +2726,7 @@
 #include "code\modules\mob\living\silicon\robot\robot_laws.dm"
 #include "code\modules\mob\living\silicon\robot\robot_life.dm"
 #include "code\modules\mob\living\silicon\robot\robot_login.dm"
+#include "code\modules\mob\living\silicon\robot\robot_logout.dm"
 #include "code\modules\mob\living\silicon\robot\robot_mob.dm"
 #include "code\modules\mob\living\silicon\robot\robot_module_actions.dm"
 #include "code\modules\mob\living\silicon\robot\robot_modules.dm"
