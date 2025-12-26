@@ -557,8 +557,6 @@
 		var/new_status = active.get_status()
 		if(last_status != new_status)
 			last_status = new_status
-			if(last_status == SUPERMATTER_ERROR)
-				last_status = SUPERMATTER_INACTIVE
 			icon_screen = "smmon_[last_status]"
 			update_icon()
 

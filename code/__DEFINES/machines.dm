@@ -30,6 +30,14 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+#define REACTOR_INACTIVE 0		// Reactor is not operational
+#define REACTOR_NORMAL 1		// Normal operation
+#define REACTOR_NOTIFY 2		// Above 90% of heat_damage_threshold
+#define REACTOR_WARNING 3		// Integrity < 99%
+#define REACTOR_DANGER 4		// Integrity < 50%
+#define REACTOR_EMERGENCY 5		// Integrity < 25%
+#define REACTOR_MELTDOWN 6		// Integrity < 5%
+
 // The states of nuclear reactor chambers.
 #define CHAMBER_DOWN	 		1
 #define CHAMBER_UP		 		2
