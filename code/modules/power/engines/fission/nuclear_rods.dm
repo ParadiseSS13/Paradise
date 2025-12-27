@@ -354,7 +354,7 @@
 	name = "plasma agitator"
 	desc = "A specialized moderator rod capable of inducing higher fission rates in fuel rods through a series of micro-burns. It doesn't last long."
 	icon_state = "mod_plasma"
-	max_durability = 2000
+	max_durability = 2250
 	heat_amount = 20
 	heat_amp_mod = 5
 	power_amp_mod = 3
@@ -450,7 +450,7 @@
 	name = "plasma injector"
 	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbant properties, small amounts are injected around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
 	icon_state = "coolant_plasma"
-	durability = 2500
+	durability = 1900
 	heat_amp_mod = 0.5
 	power_amp_mod = 1.5
 	craftable = TRUE
