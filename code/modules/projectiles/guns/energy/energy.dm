@@ -96,7 +96,6 @@
 	origin_tech = null
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/ion/hos)
-	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	shaded_charge = FALSE
 	can_holster = TRUE
@@ -180,7 +179,7 @@
 
 /obj/item/gun/energy/gun/turret/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>This weapon has no internal power source. It cannot function without being mounted in a turret frame!</span>"
+	. += SPAN_WARNING("This weapon has no internal power source. It cannot function without being mounted in a turret frame!")
 
 /obj/item/gun/energy/gun/turret/examine_more(mob/user)
 	..()
@@ -211,8 +210,8 @@
 
 /obj/item/gun/energy/gun/nuclear/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] contains a miniturised nuclear reactor that will slowly reacharge its power cell at all times. It can still be put into a gun charger for faster charging.</span>"
-	. += "<span class='notice'>Known to drive people mad by forcing them to wait for shots to recharge.</span>"
+	. += SPAN_NOTICE("[src] contains a miniturised nuclear reactor that will slowly reacharge its power cell at all times. It can still be put into a gun charger for faster charging.")
+	. += SPAN_NOTICE("Known to drive people mad by forcing them to wait for shots to recharge.")
 
 /obj/item/gun/energy/gun/nuclear/examine_more(mob/user)
 	..()

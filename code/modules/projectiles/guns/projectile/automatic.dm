@@ -41,12 +41,12 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(magazine)
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				to_chat(user, SPAN_NOTICE("You perform a tactical reload on \the [src], replacing the magazine."))
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 			else
-				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+				to_chat(user, SPAN_NOTICE("You insert the magazine into \the [src]."))
 			if(alarmed)
 				alarmed = 0
 			user.unequip(AM)
@@ -66,11 +66,11 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
+		to_chat(user, SPAN_NOTICE("You switch to semi-automatic."))
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		to_chat(user, SPAN_NOTICE("You switch to [burst_size] round burst."))
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
@@ -232,15 +232,15 @@
 			select = 1
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+			to_chat(user, SPAN_NOTICE("You switch to [burst_size] round burst."))
 		if(1)
 			select = 2
-			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
+			to_chat(user, SPAN_NOTICE("You switch to grenades."))
 		if(2)
 			select = 0
 			burst_size = 1
 			fire_delay = 0
-			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
+			to_chat(user, SPAN_NOTICE("You switch to semi-auto."))
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 
@@ -339,7 +339,7 @@
 		if(isstorage(loc))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc
 			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
-				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")
+				to_chat(user, SPAN_WARNING("You can't reload [src], with a XL mag, while it's in a normal bag."))
 				return
 	return ..()
 

@@ -23,23 +23,25 @@
 	imprinted_master = null
 	return ..()
 
-/obj/item/mmi/robotic_brain/attack_self__legacy__attackchain(mob/user)
+/obj/item/mmi/robotic_brain/activate_self(mob/user)
+	if(..())
+		return
 	if(isgolem(user))
-		to_chat(user, "<span class='warning'>Your golem fingers are too large to press the switch on [src].</span>")
+		to_chat(user, SPAN_WARNING("Your golem fingers are too large to press the switch on [src]."))
 		return
 	if(requires_master && !imprinted_master)
-		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		to_chat(user, SPAN_NOTICE("You press your thumb on [src] and imprint your user information."))
 		imprinted_master = user
 		return
 	if(brainmob && !brainmob.key && !searching && can_be_reinhabited)
 		//Start the process of searching for a new user.
-		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
+		to_chat(user, SPAN_NOTICE("You carefully locate the manual activation switch and start [src]'s boot process."))
 		request_player()
 	else
 		silenced = !silenced
-		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
+		to_chat(user, SPAN_NOTICE("You toggle the speaker [silenced ? "off" : "on"]."))
 		if(brainmob && brainmob.key)
-			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
+			to_chat(brainmob, SPAN_WARNING("Your internal speaker has been toggled [silenced ? "off" : "on"]."))
 
 /obj/item/mmi/robotic_brain/proc/request_player()
 	var/area/our_area = get_area(src)
@@ -67,13 +69,13 @@
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text].</span>")
+	to_chat(brainmob, SPAN_NOTICE("You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text]."))
 	become_occupied(occupied_icon)
 
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/H)
 	if(..())
 		if(imprinted_master)
-			to_chat(H, "<span class='biggerdanger'>You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost.</span>")
+			to_chat(H, SPAN_BIGGERDANGER("You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost."))
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
@@ -89,7 +91,7 @@
 		log_admin("[key_name(brainmob)] has joined as a robot brain, after having toggled antag hud.")
 		message_admins("[key_name(brainmob)] has joined as a robot brain, after having toggled antag hud.")
 
-	visible_message("<span class='notice'>[src] chimes quietly.</span>")
+	visible_message(SPAN_NOTICE("[src] chimes quietly."))
 	become_occupied(occupied_icon)
 
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
@@ -99,7 +101,7 @@
 	searching = FALSE
 	icon_state = blank_icon
 
-	visible_message("<span class='notice'>[src] buzzes quietly as the light fades out. Perhaps you could try again?</span>")
+	visible_message(SPAN_NOTICE("[src] buzzes quietly as the light fades out. Perhaps you could try again?"))
 
 /obj/item/mmi/robotic_brain/proc/volunteer(mob/dead/observer/user)
 	if(!searching)
@@ -107,20 +109,20 @@
 	if(brainmob && brainmob.key)
 		return // No, something is wrong, abort.
 	if(!istype(user) && !HAS_TRAIT(user, TRAIT_RESPAWNABLE))
-		to_chat(user, "<span class='warning'>Seems you're not a ghost. Could you please file an exploit report on the forums?</span>")
+		to_chat(user, SPAN_WARNING("Seems you're not a ghost. Could you please file an exploit report on the forums?"))
 		return
 	if(!validity_checks(user))
-		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
+		to_chat(user, SPAN_WARNING("You cannot be \a [src]."))
 		return
 	if(tgui_alert(user, "Are you sure you want to join as a robotic brain?", "Join as robobrain", list("Yes", "No")) != "Yes")
 		return
 	if(!searching)
 		return
 	if(!istype(user) && !HAS_TRAIT(user, TRAIT_RESPAWNABLE))
-		to_chat(user, "<span class='warning'>Seems you're not a ghost. Could you please file an exploit report on the forums?</span>")
+		to_chat(user, SPAN_WARNING("Seems you're not a ghost. Could you please file an exploit report on the forums?"))
 		return
 	if(!validity_checks(user))
-		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
+		to_chat(user, SPAN_WARNING("You cannot be \a [src]."))
 		return
 	transfer_personality(user)
 
@@ -150,11 +152,11 @@
 				if(!brainmob.client)
 					msg += "It appears to be in stand-by mode.\n" //afk
 			if(UNCONSCIOUS)
-				msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
+				msg += "[SPAN_WARNING("It doesn't seem to be responsive.")]\n"
 			if(DEAD)
-				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+				msg += "[SPAN_DEADSAY("It appears to be completely inactive.")]\n"
 	else
-		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+		msg += "[SPAN_DEADSAY("It appears to be completely inactive.")]\n"
 	msg += "</span>"
 	. += msg.Join("")
 
@@ -192,7 +194,7 @@
 	if(validity_checks(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
-		visible_message("<span class='notice'>[src] pings softly.</span>")
+		visible_message(SPAN_NOTICE("[src] pings softly."))
 
 /obj/item/mmi/robotic_brain/positronic
 	name = "positronic brain"

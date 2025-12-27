@@ -231,7 +231,7 @@
 
 /obj/item/mod/module/flashlight/on_activation()
 	if(!COOLDOWN_FINISHED(src, activation_cooldown))
-		to_chat(mod.wearer, "<span class='warning'>[src] isn't ready after being shut down!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("[src] isn't ready after being shut down!"))
 		return
 	. = ..()
 	if(!.)
@@ -264,7 +264,7 @@
 			if(isnull(value))
 				return
 			if(is_color_dark(value, 50))
-				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))
+				to_chat(mod.wearer, (SPAN_WARNING("That is too dark")))
 				return
 			light_color = value
 			mod.wearer.regenerate_icons()
@@ -279,7 +279,7 @@
 	on_deactivation(FALSE)
 	COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
 
-	to_chat(mod.wearer, "<span class='warning'>Your [name] shuts off!</span>")
+	to_chat(mod.wearer, SPAN_WARNING("Your [name] shuts off!"))
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser

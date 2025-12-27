@@ -21,10 +21,10 @@
 
 /obj/item/resonator/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate only after you hit it with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You set the [name]'s fields to detonate only after you hit it with [src]."))
 		mode = RESONATOR_MODE_MANUAL
 	else
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate after 2 seconds.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/upgraded
@@ -37,13 +37,13 @@
 
 /obj/item/resonator/upgraded/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate only after being attacked by [src].</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after being attacked by [src]."))
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
-		to_chat(user, "<span class='notice'>You set [src]'s fields to work as matrix traps.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to work as matrix traps."))
 		mode = RESONATOR_MODE_MATRIX
 	else
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate automatically after 2 seconds.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate automatically after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
@@ -137,7 +137,7 @@
 		var/turf/simulated/mineral/mineral_turf = src_turf
 		if(is_ancient_rock(mineral_turf))
 			failure_prob = 100 // rock too strong for resonance field
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			mineral_turf.gets_drilled(creator)
 	check_pressure(src_turf)
@@ -145,7 +145,7 @@
 	for(var/mob/living/attacked_living in src_turf)
 		if(creator)
 			log_attack(creator, attacked_living, "used a resonator field on", "resonator")
-		to_chat(attacked_living, "<span class='danger'>[src] ruptured with you in it!</span>")
+		to_chat(attacked_living, SPAN_DANGER("[src] ruptured with you in it!"))
 		attacked_living.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)

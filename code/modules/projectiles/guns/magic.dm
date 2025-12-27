@@ -25,12 +25,12 @@
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
-			to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
 		else
 			no_den_usage = 0
 	if(!user.can_cast_magic(antimagic_flags))
-		to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
+		to_chat(user, SPAN_WARNING("[src] whizzles quietly."))
 		return FALSE
 	..()
 
@@ -83,10 +83,10 @@
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
+	to_chat(user, SPAN_WARNING("[src] whizzles quietly."))
 	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

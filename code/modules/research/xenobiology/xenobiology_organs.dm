@@ -11,16 +11,16 @@
 	if(istype(used, /obj/item/organ/internal))
 		var/obj/item/organ/internal/organ = used
 		if(!organ.is_xeno_organ)
-			to_chat(user, "<span class='warning'>The regenerative mesh cannot improve this!</span>")
+			to_chat(user, SPAN_WARNING("The regenerative mesh cannot improve this!"))
 			return ITEM_INTERACT_COMPLETE
 		if(organ.organ_quality < ORGAN_PRISTINE)
 			organ.organ_quality = ORGAN_PRISTINE
-			to_chat(user, "<span class='info'>The regenerative mesh clings to [organ] and fuses to its surface. \The [organ] now looks pristine!</span>")
+			to_chat(user, SPAN_INFO("The regenerative mesh clings to [organ] and fuses to its surface. \The [organ] now looks pristine!"))
 			organ.name = "pristine [name]"
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>This organ is already in pristine condition!</span>")
+			to_chat(user, SPAN_WARNING("This organ is already in pristine condition!"))
 			return ITEM_INTERACT_COMPLETE
 
 
@@ -151,7 +151,7 @@
 	. = ..()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))
 		return
-	to_chat(owner, "<span class='notice'>You feel nauseous as your insides feel like they're disintegrating!</span>")
+	to_chat(owner, SPAN_NOTICE("You feel nauseous as your insides feel like they're disintegrating!"))
 	switch(organ_quality)
 		if(ORGAN_DAMAGED)
 			owner.adjustToxLoss(1)
@@ -239,8 +239,8 @@
 	sound = 'sound/magic/fireball.ogg'
 	antimagic_flags = NONE
 
-	selection_activated_message = "<span class='notice'>You take in a deep breath, readying to breathe fire!</span>"
-	selection_deactivated_message = "<span class='notice'>You relax your breaths as you decide not to breathe fire.</span>"
+	selection_activated_message = SPAN_NOTICE("You take in a deep breath, readying to breathe fire!")
+	selection_deactivated_message = SPAN_NOTICE("You relax your breaths as you decide not to breathe fire.")
 
 /datum/spell/drake_breath/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/external/C = new()
@@ -306,7 +306,7 @@
 	switch(quality)
 		if(ORGAN_DAMAGED)
 			user.adjustBruteLoss(10)
-			to_chat(user, "<span class='warning'>The bands don't detach cleanly, ripping some flesh away with it!</span>")
+			to_chat(user, SPAN_WARNING("The bands don't detach cleanly, ripping some flesh away with it!"))
 			user.put_in_hands(sinew_cuffs)
 		if(ORGAN_NORMAL)
 			user.put_in_hands(sinew_cuffs)
@@ -458,8 +458,8 @@
 	var/cooldown = 0
 	var/terror = FALSE
 
-	selection_activated_message = "<span class='notice'>We unfold our stinger from our body, ready to sting someone.</span>"
-	selection_deactivated_message = "<span class='notice'>We retract our stinger for now.</span>"
+	selection_activated_message = SPAN_NOTICE("We unfold our stinger from our body, ready to sting someone.")
+	selection_deactivated_message = SPAN_NOTICE("We retract our stinger for now.")
 
 /datum/spell/organ_sting/create_new_targeting(list/targets, mob/living/user)
 	. = ..()
@@ -472,20 +472,20 @@
 	var/atom/target = targets[1] //There is only ever one target
 	var/dist = get_dist(user.loc, target.loc)
 	if(dist > 2) // Too far, don't bother pathfinding
-		to_chat(user, "<span class='warning'>Our target is too far for our sting!</span>")
+		to_chat(user, SPAN_WARNING("Our target is too far for our sting!"))
 		revert_cast()
 		return FALSE
 	if(!length(get_path_to(user, target, max_distance = 2, simulated_only = FALSE, skip_first = FALSE)))
-		to_chat(user, "<span class='warning'>Our sting is blocked from reaching our target!</span>")
+		to_chat(user, SPAN_WARNING("Our sting is blocked from reaching our target!"))
 		revert_cast()
 		return
 	if(ismachineperson(target))
-		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
+		to_chat(user, SPAN_WARNING("This won't work on synthetics."))
 		revert_cast()
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		to_chat(target, "<span class='warning'>You feel a sharp prick in your side!</span>")
+		to_chat(target, SPAN_WARNING("You feel a sharp prick in your side!"))
 		if(quality == ORGAN_PRISTINE)
 			if(terror)
 				H.reagents.add_reagent("terror_black_toxin", 10)
@@ -497,7 +497,7 @@
 			else
 				H.reagents.add_reagent("toxin", 10)
 	else
-		to_chat(user, "<span class='warning'>We wouldn't get much use out of stinging that.</span>")
+		to_chat(user, SPAN_WARNING("We wouldn't get much use out of stinging that."))
 		revert_cast()
 
 /obj/item/organ/internal/heart/xenobiology/contortion
@@ -544,7 +544,7 @@
 		return
 	ADD_TRAIT(user, TRAIT_CONTORTED_BODY, ORGAN_TRAIT)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(deactivate))
-	to_chat(user, "<span class='notice'>We contort our form to allow us to fit in and under things we normally wouldn't be able to.</span>")
+	to_chat(user, SPAN_NOTICE("We contort our form to allow us to fit in and under things we normally wouldn't be able to."))
 	if(IS_HORIZONTAL(user))
 		user.layer = TURF_LAYER + 0.2
 	active = TRUE
@@ -552,7 +552,7 @@
 		if(prob(10))
 			var/obj/item/organ/external/limb_to_break = pick(user.bodyparts)
 			limb_to_break.fracture()
-			to_chat(user, "<span class='danger'>We tense ourself incorrectly, something inside our [limb_to_break] snaps!</span>")
+			to_chat(user, SPAN_DANGER("We tense ourself incorrectly, something inside our [limb_to_break] snaps!"))
 	if(quality == ORGAN_PRISTINE)
 		duration_time = 1 MINUTES
 	addtimer(CALLBACK(src, PROC_REF(deactivate), user), duration_time)
@@ -566,7 +566,7 @@
 	UnregisterSignal(user, COMSIG_MOB_DEATH)
 	if(IS_HORIZONTAL(user))
 		user.layer = initial(user.layer)
-	to_chat(user, "<span class='notice'>Our body stiffens and returns to form. That was exhausting!</span>")
+	to_chat(user, SPAN_NOTICE("Our body stiffens and returns to form. That was exhausting!"))
 
 /obj/item/organ/internal/heart/xenobiology/bloody_sack
 	name = "bloody sack"
@@ -608,7 +608,7 @@
 		return
 	if(quality == ORGAN_DAMAGED)
 		user.blood_volume = max(user.blood_volume - 50, 0) // Slurp slurp slurp
-		to_chat(user, "<span class='danger'>You can feel your stolen organ draining you of your blood!</span>")
+		to_chat(user, SPAN_DANGER("You can feel your stolen organ draining you of your blood!"))
 	for(var/obj/effect/decal/cleanable/blood/B in range(T, 3))
 		if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in()))
 			temp += 10
@@ -724,7 +724,7 @@
 
 /obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, organ_quality, mob/user)
 	icon_state = "Goliath_tentacle_retract"
-	user.visible_message("<span class='warning'>[user] digs a massive tendril into the ground!</span>")
+	user.visible_message(SPAN_WARNING("[user] digs a massive tendril into the ground!"))
 	timerid = QDEL_IN(src, 7)
 	if(target.loc == src.loc)
 		if(isliving(target))
@@ -738,7 +738,7 @@
 				var/dist = get_dist(user.loc, target.loc)
 				T.throw_at(user, dist - 1, 1, user, spin = TRUE)
 			else
-				T.visible_message("<span class='warning'>[T] refuses to budge!</span>")
+				T.visible_message(SPAN_WARNING("[T] refuses to budge!"))
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing
 	name = "glowing core"
@@ -787,18 +787,18 @@
 /datum/spell/turf_teleport/organ_teleport/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
 	if(!isliving(target))
-		to_chat(user, "<span class='warning'>We can only teleport living things!</span>")
+		to_chat(user, SPAN_WARNING("We can only teleport living things!"))
 		revert_cast()
 		return
 	if(target == user)
-		to_chat(user, "<span class='warning'>We are unable to teleport ourself!</span>")
+		to_chat(user, SPAN_WARNING("We are unable to teleport ourself!"))
 		revert_cast()
 		return
 	if(get_dist(target.loc, user.loc) > 2)
-		to_chat(user, "<span class='warning'>They're too far away!</span>")
+		to_chat(user, SPAN_WARNING("They're too far away!"))
 		revert_cast()
 	if(!length(get_path_to(user, target, max_distance = 2, simulated_only = FALSE, skip_first = FALSE)))
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, SPAN_WARNING("Something is blocking the way!"))
 		revert_cast()
 		return
 	if(quality == ORGAN_BROKEN)
@@ -806,9 +806,9 @@
 			targets += user
 			user.adjustBruteLoss(10)
 			user.adjustFireLoss(10)
-			to_chat(user, "<span class='danger'>You get dragged along into bluespace, your flesh searing from the unstable energies!</span>")
+			to_chat(user, SPAN_DANGER("You get dragged along into bluespace, your flesh searing from the unstable energies!"))
 		else
-			to_chat(user, "<span class='danger'>Drawing upon unstable energy singes your flesh!</span>")
+			to_chat(user, SPAN_DANGER("Drawing upon unstable energy singes your flesh!"))
 			user.adjustFireLoss(8)
 	user.mob_light(LIGHT_COLOR_PURPLE, 3, _duration = 3)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(target))
@@ -875,7 +875,7 @@
 	M.dna.species.exotic_blood = "tomatojuice"
 	M.dna.species.blood_color = "#e25821"
 	M.dna.blood_type = "Tomato"
-	to_chat(owner, "<span class='userdanger'>You feel unnaturally soupy...</span>")
+	to_chat(owner, SPAN_USERDANGER("You feel unnaturally soupy..."))
 
 /obj/item/organ/internal/liver/xenobiology/soupy/remove(mob/living/carbon/human/M, special = 0)
 	. = ..()
@@ -883,7 +883,7 @@
 	M.dna.species.exotic_blood = original_exotic_blood
 	M.dna.species.blood_color = original_blood_color
 	M.dna.blood_type = original_blood_type
-	to_chat(owner, "<span class='userdanger'>You no longer constantly taste ketchup.</span>")
+	to_chat(owner, SPAN_USERDANGER("You no longer constantly taste ketchup."))
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror
 	name = "hidden terror stinger"
@@ -1047,7 +1047,7 @@
 /datum/action/innate/migo_noise/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(!COOLDOWN_FINISHED(src, migo_cooldown))
-		to_chat(user, "<span class='warning'>You can't get your noisy organ to speak again so soon!</span>")
+		to_chat(user, SPAN_WARNING("You can't get your noisy organ to speak again so soon!"))
 		return
 	var/chosen_sound = pick(GLOB.migo_sounds)
 	playsound(owner.loc, chosen_sound, 50, TRUE)
@@ -1106,13 +1106,13 @@
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
 			M.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
-			to_chat(M, "<span class='userdanger'>You feel great!</span>")
+			to_chat(M, SPAN_USERDANGER("You feel great!"))
 			return
 		else if(M.mind.assigned_role == "Mime")
 			M.AddComponent(/datum/component/squeak)
 			M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 			M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
-			to_chat(M, "<span class='userdanger'>UH OH</span>")
+			to_chat(M, SPAN_USERDANGER("UH OH"))
 		else
 			M.emote("scream")
 			M.AdjustJitter(20 SECONDS)
@@ -1159,7 +1159,7 @@
 		"Your legs feel like jelly.",
 		"You feel like telling a pun.",
 		)
-		to_chat(owner, "<span class='warning'>[pick(clown_message)]</span>")
+		to_chat(owner, SPAN_WARNING("[pick(clown_message)]"))
 
 
 /obj/item/organ/internal/heart/xenobiology/bananium/remove(mob/living/carbon/human/M, special)
@@ -1167,10 +1167,10 @@
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
 			M.DeleteComponent(/datum/component/squeak)
-			to_chat(M, "<span class='userdanger'>Awh, the funs over...</span>")
+			to_chat(M, SPAN_USERDANGER("Awh, the funs over..."))
 		else
 			M.DeleteComponent(/datum/component/squeak)
-			to_chat(M, "<span class='danger'>Blissful silence...</span>")
+			to_chat(M, SPAN_DANGER("Blissful silence..."))
 			M.dna.SetSEState(GLOB.clumsyblock, FALSE, FALSE)
 			M.dna.SetSEState(GLOB.comicblock, FALSE, FALSE)
 
@@ -1194,7 +1194,7 @@
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
 	if(M.mind && M.mind.assigned_role == "Clown")
 		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
-		to_chat(owner, "<span class='userdanger'>YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!</span>")
+		to_chat(owner, SPAN_USERDANGER("YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!"))
 		playsound(M, 'sound/magic/magic_block_holy.ogg', 60)
 		ADD_TRAIT(M, TRAIT_GOTTAGOFAST, ORGAN_TRAIT)
 		M.color = rgb(255, 251, 0)
@@ -1215,10 +1215,10 @@
 		unbuckle_mob(M, force = TRUE)
 	M.move_resist = INFINITY
 	M.Stun(10 SECONDS)
-	M.dir = 2
+	M.dir = SOUTH
 	animate(M, pixel_y = 64, time = 2 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(finalize_death), M), 2 SECONDS)
-	to_chat(owner, "<span class='userdanger'>THE JOY! THE POWER! YOU CAN FEEL THE HONKMOTHERS SMILE! YOU CAN FEEL- oh no</span>")
+	to_chat(owner, SPAN_USERDANGER("THE JOY! THE POWER! YOU CAN FEEL THE HONKMOTHERS SMILE! YOU CAN FEEL- oh no"))
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/proc/finalize_death(mob/living/carbon/human/M)
 	explosion(get_turf(M),0,2,4,4, smoke = TRUE, cause = owner)
@@ -1235,7 +1235,7 @@
 			owner.adjustStaminaLoss(-30)
 			owner.SetJitter(500 SECONDS) //High numbers for violent convulsions
 			if(prob(10))
-				to_chat(owner, "<span class='userdanger'>[pick(clown_noises)]</span>")
+				to_chat(owner, SPAN_USERDANGER("[pick(clown_noises)]"))
 
 /obj/item/organ/internal/cell/xenobiology/supercharged
 	name = "supercharged core"
@@ -1316,7 +1316,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	if(!M.mind)
-		M.visible_message("<span class='warning'>[src] doesn't look like it's going to fit right now! It...refuses?</span>")
+		M.visible_message(SPAN_WARNING("[src] doesn't look like it's going to fit right now! It...refuses?"))
 		return
 	var/datum/spell/shapeshift/megacarp/spell = new(organ_quality)
 	M.mind.AddSpell(spell)
@@ -1347,10 +1347,10 @@
 		possible_shapes = list(/mob/living/basic/carp/xeno_organ)
 
 /datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
-	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of [M.p_their()] flesh!</span>",
-		"<span class='userdanger'>You begin channeling the painful transformation.</span>")
+	M.visible_message(SPAN_DANGER("[M] screams in agony as scales and fins erupt out of [M.p_their()] flesh!"),
+		SPAN_USERDANGER("You begin channeling the painful transformation."))
 	if(!do_after(M, 5 SECONDS, FALSE, M))
-		to_chat(M, "<span class='warning'>You lose concentration of the spell!</span>")
+		to_chat(M, SPAN_WARNING("You lose concentration of the spell!"))
 		return
 	return ..()
 
@@ -1507,33 +1507,33 @@
 /datum/spell/head_attack/Click(mob/user)
 	. = ..()
 	if(newhead)
-		to_chat(user, "<span class='notice'>We disperse the summoned head.</span>")
+		to_chat(user, SPAN_NOTICE("We disperse the summoned head."))
 		on_head_death()
 		return
 
 /datum/spell/head_attack/cast(list/targets, mob/living/carbon/human/user)
 	. = ..()
 	if(!isliving(targets[1]))
-		to_chat(user, "<span class='warning'>We can only select living targets!</span>")
+		to_chat(user, SPAN_WARNING("We can only select living targets!"))
 		revert_cast()
 		return
 	var/mob/living/target = targets[1] // only ever one target
 	if(!user.get_organ("head"))
-		to_chat(user, "<span class='warning'>We cant use this without a head!</span>")
+		to_chat(user, SPAN_WARNING("We cant use this without a head!"))
 		revert_cast()
 		return
 	if(target == user)
-		to_chat(user, "<span class='warning'>It would be a bad idea to target ourselves.</span>")
+		to_chat(user, SPAN_WARNING("It would be a bad idea to target ourselves."))
 		revert_cast()
 		return
 	if(target.stat == DEAD)
-		to_chat(user, "<span class='warning'>Our new head wont attack corpses.</span>")
+		to_chat(user, SPAN_WARNING("Our new head wont attack corpses."))
 		revert_cast()
 		return
 	if(!newhead)
 		if(quality == ORGAN_DAMAGED && prob(30))
 			user.adjustBruteLoss(15) // ouch!
-		user.visible_message("<span class='warning'>[src] produces a new head!</span>", "<span class='warning'>You produce a new head and send it to your target!</span>")
+		user.visible_message(SPAN_WARNING("[src] produces a new head!"), SPAN_WARNING("You produce a new head and send it to your target!"))
 		newhead = new /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology(user.loc, user, target)
 		RegisterSignal(newhead, COMSIG_MOB_DEATH, PROC_REF(on_head_death))
 		revert_cast()
@@ -1581,9 +1581,9 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Life(seconds, times_fired)
 	if(target != permanent_target)
-		src.visible_message("<span class='notice'>With no valid targets, the head crumbles into a pile of flesh.</span>")
+		src.visible_message(SPAN_NOTICE("With no valid targets, the head crumbles into a pile of flesh."))
 		death()
 	if(COOLDOWN_FINISHED(src, time_to_live))
-		src.visible_message("<span class='notice'>\The [src] loses energy, and it crumbles into a pile of flesh.</span>")
+		src.visible_message(SPAN_NOTICE("\The [src] loses energy, and it crumbles into a pile of flesh."))
 		death()
 	return ..()

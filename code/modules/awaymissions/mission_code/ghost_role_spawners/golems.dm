@@ -41,7 +41,7 @@
 
 	if(istype(I, /obj/item/stack))
 		if(!ishuman(user))
-			to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+			to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 			return
 
 		var/obj/item/stack/O = I
@@ -102,7 +102,7 @@
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
-		to_chat(new_spawn, "<big><span class='warning'>You are not an antagonist, do not build an AI without explicit admin permission. Do not board the station without explicit admin permission.</span><big>")
+		to_chat(new_spawn, "<big>[SPAN_WARNING("You are not an antagonist, do not build an AI without explicit admin permission. Do not board the station without explicit admin permission.")]<big>")
 		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
 		Adamantine golems are the only golems that can resonate to all golems.</span>")
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
@@ -158,7 +158,7 @@
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(SPAN_NOTICE("A faint light leaves [user], moving to [src] and animating it!"),SPAN_NOTICE("You leave your old body behind, and transfer into [src]!"))
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 
@@ -180,15 +180,15 @@
 			has_owner = FALSE
 			owner = null
 	flavour_text = null
-	user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
-	"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+	user.visible_message(SPAN_NOTICE("As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!"),
+	SPAN_NOTICE("You apply the potion to [src], feeling your mind leave your body!"))
 	message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
 	var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
 	user.mind.transfer_to(g)
 	g.real_name = user.real_name
 	g.faction = user.faction
 	user.death()  //Keeps brain intact to prevent forcing redtext
-	to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
+	to_chat(g, SPAN_WARNING("You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!"))
 	qdel(I)
 
 /obj/effect/mob_spawn/human/alive/golem/servant

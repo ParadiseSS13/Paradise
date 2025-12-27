@@ -192,6 +192,11 @@
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
 	#define COMPONENT_DONT_WRITE_MEMORY (1<<0)
 
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
+
 // /mob/living/simple_animal signals
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
@@ -291,3 +296,6 @@
 
 /// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
+
+/// Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"

@@ -54,7 +54,7 @@
 	L.nest = src
 	L.faction = src.faction
 	ADD_TRAIT(L, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
-	P.visible_message("<span class='danger'>[L] [spawn_text] [P].</span>")
+	P.visible_message(SPAN_DANGER("[L] [spawn_text] [P]."))
 	P.on_mob_spawn(L)
 	return L
 

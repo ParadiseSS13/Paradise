@@ -32,11 +32,11 @@
 			if(message)
 				ai_player.add_ion_law(message)
 				to_chat(ai_player, "<br>")
-				to_chat(ai_player, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(ai_player, SPAN_DANGER("[message] ...LAWS UPDATED"))
 				to_chat(ai_player, "<br>")
 
 				for(var/ghost in GLOB.dead_mob_list)
-					to_chat(ghost, "<span class='deadsay'><b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b></span>")
+					to_chat(ghost, SPAN_DEADSAY("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b>"))
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)

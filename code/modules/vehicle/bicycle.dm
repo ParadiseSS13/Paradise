@@ -10,12 +10,17 @@
 	bicycle_overlay = mutable_appearance(icon, "bicycle_overlay", ABOVE_MOB_LAYER)
 
 /obj/vehicle/bike/relaymove(mob/user, direction)
-	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/driver = user
 	var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
 	var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
+	var/obj/item/organ/external/l_leg = driver.get_organ("l_leg")
+	var/obj/item/organ/external/r_leg = driver.get_organ("r_leg")
+	if(!l_hand && !r_hand && !l_leg && !r_leg) // if you don't have limbs then fall off the bike
+		unbuckle_mob(driver)
+		driver.emote("collapse")
+		return
 	if(!l_hand && !r_hand)
 		vehicle_move_delay += 0.5 // I can ride my bike with no handlebars... (but it's slower)
 	for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))
@@ -26,6 +31,7 @@
 			vehicle_move_delay += 0.5
 		else if(E.status & ORGAN_BROKEN)
 			vehicle_move_delay += 1.5
+	return ..()
 
 /obj/vehicle/bike/post_buckle_mob(mob/living/M)
 	. = ..()

@@ -5120,10 +5120,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "FU" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 6
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "FZ" = (

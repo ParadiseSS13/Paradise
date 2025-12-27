@@ -197,7 +197,7 @@
 		return
 	playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
+	to_chat(user, SPAN_NOTICE("You vastly increase projector power and override the safety and security protocols."))
 	to_chat(user, "Warning! Automatic shutoff and derezing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Computer")
 	return TRUE
@@ -392,13 +392,13 @@
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now active."))
 	else
 		force = 3
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

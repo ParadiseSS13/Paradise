@@ -8,13 +8,8 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-/client/proc/freeze(atom/movable/M)
-	set name = "\[Admin\] Freeze"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	M.admin_Freeze(src)
+USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
+	M.admin_Freeze(client)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.
 /atom/movable/proc/admin_Freeze(client/admin)
@@ -50,7 +45,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		admin_prev_sleeping = null
 
 	to_chat(src, "<b><font color= red>You have been [frozen ? "frozen" : "unfrozen"] by [admin]</b></font>")
-	message_admins("<span class='notice'>[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] [key_name_admin(src)] [mech ? "in a [mech]" : ""]</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] [key_name_admin(src)] [mech ? "in a [mech]" : ""]"))
 	log_admin("[key_name(admin)] [frozen ? "froze" : "unfroze"] [key_name(src)] [mech ? "in a [mech]" : ""]")
 	update_icons()
 
@@ -93,7 +88,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	if(occupant)
 		occupant.admin_Freeze(admin, mech = name) // We also want to freeze the driver of the mech.
 	else
-		message_admins("<span class='notice'>[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] an empty [name]</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] an empty [name]"))
 		log_admin("[key_name(admin)] [frozen ? "froze" : "unfroze"] an empty [name]")
 
 /obj/machinery/atmospherics/supermatter_crystal/admin_Freeze(client/admin)
@@ -108,5 +103,5 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		GLOB.frozen_atom_list -= src
 		processes = TRUE
 		cut_overlay(freeze_overlay)
-	message_admins("<span class='notice'>[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal"))
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")

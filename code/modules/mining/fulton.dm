@@ -52,32 +52,32 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	user.do_attack_animation(A)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!beacon)
-		to_chat(user, "<span class='warning'>[src] is not linked to a beacon, and cannot be used!</span>")
+		to_chat(user, SPAN_WARNING("[src] is not linked to a beacon, and cannot be used!"))
 		return ITEM_INTERACT_COMPLETE
 	if(!can_use_indoors)
 		var/area/area = get_area(A)
 		if(!area.outdoors)
-			to_chat(user, "<span class='warning'>[src] can only be used on things that are outdoors!</span>")
+			to_chat(user, SPAN_WARNING("[src] can only be used on things that are outdoors!"))
 			return ITEM_INTERACT_COMPLETE
 		if(area.tele_proof || !is_teleport_allowed(A.z))
-			to_chat(user, "<span class='warning'>Bluespace distortions prevent the fulton from inflating!</span>")
+			to_chat(user, SPAN_WARNING("Bluespace distortions prevent the fulton from inflating!"))
 			return ITEM_INTERACT_COMPLETE
 	if(!istype(A))
 		return ITEM_INTERACT_COMPLETE
 	else
 		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, "<span class='warning'>[src] is not safe for use with living creatures, they wouldn't survive the trip back!</span>")
+			to_chat(user, SPAN_WARNING("[src] is not safe for use with living creatures, they wouldn't survive the trip back!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return ITEM_INTERACT_COMPLETE
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return ITEM_INTERACT_COMPLETE
 		if(ismegafauna(A))
-			to_chat(user, "<span class='warning'>[src] is too heavy to retrieve!</span>")
+			to_chat(user, SPAN_WARNING("[src] is too heavy to retrieve!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
+		to_chat(user, SPAN_NOTICE("You start attaching the pack to [A]..."))
 		if(do_after(user, 50, target = A))
-			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
+			to_chat(user, SPAN_NOTICE("You attach the pack to [A] and activate it."))
 			user.equip_to_slot_if_possible(src, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 					continue
 				flooring_near_beacon += floor
 			if(!length(flooring_near_beacon))
-				to_chat(user, "<span class='notice'>Your fulton pack slowly brings you back down, it seems that the linked beacon has stopped functioning!</span>")
+				to_chat(user, SPAN_NOTICE("Your fulton pack slowly brings you back down, it seems that the linked beacon has stopped functioning!"))
 				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)

@@ -15,15 +15,15 @@
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/external_limb = H.get_organ(user.zone_selected)
 	if(external_limb)
-		user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]'s [external_limb.name]...</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts to apply [src] on [H]'s [external_limb.name]..."))
 		if(!do_mob(user, H, 5 SECONDS))
 			return FALSE
 		use(1)
 		if(external_limb.apply_augmented_skin(skin_level))
-			user.visible_message("<span class='notice'>[user] applies some [src] on [H]'s [external_limb.name].</span>")
+			user.visible_message(SPAN_NOTICE("[user] applies some [src] on [H]'s [external_limb.name]."))
 			return TRUE
 		else
-			to_chat(user, "<span class='warning'>You fail to apply a better skin cover to [H]'s [external_limb.name].</span>")
+			to_chat(user, SPAN_WARNING("You fail to apply a better skin cover to [H]'s [external_limb.name]."))
 			return FALSE
 
 /obj/item/stack/synthetic_skin/level_2

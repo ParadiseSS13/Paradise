@@ -9,13 +9,13 @@
 
 /obj/item/deck/unum/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>When held in hand, <b>Alt-Shift-Click</b> to flip [src].</span>"
+	. += SPAN_NOTICE("When held in hand, <b>Alt-Shift-Click</b> to flip [src].")
 
 /obj/item/deck/unum/AltShiftClick(mob/user)
 	if(!Adjacent(user) || (user.get_active_hand() != src) && (user.get_inactive_hand() != src))
 		return
 	show_front = !show_front
-	visible_message("<span class='notice'>[user] flips over [src].</span>")
+	visible_message(SPAN_NOTICE("[user] flips over [src]."))
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/unum/build_deck()

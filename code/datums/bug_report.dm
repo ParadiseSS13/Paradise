@@ -84,13 +84,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 // whether or not an admin/dev can access the record at a given time.
 /datum/tgui_bug_report_form/proc/assign_approver(mob/user)
 	if(!initial_key)
-		to_chat(user, "<span class='warning'>Unable to identify the author of the bug report.</span>")
+		to_chat(user, SPAN_WARNING("Unable to identify the author of the bug report."))
 		return FALSE
 	if(approving_user)
 		if(user.client == approving_user)
-			to_chat(user, "<span class='warning'>This bug report review is already opened and accessed by you.</span>")
+			to_chat(user, SPAN_WARNING("This bug report review is already opened and accessed by you."))
 		else
-			to_chat(user, "<span class='warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
+			to_chat(user, SPAN_WARNING("Another staff member is currently accessing this report, please wait for them to finish before making any changes."))
 		return FALSE
 	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
 		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
@@ -180,13 +180,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	var/datum/http_response/response = request.into_response()
 	if(response.errored || response.status_code != STATUS_SUCCESS)
-		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
+		message_admins(SPAN_ADMINNOTICE("The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord."))
 		external_link_prompt(user)
 	else
 		var/client/initial_user = locateUID(initial_user_uid)
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 		if(initial_user)
-			to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+			to_chat(initial_user, SPAN_NOTICE("An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!"))
 	// approved and submitted, we no longer need the datum.
 	qdel(src)
 
@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /datum/tgui_bug_report_form/proc/bug_report_request()
 	var/client/initial_user = locateUID(initial_user_uid)
 	if(initial_user)
-		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
+		to_chat(initial_user, SPAN_NOTICE("Your bug report has been submitted, thank you!"))
 	if(!db_uid)
 		db_uid = world.realtime
 	GLOB.bug_reports += src
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	switch(action)
 		if("confirm")
 			if(selected_confirm) // prevent someone from spamming the approve button
-				to_chat(user, "<span class='warning'>You have already approved this submission, please wait a moment for the API to process your submission.</span>")
+				to_chat(user, SPAN_WARNING("You have already approved this submission, please wait a moment for the API to process your submission."))
 				return
 			bug_report_data = sanitize_payload(params)
 			add_metadata(user)

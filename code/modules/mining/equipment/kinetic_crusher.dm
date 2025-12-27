@@ -48,13 +48,13 @@
 
 /obj/item/kinetic_crusher/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.</span>"
-	. += "<span class='notice'>Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.</span>"
+	. += SPAN_NOTICE("Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.")
+	. += SPAN_NOTICE("Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.")
 	if(length(trophies))
-		. += "<span class='notice'>You can use a crowbar on it to remove its attached trophies.</span>"
+		. += SPAN_NOTICE("You can use a crowbar on it to remove its attached trophies.")
 	for(var/t in trophies)
 		var/obj/item/crusher_trophy/T = t
-		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
+		. += SPAN_NOTICE("It has \a [T] attached, which causes [T.effect_desc()].")
 
 /obj/item/kinetic_crusher/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/crusher_trophy))
@@ -68,16 +68,16 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(LAZYLEN(trophies))
-		to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
+		to_chat(user, SPAN_NOTICE("You remove [src]'s trophies."))
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.remove_from(src, user)
 	else
-		to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
+		to_chat(user, SPAN_WARNING("There are no trophies on [src]."))
 
 /obj/item/kinetic_crusher/attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.</span>")
+		to_chat(user, SPAN_WARNING("[src] is too heavy to use with one hand. You fumble and drop everything."))
 		user.drop_r_hand()
 		user.drop_l_hand()
 		return
@@ -113,9 +113,9 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-			user.visible_message("<span class='warning'>[user] dashes!</span>")
+			user.visible_message(SPAN_WARNING("[user] dashes!"))
 		else
-			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+			to_chat(user, SPAN_WARNING("Something prevents you from dashing!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
@@ -189,7 +189,7 @@
 /obj/item/kinetic_crusher/extinguish_light()
 	if(light_on)
 		toggle_light()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/kinetic_crusher/update_icon_state()
 	inhand_icon_state = "[icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -229,7 +229,7 @@
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
 		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)
@@ -247,7 +247,7 @@
 
 /obj/item/crusher_trophy/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Causes [effect_desc()] when attached to a kinetic crusher.</span>"
+	. += SPAN_NOTICE("Causes [effect_desc()] when attached to a kinetic crusher.")
 
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
@@ -262,13 +262,13 @@
 	for(var/t in H.trophies)
 		var/obj/item/crusher_trophy/T = t
 		if(istype(T, denied_type) || istype(src, T.denied_type))
-			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
+			to_chat(user, SPAN_WARNING("You can't seem to attach [src] to [H]. Maybe remove a few trophies?"))
 			return FALSE
 	if(!user.unequip(src))
 		return
 	forceMove(H)
 	H.trophies += src
-	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
+	to_chat(user, SPAN_NOTICE("You attach [src] to [H]."))
 	return TRUE
 
 /obj/item/crusher_trophy/proc/remove_from(obj/item/kinetic_crusher/H, mob/living/user)

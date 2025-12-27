@@ -162,6 +162,8 @@
 		/obj/item/organ/internal/cyberimp/chest/ipc_repair = 5,
 		/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints = 5,
 		/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed = 5,
+		/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield = 5,
+		/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp = 1,
 		/obj/item/autosurgeon/organ = 1,
 		/obj/item/flag/species/machine = 2
 	)

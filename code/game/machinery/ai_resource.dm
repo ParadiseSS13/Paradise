@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This machine is temperature sensitive. Any temperature colder than 273K will freeze it, whle any temperature higher than [overheat_temp]K will cause it to overheat.</span>"
+	. += SPAN_NOTICE("This machine is temperature sensitive. Any temperature colder than 273K will freeze it, whle any temperature higher than [overheat_temp]K will cause it to overheat.")
 
 /obj/machinery/ai_node/process()
 	..()
@@ -116,13 +116,13 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/proc/toggle(mob/user = null)
 	if(overheating)
 		if(user)
-			to_chat(user, "<span class='notice'>You turn the overheating [src] off.</span>")
+			to_chat(user, SPAN_NOTICE("You turn the overheating [src] off."))
 		overheating = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return
 	active = !active
 	if(user)
-		to_chat(user, "<span class='notice'>You turn [src] [active ? "on" : "off"].</span>")
+		to_chat(user, SPAN_NOTICE("You turn [src] [active ? "on" : "off"]."))
 	if(active) // We're booting up
 		refresh_ai()
 	else // We're shutting down
@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	else // We have an AI
 		assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
 		var/area/our_area = get_area(src)
-		to_chat(assigned_ai, "<span class='notice'>New server node connected at: [our_area.name].</span>")
+		to_chat(assigned_ai, SPAN_NOTICE("New server node connected at: [our_area.name]."))
 		change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_ICON_STATE)
 
@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	if(assigned_ai)
 		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
 		var/area/our_area = get_area(src)
-		to_chat(assigned_ai, "<span class='warning'>Server node disconnected at: [our_area.name]!</span>")
+		to_chat(assigned_ai, SPAN_WARNING("Server node disconnected at: [our_area.name]!"))
 		assigned_ai = null
 	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
@@ -184,10 +184,10 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		return
 	var/area/our_area = get_area(src)
 	assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
-	to_chat(assigned_ai, "<span class='warning'>Server node disconnected at: [our_area.name]!</span>")
+	to_chat(assigned_ai, SPAN_WARNING("Server node disconnected at: [our_area.name]!"))
 	assigned_ai = new_ai
 	assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
-	to_chat(assigned_ai, "<span class='notice'>New server node connected at: [our_area.name].</span>")
+	to_chat(assigned_ai, SPAN_NOTICE("New server node connected at: [our_area.name]."))
 
 /datum/milla_safe/ai_node_process
 
@@ -272,7 +272,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/screen = ALLOCATED_RESOURCES
 
 /obj/machinery/computer/ai_resource/attack_ai(mob/user) // Bad AI, no access to stealing resources
-	to_chat(user, "<span class='warning'>ERROR: Firewall blocked! Station AI's are not permitted to interface with this console!</span>")
+	to_chat(user, SPAN_WARNING("ERROR: Firewall blocked! Station AI's are not permitted to interface with this console!"))
 	return
 
 /obj/machinery/computer/ai_resource/attack_hand(mob/user)
@@ -336,10 +336,10 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		return
 	. = FALSE
 	if(!is_authenticated(ui.user))
-		to_chat(ui.user, "<span class='warning'>Access denied.</span>")
+		to_chat(ui.user, SPAN_WARNING("Access denied."))
 		return
 	if(SSticker.current_state == GAME_STATE_FINISHED)
-		to_chat(ui.user, "<span class='warning'>Access denied, AIs are no longer your station's property.</span>")
+		to_chat(ui.user, SPAN_WARNING("Access denied, AIs are no longer your station's property."))
 		return
 
 	switch(action)

@@ -96,9 +96,9 @@
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+			to_chat(user, SPAN_NOTICE("The pages of [title] have been cut out!"))
 		return FINISH_ATTACK
-	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
+	user.visible_message(SPAN_NOTICE("[user] opens a book titled \"[title]\" and begins reading intently."))
 	read_book(user)
 	return ..()
 
@@ -136,7 +136,7 @@
 	if(!in_range(src, user))
 		return FALSE
 	if(!user.is_literate()) //this person was 2 cool 4 school and cannot READ
-		to_chat(user, "<span class='warning'>You attempt to the read the book but remember that you don't actually know how to read.</span>")
+		to_chat(user, SPAN_WARNING("You attempt to the read the book but remember that you don't actually know how to read."))
 		return FALSE
 	return TRUE
 
@@ -147,7 +147,7 @@
   */
 /obj/item/book/proc/read_book(mob/user)
 	if(!length(pages)) //You can't read a book with no pages in it
-		to_chat(user, "<span class='notice'>This book is completely blank!</span>")
+		to_chat(user, SPAN_NOTICE("This book is completely blank!"))
 		return
 	if(!can_read(user))
 		return
@@ -157,7 +157,7 @@
 		// Books can be read every BRAIN_DAMAGE_BOOK_TIME, and has a minumum delay of BRAIN_DAMAGE_MOB_TIME between seperate book reads.
 		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
 			if(prob(10))
-				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
+				to_chat(L, SPAN_NOTICE("You feel a bit smarter!"))
 			L.adjustBrainLoss(-1)
 			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
 			L.apply_status_effect(STATUS_BOOKWYRM)
@@ -231,14 +231,14 @@
   */
 /obj/item/book/proc/edit_book(mob/user)
 	if(protected) //we don't want people touching "special" books, especially ones that use iframes
-		to_chat(user, "<span class='notice'>These pages don't seem to take the ink well. Looks like you can't modify it.</span>")
+		to_chat(user, SPAN_NOTICE("These pages don't seem to take the ink well. Looks like you can't modify it."))
 		return
 	var/choice = tgui_input_list(user, "What would you like to edit?", "Book Edit", list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page"))
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
 			if(isnull(newtitle))
-				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
 			//this is to prevent players from naming it "Nuclear Authentification Disk" or "Energy Sword" to fuck with security
@@ -247,29 +247,29 @@
 		if("Author")
 			var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
 			if(isnull(newauthor))
-				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			author = newauthor
 		if("Summary")
 			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN, multiline = TRUE)
 			if(isnull(newsummary))
-				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			summary = newsummary
 		if("Edit Current Page")
 			if(carved)
-				to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+				to_chat(user, SPAN_NOTICE("The pages of [title] have been cut out!"))
 				return
 			if(!current_page)
-				to_chat(user, "<span class='notice'>You need to turn to a page before writing in the book.</span>")
+				to_chat(user, SPAN_NOTICE("You need to turn to a page before writing in the book."))
 				return
 			var/character_space_remaining = MAX_CHARACTERS_PER_BOOKPAGE - length(pages[current_page])
 			if(character_space_remaining <= 0)
-				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
+				to_chat(user, SPAN_NOTICE("There's not enough space left on this page to write anything!"))
 				return
 			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE, multiline = TRUE)
 			if(isnull(content))
-				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
 			else if((length(content) + length(pages[current_page])) > MAX_CHARACTERS_PER_BOOKPAGE)
@@ -279,20 +279,20 @@
 				pages[current_page] += content
 		if("Add Page")
 			if(carved)
-				to_chat(user, "<span class='notice'>You can't add anymore pages, the pages of [title] have been cut out and the book is ruined!</span>")
+				to_chat(user, SPAN_NOTICE("You can't add anymore pages, the pages of [title] have been cut out and the book is ruined!"))
 				return
 			if(length(pages) >= MAX_PAGES)
-				to_chat(user, "<span class='notice'>You can't fit anymore pages in this book!</span>")
+				to_chat(user, SPAN_NOTICE("You can't fit anymore pages in this book!"))
 				return
-			to_chat(user, "<span class='notice'>You add another page to the book!</span>")
+			to_chat(user, SPAN_NOTICE("You add another page to the book!"))
 			pages += " "
 		if("Remove Page")
 			if(!length(pages))
-				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
+				to_chat(user, SPAN_NOTICE("There aren't any pages in this book!"))
 				return
 			var/page_choice = tgui_input_number(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", max_value = length(pages))
 			if(isnull(page_choice))
-				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			if(page_choice <= 0 || page_choice > length(pages))
 				to_chat(user, "<span class='notice'>That is not an acceptable value.</span")
@@ -323,15 +323,15 @@
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(carved)
-		to_chat(user, "<span class='warning'>[title] has already been carved out!</span>")
+		to_chat(user, SPAN_WARNING("[title] has already been carved out!"))
 		return
 	if(!I.sharp)
-		to_chat(user, "<span class='warning'>You can't carve [title] using that!</span>")
+		to_chat(user, SPAN_WARNING("You can't carve [title] using that!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
+	to_chat(user, SPAN_NOTICE("You begin to carve out [title]."))
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		user.visible_message("<span class='warning'>[user] appears to carve out the pages inside of [title]!</span>",\
-				"<span class='danger'>You carve out [title]!</span>")
+		user.visible_message(SPAN_WARNING("[user] appears to carve out the pages inside of [title]!"),\
+				SPAN_DANGER("You carve out [title]!"))
 		carved = TRUE
 		return TRUE
 
@@ -339,25 +339,25 @@
 	if(!carved)
 		return
 	if(store)
-		to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
+		to_chat(user, SPAN_NOTICE("There is already something in [src]!"))
 		return
 
 	//does it exist, if so is it an abstract item?
 	if(!istype(I) || (I.flags & ABSTRACT))
 		return
 	if(I.flags & NODROP)
-		to_chat(user, "<span class='notice'>[I] stays stuck to your hand when you try and hide it in the book!.</span>")
+		to_chat(user, SPAN_NOTICE("[I] stays stuck to your hand when you try and hide it in the book!."))
 		return
 	//Checking to make sure the item we're storing isn't larger than/equal to size of the book, prevents recursive storing aswell
 	if(I.w_class >= w_class)
-		to_chat(user, "<span class='notice'>[I] is to large to fit in [src].</span>")
+		to_chat(user, SPAN_NOTICE("[I] is to large to fit in [src]."))
 		return
 
 	user.drop_item()
 	I.forceMove(src)
 	RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
 	store = I
-	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
+	to_chat(user, SPAN_NOTICE("You hide [I] in [name]."))
 	return TRUE
 
 ///needed for proper GC'ing
@@ -367,10 +367,10 @@
 /obj/item/book/proc/remove_stored_item(mob/user, display_message = TRUE)
 	if(!store)
 		if(display_message) //we don't wanna display this message in certain cases if there's not a user removing it
-			to_chat(user, "<span class='notice'>You search [name] but there is nothing in it!</span>")
+			to_chat(user, SPAN_NOTICE("You search [name] but there is nothing in it!"))
 		return FALSE
 	if(display_message)
-		to_chat(user, "<span class='notice'>You carefully remove [store] from [name]!</span>")
+		to_chat(user, SPAN_NOTICE("You carefully remove [store] from [name]!"))
 	store.forceMove(get_turf(store.loc))
 	clear_stored_item()
 	UnregisterSignal(store, COMSIG_PARENT_QDELETING)

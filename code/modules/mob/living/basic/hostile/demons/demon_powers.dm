@@ -16,7 +16,7 @@
 			validtargets += M
 
 	if(!length(validtargets))
-		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		to_chat(usr, SPAN_WARNING("There are no valid targets!"))
 		return
 
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
@@ -31,8 +31,8 @@
 	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
-	to_chat(usr, "<span class='notice'><b>You whisper to [choice]: </b>[msg]</span>")
-	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></i>")
+	to_chat(usr, SPAN_NOTICE("<b>You whisper to [choice]: </b>[msg]"))
+	to_chat(choice, "[SPAN_DEADSAY("<b>Suddenly a strange, demonic voice resonates in your head... </b>")]<i>[SPAN_DANGER(" [msg]")]</i>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
@@ -56,13 +56,13 @@
 
 /datum/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	to_chat(victim, SPAN_USERDANGER("You feel an awful sense of being watched..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, SPAN_WARNING("You could not locate any sapient heretics for the Slaughter."))
 		return 0
-	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, SPAN_DANGER("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
 
 //////////////////////////////
 // MARK: SHADOW DEMON
@@ -73,8 +73,8 @@
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/projectile/magic/shadow_hand
 
-	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
-	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
+	selection_activated_message = SPAN_NOTICE("You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b>")
+	selection_deactivated_message = SPAN_NOTICE("You re-absorb the energy...for now.")
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
@@ -189,17 +189,17 @@
 		return FALSE
 	if(locked)
 		if(show_message)
-			to_chat(user, "<span class='warning'>This ability is locked! Alt-click the button to purchase this ability.</span>")
-			to_chat(user, "<span class='notice'>It costs [format_si_suffix(unlock_cost)] APC\s to unlock.</span>")
+			to_chat(user, SPAN_WARNING("This ability is locked! Alt-click the button to purchase this ability."))
+			to_chat(user, SPAN_NOTICE("It costs [format_si_suffix(unlock_cost)] APC\s to unlock."))
 		return FALSE
 	if(user.charge < cast_cost)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You do not have enough charge to use this ability!</span>")
-			to_chat(user, "<span class='notice'>It costs [format_si_suffix(cast_cost)]W to use.</span>")
+			to_chat(user, SPAN_WARNING("You do not have enough charge to use this ability!"))
+			to_chat(user, SPAN_NOTICE("It costs [format_si_suffix(cast_cost)]W to use."))
 		return FALSE
 	if(requires_area && !user.controlling_area)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You need to be controlling an area to use this ability!</span>")
+			to_chat(user, SPAN_WARNING("You need to be controlling an area to use this ability!"))
 		return FALSE
 	return TRUE
 
@@ -209,7 +209,7 @@
 	if(requires_area && !user.controlling_area)
 		return FALSE
 	if(requires_area && user.controlling_area != get_area(targets[1]))
-		to_chat(user, "<span class='warning'>You can only use this ability in your controlled area!</span>")
+		to_chat(user, SPAN_WARNING("You can only use this ability in your controlled area!"))
 		return FALSE
 	if(try_cast_action(user, targets[1]))
 		user.adjust_charge(-cast_cost)
@@ -241,36 +241,36 @@
 		if(user.apcs_remaining >= unlock_cost)
 			user.apcs_remaining -= unlock_cost
 			locked = FALSE
-			to_chat(user, "<span class='notice'>You have unlocked [initial(name)]!</span>")
+			to_chat(user, SPAN_NOTICE("You have unlocked [initial(name)]!"))
 
 			if(cast_cost > 0)
-				to_chat(user, "<span class='notice'>It costs [format_si_suffix(cast_cost)]W to use once.</span>")
+				to_chat(user, SPAN_NOTICE("It costs [format_si_suffix(cast_cost)]W to use once."))
 			if(level_max > 0 && spell_level < level_max)
-				to_chat(user, "<span class='notice'>It will cost [format_si_suffix(upgrade_cost)] APC\s to upgrade.</span>")
+				to_chat(user, SPAN_NOTICE("It will cost [format_si_suffix(upgrade_cost)] APC\s to upgrade."))
 
 			update_info()
 		else
-			to_chat(user, "<span class='warning'>You cannot afford this ability! It costs [format_si_suffix(unlock_cost)] APC\s to unlock.</span>")
+			to_chat(user, SPAN_WARNING("You cannot afford this ability! It costs [format_si_suffix(unlock_cost)] APC\s to unlock."))
 	else
 		if(spell_level >= level_max)
-			to_chat(user, "<span class='warning'>You have already fully upgraded this ability!</span>")
+			to_chat(user, SPAN_WARNING("You have already fully upgraded this ability!"))
 		else if(user.apcs_remaining >= upgrade_cost)
 			user.apcs_remaining -= upgrade_cost
 			spell_level = min(spell_level + 1, level_max)
 			do_upgrade(user)
 
 			if(spell_level == level_max)
-				to_chat(user, "<span class='notice'>You have fully upgraded [initial(name)]!</span>")
+				to_chat(user, SPAN_NOTICE("You have fully upgraded [initial(name)]!"))
 			else
-				to_chat(user, "<span class='notice'>The next upgrade will cost [format_si_suffix(upgrade_cost)] APC\s to unlock.</span>")
+				to_chat(user, SPAN_NOTICE("The next upgrade will cost [format_si_suffix(upgrade_cost)] APC\s to unlock."))
 
 			update_info()
 		else
-			to_chat(user, "<span class='warning'>You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade.</span>")
+			to_chat(user, SPAN_WARNING("You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade."))
 
 /datum/spell/pulse_demon/proc/do_upgrade(mob/living/basic/demon/pulse_demon/user)
 	cooldown_handler.recharge_duration = round(base_cooldown / (1.5 ** spell_level))
-	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], it now takes [cooldown_handler.recharge_duration / 10] seconds to recharge.</span>")
+	to_chat(user, SPAN_NOTICE("You have upgraded [initial(name)] to level [spell_level + 1], it now takes [cooldown_handler.recharge_duration / 10] seconds to recharge."))
 
 /datum/spell/pulse_demon/cablehop
 	name = "Cable Hop"
@@ -287,10 +287,10 @@
 	var/turf/T = get_turf(target)
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in T
 	if(!istype(C))
-		to_chat(user, "<span class='warning'>No cable found!</span>")
+		to_chat(user, SPAN_WARNING("No cable found!"))
 		return FALSE
 	if(get_dist(O, T) > 15) //Some extra range to account for them possessing machines away from their APC, but blocking demons from using a camera console to zap across the station.
-		to_chat(user, "<span class='warning'>That cable is too far away!</span>")
+		to_chat(user, SPAN_WARNING("That cable is too far away!"))
 		return FALSE
 	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
@@ -314,7 +314,7 @@
 	revealing = TRUE
 
 /datum/spell/pulse_demon/emagtamper/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
-	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
+	to_chat(user, SPAN_WARNING("You attempt to tamper with [target]!"))
 	target.emag_act(user)
 	return TRUE
 
@@ -329,7 +329,7 @@
 	revealing = TRUE
 
 /datum/spell/pulse_demon/emp/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
-	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
+	to_chat(user, SPAN_WARNING("You attempt to EMP [target]!"))
 	empulse(get_turf(target), 1, 1)
 	return TRUE
 
@@ -348,12 +348,12 @@
 /datum/spell/pulse_demon/overload/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/M = target
 	if(!istype(M))
-		to_chat(user, "<span class='warning'>That is not a machine.</span>")
+		to_chat(user, SPAN_WARNING("That is not a machine."))
 		return FALSE
 	if(target.flags_2 & NO_MALF_EFFECT_2)
-		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
+		to_chat(user, SPAN_WARNING("That machine cannot be overloaded."))
 		return FALSE
-	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	target.audible_message(SPAN_ITALICS("You hear a loud electrical buzzing sound coming from [target]!"))
 	addtimer(CALLBACK(src, PROC_REF(detonate), user, M), 5 SECONDS)
 	return TRUE
 
@@ -378,10 +378,10 @@
 /datum/spell/pulse_demon/remotehijack/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/power/apc/A = target
 	if(!istype(A))
-		to_chat(user, "<span class='warning'>That is not an APC.</span>")
+		to_chat(user, SPAN_WARNING("That is not an APC."))
 		return FALSE
 	if(!user.try_hijack_apc(A, TRUE))
-		to_chat(user, "<span class='warning'>You cannot hijack that APC right now!</span>")
+		to_chat(user, SPAN_WARNING("You cannot hijack that APC right now!"))
 	return TRUE
 
 /datum/spell/pulse_demon/remotedrain
@@ -396,14 +396,14 @@
 	if(isapc(target))
 		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		if(drained == PULSEDEMON_SOURCE_DRAIN_INVALID)
-			to_chat(user, "<span class='warning'>This APC is being hijacked, you cannot drain from it right now.</span>")
+			to_chat(user, SPAN_WARNING("This APC is being hijacked, you cannot drain from it right now."))
 		else
-			to_chat(user, "<span class='notice'>You drain [format_si_suffix(drained)]W from [target].</span>")
+			to_chat(user, SPAN_NOTICE("You drain [format_si_suffix(drained)]W from [target]."))
 	else if(istype(target, /obj/machinery/power/smes))
 		var/drained = user.drain_SMES(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
-		to_chat(user, "<span class='notice'>You drain [format_si_suffix(drained)]W from [target].</span>")
+		to_chat(user, SPAN_NOTICE("You drain [format_si_suffix(drained)]W from [target]."))
 	else
-		to_chat(user, "<span class='warning'>That is not a valid source.</span>")
+		to_chat(user, SPAN_WARNING("That is not a valid source."))
 		return FALSE
 	return TRUE
 
@@ -425,7 +425,7 @@
 		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
 		action.build_all_button_icons()
 	if(user)
-		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")
+		to_chat(user, SPAN_NOTICE("You will [varstate ? "now" : "no longer"] [base_message]"))
 	return varstate
 
 /datum/spell/pulse_demon/toggle/do_drain
@@ -446,13 +446,13 @@
 
 	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
 	if(amount == null || amount < 0)
-		to_chat(user, "<span class='warning'>Invalid input. Drain speed has not been modified.</span>")
+		to_chat(user, SPAN_WARNING("Invalid input. Drain speed has not been modified."))
 		return
 
 	if(amount == 0)
 		amount = user.max_drain_rate
 	user.power_drain_rate = amount
-	to_chat(user, "<span class='notice'>Drain speed has been set to [format_si_suffix(user.power_drain_rate)]W per second.</span>")
+	to_chat(user, SPAN_NOTICE("Drain speed has been set to [format_si_suffix(user.power_drain_rate)]W per second."))
 
 /datum/spell/pulse_demon/toggle/can_exit_cable
 	name = "Toggle Self-Sustaining"
@@ -465,14 +465,14 @@
 
 /datum/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	if(user.can_exit_cable && !(user.current_cable || user.current_power))
-		to_chat(user, "<span class='warning'>Enter a cable or power source first!</span>")
+		to_chat(user, SPAN_WARNING("Enter a cable or power source first!"))
 		return FALSE
 	user.can_exit_cable = do_toggle(!user.can_exit_cable, user)
 	return TRUE
 
 /datum/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/basic/demon/pulse_demon/user)
 	user.outside_cable_speed = max(initial(user.outside_cable_speed) - spell_level, 1)
-	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], you will now move faster outside of cables.</span>")
+	to_chat(user, SPAN_NOTICE("You have upgraded [initial(name)] to level [spell_level + 1], you will now move faster outside of cables."))
 
 /datum/spell/pulse_demon/cycle_camera
 	name = "Cycle Camera View"
@@ -626,7 +626,7 @@
 /datum/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/basic/demon/pulse_demon/user, atom/target)
 	var/upgrades = get_upgrades(user)
 	if(!length(upgrades))
-		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
+		to_chat(user, SPAN_WARNING("You have already fully upgraded everything available!"))
 		return FALSE
 
 	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
@@ -638,39 +638,39 @@
 	if(cost == -1)
 		return FALSE
 	if(user.apcs_remaining < cost)
-		to_chat(user, "<span class='warning'>You do not have enough unused APCs to purchase this upgrade!</span>")
+		to_chat(user, SPAN_WARNING("You do not have enough unused APCs to purchase this upgrade!"))
 		return FALSE
 
 	user.apcs_remaining -= cost
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
 			user.hijack_time = max(round(user.hijack_time - 3 SECONDS), 6 SECONDS)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs.</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs."))
 		if(PD_UPGRADE_DRAIN_SPEED)
 			var/old = user.max_drain_rate
 			user.max_drain_rate = user.max_drain_rate + 20 KJ
 			if(user.power_drain_rate == old)
 				user.power_drain_rate = user.max_drain_rate
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now drain [format_si_suffix(user.max_drain_rate)]W.</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], you can now drain [format_si_suffix(user.max_drain_rate)]W."))
 		if(PD_UPGRADE_MAX_HEALTH)
 			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], your max health is now [user.maxHealth]."))
 		if(PD_UPGRADE_HEALTH_REGEN)
 			user.health_regen_rate = min(round(user.health_regen_rate + 2), 10)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered."))
 		if(PD_UPGRADE_HEALTH_LOSS)
 			user.health_loss_rate = max(round(user.health_loss_rate - 1), 0)
 			if(user.health_loss_rate == 0)
-				to_chat(user, "<span class='notice'>You have upgraded your [choice], You will no longer lose health when on an unpowered cable.</span>")
+				to_chat(user, SPAN_NOTICE("You have upgraded your [choice], You will no longer lose health when on an unpowered cable."))
 			else
-				to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now lose [user.health_loss_rate] health per cycle when unpowered.</span>")
+				to_chat(user, SPAN_NOTICE("You have upgraded your [choice], you will now lose [user.health_loss_rate] health per cycle when unpowered."))
 		if(PD_UPGRADE_HEALTH_COST)
 			user.power_per_regen = max(round(user.power_per_regen / 1.5), 1)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health.</span>")
-			to_chat(user, "<span class='notice'>Additionally, if you enable draining while on a cable, any excess power that would've been used regenerating will be added to your charge.</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health."))
+			to_chat(user, SPAN_NOTICE("Additionally, if you enable draining while on a cable, any excess power that would've been used regenerating will be added to your charge."))
 		if(PD_UPGRADE_MAX_CHARGE)
 			user.maxcharge = user.maxcharge + 50 KJ
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]J of energy.</span>")
+			to_chat(user, SPAN_NOTICE("You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]J of energy."))
 		else
 			return FALSE
 	return TRUE

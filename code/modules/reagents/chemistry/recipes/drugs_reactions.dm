@@ -42,7 +42,7 @@
 
 /datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	T.visible_message(SPAN_WARNING("The solution generates a strong vapor!"))
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.emote("gasp")
@@ -94,7 +94,7 @@
 
 /datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	T.visible_message(SPAN_WARNING("The solution generates a strong vapor!"))
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("jenkem", 25)

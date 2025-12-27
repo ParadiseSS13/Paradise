@@ -70,7 +70,7 @@
 		var/datum/pai_software/P = new type()
 		if(GLOB.pai_software_by_key[P.id])
 			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
-			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
+			to_chat(world, SPAN_WARNING("pAI software module [P.name] has the same key as [O.name]!"))
 			continue
 		GLOB.pai_software_by_key[P.id] = P
 

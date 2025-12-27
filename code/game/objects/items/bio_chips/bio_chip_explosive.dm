@@ -28,7 +28,7 @@
 	medium = round(medium)
 	weak = round(weak)
 	detonating = TRUE
-	to_chat(imp_in, "<span class='danger'>You activate your microbomb bio-chip.</span>")
+	to_chat(imp_in, SPAN_DANGER("You activate your microbomb bio-chip."))
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
 		self_destruct()
@@ -110,7 +110,7 @@
 		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb bio-chip.</span>")
+	to_chat(imp_in, SPAN_NOTICE("You activate your macrobomb bio-chip."))
 	timed_explosion()
 
 /obj/item/bio_chip/explosive/macro/implant(mob/source)

@@ -178,7 +178,7 @@
 
 	mech.setInternalDamage(MECHA_INT_CONTROL_LOST)
 	if(mech.occupant)
-		mech.occupant_message("<span class='danger'>Coordination system calibration failure. Manual restart required.</span>")
+		mech.occupant_message(SPAN_DANGER("Coordination system calibration failure. Manual restart required."))
 		SEND_SOUND(mech.occupant, sound('sound/machines/warning-buzzer.ogg'))
 
 	do_sparks(3, FALSE, mech.loc)

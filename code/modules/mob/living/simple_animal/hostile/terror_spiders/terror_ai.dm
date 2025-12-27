@@ -125,7 +125,7 @@
 					CreatePath(entry_vent)
 					step_to(src,entry_vent)
 					if(spider_debug)
-						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
+						visible_message(SPAN_NOTICE("[src] moves towards the vent [entry_vent]."))
 			else
 				path_to_vent = FALSE
 		else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
@@ -136,14 +136,14 @@
 					L.on = TRUE
 					L.break_light_tube()
 					do_attack_animation(L)
-					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
+					visible_message(SPAN_DANGER("[src] smashes the [L.name]."))
 					return
 		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
 				new web_type(loc)
-				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
+				visible_message(SPAN_NOTICE("[src] puts up some spider webs."))
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))
 				last_ventcrawl_time = world.time
@@ -212,7 +212,7 @@
 				CreatePath(cocoon_target)
 				step_to(src,cocoon_target)
 				if(spider_debug)
-					visible_message("<span class='notice'>[src] moves towards [cocoon_target] to cocoon it.</span>")
+					visible_message(SPAN_NOTICE("[src] moves towards [cocoon_target] to cocoon it."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/seek_cocoon_target()
 	last_cocoon_object = world.time
@@ -251,7 +251,7 @@
 							try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1, src))
 					if(tgt_dir == get_dir(src, F) && F.density && !F.welded)
-						visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
+						visible_message(SPAN_DANGER("[src] pries open the firedoor!"))
 						F.open()
 
 	else
@@ -271,7 +271,7 @@
 			if(ai_ventbreaker && entry_vent.welded)
 				entry_vent.welded = FALSE
 				entry_vent.update_icon()
-				entry_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [entry_vent]!</span>")
+				entry_vent.visible_message(SPAN_DANGER("[src] smashes the welded cover off [entry_vent]!"))
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
@@ -279,7 +279,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventilation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventilation ducts!</B>", SPAN_NOTICE("You hear something squeezing through the ventilation ducts."))
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)
@@ -290,7 +290,7 @@
 						entry_vent = null
 						return
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(SPAN_NOTICE("You hear something squeezing through the ventilation ducts."))
 					spawn(travel_time)
 						if(!exit_vent || (exit_vent.welded && !ai_ventbreaker))
 							forceMove(original_location)
@@ -300,7 +300,7 @@
 							exit_vent.welded = FALSE
 							exit_vent.update_icon()
 							exit_vent.update_pipe_image()
-							exit_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [exit_vent]!</span>")
+							exit_vent.visible_message(SPAN_DANGER("[src] smashes the welded cover off [exit_vent]!"))
 							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 						forceMove(exit_vent.loc)
 						entry_vent = null

@@ -72,16 +72,16 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of \the <b>[src]'s</b> dents."), \
+						SPAN_CULT("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of its own dents."), \
+						SPAN_CULT("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
 		else
 			if(src != M)
-				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair <b>[src]'s</b> dents, as it has none!"))
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 
@@ -94,8 +94,8 @@
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
 		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
-		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
-			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
+		visible_message(SPAN_DANGER("[src] slowly crumbles to dust in this holy place!"), \
+			SPAN_DANGER("Your shell burns as you crumble to dust in this holy place!"))
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		adjustBruteLoss(maxHealth/8)
 	else

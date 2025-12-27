@@ -66,7 +66,7 @@
 
 /obj/item/gun/energy/laser/practice/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>This weapon's shots are too weak to harm anyone, it is useless as an offensive weapon.</span>"
+	. += SPAN_WARNING("This weapon's shots are too weak to harm anyone, it is useless as an offensive weapon.")
 
 //////////////////////////////
 // MARK: RETRO LASER
@@ -112,7 +112,7 @@
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] contains a miniturised nuclear reactor that will slowly reacharge its power cell at all times. It can still be put into a gun charger for faster charging.</span>"
+	. += SPAN_NOTICE("[src] contains a miniturised nuclear reactor that will slowly reacharge its power cell at all times. It can still be put into a gun charger for faster charging.")
 
 /obj/item/gun/energy/laser/captain/examine_more(mob/user)
 	..()
@@ -238,7 +238,7 @@
 	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 2 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
-	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
+	to_chat(user, "<b>[SPAN_ROBOT("SCOPE_CREEPER_[rand(1, 9999)] Online.")]</b>")
 	select_fire(user)
 	user.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
 

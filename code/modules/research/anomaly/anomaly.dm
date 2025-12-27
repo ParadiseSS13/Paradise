@@ -100,7 +100,7 @@
 		var/armour_path = anomaly_armour_types[A.type]
 		if(!armour_path)
 			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
-		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armor gently hums to life.</span>")
+		to_chat(user, SPAN_NOTICE("You insert [A] into the chest plate, and the armor gently hums to life."))
 		new armour_path(get_turf(src))
 		qdel(src)
 		qdel(A)

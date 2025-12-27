@@ -63,7 +63,7 @@
 /datum/component/direct_explosive_trap/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 	if(get_dist(source, user) <= 2)
-		examine_text += "<span class='notice'>Looks odd!</span>"
+		examine_text += SPAN_NOTICE("Looks odd!")
 
 /// Blow up
 /datum/component/direct_explosive_trap/proc/explode(atom/source, mob/living/victim)
@@ -77,9 +77,9 @@
 			return
 		else if(result == DIRECT_EXPLOSIVE_TRAP_IGNORE)
 			return
-	to_chat(victim, "<span class='danger'>[source] was boobytrapped!</span>")
+	to_chat(victim, SPAN_DANGER("[source] was boobytrapped!"))
 	if(!isnull(saboteur))
-		to_chat(saboteur, "<span class='danger'>Success! Your trap on [source] caught [victim.name]!</span>")
+		to_chat(saboteur, SPAN_DANGER("Success! Your trap on [source] caught [victim.name]!"))
 	playsound(source, 'sound/effects/explosion2.ogg', 200, TRUE)
 	victim.ex_act(explosive_force)
 	// A bomb went off in your hands. Actually lets people follow up with it if
@@ -90,7 +90,7 @@
 /// Called if we sit too long without going off
 /datum/component/direct_explosive_trap/proc/bomb_expired()
 	if(!isnull(saboteur))
-		to_chat(saboteur, "<span class='danger'>Failure! Your trap on [parent] didn't catch anyone this time.</span>")
+		to_chat(saboteur, SPAN_DANGER("Failure! Your trap on [parent] didn't catch anyone this time."))
 	qdel(src)
 
 /// Don't hang a reference to the person who placed the bomb

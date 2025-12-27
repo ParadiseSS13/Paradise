@@ -26,13 +26,13 @@
 /datum/rep_purchase/proc/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	. = FALSE
 	if(hub.owner.current != user)
-		to_chat(user, "<span class='warning'>You were not recognized as this hub's original user.</span>")
+		to_chat(user, SPAN_WARNING("You were not recognized as this hub's original user."))
 		return
 	if(hub.rep < cost)
-		to_chat(user, "<span class='warning'>You do not have enough Rep.</span>")
+		to_chat(user, SPAN_WARNING("You do not have enough Rep."))
 		return
 	if(stock == 0)
-		to_chat(user, "<span class='warning'>This item is out of stock.</span>")
+		to_chat(user, SPAN_WARNING("This item is out of stock."))
 		return
 	else if(stock > 0)
 		stock--

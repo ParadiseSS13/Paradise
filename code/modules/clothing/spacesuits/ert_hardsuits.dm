@@ -38,7 +38,7 @@
 	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
 	camera.c_tag = wearer.name
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, SPAN_NOTICE("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()

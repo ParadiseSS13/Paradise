@@ -270,7 +270,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message("<span class='danger'>[L] explodes!</span>")
+		L.visible_message(SPAN_DANGER("[L] explodes!"))
 		L.quick_explode_gib()
 
 /obj/projectile/beam/laser/detective
@@ -332,12 +332,12 @@
 
 /obj/projectile/beam/laser/detective/tracker_warrant_shot/proc/no_worky(atom/target, tracking_already, warrant_fail)
 	if(tracking_already)
-		to_chat(firer, "<span class='danger'>Weapon Alert: You are already tracking a target!</span>")
+		to_chat(firer, SPAN_DANGER("Weapon Alert: You are already tracking a target!"))
 		return
 	if(warrant_fail)
-		to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on [target]!</span>")
+		to_chat(firer, SPAN_DANGER("Weapon Alert: unable to generate warrant on [target]!"))
 		return
-	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")
+	to_chat(firer, SPAN_DANGER("Weapon Alert: unable to track [target]!"))
 
 /obj/projectile/beam/silencer
 	name = "energy beam" //Keep it vague? It's not a laser, but it's silenced, does a person know what it is?

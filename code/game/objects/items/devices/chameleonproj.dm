@@ -41,7 +41,7 @@
 	if(!active_dummy)
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
-			to_chat(user, "<span class='notice'>Scanned [target].</span>")
+			to_chat(user, SPAN_NOTICE("Scanned [target]."))
 			saved_item = target.type
 			saved_icon = target.icon
 			saved_icon_state = target.icon_state
@@ -58,7 +58,7 @@
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		QDEL_NULL(active_dummy)
-		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(usr, SPAN_NOTICE("You deactivate [src]."))
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -72,7 +72,7 @@
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(usr.loc)
 		C.activate(O, usr, saved_icon, saved_icon_state, saved_overlays, saved_underlays, src)
 		qdel(O)
-		to_chat(usr, "<span class='notice'>You activate [src].</span>")
+		to_chat(usr, SPAN_NOTICE("You activate [src]."))
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -120,12 +120,12 @@
 	if(..())
 		return FINISH_ATTACK
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, SPAN_DANGER("Your [src] deactivates."))
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, SPAN_DANGER("Your [src] deactivates."))
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -145,14 +145,14 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, SPAN_DANGER("Your [src] deactivates."))
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, SPAN_DANGER("Your [src] deactivates."))
 	..()
 	master.disrupt()
 
@@ -209,21 +209,21 @@
 		if(isturf(user.loc))
 			toggle(user)
 		else
-			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+			to_chat(user, SPAN_WARNING("You can't use [src] while inside something!"))
 	else
-		to_chat(user, "<span class='warning'>You need at least [activation_cost] charge in your cell to use [src]!</span>")
+		to_chat(user, SPAN_WARNING("You need at least [activation_cost] charge in your cell to use [src]!"))
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		to_chat(user, "<span class='notice'>You reconfigure [src].</span>")
+		to_chat(user, SPAN_NOTICE("You reconfigure [src]."))
 		activate(user)
 		return
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, SPAN_NOTICE("You activate [src]."))
 	apply_wibbly_filters(user)
 	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activation_cost))
 		activate(user)
 	else
-		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+		to_chat(user, SPAN_WARNING("The chameleon field fizzles."))
 		do_sparks(3, FALSE, user)
 	remove_wibbly_filters(user)
 
@@ -266,7 +266,7 @@
 		return
 	disguise = module_sprites[selected_sprite]
 	var/list/name_check = splittext(selected_sprite, "-")
-	user.custom_panel = trim(name_check[1])
+	user.base_icon_state = trim(name_check[1])
 	START_PROCESSING(SSobj, src)
 	S = user
 	user.icon = disguise.icon
@@ -277,20 +277,20 @@
 	active = TRUE
 	user.update_icons()
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE, -6)
-	to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen [selected_module] cyborg.</span>")
+	to_chat(user, SPAN_NOTICE("You are now disguised as a Nanotrasen [selected_module] cyborg."))
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
 	STOP_PROCESSING(SSobj, src)
 	S = user
 	user.icon = initial(user.icon)
 	user.icon_state = initial(user.icon_state)
+	user.base_icon_state = initial(user.base_icon_state)
 	user.module.name = initial(user.module.name)
 	user.bubble_icon = "syndibot"
-	user.custom_panel = null
 	active = FALSE
 	user.update_icons()
 
 /obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
+		to_chat(user, SPAN_DANGER("Your chameleon field deactivates."))
 		deactivate(user)

@@ -19,13 +19,13 @@
 
 /obj/item/reagent_containers/applicator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to empty it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to empty it.")
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		to_chat(user, SPAN_WARNING("You short out the safeties on [src]."))
 		return TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
@@ -37,9 +37,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				to_chat(loc, SPAN_WARNING("[src] identifies and removes a harmful substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				visible_message(SPAN_WARNING("[src] identifies and removes a harmful substance."))
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/applicator/update_icon_state()
@@ -67,17 +67,17 @@
 
 /obj/item/reagent_containers/applicator/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
 	if(applying)
-		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
+		to_chat(user, SPAN_WARNING("You're already applying [src]."))
 		return
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
-			M.visible_message("[user] begins mending [user.p_themselves()] with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
+			M.visible_message("[user] begins mending [user.p_themselves()] with [src].", SPAN_NOTICE("You begin mending yourself with [src]."))
 		else
-			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
+			user.visible_message(SPAN_WARNING("[user] begins mending [M] with [src]."), SPAN_NOTICE("You begin mending [M] with [src]."))
 		if(M.reagents)
 			applying = TRUE
 			update_icon(UPDATE_ICON_STATE)
@@ -85,10 +85,10 @@
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
 				if(measured_health == M.health)
-					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
+					to_chat(user, SPAN_NOTICE("[M] is finished healing and [src] powers down automatically."))
 					break
 				if(!reagents.total_volume)
-					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
+					to_chat(user, SPAN_NOTICE("[src] is out of reagents and powers down automatically."))
 					break
 		applying = FALSE
 		update_icon()
@@ -131,7 +131,7 @@
 	if(tgui_alert(user, "Are you sure you want to empty [src]?", "Empty Applicator", list("Yes", "No")) != "Yes")
 		return
 	if(!user.incapacitated() && isturf(user.loc) && loc == user)
-		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src] onto the floor."))
 		reagents.reaction(user.loc)
 		reagents.clear_reagents()
 

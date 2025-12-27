@@ -66,7 +66,7 @@
 
 /obj/item/assembly/timer/interact(mob/user as mob)//TODO: Have this use the wires
 	if(!secured)
-		user.show_message("<span class='warning'>[src] is unsecured!</span>")
+		user.show_message(SPAN_WARNING("[src] is unsecured!"))
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60

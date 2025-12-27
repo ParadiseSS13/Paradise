@@ -19,7 +19,7 @@
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
 /obj/item/megaphone/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is uttering [user.p_their()] last words into [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	on_cooldown = FALSE
 	user.emote("scream")
 	say_msg(user, "AAAAAAAAAAAARGHHHHH")
@@ -28,32 +28,32 @@
 /obj/item/megaphone/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += "<span class='warning'>Yellow ooze seems to be seeping from the speaker...</span>"
+		. += SPAN_WARNING("Yellow ooze seems to be seeping from the speaker...")
 
 /obj/item/megaphone/attack_self__legacy__attackchain(mob/living/user)
 	if(check_mute(user.ckey, MUTE_IC))
-		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
+		to_chat(src, SPAN_WARNING("You cannot speak in IC (muted)."))
 		return
 	if(!ishuman(user))
-		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
+		to_chat(user, SPAN_WARNING("You don't know how to use this!"))
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
+		to_chat(user, SPAN_WARNING("You find yourself unable to speak at all."))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/abductor/H = user
 		if(isabductor(H))
-			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
+			to_chat(user, SPAN_WARNING("Megaphones can't project psionic communication!"))
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H && H.mind && H.mind.miming)
-			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
+			to_chat(user, SPAN_WARNING("Your vow of silence prevents you from speaking."))
 			return
 		if(HAS_TRAIT(H, TRAIT_COMIC_SANS))
 			span = "sans"
 	if(on_cooldown)
-		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to recharge!"))
 		return
 
 	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
@@ -77,7 +77,7 @@
 	else
 		playsound(src, "sound/items/megaphone.ogg", 100, FALSE, 5)
 
-	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='[span]'>\"[message]\"</span></span>", hearing_distance = 14)
+	audible_message("<span class='game say'>[SPAN_NAME("[user.GetVoice()]")] [user.GetAltName()] broadcasts, <span class='[span]'>\"[message]\"</span></span>", hearing_distance = 14)
 	log_say("(MEGAPHONE) [message]", user)
 	user.create_log(SAY_LOG, "(megaphone) '[message]'")
 	for(var/obj/O in view(14, get_turf(src)))
@@ -91,7 +91,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	if(user)
-		to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]'s voice synthesizer, gunking it up.</span>")
+		to_chat(user, SPAN_WARNING("You drip some yellow ooze into [src]'s voice synthesizer, gunking it up."))
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
@@ -100,9 +100,9 @@
 	if(emagged)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))  // one at a time
-		to_chat(user, "<span class='warning'>You go to short out [src], but it's covered in yellow ooze! You don't want to gunk up your emag!</span>")
+		to_chat(user, SPAN_WARNING("You go to short out [src], but it's covered in yellow ooze! You don't want to gunk up your emag!"))
 		return FALSE
-	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
+	to_chat(user, SPAN_DANGER("You short out [src]'s dampener circuits."))
 	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud
 	return TRUE

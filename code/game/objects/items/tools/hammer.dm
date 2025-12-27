@@ -22,7 +22,7 @@
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/hammer/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is bashing [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is bashing [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
 		return SHAME

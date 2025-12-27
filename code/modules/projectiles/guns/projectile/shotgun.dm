@@ -24,7 +24,7 @@
 	. += get_shotgun_info()
 
 /obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
-	return "<span class='notice'>After firing a shot, use this item in hand to remove the spent shell.</span>"
+	return SPAN_NOTICE("After firing a shot, use this item in hand to remove the spent shell.")
 
 /obj/item/gun/projectile/shotgun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
@@ -32,7 +32,7 @@
 		return
 	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]!"))
 		A.update_icon()
 		update_icon()
 
@@ -100,21 +100,21 @@
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
+		to_chat(user, SPAN_WARNING("[src] has already been shortened!"))
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='notice'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, SPAN_NOTICE("How do you plan to modify [src] while it's in a bag."))
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			process_fire(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(SPAN_DANGER("\The [src] goes off!"), SPAN_DANGER("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack__legacy__attackchain(user, user)
-			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", SPAN_NOTICE("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(SPAN_DANGER("[user.name] opens [src] up and the shells go goes flying around!"), SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!"))
 		while(get_ammo(0) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -123,7 +123,7 @@
 				CB.update_icon()
 
 	if(do_after(user, 30, target = src))
-		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
+		user.visible_message("[user] shortens \the [src]!", SPAN_NOTICE("You shorten \the [src]."))
 		post_sawoff()
 		return 1
 
@@ -138,21 +138,21 @@
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
-		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
+		to_chat(user, SPAN_WARNING("[src] has not been shortened!"))
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='notice'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, SPAN_NOTICE("How do you plan to modify [src] while it's in a bag."))
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack__legacy__attackchain(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(SPAN_DANGER("\The [src] goes off!"), SPAN_DANGER("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack__legacy__attackchain(user, user)
-			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", SPAN_NOTICE("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(SPAN_DANGER("[user.name] opens [src] up and the shells go goes flying around!"), SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!"))
 		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -162,7 +162,7 @@
 
 	if(do_after(user, 30, target = src))
 		qdel(A)
-		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] lengthens [src]!"), SPAN_NOTICE("You lengthen [src]."))
 		post_unsaw(user)
 		return 1
 
@@ -231,7 +231,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(!bolt_open)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
+		to_chat(user, SPAN_NOTICE("The bolt is closed!"))
 		return
 	. = ..()
 
@@ -271,7 +271,7 @@
 		discard_gun(user)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
-	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.visible_message(SPAN_WARNING("[user] tosses aside the spent rifle!"))
 	user.throw_item(pick(oview(7, get_turf(user))))
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
@@ -297,7 +297,7 @@
 /obj/item/gun/projectile/shotgun/automatic
 
 /obj/item/gun/projectile/shotgun/automatic/get_shotgun_info()
-	return "<span class='notice'>Automatically releases spent shotgun shells.</span>"
+	return SPAN_NOTICE("Automatically releases spent shotgun shells.")
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()

@@ -135,7 +135,7 @@
 	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.status & ORGAN_MUTATED)
 			O.unmutate()
-			to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+			to_chat(src, SPAN_NOTICE("Your [O.name] is shaped normally again."))
 
 /mob/living/carbon/human/adjustCloneLoss(amount)
 	if(dna.species && amount > 0)
@@ -164,7 +164,7 @@
 		if(length(candidates))
 			var/obj/item/organ/external/O = pick(candidates)
 			O.mutate()
-			to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
+			to_chat(src, SPAN_NOTICE("Something is not right with your [O.name]..."))
 			O.add_autopsy_data("Mutation", amount)
 	else // Cloneloss was partially healed - chance to unmutate an organ
 		if(!prob(heal_prob))
@@ -173,7 +173,7 @@
 		for(var/obj/item/organ/external/O in bodyparts)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+				to_chat(src, SPAN_NOTICE("Your [O.name] is shaped normally again."))
 				return
 
 /mob/living/carbon/human/setCloneLoss(amount)

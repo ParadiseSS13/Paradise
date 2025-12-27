@@ -49,7 +49,7 @@
 	else
 		. += "It is complete."
 	if(heat)
-		. +="<span class='warning'>It is glowing hot!</span>"
+		. +=SPAN_WARNING("It is glowing hot!")
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
 	if(!heat)
@@ -84,7 +84,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H))
 		return
-	to_chat(user, "<span class='warning'>You burn your hand as you try to pick up [src]!</span>")
+	to_chat(user, SPAN_WARNING("You burn your hand as you try to pick up [src]!"))
 	var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 	if(affecting.receive_damage(0, 10)) // 10 burn damage
 		H.UpdateDamageIcon()

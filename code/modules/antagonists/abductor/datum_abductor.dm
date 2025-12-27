@@ -20,8 +20,8 @@
 
 /datum/antagonist/abductor/greet()
 	var/list/messages = list()
-	messages.Add("<span class='userdanger'>You are an agent of [our_team.name]!</span>")
-	messages.Add("<span class='boldnotice'>With the help of your teammate, kidnap and experiment on station crew members! Use your stealth technology and equipment to incapacitate humanoids for your scientist to retrieve.</span>")
+	messages.Add(SPAN_USERDANGER("You are an agent of [our_team.name]!"))
+	messages.Add(SPAN_BOLDNOTICE("With the help of your teammate, kidnap and experiment on station crew members! Use your stealth technology and equipment to incapacitate humanoids for your scientist to retrieve."))
 	return messages
 
 /datum/antagonist/abductor/add_owner_to_gamemode()
@@ -46,8 +46,8 @@
 
 /datum/antagonist/abductor/scientist/greet()
 	var/list/messages = list()
-	messages.Add("<span class='userdanger'>You are a scientist of [our_team.name]!</span>")
-	messages.Add("<span class='boldnotice'>With the help of your teammate, kidnap and experiment on station crew members! Use your tool and ship consoles to support the agent and retrieve humanoid specimens.</span>")
+	messages.Add(SPAN_USERDANGER("You are a scientist of [our_team.name]!"))
+	messages.Add(SPAN_BOLDNOTICE("With the help of your teammate, kidnap and experiment on station crew members! Use your tool and ship consoles to support the agent and retrieve humanoid specimens."))
 	return messages
 
 /datum/antagonist/abductor/antag_event_resource_cost()

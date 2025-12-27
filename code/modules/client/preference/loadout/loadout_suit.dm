@@ -27,6 +27,10 @@
 	display_name = "Winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
 
+/datum/gear/suit/coat/solgov
+	display_name = "Winter coat, Solgov"
+	path = /obj/item/clothing/suit/hooded/wintercoat/solgov
+
 /datum/gear/suit/coat/job
 	main_typepath = /datum/gear/suit/coat/job
 	subtype_selection_cost = FALSE

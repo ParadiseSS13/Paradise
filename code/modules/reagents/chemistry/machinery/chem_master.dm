@@ -10,6 +10,10 @@
 #define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
 #define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
 
+#define DEFAULT_CUSTOM_TRANSFER_AMOUNT 30
+#define MINIMUM_CUSTOM_TRANSFER_AMOUNT 1
+#define MAXIMUM_CUSTOM_TRANSFER_AMOUNT 200
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -24,7 +28,6 @@
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
-	var/useramount = 30 // Last used amount
 	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
@@ -120,23 +123,23 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
+		to_chat(user, SPAN_WARNING("You can't use [src] while it's panel is opened!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [used] with [beaker] inside.</span>")
+			to_chat(usr, SPAN_NOTICE("You swap [used] with [beaker] inside."))
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You add [used] to the machine.</span>")
+			to_chat(user, SPAN_NOTICE("You add [used] to the machine."))
 		beaker = used
 		SStgui.update_uis(src)
 		update_icon()
@@ -145,16 +148,16 @@
 
 	else if(istype(used, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
-			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A [loaded_pill_bottle] is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		loaded_pill_bottle = used
 		used.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [used] into the dispenser slot!</span>")
+		to_chat(user, SPAN_NOTICE("You add [used] into the dispenser slot!"))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -216,7 +219,7 @@
 			var/datum/reagent/R = reagent_list[idx]
 
 			printing = TRUE
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -303,6 +306,25 @@
 		if("remove")
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
+			if(!id || !amount)
+				return
+			if(mode)
+				reagents.trans_id_to(beaker, id, amount)
+			else
+				reagents.remove_reagent(id, amount)
+		if("addcustom")
+			if(!beaker || !beaker.reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			R.trans_id_to(src, id, amount)
+		if("removecustom")
+			if(!reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
 			if(!id || !amount)
 				return
 			if(mode)
@@ -467,45 +489,10 @@
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
-				if("addcustom")
-					if(!beaker || !beaker.reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to buffer:", null, arguments, useramount)
-				if("removecustom")
-					if(!reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", null, arguments, useramount)
-				else
-					return FALSE
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("addcustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)
-				if("removecustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("remove", list("id" = arguments["id"], "amount" = amount), ui, state)
 				else
 					return FALSE
 		else
 			return FALSE
-
-/obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
-		if(num > 200)
-			num = 200
-		else if(num < 0)
-			num = 1
-		else
-			num = round(num)
-		return num
-	else
-		return FALSE
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
@@ -570,7 +557,7 @@
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>Not enough reagents to create these items!</span>")
+			to_chat(user, SPAN_WARNING("Not enough reagents to create these items!"))
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
@@ -684,3 +671,7 @@
 
 #undef SAFE_MIN_TEMPERATURE
 #undef SAFE_MAX_TEMPERATURE
+
+#undef DEFAULT_CUSTOM_TRANSFER_AMOUNT
+#undef MINIMUM_CUSTOM_TRANSFER_AMOUNT
+#undef MAXIMUM_CUSTOM_TRANSFER_AMOUNT

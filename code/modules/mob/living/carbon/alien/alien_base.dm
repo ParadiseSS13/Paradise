@@ -180,7 +180,7 @@
 		to_chat(M, alien_message)
 
 /mob/living/carbon/alien/proc/deathrattle_message()
-	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
+	return "<i>[SPAN_ALIEN("The hivemind echoes: [name] has been slain!")]</i>"
 
 /*----------------------------------------
 Proc: AddInfectionImages()

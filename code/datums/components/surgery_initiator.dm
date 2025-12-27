@@ -59,7 +59,7 @@
 
 /datum/component/surgery_initiator/proc/on_parent_examine_more(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE_MORE
-	examine_list += "<span class='notice'>You can use this on someone who is laying down to begin surgery on them.</span>"
+	examine_list += SPAN_NOTICE("You can use this on someone who is laying down to begin surgery on them.")
 
 /// Keep tabs on the attached item's sharpness.
 /// This component gets added in atoms when they're made sharp as well.
@@ -67,7 +67,6 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
 	if(!P.sharp)
-		UnlinkComponent()
 		RemoveComponent()
 
 /// Does the surgery initiation.
@@ -94,7 +93,7 @@
 				return
 
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
+		to_chat(user, SPAN_NOTICE("You realise that a ghost probably doesn't have any useful organs."))
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	// This signal is actually part of the attack chain, so it needs to return true to stop it
@@ -129,9 +128,9 @@
 
 	if(!length(available_surgeries))
 		if(IS_HORIZONTAL(target) || isanimal(target))
-			to_chat(user, "<span class='notice'>There aren't any surgeries you can perform there right now.</span>")
+			to_chat(user, SPAN_NOTICE("There aren't any surgeries you can perform there right now."))
 		else
-			to_chat(user, "<span class='notice'>You can't perform any surgeries there while [target] is standing.</span>")
+			to_chat(user, SPAN_NOTICE("You can't perform any surgeries there while [target] is standing."))
 		return
 
 	// if we have a surgery that should be performed regardless with this item,
@@ -171,8 +170,8 @@
 
 /datum/component/surgery_initiator/proc/cancel_unstarted_surgery_fluff(datum/surgery/the_surgery, mob/living/patient, mob/user, selected_zone)
 	user.visible_message(
-		"<span class='notice'>[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
-		"<span class='notice'>You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
+		SPAN_NOTICE("[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent]."),
+		SPAN_NOTICE("You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent]."),
 	)
 
 /// Does the surgery de-initiation.
@@ -227,7 +226,7 @@
 		else
 			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
 			if(!close_tool)
-				to_chat(user, "<span class='warning'>You need a prying tool in an inactive slot to stop the surgery!</span>")
+				to_chat(user, SPAN_WARNING("You need a prying tool in an inactive slot to stop the surgery!"))
 				return TRUE
 
 	else if(other_hand)
@@ -237,7 +236,7 @@
 				break
 
 	if(!close_tool)
-		to_chat(user, "<span class='warning'>You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!</span>")
+		to_chat(user, SPAN_WARNING("You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!"))
 		return TRUE
 
 	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery) == SURGERY_INITIATE_SUCCESS)
@@ -256,13 +255,13 @@
 
 	// The item was moved somewhere else
 	if(!(parent in user))
-		to_chat(user, "<span class='warning'>You cannot start an operation if you aren't holding the tool anymore.</span>")
+		to_chat(user, SPAN_WARNING("You cannot start an operation if you aren't holding the tool anymore."))
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location
 	for(var/datum/surgery/surgery in target.surgeries)
 		if(surgery.location == user.zone_selected)
-			to_chat(user, "<span class='warning'>There's already another surgery in progress on their [parse_zone(surgery.location)].</span>")
+			to_chat(user, SPAN_WARNING("There's already another surgery in progress on their [parse_zone(surgery.location)]."))
 			return FALSE
 
 	return TRUE
@@ -281,32 +280,32 @@
 
 	if(surgery.requires_bodypart == isnull(affecting_limb))
 		if(surgery.requires_bodypart)
-			to_chat(user, "<span class='warning'>The patient has no [parse_zone(selected_zone)]!</span>")
+			to_chat(user, SPAN_WARNING("The patient has no [parse_zone(selected_zone)]!"))
 		else
-			to_chat(user, "<span class='warning'>The patient has \a [parse_zone(selected_zone)]!</span>")
+			to_chat(user, SPAN_WARNING("The patient has \a [parse_zone(selected_zone)]!"))
 
 		return
 
 	if(iscarbon(target))
 		if(!isnull(affecting_limb))
 			if((surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
-				to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
+				to_chat(user, SPAN_WARNING("That's not the right type of limb for this operation!"))
 				return
 
 		if(surgery_needs_exposure(surgery, target))
-			to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
+			to_chat(user, SPAN_WARNING("You have to expose [target.p_their()] [parse_zone(selected_zone)] first!"))
 			return
 
 	if(surgery.lying_required && !on_operable_surface(target))
-		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
+		to_chat(user, SPAN_NOTICE("Patient must be lying down for this operation."))
 		return
 
 	if(target == user && !surgery.self_operable)
-		to_chat(user, "<span class='notice'>You can't perform that operation on yourself!</span>")
+		to_chat(user, SPAN_NOTICE("You can't perform that operation on yourself!"))
 		return
 
 	if(!surgery.can_start(user, target))
-		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
+		to_chat(user, SPAN_WARNING("Can't start the surgery!"))
 		return
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
@@ -315,7 +314,7 @@
 	if(istype(procedure, /datum/surgery/dissect))
 		if(isnull(target.surgery_container))
 			log_debug("A dissection was started on [target] with contains_xeno_organ as TRUE, however its surgery_container was null!")
-			CRASH("<span class='userdanger'>[target] does not have a dissection surgery information set to it. Please inform an admin or developer.</span>")
+			CRASH(SPAN_USERDANGER("[target] does not have a dissection surgery information set to it. Please inform an admin or developer."))
 		if(ispath(target.surgery_container, /datum/xenobiology_surgery_container))
 			target.surgery_container = new target.surgery_container
 		procedure.steps = target.surgery_container.dissection_tool_step
@@ -336,8 +335,8 @@
 /// Handle to allow for easily overriding the message shown
 /datum/component/surgery_initiator/proc/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
 	user.visible_message(
-		"<span class='notice'>[user] holds [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
-		"<span class='notice'>You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
+		SPAN_NOTICE("[user] holds [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery."),
+		SPAN_NOTICE("You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name]."),
 	)
 
 /datum/component/surgery_initiator/proc/on_prevent_germs()
@@ -368,14 +367,14 @@
 
 /datum/component/surgery_initiator/cloth/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
 	user.visible_message(
-		"<span class='notice'>[user] drapes [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
-		"<span class='notice'>You drape [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
+		SPAN_NOTICE("[user] drapes [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery."),
+		SPAN_NOTICE("You drape [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name]."),
 	)
 
 /datum/component/surgery_initiator/cloth/on_surgery_selection(mob/user, mob/living/target, datum/surgery/target_surgery)
 	user.visible_message(
-		"<span class='notice'>[user] starts to apply [parent] onto [target].</span>",
-		"<span class='notice'>You start to apply [parent] onto [target].</span>",
+		SPAN_NOTICE("[user] starts to apply [parent] onto [target]."),
+		SPAN_NOTICE("You start to apply [parent] onto [target]."),
 	)
 
 	if(!isnull(surgery_start_sound))
@@ -384,8 +383,8 @@
 	playsound(src, surgery_start_sound)
 	if(!do_after_once(user, 3 SECONDS, TRUE, target))
 		user.visible_message(
-			"<span class='warning'>[user] stops applying [parent] onto [target].</span>",
-			"<span class='warning'>You stop applying [parent] onto [target].</span>"
+			SPAN_WARNING("[user] stops applying [parent] onto [target]."),
+			SPAN_WARNING("You stop applying [parent] onto [target].")
 		)
 		return
 
@@ -396,7 +395,7 @@
 
 /datum/component/surgery_initiator/cloth/on_blood_splash(datum/surgery, mob/user, mob/target, zone, obj/item/tool)
 	if(prob(90 * germ_prevention_quality))
-		target.visible_message("<span class='notice'>Blood splashes onto the dressing.</span>")
+		target.visible_message(SPAN_NOTICE("Blood splashes onto the dressing."))
 		var/obj/item/I = parent  // safety: this component can only go onto an item
 		I.add_mob_blood(target)
 		return COMPONENT_BLOOD_SPLASH_HANDLED

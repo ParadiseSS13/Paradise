@@ -132,11 +132,11 @@
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
-				. += "<span class='notice'>[src] was bitten by someone!</span>"
+				. += SPAN_NOTICE("[src] was bitten by someone!")
 			else if(bitecount<=3)
-				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+				. += SPAN_NOTICE("[src] was bitten [bitecount] times!")
 			else
-				. += "<span class='notice'>[src] was bitten multiple times!</span>"
+				. += SPAN_NOTICE("[src] was bitten multiple times!")
 
 /obj/item/food/ex_act()
 	if(reagents)
@@ -161,8 +161,8 @@
 	SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, M)
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
+			to_chat(user, SPAN_NOTICE("You finish eating [src]."))
+		user.visible_message(SPAN_NOTICE("[M] finishes eating [src]."))
 		user.unequip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
@@ -178,7 +178,7 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, SPAN_WARNING("None of [src] left, oh no!"))
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -206,8 +206,8 @@
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message(
-			"<span class='notice'>[user] scoops up some [name] with [U]!</span>",
-			"<span class='notice'>You scoop up some [name] with [U]!</span>"
+			SPAN_NOTICE("[user] scoops up some [name] with [U]!"),
+			SPAN_NOTICE("You scoop up some [name] with [U]!")
 		)
 		bitecount++
 		U.overlays.Cut()
@@ -254,23 +254,23 @@
 		if(isdog(M))
 			var/mob/living/simple_animal/pet/dog/D = M
 			if(world.time < (D.last_eaten + 300))
-				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+				to_chat(D, SPAN_NOTICE("You are too full to try eating [src] right now."))
 			else if(bitecount >= 4)
-				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",SPAN_NOTICE("You swallow up the last part of [src]."))
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				D.adjustHealth(-10)
 				D.last_eaten = world.time
 				D.taste(reagents)
 				qdel(src)
 			else
-				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message("[D] takes a bite of [src].",SPAN_NOTICE("You take a bite of [src]."))
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 				D.last_eaten = world.time
 				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/basic/mouse/N = M
-			to_chat(N, "<span class='notice'>You nibble away at [src].</span>")
+			to_chat(N, SPAN_NOTICE("You nibble away at [src]."))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
 			N.adjustHealth(-2)
@@ -303,7 +303,7 @@
 
 /obj/item/food/sliceable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to put something small inside.</span>"
+	. += SPAN_NOTICE("Alt-click to put something small inside.")
 
 /obj/item/food/sliceable/AltClick(mob/user)
 	if(!Adjacent(user))
@@ -312,19 +312,19 @@
 	if(!I || I == src) // dont try to slip inside itself
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot fit [I] in [src]!"))
 		return
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot fit [I] in [src]!"))
 		return
 	if(!iscarbon(user))
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot slip [I] inside [src]!"))
 		return
-	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
+	to_chat(user, SPAN_WARNING("You slip [I] inside [src]."))
 	total_w_class += I.w_class
 	add_fingerprint(user)
 	I.forceMove(src)
@@ -342,7 +342,7 @@
 
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
-		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+		to_chat(user, SPAN_WARNING("You cannot slice [src] here! You need a table or at least a tray to do it."))
 		return ITEM_INTERACT_COMPLETE
 
 	var/initial_volume = 0 // the total some of reagents this food had initially
@@ -356,13 +356,13 @@
 	var/slices_lost
 	if(!inaccurate)
 		user.visible_message(
-			"<span class='notice'>[user] slices [src] with [used].</span>",
-			"<span class='notice'>You slice [src] with [used].</span>"
+			SPAN_NOTICE("[user] slices [src] with [used]."),
+			SPAN_NOTICE("You slice [src] with [used].")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
-			"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
+			SPAN_NOTICE("[user] crudely slices [src] with [used], destroying some in the process!"),
+			SPAN_NOTICE("You crudely slice [src] with [used], destroying some in the process!")
 		)
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	// Low efficiency means more loss.

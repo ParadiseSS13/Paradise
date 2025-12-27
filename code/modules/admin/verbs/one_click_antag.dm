@@ -1,14 +1,6 @@
-/client/proc/one_click_antag()
-	set name = "Create Antagonist"
-	set desc = "Auto-create an antagonist of your choice"
-	set category = "Event"
-
-	if(!check_rights(R_SERVER|R_EVENT))	return
-
-	if(holder)
-		holder.one_click_antag()
-	return
-
+USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
+	if(client.holder)
+		client.holder.one_click_antag()
 
 /datum/admins/proc/one_click_antag()
 
@@ -397,7 +389,7 @@
 		thunderdome_candidates.Cut(max_thunderdome_players + 1)
 	if(ISODD(length(thunderdome_candidates))) // We want fair fights
 		var/surplus_candidate = pick_n_take(thunderdome_candidates)
-		to_chat(surplus_candidate, "<span class='warning'>You were not chosen due to an odd number of participants.</span>")
+		to_chat(surplus_candidate, SPAN_WARNING("You were not chosen due to an odd number of participants."))
 	for(var/mob/dead/observer/candidate_to_spawn in thunderdome_candidates)
 		if(!candidate_to_spawn || !candidate_to_spawn.key || !candidate_to_spawn.client)
 			continue

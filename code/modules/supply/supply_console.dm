@@ -33,7 +33,7 @@
 
 /obj/machinery/computer/supplycomp/attack_hand(mob/user)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return TRUE
 
 	ui_interact(user)
@@ -273,7 +273,7 @@
 				return
 
 			if(!P.can_order())
-				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
+				to_chat(user, SPAN_WARNING("That cannot be ordered right now. Please try again later."))
 				return
 			if(P.are_you_sure_you_want_to_be_banned)
 				var/we_warned_you = tgui_alert(user, "[P.are_you_sure_you_want_to_be_banned]", "ARE YOU SURE?", list("Yes", "No"))
@@ -303,7 +303,7 @@
 			var/datum/money_account/selected_account = locateUID(params["account"])
 			if(!selected_account)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
-				to_chat(user, "<span class='warning'>You must select an account to pay for the order.</span>")
+				to_chat(user, SPAN_WARNING("You must select an account to pay for the order."))
 				return
 			var/successes = 0
 			for(var/i in 1 to amount)
@@ -313,11 +313,11 @@
 					order_crate(user, order, selected_account)
 					if(successes == 1)
 						playsound(loc, 'sound/machines/ping.ogg', 15, FALSE)
-						to_chat(user, "<span class='notice'>Order Sent.</span>")
+						to_chat(user, SPAN_NOTICE("Order Sent."))
 						generate_requisition_paper(order, amount)
 			if(successes != amount)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
-				to_chat(user, "<span class='warning'>Some items were unable to be ordered. Please check requisition paper and try again at a different time.</span>")
+				to_chat(user, SPAN_WARNING("Some items were unable to be ordered. Please check requisition paper and try again at a different time."))
 
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
@@ -448,7 +448,7 @@
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.
 		return
 	if(!SSshuttle.supply.canMove())
-		to_chat(user, "<span class='warning'>For safety reasons, the automated supply shuttle cannot transport [SSshuttle.supply.blocking_item].</span>")
+		to_chat(user, SPAN_WARNING("For safety reasons, the automated supply shuttle cannot transport [SSshuttle.supply.blocking_item]."))
 	else if(SSshuttle.supply.getDockedId() == "supply_home")
 		SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", INVESTIGATE_CARGO)
@@ -471,19 +471,19 @@
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
-		to_chat(user, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: incorrect credentials."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/computer/supplycomp/proc/pay_with_account(datum/money_account/customer_account, amount, purpose, transactor, mob/user, datum/money_account/target)
 	if(!customer_account)
-		to_chat(user, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(user, SPAN_WARNING("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: account suspended."))
 		return FALSE
 	if(!account_database.charge_account(customer_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
-		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")
+		to_chat(user, SPAN_WARNING("Unable to complete transaction: account has insufficient credit balance to purchase this."))
 		return FALSE
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
@@ -514,7 +514,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(mob/user)
 	if(!hacked)
-		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
+		to_chat(user, SPAN_NOTICE("Special supplies unlocked."))
 		hacked = TRUE
 		update_static_data(user)
 		SStgui.update_uis(src)

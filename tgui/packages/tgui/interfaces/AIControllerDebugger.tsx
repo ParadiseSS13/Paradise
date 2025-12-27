@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
-import { Box, Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs, Tooltip } from 'tgui-core/components';
+import { truncate } from 'lodash';
+import { Box, Button, Section, Stack, Table, Tooltip } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { truncate } from 'lodash';
 
 interface AIControllerDebuggerData {
   controller: AIController;
@@ -20,6 +19,10 @@ interface AIController {
   pawn?: ObjRef;
   idle_behavior: string;
   movement: string;
+  movement_delay: number;
+  able_to_plan: BooleanLike;
+  on_failed_planning_timeout: BooleanLike;
+  ai_status: string;
   movement_target?: MovementTarget;
   current_behaviors: string[];
   planned_behaviors: string[];
@@ -75,6 +78,12 @@ export const AIControllerDebugger = (props) => {
                 </Table.Row>
               )}
               <Table.Row>
+                <Table.Cell>Status</Table.Cell>
+                <Table.Cell>
+                  <CopyableValue text={controller.ai_status} />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
                 <Table.Cell>Type</Table.Cell>
                 <Table.Cell>
                   <CopyableValue text={controller.type} />
@@ -90,6 +99,24 @@ export const AIControllerDebugger = (props) => {
                 <Table.Cell>Movement</Table.Cell>
                 <Table.Cell>
                   <CopyableValue text={controller.movement} />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Movement Delay</Table.Cell>
+                <Table.Cell>
+                  <CopyableValue text={controller.movement_delay} />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Able to Plan</Table.Cell>
+                <Table.Cell>
+                  <CopyableValue text={controller.able_to_plan ? 'Yes' : 'No'} />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>On Failed Planning Timeout</Table.Cell>
+                <Table.Cell>
+                  <CopyableValue text={controller.on_failed_planning_timeout ? 'Yes' : 'No'} />
                 </Table.Cell>
               </Table.Row>
               {controller.movement_target && (
@@ -113,7 +140,7 @@ export const AIControllerDebugger = (props) => {
           <Section title="Blackboard">
             <Table className="AIControllerDebugger__Blackboard">
               {controller.blackboard.map((blackboard_item) => (
-                <Table.Row>
+                <Table.Row key={blackboard_item.name}>
                   <Table.Cell>
                     {blackboard_item.name.length > 30 ? (
                       <Tooltip content={blackboard_item.name}>
@@ -139,8 +166,8 @@ export const AIControllerDebugger = (props) => {
           </Section>
           <Section title="Current Behaviors">
             <Table>
-              {controller.current_behaviors.map((behavior) => (
-                <Table.Row>
+              {controller.current_behaviors.map((behavior, i) => (
+                <Table.Row key={i}>
                   <Table.Cell>
                     <CopyableValue text={behavior} />
                   </Table.Cell>
@@ -150,8 +177,8 @@ export const AIControllerDebugger = (props) => {
           </Section>
           <Section title="Planned Behaviors">
             <Table>
-              {controller.planned_behaviors.map((behavior) => (
-                <Table.Row>
+              {controller.planned_behaviors.map((behavior, i) => (
+                <Table.Row key={i}>
                   <Table.Cell>
                     <CopyableValue text={behavior} />
                   </Table.Cell>

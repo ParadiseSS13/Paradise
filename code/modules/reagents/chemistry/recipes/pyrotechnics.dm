@@ -371,7 +371,7 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = SPAN_DANGER("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)

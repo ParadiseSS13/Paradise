@@ -18,7 +18,7 @@
 	else
 		..()
 	if(toggle)
-		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
+		visible_message(SPAN_DANGER("The explosion glances off [src]'s energy shielding!"))
 
 
 /mob/living/simple_animal/hostile/guardian/protector/Manifest()
@@ -56,14 +56,14 @@
 		move_resist = initial(move_resist)
 		speed = initial(speed)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+		to_chat(src, SPAN_DANGER("You switch to combat mode."))
 		toggle = FALSE
 		QDEL_LIST_CONTENTS(connected_shields)
 	else
 		if(!isturf(loc))
 			return
 		if(get_turf(summoner) == get_turf(src))
-			to_chat(src, "<span class='warning'>You cannot deploy your shield while on your host!</span>")
+			to_chat(src, SPAN_WARNING("You cannot deploy your shield while on your host!"))
 			return
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
 		shield_overlay *= name_color
@@ -74,7 +74,7 @@
 		move_resist = MOVE_FORCE_STRONG
 		speed = 1
 		damage_transfer = 0.1 //damage? what's damage?
-		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
+		to_chat(src, SPAN_DANGER("You switch to protection mode."))
 		toggle = TRUE
 		var/dir_left = turn(dir, -90)
 		var/dir_right = turn(dir, 90)
@@ -88,12 +88,12 @@
 			return
 		else
 			if(iseffect(summoner.loc))
-				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+				to_chat(src, SPAN_HOLOPARASITE("You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!"))
+				visible_message(SPAN_DANGER("[src] jumps back to its user."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
-				summoner.visible_message("<span class='danger'>[summoner] jumps back to [summoner.p_their()] protector.</span>")
+				to_chat(summoner, SPAN_HOLOPARASITE("You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!"))
+				summoner.visible_message(SPAN_DANGER("[summoner] jumps back to [summoner.p_their()] protector."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
@@ -138,7 +138,7 @@
 	if(..() || !attacking.force)
 		return FINISH_ATTACK
 
-	user.visible_message("<span class='danger'>[user] has hit [src] with [attacking]!</span>", "<span class='danger'>You hit [src] with [attacking]!</span>")
+	user.visible_message(SPAN_DANGER("[user] has hit [src] with [attacking]!"), SPAN_DANGER("You hit [src] with [attacking]!"))
 	linked_guardian.apply_damage(attacking.force, attacking.damtype)
 	return FINISH_ATTACK
 

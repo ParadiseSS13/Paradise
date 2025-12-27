@@ -49,35 +49,35 @@
 			return ..()	//just hit them in the head
 
 		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
-			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
+			to_chat(user, SPAN_NOTICE("You don't have the dexterity to do this!"))
 			return
 
 		var/mob/living/carbon/human/H = M	//mob has protective eyewear
 		if(istype(H) && ((H.head && H.head.flags_cover & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || (H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)))
-			to_chat(user, "<span class='notice'>You're going to need to remove that [(H.head && H.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first.</span>")
+			to_chat(user, SPAN_NOTICE("You're going to need to remove that [(H.head && H.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
 			return
 
 		if(M == user)	//they're using it on themselves
 			if(M.flash_eyes(visual = 1))
-				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									"<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
+				M.visible_message(SPAN_NOTICE("[M] directs [src] to [M.p_their()] eyes."), \
+									SPAN_NOTICE("You wave the light in front of your eyes! Trippy!"))
 			else
-				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									"<span class='notice'>You wave the light in front of your eyes.</span>")
+				M.visible_message(SPAN_NOTICE("[M] directs [src] to [M.p_their()] eyes."), \
+									SPAN_NOTICE("You wave the light in front of your eyes."))
 		else
 
-			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s eyes.</span>", \
-								"<span class='notice'>You direct [src] to [M]'s eyes.</span>")
+			user.visible_message(SPAN_NOTICE("[user] directs [src] to [M]'s eyes."), \
+								SPAN_NOTICE("You direct [src] to [M]'s eyes."))
 
 			if(istype(H)) //robots and aliens are unaffected
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || HAS_TRAIT(M, TRAIT_BLIND))	//mob is dead or fully blind
-					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
+					to_chat(user, SPAN_NOTICE("[M]'s pupils are unresponsive to the light!"))
 				else if(HAS_TRAIT(M, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
-					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
+					to_chat(user, SPAN_NOTICE("[M]'s pupils glow eerily!"))
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
-						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
+						to_chat(user, SPAN_NOTICE("[M]'s pupils narrow."))
 	else
 		return ..()
 
@@ -127,7 +127,7 @@
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to turn it on/off.")
 
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
@@ -204,16 +204,16 @@
 /obj/item/flashlight/flare/attack_self__legacy__attackchain(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is out of fuel."))
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already on."))
 		return
 
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] activates [src]."), SPAN_NOTICE("You activate [src]."))
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
@@ -308,9 +308,9 @@
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
-		visible_message("<span class='danger'>[src] burns up rapidly!</span>")
+		visible_message(SPAN_DANGER("[src] burns up rapidly!"))
 	else
-		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+		visible_message(SPAN_DANGER("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -346,10 +346,10 @@
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
 	if(force)
-		visible_message("<span class='danger'>[src] withers away.</span>")
+		visible_message(SPAN_DANGER("[src] withers away."))
 		qdel(src)
 	else
-		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+		visible_message(SPAN_DANGER("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -391,7 +391,7 @@
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(EMP_HEAVY)
 	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		to_chat(user, SPAN_WARNING("\The [src] needs time to recharge!"))
 	return
 
 /// invisible lighting source

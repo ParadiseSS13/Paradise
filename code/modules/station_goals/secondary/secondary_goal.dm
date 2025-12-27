@@ -76,7 +76,7 @@
 
 	if(isnull(possible))
 		if(user)
-			to_chat(user, "<span class='notice'>No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)].</span>")
+			to_chat(user, SPAN_NOTICE("No goals available for [department]. Goals are currently available for [english_list(SSticker.mode.secondary_goal_grab_bags)]."))
 		return
 
 	if(length(possible) == 0)
@@ -118,16 +118,16 @@
 		log_admin("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
 		tracker.unregister(SSshuttle.supply)
 		qdel(src)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 	else if(href_list["mark_complete"])
 		completed = 1
 		tracker.unregister(SSshuttle.supply)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 		message_admins("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 		log_admin("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 	else if(href_list["reset_progress"])
 		completed = 0
 		tracker.reset()
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)
 		message_admins("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")
 		log_admin("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")

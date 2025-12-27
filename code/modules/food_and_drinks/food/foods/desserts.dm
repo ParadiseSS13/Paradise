@@ -59,3 +59,13 @@
 	filling_color = "#F2F2F2"
 	list_reagents = list("minttoxin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/tapioca_pudding
+	name = "tapioca pudding"
+	desc = "A bubbly and sweet pudding."
+	icon_state = "tapiocapudding"
+	bitesize = 4
+	filling_color = "#c4c5bb"
+	list_reagents = list("sugar" = 3, "milk" = 2)
+	tastes = list("vanilla" = 2, "chewiness" = 1)
+	goal_difficulty = FOOD_GOAL_HARD

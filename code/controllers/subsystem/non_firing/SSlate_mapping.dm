@@ -14,12 +14,19 @@ SUBSYSTEM_DEF(late_mapping)
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
+	// Load an emergency shuttle at centcom
+	if(SSmapping.emergency_shuttle_id)
+		SSshuttle.load_initial_emergency_shuttle(SSmapping.emergency_shuttle_id)
+	else
+		WARNING("no valid emergency shuttle template was set in SSmapping")
+
 	if(SSmapping.trader_shuttle_id)
 		var/template = new SSmapping.trader_shuttle_id()
 		SSshuttle.set_trader_shuttle(template)
 	else
 		WARNING("no valid trader shuttle template was set in SSmapping")
 
+	// Load a Gamma Armoury shuttle at Centcom.
 	if(SSmapping.gamma_armory_shuttle_id)
 		SSshuttle.load_initial_gamma_armory_shuttle(SSmapping.gamma_armory_shuttle_id)
 	else

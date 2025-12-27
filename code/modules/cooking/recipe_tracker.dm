@@ -174,7 +174,7 @@
 
 		if(user && user.Adjacent(container))
 			if(result)
-				to_chat(user, "<span class='notice'>You have completed \a [result]!</span>")
+				to_chat(user, SPAN_NOTICE("You have completed \a [result]!"))
 			else
 				log_debug("failure to create result for recipe tracker")
 

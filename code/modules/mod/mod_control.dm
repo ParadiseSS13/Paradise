@@ -315,7 +315,7 @@
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
 					if(part.loc != src)
-						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
+						to_chat(wearer, SPAN_WARNING("Retract parts first!"))
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
 				if(!M.unequip(src, force = TRUE))
@@ -341,7 +341,7 @@
 		return TRUE
 	if(open)
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core!</span>")
+			to_chat(user, SPAN_WARNING("There is no core!"))
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
@@ -368,7 +368,7 @@
 	var/obj/item/linked_thing = locateUID(M.buffer_uid)
 
 	if(!linked_thing)
-		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 		M.buffer_uid = UID()
 		return TRUE
 	if(ismodcontrol(linked_thing))
@@ -378,12 +378,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_control.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 	else
 		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
@@ -392,12 +392,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_scryer.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 
 
@@ -405,26 +405,26 @@
 	if(..())
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
-		to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
+		to_chat(user, SPAN_WARNING("Deactivate the suit first!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
-	to_chat(user, "<span class='notice'>[open ? "Closing" : "Opening"] cover...</span>")
+	to_chat(user, SPAN_NOTICE("[open ? "Closing" : "Opening"] cover..."))
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
-			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		to_chat(user, "<span class='notice'>Cover [open ? "closed" : "opened"]</span>")
+			to_chat(user, SPAN_WARNING("Deactivate the suit first!"))
+		to_chat(user, SPAN_NOTICE("Cover [open ? "closed" : "opened"]"))
 		open = !open
 	return TRUE
 
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
 	. = ..()
 	if(!open)
-		to_chat(user, "<span class='warning'>Open the cover first!</span>")
+		to_chat(user, SPAN_WARNING("Open the cover first!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Insufficient access!</span>")
+		to_chat(user, SPAN_WARNING("Insufficient access!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(seconds_electrified && get_charge() && shock(user))
@@ -446,14 +446,14 @@
 		crowbar.play_tool_sound(src, 100)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVED, user)
 		return TRUE
-	to_chat(user, "<span class='warning'>No modules!</span>")
+	to_chat(user, SPAN_WARNING("No modules!"))
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
 /obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
-			to_chat(user, "<span class='warning'>Open the cover first!</span>")
+			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		install(attacking_item, user)
@@ -461,11 +461,11 @@
 		return TRUE
 	else if(istype(attacking_item, /obj/item/mod/core))
 		if(!open)
-			to_chat(user, "<span class='warning'>Open the cover first!</span>")
+			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		if(core)
-			to_chat(user, "<span class='warning'>Core already installed!</span>")
+			to_chat(user, SPAN_WARNING("Core already installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		var/obj/item/mod/core/attacking_core = attacking_item
@@ -479,13 +479,13 @@
 		return TRUE
 	else if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
-			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
@@ -677,7 +677,7 @@
 		return
 	if(user)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[new_module] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[new_module] is stuck to your hand!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	new_module.forceMove(src)

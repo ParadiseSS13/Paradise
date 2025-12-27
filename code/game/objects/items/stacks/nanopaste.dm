@@ -18,10 +18,10 @@
 		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
-			user.visible_message("<span class='notice'>[user] applies some [src] at [R]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
+			user.visible_message(SPAN_NOTICE("[user] applies some [src] at [R]'s damaged areas."),\
+				SPAN_NOTICE("You apply some [src] at [R]'s damaged areas."))
 		else
-			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
+			to_chat(user, SPAN_NOTICE("All [R]'s systems are nominal."))
 
 	if(ishuman(M)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
@@ -30,33 +30,33 @@
 		if(external_limb && external_limb.is_robotic())
 			robotic_limb_repair(user, external_limb, H)
 		else
-			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+			to_chat(user, SPAN_NOTICE("[src] won't work on that."))
 
 /obj/item/stack/nanopaste/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
 	if(!ismecha(A) || user.a_intent == INTENT_HARM || !proximity_flag)
 		return
 	var/obj/mecha/mecha = A
 	if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
-		to_chat(user, "<span class='notice'>[mecha] is at full integrity!</span>")
+		to_chat(user, SPAN_NOTICE("[mecha] is at full integrity!"))
 		return
 	if(mecha.state == MECHA_MAINT_OFF)
-		to_chat(user, "<span class='warning'>[mecha] cannot be repaired without maintenance protocols active!</span>")
+		to_chat(user, SPAN_WARNING("[mecha] cannot be repaired without maintenance protocols active!"))
 		return
 	if(mecha.repairing)
-		to_chat(user, "<span class='notice'>[mecha] is currently being repaired!</span>")
+		to_chat(user, SPAN_NOTICE("[mecha] is currently being repaired!"))
 		return
 	if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
 		mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
-		user.visible_message("<span class='notice'>[user] repairs the damaged air tank.</span>", "<span class='notice'>You repair the damaged air tank.</span>")
+		user.visible_message(SPAN_NOTICE("[user] repairs the damaged air tank."), SPAN_NOTICE("You repair the damaged air tank."))
 	else if(mecha.obj_integrity < mecha.max_integrity)
 		mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
 		use(1)
-		user.visible_message("<span class='notice'>[user] applies some [src] to [mecha]'s damaged areas.</span>",\
-		"<span class='notice'>You apply some [src] to [mecha]'s damaged areas.</span>")
+		user.visible_message(SPAN_NOTICE("[user] applies some [src] to [mecha]'s damaged areas."),\
+		SPAN_NOTICE("You apply some [src] to [mecha]'s damaged areas."))
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
-		to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
+		to_chat(user, SPAN_NOTICE("Nothing to fix here."))
 		return
 	use(1)
 	var/remaining_heal = 15
@@ -84,7 +84,7 @@
 		new_remaining_heal = max(remaining_heal - other_external_limb.get_damage(), 0)
 		other_external_limb.heal_damage(remaining_heal, remaining_heal, FALSE, TRUE)
 		remaining_heal = new_remaining_heal
-		user.visible_message("<span class='notice'>[user] applies some nanite paste at [H]'s [other_external_limb.name] with [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] applies some nanite paste at [H]'s [other_external_limb.name] with [src]."))
 	if(H.bleed_rate && ismachineperson(H))
 		H.bleed_rate = 0
 
@@ -94,7 +94,7 @@
 
 /obj/item/stack/nanopaste/cyborg/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(get_amount() <= 0)
-		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
+		to_chat(user, SPAN_WARNING("You don't have enough energy to dispense more [name]!"))
 	else
 		return ..()
 

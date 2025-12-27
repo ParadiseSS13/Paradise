@@ -39,7 +39,7 @@
 	return
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
@@ -76,14 +76,14 @@
 	if(!density)
 		return
 	if(!hasPower() && !(resistance_flags & INDESTRUCTIBLE))
-		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		to_chat(user, SPAN_NOTICE("You start forcing [src] open..."))
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(!hasPower())
 				open()
 			else
-				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+				to_chat(user, SPAN_WARNING("[src] resists your efforts to force it!"))
 	else
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, SPAN_WARNING("[src] resists your efforts to force it!"))
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil
@@ -113,7 +113,7 @@
 	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/triple

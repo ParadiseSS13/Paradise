@@ -88,7 +88,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
+	visible_message(SPAN_DANGER("[src] is hit by \a [P]!"))
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armor_penetration_flat, P.armor_penetration_percentage)
 
@@ -99,7 +99,7 @@
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)
-		visible_message("<span class='danger'>[user] smashes [src]!</span>")
+		visible_message(SPAN_DANGER("[user] smashes [src]!"))
 		if(density)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -192,7 +192,7 @@
 				return 0
 			else
 				return 0
-	M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+	M.visible_message(SPAN_DANGER("[M.name] hits [src]!"), SPAN_DANGER("You hit [src]!"))
 	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()

@@ -36,9 +36,9 @@ Bonus
 /datum/symptom/weight_loss/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
 	if(prob(A.progress))
-		to_chat(M, "<span class='warning'><i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i></span>")
+		to_chat(M, SPAN_WARNING("<i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i>"))
 		M.overeatduration = max(M.overeatduration - A.progress * unmitigated, 0)
 		M.adjust_nutrition(-A.progress * unmitigated)
 	else
-		to_chat(M, "<span class='warning'>[pick("You feel hungry.", "You crave for food.")]</span>")
+		to_chat(M, SPAN_WARNING("[pick("You feel hungry.", "You crave for food.")]"))
 

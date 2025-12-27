@@ -56,7 +56,7 @@
 			return FINISH_ATTACK
 
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+			to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
 			return FINISH_ATTACK
 
 /obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)
@@ -113,11 +113,11 @@
 
 	//Display an attack message.
 	if(target != user)
-		target.visible_message("<span class='danger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>", \
-				"<span class='userdanger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>")
+		target.visible_message(SPAN_DANGER("[user] has hit [target][head_attack_message] with a bottle of [name]!"), \
+				SPAN_USERDANGER("[user] has hit [target][head_attack_message] with a bottle of [name]!"))
 	else
-		user.visible_message("<span class='danger'>[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!</span>", \
-				"<span class='userdanger'>[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!</span>")
+		user.visible_message(SPAN_DANGER("[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!"), \
+				SPAN_USERDANGER("[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!"))
 
 	//Attack logs
 	add_attack_logs(user, target, "Hit with [src]")
@@ -130,7 +130,7 @@
 
 /obj/item/reagent_containers/drinks/bottle/proc/SplashReagents(mob/M)
 	if(reagents && reagents.total_volume)
-		M.visible_message("<span class='danger'>The contents of \the [src] splashes all over [M]!</span>")
+		M.visible_message(SPAN_DANGER("The contents of \the [src] splashes all over [M]!"))
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
@@ -409,7 +409,7 @@
 		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
-		to_chat(user, "<span class='notice'>You light [src] on fire.</span>")
+		to_chat(user, SPAN_NOTICE("You light [src] on fire."))
 		if(!is_glass)
 			spawn(50)
 				if(active)
@@ -432,8 +432,8 @@
 
 	if(active)
 		if(!is_glass)
-			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
+			to_chat(user, SPAN_DANGER("The flame's spread too far on it!"))
 			return
-		to_chat(user, "<span class='notice'>You snuff out the flame on \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You snuff out the flame on \the [src]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)

@@ -21,7 +21,7 @@
 		return
 
 	if(prob(winning_chance))
-		to_chat(user, "<span class='notice'>Congratulations! Redeem your prize at the nearest ATM!</span>")
+		to_chat(user, SPAN_NOTICE("Congratulations! Redeem your prize at the nearest ATM!"))
 		icon_state = "scard_winner"
 		winner = TRUE
 	else
@@ -35,7 +35,7 @@
 /obj/item/scratch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!winner || !istype(target, /obj/machinery/economy/atm))
 		return ..()
-	
+
 	playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
 	target.atom_say("Congratulations for winning the lottery!")
 	var/obj/item/reward = new /obj/item/stack/spacecash/c1000

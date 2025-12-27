@@ -158,7 +158,7 @@
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
-	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
+	visible_message(SPAN_WARNING("[src] flickers and fails due to bluespace interference!"))
 	if(create_sparks)
 		do_sparks(5, 0, loc)
 	qdel(src)
@@ -177,7 +177,7 @@
 /obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
 	. = ..()
 	if(unstable_time > world.time)
-		. += "<span class='warning'>[src] is shaking, it looks very unstable!</span>"
+		. += SPAN_WARNING("[src] is shaking, it looks very unstable!")
 
 /obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
 	if(inactive)

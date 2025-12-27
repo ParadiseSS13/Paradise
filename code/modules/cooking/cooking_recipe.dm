@@ -180,6 +180,8 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 			var/list/entry = list()
 			entry["name"] = product::name
+			entry["icon"] = product::icon
+			entry["icon_state"] = product::icon_state
 			entry["container"] = "[container_type::preposition] \a [container_type::name]"
 			entry["instructions"] = list()
 			for(var/datum/cooking/recipe_step/step in example_recipe.steps)

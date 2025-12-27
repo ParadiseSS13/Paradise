@@ -121,7 +121,7 @@
 			P.dir = turn(iconrotation, -45)
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [P]!"))
 	P.label = pipe_label
 	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
@@ -134,7 +134,7 @@
 		P.dir = user.dir
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [P]!"))
 	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
@@ -150,7 +150,7 @@
 
 			S.dir = iconrotation ? iconrotation : user.dir
 
-			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [S]!"))
 			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
@@ -194,10 +194,10 @@
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()
 	else
-		to_chat(user, "<span class='notice'>There were no loose pipes on [T].</span>")
+		to_chat(user, SPAN_NOTICE("There were no loose pipes on [T]."))
 
 /obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
-	to_chat(user, "<span class='notice'>[src] sucks up [P].</span>")
+	to_chat(user, SPAN_NOTICE("[src] sucks up [P]."))
 	QDEL_NULL(P)
 	activate_rpd()
 
@@ -291,7 +291,7 @@
 
 /obj/item/rpd/proc/radial_menu(mob/user)
 	if(!check_menu(user))
-		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
+		to_chat(user, SPAN_NOTICE("You can't do that right now!"))
 		return
 	var/list/choices = list(
 		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
@@ -314,7 +314,7 @@
 				mode = RPD_DELETE_MODE
 			else
 				return //Either nothing was selected, or an invalid mode was selected
-		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s mode."))
 
 /obj/item/rpd/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ranged)
@@ -362,7 +362,7 @@
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage())
-			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
+			to_chat(user, SPAN_WARNING("[O] blocks [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
@@ -370,11 +370,11 @@
 		if(get_dist(src, T) >= (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console (attempted range exploit).")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='warning'>ERROR: \The [T] is out of [src]'s range!</span>")
+			to_chat(user, SPAN_WARNING("ERROR: \The [T] is out of [src]'s range!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!(user in hearers(12, T))) // Checks if user can hear the target turf, cause viewers doesnt work for it.
-			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
+			to_chat(user, SPAN_WARNING("[src] needs full visibility to determine the dispensing location."))
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			return ITEM_INTERACT_COMPLETE
 

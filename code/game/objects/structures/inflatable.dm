@@ -11,32 +11,53 @@
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
 	if(!torn)
-		. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
+		. += SPAN_NOTICE("<b>Use this item in hand</b> to create an inflatable wall.")
 	else
-		. += "<span class='warning'>[src] is torn and cannot hold air anymore. It's completely useless now.</span>"
+		. += SPAN_WARNING("[src] is torn and cannot hold air anymore. It's completely useless now.")
 
 
 /obj/item/inflatable/activate_self(mob/user)
 	if(..())
 		return
 
+	inflate(user, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/inflatable/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	inflate(user, target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/inflatable/proc/inflate(mob/user, atom/target)
 	if(torn)
 		add_fingerprint(user)
-		to_chat(user, "<span class='warning'>[src] cannot be inflated anymore!</span>")
-		return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_WARNING("[src] is torn and cannot be inflated anymore!"))
+		return
 
-	if(locate(/obj/structure/inflatable) in get_turf(user))
-		to_chat(user, "<span class='warning'>There's already an inflatable structure here!</span>")
-		return ITEM_INTERACT_COMPLETE
+	var/turf/T = get_turf(target)
+	if(iswallturf(T))
+		return
+
+	if((locate(/obj/structure/inflatable) in T) || (locate(/obj/structure/window/full) in T))
+		to_chat(user, SPAN_WARNING("There's no room to deploy [src] here!"))
+		return
+
+	var/obj/machinery/door/airlock = locate(/obj/machinery/door) in T
+	var/obj/structure/mineral_door/mineral_door = locate(/obj/structure/mineral_door) in T
+	if(mineral_door && mineral_door.density)
+		to_chat(user, SPAN_WARNING("You need to open [mineral_door] before you can deploy [src] there!"))
+		return
+
+	if(airlock && airlock.density && !istype(airlock, /obj/machinery/door/window))
+		to_chat(user, SPAN_WARNING("You need to open [airlock] before you can deploy [src] there!"))
+		return
 
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
-	var/obj/structure/inflatable/R = new structure_type(user.loc)
+	to_chat(user, SPAN_NOTICE("You inflate [src]."))
+	var/obj/structure/inflatable/R = new structure_type(T)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
 	if(!isrobot(loc))
 		qdel(src)
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
@@ -56,7 +77,7 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to deflate [src].")
 
 /obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
@@ -210,9 +231,18 @@
 
 /obj/item/inflatable/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you will synthesise these directly from your cell's energy reserves.</span>"
+	. += SPAN_NOTICE("As a synthetic, you will synthesise these directly from your cell's energy reserves.")
 
 /obj/item/inflatable/cyborg/activate_self(mob/user)
+	if(!do_after(user, delay, FALSE, user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!useResource(user))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/item/inflatable/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!do_after(user, delay, FALSE, user))
 		return ITEM_INTERACT_COMPLETE
 
@@ -227,7 +257,7 @@
 
 	var/mob/living/silicon/robot/R = user
 	if(R.cell.charge < power_cost)
-		to_chat(user, "<span class='warning'>Not enough power!</span>")
+		to_chat(user, SPAN_WARNING("Not enough power!"))
 		return FALSE
 
 	return R.cell.use(power_cost)

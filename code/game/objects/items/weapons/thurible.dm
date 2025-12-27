@@ -35,8 +35,8 @@
 
 /obj/item/thurible/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
-	. += "<span class='notice'>Contains [reagents.total_volume] units of various reagents.</span>"
+	. += SPAN_NOTICE("[src] can hold up to [reagents.maximum_volume] units.")
+	. += SPAN_NOTICE("Contains [reagents.total_volume] units of various reagents.")
 
 /obj/item/thurible/process()
 	swing()
@@ -57,21 +57,21 @@
 	. = ..()
 	if(fire_source.get_heat())
 		user.visible_message(
-			"<span class='notice'>[user] lights [src] with [fire_source].</span>",
-			"<span class='notice'>You light [src] with [fire_source].</span>",
-			"<span class='warning'>You hear a low whoosh.</span>"
+			SPAN_NOTICE("[user] lights [src] with [fire_source]."),
+			SPAN_NOTICE("You light [src] with [fire_source]."),
+			SPAN_WARNING("You hear a low whoosh.")
 		)
 		light(user)
 
 /obj/item/thurible/attack_self__legacy__attackchain(mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>You extinguish [src].</span>")
+		to_chat(user, SPAN_WARNING("You extinguish [src]."))
 		put_out(user)
 	return ..()
 
 /obj/item/thurible/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold \the [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		to_chat(user, SPAN_WARNING("[S] can't hold \the [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
 		return FALSE
 	return TRUE
 
@@ -88,8 +88,8 @@
 		if(R.id == "unholywater")
 			corrupted = TRUE
 			visible_message(
-				"<span class='notice'>You corrupt [src] with unholy water!</span>",
-				"<span class='warning'>You hear a strange gurgling.</span>"
+				SPAN_NOTICE("You corrupt [src] with unholy water!"),
+				SPAN_WARNING("You hear a strange gurgling.")
 			)
 			return
 		if(!safe_chem_list.Find(R.id))
@@ -97,18 +97,18 @@
 			found_forbidden_reagent = TRUE
 	if(found_forbidden_reagent)
 		visible_message(
-			"<span class='notice'>[src] banishes an unholy substance!</span>",
-			"<span class='warning'>You hear a strange fizzing.</span>"
+			SPAN_NOTICE("[src] banishes an unholy substance!"),
+			SPAN_WARNING("You hear a strange fizzing.")
 		)
 
 /// Lights the thurible and starts processing reagents
 /obj/item/thurible/proc/light(mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[src] is already lit!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already lit!"))
 		return
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		to_chat(user, SPAN_WARNING("[src] is out of fuel!"))
 		return
 
 	// Plasma explodes when exposed to fire.

@@ -189,13 +189,54 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	update_explanation_text()
 	return target
 
+/datum/objective/proc/give_kit(obj/item/item_path)
+	var/list/datum/mind/objective_owners = get_owners()
+	if(!length(objective_owners))
+		return
+
+	var/obj/item/item_to_give = new item_path
+	var/static/list/slots = list(
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+		"left hand" = ITEM_SLOT_LEFT_HAND,
+		"right hand" = ITEM_SLOT_RIGHT_HAND,
+	)
+
+	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
+		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
+		if(!kit_receiver)
+			continue
+		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
+		if(!where)
+			continue
+
+		to_chat(kit_receiver, "<br><br>[SPAN_NOTICE("In your [where] is a box containing <b>items and instructions</b> to help you with your objective.")]<br>")
+		for(var/datum/mind/objective_owner as anything in objective_owners)
+			if(kit_receiver_mind == objective_owner || !objective_owner.current)
+				continue
+
+			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received a box containing <b>items and instructions</b> to help you with your objective.</span><br>")
+
+		return
+
+	qdel(item_to_give)
+
+	for(var/datum/mind/objective_owner as anything in objective_owners)
+		var/mob/living/carbon/human/failed_receiver = objective_owner.current
+		if(!failed_receiver)
+			continue
+
+		to_chat(failed_receiver, SPAN_USERDANGER("Unfortunately, you weren't able to get an objective kit. This is very bad and you should adminhelp immediately (press F1)."))
+		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] objective kit.")
+
 /**
   * Called when the objective's target goes to cryo.
   */
 /datum/objective/proc/on_target_cryo()
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
-		to_chat(M.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		to_chat(M.current, "<BR>[SPAN_USERDANGER("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 	target = null
 	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
@@ -479,7 +520,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(owner?.current)
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 		owner.remove_antag_datum(/datum/antagonist/mindslave)
-		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has entered cryogenic storage, and revert to your normal self.</span>")
+		to_chat(owner.current, "<BR>[SPAN_USERDANGER("You notice that your master has entered cryogenic storage, and revert to your normal self.")]")
 		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
@@ -543,13 +584,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
-	var/code
-	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-			code = bombue.r_code
-			break
-	if(code)
-		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+	// We have to do it with a callback because mind/Topic creates the objective without an owner
+	addtimer(CALLBACK(src, PROC_REF(give_kit), /obj/item/nad_scanner), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/objective/nuke/check_completion()
 	if(SSticker.mode.station_was_nuked)
@@ -830,7 +866,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				return TRUE
 	return FALSE
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
+/datum/objective/steal/give_kit(obj/item/item_path)
 	var/list/datum/mind/objective_owners = get_owners()
 	if(!length(objective_owners))
 		return
@@ -852,7 +888,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!where)
 			continue
 
-		to_chat(kit_receiver, "<br><br><span class='notice'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+		to_chat(kit_receiver, "<br><br>[SPAN_NOTICE("In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.")]<br>")
 		for(var/datum/mind/objective_owner as anything in objective_owners)
 			if(kit_receiver_mind == objective_owner || !objective_owner.current)
 				continue
@@ -868,7 +904,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!failed_receiver)
 			continue
 
-		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		to_chat(failed_receiver, SPAN_USERDANGER("Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1)."))
 		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
 
 /datum/objective/absorb
@@ -1003,6 +1039,33 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			stolen_count++
 	return stolen_count >= 5
 
+/datum/objective/kill_pet
+	name = "Kill Pet"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to kill a station pet and humiliate Nanotrasen. You will receive further information in a few minutes."
+	completed = TRUE
+
+/datum/objective/kill_pet/update_explanation_text()
+	if(target)
+		explanation_text = "Destroy Nanotrasen's morale by detonating [target] with C4, and optionally take a picture of [target] before the C4 detonates."
+	else
+		explanation_text = "Free Objective."
+
+/datum/objective/kill_pet/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+	var/list/possible_targets = GLOB.station_pets - target_blacklist
+	if(length(possible_targets) > 0)
+		target = pick(possible_targets)
+
+	addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+	update_explanation_text()
+	return target
+
+/datum/objective/kill_pet/proc/hand_out_equipment()
+	give_kit(/obj/item/storage/box/syndie_kit/pet_assassination_kit)
+
 /datum/objective/blood
 	name = "Drink blood"
 	needs_target = FALSE
@@ -1099,7 +1162,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
-		to_chat(M.current, "<BR><span class='userdanger'>We sense the target console has been compromised. New vulnerability located.</span>")
+		to_chat(M.current, "<BR>[SPAN_USERDANGER("We sense the target console has been compromised. New vulnerability located.")]")
 		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 
 	target_console = null
@@ -1235,7 +1298,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // This is called from computer.dm when the do_after of downloading is completed
 /datum/objective/download/proc/complete_objective()
 	for(var/datum/mind/M in get_owners())
-		to_chat(M.current, "<BR><span class='warning'>*gzzt* Authentication success! Welcome, [M.current.name]. Thank you for- for- for-...</span>")
+		to_chat(M.current, "<BR>[SPAN_WARNING("*gzzt* Authentication success! Welcome, [M.current.name]. Thank you for- for- for-...")]")
 
 		var/datum/antagonist/mindflayer/flayer_datum = M.has_antag_datum(/datum/antagonist/mindflayer)
 

@@ -47,7 +47,7 @@
 /obj/structure/machine_frame/examine(mob/user)
 	. = ..()
 	if(extra_desc)
-		. += "<span class='notice'>[extra_desc]</span>"
+		. += SPAN_NOTICE("[extra_desc]")
 
 /obj/structure/machine_frame/update_name(updates)
 	. = ..()
@@ -100,22 +100,22 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, SPAN_NOTICE("You start to add cables to the frame."))
 					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == MACHINE_FRAME_EMPTY && C.get_amount() >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, SPAN_NOTICE("You add cables to the frame."))
 							state = MACHINE_FRAME_WIRED
 							update_icon(UPDATE_ICON_STATE)
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, SPAN_WARNING("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 							return ITEM_INTERACT_COMPLETE
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, SPAN_WARNING("You need five lengths of cable to wire the frame."))
 				return ITEM_INTERACT_COMPLETE
 
 			if(iswrench(P))
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+				to_chat(user, SPAN_NOTICE("You dismantle the frame."))
 				deconstruct(TRUE)
 				return ITEM_INTERACT_COMPLETE
 		if(MACHINE_FRAME_WIRED)
@@ -125,10 +125,10 @@
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == frame_type)
 					if(!B.build_path)
-						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
+						to_chat(user, SPAN_WARNING("This is not a functional machine board!"))
 						return ITEM_INTERACT_COMPLETE
 					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
+					to_chat(user, SPAN_NOTICE("You add the circuit board to the frame."))
 					circuit = P
 					user.drop_item()
 					P.forceMove(src)
@@ -137,7 +137,7 @@
 					req_components = circuit.req_components?.Copy()
 					update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 				else
-					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, SPAN_DANGER("This frame does not accept circuit boards of this type!"))
 				return ITEM_INTERACT_COMPLETE
 
 		if(MACHINE_FRAME_CIRCUITBOARD)
@@ -165,7 +165,7 @@
 
 				for(var/obj/item/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, SPAN_NOTICE("[part.name] applied."))
 				replacer.play_rped_sound()
 
 				update_appearance(UPDATE_DESC)
@@ -195,7 +195,7 @@
 						update_appearance(UPDATE_DESC)
 						return ITEM_INTERACT_COMPLETE
 				if(!success)
-					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
+					to_chat(user, SPAN_DANGER("You cannot add that to the machine!"))
 					return ITEM_INTERACT_COMPLETE
 				return ITEM_INTERACT_COMPLETE
 	if(user.a_intent == INTENT_HARM)
@@ -208,7 +208,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove the cables.</span>")
+	to_chat(user, SPAN_NOTICE("You remove the cables."))
 	state = MACHINE_FRAME_EMPTY
 	new /obj/item/stack/cable_coil(loc, 5)
 	update_appearance(UPDATE_ICON_STATE)
@@ -224,9 +224,9 @@
 	circuit.forceMove(loc)
 	circuit = null
 	if(length(components) == 0)
-		to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+		to_chat(user, SPAN_NOTICE("You remove the circuit board."))
 	else
-		to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+		to_chat(user, SPAN_NOTICE("You remove the circuit board and other components."))
 		for(var/obj/item/comp in components)
 			comp.forceMove(loc)
 
@@ -432,6 +432,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/cell = 1)
 
+/obj/item/circuitboard/electrolyzer
+	board_name = "Electrolyzer"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/electrolyzer
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stack/cable_coil = 5)
+
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
 	icon_state = "security"
@@ -616,7 +628,7 @@ to destroy them and players will be able to make replacements.
 	build_path = type
 	format_board_name()
 	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
+		to_chat(user, SPAN_NOTICE("You set the board to [board_name]."))
 
 /obj/item/circuitboard/monkey_recycler
 	board_name = "Monkey Recycler"
@@ -675,7 +687,7 @@ to destroy them and players will be able to make replacements.
 
 	build_path = new_path
 	name = "circuit board ([new_name] 3000)"
-	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+	to_chat(user, SPAN_NOTICE("You change the circuit board setting to \"[new_name]\"."))
 
 /obj/item/circuitboard/chem_master/condi_master
 	board_name = "CondiMaster 3000"
@@ -757,18 +769,18 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/dish_drive/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
-	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
+	. += SPAN_NOTICE("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")
+	. += SPAN_NOTICE("Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.")
 
 /obj/item/circuitboard/dish_drive/attack_self__legacy__attackchain(mob/living/user)
 	suction = !suction
-	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
+	to_chat(user, SPAN_NOTICE("You [suction ? "enable" : "disable"] the board's suction function."))
 
 /obj/item/circuitboard/dish_drive/AltClick(mob/living/user)
 	if(!user.Adjacent(src))
 		return
 	transmit = !transmit
-	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
+	to_chat(user, SPAN_NOTICE("You [transmit ? "enable" : "disable"] the board's automatic disposal transmission."))
 
 /obj/item/circuitboard/chem_dispenser/soda
 	board_name = "Soda Machine"
@@ -919,7 +931,7 @@ to destroy them and players will be able to make replacements.
 		var/obj/item/gps/L = I
 		if(L.locked_location)
 			target = get_turf(L.locked_location)
-			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
+			to_chat(user, SPAN_CAUTION("You upload the data from [L]"))
 		return
 	return ..()
 

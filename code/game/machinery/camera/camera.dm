@@ -95,13 +95,13 @@
 
 /obj/machinery/camera/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
+	. += SPAN_NOTICE("[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.")
 	if(panel_open)
-		. += "<span class='notice'>Upgrades can be added to [src] or <b>pried out</b>.</span>"
+		. += SPAN_NOTICE("Upgrades can be added to [src] or <b>pried out</b>.")
 		if(!wires.CanDeconstruct())
-			. += "<span class='notice'>[src]'s <b>internal wires</b> are preventing you from cutting it free.</span>"
+			. += SPAN_NOTICE("[src]'s <b>internal wires</b> are preventing you from cutting it free.")
 		else
-			. += "<span class='notice'>[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.</span>"
+			. += SPAN_NOTICE("[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.")
 
 
 /obj/machinery/camera/emp_act(severity)
@@ -142,12 +142,12 @@
 	..()
 
 /obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	var/msg = "<span class='notice'>You attach [used] into the assembly inner circuits.</span>"
-	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
+	var/msg = SPAN_NOTICE("You attach [used] into the assembly inner circuits.")
+	var/msg2 = SPAN_NOTICE("The camera already has that upgrade!")
 
 	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = used
@@ -159,7 +159,7 @@
 			to_chat(user, "[msg2]")
 	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
@@ -173,7 +173,7 @@
 	// OTHER
 	else if((istype(used, /obj/item/paper) || istype(used, /obj/item/pda)) && isliving(user))
 		if(!can_use())
-			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
+			to_chat(user, SPAN_WARNING("You can't show something to a disabled camera!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/U = user
@@ -218,7 +218,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+	to_chat(user, SPAN_NOTICE("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -242,8 +242,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		visible_message(SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+						SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall"))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -297,10 +297,10 @@
 
 	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] reactivates [src]!</span>")
+			visible_message(SPAN_DANGER("[user] reactivates [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] reactivates!</span>")
+			visible_message(SPAN_DANGER("\The [src] reactivates!"))
 		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_CAMERA_ON, user, display_message)
@@ -319,10 +319,10 @@
 
 	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] deactivates [src]!</span>")
+			visible_message(SPAN_DANGER("[user] deactivates [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] deactivates!</span>")
+			visible_message(SPAN_DANGER("\The [src] deactivates!"))
 		playsound(loc, toggle_sound, 100, 1)
 
 	update_icon(UPDATE_ICON_STATE)

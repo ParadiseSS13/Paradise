@@ -44,7 +44,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 	bombassembly.forceMove(user.loc)
 	bombassembly.master = null
 	bombassembly = null
@@ -61,13 +61,13 @@
 		status = TRUE
 		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
 		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]")
-		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
+		to_chat(user, SPAN_NOTICE("A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited."))
 		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
 		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_ALMOSTALL)
-		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
+		to_chat(user, SPAN_NOTICE("The hole has been closed."))
 
 
 /obj/item/onetankbomb/attack_self__legacy__attackchain(mob/user) //pressing the bomb accesses its assembly

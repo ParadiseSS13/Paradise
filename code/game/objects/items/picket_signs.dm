@@ -27,13 +27,13 @@
 /obj/item/picket_sign/activate_self(mob/user)
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, wave_cooldown))
-		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
+		user.show_message(SPAN_WARNING("Your arm is too tired to do that again so soon!"))
 		return
 
 	if(label)
-		user.visible_message("<span class='notice'>[user] waves around \the \"[label]\" sign.</span>")
+		user.visible_message(SPAN_NOTICE("[user] waves around \the \"[label]\" sign."))
 	else
-		user.visible_message("<span class='notice'>[user] waves around blank sign.</span>")
+		user.visible_message(SPAN_NOTICE("[user] waves around blank sign."))
 	user.changeNext_move(CLICK_CD_MELEE)
 	COOLDOWN_START(src, wave_cooldown, 8 SECONDS)
 
@@ -45,12 +45,12 @@
 		return
 	var/turf/target_turf = target
 	if(target_turf == get_turf(user))
-		to_chat(user, "<span class='notice'>You cannot place [src] under yourself.</span>")
+		to_chat(user, SPAN_NOTICE("You cannot place [src] under yourself."))
 		return
 	if(locate(/obj/structure/custom_sign) in target_turf) // No putting signs on signs
-		to_chat(user, "<span class='notice'>There's already a sign there!</span>")
+		to_chat(user, SPAN_NOTICE("There's already a sign there!"))
 		return
-	user.visible_message("<span class='notice'>[user] starts to attach [src] to [target].</span>", "<span class='notice'>You start to attach [src] to [target].</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts to attach [src] to [target]."), SPAN_NOTICE("You start to attach [src] to [target]."))
 	if(do_after(user, 2 SECONDS, target = target_turf))
 		if(iswallturf(target))
 			new /obj/structure/custom_sign/wall_sign(user.loc, label, get_dir(user, target_turf))
@@ -88,7 +88,7 @@
 
 /obj/structure/custom_sign/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='notice'>[user] starts to detach [src].</span>", "<span class='notice'>You start to detach [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts to detach [src]."), SPAN_NOTICE("You start to detach [src]."))
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	var/obj/item/picket_sign/picket = new /obj/item/picket_sign(loc)

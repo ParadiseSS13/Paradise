@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Button, Dropdown, Input, Modal, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
@@ -88,7 +89,7 @@ export const ComplexModal = (props) => {
   if (bodyOverrides[id]) {
     modalBody = bodyOverrides[id](data.modal);
   } else if (type === 'input') {
-    let curValue = data.modal.value;
+    let [curValue, setCurValue] = useState(data.modal.value);
     modalOnEnter = (e) => modalAnswer(id, curValue);
     modalBody = (
       <Input
@@ -98,7 +99,7 @@ export const ComplexModal = (props) => {
         my="0.5rem"
         autofocus
         onChange={(val) => {
-          curValue = val;
+          setCurValue(val);
         }}
       />
     );

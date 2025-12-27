@@ -252,7 +252,7 @@
 	icon_state = "darkredskirt"
 
 /obj/item/clothing/under/color/rainbow
-	name = "rainbow"
+	name = "rainbow jumpsuit"
 	desc = "rainbow."
 	icon_state = "rainbow"
 	inhand_icon_state = "rainbow"

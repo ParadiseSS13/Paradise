@@ -53,7 +53,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
 	if(loc == summoner)
-		to_chat(src, "<span class='danger'>You must be manifested to heal!</span>")
+		to_chat(src, SPAN_DANGER("You must be manifested to heal!"))
 		return
 	if(toggle == HEALING)
 		if(iscarbon(target))
@@ -74,7 +74,7 @@
 			return
 		var/mob/living/carbon/human/C = target
 		if(surgical_cooldown <= world.time && stat == CONSCIOUS)
-			to_chat(src, "<span class='notice'>You begin to do a mass repair on [C], keep them still!</span>")
+			to_chat(src, SPAN_NOTICE("You begin to do a mass repair on [C], keep them still!"))
 			surgical_cooldown  = world.time + 10 SECONDS
 			if(!do_after_once(src, 10 SECONDS, target = src))
 				return
@@ -93,7 +93,7 @@
 				speed = 0
 				melee_damage_lower = 15
 				melee_damage_upper = 15
-				to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+				to_chat(src, SPAN_DANGER("You switch to combat mode."))
 				toggle = COMBAT
 			if(COMBAT)
 				a_intent = INTENT_HELP
@@ -101,13 +101,13 @@
 				speed = 1
 				melee_damage_lower = 0
 				melee_damage_upper = 0
-				to_chat(src, "<span class='danger'>You switch to healing mode.</span>")
+				to_chat(src, SPAN_DANGER("You switch to healing mode."))
 				toggle = HEALING
 			if(HEALING)
-				to_chat(src, "<span class='danger'>You switch to surgical. You no longer heal on punch, but can do a big critical injury healing on a long cooldown.</span>")
+				to_chat(src, SPAN_DANGER("You switch to surgical. You no longer heal on punch, but can do a big critical injury healing on a long cooldown."))
 				toggle = SURGICAL
 	else
-		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
+		to_chat(src, SPAN_DANGER("You have to be recalled to toggle modes!"))
 
 /obj/effect/bluespace_beacon
 	name = "bluespace receiving pad"
@@ -120,22 +120,22 @@
 	if(!istype(A))
 		return
 	if(loc == summoner)
-		to_chat(src, "<span class='danger'>You must be manifested to warp a target!</span>")
+		to_chat(src, SPAN_DANGER("You must be manifested to warp a target!"))
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'>You need a beacon placed to warp things!</span>")
+		to_chat(src, SPAN_DANGER("You need a beacon placed to warp things!"))
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'>You must be adjacent to your target!</span>")
+		to_chat(src, SPAN_DANGER("You must be adjacent to your target!"))
 		return
 	if(A.anchored)
-		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
+		to_chat(src, SPAN_DANGER("Your target can not be anchored!"))
 		return
-	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
+	to_chat(src, SPAN_DANGER("You begin to warp [A]"))
 	if(do_mob(src, A, 5 SECONDS))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
+				to_chat(src, SPAN_DANGER("You need a beacon to warp things!"))
 				return
 			var/turf/T = get_turf(beacon)
 			if(T.is_safe()) // Walls always return false
@@ -143,10 +143,10 @@
 				do_teleport(A, beacon, 0)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
-			to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
+			to_chat(src, SPAN_DANGER("The beacon isn't in a safe location!"))
 			return
 	else
-		to_chat(src, "<span class='danger'>You need to hold still!</span>")
+		to_chat(src, SPAN_DANGER("You need to hold still!"))
 
 
 #undef COMBAT

@@ -116,6 +116,34 @@
 			shake_camera(M, 3, 1)
 	qdel(src)
 
+/obj/projectile/paintball
+	name = "paintball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/paintball/on_hit(atom/target, blocked, hit_zone)
+	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(get_turf(target))
+	splat.color = color
+	return ..()
+
+/obj/projectile/pepperball
+	name = "pepperball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/pepperball/Initialize(mapload)
+	. = ..()
+	create_reagents(5)
+	reagents.set_reacting(FALSE)
+	reagents.add_reagent("condensedcapsaicin", 5)
+
+/obj/projectile/pepperball/on_hit(atom/target, blocked, hit_zone)
+	var/turf/our_turf = get_turf(target)
+	reagents.reaction(our_turf)
+	for(var/atom/T in our_turf)
+		reagents.reaction(T)
+	return ..()
+
 /obj/projectile/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
@@ -167,7 +195,7 @@
 /obj/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	visible_message(SPAN_WARNING("[src] explodes!"),SPAN_WARNING("You hear a snap!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -254,7 +282,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		if(is_ancient_rock(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 			forcedodge = 0
 			return
 		forcedodge = 1

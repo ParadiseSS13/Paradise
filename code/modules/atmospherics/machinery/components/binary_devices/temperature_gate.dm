@@ -30,8 +30,8 @@
 
 /obj/machinery/atmospherics/binary/temperature_gate/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A toggleable gate that compares the temperature on the interface with the incoming gas and allows it to pass if it is [inverted ? "is higher than" : "is lower than"] the set temperature.</span>"
-	. += "<span class='notice'>It is currently set to [target_temperature] K and is [on ? "on" : "off"].</span>"
+	. += SPAN_NOTICE("A toggleable gate that compares the temperature on the interface with the incoming gas and allows it to pass if it is [inverted ? "is higher than" : "is lower than"] the set temperature.")
+	. += SPAN_NOTICE("It is currently set to [target_temperature] K and is [on ? "on" : "off"].")
 
 /obj/machinery/atmospherics/binary/temperature_gate/update_icon_state()
 	icon_state = "[on ? "on" : "off"]"
@@ -48,10 +48,10 @@
 /obj/machinery/atmospherics/binary/temperature_gate/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(inverted)
-		to_chat(user, "<span class='notice'>You set [src] to normal operation mode.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src] to normal operation mode."))
 		inverted = FALSE
 	else
-		to_chat(user, "<span class='notice'>You set [src] to inverted operation mode.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src] to inverted operation mode."))
 		inverted = TRUE
 
 
@@ -86,7 +86,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, SPAN_ALERT("Access denied."))
 		return
 
 	add_fingerprint(user)

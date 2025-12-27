@@ -179,11 +179,11 @@
 	if(isliving(target) && blocked < 100)
 		var/mob/living/creature = target
 		creature.visible_message(
-			"<span class='notice'>[firer] uses [creature] to pull [firer.p_themselves()] over!</span>",
-			"<span class='danger'>You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!</span>")
+			SPAN_NOTICE("[firer] uses [creature] to pull [firer.p_themselves()] over!"),
+			SPAN_DANGER("You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!"))
 		creature.KnockDown(1 SECONDS)
 		return
-	target.visible_message("<span class='notice'>[firer] drags [firer.p_themselves()] across the room!</span>")
+	target.visible_message(SPAN_NOTICE("[firer] drags [firer.p_themselves()] across the room!"))
 
 /datum/spell/flayer/self/weapon/grapple_arm/on_apply()
 	..()

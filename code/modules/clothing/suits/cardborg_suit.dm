@@ -41,7 +41,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted red."
 	icon_state = "cardborg_h_security"
 	dog_fashion = /datum/dog_fashion/head/cardborg/security
-	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC", "heavySec")
+	available_disguises = list("secborg", "Security", "securityrobot", "Bloodhound", "Standard-Security", "Noble-Security", "Cricket-Security", "Heavy_Sec")
 	species_disguise = "High-tech security robot"
 
 /obj/item/clothing/head/cardborg/engineering
@@ -49,7 +49,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted orange."
 	icon_state = "cardborg_h_engineering"
 	dog_fashion = /datum/dog_fashion/head/cardborg/engineering
-	available_disguises = list("Engineering", "engineerrobot", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI")
+	available_disguises = list("Engineering", "engineerrobot", "Landmate", "Standard-Engineering", "Noble-Engineering", "Cricket-Engineering")
 	species_disguise = "High-tech engineering robot"
 
 /obj/item/clothing/head/cardborg/mining
@@ -57,7 +57,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted brown."
 	icon_state = "cardborg_h_mining"
 	dog_fashion = /datum/dog_fashion/head/cardborg/mining
-	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland", "squatminer", "coffinMiner")
+	available_disguises = list("Miner_old", "Droid_Mining", "Miner", "Standard-Miner", "Noble-Miner", "Cricket-Miner", "lavaland", "Squat_Miner", "Coffin_Miner")
 	species_disguise = "High-tech mining robot"
 
 /obj/item/clothing/head/cardborg/service
@@ -65,7 +65,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted green."
 	icon_state = "cardborg_h_service"
 	dog_fashion = /datum/dog_fashion/head/cardborg/service
-	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Serv", "Noble-SRV", "Cricket-SERV")
+	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Service", "Noble-Service", "Cricket-Service")
 	species_disguise = "High-tech service robot"
 
 /obj/item/clothing/head/cardborg/medical
@@ -73,7 +73,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
 	icon_state = "cardborg_h_medical"
 	dog_fashion = /datum/dog_fashion/head/cardborg/medical
-	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI", "qualified_doctor")
+	available_disguises = list("Medbot", "surgeon", "Droid_Medical", "medicalrobot", "Standard-Medical", "Noble-Medical", "Cricket-Medical", "Qualified_Doctor")
 	species_disguise = "High-tech medical robot"
 
 /obj/item/clothing/head/cardborg/janitor
@@ -81,7 +81,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted purple."
 	icon_state = "cardborg_h_janitor"
 	dog_fashion = /datum/dog_fashion/head/cardborg/janitor
-	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI", "custodiborg")
+	available_disguises = list("JanBot2", "janitorrobot", "Mop_Gear_Rex", "Standard-Janitor", "Noble-Janitor", "Cricket-Janitor", "custodiborg")
 	species_disguise = "High-tech janitor robot"
 
 /obj/item/clothing/head/cardborg/xeno
@@ -89,7 +89,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted white."
 	icon_state = "cardborg_h_xeno"
 	dog_fashion = /datum/dog_fashion/head/cardborg/xeno
-	available_disguises = list("xenoborg-state-a")
+	available_disguises = list("Xenoborg")
 	species_disguise = "High-tech alien-hunting robot"
 
 /obj/item/clothing/head/cardborg/deathbot
@@ -97,7 +97,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted black."
 	icon_state = "cardborg_h_deathbot"
 	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
-	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma", "spidersyndi", "syndieheavy")
+	available_disguises = list("Bloodhound_Deathsquad", "syndie_bloodhound", "syndi-medi", "syndi-engi", "Bloodhound_Combat", "spidersyndi", "syndieheavy")
 	species_disguise = "High-tech killer robot"
 
 /*
@@ -204,7 +204,7 @@ CONTENTS:
 	if(!istype(H) || !istype(borghead))
 		return
 	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
-		to_chat(H, "<span class='warning'>The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!</span>")
+		to_chat(H, SPAN_WARNING("The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!"))
 		return
 	var/selected_borg_disguise = pick(borghead.available_disguises)
 	var/selected_borg_eyes

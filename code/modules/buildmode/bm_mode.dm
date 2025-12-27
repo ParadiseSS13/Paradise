@@ -28,11 +28,11 @@
 	return "buildmode_[key]"
 
 /datum/buildmode_mode/proc/show_help(mob/user)
-	to_chat(user, "<span class='warning'>There is no help defined for this mode, this is a bug.</span>")
+	to_chat(user, SPAN_WARNING("There is no help defined for this mode, this is a bug."))
 	CRASH("No help defined, yell at a coder")
 
 /datum/buildmode_mode/proc/change_settings(mob/user)
-	to_chat(user, "<span class='warning'>There is no configuration available for this mode</span>")
+	to_chat(user, SPAN_WARNING("There is no configuration available for this mode"))
 
 /datum/buildmode_mode/proc/Reset()
 	deselect_region()
@@ -71,7 +71,7 @@
 				return
 			else if(!cornerB)
 				cornerB = select_tile(get_turf(object), AREASELECT_CORNERB)
-				to_chat(user, "<span class='boldwarning'>Region selected, if you're happy with your selection left click again, otherwise right click.</span>")
+				to_chat(user, SPAN_BOLDWARNING("Region selected, if you're happy with your selection left click again, otherwise right click."))
 				return
 			if(processing_selection)
 				return
@@ -80,7 +80,7 @@
 			processing_selection = FALSE
 			deselect_region()
 		else if(cornerA || cornerB)
-			to_chat(user, "<span class='notice'>Region selection canceled!</span>")
+			to_chat(user, SPAN_NOTICE("Region selection canceled!"))
 			deselect_region()
 
 /datum/buildmode_mode/proc/handle_selected_region(mob/user, params)

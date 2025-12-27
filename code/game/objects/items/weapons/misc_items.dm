@@ -37,6 +37,51 @@
 /obj/item/cane/get_crutch_efficiency()
 	return 2
 
+/obj/item/blindcane
+	name = "white cane"
+	desc = "A white cane for the visually impaired to feel their way around, though not sturdy enough to lean on. It easily folds up into a bag or pocket."
+	icon = 'icons/obj/weapons/melee.dmi' // Smack!
+	icon_state = "blindcane"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	flags = CONDUCT
+	force = 5
+	throwforce = 7
+	w_class = WEIGHT_CLASS_SMALL // Canes can fold up to fit in bags or pockets
+	materials = list(MAT_METAL = 50)
+	attack_verb = list("smacked", "whacked", "bumped", "struck")
+	new_attack_chain = TRUE
+
+/obj/item/blindcane/pre_attack(atom/target, mob/living/user, params)
+	. = ..()
+	if(!(ismob(target) || istype(target, /obj/structure) || istype(target, /obj/machinery)))
+		return
+
+	if(user.a_intent == INTENT_HELP)
+		user.do_attack_animation(target)
+		user.visible_message(
+			SPAN_NOTICE("[user] has prodded [target] with [src]."),
+			SPAN_NOTICE("You prod [target] with [src].")
+		)
+		if(HAS_TRAIT(user, TRAIT_BLIND))
+			to_chat(user, SPAN_NOTICE("You feel [target] with [src]."))
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+
+	else if(user.a_intent == INTENT_DISARM && ismob(target)) //Harmless smack
+		user.visible_message(
+			SPAN_NOTICE("[user] harmlessly slaps [target] with the end of the white cane."),
+			SPAN_NOTICE("You harmlessly slap [target] with the end of the white cane.")
+		)
+		if(HAS_TRAIT(user, TRAIT_BLIND))
+			to_chat(user, SPAN_NOTICE("You harmlessly slap [target] with the end of the white cane."))
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+
+	else // If the user is not on help or disarm intent
+		return // Harmful smack
+
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
+
 /obj/item/crutches
 	name = "crutches"
 	desc = "A medical device to help those who have injured or missing legs to walk."
@@ -76,23 +121,23 @@
 		return
 	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
 		if(istype(I, /obj/item/disk/nuclear))
-			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+			to_chat(user, SPAN_WARNING("You think you're gonna need more than crutches if your employers find out what you just tried to do..."))
 			return
 		if(I.flags & ABSTRACT)
 			return
 		if(!user.unequip(I))
-			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
+			to_chat(user, SPAN_NOTICE("[I] doesn't seem to want to go into [src]!"))
 			return
 		I.forceMove(src)
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
+		to_chat(user, SPAN_NOTICE("You hide [I] inside the crutch tip."))
 
 /obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
 	if(!is_open)
 		return ..()
 	if(hidden)
 		user.put_in_hands(hidden)
-		to_chat(user, "<span class='notice'>You remove [hidden] from the crutch tip!</span>")
+		to_chat(user, SPAN_NOTICE("You remove [hidden] from the crutch tip!"))
 		hidden = null
 
 	add_fingerprint(user)
@@ -100,7 +145,7 @@
 /obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
+	to_chat(user, SPAN_NOTICE("You screw the crutch tip [is_open ? "closed" : "open"]."))
 	is_open = !is_open
 
 /obj/item/crutches/get_crutch_efficiency()

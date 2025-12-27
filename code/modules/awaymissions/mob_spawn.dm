@@ -67,7 +67,7 @@
 	if(!gender_prompt(user))
 		return
 	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
-		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
+		to_chat(user, SPAN_WARNING("The [name] is no longer usable!"))
 		return
 	create(ckey = user.ckey, user = user)
 
@@ -105,18 +105,18 @@
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return FALSE
 	if(!uses && !permanent)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, SPAN_WARNING("This spawner is out of charges!"))
 		return FALSE
 	if((jobban_isbanned(user, ban_type) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		to_chat(user, SPAN_WARNING("You are jobanned!"))
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE) && restrict_respawnability)
-		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
+		to_chat(user, SPAN_WARNING("You currently do not have respawnability!"))
 		return FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/O = user
 		if(!O.check_ahud_rejoin_eligibility() && restrict_ahud)
-			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(user, SPAN_WARNING("Upon using the antagHUD you forfeited the ability to join the round."))
 			return FALSE
 	if(time_check(user))
 		return FALSE
@@ -142,7 +142,7 @@
 
 	if(deathtime <= death_cooldown && !joinedasobserver)
 		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		to_chat(user, SPAN_WARNING("You must wait [death_cooldown / 600] minutes to respawn!"))
 		return TRUE
 	return FALSE
 
@@ -413,7 +413,7 @@
 	var/despawn = tgui_alert(user, "Return to cryosleep? (Warning, Your mob will be deleted!)", "Leave Bar", list("Yes", "No"))
 	if(despawn != "Yes" || !loc || !Adjacent(user))
 		return
-	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
+	user.visible_message(SPAN_NOTICE("[user.name] climbs back into cryosleep..."))
 	qdel(user)
 
 /datum/outfit/cryobartender

@@ -24,7 +24,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	new /mob/living/basic/diona_nymph(get_turf(user))
-	to_chat(user, "<span class='notice'>You crack open [src], letting the nymph out.</span>")
+	to_chat(user, SPAN_NOTICE("You crack open [src], letting the nymph out."))
 	user.drop_item()
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE

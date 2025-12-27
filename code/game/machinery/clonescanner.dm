@@ -73,13 +73,13 @@
 		return
 	var/mob/living/carbon/human/H = O
 	if(H.stat != DEAD)
-		to_chat(user, "<span class='warning'>You don't think it'd be wise to scan a living being.</span>")
+		to_chat(user, SPAN_WARNING("You don't think it'd be wise to scan a living being."))
 		return TRUE
 	if(occupant)
-		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already occupied!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You put [H] into the cloning scanner.</span>")
+	to_chat(user, SPAN_NOTICE("You put [H] into the cloning scanner."))
 	insert_mob(H)
 	return TRUE
 
@@ -212,7 +212,7 @@
 
 /obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE

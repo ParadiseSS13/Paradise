@@ -63,7 +63,7 @@
 				to_chat(user, "You have moved too far away.")
 				return
 			if(confirm == "Yes")
-				to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
+				to_chat(user, SPAN_NOTICE("You snip the fingertips off of [src]."))
 				playsound(user.loc, W.usesound, rand(10,50), 1)
 				var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
 				if(pickpocket)

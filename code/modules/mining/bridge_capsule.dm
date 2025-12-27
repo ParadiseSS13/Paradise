@@ -11,20 +11,20 @@
 
 /obj/item/bridge_capsule/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>To use, activate it in-hand and throw it between the middle of the two areas you are trying to bridge.</span>"
-	. += "<span class='notice'>For best results, ensure the land on both sides of the span are smooth.</span>"
+	. += SPAN_NOTICE("To use, activate it in-hand and throw it between the middle of the two areas you are trying to bridge.")
+	. += SPAN_NOTICE("For best results, ensure the land on both sides of the span are smooth.")
 
 /obj/item/bridge_capsule/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
 	if(used)
 		ADD_TRAIT(src, TRAIT_FLYING, "[UID()]")
 		thrown_dir = get_dir(thrower, target)
-		to_chat(thrower, "<span class='notice'>[src] hovers above the ground as it prepares to deploy...</span>")
+		to_chat(thrower, SPAN_NOTICE("[src] hovers above the ground as it prepares to deploy..."))
 
 /obj/item/bridge_capsule/activate_self(mob/user)
 	. = ..()
 	if(!used)
-		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+		loc.visible_message(SPAN_WARNING("[src] begins to shake. Stand back!"))
 		used = TRUE
 		addtimer(CALLBACK(src, PROC_REF(deploy)), 5 SECONDS)
 
@@ -34,12 +34,12 @@
 
 /obj/item/bridge_capsule/proc/deploy()
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>[src] stops shaking. Looks like it needs to be thrown to deploy.</span>")
+		to_chat(loc, SPAN_NOTICE("[src] stops shaking. Looks like it needs to be thrown to deploy."))
 		used = FALSE
 		return
 
 	if(istype(loc, SSmapping.lavaland_theme?.primary_turf_type))
-		loc.visible_message("<span class='warning'>[src] suddenly bursts!</span>")
+		loc.visible_message(SPAN_WARNING("[src] suddenly bursts!"))
 		var/obj/effect/spawner/dynamic_bridge/capsule/spawner = new(loc, thrown_dir)
 		var/result = spawner.attempt_bridge()
 		var/fail_message = "[src] buzzes loudly and falls to the ground!"
@@ -47,20 +47,20 @@
 			if(BRIDGE_SPAWN_SUCCESS)
 				qdel(src)
 			if(BRIDGE_SPAWN_BAD_TERRAIN)
-				loc.visible_message("<span class='warning'>[fail_message] It looks like the terrain here is too uneven for a bridge.</span>")
+				loc.visible_message(SPAN_WARNING("[fail_message] It looks like the terrain here is too uneven for a bridge."))
 				stop_flying()
 			if(BRIDGE_SPAWN_TOO_NARROW)
-				loc.visible_message("<span class='warning'>[fail_message] It looks like the span here is too narrow.</span>")
+				loc.visible_message(SPAN_WARNING("[fail_message] It looks like the span here is too narrow."))
 				stop_flying()
 			if(BRIDGE_SPAWN_TOO_WIDE)
-				loc.visible_message("<span class='warning'>[fail_message] It looks like the span here is too wide.</span>")
+				loc.visible_message(SPAN_WARNING("[fail_message] It looks like the span here is too wide."))
 				stop_flying()
 
 		qdel(spawner)
 		return
 
 	stop_flying()
-	to_chat(loc, "<span class='notice'>[src] flutters to the ground, refusing to deploy. Maybe you can't do that here?</span>")
+	to_chat(loc, SPAN_NOTICE("[src] flutters to the ground, refusing to deploy. Maybe you can't do that here?"))
 
 /obj/item/bridge_capsule/proc/stop_flying()
 	REMOVE_TRAIT(src, TRAIT_FLYING, "[UID()]")

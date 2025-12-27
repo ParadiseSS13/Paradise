@@ -18,7 +18,7 @@
 
 /obj/item/bio_chip_pad/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove it's stored implant.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to remove it's stored implant.")
 
 /obj/item/bio_chip_pad/update_icon_state()
 	if(case)
@@ -39,7 +39,7 @@
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
+		to_chat(user, SPAN_WARNING("There's already a bio-chip in the pad!"))
 		return
 	user.unequip(C)
 	C.forceMove(src)

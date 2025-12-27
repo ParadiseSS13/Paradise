@@ -57,7 +57,7 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	to_chat(mod.wearer, "<span class='notice'>Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]"))
 
 ///Teleporter - Lets the user teleport to a nearby location.
 /obj/item/mod/module/anomaly_locked/teleporter

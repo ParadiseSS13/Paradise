@@ -31,7 +31,7 @@
 			C.id = S.id
 			linked = TRUE
 		if(linked)
-			to_chat(user, "<span class='notice'>All belts in [src] linked with [S].</span>")
+			to_chat(user, SPAN_NOTICE("All belts in [src] linked with [S]."))
 	else
 		return ..()
 
@@ -40,6 +40,6 @@
 		return
 	var/obj/item/conveyor_construct/C = locate() in src
 	if(!C)
-		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
+		to_chat(user, SPAN_NOTICE("There are no belts in [src]."))
 	else
 		C.afterattack__legacy__attackchain(A, user, proximity)

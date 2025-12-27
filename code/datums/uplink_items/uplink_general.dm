@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
 		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives() || locate(/datum/objective/nuke) in usr.mind.get_all_objectives()) && U.uplink_type != UPLINK_TYPE_ADMIN)
-			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned to hijack the shuttle, or detonate the station's nuclear device.</span>")
+			to_chat(usr, SPAN_WARNING("The Syndicate will only issue this extremely dangerous item to agents assigned to hijack the shuttle, or detonate the station's nuclear device."))
 			return
 
 	U.uses -= max(cost, 0)
