@@ -4714,6 +4714,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/table,
 /obj/item/deck/cards,
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aJG" = (
@@ -28901,6 +28904,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/drinks/carton/vegetable,
 /turf/simulated/floor/plasteel,
 /area/station/medical/break_room)
 "cZr" = (
@@ -64412,6 +64416,7 @@
 /area/station/command/office/ce)
 "poG" = (
 /obj/structure/table,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "poM" = (
