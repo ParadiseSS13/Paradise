@@ -143,6 +143,10 @@
 				for(var/obj/O as anything in T)
 					var/the_block = O.explosion_block
 					cached_exp_block[T] += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
+
+				// Make list smaller if there is no block
+				if(cached_exp_block[T] == 0)
+					cached_exp_block -= T
 				CHECK_TICK
 
 		for(var/turf/T as anything in affected_turfs)
