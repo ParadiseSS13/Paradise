@@ -8,14 +8,14 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 1, flame_range = 0, silent = 0, smoke = 1, cause = "Unknown Cause!", breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, cause = "Unknown Cause!", breach = TRUE, investigate_logging = FALSE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
 
 	// If we are in end round, make explosions gib the user
 	// Why? Its funny
-	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
+	if(GLOB.disable_explosions && istype(usr, /mob/living/carbon/human))
 		to_chat(usr, SPAN_USERDANGER("Your explosive backfires!"))
 		var/mob/living/carbon/human/H = usr
 		H.gib() // lol
@@ -140,7 +140,7 @@
 				if(T.density && T.explosion_block)
 					cached_exp_block[T] += T.explosion_block
 
-				for(var/obj/O in T)
+				for(var/obj/O as anything in T)
 					var/the_block = O.explosion_block
 					cached_exp_block[T] += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 				CHECK_TICK
@@ -200,15 +200,11 @@
 			CHECK_TICK
 
 		var/took = stop_watch(watch)
-		// Currently unviewable, should be moved somewhere more sane
-		log_debug("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
+		// Log this to the investigate log because we have no better place
+		epicenter.investigate_log("## DEBUG: Explosion([x0],[y0],[z0]) - (d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.", INVESTIGATE_BOMB)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	return 1
-
-/proc/secondaryexplosion(turf/epicenter, range)
-	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(EXPLODE_HEAVY)
+	return TRUE
 
 USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ranges.", VERB_CATEGORY_DEBUG)
 	var/newmode = alert(client, "Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
