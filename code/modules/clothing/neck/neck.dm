@@ -29,8 +29,7 @@
 		return
 
 	under_suit = !under_suit
-	if(user.neck == src)
-		user.update_inv_neck()
+	update_mob_overlay()
 	to_chat(user, SPAN_NOTICE("You adjust [src] to be worn [under_suit ? "under" : "over"] your suit."))
 
 /obj/item/clothing/neck/stethoscope

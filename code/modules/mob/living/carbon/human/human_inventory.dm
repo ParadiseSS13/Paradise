@@ -154,7 +154,10 @@
 			internal = null
 		if(target.flags_inv & HIDEEARS)
 			update_inv_ears()
-		wear_mask_update(target, toggle_off = FALSE)
+		if(isclothing(target))
+			var/obj/item/clothing/mask/mask = target
+			if(mask.tint)
+				update_tint()
 		sec_hud_set_ID()
 		malf_hud_set_status()
 		update_misc_effects()
@@ -231,7 +234,10 @@
 				malf_hud_set_status()
 			if(wear_mask.flags_inv & HIDEEARS)
 				update_inv_ears()
-			wear_mask_update(I, toggle_off = TRUE)
+			if(isclothing(I))
+				var/obj/item/clothing/mask/mask = I
+				if(mask.tint)
+					update_tint()
 			update_misc_effects()
 			update_inv_wear_mask()
 		if(ITEM_SLOT_NECK)
@@ -418,42 +424,28 @@
 /mob/living/carbon/human/get_slot_by_item(obj/item/looking_for)
 	if(looking_for == belt)
 		return ITEM_SLOT_BELT
-
 	if(looking_for == wear_id)
 		return ITEM_SLOT_ID
-
 	if(looking_for == l_ear)
 		return ITEM_SLOT_LEFT_EAR
-
 	if(looking_for == r_ear)
 		return ITEM_SLOT_RIGHT_EAR
-
 	if(looking_for == glasses)
 		return ITEM_SLOT_EYES
-
 	if(looking_for == gloves)
 		return ITEM_SLOT_GLOVES
-
-	if(looking_for == head)
-		return ITEM_SLOT_HEAD
-
 	if(looking_for == shoes)
 		return ITEM_SLOT_SHOES
-
-	if(looking_for == wear_suit)
-		return ITEM_SLOT_OUTER_SUIT
-
 	if(looking_for == w_uniform)
 		return ITEM_SLOT_JUMPSUIT
-
 	if(looking_for == r_store)
 		return ITEM_SLOT_BOTH_POCKETS
-
 	if(looking_for == l_store)
 		return ITEM_SLOT_BOTH_POCKETS
-
-	// if(looking_for == s_store)
-	// 	return ITEM_SLOT_SUIT_STORE
+	if(looking_for == wear_pda)
+		return ITEM_SLOT_PDA
+	if(looking_for == neck)
+		return ITEM_SLOT_NECK
 
 	return ..()
 

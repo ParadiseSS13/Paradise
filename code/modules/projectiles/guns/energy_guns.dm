@@ -145,10 +145,7 @@
 	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
-		if(ishuman(user)) //This has to be here or else if you toggle modes by clicking the gun in hand
-			var/mob/living/carbon/human/H = user //Otherwise the mob icon doesn't update, blame shitty human update_icons() code
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
+		update_mob_overlay()
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -205,12 +202,7 @@
 
 /obj/item/gun/energy/update_icon(updates=ALL)
 	..()
-	var/mob/living/carbon/human/user = loc
-	if(istype(user))
-		if(user.hand) //this is kinda ew but whatever
-			user.update_inv_r_hand()
-		else
-			user.update_inv_l_hand()
+	update_mob_overlay()
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)

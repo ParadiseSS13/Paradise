@@ -851,17 +851,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return null
 
 /mob/living/carbon/get_slot_by_item(obj/item/looking_for)
-	if(looking_for == back)
-		return ITEM_SLOT_BACK
-
-	// if(back && (looking_for in back))
-	// 	return ITEM_SLOT_BACKPACK
-
-	if(looking_for == wear_mask)
-		return ITEM_SLOT_MASK
-
 	if(looking_for == head)
 		return ITEM_SLOT_HEAD
+	if(looking_for == handcuffed)
+		return ITEM_SLOT_HANDCUFFED
+	if(looking_for == legcuffed)
+		return ITEM_SLOT_LEGCUFFED
+	if(looking_for == wear_suit)
+		return ITEM_SLOT_OUTER_SUIT
 
 	return ..()
 
@@ -1340,16 +1337,6 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/clothing/glasses/G = glasses
 		. += G.tint
 
-
-//handle stuff to update when a mob equips/unequips a mask.
-/mob/living/proc/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
-	update_inv_wear_mask()
-
-/mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
-	if(istype(C) && (C.tint || initial(C.tint)))
-		update_tint()
-	update_inv_wear_mask()
-
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
 	if(isclothing(I))
@@ -1407,13 +1394,11 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
-		if(head.clean_blood(radiation_clean))
-			update_inv_head()
+		head.clean_blood(radiation_clean)
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
-		if(wear_suit.clean_blood(radiation_clean))
-			update_inv_wear_suit()
+		wear_suit.clean_blood(radiation_clean)
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE
 		if(wear_suit.flags_inv & HIDEGLOVES)

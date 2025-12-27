@@ -31,7 +31,6 @@
 /obj/item/clothing/ears/headphones/proc/toggle_visual_notes(mob/user)
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
-	user.regenerate_icons()
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
@@ -48,10 +47,7 @@
 
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "headphones[on]"
-	var/mob/living/carbon/human/user = loc
-	if(istype(user))
-		user.update_action_buttons_icon()
-		user.update_inv_ears()
+	update_mob_overlay()
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
 	if(slot & ITEM_SLOT_BOTH_EARS)
