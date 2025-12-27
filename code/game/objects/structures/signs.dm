@@ -309,6 +309,7 @@
 	desc = "A direction sign, pointing out which way the Escape Shuttle Dock is."
 	icon_state = "direction_evac"
 	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/directions/cargo
 	desc = "A direction sign, pointing out which way the Supply Department is."
@@ -363,6 +364,7 @@
 	desc = "The shuttle will dock here at the end of the shift or during an emergency evacuation."
 	icon_state = "evac"
 	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/public/holy
 	name = "\improper HOLY"
@@ -378,6 +380,8 @@
 	name = "\improper ESCAPE PODS"
 	desc = "The station's escape pods can be used to evacuate in the event that the main shuttle cannot be reached."
 	icon_state = "pods"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/public/salon
 	name = "\improper SALON"

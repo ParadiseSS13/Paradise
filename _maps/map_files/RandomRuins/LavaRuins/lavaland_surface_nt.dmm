@@ -8333,7 +8333,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/sign/custodian{
+/obj/structure/sign/service/custodian{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{

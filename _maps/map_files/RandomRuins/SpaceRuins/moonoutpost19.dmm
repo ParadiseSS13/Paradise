@@ -10254,7 +10254,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/structure/sign/pods{
+/obj/structure/sign/public/pods{
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/maintenance,
@@ -11411,7 +11411,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/sign/pods{
+/obj/structure/sign/public/pods{
 	pixel_y = 32
 	},
 /obj/structure/table,

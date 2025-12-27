@@ -411,7 +411,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bY" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "bZ" = (

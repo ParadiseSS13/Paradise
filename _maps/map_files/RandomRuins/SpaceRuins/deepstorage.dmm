@@ -5697,7 +5697,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "Ry" = (
-/obj/structure/sign/custodian{
+/obj/structure/sign/service/custodian{
 	pixel_x = 32
 	},
 /mob/living/simple_animal/hostile/spaceinfected/default/ranged,

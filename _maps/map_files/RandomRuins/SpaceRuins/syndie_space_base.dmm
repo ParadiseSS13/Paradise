@@ -847,7 +847,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "fs" = (
-/obj/structure/sign/custodian,
+/obj/structure/sign/service/custodian,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "ft" = (
