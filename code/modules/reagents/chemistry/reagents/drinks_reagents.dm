@@ -1076,6 +1076,7 @@
 	taste_description = "salt"
 	adj_dizzy = -5 SECONDS
 	process_flags = ORGANIC | SYNTHETIC
+	max_kidney_damage = 3
 
 /datum/reagent/consumable/drink/electrolytes/on_mob_life(mob/living/M)
 	M.AdjustConfused(-5 SECONDS)
