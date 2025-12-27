@@ -70001,6 +70001,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"mUd" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8;
+	name = "Atmos in"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "mUi" = (
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -121034,7 +121041,7 @@ qXW
 cwt
 qXW
 upu
-cuQ
+mUd
 clp
 qXW
 cwv

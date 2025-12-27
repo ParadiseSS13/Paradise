@@ -75829,7 +75829,8 @@
 /area/station/science/rnd)
 "tvk" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 1
+	dir = 1;
+	name = "Atmos in"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -85621,6 +85622,7 @@
 "wXp" = (
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/south,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "wXy" = (

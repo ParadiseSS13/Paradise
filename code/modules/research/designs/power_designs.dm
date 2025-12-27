@@ -141,7 +141,7 @@
 	name = "Nuclear Rod Fabricator Upgrade"
 	desc = "A design disk containing a dizzying amount of designs and improvements for nuclear rod fabrication."
 	id = "nuclear_fab_upgrade"
-	req_tech = list("programming" = 5, "materials" = 5, "magnets" = 4, "plasmatech" = 3, "toxins" = 5)
+	req_tech = list("programming" = 5, "materials" = 5, "magnets" = 4, "plasmatech" = 3, "toxins" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_URANIUM = 500, MAT_GOLD = 400)
 	build_path = /obj/item/rod_fabricator_upgrade

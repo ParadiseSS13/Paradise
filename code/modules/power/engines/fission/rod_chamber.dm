@@ -89,8 +89,7 @@
 		deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
-	if(linked_reactor)
-		desync()
+	desync()
 	if(held_rod) // We shouldnt be able to decon with this in, but just in case
 		if(held_rod.reactor_overheat_modifier)
 			linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
@@ -526,7 +525,7 @@
 
 /// Removes the chamber from neighbor from its neighbors, and forces them to run status checks
 /obj/machinery/atmospherics/reactor_chamber/proc/desync()
-	if(length(neighbors)) // For when we need to rerun this
+	if(length(neighbors))
 		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 			chamber.neighbors -= src
 		neighbors.Cut()
@@ -574,7 +573,7 @@
 	if(!temp_requirements)
 		return TRUE
 
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber as anything in neighbors)
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.operational)
 			continue
 		if(chamber.held_rod.type in temp_requirements)
@@ -610,6 +609,10 @@
 	if(linked_reactor && linked_reactor.safety_override && !linked_reactor.control_lockout) // we only remove control lockout when the others are ready
 		if(chamber_state == CHAMBER_OVERLOAD_IDLE && istype(held_rod, /obj/item/nuclear_rod/fuel))
 			set_active_overload() // For latejoiners
+	if(operational && held_rod.durability <= 0)
+		requirements_met = FALSE
+		update_icon(UPDATE_OVERLAYS)
+		return
 	if(!requirements_met && !operational)
 		if(check_status())
 			requirements_met = TRUE
@@ -622,7 +625,7 @@
 			return
 	if(!requirements_met && operational) // If it loses requirements, it wont immediately turn off
 		if(istype(held_rod.type, /obj/item/nuclear_rod/coolant))
-			if(prob(10)) // Higher rates of coolant rod failures once they're already on. Good luck.
+			if(prob(15)) // Higher rates of coolant rod failures once they're already on. Good luck.
 				operational = FALSE
 				update_icon(UPDATE_OVERLAYS)
 		else if(prob(1))
@@ -698,7 +701,7 @@
 	var/rad_type = pick(ALPHA_RAD, BETA_RAD, GAMMA_RAD)
 	for(var/turf/T in view(2, loc))
 		T.contaminate_atom(src, 300, rad_type)
-	var/distance_traveled = rand(6, 20)
+	var/distance_traveled = rand(10, 60)
 	var/angle = rand(0, 360)
 	var/turf/end = get_turf_in_angle(angle, loc, distance_traveled)
 	var/obj/effect/immovablerod/nuclear_rod/nuclear_rod = new(loc, end)
@@ -712,7 +715,7 @@
 	held_rod = null
 	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
-	audible_message("POW!")
+	audible_message(SPAN_USERDANGER("POW!"))
 
 /obj/machinery/atmospherics/reactor_chamber/proc/weld_shut()
 	welded = TRUE

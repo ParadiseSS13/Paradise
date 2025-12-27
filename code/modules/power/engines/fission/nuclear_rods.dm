@@ -209,11 +209,11 @@
 	max_durability = 5000
 	alpha_rad = 150
 	beta_rad = 100
-	heat_enrich_threshold = 20
-	power_enrich_threshold = 14
+	heat_enrich_threshold = 25
+	power_enrich_threshold = 18
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/thorium_salts
 	power_enrich_result = /obj/item/nuclear_rod/fuel/enriched_plutonium
-	origin_tech = "toxins=4"
+	origin_tech = "toxins=2"
 	craftable = TRUE
 	upgrade_required = TRUE
 	adjacent_requirements = list(
@@ -249,7 +249,7 @@
 	power_amp_mod = 1.6
 	max_durability = 5000
 	beta_rad = 250
-	power_enrich_threshold = 18
+	power_enrich_threshold = 25
 	power_enrich_result = /obj/item/nuclear_rod/fuel/americium
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
@@ -451,8 +451,8 @@
 	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbant properties, small amounts are injected around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
 	icon_state = "coolant_plasma"
 	durability = 2500
-	heat_amp_mod = 0.3
-	power_amp_mod = 1.2
+	heat_amp_mod = 0.5
+	power_amp_mod = 1.5
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
@@ -536,7 +536,6 @@
 	icon_state = "coolant_spacematter"
 	heat_amount = -1500
 	heat_amp_mod = 0.2
-	max_durability = 3000
 	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
 	craftable = TRUE
 	upgrade_required = TRUE

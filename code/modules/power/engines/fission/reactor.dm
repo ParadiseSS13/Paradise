@@ -690,7 +690,7 @@
 						coolers += chamber
 				if(length(coolers))
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
-					if(prob(60) || !failure.welded) // 75% chance to beak through the weld. you got lucky punk
+					if(prob(60) || !failure.welded) // 60% Chance to beak through the weld. you got lucky punk
 						failure.eject_rod()
 
 			// Weld a vent.
@@ -709,7 +709,7 @@
 							valid_chambers -= failure // Just keep cycling through.
 
 			// Control rod failure.
-			if(prob(new_damage * damage_multiplier * 0.4) && control_rods_remaining > 0) // Control rod failure. more probable
+			if(prob(new_damage * damage_multiplier * 0.5) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
 			// Vent seal failure.

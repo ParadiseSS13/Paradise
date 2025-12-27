@@ -51882,7 +51882,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/binary/pump{
-	dir = 8
+	dir = 8;
+	name = "Atmos in"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
