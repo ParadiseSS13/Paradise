@@ -202,6 +202,10 @@
 	display_name = "Wizard's staff"
 	path = /obj/item/staff
 
+/datum/gear/photo_album
+	display_name = "Photo album"
+	path = /obj/item/storage/photo_album
+
 //////////////////////
 //		Mugs		//
 //////////////////////
