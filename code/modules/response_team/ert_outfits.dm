@@ -45,7 +45,13 @@
 /datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-	H.rename_character(H.real_name, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
+	var/last_name
+	if(ismachineperson(H))
+		last_name = pick(GLOB.ai_names)
+	else
+		last_name = pick(GLOB.last_names)
+
+	H.rename_character(H.real_name, "[pick("Lieutenant", "Captain", "Major")] [last_name]")
 	H.age = rand(35, 45)
 
 /datum/outfit/job/response_team/commander/amber
