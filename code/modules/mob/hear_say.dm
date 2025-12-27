@@ -166,13 +166,21 @@
 	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
 	if(!can_hear())
-		if(prob(20))
-			to_chat(src, SPAN_WARNING("You feel your headset vibrate but can hear nothing from it!"))
-	else if(track)
-		to_chat(src, "[part_a][track][part_b][message]</span></span>")
-	else
-		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+		var/near_intercom = FALSE
+		for(var/obj/item/radio/intercom/intercom in view(5, src))
+			if(get_dist(src, intercom) <= intercom.canhear_range)
+				near_intercom = TRUE
+				break
 
+		if(near_intercom)
+			return
+		else if(prob(20))
+			to_chat(src, SPAN_WARNING("You feel your headset vibrate but can hear nothing from it!"))
+	else
+		if(track)
+			to_chat(src, "[part_a][track][part_b][message]</span></span>")
+		else
+			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
 	if(speaker)
