@@ -636,7 +636,7 @@ USER_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", "Create a custom explos
 	var/flames = input(client, "Range of flames. -1 to none", "Input")  as num|null
 	if(flames == null)
 		return
-	var/ignore_cap = tgui_input_list(usr, "Ignore bomb cap?", "Bomb cap", list("Yes", "No"))
+	var/ignore_cap = tgui_input_list(client, "Ignore bomb cap?", "Bomb cap", list("Yes", "No"))
 	if(isnull(ignore_cap))
 		return
 	ignore_cap = (ignore_cap == "Yes") ? TRUE : FALSE
