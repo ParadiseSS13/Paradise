@@ -653,12 +653,60 @@
 	message = "flaps their wings."
 	sound = 'sound/effects/mob_effects/flap.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
+	var/wing_time = 1 SECONDS
+
+/datum/emote/living/carbon/human/flap/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+		addtimer(CALLBACK(src, PROC_REF(finish_flap), H), wing_time)
+
+/datum/emote/living/carbon/human/flap/proc/finish_flap(mob/living/carbon/human/H)
+	H.Togglewings()
 
 /datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
 	sound = 'sound/effects/mob_effects/angryflap.ogg'
 	message = "flaps their wings ANGRILY!"
+	wing_time = 0.5 SECONDS
+
+/datum/emote/living/carbon/human/wings
+	key = "wings"
+	key_third_person = "wings"
+	message = "their wings."
+
+/datum/emote/living/carbon/human/wings/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!..())
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(H, "<span class='warning'>Your wings are burnt off!</span>")
+		return FALSE
+	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
+		to_chat(H, "<span class='warning'>You don't have wings!</span>")
+		return FALSE
+	return TRUE
+
+/datum/emote/living/carbon/human/wings/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+
+/datum/emote/living/carbon/human/wings/select_message_type(mob/user, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			. = "opens " + message
+		else
+			. = "closes " + message
 
 /datum/emote/living/carbon/human/flutter
 	key = "flutter"
