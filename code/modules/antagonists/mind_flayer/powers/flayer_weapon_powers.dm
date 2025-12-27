@@ -39,7 +39,7 @@
 	weapon_ref.flags |= ABSTRACT
 	weapon_ref.set_nodrop(TRUE, user)
 
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (!user.get_organ("r_hand") && !user.get_organ("l_hand")) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
 		return FALSE
 
@@ -49,7 +49,30 @@
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
 	RegisterSignal(user, COMSIG_FLAYER_RETRACT_IMPLANTS, PROC_REF(retract), user)
 	return weapon_ref
+/*
+/datum/spell/flayer/self/weapon/cast(list/targets, mob/living/carbon/human/user)
+	if(weapon_ref && (user.l_hand == weapon_ref || user.r_hand == weapon_ref))
+		retract(user, TRUE)
+		return
 
+	if(!weapon_ref)
+		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !(user.get_organ("r_hand") && user.get_organ("l_hand")) || (user.get_active_hand() && !user.drop_item()))
+			flayer.send_swarm_message("We cannot manifest our weapon into our active hand...")
+			return FALSE
+		else
+			create_new_weapon()
+
+	// Just in case the item doesn't start with both of these, or somehow loses them.
+	weapon_ref.flags |= ABSTRACT
+	weapon_ref.set_nodrop(TRUE, user)
+
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
+	user.put_in_hands(weapon_ref)
+	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
+	RegisterSignal(user, COMSIG_FLAYER_RETRACT_IMPLANTS, PROC_REF(retract), user)
+	return weapon_ref
+*/
 /datum/spell/flayer/self/weapon/proc/retract(mob/owner, any_hand = FALSE)
 	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_FLAYER_RETRACT_IMPLANTS
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
