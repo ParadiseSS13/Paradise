@@ -42,7 +42,6 @@
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
 
-
 /obj/structure/window/rad_act(atom/source, amount, emission_type)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
 		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD, 60)
@@ -254,6 +253,27 @@
 					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
+	else if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
+		if(S.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
+			return
+		if(locate(/obj/structure/barricade/wooden) in get_turf(src)) //not using barricaded var here since it doesn't need to be called often
+			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
+		if(!(do_after_once(user, 4 SECONDS, target = src)))
+			return
+		if(!S.use(2))
+			to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+			return
+		if(locate(/obj/structure/barricade/wooden) in get_turf(src)) // one last check in case someone pre-barricades it
+			return
+		to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+		user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
+		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+		newbarricade.add_fingerprint(user)
+		return
 	else
 		return ..()
 

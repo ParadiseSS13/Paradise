@@ -91,6 +91,7 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
+	layer = DOOR_HELPER_LAYER
 
 /obj/structure/barricade/wooden/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I,/obj/item/stack/sheet/wood))
@@ -109,6 +110,27 @@
 			return ITEM_INTERACT_COMPLETE
 	return ..()
 
+// This is for when barricades are initialized on windows or doors to prevent stacking
+/obj/structure/barricade/wooden/Initialize(mapload)
+	. = ..()
+	for(var/atom/potential_door as anything in get_turf(src))
+		if(istype(potential_door, /obj/machinery/door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.barricaded = TRUE
+		else if(istype(potential_door, /obj/structure/mineral_door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.barricaded = TRUE
+
+/obj/structure/barricade/wooden/Destroy()
+	for(var/atom/potential_door as anything in get_turf(src))
+		if(istype(potential_door, /obj/machinery/door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.barricaded = FALSE
+		else if(istype(potential_door, /obj/structure/mineral_door))
+			var/obj/machinery/door/confirmed_door = potential_door
+			confirmed_door.barricaded = FALSE
+	. = ..()
+
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -116,21 +138,43 @@
 	user.visible_message(SPAN_NOTICE("[user] starts ripping [src] down!"), SPAN_NOTICE("You struggle to pull [src] apart..."), SPAN_WARNING("You hear wood splintering..."))
 	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
 		return
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
 	qdel(src)
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
 	icon_state = "woodenbarricade-old"
-	drop_amount = 1
-	max_integrity = 50
+	drop_amount = 2
+	max_integrity = 75
 	proj_pass_rate = 65
+
+//Barricade repairs
+/obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(!istype(I, /obj/item/stack/sheet/wood))
+		return NONE
+	if(user.a_intent != INTENT_HELP)
+		return NONE
+	var/obj/item/stack/sheet/wood/S = I
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+		return NONE
+	to_chat(user, "<span class='notice'> You start replacing the broken boards of [src]...</span>")
+	if(!do_after_once(user, 2 SECONDS, target = src))
+		return NONE
+	if(!S.use(1))
+		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+		return NONE
+	else
+		to_chat(user, "<span class='notice'> You repair [src].</span>")
+		user.visible_message("<span class='notice'> [user] repairs [src].</span>")
+		obj_integrity = max_integrity
+		add_fingerprint(user)
+	return NONE
 
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
-	max_integrity = 75
 
 /obj/structure/barricade/sandbags
 	name = "sandbags"
