@@ -13,7 +13,8 @@
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon_state = "firstaid_generic"
 	throw_range = 8
-	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
+	materials = list(MAT_PLASTIC = 8000)
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
@@ -269,6 +270,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
+	materials = list(MAT_PLASTIC = 2000)
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.

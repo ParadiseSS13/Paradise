@@ -71,3 +71,8 @@
 ///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
 #define AI_MAX_PATH_LENGTH 30 // 30 is possibly overkill since by default we lose interest after 14 tiles of distance, but this gives wiggle room for weaving around obstacles
 #define AI_BOT_PATH_LENGTH 60
+
+/// probability that the pawn should try resisting out of restraints
+#define RESIST_SUBTREE_PROB 50
+/// macro for whether it's appropriate to resist right now, used by resist subtree
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || source.pulledby)
