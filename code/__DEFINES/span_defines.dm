@@ -108,6 +108,7 @@
 #define SPAN_REVENNOTICE(str) ("<span class='revennotice'>" + str + "</span>")
 #define SPAN_REVENWARNING(str) ("<span class='revenwarning'>" + str + "</span>")
 #define SPAN_ROBOT(str) ("<span class='robot'>" + str + "</span>")
+#define SPAN_ROBOTEMOTE(str) ("<span class='robotemote'>" + str + "</span>")
 #define SPAN_ROSE(str) ("<span class='rose'>" + str + "</span>")
 #define SPAN_SANS(str) ("<span class='sans'>" + str + "</span>")
 #define SPAN_SCIRADIO(str) ("<span class='sciradio'>" + str + "</span>")
