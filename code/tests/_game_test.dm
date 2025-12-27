@@ -76,6 +76,12 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 /datum/game_test/proc/Run()
 	Fail("Run() called parent or not implemented")
 
+/datum/game_test/proc/Log(text)
+	// TODO: this is where everything else goes for now technically, but not really ideal
+	// would be nice to have everything in one place in an artifact i can pick up from CI
+	// etc etc
+	log_world(text)
+
 /datum/game_test/proc/Fail(reason = "No reason", file = "OUTDATED_TEST", line = 1)
 	succeeded = FALSE
 
@@ -110,6 +116,7 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 	var/testing_area_name = "test_generic.dmm"
 	var/obj/effect/landmark/bottom_left
 	var/obj/effect/landmark/top_right
+	var/list/puppeteers = list()
 
 /datum/game_test/room_test/New()
 	. = ..()
@@ -154,3 +161,18 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 		Fail("could not find any test turfs")
 
 	return result
+
+/datum/game_test/room_test/proc/make_puppet(carbon_type = /mob/living/carbon/human, turf/initial_location)
+	var/datum/test_puppeteer/puppeteer = new(src, carbon_type, initial_location)
+	puppeteers |= puppeteer
+	return puppeteer
+
+/datum/game_test/room_test/proc/destroy_puppet(datum/test_puppeteer/puppeteer)
+	puppeteers -= puppeteer
+	qdel(puppeteer)
+
+/datum/game_test/room_test/Fail(reason, file, line)
+	. = ..()
+	if(length(puppeteers))
+		for(var/datum/test_puppeteer/puppeteer as anything in puppeteers)
+			Log("puppet [puppeteer.puppet] last chatlog was `[puppeteer.get_last_chatlog()]` at failure")
