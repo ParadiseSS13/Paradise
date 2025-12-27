@@ -80,7 +80,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "au" = (
-/obj/structure/sign/chemistry{
+/obj/structure/sign/medical/chemistry{
 	pixel_y = 1
 	},
 /turf/simulated/wall/mineral/titanium,

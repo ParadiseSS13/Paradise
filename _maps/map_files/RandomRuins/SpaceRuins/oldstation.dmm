@@ -3061,7 +3061,7 @@
 /area/ruin/ancientstation/hivebot)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/restroom{
+/obj/structure/sign/public/restroom{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
