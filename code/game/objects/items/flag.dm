@@ -135,6 +135,11 @@
 	desc = "An eccentric handmade standard, luxuriously soft due to exotic silks and embossed with lustrous gold. Although inspired by the pride that Nianae take in their baubles, it ultimately feels melancholic. Beauty knows no pain, afterall."
 	icon_state = "nianflag"
 
+/obj/item/flag/species/skulk
+	name = "\improper Collective Flag"
+	desc = "A foreboding flag made with silk and religious fervor. The cloth of this flag undoubtly made by faithful silk-spinners and blessed by Skkula-Kkavan priests. Some would argue its beauty does not befit it, believing it to be a beacon of zealotry that plagues the Silver Collective in its entirety."
+	icon_state = "skulkflag"
+
 //Department Flags
 
 /obj/item/flag/cargo

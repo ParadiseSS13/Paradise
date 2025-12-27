@@ -293,6 +293,7 @@
 	R.add_language("Orluum", FALSE)
 	R.add_language("Clownish", FALSE)
 	R.add_language("Tkachi", FALSE)
+	R.add_language("Skkula-Runespeak", FALSE)
 
 ///Adds armor to a cyborg. Normaly resets it to 0 across the board, unless the module has an armor defined.
 /obj/item/robot_module/proc/add_armor(mob/living/silicon/robot/R)
@@ -670,6 +671,7 @@
 	R.add_language("Clownish",1)
 	R.add_language("Cygni Standard", 1)
 	R.add_language("Tkachi", 1)
+	R.add_language("Skkula-Runespeak", 1)
 
 // Mining
 /obj/item/robot_module/miner

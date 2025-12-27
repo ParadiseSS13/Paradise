@@ -31,6 +31,8 @@
 	__init_body_accessory(/datum/body_accessory/tail)
 	// Different wings
 	__init_body_accessory(/datum/body_accessory/wing)
+	// Different spines
+	__init_body_accessory(/datum/body_accessory/spines)
 
 	// Setup species:accessory relations
 	initialize_body_accessory_by_species()

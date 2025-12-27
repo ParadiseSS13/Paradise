@@ -13,7 +13,8 @@
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 		)
 
 	/// If the paddles are currently attached to the unit.

@@ -69,6 +69,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
 
@@ -189,6 +190,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
