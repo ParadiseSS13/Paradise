@@ -4446,7 +4446,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lz" = (
-/obj/structure/sign/botany,
+/obj/structure/sign/service/botany,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "lA" = (
@@ -5944,7 +5944,7 @@
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qh" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qi" = (
