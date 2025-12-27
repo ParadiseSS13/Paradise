@@ -14,7 +14,7 @@
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
 	response_disarm_simple = "gently push aside"
-	speed = 0
+	speed = 0.25
 	maxHealth = 25
 	health = 25
 
@@ -142,6 +142,9 @@
 
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/megacarp
+
+/mob/living/basic/carp/megacarp/movement_delay()
+	return 2 * ..()
 
 /mob/living/basic/carp/megacarp/Initialize(mapload)
 	. = ..()
