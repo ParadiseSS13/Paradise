@@ -16,6 +16,8 @@ Angry Pig Oinking by Jofae (full version of above for sound/creatures/pig.ogg)--
 
 Moo 3 - Moo Moo the Cow by manofham (sound/creatures/cow.ogg)-- https://freesound.org/s/700380/ -- License: Creative Commons 0
 
+/datum/looping_sound/centrifuge sounds spliced from washing_machine.wav -- https://freesound.org/people/magnus589/sounds/372183/ -- under CC Attribution 4.0 International
+
 effects/voxfcaw.ogg and effects/voxrcaw.ogg are processed versions of https://opengameart.org/content/crow-caw from zeroisnotnull under CC0 1.0
 
 starline_pickup was spliced from Phone Receiver.mp3 at https://freesound.org/people/Percy%20Duke/sounds/23535/ under Attributions CC 3.0

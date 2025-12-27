@@ -16,6 +16,7 @@
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
 	flags = ABSTRACT
+	flags_2 = RAD_NO_CONTAMINATE_2
 	new_attack_chain = TRUE
 	/// Set to TRUE to removal of cells/lights from machine objects containing them.
 	var/engineering_machine_interaction = FALSE
@@ -161,6 +162,19 @@
 			SPAN_NOTICE("[user] removes [L] from [light]."),
 			SPAN_NOTICE("You remove [L] from [light].")
 			)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
+		var/obj/machinery/atmospherics/reactor_chamber/chamber = target
+		if(chamber.chamber_state == CHAMBER_OPEN && chamber.held_rod)
+			chamber.held_rod.forceMove(src)
+			gripped_item = chamber.held_rod
+			user.visible_message(
+			SPAN_NOTICE("[user] removes [chamber.held_rod] from [chamber]."),
+			SPAN_NOTICE("You remove [chamber.held_rod] from [chamber].")
+			)
+			chamber.held_rod = null
+			chamber.update_appearance(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/gripper/emag_act(mob/user)
@@ -384,5 +398,6 @@
 		/obj/item/circuitboard,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/tile/light,
-		/obj/item/light
+		/obj/item/light,
+		/obj/item/nuclear_rod,
 	)

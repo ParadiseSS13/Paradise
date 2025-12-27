@@ -733,9 +733,28 @@
 		"TOXINS!",
 		"ONI SOMA!",
 		"GOLDEN BLAST",
-		"Is there supposed to be this much plasma in the chamber??",,
+		"Is there supposed to be this much plasma in the chamber??",
 		"Why are there so many borgs?",
-		"Why're your eyes glowing red?"
+		"Why're your eyes glowing red?",
+		"Opening the reactor vent is how it gets gas, right?",
+		"Let's fill the reactor with supermatter rods!",
+		"Think we could weaponize ejected coolant rods?",
+		"WHO KEEPS LEAVING THE FUEL RODS OUT",
+		"Why do we need coolant rods if we use gas?",
+		"Wait, why isn't the reactor integrity going up?",
+		"When did engineering get a pool!?",
+		"Does anyone else taste copper?",
+		"10 sieverts isn't a harmful amount of radiation, is it?",
+		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
+		"Replace the spent fuel rods you lazy bums!",
+		"There is a xenomorph nesting on the reactor!",
+		"Why is there a Ripley pulling out the coolant rods?",
+		"Atmospheric Technicians are the NGCR's favorite moderators",
+		"Who let the clown touch the control rods?",
+		"Which of you chucklefucks brought a fuel rod to medbay?",
+		"A coolant rod just flew into the captain!",
+		"The reactor is going supercritical!",
+		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
