@@ -27387,7 +27387,7 @@
 "ceV" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_y = -24;
 	req_access = list(10);
 	pixel_x = 24
@@ -27425,7 +27425,7 @@
 "ceX" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_y = -24;
 	req_access = list(10);
 	pixel_x = -24
@@ -54721,7 +54721,7 @@
 /area/station/engineering/atmos)
 "gjV" = (
 /obj/machinery/airlock_controller/access_controller{
-	name = "Supermatter Access Console";
+	name = "Reactor Access Console";
 	pixel_y = -24;
 	ext_door_link_id = "engsm_door_ext";
 	int_door_link_id = "engsm_door_int";
@@ -78287,7 +78287,7 @@
 "qut" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_int";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_y = -24;
 	req_access = list(10);
 	pixel_x = -24
@@ -86252,7 +86252,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_int";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_y = 1;
 	req_access = list(10);
 	pixel_x = 25

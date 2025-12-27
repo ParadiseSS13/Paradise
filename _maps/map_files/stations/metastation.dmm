@@ -31702,7 +31702,7 @@
 "dTt" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_x = 24;
 	req_access = list(10)
 	},
@@ -40550,7 +40550,7 @@
 /area/station/maintenance/asmaint)
 "gVB" = (
 /obj/machinery/airlock_controller/access_controller{
-	name = "Supermatter Access Console";
+	name = "Reactor Access Console";
 	ext_door_link_id = "engsm_door_ext";
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
@@ -85902,7 +85902,7 @@
 "xbT" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_int";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_x = 24;
 	req_access = list(10)
 	},
@@ -88580,7 +88580,7 @@
 "xWl" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
+	name = "Reactor Access Button";
 	pixel_x = -24;
 	req_access = list(10)
 	},
