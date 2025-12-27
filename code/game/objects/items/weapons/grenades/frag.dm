@@ -43,6 +43,9 @@
 	playsound(loc, 'sound/effects/pray.ogg', 150, TRUE)
 	for(var/turf/t in view(5))
 		t.Bless()
+		for(var/mob/living/basic/revenant/rev in t)
+			rev.reveal(10 SECONDS)
+			rev.death()
 	return ..()
 
 /obj/item/grenade/frag/holy/examine_more(mob/user)
