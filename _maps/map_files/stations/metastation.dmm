@@ -47645,7 +47645,7 @@
 /area/station/science/toxins/launch)
 "jwi" = (
 /obj/effect/turf_decal/tiles/department/science/side,
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
@@ -74164,7 +74164,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "sMf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/purple{
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77632,7 +77632,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -84814,7 +84814,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "wBV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
@@ -87232,7 +87232,7 @@
 /area/station/engineering/break_room)
 "xrA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "xrD" = (
@@ -88114,7 +88114,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
 "xIl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -89330,7 +89330,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/white,
