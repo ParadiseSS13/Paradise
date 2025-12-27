@@ -43,11 +43,11 @@
 	The base vault parts should be available for shipping by your cargo shuttle."}
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/dna_vault]"]
+	P.cost = 1000
 
-	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
-	P.special_enabled = TRUE
+	P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/dna_probes]"]
+	P.cost = 250
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
