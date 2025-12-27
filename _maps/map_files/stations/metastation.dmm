@@ -9813,7 +9813,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
@@ -19002,7 +19002,6 @@
 "bYK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -21834,7 +21833,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -22678,7 +22676,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -25635,7 +25632,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -27043,7 +27039,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -27552,9 +27547,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/west)
 "cRc" = (
 /obj/structure/closet/crate,
@@ -28177,20 +28170,12 @@
 "cUY" = (
 /obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
 "cUZ" = (
 /obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
-"cVa" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -28275,25 +28260,11 @@
 /obj/machinery/power/apc/reinforced/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
-"cVw" = (
-/obj/structure/chair/sofa/pew/left,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
-"cVz" = (
-/obj/structure/chair/sofa/pew/right,
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "cVA" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -28339,13 +28310,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
-"cVU" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -28355,7 +28319,6 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -28410,7 +28373,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -28680,7 +28642,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -32692,9 +32653,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/east)
 "eht" = (
 /obj/structure/table/reinforced,
@@ -36605,7 +36564,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -52106,21 +52064,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/bridge)
-"kVF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "kVI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -54510,7 +54453,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -54902,9 +54844,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/east)
 "lTS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -60433,7 +60373,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -63354,9 +63294,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/west)
 "oUf" = (
 /obj/machinery/atmospherics/binary/valve{
@@ -63930,9 +63868,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/west)
 "pdE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -70919,9 +70855,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/west)
 "rEa" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -74780,7 +74714,6 @@
 "sXJ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -77984,9 +77917,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/side{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/side,
 /area/station/hallway/secondary/entry/east)
 "uhI" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
@@ -78065,7 +77996,6 @@
 "uiy" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -87559,7 +87489,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
@@ -88194,14 +88124,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/storage)
-"xJB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "xJQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -111700,10 +111622,10 @@ cSO
 cSO
 cSO
 cVT
-kVF
+cDc
 cWo
 cGA
-cVa
+cJn
 cSO
 aaa
 aaa
@@ -111954,11 +111876,11 @@ bZU
 del
 uZj
 cGk
-cVU
+cJn
 uIf
-cVU
+cJn
 cDc
-cVU
+cJn
 cJn
 sXJ
 cSO
@@ -112212,9 +112134,9 @@ vnv
 cTH
 lUv
 cUY
-cVw
 cUY
-kVF
+cUY
+cDc
 cFD
 bdq
 cUX
@@ -112469,7 +112391,7 @@ iuE
 cTH
 lUv
 cUZ
-cVz
+cUZ
 cUZ
 cDc
 cFD
@@ -112983,7 +112905,7 @@ kjF
 cTK
 deN
 cUY
-cVw
+cUY
 cUY
 csw
 cFD
@@ -113240,9 +113162,9 @@ jst
 rUJ
 deN
 cUZ
-cVz
 cUZ
-xJB
+cUZ
+csw
 cFD
 bdq
 cUX
@@ -113498,7 +113420,7 @@ cTK
 deN
 uiy
 cVA
-cVa
+cJn
 cNM
 bYK
 cof

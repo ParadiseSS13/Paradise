@@ -102,9 +102,7 @@
 	start_showpiece_type = /obj/item/fakeartefact;
 	req_access = list(48)
 	},
-/turf/simulated/floor/carpet/black{
-	dir = 1
-	},
+/turf/simulated/floor/carpet/black,
 /area/survivalpod/luxurypod)
 "aw" = (
 /obj/structure/fans/tiny,

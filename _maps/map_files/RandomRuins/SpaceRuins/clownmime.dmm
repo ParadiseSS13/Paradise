@@ -495,9 +495,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "Ab" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/powered)
 "Aj" = (
 /obj/effect/turf_decal/stripes/corner{

@@ -616,9 +616,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/ruin/space/djstation)
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{

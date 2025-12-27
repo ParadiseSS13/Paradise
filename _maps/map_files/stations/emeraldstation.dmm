@@ -17730,7 +17730,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -53325,7 +53325,6 @@
 /area/station/engineering/control)
 "kLJ" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -57927,11 +57926,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/security/south)
-"lIs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "lIu" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -59459,12 +59453,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"mac" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "maf" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -61120,7 +61108,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -64750,9 +64737,7 @@
 	name = "Back Stage Entrance"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/theatre)
 "nfX" = (
 /obj/structure/cable/yellow{
@@ -78905,7 +78890,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 1;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -80302,7 +80287,7 @@
 /obj/machinery/computer/general_air_control{
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
@@ -82512,7 +82497,6 @@
 	},
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -84919,9 +84903,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay2)
 "reR" = (
 /obj/structure/table/wood,
@@ -87874,12 +87856,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
-"rIB" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "rIC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -90523,7 +90499,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -93240,9 +93215,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/medical/medbay2)
 "sJI" = (
 /obj/effect/turf_decal/stripes/line{
@@ -98510,8 +98483,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine{
 	icon_state = "rampbottom";
-	name = "reinforced stairs";
-	dir = 1
+	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
 "tMb" = (
@@ -103163,7 +103135,6 @@
 "uHU" = (
 /obj/structure/sign/poster/official/religious/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -109361,9 +109332,7 @@
 /obj/structure/curtain/open/shower/security{
 	name = "red curtain"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/theatre)
 "vVc" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -113991,9 +113960,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/service/theatre)
 "wVd" = (
 /obj/machinery/bookbinder,
@@ -146558,11 +146525,11 @@ xwu
 sht
 qFW
 bNd
-mac
-rIB
+kLJ
+kLJ
 uJr
-mac
-rIB
+kLJ
+kLJ
 uJr
 tyb
 hkp
@@ -146813,13 +146780,13 @@ nqj
 uJr
 uJr
 kLJ
-lIs
+kLJ
 bNd
 kLJ
-lIs
+kLJ
 uJr
 kLJ
-lIs
+kLJ
 vZK
 tyb
 bvA
@@ -147066,8 +147033,8 @@ bvh
 nmP
 mUY
 tyb
-mac
-rIB
+kLJ
+kLJ
 xaT
 xaT
 xaT
@@ -147324,7 +147291,7 @@ hVV
 bvh
 tyb
 uHU
-lIs
+kLJ
 oHw
 fOH
 xaT
@@ -148351,8 +148318,8 @@ bvh
 nmP
 rux
 tyb
-mac
-rIB
+kLJ
+kLJ
 fOH
 fOH
 xaT
@@ -148609,7 +148576,7 @@ nmP
 bvh
 tyb
 msz
-lIs
+kLJ
 xaT
 xaT
 xaT
@@ -148868,14 +148835,14 @@ tyb
 cfy
 uJr
 uJr
-mac
-rIB
+kLJ
+kLJ
 iPA
-mac
-rIB
+kLJ
+kLJ
 uJr
-mac
-rIB
+kLJ
+kLJ
 uJr
 tyb
 vzw
@@ -149126,10 +149093,10 @@ whH
 csp
 xbo
 iiU
-lIs
+kLJ
 iPA
 kLJ
-lIs
+kLJ
 wFI
 kLJ
 vuS

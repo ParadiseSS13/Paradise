@@ -514,9 +514,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Ek" = (
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/template_noop)
 "Ey" = (
 /obj/item/trash/spentcasing/shotgun/stun,

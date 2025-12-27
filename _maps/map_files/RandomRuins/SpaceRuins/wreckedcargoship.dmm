@@ -49,8 +49,7 @@
 /area/ruin/space/wreck_cargoship)
 "cT" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "dk" = (
@@ -120,9 +119,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "gi" = (
 /obj/effect/turf_decal/tiles/dark/corner{
@@ -175,9 +172,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "hF" = (
 /obj/structure/chair/comfy/corp{
@@ -188,9 +183,7 @@
 /area/ruin/space/wreck_cargoship)
 "hO" = (
 /obj/structure/railing,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "if" = (
 /obj/structure/largecrate,
@@ -257,8 +250,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium_dam5";
-	dir = 4
+	icon_state = "titanium_dam5"
 	},
 /area/ruin/space/wreck_cargoship)
 "kt" = (
@@ -274,8 +266,7 @@
 /obj/item/stack/rods/fifty,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "kO" = (
@@ -352,8 +343,7 @@
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "nl" = (
@@ -420,9 +410,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "pv" = (
 /obj/machinery/door/firedoor/border_only/closed{
@@ -439,8 +427,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "pz" = (
@@ -470,8 +457,7 @@
 	},
 /mob/living/simple_animal/parrot,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "pR" = (
@@ -507,8 +493,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "rn" = (
@@ -533,9 +518,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "sd" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "sL" = (
 /obj/effect/turf_decal/tiles/dark/corner{
@@ -549,8 +532,7 @@
 "tk" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium_dam2";
-	dir = 4
+	icon_state = "titanium_dam2"
 	},
 /area/ruin/space/wreck_cargoship)
 "tm" = (
@@ -592,8 +574,7 @@
 "uV" = (
 /obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "vq" = (
@@ -623,8 +604,7 @@
 "yF" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "yG" = (
@@ -643,8 +623,7 @@
 	},
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Aa" = (
@@ -705,8 +684,7 @@
 	},
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "BA" = (
@@ -740,8 +718,7 @@
 	},
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "DI" = (
@@ -755,9 +732,7 @@
 "Ei" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/railing,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "ES" = (
 /obj/machinery/light{
@@ -793,8 +768,7 @@
 /area/ruin/space/wreck_cargoship)
 "Gj" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium_dam3";
-	dir = 4
+	icon_state = "titanium_dam3"
 	},
 /area/ruin/space/wreck_cargoship)
 "GR" = (
@@ -810,8 +784,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/plushie/slimeplushie,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "HS" = (
@@ -865,8 +838,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Kn" = (
@@ -883,9 +855,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "KJ" = (
 /obj/structure/table,
@@ -965,8 +935,7 @@
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "ME" = (
@@ -993,15 +962,13 @@
 /area/ruin/space/wreck_cargoship)
 "NI" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium_dam1";
-	dir = 4
+	icon_state = "titanium_dam1"
 	},
 /area/ruin/space/wreck_cargoship)
 "NM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "NO" = (
@@ -1031,8 +998,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "PB" = (
@@ -1065,16 +1031,14 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "RZ" = (
 /obj/structure/rack,
 /mob/living/simple_animal/bot/secbot/griefsky/toy,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Se" = (
@@ -1109,8 +1073,7 @@
 "SJ" = (
 /obj/structure/sign/poster/official/here_for_your_safety/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Te" = (
@@ -1144,8 +1107,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Uq" = (
@@ -1185,8 +1147,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium_dam3";
-	dir = 4
+	icon_state = "titanium_dam3"
 	},
 /area/ruin/space/wreck_cargoship)
 "Vc" = (
@@ -1242,8 +1203,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "VW" = (
@@ -1264,8 +1224,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Wx" = (
@@ -1286,8 +1245,7 @@
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "WO" = (
@@ -1317,8 +1275,7 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "titanium";
-	dir = 4
+	icon_state = "titanium"
 	},
 /area/ruin/space/wreck_cargoship)
 "Yk" = (
@@ -1342,9 +1299,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/wreck_cargoship)
 "Zc" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{

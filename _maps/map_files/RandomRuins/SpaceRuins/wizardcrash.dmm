@@ -256,14 +256,12 @@
 "ba" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
 "bb" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
@@ -275,7 +273,6 @@
 "bd" = (
 /obj/structure/showcase,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
@@ -302,7 +299,6 @@
 /area/ruin/space/powered)
 "bi" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
@@ -333,41 +329,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
-"bn" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/ruin/space/powered)
-"bo" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/ruin/space/powered)
 "bp" = (
 /obj/structure/rack,
 /obj/item/staff,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
 "bq" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
-/area/ruin/space/powered)
-"bs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/ruin/space/powered)
-"bt" = (
-/obj/structure/showcase,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
 /area/ruin/space/powered)
 "bu" = (
 /obj/structure/rack,
@@ -421,7 +392,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
@@ -432,7 +402,6 @@
 "bE" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
@@ -862,7 +831,7 @@ aS
 aU
 ba
 bi
-bn
+bi
 bi
 ae
 bx
@@ -893,8 +862,8 @@ aT
 aU
 bb
 bj
-bo
-bs
+bi
+bi
 ae
 bB
 bK
@@ -924,8 +893,8 @@ ae
 ae
 bd
 bE
-bn
-bt
+bi
+bd
 ae
 bx
 bL

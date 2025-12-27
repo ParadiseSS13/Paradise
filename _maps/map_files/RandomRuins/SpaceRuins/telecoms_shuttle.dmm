@@ -197,9 +197,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/unpowered)
 "F" = (
 /obj/structure/cable{

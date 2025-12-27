@@ -18988,7 +18988,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
@@ -21748,9 +21748,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bJx" = (
-/turf/simulated/floor/plasteel/stairs/medium{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs/medium,
 /area/station/legal/courtroom/gallery)
 "bJC" = (
 /obj/item/kirbyplants/large,
@@ -46798,7 +46796,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -46913,7 +46910,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -46922,7 +46918,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -46936,7 +46931,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -46946,7 +46940,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -46956,7 +46949,6 @@
 	pixel_y = 29
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47011,7 +47003,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47024,7 +47015,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47115,7 +47105,6 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47219,13 +47208,6 @@
 /area/station/service/chapel)
 "dMj" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
-"dMk" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47311,7 +47293,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47320,7 +47301,6 @@
 /obj/item/paper_bin,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47394,7 +47374,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47403,7 +47382,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -47442,11 +47420,6 @@
 "dOq" = (
 /obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/chapel)
-"dOr" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
 /area/station/service/chapel)
 "dOt" = (
 /obj/structure/table/wood,
@@ -47620,12 +47593,6 @@
 "dPE" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/chapel)
-"dPF" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
 /area/station/service/chapel)
 "dPJ" = (
 /obj/structure/table/wood,
@@ -47864,7 +47831,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -48116,7 +48082,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -48190,16 +48155,6 @@
 	dir = 4
 	},
 /obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
-"dSK" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -48402,9 +48357,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dTI" = (
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/hallway/secondary/exit)
 "dTJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -48603,9 +48556,7 @@
 /area/station/hallway/secondary/exit)
 "dVc" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/hallway/secondary/exit)
 "dVd" = (
 /obj/machinery/camera{
@@ -48922,7 +48873,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -54300,7 +54250,6 @@
 "fXl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/maintenance/apmaint)
@@ -54566,14 +54515,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"gcG" = (
-/obj/structure/chair/sofa/pew/right{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "gcP" = (
 /obj/effect/spawner/airlock/long,
 /turf/simulated/wall/r_wall,
@@ -62260,7 +62201,6 @@
 "jDA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -63163,15 +63103,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
-"jVS" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "jVW" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -67096,9 +67027,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "lJT" = (
-/turf/simulated/floor/plasteel/stairs/left{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/left,
 /area/station/legal/courtroom/gallery)
 "lKc" = (
 /obj/structure/table/wood,
@@ -67410,9 +67339,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/storage)
 "lRA" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/simulated/floor/plasteel/stairs,
 /area/station/security/main)
 "lRD" = (
 /obj/structure/sign/electricshock,
@@ -68744,15 +68671,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
-"mvP" = (
-/obj/structure/chair/sofa/pew/left{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "mwc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -70037,7 +69955,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/maintenance/apmaint)
@@ -72622,7 +72539,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/general_air_control{
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
 	dir = 4;
 	name = "Bomb Mix Monitor"
 	},
@@ -73805,15 +73722,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "oDX" = (
-/turf/simulated/floor/plasteel/stairs/right{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/right,
 /area/station/legal/courtroom/gallery)
-"oDZ" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
-	},
-/area/station/security/main)
 "oFa" = (
 /obj/structure/toilet/directional/east,
 /obj/machinery/newscaster/directional/north,
@@ -79974,15 +79884,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"rmo" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "rmr" = (
 /obj/effect/turf_decal{
 	dir = 4
@@ -82395,9 +82296,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/stairs/medium{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/stairs/medium,
 /area/station/legal/courtroom/gallery)
 "skk" = (
 /obj/machinery/economy/vending/plasmaresearch,
@@ -84257,7 +84156,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/maintenance/apmaint)
@@ -84628,13 +84526,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
-"tcA" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "tcJ" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -85555,9 +85446,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/hallway/secondary/exit)
 "txj" = (
 /obj/machinery/light{
@@ -88033,9 +87922,7 @@
 /area/station/maintenance/fore)
 "usR" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/fakestairs,
 /area/station/public/fitness)
 "utf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -95546,11 +95433,6 @@
 /obj/effect/spawner/random/bureaucracy,
 /turf/simulated/floor/carpet/grimey,
 /area/station/legal/lawoffice)
-"xxb" = (
-/turf/simulated/floor/plasteel/stairs/left{
-	dir = 4
-	},
-/area/station/legal/courtroom/gallery)
 "xxr" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -97174,11 +97056,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/storage)
-"ykx" = (
-/turf/simulated/floor/plasteel/stairs/right{
-	dir = 4
-	},
-/area/station/legal/courtroom/gallery)
 "ykJ" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
@@ -130820,10 +130697,10 @@ dHC
 ddy
 aDG
 dKd
-jVS
+dJu
 dLp
 lxZ
-dMk
+dMj
 dJu
 ddy
 ddy
@@ -131081,7 +130958,7 @@ dKI
 dLq
 dfa
 dMj
-dOr
+dMj
 dRv
 dJx
 dPD
@@ -132362,11 +132239,11 @@ hdd
 bjy
 ddy
 dKh
-dOr
+dMj
 dLt
 srq
 mGN
-tcA
+dMT
 dMT
 dOX
 rvb
@@ -132876,19 +132753,19 @@ oZR
 dKZ
 ddy
 dKj
-dPF
+dMj
 bXT
 sjQ
 dSi
-dMk
-dPF
+dMj
+dMj
 dKm
 dPJ
 dQl
 dQY
 dXI
 dRv
-rmo
+dXI
 dSJ
 kTW
 dSi
@@ -133133,20 +133010,20 @@ sJI
 dID
 ddy
 dKk
-gcG
+dMU
 bXT
 sjQ
 dSi
-mvP
+dNK
 lkC
 dJx
 slN
 rcD
 dKL
-dSK
+dSj
 dRO
 dSj
-dSK
+dSj
 dTt
 dSi
 dSi
@@ -142061,9 +141938,9 @@ bYL
 ciA
 ctV
 uCF
-xxb
+lJT
 bJx
-ykx
+oDX
 ckQ
 bYH
 bYH
@@ -154395,7 +154272,7 @@ bTr
 boI
 bby
 boI
-oDZ
+lRA
 boI
 xat
 tdA
