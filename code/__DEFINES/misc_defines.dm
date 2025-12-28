@@ -8,7 +8,7 @@
 #define SEC_LEVEL_GAMMA	3
 #define SEC_LEVEL_EPSILON	4
 #define SEC_LEVEL_DELTA	5
-#define SEC_LEVEL_DELTA_SPECIAL	6
+#define SEC_LEVEL_DELTA_REACTOR	6
 
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8

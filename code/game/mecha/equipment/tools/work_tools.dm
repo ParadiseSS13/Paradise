@@ -72,8 +72,6 @@
 						chamber.update_icon(UPDATE_OVERLAYS)
 						return
 
-
-
 		if(O.anchored)
 			occupant_message(SPAN_WARNING("[target] is firmly secured!"))
 			return

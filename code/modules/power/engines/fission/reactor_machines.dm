@@ -155,8 +155,6 @@
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
-	/// The item we have loaded into the general slot
-	var/obj/item/loaded_item
 	/// Our holder for materials
 	var/datum/component/material_container/materials
 	/// How fast do we operate and/or do we get extra rods
@@ -226,18 +224,7 @@
 		to_chat(user, SPAN_WARNING("[src] has no power."))
 		return FALSE
 
-	if(loaded_item)
-		to_chat(user, SPAN_WARNING("[src] is already loaded."))
-		return FALSE
-
 	return TRUE
-
-/obj/machinery/nuclear_rod_fabricator/Destroy()
-	if(loaded_item)
-		loaded_item.forceMove(get_turf(src))
-		loaded_item = null
-	materials = null
-	return ..()
 
 /obj/machinery/nuclear_rod_fabricator/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name

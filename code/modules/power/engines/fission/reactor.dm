@@ -1030,8 +1030,8 @@
 	gas_overheat_bonus = temp_bonus_holder
 
 /obj/machinery/atmospherics/fission_reactor/proc/overload_reactor()
-	if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA_SPECIAL)
-		SSsecurity_level.set_level(SEC_LEVEL_DELTA_SPECIAL)
+	if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA_REACTOR)
+		SSsecurity_level.set_level(SEC_LEVEL_DELTA_REACTOR)
 	else
 		log_admin("An admin attempted to override fission reactor safeties, but it was already overriden")
 		return

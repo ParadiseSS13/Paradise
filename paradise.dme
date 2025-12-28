@@ -3192,7 +3192,7 @@
 #include "code\modules\smithing\components\inserts_components.dm"
 #include "code\modules\smithing\components\knife_components.dm"
 #include "code\modules\smithing\components\lens_components.dm"
-#include "code\modules\smithing\components\misc_components.dm"
+#include "code\modules\smithing\components\reactor_components.dm"
 #include "code\modules\smithing\components\tool_bits_components.dm"
 #include "code\modules\smithing\components\trim.dm"
 #include "code\modules\smithing\machinery\casting_basin.dm"

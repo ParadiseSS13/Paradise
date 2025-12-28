@@ -1,7 +1,7 @@
 /obj/item/smithed_item/component/rod_housing
 	name = "Debug rod housing"
 	icon_state = "rod_housing"
-	desc = "Debug smithed component part of a laser lens. If you see this, notify the development team."
+	desc = ABSTRACT_TYPE_DESC
 	part_type = PART_PRIMARY
 
 /obj/item/smithed_item/component/rod_housing/plasma_agitator
