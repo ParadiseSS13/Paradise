@@ -50,7 +50,6 @@
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_cold_damage = 0
 	unsuitable_heat_damage = 0
 	pressure_resistance = 200
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -62,8 +61,6 @@
 	faction = list("heretic")
 	mob_size = MOB_SIZE_TINY
 	speak_emote = list("screams")
-	basic_mob_flags = DEL_ON_DEATH
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 	/// How much Phlog should we inject per bite?
 	var/phlog_per_bite = 2
