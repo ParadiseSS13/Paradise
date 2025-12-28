@@ -719,12 +719,9 @@
 	return ..()
 
 /obj/item/nullrod/missionary_staff/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	// As long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message.
 	if(robes)
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 	
 	if(!ishuman(user))
 		return ITEM_INTERACT_COMPLETE
