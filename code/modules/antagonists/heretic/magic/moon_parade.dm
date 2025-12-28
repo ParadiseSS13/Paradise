@@ -98,7 +98,7 @@
 		to_chat(victim, SPAN_WARNING("You feel unable to move away from the parade!"))
 		mobs_hit += victim
 		new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/effects/eldritch.dmi', "heretic")
-		victim.adjustBrainLoss(15)
+		victim.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 		log_override = TRUE
 
 /obj/projectile/moon_parade/Destroy()

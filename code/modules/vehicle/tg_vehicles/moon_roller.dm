@@ -87,7 +87,8 @@
 		var/mob/living/carbon/C = victim
 		ADD_TRAIT(victim, TRAIT_CLOWN_CAR_SQUISHED, "moon_roller")
 		addtimer(CALLBACK(src, PROC_REF(allow_resquish), C), 3 SECONDS)
-		if(C.mind && prob(C.getBrainLoss() / 3))
+		var/datum/status_effect/stacking/heretic_insanity/insanity = C.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
+		if(C.mind && insanity && insanity.stacks >= 8 && prob(insanity.stacks * 2.5))
 			C.AdjustKnockDown(5 SECONDS)
 			C.visible_message(SPAN_HIEROPHANT_WARNING("[victim] is dazzled by the brillian lights!"))
 			victim.apply_status_effect(/datum/status_effect/moon_converted)
@@ -102,6 +103,7 @@
 			playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)
 			C.adjustBruteLoss(30)
 			handle_squish_carbon(victim, 40, duration = 3 SECONDS)
+		C.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
 
 /obj/tgvehicle/moon_ascension/proc/allow_resquish(mob/living/victim)
 	REMOVE_TRAIT(victim, TRAIT_CLOWN_CAR_SQUISHED, "moon_roller")

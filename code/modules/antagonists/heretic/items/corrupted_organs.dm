@@ -86,7 +86,7 @@
 	if(!COOLDOWN_FINISHED(src, hand_cooldown) || IS_IN_MANSUS(owner) || owner.reagents?.has_reagent("holywater"))
 		return
 	fire_curse_hand(owner)
-	COOLDOWN_START(src, hand_cooldown, rand(6 SECONDS, 45 SECONDS)) // Wide variance to put you off guard
+	COOLDOWN_START(src, hand_cooldown, rand(6 SECONDS, 30 SECONDS)) // Wide variance to put you off guard
 
 
 /// Sometimes begin to suffocate
@@ -94,7 +94,7 @@
 	name = "corrupt lungs"
 	desc = "Some things SHOULD be drowned in tar."
 	status = parent_type::status | ORGAN_HAZARDOUS
-	var/time_between_breaths = 1 MINUTES
+	var/time_between_breaths = 2 MINUTES
 	COOLDOWN_DECLARE(time_to_breathe)
 
 /obj/item/organ/internal/lungs/corrupt/Initialize(mapload)
@@ -105,7 +105,7 @@
 	. = ..()
 	if(COOLDOWN_FINISHED(src, time_to_breathe))
 		COOLDOWN_START(src, time_to_breathe, time_between_breaths)
-		owner.AdjustLoseBreath(10 SECONDS, 10 SECONDS, 1 MINUTES)
+		owner.AdjustLoseBreath(45 SECONDS, 45 SECONDS, 2 MINUTES)
 
 /// It's full of worms
 /obj/item/organ/internal/appendix/corrupt

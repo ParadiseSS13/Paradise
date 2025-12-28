@@ -1,4 +1,4 @@
-// AMOK
+// MARK: AMOK
 /datum/status_effect/amok
 	id = "amok"
 	status_type = STATUS_EFFECT_REPLACE
@@ -29,6 +29,7 @@
 		owner.ClickOn(poor_smuck)
 	owner.a_intent = last_intent
 
+// MARK: Cloudstruck
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
 	status_type = STATUS_EFFECT_REPLACE
@@ -53,6 +54,7 @@
 	owner.cure_blind(id)
 	owner.cut_overlay(mob_overlay)
 
+// MARK: Starmark
 /datum/status_effect/star_mark
 	id = "star_mark"
 	alert_type = /atom/movable/screen/alert/status_effect/star_mark
@@ -110,7 +112,7 @@
 /datum/status_effect/star_mark/extended
 	duration = 3 MINUTES
 
-// Last Resort
+// MARK: Last Resort
 /datum/status_effect/heretic_lastresort
 	id = "heretic_lastresort"
 	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort
@@ -133,7 +135,7 @@
 	owner.Paralyse(20 SECONDS, TRUE) //Stun immunity will not save you, pay the price of magic
 
 
-
+// MARK: Moon Conversion
 /// Used by moon heretics to make people mad
 /datum/status_effect/moon_converted
 	id = "moon converted"
@@ -218,6 +220,7 @@
 		C.duration += 3000 //time added by additional curses
 	return C
 
+// MARK: Necropolis curse
 /datum/status_effect/necropolis_curse
 	id = "necrocurse"
 	duration = 10 MINUTES //you're cursed for 10 minutes have fun
@@ -263,6 +266,7 @@
 	. = ..()
 	deltimer(timerid)
 
+// MARK: Broken Blade
 /datum/status_effect/broken_blade
 	id = "broken_blade"
 	duration = 150 SECONDS
@@ -280,3 +284,72 @@
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "eldritch_blade"
 
+// MARK: Insanity
+/datum/status_effect/stacking/heretic_insanity
+	id = "insanity"
+	on_remove_on_mob_delete = TRUE
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 15 SECONDS
+	consumed_on_threshold = FALSE
+	stack_threshold = 21 // no threshold
+	max_stacks = 20
+	alert_type = /atom/movable/screen/alert/status_effect/insanity
+
+/datum/status_effect/stacking/heretic_insanity/on_creation(mob/living/new_owner, stacks_to_apply = 1)
+	. = ..()
+	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_stacks_overlay))
+	add_stacks(stacks_to_apply)
+
+/datum/status_effect/stacking/heretic_insanity/refresh()
+	. = ..()
+	add_stacks(1)
+	owner.update_icon(UPDATE_OVERLAYS)
+
+/datum/status_effect/stacking/heretic_insanity/process()
+	update_shown_stacks()
+	owner.update_icon(UPDATE_OVERLAYS)
+	return ..()
+
+/datum/status_effect/stacking/heretic_insanity/proc/update_stacks_overlay(atom/parent_atom, list/overlays)
+	SIGNAL_HANDLER
+
+	linked_alert?.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+
+/datum/status_effect/stacking/heretic_insanity/proc/update_shown_stacks()
+	if(!linked_alert)
+		return
+
+	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:right; font-size: 8pt'>[stacks]</span>")
+
+//---- Screen alert
+/atom/movable/screen/alert/status_effect/insanity
+	name = "Moon's Light"
+	desc = "The light is so bright, it dulls your senses and eats at your mind."
+	icon_state = "insanity_minor"
+
+/atom/movable/screen/alert/status_effect/insanity/update_icon_state()
+	. = ..()
+	if(!istype(attached_effect, /datum/status_effect/stacking/heretic_insanity))
+		return
+	var/datum/status_effect/stacking/heretic_insanity/insanity_effect = attached_effect
+	if(insanity_effect.stacks < 6)
+		icon_state = initial(icon_state)
+	if(insanity_effect.stacks >= 6)
+		icon_state = "insanity_moderate"
+	if(insanity_effect.stacks >= 14)
+		icon_state = "insanity_full"
+
+/atom/movable/screen/alert/status_effect/insanity/update_desc(updates)
+	. = ..()
+	if(!istype(attached_effect, /datum/status_effect/stacking/heretic_insanity))
+		return
+	var/datum/status_effect/stacking/heretic_insanity/insanity_effect = attached_effect
+	if(insanity_effect.stacks < 6)
+		desc = initial(desc)
+	if(insanity_effect.stacks >= 6)
+		desc = "The light is blindingly white! \
+			The moon calls for the true nature of your soul!"
+	if(insanity_effect.stacks >= 14)
+		desc = "Light LEAKS through the CRACKS. \
+			My mind is BRIGHTER than it EVER was. \
+			THE HIGHER I RISE THE MORE I SEE."

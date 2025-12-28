@@ -115,13 +115,18 @@
 /datum/heretic_knowledge/proc/parse_required_item(atom/item_path, number_of_things)
 	// If we need a human, there is a high likelihood we actually need a (dead) body
 	if(ispath(item_path, /mob/living/carbon/human))
-		return "bod[number_of_things > 1 ? "ies" : "y"]"
+		return "bod[number_of_things > 1 ? "ies" : "y"]."
 	if(ispath(item_path, /mob/living))
-		return "carcass[number_of_things > 1 ? "es" : ""] of any kind"
+		return "carcass[number_of_things > 1 ? "es" : ""] of any kind."
 	if(ispath(item_path, /obj/item/kitchen/knife))
-		return "knife[number_of_things > 1 ? "s" : ""] of any kind"
+		return "knife[number_of_things > 1 ? "s" : ""] of any kind."
 	if(ispath(item_path, /obj/item/toy/crayon))
-		return "crayon[number_of_things > 1 ? "s" : ""] of any kind"
+		return "crayon[number_of_things > 1 ? "s" : ""] of any kind."
+	if(islist(item_path)) // we gotta get a bit weird here to pull the item out of the embedded list.
+		var/list/item_list = list()
+		item_list = item_path
+		var/atom/item = item_list[1]
+		return "[number_of_things > 1 ? "[item.name]\s" : "[item.name]"] of any kind."
 	return "[initial(item_path.name)]\s"
 /**
  * Called whenever the knowledge's associated ritual is completed successfully.
@@ -513,13 +518,13 @@
 	)
 
 	var/static/list/potential_uncommoner_items = list(
-		/obj/item/restraints/legcuffs/beartrap,
+		//obj/item/restraints/legcuffs/beartrap,
 		list(/obj/item/restraints/handcuffs),
-		/obj/item/circular_saw,
-		/obj/item/scalpel,
-		/obj/item/clothing/gloves/color/yellow,
-		/obj/item/melee/baton,
-		/obj/item/clothing/glasses/sunglasses,
+		//obj/item/circular_saw,
+		//obj/item/scalpel,
+		//obj/item/clothing/gloves/color/yellow,
+		//obj/item/melee/baton,
+		//obj/item/clothing/glasses/sunglasses,
 	)
 
 	required_atoms = list()
@@ -539,7 +544,15 @@
 	to_chat(user, SPAN_HIEROPHANT("The [name] requires the following:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, SPAN_HIEROPHANT_WARNING("[amount_needed] [initial(path.name)]\s..."))
+
+		if(islist(path)) // we gotta get a bit weird here to pull the item out of the embedded list.
+			var/list/item_list = list()
+			item_list = path
+			var/atom/item = item_list[1]
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[amount_needed] [item.name]\s..."))
+		else
+			to_chat(user, SPAN_HIEROPHANT_WARNING("[amount_needed] [initial(path.name)]\s..."))
+
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
 	to_chat(user, SPAN_HIEROPHANT("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points, as well as additional knowledge for creating an unsealed art. You can check the knowledge in your Researched Knowledge to be reminded."))
@@ -558,7 +571,7 @@
 	was_completed = TRUE
 
 	to_chat(user, SPAN_BOLDNOTICE("[name] completed!"))
-	to_chat(user, SPAN_HIEROPHANT("We gain insights on how to perform a ritual to create an unsealed art!"))
+	to_chat(user, SPAN_BOLDNOTICE("We gain insights on how to perform a ritual to create an unsealed art!"))
 	to_chat(user, SPAN_HIEROPHANT("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]"))
 	var/datum/antagonist/heretic/heretic = IS_HERETIC(user)
 	heretic.gain_knowledge(/datum/heretic_knowledge/unsealed_art)

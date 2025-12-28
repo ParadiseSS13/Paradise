@@ -161,8 +161,6 @@
 	desc = "A piece of the mind, the soul and the moon. Gazing into it makes your head spin and hear whispers of laughter and joy."
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "moon_amulette"
-	// How much brain damage does this item do?
-	var/brain_damage = 5
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/examine(mob/user)
 	. = ..()
@@ -175,14 +173,15 @@
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
 		to_chat(user, SPAN_DANGER("You feel a presence watching you!"))
-		user.adjustBrainLoss(20)
+		user.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 		return
-	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
-	if(hit.getBrainLoss() < 80)
+	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/status_effect/stacking/insanity = hit.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
+	if(!insanity || insanity.stacks < 14)
 		to_chat(user, SPAN_HIEROPHANT_WARNING("Their mind is too strong!"))
-		hit.adjustBrainLoss(brain_damage)
+		hit.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 	else
 		if(target.mind)
 			if(length(heretic.mindslaves) < heretic.mindslave_limit)

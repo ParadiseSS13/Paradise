@@ -34,6 +34,65 @@
 /mob/living/basic/heretic_summon/proc/add_numbering()
 	name += " ([rand(1,999)])"
 
+/mob/living/basic/heretic_summon/fire_shark
+	name = "\improper Fire Shark"
+	real_name = "Fire Shark"
+	desc = "It is a eldritch dwarf space shark, also known as a fire shark."
+	icon_state = "fire_shark"
+	icon_living = "fire_shark"
+	pass_flags = PASSTABLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	speed = -0.5
+	health = 30
+	maxHealth = 30
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_cold_damage = 0
+	unsuitable_heat_damage = 0
+	pressure_resistance = 200
+	attack_sound = 'sound/weapons/bite.ogg'
+	obj_damage = 50
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	damage_coeff = list(BRUTE = 1, BURN = 0.25, TOX = 0, STAMINA = 0, OXY = 0)
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	faction = list("heretic")
+	mob_size = MOB_SIZE_TINY
+	speak_emote = list("screams")
+	basic_mob_flags = DEL_ON_DEATH
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
+	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
+	/// How much Phlog should we inject per bite?
+	var/phlog_per_bite = 2
+
+/mob/living/basic/heretic_summon/fire_shark/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/death_gases, list(SPAWN_GAS_PLASMA = 50))
+	AddComponent(/datum/component/swarming, 0, 0)
+	AddComponent(/datum/component/regenerator, outline_colour = COLOR_MAROON)
+
+/mob/living/basic/heretic_summon/fire_shark/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE
+
+/mob/living/basic/heretic_summon/fire_shark/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_BITE
+	..()
+
+/mob/living/basic/heretic_summon/fire_shark/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(. && phlog_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
+		var/mob/living/carbon/C = target
+		var/inject_target = pick("chest", "head")
+		if(C.can_inject(null, FALSE, inject_target, TRUE))
+			C.reagents.add_reagent("phlogiston", phlog_per_bite)
+
+/mob/living/basic/heretic_summon/fire_shark/wild
+	faction = list("carp", "mining")
+
 /mob/living/basic/heretic_summon/rust_spirit
 	name = "Rust Walker"
 	real_name = "Rusty"

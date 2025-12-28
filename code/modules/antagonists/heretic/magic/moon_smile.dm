@@ -36,7 +36,12 @@
 	var/mob/living/cast_on = targets[1]
 	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
 	var/maximum_duration = 15 SECONDS
-	var/moon_smile_duration = ((cast_on.getBrainLoss() + 1) / 100) * maximum_duration
+	var/datum/status_effect/stacking/insanity = cast_on.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
+	var/moon_smile_duration
+	if(insanity)
+		moon_smile_duration = 1 SECONDS
+	else
+		moon_smile_duration = max((insanity.stacks / insanity.max_stacks) * maximum_duration, 1)
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, SPAN_NOTICE("The moon turns, its smile no longer set on you."))
 		to_chat(user, SPAN_WARNING("The moon does not smile upon them."))
@@ -52,6 +57,6 @@
 	cast_on.Silence(max(moon_smile_duration + (4 SECONDS), 6 SECONDS))
 
 	// Only knocksdown if the target has a low enough sanity
-	if(cast_on.getBrainLoss() > 40)
+	if(insanity && insanity.stacks >= 8)
 		cast_on.KnockDown(2 SECONDS)
 	return TRUE

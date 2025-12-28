@@ -386,7 +386,6 @@
 
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
-		disembowel_target(sac_target)
 		return
 
 	curse_organs(sac_target)
@@ -399,9 +398,8 @@
 	// If our target died during the (short) wait timer,
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
-	sac_target.adjustOxyLoss(-100, FALSE) //Qwertodo: (after tm progress), if people just stab people trying to kill them as they revive, give them damage resistance
+	sac_target.adjustOxyLoss(-100, FALSE)
 	if(!sac_target.heal_and_revive(60, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
-		disembowel_target(sac_target)
 		return
 	else // lets give them a little help
 		for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))

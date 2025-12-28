@@ -259,7 +259,7 @@
 
 /datum/status_effect/eldritch/moon/on_effect()
 	owner.AdjustConfused(30 SECONDS)
-	owner.adjustBrainLoss(20)
+	owner.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
 	owner.emote(pick("giggle", "laugh"))
 	return ..()
 

@@ -1,6 +1,6 @@
 /datum/spell/mind_gate
 	name = "Mind Gate"
-	desc = "target suffers a hallucination, is left confused for 10 seconds, and suffers oxygen loss and brain damage."
+	desc = "target suffers a hallucination, is left confused for 10 seconds, suffers oxyloss, and is inflicted with insanity."
 
 
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -36,4 +36,8 @@
 	target.AdjustConfused(10 SECONDS)
 	target.adjustOxyLoss(30)
 	new /obj/effect/hallucination/delusion(get_turf(target), target, 'icons/effects/eldritch.dmi', "heretic")
-	target.adjustBrainLoss(25)
+	target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
+	var/mob/living/L
+	if(isliving(user))
+		L = user
+	L.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 3)

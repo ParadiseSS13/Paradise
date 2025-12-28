@@ -21,8 +21,8 @@
 /datum/heretic_knowledge/spell/mind_gate
 	name = "Mind Gate"
 	desc = "Grants you Mind Gate, a spell which inflicts hallucinations, \
-		confusion, oxygen loss and brain damage to its target over 10 seconds.\
-		The caster takes 20 brain damage per use."
+		confusion, oxygen loss and insanity to its target over 10 seconds.\
+		The caster's mind is likewise also inflicted with insanity in return."
 	gain_text = "My mind swings open like a gate, and its insight will let me perceive the truth."
 
 	action_to_add = /datum/spell/mind_gate

@@ -59,7 +59,7 @@
 	var/mob/living/carbon/carbon_target = target
 	to_chat(carbon_target, SPAN_DANGER("You hear echoing laughter from above</span>"))
 	new /obj/effect/hallucination/delusion(get_turf(carbon_target), carbon_target, 'icons/effects/eldritch.dmi', "heretic")
-	carbon_target.adjustBrainLoss(15)
+	carbon_target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 
 /datum/heretic_knowledge/spell/moon_smile
 	name = "Smile of the moon"
@@ -110,7 +110,7 @@
 
 /datum/heretic_knowledge/blade_upgrade/moon
 	name = "Moonlight Blade"
-	desc = "Your blade now deals brain damage, causes random hallucinations and does sanity damage."
+	desc = "Your blade now inflicts insanity, and causes random halleucinations."
 	gain_text = "His wit was sharp as a blade, cutting through the lie to bring us joy."
 
 
@@ -124,15 +124,14 @@
 	if(target.can_block_magic(MAGIC_RESISTANCE_MIND))
 		return
 
-	target.adjustBrainLoss(10)
+	target.apply_status_effect(/datum/spell/pointed/moon_smile)
 	target.Hallucinate(10 SECONDS)
 	target.emote(pick("giggle", "laugh"))
 
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Ringleaders Rise"
-	desc = "Grants you Ringleaders Rise, an AoE spell that deals more brain damage the lower the sanity of everyone in the AoE \
-			and causes hallucinations, with those who have less sanity getting more. \
-			If their sanity is low enough this turns them insane, the spell then halves their sanity."
+	desc = "Grants you Ringleaders Rise, an AoE spell that inflicts sanity and confusion upon its victims. \
+		If the victim has been inflicted with enough insanity, they will convert into a follower of the moon."
 	gain_text = "I grabbed his hand and we rose, those who saw the truth rose with us. \
 		The ringleader pointed up and the dim light of truth illuminated us further."
 
@@ -146,9 +145,9 @@
 	name = "The Last Act"
 	desc = "The ascension ritual of the Path of Moon. \
 		Bring 3 corpses with more than 50 brain damage to a transmutation rune to complete the ritual. \
-		When completed, you become a harbinger of madness gaining and aura of passive sanity decrease, \
-		confusion increase and, if their sanity is low enough, brain damage and blindness. \
-		1/5th of the crew will turn into acolytes and follow your command, they will all receive moonlight amulets."
+		When completed, you will summon forth an Avatar of the Moon to ride atop in its glory. \
+		The Avatar may crush walls, people, and objects underneath it with ease, and will \
+		potentially convert those it crushes into lunatics."
 	gain_text = "We dived down towards the crowd, his soul splitting off in search of greater venture \
 		for where the Ringleader had started the parade, I shall continue it unto the suns demise \
 		WITNESS MY ASCENSION, THE MOON SMILES ONCE MORE AND FOREVER MORE IT SHALL!"

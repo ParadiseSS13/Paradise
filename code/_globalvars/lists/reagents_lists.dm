@@ -51,5 +51,4 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"zombiecure2", "zombiecure3", "zombiecure4",
 							"admincleaner_all", "admincleaner_item", "admincleaner_mob",
 							"synthetic_omnizine_no_addiction", "surge_plus", "viral_eraser",
-							"helgrasp", "mansusgrasp", "eldritch",
 							))

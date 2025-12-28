@@ -1,6 +1,6 @@
 /datum/spell/aoe/moon_ringleader
 	name = "Ringleaders Rise"
-	desc = "Big AoE spell that deals brain damage and causes hallucinations to everyone in the AoE. \
+	desc = "Big AoE spell that inflicts insanity and causes hallucinations to everyone in the AoE. \
 			The worse their sanity, the stronger this spell becomes. \
 			If their sanity is low enough, they even snap and go insane, and the spell then further halves their sanity."
 
@@ -36,15 +36,20 @@
 			continue
 		if(human_target.can_block_magic(antimagic_flags))
 			continue
-		var/drain_bamage = human_target.getBrainLoss()
-		human_target.Hallucinate(max((drain_bamage *= 0.5) SECONDS, 40 SECONDS))
+		var/datum/status_effect/stacking/heretic_insanity/insanity = human_target.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
+		var/power
+		if(insanity)
+			power = insanity.stacks
+		else
+			power = 1
+		human_target.Hallucinate(max((power *= 5) SECONDS, 40 SECONDS))
 		human_target.AdjustConfused(10 SECONDS)
-		if(drain_bamage >= 80)
+		if(power >= 16)
 			human_target.apply_status_effect(/datum/status_effect/moon_converted)
 			add_attack_logs(user, human_target, "[human_target] was driven insane by [user]([src])")
 			log_game("[human_target] was driven insane by [user]")
 		else
-			human_target.adjustBrainLoss(25)
+			human_target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
 
 	return ..()
 
