@@ -263,7 +263,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.damage += rand(3, 5)
+	affected.receive_damage(rand(3, 5))
 
 	return SURGERY_STEP_INCOMPLETE
 

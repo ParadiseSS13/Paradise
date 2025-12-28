@@ -47,7 +47,6 @@
 	var/list/internal_organs = list()
 
 	var/damage_msg = SPAN_WARNING("You feel an intense pain")
-	var/broken_description
 
 	var/open = 0  // If the body part has an open incision from surgery. Can have values > 1.
 	var/sabotaged = FALSE //If a prosthetic limb is emagged, it will detonate when it fails.
@@ -266,7 +265,7 @@
 
 	if(status & ORGAN_BROKEN && prob(40) && brute && !owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
-	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
+	if(status & ORGAN_SPLINTED && prob((brute + burn) * 4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
 		owner.visible_message(SPAN_DANGER("The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!"),SPAN_USERDANGER("The splint on your [name] unravels!"))
 		owner.handle_splints()
@@ -345,6 +344,8 @@
 
 	if(internal)
 		status &= ~ORGAN_BROKEN
+		var/datum/wound/fracture = get_wound(/datum/wound/fracture)
+		fracture.cure_wound()
 		perma_injury = 0
 
 	if(updating_health)
@@ -413,6 +414,9 @@ This function completely restores a damaged organ to perfect condition.
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
+
+	for(var/datum/wound/wound as anything in wound_list)
+		wound.cure_wound()
 
 	for(var/obj/item/organ/external/EO in contents)
 		EO.rejuvenate()
@@ -782,7 +786,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\The [holder.legcuffed.name] falls off you.")
 		holder.drop_item_to_ground(holder.legcuffed)
 
-/obj/item/organ/external/proc/fracture(silent = FALSE)
+/obj/item/organ/external/proc/fracture(silent = FALSE, fracture_name_override)
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
@@ -799,7 +803,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken", "fracture", "hairline fracture")
+	var/picked_type = pick(typesof(/datum/wound/fracture))
+	var/datum/wound/fracture = new picked_type(src)
+	if(fracture_name_override)
+		fracture.name = fracture_name_override
+	wound_list += fracture
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
@@ -807,13 +815,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
-		return FALSE	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
+		return FALSE	// ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
 	if(!(status & ORGAN_BROKEN))
 		return FALSE
 
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
+	var/datum/wound/fracture = get_wound(/datum/wound/fracture)
+	if(fracture) // Not sure how we got here but it happens
+		fracture.cure_wound()
+
 	if(owner)
 		owner.handle_splints()
 	return TRUE
