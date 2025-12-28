@@ -129,7 +129,8 @@
 		data["NGCR_throttle"] = 100 - active.desired_power
 	data["NGCR_operatingpower"] = 100 - active.operating_power
 	var/list/gasdata = list()
-	if(air.total_moles())
+	var/TM = air.total_moles()
+	if(TM)
 		gasdata.Add(list(list("name" = "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
 		gasdata.Add(list(list("name" = "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
 		gasdata.Add(list(list("name" = "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))

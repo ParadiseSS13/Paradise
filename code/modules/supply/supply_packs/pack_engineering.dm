@@ -223,7 +223,7 @@
 	/obj/item/nuclear_rod/fuel/supermatter,
 	)
 	cost = 400
-	containertype = /obj/structure/closet/crate/engineering/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "nuclear supermatter rod crate"
 
 /datum/supply_packs/engineering/nuclear_supermatter_kit
@@ -237,7 +237,7 @@
 	/obj/item/nuclear_rod/moderator/plasma_agitator
 	)
 	cost = 800
-	containertype = /obj/structure/closet/crate/engineering/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "nuclear supermatter starter crate"
 
 /datum/supply_packs/engineering/nuclear_moderator_rods
@@ -249,7 +249,7 @@
 		/obj/item/nuclear_rod/moderator/aluminum_reflector
 	)
 	cost = 600
-	containertype = /obj/structure/closet/crate/engineering/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Nuclear Moderator crate"
 
 /datum/supply_packs/engineering/nuclear_coolant_rods
@@ -261,7 +261,7 @@
 		/obj/item/nuclear_rod/coolant/molten_salt
 	)
 	cost = 600
-	containertype = /obj/structure/closet/crate/engineering/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Nuclear Coolant crate"
 
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.

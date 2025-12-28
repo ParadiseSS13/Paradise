@@ -212,10 +212,6 @@
 		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened!"))
 		return FALSE
 
-	if(busy)
-		to_chat(user, SPAN_WARNING("[src] is busy right now."))
-		return FALSE
-
 	if(stat & BROKEN)
 		to_chat(user, SPAN_WARNING("[src] is broken."))
 		return FALSE
