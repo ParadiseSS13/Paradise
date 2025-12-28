@@ -136,17 +136,18 @@
 
 		if(GLOB.configuration.general.reactionary_explosions)
 			for(var/turf/T as anything in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
-				cached_exp_block[T] = 0
+				var/blocked = 0
+
 				if(T.density && T.explosion_block)
-					cached_exp_block[T] += T.explosion_block
+					blocked += T.explosion_block
 
-				for(var/obj/O as anything in T)
+				for(var/obj/O in T)
 					var/the_block = O.explosion_block
-					cached_exp_block[T] += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
+					blocked += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 
-				// Make list smaller if there is no block
-				if(cached_exp_block[T] == 0)
-					cached_exp_block -= T
+				// Only add item to the list if it actually blocks
+				if(blocked != 0)
+					cached_exp_block[T] = blocked
 				CHECK_TICK
 
 		for(var/turf/T as anything in affected_turfs)
@@ -187,7 +188,7 @@
 				for(var/atom/AM as anything in T)
 					if(!QDELETED(AM) && AM.simulated)
 						AM.ex_act(explosion_strength)
-				CHECK_TICK
+					CHECK_TICK
 				continue
 
 			var/turf/simulated/S = T
@@ -200,8 +201,7 @@
 			for(var/atom/AM as anything in S)
 				if(!QDELETED(AM) && AM.simulated && (AM.level >= affecting_level))
 					AM.ex_act(explosion_strength)
-
-			CHECK_TICK
+				CHECK_TICK
 
 		var/took = stop_watch(watch)
 		// Log this to the investigate log because we have no better place
