@@ -23,7 +23,6 @@ export const NuclearRodFabricator = (props) => {
   const [activeTab, setActiveTab] = useState(TABS.FABRICATE);
   const [categoryTab, setCategoryTab] = useState('fuel_rods');
 
-
   return (
     <Window width={850} height={600}>
       <Window.Content>
