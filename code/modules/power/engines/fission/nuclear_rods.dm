@@ -93,6 +93,7 @@
 /obj/item/nuclear_rod/proc/check_rad_shield()
 	var/turf/T = get_turf(src)
 	if(!T || !loc)
+		stop_rads()
 		return
 	if(istype(T, /turf/simulated/floor/plasteel/reactor_pool))
 		if(!rad_component)
@@ -129,7 +130,8 @@
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
-	check_rad_shield()
+	if(!istype(loc, /obj/structure/closet/crate))
+		check_rad_shield()
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
 	var/successful_enrichment = FALSE
