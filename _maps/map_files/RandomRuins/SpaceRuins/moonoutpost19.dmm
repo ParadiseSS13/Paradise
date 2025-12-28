@@ -6149,9 +6149,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xz" = (
-/obj/structure/sign/lifestar{
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -8858,6 +8855,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"Ki" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/structure/sign/public/reception{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "Km" = (
 /obj/structure/railing{
 	dir = 6
@@ -11445,6 +11458,13 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"WB" = (
+/obj/item/kirbyplants/large,
+/obj/structure/sign/lifestar{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
 "WE" = (
 /obj/structure/railing,
 /obj/item/cigbutt{
@@ -11870,6 +11890,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/ruin/space/moonbase19)
+"Yt" = (
+/obj/structure/sign/public/reception,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "Yu" = (
 /obj/structure/toilet/directional/north,
@@ -13452,7 +13476,7 @@ ag
 ag
 ag
 ag
-ag
+Yt
 xz
 JN
 ag
@@ -13513,7 +13537,7 @@ Pf
 tX
 tX
 ig
-hs
+WB
 iw
 lY
 ig
@@ -14706,7 +14730,7 @@ Ub
 ak
 jc
 bJ
-rx
+Ki
 fM
 Dc
 ag
@@ -15453,7 +15477,7 @@ tX
 tX
 tX
 tX
-ag
+Yt
 iT
 iT
 iT
@@ -15461,7 +15485,7 @@ ij
 ag
 JE
 JE
-ag
+Yt
 ag
 tX
 tX

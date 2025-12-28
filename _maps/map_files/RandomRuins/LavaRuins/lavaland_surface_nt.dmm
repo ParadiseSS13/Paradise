@@ -1166,6 +1166,9 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
+/obj/structure/sign/cargo/smith{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
 "hn" = (
@@ -1673,13 +1676,6 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/production)
-"kv" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "smith_workshop"
-	},
-/obj/structure/sign/cargo/materials,
-/turf/simulated/floor/plating,
-/area/mine/outpost/smith_workshop)
 "kx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
@@ -5698,6 +5694,15 @@
 /obj/effect/turf_decal/yellow_siding,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Hs" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/sign/cargo/materials{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/hallway/west)
 "Hu" = (
 /obj/machinery/computer/crew,
 /obj/machinery/computer/guestpass{
@@ -5739,11 +5744,21 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
+"HA" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/sign/cargo/smith{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/hallway/west)
 "HB" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/structure/sign/security/labor_camp,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "HP" = (
@@ -5950,6 +5965,11 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/hallway/west)
+"IU" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/sign/cargo/mining,
+/turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Je" = (
 /obj/structure/table/reinforced,
@@ -14027,7 +14047,7 @@ fo
 ZV
 eY
 Fg
-mZ
+IU
 vq
 mZ
 fG
@@ -15976,7 +15996,7 @@ Sn
 rs
 Kw
 zJ
-kv
+gO
 YT
 gO
 gO
@@ -16138,10 +16158,10 @@ hD
 pa
 Pi
 Pi
-Pi
+Hs
 Sg
 HS
-Pi
+HA
 sS
 XK
 Pi

@@ -13573,6 +13573,10 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"cJi" = (
+/obj/structure/sign/cargo/smith,
+/turf/simulated/wall,
+/area/station/supply/smith_office)
 "cJj" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -31699,6 +31703,10 @@
 "gpu" = (
 /turf/simulated/wall/r_wall,
 /area/station/aisat/hall)
+"gpC" = (
+/obj/structure/sign/science/genetics,
+/turf/simulated/wall,
+/area/station/science/genetics)
 "gpD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -57480,10 +57488,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
@@ -65582,6 +65586,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 8
+	},
+/obj/structure/sign/cargo/materials{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
@@ -90216,8 +90223,10 @@
 /area/station/service/kitchen)
 "rZn" = (
 /obj/machinery/economy/vending/snack,
-/obj/machinery/newscaster/security_unit/directional/south,
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/structure/sign/cargo/mining{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "rZB" = (
@@ -92971,6 +92980,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/structure/sign/cargo/mail{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "sCB" = (
@@ -93763,6 +93775,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
@@ -96940,6 +96956,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tqI" = (
+/obj/structure/sign/security/labor_camp,
+/turf/simulated/wall,
+/area/station/security/prisonershuttle)
 "tqJ" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -105112,6 +105132,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/corner,
+/obj/structure/sign/science/genetics{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "uYW" = (
@@ -109155,6 +109178,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "vOk" = (
@@ -114377,10 +114401,6 @@
 "wUh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -144254,7 +144274,7 @@ rGN
 rGN
 ubi
 svc
-bcs
+cJi
 jwe
 nMg
 bcs
@@ -166624,7 +166644,7 @@ ueN
 ris
 xpc
 xhg
-sTG
+gpC
 lAo
 nng
 bHM
@@ -172685,7 +172705,7 @@ tsa
 unO
 ucC
 sFh
-tsa
+tqI
 hJv
 xgp
 fiv

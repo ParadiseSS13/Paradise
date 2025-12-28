@@ -14047,7 +14047,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
 "bfw" = (
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
@@ -14097,11 +14096,6 @@
 "bfD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
@@ -15625,15 +15619,14 @@
 "blB" = (
 /obj/structure/table/reinforced,
 /obj/item/eftpos/register,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
+	},
 /obj/machinery/door_control{
 	id = "smithdesk";
 	name = "Smith's Desk Shutters Control";
-	pixel_y = 6;
-	req_access = list(49);
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 10
+	pixel_y = -22;
+	req_access = list(49)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
@@ -17420,6 +17413,11 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bsD" = (
@@ -53116,7 +53114,7 @@
 /area/station/aisat)
 "fBk" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/radiation/rad_area,
+/obj/structure/sign/science/genetics,
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "fBl" = (
@@ -73624,6 +73622,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "oun" = (
@@ -73673,6 +73672,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 6
+	},
+/obj/structure/sign/cargo/smith{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
@@ -74626,6 +74628,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
+"oRw" = (
+/obj/structure/sign/cargo/mining,
+/turf/simulated/wall,
+/area/station/supply/miningdock)
 "oRx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/research{
@@ -76908,6 +76914,13 @@
 /obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"pOZ" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/lobby)
 "pPl" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
@@ -80340,9 +80353,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "rnx" = (
-/obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
+	},
+/obj/structure/sign/science/genetics{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
@@ -92355,6 +92370,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"wde" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/obj/structure/sign/security/labor_camp{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prisonershuttle)
 "wdo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -134446,8 +134473,8 @@ cKT
 cNG
 cPr
 ozX
-mxh
-cZx
+pOZ
+cZt
 cVd
 cZG
 cYl
@@ -142096,7 +142123,7 @@ aWy
 aBS
 aUG
 bbe
-bbe
+oRw
 bbi
 gjk
 oeE
@@ -151093,7 +151120,7 @@ aaa
 aaa
 aaa
 bno
-ttS
+wde
 hDp
 biA
 bki

@@ -21318,11 +21318,10 @@
 /obj/item/stack/sheet/glass,
 /obj/item/assembly/signaler,
 /obj/item/assembly/timer,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/structure/sign/science/genetics{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
 "clb" = (
@@ -21698,12 +21697,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "cnx" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28;
-	pixel_y = 24
-	},
-/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
@@ -47128,6 +47121,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "jjF" = (
@@ -49427,6 +49421,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"jWO" = (
+/obj/structure/sign/security/labor_camp,
+/turf/simulated/wall/r_wall,
+/area/station/security/permabrig)
 "jWQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -62592,6 +62590,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/machinery/status_display/supply_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/port)
 "oFd" = (
@@ -67567,6 +67568,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/lounge)
+"qrD" = (
+/obj/structure/sign/cargo/mining,
+/turf/simulated/wall,
+/area/station/supply/miningdock)
 "qrO" = (
 /obj/structure/table/wood,
 /obj/item/lighter{
@@ -68405,6 +68410,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 6
 	},
+/obj/machinery/requests_console/smith/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "qGQ" = (
@@ -76522,15 +76528,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"tyZ" = (
-/obj/machinery/status_display/supply_display{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/supply/port)
 "tzc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82478,6 +82475,10 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"vGI" = (
+/obj/structure/sign/science/genetics,
+/turf/simulated/wall,
+/area/station/science/genetics)
 "vGO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -85535,6 +85536,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"wLu" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 8
+	},
+/obj/structure/sign/cargo/smith{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/west)
 "wLX" = (
 /obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plating,
@@ -89154,7 +89165,6 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
-/obj/machinery/requests_console/smith/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "xXY" = (
@@ -105167,7 +105177,7 @@ bku
 lJG
 lJG
 lJG
-lJG
+wLu
 mpx
 ixB
 vdD
@@ -105689,7 +105699,7 @@ eXH
 jBk
 vEB
 aCs
-aCs
+qrD
 vDZ
 xrJ
 vDZ
@@ -105946,7 +105956,7 @@ vpx
 wss
 nVY
 pap
-tyZ
+pap
 pap
 wss
 pap
@@ -115661,7 +115671,7 @@ brY
 adi
 vSm
 adi
-abW
+jWO
 abW
 abW
 iYm
@@ -118832,7 +118842,7 @@ des
 bQf
 ily
 ddq
-czC
+vGI
 ggO
 hEe
 xXE

@@ -24765,10 +24765,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -24777,6 +24773,9 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
+	},
+/obj/structure/noticeboard{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -27253,14 +27252,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bYJ" = (
-/obj/structure/noticeboard{
-	pixel_y = -27
-	},
 /obj/machinery/status_display/supply_display{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
+	},
+/obj/structure/sign/cargo/mining{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -34177,6 +34176,9 @@
 /obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
+	},
+/obj/structure/sign/science/genetics{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
@@ -49005,6 +49007,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"foO" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/structure/sign/cargo/smith{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "fpa" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
@@ -85821,6 +85832,9 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
+/obj/structure/sign/security/labor_camp{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "xrV" = (
@@ -86447,6 +86461,9 @@
 	},
 /obj/item/pickaxe{
 	pixel_x = 5
+	},
+/obj/structure/sign/cargo/mining{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
@@ -112535,7 +112552,7 @@ bYO
 bOw
 bOw
 bOw
-bOw
+foO
 pnc
 pnc
 mOd

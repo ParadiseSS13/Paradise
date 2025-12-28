@@ -31544,6 +31544,10 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
+"fEJ" = (
+/obj/structure/sign/cargo/smith,
+/turf/simulated/wall,
+/area/station/supply/smith_office)
 "fEL" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
@@ -33393,6 +33397,10 @@
 "gbq" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/control)
+"gbu" = (
+/obj/machinery/status_display,
+/turf/simulated/wall,
+/area/station/supply/break_room)
 "gbv" = (
 /obj/effect/landmark/start/doctor,
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -50485,6 +50493,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science,
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/west)
 "jKj" = (
@@ -52212,14 +52224,13 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_x = -32
-	},
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science,
+/obj/structure/sign/science/genetics{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/west)
 "ken" = (
@@ -75826,8 +75837,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/qm)
 "psY" = (
-/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/supply/break_room)
 "ptl" = (
@@ -79106,14 +79117,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/starboard)
-"qgJ" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/station/supply/break_room)
 "qgQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84926,6 +84929,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/station/supply/break_room)
 "rxX" = (
@@ -89375,7 +89383,6 @@
 /obj/structure/chair/sofa/corp/corner{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/supply/break_room)
@@ -92904,6 +92911,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
+"tiu" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/obj/structure/sign/security/labor_camp{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig)
 "tiv" = (
 /obj/machinery/light{
 	dir = 1
@@ -95265,9 +95284,6 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
-	},
-/obj/machinery/status_display{
-	pixel_x = 32
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -102549,6 +102565,10 @@
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
+"vmF" = (
+/obj/structure/sign/science/genetics,
+/turf/simulated/wall,
+/area/station/science/genetics)
 "vmK" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -106238,6 +106258,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
+"wcV" = (
+/obj/structure/sign/cargo/mining,
+/turf/simulated/wall,
+/area/station/supply/miningdock)
 "wcY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -130284,7 +130308,7 @@ mFT
 xMK
 xZq
 qbx
-eqB
+tiu
 pOr
 yfX
 dpu
@@ -131457,7 +131481,7 @@ dmm
 dmm
 dzr
 jiv
-bDA
+vmF
 pqv
 xAU
 jOi
@@ -165037,7 +165061,7 @@ phE
 phE
 oib
 iqv
-phE
+fEJ
 phE
 jCn
 cEL
@@ -169145,8 +169169,8 @@ rPP
 uxY
 qsD
 tLb
-hOK
-qgJ
+gbu
+myT
 myT
 myT
 myT
@@ -169401,7 +169425,7 @@ uKL
 uKL
 iah
 rpx
-uKL
+wcV
 uKL
 psY
 myT
@@ -171713,7 +171737,7 @@ yie
 mdl
 mGV
 rKZ
-uKL
+wcV
 uKL
 nYc
 uKL

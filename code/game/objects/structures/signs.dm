@@ -388,6 +388,11 @@
 	desc = "If the station theoretically had a barber or stylist, they'd be found here, for sure."
 	icon_state = "salon"
 
+/obj/structure/sign/public/reception
+	name = "\improper RECEPTION"
+	desc = "Ring the bell on the desk and then wait for assistance to arrive."
+	icon_state = "reception"
+
 /obj/structure/sign/public/restroom
 	name = "\improper RESTROOM"
 	desc = "Toilets, showers, and even a robot charger!"
@@ -429,6 +434,11 @@
 	desc = "Despite the number of tooth extractions that happen here, no one in the Security department is actually a qualified dentist."
 	icon_state = "interrogation"
 
+/obj/structure/sign/security/labor_camp
+	name = "\improper LABOR CAMP"
+	desc = "Why have prisoners sitting around doing nothing, when they can actually be productive?"
+	icon_state = "labor_camp"
+
 /obj/structure/sign/security/law
 	name = "\improper LAW OFFICES"
 	desc = "The home of THE LAW. Houses the Internal Affairs Agent, and the Magistrate that people actually have a reason to speak to."
@@ -461,10 +471,20 @@
 	desc = "Hopefully cargo's mining department deposited something here before running off and dying."
 	icon_state = "materials_cargo"
 
+/obj/structure/sign/cargo/mining
+	name = "\improper MINING"
+	desc = "Miners are responsable for getting the materials that all other industry needs to function. And also monster hunting, alledgedly."
+	icon_state = "mining"
+
 /obj/structure/sign/cargo/salvage
 	name = "\improper SALVAGE"
 	desc = "The base of operation used by the station's explorers preparing for their quest to get as many guns as possible."
 	icon_state = "salvage"
+
+/obj/structure/sign/cargo/smith
+	name = "\improper SMITH"
+	desc = "Despite the rise automated fabrication systems such as the autolathe, some of the best craftsmanship is still only possible by letting a trained person hit the workpiece with a big hammer."
+	icon_state = "smith"
 
 /obj/structure/sign/cargo/xenos
 	name = "DANGEROUS ALIEN LIFE"
@@ -662,6 +682,11 @@
 	name = "\improper DATA"
 	desc = "The station's research data has to go somewhere, and that somewhere is here. Make sure you back it up, or you'll eventually be in a bad situation."
 	icon_state = "data"
+
+/obj/structure/sign/science/genetics
+	name = "\improper GENETICS"
+	desc = "Geteticists and botanists eternally race each other to create as many crimes against God as possible."
+	icon_state = "genetics"
 
 /obj/structure/sign/science/research
 	name = "\improper RESEARCH & DEVELOPMENT"

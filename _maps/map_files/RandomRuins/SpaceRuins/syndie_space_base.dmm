@@ -969,6 +969,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"fX" = (
+/obj/structure/sign/science/genetics,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "fY" = (
 /obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -1512,6 +1516,10 @@
 	},
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
+	},
+/obj/machinery/power/apc/syndicate/directional/north,
+/obj/structure/cable/green{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/genetics)
@@ -3200,6 +3208,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
+"ul" = (
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "um" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -5309,10 +5323,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "GP" = (
-/obj/structure/cable/green{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/syndicate/directional/west,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
 	},
@@ -5362,6 +5372,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/green{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/genetics)
@@ -5777,14 +5790,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable/green{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/genetics)
@@ -11981,7 +11994,7 @@ OR
 OR
 OR
 DX
-DX
+fX
 Gh
 PL
 PL
@@ -12127,7 +12140,7 @@ OR
 pf
 OR
 iQ
-pu
+ul
 Hm
 SF
 WJ
