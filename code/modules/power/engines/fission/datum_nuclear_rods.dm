@@ -16,7 +16,7 @@
 	metadata["type_path"] = path
 
 	metadata["max_durability"] = initial(T.max_durability)
-	metadata["degredation_speed"] = initial(T.degredation_speed)
+	metadata["degradation_speed"] = initial(T.degradation_speed)
 	metadata["heat_amount"] = initial(T.heat_amount)
 	metadata["heat_amp_mod"] = initial(T.heat_amp_mod)
 	metadata["power_amount"] = initial(T.power_amount)

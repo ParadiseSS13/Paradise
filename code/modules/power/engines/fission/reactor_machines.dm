@@ -21,11 +21,8 @@
 	var/rod_result
 	/// Holds the rod object inserted into the machine
 	var/obj/item/nuclear_rod/held_rod
-	/// The time needed to finish enrichment
-	var/time_to_completion
 	/// the soundloop we will be using while operating
 	var/datum/looping_sound/centrifuge/soundloop
-	var/soundloop_type
 
 	COOLDOWN_DECLARE(enrichment_timer)
 
@@ -158,8 +155,6 @@
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
-	/// is the machine currently operating
-	var/busy = FALSE
 	/// The item we have loaded into the general slot
 	var/obj/item/loaded_item
 	/// Our holder for materials

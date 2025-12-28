@@ -14,7 +14,7 @@
 	/// The maximum amount of durability for this rod. Used for percentage calculations
 	var/max_durability = 3000
 	/// How fast does this rod degrade? higher = faster
-	var/degredation_speed = 1
+	var/degradation_speed = 1
 	/// How much heat does this rod add by default
 	var/heat_amount = 0
 	/// How does this rod affect its neighbors heating
@@ -184,7 +184,7 @@
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 238. This rod produces twice as much power as standard urnaium 238 fuel, but has higher operating requirements."
+	desc = "A specialized fuel rod bred from uranium 238. This rod produces twice as much power as standard uranium 238 fuel, but has higher operating requirements."
 	icon_state = "fuel_weakplut"
 	heat_amount = 10
 	power_amount = 40 KW
@@ -243,7 +243,7 @@
 
 /obj/item/nuclear_rod/fuel/enriched_plutonium
 	name = "enriched plutonium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 235. This rod is extremely powerful, boasting high  power outputs and moderate durability. However, its heat presents an exceptional danger."
+	desc = "A specialized fuel rod bred from uranium 235. This rod is extremely powerful, boasting high power outputs and moderate durability. However, its heat presents an exceptional danger."
 	icon_state = "fuel_richplut"
 	heat_amount = 60
 	power_amount = 75 KW
@@ -450,7 +450,7 @@
 
 /obj/item/nuclear_rod/coolant/plasma_injector
 	name = "plasma injector"
-	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbant properties, small amounts are injected around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
+	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbent properties, small amounts injected around fuel rods neutralize excess heat. However, the tank runs out quickly this way."
 	icon_state = "coolant_plasma"
 	durability = 1900
 	heat_amp_mod = 0.5

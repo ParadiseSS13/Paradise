@@ -227,7 +227,7 @@
 	containername = "nuclear supermatter rod crate"
 
 /datum/supply_packs/engineering/nuclear_supermatter_kit
-	name = "Nuclear Supermatter Starter Crate"
+	name = "Nuclear Supermatter Rods Starter Crate"
 	contains = list(
 	/obj/item/nuclear_rod/fuel/supermatter,
 	/obj/item/nuclear_rod/fuel/supermatter,

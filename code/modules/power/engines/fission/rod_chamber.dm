@@ -80,9 +80,9 @@
 
 /obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder using harm intent, but only while the chamer is lowered.")
-	. += SPAN_NOTICE("<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.")
-	. += SPAN_NOTICE("<span class='notice'>Click on the chamber while it is closed to raise and lower it.")
+	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder using harm intent, but only while the chamber is lowered.")
+	. += SPAN_NOTICE("Alt+click to open and close the shielding while the chamber is raised.")
+	. += SPAN_NOTICE("Click on the chamber while it is closed to raise and lower it.")
 	. += ""
 
 	if(isobserver(user))
@@ -297,7 +297,7 @@
 		to_chat(user, SPAN_ALERT("The safety locks prevent maintenance while the reactor is on!"))
 		return
 	if(held_rod)
-		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if a rod inside."))
+		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if there is a rod inside."))
 		return
 	default_deconstruction_screwdriver(user, "chamber_maint", "chamber_open", I)
 
@@ -598,7 +598,7 @@
 		return
 	if(!held_rod)
 		return
-	if(chamber_state != CHAMBER_DOWN) // Se should only process reactor info when down
+	if(chamber_state != CHAMBER_DOWN) // We should only process reactor info when down
 		return
 	durability_level = clamp(ROUND_UP(((held_rod.durability / held_rod.max_durability) * 5) - 0.8), 0, 5)
 	if(durability_level != previous_durability_level)
@@ -624,7 +624,7 @@
 			update_icon(UPDATE_OVERLAYS)
 			return
 	if(!requirements_met && operational) // If it loses requirements, it wont immediately turn off
-		if(istype(held_rod.type, /obj/item/nuclear_rod/coolant))
+		if(istype(held_rod, /obj/item/nuclear_rod/coolant))
 			if(prob(15)) // Higher rates of coolant rod failures once they're already on. Good luck.
 				operational = FALSE
 				update_icon(UPDATE_OVERLAYS)
@@ -660,7 +660,7 @@
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
 		if(!did_it_melt.density) // In case some joker finds way to place these on indestructible walls
-			chamber.visible_message(SPAN_WARNING("[src] melts through [T]!"))
+			chamber.visible_message(SPAN_WARNING("[chamber] melts through [T]!"))
 		return
 
 	var/heat_capacity = environment.heat_capacity()

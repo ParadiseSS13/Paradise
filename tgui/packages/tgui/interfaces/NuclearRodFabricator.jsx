@@ -23,8 +23,6 @@ export const NuclearRodFabricator = (props) => {
   const [activeTab, setActiveTab] = useState(TABS.FABRICATE);
   const [categoryTab, setCategoryTab] = useState('fuel_rods');
 
-  const totalRods =
-    (data.fuel_rods?.length || 0) + (data.moderator_rods?.length || 0) + (data.coolant_rods?.length || 0);
 
   return (
     <Window width={850} height={600}>

@@ -7,7 +7,6 @@
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	resistance_flags = INDESTRUCTIBLE
-	var/power_gen = 0
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
 /obj/machinery/power/reactor_power/Initialize(mapload)
@@ -110,7 +109,6 @@
 	var/list/data = list()
 	// If we somehow dont have an engine anymore, handle it here.
 	if(!active)
-		active = null
 		return
 	if(active.stat & BROKEN)
 		active = null
@@ -131,8 +129,7 @@
 		data["NGCR_throttle"] = 100 - active.desired_power
 	data["NGCR_operatingpower"] = 100 - active.operating_power
 	var/list/gasdata = list()
-	var/TM = air.total_moles()
-	if(TM)
+	if(air.total_moles())
 		gasdata.Add(list(list("name" = "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
 		gasdata.Add(list(list("name" = "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
 		gasdata.Add(list(list("name" = "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
@@ -267,7 +264,7 @@
 		else
 			chamber.requirements_met = FALSE
 		chamber.update_icon(UPDATE_OVERLAYS)
-	icon = "null" // make it look like it detonated.
+	icon = null // make it look like it detonated.
 
 /obj/item/grenade/nuclear_starter/proc/delete_pulse(warp)
 	QDEL_NULL(warp)

@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/reactor_gas_node
 	name = "reactor gas intake"
-	desc = "A sturdy-looking gas inlet that injects gas into the reactor"
+	desc = "A sturdy-looking gas inlet that injects gas into the reactor."
 	icon = 'icons/obj/fission/reactor_machines.dmi'
 	icon_state = "gas_node"
 	layer = GAS_PIPE_VISIBLE_LAYER
@@ -53,7 +53,7 @@
 	if(intake_vent)
 		network1 = linked_reactor.air_contents
 		network2 = air_contents
-	if(!intake_vent)
+	else
 		network1 = air_contents
 		network2 = linked_reactor.air_contents
 
@@ -92,12 +92,10 @@
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
 	if(!selected)
 		return ITEM_INTERACT_COMPLETE
-	if(!Adjacent(user))
-		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return ITEM_INTERACT_COMPLETE
 	if(!Adjacent(user))
-		to_chat(user, SPAN_WARNING("You moved away before construction was finished"))
+		to_chat(user, SPAN_WARNING("You moved away before construction was finished!"))
 		return ITEM_INTERACT_COMPLETE
 	dir = choices[selected]
 	initialize_directions = dir
@@ -118,7 +116,7 @@
 	for(var/obj/structure/filler/filler in T)
 		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			linked_reactor = filler.parent
-	if(linked_reactor)
+	if(!linked_reactor)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		audible_message(SPAN_INFO("The gas node buzzes as it fails to connect to a reactor."))
 	else

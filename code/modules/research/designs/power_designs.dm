@@ -119,7 +119,7 @@
 
 /datum/design/rod_fabricator
 	name = "Machine Design (Nuclear Rod Fabricator Board)"
-	desc = "The circuit board for a nuclear rod fabractor."
+	desc = "The circuit board for a nuclear rod fabricator."
 	id = "nuclear_fabricator"
 	req_tech = list("programming" = 5, "materials" = 5, "magnets" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER

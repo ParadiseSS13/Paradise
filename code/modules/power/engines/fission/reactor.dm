@@ -51,7 +51,7 @@
 #define N2O_OVERHEAT_BONUS 300 //! The overheat threshold bonus that N2O coolant provides
 #define N2O_EVENT_MODIFIER 20 //! The negative event chance from N2O.
 #define CO2_EVENT_MODIFIER 60 //! The negative event chance from CO2.
-#define O2_EVENT_MODIFIER -50 //! The POSITIVE event chance from N2.
+#define O2_EVENT_MODIFIER -50 //! The POSITIVE event chance from O2.
 #define O2_REACTIVITY_BONUS 0.8 //! The highest amount of reactivity that O2 coolant provides
 #define PLASMA_REACTIVITY_BONUS 0.2 //! The highest amount of reactivity that plasma coolant provides
 #define PLASMA_OVERHEAT_BONUS 200 //! The overheat threshold bonus that plasma coolant provides
@@ -355,7 +355,7 @@
 
 /obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
 	if(grill)
-		to_chat(user, "<span class='warning'>You begin cutting the adhered grates from the reactor body...")
+		to_chat(user, SPAN_WARNING("You begin cutting the adhered grates from the reactor body..."))
 		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
@@ -551,7 +551,7 @@
 	calculate_gas_effects()
 
 	// Calculate the durability loss for all rods in use
-	// Lower operating power = more durability. Agorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
+	// Lower operating power = more durability. Algorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
 	var/algorithm_decay = 0.077 // Higher = steeper decline
 	var/durability_loss = 1
 	if(operating_power <= 90) // Full loss at 90% and above
@@ -611,7 +611,7 @@
 	else
 		reactivity_multiplier = 1 + gas_reactivity_bonus
 	if(temp > TOTAL_HEAT_THRESHOLD)
-		// Math equasion for here: y = a + b * ln(x)
+		// Math equation for here: y = a + b * ln(x)
 		var/offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
 		var/curve_intensity = 3.5 // Negatively affects the rate of decay. higher = reactivity builds easier. (B) component
 		var/heat_component = (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // (X) Component
@@ -629,7 +629,7 @@
 
 	//Generating  the amount of Plasma created
 	var/datum/gas_mixture/temp_gas = new()
-	// Math equasion for here: y = a + b * ln(x)
+	// Math equation for here: y = a + b * ln(x)
 	var/gas_offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
 	var/gas_curve_intensity = 1.6 // Affects the rate of decay. higher = reactivity builds easier. (B) component
 	var/power_component = max((final_power / (5 MW)), 0.01) // (X) Component
@@ -666,7 +666,7 @@
 		if(total_mols <= MOL_MINIMUM)
 			new_damage += max(((1 - (total_mols / MOL_MINIMUM)) * DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 		if(check_overheating())
-			// Breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
+			// Breaking the equation up a little for readability. Should look like this: Y = (-AB ^ -X) + A
 			var/rate_of_decay = 1.13 // Closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
 			var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
 			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
@@ -690,7 +690,7 @@
 						coolers += chamber
 				if(length(coolers))
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
-					if(prob(60) || !failure.welded) // 60% Chance to beak through the weld. you got lucky punk
+					if(prob(60) || !failure.welded) // 60% Chance to break through the weld. you got lucky punk
 						failure.eject_rod()
 
 			// Weld a vent.
@@ -889,7 +889,7 @@
 		SSticker.record_biohazard_results()
 	sleep(10 SECONDS)
 
-	SSblackbox.record_feedback("tally", "fisson_overload", 1, "detonation successful")
+	SSblackbox.record_feedback("tally", "fission_overload", 1, "detonation successful")
 	icon_state = "broken"
 	GLOB.enter_allowed = 0
 	SSticker.station_explosion_cinematic(NUKE_SITE_ON_STATION, null)
@@ -988,11 +988,11 @@
 /// Calculate all of the bonuses and detriments of using specific gasses.
 /obj/machinery/atmospherics/fission_reactor/proc/calculate_gas_effects()
 	gas_reactivity_bonus = 0
-	var/temp_bonus_holder = 0 // Heat bounus container
+	var/temp_bonus_holder = 0 // Heat bonus container
 	var/temp_event_holder = 0 // Event chance modifier in percentages. 0 to 100
 	var/combined_gas = air_contents.total_moles()
 
-	// Math equasion for here: y = a + b * ln(x)
+	// Math equation for here: y = a + b * ln(x)
 	var/offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
 	var/curve_intensity = 0.7 // Negatively affects the rate of decay. higher = reactivity builds easier. (B) component
 	var/gas_component = max((combined_gas - MOLE_BONUS_THRESHOLD) / MOLE_BONUS_COMPONENT, 0.01)
@@ -1024,7 +1024,7 @@
 	temp_event_holder /= 100 // Bring between 0 and 1
 	gas_event_modifier = 1 - temp_event_holder
 
-	// Replace the old bonus witht he new one
+	// Replace the old bonus with the new one
 	update_overheat_threshold(-gas_overheat_bonus)
 	update_overheat_threshold(temp_bonus_holder)
 	gas_overheat_bonus = temp_bonus_holder
@@ -1036,7 +1036,7 @@
 		log_admin("An admin attempted to override fission reactor safeties, but it was already overriden")
 		return
 	sleep(5 SECONDS)
-	radio.autosay(SPAN_BIG("Response teams are to cease all on-station activies and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by centcomm faculty."), "Automated Announcement", "Special Ops")
+	radio.autosay(SPAN_BIG("Response teams are to cease all on-station activities and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by CentComm faculty."), "Automated Announcement", "Special Ops")
 	prep_overload()
 
 #undef REACTOR_NEEDS_DIGGING
