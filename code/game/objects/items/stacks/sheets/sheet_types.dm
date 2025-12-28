@@ -293,6 +293,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	gender = PLURAL
 	singular_name = "wood plank"
+	materials = list(MAT_WOOD = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -715,6 +716,11 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 //////////////////////////////
 // MARK: BONES
 //////////////////////////////
+
+GLOBAL_LIST_INIT(bone_recipes, list (
+	new /datum/stack_recipe("bone rods", /obj/item/stack/bone_rods, 1, time = 2 SECONDS),
+	))
+
 /obj/item/stack/sheet/bone
 	name = "bones"
 	desc = "Someone's been drinking their milk."
@@ -723,6 +729,10 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	singular_name = "bone"
 	force = 7
 	origin_tech = "materials=2;biotech=2"
+
+/obj/item/stack/sheet/bone/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.bone_recipes
 
 //////////////////////////////
 // MARK: PLASTIC

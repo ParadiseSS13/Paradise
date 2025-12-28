@@ -62,7 +62,7 @@
 	else
 		player_ghosted++
 		if(player_ghosted % 150 == 0)
-			force_cryo_human(src)
+			force_cryo(src)
 
 /mob/living/carbon/human/proc/handle_ssd()
 	player_logged++
@@ -75,7 +75,7 @@
 		var/area/A = get_area(src)
 		cryo_ssd(src)
 		if(A.fast_despawn)
-			force_cryo_human(src)
+			force_cryo(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()

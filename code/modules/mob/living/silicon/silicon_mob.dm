@@ -5,6 +5,7 @@
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	initial_traits = list(TRAIT_RESISTHEAT)
 
 	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
 	// which would be converted to armor datum during initialization.

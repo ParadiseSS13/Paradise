@@ -2782,7 +2782,6 @@
 /area/station/hallway/secondary/exit)
 "ava" = (
 /obj/machinery/alarm/directional/north,
-/obj/structure/closet/crate/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -41359,11 +41358,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/spacebridge/scidock)
 "hRT" = (
-/obj/machinery/cooking/deepfryer,
 /obj/structure/window/basic{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "hRY" = (
@@ -43573,6 +43572,9 @@
 /obj/structure/table,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "ipV" = (
@@ -52296,8 +52298,12 @@
 /area/station/service/library)
 "khD" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 9;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "khE" = (
@@ -54098,6 +54104,10 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "kCH" = (
@@ -77395,8 +77405,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "pOz" = (
-/obj/machinery/cooking/oven,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "pOC" = (
@@ -83933,8 +83943,8 @@
 /area/station/maintenance/maintcentral)
 "rpg" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "rpk" = (
@@ -98856,7 +98866,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/cooking/ice_cream_mixer,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "uzZ" = (
@@ -103283,8 +103293,8 @@
 /area/station/public/quantum/service)
 "vyr" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "vyt" = (

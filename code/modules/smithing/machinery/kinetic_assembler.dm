@@ -24,6 +24,10 @@
 	)
 	/// Amount of extra items made in batches
 	var/batch_extras = 1
+	/// Products that can not be affected by productivity bits
+	var/list/no_productivity_types = list(
+		/obj/item/kitchen/knife/smithed,
+	)
 
 /obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
@@ -36,6 +40,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	batched_item_types = typecacheof(batched_item_types)
+	no_productivity_types = typecacheof(no_productivity_types)
 	RefreshParts()
 
 /obj/machinery/smithing/kinetic_assembler/Destroy()
@@ -266,6 +271,8 @@
 	var/total_extras = clamp(round(1 * i.bit_productivity_mod / 2), 0, 2)
 	if(is_type_in_typecache(finished_product, batched_item_types))
 		total_extras += clamp(round(batch_extras * i.bit_productivity_mod / 2), 1, 4)
+	if(is_type_in_typecache(finished_product, no_productivity_types))
+		total_extras = 0
 	for(var/iterator in 1 to total_extras)
 		var/obj/item/product
 		if(istype(finished_product, /obj/item/smithed_item))
