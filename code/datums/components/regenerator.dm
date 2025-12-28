@@ -36,7 +36,7 @@
 	outline_colour = COLOR_GREEN,
 	regen_check = null,
 )
-	if (!isliving(parent))
+	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.regeneration_delay = regeneration_delay
@@ -69,7 +69,7 @@
 /datum/component/regenerator/proc/on_take_damage(datum/source, damage, damagetype, ...)
 	SIGNAL_HANDLER
 
-	if (damagetype in ignore_damage_types)
+	if(damagetype in ignore_damage_types)
 		return
 
 	reset_regeneration_timer()
@@ -80,13 +80,13 @@
 
 /// Start processing health regeneration, and show animation if provided
 /datum/component/regenerator/proc/start_regenerating()
-	if (!should_be_regenning(parent))
+	if(!should_be_regenning(parent))
 		return
 	var/mob/living/living_parent = parent
 	living_parent.visible_message(SPAN_NOTICE("[living_parent]'s wounds begin to knit closed!"))
 	START_PROCESSING(SSobj, src)
 	regeneration_start_timer = null
-	if (!outline_colour)
+	if(!outline_colour)
 		return
 	living_parent.add_filter(REGENERATION_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 150, "size" = 1))
 	var/filter = living_parent.get_filter(REGENERATION_FILTER)
@@ -100,7 +100,7 @@
 	living_parent.remove_filter(REGENERATION_FILTER)
 
 /datum/component/regenerator/process()
-	if (!should_be_regenning(parent))
+	if(!should_be_regenning(parent))
 		stop_regenerating()
 		return
 
