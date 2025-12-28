@@ -1110,6 +1110,8 @@
 	if(L && !L.linked_organ.is_bruised())
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.custom_pain("You feel a stabbing pain in your chest!")
+		var/datum/wound/ruptured_lungs/rupture = new(L.linked_organ)
+		L.linked_organ.wound_list += rupture
 		L.linked_organ.damage = L.linked_organ.min_bruised_damage
 
 /mob/living/carbon/human/resist_restraints(attempt_breaking)
