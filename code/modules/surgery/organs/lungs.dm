@@ -8,6 +8,17 @@
 
 	organ_datums = list(/datum/organ/lungs)
 
+/obj/item/organ/internal/lungs/receive_damage(amount, silent)
+	..()
+	if(damage >= min_bruised_damage && amount > 1 && !get_wound(/datum/wound/ruptured_lungs))
+		wound_list += new /datum/wound/ruptured_lungs(src)
+
+/obj/item/organ/internal/lungs/heal_internal_damage(amount, robo_repair)
+	..()
+	var/datum/wound/ruptured_lungs/wound = get_wound(/datum/wound/ruptured_lungs)
+	if(wound && damage < min_bruised_damage)
+		wound.cure_wound()
+
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."

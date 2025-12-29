@@ -29275,14 +29275,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "ddG" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Portable Air Pump Connector";
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Portable Scrubber Connector"
+	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "ddQ" = (
@@ -35992,14 +35992,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "foV" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Portable Scrubber Connector"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector";
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "fpl" = (
@@ -38428,13 +38428,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
-"giy" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "gjo" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass,
@@ -38933,9 +38926,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "gtu" = (
-/obj/machinery/nuclear_centrifuge,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/engine/reactor)
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "gtJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -40135,6 +40129,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"gPo" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/closet/bombcloset,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "gPU" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -42784,11 +42785,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
-"hPg" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "hPi" = (
 /obj/structure/table_frame,
 /obj/item/mounted/frame/apc_frame,
@@ -45062,6 +45058,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"iEd" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "iEk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46541,6 +46544,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"jdX" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "jee" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -47357,10 +47367,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "jwi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
 	},
-/obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "jwo" = (
@@ -48819,16 +48829,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jSe" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Portable Scrubber Connector"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector";
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "jSn" = (
@@ -49591,13 +49601,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "keu" = (
-/obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Distro to Air Pump"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -56086,6 +56099,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"mtK" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "mtV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -62581,13 +62601,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"oKC" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "oKS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -66889,17 +66902,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "qkD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment/corner,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "qkK" = (
@@ -72517,13 +72530,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
-"slD" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "smd" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/binary/valve{
@@ -72835,14 +72841,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "stj" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Portable Air Pump Connector";
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Portable Scrubber Connector"
+	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "stW" = (
@@ -73884,7 +73890,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "sMf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77285,10 +77291,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ubf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 6
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -83276,6 +83282,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "whI" = (
@@ -84491,7 +84498,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "wBV" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/purple,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "wBW" = (
@@ -86927,10 +86936,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
 "xrA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "xrD" = (
@@ -87846,7 +87853,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
 "xIl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -88945,6 +88952,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"yap" = (
+/obj/machinery/nuclear_centrifuge,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/engine/reactor)
 "yar" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -89110,10 +89121,12 @@
 /turf/space,
 /area/space/nearstation)
 "yed" = (
-/obj/structure/closet/bombcloset,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -89185,11 +89198,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "yeU" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "yeW" = (
@@ -123064,7 +123077,7 @@ fyt
 ikU
 xCY
 lhF
-whx
+gPo
 whx
 rOc
 gUo
@@ -123572,7 +123585,7 @@ qEh
 aAO
 bdN
 keu
-xIl
+kgx
 xIl
 rgX
 wtQ
@@ -134296,7 +134309,7 @@ gpj
 aJt
 rhl
 egm
-gtu
+yap
 mom
 iyE
 iRc
@@ -137110,16 +137123,16 @@ abq
 aaa
 mZb
 ivi
-oKC
-giy
-oKC
-giy
-oKC
-hPg
+jdX
+mtK
+jdX
+mtK
+jdX
+gtu
 bzq
 jha
 jha
-giy
+mtK
 wJN
 aaa
 aaa
@@ -137367,17 +137380,17 @@ abq
 abq
 mZb
 ivi
-slD
+iEd
 cxT
-slD
+iEd
 cxT
-slD
-hPg
+iEd
+gtu
 jha
 jha
 jha
-hPg
-giy
+gtu
+mtK
 aaa
 aaa
 abq
@@ -138137,12 +138150,12 @@ abq
 aaa
 aaa
 aaa
-oKC
-giy
-oKC
-giy
-oKC
-giy
+jdX
+mtK
+jdX
+mtK
+jdX
+mtK
 aaa
 abq
 arA

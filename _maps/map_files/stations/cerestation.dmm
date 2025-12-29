@@ -2099,11 +2099,11 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "aqh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -67039,7 +67039,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "nxf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -92092,10 +92092,10 @@
 	dir = 8;
 	name = "Portable Air Pump Connector"
 	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "tbC" = (
@@ -108071,11 +108071,12 @@
 	},
 /area/station/public/quantum/docking)
 "wzE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Distro to Air Pump"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
