@@ -15,7 +15,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 
 GLOBAL_LIST_EMPTY(PDA_Manifest)
 
-/proc/species_contextblend(var/icon/ico, var/datum/species/S, var/input)
+/proc/species_contextblend(icon/ico, datum/species/S, input)
 	if(istype(S, /datum/species/vulpkanin) || istype(S, /datum/species/slime)) //I had to snowflake vulpkanin and slime until we finish the rest of species
 		ico.Blend(input, ICON_MULTIPLY)
 	else
