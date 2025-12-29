@@ -55,6 +55,9 @@
 	/// If we burn in a fire, what color do we have?
 	var/burn_color
 
+	/// How much damage can this reagent do when you have no kidneys?
+	var/max_kidney_damage = 2
+
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null
