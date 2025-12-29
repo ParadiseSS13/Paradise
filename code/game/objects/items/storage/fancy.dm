@@ -604,7 +604,7 @@
 		if(!is_type_in_typecache(I, can_hold))
 			return ..()
 	if(isrobot(user))
-		return //Robots can't interact with storage items.
+		return // Robots can't interact with storage items.
 
 	handle_item_insertion(I, user, params)
 	return TRUE
