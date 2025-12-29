@@ -78,7 +78,7 @@
 				else
 					mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 			else if(s_col)
-				mob_icon.Blend(s_col, ICON_ADD)
+				species_contextblend(mob_icon, dna.species, s_col)
 
 	if(owner) //Maintains overlays on disembodied parts.
 		cut_overlays()
@@ -111,7 +111,7 @@
 		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
-				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
+				species_contextblend(h_marking_s, dna.species, owner.m_colours["head"])
 			add_overlay(h_marking_s)
 
 	if(!((owner.head && (owner.head.flags & BLOCKHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHAIR)))) //Common restriction for all the below features.
@@ -120,7 +120,7 @@
 			if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
 				var/icon/head_accessory_s = new /icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
-					head_accessory_s.Blend(headacc_colour, ICON_ADD)
+					species_contextblend(head_accessory_s, dna.species, headacc_colour)
 				add_overlay(head_accessory_s)
 
 		if(f_style)
@@ -130,7 +130,7 @@
 				if(istype(dna.species, /datum/species/slime)) // I am el worstos
 					facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(facial_colour, ICON_ADD)
+					species_contextblend(facial_s, dna.species, facial_colour)
 				add_overlay(facial_s)
 
 		if(h_style)
@@ -141,7 +141,7 @@
 					if(istype(dna.species, /datum/species/slime)) // I am el worstos
 						hair_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 					else if(hair_style.do_colouration)
-						hair_s.Blend(hair_colour, ICON_ADD)
+						species_contextblend(hair_s, dna.species, hair_colour)
 					add_overlay(hair_s)
 
 	return mob_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.

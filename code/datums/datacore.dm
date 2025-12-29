@@ -15,6 +15,13 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 
 GLOBAL_LIST_EMPTY(PDA_Manifest)
 
+/proc/species_contextblend(var/icon/ico, var/datum/species/S, var/input)
+	if(istype(S, /datum/species/vulpkanin) || istype(S, /datum/species/slime)) //I had to snowflake vulpkanin and slime until we finish the rest of species
+		ico.Blend(input, ICON_MULTIPLY)
+	else
+		ico.Blend(input, ICON_ADD)
+
+
 /datum/datacore/proc/get_manifest_json()
 	if(length(GLOB.PDA_Manifest))
 		return
@@ -287,7 +294,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	// Proper Skin color - Fix, you can't have HAS_SKIN_TONE *and* HAS_SKIN_COLOR
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
-		preview_icon.Blend(H.skin_colour, ICON_ADD)
+		species_contextblend(preview_icon, H.dna.species, H.skin_colour)
 
 	//Tail Markings
 	var/icon/t_marking_s
@@ -296,7 +303,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
 		if(tail_marking_style && tail_marking_style.species_allowed)
 			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
+			species_contextblend(t_marking_s, H.dna.species, H.m_colours["tail"])
 			if(!(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body)))
 				preview_icon.Blend(t_marking_s, ICON_OVERLAY)
 
@@ -331,7 +338,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+			species_contextblend(head_accessory_s, H.dna.species, head_organ.headacc_colour)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
@@ -345,7 +352,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 			if(!facial_hair_style.no_sec_colour)
-				facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
+				species_contextblend(facial_secondary_s, H.dna.species, head_organ.sec_facial_colour)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)
@@ -357,14 +364,14 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
-				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
+				species_contextblend(b_marking_s, H.dna.species, H.m_colours["body"])
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.dna.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = H.m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
-				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)
+				species_contextblend(h_marking_s, H.dna.species, H.m_colours["head"])
 				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
