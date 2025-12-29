@@ -32,7 +32,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += SPAN_NOTICE("[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -43,7 +43,7 @@
 	else
 		parent_organ = "r_arm"
 	slot = parent_organ + "_device"
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	to_chat(user, SPAN_NOTICE("You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm."))
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
@@ -62,7 +62,7 @@
 	if(emp_proof)
 		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, "<span class='warning'>[src] is hit by EMP!</span>")
+		to_chat(owner, SPAN_WARNING("[src] is hit by EMP!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
@@ -107,7 +107,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
 	if(owner.handcuffed)
-		to_chat(owner, "<span class='warning'>The handcuffs interfere with [src]!</span>")
+		to_chat(owner, SPAN_WARNING("The handcuffs interfere with [src]!"))
 		return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
@@ -116,9 +116,9 @@
 	if(status & ORGAN_DEAD)
 		return
 
-	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		SPAN_NOTICE("[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		SPAN_ITALICS("You hear a short mechanical noise."))
 
 	if(istype(holder, /obj/item/flash/armimplant))
 		var/obj/item/flash/F = holder
@@ -152,31 +152,31 @@
 	if(arm_item)
 		if(istype(arm_item, /obj/item/offhand))
 			var/obj/item/offhand_arm_item = owner.get_active_hand()
-			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
+			to_chat(owner, SPAN_WARNING("Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!"))
 			return
 		else if(!owner.drop_item_to_ground(arm_item))
-			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
+			to_chat(owner, SPAN_WARNING("Your [arm_item] interferes with [src]!"))
 			return
 		else
-			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
+			to_chat(owner, SPAN_NOTICE("You drop [arm_item] to activate [src]!"))
 
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
-		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
+		to_chat(owner, SPAN_WARNING("Your [src] fails to activate!"))
 		return
 
 	// Activate the hand that now holds our item.
 	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
 		owner.swap_hand()
 
-	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+	owner.visible_message(SPAN_NOTICE("[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		SPAN_NOTICE("You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		SPAN_ITALICS("You hear a short mechanical noise."))
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!holder && !length(contents)) || status & ORGAN_DEAD)
-		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
+		to_chat(owner, SPAN_WARNING("The implant doesn't respond. It seems to be broken..."))
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
@@ -216,9 +216,9 @@
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
-		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!</span>")
+		owner.visible_message(SPAN_DANGER("A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant misfires!</span>")
+		to_chat(owner, SPAN_USERDANGER("You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant misfires!"))
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
@@ -268,7 +268,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		to_chat(user, SPAN_NOTICE("You unlock [src]'s integrated knife!"))
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
@@ -475,7 +475,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/surgeryize()
 	if(crit_fail && owner)
-		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
+		to_chat(owner, SPAN_NOTICE("Your [src] feels functional again."))
 	crit_fail = FALSE
 
 
@@ -491,7 +491,7 @@
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
-		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		to_chat(user, SPAN_WARNING("You're already charging."))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
@@ -500,28 +500,28 @@
 	if(istype(power_source))
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
-			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
+			to_chat(H, SPAN_WARNING("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10,0)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+				to_chat(user, SPAN_WARNING("You are already fully charged!"))
 			else
 				INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), A, H)
 		else
-			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+			to_chat(user, SPAN_WARNING("There is no charge to draw from that APC."))
 	else
-		to_chat(user, "<span class='warning'>You lack a power source in which to store charge!</span>")
+		to_chat(user, SPAN_WARNING("You lack a power source in which to store charge!"))
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	H.visible_message(SPAN_NOTICE("[H] inserts a power connector into \the [A]."), SPAN_NOTICE("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
 	var/can_safely_charge = HAS_TRAIT(H, TRAIT_NO_APC_CHARGING) ? FALSE : TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
-			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			to_chat(H, SPAN_WARNING("You must keep your connector out while charging!"))
 			break
 		if(A.cell.charge == 0)
-			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
+			to_chat(H, SPAN_WARNING("\The [A] has no more charge."))
 			break
 		A.charging = APC_IS_CHARGING
 		if(A.cell.charge >= 500)
@@ -529,16 +529,16 @@
 				H.adjust_bodytemperature(60) // Don't overcharge your batteries
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500
-			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+			to_chat(H, SPAN_NOTICE("You siphon off some of the stored charge for your own use."))
 		else
 			H.adjust_nutrition(A.cell.charge * 0.1)
 			A.cell.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
+			to_chat(H, SPAN_NOTICE("You siphon off the last of \the [A]'s charge."))
 			break
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			to_chat(H, SPAN_NOTICE("You are now fully charged."))
 			break
-	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+	H.visible_message(SPAN_NOTICE("[H] unplugs from \the [A]."), SPAN_NOTICE("You unplug from \the [A]."))
 	drawing_power = FALSE
 	if(can_safely_charge)
 		return
@@ -547,7 +547,7 @@
 		H.IgniteMob()
 		var/datum/organ/battery/microbattery = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
 		microbattery.linked_organ.receive_damage(H.bodytemperature / 50)
-		H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='userdanger'>Something inside you combusts!</span>")
+		H.visible_message(SPAN_WARNING("...Then immediately bursts into flame!"), SPAN_USERDANGER("Something inside you combusts!"))
 
 /datum/action/item_action/organ_action/toggle/telebaton
 	button_icon = 'icons/obj/items.dmi'
@@ -630,7 +630,7 @@
 
 /obj/item/melee/razorwire/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click it to reskin it.</span>"
+	. += SPAN_NOTICE("Alt-click it to reskin it.")
 
 /obj/item/melee/razorwire/examine_more(mob/user)
 	. = ..()
@@ -648,7 +648,7 @@
 /obj/item/melee/razorwire/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(loc == user)
 		reskin(user)
@@ -710,7 +710,7 @@
 	can_sawoff = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
-	to_chat(H, "<span class='warning'>Your [name] misfires!</span>")
+	to_chat(H, SPAN_WARNING("Your [name] misfires!"))
 	process_fire(H, H, 1, zone_override = our_organ)
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/examine_more(mob/user)
@@ -760,7 +760,7 @@
 				emp_proof = TRUE //This kills the server without it. Do not remove this.
 				SL.missfire(owner, parent_organ)
 				emp_proof = FALSE
-				to_chat(owner, "<span class='warning'>The misfired [SL.chambered] causes your [name] to break!</span>")
+				to_chat(owner, SPAN_WARNING("The misfired [SL.chambered] causes your [name] to break!"))
 				necrotize()
 				return
 			if(istype(SL.chambered, /obj/item/ammo_casing/shotgun/frag12))
@@ -819,13 +819,13 @@
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm/Extend(obj/item/item)
 	if(disabled)
-		to_chat(owner, "<span class='warning'>Your arm fails to extend!</span>")
+		to_chat(owner, SPAN_WARNING("Your arm fails to extend!"))
 		return FALSE
 	..()
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm/Retract()
 	if(disabled)
-		to_chat(owner, "<span class='warning'>Your arm fails to retract!</span>")
+		to_chat(owner, SPAN_WARNING("Your arm fails to retract!"))
 		return FALSE
 	..()
 
@@ -859,12 +859,12 @@
 	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
 /obj/item/shield/v1_arm/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>"
+	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.")
 
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)
 		return
-	to_chat(loc, "<span class='warning'>Your arm seises up!</span>")
+	to_chat(loc, SPAN_WARNING("Your arm seises up!"))
 	disabled = TRUE
 	force = force_when_disabled
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
@@ -884,7 +884,7 @@
 	if(!.) // they did not block the attack
 		return
 	if(. == 1) // a normal block
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 		return TRUE
 
@@ -896,7 +896,7 @@
 		if(P.shield_buster || istype(P, /obj/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			owner.visible_message(SPAN_DANGER("[owner] blocks [attack_text] with [src]!"))
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 			return TRUE
 
@@ -906,11 +906,11 @@
 		P.hitsound_wall = sound
 		P.add_overlay("parry")
 		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] parries [attack_text] with [src]!"))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 		return -1
 
-	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] parries [attack_text] with [src]!"))
 	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		if(!isitem(hitby))
@@ -931,7 +931,7 @@
 
 /obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
-		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
+		to_chat(user, SPAN_NOTICE("You insert [I] into the back of the hand, and the implant begins to boot up."))
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
 		qdel(src)
 		qdel(I)

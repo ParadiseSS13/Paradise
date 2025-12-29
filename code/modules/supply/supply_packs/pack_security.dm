@@ -463,3 +463,14 @@
 	)
 	cost = 300
 	containername = "party ammunition crate"
+
+/datum/supply_packs/security/pepperball_ammo
+	name = "Pepperball Ammunition Crate"
+	contains = list(
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball
+	)
+	cost = 150
+	containername = "pepperball ammunition crate"
+	access = ACCESS_ARMORY

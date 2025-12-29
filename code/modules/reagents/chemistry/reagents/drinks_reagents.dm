@@ -107,11 +107,12 @@
 	name = "The Doctor's Delight"
 	id = "doctorsdelight"
 	description = "A gulp a day keeps the MediBot away. That's probably for the best."
-	color = "#FF8CFF" // rgb: 255, 140, 255
+	color = "#754389"
 	drink_icon = "doctorsdelightglass"
 	drink_name = "Doctor's Delight"
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 	taste_description = "healthy dietary choices"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -182,7 +183,7 @@
 	name = "Watermelon Juice"
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
-	color = "#863333" // rgb: 134, 51, 51
+	color = "#ae2631"
 	drink_name = "Watermelon Juice"
 	drink_desc = "Almost water."
 	taste_description = "watermelon juice"
@@ -295,6 +296,7 @@
 	drink_name = "Chocolate milk"
 	drink_desc = "Smells like childhood. What would they need to add to make it taste like childhood too?"
 	taste_description = "chocolate milk"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
@@ -363,6 +365,7 @@
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
 	taste_description = "milkish coffee"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -408,12 +411,13 @@
 	drink_name = "Pumpkin Latte"
 	drink_desc = "A mix of coffee and pumpkin juice."
 	taste_description = "overpriced hipster spices"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
 	id = "tea"
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
-	color = "#101000" // rgb: 16, 16, 0
+	color = "#5d2409"
 	nutriment_factor = 0
 	adj_dizzy = -4 SECONDS
 	adj_drowsy = -2 SECONDS
@@ -440,7 +444,7 @@
 	name = "Iced Tea"
 	id = "icetea"
 	description = "No relation to a certain rap artist/ actor."
-	color = "#104038" // rgb: 16, 64, 56
+	color = "#73280d"
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
@@ -450,7 +454,7 @@
 	name = "Banana Honk"
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#d4c540"
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
@@ -468,12 +472,13 @@
 	name = "Silencer"
 	id = "silencer"
 	description = "A drink from Mime Heaven."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#7c8287"
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "silencerglass"
 	drink_name = "Silencer"
 	drink_desc = "A drink from mime Heaven."
 	taste_description = "mphhhh"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -486,34 +491,37 @@
 	name = "Chocolate Pudding"
 	id = "chocolatepudding"
 	description = "A great dessert for chocolate lovers."
-	color = "#800000"
+	color = "#63230d"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
 	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/vanillapudding
 	name = "Vanilla Pudding"
 	id = "vanillapudding"
 	description = "A great dessert for vanilla lovers."
-	color = "#FAFAD2"
+	color = "#cbbe8a"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
 	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/cherryshake
 	name = "Cherry Shake"
 	id = "cherryshake"
 	description = "A cherry flavored milkshake."
-	color = "#FFB6C1"
+	color = "#ff7970"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "cherryshake"
 	drink_name = "Cherry Shake"
 	drink_desc = "A cherry flavored milkshake."
 	taste_description = "cherry milkshake"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/bluecherryshake
 	name = "Blue Cherry Shake"
@@ -525,6 +533,7 @@
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
 	taste_description = "blues"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/gibbfloats
 	name = "Gibb Floats"
@@ -536,6 +545,7 @@
 	drink_name = "Gibbfloat"
 	drink_desc = "Dr. Gibb with ice cream on top."
 	taste_description = "taste revolution"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/pumpkinjuice
 	name = "Pumpkin Juice"
@@ -559,7 +569,7 @@
 	name = "Grape soda"
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
-	color = "#E6CDFF"
+	color = "#b570ff"
 	drink_name = "Grape Soda"
 	drink_desc = "Made with real grapes! Shocking!"
 	taste_description = "grape soda"
@@ -568,17 +578,18 @@
 	name = "Iced Cocoa"
 	id = "icecoco"
 	description = "Hot cocoa and ice, refreshing and cool."
-	color = "#102838" // rgb: 16, 40, 56
+	color = "#5d2c28"
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/tonic
 	name = "Tonic Water"
 	id = "tonic"
 	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#5999c4"
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS
@@ -591,7 +602,7 @@
 	name = "Soda Water"
 	id = "sodawater"
 	description = "A can of club soda. Why not make a scotch and soda?"
-	color = "#619494" // rgb: 97, 148, 148
+	color = "#619494"
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	drink_icon = "glass_clear"
@@ -618,7 +629,7 @@
 	name = "Cola"
 	id = "cola"
 	description = "A refreshing beverage."
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#401a08"
 	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Space Cola"
@@ -629,13 +640,14 @@
 	name = "Nuka Cola"
 	id = "nuka_cola"
 	description = "Cola, cola never changes."
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#0e0502"
 	adj_sleepy = -4 SECONDS
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland."
 	harmless = FALSE
 	taste_description = "radioactive cola"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -654,7 +666,7 @@
 	name = "Space Mountain Wind"
 	id = "spacemountainwind"
 	description = "Blows right through you like a space wind."
-	color = "#102000" // rgb: 16, 32, 0
+	color = "#58d92e"
 	adj_drowsy = -14 SECONDS
 	adj_sleepy = -2 SECONDS
 	drink_icon = "Space_mountain_wind_glass"
@@ -666,7 +678,7 @@
 	name = "Dr. Gibb"
 	id = "dr_gibb"
 	description = "A delicious blend of 42 different flavours"
-	color = "#102000" // rgb: 16, 32, 0
+	color = "#bf0d16"
 	adj_drowsy = -12 SECONDS
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of Dr. Gibb"
@@ -677,7 +689,7 @@
 	name = "Space-Up"
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
-	color = "#C7DF67"
+	color = "#446693"
 	drink_icon = "space-up_glass"
 	drink_name = "Glass of Space-up"
 	drink_desc = "Space-up. It helps keep your cool."
@@ -699,16 +711,18 @@
 	drink_name = "Lemonade"
 	drink_desc = "Oh the nostalgia..."
 	taste_description = "lemonade"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/kiraspecial
 	name = "Kira Special"
 	description = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	id = "kiraspecial"
-	color = "#CCCC99" // rgb: 204, 204, 153
+	color = "#c97b0d"
 	drink_icon = "kiraspecial"
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	taste_description = "citrus soda"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/brownstar
 	name = "Brown Star"
@@ -719,12 +733,13 @@
 	drink_name = "Brown Star"
 	drink_desc = "Its not what it sounds like..."
 	taste_description = "orange soda"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/milkshake
 	name = "Milkshake"
 	description = "Glorious brainfreezing mixture."
 	id = "milkshake"
-	color = "#AEE5E4" // rgb" 174, 229, 228
+	color = "#ddcaa6"
 	drink_icon = "milkshake"
 	drink_name = "Milkshake"
 	drink_desc = "Glorious brainfreezing mixture."
@@ -734,11 +749,12 @@
 	name = "Rewriter"
 	description = "The secret of the sanctuary of the Librarian..."
 	id = "rewriter"
-	color = "#485000" // rgb:72, 080, 0
+	color = "#1f6f3a"
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
 	drink_desc = "The secret of the sanctuary of the Librarian..."
 	taste_description = "coffee...soda?"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(10 SECONDS)
@@ -748,11 +764,12 @@
 	name = "Arnold Palmer"
 	id = "arnold_palmer"
 	description = "A wholesome mixture of lemonade and iced tea."
-	color = "#8B5427" // rgb: 139, 84, 39
+	color = "#af934c"
 	drink_icon = "arnoldpalmer"
 	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
 	taste_description = "sweet and fizzy"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/fyrsskar_tears
 	name = "Tears of Fyrsskar"
@@ -765,6 +782,7 @@
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
 	if(isskrell(M))
@@ -801,11 +819,12 @@
 	name = "Lean"
 	id = "lean"
 	description = "Also known as Purple Drank."
-	color = "#f249d6"
+	color = "#8b3cd9"
 	drink_icon = "lean"
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
 	taste_description = "sweet druggy soda"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/melonade
 	name = "Melonade"
@@ -816,11 +835,54 @@
 	drink_name = "Tall Glass of Melonade"
 	drink_desc = "This would go great with 147 fluffity puffity marshalays."
 	taste_description = "summer fruit"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/melonade/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 5
 	return ..()
+
+/datum/reagent/consumable/drink/tapioca_pearls
+	name = "Tapioca Pearls"
+	description = "Tapioca pearls made from starch ground by cassava root. Tastes pretty good in tea."
+	id = "tapiocapearls"
+	color = "#222222"
+	drink_icon = "tapiocapearls"
+	drink_name = "Tapioca Pearls"
+	drink_desc = "This would go great with sugar, milk, and tea."
+	taste_description = "chewy starch"
+
+/datum/reagent/consumable/drink/tea/bubbletea
+	name = "Bubble Tea"
+	description = "A tea-based drink made with tapioca pearls. Known by some as boba tea."
+	id = "bubbletea"
+	drink_icon = "bubbletea"
+	drink_name = "Bubble Tea"
+	drink_desc = "You feel trendy for drinking this."
+	taste_description = "sweet tea with chewy pearls"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/tea/milktea
+	name = "Milk Tea"
+	description = "Tea and milk mixed together. Both sweet and creamy."
+	id = "milktea"
+	color = "#bfa46f"
+	drink_icon = "milktea"
+	drink_name = "Milk Tea"
+	drink_desc = "A refreshing and sweet beverage."
+	taste_description = "sweet milky tea"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/drink/tea/bubblemilktea
+	name = "Bubble Milk Tea"
+	description = "A tea-based drink made with milk and tapioca pearls. Known by some as boba milk tea."
+	id = "bubblemilktea"
+	color = "#d4b483"
+	drink_icon = "bubblemilktea"
+	drink_name = "Bubble Milk Tea"
+	drink_desc = "You feel extra trendy for drinking this."
+	taste_description = "sweet milky tea with chewy pearls"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/royrogers
 	name = "Roy Rogers"
@@ -831,6 +893,7 @@
 	drink_name = "Roy Rogers"
 	drink_desc = "The rootinest, tootinest drink you can get at the bar without any alcohol."
 	taste_description = "berries and cola"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/shirleytemple
 	name = "Shirley Temple"
@@ -841,6 +904,7 @@
 	drink_name = "Shirley Temple"
 	drink_desc = "A soft drink classic with a cherry on top."
 	taste_description = "berries and carbonation"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/partypunch
 	name = "Party Punch"
@@ -851,6 +915,7 @@
 	drink_name = "Glass of Party Punch"
 	drink_desc = "A vibrant mix of fruit juices. A real punch of flavor."
 	taste_description = "a punch of fruit"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/coffee/eggcoffee
 	name = "Egg Coffee"
@@ -861,6 +926,7 @@
 	drink_name = "Glass Mug of Egg Coffee"
 	drink_desc = "Rich coffee with custard foam."
 	taste_description = "rich foam"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/coffee/eggcoffee/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -876,6 +942,7 @@
 	drink_name = "Glass of Horchata"
 	drink_desc = "Sweetened rice milk topped with cinnamon."
 	taste_description = "cinnamony rice milk"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/monstermix
 	name = "Monster Mix"
@@ -886,6 +953,7 @@
 	drink_name = "Glass of Monster Mix"
 	drink_desc = "A mix of every soda in the dispenser. You monster."
 	taste_description = "an unholy amalgam"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/spessamatosmash
 	name = "Spessamato Smash"
@@ -896,6 +964,7 @@
 	drink_name = "Glass of Spessamato Smash"
 	drink_desc = "Fruity yet salty."
 	taste_description = "sparkling tomato"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/eggcream
 	name = "Egg Cream"
@@ -906,6 +975,7 @@
 	drink_name = "Glass of Egg Cream"
 	drink_desc = "You now have a glass of custard."
 	taste_description = "sweet egg"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/eggcream/on_mob_life(mob/living/M)
 	if(prob(2))
@@ -921,6 +991,7 @@
 	drink_name = "Glass of Beet Shrub"
 	drink_desc = "The vinegar gives this far more bite than any ordinary person would drink straight."
 	taste_description = "vinegar"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/berrybeetrefresher
 	name = "Berry Beet Refresher"
@@ -931,10 +1002,10 @@
 	drink_name = "Glass of Berry Beet Refresher"
 	drink_desc = "Tangy, sweet, with just a bit of bite."
 	taste_description = "tangy, bubbly fruit"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/smoothie
 	name = "Empty Smoothie"
-	description = ABSTRACT_TYPE_DESC
 	id = "smoothie"
 	color = "#9933FF"
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -956,6 +1027,7 @@
 	drink_name = "Glass of PB Banana Smoothie"
 	drink_desc = "So smooth and fluffy."
 	taste_description = "nutty banana"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/smoothie/veryberry
 	name = "Very Berry Smoothie"
@@ -966,6 +1038,7 @@
 	drink_name = "Glass of Very Berry Smoothie"
 	drink_desc = "Berries give this creamy beverage its speckled appearance."
 	taste_description = "berries and cream"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/vegetablemix
 	name = "Vegetable Juice Mix"
@@ -976,6 +1049,7 @@
 	drink_name = "Glass of Vegetable Juice"
 	drink_desc = "Mellow and creamy vegetable juice."
 	taste_description = "so many vitamins"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/drink/vegetablemix/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1002,6 +1076,7 @@
 	taste_description = "salt"
 	adj_dizzy = -5 SECONDS
 	process_flags = ORGANIC | SYNTHETIC
+	max_kidney_damage = 3
 
 /datum/reagent/consumable/drink/electrolytes/on_mob_life(mob/living/M)
 	M.AdjustConfused(-5 SECONDS)
@@ -1032,6 +1107,7 @@
 	drink_name = "Glass of Top-Up"
 	drink_desc = "A sports drink for the busy spessman."
 	taste_description = "lemony lectrolytes"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/zero_day
 	name = "Zero Day"
@@ -1043,6 +1119,7 @@
 	drink_desc = "A data breach in a glass."
 	taste_description = "half-emptiness"
 	COOLDOWN_DECLARE(drip_cooldown)
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/zero_day/on_new(data)
 	..()
@@ -1082,6 +1159,7 @@
 	drink_name = "Glass of TCP Sip"
 	drink_desc = "A non-synthanolic refreshment for synthetics."
 	taste_description = "half-emptiness"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
@@ -1094,7 +1172,7 @@
 	return ..()
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/ginger_beep
-	name = "ginger_beep"
+	name = "Ginger Beep"
 	description = "A gingery refreshment for synthetics."
 	id = "ginger_beep"
 	color = "#bd994d"
@@ -1122,6 +1200,7 @@
 	drink_name = "Glass of Electrocharge"
 	drink_desc = "A real charge-up for synthetics."
 	taste_description = "a full battery"
+	goal_difficulty = REAGENT_GOAL_HARD
 	COOLDOWN_DECLARE(drink_message_cooldown)
 	COOLDOWN_DECLARE(drink_overcharge_cooldown)
 
@@ -1135,9 +1214,9 @@
 	if(M.nutrition > NUTRITION_LEVEL_FULL && prob(10) && COOLDOWN_FINISHED(src, drink_overcharge_cooldown))
 		do_sparks(2, FALSE, M)
 		M.visible_message(
-			"<span class='notice'>[M] lets off a few sparks.</span>",
-			"<span class='notice'>You feel a little <i>too</i> charged up.</span>",
-			"<span class='notice'>Something fizzles nearby.</span>"
+			SPAN_NOTICE("[M] lets off a few sparks."),
+			SPAN_NOTICE("You feel a little <i>too</i> charged up."),
+			SPAN_NOTICE("Something fizzles nearby.")
 		)
 		microbattery.receive_damage(2, TRUE) // this drink is not great for you when you're already charged
 		COOLDOWN_START(src, drink_overcharge_cooldown, 30 SECONDS)
@@ -1147,7 +1226,7 @@
 		metabolization_rate += 0.8 // charging triple means burning through triple
 		M.nutrition += 2
 		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
-			to_chat(M, "<span class='notice'>You feel relief surging through your wires!</span>")
+			to_chat(M, SPAN_NOTICE("You feel relief surging through your wires!"))
 			COOLDOWN_START(src, drink_message_cooldown, 10 MINUTES)
 	return ..()
 
@@ -1160,6 +1239,7 @@
 	drink_name = "Glass of Battery Acid"
 	drink_desc = "So acidic, it forms an acid like its namesake on the rim of the glass."
 	taste_description = "fried wires"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/processor_punch
 	name = "Processor Punch"
@@ -1180,7 +1260,9 @@
 	drink_name = "Glass of Bubbly Beep"
 	drink_desc = "The cleanest, bubbliest drink on the station."
 	taste_description = "decontamination"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
+	COOLDOWN_DECLARE(drink_message_cooldown)
 
 /datum/reagent/consumable/drink/bubbly_beep/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
@@ -1194,7 +1276,9 @@
 		qdel(pick(/obj/effect/decal/cleanable/ in M))
 	else
 		M.clean_blood()
-		to_chat(M, "<span class='notice'>The foam cleans you as it bubbles through your components.</span>")
+		if(COOLDOWN_FINISHED(src, drink_message_cooldown))
+			to_chat(M, SPAN_NOTICE("The foam cleans you as it bubbles through your components."))
+			COOLDOWN_START(src, drink_message_cooldown, 2 MINUTES)
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 	return ..()
 
@@ -1207,6 +1291,7 @@
 	drink_name = "Glass of Tin and Tonic"
 	drink_desc = "A good sip for a synthetic curious about quinine."
 	taste_description = "smoothly-running processors"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
 
 /datum/reagent/consumable/drink/tin_and_tonic/on_mob_life(mob/living/M)
@@ -1227,6 +1312,7 @@
 	drink_name = "Glass of Salt and Battery"
 	drink_desc = "Looks like it'll charge you up, but really it'll beat you down."
 	taste_description = "assault to the batteries"
+	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 
 /datum/reagent/consumable/drink/salt_and_battery/on_mob_life(mob/living/M)
@@ -1250,9 +1336,9 @@
 		var/beat_verbs = pick("assaults","batters")
 		M.Jitter(0.5 SECONDS)
 		M.visible_message(
-			"<span class='notice'>[M] is battered by an unseen assailant!</span>",
-			"<span class='notice'>The beverage [beat_verbs] you!</span>",
-			"<span class='warning'>You hear empty punches against metal!</span>"
+			SPAN_NOTICE("[M] is battered by an unseen assailant!"),
+			SPAN_NOTICE("The beverage [beat_verbs] you!"),
+			SPAN_WARNING("You hear empty punches against metal!")
 		)
 		if(prob(25))
 			M.KnockDown(2 SECONDS)
@@ -1267,6 +1353,7 @@
 	drink_name = "Glass of Soft Reset"
 	drink_desc = "Have you tried turning it off and back on again?"
 	taste_description = "a little reboot"
+	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 	COOLDOWN_DECLARE(reboot_cooldown)
 
@@ -1287,7 +1374,7 @@
 		Mc.wetlevel -= 2
 	M.germ_level -= min(volume*20, M.germ_level)
 	if(COOLDOWN_FINISHED(src, reboot_cooldown) && prob(10))
-		to_chat(M, "<span class='notice'>Your systems prepare for a reboot.</span>")
+		to_chat(M, SPAN_NOTICE("Your systems prepare for a reboot."))
 		M.Paralyse(3 SECONDS)
 		M.Drowsy(10 SECONDS)
 		metabolization_rate += 2.6 // get rid of it faster after rebooting

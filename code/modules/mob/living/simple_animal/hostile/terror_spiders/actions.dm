@@ -136,19 +136,19 @@
 	if(!web_type)
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
+		to_chat(src, SPAN_DANGER("Webs can only be spun while standing on a floor."))
 		return
 	var/turf/mylocation = loc
-	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	visible_message(SPAN_NOTICE("[src] begins to secrete a sticky substance."))
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
 		else if(isspaceturf(loc))
-			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
+			to_chat(src, SPAN_DANGER("Webs cannot be spun in space."))
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(T)
-				to_chat(src, "<span class='danger'>There is already a web here.</span>")
+				to_chat(src, SPAN_DANGER("There is already a web here."))
 			else
 				var/obj/structure/spider/terrorweb/W = new web_type(loc)
 				W.creator_ckey = ckey
@@ -186,7 +186,7 @@
 /obj/structure/spider/terrorweb/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isliving(entered) && !isterrorspider(entered))
 		var/mob/living/M = entered
-		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
+		to_chat(M, SPAN_USERDANGER("You get stuck in [src] for a moment."))
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
@@ -204,7 +204,7 @@
 
 /obj/structure/spider/terrorweb/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
+		visible_message(SPAN_DANGER("[src] is undamaged by [Proj]!"))
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()
@@ -241,7 +241,7 @@
 		if(length(choices))
 			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", "Cocoon Selection", choices)
 		else
-			to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
+			to_chat(src, SPAN_DANGER("There is nothing nearby you can wrap."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(cocoon_target && busy != SPINNING_COCOON)
@@ -249,7 +249,7 @@
 			cocoon_target = null
 			return
 		busy = SPINNING_COCOON
-		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		visible_message(SPAN_NOTICE("[src] begins to secrete a sticky substance around [cocoon_target]."))
 		stop_automated_movement = TRUE
 		GLOB.move_manager.stop_looping(src)
 		if(do_after(src, 40, target = cocoon_target.loc))
@@ -276,10 +276,10 @@
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
 							fed++
-							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+							visible_message(SPAN_DANGER("[src] sticks a proboscis into [L] and sucks a viscous substance out."))
+							to_chat(src, SPAN_NOTICE("You feel invigorated!"))
 						else
-							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
+							visible_message(SPAN_DANGER("[src] wraps [L] in a web."))
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.loc = C
@@ -301,7 +301,7 @@
 		if(C.welded)
 			valid_target = TRUE
 	if(!valid_target)
-		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
+		to_chat(src, SPAN_WARNING("No welded vent or scrubber nearby!"))
 		return
 	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 	if(do_after(src, 40, target = loc))
@@ -311,7 +311,7 @@
 				P.update_icon()
 				P.update_pipe_image()
 				forceMove(P.loc)
-				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
+				P.visible_message(SPAN_DANGER("[src] smashes the welded cover off [P]!"))
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
@@ -319,7 +319,7 @@
 				C.update_icon()
 				C.update_pipe_image()
 				forceMove(C.loc)
-				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
+				C.visible_message(SPAN_DANGER("[src] smashes the welded cover off [C]!"))
 				return
-		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
+		to_chat(src, SPAN_DANGER("There is no welded vent or scrubber close enough to do this."))
 
