@@ -568,6 +568,8 @@
 			if(chamber.chamber_state == CHAMBER_UP)
 				active_chambers++
 				continue
+	if(!active_chambers) // for average heat generation calculations not to divide by 0
+		active_chambers = 0.5
 
 	// Gather all our data from the chambers, and enrich if we need to
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
@@ -902,7 +904,11 @@
 
 /// Stops the reactor in a somewhat fancy way. Purely for anyone watching the monitor.
 /obj/machinery/atmospherics/fission_reactor/proc/scram()
-	var/power_fraction = final_power / operating_power
+	var/power_fraction
+	if(final_power)
+		power_fraction = final_power / operating_power
+	else
+		power_fraction = 0
 	reactivity_multiplier = 1
 	offline = TRUE
 	starting_up = TRUE

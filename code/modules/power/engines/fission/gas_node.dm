@@ -1,3 +1,5 @@
+#define MINIMUM_MOLES 3 //! the minimum amount of moles we transfer, regardless of pressure on the other side.
+
 /obj/machinery/atmospherics/unary/reactor_gas_node
 	name = "reactor gas intake"
 	desc = "A sturdy-looking gas inlet that injects gas into the reactor."
@@ -31,7 +33,7 @@
 // Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
 /obj/machinery/atmospherics/unary/reactor_gas_node/LateInitialize()
 	. = ..()
-	form_link(FALSE)
+	form_link(TRUE)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/examine(mob/user)
 	. = ..()
@@ -68,7 +70,7 @@
 	if((network2.total_moles() > 0) && (network2.temperature() > 0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure) / 2)
 		if(intake_vent)
-			pressure_delta = max(pressure_delta, 3) // Always work at least a little bit when inputting gas
+			pressure_delta = max(pressure_delta, MINIMUM_MOLES) // Always work at least a little bit when inputting gas
 		var/transfer_moles = pressure_delta * network1.volume / (network2.temperature() * R_IDEAL_GAS_EQUATION)
 
 		// Actually transfer the gas
@@ -103,7 +105,7 @@
 		if(target.initialize_directions & get_dir(target,src))
 			node = target
 			break
-	form_link(TRUE)
+	form_link(FALSE)
 	initialize_atmos_network()
 	update_icon()
 	return ITEM_INTERACT_COMPLETE
@@ -116,6 +118,8 @@
 	for(var/obj/structure/filler/filler in T)
 		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			linked_reactor = filler.parent
+	if(silent)
+		return
 	if(!linked_reactor)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		audible_message(SPAN_INFO("The gas node buzzes as it fails to connect to a reactor."))
@@ -142,3 +146,5 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/metal = 2,
 	)
+
+#undef MINIMUM_MOLES
