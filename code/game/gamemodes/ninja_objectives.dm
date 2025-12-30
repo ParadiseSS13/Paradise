@@ -78,14 +78,16 @@
 	needs_target = FALSE
 
 /datum/objective/ninja/bomb_department/update_explanation_text()
-		explanation_text = "Use the special flare provided to call down and arm a spider bomb. The target department is inscribed on the flare."
+	explanation_text = "Use the special flare provided to call down and arm a spider bomb. The target department is inscribed on the flare."
 
-/datum/objective/ninja/emp_department
+/datum/objective/ninja/bomb_department/emp
 	name = "EMP Department"
-	needs_target = FALSE
 
-/datum/objective/ninja/emp_department/update_explanation_text()
+/datum/objective/ninja/bomb_department/emp/update_explanation_text()
 	explanation_text = "Use the special flare provided to call down and arm an EMP bomb. The target department is inscribed on the flare."
+
+/datum/objective/ninja/bomb_department/spiders
+	name = "Spider Bomb Department"
 
 /datum/objective/ninja_exfiltrate
 	name = "Exfiltrate"

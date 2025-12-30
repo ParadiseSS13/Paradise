@@ -2870,6 +2870,7 @@
 #include "code\modules\ninja\energy_katana.dm"
 #include "code\modules\ninja\ninja_actions.dm"
 #include "code\modules\ninja\ninja_clothes.dm"
+#include "code\modules\ninja\ninja_deployables.dm"
 #include "code\modules\ninja\ninja_outfits.dm"
 #include "code\modules\ninja\ninja_scanner.dm"
 #include "code\modules\ninja\ninja_uplink.dm"
