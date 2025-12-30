@@ -3111,6 +3111,9 @@
 	},
 /obj/structure/table,
 /obj/item/deck/cards,
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "anO" = (
@@ -10307,6 +10310,10 @@
 /area/station/hallway/secondary/entry/north)
 "aMC" = (
 /obj/structure/table,
+/obj/item/reagent_containers/drinks/carton/grape{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aMD" = (
@@ -10510,6 +10517,7 @@
 /area/station/maintenance/fsmaint)
 "aNj" = (
 /obj/structure/table,
+/obj/item/reagent_containers/drinks/carton/grape,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aNk" = (
@@ -54025,6 +54033,11 @@
 /obj/effect/spawner/random/plushies,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"hRP" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/asmaint)
 "hSg" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -141242,7 +141255,7 @@ ciY
 nCZ
 iXD
 nCZ
-hXR
+hRP
 ciY
 aab
 aaa
