@@ -25,3 +25,11 @@ GENERAL_PROTECT_DATUM(/datum/user_verb)
 /// Unassigns the verb from the user.
 /datum/user_verb/proc/unassign_from_client(client/user)
 	remove_verb(user, verb_path)
+
+/// Lets people be pinged inside of staff channels.
+/datum/user_verb/proc/do_chat_ping(client/C, message)
+	var/display_name = C.holder.fakekey || C.ckey || C.key
+	if(findtext(message, "@[display_name]"))
+		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+		message = replacetext(message, "@[display_name]", "<font color='red'>@[display_name]</font>")
+	return message
