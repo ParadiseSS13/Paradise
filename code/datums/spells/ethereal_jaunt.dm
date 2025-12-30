@@ -26,7 +26,7 @@
 		if(SEND_SIGNAL(target, COMSIG_MOB_PRE_JAUNT, target) & COMPONENT_BLOCK_JAUNT)
 			continue
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, SPAN_WARNING("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
@@ -103,7 +103,7 @@
 		forceMove(newLoc)
 		return
 	if(!IS_DIR_DIAGONAL(direction))
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, SPAN_WARNING("Something is blocking the way!"))
 		return
 	var/turf/possible_1 = get_step(src, turn(direction, 45))
 	var/turf/possible_2 = get_step(src, turn(direction, -45))
@@ -113,7 +113,7 @@
 	if(can_move(possible_2))
 		forceMove(possible_2)
 		return
-	to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+	to_chat(user, SPAN_WARNING("Something is blocking the way!"))
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
 	return TRUE

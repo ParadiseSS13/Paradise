@@ -97,24 +97,24 @@
 /datum/action/innate/unathi_ignite/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		to_chat(user, SPAN_WARNING("Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again."))
 		return
 	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
 		if(ismask(user.wear_mask))
 			var/obj/item/clothing/mask/worn_mask = user.wear_mask
 			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (worn_mask.flags_cover & MASKCOVERSMOUTH) && !worn_mask.up)
-				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+				to_chat(user, SPAN_WARNING("Your mouth is covered."))
 				return
 		var/obj/item/match/unathi/fire = new(user.loc, src)
 		if(user.put_in_hands(fire))
-			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+			to_chat(user, SPAN_NOTICE("You ignite a small flame in your mouth."))
 			user.reagents.remove_reagent("fuel", 50) //slightly high, but I'd rather avoid it being TOO spammable.
 			cooldown = world.time + cooldown_duration
 		else
 			qdel(fire)
-			to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+			to_chat(user, SPAN_WARNING("You don't have any free hands."))
 	else
-		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
+		to_chat(user, SPAN_WARNING("You need to drink welding fuel first."))
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

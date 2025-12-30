@@ -62,10 +62,10 @@
 	if(A == target)
 		forceMove(get_turf(target))
 		target.Weaken(10 SECONDS)
-		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
-							"<span class='userdanger'>[name] pounces on you!</span>")
+		target.visible_message(SPAN_DANGER("[target] recoils backwards and falls flat!"),
+							SPAN_USERDANGER("[name] pounces on you!"))
 
-		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
+		to_chat(target, SPAN_NOTICE("[name] begins climbing into the ventilation system..."))
 	QDEL_IN(src, 2 SECONDS)
 
 /**

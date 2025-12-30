@@ -40,7 +40,7 @@
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+		visible_message(SPAN_WARNING("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
 	update_icon()
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(on_new_z))
@@ -248,7 +248,7 @@
 				active = !active
 				update_icon()
 			else
-				to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+				to_chat(usr, SPAN_WARNING("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
 
 		// NTTC Toggles
 		if("nttc_toggle_jobs")
@@ -271,7 +271,7 @@
 			if(!card_style)
 				return
 			nttc.job_indicator_type = card_style
-			to_chat(usr, "<span class='notice'>Jobs will now have the style of [card_style].</span>")
+			to_chat(usr, SPAN_NOTICE("Jobs will now have the style of [card_style]."))
 			log_action(usr, "has set NTTC job card format to [card_style]")
 
 		// Language Settings
@@ -281,10 +281,10 @@
 				return
 			if(new_language == "--DISABLE--")
 				nttc.setting_language = null
-				to_chat(usr, "<span class='notice'>Language conversion disabled.</span>")
+				to_chat(usr, SPAN_NOTICE("Language conversion disabled."))
 			else
 				nttc.setting_language = new_language
-				to_chat(usr, "<span class='notice'>Messages will now be converted to [new_language].</span>")
+				to_chat(usr, SPAN_NOTICE("Messages will now be converted to [new_language]."))
 
 			log_action(usr, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
@@ -305,7 +305,7 @@
 			if(!new_id)
 				return
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			to_chat(usr, SPAN_NOTICE("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
 
 		if("unlink")
@@ -316,14 +316,14 @@
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Relay not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Relay not found. Please file an issue report."))
 
 		if("change_password")
 			var/new_password = tgui_input_text(usr, "Please enter a new password", "New Password", link_password)
 			if(!new_password)
 				return
 			log_action(usr, "has changed the password on core with ID [network_id] from [link_password] to [new_password]")
-			to_chat(usr, "<span class='notice'>Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>.</span>")
+			to_chat(usr, SPAN_NOTICE("Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>."))
 			link_password = new_password
 
 		if("add_filter")
@@ -332,22 +332,22 @@
 			if(!name_to_add)
 				return
 			if(name_to_add in nttc.filtering)
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> User already in filtering list.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> User already in filtering list."))
 			else
 				nttc.filtering |= name_to_add
 				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
-				to_chat(usr, "<span class='notice'>Successfully added <b>[name_to_add]</b> to the NTTC filtering list.</span>")
+				to_chat(usr, SPAN_NOTICE("Successfully added <b>[name_to_add]</b> to the NTTC filtering list."))
 
 		if("remove_filter")
 			var/name_to_remove = params["user"]
 			if(!(name_to_remove in nttc.filtering))
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Name does not exist in filter list. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Name does not exist in filter list. Please file an issue report."))
 			else
 				var/confirm = tgui_alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", list("Yes", "No"))
 				if(confirm == "Yes")
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
-					to_chat(usr, "<span class='notice'>Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list."))
 
 /obj/machinery/tcomms/core/proc/on_new_z(datum/source, name, linkage, list/traits, transition_tag, level_type, z_level)
 	SIGNAL_HANDLER // COMSIG_GLOB_NEW_Z

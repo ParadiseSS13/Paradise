@@ -23,19 +23,19 @@
 		return
 
 	if(HAS_TRAIT(M, TRAIT_GENELESS))
-		to_chat(user, "<span class='warning'>You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject.</span>")
+		to_chat(user, SPAN_WARNING("You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject."))
 		return
 
 	if(M == user)
-		user.visible_message("<span class='danger'>[user] injects [user.p_themselves()] with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] injects [user.p_themselves()] with [src]!"))
 		injected(user, user)
 	else
-		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] is trying to inject [M] with [src]!"))
 		if(do_mob(user,M,30))
-			user.visible_message("<span class='danger'>[user] injects [M] with [src].</span>")
+			user.visible_message(SPAN_DANGER("[user] injects [M] with [src]."))
 			injected(M, user)
 		else
-			to_chat(user, "<span class='warning'>You failed to inject [M].</span>")
+			to_chat(user, SPAN_WARNING("You failed to inject [M]."))
 
 /obj/item/dnascrambler/proc/injected(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(istype(target))

@@ -41,11 +41,11 @@
 /obj/item/food/egg/watcher/examine(mob/user)
 	. = ..()
 	if(steps_travelled < (steps_to_hatch * WATCHER_EGG_ACTIVE_MOD))
-		. += "<span class='notice'>Something stirs listlessly inside.</span>"
+		. += SPAN_NOTICE("Something stirs listlessly inside.")
 	else if(steps_travelled < (steps_to_hatch * WATCHER_EGG_LIVELY_MOD))
-		. += "<span class='notice'>Something is moving actively inside.</span>"
+		. += SPAN_NOTICE("Something is moving actively inside.")
 	else
-		. += "<span class='boldnotice'>It's jiggling wildly, it's about to hatch!</span>"
+		. += SPAN_BOLDNOTICE("It's jiggling wildly, it's about to hatch!")
 
 
 
@@ -60,7 +60,7 @@
 		return
 	if(steps_travelled < steps_to_hatch)
 		return
-	visible_message("<span class='boldnotice'>[src] splits and unfurls into a baby Watcher!</span>")
+	visible_message(SPAN_BOLDNOTICE("[src] splits and unfurls into a baby Watcher!"))
 	playsound(new_loc, 'sound/effects/splat.ogg', 50, TRUE)
 	new /obj/effect/decal/cleanable/greenglow(new_loc)
 	new /obj/item/watcher_hatchling(new_loc)
@@ -242,13 +242,13 @@
 /// We must guard this corpse
 /obj/effect/watcher_orbiter/proc/on_parent_died(mob/living/parent)
 	SIGNAL_HANDLER
-	visible_message("<span class='notice'>[src] emits a piteous keening in mourning of [parent]!</span>")
+	visible_message(SPAN_NOTICE("[src] emits a piteous keening in mourning of [parent]!"))
 	fire_delay /= on_death_multiplier
 
 /// Exit hyperactive mode
 /obj/effect/watcher_orbiter/proc/on_parent_revived(mob/living/parent)
 	SIGNAL_HANDLER
-	visible_message("<span class='notice'>[src] chirps happily as [parent] suddenly gasps for breath!</span>")
+	visible_message(SPAN_NOTICE("[src] chirps happily as [parent] suddenly gasps for breath!"))
 	fire_delay *= on_death_multiplier
 
 

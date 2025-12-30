@@ -17,7 +17,7 @@
 
 /datum/element/butchers_humans/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
+	examine_list += SPAN_WARNING("Can be used to butcher dead people into meat while on harm intent.")
 
 /datum/element/butchers_humans/proc/on_attack(datum/source, mob/living/victim, mob/living/user, params)
 	SIGNAL_HANDLER // COMSIG_ATTACK
@@ -37,7 +37,7 @@
 		human.meatleft--
 
 		if(human.meatleft)
-			to_chat(user, "<span class='warning'>You hack off a chunk of meat from [human]!</span>")
+			to_chat(user, SPAN_WARNING("You hack off a chunk of meat from [human]!"))
 			// fallthrough so we get side-effects like blood splatter and limb
 			// flyoff from human attacked_by while we still have a corpse around
 			return
@@ -49,6 +49,6 @@
 		if(item.hitsound)
 			playsound(get_turf(item), item.hitsound, item.get_clamped_volume(), TRUE, extrarange = item.stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 		add_attack_logs(user, human, "Chopped up into meat with [item.name] ([uppertext(user.a_intent)])", human.ckey ? null : ATKLOG_ALMOSTALL)
-		to_chat(user, "<span class='warning'>You reduce [human] to a pile of meat!</span>")
+		to_chat(user, SPAN_WARNING("You reduce [human] to a pile of meat!"))
 		qdel(human)
 		return COMPONENT_CANCEL_ATTACK_CHAIN

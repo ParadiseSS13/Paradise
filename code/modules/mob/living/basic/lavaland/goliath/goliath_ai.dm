@@ -67,6 +67,7 @@
 	var/scan_range = 3
 
 /datum/ai_behavior/goliath_find_diggable_turf/perform(seconds_per_tick, datum/ai_controller/controller)
+	. = ..()
 	var/turf/target_turf = controller.blackboard[target_key]
 	if(is_valid_turf(target_turf))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
@@ -110,6 +111,7 @@
 	set_movement_target(controller, target_turf)
 
 /datum/ai_behavior/goliath_dig/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/turf/target_turf = controller.blackboard[target_key]
 	var/mob/living/basic/basic_mob = controller.pawn
 	if(!basic_mob.can_reach(target_turf))

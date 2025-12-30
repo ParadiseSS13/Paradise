@@ -35,7 +35,7 @@
 /obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_type_in_list(W, allowed_bashers))
 		if(cooldown < world.time - 2.5 SECONDS)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
+			user.visible_message(SPAN_WARNING("[user] bashes [src] with [W]!"))
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else
@@ -97,7 +97,7 @@
 		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
-			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
+			to_chat(owner, SPAN_WARNING("[hitby] overloaded your [src]!"))
 	return 0
 
 /obj/item/shield/energy/IsReflect()
@@ -108,7 +108,7 @@
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
-		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
+		to_chat(user, SPAN_WARNING("You beat yourself in the head with [src]."))
 		user.take_organ_damage(5)
 	active = !active
 	icon_state = "eshield[active]"
@@ -119,14 +119,14 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now active."))
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -164,7 +164,7 @@
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 8
@@ -172,7 +172,7 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You extend \the [src]."))
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	if(ishuman(user))

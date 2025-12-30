@@ -22,6 +22,10 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
+/mob/living/simple_animal/pet/dog/fox/renault/Initialize(mapload)
+	. = ..()
+	GLOB.station_pets += src
+
 //Syndi fox
 /mob/living/simple_animal/pet/dog/fox/syndifox
 	name = "Syndifox"
