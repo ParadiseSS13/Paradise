@@ -15,5 +15,6 @@
 		/obj/item/ninja_scanner,
 	)
 	bio_chips = list(
-		/obj/item/bio_chip/dust
+		/obj/item/bio_chip/dust,
+		/obj/item/bio_chip/uplink/ninja
 	)

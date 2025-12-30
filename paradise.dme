@@ -2872,6 +2872,7 @@
 #include "code\modules\ninja\ninja_clothes.dm"
 #include "code\modules\ninja\ninja_outfits.dm"
 #include "code\modules\ninja\ninja_scanner.dm"
+#include "code\modules\ninja\ninja_uplink.dm"
 #include "code\modules\paperwork\carbonpaper.dm"
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\desk_bell.dm"

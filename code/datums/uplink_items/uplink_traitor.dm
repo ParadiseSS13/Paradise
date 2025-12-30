@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -337,7 +337,7 @@
 	reference = "PP"
 	item = /obj/item/storage/box/syndie_kit/poisoner
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
 // Tarot card generator, librarian and Chaplain.
@@ -358,7 +358,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
@@ -450,7 +450,7 @@
 	reference = "EC"
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 60
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 50
 
 /datum/uplink_item/dangerous/bulldog_traitor
@@ -459,7 +459,7 @@
 	reference = "BLSG"
 	item = /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/ammo/bull_rubbershot
 	name = "Bulldog - 12g Rubbershot Magazine"
@@ -467,7 +467,7 @@
 	reference = "12BRU"
 	item = /obj/item/ammo_box/magazine/m12g/rubbershot
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
@@ -475,7 +475,7 @@
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian/uplink
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
@@ -496,7 +496,7 @@
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
@@ -507,7 +507,7 @@
 	reference = "BSP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 60
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
@@ -515,7 +515,7 @@
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -525,7 +525,7 @@
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	cost = 20
 
 /datum/uplink_item/stealthy_tools/voice_modulator
@@ -535,7 +535,7 @@
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 5
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/voice_changer
 	name = "Chameleon Voice Changer Mask"
@@ -544,7 +544,7 @@
 	reference = "CVCM"
 	item = /obj/item/clothing/mask/chameleon/voice_change
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
 	name = "\"Big Brother\" Obfuscation Suit"
@@ -553,7 +553,7 @@
 	reference = "BBOS"
 	item = /obj/item/clothing/under/syndicate/silicon_cham
 	cost = 20
-	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -561,7 +561,7 @@
 	reference = "SP"
 	item = /obj/item/pen/sleepy
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol Kit"
@@ -570,7 +570,7 @@
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 20
 	surplus = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /// Nukies get combat gloves plus instead
 /datum/uplink_item/stealthy_weapons/combat_minus
@@ -579,7 +579,7 @@
 	reference = "CGM"
 	item = /obj/item/clothing/gloves/color/black/krav_maga
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/device_tools/extraction_beacon
 	name = "Extraction Flare"
@@ -587,7 +587,7 @@
 	reference = "EXTF"
 	item = /obj/item/wormhole_jaunter/extraction
 	limited_stock = 1
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/device_tools/hyper_medipen
 	name = "Hyper-regenerative Medipen"
@@ -595,7 +595,7 @@
 	reference = "HMP"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /// Nukies get Diamond Tipped Thermal Safe Drill instead
 /datum/uplink_item/device_tools/thermal_drill
@@ -605,7 +605,7 @@
 	item = /obj/item/thermal_drill/syndicate
 	cost = 5
 	surplus = 0 // I feel like its amazing for one objective and one objective only. Far too specific.
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/suits/modsuit
 	name = "Syndicate MODsuit"
@@ -618,7 +618,7 @@
 	item = /obj/item/mod/control/pre_equipped/traitor
 	cost = 30
 	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/suits/modsuit_elite
 	name = "Syndicate Elite MODsuit"
@@ -628,7 +628,7 @@
 	item = /obj/item/mod/control/pre_equipped/traitor_elite
 	cost = 45 //45 to start, no holopara / ebow.
 	surplus = 60
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /// Nukies get Nuclear Uplink Bio-chip instead
 /datum/uplink_item/bio_chips/uplink
@@ -637,7 +637,7 @@
 	reference = "UI"
 	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	can_discount = FALSE
 
@@ -651,7 +651,7 @@
 	reference = "QLSC"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) //No, nukies do not get to dodge bullets.
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -660,7 +660,7 @@
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
 	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 40
 
 /datum/uplink_item/badass/plasticbag
@@ -669,7 +669,7 @@
 	reference = "PBAG"
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bundles_tc/contractor
 	name = "Syndicate Contractor Kit"
@@ -677,7 +677,7 @@
 	reference = "SCOK"
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/contractor
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bundles_tc/contractor/spawn_item(turf/loc, obj/item/uplink/U)
 	var/datum/mind/mind = usr.mind
@@ -709,7 +709,7 @@
 	reference = "SYB"
 	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bundles_tc/surplus_crate
 	name = "Syndicate Surplus Crate"
@@ -717,7 +717,7 @@
 	reference = "SYSC"
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/bundle
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
 
@@ -739,7 +739,7 @@
 	reference = "CQC"
 	item = /obj/item/cqc_manual
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
@@ -748,7 +748,7 @@
 	reference = "SB"
 	item = /obj/item/beacon/syndicate/bomb
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -759,7 +759,7 @@
 	reference = "SBEMP"
 	item = /obj/item/beacon/syndicate/bomb/emp
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	can_discount = FALSE
 
@@ -774,7 +774,7 @@
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -785,7 +785,7 @@
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Chameleon Shoes"
@@ -794,7 +794,7 @@
 	reference = "NSSS"
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
@@ -802,4 +802,4 @@
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 30
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
