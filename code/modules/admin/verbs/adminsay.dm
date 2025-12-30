@@ -64,8 +64,15 @@ USER_VERB(dev_say, R_ADMIN|R_DEV_TEAM, "Devsay", "Devsay", VERB_CATEGORY_HIDDEN,
 					display_name = "[client.holder.fakekey]/([client.key])"
 				else
 					display_name = client.holder.fakekey
-			msg = SPAN_EMOJI_ENABLED("[msg]")
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+
+			var/temp_message = msg
+			if(findtext(temp_message, "@[display_name]"))
+				SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+				temp_message = replacetext(temp_message, "@[display_name]", "<font color='red'>@[display_name]</font>")
+				temp_message = replacetext(temp_message, "@[display_name]", "<font color='red'>@[display_name]</font>")
+
+			temp_message = SPAN_EMOJI_ENABLED("[temp_message]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[temp_message]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -99,8 +106,15 @@ USER_VERB(staff_say, R_ADMIN|R_MENTOR|R_DEV_TEAM, "Staffsay", "Staffsay", VERB_C
 					display_name = "[client.holder.fakekey]/([client.key])"
 				else
 					display_name = client.holder.fakekey
-			msg = SPAN_EMOJI_ENABLED("[msg]")
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[msg]")]</span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
+
+			var/temp_message = msg
+			if(findtext(temp_message, "@[display_name]"))
+				SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+				temp_message = replacetext(temp_message, "@[display_name]", "<font color='red'>@[display_name]</font>")
+				temp_message = replacetext(temp_message, "@[display_name]", "<font color='red'>@[display_name]</font>")
+
+			temp_message = SPAN_EMOJI_ENABLED("[temp_message]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(client.mob)]): [SPAN_MESSAGE("[temp_message]")]</span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Staffsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
