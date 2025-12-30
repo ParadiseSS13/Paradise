@@ -37,7 +37,7 @@
 	var/welded = FALSE
 	/// Holds the current accumulated power mod value from its neighbors
 	var/power_mod_total = 1
-	/// Holds the current accumulated power mod value from its neighbors
+	/// Holds the current accumulated heat mod value from its neighbors
 	var/heat_mod_total = 1
 	/// A simple binary to prevent open/close spam mucking up the anims
 	var/lockout = FALSE
@@ -280,6 +280,7 @@
 			if(!held_rod)
 				if(panel_open)
 					to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
+					return ITEM_INTERACT_COMPLETE
 				if(user.transfer_item_to(used, src, force = TRUE))
 					held_rod = used
 					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
@@ -308,11 +309,11 @@
 /obj/machinery/atmospherics/reactor_chamber/welder_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		if(chamber_state == CHAMBER_OVERLOAD_IDLE || chamber_state == CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, SPAN_WARNING("You probably shouldnt try to weld it right now."))
+			to_chat(user, SPAN_WARNING("You probably shouldn't try to weld it right now."))
 			return ITEM_INTERACT_COMPLETE
 		if(chamber_state != CHAMBER_DOWN)
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, SPAN_WARNING("You begin [welded ? "welding" : "unwelding"] [src]"))
+		to_chat(user, SPAN_WARNING("You begin [welded ? "unwelding" : "welding"] [src]"))
 		if(!I.use_tool(src, user, (6 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return ITEM_INTERACT_COMPLETE
 		if(welded)
@@ -416,7 +417,7 @@
 	update_icon()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod)
-			return
+			continue
 		if(chamber.check_status())
 			chamber.requirements_met = TRUE
 		else
@@ -761,7 +762,7 @@
 
 /obj/effect/immovablerod/nuclear_rod
 	name = "\improper Nuclear Coolant Rod"
-	desc = "Oh fuck this shouldnt be happening."
+	desc = "Oh fuck this shouldn't be happening."
 	notify = FALSE
 	var/obj/held_rod
 

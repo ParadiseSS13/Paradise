@@ -172,7 +172,7 @@
 	power_amount = 20 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
-	durability = 5000
+	max_durability = 5000
 	beta_rad = 100
 	gamma_rad = 100
 	power_enrich_threshold = 8
@@ -452,7 +452,7 @@
 	name = "plasma injector"
 	desc = "A specialized coolant rod filled with gaseous plasma. By taking advantage of plasma's unique heat-absorbent properties, small amounts injected around fuel rods neutralize excess heat. However, the tank runs out quickly this way."
 	icon_state = "coolant_plasma"
-	durability = 1900
+	max_durability = 1900
 	heat_amp_mod = 0.5
 	power_amp_mod = 1.5
 	craftable = TRUE
@@ -463,7 +463,7 @@
 	name = "nitrogen circulator"
 	desc = "A specialized coolant rod filled with nitrogen gas. While not as powerful as similar alternatives, this rod is exceptionally stable and will last longer."
 	icon_state = "coolant_nitrogen"
-	durability = 3500
+	max_durability = 3500
 	heat_amount = -10
 	power_amp_mod = 0.9
 	heat_amp_mod = 0.7
