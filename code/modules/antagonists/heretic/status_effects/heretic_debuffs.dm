@@ -300,6 +300,10 @@
 	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_stacks_overlay))
 	add_stacks(stacks_to_apply)
 
+/datum/status_effect/stacking/heretic_insanity/Destroy()
+	animate_fade_colored(owner, 2 SECONDS)
+	. = ..()
+
 /datum/status_effect/stacking/heretic_insanity/refresh()
 	. = ..()
 	add_stacks(1)
@@ -307,8 +311,19 @@
 
 /datum/status_effect/stacking/heretic_insanity/process()
 	update_shown_stacks()
+	update_greyscale()
 	owner.update_icon(UPDATE_OVERLAYS)
 	return ..()
+
+/datum/status_effect/stacking/heretic_insanity/proc/update_greyscale()
+	var/stack_intensity = 1 - (0.66 * (stacks / max_stacks))
+	var/inverse_intensity = 0.33 * (stacks / max_stacks)
+	var/custom_greyscale = list(stack_intensity, inverse_intensity, inverse_intensity,\
+								 inverse_intensity, stack_intensity, inverse_intensity,\
+								 inverse_intensity, inverse_intensity, stack_intensity)
+	animate(owner, color = custom_greyscale, time = 2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
+
+/datum/status_effect/stacking/heretic_insanity/proc/end_greyscale()
 
 /datum/status_effect/stacking/heretic_insanity/proc/update_stacks_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER

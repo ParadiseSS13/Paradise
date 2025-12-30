@@ -5,9 +5,8 @@
 	route = PATH_SIDE
 
 	tier1 = /datum/heretic_knowledge/dummy_cosmic_to_ash
-	tier2 = /datum/heretic_knowledge/spell/space_phase
-	tier3 = /datum/heretic_knowledge/eldritch_coin
-
+	tier2 = list(/datum/heretic_knowledge/eldritch_coin, /datum/heretic_knowledge/spell/space_phase)
+	tier3 = /datum/heretic_knowledge/summon/fire_shark
 
 // Sidepaths for knowledge between Ash and comsic.
 
@@ -25,7 +24,6 @@
 
 	action_to_add = /datum/spell/bloodcrawl/space_crawl
 	cost = 1
-
 
 	research_tree_icon_frame = 6
 
@@ -47,3 +45,20 @@
 	research_tree_icon_path = 'icons/obj/economy.dmi'
 	research_tree_icon_state = "coin_heretic_heretic"
 
+/datum/heretic_knowledge/summon/fire_shark
+
+	name = "Scorching Shark"
+	desc = "Allows you to transmute a pile of ash, a liver, and a sheet of plasma into a Fire Shark. \
+		Fire Sharks are fast and strong in groups, but die quickly. They are also highly resistant against fire attacks. \
+		Fire Sharks inject phlogiston into its victims and erupt into plasma once they die."
+	gain_text = "The cradle of the nebula was cold, but not dead. Light and heat flits even through the deepest darkness, and is hunted by its own predators."
+
+	required_atoms = list(
+		/obj/effect/decal/cleanable/ash = 1,
+		/obj/item/organ/internal/liver = 1,
+		/obj/item/stack/sheet/mineral/plasma = 1,
+	)
+	mob_to_summon = /mob/living/basic/heretic_summon/fire_shark
+	cost = 2
+
+	research_tree_icon_dir = EAST
