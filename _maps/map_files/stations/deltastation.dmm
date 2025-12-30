@@ -64595,23 +64595,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
-"kBq" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/airlock_controller/access_controller{
-	name = "Supermatter Access Console";
-	pixel_y = 24;
-	ext_door_link_id = "engsm_door_ext";
-	int_door_link_id = "engsm_door_int";
-	ext_button_link_id = "engsm_btn_ext";
-	int_button_link_id = "engsm_btn_int";
-	req_one_access = list(10,24)
-	},
-/turf/simulated/floor/transparent/glass,
-/area/station/aisat)
 "kBv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance,
@@ -108959,7 +108942,7 @@ wOY
 chS
 gNA
 gNA
-kBq
+gNA
 cpe
 bpq
 brs
