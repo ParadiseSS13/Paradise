@@ -42284,10 +42284,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "hyN" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
@@ -42297,17 +42293,10 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
 /obj/structure/closet/firecloset/full,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "hyQ" = (
@@ -89596,6 +89585,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "yee" = (
