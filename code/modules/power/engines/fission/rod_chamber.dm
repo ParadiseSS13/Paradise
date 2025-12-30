@@ -451,7 +451,7 @@
 	held_rod.stop_rads()
 	if(held_rod.reactor_overheat_modifier)
 		linked_reactor.update_overheat_threshold(held_rod.reactor_overheat_modifier)
-	previous_durability_level = clamp(ROUND_UP((held_rod.durability / held_rod.max_durability) - 20), 0, 6)
+	previous_durability_level = clamp(ROUND_UP(((held_rod.durability / held_rod.max_durability) * 5) - 0.8), 0, 5)
 	if(check_status())
 		requirements_met = TRUE
 	else

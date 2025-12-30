@@ -42,7 +42,7 @@
 #define DAMAGE_MAXIMUM 8 //! The highest amount of damage done when taking damage
 #define MOL_DAMAGE_MULTIPLIER 1 //! An adjuster for damage balance from no gas
 #define HEAT_DAMAGE_MULTIPLIER 1 //! An adjuster for damage balance from high heat
-#define EXPLOSION_MODIFIER 4 //! Adjusts the size of the engine explosion
+#define EXPLOSION_MODIFIER 1.5 //! Adjusts the size of the engine explosion
 
 #define MOLE_BONUS_THRESHOLD 800 //! The minimum number of moles needed to begin accruing multiplier.
 #define MOLE_BONUS_COMPONENT 250 //! How many moles are required for one "unit" of modifier increase. Used in the math calculation.
