@@ -37,6 +37,10 @@
 	linked_emote = /datum/emote/living/choke
 	name = "Choke"
 
+/datum/keybinding/emote/sing_tune
+	linked_emote = /datum/emote/living/sing_tune
+	name = "Sing Tune"
+
 /datum/keybinding/emote/collapse
 	linked_emote = /datum/emote/living/collapse
 	name = "Collapse"
@@ -348,6 +352,10 @@
 /datum/keybinding/emote/carbon/human/eyebrow
 	linked_emote = /datum/emote/living/carbon/human/eyebrow
 	name = "Eyebrow"
+
+/datum/keybinding/emote/carbon/human/clear_throat
+	linked_emote = /datum/emote/living/carbon/human/clear_throat
+	name = "Clear Throat"
 
 /datum/keybinding/emote/carbon/human/facepalm
 	linked_emote = /datum/emote/living/carbon/human/facepalm

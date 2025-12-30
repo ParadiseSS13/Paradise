@@ -267,6 +267,7 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	emp_proof = TRUE //They are crystal artifacts, not metal
+	max_damage = 120
 	min_bruised_damage = 30
 	min_broken_damage = 60
 	actions_types = list(/datum/action/item_action/organ_action/use/eyesofgod)

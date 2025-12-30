@@ -21,6 +21,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
 	var/sending_backstab = FALSE
+	/// Whether this traitor was assigned during round start
+	var/is_roundstart = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -90,7 +92,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/select_organization()
 	if(is_ai(owner.current))
 		return
-	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
+	var/list/chaos_weights = list(
+		ORG_CHAOS_HUNTER = ORG_PROB_HUNTER,
+		ORG_CHAOS_MILD = ORG_PROB_MILD,
+		ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE
+	)
+	if(can_assign_hijack_objective())
+		chaos_weights[ORG_CHAOS_HIJACK] = ORG_PROB_HIJACK
+	var/chaos = pickweight(chaos_weights)
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
@@ -344,3 +353,21 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+
+/// Helper functions for hijack pop checks
+
+/datum/antagonist/traitor/can_assign_hijack_objective()
+	var/total_players
+	if(is_roundstart)
+		total_players = GLOB.roundstart_ready_players
+		if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
+			return FALSE
+		return TRUE
+	total_players = get_living_players_count()
+	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
+		return FALSE
+	var/security_count = get_living_security_players_count()
+	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
+		return FALSE
+	return TRUE
+
