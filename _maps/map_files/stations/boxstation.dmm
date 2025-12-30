@@ -1846,6 +1846,9 @@
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 8
 	},
+/obj/structure/sign/security/evidence{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "aiV" = (
@@ -2619,13 +2622,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
 "alS" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/structure/closet/secure_closet/evidence,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "south bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
@@ -4840,9 +4844,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "atn" = (
@@ -5282,18 +5283,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "auW" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
 /obj/machinery/light,
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "auY" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "south bump";
-	pixel_x = -24
-	},
 /obj/item/hand_labeler,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
@@ -5628,6 +5625,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -6052,11 +6052,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
 "axQ" = (
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/security/corner,
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "axR" = (

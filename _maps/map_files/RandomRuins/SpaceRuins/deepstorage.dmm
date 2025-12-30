@@ -3712,6 +3712,9 @@
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
 	},
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/deepstorage)
 "Ao" = (

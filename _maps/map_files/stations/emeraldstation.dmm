@@ -14203,10 +14203,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
 "cQp" = (
-/obj/machinery/firealarm/directional/north,
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "cQy" = (
@@ -33595,11 +33595,11 @@
 	c_tag = "Brig Hall South";
 	dir = 9
 	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = 28
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
+	},
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
@@ -52704,6 +52704,7 @@
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "kAZ" = (
@@ -107219,9 +107220,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
+	},
+/obj/structure/sign/security/evidence{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -110423,6 +110426,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
+"wbh" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/item/radio/intercom/department/security{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig)
 "wbj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -171950,7 +171962,7 @@ aCx
 ohx
 dGn
 gKq
-snW
+wbh
 rOq
 snW
 dGn

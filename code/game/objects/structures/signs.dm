@@ -429,6 +429,11 @@
 	desc = "The office of the Detective, who will solve any case that ends up on their desk. Provided they don't need to go out for another carton of cigarettes."
 	icon_state = "detective"
 
+/obj/structure/sign/security/evidence
+	name = "\improper EVIDENCE"
+	desc = "A secure room to store evidence of crimes as well as confiscated equipment, until a Syndicate agent breaks in to retrieve it."
+	icon_state = "evidence"
+
 /obj/structure/sign/security/interrogation
 	name = "\improper INTERROGATION"
 	desc = "Despite the number of tooth extractions that happen here, no one in the Security department is actually a qualified dentist."

@@ -59058,6 +59058,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "nos" = (

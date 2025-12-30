@@ -73718,6 +73718,9 @@
 	pixel_y = 5
 	},
 /obj/item/toy/crayon/spraycan,
+/obj/structure/sign/public/restroom{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "oUk" = (
@@ -76385,6 +76388,9 @@
 	pixel_y = -2
 	},
 /obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "pzh" = (
@@ -111642,6 +111648,15 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation/disposals)
+"xhh" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/structure/sign/public/restroom{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/storage)
 "xhk" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
@@ -137515,7 +137530,7 @@ qYg
 xSF
 dvY
 bol
-aGU
+xhh
 fEL
 exK
 iTn

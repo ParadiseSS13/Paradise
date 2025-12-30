@@ -76446,12 +76446,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "pFQ" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
+	},
+/obj/structure/sign/security/evidence{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
@@ -79324,6 +79323,10 @@
 "qVp" = (
 /obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "qVx" = (
