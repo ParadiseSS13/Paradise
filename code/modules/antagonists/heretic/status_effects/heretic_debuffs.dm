@@ -319,8 +319,8 @@
 	var/stack_intensity = 1 - (0.66 * (stacks / max_stacks))
 	var/inverse_intensity = 0.33 * (stacks / max_stacks)
 	var/custom_greyscale = list(stack_intensity, inverse_intensity, inverse_intensity,\
-								 inverse_intensity, stack_intensity, inverse_intensity,\
-								 inverse_intensity, inverse_intensity, stack_intensity)
+								inverse_intensity, stack_intensity, inverse_intensity,\
+								inverse_intensity, inverse_intensity, stack_intensity)
 	animate(owner, color = custom_greyscale, time = 2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 
 /datum/status_effect/stacking/heretic_insanity/proc/end_greyscale()
