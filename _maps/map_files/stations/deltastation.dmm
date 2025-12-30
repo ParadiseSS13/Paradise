@@ -4377,6 +4377,9 @@
 "avp" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/regular/hipster,
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "avq" = (
@@ -23688,6 +23691,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
+/obj/item/reagent_containers/drinks/carton/lemonade,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bQw" = (
@@ -78150,6 +78154,7 @@
 "qAT" = (
 /obj/structure/table,
 /obj/item/deck/cards,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "qAW" = (

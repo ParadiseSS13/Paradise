@@ -13,6 +13,7 @@
 	voice = GetVoice()
 
 	if(.) //not dead
+		handle_kidneys()
 
 		if(check_mutations)
 			domutcheck(src)
@@ -981,6 +982,31 @@
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
-// Need this in species.
-//#undef HUMAN_MAX_OXYLOSS
-//#undef HUMAN_CRIT_MAX_OXYLOSS
+/mob/living/carbon/human/proc/handle_kidneys()
+	var/obj/item/organ/kidneys = get_int_organ(/obj/item/organ/internal/kidneys)
+	if(isslimeperson(src))
+		kidneys = get_int_organ(/obj/item/organ/internal/brain)
+
+	var/damage_percentage = 0
+	if(kidneys && !(kidneys.status & ORGAN_DEAD)) // No kidneys = full damage
+		damage_percentage = ((kidneys.max_damage - kidneys.damage) / kidneys.max_damage) * 100
+		if(damage_percentage >= 75) // Above 75% HP, no damage
+			return
+
+	var/total_damage = 0
+	for(var/datum/reagent/chem as anything in reagents.reagent_list)
+		total_damage += chem.max_kidney_damage
+
+	if(!total_damage)
+		return // No damage
+
+	switch(damage_percentage)
+		// No 0 since that's full damage
+		if(1 to 25)
+			total_damage *= 0.5
+		if(25 to 50)
+			total_damage *= 0.2
+		if(50 to 75)
+			total_damage *= 0.05
+
+	adjustToxLoss(total_damage)

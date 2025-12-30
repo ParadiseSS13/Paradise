@@ -200,6 +200,7 @@
 		if(ishuman(antag.current))
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
+		traitor_datum.is_roundstart = TRUE
 		antag.add_antag_datum(traitor_datum)
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 

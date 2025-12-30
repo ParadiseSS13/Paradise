@@ -2311,6 +2311,7 @@
 #include "code\modules\food_and_drinks\drinks\bottler\bottler_recipes.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\bottle.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\cans.dm"
+#include "code\modules\food_and_drinks\drinks\drinks\carton.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\drinkingglass.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\mugs.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\shotglass.dm"
