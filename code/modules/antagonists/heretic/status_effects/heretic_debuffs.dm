@@ -323,8 +323,6 @@
 								inverse_intensity, inverse_intensity, stack_intensity)
 	animate(owner, color = custom_greyscale, time = 2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 
-/datum/status_effect/stacking/heretic_insanity/proc/end_greyscale()
-
 /datum/status_effect/stacking/heretic_insanity/proc/update_stacks_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
 
