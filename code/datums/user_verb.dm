@@ -28,8 +28,11 @@ GENERAL_PROTECT_DATUM(/datum/user_verb)
 
 /// Lets people be pinged inside of staff channels.
 /datum/user_verb/proc/do_chat_ping(client/C, message)
-	var/display_name = C.holder.fakekey || C.ckey || C.key
-	if(findtext(message, "@[display_name]"))
+	var/display_name = C.ckey || C.key
+	if(C.holder.fakekey && findtext(message, "@[C.holder.fakekey]"))
+		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+		message = replacetext(message, "@[C.holder.fakekey]", "<font color='red'>@[C.holder.fakekey]</font>")
+	else if(findtext(message, "@[display_name]"))
 		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
 		message = replacetext(message, "@[display_name]", "<font color='red'>@[display_name]</font>")
 	return message
