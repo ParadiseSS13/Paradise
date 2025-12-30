@@ -130,7 +130,6 @@
 	if(!turf_check(user))
 		return
 	var/obj/effect/temp_visual/ninja_bomb/F = new /obj/effect/temp_visual/ninja_bomb(get_turf(src))
-	show_activation_message(user)
 	user.drop_item()
 	forceMove(F)
 	log_and_message_admins("[user] activated a ninja bomb flare.")

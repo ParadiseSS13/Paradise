@@ -19,7 +19,7 @@
 		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/space_ninja/N = M.has_antag_datum(/datum/antagonist/space_ninja)
-		for(var/datum/objective/ninja/ninja_objective in N.objective_holder.get_objectives())
+		for(var/datum/objective/ninja/ninja_objective in N.get_antag_objectives())
 			if(!ninja_objective.completed)
 				return FALSE
 		return TRUE
@@ -27,6 +27,16 @@
 /datum/objective/ninja
 	/// Can you only roll this objective once?
 	var/onlyone = FALSE
+	/// Does this objective come with special gear
+	var/special_equipment_path
+
+/datum/objective/ninja/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	if(special_equipment_path)
+		addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 3 SECONDS, TIMER_DELETE_ME)
+
+/datum/objective/ninja/proc/hand_out_equipment()
+	give_kit(special_equipment_path)
 
 /datum/objective/ninja/check_completion()
 	if(..())
@@ -76,18 +86,21 @@
 /datum/objective/ninja/bomb_department
 	name = "Bomb Department"
 	needs_target = FALSE
+	special_equipment_path = /obj/item/wormhole_jaunter/ninja_bomb
 
 /datum/objective/ninja/bomb_department/update_explanation_text()
 	explanation_text = "Use the special flare provided to call down and arm a spider bomb. The target department is inscribed on the flare."
 
 /datum/objective/ninja/bomb_department/emp
 	name = "EMP Department"
+	special_equipment_path = /obj/item/wormhole_jaunter/ninja_bomb/emp
 
 /datum/objective/ninja/bomb_department/emp/update_explanation_text()
 	explanation_text = "Use the special flare provided to call down and arm an EMP bomb. The target department is inscribed on the flare."
 
 /datum/objective/ninja/bomb_department/spiders
 	name = "Spider Bomb Department"
+	special_equipment_path = /obj/item/wormhole_jaunter/ninja_bomb/spiders
 
 /datum/objective/ninja_exfiltrate
 	name = "Exfiltrate"
