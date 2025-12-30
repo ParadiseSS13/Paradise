@@ -218,7 +218,8 @@
 		if(e.status & ORGAN_SPLINTED)
 			splint = "Splinted:"
 		if(e.status & ORGAN_BROKEN)
-			AN = "[e.broken_description]:"
+			var/datum/wound/fracture = e.get_wound(/datum/wound/fracture)
+			AN = "[fracture.name]:"
 		if(e.is_robotic())
 			robot = "Robotic:"
 		if(e.open)

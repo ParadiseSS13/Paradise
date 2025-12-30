@@ -95,6 +95,7 @@
 							SPAN_USERDANGER("[user] is trying to put [src.name] on [C]!"))
 
 		playsound(loc, cuffsound, 15, TRUE, -10)
+		SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, SPAN_NOTICE("You handcuff [C]."))

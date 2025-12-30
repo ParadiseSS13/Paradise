@@ -691,6 +691,14 @@
 /obj/item/clothing/head/hooded/winterhood/syndicate
 	icon_state = "winterhood_synd"
 
+/obj/item/clothing/suit/hooded/wintercoat/solgov
+	name = "\improper SolGov winter coat"
+	icon_state = "wintercoat_solgov"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/solgov
+
+/obj/item/clothing/head/hooded/winterhood/solgov
+	icon_state = "winterhood_solgov"
+
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
 	desc = "A high-tech ablative hood attached to an ablative trenchcoat. Dissipates energy attacks with ease, and has an integrated flashproof visor. Entirely ineffecitve against kinetic attacks."

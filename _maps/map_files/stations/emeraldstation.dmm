@@ -17354,11 +17354,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "dxG" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "dxH" = (
@@ -90850,7 +90850,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms_secondary)
 "sgN" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -90858,6 +90857,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "sgP" = (
