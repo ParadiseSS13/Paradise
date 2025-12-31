@@ -2,11 +2,20 @@
 	name = "\improper Security Substation"
 
 /area/station/garage
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/garage/engineering
+	name = "\improper Engineering Garage"
 
 /area/station/garage/security
+	name = "\improper Engineering Garage"
 
-/area/station/engineering/entrance
+/area/station/garage/medbay
+	name = "\improper Medbay Garage"
 
-/area/station/sealant_dome
+/area/station/garage/supply
+	name = "\improper Cargo Garage"
+
+/area/station/garage/service
+	name = "\improper Service Garage"
+
