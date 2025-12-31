@@ -515,6 +515,15 @@
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/ham_leg
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/ham_leg
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_human(),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/hardware_cake
 	container_type = /obj/item/reagent_containers/cooking/oven
 	product_type = /obj/item/food/sliceable/hardware_cake

@@ -374,12 +374,15 @@
 	. += SPAN_NOTICE("It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!")
 
 /obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
-	. = ..()
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
 	if(!Adjacent(user))
 		return
+	visible_message(
+		SPAN_NOTICE("[user] tries to [zipped ? "un-" : ""]zip [src]."),
+		SPAN_NOTICE("You start to [zipped ? "un-" : ""]zip [src].")
+	)
 
 	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
