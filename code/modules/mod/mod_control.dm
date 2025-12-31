@@ -320,7 +320,7 @@
 						return
 				if(!M.unequip(src, force = TRUE))
 					return
-				M.put_in_active_hand(src)
+				M.put_in_hands(src)
 			else
 				bag?.open(usr)
 
