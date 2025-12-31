@@ -1,9 +1,9 @@
 /datum/reagent/consumable/drink/orangejuice
-	name = "Orange juice"
+	name = "Orange Juice"
 	id = "orangejuice"
 	description = "Both delicious AND rich in Vitamin C, what more do you need?"
 	drink_icon = "glass_orange"
-	drink_name = "Glass of Orange juice"
+	drink_name = "Glass of Orange Juice"
 	drink_desc = "Vitamins! Yay!"
 	taste_description = "orange juice"
 
@@ -19,7 +19,7 @@
 	description = "Tomatoes made into juice. What a waste of big, juicy tomatoes, huh?"
 	color = "#C00609"
 	drink_icon = "glass_red"
-	drink_name = "Glass of Tomato juice"
+	drink_name = "Glass of Tomato Juice"
 	drink_desc = "Are you sure this is tomato juice?"
 	taste_description = "tomato juice"
 
@@ -35,7 +35,7 @@
 	description = "Pineapples juiced into a liquid. Sweet and sugary."
 	color = "#e5b437"
 	drink_icon = "glass_orange"
-	drink_name = "Glass of pineapple juice"
+	drink_name = "Glass of Pineapple Juice"
 	drink_desc = "A bright drink, sweet and sugary."
 	taste_description = "pineapple juice"
 
@@ -45,7 +45,7 @@
 	description = "The sweet-sour juice of limes."
 	color = "#68E735"
 	drink_icon = "glass_green"
-	drink_name = "Glass of Lime juice"
+	drink_name = "Glass of Lime Juice"
 	drink_desc = "A glass of sweet-sour lime juice."
 	taste_description = "lime juice"
 
@@ -56,12 +56,12 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/carrotjuice
-	name = "Carrot juice"
+	name = "Carrot Juice"
 	id = "carrotjuice"
 	description = "Just like a carrot, but without the crunching."
 	color = "#FFA500"
 	drink_icon = "carrotjuice"
-	drink_name = "Glass of carrot juice"
+	drink_name = "Glass of Carrot Juice"
 	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
 
@@ -74,32 +74,32 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/beetjuice
-	name = "Beet juice"
+	name = "Beet Juice"
 	id = "beetjuice"
 	description = "Sweet as a 'sugar beet' would imply."
 	color = "#7E0243"
 	drink_icon = "glass_magenta"
-	drink_name = "Glass of beet juice"
+	drink_name = "Glass of Beet Juice"
 	drink_desc = "Sweet as a 'sugar beet' would imply."
 	taste_description = "beet juice"
 
 /datum/reagent/consumable/drink/plumjuice
-	name = "Plum juice"
+	name = "Plum Juice"
 	id = "plumjuice"
 	description = "A fan favorite of old people across the galaxy."
 	color = "#99305D"
 	drink_icon = "glass_magenta"
-	drink_name = "Glass of plum juice"
+	drink_name = "Glass of Plum Juice"
 	drink_desc = "A fan favorite of old people across the galaxy."
 	taste_description = "prune juice"
 
 /datum/reagent/consumable/drink/lettucejuice
-	name = "Lettuce juice"
+	name = "Lettuce Juice"
 	id = "lettucejuice"
 	description = "They say you should eat your greens, but drinking them is just as good."
 	color = "#79B330"
 	drink_icon = "glass_green"
-	drink_name = "Glass of lettuce juice"
+	drink_name = "Glass of Lettuce Juice"
 	drink_desc = "They say you should eat your greens, but drinking them is just as good."
 	taste_description = "lettuce juice"
 
@@ -126,7 +126,7 @@
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	color = "#B5FF00"
 	drink_icon = "triplecitrus"
-	drink_name = "Glass of triple citrus Juice"
+	drink_name = "Glass of Triple Citrus Juice"
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
@@ -142,7 +142,7 @@
 	description = "A delicious blend of several different kinds of berries."
 	color = "#B23A4E"
 	drink_icon = "berryjuice"
-	drink_name = "Glass of berry juice"
+	drink_name = "Glass of Berry Juice"
 	drink_desc = "Berry juice. Or maybe it's jam. Who cares?"
 	taste_description = "berry juice"
 
@@ -152,7 +152,7 @@
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#B23A4E"
 	drink_icon = "poisonberryjuice"
-	drink_name = "Glass of poison berry juice"
+	drink_name = "Glass of Poison Berry Juice"
 	drink_desc = "A glass of deadly juice."
 	taste_description = "berry juice"
 
@@ -166,7 +166,7 @@
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#FBF969"
-	drink_name = "Apple Juice"
+	drink_name = "Glass of Apple Juice"
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
@@ -175,7 +175,7 @@
 	id = "bungojuice"
 	description = "Exotic! You feel like you are on vacation already."
 	color = "#F9E43D"
-	drink_name = "Bungo Juice"
+	drink_name = "Glass of Bungo Juice"
 	drink_desc = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo with an acidic poisonous tang"
 
@@ -184,7 +184,7 @@
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
 	color = "#ae2631"
-	drink_name = "Watermelon Juice"
+	drink_name = "Glass of Watermelon Juice"
 	drink_desc = "Almost water."
 	taste_description = "watermelon juice"
 
@@ -194,7 +194,7 @@
 	description = "This juice is VERY sour."
 	color = "#E5F249"
 	drink_icon = "lemonglass"
-	drink_name = "Glass of lemonjuice"
+	drink_name = "Glass of Lemon Juice"
 	drink_desc = "Sour..."
 	taste_description = "lemon juice"
 
@@ -203,7 +203,7 @@
 	id = "grapejuice"
 	description = "This juice is known to stain shirts."
 	color = "#993399" // rgb: 153, 51, 153
-	drink_name = "Grape Juice"
+	drink_name = "Glass of Grape Juice"
 	drink_desc = "If you leave it out for long enough, it might turn into wine."
 	taste_description = "grape juice"
 
@@ -214,7 +214,7 @@
 	color = "#F6F834"
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "banana"
-	drink_name = "Glass of banana juice"
+	drink_name = "Glass of Banana Juice"
 	drink_desc = "The raw essence of a banana. HONK"
 	taste_description = "banana juice"
 
@@ -249,7 +249,7 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	drink_icon = "glass_brown"
-	drink_name = "Glass of  potato juice"
+	drink_name = "Glass of  Potato Juice"
 	drink_desc = "Who in the hell requests this? Gross!"
 	taste_description = "puke, you're pretty sure"
 
@@ -552,7 +552,7 @@
 	id = "pumpkinjuice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
-	drink_name = "Pumpkin Juice"
+	drink_name = "Glass of Pumpkin Juice"
 	drink_desc = "Healthy and tasty!"
 	taste_description = "autumn"
 
@@ -561,7 +561,7 @@
 	id = "blumpkinjuice"
 	description = "Juiced from real blumpkin."
 	color = "#00BFFF"
-	drink_name = "Blumpkin Juice"
+	drink_name = "Glass of Blumpkin Juice"
 	drink_desc = "Unhealthy and revolting! It seems to be glowing..."
 	taste_description = "caustic puke"
 
@@ -1076,6 +1076,7 @@
 	taste_description = "salt"
 	adj_dizzy = -5 SECONDS
 	process_flags = ORGANIC | SYNTHETIC
+	max_kidney_damage = 3
 
 /datum/reagent/consumable/drink/electrolytes/on_mob_life(mob/living/M)
 	M.AdjustConfused(-5 SECONDS)

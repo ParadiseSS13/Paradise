@@ -406,17 +406,25 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return
 
 /**
+ * Check if this antag can be assigned hijack.
+ */
+/datum/antagonist/proc/can_assign_hijack_objective()
+	return FALSE
+
+/**
  * Create and assign a full set of randomized, basic human traitor objectives.
  * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		if(prob(50)) // 50% chance you have to detonate the nuke instead
-			add_antag_objective(/datum/objective/nuke)
-			return
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
+		// Check if hijack is allowed based on player count and number of sec
+		if(can_assign_hijack_objective())
+			if(prob(50)) // 50% chance you have to detonate the nuke instead
+				add_antag_objective(/datum/objective/nuke)
+				return
+			add_antag_objective(/datum/objective/hijack)
+			return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
 	for(var/i in 1 to number_of_objectives)

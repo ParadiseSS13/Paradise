@@ -17255,11 +17255,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "dxG" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "dxH" = (
@@ -24104,6 +24104,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "eTZ" = (
@@ -45965,6 +45966,9 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
+	},
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
@@ -90061,6 +90065,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "scb" = (
@@ -90472,7 +90477,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms_secondary)
 "sgN" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -90480,6 +90484,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "sgP" = (
