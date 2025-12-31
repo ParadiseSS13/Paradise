@@ -1243,7 +1243,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				tail_s.SetIntensity(0.7)
 			else
 				if(dna.species.bodyflags & HAS_SKIN_COLOR)
-					tail_s.Blend(skin_colour, ICON_ADD)
 					species_contextblend(tail_s, dna.species, skin_colour)
 				if(tail_marking_icon && !tail_marking_style.tails_allowed)
 					tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
