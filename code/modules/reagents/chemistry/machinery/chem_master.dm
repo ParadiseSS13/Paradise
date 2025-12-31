@@ -103,7 +103,7 @@
 	if(user.incapacitated())
 		return
 	beaker.forceMove(loc)
-	if(!issilicon(user))
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
 		user.put_in_hands(beaker)
 	beaker = null
 	update_icon()

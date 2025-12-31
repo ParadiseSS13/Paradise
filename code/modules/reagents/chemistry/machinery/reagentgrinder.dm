@@ -349,7 +349,7 @@
 		return
 	beaker.forceMove(loc)
 	SStgui.update_uis(src)
-	if(!issilicon(user))
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
 		user.put_in_hands(beaker)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)

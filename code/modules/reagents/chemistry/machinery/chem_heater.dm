@@ -32,6 +32,8 @@
 /obj/machinery/chem_heater/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated())
+		return
 	eject_beaker(user)
 
 /obj/machinery/chem_heater/process()
@@ -54,7 +56,7 @@
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
-		if(user && Adjacent(user) && !issilicon(user))
+		if(user && Adjacent(user) && !issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
 			user.put_in_hands(beaker)
 		beaker = null
 		icon_state = "mixer0b"
