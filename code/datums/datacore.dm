@@ -16,7 +16,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 /proc/species_contextblend(icon/ico, datum/species/S, input)
-	if(istype(S, /datum/species/vulpkanin) || istype(S, /datum/species/slime) || istype(S, /datum/species/tajaran) || istype(S, /datum/species/machine)) //I have to snowflake the species that are complete until we finish the rest of species. This should not be here once all species are complete.
+	if(istype(S, /datum/species/vulpkanin) || istype(S, /datum/species/slime) || istype(S, /datum/species/tajaran) || istype(S, /datum/species/machine) || istype(S, /datum/species/unathi)) //I have to snowflake the species that are complete until we finish the rest of species. This should not be here once all species are complete.
 		ico.Blend(input, ICON_MULTIPLY)
 	else
 		ico.Blend(input, ICON_ADD)
