@@ -61,7 +61,7 @@
 		mob_icon = new /icon(force_icon, "[icon_name]")
 		if(istype(dna.species, /datum/species/machine)) //snowflake for IPC's, sorry.
 			if(s_col)
-				mob_icon.Blend(s_col, ICON_ADD)
+				mob_icon.Blend(s_col, ICON_MULTIPLY)
 	else
 		var/new_icons = get_icon_state(skeletal)
 		var/icon_file = new_icons[1]
