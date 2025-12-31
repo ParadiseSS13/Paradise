@@ -309,7 +309,7 @@
 			bag?.dump_storage(M, over_object)
 			return
 
-		if(!M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
+		if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
