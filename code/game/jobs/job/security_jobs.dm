@@ -239,7 +239,7 @@
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
 	)
-	extra_access = list(
+	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE
 	)
