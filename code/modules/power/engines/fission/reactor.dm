@@ -58,7 +58,7 @@
 
 /obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
-	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."
+	desc = "An ancient yet reliable form of power generation utilizing fissile materials to generate heat."
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
 	density = TRUE
@@ -148,7 +148,7 @@
 /obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
 	if(stat & BROKEN)
-		. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
+		. += "A burning hole remains where the NGCR Reactor housed its core. It's inoperable in this state. The acrid smell permeates through even the thickest of suits."
 		switch(repair_step)
 			if(REACTOR_NEEDS_DIGGING)
 				. += SPAN_NOTICE("A shovel will be needed to extract all of the melted corium.")
@@ -203,7 +203,7 @@
 	if(severity == EXPLODE_DEVASTATE) // Very sturdy.
 		set_broken()
 	else if(severity == EXPLODE_HEAVY)
-		adjust_damage(rand(100,300))
+		adjust_damage(rand(100, 300))
 	else
 		adjust_damage(rand(30, 150))
 
@@ -287,9 +287,9 @@
 		return
 	var/mob/living/carbon/creature = user
 	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING && (stat & BROKEN))
-		playsound(src, used.usesound, 50, 1)
+		playsound(src, used.usesound, 50, TRUE)
 		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-			playsound(src, used.usesound, 50, 1)
+			playsound(src, used.usesound, 50, TRUE)
 			new /obj/item/slag(loc)
 			if(prob(20))
 				repair_step++
@@ -329,7 +329,7 @@
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
 		if(plasteel.amount < 5)
-			to_chat(user, SPAN_WARNING("You need at least five sheets of plasteel to reform the reactor core structure."))
+			to_chat(user, SPAN_WARNING("You need at least five sheets of plasteel to reform the reactor core structure!"))
 			return ITEM_INTERACT_COMPLETE
 		if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 			repair_step++
@@ -340,10 +340,10 @@
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
 		var/obj/item/item = creature.get_inactive_hand()
 		if(!istype(item, /obj/item/reagent_containers/cooking/grill_grate))
-			to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill."))
+			to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill!"))
 			return ITEM_INTERACT_COMPLETE
 		if(grill)
-			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface of the reactor."))
+			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface of the reactor!"))
 			return ITEM_INTERACT_COMPLETE
 
 		qdel(used)
@@ -363,7 +363,7 @@
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_CROWBAR)
 		if(I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
-			playsound(src, I.usesound, 50, 1)
+			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
 			to_chat(user, SPAN_INFORMATION("You remove any remaining damaged structure from the housing."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
@@ -376,7 +376,7 @@
 /obj/machinery/atmospherics/fission_reactor/wrench_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WRENCH)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
-			playsound(src, I.usesound, 50, 1)
+			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
 			to_chat(user, SPAN_INFORMATION("You secure the new plastitanium structure in place."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
@@ -391,7 +391,7 @@
 /obj/machinery/atmospherics/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
-			playsound(src, I.usesound, 50, 1)
+			playsound(src, I.usesound, 50, TRUE)
 			to_chat(user, SPAN_INFORMATION("You secure the radiation shielding into place."))
 			set_fixed()
 		return ITEM_INTERACT_COMPLETE
@@ -399,7 +399,7 @@
 /obj/machinery/atmospherics/fission_reactor/welder_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WELDING)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
-			playsound(src, I.usesound, 50, 1)
+			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
 			to_chat(user, SPAN_INFORMATION("You weld together the framing, ensuring an airtight seal within the core."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
@@ -777,7 +777,7 @@
 	final_power = 0
 	reactivity_multiplier = 1
 	remove_light()
-	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 80, 0, 4, ignore_walls = TRUE, channel = CHANNEL_ENGINE)
+	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 80, FALSE, 4, ignore_walls = TRUE, channel = CHANNEL_ENGINE)
 	soundloop.stop()
 	startloop.stop()
 	if(send_message)
@@ -802,7 +802,7 @@
 	starting_up = FALSE
 	offline = FALSE
 	can_create_power = TRUE
-	playsound(src, 'sound/machines/fission/reactor_startup.ogg', 80, 0, 4, ignore_walls = TRUE)
+	playsound(src, 'sound/machines/fission/reactor_startup.ogg', 80, FALSE, 4, ignore_walls = TRUE)
 	startloop.stop()
 	soundloop.start()
 	if(safety_override)

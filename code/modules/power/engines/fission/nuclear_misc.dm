@@ -250,7 +250,7 @@
 	addtimer(CALLBACK(src, PROC_REF(delete_pulse), warp), 0.5 SECONDS)
 	warp.pixel_x += 16
 	warp.pixel_y += 16
-	warp.transform = matrix().Scale(0.01,0.01)
+	warp.transform = matrix().Scale(0.01, 0.01)
 	animate(warp, time = 0.5 SECONDS, transform = matrix().Scale(1, 1))
 	var/list/chamber_list = list()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in range(3, loc))

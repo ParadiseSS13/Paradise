@@ -100,7 +100,7 @@
 		held_rod.forceMove(loc)
 		held_rod = null
 		icon_state = "centrifuge_empty"
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 /obj/machinery/nuclear_centrifuge/process()
 	if(stat & NOPOWER)
@@ -116,7 +116,7 @@
 /obj/machinery/nuclear_centrifuge/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(held_rod)
-		to_chat(user, SPAN_WARNING("The machine cannot be opened while it contains a fuel rod."))
+		to_chat(user, SPAN_WARNING("The machine cannot be opened while it contains a fuel rod!"))
 		return ITEM_INTERACT_COMPLETE
 	default_deconstruction_screwdriver(user, "centrifuge_maint", "centrifuge_empty", I)
 
@@ -129,12 +129,12 @@
 /obj/machinery/nuclear_centrifuge/proc/abort_enrichment()
 	power_state = IDLE_POWER_USE
 	icon_state = "centrifuge_full"
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 	soundloop.stop()
 
 /obj/machinery/nuclear_centrifuge/proc/finish_enrichment()
 	icon_state = "centrifuge_full"
-	playsound(src, 'sound/machines/ping.ogg', 30, 1)
+	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	power_state = IDLE_POWER_USE
 	var/new_rod = new rod_result(contents)
 	rod_result = null
@@ -334,7 +334,7 @@
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()
 	if(panel_open)
-		to_chat(user, SPAN_WARNING("You can't access [src] while it's opened."))
+		to_chat(user, SPAN_WARNING("You can't access [src] while it's opened!"))
 		return
 
 /obj/machinery/nuclear_rod_fabricator/ui_state(mob/user)
@@ -375,13 +375,13 @@
 			qdel(temp_rod)
 
 			if(!required_materials || !length(required_materials))
-				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report"))
+				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report!"))
 				return FALSE
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
 				if(materials.amount(mat_id) < required_amount)
-					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]."))
+					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]!"))
 					return FALSE
 
 			// Spend materials
@@ -430,7 +430,7 @@
 /obj/machinery/nuclear_rod_fabricator/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(power_state == ACTIVE_POWER_USE)
-		to_chat(user, SPAN_WARNING("The machine cannot be opened while it is operating."))
+		to_chat(user, SPAN_WARNING("The machine cannot be opened while it is operating!"))
 		return ITEM_INTERACT_COMPLETE
 	default_deconstruction_screwdriver(user, "rod_fab_maint", "rod_fab", I)
 
@@ -446,12 +446,12 @@
 	icon_state = "rod_fab"
 	var/obj/item/nuclear_rod/new_rod = new schematic(get_turf(src))
 	src.visible_message(SPAN_NOTICE("[src] fabricates \a [new_rod.name]."))
-	playsound(src, 'sound/machines/ping.ogg', 50, 1)
+	playsound(src, 'sound/machines/ping.ogg', 50, TRUE)
 
 /obj/machinery/nuclear_rod_fabricator/proc/abort_fabrication()
 	power_state = IDLE_POWER_USE
 	icon_state = "rod_fab"
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 
 /obj/machinery/nuclear_rod_fabricator/process()
 	if(stat & NOPOWER)
