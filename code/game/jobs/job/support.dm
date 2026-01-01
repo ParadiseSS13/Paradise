@@ -423,9 +423,9 @@
 		ACCESS_MORGUE
 	)
 	skeleton_access = list(
-		ACCESS_KITCHEN
-		ACCESS_BAR
-		ACCESS_MINERAL_STOREROOM
+		ACCESS_KITCHEN,
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
 	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
