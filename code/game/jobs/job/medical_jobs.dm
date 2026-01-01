@@ -338,11 +338,6 @@
 		ACCESS_MEDICAL,
 		ACCESS_PSYCHIATRIST
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
@@ -350,7 +345,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 	standard_paycheck = CREW_PAY_MEDIUM
