@@ -166,7 +166,7 @@
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and won't generate as much heat."
+	desc = "A specialized fuel rod refined from uranium 238. This rod will last longer than normal, and won't generate as much heat."
 	icon_state = "fuel_weakthor"
 	heat_amount = 5
 	power_amount = 20 KW
@@ -184,7 +184,7 @@
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 238. This rod produces twice as much power as standard uranium 238 fuel, but has higher operating requirements."
+	desc = "A specialized fuel rod refined from uranium 238. This rod produces twice as much power as standard uranium 238 fuel, but has higher operating requirements."
 	icon_state = "fuel_weakplut"
 	heat_amount = 10
 	power_amount = 40 KW
@@ -227,7 +227,7 @@
 
 /obj/item/nuclear_rod/fuel/thorium_salts
 	name = "thorium salts fuel rod"
-	desc = "A specialized fuel rod bred from uranium 235. While this rod doesn't have any notable power boosts, its amazingly large integrity makes it virtually impossible to deplete in a single shift, if one can manage its heat."
+	desc = "A specialized fuel rod refined from uranium 235. While this rod doesn't have any notable power boosts, its amazingly large integrity makes it virtually impossible to deplete in a single shift, if one can manage its heat."
 	icon_state = "fuel_richthor"
 	heat_amount = 40
 	power_amount = 35 KW
@@ -243,7 +243,7 @@
 
 /obj/item/nuclear_rod/fuel/enriched_plutonium
 	name = "enriched plutonium fuel rod"
-	desc = "A specialized fuel rod bred from uranium 235. This rod is extremely powerful, boasting high power outputs and moderate durability. However, its heat presents an exceptional danger."
+	desc = "A specialized fuel rod refined from uranium 235. This rod is extremely powerful, boasting high power outputs and moderate durability. However, its heat presents an exceptional danger."
 	icon_state = "fuel_richplut"
 	heat_amount = 60
 	power_amount = 75 KW
@@ -276,7 +276,7 @@
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
-	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its vicious heat output."
+	desc = "A specialized fuel rod refined from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its vicious heat output."
 	icon_state = "fuel_americium"
 	heat_amount = 100
 	power_amount = 200 KW

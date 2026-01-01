@@ -232,7 +232,7 @@
 			if(user.put_in_hands(held_rod))
 				held_rod.add_fingerprint(user)
 				held_rod = null
-				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
+				playsound(loc, 'sound/machines/podopen.ogg', 50, TRUE)
 				update_icon(UPDATE_OVERLAYS)
 				return
 
@@ -283,7 +283,7 @@
 					return ITEM_INTERACT_COMPLETE
 				if(user.transfer_item_to(used, src, force = TRUE))
 					held_rod = used
-					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
+					playsound(loc, 'sound/machines/podclose.ogg', 50, TRUE)
 					update_icon(UPDATE_OVERLAYS)
 					return ITEM_INTERACT_COMPLETE
 
@@ -298,7 +298,7 @@
 		to_chat(user, SPAN_ALERT("The safety locks prevent maintenance while the reactor is on!"))
 		return
 	if(held_rod)
-		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if there is a rod inside."))
+		to_chat(user, SPAN_ALERT("You cannot reach the maintenance panel if there is a rod inside!"))
 		return
 	default_deconstruction_screwdriver(user, "chamber_maint", "chamber_open", I)
 
@@ -323,12 +323,12 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 	if(obj_integrity < max_integrity)
-		to_chat(user, SPAN_WARNING("You begin repairing [src]"))
+		to_chat(user, SPAN_WARNING("You begin repairing [src]."))
 		if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return ITEM_INTERACT_COMPLETE
 		obj_integrity = max_integrity // Lets make sure we can keep these healthy if need be
 	else
-		to_chat(user, SPAN_WARNING("[src] is not in need of repair"))
+		to_chat(user, SPAN_WARNING("[src] is not in need of repair."))
 		return ITEM_INTERACT_COMPLETE
 
 
@@ -407,7 +407,7 @@
 	if(held_rod && held_rod.reactor_overheat_modifier)
 		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 	if(playsound)
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		if(linked_reactor.offline)
 			held_rod.start_rads()
@@ -431,7 +431,7 @@
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
 	if(playsound)
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 	if(linked_reactor && linked_reactor.safety_override)
 		chamber_state = CHAMBER_OVERLOAD_IDLE
@@ -469,7 +469,7 @@
 	addtimer(CALLBACK(src, PROC_REF(finish_closing)), 0.5 SECONDS)
 	lockout = TRUE
 	if(playsound)
-		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+		playsound(loc, 'sound/machines/switch.ogg', 50, TRUE)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_closing()
 	lockout = FALSE
@@ -484,11 +484,10 @@
 	lockout = TRUE
 	addtimer(CALLBACK(src, PROC_REF(finish_opening)), 0.5 SECONDS)
 	if(playsound)
-		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+		playsound(loc, 'sound/machines/switch.ogg', 50, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_opening()
-
 	lockout = FALSE
 
 /obj/machinery/atmospherics/reactor_chamber/proc/set_idle_overload()
@@ -720,12 +719,12 @@
 
 /obj/machinery/atmospherics/reactor_chamber/proc/weld_shut()
 	welded = TRUE
-	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
+	playsound(loc, 'sound/items/welder2.ogg', 60, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/unweld()
 	welded = FALSE
-	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
+	playsound(loc, 'sound/items/welder2.ogg', 60, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/burn_handler(mob/user)

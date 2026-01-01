@@ -121,10 +121,10 @@
 	if(silent)
 		return
 	if(!linked_reactor)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		audible_message(SPAN_INFO("The gas node buzzes as it fails to connect to a reactor."))
 	else
-		playsound(src, 'sound/machines/ping.ogg', 30, 1)
+		playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 		audible_message(SPAN_INFO("The gas node pings as it connects to the reactor."))
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
