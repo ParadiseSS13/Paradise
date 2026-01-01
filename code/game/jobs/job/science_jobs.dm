@@ -96,11 +96,8 @@
 		ACCESS_TECH_STORAGE,
 		ACCESS_GENETICS,
 		ACCESS_XENOBIOLOGY,
-		ACCESS_EVA,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_TELEPORTER,
 	)
 	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
@@ -225,11 +222,8 @@
 		ACCESS_TOX,
 		ACCESS_GENETICS,
 		ACCESS_XENOBIOLOGY,
-		ACCESS_EVA,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_TELEPORTER,
 	)
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
@@ -288,11 +282,8 @@
 		ACCESS_MORGUE,
 		ACCESS_TECH_STORAGE,
 		ACCESS_XENOBIOLOGY,
-		ACCESS_EVA,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_TELEPORTER,
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
