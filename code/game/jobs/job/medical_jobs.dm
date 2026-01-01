@@ -80,7 +80,10 @@
 		ACCESS_SURGERY
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
@@ -133,7 +136,10 @@
 		ACCESS_MORGUE
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
@@ -214,7 +220,10 @@
 		ACCESS_MINERAL_STOREROOM
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
@@ -268,7 +277,10 @@
 		ACCESS_VIROLOGY
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
@@ -327,7 +339,10 @@
 		ACCESS_PSYCHIATRIST
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
@@ -391,7 +406,10 @@
 		ACCESS_TELEPORTER
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,

@@ -91,7 +91,10 @@
 		ACCESS_TOX,
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_ROBOTICS,
 		ACCESS_MORGUE,
@@ -160,7 +163,10 @@
 		ACCESS_TELEPORTER,
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
@@ -227,7 +233,10 @@
 		ACCESS_TECH_STORAGE
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
@@ -290,7 +299,10 @@
 		ACCESS_RESEARCH
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_TOX_STORAGE,

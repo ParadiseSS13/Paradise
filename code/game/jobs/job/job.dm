@@ -7,7 +7,10 @@
 	var/list/access = list()
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	/// Extra job access when the number of crew is below the skeleton crew threshold.
 	var/list/skeleton_access = list()
 

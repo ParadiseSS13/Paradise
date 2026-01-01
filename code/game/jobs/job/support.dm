@@ -81,7 +81,10 @@
 		ACCESS_SUPPLY_SHUTTLE,
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
@@ -131,7 +134,10 @@
 		ACCESS_SMITH,
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MAILSORTING,
 		ACCESS_SUPPLY_SHUTTLE,
@@ -178,7 +184,10 @@
 		ACCESS_MINING,
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MAILSORTING,
 		ACCESS_CARGO,
@@ -277,8 +286,11 @@
 		ACCESS_CARGO,
 		ACCESS_MINERAL_STOREROOM,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		ACCESS_MINING_STATION
 =======
+=======
+>>>>>>> Stashed changes
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
@@ -286,6 +298,9 @@
 	skeleton_access = list(
 		ACCESS_MAILSORTING,
 		ACCESS_SMITH,
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
@@ -391,7 +406,10 @@
 		ACCESS_MAINT_TUNNELS
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_BAR,
 		ACCESS_HYDROPONICS,
@@ -444,7 +462,10 @@
 		ACCESS_MORGUE
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_KITCHEN
 	)

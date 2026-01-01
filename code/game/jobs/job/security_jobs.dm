@@ -100,7 +100,10 @@
 		ACCESS_WEAPONS
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
@@ -243,7 +246,10 @@
 		ACCESS_WEAPONS
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE

@@ -91,7 +91,10 @@
 		ACCESS_TECH_STORAGE
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_ATMOSPHERICS
 	)
@@ -149,7 +152,10 @@
 		ACCESS_TECH_STORAGE
 	)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP
