@@ -244,7 +244,7 @@
 	for(var/obj/machinery/atmospherics/reactor_chamber/linked in connected_chambers)
 		linked.linked_reactor = null
 		connected_chambers -= linked
-	if(length(connected_chambers))
+	if(length(connected_chambers)) // For whatever reason, something that was not a reactor chamber was added to our list here (or is null), and shouldnt. Cut it to be safe.
 		log_debug("clear_reactor_network ran successfully, however connected_chambers still contains items!")
 		connected_chambers.Cut()
 	if(restart)
@@ -894,7 +894,7 @@
 	GLOB.enter_allowed = 0
 	SSticker.station_explosion_cinematic(NUKE_SITE_ON_STATION, null)
 	SSticker.mode.station_was_nuked = TRUE
-	to_chat(world, "<b>The station was destroyed from a nuclear meltdown!</b>")
+	to_chat(world, SPAN_BOLD("The station was destroyed from a nuclear meltdown!"))
 
 	if(!SSticker.mode.check_finished()) // If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
 		SSticker.reboot_helper("Station destroyed by nuclear fission meltdown.", "nuke - unhandled ending")

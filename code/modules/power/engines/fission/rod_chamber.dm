@@ -762,7 +762,7 @@
 
 /obj/effect/immovablerod/nuclear_rod
 	name = "\improper Nuclear Coolant Rod"
-	desc = "Oh fuck this shouldn't be happening."
+	desc = "Getting hit by this might make you wish you got radiation sickness instead."
 	notify = FALSE
 	var/obj/held_rod
 
