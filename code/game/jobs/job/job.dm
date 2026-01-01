@@ -6,18 +6,9 @@
 	/// Job access. A list of constants from access_defines.dm.
 	var/list/access = list()
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	/// Extra job access when the number of crew is below the skeleton crew threshold.
 	var/list/skeleton_access = list()
 
->>>>>>> Stashed changes
 	///Job Bitflag, used for Database entries - DO NOT JUST EDIT THESE
 	var/flag = 0
 	///Department(s) Bitflag, used for Databse entries - DO NOT JUST EDIT THESE

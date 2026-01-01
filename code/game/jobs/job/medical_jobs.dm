@@ -79,20 +79,11 @@
 		ACCESS_MORGUE,
 		ACCESS_SURGERY
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -138,21 +129,12 @@
 		ACCESS_MEDICAL,
 		ACCESS_MORGUE
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
->>>>>>> Stashed changes
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
@@ -225,20 +207,11 @@
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -285,21 +258,12 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -411,21 +375,12 @@
 		ACCESS_PARAMEDIC,
 		ACCESS_TELEPORTER
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
 	)
->>>>>>> Stashed changes
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic

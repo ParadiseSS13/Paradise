@@ -1,27 +1,5 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-#define NONE_DIFFICULTY				0
-#define EASY_DIFFICULTY				1
-#define LOW_DIFFICULTY				2
-#define MEDIUM_DIFFICULTY			3
-#define HARD_DIFFICULTY				4
-#define VERY_HARD_DIFFICULTY		5
-#define EXTREMELY_HARD_DIFFICULTY	6
-
-#define MAX_DIFFICULTY				6
-=======
 // If the number of crew is below this number, jobs will be granted extended access.
-#define SKELETON_CREW_THRESHOLD 25
->>>>>>> Stashed changes
-=======
-// If the number of crew is below this number, jobs will be granted extended access.
-#define SKELETON_CREW_THRESHOLD 25
->>>>>>> Stashed changes
-=======
-// If the number of crew is below this number, jobs will be granted extended access.
-#define SKELETON_CREW_THRESHOLD 25
->>>>>>> Stashed changes
+#define SKELETON_CREW_THRESHOLD 30
 
 ///////////////////////////////
 //          WARNING          //

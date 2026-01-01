@@ -99,19 +99,10 @@
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
->>>>>>> Stashed changes
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
@@ -248,19 +239,10 @@
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-	skeleton_access = list(
+	extra_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE
 	)
->>>>>>> Stashed changes
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)

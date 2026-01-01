@@ -90,14 +90,6 @@
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_ROBOTICS,
 		ACCESS_MORGUE,
@@ -110,7 +102,6 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -165,14 +156,6 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
@@ -181,7 +164,6 @@
 		ACCESS_TECH_STORAGE,
 		ACCESS_GENETICS,
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -238,14 +220,6 @@
 		ACCESS_ROBOTICS,
 		ACCESS_TECH_STORAGE
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
@@ -257,7 +231,6 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 	)
->>>>>>> Stashed changes
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -307,14 +280,6 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_RESEARCH
 	)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	skeleton_access = list(
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_TOX_STORAGE,
@@ -329,7 +294,6 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 	)
->>>>>>> Stashed changes
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/geneticist
