@@ -90,6 +90,12 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_TECH_STORAGE
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_ATMOSPHERICS
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -142,6 +148,13 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_TECH_STORAGE
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_STATION_ENGINEER,
+		ACCESS_ENGINE_EQUIP
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)

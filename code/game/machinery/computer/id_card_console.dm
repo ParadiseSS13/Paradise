@@ -496,6 +496,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
+				var/list/skeleton_access = list()
 				var/datum/job/jobdatum
 				if(is_centcom() && islist(get_centcom_access(t1)))
 					access = get_centcom_access(t1)
@@ -510,6 +511,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 
 					access = jobdatum.get_access()
+					skeleton_access = jobdatum.get_skeleton_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
@@ -533,6 +535,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						H.mind.playtime_role = t1
 
 				modify.access = access
+				modify.skeleton_access = skeleton_access
 				modify.rank = t1
 				modify.assignment = t1
 			regenerate_id_name()

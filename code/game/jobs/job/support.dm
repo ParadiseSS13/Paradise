@@ -80,6 +80,14 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SUPPLY_SHUTTLE,
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
@@ -120,8 +128,15 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_SMITH
+		ACCESS_SMITH,
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_SUPPLY_SHUTTLE,
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
 	standard_paycheck = CREW_PAY_LOW
@@ -162,6 +177,15 @@
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE,
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	standard_paycheck = CREW_PAY_LOW
@@ -252,7 +276,17 @@
 		ACCESS_TELEPORTER,
 		ACCESS_CARGO,
 		ACCESS_MINERAL_STOREROOM,
+<<<<<<< Updated upstream
 		ACCESS_MINING_STATION
+=======
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_MINING_STATION,
+		ACCESS_MINING,
+	)
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_SMITH,
+>>>>>>> Stashed changes
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
@@ -293,7 +327,19 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
+<<<<<<< Updated upstream
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+=======
+	access = list(
+		ACCESS_BAR, 
+		ACCESS_MAINT_TUNNELS, 
+		ACCESS_WEAPONS, 
+		ACCESS_MINERAL_STOREROOM
+	)
+	skeleton_access = list(
+		ACCESS_KITCHEN
+	)
+>>>>>>> Stashed changes
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = LOW_DIFFICULTY
@@ -344,6 +390,14 @@
 		ACCESS_KITCHEN,
 		ACCESS_MAINT_TUNNELS
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_BAR,
+		ACCESS_HYDROPONICS,
+		ACCESS_MINERAL_STOREROOM
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
@@ -389,6 +443,12 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MORGUE
 	)
+<<<<<<< Updated upstream
+=======
+	skeleton_access = list(
+		ACCESS_KITCHEN
+	)
+>>>>>>> Stashed changes
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW

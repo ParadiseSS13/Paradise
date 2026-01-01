@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #define NONE_DIFFICULTY				0
 #define EASY_DIFFICULTY				1
 #define LOW_DIFFICULTY				2
@@ -7,6 +8,10 @@
 #define EXTREMELY_HARD_DIFFICULTY	6
 
 #define MAX_DIFFICULTY				6
+=======
+// If the number of crew is below this number, jobs will be granted extended access.
+#define SKELETON_CREW_THRESHOLD 25
+>>>>>>> Stashed changes
 
 ///////////////////////////////
 //          WARNING          //
