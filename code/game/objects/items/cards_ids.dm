@@ -610,6 +610,13 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	skeleton_access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE)
 
+/obj/item/card/id/explorer
+	name = "Explorer ID"
+	registered_name = "Explorer"
+	icon_state = "explorer"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER, ACCESS_CARGO, ACCESS_MINERAL_STOREROOM)
+	skeleton_access = list(ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_MINING, ACCESS_SMITH)
+
 // MARK: Engineering
 /obj/item/card/id/engineering
 	name = "Engineering ID"
@@ -772,11 +779,6 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 
 /// MARK: Misc. IDs
-/obj/item/card/id/explorer
-	name = "Explorer ID"
-	registered_name = "Explorer"
-	icon_state = "explorer"
-
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
