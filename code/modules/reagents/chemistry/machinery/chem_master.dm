@@ -73,7 +73,6 @@
 		for(var/key in production_modes)
 			production_mode = key
 			break
-
 	RefreshParts()
 
 /obj/machinery/chem_master/Destroy()
@@ -363,7 +362,7 @@
 			if(!beaker)
 				return
 			beaker.forceMove(get_turf(src))
-			if(Adjacent(usr) && !issilicon(usr))
+			if(Adjacent(usr) && !issilicon(usr) && (!user.get_active_hand() || !user.get_inactive_hand()))
 				usr.put_in_hands(beaker)
 			beaker = null
 			update_icon()
