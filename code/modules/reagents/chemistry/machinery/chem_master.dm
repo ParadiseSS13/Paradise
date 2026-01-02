@@ -100,7 +100,7 @@
 		return
 	if(!Adjacent(user))
 		return
-	if(user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	beaker.forceMove(loc)
 	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))

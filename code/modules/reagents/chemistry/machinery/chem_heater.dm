@@ -32,7 +32,7 @@
 /obj/machinery/chem_heater/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
 		return
-	if(user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	eject_beaker(user)
 

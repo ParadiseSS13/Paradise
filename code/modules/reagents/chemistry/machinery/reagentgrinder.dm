@@ -345,7 +345,7 @@
 		return
 	if(!Adjacent(user))
 		return
-	if(user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	beaker.forceMove(loc)
 	SStgui.update_uis(src)
