@@ -199,22 +199,29 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part in bodyparts)
+			if(part == chest) // We just drew the chest, don't draw it twice.
+				continue
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
 			if(part.icon_position & (LEFT | RIGHT))
-				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
-				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
-				temp2.Insert(new/icon(temp,dir=SOUTH),dir=SOUTH)
+				// First draw JUST ONE copy of north and south views
+				var/icon/temp2 = new('icons/mob/human.dmi', "blank")
+				temp2.Insert(new/icon(temp, dir=NORTH), dir=NORTH)
+				temp2.Insert(new/icon(temp, dir=SOUTH), dir=SOUTH)
+				base_icon.Blend(temp2, ICON_OVERLAY)
+
+				// Now underlay or overlay the left and right sides as appropriate
+				temp2 = new('icons/mob/human.dmi', "blank")
 				if(!(part.icon_position & LEFT))
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
+					temp2.Insert(new/icon(temp, dir=EAST), dir=EAST)
 				if(!(part.icon_position & RIGHT))
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+					temp2.Insert(new/icon(temp, dir=WEST), dir=WEST)
 				base_icon.Blend(temp2, ICON_OVERLAY)
 				if(part.icon_position & LEFT)
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
+					temp2.Insert(new/icon(temp, dir=EAST), dir=EAST)
 				if(part.icon_position & RIGHT)
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+					temp2.Insert(new/icon(temp, dir=WEST), dir=WEST)
 				base_icon.Blend(temp2, ICON_UNDERLAY)
 			else
 				base_icon.Blend(temp, ICON_OVERLAY)
@@ -642,7 +649,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_id(wear_id)
 
 		if(w_uniform && w_uniform:displays_id)
-			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
+			overlays_standing[ID_LAYER] = mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
 /mob/living/carbon/human/update_inv_gloves()
