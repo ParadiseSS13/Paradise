@@ -362,7 +362,7 @@
 			if(!beaker)
 				return
 			beaker.forceMove(get_turf(src))
-			if(Adjacent(usr) && !issilicon(usr) && (!user.get_active_hand() || !user.get_inactive_hand()))
+			if(Adjacent(usr) && !issilicon(usr) && (!usr.get_active_hand() || !usr.get_inactive_hand()))
 				usr.put_in_hands(beaker)
 			beaker = null
 			update_icon()
