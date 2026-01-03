@@ -595,7 +595,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
 
 /datum/controller/subsystem/jobs/proc/check_skeleton_crew()
-	if(length(GLOB.crew_list) < GLOB.configuration.jobs.skeleton_crew_threshold)
+	if(length(GLOB.crew_list) <= GLOB.configuration.jobs.skeleton_crew_threshold)
 		if(skeleton_revoke_timer)
 			deltimer(skeleton_revoke_timer)
 		if(!skeleton_crew)
