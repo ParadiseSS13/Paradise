@@ -176,6 +176,7 @@
 		ACCESS_CARGO,
 		ACCESS_CARGO_BAY,
 		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_SMITH,
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
