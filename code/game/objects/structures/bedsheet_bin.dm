@@ -12,7 +12,7 @@ LINEN BINS
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = MOB_LAYER
-	throwforce = 1
+	throwforce = 0
 	throw_speed = 1
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
