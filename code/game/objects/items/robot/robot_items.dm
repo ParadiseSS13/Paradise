@@ -63,7 +63,11 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
 	braced = !braced
+	update_icon(UPDATE_ICON_STATE)
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/borg/push_broom/update_icon_state()
+	icon_state = "[base_icon_state][braced]"
 
 /obj/item/borg/push_broom/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	// Can we sweep it? No? Violence is the solution.
@@ -76,6 +80,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 /obj/item/borg/push_broom/proc/stow_broom(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_DEACTIVATED
 	braced = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, SPAN_NOTICE("You unbrace [src] and stow it away."))
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
