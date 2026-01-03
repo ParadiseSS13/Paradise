@@ -83,10 +83,12 @@
 	. += SPAN_NOTICE("[src] can be sealed/unsealed from its base with a lit welder using harm intent, but only while the chamber is lowered.")
 	. += SPAN_NOTICE("Alt+click to open and close the shielding while the chamber is raised.")
 	. += SPAN_NOTICE("Click on the chamber while it is closed to raise and lower it.")
-	. += ""
 
 	if(isobserver(user))
-		deep_examine(user)
+		// observers get regular examine + nested multitool info
+		var/list/deep_info = get_deep_examine_info()
+		if(length(deep_info))
+			. += chat_box_examine(deep_info.Join("<br>"))
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	desync()
@@ -334,19 +336,17 @@
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	deep_examine(user)
+	show_deep_examine(user)
 
-/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(mob/user)
-	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 
+/obj/machinery/atmospherics/reactor_chamber/proc/get_deep_examine_info()
 	if(chamber_state != CHAMBER_DOWN)
-		return
+		return null
 	if(!held_rod)
-		to_chat(user, SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
-		return ITEM_INTERACT_COMPLETE
+		return list(SPAN_WARNING("There is no nuclear rod inside this housing chamber."))
 	if(!linked_reactor)
-		to_chat(user, SPAN_WARNING("This chamber is not connected to a reactor."))
-		return ITEM_INTERACT_COMPLETE
+		return list(SPAN_WARNING("This chamber is not connected to a reactor."))
+
 	var/operating_rate = linked_reactor.operating_rate()
 	var/durability_mod = held_rod.get_durability_mod()
 	var/list/message = list()
@@ -356,8 +356,7 @@
 
 	if(held_rod.durability == 0)
 		message += SPAN_NOTICE("The rod has been fully depleted and rendered inert.")
-		to_chat(user, message)
-		return ITEM_INTERACT_COMPLETE
+		return message
 	else
 		message += SPAN_NOTICE("Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.")
 
@@ -389,8 +388,19 @@
 		else
 			message += SPAN_NOTICE("[held_rod] has not yet finished a heat enrichment process.")
 
-	to_chat(user, chat_box_examine(message.Join("<br>")))
+	return message
+
+/obj/machinery/atmospherics/reactor_chamber/proc/show_deep_examine(mob/user)
+	var/list/info = get_deep_examine_info()
+	if(!info)
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, chat_box_examine(info.Join("<br>")))
 	return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+	show_deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
