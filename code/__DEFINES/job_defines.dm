@@ -8,9 +8,6 @@
 
 #define MAX_DIFFICULTY				6
 
-// If the number of crew is below this number, jobs will be granted extended access.
-#define SKELETON_CREW_THRESHOLD 30
-
 ///////////////////////////////
 //          WARNING          //
 ////////////////////////////////////////////////////////////////////////
