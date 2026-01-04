@@ -55,7 +55,7 @@
 	if(length(adjacent_requirements))
 		var/list/templist = list()
 		for(var/obj/item/nuclear_rod/requirement as anything in adjacent_requirements)
-			templist += requirement::name
+			templist += initial(requirement.name)
 		var/requirement_list = english_list(templist, and_text = ", ")
 		. += "This rod has the following neighbor requirements: [requirement_list]"
 	else
