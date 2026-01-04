@@ -598,41 +598,59 @@
 /obj/item/nullrod/vajra/pickup(mob/living/user)
 	var/mob/living/carbon/human/wielder = user
 	if(!istype(wielder))
-		return FALSE
+		return
+
 	if(!wielder.get_organ("l_hand") || !wielder.get_organ("r_hand"))
 		to_chat(user, SPAN_WARNING("You need two hands to wield [src]!"))
-		return FALSE
-	if(wielder.r_hand || wielder.l_hand)
+		wielder.drop_item()
+		return
+
+	if(is_in_inactive_hand())
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
-		return FALSE
+		wielder.drop_item()
+		return
+
 	if(!..())
-		return FALSE
+		return
 
 	put_in_both_hands(user)
 
 /obj/item/nullrod/vajra/proc/put_in_both_hands(mob/user)
+	if(!user)
+		return
+
 	var/mob/living/carbon/human/wielder = user
-	if(!wielder.r_hand == src)
+	if(wielder.r_hand != src)
+		user.drop_item(src)
 		if(!wielder.put_in_r_hand(src))
 			return
+
 	if(!wielder.put_in_l_hand(bound_ghanta) && !wielder.l_hand == bound_ghanta)
 		user.drop_item(src)
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
 		return
+
 	name = "vajra"
 	desc = "A legendary ritual weapon."
 	icon_state = "vajra"
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/nullrod/vajra/proc/reunite_with_ghanta()
+/// Stores Ghantra inside Vajra.
+/obj/item/nullrod/vajra/proc/reunite_with_ghanta(drop_vajra = FALSE)
 	icon_state = initial(icon_state)
 	name = initial(name)
 	desc = initial(desc)
 	if(!bound_ghanta)
 		return
+
+	var/mob/holder = null
+	if(drop_vajra)
+		if(istype(loc, /mob))
+			holder = loc
+			holder.drop_r_hand(TRUE)
 	if(istype(bound_ghanta.loc, /mob))
-		var/mob/holder = bound_ghanta.loc
-		holder.drop_item(bound_ghanta)
+		holder = bound_ghanta.loc
+		holder.drop_l_hand(TRUE)
 	if(bound_ghanta.loc != src)
 		bound_ghanta.forceMove(src)
 	update_appearance(UPDATE_ICON_STATE)
@@ -658,6 +676,55 @@
 		put_in_both_hands(user)
 	else
 		reunite_with_ghanta()
+
+/obj/item/nullrod/cleansing/ghanta
+	name = "ghanta"
+	desc = "A powerful ritual tool. Has an auspicious sound."
+	reskinned = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	icon_state = "ghanta"
+	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
+	var/obj/item/nullrod/vajra/bound_vajra = null
+
+/obj/item/nullrod/cleansing/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+	if(slot != ITEM_SLOT_LEFT_HAND)
+		return
+	if(M.r_hand || M.l_hand)
+		to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
+		return FALSE
+	return ..()
+
+/obj/item/nullrod/cleansing/ghanta/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_RIGHT_HAND)
+		user.drop_item(src)
+		user.put_in_l_hand(src)
+		bound_vajra.put_in_both_hands(user)
+	else if(slot == ITEM_SLOT_LEFT_HAND)
+		bound_vajra.put_in_both_hands(user)
+	else
+		bound_vajra.reunite_with_ghanta()
+
+/obj/item/nullrod/cleansing/ghanta/on_enter_storage(obj/item/storage/S)
+	. = ..()
+	if(istype(bound_vajra.loc, /mob))
+		var/mob/holder = bound_vajra.loc
+		holder.drop_item(bound_vajra)
+	bound_vajra.forceMove(S)
+	bound_vajra.reunite_with_ghanta()
+
+/obj/item/nullrod/cleansing/ghanta/dropped(mob/user, silent)
+	. = ..()
+	bound_vajra.reunite_with_ghanta(TRUE)
+
+/obj/item/nullrod/cleansing/ghanta/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	bound_vajra.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
+
+/obj/item/nullrod/cleansing/ghanta/output_cleansing_message(atom/target, mob/living/user)
+	user.visible_message(
+		SPAN_NOTICE("[user] starts ringing [src] to drive evil away from [target == user ? user.p_themselves() : "[target]"]."),
+		SPAN_NOTICE("You start ringing [src] to drive evil away from [target == user ? "yourself" : "[target]"].")
+		)
 
 /obj/item/nullrod/cleansing
 	name = "holy cleansing object"
@@ -778,49 +845,6 @@
 	user.visible_message(
 		SPAN_NOTICE("[user] begins sweeping away the evil forces around [target == user ? user.p_themselves() : "[target]"] with [src]."),
 		SPAN_NOTICE("You begin sweeping away the evil forces around [target == user ? "yourself" : "[target]"] with [src].")
-		)
-
-/obj/item/nullrod/cleansing/ghanta
-	name = "ghanta"
-	desc = "A powerful ritual tool. Has an auspicious sound."
-	reskinned = TRUE
-	w_class = WEIGHT_CLASS_BULKY
-	icon_state = "ghanta"
-	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
-	var/obj/item/nullrod/vajra/bound_vajra = null
-
-/obj/item/nullrod/cleansing/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
-	if(slot != ITEM_SLOT_LEFT_HAND)
-		return
-	if(M.r_hand || M.l_hand)
-		to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
-		return FALSE
-	return ..()
-
-/obj/item/nullrod/cleansing/ghanta/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_RIGHT_HAND)
-		user.put_in_l_hand(src)
-		bound_vajra.put_in_both_hands(user)
-	else if(slot == ITEM_SLOT_LEFT_HAND)
-		bound_vajra.put_in_both_hands(user)
-	else
-		bound_vajra.reunite_with_ghanta()
-
-/obj/item/nullrod/cleansing/ghanta/on_enter_storage(obj/item/storage/S)
-	. = ..()
-	bound_vajra.reunite_with_ghanta()
-	bound_vajra.forceMove(S)
-
-/obj/item/nullrod/cleansing/ghanta/dropped(mob/user, silent)
-	. = ..()
-	bound_vajra.reunite_with_ghanta()
-	user.drop_item(bound_vajra)
-
-/obj/item/nullrod/cleansing/ghanta/output_cleansing_message(atom/target, mob/living/user)
-	user.visible_message(
-		SPAN_NOTICE("[user] starts ringing [src] to drive evil away from [target == user ? user.p_themselves() : "[target]"]."),
-		SPAN_NOTICE("You start ringing [src] to drive evil away from [target == user ? "yourself" : "[target]"].")
 		)
 
 /obj/item/nullrod/nazar
