@@ -780,7 +780,7 @@
 		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 
 /obj/item/push_broom/update_icon_state()
-	icon_state = "broom0"
+	icon_state = "[base_icon_state]0"
 
 /obj/item/push_broom/proc/wield(obj/item/source, mob/user)
 	to_chat(user, SPAN_NOTICE("You brace [src] against the ground in a firm sweeping stance."))

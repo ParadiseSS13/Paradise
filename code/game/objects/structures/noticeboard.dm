@@ -88,7 +88,7 @@
 				return
 			var/obj/item/held_item = usr.get_active_hand()
 			if(is_pen(held_item))
-				paper.attackby__legacy__attackchain(held_item, usr)
+				paper.item_interaction(usr, held_item)
 				return
 			else
 				usr.put_in_hands(paper)

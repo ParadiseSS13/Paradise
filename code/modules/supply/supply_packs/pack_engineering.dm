@@ -274,14 +274,21 @@
 /datum/supply_packs/engineering/chemical_flamethrower
 	name = "Chemical Flamethrower Starter Pack"
 	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
-	cost = 750
+	cost = 500
 	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
 	containername = "chemical flamethrower crate"
+
+/datum/supply_packs/engineering/chemthrower_upgrade
+	name = "Chemical Flamethrower Upgrade Pack"
+	contains = list(/obj/item/weaponcrafting/gunkit/chemical_flamethrower)
+	cost = 250
+	containertype = /obj/structure/closet/crate
+	containername = "chemical flamethrower upgrade crate"
 
 /datum/supply_packs/engineering/chemical_canister
 	name = "Chemical Flamethrower Canister Pack"
 	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
-	cost = 500
+	cost = 300
 	containertype = /obj/structure/closet/crate
 	containername = "chemical flamethrower canister crate"
 
@@ -291,3 +298,66 @@
 	cost = 400
 	containertype = /obj/structure/largecrate
 	containername = "Large Air Pump Crate"
+
+/datum/supply_packs/engineering/bsa
+	name = "Bluespace Artillery Parts"
+	cost = 2250
+	contains = list(/obj/item/circuitboard/machine/bsa/front,
+					/obj/item/circuitboard/machine/bsa/middle,
+					/obj/item/circuitboard/machine/bsa/back,
+					/obj/item/circuitboard/computer/bsa_control
+					)
+	containername = "bluespace artillery parts crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
+
+/datum/supply_packs/engineering/bluespace_tap
+	name = "Bluespace Harvester Parts"
+	cost = 1750
+	contains = list(
+					/obj/item/circuitboard/machine/bluespace_tap,
+					/obj/item/paper/bluespace_tap
+					)
+	containername = "bluespace harvester parts crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
+
+/datum/supply_packs/engineering/dna_vault
+	name = "DNA Vault Parts"
+	cost = 1500
+	contains = list(
+					/obj/item/circuitboard/machine/dna_vault
+					)
+	containername = "dna vault parts crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
+
+/datum/supply_packs/engineering/dna_probes
+	name = "DNA Vault Samplers"
+	cost = 350
+	contains = list(/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe
+					)
+	containername = "dna samplers crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
+
+/datum/supply_packs/engineering/shield_sat
+	name = "Shield Generator Satellites"
+	cost = 150
+	contains = list(
+					/obj/machinery/satellite/meteor_shield,
+					/obj/machinery/satellite/meteor_shield,
+					/obj/machinery/satellite/meteor_shield,
+					/obj/machinery/satellite/meteor_shield
+					)
+	containername = "shield sat crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
+
+/datum/supply_packs/engineering/shield_sat_control
+	name = "Shield System Control Board"
+	cost = 1000
+	contains = list(
+					/obj/item/circuitboard/computer/sat_control
+					)
+	containername = "shield control board crate"
+	containertype = /obj/structure/closet/crate/nanotrasen
