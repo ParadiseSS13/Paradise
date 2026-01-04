@@ -96,8 +96,8 @@
 	var/picked_type = variant_names[choice]
 	var/obj/item/storage/belt/sheath/holy/new_sheath = null
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
-	if(istype(new_rod, /obj/item/nullrod/claymore/islamic))
-		new_sheath = new /obj/item/storage/belt/sheath/holy/islamic(get_turf(user))
+	if(istype(new_rod, /obj/item/nullrod/claymore/curved))
+		new_sheath = new /obj/item/storage/belt/sheath/holy/curved(get_turf(user))
 	if(istype(new_rod, /obj/item/nullrod/kirpan))
 		new_sheath = new /obj/item/storage/belt/sheath/holy/kirpan(get_turf(user))
 
@@ -262,8 +262,8 @@
 	icon_state = "cutlass1"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
-/obj/item/nullrod/claymore/islamic
-	name = "Islamic saber"
+/obj/item/nullrod/claymore/curved
+	name = "curved saber"
 	desc = "Power consists not in being able to strike another, but in being able to control oneself when anger arises."
 	icon_state = "chap_saber"
 	slot_flags = ITEM_SLOT_BELT
@@ -585,7 +585,7 @@
 	worn_icon_state = null
 	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	inhand_icon_state = "vajra"
-	force = 5
+	force = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bludgeoned", "hit", "struck")
 	var/obj/item/nullrod/cleansing/ghanta/bound_ghanta = null
@@ -827,7 +827,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	reskin_selectable = TRUE
 	attack_verb = list("swatted", "swept", "whisked")
-	force = 1
 
 /obj/item/nullrod/cleansing/whisk/attack(mob/living/target, mob/living/user)
 	. = ..()
@@ -1101,8 +1100,8 @@
 	base_icon_state = "kirpan_sheath"
 	can_hold = list(/obj/item/nullrod/kirpan)
 
-/obj/item/storage/belt/sheath/holy/islamic
+/obj/item/storage/belt/sheath/holy/curved
 	name = "Chaplain's saber scabbard"
-	desc = "Can hold an Islamic saber."
+	desc = "Can hold a curved saber."
 	base_icon_state = "chap_sheath"
-	can_hold = list(/obj/item/nullrod/claymore/islamic)
+	can_hold = list(/obj/item/nullrod/claymore/curved)
