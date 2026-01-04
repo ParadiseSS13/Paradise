@@ -598,20 +598,20 @@
 /obj/item/nullrod/vajra/pickup(mob/living/user)
 	var/mob/living/carbon/human/wielder = user
 	if(!istype(wielder))
-		return FALSE
+		return
 
 	if(!wielder.get_organ("l_hand") || !wielder.get_organ("r_hand"))
 		to_chat(user, SPAN_WARNING("You need two hands to wield [src]!"))
-		user.drop_item(src)
-		return FALSE
+		wielder.drop_item()
+		return
 
-	if(wielder.r_hand || wielder.l_hand)
+	if(is_in_inactive_hand())
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
-		user.drop_item(src)
-		return FALSE
+		wielder.drop_item()
+		return
 
 	if(!..())
-		return FALSE
+		return
 
 	put_in_both_hands(user)
 
@@ -636,15 +636,20 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /// Stores Ghantra inside Vajra.
-/obj/item/nullrod/vajra/proc/reunite_with_ghanta()
+/obj/item/nullrod/vajra/proc/reunite_with_ghanta(drop_vajra = FALSE)
 	icon_state = initial(icon_state)
 	name = initial(name)
 	desc = initial(desc)
 	if(!bound_ghanta)
 		return
 
+	var/mob/holder = null
+	if(drop_vajra)
+		if(istype(loc, /mob))
+			holder = loc
+			holder.drop_r_hand(TRUE)
 	if(istype(bound_ghanta.loc, /mob))
-		var/mob/holder = bound_ghanta.loc
+		holder = bound_ghanta.loc
 		holder.drop_l_hand(TRUE)
 	if(bound_ghanta.loc != src)
 		bound_ghanta.forceMove(src)
@@ -710,8 +715,10 @@
 
 /obj/item/nullrod/cleansing/ghanta/dropped(mob/user, silent)
 	. = ..()
-	user.drop_item(bound_vajra)
-	bound_vajra.reunite_with_ghanta()
+	bound_vajra.reunite_with_ghanta(TRUE)
+
+/obj/item/nullrod/cleansing/ghanta/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	bound_vajra.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 /obj/item/nullrod/cleansing/ghanta/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
