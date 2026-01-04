@@ -260,9 +260,9 @@
 
 /obj/item/nuclear_rod/fuel/supermatter
 	name = "supermatter fuel rod"
-	desc = "A fuel rod made entirely of supermatter, contained safely in a specialized housing case. Due to its unusual properties, it completely neutralizes any potential power from nearby rods."
+	desc = "A dangerous fuel rod made entirely of supermatter, contained safely in a specialized housing case. Due to its unusual properties, it completely neutralizes any potential power from nearby rods."
 	icon_state = "fuel_sm"
-	heat_amount = 800
+	heat_amount = 1300
 	power_amount = 800 KW
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
@@ -300,10 +300,10 @@
 
 /obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
 	max_durability = rand(1000, 10000)
-	power_amp_mod = rand(1, 30) / 10
-	heat_amp_mod = rand(1, 80) / 10
-	power_amount = rand(10 KW, 100 KW)
-	heat_amount = rand(10, 200)
+	power_amp_mod = rand(1, 35) / 10
+	heat_amp_mod = rand(8, 80) / 10
+	power_amount = rand(10 KW, 150 KW)
+	heat_amount = rand(10, 500)
 	return ..()
 
 /obj/item/nuclear_rod/fuel/meltdown
@@ -398,14 +398,13 @@
 	desc = "An advanced moderator rod that can reflect nearly all neutrons back to their point of origin. Simple, stable, reliable."
 	icon_state = "mod_diamond"
 	max_durability = 6000
-	heat_amp_mod = 6
+	heat_amp_mod = 6.5
 	power_amp_mod = 3.3
 	reactor_overheat_modifier = 100
 	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
 	adjacent_requirements = list(
-		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,

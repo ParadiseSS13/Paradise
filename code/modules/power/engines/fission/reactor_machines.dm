@@ -267,6 +267,11 @@
 	materials.retrieve_all()
 	default_deconstruction_crowbar(user, I)
 
+/obj/machinery/nuclear_rod_fabricator/on_deconstruction()
+	if(upgraded)
+		new /obj/item/rod_fabricator_upgrade(loc)
+	return ..()
+
 /obj/machinery/nuclear_rod_fabricator/proc/create_designs()
 	category_fuel = list()
 	category_moderator = list()
