@@ -77,7 +77,7 @@
 		var/datum/gas_mixture/removed = network2.remove(transfer_moles)
 		network1.merge(removed)
 
-		parent.update = 1
+		parent.update = TRUE
 
 	return TRUE
 
@@ -136,15 +136,5 @@
 		else
 			name = "Reactor Gas Extractor"
 	return ..()
-
-/obj/item/circuitboard/machine/reactor_gas_node
-	board_name = "Reactor Gas Node"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
-	origin_tech = "engineering=2"
-	req_components = list(
-		/obj/item/stack/cable_coil = 2,
-		/obj/item/stack/sheet/metal = 2,
-	)
 
 #undef MINIMUM_MOLES

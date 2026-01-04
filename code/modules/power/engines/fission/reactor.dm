@@ -302,28 +302,38 @@
 		if(plastitanium.amount < 5)
 			to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
 			return ITEM_INTERACT_COMPLETE
+
 		if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
 			if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+				if(plastitanium.amount < 5)
+					to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
+					return ITEM_INTERACT_COMPLETE
 				plastitanium.use(5)
 				to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
 				repair_step++
 				icon_state = "reactor_maintenance"
-		else
-			if(!offline)
-				to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
-				return ITEM_INTERACT_COMPLETE
-			if(damage == 0)
-				to_chat(creature, SPAN_WARNING("The reactor has nothing left to repair!"))
-				return ITEM_INTERACT_COMPLETE
-			var/obj/item/item = creature.get_inactive_hand()
-			if(!istype(item, /obj/item/weldingtool))
-				to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
-				return ITEM_INTERACT_COMPLETE
-			if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
-				return ITEM_INTERACT_COMPLETE
-			if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
-				plastitanium.use(5)
-				adjust_damage((-MELTDOWN_POINT * 0.1))
+				return
+
+		if(!offline)
+			to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(damage == 0)
+			to_chat(creature, SPAN_WARNING("The reactor has nothing left to repair!"))
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/item = creature.get_inactive_hand()
+		if(!istype(item, /obj/item/weldingtool))
+			to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
+			return ITEM_INTERACT_COMPLETE
+
+		if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
+			plastitanium.use(5)
+			adjust_damage((-MELTDOWN_POINT * 0.1))
+
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)

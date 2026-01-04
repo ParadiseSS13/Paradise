@@ -48,29 +48,27 @@
 			if(chamber.chamber_state != CHAMBER_OPEN) // we need to handle this a bit special
 				chamber.attack_hand(cargo_holder.occupant)
 				return
-			else
-				if(chamber.held_rod)
-					if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
-						chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
-						chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
-						cargo_holder.cargo += chamber.held_rod
-						chamber.held_rod.forceMove(chassis)
-						chamber.held_rod = null
-						playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
-						chamber.update_icon(UPDATE_OVERLAYS)
-						return
-					else
-						occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
-						return
+			if(chamber.held_rod)
+				if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
+					chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
+					chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
+					cargo_holder.cargo += chamber.held_rod
+					chamber.held_rod.forceMove(chassis)
+					chamber.held_rod = null
+					playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
+					chamber.update_icon(UPDATE_OVERLAYS)
 				else
-					for(var/obj/item/nuclear_rod/rod in cargo_holder.cargo)
-						rod.add_hiddenprint(cargo_holder.occupant)
-						chamber.held_rod = rod
-						rod.forceMove(chamber)
-						cargo_holder.cargo -= rod
-						playsound(chamber.loc, 'sound/machines/podclose.ogg', 50, 1)
-						chamber.update_icon(UPDATE_OVERLAYS)
-						return
+					occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
+				return
+
+			for(var/obj/item/nuclear_rod/rod in cargo_holder.cargo)
+				rod.add_hiddenprint(cargo_holder.occupant)
+				chamber.held_rod = rod
+				rod.forceMove(chamber)
+				cargo_holder.cargo -= rod
+				playsound(chamber.loc, 'sound/machines/podclose.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
+				return
 
 		if(O.anchored)
 			occupant_message(SPAN_WARNING("[target] is firmly secured!"))

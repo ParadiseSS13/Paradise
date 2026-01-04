@@ -169,46 +169,15 @@
 		active.desired_power = 100 - temp_number
 
 	if(action == "toggle_vent")
+		if(!controller)
+			visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			return
 		if(active.vent_lockout)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			visible_message(SPAN_WARNING("ERROR: Vent servos unresponsive. Manual closure required."))
 		else
 			active.venting = !active.venting
-
-// MARK: Circuits
-
-/obj/item/circuitboard/nuclear_centrifuge
-	board_name = "Nuclear Centrifuge"
-	icon_state = "engineering"
-	build_path = /obj/machinery/nuclear_centrifuge
-	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
-	req_components = list(
-		/obj/item/stock_parts/manipulator = 4,
-	)
-
-/obj/item/circuitboard/nuclear_rod_fabricator
-	board_name = "Nuclear Rod Fabricator"
-	icon_state = "engineering"
-	build_path = /obj/machinery/nuclear_rod_fabricator
-	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
-	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/matter_bin = 2,
-	)
-
-/obj/item/circuitboard/machine/reactor_chamber
-	board_name = "Reactor Chamber"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/reactor_chamber
-	origin_tech = "engineering=2"
-	req_components = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
-	)
 
 // MARK: Slag
 
@@ -246,8 +215,7 @@
 
 /obj/item/grenade/nuclear_starter/prime()
 	playsound(src.loc, 'sound/weapons/bsg_explode.ogg', 50, TRUE, -3)
-	var/obj/effect/warp_effect/supermatter/warp = new(loc)
-	addtimer(CALLBACK(src, PROC_REF(delete_pulse), warp), 0.5 SECONDS)
+	var/obj/effect/temp_visual/neutronic/warp = new(loc)
 	warp.pixel_x += 16
 	warp.pixel_y += 16
 	warp.transform = matrix().Scale(0.01, 0.01)
@@ -265,11 +233,16 @@
 		else
 			chamber.requirements_met = FALSE
 		chamber.update_icon(UPDATE_OVERLAYS)
-	icon = null // make it look like it detonated.
-
-/obj/item/grenade/nuclear_starter/proc/delete_pulse(warp)
-	QDEL_NULL(warp)
 	qdel(src)
+
+/obj/effect/temp_visual/neutronic
+	icon = 'icons/effects/light_352.dmi'
+	icon_state = "light"
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	duration = 0.5 SECONDS
+	pixel_x = -176
+	pixel_y = -176
 
 // MARK: Rad Proof Pool
 

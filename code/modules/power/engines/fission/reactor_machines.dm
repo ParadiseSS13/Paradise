@@ -56,51 +56,50 @@
 
 /obj/machinery/nuclear_centrifuge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
-	if(istype(used, /obj/item/nuclear_rod/fuel))
-		if(stat & NOPOWER)
-			return ITEM_INTERACT_COMPLETE
-		if(panel_open)
-			to_chat(user, SPAN_WARNING("You must close the access panel first!"))
-			return ITEM_INTERACT_COMPLETE
-		if(power_state == ACTIVE_POWER_USE) // dont start a new cycle when on
-			to_chat(user, SPAN_WARNING("There is already a fuel rod being processed!"))
-			return ITEM_INTERACT_COMPLETE
-		var/obj/item/nuclear_rod/fuel/rod = used
-		var/list/enrichment_to_name = list()
-		var/list/radial_list = list()
-		var/obj/item/nuclear_rod/fuel/rod_enrichment
-
-		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-			rod_enrichment = rod.power_enrich_result
-			enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
-			radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
-		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
-			rod_enrichment = rod.heat_enrich_result
-			enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
-			radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
-
-		if(!length(radial_list))
-			to_chat(user, SPAN_WARNING("This rod has no potential for enrichment!"))
-			return ITEM_INTERACT_COMPLETE
-
-		var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
-		if(!enrichment_choice)
-			return ITEM_INTERACT_COMPLETE
-		rod_result = enrichment_to_name[enrichment_choice]
-		held_rod = rod
-		user.transfer_item_to(rod, src)
-		begin_enrichment()
+	if(!istype(used, /obj/item/nuclear_rod/fuel))
+		return CONTINUE_ATTACK
+	if(stat & NOPOWER)
 		return ITEM_INTERACT_COMPLETE
+	if(panel_open)
+		to_chat(user, SPAN_WARNING("You must close the access panel first!"))
+		return ITEM_INTERACT_COMPLETE
+	if(power_state == ACTIVE_POWER_USE) // dont start a new cycle when on
+		to_chat(user, SPAN_WARNING("There is already a fuel rod being processed!"))
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/nuclear_rod/fuel/rod = used
+	var/list/enrichment_to_name = list()
+	var/list/radial_list = list()
+	var/obj/item/nuclear_rod/fuel/rod_enrichment
+	if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
+	rod_enrichment = rod.power_enrich_result
+	enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
+	radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
+	if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
+		rod_enrichment = rod.heat_enrich_result
+		enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
+		radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
+		if(!length(radial_list))
+		to_chat(user, SPAN_WARNING("This rod has no potential for enrichment!"))
+		return ITEM_INTERACT_COMPLETE
+		var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
+	if(!enrichment_choice)
+		return ITEM_INTERACT_COMPLETE
+	rod_result = enrichment_to_name[enrichment_choice]
+	held_rod = rod
+	user.transfer_item_to(rod, src)
+	begin_enrichment()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/nuclear_centrifuge/AltClick(mob/user, modifiers)
-	if(held_rod)
-		if(power_state == ACTIVE_POWER_USE)
-			to_chat(user, SPAN_WARNING("You cannot remove the fuel rod while the machine is running!"))
-			return
-		held_rod.forceMove(loc)
-		held_rod = null
-		icon_state = "centrifuge_empty"
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	if(!held_rod)
+		return
+	if(power_state == ACTIVE_POWER_USE)
+		to_chat(user, SPAN_WARNING("You cannot remove the fuel rod while the machine is running!"))
+		return
+	held_rod.forceMove(loc)
+	held_rod = null
+	icon_state = "centrifuge_empty"
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 /obj/machinery/nuclear_centrifuge/process()
 	if(stat & NOPOWER)
