@@ -1,7 +1,7 @@
 /obj/item/smithed_item/component/rod_housing
 	name = "Debug rod housing"
-	icon_state = "rod_housing"
 	desc = ABSTRACT_TYPE_DESC
+	icon_state = "rod_housing"
 	part_type = PART_PRIMARY
 
 /obj/item/smithed_item/component/rod_housing/plasma_agitator

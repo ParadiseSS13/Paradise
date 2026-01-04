@@ -338,7 +338,6 @@
 	. = TRUE
 	show_deep_examine(user)
 
-
 /obj/machinery/atmospherics/reactor_chamber/proc/get_deep_examine_info()
 	if(chamber_state != CHAMBER_DOWN)
 		return null
@@ -542,7 +541,6 @@
 	if(linked_reactor)
 		linked_reactor.connected_chambers -= src
 		linked_reactor.clear_reactor_network(restart = TRUE)
-
 
 /// Forms the two-way link between the reactor and the chamber, then searches for valid neighbors.
 /obj/machinery/atmospherics/reactor_chamber/proc/form_link(obj/machinery/atmospherics/fission_reactor/reactor)
@@ -804,7 +802,7 @@
 		qdel(src)
 
 /obj/effect/immovablerod/nuclear_rod/Destroy()
-	held_rod.forceMove(end)
+	held_rod.forceMove(get_turf(src))
 	return ..()
 
 #undef CHAMBER_HEAT_DAMAGE

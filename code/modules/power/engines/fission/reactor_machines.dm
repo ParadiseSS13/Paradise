@@ -96,7 +96,7 @@
 	if(power_state == ACTIVE_POWER_USE)
 		to_chat(user, SPAN_WARNING("You cannot remove the fuel rod while the machine is running!"))
 		return
-	held_rod.forceMove(loc)
+	held_rod.forceMove(get_turf(src))
 	held_rod = null
 	icon_state = "centrifuge_empty"
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -437,7 +437,6 @@
 		to_chat(user, SPAN_WARNING("The machine cannot be opened while it is operating!"))
 		return ITEM_INTERACT_COMPLETE
 	default_deconstruction_screwdriver(user, "rod_fab_maint", "rod_fab", I)
-
 
 /obj/machinery/nuclear_rod_fabricator/proc/begin_fabrication(rod_type_path)
 	power_state = ACTIVE_POWER_USE

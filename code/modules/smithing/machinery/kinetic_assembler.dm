@@ -290,7 +290,7 @@
 			extra_product.set_stats()
 			product = extra_product
 		else if(istype(finished_product, /obj/item/nuclear_rod))
-			product = new finished_product.type(src.loc)
+			product = new finished_product.type(get_turf(src))
 		product.update_appearance(UPDATE_NAME)
 		product.scatter_atom()
 

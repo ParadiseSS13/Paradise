@@ -5,7 +5,7 @@
 	desc = "A bundle of heavy watt power cables for managing power output from the reactor."
 	icon_state = "term"
 	plane = FLOOR_PLANE
-	layer = WIRE_TERMINAL_LAYER //a bit above wires
+	layer = WIRE_TERMINAL_LAYER // A bit above wires
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
