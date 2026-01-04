@@ -496,6 +496,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect
 	name = "Protect"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to protect another crewmember. You will receive further information in a few minutes."
 	/// Timer for fallback target assignment (randomized between 5-10 minutes)
 	var/fallback_timer_id
 
@@ -510,7 +511,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "[target.current.real_name], the [target.assigned_role], is in grave danger. Ensure that they remain alive for the duration of the shift."
 	else
 		// We're waiting for a target to be chosen. Don't want Free Objective to show here.
-		explanation_text = "Your objective is to protect another crewmember. You will receive further information in a few minutes."
+		explanation_text = delayed_objective_text
 
 // Alert protect objective owners, invoked by the kill objectives when their targets are assigned
 /datum/objective/protect/proc/notify_protect_objectives()
