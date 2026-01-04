@@ -409,6 +409,27 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/caseless/paintball
+	name = "paintball"
+	desc = "Do not aim at the eyes."
+	projectile_type = /obj/projectile/paintball
+	muzzle_flash_effect = null
+	caliber = "paintball"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "paintball"
+	harmful = FALSE
+
+/obj/item/ammo_casing/caseless/pepperball
+	name = "pepperball"
+	desc = "Aim at the eyes for maximum effect."
+	projectile_type = /obj/projectile/pepperball
+	muzzle_flash_effect = null
+	caliber = "pepperball"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "paintball"
+	harmful = FALSE
+	color = "#660000"
+
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
 	desc = "It's nerf or nothing! Ages 8 and up."

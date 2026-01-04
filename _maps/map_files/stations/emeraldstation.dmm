@@ -11860,8 +11860,8 @@
 /area/station/maintenance/apmaint2)
 "csS" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "csT" = (
@@ -17255,11 +17255,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "dxG" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "dxH" = (
@@ -17478,9 +17478,13 @@
 /area/station/telecomms/computer)
 "dAa" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 7;
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "dAe" = (
@@ -24100,6 +24104,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "eTZ" = (
@@ -33386,8 +33391,8 @@
 /area/station/medical/surgery/secondary)
 "gJF" = (
 /obj/structure/table,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "gJG" = (
@@ -42076,6 +42081,9 @@
 /obj/structure/table,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "iyb" = (
@@ -42194,7 +42202,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/structure/closet/crate/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -45959,6 +45966,9 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
+	},
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
@@ -55233,8 +55243,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "lgL" = (
-/obj/machinery/cooking/oven,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "lgQ" = (
@@ -75204,7 +75214,9 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -90053,6 +90065,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "scb" = (
@@ -90464,7 +90477,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms_secondary)
 "sgN" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -90472,6 +90484,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "sgP" = (
@@ -91272,6 +91285,10 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "spn" = (
@@ -107028,9 +107045,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "vyC" = (
-/obj/machinery/cooking/ice_cream_mixer,
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "vyG" = (
@@ -117708,8 +117725,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xIl" = (
-/obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "xIz" = (
