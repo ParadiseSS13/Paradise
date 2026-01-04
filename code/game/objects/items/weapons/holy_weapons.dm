@@ -181,6 +181,7 @@
 	icon_state = "kirpan"
 	worn_icon_state = null
 	inhand_icon_state = null
+	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -584,6 +585,8 @@
 	worn_icon_state = null
 	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	inhand_icon_state = "vajra"
+	force = 5
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bludgeoned", "hit", "struck")
 	var/obj/item/nullrod/cleansing/ghanta/bound_ghanta = null
 
@@ -609,13 +612,17 @@
 
 /obj/item/nullrod/vajra/proc/put_in_both_hands(mob/user)
 	var/mob/living/carbon/human/wielder = user
-	if(!wielder.put_in_r_hand(src))
-		return
-	if(!wielder.put_in_l_hand(bound_ghanta))
+	if(!wielder.r_hand == src)
+		if(!wielder.put_in_r_hand(src))
+			return
+	if(!wielder.put_in_l_hand(bound_ghanta) && !wielder.l_hand == bound_ghanta)
+		user.drop_item(src)
+		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
 		return
 	name = "vajra"
 	desc = "A legendary ritual weapon."
 	icon_state = "vajra"
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/nullrod/vajra/proc/reunite_with_ghanta()
 	icon_state = initial(icon_state)
@@ -623,8 +630,12 @@
 	desc = initial(desc)
 	if(!bound_ghanta)
 		return
+	if(istype(bound_ghanta.loc, /mob))
+		var/mob/holder = bound_ghanta.loc
+		holder.drop_item(bound_ghanta)
 	if(bound_ghanta.loc != src)
 		bound_ghanta.forceMove(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/nullrod/vajra/on_enter_storage(obj/item/storage/S)
 	. = ..()
@@ -636,7 +647,7 @@
 
 /obj/item/nullrod/vajra/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_RIGHT_HAND || slot == ITEM_SLOT_LEFT_HAND)
-		if(M.r_hand || M.l_hand)
+		if((M.r_hand || M.l_hand) && !M.l_hand == bound_ghanta)
 			to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
 			return FALSE
 	return ..()
@@ -727,6 +738,7 @@
 /obj/item/nullrod/cleansing/gohei
 	name = "gohei"
 	desc = "A wooden staff adorned with paper streamers; an offering to the Kami."
+	w_class = WEIGHT_CLASS_BULKY
 	reskin_selectable = TRUE
 	icon_state = "gohei"
 
@@ -745,6 +757,7 @@
 	desc = "A short wooden staff topped with a bundle of horsehair. It casts away evil spirits and flying insects alike."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "whisk"
+	w_class = WEIGHT_CLASS_BULKY
 	reskin_selectable = TRUE
 	attack_verb = list("swatted", "swept", "whisked")
 	force = 1
@@ -770,19 +783,39 @@
 /obj/item/nullrod/cleansing/ghanta
 	name = "ghanta"
 	desc = "A powerful ritual tool. Has an auspicious sound."
+	reskinned = TRUE
+	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "ghanta"
 	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
 	var/obj/item/nullrod/vajra/bound_vajra = null
 
+/obj/item/nullrod/cleansing/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+	if(slot != ITEM_SLOT_LEFT_HAND)
+		return
+	if(M.r_hand || M.l_hand)
+		to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
+		return FALSE
+	return ..()
+
+/obj/item/nullrod/cleansing/ghanta/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_RIGHT_HAND)
+		user.put_in_l_hand(src)
+		bound_vajra.put_in_both_hands(user)
+	else if(slot == ITEM_SLOT_LEFT_HAND)
+		bound_vajra.put_in_both_hands(user)
+	else
+		bound_vajra.reunite_with_ghanta()
+
 /obj/item/nullrod/cleansing/ghanta/on_enter_storage(obj/item/storage/S)
 	. = ..()
-	bound_vajra.forceMove(S)
 	bound_vajra.reunite_with_ghanta()
+	bound_vajra.forceMove(S)
 
 /obj/item/nullrod/cleansing/ghanta/dropped(mob/user, silent)
 	. = ..()
-	user.drop_item(bound_vajra)
 	bound_vajra.reunite_with_ghanta()
+	user.drop_item(bound_vajra)
 
 /obj/item/nullrod/cleansing/ghanta/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
