@@ -1614,7 +1614,7 @@
 	flags = BLOCKHAIR | AIRTIGHT
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	flags_inv = HIDEFACE
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = list("Skkulakin")
 
@@ -1627,7 +1627,7 @@
 	flags = BLOCKHAIR | AIRTIGHT
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	flags_inv = HIDEFACE
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = list("Skkulakin")
 

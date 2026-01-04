@@ -1,5 +1,3 @@
-#define SILK_NUTRITION_AMOUNT 90
-
 /datum/species/skulk
 
 	name = "Skkulakin"
@@ -43,7 +41,7 @@
 
 	reagent_tag = PROCESS_ORG
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Blackgate",
 		2 = "Talwyrm",
 		3 = "Valcore",
@@ -86,11 +84,7 @@
 		var/current_spine_type = null
 		if(H.body_accessory)
 			current_spine_type = lowertext("[H.body_accessory.name]")
-//		var/current_spine_type = null
-//		if(H.body_accessory)
-//			current_spine_type = H.body_accessory.name
-//		else
-//			current_spine_type = null
+
 		var/chosen_spine_color = 1
 		switch(H.s_tone)
 			if(1) // Blackgate Skkulakin.
@@ -124,6 +118,8 @@
 	button_icon_state = "sheet-silk"
 	var/cooldown = 0
 	var/cooldown_duration = 10 SECONDS
+
+#define SILK_NUTRITION_AMOUNT 90
 
 /datum/action/innate/spin_silk/Activate()
 	var/mob/living/carbon/human/user = owner
