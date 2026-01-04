@@ -67,7 +67,7 @@
 	return temp_mod
 
 /obj/item/nuclear_rod/proc/calc_stat_decrease()
-	// Formula: y =stat (x * A) + (1 - A)
+	// Formula: y = (x * A) + (1 - A)
 	var/durability_stat = get_durability_mod()
 	current_power_mod = (power_amp_mod * durability_stat) + (1 - durability_stat)
 	current_heat_mod = (heat_amp_mod * durability_stat) + (1 - durability_stat)

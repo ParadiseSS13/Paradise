@@ -22,7 +22,7 @@
 /obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/reactor_gas_node(null)
+	component_parts += new /obj/item/circuitboard/machine/reactor_gas_node(src)
 	component_parts += new /obj/item/stack/sheet/metal(src, 2)
 	component_parts += new /obj/item/stack/cable_coil(src, 2)
 	initialize_directions = dir

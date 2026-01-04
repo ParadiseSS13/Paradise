@@ -273,7 +273,7 @@
 	icon_state = "meltdown"
 	sleep(2.5 SECONDS)
 	var/explosion_modifier = clamp(reactivity_multiplier * EXPLOSION_MODIFIER, 8, 40)
-	explosion(src.loc, explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
+	explosion(get_turf(src), explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
 	icon_state = "broken"
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
@@ -303,7 +303,7 @@
 			to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
 			return ITEM_INTERACT_COMPLETE
 		if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
-			if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+			if(do_after_once(creature, 3 SECONDS, TRUE, src))
 				plastitanium.use(5)
 				to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
 				repair_step++
