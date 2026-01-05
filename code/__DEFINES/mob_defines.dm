@@ -410,6 +410,7 @@
 #define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
 #define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
 #define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+#define GHOST_NO_VISION				(1 << 8) // Ghost cannot see any ghosts at all
 
 #define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
 #define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)

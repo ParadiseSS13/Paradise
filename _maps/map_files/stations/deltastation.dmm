@@ -4377,6 +4377,9 @@
 "avp" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/regular/hipster,
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "avq" = (
@@ -13980,17 +13983,17 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bfk" = (
-/obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bfm" = (
-/obj/machinery/cooking/oven,
 /obj/machinery/camera{
 	c_tag = "Kitchen Starboard";
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bfp" = (
@@ -14266,12 +14269,21 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28;
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "bgB" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_y = 5;
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bgC" = (
@@ -15571,10 +15583,10 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/cable,
-/obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 10
 	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "blt" = (
@@ -23684,6 +23696,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
+/obj/item/reagent_containers/drinks/carton/lemonade,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bQw" = (
@@ -31472,8 +31485,6 @@
 	pixel_y = 24;
 	req_access = list(28)
 	},
-/obj/structure/closet/crate/cookware,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -33140,12 +33151,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/procedure/trainer_office)
 "cyz" = (
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
+	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
-	},
-/obj/effect/turf_decal/tiles/neutral/corner{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
@@ -35203,7 +35214,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cFF" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -36462,13 +36472,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJF" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cJG" = (
@@ -52644,15 +52652,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "foX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore/east)
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "fpK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -59693,6 +59702,13 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"iwt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iwu" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -60105,13 +60121,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"iEw" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner,
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "iEH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/barsign{
@@ -60676,6 +60685,13 @@
 /obj/effect/turf_decal/tiles/neutral/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
+"iRp" = (
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "iRs" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -63293,8 +63309,8 @@
 /area/station/hallway/secondary/entry/south)
 "jZf" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "jZo" = (
@@ -67833,9 +67849,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"mcD" = (
-/turf/space,
-/area/station/public/fitness)
 "mcM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68170,8 +68183,8 @@
 /area/station/medical/virology)
 "mkL" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "mkN" = (
@@ -72696,15 +72709,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
-"oiz" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/neutral/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "oiF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -78155,6 +78159,7 @@
 "qAT" = (
 /obj/structure/table,
 /obj/item/deck/cards,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "qAW" = (
@@ -83820,6 +83825,11 @@
 "sMx" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 6;
+	pixel_x = -4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "sMA" = (
@@ -87142,6 +87152,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"ubo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "ubB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -90789,6 +90807,10 @@
 /obj/effect/turf_decal/tiles/department/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"vEc" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "vEh" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -90870,6 +90892,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
+"vFw" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/bar)
 "vFA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -97020,8 +97046,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "yhx" = (
-/obj/machinery/cooking/ice_cream_mixer,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "yhA" = (
@@ -132236,7 +132262,7 @@ awX
 awX
 vSU
 aFr
-aIZ
+vFw
 ivB
 aFA
 aOx
@@ -136094,7 +136120,7 @@ aHR
 aJb
 msE
 aZZ
-aZc
+foX
 aWk
 wLH
 aWk
@@ -137124,7 +137150,7 @@ aKw
 xCH
 aRH
 bhY
-foX
+bhY
 fob
 aFC
 bhY
@@ -137138,7 +137164,7 @@ bhY
 bhY
 blq
 bhY
-foX
+bhY
 bMb
 bov
 hgo
@@ -152347,7 +152373,7 @@ cze
 cze
 cze
 cJB
-cLu
+iRp
 cuM
 xSg
 ema
@@ -153374,10 +153400,10 @@ cAv
 cAv
 cAv
 cFD
-oiz
+cFv
 gTT
 cHa
-iEw
+cWh
 cJD
 cMR
 cMR
@@ -153631,10 +153657,10 @@ iuY
 iuY
 iuY
 cFE
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJE
 iuY
 iuY
@@ -153887,11 +153913,11 @@ aaa
 aaa
 abj
 iuY
-cFF
-csi
-mcD
-mcD
-csi
+ubo
+iuY
+abj
+abj
+iuY
 cJF
 iuY
 abj
@@ -154145,10 +154171,10 @@ tkb
 mFS
 mFS
 cFG
-csi
 iuY
 iuY
-csi
+iuY
+iuY
 cJG
 eOT
 eOT
@@ -155945,9 +155971,9 @@ abj
 aaa
 iuY
 cFF
-csi
-csi
-cJF
+vEc
+vEc
+iwt
 iuY
 aaa
 abj

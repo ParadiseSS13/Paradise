@@ -9,6 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	materials = list(MAT_PLASTIC = 12000)
 	// TRUE if spray amount and range can be toggled via `attack_self()`.
 	var/adjustable = TRUE
 	var/adjust_action = "turn the nozzle"
