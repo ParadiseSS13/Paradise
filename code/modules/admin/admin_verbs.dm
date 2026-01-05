@@ -1,5 +1,9 @@
 /client/proc/add_user_verbs()
 	SSuser_verbs.associate(src)
+	if(check_rights_client(R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, FALSE, src))
+		// This setting exposes the profiler & client side tools
+		spawn(1)
+			control_freak = 0
 
 /client/proc/remove_user_verbs()
 	SSuser_verbs.deassociate(src)

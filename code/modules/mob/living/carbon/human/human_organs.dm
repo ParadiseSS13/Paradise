@@ -12,19 +12,18 @@
 		var/obj/item/organ/internal/I = X
 		I.process()
 
-	for(var/Y in bodyparts)
-		var/obj/item/organ/external/E = Y
-		E.process()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		limb.process()
 
 		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
-			if(E.is_broken() && E.internal_organs && length(E.internal_organs) && prob(15))
-				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				E.custom_pain("You feel broken bones moving in your [E.name]!")
+			if(limb.is_broken() && limb.internal_organs && length(limb.internal_organs) && prob(15))
+				var/obj/item/organ/internal/I = pick(limb.internal_organs)
+				limb.custom_pain("You feel broken bones moving in your [limb.name]!")
 				I.receive_damage(rand(3, 5))
-			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
-				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
-				E.germ_level++
+			if((limb.status & ORGAN_BURNT) && !(limb.status & ORGAN_SALVED))
+				limb.custom_pain("You feel the skin sloughing off the burn on your [limb.name]!")
+				limb.germ_level++
 
 
 	//handle_stance()

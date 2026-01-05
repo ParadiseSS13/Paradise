@@ -89,3 +89,19 @@
 /proc/cut_relative_direction(fragment)
 	var/static/regex/regex = regex(@"([A-Z])\w+", "g")
 	return regex.Replace(fragment, "")
+
+/// Gets the location of an object on a client's screen. Thanks to Kaioken on BYOND forums.
+/proc/get_obj_screen_xy(obj/target_obj, client/viewer)
+	var/atom/scrn_center = viewer.virtual_eye
+	var/center_x
+	var/center_y
+	if(isnum(viewer.view))
+		center_x = viewer.view + 1
+		center_y = center_x
+	else
+		center_x = ceil(text2num(splittext(viewer.view, "x")[1]) / 2)
+		center_y = ceil(text2num(splittext(viewer.view, "x")[2]) / 2)
+	var/x_dist = scrn_center.x - target_obj.x
+	var/y_dist = scrn_center.y - target_obj.y
+
+	return list("x" = center_x - x_dist, "y" = center_y - y_dist)
