@@ -204,6 +204,15 @@
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/juice_boxes
+	name = "Stationside Juice Boxes Variety Pack"
+	contains = list(/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+	)
+	cost = 400
+	containername = "juice box box box"
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
@@ -454,4 +463,4 @@
 	cost = 150
 	containertype = /obj/structure/largecrate
 	containername = "Bottler Unit Crate"
-	
+
