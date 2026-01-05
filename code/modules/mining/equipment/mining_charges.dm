@@ -22,9 +22,9 @@
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
-		. += "<span class='warning'>Its wiring is haphazardly changed.</span>"
+		. += SPAN_WARNING("Its wiring is haphazardly changed.")
 	if(timer_off)
-		. += "<span class='notice'>The mining charge is connected to a detonator.</span>"
+		. += SPAN_NOTICE("The mining charge is connected to a detonator.")
 
 /obj/item/grenade/plastic/miningcharge/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
@@ -34,7 +34,7 @@
 	if(!ismineralturf(AM) && !hacked)
 		return
 	if(is_ancient_rock(AM) && !hacked)
-		to_chat(user, "<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		to_chat(user, SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		return
 	if(!timer_off) //override original proc for plastic explosions
 		return ..()
@@ -42,7 +42,7 @@
 		return
 	if(iscarbon(AM))
 		return
-	to_chat(user, "<span class='notice'>You start planting [src].</span>")
+	to_chat(user, SPAN_NOTICE("You start planting [src]."))
 	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
 		return
 	if(!user.unequip(src))
@@ -60,11 +60,11 @@
 		return
 	var/obj/item/detonator/detonator = I
 	if((src in detonator.bombs) || timer_off)
-		to_chat(user, "<span class='warning'>[src] was already synchronized to a existing detonator!</span>")
+		to_chat(user, SPAN_WARNING("[src] was already synchronized to a existing detonator!"))
 		return
 	detonator.bombs += src
 	timer_off = TRUE
-	to_chat(user, "<span class='notice'>You synchronize [src] to [I].</span>")
+	to_chat(user, SPAN_NOTICE("You synchronize [src] to [I]."))
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	detonator.update_icon()
 
@@ -94,7 +94,7 @@
 		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 		if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
 			ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-		to_chat(C, "<span class='userdanger'>You are knocked down by the power of the mining charge!</span>")
+		to_chat(C, SPAN_USERDANGER("You are knocked down by the power of the mining charge!"))
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode()
@@ -155,24 +155,24 @@
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This scanner has an extra port for overriding mining charge safeties.</span>"
+	. += SPAN_NOTICE("This scanner has an extra port for overriding mining charge safeties.")
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
 		return
 	var/obj/item/grenade/plastic/miningcharge/charge = target
 	if(charge.hacked)
-		to_chat(user, "<span class='notice'>[src] is already overridden!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already overridden!"))
 		return
 	if(charges <= 0)
-		to_chat(user, "<span class='notice'>Its overriding function is depleted.</span>")
+		to_chat(user, SPAN_NOTICE("Its overriding function is depleted."))
 		return
 	charge.override_safety()
-	visible_message("<span class='warning'>Sparks fly out of [src]!</span>")
+	visible_message(SPAN_WARNING("Sparks fly out of [src]!"))
 	playsound(src, "sparks", 50, TRUE)
 	charges--
 	if(charges <= 0)
-		to_chat(user, "<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s internal battery for overriding mining charges has run dry!"))
 
 // MINING CHARGES DETONATOR
 
@@ -189,9 +189,9 @@
 /obj/item/detonator/examine(mob/user)
 	. = ..()
 	if(length(bombs))
-		. += "<span class='notice'>List of synched bombs:</span>"
+		. += SPAN_NOTICE("List of synched bombs:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"].</span>"
+			. += SPAN_NOTICE("[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"].")
 
 /obj/item/detonator/update_icon()
 	. = ..()
@@ -203,7 +203,7 @@
 /obj/item/detonator/attack_self__legacy__attackchain(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
 	if(length(bombs))
-		to_chat(user, "<span class='notice'>Activating explosives...</span>")
+		to_chat(user, SPAN_NOTICE("Activating explosives..."))
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
 				bombs -= charge
@@ -214,5 +214,5 @@
 				charge.detonate()
 				update_icon()
 	else
-		to_chat(user, "<span class='warning'>There are no charges linked to a detonator!</span>")
+		to_chat(user, SPAN_WARNING("There are no charges linked to a detonator!"))
 	return ..()

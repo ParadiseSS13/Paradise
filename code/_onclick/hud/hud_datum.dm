@@ -278,13 +278,13 @@
 
 /mob/proc/hide_hud()
 	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
-		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		to_chat(src, SPAN_WARNING("You can not change huds while asleep!"))
 		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(src, "<span class='notice'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
+		to_chat(src, SPAN_NOTICE("Switched HUD mode. Press the key you just pressed to toggle the HUD mode again."))
 	else
-		to_chat(src, "<span class='warning'>This mob type does not use a HUD.</span>")
+		to_chat(src, SPAN_WARNING("This mob type does not use a HUD."))
 
 /datum/hud/proc/update_locked_slots()
 	return

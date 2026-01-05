@@ -15,12 +15,12 @@
 
 
 /datum/buildmode_mode/atmos/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Adjust target atmos</span>")
-	to_chat(user, "<span class='notice'><b>Notice:</b> Starts out with standard breathable/liveable defaults</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf      = Select corner"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on buildmode button = Adjust target atmos"))
+	to_chat(user, SPAN_NOTICE("<b>Notice:</b> Starts out with standard breathable/liveable defaults"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 // FIXME this is a little tedious, something where you don't have to fill in each field would be cooler
 // maybe some kind of stat panel thing?

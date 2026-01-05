@@ -1,6 +1,6 @@
 USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_CATEGORY_SERVER)
 	if(!SSdbcore.IsConnected())
-		to_chat(client, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(client, SPAN_DANGER("Failed to establish database connection."))
 		return
 	var/memotask = input(client, "Choose task.", "Memo") in list("Show", "Write", "Edit", "Remove")
 	if(!memotask)
@@ -13,7 +13,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 	if(!task)
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, SPAN_DANGER("Failed to establish database connection."))
 		return
 	switch(task)
 		if("Write")
@@ -126,9 +126,9 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 				var/memotext = query_memoshow.item[2]
 				var/timestamp = query_memoshow.item[3]
 				var/last_editor = query_memoshow.item[4]
-				output += "<span class='memo'>Memo by <span class='prefix'>[ckey]</span> on [timestamp]"
+				output += "[SPAN_MEMO("Memo by <span class='prefix'>[ckey]")] on [timestamp]"
 				if(last_editor)
-					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
+					output += "<br>[SPAN_MEMOEDIT("Last edit by [last_editor] <A href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A>")]"
 				output += "<br>[memotext]</span><br>"
 			if(output)
 				to_chat(src, output)

@@ -132,7 +132,7 @@
 	if(!awakening)
 		return ..()
 
-	to_chat(user, "<span class='warning'>The tomato is squirming and shaking too much to do anything with it!</span>")
+	to_chat(user, SPAN_WARNING("The tomato is squirming and shaking too much to do anything with it!"))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/grown/tomato/killer/activate_self(mob/user)
@@ -142,7 +142,7 @@
 	if(awakening || isspaceturf(user.loc))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'>You begin to awaken [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to awaken [src]..."))
 	awakening = 1
 
 	spawn(30)
@@ -154,7 +154,7 @@
 			K.melee_damage_upper += round(seed.potency / 10)
 			K.speed -= round(seed.production / 50)
 			K.health = K.maxHealth
-			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+			K.visible_message(SPAN_NOTICE("The Killer Tomato growls as it suddenly awakens."))
 			if(user)
 				user.unequip(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")

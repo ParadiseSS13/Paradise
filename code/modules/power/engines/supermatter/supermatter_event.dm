@@ -165,7 +165,7 @@
 	duration = 10 SECONDS
 
 /datum/engi_event/supermatter_event/alpha_tier/alert_engi()
-	sm_radio_say("<span class='big'>ALERT: Critical anomalous crystal activity detected! Activity class: [name]. IMMEDIATE Operator intervention is REQUIRED!</span>")
+	sm_radio_say(SPAN_BIG("ALERT: Critical anomalous crystal activity detected! Activity class: [name]. IMMEDIATE Operator intervention is REQUIRED!"))
 
 /datum/engi_event/supermatter_event/alpha_tier/apc_short
 	name = "A-1"
@@ -197,16 +197,16 @@
 	duration = 7 MINUTES // 2 MINUTES of s-tier anomaly
 
 /datum/engi_event/supermatter_event/sierra_tier/alert_engi()
-	general_radio_say("<span class='big'>ALERT: Anomalous supermatter state expected in: 5 minutes.</span>")
-	sm_radio_say("<span class='reallybig'>EMERGENCY ALERT: 5 MINUTES UNTIL [supermatter] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!</span>")
+	general_radio_say(SPAN_BIG("ALERT: Anomalous supermatter state expected in: 5 minutes."))
+	sm_radio_say(SPAN_REALLYBIG("EMERGENCY ALERT: 5 MINUTES UNTIL [supermatter] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!"))
 
 /datum/engi_event/supermatter_event/sierra_tier/on_start()
 	addtimer(CALLBACK(src, PROC_REF(start_sierra_event)), 5 MINUTES)
 	supermatter.has_run_sclass = TRUE
 
 /datum/engi_event/supermatter_event/sierra_tier/proc/start_sierra_event()
-	general_radio_say("<span class='big'>ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!</span>")
-	sm_radio_say("<span class='reallybig'>EMERGENCY ALERT: Class [name] anomalous behavior in progress!</span>")
+	general_radio_say(SPAN_BIG("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!"))
+	sm_radio_say(SPAN_REALLYBIG("EMERGENCY ALERT: Class [name] anomalous behavior in progress!"))
 
 //S class events
 //Arc-type

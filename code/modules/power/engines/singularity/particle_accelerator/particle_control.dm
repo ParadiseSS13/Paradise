@@ -287,7 +287,7 @@
 		return
 
 	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		to_chat(usr, SPAN_ERROR("ERROR: Request timed out. Check wire contacts."))
 		return
 
 	switch(action)
