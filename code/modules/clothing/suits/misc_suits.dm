@@ -212,6 +212,12 @@
 	flags_inv = HIDEJUMPSUIT
 	insert_max = 0
 
+/obj/item/clothing/suit/santa
+	name = "\improper Santa suit"
+	desc = "A festive red suit. Ho ho ho!"
+	icon_state = "santa"
+	insert_max = 0
+
 /obj/item/clothing/suit/poncho
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."
@@ -684,6 +690,14 @@
 
 /obj/item/clothing/head/hooded/winterhood/syndicate
 	icon_state = "winterhood_synd"
+
+/obj/item/clothing/suit/hooded/wintercoat/solgov
+	name = "\improper SolGov winter coat"
+	icon_state = "wintercoat_solgov"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/solgov
+
+/obj/item/clothing/head/hooded/winterhood/solgov
+	icon_state = "winterhood_solgov"
 
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"

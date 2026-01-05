@@ -276,6 +276,13 @@ SUBSYSTEM_DEF(ticker)
 
 	// Behold, a rough way of figuring out what takes 10 years
 	var/watch = start_watch()
+
+	// Count ready players before we spawn them for hijack objective requirements
+	GLOB.roundstart_ready_players = 0
+	for(var/mob/new_player/player in GLOB.new_player_mobs)
+		if(player.ready && player.client)
+			GLOB.roundstart_ready_players++
+
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 
