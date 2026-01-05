@@ -262,7 +262,7 @@
 	name = "supermatter fuel rod"
 	desc = "A dangerous fuel rod made entirely of supermatter, contained safely in a specialized housing case. Due to its unusual properties, it completely neutralizes any potential power from nearby rods."
 	icon_state = "fuel_sm"
-	heat_amount = 1300
+	heat_amount = 1200
 	power_amount = 800 KW
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
@@ -300,9 +300,9 @@
 
 /obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
 	max_durability = rand(1000, 10000)
-	power_amp_mod = rand(1, 35) / 10
-	heat_amp_mod = rand(8, 80) / 10
-	power_amount = rand(10 KW, 150 KW)
+	power_amp_mod = rand(1, 40) / 10
+	heat_amp_mod = rand(5, 80) / 10
+	power_amount = rand(10 KW, 200 KW)
 	heat_amount = rand(10, 500)
 	return ..()
 
