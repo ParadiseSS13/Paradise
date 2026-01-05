@@ -71,17 +71,17 @@
 	var/list/radial_list = list()
 	var/obj/item/nuclear_rod/fuel/rod_enrichment
 	if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-	rod_enrichment = rod.power_enrich_result
-	enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
-	radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
+		rod_enrichment = rod.power_enrich_result
+		enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
+		radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
 	if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
 		rod_enrichment = rod.heat_enrich_result
 		enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
 		radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
-		if(!length(radial_list))
+	if(!length(radial_list))
 		to_chat(user, SPAN_WARNING("This rod has no potential for enrichment!"))
 		return ITEM_INTERACT_COMPLETE
-		var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
+	var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
 	if(!enrichment_choice)
 		return ITEM_INTERACT_COMPLETE
 	rod_result = enrichment_to_name[enrichment_choice]
