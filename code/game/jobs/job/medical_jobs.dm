@@ -28,6 +28,7 @@
 		ACCESS_VIROLOGY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
@@ -82,7 +83,7 @@
 	skeleton_access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
 	)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
@@ -210,7 +211,7 @@
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
 	)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
@@ -262,7 +263,7 @@
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
-		ACCESS_MINERAL_STOREROOM
+		ACCESS_MINERAL_STOREROOM,
 	)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -319,7 +320,7 @@
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
 	)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
@@ -379,7 +380,7 @@
 		ACCESS_SURGERY,
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)

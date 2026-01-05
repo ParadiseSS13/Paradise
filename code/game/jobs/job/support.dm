@@ -31,6 +31,7 @@
 		ACCESS_EXPEDITION,
 		ACCESS_SMITH
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
@@ -83,7 +84,7 @@
 	skeleton_access = list(
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_SMITH
+		ACCESS_SMITH,
 	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
