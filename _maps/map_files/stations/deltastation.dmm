@@ -9904,7 +9904,7 @@
 "aOp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/wood,
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "aOq" = (
@@ -65024,7 +65024,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "kKW" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "kLd" = (

@@ -95163,12 +95163,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/storage)
-"tNa" = (
-/obj/item/storage/fancy/cigarettes{
-	pixel_y = 2
-	},
-/turf/space,
-/area/space)
 "tNe" = (
 /obj/structure/rack,
 /obj/item/restraints/legcuffs/beartrap,
@@ -151912,7 +151906,7 @@ rNK
 rNK
 rNK
 rNK
-tNa
+rNK
 rNK
 rNK
 rNK
