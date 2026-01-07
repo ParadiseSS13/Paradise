@@ -42,8 +42,8 @@
 
 /obj/item/smithed_item/component/rod_core
 	name = "Debug rod core"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "rod_core"
-	desc = "Debug smithed component part of a laser lens. If you see this, notify the development team."
 	part_type = PART_SECONDARY
 
 /obj/item/smithed_item/component/rod_core/plasma_agitator
