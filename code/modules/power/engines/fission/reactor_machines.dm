@@ -239,7 +239,7 @@
 		visible_message(SPAN_WARNING("Something has gone very wrong. Alert a developer."))
 		return
 	else
-		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
+		A /= max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
 /obj/machinery/nuclear_rod_fabricator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
