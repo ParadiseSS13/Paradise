@@ -51,7 +51,7 @@
 
 /obj/item/reagent_containers/drinks/proc/try_table_slide(obj/structure/table/target)
 	var/mob/living/carbon/user = usr
-	if(!istype(user) || !istype(target) || !user.can_reach(src) || !locate(/obj/structure/table) in loc)
+	if(!istype(user) || !istype(target) || !user.can_reach(src) || (!locate(/obj/structure/table) in loc) || (get_turf(src) == get_turf(target)))
 		return
 	playsound(src, 'sound/misc/glass_slide.ogg', 50, TRUE)
 	do_table_slide(target)
