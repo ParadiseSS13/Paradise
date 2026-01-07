@@ -36616,10 +36616,7 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/book/random{
-	pixel_x = 2;
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/library_book,
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
@@ -38402,10 +38399,7 @@
 /area/station/science/lobby)
 "cSs" = (
 /obj/structure/table/glass,
-/obj/item/book/random{
-	pixel_x = 2;
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "cSt" = (

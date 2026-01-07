@@ -6462,7 +6462,7 @@
 "aSP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "aST" = (
@@ -62601,7 +62601,7 @@
 /area/station/hallway/primary/central/se)
 "oKb" = (
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/manual,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
@@ -73466,9 +73466,9 @@
 /area/station/medical/paramedic)
 "sEU" = (
 /obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/manual,
+/obj/effect/spawner/random/manual,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -77865,9 +77865,9 @@
 /area/station/engineering/break_room)
 "ukl" = (
 /obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/manual,
+/obj/effect/spawner/random/manual,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "ukm" = (

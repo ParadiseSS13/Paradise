@@ -30,9 +30,9 @@
 	)
 	record_spawn = TRUE
 
-/obj/effect/spawner/random/book
+/obj/effect/spawner/random/manual
 	icon_state = "book"
-	name = "book spawner"
+	name = "manual spawner"
 	loot = list(
 		/obj/item/book/manual/atmospipes,
 		/obj/item/book/manual/barman_recipes,
@@ -67,8 +67,24 @@
 	)
 	record_spawn = TRUE
 
-/obj/effect/spawner/random/book/record_item(type_path_to_make)
+/obj/effect/spawner/random/manual/record_item(type_path_to_make)
+	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/book/manual]")
+
+/obj/effect/spawner/random/library_book
+	name = "random library book"
+	icon_state = "book"
+
+/obj/effect/spawner/random/library_book/generate_loot_list()
+	return GLOB.library_catalog.get_random_book(spawn_loot_count)
+
+/obj/effect/spawner/random/library_book/make_item(spawn_loc, cached_book)
+	. = new /obj/item/book(spawn_loc, cached_book, TRUE, FALSE)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/book]")
+
+/obj/effect/spawner/random/library_book/triple
+	spawn_loot_count = 3
+	spawn_loot_split = TRUE
+	spawn_loot_split_pixel_offsets = 4
 
 /obj/effect/spawner/random/mod_maint
 	name = "maint MOD module spawner"
