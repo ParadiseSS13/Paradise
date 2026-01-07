@@ -605,7 +605,7 @@
 		wielder.drop_item()
 		return
 
-	if(is_in_inactive_hand())
+	if(wielder.l_hand || wielder.r_hand)
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
 		wielder.drop_item()
 		return
@@ -635,7 +635,7 @@
 	icon_state = "vajra"
 	update_appearance(UPDATE_ICON_STATE)
 
-/// Stores Ghantra inside Vajra.
+/// Stores Ghanta inside Vajra.
 /obj/item/nullrod/vajra/proc/reunite_with_ghanta(drop_vajra = FALSE)
 	icon_state = initial(icon_state)
 	name = initial(name)
