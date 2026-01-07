@@ -277,7 +277,7 @@
 	category_coolant = list()
 
 	for(var/rod_path in subtypesof(/obj/item/nuclear_rod))
-		if(rod_path == /obj/item/nuclear_rod || rod_path == /obj/item/nuclear_rod/fuel || rod_path == /obj/item/nuclear_rod/moderator || rod_path == /obj/item/nuclear_rod/coolant)
+		if(initial(rod_path.desc) == ABSTRACT_TYPE_DESC)
 			continue
 
 		var/datum/nuclear_rod_design/D = new /datum/nuclear_rod_design()
