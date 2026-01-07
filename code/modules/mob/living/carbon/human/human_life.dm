@@ -1026,5 +1026,5 @@
 	// Currently only checks for a liver
 	// This has to be here since we can't check this in the on_life of organs
 	var/obj/item/organ/internal/liver = get_int_organ(/obj/item/organ/internal/liver)
-	if(!liver)
+	if(!liver && !isslimeperson(src))
 		adjustToxLoss(2)
