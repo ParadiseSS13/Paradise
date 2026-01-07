@@ -17,7 +17,7 @@ RESTRICT_TYPE(/mob/living/basic)
 /// code.
 /mob/living/basic
 	name = "basic mob"
-	desc = "If you can see this, make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	healable = TRUE
 	icon = 'icons/mob/animal.dmi'
 	hud_type = /datum/hud/simple_animal

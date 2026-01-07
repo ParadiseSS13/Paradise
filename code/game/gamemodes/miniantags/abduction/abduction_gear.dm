@@ -23,7 +23,7 @@ CONTENTS:
 /obj/item/abductor
 	name = "generic abductor item"
 	icon = 'icons/obj/abductor.dmi'
-	desc = "You are not supposed to be able to see this. If you can see this, please make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 
 /obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
