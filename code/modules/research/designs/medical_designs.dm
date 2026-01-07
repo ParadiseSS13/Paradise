@@ -829,6 +829,17 @@
 	build_path = /obj/item/organ/internal/liver/cybernetic
 	category = list("Medical")
 
+/datum/design/cybernetic_liver
+	name = "Cybernetic Liver"
+	desc = "A cybernetic liver."
+	id = "cybernetic_liver"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/liver/cybernetic
+	category = list("Medical")
+
 /datum/design/cybernetic_kidneys
 	name = "Cybernetic Kidneys"
 	desc = "A cybernetic pair of kidneys."

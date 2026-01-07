@@ -1112,6 +1112,12 @@
 		affected.custom_pain("You feel a stabbing pain in your chest!")
 		L.linked_organ.receive_damage(max(L.linked_organ.min_bruised_damage - L.linked_organ.damage, 2))
 
+/mob/living/carbon/human/proc/has_liver_cirrhosis()
+	var/obj/item/organ/internal/liver/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver || liver.status & ORGAN_ROBOT)
+		return FALSE
+	return liver.get_wound(/datum/wound/cirrhosis)
+
 /mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))

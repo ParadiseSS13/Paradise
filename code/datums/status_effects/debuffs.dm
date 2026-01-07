@@ -412,6 +412,8 @@
 /datum/status_effect/transient/drunkenness
 	id = "drunkenness"
 	var/alert_thrown = FALSE
+	/// Cached actual strength so we can read it out
+	var/cached_strength
 
 // the number of seconds of the status effect required for each effect to kick in.
 #define THRESHOLD_SLUR 60 SECONDS
@@ -460,6 +462,8 @@
 			liver_multiplier = L.alcohol_intensity
 		actual_strength *= liver_multiplier
 
+	cached_strength = actual_strength
+
 	// THRESHOLD_SLUR (60 SECONDS)
 	if(actual_strength >= THRESHOLD_SLUR)
 		owner.Slur(actual_strength)
@@ -491,14 +495,16 @@
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.1))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
+
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(0.1))
+	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
 			L.receive_damage(1, TRUE)
 		if(!is_robot)
 			owner.adjustToxLoss(1)
+
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
 	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(0.1))
 		owner.adjustBrainLoss(1)

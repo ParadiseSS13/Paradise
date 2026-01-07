@@ -70,7 +70,10 @@
 #define PULSE_FAST		3	//90-120 bpm
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
-//feel free to add shit to lists below
+
+// Cirrhosis defines
+#define CIRRHOSIS_MILD		1
+#define CIRRHOSIS_SEVERE	2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"

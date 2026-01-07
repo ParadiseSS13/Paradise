@@ -803,8 +803,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	var/picked_type = pick(typesof(/datum/wound/fracture))
-	var/datum/wound/fracture = new picked_type(src)
+
+	var/datum/wound/fracture = add_wound(pick(typesof(/datum/wound/fracture)))
+
 	if(fracture_name_override)
 		fracture.name = fracture_name_override
 	wound_list += fracture
