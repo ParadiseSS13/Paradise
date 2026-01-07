@@ -1,6 +1,5 @@
 /mob/living/basic/demon
 	name = "a generic demon"
-	desc = ABSTRACT_TYPE_DESC
 	speak_emote = list("gurgles", "wails", "screeches")
 	response_help_continuous  = "thinks better of touching"
 	response_help_simple  = "thinks better of touching"
