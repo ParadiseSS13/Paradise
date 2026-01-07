@@ -276,7 +276,7 @@
 	category_moderator = list()
 	category_coolant = list()
 
-	for(var/rod_path in subtypesof(/obj/item/nuclear_rod))
+	for(var/obj/rod_path in subtypesof(/obj/item/nuclear_rod))
 		if(initial(rod_path.desc) == ABSTRACT_TYPE_DESC)
 			continue
 

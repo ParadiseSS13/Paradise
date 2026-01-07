@@ -279,15 +279,17 @@
 
 	if(istype(used, /obj/item/nuclear_rod))
 		if(chamber_state == CHAMBER_OPEN)
-			if(!held_rod)
-				if(panel_open)
-					to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
-					return ITEM_INTERACT_COMPLETE
-				if(user.transfer_item_to(used, src, force = TRUE))
-					held_rod = used
-					playsound(loc, 'sound/machines/podclose.ogg', 50, TRUE)
-					update_icon(UPDATE_OVERLAYS)
-					return ITEM_INTERACT_COMPLETE
+			if(held_rod)
+				to_chat(user, SPAN_WARNING("There is already a rod inside of the chamber!"))
+				return ITEM_INTERACT_COMPLETE
+			if(panel_open)
+				to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
+				return ITEM_INTERACT_COMPLETE
+			if(user.transfer_item_to(used, src, force = TRUE))
+				held_rod = used
+				playsound(loc, 'sound/machines/podclose.ogg', 50, TRUE)
+				update_icon(UPDATE_OVERLAYS)
+				return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/reactor_chamber/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))

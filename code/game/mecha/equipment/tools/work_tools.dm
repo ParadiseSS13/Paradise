@@ -49,16 +49,16 @@
 				chamber.attack_hand(cargo_holder.occupant)
 				return
 			if(chamber.held_rod)
-				if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
-					chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
-					chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
-					cargo_holder.cargo += chamber.held_rod
-					chamber.held_rod.forceMove(chassis)
-					chamber.held_rod = null
-					playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
-					chamber.update_icon(UPDATE_OVERLAYS)
-				else
+				if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
 					occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
+					return
+				chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
+				chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
+				cargo_holder.cargo += chamber.held_rod
+				chamber.held_rod.forceMove(chassis)
+				chamber.held_rod = null
+				playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
 				return
 
 			for(var/obj/item/nuclear_rod/rod in cargo_holder.cargo)
