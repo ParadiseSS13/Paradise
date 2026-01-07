@@ -18,7 +18,6 @@
 	icon_state = "kidneys-c-u"
 	desc = "An electronic device designed to mimic the functions of human kidneys. It passively heals any toxin damage the user might have."
 	origin_tech = "biotech=5"
-	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/kidneys/cybernetic/upgraded/on_life()
 	if(!owner)
