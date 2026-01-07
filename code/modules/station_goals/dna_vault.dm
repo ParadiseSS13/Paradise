@@ -134,6 +134,12 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	density = TRUE
 	anchored = TRUE
 	invisibility = 101
+	/// Keeps track of what the multitile is connected to
+	var/parent
+
+/obj/structure/filler/Destroy()
+	parent = null
+	. = ..()
 
 /obj/structure/filler/ex_act()
 	return
