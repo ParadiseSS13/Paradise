@@ -848,7 +848,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 60
-	build_path = /obj/item/organ/internal/kidneys/cybernetic
+	build_path = /obj/item/organ/internal/kidneys/cybernetic/upgraded
 	category = list("Medical")
 
 /datum/design/cybernetic_heart
