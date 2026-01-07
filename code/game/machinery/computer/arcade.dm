@@ -128,6 +128,8 @@
 /obj/machinery/computer/arcade/battle/ui_act(action, params)
 	if(..())
 		return
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
 
 	switch(action)
 		if("attack")
