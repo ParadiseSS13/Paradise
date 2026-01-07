@@ -347,7 +347,7 @@
 	origin_tech = "programming=2;powerstorage=2"
 
 /obj/item/circuitboard/fission_monitor
-	board_name = "NGCR Monitoring Console"
+	board_name = "\improper NGCR Monitoring Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/fission_monitor
 	origin_tech = "programming=2;powerstorage=2"
