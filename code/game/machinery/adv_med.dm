@@ -347,10 +347,9 @@
 
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)
-				if(!E.broken_description)
-					organStatus["broken"] = "Broken"
-				else
-					organStatus["broken"] = E.broken_description
+				var/datum/wound/fracture = E.get_wound(/datum/wound/fracture)
+				organStatus["broken"] = fracture.name
+
 			if(E.is_robotic())
 				organStatus["robotic"] = TRUE
 			if(E.status & ORGAN_SPLINTED)
@@ -360,7 +359,8 @@
 
 			organData["status"] = organStatus
 
-			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			var/obj/item/organ/internal/lung_organ = occupant.get_int_organ_by_datum(ORGAN_DATUM_LUNGS)
+			if(E == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
 			if(E.status & ORGAN_INT_BLEEDING)
@@ -503,12 +503,14 @@
 
 			if(e.status & ORGAN_INT_BLEEDING)
 				ailments |= "Internal Bleeding"
-			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			var/obj/item/organ/internal/lung_organ = occupant.get_int_organ_by_datum(ORGAN_DATUM_LUNGS)
+			if(e == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				ailments |= "Lung Ruptured"
 			if(e.status & ORGAN_SPLINTED)
 				ailments |= "Splinted"
 			if(e.status & ORGAN_BROKEN)
-				ailments |= "[e.broken_description]"
+				var/datum/wound/fracture = e.get_wound(/datum/wound/fracture)
+				ailments |= "[fracture.name]"
 			if(e.status & ORGAN_SALVED)
 				ailments |= "Salved"
 			if(e.status & ORGAN_BURNT)

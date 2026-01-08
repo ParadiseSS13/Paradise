@@ -444,6 +444,49 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 5)
 
+/obj/item/circuitboard/machine/reactor_gas_node
+	board_name = "Reactor Gas Node"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
+	origin_tech = "engineering=2"
+	req_components = list(
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stack/sheet/metal = 2,
+	)
+
+/obj/item/circuitboard/nuclear_centrifuge
+	board_name = "Nuclear Centrifuge"
+	icon_state = "engineering"
+	build_path = /obj/machinery/nuclear_centrifuge
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4"
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 4,
+	)
+
+/obj/item/circuitboard/nuclear_rod_fabricator
+	board_name = "Nuclear Rod Fabricator"
+	icon_state = "engineering"
+	build_path = /obj/machinery/nuclear_rod_fabricator
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4"
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+	)
+
+/obj/item/circuitboard/machine/reactor_chamber
+	board_name = "Reactor Chamber"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/reactor_chamber
+	origin_tech = "engineering=2"
+	req_components = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/stack/sheet/mineral/plastitanium = 2,
+	)
+
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
 	icon_state = "security"

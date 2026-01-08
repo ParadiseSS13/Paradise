@@ -313,7 +313,7 @@
 	icon_state = "cutting_board"
 	inhand_icon_state = "clipboard" // huh
 	preposition = "On"
-	materials = list(MAT_WOOD = 5)
+	materials = list(MAT_WOOD = 10000)
 
 /obj/item/reagent_containers/cooking/sushimat
 	name = "Sushi Mat"

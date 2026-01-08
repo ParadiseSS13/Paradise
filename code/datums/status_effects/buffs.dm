@@ -981,7 +981,7 @@
 	var/should_deflect = FALSE
 
 /atom/movable/screen/alert/status_effect/quicksilver_form
-	name = "Quicksilver body"
+	name = "Quicksilver Form"
 	desc = "Your body is much less solid."
 	icon_state = "high"
 
@@ -1005,7 +1005,7 @@
 		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
 	temporary_flag_storage = owner.pass_flags
-	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE | PASSBARRICADE)
+	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSTAKE | PASSBARRICADE | PASSDOOR)
 	owner.add_atom_colour(COLOR_ALUMINIUM, TEMPORARY_COLOUR_PRIORITY)
 	return TRUE
 

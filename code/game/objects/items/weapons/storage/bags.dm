@@ -120,6 +120,7 @@
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
+	materials = list(MAT_PLASTIC = 6000)
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))

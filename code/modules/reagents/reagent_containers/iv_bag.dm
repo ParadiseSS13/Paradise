@@ -13,6 +13,7 @@
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	resistance_flags = ACID_PROOF
+	materials = list(MAT_PLASTIC = 4000)
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
