@@ -747,9 +747,6 @@
 	if(!iscarbon(target))
 		return ..()
 
-	if(HAS_TRAIT(target, TRAIT_FLYING) && user.a_intent == INTENT_HARM && istype(src, /obj/item/nullrod/cleansing/whisk))
-		return NONE
-
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return ITEM_INTERACT_COMPLETE
@@ -830,6 +827,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	reskin_selectable = TRUE
 	attack_verb = list("swatted", "swept", "whisked")
+
+/obj/item/nullrod/cleansing/whisk/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!iscarbon(target))
+		return ..()
+
+	if(HAS_TRAIT(target, TRAIT_FLYING) && user.a_intent == INTENT_HARM)
+		return NONE
+	return ..()
 
 /obj/item/nullrod/cleansing/whisk/attack(mob/living/target, mob/living/user)
 	. = ..()
