@@ -96,8 +96,8 @@
 	var/picked_type = variant_names[choice]
 	var/obj/item/storage/belt/sheath/holy/new_sheath = null
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
-	if(istype(new_rod, /obj/item/nullrod/claymore/curved))
-		new_sheath = new /obj/item/storage/belt/sheath/holy/curved(get_turf(user))
+	if(istype(new_rod, /obj/item/nullrod/claymore/scimitar))
+		new_sheath = new /obj/item/storage/belt/sheath/holy/scimitar(get_turf(user))
 	if(istype(new_rod, /obj/item/nullrod/kirpan))
 		new_sheath = new /obj/item/storage/belt/sheath/holy/kirpan(get_turf(user))
 
@@ -262,8 +262,8 @@
 	icon_state = "cutlass1"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
-/obj/item/nullrod/claymore/curved
-	name = "curved saber"
+/obj/item/nullrod/claymore/scimitar
+	name = "scimitar"
 	desc = "Power consists not in being able to strike another, but in being able to control oneself when anger arises."
 	icon_state = "chap_saber"
 	slot_flags = ITEM_SLOT_BELT
@@ -585,10 +585,9 @@
 	worn_icon_state = null
 	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	inhand_icon_state = "vajra"
-	force = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bludgeoned", "hit", "struck")
-	var/obj/item/nullrod/cleansing/ghanta/bound_ghanta = null
+	var/obj/item/nullrod/ghanta/bound_ghanta = null
 
 /obj/item/nullrod/vajra/Initialize(mapload)
 	. = ..()
@@ -602,12 +601,12 @@
 
 	if(!wielder.get_organ("l_hand") || !wielder.get_organ("r_hand"))
 		to_chat(user, SPAN_WARNING("You need two hands to wield [src]!"))
-		wielder.drop_item()
+		user.drop_item_to_ground(src, TRUE)
 		return
 
 	if(wielder.l_hand || wielder.r_hand)
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
-		wielder.drop_item()
+		user.drop_item_to_ground(src, TRUE)
 		return
 
 	if(!..())
@@ -621,12 +620,12 @@
 
 	var/mob/living/carbon/human/wielder = user
 	if(wielder.r_hand != src)
-		user.drop_item(src)
+		user.drop_item_to_ground(src, TRUE)
 		if(!wielder.put_in_r_hand(src))
 			return
 
 	if(!wielder.put_in_l_hand(bound_ghanta) && !wielder.l_hand == bound_ghanta)
-		user.drop_item(src)
+		user.drop_item_to_ground(src, TRUE)
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
 		return
 
@@ -650,7 +649,7 @@
 			holder.drop_r_hand(TRUE)
 	if(istype(bound_ghanta.loc, /mob))
 		holder = bound_ghanta.loc
-		holder.drop_l_hand(TRUE)
+		holder.drop_item_to_ground(bound_ghanta, TRUE, TRUE)
 	if(bound_ghanta.loc != src)
 		bound_ghanta.forceMove(src)
 	update_appearance(UPDATE_ICON_STATE)
@@ -665,7 +664,7 @@
 
 /obj/item/nullrod/vajra/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_RIGHT_HAND || slot == ITEM_SLOT_LEFT_HAND)
-		if((M.r_hand || M.l_hand) && !M.l_hand == bound_ghanta)
+		if(M.r_hand || M.l_hand)
 			to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
 			return FALSE
 	return ..()
@@ -677,27 +676,34 @@
 	else
 		reunite_with_ghanta()
 
-/obj/item/nullrod/cleansing/ghanta
+/obj/item/nullrod/ghanta
 	name = "ghanta"
 	desc = "A powerful ritual tool. Has an auspicious sound."
 	reskinned = TRUE
+	reskin_selectable = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "ghanta"
+	force = 0
+	throwforce = 0
+	inhand_icon_state = null
+	worn_icon_state = null
+	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
 	var/obj/item/nullrod/vajra/bound_vajra = null
+	var/blessing = FALSE
 
-/obj/item/nullrod/cleansing/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+/obj/item/nullrod/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot != ITEM_SLOT_LEFT_HAND)
-		return
+		return FALSE
 	if(M.r_hand || M.l_hand)
 		to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
 		return FALSE
 	return ..()
 
-/obj/item/nullrod/cleansing/ghanta/equipped(mob/user, slot, initial = FALSE)
+/obj/item/nullrod/ghanta/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_RIGHT_HAND)
-		user.drop_item(src)
+		user.drop_item_to_ground(src, TRUE)
 		user.put_in_l_hand(src)
 		bound_vajra.put_in_both_hands(user)
 	else if(slot == ITEM_SLOT_LEFT_HAND)
@@ -705,26 +711,46 @@
 	else
 		bound_vajra.reunite_with_ghanta()
 
-/obj/item/nullrod/cleansing/ghanta/on_enter_storage(obj/item/storage/S)
+/obj/item/nullrod/ghanta/on_enter_storage(obj/item/storage/S)
 	. = ..()
 	if(istype(bound_vajra.loc, /mob))
 		var/mob/holder = bound_vajra.loc
-		holder.drop_item(bound_vajra)
+		holder.drop_item_to_ground(bound_vajra, TRUE, TRUE)
 	bound_vajra.forceMove(S)
 	bound_vajra.reunite_with_ghanta()
 
-/obj/item/nullrod/cleansing/ghanta/dropped(mob/user, silent)
+/obj/item/nullrod/ghanta/dropped(mob/user, silent)
 	. = ..()
 	bound_vajra.reunite_with_ghanta(TRUE)
 
-/obj/item/nullrod/cleansing/ghanta/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/obj/item/nullrod/ghanta/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	bound_vajra.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
-/obj/item/nullrod/cleansing/ghanta/output_cleansing_message(atom/target, mob/living/user)
+/obj/item/nullrod/ghanta/activate_self(mob/user)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
+		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(blessing)
+		to_chat(user, SPAN_NOTICE("You are already ringing [src]."))
+		return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(
-		SPAN_NOTICE("[user] starts ringing [src] to drive evil away from [target == user ? user.p_themselves() : "[target]"]."),
-		SPAN_NOTICE("You start ringing [src] to drive evil away from [target == user ? "yourself" : "[target]"].")
-		)
+		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
+		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings.")
+	)
+
+	blessing = TRUE
+	if(do_after(user, 5 SECONDS))
+		for(var/turf/simulated/each_turf in view(1, get_turf(src)))
+			each_turf.Bless()
+		to_chat(user, SPAN_NOTICE("The auspicious sound makes the air around you feel lighter."))
+		blessing = FALSE
+
+	else
+		to_chat(user, SPAN_NOTICE("The ring of [src] was interrupted."))
+		blessing = FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/cleansing
 	name = "holy cleansing object"
@@ -739,8 +765,8 @@
 
 /obj/item/nullrod/cleansing/proc/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
-		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
-		SPAN_NOTICE("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name].")
+		SPAN_NOTICE("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
+		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name].")
 	)
 
 /obj/item/nullrod/cleansing/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -1106,8 +1132,8 @@
 	base_icon_state = "kirpan_sheath"
 	can_hold = list(/obj/item/nullrod/kirpan)
 
-/obj/item/storage/belt/sheath/holy/curved
-	name = "Chaplain's saber scabbard"
-	desc = "Can hold a curved saber."
+/obj/item/storage/belt/sheath/holy/scimitar
+	name = "scimitar scabbard"
+	desc = "Can hold a scimitar."
 	base_icon_state = "chap_sheath"
-	can_hold = list(/obj/item/nullrod/claymore/curved)
+	can_hold = list(/obj/item/nullrod/claymore/scimitar)
