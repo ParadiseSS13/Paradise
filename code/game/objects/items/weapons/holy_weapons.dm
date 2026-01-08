@@ -830,15 +830,13 @@
 
 /obj/item/nullrod/cleansing/whisk/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(!.)
-		return
 	if(!HAS_TRAIT(target, TRAIT_FLYING))
 		return
-	if(user.intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM)
 		return
 	// Knock back 1-2 tiles
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, rand(1, 2), 5, user)
+	target.throw_at(throw_target, 1, 5, user, spin = FALSE)
 
 /obj/item/nullrod/cleansing/whisk/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
