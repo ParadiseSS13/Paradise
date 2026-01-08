@@ -747,6 +747,9 @@
 	if(!iscarbon(target))
 		return ..()
 
+	if(HAS_TRAIT(target, TRAIT_FLYING) && user.a_intent == INTENT_HARM && istype(src, /obj/item/nullrod/cleansing/whisk))
+		return NONE
+
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return ITEM_INTERACT_COMPLETE
