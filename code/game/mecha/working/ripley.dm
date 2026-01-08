@@ -14,6 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	var/list/cargo = list()
 	var/cargo_capacity = 15
 
