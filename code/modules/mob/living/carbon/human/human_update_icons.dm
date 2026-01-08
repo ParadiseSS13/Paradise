@@ -442,9 +442,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/icon/hands_icon = icon('icons/mob/human.dmi', "blank")
 
 	if(get_limb_by_name("l_hand"))
-		hands_icon.Insert(get_limb_by_name("l_hand").get_icon(skeleton))
+		var/obj/item/organ/external/l_hand = get_limb_by_name("l_hand")
+		hands_icon.Insert(l_hand.get_icon(skeleton))
 	if(get_limb_by_name("r_hand"))
-		hands_icon.Insert(get_limb_by_name("r_hand").get_icon(skeleton))
+		var/obj/item/organ/external/r_hand = get_limb_by_name("r_hand")
+		hands_icon.Insert(r_hand.get_icon(skeleton))
 /*
 	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
 	var/icon/body_hands = icon(body_layer.icon)
