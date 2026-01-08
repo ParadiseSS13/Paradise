@@ -24,7 +24,6 @@
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
 
-
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
