@@ -101,7 +101,7 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	beaker.forceMove(loc)
+	beaker.forceMove(get_turf(src))
 	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
 		user.put_in_hands(beaker)
 	beaker = null
