@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
 	var/icon/markings_hands = icon(markings_layer.icon)
-	markings_hands.Blend(hands_icon, ICON_MULTIPLY)
+	markings_hands.Blend(hands_icon, ICON_ADD)
 
 	if(!skeleton)
 		if(isgolem(src))
