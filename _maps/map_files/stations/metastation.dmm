@@ -2862,20 +2862,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "azl" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/tech_storage/research,
-/obj/machinery/power/apc/directional/south,
-/obj/structure/cable,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/closet/firecloset,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "azp" = (
@@ -14625,31 +14612,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
-"bDs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/securearea{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/east)
 "bDz" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/status_display{
@@ -66923,20 +66885,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"qge" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/tech_storage/service,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "qgk" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain)
@@ -67677,18 +67625,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "qvS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
@@ -67697,9 +67633,6 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tiles/neutral,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "qwd" = (
@@ -71831,21 +71764,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "rSX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -125388,7 +125309,7 @@ xQi
 aLl
 aLl
 rSX
-qge
+aLl
 xKd
 bnk
 aja
@@ -129510,7 +129431,7 @@ bgN
 bkU
 xCF
 sWZ
-bDs
+bqx
 bhY
 cgn
 qkM
