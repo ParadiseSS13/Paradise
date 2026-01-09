@@ -439,18 +439,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
 	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 
+	var/species_name = ""
+	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
+		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
+
 	var/icon/hands_icon = icon('icons/mob/human.dmi', "blank")
+	var/icon/hands_mask = icon('icons/mob/human.dmi', "blank")
 
 	if(get_limb_by_name("l_hand"))
 		var/obj/item/organ/external/l_hand = get_limb_by_name("l_hand")
 		hands_icon.Blend(l_hand.get_icon(skeleton), ICON_OVERLAY)
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
 	if(get_limb_by_name("r_hand"))
 		var/obj/item/organ/external/r_hand = get_limb_by_name("r_hand")
 		hands_icon.Blend(r_hand.get_icon(skeleton), ICON_OVERLAY)
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
 
 	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
 	var/icon/markings_hands = icon(markings_layer.icon)
-	markings_hands.Blend(hands_icon, ICON_ADD)
+	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
 
 	if(!skeleton)
 		if(isgolem(src))
