@@ -443,15 +443,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(get_limb_by_name("l_hand"))
 		var/obj/item/organ/external/l_hand = get_limb_by_name("l_hand")
-		hands_icon.Insert(l_hand.get_icon(skeleton))
+		hands_icon.Blend(l_hand.get_icon(skeleton), ICON_OVERLAY)
 	if(get_limb_by_name("r_hand"))
 		var/obj/item/organ/external/r_hand = get_limb_by_name("r_hand")
-		hands_icon.Insert(r_hand.get_icon(skeleton))
-/*
-	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
-	var/icon/body_hands = icon(body_layer.icon)
-	body_hands.Blend(hands_mask, ICON_MULTIPLY)
-*/
+		hands_icon.Blend(r_hand.get_icon(skeleton), ICON_OVERLAY)
+
 	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
 	var/icon/markings_hands = icon(markings_layer.icon)
 	markings_hands.Blend(hands_icon, ICON_MULTIPLY)
