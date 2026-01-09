@@ -19,3 +19,5 @@
 /area/station/garage/service
 	name = "\improper Service Garage"
 
+/area/station/garage/science
+	name = "\improper Science Garage"
