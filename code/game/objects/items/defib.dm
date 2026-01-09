@@ -12,6 +12,7 @@
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	new_attack_chain = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 		)
@@ -96,23 +97,29 @@
 	if(ishuman(user) && Adjacent(user))
 		toggle_paddles(user)
 
-/obj/item/defibrillator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
+/obj/item/defibrillator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = used
 		if(cell)
 			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
-		else
-			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
-				return
-			if(user.drop_item(C))
-				W.forceMove(src)
-				cell = C
-				to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
-	if(W == paddles)
-		toggle_paddles(user)
+			return ITEM_INTERACT_COMPLETE
 
-	update_icon(UPDATE_OVERLAYS)
+		if(C.maxcharge < paddles.revivecost)
+			to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(user.drop_item(C))
+			used.forceMove(src)
+			cell = C
+			to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
+			update_icon(UPDATE_OVERLAYS)
+			return ITEM_INTERACT_COMPLETE
+
+	if(used == paddles)
+		toggle_paddles(user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)

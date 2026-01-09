@@ -3,6 +3,7 @@ import { BooleanLike } from 'tgui-core/react';
 export type CardSkin = {
   display_name: string;
   skin: string;
+  icon: string;
 };
 
 export type IdCard = {

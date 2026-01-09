@@ -24225,6 +24225,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "eTZ" = (
@@ -46183,6 +46184,9 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
+	},
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
@@ -90439,6 +90443,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "scb" = (
