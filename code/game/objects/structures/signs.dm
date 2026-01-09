@@ -80,7 +80,7 @@
 	S.name = name
 	S.desc = desc
 	S.icon_state = sign_state
-	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
+	to_chat(user, SPAN_NOTICE("You fasten [S] with your [I]."))
 	qdel(src)
 
 /obj/structure/sign/double

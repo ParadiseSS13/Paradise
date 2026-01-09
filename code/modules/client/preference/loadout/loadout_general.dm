@@ -129,6 +129,10 @@
 	display_name = "Walking cane"
 	path = /obj/item/cane
 
+/datum/gear/blindcane
+	display_name = "Blind cane"
+	path = /obj/item/blindcane
+
 /datum/gear/cards
 	display_name = "Deck of standard cards"
 	path = /obj/item/deck/cards
@@ -152,6 +156,10 @@
 /datum/gear/fannypack
 	display_name = "Fannypack"
 	path = /obj/item/storage/belt/fannypack
+
+/datum/gear/whitebandana
+	display_name = "Bandana, white"
+	path = /obj/item/clothing/mask/bandana
 
 /datum/gear/blackbandana
 	display_name = "Bandana, black"
@@ -193,6 +201,10 @@
 /datum/gear/wizard_staff
 	display_name = "Wizard's staff"
 	path = /obj/item/staff
+
+/datum/gear/photo_album
+	display_name = "Photo album"
+	path = /obj/item/storage/photo_album
 
 //////////////////////
 //		Mugs		//

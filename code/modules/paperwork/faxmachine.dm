@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] to remove its currently stored ID.")
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/folder))
-		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
+		to_chat(user, SPAN_WARNING("The [src] can't accept folders!"))
 		return ITEM_INTERACT_COMPLETE //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
@@ -108,10 +108,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(!emagged)
 		emagged = TRUE
 		req_one_access = list()
-		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+		to_chat(user, SPAN_NOTICE("The transmitters realign to an unknown source!"))
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
+		to_chat(user, SPAN_WARNING("You swipe the card through [src], but nothing happens."))
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
@@ -171,13 +171,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("auth") // log in/out
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
-					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
+					to_chat(usr, SPAN_WARNING("Login rejected: individual is blacklisted from fax network."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
-					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
+					to_chat(usr, SPAN_WARNING("Login rejected: ID card does not have required access."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 			else if(is_authenticated)
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(ishuman(usr))
 					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(copyitem)
-				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
+				to_chat(usr, SPAN_NOTICE("You eject [copyitem] from [src]."))
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -196,10 +196,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					usr.drop_item()
 					copyitem = I
 					I.forceMove(src)
-					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
+					to_chat(usr, SPAN_NOTICE("You insert [I] into [src]."))
 					flick(insert_anim, src)
 				else
-					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")
+					to_chat(usr, SPAN_WARNING("[src] only accepts paper, paper bundles, and photos."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/cooldown_seconds = cooldown_seconds()
 				if(cooldown_seconds > 0)
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-					to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
+					to_chat(usr, SPAN_WARNING("[src] is not ready for another [cooldown_seconds] seconds."))
 					return
 				send_admin_fax(usr, destination)
 				sendcooldown = world.time + cooldown_time
@@ -284,14 +284,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return
 
 	if(scan)
-		to_chat(user, "<span class='notice'>You remove [scan] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [scan] from [src]."))
 		if(!user.get_active_hand())
 			user.put_in_hands(scan)
 		else if(!user.put_in_inactive_hand(scan))
 			scan.forceMove(get_turf(src))
 		scan = null
 	else
-		to_chat(user, "<span class='notice'>There is nothing to remove from [src].</span>")
+		to_chat(user, SPAN_NOTICE("There is nothing to remove from [src]."))
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_consumption)
@@ -411,7 +411,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "[SPAN_BOLDNOTICE("<font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) ")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))

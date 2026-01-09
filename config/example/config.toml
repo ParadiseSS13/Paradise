@@ -285,6 +285,13 @@ enable_gamemode_player_limit = true
 # Enable to generate zero or more random station traits on game start.
 add_random_station_traits = false
 
+# Minimum readied up players required for roundstart hijack objectives
+min_players_hijack_roundstart = 30
+# Minimum alive crew required for midround hijack objectives
+min_players_hijack_midround = 20
+# Minimum security required for midround hijack objectives
+min_security_hijack_midround = 2
+
 ################################################################
 
 [general_configuration]

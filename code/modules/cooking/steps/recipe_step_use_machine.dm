@@ -130,7 +130,7 @@
 	cooker_surface_name = COOKER_SURFACE_ICE_CREAM_MIXER
 
 /datum/cooking/recipe_step/use_machine/ice_cream_mixer/New(time_, options)
-	..(J_LO, time_, options)
+	..(J_MED, time_, options)
 
 /datum/cooking/recipe_step/use_machine/ice_cream_mixer/get_pda_formatted_desc()
 	return "Mix in an ice cream mixer for [DisplayTimeText(time)]."
@@ -157,7 +157,7 @@
 	cooker_surface_name = COOKER_SURFACE_DEEPFRYER
 
 /datum/cooking/recipe_step/use_machine/deepfryer/New(time_, options)
-	..(J_LO, time_, options)
+	..(J_MED, time_, options)
 
 /datum/cooking/recipe_step/use_machine/deepfryer/get_pda_formatted_desc()
 	return "Deep-fry for [DisplayTimeText(time)]."

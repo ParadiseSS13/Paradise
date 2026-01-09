@@ -16,21 +16,21 @@
 /obj/item/storage/lockbox/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)
-			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+			to_chat(user, SPAN_WARNING("It appears to be broken."))
 			return
 		if(check_access(W))
 			locked = !locked
 			if(locked)
-				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
+				to_chat(user, SPAN_WARNING("You lock \the [src]!"))
 				if(user.s_active)
 					user.s_active.close(user)
 			else
-				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
+				to_chat(user, SPAN_WARNING("You unlock \the [src]!"))
 				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 			update_icon()
 			return
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Access denied."))
 			return
 	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
@@ -38,25 +38,25 @@
 	if(!locked)
 		..()
 	else
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		to_chat(user, SPAN_WARNING("It's locked!"))
 	return
 
 /obj/item/storage/lockbox/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		to_chat(user, SPAN_WARNING("It appears to be broken."))
 		return
 	if(!locked && user.s_active != src)
 		return ..()
 	if(allowed(user))
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
+		to_chat(user, SPAN_NOTICE("You [locked ? "lock" : "unlock"] [src]."))
 		update_icon()
 		if(user.s_active == src)
 			close(user)
 	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -68,7 +68,7 @@
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		to_chat(user, SPAN_WARNING("It's locked!"))
 	else
 		..()
 	return
@@ -77,7 +77,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, SPAN_NOTICE("[src] is locked!"))
 	return 0
 
 /obj/item/storage/lockbox/emag_act(user as mob)
@@ -85,7 +85,7 @@
 		broken = TRUE
 		locked = FALSE
 		desc = "It appears to be broken."
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You unlock \the [src]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		update_icon()
 		return
@@ -175,12 +175,12 @@
 	if(istype(W, /obj/item/disk/fauna_research))
 		var/obj/item/disk/fauna_research/disky = W
 		var/obj/item/pride = new disky.output(get_turf(src))
-		to_chat(user, "<span class='notice'>[src] accepts [disky], and prints out [pride]!</span>")
+		to_chat(user, SPAN_NOTICE("[src] accepts [disky], and prints out [pride]!"))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
 			if(length(completed_fauna) == number_of_megafauna)
-				to_chat(user, "<span class='notice'>[src] prints out a very fancy medal!</span>")
+				to_chat(user, SPAN_NOTICE("[src] prints out a very fancy medal!"))
 				var/obj/item/accomplishment = new /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full(get_turf(src))
 				user.put_in_hands(accomplishment)
 		user.put_in_hands(pride)

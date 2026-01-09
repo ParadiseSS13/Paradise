@@ -176,3 +176,4 @@
 	desc = "This is a tower-cap cup. All craftsdwarfship is... passable."
 	icon_state = "mug_wood"
 	preset = TRUE
+	materials = list(MAT_WOOD = 2000)

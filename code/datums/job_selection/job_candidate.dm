@@ -159,7 +159,7 @@ RESTRICT_TYPE(/datum/job_candidate)
 	return TRUE
 
 /datum/job_candidate/proc/is_barred_by_missing_limbs(datum/job/job)
-	if(!job.missing_limbs_allowed)
+	if(job.missing_limbs_allowed)
 		return FALSE
 
 	var/organ_status
