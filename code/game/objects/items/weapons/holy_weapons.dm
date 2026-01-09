@@ -727,8 +727,8 @@
 	bound_vajra.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 /obj/item/nullrod/ghanta/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
