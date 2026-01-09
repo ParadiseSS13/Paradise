@@ -1,7 +1,8 @@
-import { Box, Button, Dropdown, LabeledList, Section } from 'tgui-core/components';
-import { CardSkin, IdCard } from './types';
-import { useBackend } from '../../backend';
+import { Box, Button, Dropdown, ImageButton, LabeledList, Section } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../../backend';
+import { CardSkin, IdCard } from './types';
 
 type CardInformationProps = {
   card?: IdCard;
@@ -44,29 +45,32 @@ type CardSkinsProps = {
 export const CardSkins = (props: CardSkinsProps) => {
   const { act } = useBackend();
   const { card_skins, card, is_centcom, all_centcom_skins } = props;
+
   return (
     <Section title="Card Skins">
       {card_skins.map((v) => (
-        <Button
+        <ImageButton
           selected={card?.current_skin === v.skin}
           key={v.skin}
+          tooltip={v.display_name}
+          dmIcon={v.icon}
+          dmIconState={v.skin}
           onClick={() => act('set_card_skin', { skin_target: v.skin })}
-        >
-          {v.display_name}
-        </Button>
+        />
       ))}
       {!!is_centcom && (
         <Box>
           {Array.isArray(all_centcom_skins) &&
             all_centcom_skins.map((v) => (
-              <Button
+              <ImageButton
                 selected={card?.current_skin === v.skin}
                 key={v.skin}
+                tooltip={v.display_name}
+                dmIcon={v.icon}
+                dmIconState={v.skin}
                 color="purple"
                 onClick={() => act('set_card_skin', { skin_target: v.skin })}
-              >
-                {v.display_name}
-              </Button>
+              />
             ))}
         </Box>
       )}

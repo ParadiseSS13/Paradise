@@ -180,6 +180,26 @@
 	product_type = /obj/item/smithed_item/component/knife_handle
 	basin_state = "cast_knife_handle"
 
+/obj/item/smithing_cast/component/rod_housing
+	name = "rod housing cast"
+	icon_state = "rod_housing_cast"
+	desc = "A cast for creating a nuclear rod housing frame."
+	product_type = /obj/item/smithed_item/component/rod_housing
+	basin_state = "cast_rod_housing"
+
+/obj/item/smithing_cast/component/rod_housing/AltClick(mob/user)
+	return
+
+/obj/item/smithing_cast/component/rod_core
+	name = "rod core cast"
+	icon_state = "rod_core_cast"
+	desc = "A cast for creating a nuclear rod core."
+	product_type = /obj/item/smithed_item/component/rod_core
+	basin_state = "cast_rod_core"
+
+/obj/item/smithing_cast/component/rod_core/AltClick(mob/user)
+	return
+
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"
 	icon_state = "trim_cast"

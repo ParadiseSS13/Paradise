@@ -106,6 +106,9 @@
 	name = "\improper Supermatter Engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/engine/reactor
+	name = "\improper Fission Reactor"
+
 //Solars
 
 /area/station/engineering/solar

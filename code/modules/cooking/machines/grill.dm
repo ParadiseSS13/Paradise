@@ -60,7 +60,8 @@
 
 /obj/machinery/cooking/grill/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.")
+	if(wood_maximum != INFINITY)
+		. += SPAN_NOTICE("It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.")
 	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a surface to set its timer, temperature, and toggle it on or off.")
 
 /obj/machinery/cooking/grill/process()
@@ -207,3 +208,65 @@
 		surface.container = new /obj/item/reagent_containers/cooking/grill_grate(src)
 	stored_wood = 30
 	update_appearance()
+
+/obj/machinery/cooking/grill/loaded/reactor
+	icon_state = "blank"
+	wood_maximum = INFINITY
+	active_power_consumption = 0
+	idle_power_consumption = 0
+	flags = INDESTRUCTIBLE
+	/// The reactor that the grill is attached to
+	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
+
+/obj/machinery/cooking/grill/loaded/reactor/Initialize(mapload)
+	. = ..()
+	stored_wood = INFINITY
+	var/datum/cooking_surface/surface = surfaces[1]
+	surface.container.pixel_x = -16
+	surface.container.pixel_y = 0
+	surface.container.transform = matrix().Scale(1.35, 1.35)
+	surface.allow_toggling = FALSE
+	surface = surfaces[2]
+	surface.container.pixel_x = 16
+	surface.container.pixel_y = 0
+	surface.container.transform = matrix().Scale(1.35, 1.35)
+	surface.allow_toggling = FALSE
+
+/obj/machinery/cooking/grill/loaded/reactor/attack_hand(mob/user, params)
+	var/mob/living/carbon/human/burn_victim = user
+	if(istype(burn_victim) && !burn_victim.gloves)
+		var/which_hand = "l_hand"
+		if(!burn_victim.hand)
+			which_hand = "r_hand"
+		burn_victim.adjustFireLossByPart(5, which_hand)
+		to_chat(burn_victim, SPAN_WARNING("Your hand is burned as you try to remove the grill grate, but its stuck firmly!"))
+	else if(istype(burn_victim))
+		to_chat(burn_victim, SPAN_WARNING("You try to remove the grill grate, but its stuck firmly!"))
+
+// We dont want most of the normal proc for shutting off.
+/obj/machinery/cooking/grill/loaded/reactor/ignite()
+	new /obj/effect/fire(loc, T0C + 300, (roll("2d10+15") SECONDS), 1)
+
+	// Chance of spreading
+	var/spread_count = rand(1, 3)
+	if(prob(30))
+		var/list/dirs = GLOB.alldirs.Copy()
+		while(spread_count && length(dirs))
+			var/direction = pick_n_take(dirs)
+			var/turf/T = get_step(src, direction)
+			if(T.density)
+				continue
+			new /obj/effect/fire(T, T0C + 300, (roll("2d10+15") SECONDS), 1)
+			spread_count--
+
+// we want our icons in a specific spot
+/obj/machinery/cooking/grill/loaded/reactor/update_surface_icon(surface_idx)
+	var/datum/cooking_surface/surface = surfaces[surface_idx]
+
+	if(!surface.container)
+		return
+
+	add_to_visible(surface.container, surface_idx)
+
+/obj/machinery/cooking/grill/loaded/reactor/update_overlays()
+	return

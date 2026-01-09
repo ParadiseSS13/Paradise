@@ -95,6 +95,10 @@
 			to_chat(user, SPAN_WARNING("There is a structure here!"))
 			return FALSE
 
+	if(locate(/obj/machinery/atmospherics/reactor_chamber) in get_turf(material))
+		to_chat(user, SPAN_WARNING("Building something here would get in the way of the reactor!"))
+		return FALSE
+		
 	return TRUE
 
 /// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()

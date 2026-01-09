@@ -956,7 +956,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nct")
+	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nctrainer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom", "blueshield", "magistrate", "ntrep", "ERT_leader", "ERT_empty", "ERT_security", "ERT_engineering", "ERT_medical", "ERT_janitorial", "ERT_paranormal", "deathsquad", "commander", "syndie", "TDred", "TDgreen")
