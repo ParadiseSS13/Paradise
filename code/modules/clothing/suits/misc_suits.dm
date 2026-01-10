@@ -1222,13 +1222,17 @@
 	icon_state = "griffin_wings"
 	inhand_icon_state = null
 
-/obj/item/clothing/suit/toggle/attack_self__legacy__attackchain()
+/obj/item/clothing/suit/toggle/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(icon_state == initial(icon_state))
 		icon_state = icon_state + "_t"
 	else
 		icon_state = initial(icon_state)
 	usr.update_inv_wear_suit()
 	update_action_buttons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/lordadmiral
 	name = "lord admiral's coat"
@@ -1419,9 +1423,13 @@
 	to_chat(L, SPAN_NOTICE("You are now wearing \a [choice]. Allahu Akbar!"))
 	qdel(src)
 
-/obj/item/clothing/suit/hooded/abaya/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/suit/hooded/abaya/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	. = ..()
 	reskin_abaya(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/hooded/abaya/red
 	name = "red abaya"

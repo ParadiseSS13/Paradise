@@ -6,6 +6,7 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	permeability_coefficient = 0.8
+	new_attack_chain = TRUE
 	/// Only these species can wear this kit.
 	var/list/species_restricted
 	/// If set to a sprite path, replaces the sprite for monitor heads
@@ -261,20 +262,20 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
-			user.visible_message(SPAN_WARNING("[user] snips the fingertips off [src]."),SPAN_WARNING("You snip the fingertips off [src]."))
-			clipped = TRUE
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			update_icon()
-		else
-			to_chat(user, SPAN_NOTICE("[src] have already been clipped!"))
-		return
-	else
-		return ..()
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	if(clipped)
+		to_chat(user, SPAN_NOTICE("[src] have already been clipped!"))
+		return TRUE
+
+	playsound(src.loc, I.usesound, 100, 1)
+	user.visible_message(
+		SPAN_WARNING("[user] snips the fingertips off [src]."),
+		SPAN_WARNING("You snip the fingertips off [src].")
+	)
+	clipped = TRUE
+	name = "mangled [name]"
+	desc = "[desc] They have had the fingertips cut off of them."
+	update_icon()
 
 //////////////////////////////
 // MARK: SUIT SENSORS
@@ -509,9 +510,10 @@
 
 	return FALSE
 
-/obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/head) && can_have_hats)
-		attach_hat(I, user, TRUE)
+/obj/item/clothing/head/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/head) && can_have_hats)
+		attach_hat(used, user, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -641,52 +643,73 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
-		var/obj/item/match/M = I
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	if(cut_open)
+		to_chat(user, SPAN_WARNING("[src] have already had [p_their()] toes cut open!"))
+		return TRUE
+
+	if(can_cut_open)
+		playsound(src.loc, I.usesound, 100, 1)
+		user.visible_message(
+			SPAN_WARNING("[user] cuts open the toes of [src]."),
+			SPAN_WARNING("You cut open the toes of [src].")
+		)
+		cut_open = TRUE
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		return TRUE
+
+/obj/item/clothing/shoes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/match) && src.loc == user)
+		var/obj/item/match/M = used
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
-			user.visible_message(SPAN_WARNING("[user] strikes a [M] on the bottom of [src], lighting it."),SPAN_WARNING("You strike [M] on the bottom of [src] to light it."))
+			user.visible_message(
+				SPAN_NOTICE("[user] strikes a [M] on the bottom of [src], lighting it."),
+				SPAN_NOTICE("You strike [M] on the bottom of [src] to light it."),
+				SPAN_NOTICE("You hear a match being lit.")
+			)
 			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(M.lit && !M.burnt && M.w_class <= WEIGHT_CLASS_SMALL)
-			user.visible_message(SPAN_WARNING("[user] crushes [M] into the bottom of [src], extinguishing it."),SPAN_WARNING("You crush [M] into the bottom of [src], extinguishing it."))
+			user.visible_message(
+				SPAN_NOTICE("[user] crushes [M] into the bottom of [src], extinguishing it."),
+				SPAN_NOTICE("You crush [M] into the bottom of [src], extinguishing it."),
+				SPAN_WARNING("You hear a thin wooden snap!")
+			)
 			M.dropped()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/wirecutters))
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message(SPAN_WARNING("[user] cuts open the toes of [src]."),SPAN_WARNING("You cut open the toes of [src]."))
-				cut_open = TRUE
-				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-			else
-				to_chat(user, SPAN_NOTICE("[src] have already had [p_their()] toes cut open!"))
-		return
-
-	if(istype(I, /obj/item/kitchen/knife/combat))
+	if(istype(used, /obj/item/kitchen/knife/combat))
 		if(!knife_slot)
-			to_chat(user, SPAN_NOTICE("There is no place to put [I] in [src]!"))
-			return
+			to_chat(user, SPAN_NOTICE("There is no place to put [used] in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(hidden_blade)
 			to_chat(user, SPAN_NOTICE("There is already something in [src]!"))
-			return
-		if(!user.drop_item_to_ground(I))
-			return
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 
 			var/stabbed_foot = pick("l_foot", "r_foot")
-			user.visible_message(SPAN_NOTICE("[user] tries to place [I] into [src] but stabs their own foot!"), \
-			SPAN_WARNING("You go to put [I] into [src], but miss the boot and stab your own foot!"))
-			user.apply_damage(I.force, BRUTE, stabbed_foot)
-			user.drop_item(I)
-			return
-		user.visible_message(SPAN_NOTICE("[user] places [I] into their [name]!"), \
-			SPAN_NOTICE("You place [I] into the side of your [name]!"))
-		I.forceMove(src)
-		hidden_blade = I
-		return
+			user.visible_message(
+				SPAN_NOTICE("[user] tries to place [used] into [src] but stabs their own foot!"),
+				SPAN_WARNING("You go to put [used] into [src], but miss the boot and stab your own foot!")
+			)
+			user.apply_damage(used.force, BRUTE, stabbed_foot)
+			user.drop_item(used)
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] places [used] into their [name]!"),
+			SPAN_NOTICE("You place [used] into the side of your [name]!")
+		)
+		used.forceMove(src)
+		hidden_blade = used
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -866,10 +889,12 @@
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	if(istype(I, /obj/item/smithed_item/insert))
-		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, I, user)
+/obj/item/clothing/suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/insert))
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/clothing/suit/proc/detach_insert(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
@@ -1061,16 +1086,16 @@
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+/obj/item/clothing/under/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/accessory))
+		attach_accessory(used, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby__legacy__attackchain(I, user, params)
-		return TRUE
+			A.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
-	. = ..()
+	return ..()
 
 /obj/item/clothing/under/serialize()
 	var/data = ..()

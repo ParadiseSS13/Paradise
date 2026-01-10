@@ -255,8 +255,12 @@
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
-/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/fedora/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	tip_fedora(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)

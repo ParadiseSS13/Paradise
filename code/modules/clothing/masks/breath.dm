@@ -19,8 +19,12 @@
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi'
 		)
 
-/obj/item/clothing/mask/breath/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/breath/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
 	..()

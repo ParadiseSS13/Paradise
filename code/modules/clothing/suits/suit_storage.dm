@@ -45,12 +45,12 @@
 		pockets.show_to(user)
 	return ..()
 
-/obj/item/clothing/suit/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/suit/storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Inserts shouldn't be added into the inventory of the pockets if they're attaching.
-	if(istype(W, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
-		return ..()
-	..()
-	return pockets?.attackby__legacy__attackchain(W, user, params)
+	if(istype(used, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
+		return NONE
+
+	return pockets?.attackby__legacy__attackchain(used, user, modifiers)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()

@@ -26,13 +26,16 @@
 	return ..()
 
 
-/obj/item/clothing/neck/necklace/locket/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/neck/necklace/locket/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!base_icon)
 		base_icon = icon_state
 
 	if(!("[base_icon]_open" in icon_states(icon)))
 		to_chat(user, "[src] doesn't seem to open.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	open = !open
 	to_chat(user, "You flip [src] [open ? "open" : "closed"].")
@@ -44,22 +47,26 @@
 			held = null
 	else
 		icon_state = "[base_icon]"
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/clothing/neck/necklace/locket/attackby__legacy__attackchain(obj/item/O, mob/user)
+/obj/item/clothing/neck/necklace/locket/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/item/paper) || istype(target, /obj/item/photo))
+		return ..()
+
 	if(!open)
 		to_chat(user, "You have to open it first.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo))
-		if(held)
-			to_chat(usr, "[src] already has something inside it.")
-		else
-			to_chat(usr, "You slip [O] into [src].")
-			user.drop_item()
-			O.forceMove(src)
-			held = O
-	else
-		return ..()
+	if(held)
+		to_chat(usr, "[src] already has something inside it.")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(usr, "You slip [target] into [src].")
+	user.drop_item()
+	var/obj/item/thing = target
+	thing.forceMove(src)
+	held = target
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/neck/necklace/locket/silver
 	name = "silver locket"

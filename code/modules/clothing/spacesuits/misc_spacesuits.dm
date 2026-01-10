@@ -120,13 +120,17 @@
 	. = ..()
 	. += SPAN_NOTICE("Use in hand to toggle the hat's beard.")
 
-/obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/space/santahat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(icon_state == "santahat")
 		icon_state = "santahat_beard"
 		to_chat(user, "Santa's beard expands out from the hat!")
 	else
 		icon_state = "santahat"
 		to_chat(user, "The beard slinks back into the hat...")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"

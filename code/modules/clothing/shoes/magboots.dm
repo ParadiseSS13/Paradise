@@ -34,8 +34,12 @@
 		return
 	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_magpulse(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
@@ -269,31 +273,36 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/item/clothing/shoes/magboots/gravity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, SPAN_WARNING("[src] already has a cell!"))
-			return
-		if(!user.drop_item_to_ground(I))
-			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, SPAN_NOTICE("You install [I] into [src]."))
-		update_icon()
-		return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
+		cell = used
+		to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, SPAN_NOTICE("[src] already has a [I]!"))
-			return
+			to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
-			return
-		to_chat(user, SPAN_NOTICE("You insert [I] into [src], and [src] starts to warm up."))
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+		used.forceMove(src)
+		core = used
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
 	..()
