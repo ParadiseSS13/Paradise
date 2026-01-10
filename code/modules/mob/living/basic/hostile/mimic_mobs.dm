@@ -253,6 +253,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	ai_controller = /datum/ai_controller/basic_controller/mimic/gun
 	/// Our gun object
 	var/obj/item/gun/our_gun = null
+	is_ranged = TRUE
 
 /mob/living/basic/mimic/copy/ranged/CopyObject(obj/O, mob/living/creator, destroy_original = 0)
 	if(..())
@@ -265,23 +266,31 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		ai_controller.movement_delay = 2 * G.w_class + 1
 		projectile_sound = G.fire_sound
 		our_gun = G
+		var/datum/component/ranged_attacks/comp = GetComponent(/datum/component/ranged_attacks)
 		if(istype(G, /obj/item/gun/magic))
 			var/obj/item/gun/magic/zapstick = G
 			var/obj/item/ammo_casing/magic/M = zapstick.ammo_type
 			projectile_type = initial(M.projectile_type)
+			comp.casing_type = null
+			comp.projectile_type = projectile_type
 		if(istype(G, /obj/item/gun/projectile))
 			var/obj/item/gun/projectile/pewgun = G
 			var/obj/item/ammo_box/magazine/M = pewgun.mag_type
 			casing_type = initial(M.ammo_type)
+			comp.casing_type = casing_type
+			comp.projectile_type = null
 		if(istype(G, /obj/item/gun/energy))
 			var/obj/item/gun/energy/zapgun = G
 			var/selectfiresetting = zapgun.select
 			var/obj/item/ammo_casing/energy/E = zapgun.ammo_type[selectfiresetting]
 			if(is_type_in_list(E, list(/obj/item/ammo_casing/energy/disabler/eshotgun, /obj/item/ammo_casing/energy/laser/eshotgun)))
 				casing_type = E.type
+				comp.casing_type = casing_type
+				comp.projectile_type = null
 			else
 				projectile_type = initial(E.projectile_type)
-		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval, cooldown_time = ranged_cooldown)
+				comp.casing_type = null
+				comp.projectile_type = projectile_type
 		RegisterSignal(src, COMSIG_BASICMOB_POST_ATTACK_RANGED, PROC_REF(deduct_ammo))
 
 /mob/living/basic/mimic/copy/ranged/proc/deduct_ammo()
