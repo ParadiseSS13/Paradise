@@ -30,8 +30,6 @@
 	var/show_to_observers = TRUE
 	/// Toggles whether this action is usable or not
 	var/action_disabled = FALSE
-	/// The appearance used as an overlay for when the action is unavailable
-	var/mutable_appearance/unavailable_effect
 	/// If False, the owner of this action does not get a hud and cannot activate it on their own
 	var/owner_has_control = TRUE
 
@@ -194,7 +192,7 @@
  * force - whether an update is forced regardless of existing status
  */
 /datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
-	button.overlays -= unavailable_effect
+	button.cut_overlay(button.unavailable_image)
 	button.maptext = ""
 	if(IsAvailable(show_message = FALSE))
 		button.color = rgb(255, 255, 255, 255)
@@ -268,13 +266,18 @@
 			return
 
 /datum/action/proc/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
-	if(isnull(unavailable_effect))
-		unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', icon_state = "template")
-		unavailable_effect.alpha = 200
-		unavailable_effect.appearance_flags = RESET_COLOR | RESET_ALPHA
-		unavailable_effect.color = "#000000"
-		unavailable_effect.plane = FLOAT_PLANE + 1
-	button.overlays |= unavailable_effect
+	if(isnull(button.unavailable_image))
+		var/mutable_appearance/ma = mutable_appearance(
+			icon = 'icons/mob/screen_white.dmi',
+			icon_state = "template",
+			plane = FLOAT_PLANE + 1,
+			alpha = 200,
+			appearance_flags = RESET_COLOR | RESET_ALPHA,
+			color = "#000000",
+		)
+		button.unavailable_image = new
+		button.unavailable_image.appearance = ma
+	button.add_overlay(button.unavailable_image)
 
 /**
  * Applies any overlays to our button

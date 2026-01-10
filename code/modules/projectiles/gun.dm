@@ -108,13 +108,13 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += SPAN_NOTICE("Alt-click it to reskin it.")
 	if(unique_rename)
-		. += "<span class='notice'>Use a pen on it to rename it.</span>"
+		. += SPAN_NOTICE("Use a pen on it to rename it.")
 	if(bayonet)
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='notice'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
+			. += SPAN_NOTICE("[bayonet] looks like it can be <b>unscrewed</b> from [src].")
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
@@ -127,7 +127,7 @@
 	return 1
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='danger'>*click*</span>")
+	to_chat(user, SPAN_DANGER("*click*"))
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
@@ -149,15 +149,15 @@
 		if(message)
 			if(pointblank)
 				user.visible_message(
-					"<span class='danger'>[user] fires [src] point blank at [target]!</span>",
-					"<span class='danger'>You fire [src] point blank at [target]!</span>",
-					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+					SPAN_DANGER("[user] fires [src] point blank at [target]!"),
+					SPAN_DANGER("You fire [src] point blank at [target]!"),
+					SPAN_DANGER("You hear \a [fire_sound_text]!")
 				)
 			else
 				user.visible_message(
-					"<span class='danger'>[user] fires [src]!</span>",
-					"<span class='danger'>You fire [src]!</span>",
-					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+					SPAN_DANGER("[user] fires [src]!"),
+					SPAN_DANGER("You fire [src]!"),
+					SPAN_DANGER("You hear \a [fire_sound_text]!")
 				)
 	if(chambered?.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
@@ -200,9 +200,9 @@
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
 				user.visible_message(
-					"<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>",
-					"<span class='danger'>You blow smoke off of [src]'s barrel.</span>",
-					"<span class='danger'>You hear someone blowing over a hollow tube.</span>"
+					SPAN_DANGER("[user] blows smoke off of [src]'s barrel. What a badass."),
+					SPAN_DANGER("You blow smoke off of [src]'s barrel."),
+					SPAN_DANGER("You hear someone blowing over a hollow tube.")
 				)
 			else
 				handle_suicide(user, target, params)
@@ -212,14 +212,14 @@
 	if(clumsy_check)
 		if(istype(user))
 			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+				to_chat(user, SPAN_USERDANGER("You shoot yourself in the foot with \the [src]!"))
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
 				user.drop_item()
 				return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
-		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
+		to_chat(user, SPAN_USERDANGER("You need both hands free to fire \the [src]!"))
 		return
 
 	//DUAL WIELDING
@@ -249,7 +249,7 @@
 	if(!user.can_use_guns(src))
 		return 0
 	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
-		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
+		to_chat(user, SPAN_DANGER("[src] is incompatible with your biology!"))
 		return 0
 	return 1
 
@@ -271,7 +271,7 @@
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+				to_chat(user, SPAN_WARNING("[src] is lethally chambered! You don't want to risk harming anyone..."))
 				return
 		firing_burst = 1
 		for(var/i = 1 to burst_size)
@@ -301,7 +301,7 @@
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
-					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+					to_chat(user, SPAN_WARNING("[src] is lethally chambered! You don't want to risk harming anyone..."))
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
@@ -351,7 +351,7 @@
 			if(!gun_light)
 				if(!user.transfer_item_to(I, src))
 					return
-				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
+				to_chat(user, SPAN_NOTICE("You click [S] into place on [src]."))
 				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
@@ -366,7 +366,7 @@
 		if(is_pen(I))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
-				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
+				to_chat(user, SPAN_NOTICE("You name the gun [name]. Say hello to your new friend."))
 	if(istype(I, /obj/item/kitchen/knife))
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
@@ -374,7 +374,7 @@
 		if(!user.drop_item())
 			return
 		K.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
+		to_chat(user, SPAN_NOTICE("You attach [K] to [src]'s bayonet lug."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
@@ -395,7 +395,7 @@
 			return
 		if(gun_light && can_flashlight)
 			for(var/obj/item/flashlight/seclite/S in src)
-				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+				to_chat(user, SPAN_NOTICE("You unscrew the seclite from [src]."))
 				gun_light = null
 				S.loc = get_turf(user)
 				update_gun_light(user)
@@ -405,7 +405,7 @@
 					qdel(TGL)
 		else if(bayonet && can_bayonet) // if it has a bayonet, and the bayonet can be removed
 			bayonet.forceMove(get_turf(user))
-			to_chat(user, "<span class='notice'>You remove [bayonet] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove [bayonet] from [src]."))
 			clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
@@ -414,7 +414,7 @@
 	gun_light.on = !gun_light.on
 	var/mob/living/carbon/human/user = usr
 	if(user)
-		to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
+		to_chat(user, SPAN_NOTICE("You toggle the gun light [gun_light.on ? "on":"off"]."))
 	playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)
 
@@ -443,14 +443,14 @@
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 
 
 /obj/item/gun/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(unique_reskin && !current_skin && loc == user)
 		reskin_gun(user)
@@ -487,13 +487,13 @@
 		if(!ishuman(user))	// Borg suicide needs a refactor for this to work.
 			return
 		target.visible_message(
-			"<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>",
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>"
+			SPAN_WARNING("[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger..."),
+			SPAN_USERDANGER("You stick [src] in your mouth, ready to pull the trigger...")
 		)
 	else
 		target.visible_message(
-			"<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>",
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>"
+			SPAN_WARNING("[user] points [src] at [target]'s head, ready to pull the trigger..."),
+			SPAN_USERDANGER("[user] points [src] at your head, ready to pull the trigger...")
 		)
 
 	semicd = 1
@@ -501,11 +501,11 @@
 	if(!do_mob(user, target, execution_speed) || user.zone_selected != "mouth")
 		if(user)
 			if(user == target)
-				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
+				user.visible_message(SPAN_NOTICE("[user] decided life was worth living."))
 			else if(target && target.Adjacent(user))
 				target.visible_message(
-					"<span class='notice'>[user] has decided to spare [target]'s life.</span>",
-					"<span class='userdanger'>[user] has decided to spare your life!</span>"
+					SPAN_NOTICE("[user] has decided to spare [target]'s life."),
+					SPAN_USERDANGER("[user] has decided to spare your life!")
 				)
 		semicd = 0
 		return
@@ -513,8 +513,8 @@
 	semicd = 0
 
 	target.visible_message(
-		"<span class='warning'>[user] pulls the trigger!</span>",
-		"<span class='userdanger'>[user] pulls the trigger!</span>"
+		SPAN_WARNING("[user] pulls the trigger!"),
+		SPAN_USERDANGER("[user] pulls the trigger!")
 	)
 
 	if(chambered && chambered.BB)

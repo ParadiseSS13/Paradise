@@ -13,21 +13,21 @@
 
 	if(user.stat >= DEAD) // TODO check if needed
 		if(show_message)
-			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+			to_chat(user, SPAN_WARNING("Not while you're dead!"))
 		return FALSE
 
 	if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
-			to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
+			to_chat(user, SPAN_WARNING("Something is blocking your powers!"))
 		return FALSE
 	if(vampire.bloodusable < required_blood)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
+			to_chat(user, SPAN_WARNING("You require at least [required_blood] units of usable blood to do that!"))
 		return FALSE
 	//chapel check
 	if(istype(get_area(user), /area/station/service/chapel) && !fullpower)
 		if(show_message)
-			to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+			to_chat(user, SPAN_WARNING("Your powers are useless on this holy ground."))
 		return FALSE
 	return TRUE
 
@@ -50,6 +50,6 @@
 	if(!required_blood)
 		return
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
+	to_chat(user, SPAN_BOLDNOTICE("You have [vampire.bloodusable] left to use."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 

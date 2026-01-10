@@ -116,6 +116,34 @@
 			shake_camera(M, 3, 1)
 	qdel(src)
 
+/obj/projectile/paintball
+	name = "paintball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/paintball/on_hit(atom/target, blocked, hit_zone)
+	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(get_turf(target))
+	splat.color = color
+	return ..()
+
+/obj/projectile/pepperball
+	name = "pepperball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/pepperball/Initialize(mapload)
+	. = ..()
+	create_reagents(5)
+	reagents.set_reacting(FALSE)
+	reagents.add_reagent("condensedcapsaicin", 5)
+
+/obj/projectile/pepperball/on_hit(atom/target, blocked, hit_zone)
+	var/turf/our_turf = get_turf(target)
+	reagents.reaction(our_turf)
+	for(var/atom/T in our_turf)
+		reagents.reaction(T)
+	return ..()
+
 /obj/projectile/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
@@ -167,7 +195,7 @@
 /obj/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	visible_message(SPAN_WARNING("[src] explodes!"),SPAN_WARNING("You hear a snap!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -254,7 +282,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		if(is_ancient_rock(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 			forcedodge = 0
 			return
 		forcedodge = 1
@@ -300,13 +328,43 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
-	if(isliving(target))
-		var/turf/source_turf = get_turf(firer)
-		do_teleport(target, source_turf)
-	else
-		var/turf/miss_turf = get_step(target, get_dir(target, firer))
-		do_teleport(firer, miss_turf)
+	var/turf/miss_turf = get_step(target, get_dir(target, firer))
+	do_teleport(firer, miss_turf)
 	return ..()
+
+/obj/projectile/energy/demonic_shocker
+	name = "demonic shocker"
+	icon_state = "electrode"
+	nodamage = 1
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	hitsound = 'sound/magic/lightningbolt.ogg'
+	/// Maximum amount of bounces
+	var/bounce_count = 3
+
+/obj/projectile/energy/demonic_shocker/on_hit(atom/target, blocked = 0)
+	if(!isliving(target))
+		return ..()
+	chain(target, firer)
+	return ..()
+
+/obj/projectile/energy/demonic_shocker/proc/chain(mob/living/target, mob/source)
+	var/mob/living/L = target
+	L.electrocute_act(20, firer, flags = SHOCK_NOGLOVES)
+	if(bounce_count <= 0)
+		return
+
+	var/list/possible_targets = list()
+	for(var/mob/living/M in oview(3, target))
+		if(firer == M || M.faction_check_mob(firer))
+			continue
+		possible_targets += M
+	if(!length(possible_targets))
+		return
+
+	var/next_victim = pick(possible_targets)
+	bounce_count -= 1
+	playsound(get_turf(target), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
+	chain(next_victim, target)
 
 /obj/projectile/snowball
 	name = "snowball"

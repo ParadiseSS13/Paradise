@@ -32,6 +32,22 @@
 /mob/proc/is_holding(obj/item/I)
 	return istype(I) && (I == r_hand || I == l_hand)
 
+/// Returns a list of items being held
+/mob/proc/held_items()
+	var/list/items = list()
+	items += get_item_by_slot(ITEM_SLOT_LEFT_HAND)
+	items += get_item_by_slot(ITEM_SLOT_RIGHT_HAND)
+	return items
+
+/// Returns a number corresponding to an open hand, or null if no open hands.
+/mob/proc/get_empty_held_indexes()
+	var/list/L
+	var/list/held = held_items()
+	for(var/i in 1 to length(held))
+		if(!held[i])
+			LAZYADD(L, i)
+	return L
+
 //Checks if we're holding an item of type: typepath
 /mob/proc/is_holding_item_of_type(typepath)
 	. = FALSE
@@ -310,11 +326,11 @@
 
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
-		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
+		to_chat(M, SPAN_WARNING("You are not holding anything to equip!"))
 		return FALSE
 
 	if(flags & NODROP)
-		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
+		to_chat(M, SPAN_WARNING("You are unable to equip that!"))
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
@@ -357,7 +373,7 @@
 			playsound(loc, "rustle", 50, TRUE, -5)
 			return TRUE
 
-	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
+	to_chat(M, SPAN_WARNING("You are unable to equip that!"))
 	return FALSE
 
 /mob/proc/get_all_slots()

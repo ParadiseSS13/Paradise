@@ -17,7 +17,7 @@
 		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting bio-chip? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
 		return FALSE
-	to_chat(imp_in, "<span class='notice'>Your dusting bio-chip activates!</span>")
+	to_chat(imp_in, SPAN_NOTICE("Your dusting bio-chip activates!"))
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
 	imp_in.dust()
 

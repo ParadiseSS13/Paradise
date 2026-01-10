@@ -103,20 +103,20 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				to_chat(user, "<span class='notice'>You load a new magazine into \the [src].</span>")
+				to_chat(user, SPAN_NOTICE("You load a new magazine into \the [src]."))
 				return TRUE
 			else if(!can_tactical)
-				to_chat(user, "<span class='notice'>There's already a magazine in \the [src].</span>")
+				to_chat(user, SPAN_NOTICE("There's already a magazine in \the [src]."))
 				return TRUE
 			else
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				to_chat(user, SPAN_NOTICE("You perform a tactical reload on \the [src], replacing the magazine."))
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
-			to_chat(user, "<span class='notice'>You can't put this type of ammo in \the [src].</span>")
+			to_chat(user, SPAN_NOTICE("You can't put this type of ammo in \the [src]."))
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -125,7 +125,7 @@
 				if(!user.unequip(A))
 					return
 				A.forceMove(src)
-				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
+				to_chat(user, SPAN_NOTICE("You screw [S] onto [src]."))
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -136,10 +136,10 @@
 				update_icon()
 				return
 			else
-				to_chat(user, "<span class='warning'>[src] already has a suppressor.</span>")
+				to_chat(user, SPAN_WARNING("[src] already has a suppressor."))
 				return
 		else
-			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
+			to_chat(user, SPAN_WARNING("You can't seem to figure out how to fit [S] on [src]."))
 			return
 	else
 		return ..()
@@ -151,7 +151,7 @@
 			if(!user.is_holding(src))
 				..()
 				return
-			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You unscrew [suppressed] from [src]."))
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -168,23 +168,23 @@
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null
-		to_chat(user, "<span class='notice'>You pull the magazine out of \the [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You pull the magazine out of \the [src]!"))
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		to_chat(user, "<span class='notice'>You unload the round from \the [src]'s chamber.</span>")
+		to_chat(user, SPAN_NOTICE("You unload the round from \the [src]'s chamber."))
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
-		to_chat(user, "<span class='notice'>There's no magazine in \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("There's no magazine in \the [src]."))
 	update_icon()
 	return
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	. += "Has [get_ammo()] round\s remaining."
-	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
+	. += SPAN_NOTICE("Use in hand to empty the gun's ammo reserves.")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
@@ -196,39 +196,39 @@
 
 /obj/item/gun/projectile/suicide_act(mob/user)
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(25)
 		if(user.is_holding(src))
 			process_fire(user, user, 0, zone_override = "head")
-			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with [src]!</span>")
+			user.visible_message(SPAN_SUICIDE("[user] blows [user.p_their()] brains out with [src]!"))
 			return BRUTELOSS
 		else
-			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
+			user.visible_message(SPAN_SUICIDE("[user] panics and starts choking to death!"))
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		to_chat(user, SPAN_WARNING("\The [src] is already shortened!"))
 		return
 	if(bayonet)
-		to_chat(user, "<span class='warning'>You cannot saw-off [src] with [bayonet] attached!</span>")
+		to_chat(user, SPAN_WARNING("You cannot saw-off [src] with [bayonet] attached!"))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")
+	user.visible_message("[user] begins to shorten \the [src].", SPAN_NOTICE("You begin to shorten \the [src]..."))
 
 	//if there's any live ammo inside the gun, makes it go off
 	if(blow_up(user))
-		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+		user.visible_message(SPAN_DANGER("\The [src] goes off!"), SPAN_DANGER("\The [src] goes off in your face!"))
 		return
 
 	if(do_after(user, 30, target = src))
 		if(sawn_state == SAWN_OFF)
 			return
-		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
+		user.visible_message("[user] shortens \the [src]!", SPAN_NOTICE("You shorten \the [src]."))
 		w_class = WEIGHT_CLASS_NORMAL
 		inhand_icon_state = "gun" //phil235 is it different with different skin?
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back

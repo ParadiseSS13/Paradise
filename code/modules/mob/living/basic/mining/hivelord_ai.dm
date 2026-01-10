@@ -44,8 +44,8 @@
 	ai_movement = /datum/ai_movement/jps // Not gonna get stuck on walls now, are ya?
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/simple_find_target,
 	)
 
 /// Same as hivelords, but go after corpses too
@@ -83,6 +83,9 @@
 
 /datum/ai_planning_subtree/flee_target/legion/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/target = controller.blackboard[target_key]
+	if(ismecha(target))
+		var/obj/mecha/mech = target
+		target = mech.occupant
 	if(QDELETED(target) || target.faction_check_mob(controller.pawn))
 		return // Only flee if we have a hostile target
 	return ..()
@@ -118,17 +121,21 @@
 	if(!target)
 		// Only summon if we have a hostile target
 		return
-	controller.queue_behavior(/datum/ai_behavior/summon_brood)
+	controller.queue_behavior(/datum/ai_behavior/summon_brood, target_key)
 
 /datum/ai_behavior/summon_brood
 	action_cooldown = 3 SECONDS
 	behavior_flags = AI_BEHAVIOR_MOVE_AND_PERFORM
 	required_distance = 0
 
-/datum/ai_behavior/summon_brood/perform(seconds_per_tick, datum/ai_controller/controller)
+/datum/ai_behavior/summon_brood/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/basic/mining/hivelord/summoner = controller.pawn
 	var/mob/living/basic/mining/hivelordbrood/A = new summoner.brood_type(summoner.loc)
 	A.admin_spawned = summoner.admin_spawned
 	A.faction = summoner.faction.Copy()
+	var/mob/living/target = controller.blackboard[target_key]
+	if(istype(target) && istype(A.ai_controller))
+		A.ai_controller.set_ai_status(AI_STATUS_ON)
+		A.ai_controller.set_blackboard_key(target_key, target)
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

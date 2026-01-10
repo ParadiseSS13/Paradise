@@ -52,7 +52,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 /mob/living/basic/revenant/default_can_use_topic(src_object)
 	return UI_UPDATE
 
-/mob/living/simple_animal/demon/pulse_demon/default_can_use_topic(src_object)
+/mob/living/basic/demon/pulse_demon/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
 	if(. < UI_INTERACTIVE)
 		return
