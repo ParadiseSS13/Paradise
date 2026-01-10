@@ -94,6 +94,7 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
+	drop_amount = 5
 	layer = DOOR_HELPER_LAYER
 
 /obj/structure/barricade/wooden/item_interaction(mob/living/user, obj/item/I, list/modifiers)
@@ -131,11 +132,7 @@
 			var/obj/structure/window/full/window = boarded_object
 			window.barricaded = TRUE
 
-/obj/structure/barricade/wooden/wooden/Destroy()
-	de_barricade()
-	..()
-
-/obj/structure/barricade/wooden/deconstruct(disassembled)
+/obj/structure/barricade/wooden/Destroy()
 	de_barricade()
 	..()
 
@@ -165,6 +162,7 @@
 		if(istype(boarded_object, /obj/structure/window/full))
 			var/obj/structure/window/full/window = boarded_object
 			window.barricaded = FALSE
+	make_debris()
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"

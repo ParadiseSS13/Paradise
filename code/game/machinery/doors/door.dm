@@ -296,6 +296,7 @@
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
+
 	. = TRUE
 	if(operating)
 		return

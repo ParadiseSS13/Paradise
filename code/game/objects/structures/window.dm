@@ -753,14 +753,14 @@
 /obj/structure/window/full/screwdriver_act(mob/user, obj/item/I)
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("There's boards in the way of [src]'s screws!"))
-		return COMPONENT_CANCEL_TOOLACT
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	return ..()
 
 /obj/structure/window/full/crowbar_act(mob/user, obj/item/I)
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
-		return COMPONENT_CANCEL_TOOLACT
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	return ..()
 

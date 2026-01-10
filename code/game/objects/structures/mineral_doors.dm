@@ -128,7 +128,11 @@
 /obj/structure/mineral_door/screwdriver_act(mob/living/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
 		to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
-		return TRUE
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!I.use_tool(src, user, 4 SECONDS * I.toolspeed * hardness, volume = I.tool_volume))
 		return TRUE
