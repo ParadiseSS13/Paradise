@@ -276,9 +276,6 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/proc/construct_barricade(obj/item/Q, mob/user)
-	close()
-
 /obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/sheet/wood))
 		build_barricade(user, used)
