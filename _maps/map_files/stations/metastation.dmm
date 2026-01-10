@@ -9444,10 +9444,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random/tech_storage/silicon,
 /obj/effect/turf_decal/trimline/department/command/line{
 	dir = 4
 	},
+/obj/effect/spawner/random/tech_storage/comms,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bhJ" = (
@@ -9869,10 +9869,10 @@
 /area/station/public/storage/tools/auxiliary)
 "bjv" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/tech_storage/silicon,
 /obj/effect/turf_decal/trimline/department/command/line{
 	dir = 6
 	},
+/obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bjw" = (
@@ -15244,6 +15244,9 @@
 /obj/item/eftpos/register,
 /obj/item/wrench,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/camera{
+	c_tag = "Kitchen"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bHS" = (
