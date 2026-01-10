@@ -17110,6 +17110,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/mob/living/basic/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -25352,11 +25353,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/primary/central/south)
 "cGY" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/old/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "cGZ" = (
@@ -31101,6 +31099,10 @@
 "dJG" = (
 /obj/effect/turf_decal/tiles/dark/checker,
 /obj/machinery/processor,
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "dJM" = (
@@ -62505,7 +62507,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/basic/goat/chef,
+/obj/structure/sink/kitchen/old/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
