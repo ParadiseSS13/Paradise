@@ -119,40 +119,6 @@
 	if(state_open && close_delay != -1)
 		addtimer(CALLBACK(src, PROC_REF(operate)), close_delay)
 
-/obj/structure/mineral_door/proc/construct_barricade(obj/item/Q, mob/user)
-	var/obj/item/stack/sheet/wood/S = Q
-	if(!density)
-		to_chat(user, "<span class='warning'>[src] must be closed!</span>")
-		return
-	if(S.get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
-		return
-	if(barricaded)
-		to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
-		return
-	var/turf/buildloc = get_turf(src)
-	for(var/atom/blocker in buildloc.contents)
-		if(blocker != src)
-			if(blocker.density)
-				to_chat(user, "<span class='warning'>There's something in the way of [src]!</span>")
-				return
-	to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-	if(!(do_after_once(user, 4 SECONDS, target = src)))
-		return
-	if(!S.use(2))
-		to_chat(user, "<span class='warning'>You ran out of planks!</span>")
-		return
-	if(!barricaded) //one last check in case someone pre-barricades it
-		if(!density)
-			operate()
-		user.visible_message(
-			"<span class='warning'>[user] barricades [src] shut.</span>",
-			"<span class='notice'>You barricade [src] shut.</span>"
-		)
-		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-		newbarricade.add_fingerprint(user)
-		return
-
 /obj/structure/mineral_door/update_icon_state()
 	if(state_open)
 		icon_state = "[initial_state]open"
@@ -170,25 +136,28 @@
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
-	if(istype(W, /obj/item/pickaxe))
+/obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/sheet/wood))
+		build_barricade(user, used)
+
+	if(istype(used, /obj/item/pickaxe))
 		if(flags & NODECONSTRUCT)
 			to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
-			return
-		var/obj/item/pickaxe/digTool = W
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/pickaxe/digTool = used
 		to_chat(user, SPAN_NOTICE("You start digging \the [src]."))
 		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, SPAN_NOTICE("You finished digging."))
 			deconstruct(TRUE)
+
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
-		construct_barricade(W, user)
-		return ITEM_INTERACT_COMPLETE
-	else if(user.a_intent != INTENT_HARM)
+
+	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
-	else
-		return ..()
+
+	return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -199,6 +168,40 @@
 			else
 				new sheetType(T, max(sheetAmount - 2, 1))
 	qdel(src)
+
+/obj/structure/mineral_door/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+	
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be closed before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+	
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
 
 /obj/structure/mineral_door/silver
 	name = "silver door"

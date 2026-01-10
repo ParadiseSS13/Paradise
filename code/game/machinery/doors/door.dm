@@ -277,44 +277,15 @@
 	return
 
 /obj/machinery/door/proc/construct_barricade(obj/item/Q, mob/user)
-	var/obj/item/stack/sheet/wood/S = Q
-	if(!density)
-		to_chat(user, "<span class='warning'>[src] must be closed before you can barricade it!</span>")
-		return
-	if(S.get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade [src]!</span>")
-		return
-	if(barricaded)
-		to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
-		return
-	var/turf/buildloc = get_turf(src)
-	for(var/atom/blocker in buildloc.contents)
-		if(blocker != src)
-			if(blocker.density)
-				to_chat(user, "<span class='warning'>There's something in the way of [src]!</span>")
-				return
-	to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-	if(!(do_after_once(user, 4 SECONDS, target = src)))
-		return
-	if(!S.use(2))
-		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
-		return
-	if(!barricaded) //one last check in case someone pre-barricades it
-		close()
-		user.visible_message(
-			"<span class='warning'>[user] barricades [src] shut!</span>",
-			"<span class='notice'>You barricade [src] shut.</span>"
-		)
-		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-		newbarricade.add_fingerprint(user)
-		return
+	close()
 
 /obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/sheet/wood))
+		build_barricade(user, used)
+		return ITEM_INTERACT_COMPLETE
+
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-	if(istype(used, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
-		construct_barricade(used, user)
-		return ITEM_INTERACT_COMPLETE
 
 	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
@@ -391,6 +362,40 @@
 		open()
 	else
 		close()
+
+/obj/machinery/door/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+	
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be closed before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+	
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
 
 /obj/machinery/door/proc/soundcooldown()
 	if(!sound_ready)
