@@ -601,8 +601,10 @@ SUBSYSTEM_DEF(jobs)
 		if(!skeleton_crew)
 			GLOB.minor_announcement.Announce("Due to reduced crew numbers, extended departmental access has been unlocked on crew IDs.", "Extended Access Enabled")
 			skeleton_crew = TRUE
-	else
-		if(skeleton_crew >= GLOB.configuration.jobs.skeleton_crew_escape_threshold)
+		return
+
+	if(skeleton_crew >= GLOB.configuration.jobs.skeleton_crew_escape_threshold)
+		if(skeleton_crew && !skeleton_revoke_timer)
 			GLOB.minor_announcement.Announce("Crew count is now above minimal levels, extended departmental access will be revoked from crew IDs in 2 minutes. \
 				If your ID access has not been upgraded by the Head of Personnel, please vacate any areas you do not normally have access to.", "Extended Access Disabled")
 			skeleton_revoke_timer = addtimer(CALLBACK(src, PROC_REF(deactivate_skeleton_access)), 2 MINUTES, TIMER_STOPPABLE)
