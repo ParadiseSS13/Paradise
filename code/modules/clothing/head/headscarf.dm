@@ -38,7 +38,7 @@ obj/item/clothing/head/headscarf
 
 	var/picked_type = choice
 	worn_icon_state = picked_type == "hijab" ? "[picked_type]_dyeable" : "turban_[picked_type]_dyeable"
-	worn_as = picked_type
+	worn_as = picked_type == "hijab" ? picked_type : "turban_[picked_type]"
 	if(picked_type == "hijab")
 		icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	else
