@@ -771,7 +771,7 @@
 	user.visible_message(
 		SPAN_NOTICE("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
 		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
-		SPAN_Notice("[user] begins a prayer to [SSticker.Bible_deity_name].")
+		SPAN_NOTICE("[user] begins a prayer to [SSticker.Bible_deity_name].")
 	)
 
 /obj/item/nullrod/cleansing/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -849,7 +849,7 @@
 		SPAN_NOTICE("[user] begins waving [src] [target == user ? ("over " + user.p_themselves()) : "over [target]"] rhythmically and chanting to cleanse with the power of [SSticker.Bible_deity_name]."),
 		SPAN_NOTICE("You begin waving [src] [target == user ? "over yourself" : "over [target]"] rhythmically and chanting to cleanse with the power of [SSticker.Bible_deity_name]."),
 		SPAN_NOTICE("[user] begins chanting and you hear a gentle rustling.")
-		)
+	)
 
 /obj/item/nullrod/cleansing/whisk
 	name = "whisker"
@@ -881,7 +881,7 @@
 /obj/item/nullrod/cleansing/whisk/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
 		SPAN_NOTICE("[user] begins sweeping away the evil forces around [target == user ? user.p_themselves() : "[target]"] with [src]."),
-		SPAN_NOTICE("You begin sweeping away the evil forces around [target == user ? "yourself" : "[target]"] with [src].")
+		SPAN_NOTICE("You begin sweeping away the evil forces around [target == user ? "yourself" : "[target]"] with [src]."),
 		SPAN_NOTICE("You hear gentle swishing, like someone is dusting.")
 		)
 
