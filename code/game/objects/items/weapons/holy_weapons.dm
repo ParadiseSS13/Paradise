@@ -738,9 +738,10 @@
 		to_chat(user, SPAN_NOTICE("You are already ringing [src]."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(
+	user.audible_message(
 		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
-		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings.")
+		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings."),
+		SPAN_NOTICE("[user] taps [src] once and stands very still.")
 	)
 
 	blessing = TRUE
@@ -769,7 +770,8 @@
 /obj/item/nullrod/cleansing/proc/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
 		SPAN_NOTICE("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
-		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name].")
+		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
+		SPAN_Notice("[user] begins a prayer to [SSticker.Bible_deity_name].")
 	)
 
 /obj/item/nullrod/cleansing/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -845,7 +847,8 @@
 /obj/item/nullrod/cleansing/gohei/output_cleansing_message(atom/target, mob/living/user)
 	user.visible_message(
 		SPAN_NOTICE("[user] begins waving [src] [target == user ? ("over " + user.p_themselves()) : "over [target]"] rhythmically and chanting to cleanse with the power of [SSticker.Bible_deity_name]."),
-		SPAN_NOTICE("You begin waving [src] [target == user ? "over yourself" : "over [target]"] rhythmically and chanting to cleanse with the power of [SSticker.Bible_deity_name].")
+		SPAN_NOTICE("You begin waving [src] [target == user ? "over yourself" : "over [target]"] rhythmically and chanting to cleanse with the power of [SSticker.Bible_deity_name]."),
+		SPAN_NOTICE("[user] begins chanting and you hear a gentle rustling.")
 		)
 
 /obj/item/nullrod/cleansing/whisk
@@ -879,6 +882,7 @@
 	user.visible_message(
 		SPAN_NOTICE("[user] begins sweeping away the evil forces around [target == user ? user.p_themselves() : "[target]"] with [src]."),
 		SPAN_NOTICE("You begin sweeping away the evil forces around [target == user ? "yourself" : "[target]"] with [src].")
+		SPAN_NOTICE("You hear gentle swishing, like someone is dusting.")
 		)
 
 /obj/item/nullrod/nazar
