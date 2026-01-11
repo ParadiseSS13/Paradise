@@ -435,7 +435,7 @@
 /obj/item/clothing/head/helmet/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!issignaler(used))
 		return ..()
-
+	var/obj/item/assembly/signaler/S
 	if(S.secured)
 		to_chat(user, SPAN_WARNING("[S] is secured!"))
 		return ITEM_INTERACT_COMPLETE
