@@ -58,3 +58,10 @@
 	if(.)
 		var/obj/item/target_type = .
 		color = initial(target_type.color)
+
+/obj/item/clothing/head/headscarf/dye_item(dye_color, dye_key_override)
+	. = ..()
+	if(.)
+		var/obj/item/target_type = .
+		color = initial(target_type.color)
+		worn_icon_state = worn_as + "_dyeable"
