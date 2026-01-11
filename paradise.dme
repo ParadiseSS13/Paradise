@@ -1985,6 +1985,7 @@
 #include "code\modules\clothing\head\beret.dm"
 #include "code\modules\clothing\head\collectable.dm"
 #include "code\modules\clothing\head\hardhat.dm"
+#include "code\modules\clothing\head\headscarf.dm"
 #include "code\modules\clothing\head\helmet.dm"
 #include "code\modules\clothing\head\job_hats.dm"
 #include "code\modules\clothing\head\misc_hats.dm"
