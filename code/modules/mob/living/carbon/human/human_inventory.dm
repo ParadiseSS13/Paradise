@@ -347,7 +347,7 @@
 			I.in_storage = TRUE
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
-			uniform.attackby__legacy__attackchain(I, src)
+			uniform.item_interaction(src, I)
 		else
 			to_chat(src, SPAN_WARNING("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 

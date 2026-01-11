@@ -432,22 +432,21 @@
 	var/build_step = 0
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/clothing/head/helmet/attackby__legacy__attackchain(obj/item/assembly/signaler/S, mob/user, params)
-	..()
-	if(!issignaler(S))
-		..()
-		return
+/obj/item/clothing/head/helmet/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!issignaler(used))
+		return ..()
 
 	if(S.secured)
-		to_chat(user, SPAN_NOTICE("[S] is secured."))
-		return
-	qdel(S)
+		to_chat(user, SPAN_WARNING("[S] is secured!"))
+		return ITEM_INTERACT_COMPLETE
+
+	qdel(used)
 	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
 	user.put_in_hands(A)
-	to_chat(user, SPAN_NOTICE("You add the signaler to the helmet."))
+	to_chat(user, SPAN_NOTICE("You add [used] to the helmet."))
 	user.unequip(src, force = TRUE)
 	qdel(src)
-
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/secbot_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
