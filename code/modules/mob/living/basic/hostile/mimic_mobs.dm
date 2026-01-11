@@ -251,9 +251,10 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/basic/mimic/copy/ranged
 	ai_controller = /datum/ai_controller/basic_controller/mimic/gun
+	is_ranged = TRUE
+	projectile_type = /obj/item/ammo_casing/energy/disabler // We need to set this to avoid unit tests. This gets updated
 	/// Our gun object
 	var/obj/item/gun/our_gun = null
-	is_ranged = TRUE
 
 /mob/living/basic/mimic/copy/ranged/CopyObject(obj/O, mob/living/creator, destroy_original = 0)
 	if(..())
