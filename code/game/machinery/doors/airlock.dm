@@ -1012,6 +1012,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
+		if(istype(used, /obj/item/kitchen/utensil/fork))
+			return NONE
+
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
 				if(istype(used, /obj/item/stack/sheet/metal))

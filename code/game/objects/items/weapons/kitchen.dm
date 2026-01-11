@@ -66,8 +66,40 @@
 
 /obj/item/kitchen/utensil/fork
 	name = "fork"
-	desc = "It's a fork. Sure is pointy."
+	desc = "It's a fork. Sure is pointy. Keep away from outlets. "
 	icon_state = "fork"
+	new_attack_chain = TRUE
+
+/obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/machinery/))
+		var/obj/machinery/machine = target
+		var/wiresexposed = FALSE
+
+		if(istype(machine, /obj/machinery/alarm/))
+			var/obj/machinery/alarm/air_alarm = machine
+			wiresexposed = air_alarm.wiresexposed
+
+		if(istype(machine, /obj/machinery/firealarm/))
+			var/obj/machinery/firealarm/fire_alarm = machine
+			wiresexposed = fire_alarm.wiresexposed
+
+		// if we cant access the wires
+		if(!machine.panel_open && !wiresexposed)
+			return
+
+		// if the machine isn't powered or we're using a non-conductive fork
+		if(!machine.has_power() || !(flags & CONDUCT))
+			return
+
+		// display a message and shock the user
+		to_chat(user, SPAN_DANGER("You stick \the [src] into \the [target]"))
+		do_sparks(3, 1, machine)
+		electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, TRUE)
+
+		. = ITEM_INTERACT_COMPLETE
+	else
+		. = ..()
+
 
 /obj/item/kitchen/utensil/pfork
 	name = "plastic fork"
