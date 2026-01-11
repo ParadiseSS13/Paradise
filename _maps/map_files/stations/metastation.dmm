@@ -9876,13 +9876,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bjw" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bjx" = (
 /obj/machinery/economy/vending/assist/free,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bjA" = (
@@ -16079,6 +16083,13 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
+"bLE" = (
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/sign/engineering{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "bLH" = (
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = -30
@@ -43784,6 +43795,10 @@
 	dir = 10
 	},
 /obj/machinery/light/small,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "ihF" = (
@@ -45210,7 +45225,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
@@ -51183,27 +51198,14 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "kGI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/securearea{
-	pixel_x = -32;
-	pixel_y = -32
 	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
@@ -61835,8 +61837,6 @@
 /area/station/service/library)
 "osC" = (
 /obj/structure/rack,
-/obj/machinery/power/apc/directional/south,
-/obj/structure/cable,
 /obj/effect/spawner/random/tech_storage/service,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
@@ -68359,10 +68359,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/lounge)
-"qJk" = (
-/obj/structure/sign/engineering,
-/turf/simulated/wall,
-/area/station/service/bar)
 "qJl" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop{
@@ -74687,10 +74683,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
-"sXA" = (
-/obj/structure/sign/engineering,
-/turf/simulated/wall,
-/area/station/engineering/tech_storage)
 "sXE" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/trash,
@@ -81537,10 +81529,6 @@
 /obj/machinery/camera{
 	c_tag = "Secure Tech Storage"
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/trimline/department/command/line{
 	dir = 9
 	},
@@ -83904,6 +83892,18 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
+"woe" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/structure/sign/engineering{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "wos" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -125308,11 +125308,11 @@ bjx
 bjw
 iFS
 osC
-sXA
-bnh
+bbH
+woe
 oGK
-bqA
-qJk
+bLE
+bsp
 bsp
 bsp
 bsp
