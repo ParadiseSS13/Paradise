@@ -105,7 +105,7 @@
 /// what is that noise? A BAWWW from TK mutants.
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
-	desc = "A grade II plate of armor that provides moderate resistance to melee attacks, it is designed to cleanly snap off small sufficiently damaged pieces to prevent actuator jamming. The added weight slightly increases energy consumption to maintain consistant speed."
+	desc = "A grade II plate of armor that provides moderate resistance to melee attacks, it is designed to be mounted at a slight angle to deflect light attacks. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 10
