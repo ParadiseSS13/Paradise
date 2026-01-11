@@ -484,6 +484,7 @@
 		holder.owner = null
 		GLOB.admins -= src
 
+	mob?.become_uncliented()
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	#ifdef MULTIINSTANCE
