@@ -36,8 +36,11 @@
 	if(obj_integrity < 90)
 		Die()
 
-/obj/item/clothing/mask/facehugger/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	return O.attack_obj__legacy__attackchain(src, user, params)
+/obj/item/clothing/mask/facehugger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!src.attack_obj(src, user, modifiers))
+		return used.attack_obj__legacy__attackchain(src, user, modifiers)
+	
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat != DEAD && !sterile) && !isalien(user))
@@ -45,10 +48,12 @@
 			return
 	..()
 
-/obj/item/clothing/mask/facehugger/attack__legacy__attackchain(mob/living/M, mob/user)
-	..()
+/obj/item/clothing/mask/facehugger/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
+		return ..()
+	
 	user.drop_item_to_ground(src)
-	Attach(M)
+	Attach(target)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()

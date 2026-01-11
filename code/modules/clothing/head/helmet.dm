@@ -41,7 +41,7 @@
 					sleep(15)
 			if(toggle_sound)
 				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
-	return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"

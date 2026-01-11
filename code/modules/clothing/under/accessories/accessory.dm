@@ -398,7 +398,7 @@
 	user.visible_message(
 		SPAN_WARNING("[user] invades [target]'s personal space, thrusting [src] into [target.p_their()] face insistently."),
 		SPAN_WARNING("You invade [target]'s personal space, thrusting [src] into [target.p_their()] face insistently. You are THE LAW!"))
-	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK // Physically press it into their face!
+	return CONTINUE_ATTACK // Physically press it into their face!
 
 //////////////
 //OBJECTION!//
@@ -431,7 +431,7 @@
 		SPAN_WARNING("[user] invades [target]'s personal space, thrusting [src] into [target.p_their()] face insistently."),
 		SPAN_WARNING("You invade [target]'s personal space, thrusting [src] into [target.p_their()] face insistently. You are [what_you_are]!")
 	)
-	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+	return CONTINUE_ATTACK
 
 /obj/item/clothing/accessory/legal_badge/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
