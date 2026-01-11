@@ -1,4 +1,4 @@
-obj/item/clothing/head/headscarf
+/obj/item/clothing/head/headscarf
 	name = "white headscarf"
 	desc = "A stylish headscarf that can be worn several ways. You can rewrap it inhand."
 	icon_state = "headscarf_dyeable"
