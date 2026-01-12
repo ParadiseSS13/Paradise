@@ -184,6 +184,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return new snowflake_path(src)
 	return source_area?.airlock_wires ? new source_area.airlock_wires(src) : new /datum/wires/airlock(src)
 
+/obj/machinery/door/airlock/get_internal_wires()
+	return wires
+
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)

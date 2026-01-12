@@ -547,6 +547,9 @@
 /obj/machinery/proc/on_deconstruction()
 	return
 
+/obj/machinery/proc/get_internal_wires()
+	return
+
 /obj/machinery/emp_act(severity)
 	if(power_state && !stat)
 		use_power(7500/severity)

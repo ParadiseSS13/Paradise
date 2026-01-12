@@ -179,6 +179,9 @@
 	return type
 
 /obj/machinery/cooker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(upgradeable)
 	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
 	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice

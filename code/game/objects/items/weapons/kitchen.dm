@@ -72,6 +72,10 @@
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/))
+		if (istype(target, /obj/machinery/nuclearbomb)) // we're trying to be a little silly, not very silly
+			. = ..()
+			return ITEM_INTERACT_COMPLETE
+
 		var/obj/machinery/machine = target
 		var/wiresexposed = FALSE
 
@@ -83,6 +87,9 @@
 			var/obj/machinery/firealarm/fire_alarm = machine
 			wiresexposed = fire_alarm.wiresexposed
 
+
+		to_chat(user, SPAN_DEBUG("wiresexposed [wiresexposed] | machine.panel_open[machine.panel_open] of [machine]"))
+
 		// if we cant access the wires
 		if(!machine.panel_open && !wiresexposed)
 			return
@@ -91,12 +98,19 @@
 		if(!machine.has_power() || !(flags & CONDUCT))
 			return
 
+		var/datum/wires/internal_wires = machine.get_internal_wires()
+		if (internal_wires)
+			to_chat(user, SPAN_DEBUG("wires of [machine]: [internal_wires.wires]"))
+			internal_wires.cut_all()
+		else
+			to_chat(user, SPAN_DEBUG("wires of [machine]: null"))
+
 		// display a message and shock the user
 		to_chat(user, SPAN_DANGER("You stick \the [src] into \the [target]"))
 		do_sparks(3, 1, machine)
 		electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, TRUE)
 
-		. = ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	else
 		. = ..()
 

@@ -113,6 +113,11 @@
 		. = timer_set
 
 /obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	to_chat(user, "item on [src]: [used]")
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+	to_chat(user, "after item on [src]: [used]")
+
 	if(istype(used, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
@@ -269,6 +274,9 @@
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
 				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
+
+/obj/machinery/syndicatebomb/get_internal_wires()
+	return wires
 
 ///Bomb Subtypes///
 

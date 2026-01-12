@@ -141,6 +141,9 @@
 			return
 
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
@@ -363,6 +366,9 @@
 		icon_state = "assembler_wires"
 
 /obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
