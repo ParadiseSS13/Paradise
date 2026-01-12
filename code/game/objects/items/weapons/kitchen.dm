@@ -96,7 +96,7 @@
 
 		// if we cant access the wires
 		if(!machine.panel_open && !wiresexposed)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/datum/wires/internal_wires = machine.get_internal_wires()
 		var/uncut_wire_count = 0
@@ -106,7 +106,7 @@
 		if(prob(50))
 			// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked
 			if(!machine.has_power() || !(flags & CONDUCT))
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			to_chat(user, SPAN_DANGER("You stick \the [src] into the open panel of \the [target]."))
 			do_sparks(3, 1, machine)
