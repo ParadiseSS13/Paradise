@@ -79,6 +79,13 @@
 		var/obj/machinery/machine = target
 		var/wiresexposed = FALSE
 
+		if(istype(machine, /obj/machinery/door/airlock))
+			var/obj/machinery/door/airlock/air_lock = machine
+			if(air_lock.security_level) //the door has a plating protecting the wires
+				to_chat(user, SPAN_NOTICE("You scrape at the panel of \the [target] with \the [src], to no effect."))
+				return ITEM_INTERACT_COMPLETE
+
+		//these have different variable names for if the panel is open or not. For some reason.
 		if(istype(machine, /obj/machinery/alarm/))
 			var/obj/machinery/alarm/air_alarm = machine
 			wiresexposed = air_alarm.wiresexposed
@@ -87,28 +94,28 @@
 			var/obj/machinery/firealarm/fire_alarm = machine
 			wiresexposed = fire_alarm.wiresexposed
 
-
-		to_chat(user, SPAN_DEBUG("wiresexposed [wiresexposed] | machine.panel_open[machine.panel_open] of [machine]"))
-
 		// if we cant access the wires
 		if(!machine.panel_open && !wiresexposed)
 			return
 
-		// if the machine isn't powered or we're using a non-conductive fork
-		if(!machine.has_power() || !(flags & CONDUCT))
-			return
-
 		var/datum/wires/internal_wires = machine.get_internal_wires()
-		if (internal_wires)
-			to_chat(user, SPAN_DEBUG("wires of [machine]: [internal_wires.wires]"))
-			internal_wires.cut_all()
-		else
-			to_chat(user, SPAN_DEBUG("wires of [machine]: null"))
+		var/uncut_wire_count = 0
+		if(internal_wires)
+			uncut_wire_count = internal_wires.get_uncut_wire_count()
 
-		// display a message and shock the user
-		to_chat(user, SPAN_DANGER("You stick \the [src] into \the [target]"))
-		do_sparks(3, 1, machine)
-		electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, TRUE)
+		if(prob(50))
+			// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked
+			if(!machine.has_power() || !(flags & CONDUCT))
+				return
+
+			to_chat(user, SPAN_DANGER("You stick \the [src] into the open panel of \the [target]."))
+			do_sparks(3, 1, machine)
+			electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, TRUE)
+		else if(prob(50) && uncut_wire_count) // 50% of 50% = 25%
+			to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target] and tear one of the wires."))
+			internal_wires.cut_random_uncut()
+		else
+			to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target]. That was fun!"))
 
 		return ITEM_INTERACT_COMPLETE
 	else

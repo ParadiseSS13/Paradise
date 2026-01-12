@@ -112,10 +112,8 @@
 		. = timer_set
 
 /obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	to_chat(user, "item on [src]: [used]")
 	if(istype(used, /obj/item/kitchen/utensil/fork))
 		return NONE
-	to_chat(user, "after item on [src]: [used]")
 
 	if(istype(used, /obj/item/assembly/signaler))
 		if(panel_open)
