@@ -115,7 +115,7 @@
 			electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, FALSE)
 		else if(prob(50) && uncut_wire_count) // 50% of 50% = 25%
 			to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target] and tear one of the wires."))
-			internal_wires.cut_random_uncut()
+			internal_wires.cut_random_uncut_wire()
 		else
 			to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target]. That was fun!"))
 
