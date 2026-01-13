@@ -7,6 +7,7 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
+	materials = list(MAT_METAL = 200)
 
 /obj/item/reagent_containers/drinks/cans/examine(mob/user)
 	. = ..()

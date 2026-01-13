@@ -136,8 +136,8 @@
 		return FALSE
 
 	playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
-	brain_holder.fracture()
-	brain_holder.broken_description = "split open"
+	brain_holder.fracture(fracture_name_override = "split open")
+
 	brain_holder.open = ORGAN_ORGANIC_VIOLENT_OPEN
 	to_chat(target, SPAN_USERDANGER("Your [brain_holder.name] is violently cracked open!"))
 	user.visible_message(SPAN_DANGER("[user] violently splits apart [target]'s [brain_holder.name]!"), "<span class='danger zombie'>We crack apart [target]'s [brain_holder.name]!</span>")
