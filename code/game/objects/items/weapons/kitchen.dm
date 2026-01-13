@@ -73,7 +73,6 @@
 	name = "fork"
 	desc = "It's a fork. Sure is pointy. Keep away from outlets. "
 	icon_state = "fork"
-	new_attack_chain = TRUE
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/machinery))
