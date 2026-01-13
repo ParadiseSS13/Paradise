@@ -35,6 +35,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	var/max_contents = 1
+	new_attack_chain = TRUE
 
 /obj/item/kitchen/utensil/New()
 	..()
@@ -43,23 +44,26 @@
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack__legacy__attackchain(mob/living/carbon/C, mob/living/carbon/user)
-	if(!istype(C))
+///obj/item/kitchen/utensil/attack__legacy__attackchain(mob/living/carbon/C, mob/living/carbon/user)
+/obj/item/kitchen/utensil/melee_attack_chain(mob/user, atom/target, params, proximity_flag)
+	if(!istype(target, /mob/living/carbon/human))
 		return ..()
+
+	var/mob/living/carbon/human/victim = target
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
 			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-				C = user
-			return eyestab(C, user)
+				victim = user
+			return eyestab(victim, user)
 		else
 			return ..()
 
 	if(length(contents))
 		var/obj/item/food/toEat = contents[1]
 		if(istype(toEat))
-			if(C.eat(toEat, user))
-				toEat.On_Consume(C, user)
+			if(victim.eat(toEat, user))
+				toEat.On_Consume(victim, user)
 				overlays.Cut()
 				return
 
