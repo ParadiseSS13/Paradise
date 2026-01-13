@@ -94,9 +94,6 @@
 	startgibbing(user)
 
 /obj/machinery/gibber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
-
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(G.state < 2)

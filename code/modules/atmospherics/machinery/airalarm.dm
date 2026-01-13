@@ -1062,9 +1062,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(istype(used, /obj/item/kitchen/utensil/fork))
-				return NONE
-
 			if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					return ITEM_INTERACT_COMPLETE

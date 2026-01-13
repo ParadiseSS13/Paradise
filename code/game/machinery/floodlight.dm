@@ -11,7 +11,6 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/use = 30
 	var/unlocked = FALSE
-	var/open = FALSE
 	var/brightness_on = 14
 
 /obj/machinery/floodlight/get_cell()
@@ -27,7 +26,7 @@
 	return ..()
 
 /obj/machinery/floodlight/update_icon_state()
-	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
+	icon_state = "flood[panel_open ? "o" : ""][panel_open && cell ? "b" : ""]0[on]"
 
 /obj/machinery/floodlight/process()
 	if(on)
@@ -41,7 +40,7 @@
 	return
 
 /obj/machinery/floodlight/attack_hand(mob/user as mob)
-	if(open && cell)
+	if(panel_open && cell)
 		if(ishuman(user))
 			if(!user.get_active_hand())
 				user.put_in_hands(cell)
@@ -90,8 +89,10 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/floodlight/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
 	if(istype(used, /obj/item/stock_parts/cell))
-		if(open)
+		if(panel_open)
 			if(cell)
 				to_chat(user, SPAN_WARNING("There is a power cell already installed."))
 			else
@@ -107,14 +108,14 @@
 	return ..()
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
-	if(open)
+	if(panel_open)
 		to_chat(user, SPAN_WARNING("The screws can't reach while its open."))
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
-	if(open)
+	if(panel_open)
 		return
 
 	if(unlocked)
@@ -133,11 +134,11 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
-	if(open)
+	if(panel_open)
 		to_chat(user, SPAN_NOTICE("You pry the panel closed."))
 	else
 		to_chat(user, SPAN_NOTICE("You pry the panel open."))
-	open = !open
+	panel_open = !panel_open
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
@@ -159,7 +160,7 @@
 	if(!unlocked)
 		. +=SPAN_NOTICE("The panel is <b>screwed</b> shut.")
 	else
-		if(open)
+		if(panel_open)
 			. +=SPAN_NOTICE("The panel is <b>pried</b> open, looks like you could fit a cell in there.")
 		else
 			. +=SPAN_NOTICE("The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut.")

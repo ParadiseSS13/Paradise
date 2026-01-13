@@ -150,10 +150,6 @@ FIRE ALARM
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
-
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
-
 	return ..()
 
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)

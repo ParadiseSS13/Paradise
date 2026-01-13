@@ -227,8 +227,7 @@
 	add_fingerprint()
 
 /obj/machinery/mineral/equipment_vendor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
+
 	if(panel_open)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/mining_voucher))

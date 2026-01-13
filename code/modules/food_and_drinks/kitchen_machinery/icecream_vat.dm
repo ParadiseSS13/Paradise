@@ -30,9 +30,6 @@
 	create_reagents(500)
 
 /obj/machinery/icemachine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
-
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, SPAN_NOTICE("A container is already inside [src]."))
