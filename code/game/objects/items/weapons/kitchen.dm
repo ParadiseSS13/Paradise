@@ -71,10 +71,9 @@
 	new_attack_chain = TRUE
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(istype(target, /obj/machinery/))
+	if(istype(target, /obj/machinery))
 		if(istype(target, /obj/machinery/nuclearbomb)) // we're trying to be a little silly, not very silly
-			. = ..()
-			return ITEM_INTERACT_COMPLETE
+			return ..()
 
 		var/obj/machinery/machine = target
 		var/wiresexposed = FALSE
@@ -121,7 +120,7 @@
 
 		return ITEM_INTERACT_COMPLETE
 	else
-		. = ..()
+		return ..()
 
 
 /obj/item/kitchen/utensil/pfork
