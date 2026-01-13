@@ -1,7 +1,11 @@
 /mob/living/silicon/robot/Login()
+	if(player_logged)
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 	..()
-	regenerate_icons()
+
 	show_laws(0)
 	if(connected_ai)
 		if(connected_ai.mind.special_role == SPECIAL_ROLE_TRAITOR && connected_ai.malf_picker)
 			make_malf_robot()
+	regenerate_icons()
+	update_icons()

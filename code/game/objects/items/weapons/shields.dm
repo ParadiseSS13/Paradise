@@ -58,7 +58,7 @@
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
-	materials = list()
+	materials = list(MAT_WOOD = 20000)
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 
