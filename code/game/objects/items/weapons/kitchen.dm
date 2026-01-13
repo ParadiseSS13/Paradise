@@ -72,7 +72,7 @@
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/))
-		if (istype(target, /obj/machinery/nuclearbomb)) // we're trying to be a little silly, not very silly
+		if(istype(target, /obj/machinery/nuclearbomb)) // we're trying to be a little silly, not very silly
 			. = ..()
 			return ITEM_INTERACT_COMPLETE
 
@@ -82,7 +82,7 @@
 		if(istype(machine, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/air_lock = machine
 			if(air_lock.security_level) //the door has a plating protecting the wires
-				to_chat(user, SPAN_NOTICE("You scrape at the panel of \the [target] with \the [src], to no effect."))
+				to_chat(user, SPAN_NOTICE("You scrape at the shielding of \the [target] with \the [src], to no effect."))
 				return ITEM_INTERACT_COMPLETE
 
 		//these have different variable names for if the panel is open or not. For some reason.
@@ -106,6 +106,7 @@
 		if(prob(50))
 			// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked
 			if(!machine.has_power() || !(flags & CONDUCT))
+				to_chat(user, SPAN_NOTICE("You clumsily stick \the [src] into the open panel of \the [target]."))
 				return ITEM_INTERACT_COMPLETE
 
 			to_chat(user, SPAN_DANGER("You stick \the [src] into the open panel of \the [target]."))

@@ -382,7 +382,7 @@
 */
 /datum/wires/proc/cut_random_uncut()
 	var/list/uncut_list = wires - cut_wires
-	if (!length(uncut_list))
+	if(!length(uncut_list))
 		return
 	var/random_wire = uncut_list[rand(1, length(uncut_list))]
 	cut(random_wire)
