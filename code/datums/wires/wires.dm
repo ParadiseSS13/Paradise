@@ -380,11 +380,11 @@
 /**
 * Cuts a random uncut wire.
 */
-/datum/wires/proc/cut_random_uncut()
+/datum/wires/proc/cut_random_uncut_wire()
 	var/list/uncut_list = wires - cut_wires
 	if(!length(uncut_list))
 		return
-	var/random_wire = uncut_list[rand(1, length(uncut_list))]
+	var/random_wire = pick(uncut_list)
 	cut(random_wire)
 
 /**
