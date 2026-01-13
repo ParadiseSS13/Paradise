@@ -550,6 +550,12 @@
 /obj/machinery/proc/on_deconstruction()
 	return
 
+/**
+* Returns the wires of the machine, or null if not declared.
+*
+* Note: `/obj/machinery/` does not contain a `/datum/wires/` variable,
+* and needs to be implemented on any child object with this function overwritten.
+*/
 /obj/machinery/proc/get_internal_wires()
 	return
 
