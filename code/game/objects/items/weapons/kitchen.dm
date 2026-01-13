@@ -44,7 +44,6 @@
 
 	create_reagents(5)
 
-///obj/item/kitchen/utensil/attack__legacy__attackchain(mob/living/carbon/C, mob/living/carbon/user)
 /obj/item/kitchen/utensil/melee_attack_chain(mob/user, atom/target, params, proximity_flag)
 	if(!istype(target, /mob/living/carbon/human))
 		return ..()
@@ -55,9 +54,9 @@
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
 			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 				victim = user
-			return eyestab(victim, user)
-		else
-			return ..()
+			eyestab(victim, user)
+
+		return ..()
 
 	if(length(contents))
 		var/obj/item/food/toEat = contents[1]
@@ -66,6 +65,8 @@
 				toEat.On_Consume(victim, user)
 				overlays.Cut()
 				return
+
+	return ..()
 
 
 /obj/item/kitchen/utensil/fork

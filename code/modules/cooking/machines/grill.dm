@@ -101,9 +101,6 @@
 #undef ICON_SPLIT_X
 
 /obj/machinery/cooking/grill/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	//if(istype(used, /obj/item/kitchen/utensil/fork))
-	//	return NONE
-
 	if(istype(used, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/stack = used
 		var/used_sheets = min(stack.get_amount(), (wood_maximum - stored_wood))
