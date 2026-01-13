@@ -111,7 +111,7 @@
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
-		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[max(64*photo_size, 64*photo_size + 120)]")
+		+ "</body></html>", "window=Photo[UID()];size=[64 * photo_size]x[max(64 * photo_size, 64 * photo_size + 120)]")
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
