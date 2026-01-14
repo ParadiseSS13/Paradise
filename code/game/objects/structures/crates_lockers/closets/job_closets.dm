@@ -65,7 +65,7 @@
 /obj/structure/closet/jcloset
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
-	closed_door_sprite = "mixed"
+	icon_state = "janitor"
 
 
 /obj/structure/closet/jcloset/populate_contents()

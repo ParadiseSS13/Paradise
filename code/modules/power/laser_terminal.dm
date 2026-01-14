@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 /obj/machinery/power/laser_terminal/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
+		to_chat(user, SPAN_WARNING("Close the maintenance panel first!"))
 		return
 	. = default_unfasten_wrench(user, I, 2)
 	if(anchored)
@@ -105,4 +105,4 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 
 /obj/machinery/power/laser_terminal/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, chat_box_examine("<span class='notice'>Unit ID: [id]<br>Input Power: [DisplayPower(total_input)]<br>Output Power: [DisplayPower(total_input * conversion_efficiency)]</span>"))
+	to_chat(user, chat_box_examine(SPAN_NOTICE("Unit ID: [id]<br>Input Power: [DisplayPower(total_input)]<br>Output Power: [DisplayPower(total_input * conversion_efficiency)]")))

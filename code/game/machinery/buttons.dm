@@ -48,7 +48,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts unwrenching [src] from the wall..."), SPAN_NOTICE("You are unwrenching [src] from the wall..."), SPAN_WARNING("You hear ratcheting."))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 

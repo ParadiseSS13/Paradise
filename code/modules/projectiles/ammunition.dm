@@ -67,20 +67,20 @@
 					continue
 			if(boolets > 0)
 				box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
+				to_chat(user, SPAN_NOTICE("You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
+				to_chat(user, SPAN_WARNING("You fail to collect anything!"))
 	else
 		..()
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!BB)
-		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+		to_chat(user, SPAN_NOTICE("There is no bullet in the casing to inscribe anything into."))
 		return
 	if(!initial(BB.name) == "bullet")
-		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+		to_chat(user, SPAN_NOTICE("You can only inscribe a metal bullet."))//because inscribing beanbags is silly
 		return
 
 	var/tmp_label = ""
@@ -89,14 +89,14 @@
 		return
 
 	if(length(label_text) > 20)
-		to_chat(user, "<span class='warning'>The inscription can be at most 20 characters long.</span>")
+		to_chat(user, SPAN_WARNING("The inscription can be at most 20 characters long."))
 		return
 
 	if(label_text == "")
-		to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+		to_chat(user, SPAN_NOTICE("You scratch the inscription off of [initial(BB)]."))
 		BB.name = initial(BB.name)
 	else
-		to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+		to_chat(user, SPAN_NOTICE("You inscribe \"[label_text]\" into \the [initial(BB.name)]."))
 		BB.name = "[initial(BB.name)] \"[label_text]\""
 
 
@@ -212,10 +212,10 @@
 			user.transfer_item_to(AC, src)
 			num_loaded++
 		else
-			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
+			to_chat(user, SPAN_NOTICE("You are unable to fit [AC] into \the [src]."))
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 		A.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
@@ -227,7 +227,7 @@
 	if(A)
 		user.put_in_hands(A)
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You remove a round from \the [src]!"))
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 // `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.

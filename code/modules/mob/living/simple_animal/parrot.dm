@@ -181,7 +181,7 @@
 	if(..())
 		return FINISH_ATTACK
 
-	if(O.force)
+	if(O.force && stat == CONSCIOUS)
 		if(parrot_state == PARROT_PERCH)
 			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
 
@@ -372,7 +372,7 @@
 			else //This should ensure that we only grab the item we want, and make sure it's not already collected on our perch
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					try_grab_item(parrot_interest)
-					visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+					visible_message(SPAN_NOTICE("[src] grabs [held_item]!"), SPAN_NOTICE("You grab [held_item]!"), "You hear the sounds of wings flapping furiously.")
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -532,15 +532,15 @@
 		return FALSE
 
 	if(length(grabbed_by))
-		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		to_chat(src, SPAN_WARNING("You are being grabbed!"))
 		return FALSE
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, SPAN_WARNING("You are already holding [held_item]"))
 		return TRUE
 
 	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
-		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
+		to_chat(src, SPAN_WARNING("You are inside a disposal chute!"))
 		return TRUE
 
 	for(var/obj/item/I in view(1, src))
@@ -551,7 +551,7 @@
 				continue
 
 			try_grab_item(I)
-			visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message(SPAN_NOTICE("[src] grabs [held_item]!"), SPAN_NOTICE("You grab [held_item]!"), "You hear the sounds of wings flapping furiously.")
 			return held_item
 
 	to_chat(src, "<span class = 'warning'>There is nothing of interest to take.</span>")
@@ -566,11 +566,11 @@
 		return FALSE
 
 	if(length(grabbed_by))
-		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		to_chat(src, SPAN_WARNING("You are being grabbed!"))
 		return FALSE
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, SPAN_WARNING("You are already holding [held_item]"))
 		return TRUE
 
 	var/obj/item/stolen_item = null
@@ -584,10 +584,10 @@
 
 		if(stolen_item && C.drop_item_to_ground(stolen_item))
 			try_grab_item(stolen_item)
-			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message(SPAN_NOTICE("[src] grabs [held_item] out of [C]'s hand!"), SPAN_NOTICE("You snag [held_item] out of [C]'s hand!"), "You hear the sounds of wings flapping furiously.")
 			return held_item
 
-	to_chat(src, "<span class='warning'>There is nothing of interest to take.</span>")
+	to_chat(src, SPAN_WARNING("There is nothing of interest to take."))
 	return FALSE
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
@@ -610,7 +610,7 @@
 		return FALSE
 
 	if(!held_item)
-		to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
+		to_chat(src, SPAN_WARNING("You have nothing to drop!"))
 		return FALSE
 
 	if(!drop_gently)
@@ -645,7 +645,7 @@
 				icon_state = "parrot_sit"
 				REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 				return
-	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
+	to_chat(src, SPAN_WARNING("There is no perch nearby to sit on."))
 	return
 
 /**
@@ -733,9 +733,28 @@
 		"TOXINS!",
 		"ONI SOMA!",
 		"GOLDEN BLAST",
-		"Is there supposed to be this much plasma in the chamber??",,
+		"Is there supposed to be this much plasma in the chamber??",
 		"Why are there so many borgs?",
-		"Why're your eyes glowing red?"
+		"Why're your eyes glowing red?",
+		"Opening the reactor vent is how it gets gas, right?",
+		"Let's fill the reactor with supermatter rods!",
+		"Think we could weaponize ejected coolant rods?",
+		"WHO KEEPS LEAVING THE FUEL RODS OUT",
+		"Why do we need coolant rods if we use gas?",
+		"Wait, why isn't the reactor integrity going up?",
+		"When did engineering get a pool!?",
+		"Does anyone else taste copper?",
+		"10 sieverts isn't a harmful amount of radiation, is it?",
+		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
+		"Replace the spent fuel rods you lazy bums!",
+		"There is a xenomorph nesting on the reactor!",
+		"Why is there a Ripley pulling out the coolant rods?",
+		"Atmospheric Technicians are the NGCR's favorite moderators",
+		"Who let the clown touch the control rods?",
+		"Which of you chucklefucks brought a fuel rod to medbay?",
+		"A coolant rod just flew into the captain!",
+		"The reactor is going supercritical!",
+		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN

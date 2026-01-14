@@ -45,7 +45,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		inserted_disk = used
-		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -239,13 +239,13 @@
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 
 /obj/machinery/computer/rnd_backup/ui_interact(mob/user, datum/tgui/ui = null)

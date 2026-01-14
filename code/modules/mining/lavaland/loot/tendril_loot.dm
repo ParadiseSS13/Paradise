@@ -134,7 +134,7 @@
 		..()
 	else
 		if(last_message_time + 1 SECONDS < world.time)
-			to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
+			to_chat(user, SPAN_WARNING("Boats don't go on land!"))
 			last_message_time = world.time
 		return FALSE
 
@@ -211,32 +211,32 @@
 
 /obj/item/wisp_lantern/attack_self__legacy__attackchain(mob/user)
 	if(!wisp)
-		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
+		to_chat(user, SPAN_WARNING("The wisp has gone missing!"))
 		icon_state = "lantern"
 		return
 
 	if(wisp.loc == src)
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		to_chat(user, SPAN_NOTICE("You release the wisp. It begins to bob around your head."))
 		icon_state = "lantern"
 		wisp.orbit(user, 20, lock_in_orbit = TRUE)
 		set_light(0)
 
 		user.update_sight()
-		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
+		to_chat(user, SPAN_NOTICE("The wisp enhances your vision."))
 
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
-		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
+		to_chat(user, SPAN_NOTICE("You return the wisp to the lantern."))
 		wisp.stop_orbit()
 		wisp.forceMove(src)
 		set_light(initial(light_range))
 
 		user.update_sight()
-		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
+		to_chat(user, SPAN_NOTICE("Your vision returns to normal."))
 
 		icon_state = "lantern-blue"
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
@@ -250,7 +250,7 @@
 		if(wisp.loc == src)
 			qdel(wisp)
 		else
-			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+			wisp.visible_message(SPAN_NOTICE("[wisp] has a sad feeling for a moment, then it passes."))
 	return ..()
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
@@ -287,18 +287,18 @@
 		return
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
-		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
 		return
 	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
 		return
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	if(is_station_level(user.z) && !iswizard(user)) // specifically not station (instead of lavaland) so it works for explorers potentially
-		user.visible_message("<span class='warning'>[user] begins to channel [src]!</span>", "<span class='warning'>You begin channeling [src], cutting through the interference of the station!</span>")
+		user.visible_message(SPAN_WARNING("[user] begins to channel [src]!"), SPAN_WARNING("You begin channeling [src], cutting through the interference of the station!"))
 		if(!do_after_once(user, 4 SECONDS, TRUE, src, allow_moving = TRUE, must_be_held = TRUE))
 			return
-	user.visible_message("<span class='warning'>[user] disappears in a puff of smoke!</span>")
+	user.visible_message(SPAN_WARNING("[user] disappears in a puff of smoke!"))
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, user)
@@ -376,7 +376,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(!L.anchored)
-			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
+			L.visible_message(SPAN_DANGER("[L] is snagged by [firer]'s hook!"))
 			var/old_density = L.density
 			L.density = FALSE // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
@@ -426,7 +426,7 @@
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
-		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a hole in [user.p_their()] place!</span>")
+		user.visible_message(SPAN_DANGER("[user] vanishes from reality, leaving a hole in [user.p_their()] place!"))
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
 		Z.name = "hole in reality"
 		Z.desc = "It's shaped an awful lot like [user.name]."
@@ -438,11 +438,11 @@
 			user.status_flags &= ~GODMODE
 			user.notransform = FALSE
 			user.forceMove(get_turf(Z))
-			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
+			user.visible_message(SPAN_DANGER("[user] pops back into reality!"))
 			Z.can_destroy = TRUE
 			qdel(Z)
 	else
-		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
+		to_chat(user, SPAN_WARNING("[src] is still recharging."))
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
