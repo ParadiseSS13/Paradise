@@ -38,6 +38,7 @@
 	voteable = FALSE
 
 /datum/map/omegastation
+	fluff_name = "NSS Clever Lem Reference"
 	technical_name = "OmegaStation"
 	map_path = "_maps/map_files/stations/omegastation.dmm"
 
