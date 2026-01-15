@@ -12917,8 +12917,8 @@
 /area/station/medical/reception)
 "aVJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "aVK" = (
@@ -60954,6 +60954,7 @@
 	},
 /obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "kTh" = (
@@ -66739,6 +66740,11 @@
 /obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
+"nIm" = (
+/obj/effect/spawner/random/maintenance,
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint2)
 "nIp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -69628,7 +69634,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "oTg" = (
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/power/apc/reinforced/directional/north,
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "oTy" = (
@@ -85383,6 +85393,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/east,
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "wva" = (
@@ -88054,6 +88068,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"xKA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/fsmaint)
 "xKE" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -131191,7 +131212,7 @@ aGT
 aGT
 aGT
 eOj
-dZu
+nIm
 xuM
 rOu
 eOj
@@ -134793,7 +134814,7 @@ aGX
 uWf
 aMz
 aGX
-gJP
+xKA
 aGY
 aGY
 aGY
