@@ -38,6 +38,7 @@
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
@@ -45,6 +46,9 @@
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = EXTREMELY_HARD_DIFFICULTY
+	description = "The Head of Security has the responsibility of overseeing the Security department.\n\n\
+					Difficulties: Space Law, Standard Operating Procedure (General, Legal, Security), combat, identifying antagonists, communication"
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -96,12 +100,19 @@
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = HARD_DIFFICULTY
+	description = "The Warden has the responsibility of monitoring prisoners.\n\n\
+					Difficulties: Space Law, Standard Operating Procedure (Legal), identifying antagonists"
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -162,6 +173,9 @@
 	outfit = /datum/outfit/job/detective
 	important_information = "Track, investigate, and look cool while doing it."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Detective has the responsibility of solving crimes and uncovering criminals.\n\n\
+					Difficulties: Space Law, Standard Operating Procedure (Legal), forensics, identifying antagonists"
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -226,6 +240,10 @@
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
+	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)
@@ -233,6 +251,9 @@
 	outfit = /datum/outfit/job/officer
 	important_information = "Space Law is the law, not a suggestion."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Security Officers have the responsibility of enforcing Space Law and protecting the crew.\n\n\
+					Difficulties: Space Law, Standard Operating Procedure (Legal), combat, identifying antagonists"
 
 /datum/outfit/job/officer
 	name = "Security Officer"

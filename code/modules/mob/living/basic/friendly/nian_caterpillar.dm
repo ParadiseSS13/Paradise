@@ -49,6 +49,7 @@
 
 	var/list/innate_actions = list(
 		/datum/action/innate/nian_caterpillar_emerge,
+		/datum/action/cooldown/mob_cooldown/spin_mothsilk = BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION,
 	)
 
 	/// List of stuff that we want to eat
@@ -77,11 +78,11 @@
 	// A changeling caterpillar shouldn't be restricted from evolving.
 	// A caterpillar needs to consume food-- similar to a dioan nymph --to evolve.
 	if((nutrition < nutrition_need) && !IS_CHANGELING(M))
-		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
+		to_chat(src, SPAN_WARNING("You need to binge on food in order to have the energy to evolve..."))
 		return
 
 	if(master_commander)
-		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+		to_chat(src, SPAN_USERDANGER("As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!"))
 
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
@@ -124,7 +125,7 @@
 /mob/living/basic/nian_caterpillar/proc/check_full(datum/source, obj/item/potential_food)
 	SIGNAL_HANDLER // COMSIG_MOB_PRE_EAT
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
-		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
+		to_chat(src, SPAN_WARNING("You're too full to consume this! Perhaps it's time to grow bigger..."))
 		return COMSIG_MOB_TERMINATE_EAT
 
 
@@ -140,7 +141,7 @@
 	if(M.a_intent != INTENT_HELP)
 		return ..()
 	if(isrobot(M))
-		M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
+		M.visible_message(SPAN_NOTICE("[M] playfully boops [src] on the head!"), SPAN_NOTICE("You playfully boop [src] on the head!"))
 	else
 		get_scooped(M)
 
@@ -170,12 +171,34 @@
 /datum/action/innate/nian_caterpillar_emerge/Activate()
 	var/mob/living/basic/nian_caterpillar/user = owner
 
-	user.visible_message("<span class='notice'>[user] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins to hold still and concentrate on weaving a cocoon..."), SPAN_NOTICE("You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)"))
 	if(do_after(user, COCOON_WEAVE_DELAY, FALSE, user))
 		var/obj/structure/moth_cocoon/C = new(get_turf(user))
 		var/datum/mind/H = user.mind
 		user.evolve(C, H)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+
+/// Place some grappling tentacles underfoot
+/datum/action/cooldown/mob_cooldown/spin_mothsilk
+	name = "Spin Mothsilk"
+	desc = "Spin some mothsilk, consuming nutrition."
+	button_icon = 'icons/obj/stacks/organic.dmi'
+	button_icon_state = "stack-mothsilk-2"
+	cooldown_time = 20 SECONDS
+	click_to_activate = FALSE
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/spin_mothsilk/Activate(atom/target)
+	if(owner.nutrition < 425)
+		to_chat(owner, SPAN_WARNING("You don't have enough nutrition to spin silk!"))
+		return FALSE
+	if(!do_after(owner, 3 SECONDS))
+		return FALSE
+	new /obj/item/stack/sheet/mothsilk(get_turf(owner))
+	owner.nutrition -= 15
+	owner.visible_message(SPAN_NOTICE("[owner] spins some mothsilk!"))
+	StartCooldown()
+	return TRUE
 
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list(
@@ -190,6 +213,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/moth_caterpillar,
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
+		/datum/ai_planning_subtree/spin_mothsilk,
 		/datum/ai_planning_subtree/flee_target,
 		/datum/ai_planning_subtree/find_food/nian_caterpillar,
 	)
@@ -209,3 +233,22 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "chitters.", "chatters.")
 	emote_see = list("flutters.", "chitters.", "chatters.")
+
+/datum/ai_planning_subtree/spin_mothsilk
+	/// Key storing the mothsilk spin action
+	var/action_key = BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION
+
+/datum/ai_planning_subtree/spin_mothsilk/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/nian_caterpillar/caterpillar = controller.pawn
+	var/datum/action/cooldown/mob_cooldown/spin_mothsilk/silk_action = controller.blackboard[action_key]
+	if(caterpillar.nutrition >= 425 && silk_action.IsAvailable())
+		controller.queue_behavior(/datum/ai_behavior/spin_mothsilk, action_key)
+		return SUBTREE_RETURN_FINISH_PLANNING
+
+/datum/ai_behavior/spin_mothsilk/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
+	. = ..()
+	var/datum/action/cooldown/mob_cooldown/spin_mothsilk/silk_action = controller.blackboard[action_key]
+	var/result = silk_action.Trigger()
+	if(result)
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED

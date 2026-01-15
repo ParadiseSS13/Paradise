@@ -12,7 +12,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/target_retaliate/check_faction,
-		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
+		/datum/ai_planning_subtree/ranged_skirmish,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 		/datum/ai_planning_subtree/swarmer_replicate,
@@ -34,7 +34,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/target_retaliate/check_faction,
-		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
+		/datum/ai_planning_subtree/ranged_skirmish,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 		/datum/ai_planning_subtree/swarmer_find_construction_target,
@@ -119,6 +119,7 @@
 /// REPLICATE
 /datum/ai_behavior/swarmer_replicate
 	required_distance = 0
+	action_cooldown = 5 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/swarmer_replicate/setup(datum/ai_controller/controller, action_key)

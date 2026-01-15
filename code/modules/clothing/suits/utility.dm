@@ -73,6 +73,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
@@ -123,6 +124,7 @@
 	put_on_delay = 60
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',

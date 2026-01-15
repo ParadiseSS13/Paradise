@@ -8,6 +8,7 @@
 #define SEC_LEVEL_GAMMA	3
 #define SEC_LEVEL_EPSILON	4
 #define SEC_LEVEL_DELTA	5
+#define SEC_LEVEL_DELTA_REACTOR	6
 
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
@@ -432,6 +433,7 @@
 #define INVESTIGATE_RENAME "renames"
 #define INVESTIGATE_SINGULO "singulo"
 #define INVESTIGATE_SUPERMATTER "supermatter"
+#define INVESTIGATE_REACTOR "reactor"
 #define INVESTIGATE_WIRES "wires"
 #define INVESTIGATE_DEATHS "deaths"
 
@@ -542,6 +544,7 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 #define LINDA_SPAWN_HYDROGEN	(1<<10)
+#define LINDA_SPAWN_WATER_VAPOR	(1<<11)
 
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"

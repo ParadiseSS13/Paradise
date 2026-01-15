@@ -17,7 +17,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This radiates heat from the pipe's gas to space, cooling it down.</span>"
+	. += SPAN_NOTICE("This radiates heat from the pipe's gas to space, cooling it down.")
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process_atmos()
 	var/environment_temperature = 0

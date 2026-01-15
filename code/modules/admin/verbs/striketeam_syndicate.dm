@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has started to spawn a Syndicate Strike Team."), 1)
 
 	var/input = null
 	while(!input)
@@ -48,7 +48,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
 	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?", null, 21, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
 	if(!length(commando_ghosts))
-		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
+		to_chat(usr, SPAN_USERDANGER("Nobody volunteered to join the SST."))
 		return
 
 	GLOB.sent_syndicate_strike_team = 1
@@ -78,10 +78,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 		//So they don't forget their code or mission.
 		if(nuke_code)
-			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-		new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
+			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> [SPAN_WARNING("[nuke_code].")]")
+		new_syndicate_commando.mind.store_memory("<B>Mission:</B> [SPAN_WARNING("[input].")]")
 
-		to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
+		to_chat(new_syndicate_commando, SPAN_NOTICE("You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: [SPAN_USERDANGER("[input]")]"))
 		new_syndicate_commando.faction += "syndicate"
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_commando.mind.current)
@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		is_leader = FALSE
 		syndicate_commando_number--
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
+	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has spawned a Syndicate strike squad."), 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

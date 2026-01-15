@@ -99,28 +99,28 @@ Difficulty: Hard
 	name = "Triple Charge"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now triple charging at the target you click on.</span>"
+	chosen_message = SPAN_COLOSSUS("You are now triple charging at the target you click on.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Hallucination Charge"
 	button_icon = 'icons/effects/bubblegum.dmi'
 	button_icon_state = "smack ya one"
-	chosen_message = "<span class='colossus'>You are now charging with hallucinations at the target you click on.</span>"
+	chosen_message = SPAN_COLOSSUS("You are now charging with hallucinations at the target you click on.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
 	button_icon = 'icons/turf/walls/wall.dmi'
 	button_icon_state = "wall-0"
-	chosen_message = "<span class='colossus'>You are now surrounding the target you click on with hallucinations.</span>"
+	chosen_message = SPAN_COLOSSUS("You are now surrounding the target you click on with hallucinations.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Blood Warp"
 	button_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "floor1"
-	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
+	chosen_message = SPAN_COLOSSUS("You are now warping to blood around your clicked position.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
@@ -133,7 +133,7 @@ Difficulty: Hard
 	crusher_loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
-		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
+		to_chat(H, SPAN_COLOSSUS("<b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b>"))
 		FindTarget(list(H), 1) //From down town with the pile driver
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
@@ -161,7 +161,7 @@ Difficulty: Hard
 		del_on_death = FALSE
 		var/area/A = get_area(src)
 		for(var/mob/M in A)
-			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
+			to_chat(M, SPAN_COLOSSUS("<b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b>"))
 		new /obj/effect/bubblegum_exit(get_turf(src))
 	name = "Fleshy Mass"
 	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
@@ -318,7 +318,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(4)
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
-			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
+			to_chat(L, SPAN_USERDANGER("[src] rends you!"))
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, armor_penetration_flat = armor_penetration_flat, armor_penetration_percentage = armor_penetration_percentage))
@@ -335,7 +335,7 @@ Difficulty: Hard
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
 			if(L.stat != CONSCIOUS)
-				to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
+				to_chat(L, SPAN_USERDANGER("[src] drags you through the blood!"))
 				playsound(T, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 				var/turf/targetturf = get_step(src, dir)
 				L.forceMove(targetturf)
@@ -375,11 +375,11 @@ Difficulty: Hard
 		shuffle_inplace(pools)
 		found_bloodpool = pick(pools)
 	if(found_bloodpool)
-		visible_message("<span class='danger'>[src] sinks into the blood...</span>")
+		visible_message(SPAN_DANGER("[src] sinks into the blood..."))
 		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 		forceMove(get_turf(found_bloodpool))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
-		visible_message("<span class='danger'>And springs back out!</span>")
+		visible_message(SPAN_DANGER("And springs back out!"))
 		blood_enrage()
 		return TRUE
 	return FALSE
@@ -387,7 +387,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
 	SetRecoveryTime(20)
-	visible_message("<span class='colossus'><b>[pick("[GET_CULT_DATA(entity_name, "Nar'sie")], I call on YOU for one of MY favours you owe me!", "[GET_CULT_DATA(entity_title1, "Nar'sie")], I call on you for some support...", "Let us see how you like the minions of [GET_CULT_DATA(entity_title2, "Nar'sie")]!", "Oh, [GET_CULT_DATA(entity_title3, "Nar'sie")] join me in RENDING THIS WHELP APART!")]</b></span>")
+	visible_message(SPAN_COLOSSUS("<b>[pick("[GET_CULT_DATA(entity_name, "Nar'sie")], I call on YOU for one of MY favours you owe me!", "[GET_CULT_DATA(entity_title1, "Nar'sie")], I call on you for some support...", "Let us see how you like the minions of [GET_CULT_DATA(entity_title2, "Nar'sie")]!", "Oh, [GET_CULT_DATA(entity_title3, "Nar'sie")] join me in RENDING THIS WHELP APART!")]</b>"))
 	var/list/turfs = list()
 	var/constructs = 0
 	for(var/turf/T in view(6, target))
@@ -515,7 +515,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/bullet_act(obj/projectile/P)
 	if(BUBBLEGUM_IS_ENRAGED)
-		visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons while enraged!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+		visible_message(SPAN_DANGER("[src] deflects the projectile; [p_they()] can't be hit with ranged weapons while enraged!"), SPAN_USERDANGER("You deflect the projectile!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 300, TRUE)
 		return
 	..()
@@ -560,7 +560,7 @@ Difficulty: Hard
 			A.ex_act(EXPLODE_HEAVY)
 		if(isliving(A))
 			var/mob/living/L = A
-			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+			L.visible_message(SPAN_DANGER("[src] slams into [L]!"), SPAN_USERDANGER("[src] tramples you into the ground!"))
 			forceMove(get_turf(L))
 			L.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -670,7 +670,7 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(20))
 		if(stat == DEAD)
 			continue
-		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
+		to_chat(H, SPAN_COLOSSUS("<b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b>"))
 		FindTarget(list(H), 1)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Life(seconds, times_fired)

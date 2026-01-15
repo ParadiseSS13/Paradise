@@ -46,6 +46,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		// Sub-spawners
 		/obj/effect/spawner/random/engineering/toolbox,
 		/obj/effect/spawner/random/snacks,
+		/obj/effect/spawner/random/food_or_drink/juice_boxes,
 
 		// Assemblies and cells
 		/obj/item/assembly/prox_sensor,

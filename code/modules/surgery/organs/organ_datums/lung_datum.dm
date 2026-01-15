@@ -242,7 +242,7 @@
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [cold_message] in your [linked_organ.name]!</span>")
+				to_chat(H, SPAN_WARNING("You feel [cold_message] in your [linked_organ.name]!"))
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
@@ -258,7 +258,7 @@
 				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [hot_message] in your [linked_organ.name]!</span>")
+				to_chat(H, SPAN_WARNING("You feel [hot_message] in your [linked_organ.name]!"))
 
 
 /**
@@ -287,14 +287,9 @@
 		if(prob(5))
 			linked_organ.owner.emote("cough")		//respitory tract infection
 
-	if(linked_organ.is_bruised())
-		if(prob(2) && !(NO_BLOOD in linked_organ.owner.dna.species.species_traits))
-			linked_organ.owner.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
-			linked_organ.owner.bleed(1)
-		if(prob(4))
-			linked_organ.owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
-			linked_organ.owner.AdjustLoseBreath(10 SECONDS)
-
+	var/datum/wound/ruptured_lungs/wound = locate(/datum/wound/ruptured_lungs) in linked_organ.wound_list
+	if(wound)
+		wound.do_effect()
 
 /datum/organ/lungs/on_prepare_eat(obj/item/food/organ/snorgan)
 	snorgan.reagents.add_reagent("salbutamol", 5)

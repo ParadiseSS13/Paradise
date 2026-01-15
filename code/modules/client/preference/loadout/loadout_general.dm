@@ -157,6 +157,10 @@
 	display_name = "Fannypack"
 	path = /obj/item/storage/belt/fannypack
 
+/datum/gear/whitebandana
+	display_name = "Bandana, white"
+	path = /obj/item/clothing/mask/bandana
+
 /datum/gear/blackbandana
 	display_name = "Bandana, black"
 	path = /obj/item/clothing/mask/bandana/black
@@ -197,6 +201,10 @@
 /datum/gear/wizard_staff
 	display_name = "Wizard's staff"
 	path = /obj/item/staff
+
+/datum/gear/photo_album
+	display_name = "Photo album"
+	path = /obj/item/storage/photo_album
 
 //////////////////////
 //		Mugs		//

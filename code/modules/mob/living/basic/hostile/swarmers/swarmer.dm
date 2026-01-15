@@ -15,8 +15,8 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	melee_damage_type = BURN
-	melee_attack_cooldown_min = 1.5 SECONDS
-	melee_attack_cooldown_max = 2.5 SECONDS
+	melee_attack_cooldown_min = 0.75 SECONDS
+	melee_attack_cooldown_max = 1.25 SECONDS
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	mob_size = MOB_SIZE_SMALL
@@ -43,6 +43,8 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
+	ranged_burst_count = 2
+	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 1 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 	see_in_dark = 6
@@ -118,11 +120,11 @@
 /mob/living/basic/swarmer/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	face_atom(target)
 	if(is_type_in_list(target, GLOB.swarmer_blacklist))
-		to_chat(src, "<span class='warning'>Our sensors have designated this object important to station functionality or to our mission. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("Our sensors have designated this object important to station functionality or to our mission. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING))
-		to_chat(src, "<span class='warning'>This asset is already being converted into useable resources. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("This asset is already being converted into useable resources. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(iswallturf(target))
@@ -141,10 +143,13 @@
 		return ..()
 	var/mob/living/L = target
 	if(istype(L, /mob/living/basic/swarmer))
-		to_chat(src, "<span class='warning'>We do not wish to harm one of our own. Aborting.</span>")
+		to_chat(src, SPAN_WARNING("We do not wish to harm one of our own. Aborting."))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return FALSE
 	if(L.stat == DEAD)
+		disintegrate_mob(target)
+		return FALSE
+	if(isslime(target))
 		disintegrate_mob(target)
 		return FALSE
 	if(iscarbon(target))
@@ -175,6 +180,11 @@
 /mob/living/basic/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	if(!(flags & SHOCK_TESLA))
 		return FALSE
+	return ..()
+
+/mob/living/basic/swarmer/CanPass(atom/movable/O)
+	if(istype(O, /obj/projectile/beam/disabler))
+		return TRUE
 	return ..()
 
 /mob/living/basic/swarmer/proc/disintegrate_wall(turf/simulated/wall/target)
@@ -233,7 +243,7 @@
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	resources = clamp(resources + 50, 0, resource_max)
 	adjustHealth(-40)
-	if(isanimal_or_basicmob(target) || issilicon(target)) // Not crew? Are a silicon? Don't care.
+	if((isanimal_or_basicmob(target) || issilicon(target)) && !isslime(target)) // Not crew? Are a silicon? Don't care.
 		target.gib()
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
@@ -242,7 +252,7 @@
 
 /mob/living/basic/swarmer/proc/disappear_mob(mob/target)
 	if(!is_station_level(z))
-		to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
+		to_chat(src, SPAN_WARNING("Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area."))
 		return
 
 	var/turf/simulated/floor/F = find_safe_turf(zlevels = z)
@@ -262,10 +272,10 @@
 		var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || pressure_dangerlevel)
-			to_chat(src, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(src, SPAN_WARNING("Destroying this object has the potential to cause a hull breach. Aborting."))
 			return TRUE
 		else if(istype(A, /area/station/engineering/engine/supermatter))
-			to_chat(src, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(src, SPAN_WARNING("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			return TRUE
 	return FALSE
 

@@ -79,7 +79,7 @@
 /atom/movable/screen/ghost/respawn_pai/Click()
 	var/mob/dead/observer/G = usr
 	if(!GLOB.paiController.check_recruit(G))
-		to_chat(G, "<span class='warning'>You are not eligible to become a pAI.</span>")
+		to_chat(G, SPAN_WARNING("You are not eligible to become a pAI."))
 		return
 	GLOB.paiController.recruitWindow(G)
 

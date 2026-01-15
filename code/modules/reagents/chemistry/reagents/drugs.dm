@@ -113,7 +113,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[smoke_message]</span>")
+		to_chat(M, SPAN_NOTICE("[smoke_message]"))
 	return ..() | update_flags
 
 /datum/reagent/nicotine/overdose_process(mob/living/M, severity)
@@ -122,13 +122,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks nervous!</span>")
+			M.visible_message(SPAN_WARNING("[M] looks nervous!"))
 			M.AdjustConfused(30 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.visible_message(SPAN_WARNING("[M] is all sweaty!"))
 			M.bodytemperature += rand(15,30)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -138,12 +138,12 @@
 	else if(severity == 2)
 		if(effect <= 2)
 			M.emote("gasp")
-			to_chat(M, "<span class='warning'>You can't breathe!</span>")
+			to_chat(M, SPAN_WARNING("You can't breathe!"))
 			update_flags |= M.adjustOxyLoss(15, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			M.Stun(2 SECONDS, FALSE)
 		else if(effect <= 4)
-			to_chat(M, "<span class='warning'>You feel terrible!</span>")
+			to_chat(M, SPAN_WARNING("You feel terrible!"))
 			M.emote("drool")
 			M.Jitter(20 SECONDS)
 			update_flags |= M.adjustToxLoss(5, FALSE)
@@ -151,7 +151,7 @@
 			M.AdjustConfused(66 SECONDS)
 		else if(effect <= 7)
 			M.emote("collapse")
-			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
+			to_chat(M, SPAN_WARNING("Your heart is pounding!"))
 			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.Paralyse(10 SECONDS)
 			M.Jitter(60 SECONDS)
@@ -178,7 +178,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	var/death_smoke_message = pick("You feel grimy.", "You feel less lively.", "You feel more bleak.", "You feel you're dying inside.", "You feel you're one step closer to grave.")
 	if(prob(10))
-		to_chat(M, "<span class='warning'>[death_smoke_message]</span>")
+		to_chat(M, SPAN_WARNING("[death_smoke_message]"))
 
 	var/obj/item/organ/internal/lungs/A = M.get_int_organ(/obj/item/organ/internal/lungs)
 	if(ishuman(M))
@@ -217,12 +217,12 @@
 	if(prob(8))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
+		to_chat(M, SPAN_NOTICE("You feel warm.")) // fever, gets worse with volume
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)) //let us see how this feels
 
 	if(prob(4))
-		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
+		to_chat(M, SPAN_NOTICE("You feel kinda awful!"))
 		M.LoseBreath(5 SECONDS)
 		M.AdjustJitter(60 SECONDS)
 	return ..() | update_flags
@@ -233,12 +233,12 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks confused!</span>")
+			M.visible_message(SPAN_WARNING("[M] looks confused!"))
 			M.AdjustConfused(40 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.emote("scream")
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.visible_message(SPAN_WARNING("[M] is all sweaty!"))
 			M.bodytemperature += 150
 			update_flags |= M.adjustBrainLoss(5, FALSE)
 			update_flags |= M.adjustToxLoss(5, FALSE)
@@ -248,12 +248,12 @@
 			M.emote("grumble")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] is sweating like a pig!</span>")
+			M.visible_message(SPAN_WARNING("[M] is sweating like a pig!"))
 			M.bodytemperature += 200
 			update_flags |= M.adjustToxLoss(20, FALSE)
 			M.Stun(2 SECONDS)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] starts twitching the hell out!</span>")
+			M.visible_message(SPAN_WARNING("[M] starts twitching the hell out!"))
 			M.Jitter(200 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(20, FALSE)
@@ -263,7 +263,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message("<span class='warning'>[M] nervously scratches at [M.p_their()] skin!</span>")
+			M.visible_message(SPAN_WARNING("[M] nervously scratches at [M.p_their()] skin!"))
 			M.Jitter(20 SECONDS)
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			M.emote("twitch_s")
@@ -309,7 +309,7 @@
 			M.Drowsy(10 SECONDS)
 			M.drop_r_hand()
 			M.drop_l_hand()
-			to_chat(M, "<span class='warning'>You can barely keep your eyes open!</span>")
+			to_chat(M, SPAN_WARNING("You can barely keep your eyes open!"))
 	return list(effect, update_flags)
 
 /datum/reagent/krokodil
@@ -335,18 +335,18 @@
 	if(prob(15))
 		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
 	if(prob(10))
-		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		to_chat(M, SPAN_NOTICE("You feel pretty chill."))
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='warning'>You feel too chill!</span>")
+		to_chat(M, SPAN_WARNING("You feel too chill!"))
 		M.emote(pick("yawn", "drool"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 		M.bodytemperature -= 20
 	if(prob(2))
-		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
+		to_chat(M, SPAN_WARNING("Your skin feels all rough and dry."))
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
 
@@ -356,14 +356,14 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.visible_message(SPAN_WARNING("[M] looks dazed!"))
 			M.Stun(6 SECONDS)
 			M.emote("drool")
 		else if(effect <= 4)
 			M.emote("shiver")
 			M.bodytemperature -= 40
 		else if(effect <= 7)
-			to_chat(M, "<span class='warning'>Your skin is cracking and bleeding!</span>")
+			to_chat(M, SPAN_WARNING("Your skin is cracking and bleeding!"))
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -371,8 +371,8 @@
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message(
-				"<span class='warning'>[M] sways and falls over!</span>",
-				"<span class='warning'>You sway and fall over!</span>"
+				SPAN_WARNING("[M] sways and falls over!"),
+				SPAN_WARNING("You sway and fall over!")
 			)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
@@ -382,8 +382,8 @@
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				H.visible_message(
-					"<span class='danger'>[M]'s skin is rotting away!</span>",
-					"<span class='userdanger'>Your skin is rotting away!</span>"
+					SPAN_DANGER("[M]'s skin is rotting away!"),
+					SPAN_USERDANGER("Your skin is rotting away!")
 				)
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
@@ -447,22 +447,22 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
+			M.visible_message(SPAN_WARNING("[M] can't seem to control [M.p_their()] legs!"))
 			M.AdjustConfused(40 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message(SPAN_WARNING("[M]'s hands flip out and flail everywhere!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message(SPAN_WARNING("[M]'s hands flip out and flail everywhere!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.visible_message(SPAN_WARNING("[M] falls to the floor and flails uncontrollably!"))
 			M.Jitter(20 SECONDS)
 			M.Weaken(20 SECONDS)
 		else if(effect <= 7)
@@ -506,14 +506,14 @@
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 	if(check < 8)
-		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
+		M.visible_message(SPAN_WARNING("[M] scratches at something under [M.p_their()] skin!"))
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
 		M.AdjustHallucinate(30 SECONDS)
 	else if(check < 24)
-		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
+		to_chat(M, SPAN_USERDANGER("They're coming for you!"))
 	else if(check < 28)
-		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
+		to_chat(M, SPAN_USERDANGER("THEY'RE GONNA GET YOU!"))
 	return ..() | update_flags
 
 /datum/reagent/bath_salts/on_mob_delete(mob/living/M)
@@ -528,7 +528,7 @@
 		M.EyeBlind(2 SECONDS)
 		M.adjustToxLoss(5)
 	else
-		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
+		to_chat(M, SPAN_NOTICE("You feel a bit more salty than usual."))
 
 /datum/reagent/bath_salts/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -536,13 +536,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
+			M.visible_message(SPAN_DANGER("[M] flails around like a lunatic!"))
 			M.AdjustConfused(50 SECONDS)
 			M.Jitter(20 SECONDS)
 			M.emote("scream")
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 4)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.visible_message(SPAN_DANGER("[M]'s eyes dilate!"))
 			M.emote("twitch_s")
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -554,14 +554,14 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.visible_message(SPAN_DANGER("[M]'s eyes dilate!"))
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			M.Stun(6 SECONDS)
 			M.EyeBlurry(14 SECONDS)
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 4)
-			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
+			M.visible_message(SPAN_DANGER("[M] convulses violently and falls to the floor!"))
 			M.Jitter(100 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -570,7 +570,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message("<span class='danger'>[M] tears at [M.p_their()] own skin!</span>")
+			M.visible_message(SPAN_DANGER("[M] tears at [M.p_their()] own skin!"))
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			M.reagents.add_reagent("jagged_crystals", 5)
 			M.emote("twitch")
@@ -632,7 +632,7 @@
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
 		var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
-		to_chat(M, "<span class='notice'>You feel [high_message]!</span>")
+		to_chat(M, SPAN_NOTICE("You feel [high_message]!"))
 	return ..() | update_flags
 
 /datum/reagent/aranesp/on_mob_delete(mob/living/M)
@@ -666,7 +666,7 @@
 	if(prob(15))
 		M.emote(pick("laugh", "giggle", "smile", "grin"))
 	else if(prob(10))
-		to_chat(M, "<span class='notice'>You feel [pick("great", "good", "amazing", "really nice", "magical")]!</span>")
+		to_chat(M, SPAN_NOTICE("You feel [pick("great", "good", "amazing", "really nice", "magical")]!"))
 	else if(prob(1))
 		M.say("hehehe") // you WILL hehehe
 
@@ -684,7 +684,7 @@
 	if(prob(15))
 		M.emote(pick("cry", "frown", "sulk", "gurgle"))
 	else if(prob(10))
-		to_chat(M, "<span class='warning'>You feel [pick("like shit", "terrible", "weak", "like a rhumba beat", "hollow")]!</span>")
+		to_chat(M, SPAN_WARNING("You feel [pick("like shit", "terrible", "weak", "like a rhumba beat", "hollow")]!"))
 	update_flags |= M.adjustBrainLoss(0.2, FALSE)
 	if(!prob(10 * (severity ** 2))) // 1 - 10, 2 - 40
 		return list(effect, update_flags)
@@ -742,7 +742,7 @@
 	if(prob(5))
 		M.emote(pick("hsigh", "yawn"))
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]</span>")
+		to_chat(M, SPAN_NOTICE("[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]"))
 	if(prob(10))
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
@@ -805,22 +805,22 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
+			M.visible_message(SPAN_WARNING("[M] can't seem to control [M.p_their()] legs!"))
 			M.AdjustConfused(66 SECONDS)
 			M.Weaken(4 SECONDS)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message(SPAN_WARNING("[M]'s hands flip out and flail everywhere!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message(SPAN_WARNING("[M]'s hands flip out and flail everywhere!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.visible_message(SPAN_WARNING("[M] falls to the floor and flails uncontrollably!"))
 			M.Jitter(10 SECONDS)
 			M.Weaken(10 SECONDS)
 		else if(effect <= 7)
@@ -937,13 +937,13 @@
 
 	if(current_cycle < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
 		L.visible_message(
-			"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
-			"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
+			SPAN_DANGER("[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!"),
+			SPAN_DANGER("You suddenly slow back to normal, a stream of blood gushing from your nose!"))
 		L.adjustStaminaLoss(current_cycle * 2)
 	else // Much longer than that however, and you're not gonna have a good day
 		L.visible_message(
-			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
-			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
+			SPAN_DANGER("[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!"),
+			SPAN_DANGER("As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader."))
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 		L.bleed(25)
 		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
@@ -983,8 +983,8 @@
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return NONE
 	source.visible_message(
-		"<span class='danger'>[source] effortlessly dodges [hitting_projectile]!</span>",
-		"<span class='userdanger'>You effortlessly evade [hitting_projectile]!</span>",
+		SPAN_DANGER("[source] effortlessly dodges [hitting_projectile]!"),
+		SPAN_USERDANGER("You effortlessly evade [hitting_projectile]!"),
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 	source.add_filter(MEPHEDRONE_BLUR_EFFECT, 2, gauss_blur_filter(5))
@@ -1175,7 +1175,7 @@
 	if(prob(5))
 		M.emote(pick("hsigh", "giggle", "laugh", "smile"))
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You whirr softly.", "You feel chill.", "You vibe.")]</span>")
+		to_chat(M, SPAN_NOTICE("[pick("You feel peaceful.", "You whirr softly.", "You feel chill.", "You vibe.")]"))
 	if(prob(4))
 		M.Confused(20 SECONDS)
 	if(prob(10))
@@ -1216,18 +1216,18 @@
 	if(prob(15))
 		M.emote(pick("smile", "grin", "chuckle", "laugh"))
 	if(prob(10))
-		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		to_chat(M, SPAN_NOTICE("You feel pretty chill."))
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='warning'>You feel too chill!</span>")
+		to_chat(M, SPAN_WARNING("You feel too chill!"))
 		M.emote(pick("shiver", "cross"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustFireLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 		M.bodytemperature -= 20
 	if(prob(2))
-		to_chat(M, "<span class='warning'>Patches of corrosion appear on your chassis!</span>")
+		to_chat(M, SPAN_WARNING("Patches of corrosion appear on your chassis!"))
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
 
@@ -1237,7 +1237,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.visible_message(SPAN_WARNING("[M] looks dazed!"))
 			M.Stun(6 SECONDS)
 			do_sparks(5, FALSE, M)
 			M.emote("stare")
@@ -1245,7 +1245,7 @@
 			M.emote("shiver")
 			M.bodytemperature -= 40
 		else if(effect <= 7)
-			to_chat(M, "<span class='warning'>Your chassis and internals are corroding!</span>")
+			to_chat(M, SPAN_WARNING("Your chassis and internals are corroding!"))
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			update_flags |= M.adjustFireLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -1255,8 +1255,8 @@
 	if(severity == 2)
 		if(effect <= 2)
 			M.visible_message(
-				"<span class='warning'>[M] sways and falls over!</span>",
-				"<span class='warning'>You sway and fall over!</span>"
+				SPAN_WARNING("[M] sways and falls over!"),
+				SPAN_WARNING("You sway and fall over!")
 			)
 			update_flags |= M.adjustBruteLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
@@ -1264,8 +1264,8 @@
 			M.emote("faint")
 		else if(effect <= 4)
 			M.visible_message(
-				"<span class='danger'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>",
-				"<span class='userdanger'>Large cracks appear on your casing and the surrounding area starts to melt!</span>"
+				SPAN_DANGER("Large cracks appear on [M]'s casing and the surrounding area starts to melt!"),
+				SPAN_USERDANGER("Large cracks appear on your casing and the surrounding area starts to melt!")
 			)
 			update_flags |= M.adjustBruteLoss(25, FALSE)
 			update_flags |= M.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
@@ -1313,7 +1313,7 @@
 	if(prob(10))
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, SPAN_NOTICE("[high_message]"))
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags
@@ -1351,7 +1351,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message(SPAN_DANGER("[M]'s hands flip out and flail everywhere!"))
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
@@ -1389,9 +1389,9 @@
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, SPAN_NOTICE("[high_message]"))
 	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
+		to_chat(M, SPAN_NOTICE("Your circuits overheat!")) // synth fever
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
 
@@ -1404,7 +1404,7 @@
 	M.Jitter(40 SECONDS)
 	M.Stuttering(10 SECONDS)
 	if(prob(10))
-		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
+		to_chat(M, SPAN_DANGER("You experience a violent electrical discharge!"))
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
 		//Lightning effect for electrical discharge visualization
 		var/icon/I=new('icons/obj/zap.dmi',"lightningend")

@@ -68,7 +68,7 @@
 		cell = new cell(src)
 
 /obj/item/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/baton/update_icon_state()
@@ -82,13 +82,13 @@
 /obj/item/baton/examine(mob/user)
 	. = ..()
 	if(isrobot(user))
-		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
+		. += SPAN_NOTICE("This baton is drawing power directly from your own internal charge.")
 	if(cell)
-		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
+		. += SPAN_NOTICE("The baton is [round(cell.percent())]% charged.")
 	else
-		. += "<span class='warning'>The baton does not have a power source installed.</span>"
-	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
-	. += "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
+		. += SPAN_WARNING("The baton does not have a power source installed.")
+	. += SPAN_NOTICE("When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.")
+	. += SPAN_NOTICE("This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.")
 
 
 /obj/item/baton/get_cell()
@@ -96,13 +96,13 @@
 
 /obj/item/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
 	if(turned_on && (slot == ITEM_SLOT_BELT || slot == ITEM_SLOT_SUIT_STORE))
-		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		to_chat(user, SPAN_WARNING("You can't equip [src] while it's active!"))
 		return FALSE
 	return ..()
 
 /obj/item/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's active!"))
 		return FALSE
 	return TRUE
 
@@ -134,33 +134,33 @@
 	if(istype(used, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = used
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			to_chat(user, SPAN_WARNING("[src] already has a cell!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(C.maxcharge < hitcost)
-			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
+			to_chat(user, SPAN_WARNING("[src] requires a higher capacity cell!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.unequip(used))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
 		cell = used
-		to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
 		update_icon(UPDATE_ICON_STATE)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, SPAN_WARNING("There's no cell installed!"))
 		return
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
 	user.put_in_hands(cell)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [cell] from [src]."))
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
@@ -177,15 +177,15 @@
 
 	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
-		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now [turned_on ? "on" : "off"]."))
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		if(isrobot(loc))
-			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
+			to_chat(user, SPAN_WARNING("You do not have enough reserve power to charge [src]!"))
 		else if(!cell)
-			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+			to_chat(user, SPAN_WARNING("[src] does not have a power source!"))
 		else
-			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
+			to_chat(user, SPAN_WARNING("[src] is out of charge."))
 	update_icon()
 	add_fingerprint(user)
 
@@ -202,8 +202,8 @@
 		// For those super edge cases where you clumsy baton yourself in quick succession.
 		if(baton_stun(user, user, skip_cooldown = TRUE))
 			user.visible_message(
-				"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
-				"<span class='userdanger'>You accidentally hit yourself with [src]!</span>"
+				SPAN_DANGER("[user] accidentally hits [user.p_themselves()] with [src]!"),
+				SPAN_USERDANGER("You accidentally hit yourself with [src]!")
 				)
 		return FINISH_ATTACK
 
@@ -222,8 +222,8 @@
 	if(!turned_on)
 		user.do_attack_animation(target)
 		target.visible_message(
-			"<span class='warning'>[user] has prodded [target] with [src]. Luckily it was off.</span>",
-			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
+			SPAN_WARNING("[user] has prodded [target] with [src]. Luckily it was off."),
+			SPAN_DANGER("[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.")
 			)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
@@ -232,8 +232,8 @@
 	if(!ishuman(target))
 		user.do_attack_animation(target)
 		target.visible_message(
-			"<span class='warning'>[user] has prodded [target] with [src]. It doesn't seem to have an effect.</span>",
-			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
+			SPAN_WARNING("[user] has prodded [target] with [src]. It doesn't seem to have an effect."),
+			SPAN_DANGER("[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.")
 		)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
@@ -258,7 +258,7 @@
 		return FALSE
 
 	if(hitcost > 0 && cell?.charge < hitcost)
-		to_chat(user, "<span class='warning'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
+		to_chat(user, SPAN_WARNING("[src] fizzles weakly as it makes contact. It needs more power!"))
 		return FALSE
 
 	if(ishuman(L))
@@ -282,8 +282,8 @@
 	if(user)
 		L.store_last_attacker(user)
 		L.visible_message(
-			"<span class='danger'>[user] has stunned [L] with [src]!</span>",
-			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>"
+			SPAN_DANGER("[user] has stunned [L] with [src]!"),
+			SPAN_USERDANGER("[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!")
 			)
 		add_attack_logs(user, L, "stunned")
 	play_hit_sound()
@@ -317,7 +317,7 @@
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	L.store_last_attacker(user)
-	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
+	L.visible_message(SPAN_DANGER("[src] stuns [L]!"))
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
@@ -336,8 +336,8 @@
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
 		user.visible_message(
-			"<span class='warning'>[user] shocks [user.p_themselves()] while attempting to wash the active [src]!</span>",
-			"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>"
+			SPAN_WARNING("[user] shocks [user.p_themselves()] while attempting to wash the active [src]!"),
+			SPAN_USERDANGER("You unwisely attempt to wash [src] while it's still on.")
 			)
 		return TRUE
 	..()
@@ -428,7 +428,7 @@
 		R.on = FALSE
 		R.listening = FALSE
 		R.broadcasting = FALSE
-		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message = "<span class='notice'>You hear a loud, electronic buzzing.</span>")
+		L.visible_message(SPAN_WARNING("[R] buzzes loudly as it short circuits!"), blind_message = SPAN_NOTICE("You hear a loud, electronic buzzing."))
 
 /obj/item/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
 	if(QDELETED(R))
@@ -443,4 +443,4 @@
 
 /obj/item/baton/flayerprod/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This one seems to be able to interfere with radio headsets.</span>"
+	. += SPAN_NOTICE("This one seems to be able to interfere with radio headsets.")

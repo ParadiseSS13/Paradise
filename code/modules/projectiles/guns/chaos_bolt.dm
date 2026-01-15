@@ -27,7 +27,7 @@
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			L.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+			L.visible_message(SPAN_WARNING("[target] glows faintly, but nothing else happens."))
 			return
 		chaos_chaos(L)
 
@@ -62,11 +62,11 @@
 	if(!item_to_summon)
 		return
 	if(!target.mind) //no abusing mindless mobs for free stuff
-		target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+		target.visible_message(SPAN_WARNING("[target] glows faintly, but nothing else happens."))
 		return
 	if(explosion_amount)
-		target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", \
-			"<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around you!</span>")
+		target.visible_message(SPAN_CHAOSNEUTRAL("A bunch of [item_to_summon.name] scatter around [target]!"), \
+			SPAN_CHAOSNEUTRAL("A bunch of [item_to_summon.name] scatter around you!"))
 		for(var/i in 1 to explosion_amount)
 			var/obj/item/I = new item_to_summon(get_turf(target))
 			throwforce = 0
@@ -75,30 +75,30 @@
 		return
 	if(!ishuman(target))
 		var/obj/item/I = new item_to_summon(get_turf(target))
-		target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
+		target.visible_message(SPAN_CHAOSGOOD("\A [I] drops next to [target]!"), SPAN_CHAOSGOOD("\A [I] drops on the floor!"))
 		return
 	var/mob/living/carbon/human/H = target
 	var/obj/item/I = new item_to_summon(src)
 	if(H.back && isstorage(H.back))
 		var/obj/item/storage/S = H.back
 		S.handle_item_insertion(I, H, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
-		H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
+		H.visible_message(SPAN_CHAOSGOOD("[H]'s [S.name] glows bright!"), SPAN_CHAOSVERYGOOD("\A [I] suddenly appears in your glowing [S.name]!"))
 		return
 	if(H.back && ismodcontrol(H.back))
 		var/obj/item/mod/control/C = H.back
 		if(C.bag)
 			C.handle_item_insertion(I, H, TRUE)
-			H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
+			H.visible_message(SPAN_CHAOSGOOD("[H]'s [C] glows bright!"), SPAN_CHAOSVERYGOOD("\A [I] suddenly appears in your glowing [C.name]!"))
 			return
 	I.forceMove(get_turf(H))
-	H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
+	H.visible_message(SPAN_CHAOSGOOD("\A [I] drops next to [H]!"), SPAN_CHAOSVERYGOOD("\A [I] drops on the floor!"))
 
 /**
   * Picks and apply a lethal effect on mob/living/target. Some are more instantaneous than others.
   */
 /obj/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
 	if(!ishuman(target))
-		target.visible_message("<span class='chaosverybad'>[target] suddenly dies!</span>", "<span class='chaosverybad'>Game over!</span>")
+		target.visible_message(SPAN_CHAOSVERYBAD("[target] suddenly dies!"), SPAN_CHAOSVERYBAD("Game over!"))
 		target.death(FALSE)
 		return
 	chaos_effect = pick("ded", "heart deleted", "gibbed", "cluwned", "spaced", "decapitated", "banned", \
@@ -106,19 +106,19 @@
 	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("ded")
-			H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] drops dead!"), SPAN_CHAOSVERYBAD("Game over!"))
 			H.death()
 		if("heart deleted")
-			H.visible_message("<span class='chaosverybad'>[H] looks like they're about to die!</span>", "<span class='chaosverybad'>HEARTUS DELETUS!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] looks like they're about to die!"), SPAN_CHAOSVERYBAD("HEARTUS DELETUS!"))
 			var/obj/item/organ/internal/heart/target_heart = H.get_int_organ(/obj/item/organ/internal/heart)
 			if(target_heart)
 				target_heart.remove(H)
 				qdel(target_heart)
 		if("gibbed")
-			H.visible_message("<span class='chaosverybad'>[H] falls into gibs!</span>", "<span class='chaosverybad'>Oof!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] falls into gibs!"), SPAN_CHAOSVERYBAD("Oof!"))
 			H.gib()
 		if("cluwned")
-			H.visible_message("<span class='chaosverybad'>[H] turns into a cluwne!</span>", "<span class='chaosverybad'>Oh no.</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] turns into a cluwne!"), SPAN_CHAOSVERYBAD("Oh no."))
 			H.makeCluwne()
 		if("spaced")
 			for(var/obj/item/I in H)
@@ -127,50 +127,50 @@
 			if(!T) //Shouldn't happen but just in case
 				T = safepick(get_area_turfs(/area/space))
 			if(!T) //What do you mean there's no space? Okay well just die then
-				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] drops dead!"), SPAN_CHAOSVERYBAD("Game over!"))
 				H.death(FALSE)
 			else
-				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>COLD! CAN'T BREATHE!</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] disappears!"), SPAN_CHAOSVERYBAD("COLD! CAN'T BREATHE!"))
 				do_teleport(H, T)
 		if("decapitated")
-			H.visible_message("<span class='chaosverybad'>[H]'s head goes flying!'</span>", \
-				"<span class='chaosverybad'>You watch the floor fly to your face as you rapidly lose consciousness...</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H]'s head goes flying!'"), \
+				SPAN_CHAOSVERYBAD("You watch the floor fly to your face as you rapidly lose consciousness..."))
 			var/obj/item/organ/external/affected = target.get_organ("head")
 			var/atom/movable/A = affected.droplimb(1, DROPLIMB_SHARP)
 			INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 		if("banned")
-			H.visible_message("<span class='chaosverybad'>[H] gets <span class='adminhelp'>BWOINKED</span> out of existence!</span>", \
-				"<span class='chaosverybad'>You get <span class='adminhelp'>BWOINKED</span> out of existence!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] gets [SPAN_ADMINHELP("BWOINKED")] out of existence!"), \
+				SPAN_CHAOSVERYBAD("You get [SPAN_ADMINHELP("BWOINKED")] out of existence!"))
 			playsound(H, 'sound/effects/adminhelp.ogg', 100, FALSE)
 			qdel(H)
 		if("exploded")
-			H.visible_message("<span class='chaosverybad'>[H] explodes!</span>", "<span class='chaosverybad'>Boom!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] explodes!"), SPAN_CHAOSVERYBAD("Boom!"))
 			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos lethal explosion effect, fired by [key_name(firer)]")
 		if("cheese morphed")
-			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] transforms into cheese!"), SPAN_CHAOSVERYBAD("You've been transformed into cheese!"))
 			new /obj/item/food/sliced/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
 			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
 			if(!supercrystal)
-				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] drops dead!"), SPAN_CHAOSVERYBAD("Game over!"))
 				H.death()
 			else
-				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>All you see is yellow before you fall to dust...</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] disappears!"), SPAN_CHAOSVERYBAD("All you see is yellow before you fall to dust..."))
 				do_teleport(H, supercrystal, 1)
 				H.throw_at(supercrystal, 10, 2)
 				if(H && H.stat == CONSCIOUS)
-					to_chat(H, "<span class='chaosverybad'>... not? You're alive? Huh. Neat.</span>")
+					to_chat(H, SPAN_CHAOSVERYBAD("... not? You're alive? Huh. Neat."))
 		if("borged")
-			H.visible_message("<span class='chaosverybad'>[H] turns into a cyborg!</span>", "<span class='chaosverybad'>Beep boop!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] turns into a cyborg!"), SPAN_CHAOSVERYBAD("Beep boop!"))
 			wabbajack(H, force_borg = TRUE)
 		if("animal morphed")
-			H.visible_message("<span class='chaosverybad'>[H] turns into an animal!</span>", "<span class='chaosverybad'>Welcome to the jungle!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] turns into an animal!"), SPAN_CHAOSVERYBAD("Welcome to the jungle!"))
 			wabbajack(H, force_animal = TRUE)
 		if("trick revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/fake
 		if("prions")
-			H.visible_message("<span class='chaosverybad'>[H] laughs uncontrollably!</span>", "<span class='chaosverybad'>You feel like you're going to die of laughter!</span>")
+			H.visible_message(SPAN_CHAOSVERYBAD("[H] laughs uncontrollably!"), SPAN_CHAOSVERYBAD("You feel like you're going to die of laughter!"))
 			H.reagents.add_reagent("prions", 5)
 
 /**
@@ -180,21 +180,21 @@
 	if(!ishuman(target))
 		if(prob(50))
 			target.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE)
-			target.visible_message("<span class='chaosbad'>[target] gets slashed by [src]!</span>", "<span class='chaosbad'>You get slashed by [src]!</span>")
+			target.visible_message(SPAN_CHAOSBAD("[target] gets slashed by [src]!"), SPAN_CHAOSBAD("You get slashed by [src]!"))
 		else
 			target.apply_damage(CHAOS_STAFF_DAMAGE, BURN)
-			target.visible_message("<span class='chaosbad'>[target] gets burned by [src]!</span>", "<span class='chaosbad'>You get burned by [src]!</span>")
+			target.visible_message(SPAN_CHAOSBAD("[target] gets burned by [src]!"), SPAN_CHAOSBAD("You get burned by [src]!"))
 		return
 	chaos_effect = pick("fireballed", "ice spiked", "rathend", "stabbed", "slashed", "burned", "poisoned", \
 		"plasma", "teleport", "teleport roulette", "electrocuted")
 	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("fireballed")
-			H.visible_message("<span class='chaosbad'>[H] is hit by a fireball! </span>", "<span class='chaosverybad'>You get hit by a fireball!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] is hit by a fireball! "), SPAN_CHAOSVERYBAD("You get hit by a fireball!"))
 			H.apply_damage(CHAOS_STAFF_DAMAGE / 3, BRUTE)
 			explosion(get_turf(H), -1, 0, 2, 3, flame_range = 2, cause = "staff of chaos fireball effect, fired by [key_name(firer)]")
 		if("ice spiked")
-			H.visible_message("<span class='chaosbad'>[H]'s chest get pierced by an ice spike!</span>", "<span class='chaosverybad'>An ice spike pierces your chest!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H]'s chest get pierced by an ice spike!"), SPAN_CHAOSVERYBAD("An ice spike pierces your chest!"))
 			H.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE, "chest")
 			H.bodytemperature = 250
 		if("rathend")
@@ -202,49 +202,49 @@
 			if(!A)
 				H.apply_damage(CHAOS_STAFF_DAMAGE / 3, BRUTE, "chest")
 				new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
-				to_chat(H, "<span class='chaosbad'>Blood flows out of your body!</span>")
+				to_chat(H, SPAN_CHAOSBAD("Blood flows out of your body!"))
 				H.KnockDown(6 SECONDS)
 				return
 			A.remove(H)
 			A.forceMove(get_turf(H))
 			A.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
-			H.visible_message("<span class='chaosbad'>[H]'s [A.name] flies out of their body in a magical explosion!</span>",\
-							"<span class='chaosbad'>Your [A.name] flies out of your body in a magical explosion!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H]'s [A.name] flies out of their body in a magical explosion!"),\
+							SPAN_CHAOSBAD("Your [A.name] flies out of your body in a magical explosion!"))
 			H.KnockDown(4 SECONDS)
 		if("stabbed")
-			H.visible_message("<span class='chaosbad'>[H] gets stabbed by a magical knife!</span>", "<span class='chaosbad'>You get stabbed by a magical knife!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] gets stabbed by a magical knife!"), SPAN_CHAOSBAD("You get stabbed by a magical knife!"))
 			H.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE, "chest")
 		if("slashed")
-			H.visible_message("<span class='chaosbad'>[H] gets slashed by a magical knife!</span>", "<span class='chaosbad'>You get slashed by a magical knife!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] gets slashed by a magical knife!"), SPAN_CHAOSBAD("You get slashed by a magical knife!"))
 			H.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE, pick("l_arm", "r_arm"))
 		if("burned")
-			H.visible_message("<span class='chaosbad'>[H] gets set on fire!</span>", "<span class='chaosverybad'>You're on fire! Literally!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] gets set on fire!"), SPAN_CHAOSVERYBAD("You're on fire! Literally!"))
 			H.apply_damage(CHAOS_STAFF_DAMAGE / 2, BURN)
 			H.adjust_fire_stacks(14)
 			H.IgniteMob()
 			H.emote("scream")
 		if("poisoned")
-			H.visible_message("<span class='chaosbad'>[H] looks ill!</span>", "<span class='chaosbad'>You feel sick...</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] looks ill!"), SPAN_CHAOSBAD("You feel sick..."))
 			var/random_reagent = pick("carpotoxin", "cyanide", "amanitin", "sarin", "venom")
 			H.reagents.add_reagent(random_reagent, CHAOS_STAFF_DAMAGE / 3)
 		if("plasma")
-			H.visible_message("<span class='chaosbad'>A cloud of plasma surrounds [H]!</span>", "<span class='chaosbad'>You're covered in plasma gas!</span>")
+			H.visible_message(SPAN_CHAOSBAD("A cloud of plasma surrounds [H]!"), SPAN_CHAOSBAD("You're covered in plasma gas!"))
 			H.atmos_spawn_air(LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C, 200)
 		if("teleport")
 			var/turf/T
 			T = find_safe_turf() //Get a safe station turf
 			if(T)
-				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>You've been teleported!</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] disappears!"), SPAN_CHAOSVERYBAD("You've been teleported!"))
 				do_teleport(H, T)
 		if("teleport roulette")
 			H.apply_status_effect(STATUS_EFFECT_TELEPORT_ROULETTE)
 			var/turf/T
 			T = find_safe_turf() //Get a safe station turf
 			if(T)
-				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>You feel sick as you're teleported around the station!</span>")
+				H.visible_message(SPAN_CHAOSVERYBAD("[H] disappears!"), SPAN_CHAOSVERYBAD("You feel sick as you're teleported around the station!"))
 				do_teleport(H, T)
 		if("electrocuted")
-			H.visible_message("<span class='chaosbad'>[H] gets electrocuted!</span>", "<span class='chaosbad'>You get electrocuted!</span>")
+			H.visible_message(SPAN_CHAOSBAD("[H] gets electrocuted!"), SPAN_CHAOSBAD("You get electrocuted!"))
 			H.electrocute_act(CHAOS_STAFF_DAMAGE, src)
 
 /datum/status_effect/teleport_roulette
@@ -273,7 +273,7 @@
 		if("recolor") //non-humans only because recoloring humans is kinda meh
 			target.color = pick(GLOB.random_color_list)
 		if("bark")
-			target.visible_message("<span class='chaosneutral'>[target] barks!</span>", "<span class='chaosneutral'>Bark!</span>")
+			target.visible_message(SPAN_CHAOSNEUTRAL("[target] barks!"), SPAN_CHAOSNEUTRAL("Bark!"))
 			playsound(target, 'sound/creatures/dog_bark1.ogg', 100, FALSE)
 		if("smoke")
 			var/datum/effect_system/smoke_spread/smoke = new
@@ -307,10 +307,10 @@
 			if(ishuman(target) && target.mind)
 				var/mob/living/carbon/human/H = target
 				var/obj/item/magic_tarot_card/spawned_card = new /obj/item/magic_tarot_card(H)
-				H.visible_message("<span class='chaosneutral'>[H] is forced to use [spawned_card]!</span>", "<span class='chaosneutral'>[spawned_card] appears in front of you and glows bright!</span>")
+				H.visible_message(SPAN_CHAOSNEUTRAL("[H] is forced to use [spawned_card]!"), SPAN_CHAOSNEUTRAL("[spawned_card] appears in front of you and glows bright!"))
 				spawned_card.pre_activate(H)
 			else
-				target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+				target.visible_message(SPAN_WARNING("[target] glows faintly, but nothing else happens."))
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
@@ -326,7 +326,7 @@
 			item_to_summon = /obj/item/food/sliced/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
-			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")
+			target.visible_message(SPAN_CHAOSNEUTRAL("Food scatters around [target]!"), SPAN_CHAOSNEUTRAL("A bunch of food scatters around you!"))
 			var/limit = rand(5, 10)
 			for(var/i in 1 to limit)
 				var/type = pick(typesof(/obj/item/food))
@@ -376,7 +376,7 @@
 			item_to_summon = /obj/item/grenade/clown_grenade
 		if("disco ball")
 			new /obj/machinery/disco/chaos_staff(get_turf(target))
-			target.visible_message("<span class='chaosverygood'>DANCE TILL YOU'RE DEAD!</span>")
+			target.visible_message(SPAN_CHAOSVERYGOOD("DANCE TILL YOU'RE DEAD!"))
 		if("syndicate minibomb")
 			item_to_summon = /obj/item/grenade/syndieminibomb
 		if("crystal ball")

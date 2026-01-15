@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
-	visible_message("<span class='userdanger'>[src] EXPLODES!</span>")
+	visible_message(SPAN_USERDANGER("[src] EXPLODES!"))
 	var/your_doom = get_turf(src)
 	new /obj/item/grenade/frag(your_doom)
 	internal_tank.forceMove(your_doom)
@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
 	if(!disguise_broken)
-		to_chat(user, "<span class='danger'>As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!</span>")
+		to_chat(user, SPAN_DANGER("As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!"))
 		name = "modified autolathe"
 		desc = "An autolathe modified with holopad parts, to make it look like a harmless weapon recharger!"
 		do_sparks(3, 1, src)
@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	if(disguise_broken == FALSE)
 		default_deconstruction_screwdriver(user, "rechargeropen", initial(icon_state), I)
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return // No.
 
 /obj/machinery/syndicatebomb/doomsday/screwdriver_act(mob/user, obj/item/I)
-	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
+	to_chat(user, SPAN_DANGER("[src] is welded shut! You can't get at the wires!"))
 
 /obj/machinery/syndicatebomb/doomsday/Initialize(mapload)
 	. = ..()
@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "Security cyborg"
 	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-SEC"
+	icon_state = "Noble-Security"
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
@@ -436,11 +436,11 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
+		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag, than achieve something useful."))
 		return
 	var/time_to_die = integrated_console.item_interaction(user, O, params2list(params))
 	if(time_to_die)
-		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
+		to_chat(user, SPAN_DANGER("[src]'s relay begins to overheat..."))
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
 

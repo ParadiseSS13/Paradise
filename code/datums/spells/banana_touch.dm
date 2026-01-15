@@ -27,7 +27,7 @@
 	. = ..()
 
 	if(is_apprentice_spell && iswizard(target) && target != user)
-		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
+		to_chat(user, SPAN_DANGER("Seriously?! Honk THEM, not me!"))
 		return
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

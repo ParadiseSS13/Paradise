@@ -7,11 +7,28 @@
 
 	handle_equipment()
 
+	if(player_logged > 0 && stat != DEAD && job)
+		handle_ssd()
+
 	// if Alive
 	if(.)
 		handle_robot_hud_updates()
 		handle_robot_cell()
 
+/mob/living/silicon/robot/proc/handle_ssd()
+	player_logged++
+	if(istype(loc, /obj/machinery/cryopod/robot))
+		return
+
+	if(GLOB.configuration.afk.ssd_auto_cryo_minutes && (player_logged >= (GLOB.configuration.afk.ssd_auto_cryo_minutes * 30)) && player_logged % 30 == 0)
+		var/turf/T = get_turf(src)
+		if(!is_station_level(T.z))
+			return
+
+		cryo_ssd(src)
+		var/area/A = get_area(src)
+		if(A.fast_despawn)
+			force_cryo(src)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat == DEAD)
@@ -40,7 +57,7 @@
 /mob/living/silicon/robot/proc/enter_low_power_mode()
 	low_power_mode = TRUE
 	playsound(src, "sound/mecha/lowpower.ogg", 50, FALSE, SOUND_RANGE_SET(10))
-	to_chat(src, "<span class='warning'>Alert: Power cell requires immediate charging.</span>")
+	to_chat(src, SPAN_WARNING("Alert: Power cell requires immediate charging."))
 	handle_no_power()
 
 /mob/living/silicon/robot/proc/handle_equipment()

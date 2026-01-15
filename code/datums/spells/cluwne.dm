@@ -14,7 +14,7 @@
 		if(istype(wear_suit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
 			modsuit_control.active = FALSE // Instantly deactivate the modsuit - if it was activated
 			modsuit_control.quick_deploy(src) // The modsuit is no longer deployed
-	to_chat(src, "<span class='danger'>You feel funny.</span>")
+	to_chat(src, SPAN_DANGER("You feel funny."))
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		idiot_brain.insert(src, make_cluwne = 0)
@@ -44,7 +44,7 @@
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
-	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
+	to_chat(src, SPAN_DANGER("You don't feel very funny."))
 	adjustBrainLoss(-120)
 	set_nutrition(NUTRITION_LEVEL_STARVING)
 	overeatduration = 0

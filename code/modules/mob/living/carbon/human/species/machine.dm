@@ -136,16 +136,16 @@
 		return
 
 	if(prob(6))
-		to_chat(H, "<span class='warning'>Error 74: Microbattery critical malfunction, likely cause: Extended strain.</span>")
+		to_chat(H, SPAN_WARNING("Error 74: Microbattery critical malfunction, likely cause: Extended strain."))
 		microbattery.receive_damage(4, TRUE)
 	else if(prob(4))
 		H.Weaken(6 SECONDS)
 		H.Stuttering(20 SECONDS)
-		to_chat(H, "<span class='warning'>Power critical, shutting down superfluous functions.</span>")
+		to_chat(H, SPAN_WARNING("Power critical, shutting down superfluous functions."))
 		H.emote("collapse")
 		microbattery.receive_damage(2, TRUE)
 	else if(prob(4))
-		to_chat(H, "<span class='warning'>Redirecting excess power from servos to vital components.</span>")
+		to_chat(H, SPAN_WARNING("Redirecting excess power from servos to vital components."))
 		H.Slowed(rand(15 SECONDS, 32 SECONDS))
 
 // Allows IPC's to change their monitor display
@@ -159,7 +159,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		to_chat(H, SPAN_WARNING("Where's your head at? Can't change your monitor/display without one."))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
@@ -168,7 +168,7 @@
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = tgui_input_color(H, "Please select an optic color", "Select Optic Color", H.m_colours["head"])
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the color of your optics.</span>")
+			to_chat(H, SPAN_WARNING("You were interrupted while changing the color of your optics."))
 			return
 		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
@@ -192,7 +192,7 @@
 		var/new_color = tgui_input_color(H, "Please select hair color.", "Monitor Color", head_organ.hair_colour)
 
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, SPAN_WARNING("You were interrupted while changing your monitor display."))
 			return
 
 		if(new_style)
@@ -231,7 +231,7 @@
 								"Daisy.... Daisy...."
 								)
 		var/error_message = pick(error_messages)
-		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
+		to_chat(H, SPAN_BOLDWARNING("[error_message]"))
 
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)

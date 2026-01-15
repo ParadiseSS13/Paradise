@@ -118,7 +118,7 @@
 	handle_traits(user)
 
 /obj/item/clothing/glasses/hud/debug/AltClick(mob/living/carbon/human/user)
-	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [xray ? "de" : ""]activate the x-ray setting on [src]."))
 	xray = !xray
 	if(istype(user) && user.glasses == src)
 		handle_traits(user, TRUE)
@@ -155,7 +155,7 @@
 
 /obj/item/debug/human_spawner/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle mind-activation on spawning.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to toggle mind-activation on spawning.")
 
 /obj/item/debug/human_spawner/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
@@ -176,7 +176,7 @@
 	if(!Adjacent(user))
 		return
 	activate_mind = !activate_mind
-	to_chat(user, "<span class='notice'>Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind.</span>")
+	to_chat(user, SPAN_NOTICE("Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind."))
 
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"
