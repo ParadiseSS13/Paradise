@@ -79335,7 +79335,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
