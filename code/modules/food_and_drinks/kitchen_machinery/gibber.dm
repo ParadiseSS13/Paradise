@@ -228,7 +228,7 @@
 		return
 
 	if(!occupant)
-		visible_message(SPAN_DANGER("You hear a loud metallic grinding sound."))
+		visible_message(SPAN_DANGER("You hear a loud, metallic grinding sound."))
 		return
 
 	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
