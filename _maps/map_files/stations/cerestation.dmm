@@ -44166,13 +44166,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/spacebridge/servsci)
-"iuI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/public/pods{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/service/fore_port)
 "iuK" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/chinese,
@@ -68508,6 +68501,10 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"nMh" = (
+/obj/structure/sign/public/arrivals,
+/turf/simulated/wall/r_wall,
+/area/station/hallway/secondary/entry)
 "nMn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -70661,6 +70658,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"omf" = (
+/obj/structure/sign/public/arrivals,
+/turf/simulated/wall/r_wall,
+/area/station/hallway/secondary/entry/south)
 "omh" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -76032,6 +76033,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/service/fore_port)
+"pun" = (
+/obj/structure/sign/science/xenobio,
+/turf/simulated/mineral/ancient,
+/area/station/maintenance/apmaint)
 "pup" = (
 /turf/simulated/wall,
 /area/station/maintenance/abandonedservers)
@@ -85339,6 +85344,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
+"rCg" = (
+/obj/structure/sign/public/pods,
+/turf/simulated/wall,
+/area/station/maintenance/service/fore_port)
 "rCi" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -87654,6 +87663,9 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
+/obj/structure/sign/science/chemistry_sci{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint)
 "rZY" = (
@@ -88146,6 +88158,10 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
+"sfG" = (
+/obj/structure/sign/public/pods,
+/turf/simulated/wall,
+/area/station/maintenance/command/fore)
 "sfJ" = (
 /obj/machinery/camera{
 	c_tag = "Medical SMES";
@@ -127070,7 +127086,7 @@ ujf
 vIO
 cOo
 vIO
-ujf
+rCg
 ujf
 aXn
 lRT
@@ -128869,7 +128885,7 @@ uCK
 eCI
 wrS
 jee
-iuI
+foJ
 jee
 uIS
 vCx
@@ -143858,7 +143874,7 @@ aen
 tTf
 eHE
 cNt
-wIq
+pun
 sKh
 dEm
 wIq
@@ -144474,7 +144490,7 @@ wsD
 wsD
 wsD
 wsD
-wsD
+sfG
 anw
 rSq
 wsD
@@ -149607,7 +149623,7 @@ vva
 cRv
 iNA
 wsD
-wsD
+sfG
 uSc
 wsD
 cRv
@@ -156452,7 +156468,7 @@ jRy
 jRy
 jRy
 jRy
-sNX
+omf
 ldu
 ldu
 ldu
@@ -162106,7 +162122,7 @@ fio
 sHm
 sHm
 sHm
-fio
+nMh
 uqT
 fio
 sHm

@@ -35948,6 +35948,9 @@
 /obj/effect/turf_decal/tiles/white/side{
 	dir = 4
 	},
+/obj/structure/sign/medical/chemistry{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cIa" = (
@@ -51588,6 +51591,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
+"gIJ" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/sign/engineering/power{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "gIU" = (
 /obj/machinery/door/airlock/wood{
 	name = "Private Residence";
@@ -134174,8 +134185,8 @@ aMe
 aNr
 fkk
 aQR
-aUY
-aHb
+aMq
+gIJ
 aSg
 baz
 baz
@@ -134431,7 +134442,7 @@ aQU
 aNs
 aTl
 aMq
-aMq
+aUY
 aHO
 aSg
 baz
