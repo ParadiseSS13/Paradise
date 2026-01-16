@@ -272,7 +272,7 @@
 	name = "bluespace beaker"
 	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
-	materials = list(MAT_GLASS=3000)
+	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
 	volume = 300
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -296,7 +296,7 @@
 	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL=400)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)

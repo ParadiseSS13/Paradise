@@ -941,6 +941,7 @@
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
 	implant_color = "#0ac0d8"
 	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	slot = "stomach" //Can't have a nutriment pump with it.
 	requires_machine_person = TRUE
 
@@ -968,6 +969,7 @@
 	desc = "This is a basetype. Notify a coder!"
 	implant_color = "#eeff00"
 	origin_tech = "materials=5;programming=4;biotech=4"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	slot = "joints"
 	requires_machine_person = TRUE
 
@@ -1054,6 +1056,7 @@
 	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
 	implant_color = COLOR_BLACK
 	origin_tech = "materials=4;programming=4;biotech=5;combat=4;"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_GOLD = 3000, MAT_PLASMA = 10000)
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special)
 	..()
@@ -1069,6 +1072,7 @@
 	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
 	implant_color = "#d8780a"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
 	slot = "gastrointestinal"
 	requires_machine_person = TRUE
 

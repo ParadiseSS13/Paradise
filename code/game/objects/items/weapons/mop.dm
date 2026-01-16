@@ -98,6 +98,7 @@
 	mopcap = 10
 	icon_state = "advmop"
 	origin_tech = "materials=3;engineering=3"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 200)
 	force = 6
 	throwforce = 8
 	throw_range = 4

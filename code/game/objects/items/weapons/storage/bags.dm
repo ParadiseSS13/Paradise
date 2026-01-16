@@ -265,6 +265,7 @@
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 400)
 
 /obj/item/storage/bag/plants/portaseeder/Initialize(mapload)
 	. = ..()

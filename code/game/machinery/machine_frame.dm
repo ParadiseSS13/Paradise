@@ -1311,6 +1311,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/ai_node/processing_node
 	board_type = "machine"
 	origin_tech = "programming=4"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stack/sheet/mineral/gold = 1,
@@ -1325,6 +1326,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/ai_node/network_node
 	board_type = "machine"
 	origin_tech = "programming=4"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stack/sheet/mineral/gold = 1,

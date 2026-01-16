@@ -462,6 +462,7 @@
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment."
 	icon_state = "toolkit_ipc"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	contents = newlist(/obj/item/apc_powercord)
 	requires_robotic_bodypart = TRUE
 
