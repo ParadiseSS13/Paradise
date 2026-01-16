@@ -15,7 +15,8 @@
 #define TARGET_CRYOING					14
 #define TARGET_INVALID_HEAD				15
 #define TARGET_INVALID_ANTAG			16
-#define TARGET_INVALID_HERETIC			17
+#define TARGET_INVALID_CONFLICTING_OBJECTIVE	17
+#define TARGET_INVALID_HERETIC			18
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
