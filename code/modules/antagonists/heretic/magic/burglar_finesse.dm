@@ -21,6 +21,8 @@
 /datum/spell/pointed/burglar_finesse/valid_target(target, user)
 	if(!ishuman(target))
 		return FALSE
+	if(!get_dist(target, user >= 10)) // no yoinking through cams or scopes.
+		return FALSE
 	var/mob/living/carbon/human/human_target = target
 	if(locate(/obj/item/storage/backpack) in human_target.contents)
 		return TRUE
