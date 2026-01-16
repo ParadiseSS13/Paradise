@@ -229,19 +229,19 @@ forward_all_ahelps = true
 # Disable this to disable all random events
 allow_random_events = true
 # Map of lower bounds for event delays. In minutes.
-event_delay_lower_bounds = {mundane = 5, moderate = 7.5, major = 12, disaster = 9}
+event_delay_lower_bounds = {mundane = 3, moderate = 5, major = 8, disaster = 7}
 # Map of upper bounds for event delays. In minutes.
-event_delay_upper_bounds = {mundane = 7.5, moderate = 12, major = 17, disaster = 12}
+event_delay_upper_bounds = {mundane = 5.5, moderate = 10, major = 15, disaster = 10}
 # Expected round length in minutes. Changes event weights
-expected_round_length = 120
+expected_round_length = 90
 # Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
 # You must specify an upper and lower bound, or the code cries a lot. The events system is so bad good god.
 # Values are in minutes
 event_initial_delays = [
-  #{severity = "mundane", lower_bound = 10, upper_bound = 15},
-  {severity = "moderate", lower_bound = 19, upper_bound = 23},
-  {severity = "major", lower_bound = 29, upper_bound = 36},
-  {severity = "disaster", lower_bound = 40, upper_bound = 50},
+  #{severity = "mundane", lower_bound = 7, upper_bound = 12},
+  {severity = "moderate", lower_bound = 15, upper_bound = 19},
+  {severity = "major", lower_bound = 25, upper_bound = 32},
+  {severity = "disaster", lower_bound = 32, upper_bound = 42},
 ]
 # The population needed to allow blobs to split consciousness
 blob_highpop_trigger = 60
@@ -874,7 +874,7 @@ centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
 # Time that a vote will last for (deciseconds)
 vote_time = 600
 # Time before the first auto crew transfer vote (deciseconds)
-autotransfer_initial_time = 72000
+autotransfer_initial_time = 54000
 # Interval after the first auto transfer vote for the next to be called (deciseconds)
 autotransfer_interval_time = 18000
 # Prevent dead players from voting or starting votes
