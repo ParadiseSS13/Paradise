@@ -386,3 +386,4 @@
 	trash = /obj/item/trash/caviar
 	list_reagents = list("protein" = 5)
 	tastes = list("fish" = 2, "high society" = 1)
+	materials = list(MAT_METAL = 100)

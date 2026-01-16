@@ -87,36 +87,45 @@ SLIME SCANNER
 	var/datatoprint = ""
 	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
+	new_attack_chain = TRUE
 
-/obj/item/reagent_scanner/afterattack__legacy__attackchain(obj/O, mob/user as mob)
-	if(user.stat)
+/obj/item/reagent_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	do_scan(target, user)
+
+/obj/item/reagent_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	do_scan(target, user)
+
+/obj/item/reagent_scanner/proc/do_scan(atom/target, mob/living/user)
+	if(user.stat != CONSCIOUS)
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
-	if(!istype(O))
+
+	if(!target.reagents)
+		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [target]."))
 		return
 
-	if(!isnull(O.reagents))
-		var/dat = ""
-		var/blood_type = ""
-		if(length(O.reagents.reagent_list) > 0)
-			var/one_percent = O.reagents.total_volume / 100
-			for(var/datum/reagent/R in O.reagents.reagent_list)
-				if(R.id != "blood")
-					dat += "<br>[TAB][SPAN_NOTICE("[R] [details ? ":([R.volume / one_percent]%)" : ""]")]"
-				else
-					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB][SPAN_NOTICE("[blood_type ? "[blood_type]" : ""] [R.data["species"]] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]")]"
-		if(dat)
-			to_chat(user, SPAN_NOTICE("Chemicals found: [dat]"))
-			datatoprint = dat
-			scanning = FALSE
+	if(!length(target.reagents.reagent_list))
+		to_chat(user, SPAN_NOTICE("No active chemical agents found in [target]."))
+		return
+
+	var/dat
+	var/blood_type = ""
+
+	var/one_percent = target.reagents.total_volume / 100
+	for(var/datum/reagent/R in target.reagents.reagent_list)
+		if(R.id != "blood")
+			dat += "<br>[TAB][SPAN_NOTICE("[R] [details ? ":([R.volume / one_percent]%)" : ""]")]"
 		else
-			to_chat(user, SPAN_NOTICE("No active chemical agents found in [O]."))
-	else
-		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [O]."))
-	return
+			blood_type = R.data["blood_type"]
+			dat += "<br>[TAB][SPAN_NOTICE("[blood_type ? "[blood_type]" : ""] [R.data["species"]] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]")]"
+
+	to_chat(user, SPAN_NOTICE("Chemicals found: [dat]"))
+	datatoprint = dat
+	scanning = FALSE
 
 /obj/item/reagent_scanner/adv
 	name = "advanced reagent scanner"
@@ -124,27 +133,29 @@ SLIME SCANNER
 	details = TRUE
 	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
-/obj/item/reagent_scanner/proc/print_report()
-	if(!scanning)
-		usr.visible_message(SPAN_WARNING("[src] rattles and prints out a sheet of paper."))
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		sleep(50)
+/obj/item/reagent_scanner/proc/print_report(mob/user)
+	if(!istype(user))
+		return
 
-		var/obj/item/paper/P = new(get_turf(src))
-		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
-		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+	if(scanning)
+		to_chat(user, SPAN_NOTICE("[src] has no logs or is already in use."))
+		return
 
-		if(ismob(loc))
-			var/mob/M = loc
-			M.put_in_hands(P)
-			to_chat(M, SPAN_NOTICE("Report printed. Log cleared."))
-			datatoprint = ""
-			scanning = TRUE
-	else
-		to_chat(usr, SPAN_NOTICE("[src] has no logs or is already in use."))
+	user.visible_message(SPAN_WARNING("[src] rattles and prints out a sheet of paper."))
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	sleep(5 SECONDS)
 
-/obj/item/reagent_scanner/ui_action_click()
-	print_report()
+	var/obj/item/paper/P = new(get_turf(src))
+	P.name = "Reagent Scanner Report: [station_time_timestamp()]"
+	P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+
+	user.put_in_hands(P)
+	to_chat(user, SPAN_NOTICE("Report printed. Log cleared."))
+	datatoprint = ""
+	scanning = TRUE
+
+/obj/item/reagent_scanner/ui_action_click(mob/owner)
+	print_report(owner)
 
 ////////////////////////////////////////
 // MARK:	Slime scanner

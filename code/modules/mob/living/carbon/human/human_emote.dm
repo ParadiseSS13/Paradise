@@ -130,6 +130,14 @@
 	muzzled_noises = list("bothered")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
+/datum/emote/living/carbon/human/clear_throat
+	key = "clear"
+	key_third_person = "clears throat"
+	message = "clears their throat."
+	message_mime = "silently clears their throat!"
+	muzzled_noises = list("clears their throat.")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
 /datum/emote/living/carbon/human/hug
 	key = "hug"
 	key_third_person = "hugs"

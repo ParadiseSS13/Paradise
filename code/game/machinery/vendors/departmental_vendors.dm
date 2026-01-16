@@ -415,6 +415,8 @@
 					/obj/item/smithing_cast/component/trim = 3,
 					/obj/item/smithing_cast/component/knife_blade = 3,
 					/obj/item/smithing_cast/component/knife_handle = 3,
+					/obj/item/smithing_cast/component/rod_core = 3,
+					/obj/item/smithing_cast/component/rod_housing = 3,
 					/obj/item/smithing_cast/misc/egun_parts = 3,
 					/obj/item/storage/bag/smith = 2,
 					/obj/item/storage/box/crewvend = 1)

@@ -303,51 +303,6 @@
 		if(melee_type == MELEE_WEAPON_DSWORD && prob(50))
 			jedi_spin()
 
-/mob/living/simple_animal/hostile/syndicate/Shoot(atom/targeted_atom)
-	if(QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from)
-		return
-	var/turf/startloc = get_turf(targets_from)
-	var/turf/target_turf = get_turf(targeted_atom)
-	if(!target_turf)
-		return
-	if(casingtype)
-		// I know that is ABSOLUTELY terrible way to do that, but.. i don't know how to make it properly. I wasted a lot of time trying to, but only this is working somewhat good enough.
-		var/dx = abs(target_turf.x - startloc.x)
-		var/dy = abs(target_turf.y - startloc.y)
-		if(target_turf.x < startloc.x && target_turf.y > startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = 14
-			else if(dy < dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = -14
-		else if(target_turf.x < startloc.x && target_turf.y < startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = -14
-			else if(dy < dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = 14
-		else if(target_turf.x > startloc.x && target_turf.y > startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = 14
-			else if(dy < dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = -14
-		else if(target_turf.x > startloc.x && target_turf.y < startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = -14
-			else if(dy < dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = 14
-		var/obj/item/ammo_casing/casing = new casingtype(startloc)
-		playsound(src, projectilesound, 100, 1)
-		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
-		target_turf.pixel_x = initial(target_turf.pixel_x)
-		target_turf.pixel_y = initial(target_turf.pixel_y)
-
 /mob/living/simple_animal/hostile/syndicate/LoseTarget()
 	. = ..()
 	if(syndie_flags & SWORD && melee_type != MELEE_WEAPON_NONE)
