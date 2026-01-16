@@ -184,3 +184,9 @@
 
 /datum/test_puppeteer/proc/drop_held_item()
 	puppet.drop_item_to_ground(puppet.get_active_hand())
+
+/datum/test_puppeteer/proc/add_trait(trait)
+	ADD_TRAIT(puppet, trait, TRAIT_GENERIC)
+
+/datum/test_puppeteer/proc/remove_trait(trait)
+	REMOVE_TRAIT(puppet, trait, TRAIT_GENERIC)
