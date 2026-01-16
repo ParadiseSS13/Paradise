@@ -33187,9 +33187,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/department/medical/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
@@ -52878,7 +52875,6 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
-/obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -55028,7 +55024,6 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -55264,14 +55259,11 @@
 /area/station/engineering/control)
 "izR" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "izU" = (
@@ -56876,10 +56868,10 @@
 /area/station/maintenance/asmaint2)
 "joe" = (
 /obj/machinery/door/firedoor,
-/obj/structure/sign/poster/official/random/directional/east,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "jok" = (
@@ -60291,12 +60283,13 @@
 /area/station/maintenance/apmaint)
 "kTh" = (
 /obj/machinery/door/firedoor,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -63551,7 +63544,6 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -66619,18 +66611,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
-"oaY" = (
-/obj/structure/chair/sofa/corp{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/tiles/department/command/side,
-/turf/simulated/floor/plasteel/dark,
-/area/station/medical/surgery/observation)
 "obP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -66898,6 +66878,9 @@
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
@@ -68247,9 +68230,6 @@
 /area/station/engineering/atmos)
 "oLC" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	name = "Operating Theatre 2"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -68261,6 +68241,12 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tiles/department/command,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Operating Theatre 2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Surgery 2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/secondary)
 "oLJ" = (
@@ -75939,17 +75925,23 @@
 /obj/machinery/holosign_switch{
 	id = "surgery2";
 	pixel_x = -24;
-	pixel_y = 4;
 	dir = 4
 	},
 /obj/machinery/light_switch{
 	pixel_x = -24;
 	dir = 4;
 	name = "custom placement";
-	pixel_y = -4
+	pixel_y = -8
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
+	},
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "Surgery 2";
+	pixel_x = -24;
+	pixel_y = 8;
+	req_access = list(45)
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
@@ -76572,13 +76564,13 @@
 /area/station/hallway/secondary/exit)
 "sMJ" = (
 /obj/structure/chair,
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "sMZ" = (
@@ -79649,8 +79641,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uno" = (
-/obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "unu" = (
@@ -84250,6 +84242,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/asmaint)
+"wHJ" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Surgery 2"
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/secondary)
 "wHK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -84429,7 +84427,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wLp" = (
-/obj/machinery/light,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -86016,6 +86013,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
@@ -123439,7 +123439,7 @@ cuh
 csY
 cuh
 hpR
-cDf
+wHJ
 dRz
 oiA
 suJ
@@ -123696,7 +123696,7 @@ crt
 kJW
 cum
 iuF
-cDf
+wHJ
 cxt
 cGw
 cyV
@@ -124210,7 +124210,7 @@ crv
 ctd
 cup
 myq
-cDf
+wHJ
 cFz
 cxP
 cyX
@@ -124466,8 +124466,8 @@ cum
 cuh
 ctc
 cuh
-oaY
-cDf
+hpR
+wHJ
 cxu
 cxL
 cyW

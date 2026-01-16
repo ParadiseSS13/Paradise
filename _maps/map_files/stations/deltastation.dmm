@@ -28678,7 +28678,6 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cjP" = (
