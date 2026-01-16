@@ -236,7 +236,7 @@
 		return
 
 	use_power(1000)
-	visible_message(SPAN_DANGER("You hear a loud squelchy grinding sound."))
+	visible_message(SPAN_DANGER("You hear a loud, squelchy grinding sound."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
