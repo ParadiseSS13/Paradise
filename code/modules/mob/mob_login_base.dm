@@ -60,6 +60,9 @@
 	// For us, (1,1,1) is a space tile. This means roughly 200,000! calls to Move()
 	// You do not want this
 
+	canon_client = client
+	enable_client_mobs_in_contents(client)
+
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	reset_perspective(loc)

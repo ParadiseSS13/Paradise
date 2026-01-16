@@ -33,6 +33,11 @@
 	adjustBruteLoss(damage)
 	return
 
+/mob/living/silicon/robot/attack_ai(mob/user)
+	if(user.a_intent == INTENT_HELP)
+		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
+		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
+
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
 
