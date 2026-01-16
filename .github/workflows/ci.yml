@@ -107,7 +107,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation', 'omegastation']
         byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v6
