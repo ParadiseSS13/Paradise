@@ -62,9 +62,9 @@
 /obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
 	if(!target)
 		return FALSE
-	if(!is_ranged() && !loc.Adjacent(target))
-		return FALSE
 	if(!chassis)
+		return FALSE
+	if(!is_ranged() && !chassis.Adjacent(target))
 		return FALSE
 	if(!equip_ready)
 		return FALSE
