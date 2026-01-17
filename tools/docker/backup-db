@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# backup-db
+# Create a backup dump of the database
+
+set -euo pipefail
+
+BACKUP_FILE="paradise_db.sql"
+DB_CONTAINER="paradise_db"
+MYSQL_DATABASE="paradise_gamedb"
+ROOT_PW_FILE="secret/db-root-password.txt"
+
+# make sure we're not clobbering an existing backup file
+if [ -f "${BACKUP_FILE}" ]; then
+    echo >&2 "Error: Backup file ${BACKUP_FILE} already exists."
+    echo >&2 "Rename or move it before creating a new backup."
+    exit 1
+fi
+
+# make sure the credentials we need to access the database exist
+if [ ! -f "${ROOT_PW_FILE}" ]; then
+    echo >&2 "Error: missing ${ROOT_PW_FILE}. Run tools/docker/init-db first."
+    exit 1
+fi
+
+# make sure the database is running, so we can back it up!
+if ! docker ps --format '{{.Names}}' | grep -qx "${DB_CONTAINER}"; then
+    echo >&2 "Error: container '${DB_CONTAINER}' is not running."
+    echo >&2 "Start it (or recreate it) before backing up."
+    exit 1
+fi
+
+# run mariadb-dump and create a backup dump of our database
+MYSQL_ROOT_PASSWORD=$(<"${ROOT_PW_FILE}")
+docker exec --interactive "${DB_CONTAINER}" \
+    mariadb-dump --user root --password="${MYSQL_ROOT_PASSWORD}" "${MYSQL_DATABASE}" >"${BACKUP_FILE}"
+
+# tell the user what we did
+echo "Wrote backup: ${BACKUP_FILE}"
