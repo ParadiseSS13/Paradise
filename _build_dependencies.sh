@@ -15,5 +15,3 @@ export STABLE_BYOND_MINOR="1666"
 export PYTHON_VERSION="3.13.5"
 # Rust version
 export RUST_VERSION="1.92"
-# RUSTG version
-export RUSTG_VERSION="v3.4.0-P"
