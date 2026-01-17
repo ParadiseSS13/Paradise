@@ -367,6 +367,7 @@
 	icon_state = "healthupgrade"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200)
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef SIMPLE_HEALTH_SCAN

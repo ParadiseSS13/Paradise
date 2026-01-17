@@ -16,6 +16,7 @@
 	amount_per_transfer_from_this = 50
 	volume = 50
 	icon_state = "bluespaceshotglass"
+	materials = list(MAT_METAL = 1000, MAT_BLUESPACE = 500)
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/bluespace/update_name()
 	. = ..()

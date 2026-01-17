@@ -140,6 +140,7 @@
 	inhand_icon_state = "charge_mega"
 	smoke_amount = 5
 	boom_sizes = list(4, 6, 8)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 5)

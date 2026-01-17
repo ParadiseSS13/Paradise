@@ -90,7 +90,7 @@
 	icon_state = "muzzle_secure"
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',

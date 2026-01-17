@@ -30,6 +30,7 @@
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
 	parent_organ = "head"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
@@ -130,6 +131,7 @@
 	name = "Hardened Anti-drop implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
 	origin_tech = "materials=6;programming=5;biotech=5"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam
@@ -239,6 +241,7 @@
 	implant_color = "#DEDE00"
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_BANANIUM = 200)
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -297,6 +300,7 @@
 	implant_color = "#fff782"
 	slot = "brain_wire_interface"
 	origin_tech = "materials=5;programming=4;biotech=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -335,6 +339,7 @@
 	emp_proof = TRUE
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
 	augment_icon = "sandy"
 	always_show_augment = TRUE // A bit too big and bright to hide with synthetic skin.
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
@@ -591,6 +596,7 @@
 	slot = "breathing_tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 250)
 	augment_icon = "breathing_tube"
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/render()
@@ -625,6 +631,7 @@
 	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
 	augment_icon = "nutripump"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
@@ -682,6 +689,7 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_GOLD = 500, MAT_URANIUM = 750)
 	augment_icon = "nutripump_adv"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
@@ -698,6 +706,7 @@
 	icon_state = "reviver_implant"
 	implant_overlay = null
 	origin_tech = "materials=5;programming=5;biotech=6"
+	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
 	slot = "heartdrive"
 	augment_icon = "reviver"
 	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
@@ -898,6 +907,7 @@
 	implant_overlay = null
 	slot = "bluespace_anchor"
 	origin_tech = "bluespace=6;biotech=4"
+	materials = list(MAT_METAL = 10000, MAT_BLUESPACE = 2000)
 
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/insert(mob/living/carbon/M, special = FALSE)
 	..()

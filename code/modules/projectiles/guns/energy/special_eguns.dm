@@ -239,6 +239,7 @@
 	icon_state = "plasmacutter"
 	inhand_icon_state = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_PLASMA = 400)
 	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
@@ -299,6 +300,7 @@
 	inhand_icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 

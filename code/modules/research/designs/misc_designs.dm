@@ -17,7 +17,7 @@
 	id = "diskplantgene"
 	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=200, MAT_GLASS=100)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	build_path = /obj/item/disk/plantgene
 	category = list("Miscellaneous")
 
@@ -98,7 +98,7 @@
 	id = "safetymuzzle"
 	req_tech = list("materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety
 	category = list("Miscellaneous")
 
@@ -108,7 +108,7 @@
 	id = "shockmuzzle"
 	req_tech = list("materials" = 1, "engineering" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
 

@@ -6,6 +6,7 @@
 	icon_state = "toolkit_generic"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 
 	var/list/items_list = list()
 	// Used to store a list of all items inside, for multi-item implants.
@@ -282,6 +283,7 @@
 	desc = "An alien toolset, designed to be installed on subject's arm."
 	icon_state = "toolkit_engineering"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
 	augment_icon = "toolkit_engi"
@@ -299,6 +301,7 @@
 	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
 	icon_state = "toolkit_janitor"
 	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=2"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
 	augment_icon = "toolkit_jani"
@@ -312,6 +315,7 @@
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/laser/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
 	augment_icon = "toolkit_med"
@@ -686,6 +690,7 @@
 	icon_state = "razorwire"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/razorwire)
 	origin_tech = "combat=5;biotech=5;syndicate=2"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
 	stealth_level = 1 // Hidden from health analyzers
 	augment_icon = "razor" // Note: By default the autosurgeons apply the highest level of cover plating.
 	do_extra_render = TRUE

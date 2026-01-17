@@ -1184,7 +1184,7 @@
 	id = "borg_upgrade_reset"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
-	materials = list(MAT_METAL=10000)
+	materials = list(MAT_METAL = 10000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1193,7 +1193,7 @@
 	id = "borg_upgrade_rename"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rename
-	materials = list(MAT_METAL=35000)
+	materials = list(MAT_METAL = 35000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1202,7 +1202,7 @@
 	id = "borg_upgrade_restart"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/restart
-	materials = list(MAT_METAL=60000 , MAT_GLASS=5000)
+	materials = list(MAT_METAL = 60000 , MAT_GLASS = 5000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1212,7 +1212,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/vtec
 	req_tech = list("engineering" = 4, "materials" = 5, "programming" = 4)
-	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_URANIUM= 5000)
+	materials = list(MAT_METAL = 80000 , MAT_GLASS = 6000 , MAT_URANIUM = 5000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1222,7 +1222,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/thrusters
 	req_tech = list("engineering" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL=10000, MAT_PLASMA=5000, MAT_URANIUM = 6000)
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000, MAT_URANIUM = 6000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1232,7 +1232,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/ddrill
 	req_tech = list("engineering" = 5, "materials" = 6)
-	materials = list(MAT_METAL=10000, MAT_DIAMOND=2000)
+	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 2000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1291,7 +1291,7 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 4)
 	build_path = /obj/item/borg/upgrade/syndicate
-	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 15000, MAT_DIAMOND = 10000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1301,7 +1301,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/selfrepair
 	req_tech = list("materials" = 4, "engineering" = 4)
-	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 15000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
@@ -1375,14 +1375,13 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
-// IPC
-
+// MARK: IPC
 /datum/design/ipc_head
 	name = "IPC Head"
 	id = "ipc_head"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/external/head/ipc
-	materials = list(MAT_METAL=15000, MAT_GLASS=5000)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000)
 	construction_time = 35 SECONDS
 	category = list("IPC")
 
@@ -1400,7 +1399,7 @@
 	id = "ipc_cell"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cell
-	materials = list(MAT_METAL=2000, MAT_GLASS=750)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 750)
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
@@ -1409,7 +1408,7 @@
 	id = "ipc_cahrger"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
-	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
@@ -1418,7 +1417,7 @@
 	id = "ipc_optics"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/eyes/optical_sensor
-	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
@@ -1431,8 +1430,7 @@
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
-// IPC Upgrades
-
+// MARK: IPC Upgrades
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
@@ -1505,7 +1503,7 @@
 	id = "mecha_tracking"
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/mecha_tracking
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_METAL = 500)
 	construction_time = 5 SECONDS
 	category = list("Misc")
 

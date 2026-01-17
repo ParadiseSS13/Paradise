@@ -228,6 +228,7 @@
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
+	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500)
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/cyborg/holding
