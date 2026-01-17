@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_METAL = 1000)
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'

@@ -806,6 +806,7 @@
 	name = "vortex feedback arm implant"
 	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
 	origin_tech = "combat=6;magnets=6;biotech=6;engineering=6"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "v1_arm"
 	parent_organ = "l_arm" //Left arm by default
@@ -934,6 +935,7 @@
 	name = "vortex feedback arm implant frame"
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 
 /obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
@@ -947,12 +949,11 @@
 	name = "strong-arm empowered musculature implant"
 	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action. Only has to be installed in one arm."
 	icon_state = "muscle_imp"
-
 	parent_organ = "l_arm" //Left arm by default
 	slot = "l_arm_device"
-
 	actions_types = list()
 	augment_icon = "strongarm"
+	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
 	var/datum/martial_art/muscle_implant/muscle_implant
 
 /obj/item/organ/internal/cyberimp/arm/muscle/Initialize(mapload)
@@ -1047,6 +1048,7 @@
 	name = "'Naginata' mantis blade implants"
 	desc = "A powerful and concealable mantis blade with a monomolecular edge, produced by Cybersun Industries. Cuts through flesh and armor alike with ease."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
 	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
 	icon_state = "syndie_mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
@@ -1060,6 +1062,7 @@
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade design produced by Nanotrasen. While still quite deadly, the loss of the monomolecular blade has drastically reduced its armor penetration capability."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
 	contents = newlist(/obj/item/melee/mantis_blade/nt)
 	icon_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'

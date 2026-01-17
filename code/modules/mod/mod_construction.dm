@@ -1,6 +1,7 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction. You could insert it into a MOD shell."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
+	materials = list(MAT_METAL = 5000)
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
@@ -42,6 +43,7 @@
 	name = "MOD external plating"
 	desc = "External plating used to finish a MOD control unit."
 	icon_state = "standard-plating"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	var/datum/mod_theme/theme = /datum/mod_theme/standard
 
 /obj/item/mod/construction/plating/Initialize(mapload)
@@ -53,33 +55,43 @@
 
 /obj/item/mod/construction/plating/engineering
 	theme = /datum/mod_theme/engineering
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/atmospheric
 	theme = /datum/mod_theme/atmospheric
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_TITANIUM = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/medical
 	theme = /datum/mod_theme/medical
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/security
 	theme = /datum/mod_theme/security
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_BANANIUM = 2000, MAT_PLASMA = 1000)
 
 /// I want to add a way to get the rarer modsuit types, that is limited. A low chance for traders to have plating for it seems interesting
 /obj/item/mod/construction/plating/rescue
 	theme = /datum/mod_theme/rescue
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 1000)
 
 /// Continued from above, none of these are steal objectives, and only the CE or RD one comes pre-installed with modules. You are getting the protection / speed / looks of these hardsuits, but no special modules.
 /obj/item/mod/construction/plating/safeguard
 	theme = /datum/mod_theme/safeguard
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
 
 /// This may be a bad idea. I think this is an interesting idea. And you still need robotics to build it, and traders can charge as much for it as they want. Also with ones like the CE modsuit, it is the flagship mod. That means it is sold a lot.
 /obj/item/mod/construction/plating/advanced
 	theme = /datum/mod_theme/advanced
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 2000, MAT_PLASMA = 2000)
 
 /// Don't think people will want the RD one though, it is as slow as shit. Anyway, here it is. Surely this will not end poorly.
 /obj/item/mod/construction/plating/research
 	theme = /datum/mod_theme/research
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
 
 #define START_STEP "start"
 #define CORE_STEP "core"
@@ -95,6 +107,7 @@
 	name = "MOD shell"
 	desc = "The core housing and support structure for a MOD suit, with numerous plugs and connectors for attaching additional components."
 	icon_state = "mod-construction_start"
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000)
 	var/obj/item/core
 	var/obj/item/helmet
 	var/obj/item/chestplate

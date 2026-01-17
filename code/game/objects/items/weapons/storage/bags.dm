@@ -369,7 +369,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	slot_flags = null
-	materials = list(MAT_METAL=3000)
+	materials = list(MAT_METAL = 3000)
 	can_hold = list(
 		/obj/item/food,
 		/obj/item/reagent_containers/drinks,

@@ -8,6 +8,7 @@
 	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
 	var/shell_type = /obj/effect/mob_spawn/human/alive/golem
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 40000)
 
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"

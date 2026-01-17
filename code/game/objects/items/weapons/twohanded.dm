@@ -694,6 +694,7 @@
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time

@@ -13,6 +13,7 @@
 	display_contents_with_number = TRUE
 	use_to_pickup = TRUE
 	origin_tech = "engineering=1"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
