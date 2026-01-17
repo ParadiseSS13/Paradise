@@ -1,5 +1,4 @@
 /datum/species/skulk
-
 	name = "Skkulakin"
 	name_plural = "Skkulakin"
 	max_age = 70
