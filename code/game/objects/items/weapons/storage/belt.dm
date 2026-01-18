@@ -1097,3 +1097,4 @@
 	name = "classic chef apron"
 	icon_state = "chefbelt_old"
 	sprite_sheets = list()
+
