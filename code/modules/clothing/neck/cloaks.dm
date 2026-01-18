@@ -72,7 +72,10 @@
 	desc = "A rather grisly selection of cured hides and skin, sewn together to form a ragged mantle."
 	icon_state = "mantle-unathi"
 	inhand_icon_state = "old_mantle"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
+		)
 
 /obj/item/clothing/neck/cloak/captain_mantle
 	name = "captain's mantle"
@@ -119,5 +122,6 @@
 		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
 	)

@@ -3,6 +3,7 @@
 	worn_icon = 'icons/mob/clothing/under/cargo.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/cargo.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/cargo.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/cargo.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/cargo.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/cargo.dmi'

@@ -38,6 +38,7 @@
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
@@ -98,6 +99,10 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
+	)
+	skeleton_access = list(
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
 	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
@@ -234,6 +239,10 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS
+	)
+	skeleton_access = list(
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
 	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
