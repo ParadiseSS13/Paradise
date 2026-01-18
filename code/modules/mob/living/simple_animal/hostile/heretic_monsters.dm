@@ -38,6 +38,7 @@
 	name = "\improper Fire Shark"
 	real_name = "Fire Shark"
 	desc = "It is a eldritch dwarf space shark, also known as a fire shark."
+	icon = 'icons/mob/eldritch_mobs_64x64.dmi'
 	icon_state = "fire_shark"
 	icon_living = "fire_shark"
 	pass_flags = PASSTABLE | PASSMOB
