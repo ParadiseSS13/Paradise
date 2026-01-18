@@ -143,6 +143,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
