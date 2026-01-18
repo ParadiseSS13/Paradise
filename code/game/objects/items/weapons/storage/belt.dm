@@ -1078,7 +1078,8 @@
 		"Drask" = 'icons/mob/clothing/species/drask/belt.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/belt.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/belt.dmi'
 	)
 
 /obj/item/storage/belt/chef/black
