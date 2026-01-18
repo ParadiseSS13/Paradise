@@ -4387,16 +4387,16 @@
 	pixel_y = -24;
 	pixel_x = -5
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "QM #2"
-	},
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #1";
 	suffix = "#1"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "QM #1"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "alp" = (
