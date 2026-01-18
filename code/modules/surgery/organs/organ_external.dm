@@ -602,7 +602,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/damage_percentage = (brute_dam + burn_dam) / max_damage
 		if(damage_percentage >= 0.8)
 			var/obj/item/organ/external/groin_limb = owner.bodyparts_by_name["groin"]
-			if(groin_limb && groin_limb.has_synthetic_skin)
+			if(groin_limb?.has_synthetic_skin)
 				groin_limb.remove_synthetic_skin()
 
 	if(limb_name == "groin")
