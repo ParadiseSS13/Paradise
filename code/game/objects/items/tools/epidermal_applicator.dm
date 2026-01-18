@@ -1,6 +1,6 @@
 /obj/item/epidermal_applicator
 	name = "epidermal applicator"
-	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals, used to apply synthetic skin to prosthetic limbs."
+	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals and used to apply synthetic skin to prosthetic limbs."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "skin_applicator"
 	origin_tech = "biotech=5;materials=3;engineering=4"
