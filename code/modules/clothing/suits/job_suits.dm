@@ -177,6 +177,7 @@
 	)
 
 /obj/item/clothing/suit/chef/old
+	name = "classic chef's coat"
 	icon_state = "chef_old"
 	inhand_icon_state = "chef_old"
 	sprite_sheets = list(

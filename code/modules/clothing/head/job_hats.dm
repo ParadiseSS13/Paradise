@@ -28,6 +28,7 @@
 	icon_state = "chef_bw"
 
 /obj/item/clothing/head/chefhat/old
+	name = "classic chef's hat"
 	icon_state = "chef_old"
 	inhand_icon_state = "chefhat_old"
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
