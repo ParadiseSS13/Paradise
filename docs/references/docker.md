@@ -220,10 +220,30 @@ Here we see `/home/tux/.local/share/docker/volumes/paradise_db_data/_data` is
 where the data actually lives on disk. Most of the time we don't really care.
 The data lives in the Docker volume, and that's usually all we need to know.
 
-MariaDB only applies `MYSQL_*` environment variables the first time it
-initializes an empty data directory. If you keep the `paradise_db_data` volume
-and recreate the container, the old passwords remain. If you delete the
-volume, a new database is created and new passwords are generated.
+##### Database Credentials
+
+When the `init-db` script creates a new database volume, it generates secure
+passwords for the newly created database. The MariaDB image includes some magic
+to automatically create a user and set passwords. This is done through some
+`MYSQL_*` environment variables; see the [Documentation for the MySQL Image](https://hub.docker.com/_/mysql#environment-variables).
+
+MariaDB only applies the `MYSQL_*` environment variables the first time it
+initializes an empty data directory. You can create and destroy the database
+container as many times as you like. The passwords live in the database volume.
+
+If you keep the `paradise_db_data` volume and recreate the container, the old
+passwords remain. If you delete the volume, the "data" part of the database is
+deleted. In that case `init-db` will create a new database volume, and generate
+new passwords for this new database.
+
+The `init-db` script will output the passwords to the `secret` directory. The
+files are named:
+
+    secret/db-ss13-password.txt
+    secret/db-root-password.txt
+
+The game server container uses the `ss13` user and password.  
+The utility scripts use the `root` user and password.
 
 #### Paradise Network
 
@@ -527,8 +547,8 @@ First, we follow the directions to create a new database container and volume:
 
     tools/docker/init-db
 
-Next, we realize, this is a *brand new* database, which means it will have a
-*brand new* password. We need to see what that new password is:
+Next, we realize, this is a *brand new* database volume, which means it will
+have a *brand new* password. We need to see what that new password is:
 
     cat secret/db-ss13-password.txt
 
@@ -596,7 +616,85 @@ Teaching the ins and outs of writing and executing SQL queries is beyond the
 scope of this document. However, there are lots of resources online, and AI are
 surprisingly good tutors if you have questions about SQL databases and queries.
 
-## Advanced Image Debugging
+### Custom Database Container Creation
+
+Earlier, we mentioned that the MariaDB image will use some environment
+variables to do special initialization when the database container is first
+created. This is not the only magic trick embedded in that MariaDB image.
+
+Another useful feature is mounting some directory from the repository at
+`/docker-entrypoint-initdb.d` in the container. On the first run, when the
+database container is being created, all the SQL scripts found in that
+directory will be applied to the database in alphabetical order.
+
+The script `tools/docker/init-db` mounts the `SQL` directory from the
+repository into the database container at `/docker-entrypoint-initdb.d`.
+By doing so, the SQL script that creates the Paradise database schema
+`paradise_schema.sql` is automatically applied when the container is first
+created.
+
+This is already incredibly useful, giving you a database with the correct
+tables and columns straight away. However, it can also be used to populate
+your database with extra data. Simply create a SQL script in the `SQL`
+directory before you create the database:
+
+    nano SQL/zzz_001_my_cool_data.sql
+
+And you can put whatever queries you want to be run against the database when
+it is first created. For example, if you'd like to pre-populate your database
+with your favorite characters, give yourself and your friends admin rights, and
+that sort of thing; all of these are possible.
+
+In order to leverage this, you will need to know how to write SQL queries, or
+at least find a SQL script that you want to apply to your database.
+
+## Advanced Game Server Image Building and Debugging
+
+### Customizing Game Server Image Builds
+
+One of the magic powers hidden in the `tools/docker/build` script, is that
+additional arguments are supplied to the `docker build` command:
+
+    # build the docker image
+    docker build "$@" \
+        --build-arg "NODE_VERSION=${NODE_VERSION}" \
+        --build-arg "RUST_VERSION=${RUST_VERSION}" \
+        --build-arg "STABLE_BYOND_MAJOR=${STABLE_BYOND_MAJOR}" \
+        --build-arg "STABLE_BYOND_MINOR=${STABLE_BYOND_MINOR}" \
+        --tag "${SERVER_IMAGE}" \
+        .
+
+That little `"$@"` doesn't look like it's doing much, but if means you can
+supply any extra argument. Let's say you want Docker to skip it's internal
+cache and rebuild everything from absolute scratch:
+
+    tools/docker/build --no-cache
+
+The `--no-cache` flag [disables the build cache](https://docs.docker.com/build/building/best-practices/#use---no-cache-for-clean-builds).
+You feed that flag to the utility script, and the `"$@"` passes it along to the
+`docker build` command that gets executed to build the game server image.
+
+Maybe you don't like how often the NanoMaps are being rendered? You could add
+a flag `--build-arg "SKIP_NANOMAPS=TRUE"`. Now, if you modify the `Dockerfile`
+in the right way:
+
+    # Render NanoMaps
+    FROM base AS nanomap-build
+    ARG SKIP_NANOMAPS
+    COPY _maps _maps
+    COPY code code
+    COPY icons icons
+    COPY tools/github-actions tools/github-actions
+    COPY paradise.dme paradise.dme
+    RUN bash -lc '[ -n "${SKIP_NANOMAPS:-}" ] || tools/github-actions/nanomap-renderer-invoker.sh'
+
+Now you can build and force it to skip rendering the NanoMaps:
+
+    tools/docker/build --build-arg "SKIP_NANOMAPS=TRUE"
+
+Doing things like this are left as an exercise for the Expert Level reader.
+
+### Debugging Game Server Images
 
 If you modify the `Dockerfile` at some point, you'll end up changing what
 things end up in the final `paradise:latest` image. If things are missing, or
@@ -663,7 +761,7 @@ the tin. It will destroy EVERYTHING created by the other scripts.
     # The database volume containing all the data in your database will be deleted.
     # The server image you last built will be deleted.
     # The docker network the database container and server container used to talk to each other will be deleted.
-    # The entire /secret directory, and the database credentials kept there, will be deleted.
+    # The entire secret/ directory, and the database credentials kept there, will be deleted.
     # The backup file for your database will be deleted.
     #
     # NOTE: Destroys all of the things. !! EVERYTHING !! You have been warned!
@@ -687,3 +785,30 @@ one-way trip to the bit bucket.
 If you followed my instructions about the 3-2-1 Backup, you can probably
 re-create it all in a few minutes. If you didn't save yourself a 3-2-1 Backup,
 then you really did destroy everything. 仕方がない。
+
+## Expert Level
+
+You've learned about all the utility scripts that have been provided to you.
+Note that all of the scripts follow the same basic pattern:
+
+- Bind some bespoke names; `paradise_db`, `paradise:latest`, etc.
+- Run some basic sanity checks
+- Run a `docker $COMMAND` command, like `docker build` or `docker run`
+
+The scripts use a common set of names between them, which is why they
+interoperate together so well. That is, you can run `tools/docker/backup-db`
+and later run `tools/docker/restore-db` because both scripts agree on what
+the database container is called, what the backup file is called, etc.
+
+If you want to call your game server image `paradise:20260117`, there is
+nothing to stop you from editing the utilty script, or creating your own!
+
+You will have to learn about bash shell script.  
+You will have to learn about Docker commands.  
+You might need to learn about SQL queries.
+
+However, the utility scripts can guide you. Take a look at what docker command
+they are running under the hood, and what flags and names they give to the
+docker command.
+
+You're a black belt now, so your real training can finally begin.

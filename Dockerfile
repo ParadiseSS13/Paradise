@@ -3,7 +3,7 @@
 
 #
 # Welcome to the Dockerfile for Paradise Station crew, enjoy your stay!
-# For more info, please see: docs/contributing/docker.md
+# For more info, please see: docs/references/docker.md
 #
 
 ARG NODE_VERSION=20

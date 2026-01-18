@@ -11,7 +11,7 @@ set -euo pipefail
 # The database volume containing all the data in your database will be deleted.
 # The server image you last built will be deleted.
 # The docker network the database container and server container used to talk to each other will be deleted.
-# The entire /secret directory, and the database credentials kept there, will be deleted.
+# The entire secret/ directory, and the database credentials kept there, will be deleted.
 # The backup file for your database will be deleted.
 #
 # NOTE: Destroys all of the things. !! EVERYTHING !! You have been warned!

@@ -9,6 +9,12 @@ DB_CONTAINER="paradise_db"
 MYSQL_DATABASE="paradise_gamedb"
 ROOT_PW_FILE="secret/db-root-password.txt"
 
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
 # make sure we're not clobbering an existing backup file
 if [ -f "${BACKUP_FILE}" ]; then
     echo >&2 "Error: Backup file ${BACKUP_FILE} already exists."
