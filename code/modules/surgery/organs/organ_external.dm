@@ -609,7 +609,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/damage_percentage = (brute_dam + burn_dam) / max_damage
 		if(damage_percentage >= 0.8)
 			var/obj/item/organ/external/chest_limb = owner.bodyparts_by_name["chest"]
-			if(chest_limb && chest_limb.has_synthetic_skin)
+			if(chest_limb?.has_synthetic_skin)
 				chest_limb.remove_synthetic_skin()
 
 /obj/item/organ/external/proc/remove_synthetic_skin(silent = FALSE)
