@@ -46,7 +46,6 @@ COPY tgui tgui
 RUN tgui/bin/tgui
 
 # Render NanoMaps
-#FROM base AS nanomap-build
 FROM ubuntu:24.04 AS nanomap-build
 COPY _maps _maps
 COPY code code
