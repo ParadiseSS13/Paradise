@@ -667,6 +667,16 @@
 	sound = 'sound/effects/mob_effects/flutter.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
+/datum/emote/living/carbon/human/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters."
+	message_param = "chitters at %t."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/effects/chitter.ogg"
+	species_type_whitelist_typecache = list(/datum/species/skulk)
+	muzzled_noises = list("frustrated")
+
 /datum/emote/living/carbon/human/quill
 	key = "quill"
 	key_third_person = "quills"
