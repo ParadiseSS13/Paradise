@@ -103,7 +103,7 @@ jobs:
 
   docker_build:
     name: Build (Docker)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Enable Docker Cache
         uses: ScribeMD/docker-cache@0.5.0
