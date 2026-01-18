@@ -176,6 +176,14 @@
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
+/obj/item/clothing/suit/chef/old
+	icon_state = "chef_old"
+	inhand_icon_state = "chef_old"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+
 /obj/item/clothing/suit/chef/red
 	name = "chef's red-piped coat"
 	desc = "A white chef's coat with red piping as an accent."

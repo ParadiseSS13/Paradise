@@ -27,6 +27,11 @@
 	name = "chef's black and white hat"
 	icon_state = "chef_bw"
 
+/obj/item/clothing/head/chefhat/old
+	icon_state = "chef_old"
+	inhand_icon_state = "chefhat_old"
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+
 /obj/item/clothing/head/chefhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)

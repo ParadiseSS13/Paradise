@@ -91,6 +91,10 @@
 	name = "chef's uniform"
 	icon_state = "chef"
 
+/obj/item/clothing/under/rank/civilian/chef_old
+	name = "classic chef's uniform"
+	icon_state = "chef_old"
+
 /obj/item/clothing/under/rank/civilian/clown
 	name = "clown suit"
 	desc = "<i>'HONK!'</i>"
