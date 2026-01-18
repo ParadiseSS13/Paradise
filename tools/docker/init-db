@@ -85,4 +85,4 @@ docker run \
     --name "${DB_CONTAINER}" \
     --network "${NETWORK_NAME}" \
     --volume "${DB_VOLUME}:/var/lib/mysql" \
-    mariadb:12 &
+    mariadb:12

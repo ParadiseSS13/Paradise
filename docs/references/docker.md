@@ -630,7 +630,7 @@ directory will be applied to the database in alphabetical order.
 The script `tools/docker/init-db` mounts the `SQL` directory from the
 repository into the database container at `/docker-entrypoint-initdb.d`.
 By doing so, the SQL script that creates the Paradise database schema
-`paradise_schema.sql` is automatically applied when the container is first
+`paradise_schema.sql` is automatically applied when the volume is first
 created.
 
 This is already incredibly useful, giving you a database with the correct
