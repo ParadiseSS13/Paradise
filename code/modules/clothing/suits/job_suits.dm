@@ -184,7 +184,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
-
 /obj/item/clothing/suit/chef/red
 	name = "chef's red-piped coat"
 	desc = "A white chef's coat with red piping as an accent."
