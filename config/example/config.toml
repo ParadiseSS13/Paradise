@@ -107,7 +107,7 @@ admin_ranks = [
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
-  {ckey = "tristan1333", rank = "Hosting Provider"}
+  #{ckey = "Your Name Here", rank = "Hosting Provider"}
 ]
 # Allow admins to set their own OOC colour
 allow_admin_ooc_colour = true
