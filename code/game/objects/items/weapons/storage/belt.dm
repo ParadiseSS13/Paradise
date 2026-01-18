@@ -1096,5 +1096,5 @@
 /obj/item/storage/belt/chef/old
 	name = "classic chef apron"
 	icon_state = "chefbelt_old"
-	sprite_sheets = list()
+	sprite_sheets = null
 
