@@ -40,7 +40,7 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
-/area/mine/unexplored/omega
+/area/mine/unexplored/omega/ai
 	name = "AI Asteroid"
 
 /area/mine/unexplored/omega/research

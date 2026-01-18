@@ -693,7 +693,6 @@
 "acm" = (
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/stripes/box,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/security/processing)
 "acn" = (
@@ -2607,7 +2606,7 @@
 "ahc" = (
 /obj/item/pickaxe/emergency,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/mine/unexplored/omega/ai)
 "ahe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3051,7 +3050,7 @@
 /area/station/turret_protected/ai)
 "ahZ" = (
 /obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
@@ -3063,12 +3062,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/turf/simulated/floor/greengrid,
-/area/station/turret_protected/ai)
-"aib" = (
-/obj/structure/cable{
-	icon_state = "0-4"
 	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
@@ -3113,11 +3106,11 @@
 /turf/simulated/floor/carpet,
 /area/station/command/teleporter)
 "aih" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
 "aii" = (
@@ -3272,9 +3265,6 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -3282,6 +3272,9 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/box,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "aiK" = (
@@ -12754,9 +12747,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aRA" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "0-2"
-	},
 /obj/machinery/power/smes,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -13240,6 +13230,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/primary/aft)
 "aUi" = (
@@ -13702,17 +13695,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
-"aWc" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno5";
-	name = "Creature Cell 5"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/xenobiology)
 "aWf" = (
 /obj/effect/turf_decal/tiles/department/science/corner,
 /obj/effect/turf_decal/tiles/department/science/corner{
@@ -18964,9 +18946,6 @@
 /area/station/engineering/engine/reactor)
 "cQD" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/window/classic/normal{
 	name = "Containment Pen #2";
 	dir = 4
@@ -32425,7 +32404,6 @@
 	id = "xeno3";
 	name = "Creature Cell 3"
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "noK" = (
@@ -34452,6 +34430,9 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cloning)
+"oUX" = (
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/mine/unexplored/omega/ai)
 "oVB" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -36370,6 +36351,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
+"qAI" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "qAN" = (
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
@@ -37205,9 +37192,6 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno3";
 	name = "Creature Cell 3"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Containment Pen #2";
@@ -38607,6 +38591,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"sBB" = (
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/omega/ai)
 "sBC" = (
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -41669,17 +41656,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/science/server/coldroom)
-"und" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno3";
-	name = "Creature Cell 3"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/xenobiology)
 "unK" = (
 /obj/structure/sign/evac,
 /turf/simulated/wall,
@@ -73357,7 +73333,7 @@ fom
 nLD
 wyD
 nvj
-oVO
+qAI
 nvj
 nvj
 nvj
@@ -85186,7 +85162,7 @@ upr
 qHA
 ifG
 pRY
-und
+noJ
 rvP
 noJ
 vBA
@@ -86471,7 +86447,7 @@ sJp
 qHA
 ifG
 sJp
-aWc
+aXv
 tNE
 aXv
 vBA
@@ -86497,7 +86473,7 @@ aZD
 xwJ
 aae
 rxb
-cJx
+viK
 pWH
 aZD
 rxb
@@ -86754,7 +86730,7 @@ aZD
 xwJ
 aZD
 rxb
-cJx
+viK
 pWH
 aae
 rxb
@@ -87011,7 +86987,7 @@ aae
 xwJ
 aae
 rxb
-cJx
+viK
 pWH
 aZD
 rxb
@@ -87268,7 +87244,7 @@ aZD
 xwJ
 aZD
 rxb
-cJx
+viK
 pWH
 aZD
 rxb
@@ -93938,11 +93914,11 @@ aae
 aZD
 aZD
 aZD
-xEK
-aad
-aad
-aad
-xEK
+oUX
+sBB
+sBB
+sBB
+oUX
 aZD
 aZD
 dyZ
@@ -94193,15 +94169,15 @@ aZD
 aZD
 aae
 aZD
-xEK
-xEK
-aad
-aad
-aad
-aad
-aad
-xEK
-xEK
+oUX
+oUX
+sBB
+sBB
+sBB
+sBB
+sBB
+oUX
+oUX
 aZD
 aae
 aZD
@@ -94446,15 +94422,15 @@ aZD
 aZD
 aZD
 aZD
-xEK
-aad
-aad
-xEK
-aad
-aad
-aad
-aad
-aad
+oUX
+sBB
+sBB
+oUX
+sBB
+sBB
+sBB
+sBB
+sBB
 uXD
 uXD
 uXD
@@ -94701,17 +94677,17 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
+oUX
+oUX
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
 uXD
 aiL
 aky
@@ -94957,17 +94933,17 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
+oUX
+oUX
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
 uXD
 uXD
 aiM
@@ -95214,10 +95190,10 @@ aZD
 aZD
 aZD
 aZD
-xEK
-aad
-aad
-aad
+oUX
+sBB
+sBB
+sBB
 agt
 agt
 agt
@@ -95470,10 +95446,10 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-aad
+oUX
+oUX
+sBB
+sBB
 agt
 agy
 agt
@@ -95727,9 +95703,9 @@ aZD
 aZD
 aZD
 aZD
-xEK
-aad
-aad
+oUX
+sBB
+sBB
 agt
 agt
 agz
@@ -95983,9 +95959,9 @@ bfg
 aae
 aZD
 aZD
-xEK
-xEK
-aad
+oUX
+oUX
+sBB
 agt
 agt
 agu
@@ -96240,9 +96216,9 @@ eCg
 vco
 aZD
 aZD
-xEK
-aad
-aad
+oUX
+sBB
+sBB
 agt
 agt
 agv
@@ -96260,7 +96236,7 @@ akF
 amq
 anh
 uXD
-aad
+sBB
 aae
 aZD
 aZD
@@ -96497,9 +96473,9 @@ bfg
 aae
 aZD
 aZD
-xEK
-aad
-aad
+oUX
+sBB
+sBB
 agt
 agt
 agw
@@ -96517,7 +96493,7 @@ akG
 amr
 ani
 uXD
-aad
+sBB
 aqg
 aae
 aae
@@ -96754,9 +96730,9 @@ aZD
 aZD
 aZD
 aZD
-xEK
-aad
-aad
+oUX
+sBB
+sBB
 agt
 agt
 agx
@@ -96766,7 +96742,7 @@ ahp
 agt
 agt
 ahV
-aib
+ahZ
 aii
 uXD
 ajy
@@ -96774,8 +96750,8 @@ akH
 ams
 anj
 uXD
-aad
-aad
+sBB
+sBB
 aZD
 aZD
 aZD
@@ -97012,8 +96988,8 @@ aZD
 aZD
 aZD
 aZD
-aad
-aad
+sBB
+sBB
 agt
 agt
 agu
@@ -97031,8 +97007,8 @@ akI
 uXD
 uXD
 uXD
-aad
-aad
+sBB
+sBB
 aZD
 aZD
 aZD
@@ -97270,8 +97246,8 @@ aZD
 aZD
 aZD
 aZD
-aad
-aad
+sBB
+sBB
 agt
 agt
 agz
@@ -97287,9 +97263,9 @@ ajz
 akJ
 amv
 uXD
-aad
-aad
-aad
+sBB
+sBB
+sBB
 aZD
 aZD
 aZD
@@ -97528,8 +97504,8 @@ aZD
 aZD
 aZD
 aZD
-aad
-aad
+sBB
+sBB
 agt
 agy
 agt
@@ -97544,9 +97520,9 @@ ajA
 akK
 amw
 uXD
-aad
-aad
-xEK
+sBB
+sBB
+oUX
 aZD
 aZD
 aZD
@@ -97786,8 +97762,8 @@ aZD
 aZD
 aZD
 aZD
-aad
-aad
+sBB
+sBB
 agt
 agt
 agt
@@ -97801,9 +97777,9 @@ ajD
 akL
 amx
 uXD
-aad
-aad
-xEK
+sBB
+sBB
+oUX
 aZD
 aZD
 aZD
@@ -98043,23 +98019,23 @@ aZD
 aZD
 aZD
 aZD
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
 uXD
 uXD
 uXD
 akP
 uXD
 uXD
-aad
-aad
+sBB
+sBB
 aZD
 aZD
 aZD
@@ -98301,22 +98277,22 @@ aZD
 aZD
 aZD
 aZD
-xEK
+oUX
 ahc
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
-aad
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
+sBB
 alw
-aad
-aad
-aad
-xEK
+sBB
+sBB
+sBB
+oUX
 aZD
 aZD
 aZD
@@ -98559,18 +98535,18 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-xEK
-aad
-aad
-aad
-aad
-aad
-xEK
-xEK
-aad
+oUX
+oUX
+sBB
+oUX
+sBB
+sBB
+sBB
+sBB
+sBB
+oUX
+oUX
+sBB
 aZD
 aZD
 aZD
@@ -98819,13 +98795,13 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-aad
-aad
-xEK
-xEK
+oUX
+oUX
+sBB
+sBB
+sBB
+oUX
+oUX
 aZD
 aZD
 aZD
@@ -99077,10 +99053,10 @@ aZD
 aZD
 aZD
 aZD
-xEK
-xEK
-aad
-aad
+oUX
+oUX
+sBB
+sBB
 aZD
 aZD
 aZD
@@ -99336,7 +99312,7 @@ aZD
 aZD
 aZD
 aZD
-aad
+sBB
 aZD
 aZD
 aZD
