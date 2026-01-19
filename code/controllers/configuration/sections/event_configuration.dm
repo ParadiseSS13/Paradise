@@ -25,7 +25,7 @@
 		EVENT_LEVEL_DISASTER = 10 MINUTES
 	)
 	/// Expected time of a round in deciseconds
-	var/expected_round_length = 90 MINUTES // This macro is equivilent to 72,000 deciseconds
+	var/expected_round_length = 90 MINUTES // This macro is equivilent to 54,000 deciseconds
 
 	/// the population needed to allow blobs to split consciousness
 	var/blob_highpop_trigger = 60
