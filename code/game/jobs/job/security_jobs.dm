@@ -105,7 +105,7 @@
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
-	alt_titles = list("Bailiff", "Constable")
+	alt_titles = list("Bailiff", "Constable", "Armorer")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)

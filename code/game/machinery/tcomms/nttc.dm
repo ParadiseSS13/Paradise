@@ -138,6 +138,7 @@
 		"Warden" = "secradio",
 		"Bailiff" = "secradio",
 		"Constable" = "secradio",
+		"Armorer" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
 		"Supply Director" = "supradio",
