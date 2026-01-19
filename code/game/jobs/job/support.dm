@@ -32,7 +32,7 @@
 		ACCESS_SMITH
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Supply Director", "Chief Logistics Officer", "Requisitions Supervisor")
+	alt_titles = list("Supply Director", "Chief Logistics Officer", "Requisitions Foreman")
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
@@ -431,7 +431,7 @@
 		ACCESS_BAR,
 		ACCESS_MINERAL_STOREROOM,
 	)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Hydroponicist", "Botanical Researcher", "Farmer", "Gardener")
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = MEDIUM_DIFFICULTY

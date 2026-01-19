@@ -32,7 +32,7 @@
 		ACCESS_WEAPONS
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Engineering Director", "Senior Engineer", "Chief Foreman")
+	alt_titles = list("Engineering Director", "Senior Engineer", "Engine Foreman")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)

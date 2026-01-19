@@ -11,7 +11,7 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	department_account_access = TRUE
 	access = list() 	//See get_access()
-	alt_titles = list("Station Commander", "Admiral", "Commanding Officer")
+	alt_titles = list("Station Commander", "Head of Command", "Commanding Officer")
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_COMMAND = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
