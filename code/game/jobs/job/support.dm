@@ -476,6 +476,7 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_THEATRE
 	)
+	alt_titles = list("Jester", "Entertainer", "Comedian")
 	outfit = /datum/outfit/job/clown
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -575,6 +576,7 @@
 		ACCESS_MIME,
 		ACCESS_THEATRE
 	)
+	alt_titles = list("Pantomime", "Performer", "Performance Artist")
 	outfit = /datum/outfit/job/mime
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY

@@ -186,6 +186,9 @@
 		"Kannushi" = "srvradio",
 		"Chef" = "srvradio",
 		"Clown" = "srvradio",
+		"Jester" = "srvradio",
+		"Entertainer" = "srvradio",
+		"Comedian" = "srvradio",
 		"Cook" = "srvradio",
 		"Culinary Artist" = "srvradio",
 		"Custodial Technician" = "srvradio",
@@ -199,6 +202,9 @@
 		"Antiquarian" = "srvradio",
 		"Curator" = "srvradio",
 		"Mime" = "srvradio",
+		"Pantomime" = "srvradio",
+		"Performer" = "srvradio",
+		"Performance Artist" = "srvradio",
 		// Procedure
 		"Nanotrasen Career Trainer" = "proradio",
 	)
