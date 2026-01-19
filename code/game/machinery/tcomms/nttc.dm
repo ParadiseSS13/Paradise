@@ -135,9 +135,10 @@
 		"Security Officer" = "secradio",
 		"Ranger" = "secradio",
 		"Deputy" = "secradio",
+		"Constable" = "secradio",
 		"Warden" = "secradio",
 		"Bailiff" = "secradio",
-		"Constable" = "secradio",
+		"Correctional Officer" = "secradio",
 		"Armorer" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
