@@ -401,7 +401,6 @@
 
 /obj/item/sample/swab
 	name = "sample collection kit"
-	desc = ABSTRACT_TYPE_DESC
 	icon_state = "swab_used"
 
 /obj/item/sample/swab/proc/set_used(sample_str, atom/source, data)
