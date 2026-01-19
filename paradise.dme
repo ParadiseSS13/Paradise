@@ -2100,7 +2100,6 @@
 #include "code\modules\detective_work\forensic_machines.dm"
 #include "code\modules\detective_work\scanner.dm"
 #include "code\modules\detective_work\scene_cards.dm"
-#include "code\modules\detective_work\swabs.dm"
 #include "code\modules\economy\Accounts_DB.dm"
 #include "code\modules\economy\economy_admin.dm"
 #include "code\modules\economy\economy_helpers.dm"

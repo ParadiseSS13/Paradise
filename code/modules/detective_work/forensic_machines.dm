@@ -7,11 +7,14 @@
 	anchored = TRUE
 	density = TRUE
 
-	var/obj/item/forensics/swab = null
+	var/obj/item/sample/swab/swab = null
 	/// is currently scanning
 	var/scanning = FALSE
 	/// Global number of reports ran from that machine type
 	var/report_num = FALSE
+	var/list/allowed_types = list(
+		/obj/item/sample/swab/dna
+	)
 
 /obj/machinery/dnaforensics/Initialize(mapload)
 	. = ..()
@@ -29,7 +32,8 @@
 	. += SPAN_NOTICE("<b>Click with an empty hand</b> to analyze the current sample.")
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/forensics))
+	if(!is_type_in_list(used, allowed_types))
+		to_chat(user, SPAN_WARNING("This is not a compatible sample!"))
 		return ..()
 
 	if(panel_open)
@@ -40,26 +44,24 @@
 		to_chat(user, SPAN_WARNING("There is already a sample inside the scanner."))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/forensics/swab))
-		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
-		user.unequip(used)
-		used.forceMove(src)
-		swab = used
-		update_icon()
-	else
-		to_chat(user, SPAN_NOTICE("This is not a compatible sample!"))
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
+	user.unequip(used)
+	used.forceMove(src)
+	swab = used
+	update_icon()
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
-
 	if(!swab)
 		to_chat(user, SPAN_WARNING("The scanner is empty!"))
 		return
+
 	scanning = TRUE
 	update_appearance(UPDATE_ICON)
 	to_chat(user, SPAN_NOTICE("The scanner begins to hum as you analyze [swab]."))
+	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
 
-	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
+	if(!do_after(user, 2.5 SECONDS, target = src) || QDELETED(swab))
 		to_chat(user, SPAN_NOTICE("You have stopped analyzing [swab || "the swab"]."))
 		scanning = FALSE
 		update_appearance(UPDATE_ICON)
@@ -70,18 +72,8 @@
 	report.stamped = list(/obj/item/stamp)
 	report_num++
 
-	var/obj/item/forensics/swab/bloodswab = swab
-	report.name = ("DNA scanner report no. [++report_num]: [bloodswab.name]")
-	// dna data itself
-	var/data = "No analysis data available."
-	if(!isnull(bloodswab.dna))
-		data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
-		for(var/blood in bloodswab.dna)
-			data += SPAN_NOTICE("Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br>")
-	else
-		data += "\nNo DNA found.<br>"
-	report.info = "<b>Report number: [report_num]</b><br>"
-	report.info += "<b>\nAnalyzed object:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
+	swab.report(report, src, report_num)
+
 	report.forceMove(get_turf(src))
 	report.update_icon()
 	scanning = FALSE
@@ -135,14 +127,18 @@
 // Microscope code itself
 /obj/machinery/microscope
 	name = "microscope"
-	desc = "A microscope capable of magnifying images up to 3000 times."
+	desc = "A microscope capable of magnifying images up to 3000 times. Used in analyzing fibers, fingerprints, and gunpower residue samples."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "microscope"
 	anchored = TRUE
 	density = TRUE
-	var/obj/item/sample = null
+	var/obj/item/sample/sample
 	var/report_num = 0
-	var/fingerprint_complete = 6
+	var/list/allowed_types = list(
+		/obj/item/sample/fibers,
+		/obj/item/sample/print,
+		/obj/item/sample/swab/gunpowder
+	)
 
 /obj/machinery/microscope/Initialize(mapload)
 	. = ..()
@@ -159,7 +155,7 @@
 	. += SPAN_NOTICE("<b>Click with an empty hand</b> to study the current sample.")
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/forensics/swab) && !istype(used, /obj/item/sample))
+	if(!is_type_in_list(used, allowed_types))
 		return ..()
 
 	if(panel_open)
@@ -170,13 +166,12 @@
 		to_chat(user, SPAN_WARNING("There is already a sample in the microscope!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/forensics/swab)|| istype(used, /obj/item/sample/fibers) || istype(used, /obj/item/sample/print))
-		add_fingerprint(user)
-		to_chat(user, SPAN_NOTICE("You insert [used] into the microscope."))
-		user.unequip(used)
-		used.forceMove(src)
-		sample = used
-		update_appearance(UPDATE_ICON_STATE)
+	add_fingerprint(user)
+	to_chat(user, SPAN_NOTICE("You insert [used] into the microscope."))
+	user.unequip(used)
+	used.forceMove(src)
+	sample = used
+	update_appearance(UPDATE_ICON_STATE)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/microscope/attack_hand(mob/user)
@@ -188,7 +183,8 @@
 	add_fingerprint(user)
 	to_chat(user, SPAN_NOTICE("The microscope buzzes as you study [sample]."))
 
-	if(!do_after(user, 2.5 SECONDS, src) || !sample)
+	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+	if(!do_after(user, 2.5 SECONDS, target = src) || !sample)
 		to_chat(user, SPAN_NOTICE("You stop studying [sample]."))
 		return
 
@@ -197,51 +193,15 @@
 	report.stamped = list(/obj/item/stamp)
 	report_num++
 
-	if(istype(sample, /obj/item/forensics/swab))
-		var/obj/item/forensics/swab/swab = sample
-
-		report.name = ("Forensic report no. [++report_num]: [swab.name]")
-		report.info = "<b>Report number: [report_num]</b><br>"
-		report.info += "<b>Analyzed object:</b><br>[swab.name]<br><br>"
-
-		if(swab.gsr)
-			report.info += "Gunpowder residue found. Caliber: [swab.gsr]."
-		else
-			report.info += "Powder residue from the bullet was not found."
-
-	else if(istype(sample, /obj/item/sample/fibers))
-		var/obj/item/sample/fibers/fibers = sample
-		report.name = ("Report on fiber sample no. [++report_num]: [fibers.name]")
-		report.info = "<b>Report number: [report_num]</b><br>"
-		report.info += "<b>Analyzed object:</b><br>[fibers.name]<br><br>"
-		if(fibers.evidence)
-			report.info += "Molecular analysis on the provided sample determined the presence of the following unique fiber strands:<br><br>"
-			for(var/fiber in fibers.evidence)
-				report.info += SPAN_NOTICE("Most Likely Match: [fiber]<br><br>")
-		else
-			report.info += "No fibers found."
-	else if(istype(sample, /obj/item/sample/print))
-		report.name = ("Fingerprint Analysis Report No. [report_num]: [sample.name]")
-		report.info = "<b>Report number: [report_num]</b><br>"
-		report.info += "<b>Fingerprint Analysis Report No. [report_num]</b>: [sample.name]<br>"
-		var/obj/item/sample/print/card = sample
-		if(card.evidence && card.evidence.len)
-			report.info += "<br>Surface analysis identified the following unique fingerprints:<br><br>"
-			for(var/prints in card.evidence)
-				report.info += SPAN_NOTICE("Fingerprint: ")
-				if(!is_complete_print(prints))
-					report.info += "INCOMPLETE PRINT"
-				else
-					report.info += "[prints]"
-				report.info += "<br>"
-		else
-			report.info += "No analysis information available."
+	sample.report(report, src, report_num)
 
 	if(report)
 		report.update_icon()
 		if(report.info)
-			to_chat(user, report.info)
+			to_chat(user, chat_box_notice(report.info))
 	return
+
+
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
@@ -254,9 +214,6 @@
 	remover.put_in_hands(sample)
 	sample = null
 	update_appearance(UPDATE_ICON_STATE)
-
-/obj/machinery/microscope/proc/is_complete_print(print)
-	return stringpercent(print) <= fingerprint_complete
 
 /obj/machinery/microscope/AltClick()
 	remove_sample(usr)
