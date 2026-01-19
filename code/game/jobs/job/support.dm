@@ -678,7 +678,7 @@
 		ACCESS_LIBRARY,
 		ACCESS_MAINT_TUNNELS
 	)
-	alt_titles = list("Journalist", "Reporter", "News Anchor")
+	alt_titles = list("Journalist", "Reporter", "News Anchor", "Antiquarian", "Curator")
 	outfit = /datum/outfit/job/librarian
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
