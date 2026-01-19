@@ -75,16 +75,10 @@
 	if(!length(contents))
 		return
 	var/obj/item/I = contents[1]
-	// var/xx = I.pixel_x	//save the offset of the item
-	// var/yy = I.pixel_y
-	// I.pixel_x = 0		//then remove it so it'll stay within the evidence bag
-	// I.pixel_y = 0
 	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	//take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
 	img.plane = FLOAT_PLANE
 	img.pixel_x = 0
 	img.pixel_y = 0
-	// I.pixel_x = xx		//and then return it
-	// I.pixel_y = yy
 	. += img
 	. += "evidence"	//should look nicer for transparent stuff. not really that important, but hey.
 
@@ -177,7 +171,7 @@
 	var/fullprint = H.get_full_print()
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
-	update_icon(UPDATE_ICON_STATE|UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /obj/item/sample/print/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target))
@@ -211,7 +205,7 @@
 	evidence[fullprint] = fullprint
 	transfer_evidence(src)
 	name = "[initial(name)] ([H])"
-	update_icon(UPDATE_ICON_STATE|UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/sample/print/transfer_evidence(atom/supplied)
@@ -322,7 +316,7 @@
 	if(!istype(printcard))
 		return
 	printcard.pulled = TRUE
-	printcard.update_icon(UPDATE_ICON_STATE)
+	printcard.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /obj/item/forensics/swab
 	name = "sample collection kit"

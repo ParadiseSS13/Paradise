@@ -33,7 +33,8 @@
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!is_type_in_list(used, allowed_types))
-		to_chat(user, SPAN_WARNING("This is not a compatible sample!"))
+		if(istype(used, /obj/item/sample))
+			to_chat(user, SPAN_WARNING("[used] isn't compatible with [src]"))
 		return ..()
 
 	if(panel_open)
@@ -156,6 +157,8 @@
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!is_type_in_list(used, allowed_types))
+		if(istype(used, /obj/item/sample))
+			to_chat(user, SPAN_WARNING("[used] isn't compatible with [src]"))
 		return ..()
 
 	if(panel_open)
