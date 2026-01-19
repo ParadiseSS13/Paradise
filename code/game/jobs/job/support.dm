@@ -87,7 +87,7 @@
 		ACCESS_MINING_STATION,
 		ACCESS_SMITH,
 	)
-	alt_titles = list("Mail Carrier", "Courier")
+	alt_titles = list("Mail Carrier", "Courier", "Logistics Technician", "Requistions Specialist")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY

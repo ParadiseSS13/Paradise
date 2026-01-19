@@ -246,6 +246,7 @@
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
+	alt_titles = list("Deputy", "Sheriff")
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)
