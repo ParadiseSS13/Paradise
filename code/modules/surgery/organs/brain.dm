@@ -122,6 +122,11 @@
 	if(owner && vital)
 		owner.setBrainLoss(120)
 
+/obj/item/organ/internal/brain/rejuvenate()
+	. = ..()
+	if(brainmob)
+		brainmob.rejuvenate()
+
 /obj/item/organ/internal/brain/on_life()
 	if(decoy_brain)
 		return

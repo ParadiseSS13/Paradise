@@ -362,6 +362,10 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/hat/kittyears/mouse
+	display_name = "mouse ears"
+	path = /obj/item/clothing/head/kitty/mouse
+
 /datum/gear/hat/chaplain
 	main_typepath = /datum/gear/hat/chaplain
 	allowed_roles = list("Chaplain")

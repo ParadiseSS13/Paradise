@@ -193,6 +193,10 @@
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
 
+/datum/gear/fake_beard
+	display_name = "Fake beard"
+	path = /obj/item/clothing/mask/fake_beard
+
 /datum/gear/pai
 	display_name = "Personal Artificial Intelligence"
 	path = /obj/item/paicard
@@ -201,6 +205,10 @@
 /datum/gear/wizard_staff
 	display_name = "Wizard's staff"
 	path = /obj/item/staff
+
+/datum/gear/photo_album
+	display_name = "Photo album"
+	path = /obj/item/storage/photo_album
 
 //////////////////////
 //		Mugs		//

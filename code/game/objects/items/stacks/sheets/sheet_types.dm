@@ -13,6 +13,7 @@
  * Bones
  * Plastic
  * Saltpetre Crystal
+ * Silk
  */
 
 //////////////////////////////
@@ -88,6 +89,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
 		new /datum/stack_recipe("storage shelf", /obj/structure/shelf, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("spice rack", /obj/structure/shelf/spice_rack, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("metal bookcase", /obj/structure/bookcase/metal, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("gun rack", /obj/structure/gunrack, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -292,6 +294,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	icon_state = "sheet-wood"
 	gender = PLURAL
 	singular_name = "wood plank"
+	materials = list(MAT_WOOD = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -714,6 +717,11 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 //////////////////////////////
 // MARK: BONES
 //////////////////////////////
+
+GLOBAL_LIST_INIT(bone_recipes, list (
+	new /datum/stack_recipe("bone rods", /obj/item/stack/bone_rods, 1, time = 2 SECONDS),
+	))
+
 /obj/item/stack/sheet/bone
 	name = "bones"
 	desc = "Someone's been drinking their milk."
@@ -722,6 +730,10 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	singular_name = "bone"
 	force = 7
 	origin_tech = "materials=2;biotech=2"
+
+/obj/item/stack/sheet/bone/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.bone_recipes
 
 //////////////////////////////
 // MARK: PLASTIC
@@ -814,3 +826,44 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	icon_state = "sheet-saltpetre"
 	singular_name = "saltpetre crystal"
 	origin_tech = "materials=1;biotech=1"
+
+//////////////////////////////
+// MARK: Silk
+//////////////////////////////
+GLOBAL_LIST_INIT(silk_recipes, list(
+	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1, 3, 6),
+	new /datum/stack_recipe("collective jumpsuit", /obj/item/clothing/under/skulk/skulkcasual, 3, on_floor = TRUE)
+))
+
+/obj/item/stack/sheet/silk
+	name = "silk spool"
+	desc = "A well-woven sheet of skkulakin silk. Looks like it can be used for crafting."
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-silk"
+	singular_name = "silk spool"
+	force = 0
+	throwforce = 0
+	origin_tech = "materials=1;biotech=1"
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/silk
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+
+/obj/item/stack/sheet/silk/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.silk_recipes
+
+/obj/item/stack/sheet/silk/two
+	amount = 2
+
+/obj/item/stack/sheet/silk/three
+	amount = 3
+
+/obj/item/stack/sheet/silk/update_icon_state()
+	if(amount == 1)
+		icon_state = "sheet-silk"
+	else if(amount == 2)
+		icon_state = "sheet-silk_2"
+	else
+		icon_state = "sheet-silk_3"
+

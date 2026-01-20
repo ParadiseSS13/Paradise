@@ -79,6 +79,7 @@
 					<BR>
 					<b>Reinforce Station</b><BR>
 					<A href='byond://?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
+					<A href='byond://?src=[UID()];secretsfun=nuclear_overload'>Disable Fission Reactor Safeties</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 

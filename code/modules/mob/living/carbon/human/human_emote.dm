@@ -130,6 +130,14 @@
 	muzzled_noises = list("bothered")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
+/datum/emote/living/carbon/human/clear_throat
+	key = "clear"
+	key_third_person = "clears throat"
+	message = "clears their throat."
+	message_mime = "silently clears their throat!"
+	muzzled_noises = list("clears their throat.")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
 /datum/emote/living/carbon/human/hug
 	key = "hug"
 	key_third_person = "hugs"
@@ -658,6 +666,16 @@
 	message = "flutters their wings."
 	sound = 'sound/effects/mob_effects/flutter.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters."
+	message_param = "chitters at %t."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/effects/chitter.ogg"
+	species_type_whitelist_typecache = list(/datum/species/skulk)
+	muzzled_noises = list("frustrated")
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"
