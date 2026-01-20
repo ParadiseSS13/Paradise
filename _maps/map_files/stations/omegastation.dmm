@@ -6679,10 +6679,6 @@
 "asJ" = (
 /obj/structure/sign/poster/contraband/clown/directional/west,
 /obj/structure/closet/secure_closet/clown,
-/obj/item/food/pie,
-/obj/item/stamp/clown,
-/obj/item/clothing/head/stalhelm,
-/obj/item/clothing/suit/soldiercoat,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/theatre)
 "asK" = (
@@ -7202,7 +7198,6 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/mime,
-/obj/item/reagent_containers/spray/waterflower,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/theatre)
 "auG" = (
@@ -34783,7 +34778,6 @@
 	dir = 8
 	},
 /obj/machinery/alarm/directional/east,
-/obj/structure/statue/bananium/clown,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "pmQ" = (
