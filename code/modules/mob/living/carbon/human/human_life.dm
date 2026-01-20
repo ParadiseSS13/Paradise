@@ -983,9 +983,15 @@
 	adjustOxyLoss(20)
 
 /mob/living/carbon/human/proc/handle_kidneys()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
 	var/obj/item/organ/kidneys = get_int_organ(/obj/item/organ/internal/kidneys)
 	if(isslimeperson(src))
 		kidneys = get_int_organ(/obj/item/organ/internal/brain)
+	if(isdrask(src))
+		// Drask have their liver fulfill the same function as kidneys
+		kidneys = get_int_organ(/obj/item/organ/internal/liver)
 
 	var/damage_percentage = 0
 	if(kidneys && !(kidneys.status & ORGAN_DEAD)) // No kidneys = full damage

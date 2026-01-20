@@ -216,106 +216,6 @@ USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local ai
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-USER_VERB(admin_robotize, R_SPAWN, "Make Robot", "Turn the target into a borg.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(client)] has robotized [M.key].")
-		spawn(10)
-			M:Robotize()
-
-	else
-		alert(client, "Invalid mob")
-
-USER_VERB(admin_animalize, R_SPAWN, "Make Simple Animal", "Turn the target into a simple animal.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-
-	if(!M)
-		alert(client, "That mob doesn't seem to exist, close the panel and try again.")
-		return
-
-	if(isnewplayer(M))
-		alert(client, "The mob must not be a new_player.")
-		return
-
-	log_admin("[key_name(client)] has animalized [M.key].")
-	spawn(10)
-		M.Animalize()
-
-USER_VERB(admin_make_pai, R_SPAWN, "Make pAI", "Specify a location to spawn a pAI device, then specify a key to play that pAI", VERB_CATEGORY_EVENT, turf/T in GLOB.mob_list)
-	var/list/available = list()
-	for(var/mob/C in GLOB.mob_list)
-		if(C.key)
-			available.Add(C)
-	var/mob/choice = input(client, "Choose a player to play the pAI", "Spawn pAI") in available
-	if(!choice)
-		return 0
-	if(!isobserver(choice))
-		var/confirm = input(client, "[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
-		if(confirm != "Yes")
-			return 0
-	var/obj/item/paicard/card = new(T)
-	var/mob/living/silicon/pai/pai = new(card)
-	var/raw_name = clean_input("Enter your pAI name:", "pAI Name", "Personal AI", choice, user = client)
-	var/new_name = reject_bad_name(raw_name, 1)
-	if(new_name)
-		pai.name = new_name
-		pai.real_name = new_name
-	else
-		to_chat(client, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-	pai.real_name = pai.name
-	pai.key = choice.key
-	card.setPersonality(pai)
-	for(var/datum/pai_save/candidate in GLOB.paiController.pai_candidates)
-		if(candidate.owner.ckey == choice.ckey)
-			GLOB.paiController.pai_candidates.Remove(candidate)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB(admin_alienize, R_SPAWN, "Make Alien", "Turn the target mob into an alien.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(client)] has alienized [M.key].")
-		spawn(10)
-			M:Alienize()
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(client)] made [key_name(M)] into an alien.")
-		message_admins(SPAN_NOTICE("[key_name_admin(client)] made [key_name(M)] into an alien."), 1)
-	else
-		alert(client, "Invalid mob")
-
-USER_VERB(admin_slimezie, R_SPAWN, "Make slime", "Turn the target mob into a slime.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(client)] has slimeized [M.key].")
-		spawn(10)
-			M:slimeize()
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(client)] made [key_name(M)] into a slime.")
-		message_admins(SPAN_NOTICE("[key_name_admin(client)] made [key_name(M)] into a slime."), 1)
-	else
-		alert(client, "Invalid mob")
-
-USER_VERB(admin_super, R_SPAWN, "Make Superhero", "Turn the target mob into a superhero.", VERB_CATEGORY_EVENT, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-	if(ishuman(M))
-		var/type = input(client, "Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
-		var/datum/superheroes/S = GLOB.all_superheroes[type]
-		if(S)
-			S.create(M)
-		log_admin("[key_name(client)] has turned [M.key] into a Superhero.")
-		message_admins(SPAN_NOTICE("[key_name_admin(client)] made [key_name(M)] into a Superhero."), 1)
-	else
-		alert(client, "Invalid mob")
-
 USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularities and tesla balls.", VERB_CATEGORY_DEBUG)
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
 	var/confirm = alert(client, "This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
@@ -336,35 +236,6 @@ USER_VERB(make_powernets, R_DEBUG, "Make Powernets", "Remake all powernets.", VE
 	log_admin("[key_name(client)] has remade the powernet. makepowernets() called.")
 	message_admins("[key_name_admin(client)] has remade the powernets. makepowernets() called.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB_VISIBILITY(grant_full_access, VERB_VISIBILITY_FLAG_MOREDEBUG)
-USER_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		alert(client, "Wait until the game starts")
-		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.wear_id)
-			var/obj/item/card/id/id = H.wear_id
-			if(istype(H.wear_id, /obj/item/pda))
-				var/obj/item/pda/pda = H.wear_id
-				id = pda.id
-			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-		else
-			var/obj/item/card/id/id = new/obj/item/card/id(M)
-			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-			id.registered_name = H.real_name
-			id.assignment = "Captain"
-			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
-			H.update_inv_wear_id()
-	else
-		alert(client, "Invalid mob")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(client)] has granted [M.key] full access.")
-	message_admins(SPAN_NOTICE("[key_name_admin(client)] has granted [M.key] full access."), 1)
 
 USER_VERB_VISIBILITY(assume_direct_control, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(assume_direct_control, R_ADMIN|R_DEBUG, "Assume direct control", "Direct intervention", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
@@ -492,37 +363,6 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 	to_chat(world, "<b>AREAS WITHOUT ANY CAMERAS:</b>")
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
-
-USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
-	if(!ishuman(M) && !isobserver(M))
-		alert(client, "Invalid mob")
-		return
-
-	var/dresscode = client.robust_dress_shop()
-
-	if(!dresscode)
-		return
-
-	var/delete_pocket
-	var/mob/living/carbon/human/H
-	if(isobserver(M))
-		H = M.change_mob_type(/mob/living/carbon/human, null, null, TRUE)
-	else
-		H = M
-		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert(client, "Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
-				delete_pocket = TRUE
-
-	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
-		qdel(I)
-	if(dresscode != "Naked")
-		H.equipOutfit(dresscode)
-
-	H.regenerate_icons()
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(client)] changed the equipment of [key_name(M)] to [dresscode].")
-	message_admins(SPAN_NOTICE("[key_name_admin(client)] changed the equipment of [key_name_admin(M)] to [dresscode]."), 1)
 
 /client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
@@ -787,3 +627,93 @@ USER_VERB(view_bug_reports, R_DEBUG|R_VIEWRUNTIMES|R_ADMIN, "View Bug Reports", 
 		return
 	form.ui_interact(client.mob)
 
+USER_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel", VERB_CATEGORY_DEBUG)
+	client.stat_panel.send_message("create_debug")
+
+USER_VERB(profile_code, R_DEBUG|R_VIEWRUNTIMES, "Profile Code", "View code profiler", VERB_CATEGORY_DEBUG)
+	winset(client, null, "command=.profile")
+
+USER_VERB(raw_gas_scan, R_DEBUG|R_VIEWRUNTIMES, "Raw Gas Scan", "Scans your current tile, including LINDA data not normally displayed.", VERB_CATEGORY_DEBUG)
+	atmos_scan(client.mob, get_turf(client.mob), silent = TRUE, milla_turf_details = TRUE)
+
+USER_VERB(find_interesting_turf, R_DEBUG|R_VIEWRUNTIMES, "Interesting Turf", \
+		"Teleports you to a random Interesting Turf from MILLA", VERB_CATEGORY_DEBUG)
+	if(!isobserver(client.mob))
+		to_chat(client.mob, SPAN_WARNING("You must be an observer to do this!"))
+		return
+
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
+		to_chat(client, SPAN_NOTICE("There are no interesting turfs. How interesting!"))
+		return
+
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
+	var/mob/dead/observer/O = client.mob
+	admin_forcemove(O, T)
+	O.manual_follow(T)
+
+USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Interesting Turfs", "Shows all the Interesting Turfs from MILLA", VERB_CATEGORY_DEBUG)
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		if(tgui_alert(client, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
+			is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope")) != "I am sure")
+			return
+	else
+		if(tgui_alert(client, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
+			return
+
+	var/display_turfs_overlay = FALSE
+	if(tgui_alert(client, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) == "Yes")
+		display_turfs_overlay = TRUE
+
+	message_admins("[key_name_admin(client)] is visualizing interesting atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+
+	var/list/coords = get_interesting_atmos_tiles()
+	if(!length(coords))
+		to_chat(client, SPAN_NOTICE("There are no interesting turfs. How interesting!"))
+		return
+
+	while(length(coords))
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
+
+
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			client.images += image('icons/effects/alphacolors.dmi', T, "red")
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(client, SPAN_NOTICE("Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b>"))
+
+	var/z_to_view = tgui_input_number(client, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualize. Enter 0 or close the window to cancel", "Selection", 0)
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(client, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)

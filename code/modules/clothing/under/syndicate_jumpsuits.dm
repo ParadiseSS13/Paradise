@@ -9,6 +9,7 @@
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/syndicate.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/syndicate.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/syndicate.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/syndicate.dmi'
 	)

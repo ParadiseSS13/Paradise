@@ -1723,3 +1723,38 @@
 			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
 			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
+  
+/datum/outfit/admin/supreme
+	name = "Supreme-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/supremeinquis
+	r_ear = /obj/item/radio/headset/alt
+	head = /obj/item/clothing/head/supremeinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	l_pocket = /obj/item/melee/energy/sword/saber/purple
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/low
+	name = "Low-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/hooded/lowinquis
+	r_ear = /obj/item/radio/headset/alt
+	mask = /obj/item/clothing/mask/lowinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/storage/box/survival = 1,
+		/obj/item/shield/energy = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)

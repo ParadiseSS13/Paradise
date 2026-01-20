@@ -623,7 +623,8 @@
 	return ..()
 
 /obj/item/storage/AltShiftClick(mob/living/carbon/human/user)
-
+	if(!user.can_reach(src))
+		return
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
