@@ -1723,7 +1723,7 @@
 			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
 			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-  
+
 /datum/outfit/admin/supreme
 	name = "Supreme-Inquisitor"
 	uniform = /obj/item/clothing/under/skulk/skulkcasual
