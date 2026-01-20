@@ -827,6 +827,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
 				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
+			for(var/obj/item/clothing/mask/mask in w_hat.attached_masks)
+				var/mask_worn_icon = listgetindex(mask.sprite_sheets, dna.species.sprite_sheet_name) || mask.worn_icon || 'icons/mob/clothing/mask.dmi'
+				var/mask_worn_icon_state = mask.worn_icon_state || mask.icon_state
+				standing.overlays += image(icon = mask_worn_icon, icon_state = mask_worn_icon_state)
+
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
 			bloodsies.color = head.blood_color
