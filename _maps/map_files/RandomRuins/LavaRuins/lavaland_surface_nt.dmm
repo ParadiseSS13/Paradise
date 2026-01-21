@@ -3314,8 +3314,8 @@
 /area/mine/outpost/smith_workshop)
 "tb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet,
 /obj/machinery/newscaster/directional/west,
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/laborcamp)
 "tf" = (
