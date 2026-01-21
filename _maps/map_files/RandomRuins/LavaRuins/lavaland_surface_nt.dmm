@@ -569,7 +569,7 @@
 "dO" = (
 /obj/machinery/mineral/equipment_vendor/labor,
 /obj/effect/turf_decal/tiles/department/cargo/mono,
-/turf/space,
+/turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "dQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1053,6 +1053,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
+"gt" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "gu" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/stripes/line{
@@ -1852,6 +1861,11 @@
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"kN" = (
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "kQ" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -1863,11 +1877,16 @@
 "kT" = (
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
+"kV" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp/security)
 "kW" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "laborcamp_away";
+	id_tag = "laborcamp";
 	name = "Labor Shuttle Airlock"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2001,9 +2020,6 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/refill_station/plasma,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "lU" = (
@@ -3126,6 +3142,7 @@
 "sk" = (
 /obj/effect/turf_decal/tiles/department/cargo/side,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "sm" = (
@@ -3934,6 +3951,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/refill_station/oxygen,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "wd" = (
@@ -4994,6 +5014,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/outpost/medbay)
+"BS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "BW" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/gulag_rock)
@@ -6447,6 +6473,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/storage)
+"JN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "JT" = (
 /obj/machinery/newscaster/directional/north,
 /obj/machinery/requests_console/directional/east,
@@ -7123,7 +7156,7 @@
 	width = 9
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "laborcamp_away";
+	id_tag = "laborcamp";
 	name = "Labor Shuttle Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
@@ -8225,6 +8258,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/airlock)
+"ST" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/gulag,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "SU" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/that,
@@ -8534,6 +8578,9 @@
 	dir = 1
 	},
 /obj/machinery/suit_storage_unit/gulag,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "UR" = (
@@ -12516,11 +12563,11 @@ Zj
 Zj
 Zj
 Ja
-IS
+kV
 BK
 Zj
 Zj
-RV
+gt
 XO
 gX
 Nh
@@ -12999,7 +13046,7 @@ fv
 av
 fc
 Kz
-Wf
+kN
 Zj
 tJ
 Ib
@@ -13477,11 +13524,11 @@ sO
 sO
 sO
 EH
-ck
+ST
 Cj
 Ae
 Ae
-DP
+BS
 EH
 Je
 Gq
@@ -13970,7 +14017,7 @@ Aa
 sk
 EH
 RP
-Hh
+JN
 jI
 ZK
 vk
