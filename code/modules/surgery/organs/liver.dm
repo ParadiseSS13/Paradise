@@ -50,7 +50,6 @@
 			if(damage < min_bruised_damage)
 				// 0.1 damage healing per second
 				heal_internal_damage(0.2)
-				message_admins("Healing")
 
 		if(0 to 40)
 			// Very minor healing
