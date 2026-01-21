@@ -251,7 +251,7 @@
 
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
-	desc = "WARNING: High-Security area! Identifcation MUST be worn at all times."
+	desc = "WARNING: High-Security area! Identification MUST be worn at all times."
 	icon_state = "warning"
 
 /obj/structure/sign/magboots
@@ -351,7 +351,7 @@
 
 /obj/structure/sign/public/doors
 	name = "\improper BLAST DOORS"
-	desc = "There's a set of remote-controlled blast doors here. Don't get cruched between them!"
+	desc = "There's a set of remote-controlled blast doors here. Don't get crushed between them!"
 	icon_state = "doors"
 
 /obj/structure/sign/public/drop
@@ -690,7 +690,7 @@
 
 /obj/structure/sign/science/genetics
 	name = "\improper GENETICS"
-	desc = "Geteticists and botanists eternally race each other to create as many crimes against God as possible."
+	desc = "Geneticists and botanists eternally race each other to create as many crimes against God as possible."
 	icon_state = "genetics"
 
 /obj/structure/sign/science/research
