@@ -46,13 +46,14 @@
 	)
 
 /obj/item/clothing/head/wizard/fake
-	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
+	desc = "It has WIZZARD written across it in sequins. Clip-on beard sold separately."
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = null
 	magical = FALSE
 	resistance_flags = FLAMMABLE
+	can_have_mask = TRUE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -131,6 +132,7 @@
 	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
