@@ -71,6 +71,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	/// Linked freedoms action
 	var/datum/action/cooldown/ninja/freedom_shoes/freedoms_action
 
 /obj/item/clothing/shoes/space_ninja/Initialize(mapload)
@@ -106,6 +107,7 @@
 	)
 	flags_inv = HIDEJUMPSUIT | HIDETAIL
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
+	/// Linked stims action
 	var/datum/action/cooldown/ninja/stim_suit/antistun_action
 
 /obj/item/clothing/suit/space_ninja/Initialize(mapload)

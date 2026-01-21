@@ -135,7 +135,7 @@
 	log_and_message_admins("[user] activated a ninja bomb flare.")
 	addtimer(CALLBACK(src, PROC_REF(spawn_bomb), user), 5 SECONDS)
 
-/obj/item/wormhole_jaunter/ninja_bomb/spawn_bomb(mob/user)
+/obj/item/wormhole_jaunter/ninja_bomb/proc/spawn_bomb(mob/user)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	var/obj/machinery/syndicatebomb/new_bomb = new bomb_type(get_turf(src))
 	new_bomb.anchored = TRUE
