@@ -15703,6 +15703,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "bma" = (
@@ -49287,13 +49290,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "eed" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/structure/grille,
 /obj/machinery/door/poddoor{
 	id_tag = "justice_blast";
 	name = "Justice Blast Door"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/execution)
@@ -49682,11 +49685,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
@@ -55608,19 +55611,19 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "gFr" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /obj/structure/grille,
 /obj/machinery/door/poddoor{
 	id_tag = "justice_blast";
 	name = "Justice Blast Door"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/execution)
@@ -58249,12 +58252,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "hQV" = (
+/obj/structure/cable,
+/obj/structure/grille,
 /obj/machinery/door/poddoor{
 	id_tag = "justice_blast";
 	name = "Justice Blast Door"
 	},
-/obj/structure/grille,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "hRe" = (
@@ -77930,15 +77933,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"qkD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/execution)
 "qkH" = (
 /obj/structure/chair/sofa/corner{
 	color = "#A30FAF";
@@ -151434,7 +151428,7 @@ ygH
 qXF
 hoc
 kvW
-qkD
+eud
 xOV
 fgM
 lyH
@@ -151691,7 +151685,7 @@ ygH
 ubv
 hoc
 lEc
-qkD
+eud
 rWC
 fgM
 ttS
