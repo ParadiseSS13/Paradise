@@ -34292,7 +34292,7 @@
 	pixel_y = 6
 	},
 /obj/item/roller,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/machinery/light{
@@ -40732,7 +40732,7 @@
 /area/station/science/hallway)
 "hKn" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "hKs" = (
@@ -68789,7 +68789,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "nQw" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/item/kirbyplants/large,
@@ -78792,7 +78792,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "qcs" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90055,7 +90055,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "sCs" = (
@@ -91335,7 +91335,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "sPa" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/light{

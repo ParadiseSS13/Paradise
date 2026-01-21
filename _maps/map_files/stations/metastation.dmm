@@ -5853,7 +5853,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "aSc" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -25168,7 +25168,7 @@
 /area/station/maintenance/aft)
 "cIp" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/floor/plating,
 /area/station/medical/cryo)
 "cIt" = (
@@ -30000,7 +30000,7 @@
 /area/station/science/break_room)
 "dxF" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -35078,7 +35078,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "fgn" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tiles/department/chemistry/side{
@@ -38168,7 +38168,7 @@
 "giv" = (
 /obj/structure/chair/sofa/corp/right,
 /obj/effect/landmark/start/scientist,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -51939,7 +51939,7 @@
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -62866,7 +62866,7 @@
 /area/station/supply/lobby)
 "oAm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{

@@ -403,7 +403,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "bd" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = 32
 	},
 /obj/structure/table,
@@ -2298,7 +2298,7 @@
 	dir = 8
 	},
 /obj/structure/railing,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -3944,7 +3944,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "na" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -11793,7 +11793,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,

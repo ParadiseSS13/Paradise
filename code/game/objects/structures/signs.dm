@@ -216,15 +216,13 @@
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
-/obj/structure/sign/nosmoking_1
+/obj/structure/sign/nosmoking
 	name = "\improper NO SMOKING"
 	desc = "Smoking is strictly prohibited in this area."
 	icon_state = "nosmoking"
 	resistance_flags = FLAMMABLE
 
-/obj/structure/sign/nosmoking_2
-	name = "\improper NO SMOKING"
-	desc = "Smoking is strictly prohibited in this area."
+/obj/structure/sign/nosmoking/alt
 	icon_state = "nosmoking2"
 
 /obj/structure/sign/radiation
@@ -545,7 +543,7 @@
 
 /obj/structure/sign/service/chapel
 	name = "\improper CHAPEL"
-	desc = "An oasis of holy ground and spiritual peace. Obviously this is the first place you should run if you're being chased by demons, ghosts, cultists, or vampires."
+	desc = "An oasis of holy ground and spiritual peace. Obviously this is the first place you should run if you're being chased by ghosts, cultists, or vampires."
 	icon_state = "chapel"
 
 /obj/structure/sign/service/chapel/examine(mob/user)

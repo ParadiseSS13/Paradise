@@ -2054,7 +2054,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "anB" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall,
 /area/station/maintenance/fore2)
 "anC" = (
@@ -8311,7 +8311,7 @@
 /area/station/maintenance/incinerator)
 "aIv" = (
 /obj/machinery/atmospherics/unary/tank/toxins,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -8667,7 +8667,7 @@
 /area/station/maintenance/incinerator)
 "aJU" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/firealarm/directional/east,
@@ -17249,7 +17249,7 @@
 /area/station/engineering/atmos/control)
 "brR" = (
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -17939,7 +17939,7 @@
 /area/station/engineering/engine/reactor)
 "bvC" = (
 /obj/item/kirbyplants/large,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/structure/cable{
@@ -27132,7 +27132,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "cdB" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall,
 /area/station/service/library)
 "cdC" = (
@@ -29526,7 +29526,7 @@
 /obj/item/circuitboard/solar_control,
 /obj/item/tracker_electronics,
 /obj/item/paper/solar,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32860,7 +32860,7 @@
 /area/station/maintenance/port)
 "cxT" = (
 /obj/structure/table/reinforced,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -39817,7 +39817,7 @@
 /area/station/maintenance/starboard)
 "cZg" = (
 /obj/structure/table/glass,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -39893,7 +39893,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "cZq" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/binary/pump{
@@ -42046,7 +42046,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
 "dit" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/machinery/cryopod/robot,
@@ -47571,7 +47571,7 @@
 /area/station/service/chapel)
 "dQq" = (
 /obj/structure/table/reinforced,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/item/tank/internals/anesthetic,
@@ -55116,7 +55116,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /turf/simulated/floor/engine,
@@ -62348,7 +62348,7 @@
 /area/station/maintenance/fore)
 "jzV" = (
 /obj/effect/turf_decal,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -66471,7 +66471,7 @@
 /obj/item/kirbyplants/large{
 	icon_state = "plant-22"
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -67093,10 +67093,10 @@
 	dir = 8;
 	network = list("SS13","Engineering")
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/structure/table/reinforced,
@@ -69870,7 +69870,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
@@ -87090,7 +87090,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "tGY" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
@@ -87752,7 +87752,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "tTY" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -90807,7 +90807,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/structure/reagent_dispensers/watertank/firetank,
@@ -94008,7 +94008,7 @@
 /turf/simulated/floor/beach/sand,
 /area/station/maintenance/fsmaint)
 "wuA" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{

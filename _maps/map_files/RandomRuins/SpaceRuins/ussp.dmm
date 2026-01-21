@@ -2199,7 +2199,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fL" = (
-/obj/structure/sign/nosmoking_1,
+/obj/structure/sign/nosmoking,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "fM" = (
@@ -5999,7 +5999,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qs" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qt" = (

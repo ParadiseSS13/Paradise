@@ -12355,7 +12355,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "SB" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "SD" = (

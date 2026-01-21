@@ -22520,7 +22520,7 @@
 /turf/simulated/wall,
 /area/station/medical/reception)
 "bEq" = (
-/obj/structure/sign/nosmoking_1,
+/obj/structure/sign/nosmoking,
 /turf/simulated/wall,
 /area/station/medical/reception)
 "bEr" = (
@@ -30755,7 +30755,7 @@
 "cnf" = (
 /obj/machinery/atmospherics/portable/scrubber/huge,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -33886,7 +33886,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/primary)
 "czH" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
@@ -34838,7 +34838,7 @@
 "cDH" = (
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
@@ -38289,7 +38289,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "cRr" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/structure/dispenser,
@@ -39338,7 +39338,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
@@ -39552,7 +39552,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cWM" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -40940,7 +40940,7 @@
 "dcR" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -40965,7 +40965,7 @@
 /area/station/hallway/secondary/entry/north)
 "dcV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/tank/toxins{
@@ -56283,7 +56283,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tiles/department/science/corner{
@@ -71579,7 +71579,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qrd" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -85087,7 +85087,7 @@
 /area/station/science/hallway)
 "xdC" = (
 /obj/effect/turf_decal/tiles/department/science/corner,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel/white,

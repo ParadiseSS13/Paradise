@@ -2138,7 +2138,7 @@
 "awR" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/meter,
@@ -2699,7 +2699,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
 "aDY" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/economy/vending/tool/free,
@@ -3050,7 +3050,7 @@
 /area/station/hallway/secondary/entry/lounge)
 "aHO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -4259,7 +4259,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "aUC" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/item/kirbyplants/large,
@@ -39159,7 +39159,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -42614,7 +42614,7 @@
 	dir = 1;
 	name = "port to space"
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -45788,7 +45788,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "jgn" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/camera{
@@ -52605,7 +52605,7 @@
 "kzT" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/blue/hollow,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/machinery/light,
@@ -72070,7 +72070,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "owg" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/machinery/light,
@@ -82009,7 +82009,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qxu" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -82387,13 +82387,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "qBl" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = 30
 	},
 /obj/structure/table,
@@ -93632,7 +93632,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "sJH" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = 30
 	},
 /obj/machinery/door/firedoor,
@@ -95552,7 +95552,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "tdN" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = 30
 	},
 /obj/machinery/light{
@@ -96367,7 +96367,7 @@
 /turf/simulated/floor/plating,
 /area/station/public/pet_store)
 "tly" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/portable/scrubber,
@@ -99121,7 +99121,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -30
 	},
 /obj/structure/disposalpipe/segment,
@@ -99343,7 +99343,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "tQX" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -106330,7 +106330,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "vmm" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -106519,7 +106519,7 @@
 /area/station/medical/reception)
 "vof" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -106653,7 +106653,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -107498,7 +107498,7 @@
 /area/station/service/bar)
 "vyq" = (
 /obj/machinery/atmospherics/portable/canister/toxins,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -111955,7 +111955,7 @@
 /area/station/engineering/break_room/secondary)
 "wqP" = (
 /obj/structure/rack,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/item/wrench,
@@ -118423,7 +118423,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel/dark,
