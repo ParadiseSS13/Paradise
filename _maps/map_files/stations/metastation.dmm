@@ -8866,10 +8866,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random/tech_storage/silicon,
 /obj/effect/turf_decal/trimline/department/command/line{
 	dir = 4
 	},
+/obj/effect/spawner/random/tech_storage/comms,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bhJ" = (
@@ -9291,10 +9291,10 @@
 /area/station/public/storage/tools/auxiliary)
 "bjv" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/tech_storage/silicon,
 /obj/effect/turf_decal/trimline/department/command/line{
 	dir = 6
 	},
+/obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bjw" = (
@@ -14730,6 +14730,9 @@
 /obj/item/eftpos/register,
 /obj/item/wrench,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/camera{
+	c_tag = "Kitchen"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bHS" = (
@@ -16618,6 +16621,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/mob/living/basic/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -24836,11 +24840,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/primary/central/south)
 "cGY" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/old/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "cGZ" = (
@@ -30649,6 +30650,10 @@
 "dJG" = (
 /obj/effect/turf_decal/tiles/dark/checker,
 /obj/machinery/processor,
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "dJM" = (
@@ -49381,6 +49386,10 @@
 "jUw" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
+"jUF" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/engine/reactor)
 "jUN" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "psychoffice"
@@ -63173,7 +63182,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/basic/goat/chef,
+/obj/structure/sink/kitchen/old/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -73474,6 +73483,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"shq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "shr" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
@@ -85219,6 +85235,10 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
+"wkT" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "wlc" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/extra_insulated{
@@ -134200,7 +134220,7 @@ mdF
 osZ
 rab
 gJp
-vUb
+shq
 uYE
 vUb
 vUb
@@ -135751,7 +135771,7 @@ rab
 rab
 pRl
 skv
-skv
+jUF
 fnu
 egm
 bnt
@@ -137541,7 +137561,7 @@ rab
 vYq
 rab
 xmT
-rab
+wkT
 rab
 rab
 rdm
